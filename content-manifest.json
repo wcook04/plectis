@@ -1248,12 +1248,12 @@
     "headers": "_headers",
     "hsts": {
       "header": "Strict-Transport-Security",
-      "mode": "host-only",
-      "reason": "base_url_is_https_public_launch_url_host_only",
+      "mode": "local_no_hsts",
+      "reason": "no_public_https_base_url_supplied",
       "requires_domain_inventory": false,
       "requires_preload_consent": false,
-      "status": "active_host_only",
-      "value": "max-age=31536000"
+      "status": "deferred_until_final_https_domain_verified",
+      "value": null
     },
     "legacy_route_manifest": "legacy-route-manifest.json",
     "legacy_site_output_root": "sites/microcosm-legacy",
@@ -1263,7 +1263,7 @@
     "security_policy": "docs/vulnerability-disclosure.html",
     "security_txt": ".well-known/security.txt",
     "security_txt_legacy": "security.txt",
-    "sitemap": "sitemap.xml",
+    "sitemap": null,
     "updates_feed": "updates.xml"
   },
   "deterministic_generation": true,
@@ -1334,8 +1334,8 @@
     "machine_readable_policy": "Old JSON packets, download files, generated assets, and projection-status routes remain machine-readable files. Only old human HTML pages use visible transition HTML; validation parses JSON routes and fails if they return HTML.",
     "manifest_path": "legacy-route-manifest.json",
     "mode_counts": {
-      "byte_compatible_alias": 15,
-      "html_redirect": 27,
+      "byte_compatible_alias": 16,
+      "html_redirect": 198,
       "legacy_404": 1,
       "legacy_projection_status": 1,
       "legacy_security_txt": 2
@@ -1353,7 +1353,7 @@
         "machine_readable": true,
         "mode": "byte_compatible_alias",
         "policy": "Machine-readable JSON and static assets are emitted as files so the old URL keeps its content type.",
-        "route_count": 15,
+        "route_count": 16,
         "sample_paths": [
           "content-graph.json",
           "content-manifest.json",
@@ -1401,7 +1401,7 @@
         "machine_readable": false,
         "mode": "html_redirect",
         "policy": "HTML routes show the transition and may forward to the canonical route; they are not used for machine-readable assets.",
-        "route_count": 27,
+        "route_count": 198,
         "sample_paths": [
           "index.html",
           "docs/index.html",
@@ -1426,18 +1426,18 @@
         ]
       }
     ],
-    "route_count": 46,
+    "route_count": 218,
     "schema": "plectis_legacy_compatibility_summary_v0"
   },
   "page_identity": {
-    "canonical_page_object_count": 26,
+    "canonical_page_object_count": 197,
     "compatibility_route_count": 1,
     "count_semantics": {
       "canonical_page_object_count": "Page objects with route_role=canonical_page.",
       "emitted_route_count": "All emitted HTML routes, including compatibility aliases.",
       "route_alias_count": "Compatibility routes that resolve to a canonical page object."
     },
-    "emitted_route_count": 27,
+    "emitted_route_count": 198,
     "route_alias_count": 1,
     "route_aliases": [
       {
@@ -1707,6 +1707,1254 @@
         "microcosm-substrate/core/organ_atlas.json"
       ],
       "title": "Components"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-cold-reader-route-map",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-cold-reader-route-map.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Cold Reader Route Map"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-public-reveal-walkthrough",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-public-reveal-walkthrough.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Public Reveal Walkthrough"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-pattern-binding-contract",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-pattern-binding-contract.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Pattern Binding Contract"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-pattern-assimilation-step",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-pattern-assimilation-step.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Pattern Assimilation Step"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-executable-doctrine-grammar",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-executable-doctrine-grammar.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Executable Doctrine Grammar"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-navigation-hologram-route-plane",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-navigation-hologram-route-plane.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Navigation Hologram Route Plane"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-standards-meta-diagnostics",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-standards-meta-diagnostics.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Standards Meta Diagnostics"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-voice-to-doctrine-self-improvement-loop",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-voice-to-doctrine-self-improvement-loop.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Voice To Doctrine Self Improvement Loop"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-cognitive-operator-registry",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-cognitive-operator-registry.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Cognitive Operator Registry"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-routing-anti-patterns-registry",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-routing-anti-patterns-registry.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Routing Anti Patterns Registry"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-doctrine-fact-claim-audit",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-doctrine-fact-claim-audit.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Doctrine Fact Claim Audit"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-self-ignorance-coverage-ledger",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-self-ignorance-coverage-ledger.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Self Ignorance Coverage Ledger"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-proof-diagnostic-evidence-spine",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-proof-diagnostic-evidence-spine.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Proof Diagnostic Evidence Spine"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-formal-math-readiness-gate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-formal-math-readiness-gate.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Formal Math Readiness Gate"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-corpus-readiness-mathlib-absence-gate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-corpus-readiness-mathlib-absence-gate.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Corpus Readiness Mathlib Absence Gate"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-mathematical-strategy-atlas-hypothesis-scorer",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-mathematical-strategy-atlas-hypothesis-scorer.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Mathematical Strategy Atlas Hypothesis Scorer"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-tactic-portfolio-availability-probe",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-tactic-portfolio-availability-probe.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Tactic Portfolio Availability Probe"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-target-shape-tactic-routing-gate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-target-shape-tactic-routing-gate.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Target Shape Tactic Routing Gate"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-lean-std-premise-index",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-lean-std-premise-index.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Lean Std Premise Index"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-formal-math-premise-retrieval",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-formal-math-premise-retrieval.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Formal Math Premise Retrieval"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-formal-math-verifier-trace-repair-loop",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-formal-math-verifier-trace-repair-loop.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Formal Math Verifier Trace Repair Loop"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-formal-evidence-cell-anchor-resolver",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-formal-evidence-cell-anchor-resolver.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Formal Evidence Cell Anchor Resolver"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-undeclared-library-prior-symbol-classifier",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-undeclared-library-prior-symbol-classifier.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Undeclared Library Prior Symbol Classifier"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-ring2-premise-retrieval-precision-recall-harness",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-ring2-premise-retrieval-precision-recall-harness.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Ring2 Premise Retrieval Precision Recall Harness"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-formal-math-lean-proof-witness",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-formal-math-lean-proof-witness.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Formal Math Lean Proof Witness"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-verifier-lab-kernel",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-verifier-lab-kernel.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Verifier Lab Kernel"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-verifier-lab-execution-spine",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-verifier-lab-execution-spine.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Verifier Lab Execution Spine"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-certificate-kernel-execution-lab",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-certificate-kernel-execution-lab.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Certificate Kernel Execution Lab"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch4-proof-authority-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch4-proof-authority-runtime.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Proof / Control / Runtime Import Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-proof-derived-governed-mutation-authorization",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-proof-derived-governed-mutation-authorization.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Proof Derived Governed Mutation Authorization"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-agent-benchmark-integrity-anti-gaming-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Agent Benchmark Integrity Anti Gaming Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch10-cold-eval-honesty-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch10-cold-eval-honesty-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Cold Evaluation Honesty Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch8-validator-checker-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch8-validator-checker-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Validator Checker Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-agent-monitor-redteam-falsification-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-agent-monitor-redteam-falsification-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Agent Monitor Redteam Falsification Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-agent-sabotage-scheming-monitor-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-agent-sabotage-scheming-monitor-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Agent Sabotage Scheming Monitor Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-agent-memory-temporal-conflict-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-agent-memory-temporal-conflict-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Agent Memory Temporal Conflict Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-sleeper-memory-poisoning-quarantine-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-sleeper-memory-poisoning-quarantine-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Sleeper Memory Poisoning Quarantine Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-mcp-tool-authority-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-mcp-tool-authority-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "MCP Tool Authority Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-belief-state-process-reward-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-belief-state-process-reward-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Belief State Process Reward Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-agent-sandbox-policy-escape-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-agent-sandbox-policy-escape-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Agent Sandbox Policy Escape Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-indirect-prompt-injection-information-flow-policy-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Indirect Prompt Injection Information Flow Policy Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-agentic-vulnerability-discovery-patch-proof-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Agentic Vulnerability Discovery Patch Proof Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-agent-route-observability-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-agent-route-observability-runtime.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Agent Route Observability Runtime"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-provider-context-recipe-budget-policy",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-provider-context-recipe-budget-policy.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Provider Context Recipe Budget Policy"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-agent-closeout-faithfulness-audit",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-agent-closeout-faithfulness-audit.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Agent Completion Faithfulness Audit"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-bounded-autonomy-campaign-packet",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-bounded-autonomy-campaign-packet.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Bounded Autonomy Campaign Packet"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch7-secondary-runtime-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch7-secondary-runtime-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Secondary Runtime Source Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-research-replication-rubric-artifact-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-research-replication-rubric-artifact-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Research Replication Rubric Artifact Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-spatial-world-model-counterfactual-simulation-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Spatial World Model Counterfactual Simulation Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-materials-chemistry-closed-loop-lab-safety-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Materials Chemistry Closed Loop Lab Safety Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-mechanistic-interpretability-circuit-attribution-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Mechanistic Interpretability Circuit Attribution Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-prediction-oracle-reconciliation",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-prediction-oracle-reconciliation.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Prediction Oracle Reconciliation"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-finance-forecast-evaluation-spine",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-finance-forecast-evaluation-spine.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Finance Forecast Evaluation Spine"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch12-market-dashboard-read-model-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch12-market-dashboard-read-model-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Market Dashboard Read-Model Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch12-prediction-market-board-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch12-prediction-market-board-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Prediction Market Board Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-macro-projection-import-protocol",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-macro-projection-import-protocol.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Source Projection Import Protocol"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-world-model-projection-drift-control-room",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-world-model-projection-drift-control-room.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "World Model Projection Drift Control Room"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch6-unsurfaced-primitives-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch6-unsurfaced-primitives-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Unsurfaced Source Primitives Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch5-authority-systems-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch5-authority-systems-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Authority Systems Source Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch7-macro-engines-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch7-macro-engines-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Trace, Code-Map & Scheduling Engines Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch7-oracle-sibling-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch7-oracle-sibling-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Oracle Sibling Source Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch7-demo-take-console-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch7-demo-take-console-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Demo Take Console Source Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch8-tools-tail-primitives-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch8-tools-tail-primitives-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Tools-Tail Primitives Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch8-policy-engines-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch8-policy-engines-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Policy Engines Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch8-audio-level-rms-port",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch8-audio-level-rms-port.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Audio Level RMS Port"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch8-structural-theses-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch8-structural-theses-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Structural Theses Finance Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-engine-room-demo",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-engine-room-demo.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Engine Room Demo"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch9-macro-engines-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch9-macro-engines-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Backend & Governance Engines Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch10-governance-compilers-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch10-governance-compilers-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Governance & Compiler Mechanisms Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch11-saturation-engines-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch11-saturation-engines-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Saturation Engines Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-tool-server-pressure-inventory",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-tool-server-pressure-inventory.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Tool Server Pressure Inventory"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch8-compliance-pipeline-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch8-compliance-pipeline-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Compliance Pipeline Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch10-live-source-drift-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch10-live-source-drift-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Live Source Drift Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch12-release-claim-language-gate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch12-release-claim-language-gate.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Release Public Wording Gate"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-mission-transaction-work-spine",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-mission-transaction-work-spine.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Mission Transaction Work Spine"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-durable-agent-work-landing-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-durable-agent-work-landing-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Durable Agent Work Landing Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-bridge-phase-continuity-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-bridge-phase-continuity-runtime.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Bridge Phase Continuity Runtime"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-concurrency-mission-control",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-concurrency-mission-control.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Concurrency Mission Control"
     },
     {
       "alternate_labels": [
@@ -2264,6 +3512,1308 @@
     },
     {
       "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-verifier-lab-kernel",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-verifier-lab-kernel.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Verifier Lab Kernel"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-navigation-hologram-route-plane",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-navigation-hologram-route-plane.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Navigation Hologram Route Plane"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-agent-route-observability-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-agent-route-observability-runtime.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Agent Route Observability Runtime"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-agent-benchmark-integrity-anti-gaming-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Agent Benchmark Integrity Anti-Gaming Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-research-replication-rubric-artifact-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-research-replication-rubric-artifact-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Research Replication Rubric Artifact Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-agentic-vulnerability-discovery-patch-proof-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Agentic Vulnerability Discovery Patch-Proof Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-materials-chemistry-closed-loop-lab-safety-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Materials Chemistry Closed-Loop Lab-Safety Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-certificate-kernel-execution-lab",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-certificate-kernel-execution-lab.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Certificate Kernel Execution Lab"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-corpus-readiness-mathlib-absence-gate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-corpus-readiness-mathlib-absence-gate.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Corpus Readiness Mathlib Absence Gate"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-pattern-binding-contract",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-pattern-binding-contract.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Pattern Binding Contract"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-bridge-phase-continuity-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-bridge-phase-continuity-runtime.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Bridge Phase Continuity Runtime"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-cognitive-operator-registry",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-cognitive-operator-registry.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Cognitive Operator Registry"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-agent-closeout-faithfulness-audit",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-agent-closeout-faithfulness-audit.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Agent Completion Faithfulness Audit"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-cold-reader-route-map",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-cold-reader-route-map.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Cold-Reader Route Map"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-proof-diagnostic-evidence-spine",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-proof-diagnostic-evidence-spine.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Proof Diagnostic Evidence Spine"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-proof-derived-governed-mutation-authorization",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-proof-derived-governed-mutation-authorization.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Proof-Derived Governed Mutation Authorization"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-durable-agent-work-landing-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-durable-agent-work-landing-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Durable Agent Work-Landing Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-work-landing-control-spine",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-work-landing-control-spine.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Work Landing Control Spine"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-executable-doctrine-grammar",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-executable-doctrine-grammar.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Executable Doctrine Grammar"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-macro-projection-import-protocol",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-macro-projection-import-protocol.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Source Projection Import Protocol"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-mission-transaction-work-spine",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-mission-transaction-work-spine.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Mission Transaction Work Spine"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-formal-math-readiness-gate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-formal-math-readiness-gate.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Formal Math Readiness Gate"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-formal-math-lean-proof-witness",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-formal-math-lean-proof-witness.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Formal Math Lean Proof Witness"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-formal-math-verifier-trace-repair-loop",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-formal-math-verifier-trace-repair-loop.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Formal Math Verifier Trace Repair Loop"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-formal-evidence-cell-anchor-resolver",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-formal-evidence-cell-anchor-resolver.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Formal Evidence Cell Anchor Resolver"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-formal-math-premise-retrieval",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-formal-math-premise-retrieval.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Formal Math Premise Retrieval"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-lean-std-premise-index",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-lean-std-premise-index.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Lean/Std Premise Index"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-world-model-projection-drift-control-room",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-world-model-projection-drift-control-room.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "World-Model Projection Drift Control Room"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-public-reveal-walkthrough",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-public-reveal-walkthrough.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Public Reveal Walkthrough"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-standards-meta-diagnostics",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-standards-meta-diagnostics.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Standards Meta Diagnostics"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-finance-forecast-evaluation-spine",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-finance-forecast-evaluation-spine.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Finance Forecast Evaluation Spine"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-engine-room-demo",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-engine-room-demo.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Engine Room Demo"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-agent-memory-temporal-conflict-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-agent-memory-temporal-conflict-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Agent Memory Temporal-Conflict Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-agent-monitor-redteam-falsification-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-agent-monitor-redteam-falsification-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Agent Monitor Redteam Falsification Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-agent-sabotage-scheming-monitor-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-agent-sabotage-scheming-monitor-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Agent Sabotage Scheming-Monitor Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-agent-sandbox-policy-escape-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-agent-sandbox-policy-escape-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Agent Sandbox Policy-Escape Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-belief-state-process-reward-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-belief-state-process-reward-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Belief-State Process Reward Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-sleeper-memory-poisoning-quarantine-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Sleeper Memory Poisoning Quarantine Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-indirect-prompt-injection-information-flow-policy-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Indirect Prompt-Injection Information-Flow Policy Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-mcp-tool-authority-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-mcp-tool-authority-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "MCP Tool Authority Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-tactic-portfolio-availability",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-tactic-portfolio-availability.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Tactic Portfolio Availability"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-target-shape-tactic-routing",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-target-shape-tactic-routing.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Target Shape Tactic Routing"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-ring2-premise-precision-recall",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-ring2-premise-precision-recall.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Ring-2 Premise Precision Recall"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-mathematical-strategy-atlas",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-mathematical-strategy-atlas.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Mathematical Strategy Atlas"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-verifier-lab-execution-spine",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-verifier-lab-execution-spine.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Verifier Lab Execution Spine"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-bounded-autonomy-campaign-packet",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-bounded-autonomy-campaign-packet.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Bounded Autonomy Campaign Packet"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-computer-use-action-trace-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-computer-use-action-trace-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Computer-Use Action Trace Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-concurrency-mission-control",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-concurrency-mission-control.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Concurrency Mission Control"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-doctrine-fact-claim-audit",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-doctrine-fact-claim-audit.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Doctrine Fact Claim Audit"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-self-ignorance-coverage-ledger",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-self-ignorance-coverage-ledger.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Self-Ignorance Coverage Ledger"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-tool-server-pressure-inventory",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-tool-server-pressure-inventory.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Tool Server Pressure Inventory"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-mechanistic-interpretability-circuit-attribution-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Mechanistic Interpretability Circuit Attribution Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-spatial-world-model-counterfactual-simulation-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Spatial World Model Counterfactual Simulation Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-prediction-oracle-reconciliation",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-prediction-oracle-reconciliation.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Prediction Oracle Reconciliation"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-provider-context-recipe-budget",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-provider-context-recipe-budget.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Provider Context Recipe Budget"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-undeclared-library-prior-classifier",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-undeclared-library-prior-classifier.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Undeclared Library Prior Classifier"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-voice-to-doctrine-self-improvement-loop",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-voice-to-doctrine-self-improvement-loop.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Voice to Doctrine Self-Improvement Loop"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-routing-anti-patterns-registry",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-routing-anti-patterns-registry.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Routing Anti-Patterns Registry"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch8-audio-level-rms-port",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch8-audio-level-rms-port.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 8 Audio Level RMS Port"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch8-compliance-pipeline-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch8-compliance-pipeline-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 8 Compliance Pipeline Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch8-policy-engines-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch8-policy-engines-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 8 Policy Engines Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch8-structural-theses-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch8-structural-theses-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 8 Structural Theses Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch8-tools-tail-primitives-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch8-tools-tail-primitives-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 8 Tools-Tail Primitives Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch8-validator-checker-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch8-validator-checker-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 8 Validator Checker Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch12-market-dashboard-read-model-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch12-market-dashboard-read-model-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 12 Market Dashboard Read-Model Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch12-prediction-market-board-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch12-prediction-market-board-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 12 Prediction Market Board Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch12-release-claim-language-gate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch12-release-claim-language-gate.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 12 launch claim-Language Gate"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch10-cold-eval-honesty-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch10-cold-eval-honesty-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 10 Cold Eval Honesty Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch10-live-source-drift-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch10-live-source-drift-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 10 Live Source Drift Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch7-macro-engines-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch7-macro-engines-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 7 Source Engines Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch9-macro-engines-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch9-macro-engines-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 9 Source Engines Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-pattern-assimilation",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-pattern-assimilation.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Pattern Assimilation"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch10-governance-compilers-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch10-governance-compilers-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 10 Governance And Compilers Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch11-saturation-engines-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch11-saturation-engines-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 11 Saturation Engines Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch4-proof-authority-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch4-proof-authority-runtime.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 4 Proof, Authority, and Runtime Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch6-unsurfaced-primitives-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch6-unsurfaced-primitives-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 6 Unsurfaced Primitives Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-engine-room-public-projection-leak-gate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-engine-room-public-projection-leak-gate.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Engine Room Public Projection Leak Gate"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch5-authority-systems-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch5-authority-systems-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 5 Authority and Systems Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch7-oracle-sibling-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch7-oracle-sibling-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 7 Oracle Sibling Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch7-demo-take-console-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch7-demo-take-console-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 7 Demo Take Console Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-engine-room-generated-projection-drift-gate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-engine-room-generated-projection-drift-gate.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Engine Room Generated Projection Drift Gate"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-engine-room-command-run-singleflight",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-engine-room-command-run-singleflight.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Engine Room Command-Run Singleflight"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-engine-room-metabolism-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-engine-room-metabolism-runtime.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Engine Room Metabolism Runtime"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-engine-room-bridge-campaign-dag",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-engine-room-bridge-campaign-dag.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Engine Room Bridge Campaign DAG"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-engine-room-annex-knowledge-router",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-engine-room-annex-knowledge-router.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Engine Room Reference Knowledge Router"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-engine-room-derived-fact-provider-engine",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-engine-room-derived-fact-provider-engine.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Engine Room Derived Fact Provider Engine"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-engine-room-egress-self-compliance-gate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-engine-room-egress-self-compliance-gate.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Engine Room Egress Self-Compliance Gate"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-engine-room-lean-proof-search-lab",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-engine-room-lean-proof-search-lab.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Engine Room Lean Proof Search Lab"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-engine-room-navigation-fitness-benchmark",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-engine-room-navigation-fitness-benchmark.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Engine Room Navigation Fitness Benchmark"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-cold-clone-probe",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-cold-clone-probe.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Cold Clone Probe"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-first-screen-composition-root",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-first-screen-composition-root.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "First-Screen Composition Root"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-batch7-secondary-runtime-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-batch7-secondary-runtime-capsule.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Set 7 Secondary Runtime Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-microcosm-axiom-substrate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-microcosm-axiom-substrate.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Microcosm Axiom System"
+    },
+    {
+      "alternate_labels": [],
       "canonical_object_id": "page:evidence",
       "generated": true,
       "nav_group": "Reference",
@@ -2376,7 +4926,7 @@
       "title": "Vulnerability disclosure"
     }
   ],
-  "public_base_url": "https://wcook04.github.io/plectis/",
+  "public_base_url": null,
   "schema_version": "microcosm_public_site_content_manifest_v1",
   "semantic_redundancy_evaluation": {
     "decision_classes": [
@@ -2460,7 +5010,7 @@
     "microcosm-substrate/PROVENANCE.md": "sha256:ae9e699b9d9a31ad38139fae240591ed1269502ad54dce425ab5e5f27f044ab8",
     "microcosm-substrate/QUICKSTART.md": "sha256:8022da5b2122880ede5ec58e1fcf72021c912c73784b750a458d101f817bdb1f",
     "microcosm-substrate/README.md": "sha256:d7c9a55beb529ff9207c93e60e4f8ab98c4c27520c0ef84b6763f9ee570da536",
-    "microcosm-substrate/SECURITY.md": "sha256:5feeae8ad642f96d0dbdcf546c865c8bda62f8b1ea87d81e9cdc1fe58fc273df",
+    "microcosm-substrate/SECURITY.md": "sha256:847f67bc364515269213f8a9aa1b761156a4e5183760184de2f15ab000649685",
     "microcosm-substrate/anti_principles/AP-1.json": "sha256:368b7ac65b8fa2ef415b7a0aeb47a92122f11cd99979228515836aa4500d4131",
     "microcosm-substrate/anti_principles/AP-10.json": "sha256:aa15f69c657442a025016a40e0bf5941fdfb19e37e157b9cbdd96c23fb4a0bee",
     "microcosm-substrate/anti_principles/AP-11.json": "sha256:e70d5e5b298ac7be02c3675fce3730ebda327c94a2c63e68cc3ba7bb99bf3e76",
@@ -2478,7 +5028,7 @@
     "microcosm-substrate/anti_principles/AP-7.json": "sha256:b4958c38fe6f9f889a8c5ba02cff0362a69ae797b234cb61bebc6fc03f641bed",
     "microcosm-substrate/anti_principles/AP-8.json": "sha256:0fcc46ea008fb5ccb48aede94964e04c794181cd07a703ddbb0ebd781b310e54",
     "microcosm-substrate/anti_principles/AP-9.json": "sha256:0e6e78885214319cbe596dff586b05a4124e41bbb4e8d5f092212ead9aaebdf6",
-    "microcosm-substrate/atlas/agent_task_routes.json": "sha256:8f1895629e47fab929d5a5be99c809779097eb06c23dfb3972c2b7cc1f3e3cdd",
+    "microcosm-substrate/atlas/agent_task_routes.json": "sha256:eeaceb99fd21baea2394edaa8df3dbf9cd7d41316e6071154ab79f245e6434a7",
     "microcosm-substrate/atlas/entry_packet.json": "sha256:e97a81161db031f9b12b9d41dc66481c5c3fa125beeef2f814cca09205fc5973",
     "microcosm-substrate/axioms/AX-1.json": "sha256:9802f233f1b183f675fdd85992fa7ab01714950e30567bd0dda6d6c82b6822a8",
     "microcosm-substrate/axioms/AX-10.json": "sha256:c0873ec22165c53d443c3421553379a7f0ea38da02c80c89682f4e745143d635",
@@ -2721,7 +5271,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:52899be264175c458cf51068f42141d923df6b8ce7b1ad9bf3c537cc04eb3d18",
-    "sites/microcosm/index.html": "sha256:2a8720b2af971f577a4fe80b9a19bbb603c1a98e9d6c7a210371fe9b07a5aa1e",
+    "sites/microcosm/index.html": "sha256:788a4aaeec3803079bb1c5cd473389fcdaea1b7b5ac3f50bbc0b4546c7688572",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:401fee9964433eb6e73eace56101417055884f5083bc1e98d9c7921c3215b512"
   },
   "source_of_truth_contract": {

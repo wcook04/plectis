@@ -410,7 +410,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-cold_reader_route_map",
+      "relative_href": "docs/component-cold-reader-route-map.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It is projection-only metadata that validates the declared public route contract; it is not route registry control and excludes source-file changes, external model access, launch/public sharing, financial decisions, private-data equivalence, or whole-system correctness.",
@@ -448,7 +448,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-public_reveal_walkthrough",
+      "relative_href": "docs/component-public-reveal-walkthrough.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It authorizes only bounded public reveal runtime behavior and a digest-verified public body-import witness; it excludes launch, hosted deployment, public sharing, recipient work, external model access, secret export, private-data equivalence, Lean/Lake execution, whole-system correctness, or general product authority.",
@@ -486,7 +486,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-pattern_binding_contract",
+      "relative_href": "docs/component-pattern-binding-contract.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the declared public pattern-binding/route-readiness contract; it does not certify the private pattern ledger, public launch or hosted-public posture, public sharing, external model access, private-data equivalence, or whole-system correctness, and it does not turn any mined pattern row into a standalone public leaf (selection stays component-first and fixture-bound).",
@@ -523,7 +523,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-pattern_assimilation_step",
+      "relative_href": "docs/component-pattern-assimilation-step.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the declared public completion contract over synthetic fixture data; it does not ingest private lessons, mutate live ledgers, promote global doctrine, include launch operations or public sharing, make external model access, claim private-data equivalence, or certify public runtime behavior.",
@@ -560,7 +560,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-executable_doctrine_grammar",
+      "relative_href": "docs/component-executable-doctrine-grammar.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates an exported public executable-grammar metabolism bundle with exact copied-body digests and redacted result records, plus fixture regressions for standards/paper-module shape. It does not publish source doctrine bodies in result records, prove doctrine completeness, export a private standards engine, authorize later components, or claim external model access, private-data equivalence, launch-scope decision, or whole-system correctness.",
@@ -595,7 +595,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-navigation_hologram_route_plane",
+      "relative_href": "docs/component-navigation-hologram-route-plane.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the declared public toy route-plane contract and its regression fixtures (plus exact copied navigation source modules in the bundle path); it does not establish live route freshness, grant source authority, authorize any later component, run any provider/live-kernel call, or certify the whole wave.",
@@ -632,7 +632,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-standards_meta_diagnostics",
+      "relative_href": "docs/component-standards-meta-diagnostics.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the declared public coverage contract and never becomes source authority for the registries, mutates source, exposes private material, or authorizes launch, external model access, or any whole-system-correctness claim.",
@@ -667,7 +667,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-voice_to_doctrine_self_improvement_loop",
+      "relative_href": "docs/component-voice-to-doctrine-self-improvement-loop.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the declared contract of the loop on fixtures; it does not export source notes or private bodies, grant source/doctrine edits, global-promotion, live work log mutation, or public sharing decision, make external model access, prove correctness, or claim private-system equivalence.",
@@ -704,7 +704,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-cognitive_operator_registry",
+      "relative_href": "docs/component-cognitive-operator-registry.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the declared public registry contract and copied source bodies; it never becomes registry source authority, mutates operators, proves operator correctness, exposes source notes, or authorizes launch, external model access, or any whole-system-correctness claim.",
@@ -741,7 +741,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-routing_anti_patterns_registry",
+      "relative_href": "docs/component-routing-anti-patterns-registry.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the declared public routing anti-pattern registry contract and copied source body; it never becomes route source authority, mutates routes, exposes private routing notes, calls providers, authorizes launch, or proves whole-system correctness.",
@@ -776,7 +776,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-doctrine_fact_claim_audit",
+      "relative_href": "docs/component-doctrine-fact-claim-audit.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "fact assertion, code-loci, and DAG fixture truth gate only; it is not a comprehension engine and does not establish a minimum read graph",
@@ -811,7 +811,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-self_ignorance_coverage_ledger",
+      "relative_href": "docs/component-self-ignorance-coverage-ledger.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "known Kind Atlas coverage debt projection only; it does not claim literal unknown-unknown omniscience or absence proof",
@@ -850,7 +850,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-proof_diagnostic_evidence_spine",
+      "relative_href": "docs/component-proof-diagnostic-evidence-spine.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It records proof/evidence diagnostics over existing result record references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later components, certify public launch, authorize public sharing or recipient work, or establish secret export.",
@@ -887,7 +887,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-formal_math_readiness_gate",
+      "relative_href": "docs/component-formal-math-readiness-gate.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only validates and projects declared readiness metadata; it does not run Lean/Lake, inspect the real toolchain, use external model services, prove any theorem correct, produce benchmark claims, or authorize Mathlib-dependent proof attempts.",
@@ -926,7 +926,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-corpus_readiness_mathlib_absence_gate",
+      "relative_href": "docs/component-corpus-readiness-mathlib-absence-gate.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only projects and gate-checks recorded corpus/toolchain readiness accounting, re-verifies recorded source digests and leakage guards, and runs a bounded Lean/Lake import probe when a toolchain is present. It does not run a full Lake build, prove formal-result correctness, claim Mathlib is available beyond the probe result, benchmark corpora, score model performance, use external model services, or include launch operations or public sharing.",
@@ -963,7 +963,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-mathematical_strategy_atlas_hypothesis_scorer",
+      "relative_href": "docs/component-mathematical-strategy-atlas-hypothesis-scorer.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only projects pre-oracle strategy-hypothesis and retrieval mechanics; it does not run Lean/Lake, prove theorems, establish domain or formal-result correctness, reveal oracle labels, expose proof bodies, use external model services, tune on test answers, or include launch operations.",
@@ -1000,7 +1000,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-tactic_portfolio_availability_probe",
+      "relative_href": "docs/component-tactic-portfolio-availability-probe.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only projects and validates which tactics were recorded as compiling in one captured environment; it does not run Lean/Lake at all, prove any goal, certify domain-level conclusions, use external model services, claim benchmark performance, or include launch operations.",
@@ -1037,7 +1037,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-target_shape_tactic_routing_gate",
+      "relative_href": "docs/component-target-shape-tactic-routing-gate.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only inspects and records the projection mechanics of pre-execution tactic-routing references \u2014 emitting per-tactic allow/reject decisions with reasons. It does not run Lean/Lake, does not establish or judge the correctness of any goal, emits no proof bodies, makes no external model access, performs no post-execution route selection, reports no benchmark claims or maturity, and excludes launch.",
@@ -1075,7 +1075,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-lean_std_premise_index",
+      "relative_href": "docs/component-lean-std-premise-index.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only validates the projection of premise metadata and copied source bodies; it does not run Lean or Lake, prove any theorem correct, expose proof bodies or oracle-needed ids, use external model services, produce benchmark claims, or include launch operations.",
@@ -1113,7 +1113,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-formal_math_premise_retrieval",
+      "relative_href": "docs/component-formal-math-premise-retrieval.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only checks that public retrieval metadata is internally coherent, term-scored over a copied index, budget-bounded, and leakage-clean; it does not run Lean/Lake, use external model services, prove any theorem or its own correctness, claim benchmark performance, or include launch operations.",
@@ -1150,7 +1150,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-formal_math_verifier_trace_repair_loop",
+      "relative_href": "docs/component-formal-math-verifier-trace-repair-loop.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It demonstrates control-loop projection mechanics over copied Ring2 run rows only; it does not run Lean/Lake, use external model services, expose proof bodies or oracle premise ids, treat human or provider advice as correctness, prove any theorem, or include launch operations.",
@@ -1188,7 +1188,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-formal_evidence_cell_anchor_resolver",
+      "relative_href": "docs/component-formal-evidence-cell-anchor-resolver.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates claim-to-evidence anchoring mechanics only: claim-to-cell resolution, source-anchor presence, permitted claim strength, copied-source-module digest checks, and leakage refusals. It does not run Lean/Lake, certify theorem or mathematical correctness, expose proof bodies or non-public source refs, use external model services, or include launch operations/public sharing.",
@@ -1225,7 +1225,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-undeclared_library_prior_symbol_classifier",
+      "relative_href": "docs/component-undeclared-library-prior-symbol-classifier.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only projects the symbol-boundary classification mechanic over copied Lean/Std premise rows and pre-extracted symbol observations; it does not read proof source, run Lean or Lake, prove formal-result correctness, treat the whole standard library as an implicit allowlist, claim Mathlib availability, use external model services, or include launch operations.",
@@ -1262,7 +1262,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-ring2_premise_retrieval_precision_recall_harness",
+      "relative_href": "docs/component-ring2-premise-retrieval-precision-recall-harness.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "These are after-the-fact retrieval-attribution labels and precision/recall counts over copied run records only. The component does not run Lean or Lake, call any provider, expose proof bodies, tune on test answers, claim benchmark performance, prove formal-result correctness, or include launch operations, and its labels are explicitly forbidden from flowing into provider context. The aggregate numbers describe only the copied fixture/bundle replayed, not any benchmark claims.",
@@ -1302,7 +1302,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-formal_math_lean_proof_witness",
+      "relative_href": "docs/component-formal-math-lean-proof-witness.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It authorizes only a witness that a tiny declared public toy proof compiled under the locally installed Lean/Lake toolchain in a temporary workspace, plus confirmation that its leakage guardrails fired. It excludes Mathlib/Aesop/Batteries-dependent or general proof or theorem-program authority, external model access, private proof import, benchmark or performance claims, whole-system correctness, or any launch, hosted deployment, or public sharing.",
@@ -1340,7 +1340,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-verifier_lab_kernel",
+      "relative_href": "docs/component-verifier-lab-kernel.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates the declared public contract shape of the proof packet and component result records only; it does not establish anything correct, count oracle/provider output as forward proof success, import private or Mathlib-dependent proof bodies, use external model services, change source files, or claim benchmark solve rates, launch, or maturity.",
@@ -1379,7 +1379,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-verifier_lab_execution_spine",
+      "relative_href": "docs/component-verifier-lab-execution-spine.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It is a tool-witness result record for bounded public Lean transition rows only: it does not establish general proof authority, count oracle/provider output as proof, export proof bodies or tactic scripts, use external model services, change source files, claim benchmark solve-rates, or include launch operations/public sharing.",
@@ -1417,7 +1417,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-certificate_kernel_execution_lab",
+      "relative_href": "docs/component-certificate-kernel-execution-lab.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
@@ -1455,7 +1455,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch4_proof_authority_runtime",
+      "relative_href": "docs/component-batch4-proof-authority-runtime.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only a public source-open bundle and bounded negative fixtures; it is not an Erdos #257 solution, not benchmark evidence, not public sharing or launch-scope decision, not live Codex/browser/runtime authority, and not private-system equivalence.",
@@ -1492,7 +1492,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-proof_derived_governed_mutation_authorization",
+      "relative_href": "docs/component-proof-derived-governed-mutation-authorization.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only a declared, synthetic governed-mutation contract and excludes live cloud/account action, standing account secrets, source or irreversible mutation, policy-after-execution, hidden votes, external model access, benchmark-score claims, or launch.",
@@ -1529,7 +1529,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-agent_benchmark_integrity_anti_gaming_replay",
+      "relative_href": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and metadata-only benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
@@ -1567,7 +1567,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch10_cold_eval_honesty_capsule",
+      "relative_href": "docs/component-batch10-cold-eval-honesty-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "verified cold-eval source body import only, not a live benchmark, navigation truth, source authority, external model access, private-system equivalence, public sharing, or launch-scope decision",
@@ -1604,7 +1604,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch8_validator_checker_capsule",
+      "relative_href": "docs/component-batch8-validator-checker-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the imported validators.py source body and its checker membrane. It does not claim source authority, a full validator-suite proof, private-system equivalence, launch, hosted-public status, public sharing, external model access, or source-file changes.",
@@ -1642,7 +1642,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-agent_monitor_redteam_falsification_replay",
+      "relative_href": "docs/component-agent-monitor-redteam-falsification-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "Bounded public runtime validation over copied source pattern bodies, sanitized dogfood trace slices, recomputed monitor-verdict spans, source-artifact evidence refs, digest/metadata-only/non-public-state gates, and negative cases only; no live agent execution, monitor product performance, control-eval score, safety-validation, benchmark, provider-call, source-file changes, launch, public sharing, or product authority.",
@@ -1680,7 +1680,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-agent_sabotage_scheming_monitor_replay",
+      "relative_href": "docs/component-agent-sabotage-scheming-monitor-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "Bounded public runtime validation over copied source pattern bodies, sanitized dogfood trace slices, recomputed sabotage/scheming monitor spans, source-artifact evidence refs, digest/metadata-only/non-public-state gates, and negative cases only; no live sabotage, live agent execution, exploit instruction, account secret/account, private-reasoning, harmful-payload, monitor-product-performance, deployment-risk, benchmark, provider-call, source-file changes, launch, public sharing, or product authority.",
@@ -1716,7 +1716,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-agent_memory_temporal_conflict_replay",
+      "relative_href": "docs/component-agent-memory-temporal-conflict-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates the projection mechanics of a synthetic memory fixture only \u2014 that the required refs, decisions, paired replays, negative cases, and secret-exclusion scan line up and that result records are metadata-only. It does not claim live-memory product quality, judge whether memory decisions were domain-correct, treat memory recall as source authority, adopt active injection, export private transcripts, use external model services, change source files, or include launch operations.",
@@ -1753,7 +1753,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-sleeper_memory_poisoning_quarantine_replay",
+      "relative_href": "docs/component-sleeper-memory-poisoning-quarantine-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only checks the structural shape and internal consistency of a synthetic memory-security policy projection recorded as JSON. It does not run or validate any real memory store, does not itself quarantine, delete, or re-run anything, and does not establish that any system actually resists poisoning. It exports no private memory bodies or transcripts, calls no providers, mutates no source, produces no benchmark claims, and excludes launch (all scope limit flags are hardcoded false).",
@@ -1790,7 +1790,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-mcp_tool_authority_replay",
+      "relative_href": "docs/component-mcp-tool-authority-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only checks that the tool-authority evidence in a recorded bundle (scopes, approvals, rollbacks, instruction/data splits, cold replays, redaction, and the expected abuse-case failures) is present and internally consistent. It does not run tools or authorize live MCP/account access, account secret or payload export, treating tool output as instruction, source-file changes, benchmark safety scores, or launch, and it makes no claim that the underlying tool-use policy is domain-correct.",
@@ -1827,7 +1827,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-belief_state_process_reward_replay",
+      "relative_href": "docs/component-belief-state-process-reward-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only checks that the projection's accounting lines up under its own schema rules over recorded synthetic fixtures; it excludes hidden-reasoning export, RL training, hidden gold or neural-judge-only labels, benchmark-performance claims, external model access, source-file changes, or launch, and proves nothing about real-world reward, live agent behavior, or domain-level conclusions.",
@@ -1865,7 +1865,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-agent_sandbox_policy_escape_replay",
+      "relative_href": "docs/component-agent-sandbox-policy-escape-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates the projection / trace-refactor mechanics over a synthetic fixture only; it excludes live sandbox escape, secret or account secret handling, live network access, host filesystem mutation, executable payload export, raw environment export, external model access, security benchmark claims, source-file changes, or launch. A pass proves the projection boundary and trace-refactor mechanics for this contract, not real sandbox security, exploit resistance, or whole-system safety.",
@@ -1902,7 +1902,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-indirect_prompt_injection_information_flow_policy_replay",
+      "relative_href": "docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "Passing result records only show this projection satisfies the named information-flow contract over synthetic, redacted, metadata-only rows; they do not prove general prompt-injection robustness, benchmark performance, live account/tool/provider safety, hidden-message handling in a real system, source-file changes, or launch-scope decision.",
@@ -1940,7 +1940,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-agentic_vulnerability_discovery_patch_proof_replay",
+      "relative_href": "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the projection/evidence-chain mechanics of a synthetic replay: structural presence, cross-reference consistency, declared boolean flags, and the secret/live-access exclusion scan. It executes small regression witnesses but performs no real vulnerability discovery and makes no judgment of real-world security or fix correctness. It excludes live-target testing, real CVE exploitation, weaponized payloads, account secret handling, network exfiltration, actionable exploit steps, external model access, source-file changes, benchmark security scores, launch, or any whole-system security claim.",
@@ -1976,7 +1976,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-agent_route_observability_runtime",
+      "relative_href": "docs/component-agent-route-observability-runtime.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only public, recorded trace-feedback metadata and regression fixtures; it does not inspect live operator state, certify or prove runtime behavior, read model-output data, mutate the work log, authorize pattern assimilation, or include launch operations.",
@@ -2013,7 +2013,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-provider_context_recipe_budget_policy",
+      "relative_href": "docs/component-provider-context-recipe-budget-policy.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates context-budget projection mechanics (byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, and digest-checked source-body imports) only. It excludes provider/API calls, run Lean/Lake, expose or carry proof or oracle truth-side material, assert theorem or domain-level conclusions, or include launch operations.",
@@ -2048,7 +2048,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-agent_closeout_faithfulness_audit",
+      "relative_href": "docs/component-agent-closeout-faithfulness-audit.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
@@ -2083,7 +2083,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-bounded_autonomy_campaign_packet",
+      "relative_href": "docs/component-bounded-autonomy-campaign-packet.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "self-proposal campaign packet only; no self-repair or unsupervised source-file changes",
@@ -2122,7 +2122,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch7_secondary_runtime_capsule",
+      "relative_href": "docs/component-batch7-secondary-runtime-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "verified source body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
@@ -2160,7 +2160,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-research_replication_rubric_artifact_replay",
+      "relative_href": "docs/component-research-replication-rubric-artifact-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates the shape and presence of synthetic replay metadata and result record references only - it does not run any experiment, metric script, or rerun, excludes any claim that a paper was actually replicated, that a benchmark claims was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes public sharing or launch.",
@@ -2195,7 +2195,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-spatial_world_model_counterfactual_simulation_replay",
+      "relative_href": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows. It is evidence for inspectable replay rows and limitation labels, not for real-world spatial accuracy, simulator-product validity, media-only authority, operational deployment, service distribution, or scope decisions.",
@@ -2230,7 +2230,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-materials_chemistry_closed_loop_lab_safety_replay",
+      "relative_href": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It documents projection and replay mechanics only and excludes wetlab protocols, hazardous synthesis steps, reagent amounts, controlled/bioactive targets, robot commands, live assay data, discovery claims, benchmark claims, external model access, or any judgment of domain/chemical correctness.",
@@ -2267,7 +2267,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-mechanistic_interpretability_circuit_attribution_replay",
+      "relative_href": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the declared public circuit-attribution runtime-result record contract. It excludes model-transparency product claims, live model access, export of private weights/raw activations/proprietary prompts/hidden chain-of-thought, external model access, benchmark claims, or public sharing/launch.",
@@ -2304,7 +2304,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-prediction_oracle_reconciliation",
+      "relative_href": "docs/component-prediction-oracle-reconciliation.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It exercises projection mechanics on a synthetic, invented packet only. It does not establish forecasting correctness or accuracy, give trading/financial/investment-related actions, call live market data or providers, publish predictions, claim any performance or track record, import non-public data, or include launch operations.",
@@ -2340,7 +2340,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-finance_forecast_evaluation_spine",
+      "relative_href": "docs/component-finance-forecast-evaluation-spine.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
@@ -2378,7 +2378,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch12_market_dashboard_read_model_capsule",
+      "relative_href": "docs/component-batch12-market-dashboard-read-model-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "This is fixture-bound read-model, freshness, and relation-grouping evidence only; it is not live market-level conclusions, not investment-related actions, not external model access, not launch-scope decision, and not whole-system correctness.",
@@ -2414,7 +2414,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch12_prediction_market_board_capsule",
+      "relative_href": "docs/component-batch12-prediction-market-board-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "This is deterministic fixture evidence for copied quant helpers only; it is not live prediction-market-level conclusions, not provider truth, not forecast correctness, not investment-related actions, not external model access, and not launch-scope decision.",
@@ -2452,7 +2452,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-macro_projection_import_protocol",
+      "relative_href": "docs/component-macro-projection-import-protocol.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It authorizes only verified source body import with provenance and content-digest checks; it does not grant source authority, private-system equivalence, launch, hosted deployment, public sharing, recipient work, provider or Lean/Lake execution, secret or private-source-body export, or any whole-system correctness claim.",
@@ -2489,7 +2489,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-world_model_projection_drift_control_room",
+      "relative_href": "docs/component-world-model-projection-drift-control-room.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It only validates the declared public, metadata-only drift-result record contract. It supports inspection of recorded drift rows and source-linked refs; live repair, source control, doctrine changes, model-output export, public sharing, and launch are outside the fixture. It does not claim complete drift coverage or live repair control.",
@@ -2527,7 +2527,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch6_unsurfaced_primitives_capsule",
+      "relative_href": "docs/component-batch6-unsurfaced-primitives-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only a public source-open bundle and bounded public exercises; it is not raw operator memory, not prompt-shelf capture authority, not live market data, not provider/browser state, not media launch, and not public sharing or launch-scope decision.",
@@ -2564,7 +2564,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch5_authority_systems_capsule",
+      "relative_href": "docs/component-batch5-authority-systems-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only copied Set 5 authority-system source bodies and bounded deterministic exercises; it does not dispatch providers, prove Lean success, send live process signals, mutate generated state, change source files, authorize public sharing, include launch operations, or claim private-system equivalence.",
@@ -2601,7 +2601,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch7_macro_engines_capsule",
+      "relative_href": "docs/component-batch7-macro-engines-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only a public source-open bundle and bounded exercises; it is not live source authority, private-system equivalence, semantic truth, investment-related actions, complete sandbox proof, selected-test sufficiency proof, public sharing, or launch-scope decision.",
@@ -2638,7 +2638,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch7_oracle_sibling_capsule",
+      "relative_href": "docs/component-batch7-oracle-sibling-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only Oracle sibling copied source bodies and bounded deterministic exercises; it does not run Oracle reasoning, dispatch providers or bridges, invoke private orchestration engine, change source files, prove semantic truth, prove all Oracle paths are covered, authorize public sharing, or include launch operations.",
@@ -2675,7 +2675,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch7_demo_take_console_capsule",
+      "relative_href": "docs/component-batch7-demo-take-console-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only Demo Take Console copied Swift source bodies and bounded deterministic exercises; it does not launch the app, authorize screen or microphone capture, export recording sessions, execute FFmpeg, dispatch WhisperKit or other models, change source files, prove complete UI coverage, authorize public sharing, or include launch operations.",
@@ -2712,7 +2712,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch8_tools_tail_primitives_capsule",
+      "relative_href": "docs/component-batch8-tools-tail-primitives-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the imported source body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
@@ -2749,7 +2749,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch8_policy_engines_capsule",
+      "relative_href": "docs/component-batch8-policy-engines-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the imported source body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
@@ -2784,7 +2784,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-batch8_audio_level_rms_port",
+      "relative_href": "docs/component-batch8-audio-level-rms-port.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "projection mechanics only, not domain-level conclusions",
@@ -2821,7 +2821,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch8_structural_theses_capsule",
+      "relative_href": "docs/component-batch8-structural-theses-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the imported source body. It does not claim source authority, private-system equivalence, launch, or public sharing.",
@@ -2860,7 +2860,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-engine_room_demo",
+      "relative_href": "docs/component-engine-room-demo.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the public Engine Room composition contract; it is not deployment posture, private-system equivalence, frontier theorem proving, complete security proof, public sharing, or launch-scope decision.",
@@ -2897,7 +2897,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch9_macro_engines_capsule",
+      "relative_href": "docs/component-batch9-macro-engines-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only a public source-open bundle and bounded synthetic exercises; it is not live lineage truth, human approval authority, market/news truth, host-state truth, work log truth, external model access, source-file changes, public sharing, launch-scope decision, or private-system equivalence.",
@@ -2934,7 +2934,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch10_governance_compilers_capsule",
+      "relative_href": "docs/component-batch10-governance-compilers-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the imported source body. It does not claim source authority, private-system equivalence, launch, public sharing, live ledger control, or source-file changes.",
@@ -2971,7 +2971,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch11_saturation_engines_capsule",
+      "relative_href": "docs/component-batch11-saturation-engines-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the imported source body. It does not claim source authority, private-system equivalence, launch, public sharing, live runtime control, or source-file changes.",
@@ -3008,7 +3008,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-tool_server_pressure_inventory",
+      "relative_href": "docs/component-tool-server-pressure-inventory.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "validates declared public helper-process pressure inventory contract only; no live process reads, process signalling, host mutation, launch-scope decision, external model access, non-public data equivalence, or whole-system correctness",
@@ -3046,7 +3046,7 @@
         "source_population_required": false
       },
       "rank": 3,
-      "relative_href": "docs/components.html#component-batch8_compliance_pipeline_capsule",
+      "relative_href": "docs/component-batch8-compliance-pipeline-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "validates declared public Set 8 compliance pipeline bundle contract only; no full compliance-ledger freshness, external model access, model dispatch, source-file changes, source note mutation, launch, public sharing, non-public data equivalence, or whole-system correctness",
@@ -3083,7 +3083,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch10_live_source_drift_capsule",
+      "relative_href": "docs/component-batch10-live-source-drift-capsule.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "verified source body import only, not route authority, work log or work log mutation authority, mission-transaction execution, git staging or commit approval, source-file changes, non-public runtime export, launch, or public sharing",
@@ -3120,7 +3120,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-batch12_release_claim_language_gate",
+      "relative_href": "docs/component-batch12-release-claim-language-gate.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "This is lexical fixture evidence only; it is not launch-scope decision, not public sharing decision, not semantic NLP truth, not secret-scan coverage, and not whole-system correctness.",
@@ -3155,7 +3155,7 @@
         "source_population_required": false
       },
       "rank": 4,
-      "relative_href": "docs/components.html#component-mission_transaction_work_spine",
+      "relative_href": "docs/component-mission-transaction-work-spine.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real completion, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
@@ -3190,7 +3190,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-durable_agent_work_landing_replay",
+      "relative_href": "docs/component-durable-agent-work-landing-replay.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the declared public work-landing contract over recorded rows. It is evidence for fixture-local completion mechanics, not for live Git side effects, unrelated-path staging, non-public body export, service operation, or distribution clearance.",
@@ -3225,7 +3225,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-bridge_phase_continuity_runtime",
+      "relative_href": "docs/component-bridge-phase-continuity-runtime.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "It validates only the declared public continuity contract over synthetic fixtures; it does not run live bridge transport, use external model services, read operator HUD/browser/phase-runtime or private-memory state, prove provider or UI uptime, land work, change source files, or include launch operations.",
@@ -3261,7 +3261,7 @@
         "source_population_required": false
       },
       "rank": 5,
-      "relative_href": "docs/components.html#component-concurrency_mission_control",
+      "relative_href": "docs/component-concurrency-mission-control.html",
       "runs_real_tools": false,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "verified concurrency mission-control source body import only, not a live scheduler, external model access, hosted orchestration, production concurrency-safety proof, source authority, private-system equivalence, public sharing, or launch-scope decision",
@@ -3279,7 +3279,7 @@
     "artifact_path": "microcosm-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.microcosm-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:f48a6c937fe494a5aa7d631b5586931835856a5448feca28b982635b6869f5c9",
+    "payload_sha256_excluding_identity": "sha256:7312d97c6051d1b0215b1c7ebaa97b384f5cf89dbf2a09f909f73760fcd2944e",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
     "source_fingerprint": "30850b909d8aae06f4f841929476e38e"
@@ -3290,12 +3290,12 @@
     "coverage_deficit_total_count": 51,
     "diagram_asset_count": 93,
     "doctrine_entity_body_record_count": 155,
-    "emitted_route_count": 27,
+    "emitted_route_count": 198,
     "evidence_profile_count": 328,
     "family_count": 7,
-    "legacy_route_count": 46,
+    "legacy_route_count": 218,
     "math_latex_asset_count": 0,
-    "page_count": 26,
+    "page_count": 197,
     "paper_module_availability_gap_count": 0,
     "paper_module_count": 93,
     "paper_module_doctrine_feed_link_count": 1350,
@@ -4379,6 +4379,630 @@
       },
       {
         "generated": true,
+        "id": "page:component-cold-reader-route-map",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-cold-reader-route-map.html",
+        "title": "Cold Reader Route Map"
+      },
+      {
+        "generated": true,
+        "id": "page:component-public-reveal-walkthrough",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-public-reveal-walkthrough.html",
+        "title": "Public Reveal Walkthrough"
+      },
+      {
+        "generated": true,
+        "id": "page:component-pattern-binding-contract",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-pattern-binding-contract.html",
+        "title": "Pattern Binding Contract"
+      },
+      {
+        "generated": true,
+        "id": "page:component-pattern-assimilation-step",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-pattern-assimilation-step.html",
+        "title": "Pattern Assimilation Step"
+      },
+      {
+        "generated": true,
+        "id": "page:component-executable-doctrine-grammar",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-executable-doctrine-grammar.html",
+        "title": "Executable Doctrine Grammar"
+      },
+      {
+        "generated": true,
+        "id": "page:component-navigation-hologram-route-plane",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-navigation-hologram-route-plane.html",
+        "title": "Navigation Hologram Route Plane"
+      },
+      {
+        "generated": true,
+        "id": "page:component-standards-meta-diagnostics",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-standards-meta-diagnostics.html",
+        "title": "Standards Meta Diagnostics"
+      },
+      {
+        "generated": true,
+        "id": "page:component-voice-to-doctrine-self-improvement-loop",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-voice-to-doctrine-self-improvement-loop.html",
+        "title": "Voice To Doctrine Self Improvement Loop"
+      },
+      {
+        "generated": true,
+        "id": "page:component-cognitive-operator-registry",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-cognitive-operator-registry.html",
+        "title": "Cognitive Operator Registry"
+      },
+      {
+        "generated": true,
+        "id": "page:component-routing-anti-patterns-registry",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-routing-anti-patterns-registry.html",
+        "title": "Routing Anti Patterns Registry"
+      },
+      {
+        "generated": true,
+        "id": "page:component-doctrine-fact-claim-audit",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-doctrine-fact-claim-audit.html",
+        "title": "Doctrine Fact Claim Audit"
+      },
+      {
+        "generated": true,
+        "id": "page:component-self-ignorance-coverage-ledger",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-self-ignorance-coverage-ledger.html",
+        "title": "Self Ignorance Coverage Ledger"
+      },
+      {
+        "generated": true,
+        "id": "page:component-proof-diagnostic-evidence-spine",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-proof-diagnostic-evidence-spine.html",
+        "title": "Proof Diagnostic Evidence Spine"
+      },
+      {
+        "generated": true,
+        "id": "page:component-formal-math-readiness-gate",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-formal-math-readiness-gate.html",
+        "title": "Formal Math Readiness Gate"
+      },
+      {
+        "generated": true,
+        "id": "page:component-corpus-readiness-mathlib-absence-gate",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-corpus-readiness-mathlib-absence-gate.html",
+        "title": "Corpus Readiness Mathlib Absence Gate"
+      },
+      {
+        "generated": true,
+        "id": "page:component-mathematical-strategy-atlas-hypothesis-scorer",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-mathematical-strategy-atlas-hypothesis-scorer.html",
+        "title": "Mathematical Strategy Atlas Hypothesis Scorer"
+      },
+      {
+        "generated": true,
+        "id": "page:component-tactic-portfolio-availability-probe",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-tactic-portfolio-availability-probe.html",
+        "title": "Tactic Portfolio Availability Probe"
+      },
+      {
+        "generated": true,
+        "id": "page:component-target-shape-tactic-routing-gate",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-target-shape-tactic-routing-gate.html",
+        "title": "Target Shape Tactic Routing Gate"
+      },
+      {
+        "generated": true,
+        "id": "page:component-lean-std-premise-index",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-lean-std-premise-index.html",
+        "title": "Lean Std Premise Index"
+      },
+      {
+        "generated": true,
+        "id": "page:component-formal-math-premise-retrieval",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-formal-math-premise-retrieval.html",
+        "title": "Formal Math Premise Retrieval"
+      },
+      {
+        "generated": true,
+        "id": "page:component-formal-math-verifier-trace-repair-loop",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-formal-math-verifier-trace-repair-loop.html",
+        "title": "Formal Math Verifier Trace Repair Loop"
+      },
+      {
+        "generated": true,
+        "id": "page:component-formal-evidence-cell-anchor-resolver",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-formal-evidence-cell-anchor-resolver.html",
+        "title": "Formal Evidence Cell Anchor Resolver"
+      },
+      {
+        "generated": true,
+        "id": "page:component-undeclared-library-prior-symbol-classifier",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-undeclared-library-prior-symbol-classifier.html",
+        "title": "Undeclared Library Prior Symbol Classifier"
+      },
+      {
+        "generated": true,
+        "id": "page:component-ring2-premise-retrieval-precision-recall-harness",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-ring2-premise-retrieval-precision-recall-harness.html",
+        "title": "Ring2 Premise Retrieval Precision Recall Harness"
+      },
+      {
+        "generated": true,
+        "id": "page:component-formal-math-lean-proof-witness",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-formal-math-lean-proof-witness.html",
+        "title": "Formal Math Lean Proof Witness"
+      },
+      {
+        "generated": true,
+        "id": "page:component-verifier-lab-kernel",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-verifier-lab-kernel.html",
+        "title": "Verifier Lab Kernel"
+      },
+      {
+        "generated": true,
+        "id": "page:component-verifier-lab-execution-spine",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-verifier-lab-execution-spine.html",
+        "title": "Verifier Lab Execution Spine"
+      },
+      {
+        "generated": true,
+        "id": "page:component-certificate-kernel-execution-lab",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-certificate-kernel-execution-lab.html",
+        "title": "Certificate Kernel Execution Lab"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch4-proof-authority-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch4-proof-authority-runtime.html",
+        "title": "Proof / Control / Runtime Import Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-proof-derived-governed-mutation-authorization",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-proof-derived-governed-mutation-authorization.html",
+        "title": "Proof Derived Governed Mutation Authorization"
+      },
+      {
+        "generated": true,
+        "id": "page:component-agent-benchmark-integrity-anti-gaming-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+        "title": "Agent Benchmark Integrity Anti Gaming Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch10-cold-eval-honesty-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch10-cold-eval-honesty-capsule.html",
+        "title": "Cold Evaluation Honesty Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch8-validator-checker-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch8-validator-checker-capsule.html",
+        "title": "Validator Checker Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-agent-monitor-redteam-falsification-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-agent-monitor-redteam-falsification-replay.html",
+        "title": "Agent Monitor Redteam Falsification Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-agent-sabotage-scheming-monitor-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-agent-sabotage-scheming-monitor-replay.html",
+        "title": "Agent Sabotage Scheming Monitor Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-agent-memory-temporal-conflict-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-agent-memory-temporal-conflict-replay.html",
+        "title": "Agent Memory Temporal Conflict Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-sleeper-memory-poisoning-quarantine-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-sleeper-memory-poisoning-quarantine-replay.html",
+        "title": "Sleeper Memory Poisoning Quarantine Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-mcp-tool-authority-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-mcp-tool-authority-replay.html",
+        "title": "MCP Tool Authority Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-belief-state-process-reward-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-belief-state-process-reward-replay.html",
+        "title": "Belief State Process Reward Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-agent-sandbox-policy-escape-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-agent-sandbox-policy-escape-replay.html",
+        "title": "Agent Sandbox Policy Escape Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-indirect-prompt-injection-information-flow-policy-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
+        "title": "Indirect Prompt Injection Information Flow Policy Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-agentic-vulnerability-discovery-patch-proof-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
+        "title": "Agentic Vulnerability Discovery Patch Proof Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-agent-route-observability-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-agent-route-observability-runtime.html",
+        "title": "Agent Route Observability Runtime"
+      },
+      {
+        "generated": true,
+        "id": "page:component-provider-context-recipe-budget-policy",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-provider-context-recipe-budget-policy.html",
+        "title": "Provider Context Recipe Budget Policy"
+      },
+      {
+        "generated": true,
+        "id": "page:component-agent-closeout-faithfulness-audit",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-agent-closeout-faithfulness-audit.html",
+        "title": "Agent Completion Faithfulness Audit"
+      },
+      {
+        "generated": true,
+        "id": "page:component-bounded-autonomy-campaign-packet",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-bounded-autonomy-campaign-packet.html",
+        "title": "Bounded Autonomy Campaign Packet"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch7-secondary-runtime-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch7-secondary-runtime-capsule.html",
+        "title": "Secondary Runtime Source Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-research-replication-rubric-artifact-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-research-replication-rubric-artifact-replay.html",
+        "title": "Research Replication Rubric Artifact Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-spatial-world-model-counterfactual-simulation-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+        "title": "Spatial World Model Counterfactual Simulation Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-materials-chemistry-closed-loop-lab-safety-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+        "title": "Materials Chemistry Closed Loop Lab Safety Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-mechanistic-interpretability-circuit-attribution-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+        "title": "Mechanistic Interpretability Circuit Attribution Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-prediction-oracle-reconciliation",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-prediction-oracle-reconciliation.html",
+        "title": "Prediction Oracle Reconciliation"
+      },
+      {
+        "generated": true,
+        "id": "page:component-finance-forecast-evaluation-spine",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-finance-forecast-evaluation-spine.html",
+        "title": "Finance Forecast Evaluation Spine"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch12-market-dashboard-read-model-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch12-market-dashboard-read-model-capsule.html",
+        "title": "Market Dashboard Read-Model Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch12-prediction-market-board-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch12-prediction-market-board-capsule.html",
+        "title": "Prediction Market Board Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-macro-projection-import-protocol",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-macro-projection-import-protocol.html",
+        "title": "Source Projection Import Protocol"
+      },
+      {
+        "generated": true,
+        "id": "page:component-world-model-projection-drift-control-room",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-world-model-projection-drift-control-room.html",
+        "title": "World Model Projection Drift Control Room"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch6-unsurfaced-primitives-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch6-unsurfaced-primitives-capsule.html",
+        "title": "Unsurfaced Source Primitives Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch5-authority-systems-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch5-authority-systems-capsule.html",
+        "title": "Authority Systems Source Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch7-macro-engines-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch7-macro-engines-capsule.html",
+        "title": "Trace, Code-Map & Scheduling Engines Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch7-oracle-sibling-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch7-oracle-sibling-capsule.html",
+        "title": "Oracle Sibling Source Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch7-demo-take-console-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch7-demo-take-console-capsule.html",
+        "title": "Demo Take Console Source Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch8-tools-tail-primitives-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch8-tools-tail-primitives-capsule.html",
+        "title": "Tools-Tail Primitives Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch8-policy-engines-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch8-policy-engines-capsule.html",
+        "title": "Policy Engines Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch8-audio-level-rms-port",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch8-audio-level-rms-port.html",
+        "title": "Audio Level RMS Port"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch8-structural-theses-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch8-structural-theses-capsule.html",
+        "title": "Structural Theses Finance Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-engine-room-demo",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-engine-room-demo.html",
+        "title": "Engine Room Demo"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch9-macro-engines-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch9-macro-engines-capsule.html",
+        "title": "Backend & Governance Engines Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch10-governance-compilers-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch10-governance-compilers-capsule.html",
+        "title": "Governance & Compiler Mechanisms Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch11-saturation-engines-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch11-saturation-engines-capsule.html",
+        "title": "Saturation Engines Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-tool-server-pressure-inventory",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-tool-server-pressure-inventory.html",
+        "title": "Tool Server Pressure Inventory"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch8-compliance-pipeline-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch8-compliance-pipeline-capsule.html",
+        "title": "Compliance Pipeline Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch10-live-source-drift-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch10-live-source-drift-capsule.html",
+        "title": "Live Source Drift Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch12-release-claim-language-gate",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch12-release-claim-language-gate.html",
+        "title": "Release Public Wording Gate"
+      },
+      {
+        "generated": true,
+        "id": "page:component-mission-transaction-work-spine",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-mission-transaction-work-spine.html",
+        "title": "Mission Transaction Work Spine"
+      },
+      {
+        "generated": true,
+        "id": "page:component-durable-agent-work-landing-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-durable-agent-work-landing-replay.html",
+        "title": "Durable Agent Work Landing Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-bridge-phase-continuity-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-bridge-phase-continuity-runtime.html",
+        "title": "Bridge Phase Continuity Runtime"
+      },
+      {
+        "generated": true,
+        "id": "page:component-concurrency-mission-control",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-concurrency-mission-control.html",
+        "title": "Concurrency Mission Control"
+      },
+      {
+        "generated": true,
         "id": "page:reference",
         "nav_group": "Reference",
         "nav_label": "Reference index",
@@ -4414,6 +5038,750 @@
         "nav_label": "Paper modules",
         "relative_href": "docs/paper-modules.html",
         "title": "Paper modules"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-verifier-lab-kernel",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-verifier-lab-kernel.html",
+        "title": "Verifier Lab Kernel"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-navigation-hologram-route-plane",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-navigation-hologram-route-plane.html",
+        "title": "Navigation Hologram Route Plane"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-agent-route-observability-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-agent-route-observability-runtime.html",
+        "title": "Agent Route Observability Runtime"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-agent-benchmark-integrity-anti-gaming-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
+        "title": "Agent Benchmark Integrity Anti-Gaming Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-research-replication-rubric-artifact-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-research-replication-rubric-artifact-replay.html",
+        "title": "Research Replication Rubric Artifact Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-agentic-vulnerability-discovery-patch-proof-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
+        "title": "Agentic Vulnerability Discovery Patch-Proof Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-materials-chemistry-closed-loop-lab-safety-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
+        "title": "Materials Chemistry Closed-Loop Lab-Safety Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-certificate-kernel-execution-lab",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-certificate-kernel-execution-lab.html",
+        "title": "Certificate Kernel Execution Lab"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-corpus-readiness-mathlib-absence-gate",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-corpus-readiness-mathlib-absence-gate.html",
+        "title": "Corpus Readiness Mathlib Absence Gate"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-pattern-binding-contract",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-pattern-binding-contract.html",
+        "title": "Pattern Binding Contract"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-bridge-phase-continuity-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-bridge-phase-continuity-runtime.html",
+        "title": "Bridge Phase Continuity Runtime"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-cognitive-operator-registry",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-cognitive-operator-registry.html",
+        "title": "Cognitive Operator Registry"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-agent-closeout-faithfulness-audit",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-agent-closeout-faithfulness-audit.html",
+        "title": "Agent Completion Faithfulness Audit"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-cold-reader-route-map",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-cold-reader-route-map.html",
+        "title": "Cold-Reader Route Map"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-proof-diagnostic-evidence-spine",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-proof-diagnostic-evidence-spine.html",
+        "title": "Proof Diagnostic Evidence Spine"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-proof-derived-governed-mutation-authorization",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-proof-derived-governed-mutation-authorization.html",
+        "title": "Proof-Derived Governed Mutation Authorization"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-durable-agent-work-landing-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-durable-agent-work-landing-replay.html",
+        "title": "Durable Agent Work-Landing Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-work-landing-control-spine",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-work-landing-control-spine.html",
+        "title": "Work Landing Control Spine"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-executable-doctrine-grammar",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-executable-doctrine-grammar.html",
+        "title": "Executable Doctrine Grammar"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-macro-projection-import-protocol",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-macro-projection-import-protocol.html",
+        "title": "Source Projection Import Protocol"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-mission-transaction-work-spine",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-mission-transaction-work-spine.html",
+        "title": "Mission Transaction Work Spine"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-formal-math-readiness-gate",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-formal-math-readiness-gate.html",
+        "title": "Formal Math Readiness Gate"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-formal-math-lean-proof-witness",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-formal-math-lean-proof-witness.html",
+        "title": "Formal Math Lean Proof Witness"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-formal-math-verifier-trace-repair-loop",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-formal-math-verifier-trace-repair-loop.html",
+        "title": "Formal Math Verifier Trace Repair Loop"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-formal-evidence-cell-anchor-resolver",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-formal-evidence-cell-anchor-resolver.html",
+        "title": "Formal Evidence Cell Anchor Resolver"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-formal-math-premise-retrieval",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-formal-math-premise-retrieval.html",
+        "title": "Formal Math Premise Retrieval"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-lean-std-premise-index",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-lean-std-premise-index.html",
+        "title": "Lean/Std Premise Index"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-world-model-projection-drift-control-room",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-world-model-projection-drift-control-room.html",
+        "title": "World-Model Projection Drift Control Room"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-public-reveal-walkthrough",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-public-reveal-walkthrough.html",
+        "title": "Public Reveal Walkthrough"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-standards-meta-diagnostics",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-standards-meta-diagnostics.html",
+        "title": "Standards Meta Diagnostics"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-finance-forecast-evaluation-spine",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-finance-forecast-evaluation-spine.html",
+        "title": "Finance Forecast Evaluation Spine"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-engine-room-demo",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-engine-room-demo.html",
+        "title": "Engine Room Demo"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-agent-memory-temporal-conflict-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-agent-memory-temporal-conflict-replay.html",
+        "title": "Agent Memory Temporal-Conflict Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-agent-monitor-redteam-falsification-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-agent-monitor-redteam-falsification-replay.html",
+        "title": "Agent Monitor Redteam Falsification Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-agent-sabotage-scheming-monitor-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-agent-sabotage-scheming-monitor-replay.html",
+        "title": "Agent Sabotage Scheming-Monitor Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-agent-sandbox-policy-escape-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-agent-sandbox-policy-escape-replay.html",
+        "title": "Agent Sandbox Policy-Escape Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-belief-state-process-reward-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-belief-state-process-reward-replay.html",
+        "title": "Belief-State Process Reward Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-sleeper-memory-poisoning-quarantine-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html",
+        "title": "Sleeper Memory Poisoning Quarantine Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-indirect-prompt-injection-information-flow-policy-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html",
+        "title": "Indirect Prompt-Injection Information-Flow Policy Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-mcp-tool-authority-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-mcp-tool-authority-replay.html",
+        "title": "MCP Tool Authority Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-tactic-portfolio-availability",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-tactic-portfolio-availability.html",
+        "title": "Tactic Portfolio Availability"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-target-shape-tactic-routing",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-target-shape-tactic-routing.html",
+        "title": "Target Shape Tactic Routing"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-ring2-premise-precision-recall",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-ring2-premise-precision-recall.html",
+        "title": "Ring-2 Premise Precision Recall"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-mathematical-strategy-atlas",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-mathematical-strategy-atlas.html",
+        "title": "Mathematical Strategy Atlas"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-verifier-lab-execution-spine",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-verifier-lab-execution-spine.html",
+        "title": "Verifier Lab Execution Spine"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-bounded-autonomy-campaign-packet",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-bounded-autonomy-campaign-packet.html",
+        "title": "Bounded Autonomy Campaign Packet"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-computer-use-action-trace-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-computer-use-action-trace-replay.html",
+        "title": "Computer-Use Action Trace Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-concurrency-mission-control",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-concurrency-mission-control.html",
+        "title": "Concurrency Mission Control"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-doctrine-fact-claim-audit",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-doctrine-fact-claim-audit.html",
+        "title": "Doctrine Fact Claim Audit"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-self-ignorance-coverage-ledger",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-self-ignorance-coverage-ledger.html",
+        "title": "Self-Ignorance Coverage Ledger"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-tool-server-pressure-inventory",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-tool-server-pressure-inventory.html",
+        "title": "Tool Server Pressure Inventory"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-mechanistic-interpretability-circuit-attribution-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html",
+        "title": "Mechanistic Interpretability Circuit Attribution Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-spatial-world-model-counterfactual-simulation-replay",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html",
+        "title": "Spatial World Model Counterfactual Simulation Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-prediction-oracle-reconciliation",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-prediction-oracle-reconciliation.html",
+        "title": "Prediction Oracle Reconciliation"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-provider-context-recipe-budget",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-provider-context-recipe-budget.html",
+        "title": "Provider Context Recipe Budget"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-undeclared-library-prior-classifier",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-undeclared-library-prior-classifier.html",
+        "title": "Undeclared Library Prior Classifier"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-voice-to-doctrine-self-improvement-loop",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-voice-to-doctrine-self-improvement-loop.html",
+        "title": "Voice to Doctrine Self-Improvement Loop"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-routing-anti-patterns-registry",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-routing-anti-patterns-registry.html",
+        "title": "Routing Anti-Patterns Registry"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch8-audio-level-rms-port",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch8-audio-level-rms-port.html",
+        "title": "Set 8 Audio Level RMS Port"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch8-compliance-pipeline-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch8-compliance-pipeline-capsule.html",
+        "title": "Set 8 Compliance Pipeline Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch8-policy-engines-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch8-policy-engines-capsule.html",
+        "title": "Set 8 Policy Engines Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch8-structural-theses-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch8-structural-theses-capsule.html",
+        "title": "Set 8 Structural Theses Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch8-tools-tail-primitives-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch8-tools-tail-primitives-capsule.html",
+        "title": "Set 8 Tools-Tail Primitives Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch8-validator-checker-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch8-validator-checker-capsule.html",
+        "title": "Set 8 Validator Checker Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch12-market-dashboard-read-model-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch12-market-dashboard-read-model-capsule.html",
+        "title": "Set 12 Market Dashboard Read-Model Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch12-prediction-market-board-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch12-prediction-market-board-capsule.html",
+        "title": "Set 12 Prediction Market Board Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch12-release-claim-language-gate",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch12-release-claim-language-gate.html",
+        "title": "Set 12 launch claim-Language Gate"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch10-cold-eval-honesty-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch10-cold-eval-honesty-capsule.html",
+        "title": "Set 10 Cold Eval Honesty Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch10-live-source-drift-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch10-live-source-drift-capsule.html",
+        "title": "Set 10 Live Source Drift Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch7-macro-engines-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch7-macro-engines-capsule.html",
+        "title": "Set 7 Source Engines Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch9-macro-engines-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch9-macro-engines-capsule.html",
+        "title": "Set 9 Source Engines Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-pattern-assimilation",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-pattern-assimilation.html",
+        "title": "Pattern Assimilation"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch10-governance-compilers-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch10-governance-compilers-capsule.html",
+        "title": "Set 10 Governance And Compilers Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch11-saturation-engines-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch11-saturation-engines-capsule.html",
+        "title": "Set 11 Saturation Engines Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch4-proof-authority-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch4-proof-authority-runtime.html",
+        "title": "Set 4 Proof, Authority, and Runtime Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch6-unsurfaced-primitives-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch6-unsurfaced-primitives-capsule.html",
+        "title": "Set 6 Unsurfaced Primitives Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-engine-room-public-projection-leak-gate",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-engine-room-public-projection-leak-gate.html",
+        "title": "Engine Room Public Projection Leak Gate"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch5-authority-systems-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch5-authority-systems-capsule.html",
+        "title": "Set 5 Authority and Systems Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch7-oracle-sibling-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch7-oracle-sibling-capsule.html",
+        "title": "Set 7 Oracle Sibling Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch7-demo-take-console-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch7-demo-take-console-capsule.html",
+        "title": "Set 7 Demo Take Console Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-engine-room-generated-projection-drift-gate",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-engine-room-generated-projection-drift-gate.html",
+        "title": "Engine Room Generated Projection Drift Gate"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-engine-room-command-run-singleflight",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-engine-room-command-run-singleflight.html",
+        "title": "Engine Room Command-Run Singleflight"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-engine-room-metabolism-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-engine-room-metabolism-runtime.html",
+        "title": "Engine Room Metabolism Runtime"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-engine-room-bridge-campaign-dag",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-engine-room-bridge-campaign-dag.html",
+        "title": "Engine Room Bridge Campaign DAG"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-engine-room-annex-knowledge-router",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-engine-room-annex-knowledge-router.html",
+        "title": "Engine Room Reference Knowledge Router"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-engine-room-derived-fact-provider-engine",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-engine-room-derived-fact-provider-engine.html",
+        "title": "Engine Room Derived Fact Provider Engine"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-engine-room-egress-self-compliance-gate",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-engine-room-egress-self-compliance-gate.html",
+        "title": "Engine Room Egress Self-Compliance Gate"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-engine-room-lean-proof-search-lab",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-engine-room-lean-proof-search-lab.html",
+        "title": "Engine Room Lean Proof Search Lab"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-engine-room-navigation-fitness-benchmark",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-engine-room-navigation-fitness-benchmark.html",
+        "title": "Engine Room Navigation Fitness Benchmark"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-cold-clone-probe",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-cold-clone-probe.html",
+        "title": "Cold Clone Probe"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-first-screen-composition-root",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-first-screen-composition-root.html",
+        "title": "First-Screen Composition Root"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-batch7-secondary-runtime-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-batch7-secondary-runtime-capsule.html",
+        "title": "Set 7 Secondary Runtime Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-microcosm-axiom-substrate",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-microcosm-axiom-substrate.html",
+        "title": "Microcosm Axiom System"
       },
       {
         "generated": true,
@@ -4508,7 +5876,7 @@
       }
     ],
     "url_resolution": {
-      "base_url": "https://wcook04.github.io/plectis/",
+      "base_url": null,
       "relative_href_rule": "Resolve relative_href against the Plectis public site root. If no public base URL is present, keep the relative_href and ask the visitor for the site URL if an absolute URL is required."
     }
   },
@@ -4608,7 +5976,7 @@
     "curated_source_hashes": {
       "microcosm-substrate/README.md": "sha256:d7c9a55beb529ff9207c93e60e4f8ab98c4c27520c0ef84b6763f9ee570da536",
       "microcosm-substrate/core/organ_families.json": "sha256:da9fdfae54a88fa3f9620d222b1fe5c74c221de30d36db24d639b51bd7bb8d08",
-      "sites/microcosm/index.html": "sha256:2a8720b2af971f577a4fe80b9a19bbb603c1a98e9d6c7a210371fe9b07a5aa1e"
+      "sites/microcosm/index.html": "sha256:788a4aaeec3803079bb1c5cd473389fcdaea1b7b5ac3f50bbc0b4546c7688572"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",

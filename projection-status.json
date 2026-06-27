@@ -23,189 +23,873 @@
   },
   "artifact_identity": {
     "advanced_public_handoff": "microcosm-ai-review-packet.json",
-    "advanced_public_handoff_sha256": "sha256:1148ca226b8d8e56dd6fe2bac7e4764b6b3e536984a5709c121996edc69b7c14",
+    "advanced_public_handoff_sha256": "sha256:60314c85ba464034a5cf1e67bb5e179a98fb0a6e51d404c5e25eddae37dcee8f",
     "digest_algorithm": "sha256",
     "exact_byte_hash_scope": "Generated in-memory text outputs at build time. projection-status.json cannot self-embed its own final byte digest; all other generated outputs are exact.",
     "exact_byte_sha256_by_path": {
       ".well-known/security.txt": {
-        "byte_count": 269,
-        "sha256": "sha256:cbd6fe1d756159d331aa6f0f43c64611c5f86c32131de615353af743c1a86454"
+        "byte_count": 122,
+        "sha256": "sha256:aad34e86f143e7c28eda48bdba8a1870d9b054b215f6a77f033139caac6c93bc"
       },
       "404.html": {
         "byte_count": 704,
         "sha256": "sha256:25f688e045ed7286cbcea909bb91b9f9fd915d747466b8a8a8157fab40e80af6"
       },
       "_headers": {
-        "byte_count": 3748,
-        "sha256": "sha256:54655d7575d9c5135acf9f9dc19ad1db335885236af479d04621d31690b60c72"
+        "byte_count": 3530,
+        "sha256": "sha256:9b34b278a7dc95161dbc16b09e96f9c9d0a1e15e63a03b683d45f438c4c9c277"
       },
       "_redirects": {
         "byte_count": 587,
         "sha256": "sha256:e312f7bef8f0328d9d1cab06294e739f6dc29dd0e09fe0c7607abdf3b32bd420"
       },
       "assets/ai-orientation-packet.js": {
-        "byte_count": 87598,
-        "sha256": "sha256:ba9e4fbcc5f730a4b9e2dc21cb9e222e342f7f3d01b83e0b4059de3fb1a02e68"
+        "byte_count": 150623,
+        "sha256": "sha256:a1e974f408c29ec3cf0e5bdc0e15fe1412754aaccc185f31804120f5990823c9"
       },
       "assets/ai-reader-digest-packet.js": {
-        "byte_count": 234219,
-        "sha256": "sha256:394307784771124f392a074a636b63432545424573cf4f3a8732b90b7260ccca"
+        "byte_count": 293108,
+        "sha256": "sha256:dacc5638e1aeb3264347d10fcbb9745a2edd0499799e5642821568e2dbc885fb"
       },
       "assets/ai-review-packet.js": {
-        "byte_count": 10695731,
-        "sha256": "sha256:7f9a58219c69fabb65b7524cfd9f7b45e038ac592d84bd4dfa064d2049fa2393"
+        "byte_count": 11441893,
+        "sha256": "sha256:192ca74d6e1a5f0561abba58ac4234c0d14e20d20a3cbd886256bf77acc0b5c9"
       },
       "assets/object-map.js": {
-        "byte_count": 5116027,
-        "sha256": "sha256:a8f55b6c710ec016aa3f55bc88470c567f412843e78d72519a7fc8415ee0217a"
+        "byte_count": 5068457,
+        "sha256": "sha256:ea8ba0000c875e92cc75f4177e9fda5e25aef88b2b0e93058bee0729deeb4ad4"
       },
       "assets/search-index.js": {
-        "byte_count": 803311,
-        "sha256": "sha256:ffff889f7348ade0875ebc59452aced8602b4aab617a1b1121243951a748e019"
+        "byte_count": 801391,
+        "sha256": "sha256:b5554b2ca2c70d1f4136711f9aadd71d3fdbf78db14d5c49ec6f99b2877dafbf"
       },
       "assets/site-packet.js": {
-        "byte_count": 9153804,
-        "sha256": "sha256:2eec003023cf448ccc74307b351c67e524e6958129ba1691da518b8ef5e3053c"
+        "byte_count": 9483424,
+        "sha256": "sha256:37921a6b8ece378f88b0128084c60c4436ed669c330dac5a6856140d72f62427"
       },
       "content-graph.json": {
-        "byte_count": 10353023,
-        "sha256": "sha256:160755f31c45e014491ff228fb569cc42fb62707cb8293673c62a004c1f19cba"
+        "byte_count": 10418111,
+        "sha256": "sha256:04ddba3e769262fdc3652f8ac3f66b0a81a836584054c2dd78e79610c7ea6f87"
       },
       "content-manifest.json": {
-        "byte_count": 181027,
-        "sha256": "sha256:f8a3d0edc71d075d0fda86b89a442c27f896caa494fe0184bc1b8c7bb4da7771"
+        "byte_count": 276929,
+        "sha256": "sha256:1fa7e914fd6d7659330729fa0caef6b721b4a2c8be235d5214bb959ba189e2a6"
       },
       "docs/architecture-graph-scene.json": {
         "byte_count": 227521,
         "sha256": "sha256:b642ed05a77369f656f0ceac95654e413905f08019f0edde66292406adeae28a"
       },
       "docs/architecture.html": {
-        "byte_count": 129614,
-        "sha256": "sha256:47a22785fbd2cd16b37ffdab62b74fccd43b1902f5c5c4f53ec677f36f4cd527"
+        "byte_count": 128839,
+        "sha256": "sha256:151ce4f0eb569c073a262ced36c8170d62576c0500474b1b12ac25c5b17ab0f5"
       },
       "docs/area-agent-reliability.html": {
-        "byte_count": 544388,
-        "sha256": "sha256:52b83be5fcd4602a4ed29c4f94763d710ce035bf887f8f6572373412731f0cc2"
+        "byte_count": 67215,
+        "sha256": "sha256:e4af27656c1fefe354228ccc8b113720a6fd829fce5ed9633d74a779738c162f"
       },
       "docs/area-architecture.html": {
-        "byte_count": 296172,
-        "sha256": "sha256:151449d40a8419679390392d4fb4c6466ef8f242c603d0cb8d1b35dbc0fe29de"
+        "byte_count": 40578,
+        "sha256": "sha256:76a1a6f8400b53541bb0cd75054778f497d150bd946e8f1d1754738598ef3012"
       },
       "docs/area-continuity.html": {
-        "byte_count": 122146,
-        "sha256": "sha256:aeed40527b19e008e13d96d0b99c98664efebc72a73292b321727eea39912600"
+        "byte_count": 21582,
+        "sha256": "sha256:13964a5b7a7d2410058c65311029d09d8d6483d0dfed5629a971569fe5be3a31"
       },
       "docs/area-entry.html": {
-        "byte_count": 69642,
-        "sha256": "sha256:c68f6124ef882220833dcbd328e526dbbecc6773aefebcd9bedb2ed6674ba352"
+        "byte_count": 14466,
+        "sha256": "sha256:e12b023697fdc95305634469e3213ef382c4f5af0a4005828be307b7a50fe4fe"
       },
       "docs/area-formal-math.html": {
-        "byte_count": 574479,
-        "sha256": "sha256:25c5ae00f497de4e93c69c0a91047808c3dc5d81a309ec88c919aa0233658bef"
+        "byte_count": 71180,
+        "sha256": "sha256:1ecb01e86acebc8a06e5ed218a0c97609614d4c894be252b8f1c82b052fcaadf"
       },
       "docs/area-import-drift.html": {
-        "byte_count": 515617,
-        "sha256": "sha256:ab38c63daa21b1bb36035774062bc72505a1e747710298cdf111b092b560473c"
+        "byte_count": 67408,
+        "sha256": "sha256:1c2c4c1a317aadd034ea2494c6290a32071b572c53a580109a62365fcd9c708e"
       },
       "docs/area-research.html": {
-        "byte_count": 264286,
-        "sha256": "sha256:f4f71e9ce12759919d5e80759c8886ca2a7fb862cdaeac25ec14a1aad4a7da3a"
+        "byte_count": 35640,
+        "sha256": "sha256:581a28f352a66a7133c19a3c1a5220301afc0156a2f5a7799dacbea54b931076"
       },
       "docs/coding-agents.html": {
-        "byte_count": 9590,
-        "sha256": "sha256:5fd60f3db6ab463f9ed2a6e59e8b623e111678e7f4bfdb38a4aeb6c885273da0"
+        "byte_count": 9673,
+        "sha256": "sha256:742d483aae0671a51113371924869b6b4086c333eb59e4d6abec9c1d876e9934"
+      },
+      "docs/component-agent-benchmark-integrity-anti-gaming-replay.html": {
+        "byte_count": 12914,
+        "sha256": "sha256:5e9e9fc0a5c983886af25bc1a68c49533ecff1ecdeb1041257f799d579c6eb70"
+      },
+      "docs/component-agent-closeout-faithfulness-audit.html": {
+        "byte_count": 11545,
+        "sha256": "sha256:1edd53e59ea3ff2fd9af0cd151e09952a54f03669688d85896bb0171cc881e61"
+      },
+      "docs/component-agent-memory-temporal-conflict-replay.html": {
+        "byte_count": 12863,
+        "sha256": "sha256:866aab2c2d606d7512b218cf613e3c7a09a2718be02dbc253bc5e6930b3410e1"
+      },
+      "docs/component-agent-monitor-redteam-falsification-replay.html": {
+        "byte_count": 12296,
+        "sha256": "sha256:abb8acae4b297da337eeff4097b8e48aa87828ec7ffaefc7c08a6415c722db39"
+      },
+      "docs/component-agent-route-observability-runtime.html": {
+        "byte_count": 13681,
+        "sha256": "sha256:14c2b0bb9aa46909435c830ed5c80b3bd6a744721cf11cd8cfe2b0b52866418b"
+      },
+      "docs/component-agent-sabotage-scheming-monitor-replay.html": {
+        "byte_count": 12467,
+        "sha256": "sha256:c21e3e4c9a1b2665277a8feb5249694c4f9cad9642a115ca2a96123e183fb573"
+      },
+      "docs/component-agent-sandbox-policy-escape-replay.html": {
+        "byte_count": 12696,
+        "sha256": "sha256:e6f3a7929fd2f4fe2158495d0a1948fdca6e2ce90bd91fafef3ef90684df45ca"
+      },
+      "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html": {
+        "byte_count": 13268,
+        "sha256": "sha256:4ea45e78b292674c20f8eca825292024e4c3abc148e2752ac3b4bacec758b566"
+      },
+      "docs/component-batch10-cold-eval-honesty-capsule.html": {
+        "byte_count": 11865,
+        "sha256": "sha256:4beabbde6fb9ab7ee04980f9c9668e15417cd329c1755cb62761d2b9b5a80507"
+      },
+      "docs/component-batch10-governance-compilers-capsule.html": {
+        "byte_count": 12337,
+        "sha256": "sha256:3bf87f3c32efd6f9d07f236bfcb2f11d0484214c787a2a76e2a4a5bfb3a87c6d"
+      },
+      "docs/component-batch10-live-source-drift-capsule.html": {
+        "byte_count": 12063,
+        "sha256": "sha256:2f841b1d0bd4000a2a4ae2653f19ff5e582957ab60d9f6ffc2413654e876e891"
+      },
+      "docs/component-batch11-saturation-engines-capsule.html": {
+        "byte_count": 12640,
+        "sha256": "sha256:14f779b52716ea7816d826082e10399b23faf106e1d631e18f4317b56e647e16"
+      },
+      "docs/component-batch12-market-dashboard-read-model-capsule.html": {
+        "byte_count": 12242,
+        "sha256": "sha256:c1b9340b49868708a27e16b29d623644b29c4f52143eb2e60bb85ecabb9f121f"
+      },
+      "docs/component-batch12-prediction-market-board-capsule.html": {
+        "byte_count": 12139,
+        "sha256": "sha256:e9e766756b13d6ceccde7357341b7f5667a6a6875069d18315c2850686be4927"
+      },
+      "docs/component-batch12-release-claim-language-gate.html": {
+        "byte_count": 11818,
+        "sha256": "sha256:973ce30714db3272096bd530f2d3864a52ff6d7e02425a808e75ce2b4ffdac60"
+      },
+      "docs/component-batch4-proof-authority-runtime.html": {
+        "byte_count": 12160,
+        "sha256": "sha256:79d4cf2f864bb05eca813d2a33c8ddb3be1ecf34ebdac52dd9d1a93d7b66c71c"
+      },
+      "docs/component-batch5-authority-systems-capsule.html": {
+        "byte_count": 12626,
+        "sha256": "sha256:6100e0a0583093fbfd9cb9939e97e4e022aa22dd1ca703ea171f7e0c4b28f0f2"
+      },
+      "docs/component-batch6-unsurfaced-primitives-capsule.html": {
+        "byte_count": 12150,
+        "sha256": "sha256:0776f8a63a065d82e9b12b071e6df745334a5ae4d0e81096731955bd92ca735f"
+      },
+      "docs/component-batch7-demo-take-console-capsule.html": {
+        "byte_count": 8855,
+        "sha256": "sha256:fd8866001220eee9e23e3d938bb2cf9a8119748336c2cb31f879a403fffee2d1"
+      },
+      "docs/component-batch7-macro-engines-capsule.html": {
+        "byte_count": 12446,
+        "sha256": "sha256:a60f2508c9f9aede9d4e4e7067ac899fc615257b690f46d844006b2c68fee60b"
+      },
+      "docs/component-batch7-oracle-sibling-capsule.html": {
+        "byte_count": 8663,
+        "sha256": "sha256:05c2b03c7ef75643fb6587423c7ef0910c848f89e09394b4385c0481039f98cf"
+      },
+      "docs/component-batch7-secondary-runtime-capsule.html": {
+        "byte_count": 11961,
+        "sha256": "sha256:b3ad7c4577ec14430346acf1527f9b38ceccd2938d90d48087a8fa377eb0e1ae"
+      },
+      "docs/component-batch8-audio-level-rms-port.html": {
+        "byte_count": 11381,
+        "sha256": "sha256:5cc279334e20ffe819ce90638ce92f0eec0ea08082df61ebaba3c71a5028aea6"
+      },
+      "docs/component-batch8-compliance-pipeline-capsule.html": {
+        "byte_count": 12333,
+        "sha256": "sha256:c648c83a8e2ec24bbb18e7797186afba94f07ea63ab11a414f8c87f6c3aea9fd"
+      },
+      "docs/component-batch8-policy-engines-capsule.html": {
+        "byte_count": 11455,
+        "sha256": "sha256:319c08096dc225de774c48956e1cefd628288b6191543005b2d8d1befea9bbea"
+      },
+      "docs/component-batch8-structural-theses-capsule.html": {
+        "byte_count": 11907,
+        "sha256": "sha256:9fc3f1aed9d32f016b6c754aa1e5232a32138db1edeb5f47341d22a5b51807e4"
+      },
+      "docs/component-batch8-tools-tail-primitives-capsule.html": {
+        "byte_count": 11953,
+        "sha256": "sha256:a7b32fe449dd637a4ac859cb0e4b9c1b22ba0ecdeb2947241a82e73b17f16eec"
+      },
+      "docs/component-batch8-validator-checker-capsule.html": {
+        "byte_count": 11786,
+        "sha256": "sha256:89101d32a6e2cb7316f3af34968166178e4595a4cdccd4ffa11491d0a9ae4840"
+      },
+      "docs/component-batch9-macro-engines-capsule.html": {
+        "byte_count": 12267,
+        "sha256": "sha256:9c1b76aa4bd52c9181af235f7ca1b383b072b5aab90e8ecba2df9004111c7012"
+      },
+      "docs/component-belief-state-process-reward-replay.html": {
+        "byte_count": 12139,
+        "sha256": "sha256:9f1ebbd7284af3760affc7749160e34ef229683f856b0042937741846ad7e279"
+      },
+      "docs/component-bounded-autonomy-campaign-packet.html": {
+        "byte_count": 11280,
+        "sha256": "sha256:f6363011e9ad93cffe3ba19466151297ee65b552f9a7996056150d50d83bef04"
+      },
+      "docs/component-bridge-phase-continuity-runtime.html": {
+        "byte_count": 12329,
+        "sha256": "sha256:7c4581111cdeef511c449fdcb4f4278b7d14de39aa8984d48a86ba56e2955054"
+      },
+      "docs/component-certificate-kernel-execution-lab.html": {
+        "byte_count": 12225,
+        "sha256": "sha256:e2870ed4c04fd5c9b42f5e902b6e63078ed71ac4e5bb65051fac0c481c025b9b"
+      },
+      "docs/component-cognitive-operator-registry.html": {
+        "byte_count": 12105,
+        "sha256": "sha256:de83d0f6a212483c0f69f63bcb06b37f3823108ac9db3eb7ed3ea4b988030e76"
+      },
+      "docs/component-cold-reader-route-map.html": {
+        "byte_count": 12469,
+        "sha256": "sha256:fd15b8f97294e1376c7f6f4288b69035a3e17732723ff8ad9900032e4bae7a63"
+      },
+      "docs/component-concurrency-mission-control.html": {
+        "byte_count": 12134,
+        "sha256": "sha256:249499fef29f1ca97128358bb9af3074e5543098535005a3e2eea4a0eeb1e976"
+      },
+      "docs/component-corpus-readiness-mathlib-absence-gate.html": {
+        "byte_count": 13090,
+        "sha256": "sha256:b6f77a4a2b18f80dd528a2436276849050e685c73e2af2c8661cefc6b17fbc92"
+      },
+      "docs/component-doctrine-fact-claim-audit.html": {
+        "byte_count": 11426,
+        "sha256": "sha256:88c03b3167aecbf709782c0e39b20eb3e763e61f09b0224b9e1f16d1db8eb225"
+      },
+      "docs/component-durable-agent-work-landing-replay.html": {
+        "byte_count": 12571,
+        "sha256": "sha256:ebf4c4529f8c9fc9ff65c15ae76b822a5dd9d84c6d3f2e97bd7eac756bcb9e02"
+      },
+      "docs/component-engine-room-demo.html": {
+        "byte_count": 12056,
+        "sha256": "sha256:bc9d270508d6ff37d28c6d879a4f99c8045598a4881bf09bdaf462c06c9f79c5"
+      },
+      "docs/component-executable-doctrine-grammar.html": {
+        "byte_count": 12939,
+        "sha256": "sha256:b653ed62bc15fd6b73dbc0cc6528b769fcb0edb4145e333510ddc3cc067d89c8"
+      },
+      "docs/component-finance-forecast-evaluation-spine.html": {
+        "byte_count": 11562,
+        "sha256": "sha256:2d41fbb3a6581a7c6394bb7ab1430e94e824759a0e21fa9f739c1488ca96ce12"
+      },
+      "docs/component-formal-evidence-cell-anchor-resolver.html": {
+        "byte_count": 12634,
+        "sha256": "sha256:5a7b0cd1fdbec4c59b8fe445584b7697d45f6346484627ff41d4725726251347"
+      },
+      "docs/component-formal-math-lean-proof-witness.html": {
+        "byte_count": 13223,
+        "sha256": "sha256:a58c4504fb29de4d80326b92070b7dbd52322e148cd4286f99b13164be5b1b44"
+      },
+      "docs/component-formal-math-premise-retrieval.html": {
+        "byte_count": 13101,
+        "sha256": "sha256:b92dcb4ff5bdccfb07a8c9f5adbd2aa9199bc6921a9c31660638303fcf8df58d"
+      },
+      "docs/component-formal-math-readiness-gate.html": {
+        "byte_count": 12936,
+        "sha256": "sha256:64b4d03c15f6a41cb7dcee3b25ab5833ed8762b81f78c6928feea422cf76ee6d"
+      },
+      "docs/component-formal-math-verifier-trace-repair-loop.html": {
+        "byte_count": 12908,
+        "sha256": "sha256:4461fe418688a3d922258e6009e549391180ab2b5f2ffee0760144ba5e501ebc"
+      },
+      "docs/component-indirect-prompt-injection-information-flow-policy-replay.html": {
+        "byte_count": 12610,
+        "sha256": "sha256:1a591f773a8309c18e04452bac933562f79d978b398be2007d3528753cd4bc95"
+      },
+      "docs/component-lean-std-premise-index.html": {
+        "byte_count": 12430,
+        "sha256": "sha256:7b9a14ec25b4fbe666641d99116b5a561bb85a45decd854955ab19650ccbe626"
+      },
+      "docs/component-macro-projection-import-protocol.html": {
+        "byte_count": 15296,
+        "sha256": "sha256:be289eb5f8afdd04a6347666b84f6b2c5352e0b5fa286a4798e3d1f138f210de"
+      },
+      "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html": {
+        "byte_count": 12625,
+        "sha256": "sha256:3adeeb912396930ed51a129304b1884a1240450e584d4d2f98733db1b70fe0a9"
+      },
+      "docs/component-mathematical-strategy-atlas-hypothesis-scorer.html": {
+        "byte_count": 11910,
+        "sha256": "sha256:71fce2e56d3ebe1f6b1f6f7acdcc2c9cf7fef709681efca06a9cc8349c0f44ee"
+      },
+      "docs/component-mcp-tool-authority-replay.html": {
+        "byte_count": 12289,
+        "sha256": "sha256:6938b2db4c861c91db03f3b26ce15262acd174eb91309409d5c496825ba7741a"
+      },
+      "docs/component-mechanistic-interpretability-circuit-attribution-replay.html": {
+        "byte_count": 12894,
+        "sha256": "sha256:2150f46748f0d22c2cf4d6513e037bc94265c30f6dab7aa6d235e804ba4ede09"
+      },
+      "docs/component-mission-transaction-work-spine.html": {
+        "byte_count": 13452,
+        "sha256": "sha256:3a415fb96910fb55e86fce24262877a40b95f8eb2976f3bfe3bfc640f7a92149"
+      },
+      "docs/component-navigation-hologram-route-plane.html": {
+        "byte_count": 13132,
+        "sha256": "sha256:d27e9173a3ac056730c34d3858f71f6539cfc2cdcc333fabbb024903d36bf528"
+      },
+      "docs/component-pattern-assimilation-step.html": {
+        "byte_count": 11891,
+        "sha256": "sha256:e61703593b258f29d40ae2c355784c2370406255a0aacbd5f0832da4f6d54ee6"
+      },
+      "docs/component-pattern-binding-contract.html": {
+        "byte_count": 12504,
+        "sha256": "sha256:b96682441a6f70ce0dbb6b95bf06865214ef25d2434b840d581d2ae8a4a320ba"
+      },
+      "docs/component-prediction-oracle-reconciliation.html": {
+        "byte_count": 12662,
+        "sha256": "sha256:37de329e383dc70ad8d5743e1e2d43c870654cfca7e8b785e0c85e0cbd71e500"
+      },
+      "docs/component-proof-derived-governed-mutation-authorization.html": {
+        "byte_count": 13319,
+        "sha256": "sha256:5044795e2739bce866b099abcf6d3db23b46fde8ee864dda268608ce8b66764f"
+      },
+      "docs/component-proof-diagnostic-evidence-spine.html": {
+        "byte_count": 12823,
+        "sha256": "sha256:c7da483e5ff3fad3db41e5bd9338271b5b4799c8cbc102506c3ed0078b11dca3"
+      },
+      "docs/component-provider-context-recipe-budget-policy.html": {
+        "byte_count": 12498,
+        "sha256": "sha256:85a754423e86405544b126b1b8b31db4a9b55bb9bf385a221041a5fe9cd1d167"
+      },
+      "docs/component-public-reveal-walkthrough.html": {
+        "byte_count": 12239,
+        "sha256": "sha256:0e468e429e964466254fb8363225f0e2030f46a63886a2072255909f578742a7"
+      },
+      "docs/component-research-replication-rubric-artifact-replay.html": {
+        "byte_count": 13851,
+        "sha256": "sha256:7ce31e71577b1f3ed9f6721c3c1dcc9b6e1ebcee9cd02cce12b0d46d0a645b4c"
+      },
+      "docs/component-ring2-premise-retrieval-precision-recall-harness.html": {
+        "byte_count": 12833,
+        "sha256": "sha256:caf9e871b134c1426cafdf4d29023e41186d1fcbbfdb75f89676fb5851777794"
+      },
+      "docs/component-routing-anti-patterns-registry.html": {
+        "byte_count": 11985,
+        "sha256": "sha256:b2d9d645eb24acc341a22325830910df548112773be7e25a43a37b6168f23a9f"
+      },
+      "docs/component-self-ignorance-coverage-ledger.html": {
+        "byte_count": 11251,
+        "sha256": "sha256:926a5bf7b57955bf316d0ab8fbc7c982e82c29e307ff65751fb558ad57de6efb"
+      },
+      "docs/component-sleeper-memory-poisoning-quarantine-replay.html": {
+        "byte_count": 13032,
+        "sha256": "sha256:fb94af5956b4c3f32870f7b51af023a2ce4efa66a352a9e77a3037c0bbb7cab7"
+      },
+      "docs/component-spatial-world-model-counterfactual-simulation-replay.html": {
+        "byte_count": 12678,
+        "sha256": "sha256:c43ba59be5837c360968ed356f45faf0d796d9ba2495ad2f3cffb9fa4a335673"
+      },
+      "docs/component-standards-meta-diagnostics.html": {
+        "byte_count": 12116,
+        "sha256": "sha256:d1561bc55df3332961e5665d279f0413eab2ca00eb07bec98468917f60435631"
+      },
+      "docs/component-tactic-portfolio-availability-probe.html": {
+        "byte_count": 12504,
+        "sha256": "sha256:3d9d9f6b5f30578512bc5e8ad606440707f5b03e3f950a52fffcd4d31cb47796"
+      },
+      "docs/component-target-shape-tactic-routing-gate.html": {
+        "byte_count": 12668,
+        "sha256": "sha256:921253a559f98bde39e807d1ca0fcede0927df7c86694aff2c98ca82411dd607"
+      },
+      "docs/component-tool-server-pressure-inventory.html": {
+        "byte_count": 11889,
+        "sha256": "sha256:9d12bedccabcd2f4500bbae1dbeb6157ab83ce34c2525d8405154800b9086e04"
+      },
+      "docs/component-undeclared-library-prior-symbol-classifier.html": {
+        "byte_count": 12551,
+        "sha256": "sha256:0fb8bc65800f46955a4612115f66f625e8f031d319f4665dafe950f87d2a9a81"
+      },
+      "docs/component-verifier-lab-execution-spine.html": {
+        "byte_count": 12433,
+        "sha256": "sha256:8ab0ae757e41daf95a74b2c03b0190ad0355751dde9c86ed3f7659a9f189b607"
+      },
+      "docs/component-verifier-lab-kernel.html": {
+        "byte_count": 13146,
+        "sha256": "sha256:534aecda3466bb56736f80129f3617e504dc5266f8b6ea8fb83e98c75d6d4528"
+      },
+      "docs/component-voice-to-doctrine-self-improvement-loop.html": {
+        "byte_count": 12516,
+        "sha256": "sha256:a4fa3b9bd7febf95b784c155733e7282f533aa1add290e88a463c5289cb32764"
+      },
+      "docs/component-world-model-projection-drift-control-room.html": {
+        "byte_count": 13038,
+        "sha256": "sha256:b8aeb414f6c6ae60f2ead995a7b85350dc68cbb3b560cef055ee0693cca69573"
       },
       "docs/components.html": {
-        "byte_count": 2343642,
-        "sha256": "sha256:13884fd17b227526ec9b0adcfd970f89198dbfe6674ae8561815b4f5d0c57553"
+        "byte_count": 274514,
+        "sha256": "sha256:4f3b880bb2aef1ca7c3d2a790d6ce3463d443c9a872f6813120fd1260248a35d"
       },
       "docs/contact.html": {
-        "byte_count": 10527,
-        "sha256": "sha256:a6f49388f96ef0e9cdeefac7966dbd7fa0fb21ca39acc70123bfe9e6a21cae31"
+        "byte_count": 10610,
+        "sha256": "sha256:e6a1c1257e14785209c0857d2427026e599849ed0df9519bab363a19c08fc13d"
       },
       "docs/doctrine.html": {
-        "byte_count": 498791,
-        "sha256": "sha256:ac936c06267d111eaf75295e026fbfb45897067ab29a2c9c9467b61dd443c537"
+        "byte_count": 498874,
+        "sha256": "sha256:93e80e9c74c9dd5c74f606aa1a0e3bcfb16f3911dc857b7a3ea89bd762badef0"
       },
       "docs/evidence.html": {
-        "byte_count": 26863,
-        "sha256": "sha256:76e2bc2a99ebb8a1145ef8211e69858345e002cb7608dcb89420ce28c822119e"
+        "byte_count": 26088,
+        "sha256": "sha256:f87f5a0b76bc888b6989e909dd8dd7359c52cb9e935b6afa3e52804d625f0f63"
       },
       "docs/field-guide.html": {
-        "byte_count": 6410,
-        "sha256": "sha256:f5954c13c4c31d22c7c58f01c70c27a3ea6d0e4750622394bf3dd6ac8024557b"
+        "byte_count": 6493,
+        "sha256": "sha256:13de037e4d8d5cfbc979ebfbf177bfcd53db7ba899866b8558b7c7ede0dfc8e4"
       },
       "docs/glossary.html": {
-        "byte_count": 483168,
-        "sha256": "sha256:f141aa5f8a31924a6ecdbbfb80091c32f30279671d31ca209fa417d97289fc98"
+        "byte_count": 483251,
+        "sha256": "sha256:b1b9a5b3dc67a2cee9b9c2f9f2af5f8a05ee68f3373696efd6c2e41f810841a2"
       },
       "docs/index.html": {
-        "byte_count": 10975,
-        "sha256": "sha256:63cd97d85967055ec9647ff8f01985e68b567c592f9d6ef4e30edffdbaacece2"
+        "byte_count": 11058,
+        "sha256": "sha256:fb563cb2d39f84e4c886c020b63c07643936b3bd75ab4f12ee8ce006d37a1c02"
       },
       "docs/lineage.html": {
-        "byte_count": 14343,
-        "sha256": "sha256:6b16586e4c2e85166f18c78e84f4fd875221eb77fc8cbb1f0515ab42e840a4fe"
+        "byte_count": 14429,
+        "sha256": "sha256:cc2b9034e7037c72adbea93076bed2db06b698042bff8ab2bc8898cc1296d501"
       },
       "docs/open-questions.html": {
-        "byte_count": 79670,
-        "sha256": "sha256:b7ccbc6ecc596c14eafb5728db6910c650af910b471032b4fbbcb27f286f6367"
+        "byte_count": 79753,
+        "sha256": "sha256:a88cdb1bb13ace52506b2666ed1342c6020bee6b565c599e417931434b5b5990"
+      },
+      "docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html": {
+        "byte_count": 42548,
+        "sha256": "sha256:23173478c3bc0dd0b9f304d6bf14a474c1f6d34e41d121e3633cbb8160eb45d5"
+      },
+      "docs/paper-module-agent-closeout-faithfulness-audit.html": {
+        "byte_count": 38264,
+        "sha256": "sha256:0ea4d648337a1d8de39f9f8aec5657cc3e2da0b6ae407c6536d29f44c8bde4fa"
+      },
+      "docs/paper-module-agent-memory-temporal-conflict-replay.html": {
+        "byte_count": 43463,
+        "sha256": "sha256:383e1c1eba8d5c2f2608ebe04dcad0ea2e5af18a0bed163af2011c76d6277fbc"
+      },
+      "docs/paper-module-agent-monitor-redteam-falsification-replay.html": {
+        "byte_count": 36151,
+        "sha256": "sha256:3c6fb33569106dd56ce4b497c72e464ccd54d24b5688165fa3ad6ef3e49e0e35"
+      },
+      "docs/paper-module-agent-route-observability-runtime.html": {
+        "byte_count": 43409,
+        "sha256": "sha256:a0906557fa683fe0097245901446c9f28ef29466da0e66626997657836b68565"
+      },
+      "docs/paper-module-agent-sabotage-scheming-monitor-replay.html": {
+        "byte_count": 33082,
+        "sha256": "sha256:0b25b76e6938335699a43f0c312a5153cd30e3d5d449bb874059127f8283d805"
+      },
+      "docs/paper-module-agent-sandbox-policy-escape-replay.html": {
+        "byte_count": 36613,
+        "sha256": "sha256:23028d0bb918ceebd5bf80dab641ade47f5062e8b8d92f7c42949dca6e1bc001"
+      },
+      "docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html": {
+        "byte_count": 41615,
+        "sha256": "sha256:8ab50cd6d729f56e88b86c9c916753455c4e20c7a7126e00ffeb8c62d6b55565"
+      },
+      "docs/paper-module-batch10-cold-eval-honesty-capsule.html": {
+        "byte_count": 21751,
+        "sha256": "sha256:c41a080e4fc57b630011d98a3c49d8a5224ca95e422e7e3cdcab25a7e597d805"
+      },
+      "docs/paper-module-batch10-governance-compilers-capsule.html": {
+        "byte_count": 37657,
+        "sha256": "sha256:d2a965483ce2d08b8ae7878d94d6feb0c27508707f3c20526bfe8b92778c40b9"
+      },
+      "docs/paper-module-batch10-live-source-drift-capsule.html": {
+        "byte_count": 21930,
+        "sha256": "sha256:9521249c0a8a08468a82271012f29881f08b2e3a88219d1f37800cbee4f2554e"
+      },
+      "docs/paper-module-batch11-saturation-engines-capsule.html": {
+        "byte_count": 36334,
+        "sha256": "sha256:ee05c0c7c698d2eb561c28882f564041d2bba0ae76d7cc842114b35693e4ff18"
+      },
+      "docs/paper-module-batch12-market-dashboard-read-model-capsule.html": {
+        "byte_count": 27116,
+        "sha256": "sha256:12ff5ac49fb0db5f4e004671fbf4c2b55f11aa59efb37bd51ba6d44c04111f0c"
+      },
+      "docs/paper-module-batch12-prediction-market-board-capsule.html": {
+        "byte_count": 28835,
+        "sha256": "sha256:ef9f58c7d2716d1a020fd54a049a1537556299328875cbeaf6eeacecfa84993f"
+      },
+      "docs/paper-module-batch12-release-claim-language-gate.html": {
+        "byte_count": 38583,
+        "sha256": "sha256:aa10487de2670d632d4fcc81038a7ad012c9fc3fd98fd014570b826fc8fe8ad4"
+      },
+      "docs/paper-module-batch4-proof-authority-runtime.html": {
+        "byte_count": 35470,
+        "sha256": "sha256:24dd1fc1303c95d628c0858a678635fddd675881c2b09ac0a9bdacf97cdd021e"
+      },
+      "docs/paper-module-batch5-authority-systems-capsule.html": {
+        "byte_count": 33510,
+        "sha256": "sha256:6756dc5316652eae11f039ef9a815e592790c225b5ebd198cd35a956da285cf6"
+      },
+      "docs/paper-module-batch6-unsurfaced-primitives-capsule.html": {
+        "byte_count": 39883,
+        "sha256": "sha256:5a1c93e6568f9a564e30029610790d26b3d1e2d7d990cc80b9047b5a7b66e068"
+      },
+      "docs/paper-module-batch7-demo-take-console-capsule.html": {
+        "byte_count": 27685,
+        "sha256": "sha256:bcebd07bcdd28a8deb3e50023b89b4c12557fa015d28d059106b916023176d0c"
+      },
+      "docs/paper-module-batch7-macro-engines-capsule.html": {
+        "byte_count": 29365,
+        "sha256": "sha256:fe5955360cb3ac49144a6f1d86d279d2015dda86b7ab7e752b8e2879a8da04dc"
+      },
+      "docs/paper-module-batch7-oracle-sibling-capsule.html": {
+        "byte_count": 37927,
+        "sha256": "sha256:a14f7b25ec666ccfda44312814c462d72b06f6e2feef6d3adce54da155321e93"
+      },
+      "docs/paper-module-batch7-secondary-runtime-capsule.html": {
+        "byte_count": 28304,
+        "sha256": "sha256:e1c6f0a2dfee00234014d34251b5fe6096a1d9a4ad5040384f2c4e03f0243c04"
+      },
+      "docs/paper-module-batch8-audio-level-rms-port.html": {
+        "byte_count": 29661,
+        "sha256": "sha256:056a00274e5ab22bd29c4b21294ac5906d702373c8c62a7e793c8893d6c9eee2"
+      },
+      "docs/paper-module-batch8-compliance-pipeline-capsule.html": {
+        "byte_count": 30927,
+        "sha256": "sha256:5b11ac3fc9bda3b84244ddf2531833eb69e2a4d1dd13cdeb723be9396f9bf577"
+      },
+      "docs/paper-module-batch8-policy-engines-capsule.html": {
+        "byte_count": 29294,
+        "sha256": "sha256:d541753011bb8720a54ba9cfd2feec75e708f84d94d5dd65298abcfb466a8e52"
+      },
+      "docs/paper-module-batch8-structural-theses-capsule.html": {
+        "byte_count": 35354,
+        "sha256": "sha256:bef876a34805efd5123a20994350d00f94f325e212ccf05e06d9ae49624be3c4"
+      },
+      "docs/paper-module-batch8-tools-tail-primitives-capsule.html": {
+        "byte_count": 33172,
+        "sha256": "sha256:21a78999dedd684a66ba56b99ab7a7eeee7264dca5f2ec1b312a157f8f2faaf8"
+      },
+      "docs/paper-module-batch8-validator-checker-capsule.html": {
+        "byte_count": 27628,
+        "sha256": "sha256:f38f80bb86c331bf9e9e5034c30640ec445f29165eb3109de539e4283a5fc30d"
+      },
+      "docs/paper-module-batch9-macro-engines-capsule.html": {
+        "byte_count": 35863,
+        "sha256": "sha256:97f1d072607cbee7435c370faebca709350661534df267683e283771fedd02c6"
+      },
+      "docs/paper-module-belief-state-process-reward-replay.html": {
+        "byte_count": 38327,
+        "sha256": "sha256:b6d384c7c5700c99f2a925f58da3958231f667095db20be65ff1d0cfeafc28c1"
+      },
+      "docs/paper-module-bounded-autonomy-campaign-packet.html": {
+        "byte_count": 27175,
+        "sha256": "sha256:d0d505884bb969e476bb61ff75ab0180bc3676f5a0f3c76563eee0138d9bf381"
+      },
+      "docs/paper-module-bridge-phase-continuity-runtime.html": {
+        "byte_count": 35848,
+        "sha256": "sha256:9959722da42c951bedda1da40f689853aeef5ad7efd553bd2e4e40c664385451"
+      },
+      "docs/paper-module-certificate-kernel-execution-lab.html": {
+        "byte_count": 40565,
+        "sha256": "sha256:509337f2a6f221cce91f9a9d910bfc6190a6ce49f81a5779540f58a04194748d"
+      },
+      "docs/paper-module-cognitive-operator-registry.html": {
+        "byte_count": 28875,
+        "sha256": "sha256:975293dfd5bbac104cfe79b83206f49c3369f367d02a24802b049c9a5fa3677f"
+      },
+      "docs/paper-module-cold-clone-probe.html": {
+        "byte_count": 31099,
+        "sha256": "sha256:0bd14f1ea507b48102d4c8c101b469dc2ee6b791d20d536cece74566fe824923"
+      },
+      "docs/paper-module-cold-reader-route-map.html": {
+        "byte_count": 30077,
+        "sha256": "sha256:286e2edc4a824b4c61decb31fe015099f85fbf973bd84ae424cf56e54093c12a"
+      },
+      "docs/paper-module-computer-use-action-trace-replay.html": {
+        "byte_count": 34677,
+        "sha256": "sha256:f92456d22146e7531b7133aae9dd263ab17a8ad2b80f1fa63d9c52b9c62b19df"
+      },
+      "docs/paper-module-concurrency-mission-control.html": {
+        "byte_count": 31020,
+        "sha256": "sha256:dfdb323e85dee8085086fa9fc5d4032c40b3c496c9e4182438cbea1c77ec928d"
+      },
+      "docs/paper-module-corpus-readiness-mathlib-absence-gate.html": {
+        "byte_count": 38481,
+        "sha256": "sha256:f2b37d03f3b823eb317f7e8c82dbe6fe0902e2e075f8a45b7ec3c82e94de2fc5"
+      },
+      "docs/paper-module-doctrine-fact-claim-audit.html": {
+        "byte_count": 38236,
+        "sha256": "sha256:09eead6e442e7cda1d4d236411ccb532fd7369a49d95f666ca6e7dc91f4ab14a"
+      },
+      "docs/paper-module-durable-agent-work-landing-replay.html": {
+        "byte_count": 29227,
+        "sha256": "sha256:dfb2b1eef43ceb79e3a5fc3f67355488fb471951b1014a690f91b3d1057cc164"
+      },
+      "docs/paper-module-engine-room-annex-knowledge-router.html": {
+        "byte_count": 35094,
+        "sha256": "sha256:559cecab94500707d20e0729a5b9cb29dce22664f8a4c9af71276fb61f9a7559"
+      },
+      "docs/paper-module-engine-room-bridge-campaign-dag.html": {
+        "byte_count": 29312,
+        "sha256": "sha256:eaa87bb5de788e748ed78b1df91e2707e752e2cfd36ce89f0f90cfddd94faa20"
+      },
+      "docs/paper-module-engine-room-command-run-singleflight.html": {
+        "byte_count": 32372,
+        "sha256": "sha256:23b13d51f899b415c8707baff617a5b7f6721b3aeca016b7f702df17c1e56dbb"
+      },
+      "docs/paper-module-engine-room-demo.html": {
+        "byte_count": 27652,
+        "sha256": "sha256:b1b3764f38fdbe98185eccd6b6d08d9b64947d24d617840002e1ca7b80f2f4de"
+      },
+      "docs/paper-module-engine-room-derived-fact-provider-engine.html": {
+        "byte_count": 26780,
+        "sha256": "sha256:eeaefa09bd289066ca043ab0bbb27f1af3f640b94c3cb2b193c62f72cf47f7d5"
+      },
+      "docs/paper-module-engine-room-egress-self-compliance-gate.html": {
+        "byte_count": 35609,
+        "sha256": "sha256:cb401ecaf0b03319eebe2a43392a08b984de6d96cd07063a1b0cccd8b2aa1ef2"
+      },
+      "docs/paper-module-engine-room-generated-projection-drift-gate.html": {
+        "byte_count": 23007,
+        "sha256": "sha256:a199d4a9b5cbee9234702335869127fd91fdaf415013a0df4883aa7f188953c0"
+      },
+      "docs/paper-module-engine-room-lean-proof-search-lab.html": {
+        "byte_count": 23368,
+        "sha256": "sha256:9624d8122c7988b25359d40eaae47536e326faa9ff4cde387c219db7d239afa3"
+      },
+      "docs/paper-module-engine-room-metabolism-runtime.html": {
+        "byte_count": 25742,
+        "sha256": "sha256:e4cb7b415b46da45e250592d598046c96123e93c2d4650619eafa7e9987c6136"
+      },
+      "docs/paper-module-engine-room-navigation-fitness-benchmark.html": {
+        "byte_count": 27649,
+        "sha256": "sha256:7dd25beea3f532ee916b1ed5003505394324174fe61eff9e0ff19a9f0ab773fe"
+      },
+      "docs/paper-module-engine-room-public-projection-leak-gate.html": {
+        "byte_count": 30348,
+        "sha256": "sha256:8d969d23d42600b628208b7691d03510f7bc5509ecc585ea4daca11091bcfd96"
+      },
+      "docs/paper-module-executable-doctrine-grammar.html": {
+        "byte_count": 26611,
+        "sha256": "sha256:83719656cb364e8ccf8079d5bafc68de323fe4cba9c8b8b085341e8aa65ae4a0"
+      },
+      "docs/paper-module-finance-forecast-evaluation-spine.html": {
+        "byte_count": 31741,
+        "sha256": "sha256:0c0a55d4673b491626317e6605d358f978a40e8b7918c0a840b5f1dba107fc58"
+      },
+      "docs/paper-module-first-screen-composition-root.html": {
+        "byte_count": 34063,
+        "sha256": "sha256:070a7745f1f8a9ea5257fe3df4f3c91fcb07a160c0402d8479c2dd382b90e493"
+      },
+      "docs/paper-module-formal-evidence-cell-anchor-resolver.html": {
+        "byte_count": 36119,
+        "sha256": "sha256:7a32e08837fcdfeb25f112ab897051b9bcfbb8c3c6084699f2185e2ad6a90cb8"
+      },
+      "docs/paper-module-formal-math-lean-proof-witness.html": {
+        "byte_count": 30607,
+        "sha256": "sha256:e87d91df7862289830c49a7e96ec63304c630228af59e92753e85e70e7e31312"
+      },
+      "docs/paper-module-formal-math-premise-retrieval.html": {
+        "byte_count": 32314,
+        "sha256": "sha256:381fb115d7f16bfbaed23ff292c79f61eaf4b38ca8de7e77882d6bf5d1f572e3"
+      },
+      "docs/paper-module-formal-math-readiness-gate.html": {
+        "byte_count": 41592,
+        "sha256": "sha256:5259dbc3ce0e6bbcf0770d62f2a7915bbb43ac2fb41ae8fb2d6c4f0f7a6d00ef"
+      },
+      "docs/paper-module-formal-math-verifier-trace-repair-loop.html": {
+        "byte_count": 34425,
+        "sha256": "sha256:58bb14d2a8ff18a0be6b1ef338738170f182167e9b886fa245fee0d51df2f4eb"
+      },
+      "docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html": {
+        "byte_count": 41462,
+        "sha256": "sha256:ca96b6c1a045d08ed6889a2c0bbe71d69871fc50d274f4a19b4e8a4e1f935bd4"
+      },
+      "docs/paper-module-lean-std-premise-index.html": {
+        "byte_count": 28648,
+        "sha256": "sha256:bc225247ee600a7f7bce4fdc2f70ed27d248381de38fc35d72c67fc2a8312996"
+      },
+      "docs/paper-module-macro-projection-import-protocol.html": {
+        "byte_count": 37354,
+        "sha256": "sha256:a99026cfc8dd0b7ff5b68253b30831442509cc9d990be4363b0779f4bdd93324"
+      },
+      "docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html": {
+        "byte_count": 39612,
+        "sha256": "sha256:86c8cb10daa329a66f1a8f1282559c8b11d0f116d4a04b8c675a9aa99fa49ef8"
+      },
+      "docs/paper-module-mathematical-strategy-atlas.html": {
+        "byte_count": 31671,
+        "sha256": "sha256:adf580583be9d7b04e583c1db882602a10415654e3dbf069e224a2e8dd25ae9d"
+      },
+      "docs/paper-module-mcp-tool-authority-replay.html": {
+        "byte_count": 33526,
+        "sha256": "sha256:343660ca39a976796016b1ae2b5a42111ab65ae7d8c98d71298ad3105fbe6737"
+      },
+      "docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html": {
+        "byte_count": 46709,
+        "sha256": "sha256:8a839dce35a63ae81ca1bda77ad7c1972a4bd72a92115cf75f73233e3edd51c8"
+      },
+      "docs/paper-module-microcosm-axiom-substrate.html": {
+        "byte_count": 36816,
+        "sha256": "sha256:38b90f309b5693749f6979d9fd3ed9e29d3e3e564fca5fa4d052f30094422bd6"
+      },
+      "docs/paper-module-mission-transaction-work-spine.html": {
+        "byte_count": 30053,
+        "sha256": "sha256:d33fd8b61eae5464a35f82736668d6d30fbb559c6c3091a8ab23eea35b7bcb1b"
+      },
+      "docs/paper-module-navigation-hologram-route-plane.html": {
+        "byte_count": 36362,
+        "sha256": "sha256:678e8a0284c6a42af63ffd18622d2f6f40495cb88006583ed349f188ba305001"
+      },
+      "docs/paper-module-pattern-assimilation.html": {
+        "byte_count": 34927,
+        "sha256": "sha256:9eb821c25d83997740565ceaeb7c25b684de86308e984a16a58c0ac977107b13"
+      },
+      "docs/paper-module-pattern-binding-contract.html": {
+        "byte_count": 28638,
+        "sha256": "sha256:9de6064a7cd48434707e5c2f209ba50506966fc116b9cc796f62d90c7300fbc8"
+      },
+      "docs/paper-module-prediction-oracle-reconciliation.html": {
+        "byte_count": 38141,
+        "sha256": "sha256:9d845fcfd632d0bfc8a6e42b0475bdd987218f8205b5e2236156ea6bd06e4c64"
+      },
+      "docs/paper-module-proof-derived-governed-mutation-authorization.html": {
+        "byte_count": 38844,
+        "sha256": "sha256:c28b86ccd28ab515be63b6487c0a0a74801950aa14c35c65964468b8fc431be1"
+      },
+      "docs/paper-module-proof-diagnostic-evidence-spine.html": {
+        "byte_count": 33477,
+        "sha256": "sha256:ca3876261fe109098bc0122008a92d94af53c6ec7cb32a643d89acb9d400a40e"
+      },
+      "docs/paper-module-provider-context-recipe-budget.html": {
+        "byte_count": 34250,
+        "sha256": "sha256:ac1f1fcdf86e13afb07266f03c41cd04f3e902a312efeaa32652f2a6dfad8759"
+      },
+      "docs/paper-module-public-reveal-walkthrough.html": {
+        "byte_count": 37560,
+        "sha256": "sha256:6057dad57d05fc732f4b1c861f09da7346a3a4546d16f491a5c791bf0c52c1a9"
+      },
+      "docs/paper-module-research-replication-rubric-artifact-replay.html": {
+        "byte_count": 39765,
+        "sha256": "sha256:faac79ce7621d9ae2bb424f41397b8bd319598184952aa1830f495d079a9b4f5"
+      },
+      "docs/paper-module-ring2-premise-precision-recall.html": {
+        "byte_count": 32506,
+        "sha256": "sha256:44f349d6857e3331fb65509e683c176ab815b1aea926a58ff9732b39519f9882"
+      },
+      "docs/paper-module-routing-anti-patterns-registry.html": {
+        "byte_count": 30649,
+        "sha256": "sha256:4ee6ce49c9491336a3041ce09383dff55ac61a64c21d1c6ae78d9ea400181156"
+      },
+      "docs/paper-module-self-ignorance-coverage-ledger.html": {
+        "byte_count": 40501,
+        "sha256": "sha256:6b546bd8058a657547024a024e62d8fdd685b0eb4225e6d653e82033f1bdb0aa"
+      },
+      "docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html": {
+        "byte_count": 29377,
+        "sha256": "sha256:4b0f7c240d016dc0f595a1277e98a952c026daa55d45c89de9ba4f272f63be40"
+      },
+      "docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html": {
+        "byte_count": 31467,
+        "sha256": "sha256:1295951046715110a0c03b6ab7d4ebb39be36322679101f1a447d014841b9914"
+      },
+      "docs/paper-module-standards-meta-diagnostics.html": {
+        "byte_count": 30179,
+        "sha256": "sha256:34595773dddf51dd533fd556e5e32c326ef72b61b45d9d0a7ab451f5b6160787"
+      },
+      "docs/paper-module-tactic-portfolio-availability.html": {
+        "byte_count": 27762,
+        "sha256": "sha256:8297a2c16395e8930f13760f444bc449c4f18005595fd411e9c10e9dcec1d7e1"
+      },
+      "docs/paper-module-target-shape-tactic-routing.html": {
+        "byte_count": 31045,
+        "sha256": "sha256:3c2f5e5541936cef2ce72729674e42b17a3394a0293c88284cda040bb1bfce3e"
+      },
+      "docs/paper-module-tool-server-pressure-inventory.html": {
+        "byte_count": 31333,
+        "sha256": "sha256:90e6438423c97e526ea1e61a332543164098c974e95fc98262babe6c1fa7cc95"
+      },
+      "docs/paper-module-undeclared-library-prior-classifier.html": {
+        "byte_count": 41821,
+        "sha256": "sha256:82756e7edd82a05bc2c64293c9b9e1af71d8b1991e58f7783617e1fef2a7c9ce"
+      },
+      "docs/paper-module-verifier-lab-execution-spine.html": {
+        "byte_count": 31688,
+        "sha256": "sha256:d964add2d12f6b9e427dad9149d6e3b6f95704002cbf659c2881bda0d1909873"
+      },
+      "docs/paper-module-verifier-lab-kernel.html": {
+        "byte_count": 31112,
+        "sha256": "sha256:2d5c202ddad2b2cff2dba98e5bbd48a4dd4c881f28d36596046e92d01d67cf6e"
+      },
+      "docs/paper-module-voice-to-doctrine-self-improvement-loop.html": {
+        "byte_count": 27132,
+        "sha256": "sha256:4a7709b7a7f95fc29822ef4c86f9185999764c201d25c12c9b2f897a2b1958fb"
+      },
+      "docs/paper-module-work-landing-control-spine.html": {
+        "byte_count": 31253,
+        "sha256": "sha256:86d44d20f2344a5da97c7e9e2597f9f5743144d1c5b70ac41f786805a28e8598"
+      },
+      "docs/paper-module-world-model-projection-drift-control-room.html": {
+        "byte_count": 33317,
+        "sha256": "sha256:1cd59dcf2fc060cebee3ab84ffce15370f9065f288ce595a2449427e059b82dc"
       },
       "docs/paper-modules.html": {
-        "byte_count": 2732490,
-        "sha256": "sha256:244a2b97ef3f56d7a5405241e3213a1bcf948317a5b29580a800e420dd6c7aa2"
+        "byte_count": 568176,
+        "sha256": "sha256:70306236f2ae9e4e036843353655580bc0d04cac7b6da5532d62a8728c30a0e6"
       },
       "docs/quickstart.html": {
-        "byte_count": 8940,
-        "sha256": "sha256:2100cb808dddb2e5391f857aa5ae09ac06fba256292bc8a6d0931f335bee39f0"
+        "byte_count": 9023,
+        "sha256": "sha256:918831545f9a78b466aeb943542fb9daa520e9e90d5f1a1fc8b1b36d17d68aeb"
       },
       "docs/reference.html": {
-        "byte_count": 832616,
-        "sha256": "sha256:d805882ba2b0200913c6565d3661aa6b9eebbf79034198b05252acb11690c6ec"
+        "byte_count": 825167,
+        "sha256": "sha256:c2f3a04c702f5499509da4b569836c32317acdefac24e24c2d50cfc7431f2a7d"
       },
       "docs/rules-and-ideas.html": {
-        "byte_count": 734550,
-        "sha256": "sha256:60b9adee6a9bb18e32ba2d4919cf97371c00ad41c2dfefe2236ab577a9c730f9"
+        "byte_count": 732110,
+        "sha256": "sha256:daf2bd7be76375c8bcb8f655dd443aec64b102c99026c53086b00fb167d7b088"
       },
       "docs/source.html": {
-        "byte_count": 14670,
-        "sha256": "sha256:4c49af162b72f9db82903e546e0c44ca9230822fbd278244704d60081eaf6907"
+        "byte_count": 14753,
+        "sha256": "sha256:f8956b710c93be6b847b974d83fb724bd09e927b81d7c3251511b8ae6fbfedd1"
       },
       "docs/tour.html": {
-        "byte_count": 20645,
-        "sha256": "sha256:2c5d82bfb3f000b93a0ca417b3b68e523435121ac86cc6efa74747d4b5171b57"
+        "byte_count": 20728,
+        "sha256": "sha256:38fb701b5da1c806b8acc1bec912b6d8c862d856670a4a938f8ffb4c9ac820fc"
       },
       "docs/updates.html": {
-        "byte_count": 9715,
-        "sha256": "sha256:31e2ecf8966fce7872ebbec45f56715fb09888306a5fab1dcef5bb4d4f8e7a46"
+        "byte_count": 9798,
+        "sha256": "sha256:e1d28aa4c2d70dab12f04af44cce005da37d0046591ab4d08491cda7a4299ab2"
       },
       "docs/vulnerability-disclosure.html": {
-        "byte_count": 9848,
-        "sha256": "sha256:43aa1f198cb4f82c59020ff2fba40da5ec1c25fcc6fa459e126801cd5a5b0972"
+        "byte_count": 9931,
+        "sha256": "sha256:67297812ad0315728d272f1b586bc8bcc8fda40829ee5e87c8041223dc4aa759"
       },
       "index.html": {
-        "byte_count": 37335,
-        "sha256": "sha256:2a8720b2af971f577a4fe80b9a19bbb603c1a98e9d6c7a210371fe9b07a5aa1e"
+        "byte_count": 37341,
+        "sha256": "sha256:788a4aaeec3803079bb1c5cd473389fcdaea1b7b5ac3f50bbc0b4546c7688572"
       },
       "legacy-route-manifest.json": {
-        "byte_count": 30886,
-        "sha256": "sha256:7dc09894d0af210f79cf7cf8ab095733db99f7663085bed1d2e788fb7457a3ef"
+        "byte_count": 165384,
+        "sha256": "sha256:8bbcd358b1f1c1fe8f0f64fb6bfd4f4fd972a5126802fa78a07c04e1a4d38d99"
       },
       "llms.txt": {
         "byte_count": 5116,
         "sha256": "sha256:f3489a8ebde4260bd60f8ef582cf8a685012bac51f5c656da6cd6d4078c7a7f6"
       },
       "microcosm-ai-reader-complete.json": {
-        "byte_count": 6008575,
-        "sha256": "sha256:e257f01a54a72e1941df4d82d5c87d5332038320b10309d475157159b88c120d"
+        "byte_count": 6928801,
+        "sha256": "sha256:662b0e70f08746b21bc60f6c2b68c9eed3f899770663a799191b53c522880aca"
       },
       "microcosm-ai-reader-digest.json": {
-        "byte_count": 217968,
-        "sha256": "sha256:6f287ddf1b5a2d64ddb4a348cbfbadfe0ef1527fbf62e89951e111af0b33c7c0"
+        "byte_count": 271714,
+        "sha256": "sha256:3515a01bcef027ec4cadebbe2ca258e754e3506e9c2425ffb56c81658f23cfc3"
       },
       "microcosm-ai-review-packet.json": {
-        "byte_count": 10157004,
-        "sha256": "sha256:1148ca226b8d8e56dd6fe2bac7e4764b6b3e536984a5709c121996edc69b7c14"
+        "byte_count": 10797772,
+        "sha256": "sha256:60314c85ba464034a5cf1e67bb5e179a98fb0a6e51d404c5e25eddae37dcee8f"
       },
       "microcosm-legacy/.nojekyll": {
         "byte_count": 0,
@@ -220,44 +904,48 @@
         "sha256": "sha256:73dcfabff17693ba443bd166f1af04d9f13392b78eaaa05e2d320f8515edc55d"
       },
       "microcosm-legacy/assets/ai-orientation-packet.js": {
-        "byte_count": 87598,
-        "sha256": "sha256:ba9e4fbcc5f730a4b9e2dc21cb9e222e342f7f3d01b83e0b4059de3fb1a02e68"
+        "byte_count": 150623,
+        "sha256": "sha256:a1e974f408c29ec3cf0e5bdc0e15fe1412754aaccc185f31804120f5990823c9"
       },
       "microcosm-legacy/assets/ai-reader-digest-packet.js": {
-        "byte_count": 234219,
-        "sha256": "sha256:394307784771124f392a074a636b63432545424573cf4f3a8732b90b7260ccca"
+        "byte_count": 293108,
+        "sha256": "sha256:dacc5638e1aeb3264347d10fcbb9745a2edd0499799e5642821568e2dbc885fb"
       },
       "microcosm-legacy/assets/ai-review-packet.js": {
-        "byte_count": 10695731,
-        "sha256": "sha256:7f9a58219c69fabb65b7524cfd9f7b45e038ac592d84bd4dfa064d2049fa2393"
+        "byte_count": 11441893,
+        "sha256": "sha256:192ca74d6e1a5f0561abba58ac4234c0d14e20d20a3cbd886256bf77acc0b5c9"
       },
       "microcosm-legacy/assets/docs.js": {
-        "byte_count": 178778,
-        "sha256": "sha256:d255905dd3909db6acbf878328f52d2792e31ac6306c74f20b4b08880f48985c"
+        "byte_count": 182068,
+        "sha256": "sha256:858981b228fc495f1391e38439b061f42bc19f59cce5b5b2f42e0c1892c696dc"
+      },
+      "microcosm-legacy/assets/fragment-open.js": {
+        "byte_count": 1817,
+        "sha256": "sha256:4b9558a2603bb45e0d59c4f38b959bdc170dad3cbec4b4b8dbde407ef482f601"
       },
       "microcosm-legacy/assets/object-map.js": {
-        "byte_count": 5116027,
-        "sha256": "sha256:a8f55b6c710ec016aa3f55bc88470c567f412843e78d72519a7fc8415ee0217a"
+        "byte_count": 5068457,
+        "sha256": "sha256:ea8ba0000c875e92cc75f4177e9fda5e25aef88b2b0e93058bee0729deeb4ad4"
       },
       "microcosm-legacy/assets/search-index.js": {
-        "byte_count": 803311,
-        "sha256": "sha256:ffff889f7348ade0875ebc59452aced8602b4aab617a1b1121243951a748e019"
+        "byte_count": 801391,
+        "sha256": "sha256:b5554b2ca2c70d1f4136711f9aadd71d3fdbf78db14d5c49ec6f99b2877dafbf"
       },
       "microcosm-legacy/assets/site-packet.js": {
-        "byte_count": 9153804,
-        "sha256": "sha256:2eec003023cf448ccc74307b351c67e524e6958129ba1691da518b8ef5e3053c"
+        "byte_count": 9483424,
+        "sha256": "sha256:37921a6b8ece378f88b0128084c60c4436ed669c330dac5a6856140d72f62427"
       },
       "microcosm-legacy/assets/style.css": {
         "byte_count": 153936,
         "sha256": "sha256:9cc6222892c9492d76d88ab1626c6d97b32da71bfaa0448d52b9ff57402aa362"
       },
       "microcosm-legacy/content-graph.json": {
-        "byte_count": 10353023,
-        "sha256": "sha256:160755f31c45e014491ff228fb569cc42fb62707cb8293673c62a004c1f19cba"
+        "byte_count": 10418111,
+        "sha256": "sha256:04ddba3e769262fdc3652f8ac3f66b0a81a836584054c2dd78e79610c7ea6f87"
       },
       "microcosm-legacy/content-manifest.json": {
-        "byte_count": 181027,
-        "sha256": "sha256:f8a3d0edc71d075d0fda86b89a442c27f896caa494fe0184bc1b8c7bb4da7771"
+        "byte_count": 276929,
+        "sha256": "sha256:1fa7e914fd6d7659330729fa0caef6b721b4a2c8be235d5214bb959ba189e2a6"
       },
       "microcosm-legacy/docs/architecture.html": {
         "byte_count": 1467,
@@ -295,6 +983,318 @@
         "byte_count": 1471,
         "sha256": "sha256:7cd08ce023165173a5f2a87c01c12916228a10f065669d742c5d2237c7565a93"
       },
+      "microcosm-legacy/docs/component-agent-benchmark-integrity-anti-gaming-replay.html": {
+        "byte_count": 1635,
+        "sha256": "sha256:57a73d12de544524eb759637f2875c6f755de93822fdc736e64606a9311e1f45"
+      },
+      "microcosm-legacy/docs/component-agent-closeout-faithfulness-audit.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:fb0697710ee13766db9034a23157c6866db7a29139bf5af24d31620e5e760755"
+      },
+      "microcosm-legacy/docs/component-agent-memory-temporal-conflict-replay.html": {
+        "byte_count": 1607,
+        "sha256": "sha256:e45c11298ecd2a7d5a52d70b4d49072764d44ceb076cac77004560fd65b5d4bd"
+      },
+      "microcosm-legacy/docs/component-agent-monitor-redteam-falsification-replay.html": {
+        "byte_count": 1627,
+        "sha256": "sha256:4e5cd81d34757f1ad461413ce3419f56e409dc522777ee178d9256dc339158cb"
+      },
+      "microcosm-legacy/docs/component-agent-route-observability-runtime.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:cb7b3e91aedb135f9ac1cbff28a5df844d73f91fa895f0cd53f0a1c3dfa07722"
+      },
+      "microcosm-legacy/docs/component-agent-sabotage-scheming-monitor-replay.html": {
+        "byte_count": 1611,
+        "sha256": "sha256:f16200748073cd940d76cd140e9b71faf2d5a9687b8a03b98fdc20c25de7b494"
+      },
+      "microcosm-legacy/docs/component-agent-sandbox-policy-escape-replay.html": {
+        "byte_count": 1595,
+        "sha256": "sha256:93be79cec1a026f4c0c4df63ebe61b4b62f09545312aef9d51fb138779eec7c2"
+      },
+      "microcosm-legacy/docs/component-agentic-vulnerability-discovery-patch-proof-replay.html": {
+        "byte_count": 1659,
+        "sha256": "sha256:1088cf3aaad19cb6487e2c79d9190c9a4b034871d2ab997b1ea12b1a5cfa4ffb"
+      },
+      "microcosm-legacy/docs/component-batch10-cold-eval-honesty-capsule.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:44b1b89ce52b47e4cceddf143b4ab90629a3819270f773a848547d7a5c6ac705"
+      },
+      "microcosm-legacy/docs/component-batch10-governance-compilers-capsule.html": {
+        "byte_count": 1603,
+        "sha256": "sha256:38afdb3cd2d3569174bfa180e5ac9ada5921532d0e586cfaf0deae156d3d109a"
+      },
+      "microcosm-legacy/docs/component-batch10-live-source-drift-capsule.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:dd3e4469b0457b123d26450045eb3b437b4fac9be62284eb567201be18dff7bd"
+      },
+      "microcosm-legacy/docs/component-batch11-saturation-engines-capsule.html": {
+        "byte_count": 1595,
+        "sha256": "sha256:340911c61001fbc1ee5c7a5fe9b2022966a29f67c528853769513c964b59e736"
+      },
+      "microcosm-legacy/docs/component-batch12-market-dashboard-read-model-capsule.html": {
+        "byte_count": 1631,
+        "sha256": "sha256:352d27b2c136b9122bc1ee53e2b445889a4c7eeef795ee53940de3d055f31d56"
+      },
+      "microcosm-legacy/docs/component-batch12-prediction-market-board-capsule.html": {
+        "byte_count": 1615,
+        "sha256": "sha256:86aeaece6c41ba1df5dfa5939281020b00ce3cebc47c137ac2256ba2d90da9ca"
+      },
+      "microcosm-legacy/docs/component-batch12-release-claim-language-gate.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:6199dddcd3d6bb2eda3a39fc9e4c6ff7d669ba09725fb4e4292be3b8f7680ba0"
+      },
+      "microcosm-legacy/docs/component-batch4-proof-authority-runtime.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:c584784829e582b68f9b8c5d50bea3bc4c637f9bae720a673107d6b93fe7c84e"
+      },
+      "microcosm-legacy/docs/component-batch5-authority-systems-capsule.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:29536a7863d3b8ff4a4fbbbded2d91a9bc6a9dfe99f873e30bb614810812c0ff"
+      },
+      "microcosm-legacy/docs/component-batch6-unsurfaced-primitives-capsule.html": {
+        "byte_count": 1603,
+        "sha256": "sha256:c0e6dd936738a2bc29f6b30504f718fb41d86950d8a962c08e5032e0ca0a9880"
+      },
+      "microcosm-legacy/docs/component-batch7-demo-take-console-capsule.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:121fea988db498c00eaf583403db83a2e580f25c08e700d6c6e9d1b9f2eeb2e1"
+      },
+      "microcosm-legacy/docs/component-batch7-macro-engines-capsule.html": {
+        "byte_count": 1571,
+        "sha256": "sha256:53c90514d762383d73a72a62a73cbe563d121b852625b3b73e24e8978ed5edb0"
+      },
+      "microcosm-legacy/docs/component-batch7-oracle-sibling-capsule.html": {
+        "byte_count": 1575,
+        "sha256": "sha256:ee0f994b610c2bc7d4c105653a2f4ebad31518e91dabe9cf51e472b4a2e4b09a"
+      },
+      "microcosm-legacy/docs/component-batch7-secondary-runtime-capsule.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:9d499e6b35317bbd24f4e7d20cbd794ef606d8cee307a074432118e482c9cdf8"
+      },
+      "microcosm-legacy/docs/component-batch8-audio-level-rms-port.html": {
+        "byte_count": 1567,
+        "sha256": "sha256:2bd25473f433e731a9e30a7c9ac45e49c9f5f39f659befb212148c8d3425befa"
+      },
+      "microcosm-legacy/docs/component-batch8-compliance-pipeline-capsule.html": {
+        "byte_count": 1595,
+        "sha256": "sha256:1f224265770afab589a60e6e58cad2282486bab8326e76a3a60cc4db350c18b1"
+      },
+      "microcosm-legacy/docs/component-batch8-policy-engines-capsule.html": {
+        "byte_count": 1575,
+        "sha256": "sha256:9d1836fc796a4edef5a0a03507b0a6d27a8406e82d56344c7641e60f50a97e8e"
+      },
+      "microcosm-legacy/docs/component-batch8-structural-theses-capsule.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:55e80242366b8bbb61aa57a28d3a8b38d822de3a8393521256ce1817c53234b0"
+      },
+      "microcosm-legacy/docs/component-batch8-tools-tail-primitives-capsule.html": {
+        "byte_count": 1603,
+        "sha256": "sha256:472079618af7ae926abab6249c7b2d633b00ede121053ee7bcb789af8c7c511e"
+      },
+      "microcosm-legacy/docs/component-batch8-validator-checker-capsule.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:10e73d01a947796625a6d5951b55c9a6d89076f88d95375f2fbda606ebc7fee0"
+      },
+      "microcosm-legacy/docs/component-batch9-macro-engines-capsule.html": {
+        "byte_count": 1571,
+        "sha256": "sha256:3fec8d149c3c931cedf743153146939a73611a48e5fecd8900463b087fe94e7c"
+      },
+      "microcosm-legacy/docs/component-belief-state-process-reward-replay.html": {
+        "byte_count": 1595,
+        "sha256": "sha256:d3c96dbc58e630830b0ebebf08aa87ea8d30081617965b2d533d6ea787e130ef"
+      },
+      "microcosm-legacy/docs/component-bounded-autonomy-campaign-packet.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:10af2cd08048c97303c94b52b2a092d542a70d78c42610a4ae1a66329396142a"
+      },
+      "microcosm-legacy/docs/component-bridge-phase-continuity-runtime.html": {
+        "byte_count": 1583,
+        "sha256": "sha256:b631cb81a5562ae463215e6fe97301c8751173f7fcfce38865d22c0827b88046"
+      },
+      "microcosm-legacy/docs/component-certificate-kernel-execution-lab.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:cbe619f47a40078991db539b85ed17cbc60556c6479fc6491655b2ad149df99c"
+      },
+      "microcosm-legacy/docs/component-cognitive-operator-registry.html": {
+        "byte_count": 1567,
+        "sha256": "sha256:2fad79ac449c16599f00ac2a986cc342e56428b76650d5fd0cf032b217d03401"
+      },
+      "microcosm-legacy/docs/component-cold-reader-route-map.html": {
+        "byte_count": 1543,
+        "sha256": "sha256:523ff2c70d03c08895a54f2307b1a18f4648bef927d48c1063349089725a0699"
+      },
+      "microcosm-legacy/docs/component-concurrency-mission-control.html": {
+        "byte_count": 1567,
+        "sha256": "sha256:fdeb06de35cd5367d52dcb64bf171eb2c775b3c40bbc23a3e66a03e4898dd4e9"
+      },
+      "microcosm-legacy/docs/component-corpus-readiness-mathlib-absence-gate.html": {
+        "byte_count": 1607,
+        "sha256": "sha256:b03f9f5949a169d456e5e3d2af290dc9ed1d219a64637cbf433cfd848d0057b4"
+      },
+      "microcosm-legacy/docs/component-doctrine-fact-claim-audit.html": {
+        "byte_count": 1559,
+        "sha256": "sha256:acb55c4cae505a20114168c8a2511d454462c043f02b9fafa1914a65660f131b"
+      },
+      "microcosm-legacy/docs/component-durable-agent-work-landing-replay.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:c7fa6644dfd515af67c7912eaad209feedf9a20a5bc25eec70b7282710daa258"
+      },
+      "microcosm-legacy/docs/component-engine-room-demo.html": {
+        "byte_count": 1523,
+        "sha256": "sha256:e40d52ccbeb0fc4ceb140a1f2bde396de0aa1361acaecc6497e326092d494107"
+      },
+      "microcosm-legacy/docs/component-executable-doctrine-grammar.html": {
+        "byte_count": 1567,
+        "sha256": "sha256:424f20dd217926f2c5053ac0de0ed6495aad61dd99006e2ab0cd681773163488"
+      },
+      "microcosm-legacy/docs/component-finance-forecast-evaluation-spine.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:70cba469fbad4f58360986a8d66e22b26da1d66d40d5c582be8d18a8a688eebc"
+      },
+      "microcosm-legacy/docs/component-formal-evidence-cell-anchor-resolver.html": {
+        "byte_count": 1603,
+        "sha256": "sha256:24b456acb9a95d33a6dfc44fafb85fc5f1a118b90376fb2fc408a56be825557c"
+      },
+      "microcosm-legacy/docs/component-formal-math-lean-proof-witness.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:90e9d991871d252e246f23fa2640e922bdfcd0e939224bceccf4ed624b209d50"
+      },
+      "microcosm-legacy/docs/component-formal-math-premise-retrieval.html": {
+        "byte_count": 1575,
+        "sha256": "sha256:9f37a9c88d2dda5d2fea918a63c0ba12e5faf1bb470ff42e9d12403db581f5e8"
+      },
+      "microcosm-legacy/docs/component-formal-math-readiness-gate.html": {
+        "byte_count": 1563,
+        "sha256": "sha256:3e4a186a835b631b06a85e39f2013f9693a53b7f5c863bdedd3f21175f8553f6"
+      },
+      "microcosm-legacy/docs/component-formal-math-verifier-trace-repair-loop.html": {
+        "byte_count": 1611,
+        "sha256": "sha256:8dabfc4c8ce7d06dfa5a5548405b891d1223864089e30b975a5363b068b778e6"
+      },
+      "microcosm-legacy/docs/component-indirect-prompt-injection-information-flow-policy-replay.html": {
+        "byte_count": 1683,
+        "sha256": "sha256:92b2063a910c166a7e5d03df759e3f24a41f97ab4ca5cc4f154f8c612bc7b888"
+      },
+      "microcosm-legacy/docs/component-lean-std-premise-index.html": {
+        "byte_count": 1547,
+        "sha256": "sha256:8df702d1069691206688e1a82a767d4d7a625e6141ba43bcb10a39711c096be5"
+      },
+      "microcosm-legacy/docs/component-macro-projection-import-protocol.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:fd91d0c6f944d0d6a24018ae0ab6490c048cd4b7d2e751f0366ac45fcd262b7f"
+      },
+      "microcosm-legacy/docs/component-materials-chemistry-closed-loop-lab-safety-replay.html": {
+        "byte_count": 1655,
+        "sha256": "sha256:ffbf94b81f1c100f1c1e48c65355c73a3bcd53039c8b5da4838b75f5272c67be"
+      },
+      "microcosm-legacy/docs/component-mathematical-strategy-atlas-hypothesis-scorer.html": {
+        "byte_count": 1639,
+        "sha256": "sha256:ecfedbb6797aff2c01b95dbd362ea804ed87a2b381aa6c6f74eb4fcab2189965"
+      },
+      "microcosm-legacy/docs/component-mcp-tool-authority-replay.html": {
+        "byte_count": 1559,
+        "sha256": "sha256:c2efbfe6330229c3fa0ed8d9f2212acf058a48ce88700ff5e49d0436c69f1ecc"
+      },
+      "microcosm-legacy/docs/component-mechanistic-interpretability-circuit-attribution-replay.html": {
+        "byte_count": 1679,
+        "sha256": "sha256:912424a5faab83102af8272327fdbee1597b12f388bf408f1d61c4a89bbbefc0"
+      },
+      "microcosm-legacy/docs/component-mission-transaction-work-spine.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:fbffeb17d41177ac30d9ca6f2ab57818fc4e260937edece55e2647fbe5dfde3b"
+      },
+      "microcosm-legacy/docs/component-navigation-hologram-route-plane.html": {
+        "byte_count": 1583,
+        "sha256": "sha256:0c1fc8d30b11a8792aac6f2aac09ce1d09433003731708b7e01898d9442ddb7e"
+      },
+      "microcosm-legacy/docs/component-pattern-assimilation-step.html": {
+        "byte_count": 1559,
+        "sha256": "sha256:c7206e1a33edd94298ccd97694a654d4564307af46ca844f35f5a89e04b00b1a"
+      },
+      "microcosm-legacy/docs/component-pattern-binding-contract.html": {
+        "byte_count": 1555,
+        "sha256": "sha256:141d3900d67a02afa1db86b0894a4390c69e6fca1afbf3c0e017fc9f91ae39c6"
+      },
+      "microcosm-legacy/docs/component-prediction-oracle-reconciliation.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:01369aa9a16bab3a614f829b4369d006269b97fcfb38196ec7ecbe0a5fcd55e4"
+      },
+      "microcosm-legacy/docs/component-proof-derived-governed-mutation-authorization.html": {
+        "byte_count": 1639,
+        "sha256": "sha256:e8c612cbb50d3da8427abf5f6a17e4fb98cc452e2907313c0a51a5be922432a8"
+      },
+      "microcosm-legacy/docs/component-proof-diagnostic-evidence-spine.html": {
+        "byte_count": 1583,
+        "sha256": "sha256:2c436c449c0758edf02a8414edef33227f45910ec75800005a2ef63312583523"
+      },
+      "microcosm-legacy/docs/component-provider-context-recipe-budget-policy.html": {
+        "byte_count": 1607,
+        "sha256": "sha256:8d3a769173c57abf9508c198e762869cdf7cae2cfd017f671d36a247b19a0428"
+      },
+      "microcosm-legacy/docs/component-public-reveal-walkthrough.html": {
+        "byte_count": 1559,
+        "sha256": "sha256:a1db1e8981515ee2a79bda190df248e211c2e4c821984d965aa6827a3388b458"
+      },
+      "microcosm-legacy/docs/component-research-replication-rubric-artifact-replay.html": {
+        "byte_count": 1631,
+        "sha256": "sha256:cb3546dbf143f5263de7b46d9815db2b87ae01f162868cdde7bbeebef8d9482a"
+      },
+      "microcosm-legacy/docs/component-ring2-premise-retrieval-precision-recall-harness.html": {
+        "byte_count": 1651,
+        "sha256": "sha256:a3422abbfd5faf0c9ea58d7c09ebc8a8bf6d104521c4df09c95239c4f0627ab4"
+      },
+      "microcosm-legacy/docs/component-routing-anti-patterns-registry.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:614b4cd6d82b653c432b2b5c32184e4f6826ec49e2937bb4e52e2cf19b9866e3"
+      },
+      "microcosm-legacy/docs/component-self-ignorance-coverage-ledger.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:ba0d875b8019b2ec10f20f3b92afaa617b50be92f6ef5b18698bf4c6bec3043c"
+      },
+      "microcosm-legacy/docs/component-sleeper-memory-poisoning-quarantine-replay.html": {
+        "byte_count": 1627,
+        "sha256": "sha256:c02bba808783e8e52968e10f7c0e3725e85855b59d27e199fb083da706fd9e74"
+      },
+      "microcosm-legacy/docs/component-spatial-world-model-counterfactual-simulation-replay.html": {
+        "byte_count": 1667,
+        "sha256": "sha256:2c922c9ad5b03a10e08c7eab78a57d1caa9859f065b78eda98ee2b47d8cb6180"
+      },
+      "microcosm-legacy/docs/component-standards-meta-diagnostics.html": {
+        "byte_count": 1563,
+        "sha256": "sha256:68b4abf3b4655a56a084e998f47d2cffe9b2e8ee04c01d8579ba0fd53c227515"
+      },
+      "microcosm-legacy/docs/component-tactic-portfolio-availability-probe.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:d4c506435b00157b5286e7942eb50257e9048051fa38c5780ff3d11290c3e63e"
+      },
+      "microcosm-legacy/docs/component-target-shape-tactic-routing-gate.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:8bb0c1d584ed25c86987d6402070f9ac84dde88d8d1909f4f7f0886e59598dca"
+      },
+      "microcosm-legacy/docs/component-tool-server-pressure-inventory.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:d76170d9b9a9ef3008438ea127432fcbedb3d168f697a467cf08b55232e298a4"
+      },
+      "microcosm-legacy/docs/component-undeclared-library-prior-symbol-classifier.html": {
+        "byte_count": 1627,
+        "sha256": "sha256:57a6040e6d47a0772cfe7b4f1a6c6c1163b54d2c4473678298d1ecd7c3b913f3"
+      },
+      "microcosm-legacy/docs/component-verifier-lab-execution-spine.html": {
+        "byte_count": 1571,
+        "sha256": "sha256:4a7f00abdde58c93740d4bdb6bc918b5e77d289b3b0b5d7306d8854f29f24bab"
+      },
+      "microcosm-legacy/docs/component-verifier-lab-kernel.html": {
+        "byte_count": 1535,
+        "sha256": "sha256:8c01a9e912de8c9594db502e2be07f834f0b681e351d177a0a6e49961b78aa49"
+      },
+      "microcosm-legacy/docs/component-voice-to-doctrine-self-improvement-loop.html": {
+        "byte_count": 1615,
+        "sha256": "sha256:1c47b34ca061687d2d27264db309907196e42a0d100a80fdc68f19d2326c5ec7"
+      },
+      "microcosm-legacy/docs/component-world-model-projection-drift-control-room.html": {
+        "byte_count": 1623,
+        "sha256": "sha256:220db704de04fb9c7327e74f52dcf34c67ddaa6374bd97b2252efc2b9d6fb59d"
+      },
       "microcosm-legacy/docs/components.html": {
         "byte_count": 1459,
         "sha256": "sha256:0f38126092df174a650762f0389787388b4093be0ceed44ad08a6001f59a6153"
@@ -330,6 +1330,378 @@
       "microcosm-legacy/docs/open-questions.html": {
         "byte_count": 1475,
         "sha256": "sha256:416ead9bd184e2d4692dbba4947de8580848d505c0c57244c076b2b399931a24"
+      },
+      "microcosm-legacy/docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html": {
+        "byte_count": 1647,
+        "sha256": "sha256:79d67055275caaa821a388b3f7d8605be205148e03cc23a55693c5b61328496b"
+      },
+      "microcosm-legacy/docs/paper-module-agent-closeout-faithfulness-audit.html": {
+        "byte_count": 1603,
+        "sha256": "sha256:df7528069d219f43ccd5867a3130c0a8d818ef4373180fee1ccae035a5e8d3fb"
+      },
+      "microcosm-legacy/docs/paper-module-agent-memory-temporal-conflict-replay.html": {
+        "byte_count": 1619,
+        "sha256": "sha256:208ecca0112e6aeeea885cc6d0a31a3c731099ae238a3c48a32981d533d7cc44"
+      },
+      "microcosm-legacy/docs/paper-module-agent-monitor-redteam-falsification-replay.html": {
+        "byte_count": 1639,
+        "sha256": "sha256:804354e3c313dd6a14e9e1530b950d2e77857f027c3208b0c8b780ee5b87f8d7"
+      },
+      "microcosm-legacy/docs/paper-module-agent-route-observability-runtime.html": {
+        "byte_count": 1603,
+        "sha256": "sha256:6ee248a1d70beb11f047f19eef2580f60b88e6b9e29d7757107ad600f8e2c1ef"
+      },
+      "microcosm-legacy/docs/paper-module-agent-sabotage-scheming-monitor-replay.html": {
+        "byte_count": 1623,
+        "sha256": "sha256:21defef984c141a1e162af484d20d4da39cc70f28b45bff4490265584bd37e7e"
+      },
+      "microcosm-legacy/docs/paper-module-agent-sandbox-policy-escape-replay.html": {
+        "byte_count": 1607,
+        "sha256": "sha256:35cb06ecf37858eb2d9c78bc3bf9da7c71a40ca379b58582e6e302f6dc654bfc"
+      },
+      "microcosm-legacy/docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html": {
+        "byte_count": 1671,
+        "sha256": "sha256:e601cf42cdda4c24e1f003f6306973e9c8af116eece572a07685c70e144a2dce"
+      },
+      "microcosm-legacy/docs/paper-module-batch10-cold-eval-honesty-capsule.html": {
+        "byte_count": 1603,
+        "sha256": "sha256:75344cb96c3860da6196172026ab4cbb8f2a7688e5f918c8b3e9d3989b83f3c8"
+      },
+      "microcosm-legacy/docs/paper-module-batch10-governance-compilers-capsule.html": {
+        "byte_count": 1615,
+        "sha256": "sha256:f7e176838dd87e674cf1a0315a662419088646121b6c1ebda722eab9cbd69abb"
+      },
+      "microcosm-legacy/docs/paper-module-batch10-live-source-drift-capsule.html": {
+        "byte_count": 1603,
+        "sha256": "sha256:8472d5318840736c128b5d5146dbe296632f45f6820d1f07dc7724256817852a"
+      },
+      "microcosm-legacy/docs/paper-module-batch11-saturation-engines-capsule.html": {
+        "byte_count": 1607,
+        "sha256": "sha256:f114b00e37c7941cdb2c2c9517e53d28db2330c3b0115ab92793043da54ab6df"
+      },
+      "microcosm-legacy/docs/paper-module-batch12-market-dashboard-read-model-capsule.html": {
+        "byte_count": 1643,
+        "sha256": "sha256:4c52a5bf40c8191a5b0efb65d78e01200c2a60778d328d810095eda697fa3c27"
+      },
+      "microcosm-legacy/docs/paper-module-batch12-prediction-market-board-capsule.html": {
+        "byte_count": 1627,
+        "sha256": "sha256:883c6a171103211689b21d5063a9b9fc7546d53eb02950f523754b6ec289e7a1"
+      },
+      "microcosm-legacy/docs/paper-module-batch12-release-claim-language-gate.html": {
+        "byte_count": 1611,
+        "sha256": "sha256:11f3c737dc034eb62e48052ffbdf776c525125e01c3d0ef2b28817dfb15d81dd"
+      },
+      "microcosm-legacy/docs/paper-module-batch4-proof-authority-runtime.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:b59964983b1aef821b71c1f7db002bf83a7380bedb2e9d98b1d4f280e78cae0d"
+      },
+      "microcosm-legacy/docs/paper-module-batch5-authority-systems-capsule.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:512edbf375d511bff5e61069ad8a1cbe0a557638447ddaf843aedca6e5ceeb2d"
+      },
+      "microcosm-legacy/docs/paper-module-batch6-unsurfaced-primitives-capsule.html": {
+        "byte_count": 1615,
+        "sha256": "sha256:b5f21a332984db888bab8bcaadde37d44c1e7faf88c9f1297a4784f1a80de58a"
+      },
+      "microcosm-legacy/docs/paper-module-batch7-demo-take-console-capsule.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:4a9acacf2f988453b90cfdce7452c0acc21d071c11d4c73830b6643adb4a0c6f"
+      },
+      "microcosm-legacy/docs/paper-module-batch7-macro-engines-capsule.html": {
+        "byte_count": 1583,
+        "sha256": "sha256:bc89198ce6efd6cbfe215152ebea1fa96588d071215fe4d62ae01c44317b3169"
+      },
+      "microcosm-legacy/docs/paper-module-batch7-oracle-sibling-capsule.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:ecd68d9320440c43d421de7fb18c7e70a5da5611cb4191a517eca857fa37af56"
+      },
+      "microcosm-legacy/docs/paper-module-batch7-secondary-runtime-capsule.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:d7f69491fb453f9d6813951542dd86c9cb41907fe68ad675ff18bafd09f52055"
+      },
+      "microcosm-legacy/docs/paper-module-batch8-audio-level-rms-port.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:893503ce3f962a5496751dbdc955b3233fc209416277d09d9ec94f11dfaf36b0"
+      },
+      "microcosm-legacy/docs/paper-module-batch8-compliance-pipeline-capsule.html": {
+        "byte_count": 1607,
+        "sha256": "sha256:0cc34e56a9d519c02b2bae54dc9ef5e16d0ce98191c36ccda2db481b0d7d9187"
+      },
+      "microcosm-legacy/docs/paper-module-batch8-policy-engines-capsule.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:8f4eb1122e146eb1250bc259aeda6c304f08835907cc78e0d9e6b075a33b7c3e"
+      },
+      "microcosm-legacy/docs/paper-module-batch8-structural-theses-capsule.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:b614f35d1d1e8c7862eda7ed3fc03032fb81120a2b9ba788fb78936c03dc187f"
+      },
+      "microcosm-legacy/docs/paper-module-batch8-tools-tail-primitives-capsule.html": {
+        "byte_count": 1615,
+        "sha256": "sha256:19871aa29e78c805d3f67176169554bda5277b879fa632a9d7c3d1f41dcbb189"
+      },
+      "microcosm-legacy/docs/paper-module-batch8-validator-checker-capsule.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:dc88806b4333ff360a8394e0f2711bdcc2be1d6d4ed013e41915ee79e8e4bf56"
+      },
+      "microcosm-legacy/docs/paper-module-batch9-macro-engines-capsule.html": {
+        "byte_count": 1583,
+        "sha256": "sha256:98d4541e6d7b60c79fa9a89ad56b013550f800088262edab0c432522a7b44793"
+      },
+      "microcosm-legacy/docs/paper-module-belief-state-process-reward-replay.html": {
+        "byte_count": 1607,
+        "sha256": "sha256:6ddad80a7d665513090e21979bbc9dfa3cd03adebddf3722bc73b7ca4d2e542a"
+      },
+      "microcosm-legacy/docs/paper-module-bounded-autonomy-campaign-packet.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:de81929783eaff9d4e46974df78a74f0d39c5bb287a6a8e2851cec742d75296b"
+      },
+      "microcosm-legacy/docs/paper-module-bridge-phase-continuity-runtime.html": {
+        "byte_count": 1595,
+        "sha256": "sha256:66d59ab8f5df2521e5f37b4066575edd041e4193903e69329c268cae5f472178"
+      },
+      "microcosm-legacy/docs/paper-module-certificate-kernel-execution-lab.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:3312b005f0974dbe5dc5db66a0fd8a97d9aeafe09b717e0f3a2ff01811e4abdb"
+      },
+      "microcosm-legacy/docs/paper-module-cognitive-operator-registry.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:6476e0304a9e20f41d52a7dd6b8596a9ef71cb483ebd2203018ec02c35e71784"
+      },
+      "microcosm-legacy/docs/paper-module-cold-clone-probe.html": {
+        "byte_count": 1535,
+        "sha256": "sha256:221f22a1a2528dccc08744dfd7be01270168f899297d16754b88d108d4c38d37"
+      },
+      "microcosm-legacy/docs/paper-module-cold-reader-route-map.html": {
+        "byte_count": 1555,
+        "sha256": "sha256:95c5552477c38970eaee955e8a5bb7065501a3ecf77fd4a2f089ab8fb2f6b914"
+      },
+      "microcosm-legacy/docs/paper-module-computer-use-action-trace-replay.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:d2b126ba98520ce84f844e7b2ff60740d5b6202b6fb18d4fffe638e4e76f50fa"
+      },
+      "microcosm-legacy/docs/paper-module-concurrency-mission-control.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:610cc5370eb34001794dac61c403571837e7814a74a7ba60d2bfc5a933804fac"
+      },
+      "microcosm-legacy/docs/paper-module-corpus-readiness-mathlib-absence-gate.html": {
+        "byte_count": 1619,
+        "sha256": "sha256:ecc34c7c169931498adb9df951d597513c301d241fd2928fb95c393bd771e208"
+      },
+      "microcosm-legacy/docs/paper-module-doctrine-fact-claim-audit.html": {
+        "byte_count": 1571,
+        "sha256": "sha256:3c63abcbb4bd38054d83e6035e82c8d22f9347f3387b84d1813180e8d0fb0291"
+      },
+      "microcosm-legacy/docs/paper-module-durable-agent-work-landing-replay.html": {
+        "byte_count": 1603,
+        "sha256": "sha256:67858f6ab5c58489a04d91ee0335cea10918b1a87e3996730014149a6c0dddfc"
+      },
+      "microcosm-legacy/docs/paper-module-engine-room-annex-knowledge-router.html": {
+        "byte_count": 1607,
+        "sha256": "sha256:e67dd9c091e00ea5731640ec08ab3aa869ac95a62a9aad18866d48c75bbc9d80"
+      },
+      "microcosm-legacy/docs/paper-module-engine-room-bridge-campaign-dag.html": {
+        "byte_count": 1595,
+        "sha256": "sha256:84cdf5bf997c449c7e8fcedb1c8a0f361423b419ce08eccd6d087b2adee93fc6"
+      },
+      "microcosm-legacy/docs/paper-module-engine-room-command-run-singleflight.html": {
+        "byte_count": 1615,
+        "sha256": "sha256:b25505907e7429a08ecaae57d9292e1569c6851ea3f18da9feadbf2ee641e0ff"
+      },
+      "microcosm-legacy/docs/paper-module-engine-room-demo.html": {
+        "byte_count": 1535,
+        "sha256": "sha256:b82ca901192463092fc11f6acfed907cfb7f39c5adf1fd616129d73c83f7561d"
+      },
+      "microcosm-legacy/docs/paper-module-engine-room-derived-fact-provider-engine.html": {
+        "byte_count": 1631,
+        "sha256": "sha256:612c2ad7a7237c0825f04365d2dd59f712a5ed689e50aed62564b69fbda2aec4"
+      },
+      "microcosm-legacy/docs/paper-module-engine-room-egress-self-compliance-gate.html": {
+        "byte_count": 1627,
+        "sha256": "sha256:e7d64172dec21a66394fc4b5aa2d28b3f8672656557ec2cd9699286152c4bc8b"
+      },
+      "microcosm-legacy/docs/paper-module-engine-room-generated-projection-drift-gate.html": {
+        "byte_count": 1643,
+        "sha256": "sha256:3c6dc3f9aad1c153e9b320d91318d827aedac3d90dc785c91248f570da4336b0"
+      },
+      "microcosm-legacy/docs/paper-module-engine-room-lean-proof-search-lab.html": {
+        "byte_count": 1603,
+        "sha256": "sha256:19688f754623753bd022d495880901673c478a431f3c633a3cac3558fdeddf08"
+      },
+      "microcosm-legacy/docs/paper-module-engine-room-metabolism-runtime.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:0ae03086e4240fdafe778e1e195af83a0fad5581bce57d90f6a9b7d795e2bfeb"
+      },
+      "microcosm-legacy/docs/paper-module-engine-room-navigation-fitness-benchmark.html": {
+        "byte_count": 1631,
+        "sha256": "sha256:cadee39ea62dc2a131da29b0bbb5c7729b277a0c04c9a9e9570acd2a712d785e"
+      },
+      "microcosm-legacy/docs/paper-module-engine-room-public-projection-leak-gate.html": {
+        "byte_count": 1627,
+        "sha256": "sha256:e26d9eaf0a3c87203801666781750ced066b6b931345bda82020d530d1bc928b"
+      },
+      "microcosm-legacy/docs/paper-module-executable-doctrine-grammar.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:130488eac873727b4579ce740e9a7965ec3a2144059fb3b70fb4f653e3921164"
+      },
+      "microcosm-legacy/docs/paper-module-finance-forecast-evaluation-spine.html": {
+        "byte_count": 1603,
+        "sha256": "sha256:eca4a76232121da820649c15087e688ed43dfb3e2a6346e130c603a940238a6e"
+      },
+      "microcosm-legacy/docs/paper-module-first-screen-composition-root.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:948957b695d9c78448d642ad688c3a450114c4fa2576a016be411b00ce4b1cec"
+      },
+      "microcosm-legacy/docs/paper-module-formal-evidence-cell-anchor-resolver.html": {
+        "byte_count": 1615,
+        "sha256": "sha256:a669c03ab663ac19fea119dbf86eb9d4dfb20a6c3d8fe501e3c160c10dbcf2a9"
+      },
+      "microcosm-legacy/docs/paper-module-formal-math-lean-proof-witness.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:7ca3fca59c4cb41586530438c14f919458a7bf0cfb7be7b812c77793968a0670"
+      },
+      "microcosm-legacy/docs/paper-module-formal-math-premise-retrieval.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:f19ef29de954f1b00d06772493e11ac09a27e21a48ce639875945f7a6fdb448b"
+      },
+      "microcosm-legacy/docs/paper-module-formal-math-readiness-gate.html": {
+        "byte_count": 1575,
+        "sha256": "sha256:789188ee4398089d023a97bcac810ad02a6f9f57747877d2e099b7bde0c6284f"
+      },
+      "microcosm-legacy/docs/paper-module-formal-math-verifier-trace-repair-loop.html": {
+        "byte_count": 1623,
+        "sha256": "sha256:b31fa77e18dff71531cd164aadd6e74c547cfa783ade6e9703534ac0f12735ba"
+      },
+      "microcosm-legacy/docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html": {
+        "byte_count": 1695,
+        "sha256": "sha256:7e5b5c38f7b7da0eb1ab2f9446ffea4a58e91c14e216f861db26356dd4bc6583"
+      },
+      "microcosm-legacy/docs/paper-module-lean-std-premise-index.html": {
+        "byte_count": 1559,
+        "sha256": "sha256:6adaf7d58af345462e6dba151bbc312b246c5e9f52175276809d2e317beb0378"
+      },
+      "microcosm-legacy/docs/paper-module-macro-projection-import-protocol.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:d538309cc21b97c88634f6f5d5e13b2fe00d1d71020d46cc0eb247adb958bfad"
+      },
+      "microcosm-legacy/docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html": {
+        "byte_count": 1667,
+        "sha256": "sha256:8f4a64626a11e6a7348eba79125d1643fa83f3995d3976ec98d1ae5d067e3131"
+      },
+      "microcosm-legacy/docs/paper-module-mathematical-strategy-atlas.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:d1a3552a474cb4319ceb3774f4ba7898103149cd5e12b3400b4764f3c01c2324"
+      },
+      "microcosm-legacy/docs/paper-module-mcp-tool-authority-replay.html": {
+        "byte_count": 1571,
+        "sha256": "sha256:7d6e06a3773991b7e34b959eb8306d2f5da7874a213a13ee4af0cb2236e2d672"
+      },
+      "microcosm-legacy/docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html": {
+        "byte_count": 1691,
+        "sha256": "sha256:8bac7a21cc19a45ca02b580f49bb8467a2ebb36ae768db0daf4971be2c7581a7"
+      },
+      "microcosm-legacy/docs/paper-module-microcosm-axiom-substrate.html": {
+        "byte_count": 1571,
+        "sha256": "sha256:335bd73d3ed1ea0eada485de8e82a32bca51da9198fd802a9842aa2cb9553ecc"
+      },
+      "microcosm-legacy/docs/paper-module-mission-transaction-work-spine.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:6a52620a246b469a2631eb22537d50508874c4f8f2887eeca6f4c8bed3fc7b62"
+      },
+      "microcosm-legacy/docs/paper-module-navigation-hologram-route-plane.html": {
+        "byte_count": 1595,
+        "sha256": "sha256:ae37d867bbb0e42c3bf7e37ec0eb3402e06d7d1332010d54318ab4217786266a"
+      },
+      "microcosm-legacy/docs/paper-module-pattern-assimilation.html": {
+        "byte_count": 1551,
+        "sha256": "sha256:97ba19bd55adeee2887af3ff39b13c9e71ae20961d5067b25f1defa914360c2a"
+      },
+      "microcosm-legacy/docs/paper-module-pattern-binding-contract.html": {
+        "byte_count": 1567,
+        "sha256": "sha256:4a7985870ffc671b76de59144105085373a04f3db098b90991ed8166b883620b"
+      },
+      "microcosm-legacy/docs/paper-module-prediction-oracle-reconciliation.html": {
+        "byte_count": 1599,
+        "sha256": "sha256:1364a20cafc39efb5c49826aa1e0de81b97fcc3ecc5829c03aa4c9d847a35018"
+      },
+      "microcosm-legacy/docs/paper-module-proof-derived-governed-mutation-authorization.html": {
+        "byte_count": 1651,
+        "sha256": "sha256:b3218e19be65005bdf7b23d4c72d1a6546a4479c0bc834d1bd3462a0b74dcbe9"
+      },
+      "microcosm-legacy/docs/paper-module-proof-diagnostic-evidence-spine.html": {
+        "byte_count": 1595,
+        "sha256": "sha256:f89efeb7b467b4345bd9b2a38195b368d475a35303f37f4eefc2f6aa676b6039"
+      },
+      "microcosm-legacy/docs/paper-module-provider-context-recipe-budget.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:ac87542f368ecb499b379d85d9703112c7faedf9215c85ac40e6201aabc441f0"
+      },
+      "microcosm-legacy/docs/paper-module-public-reveal-walkthrough.html": {
+        "byte_count": 1571,
+        "sha256": "sha256:6aee0fabc56b519a08220887c5ca72ff602873e7495f88b23885d088d74761fe"
+      },
+      "microcosm-legacy/docs/paper-module-research-replication-rubric-artifact-replay.html": {
+        "byte_count": 1643,
+        "sha256": "sha256:e92c4ffb536d8431e18e08eb8a361043a02e1d2968e3e8a92b2d0613e2337401"
+      },
+      "microcosm-legacy/docs/paper-module-ring2-premise-precision-recall.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:53fb6766195f3d8c4e4f666fa4831b5c335cc7f23a452d2f47e6b6f00f904376"
+      },
+      "microcosm-legacy/docs/paper-module-routing-anti-patterns-registry.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:9ae71928d361af6f3ec915dbea1fd774aca784cde663cda75adcf4541f75fcad"
+      },
+      "microcosm-legacy/docs/paper-module-self-ignorance-coverage-ledger.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:9daecd65ae00a96bbe4bc46dbdc1ef2a05b73879b1b6999e58a45ade07fd5368"
+      },
+      "microcosm-legacy/docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html": {
+        "byte_count": 1639,
+        "sha256": "sha256:6b081beff7d5a811d6cd136db15c37743c5fe0a62a89d3d5be6fd64569a1ab41"
+      },
+      "microcosm-legacy/docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html": {
+        "byte_count": 1679,
+        "sha256": "sha256:8df45f3ba4efae7f30ddcd61f62462aa8ec5172ad4a4c8cb5d38b05a6ed5b3f2"
+      },
+      "microcosm-legacy/docs/paper-module-standards-meta-diagnostics.html": {
+        "byte_count": 1575,
+        "sha256": "sha256:120c06e2c1a4658210eea067b3af9b1a6cbf5f4d43d17aa1904adb35d384e3c0"
+      },
+      "microcosm-legacy/docs/paper-module-tactic-portfolio-availability.html": {
+        "byte_count": 1587,
+        "sha256": "sha256:6e852efa2500393bfce1a1592b720c812285912ff7477c07b45ba3339771245c"
+      },
+      "microcosm-legacy/docs/paper-module-target-shape-tactic-routing.html": {
+        "byte_count": 1579,
+        "sha256": "sha256:d02635dcd22f5433d28e864f9323a278c2d2b15e99d7caba78251a26463277ed"
+      },
+      "microcosm-legacy/docs/paper-module-tool-server-pressure-inventory.html": {
+        "byte_count": 1591,
+        "sha256": "sha256:26996e54306853fa381297aa4238eccefcff363ee88185e2919380e740337214"
+      },
+      "microcosm-legacy/docs/paper-module-undeclared-library-prior-classifier.html": {
+        "byte_count": 1611,
+        "sha256": "sha256:f10c6231892fe208e4dc8a475ca2c99c14ac54b3caf7981e243c51ad14af85e6"
+      },
+      "microcosm-legacy/docs/paper-module-verifier-lab-execution-spine.html": {
+        "byte_count": 1583,
+        "sha256": "sha256:5be2d6f3694137b83325758fe999c31353672ee718247c3ca9eea7e970c58454"
+      },
+      "microcosm-legacy/docs/paper-module-verifier-lab-kernel.html": {
+        "byte_count": 1547,
+        "sha256": "sha256:b638ed986da037ad111908ce3867b5c4b7a4a54d56a19de9c99d44e6d90851e7"
+      },
+      "microcosm-legacy/docs/paper-module-voice-to-doctrine-self-improvement-loop.html": {
+        "byte_count": 1627,
+        "sha256": "sha256:1f0d0831036e0a8607283c6bdf3f63231bba3a8eae71d4525850e5c518651ee2"
+      },
+      "microcosm-legacy/docs/paper-module-work-landing-control-spine.html": {
+        "byte_count": 1575,
+        "sha256": "sha256:139d5484aa8766cea4d10c861cb9a8e9db761172301094fb4a13baf637e65937"
+      },
+      "microcosm-legacy/docs/paper-module-world-model-projection-drift-control-room.html": {
+        "byte_count": 1635,
+        "sha256": "sha256:9b43e935214cb66e3ad7e791a90812c2ebbe1227eb6d9bad320a7d5ac9810291"
       },
       "microcosm-legacy/docs/paper-modules.html": {
         "byte_count": 1471,
@@ -368,24 +1740,24 @@
         "sha256": "sha256:704056ee0a69670141fdcee3ebe0d1cc1c61f3278228b355119cfa5b48aea1d3"
       },
       "microcosm-legacy/legacy-route-manifest.json": {
-        "byte_count": 30886,
-        "sha256": "sha256:7dc09894d0af210f79cf7cf8ab095733db99f7663085bed1d2e788fb7457a3ef"
+        "byte_count": 165384,
+        "sha256": "sha256:8bbcd358b1f1c1fe8f0f64fb6bfd4f4fd972a5126802fa78a07c04e1a4d38d99"
       },
       "microcosm-legacy/microcosm-ai-reader-digest.json": {
-        "byte_count": 217968,
-        "sha256": "sha256:6f287ddf1b5a2d64ddb4a348cbfbadfe0ef1527fbf62e89951e111af0b33c7c0"
+        "byte_count": 271714,
+        "sha256": "sha256:3515a01bcef027ec4cadebbe2ca258e754e3506e9c2425ffb56c81658f23cfc3"
       },
       "microcosm-legacy/microcosm-ai-review-packet.json": {
-        "byte_count": 10157004,
-        "sha256": "sha256:1148ca226b8d8e56dd6fe2bac7e4764b6b3e536984a5709c121996edc69b7c14"
+        "byte_count": 10797772,
+        "sha256": "sha256:60314c85ba464034a5cf1e67bb5e179a98fb0a6e51d404c5e25eddae37dcee8f"
       },
       "microcosm-legacy/object-map.json": {
-        "byte_count": 6476847,
-        "sha256": "sha256:bf136984e3994a44e86294628bd78b2c7202424cab9f7ca7da16e96260c0a724"
+        "byte_count": 6429277,
+        "sha256": "sha256:0df419164e8e3f6f7927dc5d3f129236ca9bb9192325813bc349ac8c2fe6b888"
       },
       "microcosm-legacy/projection-status.json": {
-        "byte_count": 810,
-        "sha256": "sha256:e72597bdb59419f356c20c1e53ba0ff11920462458a826fba8122aa7d2be5658"
+        "byte_count": 812,
+        "sha256": "sha256:ad29f437faab3722b0f1a4227cd8ecd96cca0c310709491c0e71067b1b3adf6a"
       },
       "microcosm-legacy/security.txt": {
         "byte_count": 269,
@@ -396,20 +1768,16 @@
         "sha256": "sha256:4c1e5d89957ecb473c265648ac07f09058ef4ee4ff0d18b58a8a80390860d178"
       },
       "object-map.json": {
-        "byte_count": 6476847,
-        "sha256": "sha256:bf136984e3994a44e86294628bd78b2c7202424cab9f7ca7da16e96260c0a724"
+        "byte_count": 6429277,
+        "sha256": "sha256:0df419164e8e3f6f7927dc5d3f129236ca9bb9192325813bc349ac8c2fe6b888"
       },
       "robots.txt": {
-        "byte_count": 78,
-        "sha256": "sha256:1b61036e04aff3edc11434899bab16ff0290711d924e85d2fcdc9ac07b36933c"
+        "byte_count": 92,
+        "sha256": "sha256:db69a73d65d7edde5f0857456c26f5a06c5fd3ec24b95d6dd7b70d048a5e859f"
       },
       "security.txt": {
-        "byte_count": 269,
-        "sha256": "sha256:cbd6fe1d756159d331aa6f0f43c64611c5f86c32131de615353af743c1a86454"
-      },
-      "sitemap.xml": {
-        "byte_count": 2404,
-        "sha256": "sha256:1675309787f4e38582d24c1cc5d4034968e90351a2c6d2b46a5b07e2237f3a07"
+        "byte_count": 122,
+        "sha256": "sha256:aad34e86f143e7c28eda48bdba8a1870d9b054b215f6a77f033139caac6c93bc"
       },
       "updates.xml": {
         "byte_count": 1508,
@@ -417,10 +1785,10 @@
       }
     },
     "primary_public_handoff": "microcosm-ai-reader-digest.json",
-    "primary_public_handoff_sha256": "sha256:6f287ddf1b5a2d64ddb4a348cbfbadfe0ef1527fbf62e89951e111af0b33c7c0",
+    "primary_public_handoff_sha256": "sha256:3515a01bcef027ec4cadebbe2ca258e754e3506e9c2425ffb56c81658f23cfc3",
     "projection_status_self_digest": "not_self_embedded",
     "reader_digest": "microcosm-ai-reader-digest.json",
-    "reader_digest_sha256": "sha256:6f287ddf1b5a2d64ddb4a348cbfbadfe0ef1527fbf62e89951e111af0b33c7c0",
+    "reader_digest_sha256": "sha256:3515a01bcef027ec4cadebbe2ca258e754e3506e9c2425ffb56c81658f23cfc3",
     "schema": "microcosm_public_generated_artifact_identity_v0",
     "source_fingerprint": "30850b909d8aae06f4f841929476e38e"
   },
@@ -1008,25 +2376,26 @@
   "curated_surfaces": [
     "index.html",
     "assets/style.css",
+    "assets/fragment-open.js",
     "assets/docs.js"
   ],
   "deploy": {
-    "base_url": "https://wcook04.github.io/plectis/",
+    "base_url": null,
     "envelope": [
       "_headers",
       "_redirects",
       ".well-known/security.txt",
       "security.txt"
     ],
-    "host_bound": true,
+    "host_bound": false,
     "hsts": {
       "header": "Strict-Transport-Security",
-      "mode": "host-only",
-      "reason": "base_url_is_https_public_launch_url_host_only",
+      "mode": "local_no_hsts",
+      "reason": "no_public_https_base_url_supplied",
       "requires_domain_inventory": false,
       "requires_preload_consent": false,
-      "status": "active_host_only",
-      "value": "max-age=31536000"
+      "status": "deferred_until_final_https_domain_verified",
+      "value": null
     },
     "security_txt": {
       "contact": "https://github.com/wcook04/plectis/security/advisories/new",
@@ -1034,7 +2403,7 @@
       "expires": "2027-06-03T00:00:00Z",
       "legacy_path": "security.txt",
       "path": ".well-known/security.txt",
-      "policy": "https://wcook04.github.io/plectis/docs/vulnerability-disclosure.html",
+      "policy": null,
       "policy_path": "docs/vulnerability-disclosure.html",
       "private_intake_kind": "github_private_vulnerability_reporting",
       "private_intake_published": true,
@@ -1068,6 +2437,84 @@
     "docs/area-import-drift.html",
     "docs/area-research.html",
     "docs/coding-agents.html",
+    "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+    "docs/component-agent-closeout-faithfulness-audit.html",
+    "docs/component-agent-memory-temporal-conflict-replay.html",
+    "docs/component-agent-monitor-redteam-falsification-replay.html",
+    "docs/component-agent-route-observability-runtime.html",
+    "docs/component-agent-sabotage-scheming-monitor-replay.html",
+    "docs/component-agent-sandbox-policy-escape-replay.html",
+    "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
+    "docs/component-batch10-cold-eval-honesty-capsule.html",
+    "docs/component-batch10-governance-compilers-capsule.html",
+    "docs/component-batch10-live-source-drift-capsule.html",
+    "docs/component-batch11-saturation-engines-capsule.html",
+    "docs/component-batch12-market-dashboard-read-model-capsule.html",
+    "docs/component-batch12-prediction-market-board-capsule.html",
+    "docs/component-batch12-release-claim-language-gate.html",
+    "docs/component-batch4-proof-authority-runtime.html",
+    "docs/component-batch5-authority-systems-capsule.html",
+    "docs/component-batch6-unsurfaced-primitives-capsule.html",
+    "docs/component-batch7-demo-take-console-capsule.html",
+    "docs/component-batch7-macro-engines-capsule.html",
+    "docs/component-batch7-oracle-sibling-capsule.html",
+    "docs/component-batch7-secondary-runtime-capsule.html",
+    "docs/component-batch8-audio-level-rms-port.html",
+    "docs/component-batch8-compliance-pipeline-capsule.html",
+    "docs/component-batch8-policy-engines-capsule.html",
+    "docs/component-batch8-structural-theses-capsule.html",
+    "docs/component-batch8-tools-tail-primitives-capsule.html",
+    "docs/component-batch8-validator-checker-capsule.html",
+    "docs/component-batch9-macro-engines-capsule.html",
+    "docs/component-belief-state-process-reward-replay.html",
+    "docs/component-bounded-autonomy-campaign-packet.html",
+    "docs/component-bridge-phase-continuity-runtime.html",
+    "docs/component-certificate-kernel-execution-lab.html",
+    "docs/component-cognitive-operator-registry.html",
+    "docs/component-cold-reader-route-map.html",
+    "docs/component-concurrency-mission-control.html",
+    "docs/component-corpus-readiness-mathlib-absence-gate.html",
+    "docs/component-doctrine-fact-claim-audit.html",
+    "docs/component-durable-agent-work-landing-replay.html",
+    "docs/component-engine-room-demo.html",
+    "docs/component-executable-doctrine-grammar.html",
+    "docs/component-finance-forecast-evaluation-spine.html",
+    "docs/component-formal-evidence-cell-anchor-resolver.html",
+    "docs/component-formal-math-lean-proof-witness.html",
+    "docs/component-formal-math-premise-retrieval.html",
+    "docs/component-formal-math-readiness-gate.html",
+    "docs/component-formal-math-verifier-trace-repair-loop.html",
+    "docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
+    "docs/component-lean-std-premise-index.html",
+    "docs/component-macro-projection-import-protocol.html",
+    "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+    "docs/component-mathematical-strategy-atlas-hypothesis-scorer.html",
+    "docs/component-mcp-tool-authority-replay.html",
+    "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+    "docs/component-mission-transaction-work-spine.html",
+    "docs/component-navigation-hologram-route-plane.html",
+    "docs/component-pattern-assimilation-step.html",
+    "docs/component-pattern-binding-contract.html",
+    "docs/component-prediction-oracle-reconciliation.html",
+    "docs/component-proof-derived-governed-mutation-authorization.html",
+    "docs/component-proof-diagnostic-evidence-spine.html",
+    "docs/component-provider-context-recipe-budget-policy.html",
+    "docs/component-public-reveal-walkthrough.html",
+    "docs/component-research-replication-rubric-artifact-replay.html",
+    "docs/component-ring2-premise-retrieval-precision-recall-harness.html",
+    "docs/component-routing-anti-patterns-registry.html",
+    "docs/component-self-ignorance-coverage-ledger.html",
+    "docs/component-sleeper-memory-poisoning-quarantine-replay.html",
+    "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+    "docs/component-standards-meta-diagnostics.html",
+    "docs/component-tactic-portfolio-availability-probe.html",
+    "docs/component-target-shape-tactic-routing-gate.html",
+    "docs/component-tool-server-pressure-inventory.html",
+    "docs/component-undeclared-library-prior-symbol-classifier.html",
+    "docs/component-verifier-lab-execution-spine.html",
+    "docs/component-verifier-lab-kernel.html",
+    "docs/component-voice-to-doctrine-self-improvement-loop.html",
+    "docs/component-world-model-projection-drift-control-room.html",
     "docs/components.html",
     "docs/contact.html",
     "docs/doctrine.html",
@@ -1077,6 +2524,99 @@
     "docs/index.html",
     "docs/lineage.html",
     "docs/open-questions.html",
+    "docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
+    "docs/paper-module-agent-closeout-faithfulness-audit.html",
+    "docs/paper-module-agent-memory-temporal-conflict-replay.html",
+    "docs/paper-module-agent-monitor-redteam-falsification-replay.html",
+    "docs/paper-module-agent-route-observability-runtime.html",
+    "docs/paper-module-agent-sabotage-scheming-monitor-replay.html",
+    "docs/paper-module-agent-sandbox-policy-escape-replay.html",
+    "docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
+    "docs/paper-module-batch10-cold-eval-honesty-capsule.html",
+    "docs/paper-module-batch10-governance-compilers-capsule.html",
+    "docs/paper-module-batch10-live-source-drift-capsule.html",
+    "docs/paper-module-batch11-saturation-engines-capsule.html",
+    "docs/paper-module-batch12-market-dashboard-read-model-capsule.html",
+    "docs/paper-module-batch12-prediction-market-board-capsule.html",
+    "docs/paper-module-batch12-release-claim-language-gate.html",
+    "docs/paper-module-batch4-proof-authority-runtime.html",
+    "docs/paper-module-batch5-authority-systems-capsule.html",
+    "docs/paper-module-batch6-unsurfaced-primitives-capsule.html",
+    "docs/paper-module-batch7-demo-take-console-capsule.html",
+    "docs/paper-module-batch7-macro-engines-capsule.html",
+    "docs/paper-module-batch7-oracle-sibling-capsule.html",
+    "docs/paper-module-batch7-secondary-runtime-capsule.html",
+    "docs/paper-module-batch8-audio-level-rms-port.html",
+    "docs/paper-module-batch8-compliance-pipeline-capsule.html",
+    "docs/paper-module-batch8-policy-engines-capsule.html",
+    "docs/paper-module-batch8-structural-theses-capsule.html",
+    "docs/paper-module-batch8-tools-tail-primitives-capsule.html",
+    "docs/paper-module-batch8-validator-checker-capsule.html",
+    "docs/paper-module-batch9-macro-engines-capsule.html",
+    "docs/paper-module-belief-state-process-reward-replay.html",
+    "docs/paper-module-bounded-autonomy-campaign-packet.html",
+    "docs/paper-module-bridge-phase-continuity-runtime.html",
+    "docs/paper-module-certificate-kernel-execution-lab.html",
+    "docs/paper-module-cognitive-operator-registry.html",
+    "docs/paper-module-cold-clone-probe.html",
+    "docs/paper-module-cold-reader-route-map.html",
+    "docs/paper-module-computer-use-action-trace-replay.html",
+    "docs/paper-module-concurrency-mission-control.html",
+    "docs/paper-module-corpus-readiness-mathlib-absence-gate.html",
+    "docs/paper-module-doctrine-fact-claim-audit.html",
+    "docs/paper-module-durable-agent-work-landing-replay.html",
+    "docs/paper-module-engine-room-annex-knowledge-router.html",
+    "docs/paper-module-engine-room-bridge-campaign-dag.html",
+    "docs/paper-module-engine-room-command-run-singleflight.html",
+    "docs/paper-module-engine-room-demo.html",
+    "docs/paper-module-engine-room-derived-fact-provider-engine.html",
+    "docs/paper-module-engine-room-egress-self-compliance-gate.html",
+    "docs/paper-module-engine-room-generated-projection-drift-gate.html",
+    "docs/paper-module-engine-room-lean-proof-search-lab.html",
+    "docs/paper-module-engine-room-metabolism-runtime.html",
+    "docs/paper-module-engine-room-navigation-fitness-benchmark.html",
+    "docs/paper-module-engine-room-public-projection-leak-gate.html",
+    "docs/paper-module-executable-doctrine-grammar.html",
+    "docs/paper-module-finance-forecast-evaluation-spine.html",
+    "docs/paper-module-first-screen-composition-root.html",
+    "docs/paper-module-formal-evidence-cell-anchor-resolver.html",
+    "docs/paper-module-formal-math-lean-proof-witness.html",
+    "docs/paper-module-formal-math-premise-retrieval.html",
+    "docs/paper-module-formal-math-readiness-gate.html",
+    "docs/paper-module-formal-math-verifier-trace-repair-loop.html",
+    "docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html",
+    "docs/paper-module-lean-std-premise-index.html",
+    "docs/paper-module-macro-projection-import-protocol.html",
+    "docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
+    "docs/paper-module-mathematical-strategy-atlas.html",
+    "docs/paper-module-mcp-tool-authority-replay.html",
+    "docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html",
+    "docs/paper-module-microcosm-axiom-substrate.html",
+    "docs/paper-module-mission-transaction-work-spine.html",
+    "docs/paper-module-navigation-hologram-route-plane.html",
+    "docs/paper-module-pattern-assimilation.html",
+    "docs/paper-module-pattern-binding-contract.html",
+    "docs/paper-module-prediction-oracle-reconciliation.html",
+    "docs/paper-module-proof-derived-governed-mutation-authorization.html",
+    "docs/paper-module-proof-diagnostic-evidence-spine.html",
+    "docs/paper-module-provider-context-recipe-budget.html",
+    "docs/paper-module-public-reveal-walkthrough.html",
+    "docs/paper-module-research-replication-rubric-artifact-replay.html",
+    "docs/paper-module-ring2-premise-precision-recall.html",
+    "docs/paper-module-routing-anti-patterns-registry.html",
+    "docs/paper-module-self-ignorance-coverage-ledger.html",
+    "docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html",
+    "docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html",
+    "docs/paper-module-standards-meta-diagnostics.html",
+    "docs/paper-module-tactic-portfolio-availability.html",
+    "docs/paper-module-target-shape-tactic-routing.html",
+    "docs/paper-module-tool-server-pressure-inventory.html",
+    "docs/paper-module-undeclared-library-prior-classifier.html",
+    "docs/paper-module-verifier-lab-execution-spine.html",
+    "docs/paper-module-verifier-lab-kernel.html",
+    "docs/paper-module-voice-to-doctrine-self-improvement-loop.html",
+    "docs/paper-module-work-landing-control-spine.html",
+    "docs/paper-module-world-model-projection-drift-control-room.html",
     "docs/paper-modules.html",
     "docs/quickstart.html",
     "docs/reference.html",
@@ -1099,6 +2639,7 @@
     "sites/microcosm-legacy/assets/ai-reader-digest-packet.js",
     "sites/microcosm-legacy/assets/ai-review-packet.js",
     "sites/microcosm-legacy/assets/docs.js",
+    "sites/microcosm-legacy/assets/fragment-open.js",
     "sites/microcosm-legacy/assets/object-map.js",
     "sites/microcosm-legacy/assets/search-index.js",
     "sites/microcosm-legacy/assets/site-packet.js",
@@ -1114,6 +2655,84 @@
     "sites/microcosm-legacy/docs/area-import-drift.html",
     "sites/microcosm-legacy/docs/area-research.html",
     "sites/microcosm-legacy/docs/coding-agents.html",
+    "sites/microcosm-legacy/docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+    "sites/microcosm-legacy/docs/component-agent-closeout-faithfulness-audit.html",
+    "sites/microcosm-legacy/docs/component-agent-memory-temporal-conflict-replay.html",
+    "sites/microcosm-legacy/docs/component-agent-monitor-redteam-falsification-replay.html",
+    "sites/microcosm-legacy/docs/component-agent-route-observability-runtime.html",
+    "sites/microcosm-legacy/docs/component-agent-sabotage-scheming-monitor-replay.html",
+    "sites/microcosm-legacy/docs/component-agent-sandbox-policy-escape-replay.html",
+    "sites/microcosm-legacy/docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
+    "sites/microcosm-legacy/docs/component-batch10-cold-eval-honesty-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch10-governance-compilers-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch10-live-source-drift-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch11-saturation-engines-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch12-market-dashboard-read-model-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch12-prediction-market-board-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch12-release-claim-language-gate.html",
+    "sites/microcosm-legacy/docs/component-batch4-proof-authority-runtime.html",
+    "sites/microcosm-legacy/docs/component-batch5-authority-systems-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch6-unsurfaced-primitives-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch7-demo-take-console-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch7-macro-engines-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch7-oracle-sibling-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch7-secondary-runtime-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch8-audio-level-rms-port.html",
+    "sites/microcosm-legacy/docs/component-batch8-compliance-pipeline-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch8-policy-engines-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch8-structural-theses-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch8-tools-tail-primitives-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch8-validator-checker-capsule.html",
+    "sites/microcosm-legacy/docs/component-batch9-macro-engines-capsule.html",
+    "sites/microcosm-legacy/docs/component-belief-state-process-reward-replay.html",
+    "sites/microcosm-legacy/docs/component-bounded-autonomy-campaign-packet.html",
+    "sites/microcosm-legacy/docs/component-bridge-phase-continuity-runtime.html",
+    "sites/microcosm-legacy/docs/component-certificate-kernel-execution-lab.html",
+    "sites/microcosm-legacy/docs/component-cognitive-operator-registry.html",
+    "sites/microcosm-legacy/docs/component-cold-reader-route-map.html",
+    "sites/microcosm-legacy/docs/component-concurrency-mission-control.html",
+    "sites/microcosm-legacy/docs/component-corpus-readiness-mathlib-absence-gate.html",
+    "sites/microcosm-legacy/docs/component-doctrine-fact-claim-audit.html",
+    "sites/microcosm-legacy/docs/component-durable-agent-work-landing-replay.html",
+    "sites/microcosm-legacy/docs/component-engine-room-demo.html",
+    "sites/microcosm-legacy/docs/component-executable-doctrine-grammar.html",
+    "sites/microcosm-legacy/docs/component-finance-forecast-evaluation-spine.html",
+    "sites/microcosm-legacy/docs/component-formal-evidence-cell-anchor-resolver.html",
+    "sites/microcosm-legacy/docs/component-formal-math-lean-proof-witness.html",
+    "sites/microcosm-legacy/docs/component-formal-math-premise-retrieval.html",
+    "sites/microcosm-legacy/docs/component-formal-math-readiness-gate.html",
+    "sites/microcosm-legacy/docs/component-formal-math-verifier-trace-repair-loop.html",
+    "sites/microcosm-legacy/docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
+    "sites/microcosm-legacy/docs/component-lean-std-premise-index.html",
+    "sites/microcosm-legacy/docs/component-macro-projection-import-protocol.html",
+    "sites/microcosm-legacy/docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+    "sites/microcosm-legacy/docs/component-mathematical-strategy-atlas-hypothesis-scorer.html",
+    "sites/microcosm-legacy/docs/component-mcp-tool-authority-replay.html",
+    "sites/microcosm-legacy/docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+    "sites/microcosm-legacy/docs/component-mission-transaction-work-spine.html",
+    "sites/microcosm-legacy/docs/component-navigation-hologram-route-plane.html",
+    "sites/microcosm-legacy/docs/component-pattern-assimilation-step.html",
+    "sites/microcosm-legacy/docs/component-pattern-binding-contract.html",
+    "sites/microcosm-legacy/docs/component-prediction-oracle-reconciliation.html",
+    "sites/microcosm-legacy/docs/component-proof-derived-governed-mutation-authorization.html",
+    "sites/microcosm-legacy/docs/component-proof-diagnostic-evidence-spine.html",
+    "sites/microcosm-legacy/docs/component-provider-context-recipe-budget-policy.html",
+    "sites/microcosm-legacy/docs/component-public-reveal-walkthrough.html",
+    "sites/microcosm-legacy/docs/component-research-replication-rubric-artifact-replay.html",
+    "sites/microcosm-legacy/docs/component-ring2-premise-retrieval-precision-recall-harness.html",
+    "sites/microcosm-legacy/docs/component-routing-anti-patterns-registry.html",
+    "sites/microcosm-legacy/docs/component-self-ignorance-coverage-ledger.html",
+    "sites/microcosm-legacy/docs/component-sleeper-memory-poisoning-quarantine-replay.html",
+    "sites/microcosm-legacy/docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+    "sites/microcosm-legacy/docs/component-standards-meta-diagnostics.html",
+    "sites/microcosm-legacy/docs/component-tactic-portfolio-availability-probe.html",
+    "sites/microcosm-legacy/docs/component-target-shape-tactic-routing-gate.html",
+    "sites/microcosm-legacy/docs/component-tool-server-pressure-inventory.html",
+    "sites/microcosm-legacy/docs/component-undeclared-library-prior-symbol-classifier.html",
+    "sites/microcosm-legacy/docs/component-verifier-lab-execution-spine.html",
+    "sites/microcosm-legacy/docs/component-verifier-lab-kernel.html",
+    "sites/microcosm-legacy/docs/component-voice-to-doctrine-self-improvement-loop.html",
+    "sites/microcosm-legacy/docs/component-world-model-projection-drift-control-room.html",
     "sites/microcosm-legacy/docs/components.html",
     "sites/microcosm-legacy/docs/contact.html",
     "sites/microcosm-legacy/docs/doctrine.html",
@@ -1123,6 +2742,99 @@
     "sites/microcosm-legacy/docs/index.html",
     "sites/microcosm-legacy/docs/lineage.html",
     "sites/microcosm-legacy/docs/open-questions.html",
+    "sites/microcosm-legacy/docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-agent-closeout-faithfulness-audit.html",
+    "sites/microcosm-legacy/docs/paper-module-agent-memory-temporal-conflict-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-agent-monitor-redteam-falsification-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-agent-route-observability-runtime.html",
+    "sites/microcosm-legacy/docs/paper-module-agent-sabotage-scheming-monitor-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-agent-sandbox-policy-escape-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-batch10-cold-eval-honesty-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch10-governance-compilers-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch10-live-source-drift-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch11-saturation-engines-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch12-market-dashboard-read-model-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch12-prediction-market-board-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch12-release-claim-language-gate.html",
+    "sites/microcosm-legacy/docs/paper-module-batch4-proof-authority-runtime.html",
+    "sites/microcosm-legacy/docs/paper-module-batch5-authority-systems-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch6-unsurfaced-primitives-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch7-demo-take-console-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch7-macro-engines-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch7-oracle-sibling-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch7-secondary-runtime-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch8-audio-level-rms-port.html",
+    "sites/microcosm-legacy/docs/paper-module-batch8-compliance-pipeline-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch8-policy-engines-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch8-structural-theses-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch8-tools-tail-primitives-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch8-validator-checker-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-batch9-macro-engines-capsule.html",
+    "sites/microcosm-legacy/docs/paper-module-belief-state-process-reward-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-bounded-autonomy-campaign-packet.html",
+    "sites/microcosm-legacy/docs/paper-module-bridge-phase-continuity-runtime.html",
+    "sites/microcosm-legacy/docs/paper-module-certificate-kernel-execution-lab.html",
+    "sites/microcosm-legacy/docs/paper-module-cognitive-operator-registry.html",
+    "sites/microcosm-legacy/docs/paper-module-cold-clone-probe.html",
+    "sites/microcosm-legacy/docs/paper-module-cold-reader-route-map.html",
+    "sites/microcosm-legacy/docs/paper-module-computer-use-action-trace-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-concurrency-mission-control.html",
+    "sites/microcosm-legacy/docs/paper-module-corpus-readiness-mathlib-absence-gate.html",
+    "sites/microcosm-legacy/docs/paper-module-doctrine-fact-claim-audit.html",
+    "sites/microcosm-legacy/docs/paper-module-durable-agent-work-landing-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-engine-room-annex-knowledge-router.html",
+    "sites/microcosm-legacy/docs/paper-module-engine-room-bridge-campaign-dag.html",
+    "sites/microcosm-legacy/docs/paper-module-engine-room-command-run-singleflight.html",
+    "sites/microcosm-legacy/docs/paper-module-engine-room-demo.html",
+    "sites/microcosm-legacy/docs/paper-module-engine-room-derived-fact-provider-engine.html",
+    "sites/microcosm-legacy/docs/paper-module-engine-room-egress-self-compliance-gate.html",
+    "sites/microcosm-legacy/docs/paper-module-engine-room-generated-projection-drift-gate.html",
+    "sites/microcosm-legacy/docs/paper-module-engine-room-lean-proof-search-lab.html",
+    "sites/microcosm-legacy/docs/paper-module-engine-room-metabolism-runtime.html",
+    "sites/microcosm-legacy/docs/paper-module-engine-room-navigation-fitness-benchmark.html",
+    "sites/microcosm-legacy/docs/paper-module-engine-room-public-projection-leak-gate.html",
+    "sites/microcosm-legacy/docs/paper-module-executable-doctrine-grammar.html",
+    "sites/microcosm-legacy/docs/paper-module-finance-forecast-evaluation-spine.html",
+    "sites/microcosm-legacy/docs/paper-module-first-screen-composition-root.html",
+    "sites/microcosm-legacy/docs/paper-module-formal-evidence-cell-anchor-resolver.html",
+    "sites/microcosm-legacy/docs/paper-module-formal-math-lean-proof-witness.html",
+    "sites/microcosm-legacy/docs/paper-module-formal-math-premise-retrieval.html",
+    "sites/microcosm-legacy/docs/paper-module-formal-math-readiness-gate.html",
+    "sites/microcosm-legacy/docs/paper-module-formal-math-verifier-trace-repair-loop.html",
+    "sites/microcosm-legacy/docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-lean-std-premise-index.html",
+    "sites/microcosm-legacy/docs/paper-module-macro-projection-import-protocol.html",
+    "sites/microcosm-legacy/docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-mathematical-strategy-atlas.html",
+    "sites/microcosm-legacy/docs/paper-module-mcp-tool-authority-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-microcosm-axiom-substrate.html",
+    "sites/microcosm-legacy/docs/paper-module-mission-transaction-work-spine.html",
+    "sites/microcosm-legacy/docs/paper-module-navigation-hologram-route-plane.html",
+    "sites/microcosm-legacy/docs/paper-module-pattern-assimilation.html",
+    "sites/microcosm-legacy/docs/paper-module-pattern-binding-contract.html",
+    "sites/microcosm-legacy/docs/paper-module-prediction-oracle-reconciliation.html",
+    "sites/microcosm-legacy/docs/paper-module-proof-derived-governed-mutation-authorization.html",
+    "sites/microcosm-legacy/docs/paper-module-proof-diagnostic-evidence-spine.html",
+    "sites/microcosm-legacy/docs/paper-module-provider-context-recipe-budget.html",
+    "sites/microcosm-legacy/docs/paper-module-public-reveal-walkthrough.html",
+    "sites/microcosm-legacy/docs/paper-module-research-replication-rubric-artifact-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-ring2-premise-precision-recall.html",
+    "sites/microcosm-legacy/docs/paper-module-routing-anti-patterns-registry.html",
+    "sites/microcosm-legacy/docs/paper-module-self-ignorance-coverage-ledger.html",
+    "sites/microcosm-legacy/docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html",
+    "sites/microcosm-legacy/docs/paper-module-standards-meta-diagnostics.html",
+    "sites/microcosm-legacy/docs/paper-module-tactic-portfolio-availability.html",
+    "sites/microcosm-legacy/docs/paper-module-target-shape-tactic-routing.html",
+    "sites/microcosm-legacy/docs/paper-module-tool-server-pressure-inventory.html",
+    "sites/microcosm-legacy/docs/paper-module-undeclared-library-prior-classifier.html",
+    "sites/microcosm-legacy/docs/paper-module-verifier-lab-execution-spine.html",
+    "sites/microcosm-legacy/docs/paper-module-verifier-lab-kernel.html",
+    "sites/microcosm-legacy/docs/paper-module-voice-to-doctrine-self-improvement-loop.html",
+    "sites/microcosm-legacy/docs/paper-module-work-landing-control-spine.html",
+    "sites/microcosm-legacy/docs/paper-module-world-model-projection-drift-control-room.html",
     "sites/microcosm-legacy/docs/paper-modules.html",
     "sites/microcosm-legacy/docs/quickstart.html",
     "sites/microcosm-legacy/docs/reference.html",
@@ -1140,6 +2852,50 @@
     "sites/microcosm-legacy/security.txt",
     "sites/microcosm-legacy/updates.xml"
   ],
+  "html_route_sharding": {
+    "bulk_corpus_routes": [
+      "microcosm-ai-reader-digest.json",
+      "microcosm-ai-review-packet.json",
+      "content-graph.json",
+      "assets/site-packet.js"
+    ],
+    "detail_routes": {
+      "component_detail_count": 78,
+      "component_detail_sample": [
+        "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+        "docs/component-agent-closeout-faithfulness-audit.html",
+        "docs/component-agent-memory-temporal-conflict-replay.html",
+        "docs/component-agent-monitor-redteam-falsification-replay.html",
+        "docs/component-agent-route-observability-runtime.html"
+      ],
+      "paper_module_detail_count": 93,
+      "paper_module_detail_sample": [
+        "docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
+        "docs/paper-module-agent-closeout-faithfulness-audit.html",
+        "docs/paper-module-agent-memory-temporal-conflict-replay.html",
+        "docs/paper-module-agent-monitor-redteam-falsification-replay.html",
+        "docs/paper-module-agent-route-observability-runtime.html"
+      ],
+      "route_role": "static_source_linked_detail_pages"
+    },
+    "index_routes": {
+      "docs/components.html": {
+        "body_policy": "compact_index_no_commands_no_paper_module_bodies",
+        "budget_bytes": 350000,
+        "byte_count": 274514,
+        "status": "pass"
+      },
+      "docs/paper-modules.html": {
+        "body_policy": "compact_index_no_paper_module_bodies",
+        "budget_bytes": 650000,
+        "byte_count": 568176,
+        "status": "pass"
+      }
+    },
+    "purpose": "Keep first-read reference routes compact while preserving no-JS static detail pages.",
+    "runtime_policy": "first_routes_do_not_require_lazy_full_text_packets; bulk corpus remains explicit and lazy",
+    "schema": "microcosm_public_html_route_sharding_receipt_v1"
+  },
   "legacy_compatibility": {
     "canonical_site_base_url": "https://wcook04.github.io/plectis/",
     "legacy_site_base_url": "https://wcook04.github.io/plectis/",
@@ -1156,8 +2912,8 @@
     "machine_readable_policy": "Old JSON packets, download files, generated assets, and projection-status routes remain machine-readable files. Only old human HTML pages use visible transition HTML; validation parses JSON routes and fails if they return HTML.",
     "manifest_path": "legacy-route-manifest.json",
     "mode_counts": {
-      "byte_compatible_alias": 15,
-      "html_redirect": 27,
+      "byte_compatible_alias": 16,
+      "html_redirect": 198,
       "legacy_404": 1,
       "legacy_projection_status": 1,
       "legacy_security_txt": 2
@@ -1175,7 +2931,7 @@
         "machine_readable": true,
         "mode": "byte_compatible_alias",
         "policy": "Machine-readable JSON and static assets are emitted as files so the old URL keeps its content type.",
-        "route_count": 15,
+        "route_count": 16,
         "sample_paths": [
           "content-graph.json",
           "content-manifest.json",
@@ -1223,7 +2979,7 @@
         "machine_readable": false,
         "mode": "html_redirect",
         "policy": "HTML routes show the transition and may forward to the canonical route; they are not used for machine-readable assets.",
-        "route_count": 27,
+        "route_count": 198,
         "sample_paths": [
           "index.html",
           "docs/index.html",
@@ -1248,7 +3004,7 @@
         ]
       }
     ],
-    "route_count": 46,
+    "route_count": 218,
     "schema": "plectis_legacy_compatibility_summary_v0"
   },
   "math_latex_asset_count": 0,
@@ -1345,14 +3101,14 @@
     }
   },
   "page_identity": {
-    "canonical_page_object_count": 25,
+    "canonical_page_object_count": 196,
     "compatibility_route_count": 1,
     "count_semantics": {
       "canonical_page_object_count": "Generated page objects with route_role=canonical_page.",
       "emitted_route_count": "Generated HTML page outputs, including compatibility aliases.",
       "route_alias_count": "Compatibility HTML outputs that resolve to a canonical page object."
     },
-    "emitted_route_count": 26,
+    "emitted_route_count": 197,
     "route_alias_count": 1,
     "route_aliases": [
       {
@@ -1381,7 +3137,7 @@
     "paper_module": 223,
     "principle": 470
   },
-  "public_base_url": "https://wcook04.github.io/plectis/",
+  "public_base_url": null,
   "public_export_egress_posture": {
     "artifact_identity_pointer": "composition_identity + projection-status.json::artifact_identity",
     "authorization_boundary": "The standalone public Plectis source slice and review packets are public distribution artifacts in populated-source release mode. That authorization does not publish the private macro root, private raw media, account material, future cohorts, follow-ups, live services, or any material absent from the public repository/review packet boundary.",
@@ -1947,7 +3703,7 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:52899be264175c458cf51068f42141d923df6b8ce7b1ad9bf3c537cc04eb3d18",
-    "sites/microcosm/index.html": "sha256:2a8720b2af971f577a4fe80b9a19bbb603c1a98e9d6c7a210371fe9b07a5aa1e"
+    "sites/microcosm/index.html": "sha256:788a4aaeec3803079bb1c5cd473389fcdaea1b7b5ac3f50bbc0b4546c7688572"
   },
   "source_refs": [
     "microcosm-substrate/anti_principles/AP-1.json",

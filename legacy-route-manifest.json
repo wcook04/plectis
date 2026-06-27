@@ -7,13 +7,13 @@
   "legacy_public_name": "Microcosm",
   "legacy_site_base_url": "https://wcook04.github.io/plectis/",
   "mode_counts": {
-    "byte_compatible_alias": 15,
-    "html_redirect": 27,
+    "byte_compatible_alias": 16,
+    "html_redirect": 198,
     "legacy_404": 1,
     "legacy_projection_status": 1,
     "legacy_security_txt": 2
   },
-  "route_count": 46,
+  "route_count": 218,
   "route_policy": {
     "byte_compatible_alias": "Machine-readable JSON and static assets are emitted as files so the old URL keeps its content type.",
     "html_redirect": "HTML routes show the transition and may forward to the canonical route; they are not used for machine-readable assets.",
@@ -183,6 +183,786 @@
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
     {
+      "canonical_path": "docs/component-cold-reader-route-map.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-cold-reader-route-map.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-cold-reader-route-map.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-cold-reader-route-map.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-public-reveal-walkthrough.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-public-reveal-walkthrough.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-public-reveal-walkthrough.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-public-reveal-walkthrough.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-pattern-binding-contract.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-pattern-binding-contract.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-pattern-binding-contract.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-pattern-binding-contract.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-pattern-assimilation-step.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-pattern-assimilation-step.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-pattern-assimilation-step.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-pattern-assimilation-step.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-executable-doctrine-grammar.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-executable-doctrine-grammar.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-executable-doctrine-grammar.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-executable-doctrine-grammar.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-navigation-hologram-route-plane.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-navigation-hologram-route-plane.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-navigation-hologram-route-plane.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-navigation-hologram-route-plane.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-standards-meta-diagnostics.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-standards-meta-diagnostics.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-standards-meta-diagnostics.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-standards-meta-diagnostics.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-voice-to-doctrine-self-improvement-loop.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-voice-to-doctrine-self-improvement-loop.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-voice-to-doctrine-self-improvement-loop.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-voice-to-doctrine-self-improvement-loop.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-cognitive-operator-registry.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-cognitive-operator-registry.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-cognitive-operator-registry.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-cognitive-operator-registry.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-routing-anti-patterns-registry.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-routing-anti-patterns-registry.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-routing-anti-patterns-registry.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-routing-anti-patterns-registry.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-doctrine-fact-claim-audit.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-doctrine-fact-claim-audit.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-doctrine-fact-claim-audit.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-doctrine-fact-claim-audit.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-self-ignorance-coverage-ledger.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-self-ignorance-coverage-ledger.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-self-ignorance-coverage-ledger.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-self-ignorance-coverage-ledger.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-proof-diagnostic-evidence-spine.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-proof-diagnostic-evidence-spine.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-proof-diagnostic-evidence-spine.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-proof-diagnostic-evidence-spine.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-formal-math-readiness-gate.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-formal-math-readiness-gate.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-formal-math-readiness-gate.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-formal-math-readiness-gate.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-corpus-readiness-mathlib-absence-gate.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-corpus-readiness-mathlib-absence-gate.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-corpus-readiness-mathlib-absence-gate.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-corpus-readiness-mathlib-absence-gate.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-mathematical-strategy-atlas-hypothesis-scorer.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-mathematical-strategy-atlas-hypothesis-scorer.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-mathematical-strategy-atlas-hypothesis-scorer.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-mathematical-strategy-atlas-hypothesis-scorer.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-tactic-portfolio-availability-probe.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-tactic-portfolio-availability-probe.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-tactic-portfolio-availability-probe.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-tactic-portfolio-availability-probe.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-target-shape-tactic-routing-gate.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-target-shape-tactic-routing-gate.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-target-shape-tactic-routing-gate.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-target-shape-tactic-routing-gate.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-lean-std-premise-index.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-lean-std-premise-index.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-lean-std-premise-index.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-lean-std-premise-index.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-formal-math-premise-retrieval.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-formal-math-premise-retrieval.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-formal-math-premise-retrieval.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-formal-math-premise-retrieval.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-formal-math-verifier-trace-repair-loop.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-formal-math-verifier-trace-repair-loop.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-formal-math-verifier-trace-repair-loop.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-formal-math-verifier-trace-repair-loop.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-formal-evidence-cell-anchor-resolver.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-formal-evidence-cell-anchor-resolver.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-formal-evidence-cell-anchor-resolver.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-formal-evidence-cell-anchor-resolver.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-undeclared-library-prior-symbol-classifier.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-undeclared-library-prior-symbol-classifier.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-undeclared-library-prior-symbol-classifier.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-undeclared-library-prior-symbol-classifier.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-ring2-premise-retrieval-precision-recall-harness.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-ring2-premise-retrieval-precision-recall-harness.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-ring2-premise-retrieval-precision-recall-harness.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-ring2-premise-retrieval-precision-recall-harness.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-formal-math-lean-proof-witness.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-formal-math-lean-proof-witness.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-formal-math-lean-proof-witness.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-formal-math-lean-proof-witness.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-verifier-lab-kernel.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-verifier-lab-kernel.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-verifier-lab-kernel.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-verifier-lab-kernel.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-verifier-lab-execution-spine.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-verifier-lab-execution-spine.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-verifier-lab-execution-spine.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-verifier-lab-execution-spine.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-certificate-kernel-execution-lab.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-certificate-kernel-execution-lab.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-certificate-kernel-execution-lab.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-certificate-kernel-execution-lab.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch4-proof-authority-runtime.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch4-proof-authority-runtime.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch4-proof-authority-runtime.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch4-proof-authority-runtime.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-proof-derived-governed-mutation-authorization.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-proof-derived-governed-mutation-authorization.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-proof-derived-governed-mutation-authorization.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-proof-derived-governed-mutation-authorization.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch10-cold-eval-honesty-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch10-cold-eval-honesty-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch10-cold-eval-honesty-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch10-cold-eval-honesty-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch8-validator-checker-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch8-validator-checker-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch8-validator-checker-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch8-validator-checker-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-agent-monitor-redteam-falsification-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-agent-monitor-redteam-falsification-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-agent-monitor-redteam-falsification-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-agent-monitor-redteam-falsification-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-agent-sabotage-scheming-monitor-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-agent-sabotage-scheming-monitor-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-agent-sabotage-scheming-monitor-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-agent-sabotage-scheming-monitor-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-agent-memory-temporal-conflict-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-agent-memory-temporal-conflict-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-agent-memory-temporal-conflict-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-agent-memory-temporal-conflict-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-sleeper-memory-poisoning-quarantine-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-sleeper-memory-poisoning-quarantine-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-sleeper-memory-poisoning-quarantine-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-sleeper-memory-poisoning-quarantine-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-mcp-tool-authority-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-mcp-tool-authority-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-mcp-tool-authority-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-mcp-tool-authority-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-belief-state-process-reward-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-belief-state-process-reward-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-belief-state-process-reward-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-belief-state-process-reward-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-agent-sandbox-policy-escape-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-agent-sandbox-policy-escape-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-agent-sandbox-policy-escape-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-agent-sandbox-policy-escape-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-agent-route-observability-runtime.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-agent-route-observability-runtime.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-agent-route-observability-runtime.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-agent-route-observability-runtime.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-provider-context-recipe-budget-policy.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-provider-context-recipe-budget-policy.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-provider-context-recipe-budget-policy.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-provider-context-recipe-budget-policy.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-agent-closeout-faithfulness-audit.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-agent-closeout-faithfulness-audit.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-agent-closeout-faithfulness-audit.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-agent-closeout-faithfulness-audit.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-bounded-autonomy-campaign-packet.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-bounded-autonomy-campaign-packet.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-bounded-autonomy-campaign-packet.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-bounded-autonomy-campaign-packet.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch7-secondary-runtime-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch7-secondary-runtime-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch7-secondary-runtime-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch7-secondary-runtime-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-research-replication-rubric-artifact-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-research-replication-rubric-artifact-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-research-replication-rubric-artifact-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-research-replication-rubric-artifact-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-prediction-oracle-reconciliation.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-prediction-oracle-reconciliation.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-prediction-oracle-reconciliation.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-prediction-oracle-reconciliation.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-finance-forecast-evaluation-spine.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-finance-forecast-evaluation-spine.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-finance-forecast-evaluation-spine.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-finance-forecast-evaluation-spine.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch12-market-dashboard-read-model-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch12-market-dashboard-read-model-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch12-market-dashboard-read-model-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch12-market-dashboard-read-model-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch12-prediction-market-board-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch12-prediction-market-board-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch12-prediction-market-board-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch12-prediction-market-board-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-macro-projection-import-protocol.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-macro-projection-import-protocol.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-macro-projection-import-protocol.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-macro-projection-import-protocol.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-world-model-projection-drift-control-room.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-world-model-projection-drift-control-room.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-world-model-projection-drift-control-room.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-world-model-projection-drift-control-room.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch6-unsurfaced-primitives-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch6-unsurfaced-primitives-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch6-unsurfaced-primitives-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch6-unsurfaced-primitives-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch5-authority-systems-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch5-authority-systems-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch5-authority-systems-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch5-authority-systems-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch7-macro-engines-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch7-macro-engines-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch7-macro-engines-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch7-macro-engines-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch7-oracle-sibling-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch7-oracle-sibling-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch7-oracle-sibling-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch7-oracle-sibling-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch7-demo-take-console-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch7-demo-take-console-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch7-demo-take-console-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch7-demo-take-console-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch8-tools-tail-primitives-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch8-tools-tail-primitives-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch8-tools-tail-primitives-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch8-tools-tail-primitives-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch8-policy-engines-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch8-policy-engines-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch8-policy-engines-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch8-policy-engines-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch8-audio-level-rms-port.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch8-audio-level-rms-port.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch8-audio-level-rms-port.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch8-audio-level-rms-port.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch8-structural-theses-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch8-structural-theses-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch8-structural-theses-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch8-structural-theses-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-engine-room-demo.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-engine-room-demo.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-engine-room-demo.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-engine-room-demo.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch9-macro-engines-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch9-macro-engines-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch9-macro-engines-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch9-macro-engines-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch10-governance-compilers-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch10-governance-compilers-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch10-governance-compilers-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch10-governance-compilers-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch11-saturation-engines-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch11-saturation-engines-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch11-saturation-engines-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch11-saturation-engines-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-tool-server-pressure-inventory.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-tool-server-pressure-inventory.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-tool-server-pressure-inventory.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-tool-server-pressure-inventory.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch8-compliance-pipeline-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch8-compliance-pipeline-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch8-compliance-pipeline-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch8-compliance-pipeline-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch10-live-source-drift-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch10-live-source-drift-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch10-live-source-drift-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch10-live-source-drift-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-batch12-release-claim-language-gate.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-batch12-release-claim-language-gate.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-batch12-release-claim-language-gate.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-batch12-release-claim-language-gate.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-mission-transaction-work-spine.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-mission-transaction-work-spine.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-mission-transaction-work-spine.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-mission-transaction-work-spine.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-durable-agent-work-landing-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-durable-agent-work-landing-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-durable-agent-work-landing-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-durable-agent-work-landing-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-bridge-phase-continuity-runtime.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-bridge-phase-continuity-runtime.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-bridge-phase-continuity-runtime.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-bridge-phase-continuity-runtime.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/component-concurrency-mission-control.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/component-concurrency-mission-control.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/component-concurrency-mission-control.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/component-concurrency-mission-control.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
       "canonical_path": "docs/reference.html",
       "canonical_url": "https://wcook04.github.io/plectis/docs/reference.html",
       "content_type": "text/html; charset=utf-8",
@@ -219,6 +999,936 @@
       "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
       "legacy_path": "docs/paper-modules.html",
       "legacy_url": "https://wcook04.github.io/plectis/docs/paper-modules.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-verifier-lab-kernel.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-verifier-lab-kernel.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-verifier-lab-kernel.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-verifier-lab-kernel.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-navigation-hologram-route-plane.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-navigation-hologram-route-plane.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-navigation-hologram-route-plane.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-navigation-hologram-route-plane.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-agent-route-observability-runtime.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-route-observability-runtime.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-agent-route-observability-runtime.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-route-observability-runtime.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-research-replication-rubric-artifact-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-research-replication-rubric-artifact-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-research-replication-rubric-artifact-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-research-replication-rubric-artifact-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-certificate-kernel-execution-lab.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-certificate-kernel-execution-lab.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-certificate-kernel-execution-lab.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-certificate-kernel-execution-lab.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-corpus-readiness-mathlib-absence-gate.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-corpus-readiness-mathlib-absence-gate.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-corpus-readiness-mathlib-absence-gate.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-corpus-readiness-mathlib-absence-gate.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-pattern-binding-contract.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-pattern-binding-contract.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-pattern-binding-contract.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-pattern-binding-contract.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-bridge-phase-continuity-runtime.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-bridge-phase-continuity-runtime.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-bridge-phase-continuity-runtime.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-bridge-phase-continuity-runtime.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-cognitive-operator-registry.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-cognitive-operator-registry.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-cognitive-operator-registry.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-cognitive-operator-registry.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-agent-closeout-faithfulness-audit.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-closeout-faithfulness-audit.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-agent-closeout-faithfulness-audit.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-closeout-faithfulness-audit.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-cold-reader-route-map.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-cold-reader-route-map.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-cold-reader-route-map.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-cold-reader-route-map.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-proof-diagnostic-evidence-spine.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-proof-diagnostic-evidence-spine.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-proof-diagnostic-evidence-spine.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-proof-diagnostic-evidence-spine.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-proof-derived-governed-mutation-authorization.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-proof-derived-governed-mutation-authorization.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-proof-derived-governed-mutation-authorization.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-proof-derived-governed-mutation-authorization.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-durable-agent-work-landing-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-durable-agent-work-landing-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-durable-agent-work-landing-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-durable-agent-work-landing-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-work-landing-control-spine.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-work-landing-control-spine.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-work-landing-control-spine.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-work-landing-control-spine.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-executable-doctrine-grammar.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-executable-doctrine-grammar.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-executable-doctrine-grammar.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-executable-doctrine-grammar.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-macro-projection-import-protocol.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-macro-projection-import-protocol.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-macro-projection-import-protocol.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-macro-projection-import-protocol.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-mission-transaction-work-spine.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-mission-transaction-work-spine.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-mission-transaction-work-spine.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-mission-transaction-work-spine.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-formal-math-readiness-gate.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-formal-math-readiness-gate.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-formal-math-readiness-gate.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-formal-math-readiness-gate.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-formal-math-lean-proof-witness.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-formal-math-lean-proof-witness.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-formal-math-lean-proof-witness.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-formal-math-lean-proof-witness.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-formal-math-verifier-trace-repair-loop.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-formal-math-verifier-trace-repair-loop.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-formal-math-verifier-trace-repair-loop.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-formal-math-verifier-trace-repair-loop.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-formal-evidence-cell-anchor-resolver.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-formal-evidence-cell-anchor-resolver.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-formal-evidence-cell-anchor-resolver.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-formal-evidence-cell-anchor-resolver.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-formal-math-premise-retrieval.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-formal-math-premise-retrieval.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-formal-math-premise-retrieval.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-formal-math-premise-retrieval.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-lean-std-premise-index.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-lean-std-premise-index.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-lean-std-premise-index.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-lean-std-premise-index.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-world-model-projection-drift-control-room.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-world-model-projection-drift-control-room.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-world-model-projection-drift-control-room.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-world-model-projection-drift-control-room.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-public-reveal-walkthrough.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-public-reveal-walkthrough.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-public-reveal-walkthrough.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-public-reveal-walkthrough.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-standards-meta-diagnostics.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-standards-meta-diagnostics.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-standards-meta-diagnostics.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-standards-meta-diagnostics.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-finance-forecast-evaluation-spine.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-finance-forecast-evaluation-spine.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-finance-forecast-evaluation-spine.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-finance-forecast-evaluation-spine.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-engine-room-demo.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-demo.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-engine-room-demo.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-demo.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-agent-memory-temporal-conflict-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-memory-temporal-conflict-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-agent-memory-temporal-conflict-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-memory-temporal-conflict-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-agent-monitor-redteam-falsification-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-monitor-redteam-falsification-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-agent-monitor-redteam-falsification-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-monitor-redteam-falsification-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-agent-sabotage-scheming-monitor-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-sabotage-scheming-monitor-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-agent-sabotage-scheming-monitor-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-sabotage-scheming-monitor-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-agent-sandbox-policy-escape-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-sandbox-policy-escape-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-agent-sandbox-policy-escape-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-agent-sandbox-policy-escape-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-belief-state-process-reward-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-belief-state-process-reward-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-belief-state-process-reward-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-belief-state-process-reward-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-mcp-tool-authority-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-mcp-tool-authority-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-mcp-tool-authority-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-mcp-tool-authority-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-tactic-portfolio-availability.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-tactic-portfolio-availability.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-tactic-portfolio-availability.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-tactic-portfolio-availability.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-target-shape-tactic-routing.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-target-shape-tactic-routing.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-target-shape-tactic-routing.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-target-shape-tactic-routing.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-ring2-premise-precision-recall.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-ring2-premise-precision-recall.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-ring2-premise-precision-recall.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-ring2-premise-precision-recall.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-mathematical-strategy-atlas.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-mathematical-strategy-atlas.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-mathematical-strategy-atlas.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-mathematical-strategy-atlas.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-verifier-lab-execution-spine.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-verifier-lab-execution-spine.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-verifier-lab-execution-spine.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-verifier-lab-execution-spine.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-bounded-autonomy-campaign-packet.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-bounded-autonomy-campaign-packet.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-bounded-autonomy-campaign-packet.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-bounded-autonomy-campaign-packet.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-computer-use-action-trace-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-computer-use-action-trace-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-computer-use-action-trace-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-computer-use-action-trace-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-concurrency-mission-control.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-concurrency-mission-control.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-concurrency-mission-control.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-concurrency-mission-control.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-doctrine-fact-claim-audit.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-doctrine-fact-claim-audit.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-doctrine-fact-claim-audit.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-doctrine-fact-claim-audit.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-self-ignorance-coverage-ledger.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-self-ignorance-coverage-ledger.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-self-ignorance-coverage-ledger.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-self-ignorance-coverage-ledger.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-tool-server-pressure-inventory.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-tool-server-pressure-inventory.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-tool-server-pressure-inventory.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-tool-server-pressure-inventory.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-prediction-oracle-reconciliation.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-prediction-oracle-reconciliation.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-prediction-oracle-reconciliation.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-prediction-oracle-reconciliation.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-provider-context-recipe-budget.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-provider-context-recipe-budget.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-provider-context-recipe-budget.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-provider-context-recipe-budget.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-undeclared-library-prior-classifier.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-undeclared-library-prior-classifier.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-undeclared-library-prior-classifier.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-undeclared-library-prior-classifier.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-voice-to-doctrine-self-improvement-loop.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-voice-to-doctrine-self-improvement-loop.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-voice-to-doctrine-self-improvement-loop.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-voice-to-doctrine-self-improvement-loop.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-routing-anti-patterns-registry.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-routing-anti-patterns-registry.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-routing-anti-patterns-registry.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-routing-anti-patterns-registry.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch8-audio-level-rms-port.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-audio-level-rms-port.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch8-audio-level-rms-port.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-audio-level-rms-port.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch8-compliance-pipeline-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-compliance-pipeline-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch8-compliance-pipeline-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-compliance-pipeline-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch8-policy-engines-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-policy-engines-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch8-policy-engines-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-policy-engines-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch8-structural-theses-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-structural-theses-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch8-structural-theses-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-structural-theses-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch8-tools-tail-primitives-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-tools-tail-primitives-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch8-tools-tail-primitives-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-tools-tail-primitives-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch8-validator-checker-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-validator-checker-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch8-validator-checker-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch8-validator-checker-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch12-market-dashboard-read-model-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch12-market-dashboard-read-model-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch12-market-dashboard-read-model-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch12-market-dashboard-read-model-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch12-prediction-market-board-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch12-prediction-market-board-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch12-prediction-market-board-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch12-prediction-market-board-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch12-release-claim-language-gate.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch12-release-claim-language-gate.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch12-release-claim-language-gate.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch12-release-claim-language-gate.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch10-cold-eval-honesty-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch10-cold-eval-honesty-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch10-cold-eval-honesty-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch10-cold-eval-honesty-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch10-live-source-drift-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch10-live-source-drift-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch10-live-source-drift-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch10-live-source-drift-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch7-macro-engines-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch7-macro-engines-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch7-macro-engines-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch7-macro-engines-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch9-macro-engines-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch9-macro-engines-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch9-macro-engines-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch9-macro-engines-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-pattern-assimilation.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-pattern-assimilation.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-pattern-assimilation.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-pattern-assimilation.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch10-governance-compilers-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch10-governance-compilers-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch10-governance-compilers-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch10-governance-compilers-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch11-saturation-engines-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch11-saturation-engines-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch11-saturation-engines-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch11-saturation-engines-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch4-proof-authority-runtime.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch4-proof-authority-runtime.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch4-proof-authority-runtime.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch4-proof-authority-runtime.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch6-unsurfaced-primitives-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch6-unsurfaced-primitives-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch6-unsurfaced-primitives-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch6-unsurfaced-primitives-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-engine-room-public-projection-leak-gate.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-public-projection-leak-gate.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-engine-room-public-projection-leak-gate.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-public-projection-leak-gate.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch5-authority-systems-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch5-authority-systems-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch5-authority-systems-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch5-authority-systems-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch7-oracle-sibling-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch7-oracle-sibling-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch7-oracle-sibling-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch7-oracle-sibling-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch7-demo-take-console-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch7-demo-take-console-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch7-demo-take-console-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch7-demo-take-console-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-engine-room-generated-projection-drift-gate.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-generated-projection-drift-gate.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-engine-room-generated-projection-drift-gate.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-generated-projection-drift-gate.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-engine-room-command-run-singleflight.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-command-run-singleflight.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-engine-room-command-run-singleflight.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-command-run-singleflight.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-engine-room-metabolism-runtime.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-metabolism-runtime.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-engine-room-metabolism-runtime.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-metabolism-runtime.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-engine-room-bridge-campaign-dag.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-bridge-campaign-dag.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-engine-room-bridge-campaign-dag.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-bridge-campaign-dag.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-engine-room-annex-knowledge-router.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-annex-knowledge-router.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-engine-room-annex-knowledge-router.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-annex-knowledge-router.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-engine-room-derived-fact-provider-engine.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-derived-fact-provider-engine.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-engine-room-derived-fact-provider-engine.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-derived-fact-provider-engine.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-engine-room-egress-self-compliance-gate.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-egress-self-compliance-gate.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-engine-room-egress-self-compliance-gate.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-egress-self-compliance-gate.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-engine-room-lean-proof-search-lab.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-lean-proof-search-lab.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-engine-room-lean-proof-search-lab.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-lean-proof-search-lab.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-engine-room-navigation-fitness-benchmark.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-navigation-fitness-benchmark.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-engine-room-navigation-fitness-benchmark.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-engine-room-navigation-fitness-benchmark.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-cold-clone-probe.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-cold-clone-probe.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-cold-clone-probe.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-cold-clone-probe.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-first-screen-composition-root.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-first-screen-composition-root.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-first-screen-composition-root.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-first-screen-composition-root.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-batch7-secondary-runtime-capsule.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-batch7-secondary-runtime-capsule.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-batch7-secondary-runtime-capsule.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-batch7-secondary-runtime-capsule.html",
+      "mode": "html_redirect",
+      "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
+    },
+    {
+      "canonical_path": "docs/paper-module-microcosm-axiom-substrate.html",
+      "canonical_url": "https://wcook04.github.io/plectis/docs/paper-module-microcosm-axiom-substrate.html",
+      "content_type": "text/html; charset=utf-8",
+      "expected_behavior": "visible transition notice with noindex, canonical link, automatic HTML forwarding, and ordinary link fallback",
+      "legacy_path": "docs/paper-module-microcosm-axiom-substrate.html",
+      "legacy_url": "https://wcook04.github.io/plectis/docs/paper-module-microcosm-axiom-substrate.html",
       "mode": "html_redirect",
       "query_fragment_policy": "GitHub Pages static HTML cannot server-preserve query strings or fragments; the visible fallback names the canonical route."
     },
@@ -431,6 +2141,17 @@
       "expected_behavior": "return the same-origin public asset under the old URL without content-type corruption",
       "legacy_path": "assets/style.css",
       "legacy_url": "https://wcook04.github.io/plectis/assets/style.css",
+      "mode": "byte_compatible_alias",
+      "proof": "validate_legacy_compatibility verifies the emitted alias exists",
+      "semantic_equivalence": "asset_transport_alias"
+    },
+    {
+      "canonical_path": "assets/fragment-open.js",
+      "canonical_url": "https://wcook04.github.io/plectis/assets/fragment-open.js",
+      "content_type": "application/javascript; charset=utf-8",
+      "expected_behavior": "return the same-origin public asset under the old URL without content-type corruption",
+      "legacy_path": "assets/fragment-open.js",
+      "legacy_url": "https://wcook04.github.io/plectis/assets/fragment-open.js",
       "mode": "byte_compatible_alias",
       "proof": "validate_legacy_compatibility verifies the emitted alias exists",
       "semantic_equivalence": "asset_transport_alias"

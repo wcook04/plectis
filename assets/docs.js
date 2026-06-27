@@ -24,6 +24,64 @@
       : 'assets/' + name;
   }
 
+  var mcSearchIndexState = 'idle';
+  var mcSearchIndexCallbacks = [];
+  function mcSearchIndexRecords() {
+    var data = window.__MICROCOSM_INDEX__ || {};
+    var records = data.records || [];
+    return records && records.length ? records : [];
+  }
+
+  function completeSearchIndex(records) {
+    mcSearchIndexState = records && records.length ? 'ready' : 'failed';
+    var queued = mcSearchIndexCallbacks.slice();
+    mcSearchIndexCallbacks = [];
+    queued.forEach(function (cb) { cb(records || []); });
+  }
+
+  function existingSearchIndexScript() {
+    var tagged = document.querySelector('script[data-search-index]');
+    if (tagged) return tagged;
+    var scripts = Array.prototype.slice.call(document.querySelectorAll('script[src]'));
+    return scripts.filter(function (s) {
+      return /(?:^|\/)search-index\.js(?:[?#].*)?$/.test(s.getAttribute('src') || s.src || '');
+    }).pop() || null;
+  }
+
+  function withSearchIndex(cb) {
+    var records = mcSearchIndexRecords();
+    if (records.length) {
+      mcSearchIndexState = 'ready';
+      cb(records);
+      return;
+    }
+    if (mcSearchIndexState === 'failed') {
+      cb([]);
+      return;
+    }
+    mcSearchIndexCallbacks.push(cb);
+    if (mcSearchIndexState === 'loading') return;
+    mcSearchIndexState = 'loading';
+
+    var existing = existingSearchIndexScript();
+    if (existing) {
+      existing.addEventListener('load', function () { completeSearchIndex(mcSearchIndexRecords()); });
+      existing.addEventListener('error', function () { completeSearchIndex([]); });
+      return;
+    }
+
+    var s = document.createElement('script');
+    s.src = mcAssetUrl('search-index.js');
+    s.async = true;
+    s.setAttribute('data-search-index', '');
+    s.addEventListener('load', function () { completeSearchIndex(mcSearchIndexRecords()); });
+    s.addEventListener('error', function () {
+      if (window.console && console.warn) console.warn('Microcosm: search-index.js failed to load; site search unavailable.');
+      completeSearchIndex([]);
+    });
+    document.head.appendChild(s);
+  }
+
   function cleanText(text) {
     return String(text || '').replace(/\s+/g, ' ').trim();
   }
@@ -379,7 +437,7 @@
   (function viewState() {
     var KEY_STACK = 'mc:viewstate:stack';     // breadcrumb trail of views behind this one
     var KEY_RESTORE = 'mc:viewstate:restore'; // a pending exact restore for this load
-    var MAX_DEPTH = 30;
+    var MAX_DEPTH = 6;
     var ss;
     try { ss = window.sessionStorage; var probe = '__mc_vs'; ss.setItem(probe, '1'); ss.removeItem(probe); }
     catch (e) { return; }
@@ -387,7 +445,15 @@
     function read(key) { try { var v = ss.getItem(key); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
     function write(key, val) { try { ss.setItem(key, JSON.stringify(val)); } catch (e) {} }
     function drop(key) { try { ss.removeItem(key); } catch (e) {} }
-    function readStack() { var s = read(KEY_STACK); return (s && s.length) ? s : []; }
+    function clampStack(stack) {
+      stack = stack && stack.length ? stack.slice(Math.max(0, stack.length - MAX_DEPTH)) : [];
+      return stack.filter(function (entry) { return entry && entry.path && entry.url; });
+    }
+    function readStack() {
+      var stack = clampStack(read(KEY_STACK));
+      write(KEY_STACK, stack);
+      return stack;
+    }
     drop('mc:viewstate:prev');
 
     function navType() {
@@ -538,22 +604,10 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'viewback';
-      // The trail can be several hops deep (component -> whole-system map -> overview).
-      // Show the depth so the reader can SEE that clicking keeps unwinding the chain,
-      // not just one step, and expose the whole trail via the native title tooltip.
-      // The pill still steps back exactly one hop per click -- this is perception only,
-      // and it reuses the existing label styling so it needs no CSS.
-      var deep = trail.length > 1;
       btn.setAttribute(
         'aria-label',
-        deep
-          ? 'Back to ' + prev.title + ', step 1 of a ' + trail.length + '-step trail; each click steps back once'
-          : 'Back to previous view: ' + prev.title
+        'Back to previous view: ' + prev.title
       );
-      if (deep) {
-        var order = trail.map(function (t) { return t.title; }).reverse();
-        btn.title = 'Back through:  ' + order.join('  →  ');
-      }
       var arrow = document.createElement('span');
       arrow.className = 'viewback__arrow';
       arrow.setAttribute('aria-hidden', 'true');
@@ -565,12 +619,6 @@
       where.className = 'viewback__where';
       where.textContent = prev.title;
       lab.appendChild(where);
-      if (deep) {
-        var depth = document.createElement('span');
-        depth.className = 'viewback__depth';
-        depth.textContent = ' · ' + trail.length + ' steps';
-        lab.appendChild(depth);
-      }
       btn.appendChild(arrow);
       btn.appendChild(lab);
       var remove = function () {
@@ -1614,8 +1662,9 @@
   })();
 
   // --- Command palette: site-wide search over the generated index -----------
-  // Reads window.__MICROCOSM_INDEX__ (a static, no-network projection of
-  // content-graph.json loaded via <script src>). Degrades to nothing if absent.
+  // Lazily loads window.__MICROCOSM_INDEX__ (a static, same-origin projection of
+  // content-graph.json via <script src>) when the visitor opens search. Degrades
+  // to a clear empty state if absent.
   (function search() {
     var modal = document.querySelector('[data-search-modal]');
     var input = modal && modal.querySelector('[data-search-input]');
@@ -1623,9 +1672,9 @@
     var emptyEl = modal && modal.querySelector('[data-search-empty]');
     var countEl = modal && modal.querySelector('[data-search-count]');
     var openers = document.querySelectorAll('[data-search-open]');
-    var data = window.__MICROCOSM_INDEX__ || {};
-    var index = data.records || [];
-    if (!modal || !input || !list || !index.length) return;
+    var index = mcSearchIndexRecords();
+    var searchIndexStatus = index.length ? 'ready' : 'idle';
+    if (!modal || !input || !list) return;
 
     // ARIA semantics reconciliation (runtime). The build-time shell ships the
     // results <ul> as role="listbox", and rows historically carried role="option".
@@ -1661,6 +1710,32 @@
     var emptyDefault = null; // build-time empty-state copy, captured on first miss
 
     function tokens(s) { return s.toLowerCase().split(/\s+/).filter(Boolean); }
+
+    function setEmptyState(message) {
+      list.innerHTML = '';
+      results = [];
+      active = -1;
+      if (emptyEl) {
+        if (emptyDefault == null) emptyDefault = emptyEl.textContent;
+        emptyEl.textContent = message || emptyDefault;
+        emptyEl.removeAttribute('hidden');
+      }
+      if (countEl) countEl.textContent = '';
+    }
+
+    function ensureSearchIndex(cb) {
+      if (index.length) {
+        searchIndexStatus = 'ready';
+        if (cb) cb();
+        return;
+      }
+      searchIndexStatus = 'loading';
+      withSearchIndex(function (records) {
+        index = records || [];
+        searchIndexStatus = index.length ? 'ready' : 'failed';
+        if (cb) cb();
+      });
+    }
 
     function score(rec, qs) {
       var label = String(rec.label || '').toLowerCase();
@@ -1707,6 +1782,14 @@
     }
 
     function render() {
+      if (!index.length) {
+        setEmptyState(
+          searchIndexStatus === 'failed'
+            ? 'Search index unavailable. Use the docs navigation links instead.'
+            : 'Loading search index...'
+        );
+        return;
+      }
       var qs = tokens(input.value.trim());
       if (!qs.length) {
         // Empty state: lead with the sections (pages) so the palette opens as a
@@ -1882,6 +1965,7 @@
       document.body.classList.add('cmdk-open');
       for (var i = 0; i < openers.length; i++) openers[i].setAttribute('aria-expanded', 'true');
       input.value = '';
+      ensureSearchIndex(render);
       render();
       input.focus();
     }
@@ -1918,7 +2002,10 @@
     var closers = modal.querySelectorAll('[data-search-close]');
     for (var c = 0; c < closers.length; c++) closers[c].addEventListener('click', close);
 
-    input.addEventListener('input', scheduleRender);
+    input.addEventListener('input', function () {
+      if (!index.length && searchIndexStatus !== 'loading') ensureSearchIndex(render);
+      scheduleRender();
+    });
     input.addEventListener('keydown', function (ev) {
       if (ev.key === 'ArrowDown') { ev.preventDefault(); if (results.length) { active = (active + 1) % results.length; paint(); announceActive(); } }
       else if (ev.key === 'ArrowUp') { ev.preventDefault(); if (results.length) { active = (active - 1 + results.length) % results.length; paint(); announceActive(); } }
@@ -1963,17 +2050,29 @@
     // cluster from data-cluster, and the node's own public route from its link.
     var byId = {};
     nodes.forEach(function (n) { byId[n.getAttribute('data-id')] = n; });
-    // Bridge graph nodes to their public object record via the already-loaded
-    // search index (records carry graph_node_id). Lets the inspector surface a
-    // node's command / evidence / source / packet. No network; degrades to the
-    // SVG-only inspector if the index is absent.
+    // Bridge graph nodes to their public object record via the search index
+    // (records carry graph_node_id). Lazy-loaded only when a component is pinned,
+    // so the docs page and landing cover do not pay this parse cost at startup.
     var recByNode = {};
-    (function () {
-      var recs = (window.__MICROCOSM_INDEX__ || {}).records || [];
+    var graphSearchState = 'idle';
+    function indexGraphSearchRecords(recs) {
       for (var i = 0; i < recs.length; i++) {
         if (recs[i] && recs[i].graph_node_id) recByNode[recs[i].graph_node_id] = recs[i];
       }
-    })();
+      if (recs.length) graphSearchState = 'ready';
+    }
+    var initialGraphRecords = mcSearchIndexRecords();
+    if (initialGraphRecords.length) indexGraphSearchRecords(initialGraphRecords);
+    function ensureGraphSearchIndex(cb) {
+      if (graphSearchState === 'ready') { if (cb) cb(); return; }
+      if (graphSearchState !== 'loading') graphSearchState = 'loading';
+      withSearchIndex(function (records) {
+        records = records || [];
+        indexGraphSearchRecords(records);
+        if (!records.length) graphSearchState = 'failed';
+        if (cb) cb();
+      });
+    }
 
     // Rich public-object detail -- the evidence rank and the honest "does not
     // prove" ceiling -- ships as the same same-origin object-map.js the source
@@ -2854,10 +2953,15 @@
       var where = prettySlug(node.getAttribute('data-cluster'));
       if (where) panel.appendChild(el('p', 'gpanel__where', where));
 
-      // What it does: the one-line job, read straight from the search index (already
-      // loaded -- no lazy fetch), so every hover and pin says what the node is FOR
-      // before the heavier evidence detail loads.
+      // What it does: the one-line job, read from the search index. Component
+      // pins lazy-load that index and rerender; structural nodes keep their
+      // build-time data-summary, so the landing pays nothing.
       var jobRec = recByNode[id];
+      if (!jobRec && pinnedId === id && graphSearchState !== 'failed' && id.indexOf('component:') === 0) {
+        ensureGraphSearchIndex(function () {
+          if (pinnedId === id && recByNode[id]) { panelState = ''; renderNode(id); }
+        });
+      }
       // Structural nodes (area, shared path) carry their one-line job as a
       // data-summary on the node itself, so the inspector explains them with no
       // fetch; components keep their richer search-index record.
