@@ -1701,7 +1701,10 @@ a.comp-card__reltarget:hover, a.comp-card__reltarget:focus-visible {
   border: 1px solid var(--pm-rail-soft); border-left: 3px solid var(--pm-rail);
   border-radius: var(--r-md);
 }
-.reader-handoff__note { margin: 0; flex: 1; min-width: 14rem; font-size: 0.92rem; color: var(--ink-soft); }
+.reader-handoff__body { flex: 1; min-width: 14rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.reader-handoff__note { margin: 0; font-size: 0.92rem; color: var(--ink-soft); }
+.reader-handoff__module { margin: 0; font-size: 0.86rem; color: var(--muted); }
+.reader-handoff__module-title { color: var(--ink); font-weight: 600; }
 .reader-handoff__cta { flex: none; }
 .reader-handoff__cta::after { content: " \2192"; }
 
@@ -2094,6 +2097,7 @@ body.cmdk-open { overflow: hidden; }
   border-radius: 999px; padding: 0 0.4rem;
 }
 .cmdk__meta { grid-column: 2; color: var(--muted); font-size: 0.84rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cmdk__role { color: var(--ink-soft); font-weight: 600; }
 .cmdk__actions { grid-column: 2; display: flex; flex-wrap: wrap; gap: 0.3rem 0.4rem; margin-top: 0.25rem; }
 .cmdk__action { font-family: inherit; font-size: 0.72rem; font-weight: 600; padding: 0.1rem 0.55rem; border: 1px solid var(--rule); border-radius: 999px; color: var(--accent); text-decoration: none; background: var(--surface); cursor: pointer; display: inline-flex; align-items: center; min-height: 24px; }
 .cmdk__action:hover { border-color: var(--accent); }

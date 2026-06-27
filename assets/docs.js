@@ -1704,6 +1704,13 @@
     // screen-reader announcement, and count summary. Humanise underscores so
     // every kind label reads public-voiced wherever it is shown.
     function kindLabel(k) { return KIND[k] || String(k).replace(/_/g, ' '); }
+    // Role descriptor: the two object kinds play different reader roles -- a paper
+    // module is the explanation you read, a component is the spec/evidence record.
+    // Surfacing the role on every result row teaches the split inside search itself,
+    // not only on the pages and the map panel. Derived from the existing kind; no new
+    // search-index field.
+    var ROLE = { component: 'spec & evidence', 'paper module': 'explanation' };
+    function roleLabel(k) { return ROLE[k] || ''; }
     var results = [];
     var active = -1;
     var renderFrame = 0;
@@ -1791,7 +1798,8 @@
     function announceActive() {
       if (active < 0 || !results[active]) return;
       var rec = results[active];
-      announce(kindLabel(rec.kind) + ': ' + rec.label + ' (' + (active + 1) + ' of ' + results.length + ')');
+      var rl = roleLabel(rec.kind);
+      announce(kindLabel(rec.kind) + (rl ? ' (' + rl + ')' : '') + ': ' + rec.label + ' (' + (active + 1) + ' of ' + results.length + ')');
     }
 
     function render() {
@@ -1844,10 +1852,20 @@
         // Scent parity with the map inspector: lead with the one-line statement
         // (what it does), keep the area as context. Previously a component with a
         // family showed only the bare area word and hid its statement entirely.
+        // The reader role (explanation vs spec & evidence) leads the line so the
+        // component/paper-module split is legible in the result list itself.
         var metaBits = [];
         if (rec.family) metaBits.push(rec.family);
         if (rec.text && rec.text !== rec.family) metaBits.push(rec.text);
-        meta.textContent = metaBits.join(' · ');
+        var rl = roleLabel(rec.kind);
+        if (rl) {
+          var roleSpan = document.createElement('span');
+          roleSpan.className = 'cmdk__role';
+          roleSpan.textContent = rl;
+          meta.appendChild(roleSpan);
+        }
+        var metaRest = metaBits.join(' · ');
+        if (metaRest) meta.appendChild(document.createTextNode((rl ? ' · ' : '') + metaRest));
         li.appendChild(kind);
         li.appendChild(label);
         li.appendChild(meta);
