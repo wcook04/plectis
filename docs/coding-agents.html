@@ -102,6 +102,27 @@
         </div>
         <p class="muted">The repository carries its own orientation file for agents, <code>AGENTS.md</code>, so the agent does not arrive cold.</p>
 
+        <h2 id="after-done">After an agent says done</h2>
+        <p>A useful coding-agent review can inspect the record after a confident finish. Ask what files the agent claims it touched, what validation output exists, whether the repository state changed before a commit claim, what blockers remain, and where the claim stops.</p>
+        <div class="qset" data-qset="agent_residue_prompt">
+          <pre><code>Clone https://github.com/wcook04/plectis and open it. Read AGENTS.md and README.md, then inspect the coding-agent residue path: Durable Agent Work Landing Replay, Agent Completion Faithfulness Audit, and Bridge Phase Continuity Runtime. Find the first completion or resume claim that would create false confidence if its evidence were missing.</code></pre>
+          <button class="btn btn--ghost" type="button" data-copy-questions>Copy the residue prompt</button>
+        </div>
+        <div class="link-rows">
+          <a class="link-row" href="component-durable-agent-work-landing-replay.html">
+            <strong>Durable Agent Work Landing Replay</strong><span class="go">Open</span>
+            <span class="desc">Checks claimed paths, validation before commit, HEAD movement, blockers, and closeout.</span>
+          </a>
+          <a class="link-row" href="component-agent-closeout-faithfulness-audit.html">
+            <strong>Agent Completion Faithfulness Audit</strong><span class="go">Open</span>
+            <span class="desc">Checks commit, ledger, and test-pass claims against fixture evidence.</span>
+          </a>
+          <a class="link-row" href="component-bridge-phase-continuity-runtime.html">
+            <strong>Bridge Phase Continuity Runtime</strong><span class="go">Open</span>
+            <span class="desc">Checks resume notes, duplicate resume refusal, stale heartbeat boundaries, and closeout transition receipts.</span>
+          </a>
+        </div>
+
         <h2 id="what-the-agent-finds">What the agent finds</h2>
         <p>The repository gives the agent the same material this site projects, in runnable form: the component source under <code>src/</code>, the fixtures each component runs against, validators it can execute, result records accumulating in <code>.microcosm/</code>, and the same scope limits the site prints. The command blocks across this site are written so an agent can execute them verbatim; the <a href="quickstart.html">quickstart</a> is the usual first request.</p>
 
@@ -123,6 +144,7 @@
       <p class="docs-toc__title">On this page</p>
       <a href="#three-forms">The third reading form</a>
       <a href="#the-path">The path</a>
+      <a href="#after-done">After an agent says done</a>
       <a href="#what-the-agent-finds">What the agent finds</a>
       <a href="#same-rules">Same evidence rules</a>
     </aside>

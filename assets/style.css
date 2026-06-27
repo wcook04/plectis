@@ -212,6 +212,13 @@ summary:focus-visible,
 :root { --warn-warm: #8a5a2b; }
 @media (prefers-color-scheme: dark) { :root { --warn-warm: #d09a5e; } }
 
+/* Paper-module "reading surface" family — a warm paper wash + a rail in the
+   reading/source key (kin to --link-ext), set apart from the cool slate --accent
+   that marks the terse component specs. Hoisted so dark mode can lift the rail to
+   stay legible on warm near-black paper. Consumers: .comp-card--paper, .comp-card__kind. */
+:root { --pm-wash: #f8f3ea; --pm-rail: #8a6f3f; --pm-rail-soft: #e2d6bf; }
+@media (prefers-color-scheme: dark) { :root { --pm-wash: #242017; --pm-rail: #cbb284; --pm-rail-soft: #4a4030; } }
+
 a[data-link-kind="exogenous"] { color: var(--link-ext); }
 a[data-link-kind="exogenous"]:hover { color: var(--link-ext); }
 a[data-link-kind="exogenous"]::after {
@@ -1644,6 +1651,42 @@ a.comp-card__reltarget:hover, a.comp-card__reltarget:focus-visible {
 .comp-card__pm-thesis { font-size: 0.9rem; color: var(--ink); font-weight: 500; }
 .comp-card__pm-more { font-size: 0.84rem; padding-top: 0.1rem; }
 .comp-card__pm-full { font-weight: 600; }
+
+/* ── Paper-module cards: the long-form "reading surface" family ────────────────
+   Components are terse specs (cool slate accent + an evidence rank); paper modules
+   are the write-ups behind them. They get their own object identity so the two
+   stop reading as the same card: a warm paper wash, a persistent warm rail even
+   when closed (components only show a rail, and a blue one, when open), and the
+   drill-down promoted from a buried link to a real button. */
+.comp-card--paper {
+  background: var(--pm-wash);
+  border-left: 3px solid var(--pm-rail);
+}
+.comp-card--paper:hover:not([open]) { border-left-color: var(--pm-rail); }
+.comp-card--paper[open] { border-left-color: var(--pm-rail); }
+.comp-card--paper .comp-card__summary:hover { background: var(--surface); }
+.comp-card--paper[open] .comp-card__summary::after { color: var(--pm-rail); }
+/* Quiet kind tag, pinned where component cards carry their rank chip, so a
+   paper-module row identifies itself anywhere it appears. */
+.comp-card__kind {
+  font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700;
+  letter-spacing: var(--tracking-kicker); text-transform: uppercase;
+  color: var(--pm-rail); white-space: nowrap;
+  border: 1px solid var(--pm-rail-soft); border-radius: 999px;
+  padding: 0.13rem 0.5rem;
+}
+/* In-card action row — reuses the landing hero's .btn grammar so "Read full
+   module" is the obvious primary move and the source links ride along as ghosts.
+   A button is self-evidently an action, so the primary read drops the inline
+   link-kind costume (which would fight .btn--primary's fill) and carries its own
+   arrow; the ghost source buttons are auto-stamped exogenous (gold + ↗). */
+.comp-card__actions {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
+  padding-top: 0.35rem;
+}
+.comp-card__actions .btn { font-size: 0.85rem; padding: 0.46rem 0.95rem; }
+.comp-card__read::after { content: " \2192"; }
+.comp-card__pm-anchor { font-size: 0.78rem; color: var(--faint); margin-left: 0.2rem; }
 
 /* Field-guide roster: generated middle-layer rows over the content graph.
    The label and one-line own the row; ids, source, quality, and links recede. */
