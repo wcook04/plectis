@@ -1240,7 +1240,11 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
         return "mutation_plan", organ or path, None
     if path:
         return "path", path, None
-    if any(
+    # A bare "ax-"/"p-" substring matches ordinary hyphenated words ("top-down",
+    # "map-reduce", "max-pooling"), so gate on an anchored doctrine id that
+    # requires a digit (ax-9, ap-3, p-1) rather than the loose substring.
+    doctrine_id_present = bool(re.search(r"\b(?:ax|ap|p)-\d", text))
+    if doctrine_id_present or any(
         w in text
         for w in (
             "doctrine",
@@ -1250,14 +1254,12 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
             "principles",
             "anti-principle",
             "anti principles",
-            "ax-",
-            "p-",
             "whole system", "whole microcosm", "everything", "self model", "self-model",
             "entire substrate", "operating picture", "all at once", "comprehend the whole",
             "comprehend all", "understand the whole", "comprehend everything",
         )
     ):
-        if any(
+        if doctrine_id_present or any(
             marker in text
             for marker in (
                 "doctrine",
@@ -1267,8 +1269,6 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
                 "principles",
                 "anti-principle",
                 "anti principles",
-                "ax-",
-                "p-",
             )
         ):
             match = re.search(r"\b(?:AX|AP|P)-\d+\b", raw_text, flags=re.IGNORECASE)
@@ -3585,7 +3585,7 @@ def _public_reader_block(
             "plectis comprehend --self-model",
             "plectis comprehend --slice math",
             "plectis comprehend --slice claims --organ <a proof organ>",
-            "microcosm comprehension-assay --whole-system",
+            "plectis comprehension-assay --whole-system",
         ],
     }
 
@@ -4119,6 +4119,9 @@ _PACKET_ROUTE_FIXTURES: list[tuple[str, str]] = [
     ("explain AX-9 doctrine", "doctrine"),
     ("how is this claim justified, what receipt proves it?", "claim_trace"),
     ("how does execution flow here", "flow"),
+    # Hyphenated English words must not trip the doctrine id markers (ax-/p-).
+    ("explain top-down execution flow", "flow"),
+    ("how does the map-reduce pipeline work", "flow"),
     ("what may I trust here?", "authority"),
     ("list all organs", "organs_index"),
     ("which packet should I use?", "packet_atlas"),

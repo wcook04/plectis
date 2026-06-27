@@ -1,147 +1,361 @@
 {
+  "source_import_class": "copied_non_secret_macro_body",
+  "module_count": 13,
+  "body_copied_material_count": 13,
   "blocked_source_refs": [],
-  "body_copied_material_count": 10,
   "body_in_receipt": false,
   "body_text_in_receipt": false,
-  "module_count": 1,
   "modules": [
     {
-      "anchor_count": 3,
+      "module_id": "lineage_temporal_provenance_chain_resolver",
+      "path": "source_modules/system/server/lineage.py",
+      "source_ref": "system/server/lineage.py",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/lineage.py",
+      "sha256": "2a4fec326536b459dc161fb3894025f7616cb61e6b1a1360fdc00f2ac87b2d74",
+      "source_sha256": "2a4fec326536b459dc161fb3894025f7616cb61e6b1a1360fdc00f2ac87b2d74",
+      "target_sha256": "2a4fec326536b459dc161fb3894025f7616cb61e6b1a1360fdc00f2ac87b2d74",
+      "sha256_match": true,
+      "line_count": 508,
+      "byte_count": 20410,
+      "material_class": "public_macro_server_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
       "body_copied": true,
       "body_in_receipt": false,
       "body_text_in_receipt": false,
-      "byte_count": 14256,
-      "line_count": 317,
-      "material_class": "public_macro_tool_body",
+      "required_anchors": [
+        "def _extract_links(",
+        "def _select_primary_parent(",
+        "def _select_truth_parent("
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "approval_sign_off_claim_adjudicator",
+      "path": "source_modules/system/lib/approval_registry.py",
+      "source_ref": "system/lib/approval_registry.py",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/approval_registry.py",
+      "sha256": "fe2ba390b8b88dabbce74919f1ec38521eb3159d61e220491f823c34d9c35cdd",
+      "source_sha256": "fe2ba390b8b88dabbce74919f1ec38521eb3159d61e220491f823c34d9c35cdd",
+      "target_sha256": "fe2ba390b8b88dabbce74919f1ec38521eb3159d61e220491f823c34d9c35cdd",
+      "sha256_match": true,
+      "line_count": 1143,
+      "byte_count": 46120,
+      "material_class": "public_macro_governance_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "def list_approvals(",
+        "def _acquire_claim(",
+        "def decide_approval("
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "python_ast_symbol_index_doc_tree",
+      "path": "source_modules/system/lib/python_documentation_tree.py",
+      "source_ref": "system/lib/python_documentation_tree.py",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/python_documentation_tree.py",
+      "sha256": "26feff264885739b8a93c3588deedc50b02f01e97168d2fb6e8aad07e11b8bbc",
+      "source_sha256": "26feff264885739b8a93c3588deedc50b02f01e97168d2fb6e8aad07e11b8bbc",
+      "target_sha256": "26feff264885739b8a93c3588deedc50b02f01e97168d2fb6e8aad07e11b8bbc",
+      "sha256_match": true,
+      "line_count": 2132,
+      "byte_count": 87529,
+      "material_class": "public_macro_projection_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "ast.parse",
+        "ast.FunctionDef",
+        "def build_file_entry("
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "finance_news_dedup_cluster_ranker",
+      "path": "source_modules/system/server/ui/src/lib/financePresentation.ts",
+      "source_ref": "system/server/ui/src/lib/financePresentation.ts",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/ui/src/lib/financePresentation.ts",
+      "sha256": "75c50c1d99be98373868315b855c8e0ddef4bb30457d90e43ea07cda26aefbd1",
+      "source_sha256": "75c50c1d99be98373868315b855c8e0ddef4bb30457d90e43ea07cda26aefbd1",
+      "target_sha256": "75c50c1d99be98373868315b855c8e0ddef4bb30457d90e43ea07cda26aefbd1",
+      "sha256_match": true,
+      "line_count": 1422,
+      "byte_count": 50180,
+      "material_class": "public_macro_frontend_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "function extractHeadline(",
+        "function normalizeHeadlineFingerprint(",
+        "export function clusterNewsRows("
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "mission_graph_topological_compiler",
+      "path": "source_modules/system/server/graph.py",
+      "source_ref": "system/server/graph.py",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/graph.py",
+      "sha256": "b0525d608337022c28d96ab4d3d887a395e1bd6612bdada58c77ebc7d8de78c7",
+      "source_sha256": "b0525d608337022c28d96ab4d3d887a395e1bd6612bdada58c77ebc7d8de78c7",
+      "target_sha256": "b0525d608337022c28d96ab4d3d887a395e1bd6612bdada58c77ebc7d8de78c7",
+      "sha256_match": true,
+      "line_count": 328,
+      "byte_count": 13285,
+      "material_class": "public_macro_server_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "def compile_graph_snapshot(",
+        "Group Closure Scoping",
+        "waves.append(sorted(current_wave))"
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
       "module_id": "dependency_pin_drift_auditor",
       "path": "source_modules/tools/dev/check_pin_drift.py",
+      "source_ref": "tools/dev/check_pin_drift.py",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/tools/dev/check_pin_drift.py",
+      "sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584",
+      "source_sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584",
+      "target_sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584",
+      "sha256_match": true,
+      "line_count": 317,
+      "byte_count": 14256,
+      "material_class": "public_macro_tool_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
       "required_anchors": [
         "def parse_requirements(",
         "DRIFTED",
         "UNPARSEABLE"
       ],
-      "sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584",
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "config_authority_drift_audit",
+      "path": "source_modules/system/lib/config_authority_registry.py",
+      "source_ref": "system/lib/config_authority_registry.py",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/config_authority_registry.py",
+      "sha256": "62c50b69e225d20819c91e0735d4f2ee2c2016d052fed9151bdac16d936106dc",
+      "source_sha256": "62c50b69e225d20819c91e0735d4f2ee2c2016d052fed9151bdac16d936106dc",
+      "target_sha256": "62c50b69e225d20819c91e0735d4f2ee2c2016d052fed9151bdac16d936106dc",
       "sha256_match": true,
+      "line_count": 2043,
+      "byte_count": 92577,
+      "material_class": "public_macro_governance_body",
       "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "tools/dev/check_pin_drift.py",
-      "source_sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584",
       "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
-      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/tools/dev/check_pin_drift.py",
-      "target_sha256": "6c727c2c4b29717f8da760a373ab145234efc3e28ee698647a33ce36d2e77584",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "def validate_config_authority_registry(",
+        "duplicate_config_id",
+        "generated_projection_or_cache"
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "heterogeneous_graph_edge_extractor",
+      "path": "source_modules/system/server/ui/src/pages/RootNavigator.tsx",
+      "source_ref": "system/server/ui/src/pages/RootNavigator.tsx",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/ui/src/pages/RootNavigator.tsx",
+      "sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3",
+      "source_sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3",
+      "target_sha256": "7a4764965126b77fe313fc574a03becfd6e3b5bcf5de66cbefe6c23f281734e3",
+      "sha256_match": true,
+      "line_count": 14476,
+      "byte_count": 611919,
+      "material_class": "public_macro_frontend_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "GENERIC_EDGE_FIELD_MAP",
+        "function normalizeEdgeRelationToken(",
+        "top_dependencies"
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "work_atlas_cell_histogram_aggregator",
+      "path": "source_modules/system/server/ui/src/components/intelligence/WorkAtlas.tsx",
+      "source_ref": "system/server/ui/src/components/intelligence/WorkAtlas.tsx",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/ui/src/components/intelligence/WorkAtlas.tsx",
+      "sha256": "5e5c18d02b66101a5ef1a5882d65425dd87ddbd1236f82d337b95bb07fa645e5",
+      "source_sha256": "5e5c18d02b66101a5ef1a5882d65425dd87ddbd1236f82d337b95bb07fa645e5",
+      "target_sha256": "5e5c18d02b66101a5ef1a5882d65425dd87ddbd1236f82d337b95bb07fa645e5",
+      "sha256_match": true,
+      "line_count": 1462,
+      "byte_count": 59029,
+      "material_class": "public_macro_frontend_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "function aggregateCell(",
+        "route_reason keys for marks where overlays.unrouted is true",
+        "function cellMarksPerRow("
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "host_pressure_admission_decision_gate",
+      "path": "source_modules/system/lib/admission_consumer.py",
+      "source_ref": "system/lib/admission_consumer.py",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/admission_consumer.py",
+      "sha256": "ed760ad5915cd3df1ff9abaf0c4fd610b42f255d194214cf785e149e0395ae4b",
+      "source_sha256": "ed760ad5915cd3df1ff9abaf0c4fd610b42f255d194214cf785e149e0395ae4b",
+      "target_sha256": "ed760ad5915cd3df1ff9abaf0c4fd610b42f255d194214cf785e149e0395ae4b",
+      "sha256_match": true,
+      "line_count": 177,
+      "byte_count": 6292,
+      "material_class": "public_macro_governance_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "ADMISSION_POLICY_VALUES",
+        "def normalize_admission_policy(",
+        "def build_admission_consumer_decision("
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "doctrine_file_enrichment_multihop_join",
+      "path": "source_modules/system/server/doctrine_enrichment.py",
+      "source_ref": "system/server/doctrine_enrichment.py",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/server/doctrine_enrichment.py",
+      "sha256": "daa7b9c32c6b85e8cd94df35ee272ab7536f2be232b4ef7d07ac05454910dfef",
+      "source_sha256": "daa7b9c32c6b85e8cd94df35ee272ab7536f2be232b4ef7d07ac05454910dfef",
+      "target_sha256": "daa7b9c32c6b85e8cd94df35ee272ab7536f2be232b4ef7d07ac05454910dfef",
+      "sha256_match": true,
+      "line_count": 502,
+      "byte_count": 22469,
+      "material_class": "public_macro_server_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "class DoctrineEnrichmentService",
+        "self._mechanisms_by_path",
+        "def get_file_doctrine("
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "worker_job_budget_forbidden_surface_gate",
+      "path": "source_modules/system/lib/type_a_worker_harness.py",
+      "source_ref": "system/lib/type_a_worker_harness.py",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/type_a_worker_harness.py",
+      "sha256": "dd77f8d034cbdf8403a5ed43948c8dbbb6a92816f59181e039a6d33fd72f18ee",
+      "source_sha256": "dd77f8d034cbdf8403a5ed43948c8dbbb6a92816f59181e039a6d33fd72f18ee",
+      "target_sha256": "dd77f8d034cbdf8403a5ed43948c8dbbb6a92816f59181e039a6d33fd72f18ee",
+      "sha256_match": true,
+      "line_count": 1614,
+      "byte_count": 68558,
+      "material_class": "public_macro_governance_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "def _enforce_budget(",
+        "def _contains_forbidden_surface(",
+        "forbidden_surfaces"
+      ],
+      "anchor_count": 3,
+      "validation_refs": [
+        "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
+      ]
+    },
+    {
+      "module_id": "milestone_relative_promotion_quality_accounting",
+      "path": "source_modules/system/lib/population_lane_metrics.py",
+      "source_ref": "system/lib/population_lane_metrics.py",
+      "target_ref": "microcosm-substrate/examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle/source_modules/system/lib/population_lane_metrics.py",
+      "sha256": "ce5a5ead943909ca3114e3f46f152c3bf49edaf561e9d9033b8b6e0d5e9fa30c",
+      "source_sha256": "ce5a5ead943909ca3114e3f46f152c3bf49edaf561e9d9033b8b6e0d5e9fa30c",
+      "target_sha256": "ce5a5ead943909ca3114e3f46f152c3bf49edaf561e9d9033b8b6e0d5e9fa30c",
+      "sha256_match": true,
+      "line_count": 1796,
+      "byte_count": 84203,
+      "material_class": "public_macro_projection_body",
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_to_target_relation": "exact_copy_macro_body_plus_source_faithful_public_exercise",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "body_text_in_receipt": false,
+      "required_anchors": [
+        "missing_committed_at",
+        "applied_count",
+        "classify_blockers_and_next_action"
+      ],
+      "anchor_count": 3,
       "validation_refs": [
         "microcosm-substrate/tests/test_batch9_macro_engines_capsule.py::test_batch9_source_modules_are_exact_macro_body_imports"
       ]
     }
-  ],
-  "release_substitution_omissions": [
-    {
-      "body_in_receipt": false,
-      "module_id": "lineage_temporal_provenance_chain_resolver",
-      "path": "source_modules/system/server/lineage.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/server/lineage.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/server/lineage.py"
-    },
-    {
-      "body_in_receipt": false,
-      "module_id": "approval_sign_off_claim_adjudicator",
-      "path": "source_modules/system/lib/approval_registry.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/lib/approval_registry.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/approval_registry.py"
-    },
-    {
-      "body_in_receipt": false,
-      "module_id": "python_ast_symbol_index_doc_tree",
-      "path": "source_modules/system/lib/python_documentation_tree.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/lib/python_documentation_tree.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/python_documentation_tree.py"
-    },
-    {
-      "body_in_receipt": false,
-      "module_id": "mission_graph_topological_compiler",
-      "path": "source_modules/system/server/graph.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/server/graph.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/server/graph.py"
-    },
-    {
-      "body_in_receipt": false,
-      "module_id": "config_authority_drift_audit",
-      "path": "source_modules/system/lib/config_authority_registry.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/lib/config_authority_registry.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/config_authority_registry.py"
-    },
-    {
-      "body_in_receipt": false,
-      "module_id": "host_pressure_admission_decision_gate",
-      "path": "source_modules/system/lib/admission_consumer.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/lib/admission_consumer.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/admission_consumer.py"
-    },
-    {
-      "body_in_receipt": false,
-      "module_id": "doctrine_file_enrichment_multihop_join",
-      "path": "source_modules/system/server/doctrine_enrichment.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/server/doctrine_enrichment.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/server/doctrine_enrichment.py"
-    },
-    {
-      "body_in_receipt": false,
-      "module_id": "worker_job_budget_forbidden_surface_gate",
-      "path": "source_modules/system/lib/type_a_worker_harness.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/lib/type_a_worker_harness.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/type_a_worker_harness.py"
-    },
-    {
-      "body_in_receipt": false,
-      "module_id": "milestone_relative_promotion_quality_accounting",
-      "path": "source_modules/system/lib/population_lane_metrics.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/lib/population_lane_metrics.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "system/lib/population_lane_metrics.py"
-    }
-  ],
-  "source_import_class": "copied_non_secret_macro_body"
+  ]
 }

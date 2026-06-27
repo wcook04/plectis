@@ -1,44 +1,67 @@
 {
   "body_in_receipt": false,
   "bundle_id": "bounded_autonomy_campaign_packet_runtime_example",
-  "module_count": 0,
-  "modules": [],
-  "release_substitution_omissions": [
+  "module_count": 3,
+  "modules": [
     {
+      "body_copied": true,
       "body_in_receipt": false,
-      "module_id": null,
+      "byte_count": 280755,
+      "line_count": 6808,
+      "material_class": "public_macro_tool_body",
       "path": "source_modules/tools/meta/control/reactions_engine.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "tools/meta/control/reactions_engine.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "tools/meta/control/reactions_engine.py"
+      "required_anchors": [
+        "reaction",
+        "campaign"
+      ],
+      "sha256": "e3c47716af15462900f901b210922341347b8b04efbecfeeb40e6888b56ead63",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/control/reactions_engine.py",
+      "source_sha256": "e3c47716af15462900f901b210922341347b8b04efbecfeeb40e6888b56ead63",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/control/reactions_engine.py",
+      "target_sha256": "e3c47716af15462900f901b210922341347b8b04efbecfeeb40e6888b56ead63"
     },
     {
+      "body_copied": true,
       "body_in_receipt": false,
-      "module_id": null,
+      "byte_count": 6482,
+      "line_count": 177,
+      "material_class": "public_macro_tool_body",
       "path": "source_modules/tools/meta/factory/build_compliance_autocure_campaign.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "tools/meta/factory/build_compliance_autocure_campaign.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "tools/meta/factory/build_compliance_autocure_campaign.py"
+      "required_anchors": [
+        "campaign",
+        "compliance"
+      ],
+      "sha256": "65c26e2e2b1588c35a5c227f9f381cb44c727f7cc17e47b155e71c3839aff795",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/factory/build_compliance_autocure_campaign.py",
+      "source_sha256": "65c26e2e2b1588c35a5c227f9f381cb44c727f7cc17e47b155e71c3839aff795",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/factory/build_compliance_autocure_campaign.py",
+      "target_sha256": "65c26e2e2b1588c35a5c227f9f381cb44c727f7cc17e47b155e71c3839aff795"
     },
     {
+      "body_copied": true,
       "body_in_receipt": false,
-      "module_id": null,
+      "byte_count": 5906,
+      "line_count": 163,
+      "material_class": "public_macro_tool_body",
       "path": "source_modules/tools/meta/factory/build_standard_skill_pairing_campaign.py",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "tools/meta/factory/build_standard_skill_pairing_campaign.py",
-        "substitution": "public_safe_stub"
-      },
-      "source_ref": "tools/meta/factory/build_standard_skill_pairing_campaign.py"
+      "required_anchors": [
+        "campaign",
+        "standard"
+      ],
+      "sha256": "71e053b031b63f6e777759ea9e9aef259950c7674b897ff3cbd066268ad51685",
+      "sha256_match": true,
+      "source_import_class": "copied_non_secret_macro_body",
+      "source_ref": "tools/meta/factory/build_standard_skill_pairing_campaign.py",
+      "source_sha256": "71e053b031b63f6e777759ea9e9aef259950c7674b897ff3cbd066268ad51685",
+      "source_to_target_relation": "exact_copy",
+      "target_ref": "microcosm-substrate/examples/bounded_autonomy_campaign_packet/exported_bounded_autonomy_campaign_packet_bundle/source_modules/tools/meta/factory/build_standard_skill_pairing_campaign.py",
+      "target_sha256": "71e053b031b63f6e777759ea9e9aef259950c7674b897ff3cbd066268ad51685"
     }
   ],
   "schema_version": "microcosm_bounded_autonomy_campaign_packet_source_module_manifest_v1",
