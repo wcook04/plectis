@@ -942,10 +942,22 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "atlas/agent_task_routes.json::organ_glance_ladder"
     )
     assert substrate_glance["source_refs"] == ["atlas/agent_task_routes.json"]
-    assert substrate_glance["sample_limit"] == 3
+    assert substrate_glance["sample_limit"] == 4
     assert len(glance_examples) == substrate_glance["sample_limit"]
     assert substrate_glance["total_organ_count"] >= len(glance_examples)
     assert len({row["family"] for row in glance_examples}) == len(glance_examples)
+    assert substrate_glance["preferred_organ_ids"][:4] == [
+        "lean_proof_search_lab_runtime",
+        "agent_sabotage_scheming_monitor_replay",
+        "finance_forecast_evaluation_spine",
+        "generated_projection_drift_runtime",
+    ]
+    assert [row["organ_id"] for row in glance_examples] == [
+        "lean_proof_search_lab_runtime",
+        "agent_sabotage_scheming_monitor_replay",
+        "finance_forecast_evaluation_spine",
+        "generated_projection_drift_runtime",
+    ]
     assert all(row["glance_excerpt"] for row in glance_examples)
     assert all(row["one_line_excerpt"] for row in glance_examples)
     assert all(
@@ -1712,7 +1724,7 @@ def test_first_screen_compact_card_is_summary_first_json_projection() -> None:
         "atlas/agent_task_routes.json::organ_glance_ladder"
     )
     assert compact_glance["source_refs"] == ["atlas/agent_task_routes.json"]
-    assert compact_glance["sample_limit"] == 3
+    assert compact_glance["sample_limit"] == 4
     assert compact_glance["total_organ_count"] == (
         card["representative_substrate_glance"]["total_organ_count"]
     )
@@ -1725,18 +1737,21 @@ def test_first_screen_compact_card_is_summary_first_json_projection() -> None:
             "organ_id": row["organ_id"],
             "display_name": row["display_name"],
             "family": row["family"],
-            "glance_excerpt": row["glance_excerpt"],
-            "glance_source": row["glance_source"],
-            "one_line_excerpt": row["one_line_excerpt"],
         }
         for row in card["representative_substrate_glance"]["examples"]
     ]
+    assert compact_glance["excerpt_detail"] == (
+        "demoted_to_full_contract_for_stdout_budget"
+    )
     assert compact_glance["authority"] == (
         "representative_glance_not_inventory_score_or_readiness_claim"
     )
     assert compact["drilldowns"]["full_json"] == "plectis first-screen --full ."
     assert "video_storyboard_packet" not in compact
     assert compact["omission_receipt"]["summary_first_projection"] is True
+    degradation = compact["omission_receipt"]["budget_degradation"]
+    assert degradation["applied_steps"] == ["substrate_glance_excerpt_demotion"]
+    assert degradation["over_budget_after_full_ladder"] is False
 
 
 def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
@@ -1772,10 +1787,10 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
         "Trail: catalog -> routes -> events -> evidence -> graph."
         in text
     )
-    assert "A local evidence router" in text
-    assert "doctrine names boundaries" in text
-    assert "exit when you can choose a drilldown" in text
-    assert "without the command inventory" in text
+    assert "A public executable atlas of 88 AI-native runtime mechanisms" in text
+    assert "evidence records show runner/source, evidence class" in text
+    assert "receipt path, and authority ceiling" in text
+    assert "local evidence router" not in text
     assert "Substrate glance:" in text
     assert "atlas/agent_task_routes.json organ_glance_ladder.one_line" in text
     assert "fallbacks use route cards" in text
@@ -2026,9 +2041,10 @@ def test_first_screen_text_card_can_focus_each_reader_branch() -> None:
         assert "Evidence classes: body import, subprocess witness" in text
         assert "Behavior proof after tour --card: front_door_status=pass" in text
         assert "problem map names the gaps" in text
-        assert "doctrine names boundaries" in text
-        assert "exit when you can choose a drilldown" in text
-        assert "without the command inventory" in text
+        assert "A public executable atlas of 88 AI-native runtime mechanisms" in text
+        assert "evidence records show runner/source, evidence class" in text
+        assert "receipt path, and authority ceiling" in text
+        assert "local evidence router" not in text
         assert "Substrate glance:" in text
         assert "atlas/agent_task_routes.json organ_glance_ladder.one_line" in text
         assert "fallbacks use route cards" in text
@@ -2061,9 +2077,10 @@ def test_first_screen_composition_card_cli_emits_text_projection() -> None:
     assert result.stdout.startswith("Plectis first screen\n")
     assert "Open card: plectis hello ." in result.stdout
     assert "First run: plectis tour --card ." in result.stdout
-    assert "doctrine names boundaries" in result.stdout
-    assert "exit when you can choose a drilldown" in result.stdout
-    assert "without the command inventory" in result.stdout
+    assert "A public executable atlas of 88 AI-native runtime mechanisms" in result.stdout
+    assert "evidence records show runner/source, evidence class" in result.stdout
+    assert "receipt path, and authority ceiling" in result.stdout
+    assert "local evidence router" not in result.stdout
     assert "Substrate glance:" in result.stdout
     assert "atlas/agent_task_routes.json organ_glance_ladder.one_line" in result.stdout
     assert "fallbacks use route cards" in result.stdout
@@ -2098,9 +2115,10 @@ def test_first_screen_composition_card_cli_can_focus_text_projection() -> None:
     assert result.stdout.startswith("Plectis first screen\n")
     assert "Open card: plectis hello ." in result.stdout
     assert "First run: plectis tour --card ." in result.stdout
-    assert "doctrine names boundaries" in result.stdout
-    assert "exit when you can choose a drilldown" in result.stdout
-    assert "without the command inventory" in result.stdout
+    assert "A public executable atlas of 88 AI-native runtime mechanisms" in result.stdout
+    assert "evidence records show runner/source, evidence class" in result.stdout
+    assert "receipt path, and authority ceiling" in result.stdout
+    assert "local evidence router" not in result.stdout
     assert "Substrate glance:" in result.stdout
     assert "atlas/agent_task_routes.json organ_glance_ladder.one_line" in result.stdout
     assert "fallbacks use route cards" in result.stdout

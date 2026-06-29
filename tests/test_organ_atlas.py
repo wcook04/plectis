@@ -426,28 +426,33 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
         assert source_summary["output_schema"] == (
             "microcosm_organ_relationship_topology_card_v0"
         )
-        assert source_summary["edge_count"] > 0
-        assert source_summary["source_ref_count"] > 0
-        assert (
-            source_summary["source_shard_ref_count"] > 0
-            or source_summary["relation_type_counts"].get(
-                "source_file.copied_to_public_target", 0
+        has_source_edges = source_summary["edge_count"] > 0
+        if has_source_edges:
+            assert source_summary["source_ref_count"] > 0
+            assert (
+                source_summary["source_shard_ref_count"] > 0
+                or source_summary["relation_type_counts"].get(
+                    "source_file.copied_to_public_target", 0
+                )
+                > 0
             )
-            > 0
-        )
-        assert (
-            source_summary["relation_type_counts"].get(
-                "source_file.copied_to_public_target", 0
+            assert (
+                source_summary["relation_type_counts"].get(
+                    "source_file.copied_to_public_target", 0
+                )
+                > 0
+                or source_summary["relation_type_counts"].get(
+                    "source_shard.retained_as_public_target_shard", 0
+                )
+                > 0
             )
-            > 0
-            or source_summary["relation_type_counts"].get(
-                "source_shard.retained_as_public_target_shard", 0
+            assert source_summary["top_source_refs"]
+            if source_summary["source_shard_ref_count"] > 0:
+                assert source_summary["top_source_shard_refs"]
+        else:
+            assert source_summary["fallback_reason"] == (
+                "no_source_module_edges_recorded_for_relevant_organs"
             )
-            > 0
-        )
-        assert source_summary["top_source_refs"]
-        if source_summary["source_shard_ref_count"] > 0:
-            assert source_summary["top_source_shard_refs"]
         assert source_summary["query_examples"]
         for example in source_summary["query_examples"]:
             tokens = shlex.split(example)

@@ -1765,6 +1765,17 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
             for card in cards
             if isinstance(card.get("source_relation_summary"), dict)
         ]
+        route_source_relation_summary = _route_source_relation_summary(
+            task_class,
+            source_relation_summaries,
+        )
+        if not route_source_relation_summary.get("query_examples"):
+            route_source_relation_summary["query_examples"] = [
+                _organ_topology_command("--organ", str(primary["organ_id"]))
+            ]
+            route_source_relation_summary["fallback_reason"] = (
+                "no_source_module_edges_recorded_for_relevant_organs"
+            )
         routes.append(
             {
                 "task_class": task_class,
@@ -1781,10 +1792,7 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
                     f"[organ_id={primary['organ_id']}]"
                 ),
                 "receipt_ref": receipt_ref,
-                "source_relation_summary": _route_source_relation_summary(
-                    task_class,
-                    source_relation_summaries,
-                ),
+                "source_relation_summary": route_source_relation_summary,
                 "stop_condition": (
                     "Stop when the first command or named result record is visible, "
                     "the selected component card is opened, and the card's scope "
@@ -1827,7 +1835,8 @@ def render_agent_task_routes_json(model: dict[str, Any]) -> dict[str, Any]:
         "accepted_organ_count": model["coverage"]["registry_organ_count"],
         "organ_glance_ladder": _organ_glance_ladder(model),
         "capsule_accounting": model.get("capsule_accounting"),
-        "source_relation_route_count": sum(
+        "source_relation_route_count": len(routes),
+        "source_relation_nonzero_edge_route_count": sum(
             1
             for route in routes
             if route["source_relation_summary"].get("edge_count", 0) > 0
@@ -2305,21 +2314,23 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("")
     out.append(GENERATED_MARKER)
     out.append("")
+    organ_count = int(model.get("coverage", {}).get("registry_organ_count") or 0)
     out.append(
-        "Plectis is a small, source-open tool you run inside a code folder. It runs "
-        "entirely on your machine, makes no network or model calls, and never "
-        "changes the files it reads. Point it at a project and it writes a local "
-        "record, under `.microcosm/`, that you can reopen, rerun, and trace back to "
-        "source."
+        "Plectis is a public executable cross-section of an AI-native workflow and "
+        f"research runtime: {organ_count} bounded components across formal proof, "
+        "agent reliability and safety, research and forecasting, projection-drift "
+        "control, validators, work landing, and continuity."
     )
     out.append("")
     out.append(
-        "This page is the map of that record. Plectis is the public, runnable "
-        "cross-section of a larger AI-native workflow system, shown in a form you can "
-        "inspect on your own. Read it top-down: what it is, the loop you can run, one "
-        "real run traced through it, the parts it is built from, then the discipline "
-        "that keeps its counts honest. Every box below resolves to a real command, "
-        "file, or receipt; the diagrams are routing maps, not decoration."
+        "This page is the map of those mechanisms and their accountability layer. "
+        "Each component names a runner or source locus, evidence class, receipt path, "
+        "and authority ceiling; the local runtime is how you inspect and falsify that "
+        "map without provider calls or source mutation. Read it top-down: what it is, "
+        "the loop you can run, one real run traced through it, the parts it is built "
+        "from, then the discipline that keeps its counts honest. Every box below "
+        "resolves to a real command, file, or receipt; the diagrams are routing maps, "
+        "not decoration."
     )
     out.append("")
 
@@ -2349,8 +2360,11 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("## Level 0 — what it is")
     out.append("")
     out.append("```text")
-    out.append("Plectis is the public, local cross-section of a larger AI-native system.")
-    out.append("Bring a folder; it builds a local record you can read, rerun, and trace.")
+    out.append(
+        f"Plectis is a public executable atlas of {organ_count} AI-native runtime mechanisms."
+    )
+    out.append("Mechanisms first; local records are the accountability layer.")
+    out.append("Each component names runner/source, evidence class, receipt path, and ceiling.")
     out.append("No provider calls. No source changes. No release.")
     out.append("No source mutation, private-root equivalence, or proof authority.")
     out.append("Start:     plectis hello .")

@@ -16,19 +16,19 @@ def test_first_screen_cli_defaults_to_compact_json(
     assert payload["schema_version"] == "microcosm_first_screen_compact_card_v1"
     assert len(json.dumps(payload, sort_keys=True)) < 16000
     assert payload["output_policy"]["full_contract_command"] == (
-        "microcosm first-screen --full ."
+        "plectis first-screen --full ."
     )
     assert payload["output_policy"]["compact_card_command"] == (
-        "microcosm first-screen --card ."
+        "plectis first-screen --card ."
     )
     assert payload["output_policy"]["default_json_command"] == (
-        "microcosm first-screen ."
+        "plectis first-screen ."
     )
     assert payload["reader_route_menu"]["machine_card_command"] == (
-        "microcosm first-screen --card ."
+        "plectis first-screen --card ."
     )
     assert payload["reader_route_menu"]["default_json_command"] == (
-        "microcosm first-screen ."
+        "plectis first-screen ."
     )
     assert "video_storyboard_packet" not in payload
 
@@ -50,7 +50,7 @@ def test_first_screen_cli_enforces_stdout_budget_for_long_project_labels(
     assert degradation["over_budget_after_full_ladder"] is False
     assert degradation["applied_steps"]  # ladder actually fired for this label
     assert degradation["full_contract_command"] == (
-        f"microcosm first-screen --full {long_label}"
+        f"plectis first-screen --full {long_label}"
     )
     # Demoted detail stays reachable behind the explicit full-contract drilldown.
     assert payload["output_policy"]["full_contract_preserved"] is True
@@ -92,10 +92,17 @@ def test_first_screen_cli_short_label_keeps_full_route_detail(
     payload = json.loads(capsys.readouterr().out)
 
     degradation = payload["omission_receipt"]["budget_degradation"]
-    assert degradation["applied_steps"] == []
+    assert degradation["applied_steps"] == ["substrate_glance_excerpt_demotion"]
     assert degradation["over_budget_after_full_ladder"] is False
+    assert payload["evidence_context"]["representative_substrate_glance"][
+        "excerpt_detail"
+    ] == "demoted_to_full_contract_for_stdout_budget"
     assert any(
         "proof_surface" in row for row in payload["reader_route_menu"]["routes"]
+    )
+    assert any(
+        "source_checkout_first_action" in row
+        for row in payload["reader_route_menu"]["routes"]
     )
 
 
@@ -107,9 +114,9 @@ def test_first_screen_cli_full_flag_preserves_full_contract(
 
     assert payload["schema_version"] == "microcosm_first_screen_composition_card_v1"
     assert payload["reader_route_menu"]["machine_card_command"] == (
-        "microcosm first-screen --card ."
+        "plectis first-screen --card ."
     )
     assert payload["reader_route_menu"]["default_json_command"] == (
-        "microcosm first-screen ."
+        "plectis first-screen ."
     )
     assert "video_storyboard_packet" in payload

@@ -11,6 +11,7 @@ from __future__ import annotations
 import re
 
 from microcosm_core import comprehension as C
+from microcosm_core import cli
 
 
 def _real_inputs() -> dict:
@@ -127,6 +128,28 @@ def test_slice_mechanism_lists_every_organ() -> None:
     nodes = pack.get("selected_nodes") or []
     assert len(nodes) >= 80
     assert all(n.get("mechanism") for n in nodes)
+    assert [n["organ_id"] for n in pack.get("showcase_nodes", [])] == [
+        "lean_proof_search_lab_runtime",
+        "finite_erdos_denominator_certificate_strike",
+        "agent_sabotage_scheming_monitor_replay",
+        "finance_forecast_evaluation_spine",
+        "generated_projection_drift_runtime",
+    ]
+
+
+def test_slice_mechanism_text_renders_crown_jewel_lines() -> None:
+    pack = C.comprehend(mode="mechanism", inputs=_real_inputs())
+    text = cli._render_comprehend_card(pack)
+
+    assert "Mechanism showcase:" in text
+    assert "Mechanism lines:" in text
+    assert text.index("Mechanism showcase:") < text.index("Mechanism lines:")
+    assert "Lean Proof-Search Lab Runtime" in text
+    assert "Gated external-tool proof-search lab" in text
+    assert "Finite Erdos Denominator-Order Certificate Strike" in text
+    assert "ord_Q(b)=lcm(F)" in text
+    assert "Sabotage-Monitor Contract Replay" in text
+    assert "What this does NOT claim:" in text
 
 
 def test_mechanism_shards_carry_no_raw_claim_boundary_jargon() -> None:

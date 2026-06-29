@@ -37,9 +37,14 @@ def _front_door_tree(tmp_path: Path) -> Path:
     root = tmp_path / "microcosm-substrate"
     (root / "atlas").mkdir(parents=True)
     (root / "assets").mkdir(parents=True)
+    (root / "core").mkdir(parents=True)
     shutil.copy2(MICROCOSM_ROOT / "README.md", root / "README.md")
     shutil.copy2(
         MICROCOSM_ROOT / "atlas/entry_packet.json", root / "atlas/entry_packet.json"
+    )
+    shutil.copy2(
+        MICROCOSM_ROOT / "core/organ_registry.json",
+        root / "core/organ_registry.json",
     )
     shutil.copy2(
         MICROCOSM_ROOT / "assets/plectis-social-card.png",
@@ -65,6 +70,10 @@ def test_real_readme_satisfies_front_door_contract() -> None:
     assert findings["h1"] == "Plectis"
     assert findings["witness_command_bound"] is True
     assert findings["hero_banned_terms"] == []
+    assert findings["registry_component_count"] >= 80
+    assert findings["registry_component_count_bound_in_front_door"] is True
+    assert findings["front_door_required_context_missing"] == []
+    assert findings["front_door_local_only_frames"] == []
     # The primary human witness is the text projection, not raw JSON.
     assert findings["human_text_witness_present"] is True
 
@@ -113,7 +122,11 @@ def test_blocks_broken_link(tmp_path: Path) -> None:
 def test_blocks_former_name_in_hero(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     # inject the compatibility state dir into the hero promise
-    _mutate(root, "a local record you can read", "a .microcosm/ record you can read")
+    _mutate(
+        root,
+        "public, executable cross-section",
+        "public, executable .microcosm/ cross-section",
+    )
     receipt = validate_readme_front_door(root)
     assert "README_HERO_ONTOLOGY_LEAK" in receipt["blocking_codes"]
     assert "compatibility-state-dir" in receipt["findings"]["hero_banned_terms"]
@@ -132,7 +145,11 @@ def test_blocks_missing_banner(tmp_path: Path) -> None:
 
 def test_blocks_em_dash_in_banner_alt(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
-    _mutate(root, "a local record whose findings", "a local record — whose findings")
+    _mutate(
+        root,
+        "a public executable atlas",
+        "a public executable atlas —",
+    )
     receipt = validate_readme_front_door(root)
     assert "README_BANNER_ALT_EM_DASH" in receipt["blocking_codes"]
 
@@ -149,3 +166,25 @@ def test_blocks_json_only_witness(tmp_path: Path) -> None:
     )
     receipt = validate_readme_front_door(root)
     assert "README_HUMAN_WITNESS_MISSING" in receipt["blocking_codes"]
+
+
+def test_blocks_local_record_primary_frame(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _mutate(
+        root,
+        "Plectis is a public, executable cross-section of an AI-native workflow and\nresearch runtime",
+        "Run one command inside a code repository and get a local record",
+    )
+    receipt = validate_readme_front_door(root)
+    assert "README_FRONT_DOOR_LOCAL_ONLY_FRAME" in receipt["blocking_codes"]
+    assert (
+        "run-one-command-local-record-primary-frame"
+        in receipt["findings"]["front_door_local_only_frames"]
+    )
+
+
+def test_blocks_stale_front_door_component_count(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _mutate(root, "88 bounded components", "87 bounded components")
+    receipt = validate_readme_front_door(root)
+    assert "README_FRONT_DOOR_COMPONENT_COUNT_UNBOUND" in receipt["blocking_codes"]

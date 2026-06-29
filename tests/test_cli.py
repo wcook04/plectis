@@ -1348,7 +1348,9 @@ def test_cli_first_screen_text_projection_is_package_backed(
         "observatory: plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         in text
     )
-    assert "A local evidence router; doctrine names boundaries" in text
+    assert "A public executable atlas of 88 AI-native runtime mechanisms" in text
+    assert "evidence records show runner/source, evidence class" in text
+    assert "local evidence router" not in text
     assert "Reader branch: Peer developer" in text
     assert "  First step: Run `plectis tour --card .`." in text
     assert "  Proof: `plectis observe --card .`" in text
