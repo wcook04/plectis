@@ -4,7 +4,7 @@ Plectis is an independent, AI-assisted solo project by William Cook. The public
 release artifact is the standalone Plectis repository and its generated
 standalone export, not the private `ai_workflow` macro root.
 
-Microcosm is the former public name. It is retained only as a bounded
+The former public name was Microcosm. It is retained only as a bounded
 compatibility and historical label for old links, the `microcosm_core` import
 path, the legacy `microcosm` command alias, `.microcosm/` local state, fixture
 names, schema names, and frozen receipts.

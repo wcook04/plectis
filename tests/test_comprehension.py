@@ -518,7 +518,7 @@ def test_first_contact_leads_with_the_goal_shaped_entry(tmp_path: Path) -> None:
     _write_fixture(tmp_path)
     pack = C.comprehend(root=tmp_path, mode="first-contact")
     inspect_next = pack["summary"]["what_to_inspect_next"]
-    assert inspect_next[0] == 'microcosm comprehend --first-action "<goal>"'
+    assert inspect_next[0] == 'plectis comprehend --first-action "<goal>"'
 
 
 def test_self_model_front_anchor_names_first_action(tmp_path: Path) -> None:

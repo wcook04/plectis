@@ -6,13 +6,13 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 32343,
+    "actual_bytes": 36488,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
     "within_budget": true
   },
-  "compile_ms": 0.456,
+  "compile_ms": 0.176,
   "evidence_refs": [],
   "export_band": "presence_only",
   "goal": "list all organs",
@@ -102,7 +102,7 @@
       "synopsis": "Replays a memory edit-and-delete to show stale facts get flagged before they sway an answer."
     },
     {
-      "display_name": "Agent Monitor Redteam Falsification Replay",
+      "display_name": "Monitor Evidence-Boundary Replay",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
@@ -129,7 +129,7 @@
       "synopsis": "Recomputes an agent run's route-compliance score and anti-pattern flags with real trace-analytics code."
     },
     {
-      "display_name": "Agent Sabotage Scheming Monitor Replay",
+      "display_name": "Sabotage-Monitor Contract Replay",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
@@ -143,7 +143,7 @@
       "synopsis": "Audits a hidden-goal catch claim for the steps, suspicion scores, and counterfactual it needs."
     },
     {
-      "display_name": "Agent Sandbox Policy Escape Replay",
+      "display_name": "Sandbox-Policy Replay",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
@@ -157,7 +157,7 @@
       "synopsis": "Maps sandboxed agent actions to show each was approved or blocked before running, then rolled back."
     },
     {
-      "display_name": "Agentic Vulnerability Discovery Patch Proof Replay",
+      "display_name": "Vulnerability Patch-Proof Replay",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
@@ -168,6 +168,20 @@
         "red-teaming"
       ],
       "synopsis": "Checks a fixed-bug evidence chain and re-runs three small real security checks; no real attack material."
+    },
+    {
+      "display_name": "Annex Knowledge Routing",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "annex_knowledge_routing",
+      "specialty": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic",
+        "self-falsifying-certificate"
+      ],
+      "synopsis": "Runs a keyword-overlap match that ranks catalog entries, shows why each matched, and admits when none do."
     },
     {
       "display_name": "Cold-Eval Honesty Capsule",
@@ -460,7 +474,7 @@
       "synopsis": "Exercises thirteen copied backend and governance engines over fixed public test cases."
     },
     {
-      "display_name": "Belief State Process Reward Replay",
+      "display_name": "Belief-State Reward Bundle Replay",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
@@ -486,7 +500,21 @@
       "synopsis": "Drafts proposed work from coverage gaps and proves it cannot repair or rewrite the code itself."
     },
     {
-      "display_name": "Bridge Phase Continuity Runtime",
+      "display_name": "Bridge Campaign DAG Validation",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "bridge_campaign_dag_validation",
+      "specialty": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic",
+        "self-falsifying-certificate"
+      ],
+      "synopsis": "Runs shape checks on a fan-out work plan for unique steps, dependencies, and no cycles, not the plan itself."
+    },
+    {
+      "display_name": "Bridge-Continuity Acceptance Replay",
       "evidence_class": "semantic_validator",
       "family": "work_landing_and_continuity",
       "kind": "organ_synopsis",
@@ -570,6 +598,20 @@
       "synopsis": "Runs the real Lean toolchain to confirm the math library is absent, then gates proof tasks."
     },
     {
+      "display_name": "Derived Fact Provider Runtime",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "derived_fact_provider_runtime",
+      "specialty": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic",
+        "self-falsifying-certificate"
+      ],
+      "synopsis": "Fills in facts from simple recipes and records a clear error when one points at missing data."
+    },
+    {
       "display_name": "Doctrine Fact Claim Audit",
       "evidence_class": "semantic_validator",
       "family": "architecture_and_navigation",
@@ -593,6 +635,20 @@
         "continuity"
       ],
       "synopsis": "Audits recorded work-claims so each cites files, validates before commit, and proves HEAD moved."
+    },
+    {
+      "display_name": "Egress Self-Compliance Audit",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "egress_self_compliance_audit",
+      "specialty": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic",
+        "self-falsifying-certificate"
+      ],
+      "synopsis": "Runs phrase-membership checks on an agent's own replies for three self-policing slips, not deep meaning."
     },
     {
       "display_name": "Engine Room Demo",
@@ -632,6 +688,20 @@
         "finance"
       ],
       "synopsis": "Replays synthetic forecast tests through copied finance stats, recording p-values with no advice."
+    },
+    {
+      "display_name": "Finite Erdos Denominator-Order Certificate Strike",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "finite_erdos_denominator_certificate_strike",
+      "specialty": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic",
+        "self-falsifying-certificate"
+      ],
+      "synopsis": "Computes an exact-arithmetic denominator-order identity and catches forged ones, not the open Erdos problem."
     },
     {
       "display_name": "Formal Evidence Cell Anchor Resolver",
@@ -704,7 +774,21 @@
       "synopsis": "Replays how a proof lab turns verifier failures into fixes, with no promotion without a fresh re-run."
     },
     {
-      "display_name": "Indirect Prompt Injection Information Flow Policy Replay",
+      "display_name": "Generated Projection Drift Runtime",
+      "evidence_class": "external_subprocess_witness",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "generated_projection_drift_runtime",
+      "specialty": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic",
+        "self-falsifying-certificate"
+      ],
+      "synopsis": "Runs each owner's own drift check on generated files and flags repairs, without changing the file."
+    },
+    {
+      "display_name": "Prompt-Injection Flow-Policy Replay",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
@@ -715,6 +799,21 @@
         "red-teaming"
       ],
       "synopsis": "Replays an agent run to show untrusted text was gated before any sensitive action, leaking no secret."
+    },
+    {
+      "display_name": "Lean Proof-Search Lab Runtime",
+      "evidence_class": "external_subprocess_witness",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "lean_proof_search_lab_runtime",
+      "specialty": [
+        "formal-math",
+        "theorem-proving",
+        "proof-search",
+        "lean-subprocess",
+        "self-falsifying"
+      ],
+      "synopsis": "Finds tactic scripts the real Lean prover accepts on toy theorems, and refuses proofs that cheat."
     },
     {
       "display_name": "Lean Std Premise Index",
@@ -743,7 +842,7 @@
       "synopsis": "Gates private-to-public imports, accepting only non-secret files with matching fingerprints and sources."
     },
     {
-      "display_name": "Materials Chemistry Closed Loop Lab Safety Replay",
+      "display_name": "Materials Lab-Safety Refusal Replay",
       "evidence_class": "algorithmic_projection",
       "family": "research_and_science_replays",
       "kind": "organ_synopsis",
@@ -768,7 +867,7 @@
       "synopsis": "Picks a first-guess proof strategy from a problem's tags and flags any it cannot map."
     },
     {
-      "display_name": "MCP Tool Authority Replay",
+      "display_name": "MCP Tool-Authority Policy Replay",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
@@ -782,7 +881,7 @@
       "synopsis": "Audits a recorded tool-use log to confirm each action was scoped, approved, undoable, and fenced."
     },
     {
-      "display_name": "Mechanistic Interpretability Circuit Attribution Replay",
+      "display_name": "Toy-Transformer Attribution Replay",
       "evidence_class": "bounded_runtime_computation",
       "family": "research_and_science_replays",
       "kind": "organ_synopsis",
@@ -793,6 +892,20 @@
         "provider-ops"
       ],
       "synopsis": "Records which model features drove an answer, each tied to checkable evidence."
+    },
+    {
+      "display_name": "Metabolism Queue Reconciliation",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "metabolism_queue_reconciliation",
+      "specialty": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic",
+        "self-falsifying-certificate"
+      ],
+      "synopsis": "Runs a scratch-database model of a durable job queue and flags impossible states for a human to review."
     },
     {
       "display_name": "Mission Transaction Work Spine",
@@ -807,6 +920,20 @@
         "work-ledger"
       ],
       "synopsis": "Runs the real work-ledger engine on a sanitised snapshot to re-derive each change's verdict."
+    },
+    {
+      "display_name": "Navigation Fitness Benchmark",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "formal_math_and_proof",
+      "kind": "organ_synopsis",
+      "organ_id": "navigation_fitness_benchmark",
+      "specialty": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic",
+        "self-falsifying-certificate"
+      ],
+      "synopsis": "Measures a navigation result against its target for recall, precision, and speed on public examples."
     },
     {
       "display_name": "Navigation Hologram Route Plane",
@@ -969,7 +1096,21 @@
       "synopsis": "Compares expected against built entities to report known coverage gaps."
     },
     {
-      "display_name": "Sleeper Memory Poisoning Quarantine Replay",
+      "display_name": "Semantic Singleflight Dedup Runtime",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "work_landing_and_continuity",
+      "kind": "organ_synopsis",
+      "organ_id": "semantic_singleflight_dedup_runtime",
+      "specialty": [
+        "agent-concurrency",
+        "operational-discipline",
+        "deduplication",
+        "continuity"
+      ],
+      "synopsis": "Reuses one result for duplicate command runs, keyed by repo state rather than the words alone."
+    },
+    {
+      "display_name": "Memory-Poisoning Quarantine Policy Replay",
       "evidence_class": "algorithmic_projection",
       "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
@@ -983,7 +1124,7 @@
       "synopsis": "Replays a recorded memory-tamper case, checking its declared quarantine, block, and delete steps line up."
     },
     {
-      "display_name": "Spatial World Model Counterfactual Simulation Replay",
+      "display_name": "Gridworld Counterfactual State Replay",
       "evidence_class": "bounded_runtime_computation",
       "family": "research_and_science_replays",
       "kind": "organ_synopsis",
@@ -1107,7 +1248,7 @@
       "synopsis": "Verifies each lesson changed a named owner page with evidence before the loop closes."
     },
     {
-      "display_name": "World Model Projection Drift Control Room",
+      "display_name": "Projection-Drift Contract Validator",
       "evidence_class": "semantic_validator",
       "family": "import_projection_and_drift",
       "kind": "organ_synopsis",
@@ -1125,9 +1266,9 @@
   "specificity_risks": [],
   "summary": {
     "what_not_to_trust": "",
-    "what_this_is": "78 organs, one synopsis line each.",
+    "what_this_is": "88 organs, one synopsis line each.",
     "what_to_inspect_next": [
-      "microcosm comprehend --organ <organ_id>"
+      "plectis comprehend --organ <organ_id>"
     ]
   }
 }

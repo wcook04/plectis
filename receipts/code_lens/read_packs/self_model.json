@@ -12,7 +12,7 @@
     "boundary": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority."
   },
   "budget": {
-    "actual_bytes": 14773,
+    "actual_bytes": 16723,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
@@ -21,42 +21,42 @@
   "code_lens_health": {
     "by_evidence_class": {
       "algorithmic_projection": 27,
-      "bounded_runtime_computation": 5,
-      "external_subprocess_witness": 7,
+      "bounded_runtime_computation": 13,
+      "external_subprocess_witness": 9,
       "semantic_validator": 18,
       "verified_macro_body_import": 21
     },
     "by_evidence_strength_rank": {
       "3": 27,
-      "4": 12,
+      "4": 22,
       "5": 39
     },
     "by_truth_accounting_bucket": {
       "copied_non_secret_macro_body": 21,
       "real_import_validation": 18,
-      "real_runtime_receipt": 12,
+      "real_runtime_receipt": 22,
       "source_faithful_refactor": 27
     },
-    "claim_node_count": 78,
-    "edge_count": 2012,
+    "claim_node_count": 88,
+    "edge_count": 2208,
     "edge_kind_counts": {
-      "asserts_claim": 78,
-      "emits_receipt": 326,
-      "grounded_in_doctrine": 886,
-      "member_of_family": 78,
-      "proven_by": 78,
-      "routes_to": 280,
-      "validated_by": 78,
-      "wires_to": 208
+      "asserts_claim": 88,
+      "emits_receipt": 366,
+      "grounded_in_doctrine": 930,
+      "member_of_family": 88,
+      "proven_by": 88,
+      "routes_to": 321,
+      "validated_by": 88,
+      "wires_to": 239
     },
-    "organ_count": 78,
-    "route_node_count": 32,
+    "organ_count": 88,
+    "route_node_count": 41,
     "runner_custody_split": {
-      "unspecified": 78
+      "unspecified": 88
     },
-    "synopsis_coverage": 78
+    "synopsis_coverage": 88
   },
-  "compile_ms": 1.462,
+  "compile_ms": 0.41,
   "context_profile": "operating_picture",
   "deferred_edges": [
     {
@@ -69,6 +69,7 @@
       "would_come_from": "a Lean-aware proof-graph builder feeding this join index"
     }
   ],
+  "do_not_claim": "No hosted service, production readiness, provider execution, source mutation, private-root equivalence, formal-proof correctness, benchmark score, trading or investment advice, release authority, or whole-system correctness.",
   "evidence_refs": [
     "core/organ_atlas.json",
     "receipts/code_lens/code_lens_join_index_v0.json",
@@ -76,7 +77,7 @@
     "src/microcosm_core/comprehension.py#PACKET_SPECS"
   ],
   "export_band": "presence_only",
-  "goal": "comprehend the whole Microcosm",
+  "goal": "comprehend the whole Plectis substrate",
   "graph_backed": {
     "edge_classes_resolved": [
       "claim_node_ontology",
@@ -89,37 +90,37 @@
   },
   "major_subsystems": [
     {
-      "drilldown": "microcosm comprehend --slice cluster --family import_projection_and_drift",
+      "drilldown": "plectis comprehend --slice cluster --family formal_math_and_proof",
+      "family": "formal_math_and_proof",
+      "organ_count": 27
+    },
+    {
+      "drilldown": "plectis comprehend --slice cluster --family import_projection_and_drift",
       "family": "import_projection_and_drift",
       "organ_count": 20
     },
     {
-      "drilldown": "microcosm comprehend --slice cluster --family formal_math_and_proof",
-      "family": "formal_math_and_proof",
-      "organ_count": 18
-    },
-    {
-      "drilldown": "microcosm comprehend --slice cluster --family agent_reliability_and_safety",
+      "drilldown": "plectis comprehend --slice cluster --family agent_reliability_and_safety",
       "family": "agent_reliability_and_safety",
       "organ_count": 16
     },
     {
-      "drilldown": "microcosm comprehend --slice cluster --family architecture_and_navigation",
+      "drilldown": "plectis comprehend --slice cluster --family architecture_and_navigation",
       "family": "architecture_and_navigation",
       "organ_count": 10
     },
     {
-      "drilldown": "microcosm comprehend --slice cluster --family research_and_science_replays",
+      "drilldown": "plectis comprehend --slice cluster --family research_and_science_replays",
       "family": "research_and_science_replays",
       "organ_count": 8
     },
     {
-      "drilldown": "microcosm comprehend --slice cluster --family work_landing_and_continuity",
+      "drilldown": "plectis comprehend --slice cluster --family work_landing_and_continuity",
       "family": "work_landing_and_continuity",
-      "organ_count": 4
+      "organ_count": 5
     },
     {
-      "drilldown": "microcosm comprehend --slice cluster --family entry_and_reveal",
+      "drilldown": "plectis comprehend --slice cluster --family entry_and_reveal",
       "family": "entry_and_reveal",
       "organ_count": 2
     }
@@ -168,69 +169,71 @@
   "packet_id": "self_model",
   "packet_kind": "explanation",
   "read_me_first": [
-    "Microcosm is a 78-organ self-describing substrate; each organ is a bounded capability with a runner, a validator command, an authority ceiling, and emitted receipts.",
-    "Custody truth: 0/78 organ runners are EXACT-COPY macro bodies -- comprehend them via registry metadata + receipts, not runner source.",
-    "Every read here is source-body-free (presence_only); nothing in this packet authorizes release, source export, or whole-system correctness.",
+    "Plectis is a public executable cross-section of an AI-native workflow and research runtime: 88 bounded components across formal proof, agent reliability and safety, research and forecasting, projection-drift control, validators, work landing, and continuity.",
+    "Each component has a runner or replay, source loci, evidence class, receipt path, and authority ceiling; receipts are the accountability layer, not the product.",
+    "Read order: mechanisms -> evidence discipline -> local runtime. Start with --slice mechanism before judging what the system actually does.",
+    "Custody truth: 0/88 organ runners are EXACT-COPY macro bodies -- comprehend them via registry metadata + receipts, not runner source.",
+    "Every read here is source-body-free (presence_only); nothing in this packet authorizes release, source export, proof correctness, provider execution, source mutation, investment advice, private-system equivalence, or whole-system correctness.",
+    "Have a concrete goal? plectis comprehend --first-action \"<goal>\" converts it into ONE graph-backed first action -- owner, runnable command, validator, receipts, stop condition, do-not-edit boundary. FIRST_ACTION.md demonstrates this across a goal battery.",
     "7 organ families. This packet IS the hub: open --slice cluster --family <f> for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow.",
-    "Have a concrete goal? microcosm comprehend --first-action \"<goal>\" converts it into ONE graph-backed first action -- owner, runnable command, validator, receipts, stop condition, do-not-edit boundary. FIRST_ACTION.md demonstrates this across a goal battery.",
-    "The join index is a typed graph: 32 task-class routes (each with a first command and a stop condition), first-class claim nodes chained claim -> validator -> receipt, wires_to topology, and doctrine refs. Only proof-internal structure remains deferred."
+    "The join index is a typed graph: 41 task-class routes (each with a first command and a stop condition), first-class claim nodes chained claim -> validator -> receipt, wires_to topology, and doctrine refs. Only proof-internal structure remains deferred."
   ],
   "receipt_refs": [],
   "recommended_drilldowns": [
     {
-      "command": "microcosm comprehend --first-action \"<goal>\"",
+      "command": "plectis comprehend --first-action \"<goal>\"",
       "packet": "first_action",
       "question": "what is my FIRST correct action for a goal?"
     },
     {
-      "command": "microcosm comprehend --slice organs",
+      "command": "plectis comprehend --slice organs",
       "packet": "organs_index",
       "question": "what organs exist (one line each)?"
     },
     {
-      "command": "microcosm comprehend --slice cluster --family <f>",
+      "command": "plectis comprehend --slice cluster --family <f>",
       "packet": "organ_cluster",
       "question": "understand a whole family?"
     },
     {
-      "command": "microcosm comprehend --slice math",
+      "command": "plectis comprehend --slice math",
       "packet": "math",
       "question": "where is the math / proof?"
     },
     {
-      "command": "microcosm comprehend --slice authority",
+      "command": "plectis comprehend --slice authority",
       "packet": "authority",
       "question": "what may I trust?"
     },
     {
-      "command": "microcosm comprehend --slice claims --organ <id>",
+      "command": "plectis comprehend --slice claims --organ <id>",
       "packet": "claim_trace",
       "question": "how is a claim justified?"
     },
     {
-      "command": "microcosm comprehend --slice flows --organ <id>",
+      "command": "plectis comprehend --slice flows --organ <id>",
       "packet": "flow",
       "question": "how does an organ run?"
     },
     {
-      "command": "microcosm comprehend --mutation <id|path>",
+      "command": "plectis comprehend --mutation <id|path>",
       "packet": "mutation_plan",
       "question": "change something safely?"
     },
     {
-      "command": "microcosm comprehend --path <owned_file>",
+      "command": "plectis comprehend --path <owned_file>",
       "packet": "path",
       "question": "read a file's atoms without opening source?"
     }
   ],
   "route_topology": {
-    "drilldown": "microcosm comprehend --slice flows --organ <primary_organ_id>",
+    "drilldown": "plectis comprehend --slice flows --organ <primary_organ_id>",
     "note": "route nodes carry a first_command, a stop_condition, and an allowed_scope where the route plane binds them; the flow and organ packets surface them per organ",
-    "organs_reachable_from_routes": 78,
-    "route_node_count": 32,
+    "organs_reachable_from_routes": 88,
+    "route_node_count": 41,
     "routes": [
       {
-        "organ_count": 2,
+        "organ_count": 3,
         "primary_display_name": "Mission Transaction Work Spine",
         "primary_organ_id": "mission_transaction_work_spine",
         "task_class": "agent-concurrency"
@@ -243,14 +246,14 @@
       },
       {
         "organ_count": 16,
-        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
-        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "primary_display_name": "Agent Closeout Faithfulness Audit",
+        "primary_organ_id": "agent_closeout_faithfulness_audit",
         "task_class": "agent-evaluation"
       },
       {
         "organ_count": 16,
-        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
-        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "primary_display_name": "Agent Closeout Faithfulness Audit",
+        "primary_organ_id": "agent_closeout_faithfulness_audit",
         "task_class": "ai-safety"
       },
       {
@@ -278,10 +281,16 @@
         "task_class": "compliance"
       },
       {
-        "organ_count": 4,
+        "organ_count": 5,
         "primary_display_name": "Mission Transaction Work Spine",
         "primary_organ_id": "mission_transaction_work_spine",
         "task_class": "continuity"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Semantic Singleflight Dedup Runtime",
+        "primary_organ_id": "semantic_singleflight_dedup_runtime",
+        "task_class": "deduplication"
       },
       {
         "organ_count": 1,
@@ -308,6 +317,12 @@
         "task_class": "evaluation"
       },
       {
+        "organ_count": 8,
+        "primary_display_name": "Navigation Fitness Benchmark",
+        "primary_organ_id": "navigation_fitness_benchmark",
+        "task_class": "exact-arithmetic"
+      },
+      {
         "organ_count": 7,
         "primary_display_name": "Finance Forecast Evaluation Spine",
         "primary_organ_id": "finance_forecast_evaluation_spine",
@@ -315,14 +330,20 @@
       },
       {
         "organ_count": 8,
-        "primary_display_name": "Research Replication Rubric Artifact Replay",
-        "primary_organ_id": "research_replication_rubric_artifact_replay",
+        "primary_display_name": "Finance Forecast Evaluation Spine",
+        "primary_organ_id": "finance_forecast_evaluation_spine",
         "task_class": "forecasting"
       },
       {
+        "organ_count": 9,
+        "primary_display_name": "Navigation Fitness Benchmark",
+        "primary_organ_id": "navigation_fitness_benchmark",
+        "task_class": "formal-math"
+      },
+      {
         "organ_count": 18,
-        "primary_display_name": "Proof Diagnostic Evidence Spine",
-        "primary_organ_id": "proof_diagnostic_evidence_spine",
+        "primary_display_name": "Certificate Kernel Execution Lab",
+        "primary_organ_id": "certificate_kernel_execution_lab",
         "task_class": "formal-methods"
       },
       {
@@ -345,9 +366,15 @@
       },
       {
         "organ_count": 18,
-        "primary_display_name": "Proof Diagnostic Evidence Spine",
-        "primary_organ_id": "proof_diagnostic_evidence_spine",
+        "primary_display_name": "Certificate Kernel Execution Lab",
+        "primary_organ_id": "certificate_kernel_execution_lab",
         "task_class": "lean"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Lean Proof-Search Lab Runtime",
+        "primary_organ_id": "lean_proof_search_lab_runtime",
+        "task_class": "lean-subprocess"
       },
       {
         "organ_count": 1,
@@ -362,10 +389,28 @@
         "task_class": "navigation"
       },
       {
+        "organ_count": 8,
+        "primary_display_name": "Navigation Fitness Benchmark",
+        "primary_organ_id": "navigation_fitness_benchmark",
+        "task_class": "number-theory"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Semantic Singleflight Dedup Runtime",
+        "primary_organ_id": "semantic_singleflight_dedup_runtime",
+        "task_class": "operational-discipline"
+      },
+      {
         "organ_count": 1,
         "primary_display_name": "Oracle Sibling Source Capsule",
         "primary_organ_id": "batch7_oracle_sibling_capsule",
         "task_class": "oracle-boundary"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Lean Proof-Search Lab Runtime",
+        "primary_organ_id": "lean_proof_search_lab_runtime",
+        "task_class": "proof-search"
       },
       {
         "organ_count": 20,
@@ -381,14 +426,14 @@
       },
       {
         "organ_count": 16,
-        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
-        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "primary_display_name": "Agent Closeout Faithfulness Audit",
+        "primary_organ_id": "agent_closeout_faithfulness_audit",
         "task_class": "red-teaming"
       },
       {
         "organ_count": 8,
-        "primary_display_name": "Research Replication Rubric Artifact Replay",
-        "primary_organ_id": "research_replication_rubric_artifact_replay",
+        "primary_display_name": "Finance Forecast Evaluation Spine",
+        "primary_organ_id": "finance_forecast_evaluation_spine",
         "task_class": "research-workflows"
       },
       {
@@ -398,15 +443,27 @@
         "task_class": "security"
       },
       {
+        "organ_count": 1,
+        "primary_display_name": "Lean Proof-Search Lab Runtime",
+        "primary_organ_id": "lean_proof_search_lab_runtime",
+        "task_class": "self-falsifying"
+      },
+      {
+        "organ_count": 8,
+        "primary_display_name": "Navigation Fitness Benchmark",
+        "primary_organ_id": "navigation_fitness_benchmark",
+        "task_class": "self-falsifying-certificate"
+      },
+      {
         "organ_count": 20,
         "primary_display_name": "Secondary Runtime Source Capsule",
         "primary_organ_id": "batch7_secondary_runtime_capsule",
         "task_class": "source-import"
       },
       {
-        "organ_count": 18,
-        "primary_display_name": "Proof Diagnostic Evidence Spine",
-        "primary_organ_id": "proof_diagnostic_evidence_spine",
+        "organ_count": 19,
+        "primary_display_name": "Certificate Kernel Execution Lab",
+        "primary_organ_id": "certificate_kernel_execution_lab",
         "task_class": "theorem-proving"
       },
       {
@@ -440,16 +497,16 @@
   "source_span_escalation": [],
   "specificity_risks": [],
   "summary": {
-    "what_not_to_trust": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
-    "what_this_is": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority.",
+    "what_not_to_trust": "No hosted service, production readiness, provider execution, source mutation, private-root equivalence, formal-proof correctness, benchmark score, trading or investment advice, release authority, or whole-system correctness.",
+    "what_this_is": "Plectis is a public executable cross-section of an AI-native workflow and research runtime: 88 bounded components across formal proof, agent reliability and safety, research and forecasting, projection-drift control, validators, work landing, and continuity.",
     "what_to_inspect_next": [
-      "microcosm comprehend --slice organs"
+      "plectis comprehend --slice organs"
     ]
   },
   "tail_recap": {
-    "core_frame": "78 organs, 7 families; 0/78 runners are exact-copy macro bodies; presence_only; authorizes nothing.",
-    "next_packet_if_lost": "microcosm comprehend --packet-atlas",
-    "to_comprehend_every_organ": "microcosm comprehend --self-model --profile whole_substrate_map"
+    "core_frame": "88 organs, 7 families; 0/88 runners are exact-copy macro bodies; presence_only; authorizes nothing.",
+    "next_packet_if_lost": "plectis comprehend --packet-atlas",
+    "to_comprehend_every_organ": "plectis comprehend --self-model --profile whole_substrate_map"
   },
   "target_reader": "cold Type A / cold codebase reader",
   "thin_or_projection_surfaces": {
