@@ -7,13 +7,13 @@
   "legacy_public_name": "Microcosm",
   "legacy_site_base_url": "https://wcook04.github.io/plectis/",
   "mode_counts": {
-    "byte_compatible_alias": 16,
+    "byte_compatible_alias": 18,
     "html_redirect": 218,
     "legacy_404": 1,
     "legacy_projection_status": 1,
     "legacy_security_txt": 2
   },
-  "route_count": 238,
+  "route_count": 240,
   "route_policy": {
     "byte_compatible_alias": "Machine-readable JSON and static assets are emitted as files so the old URL keeps its content type.",
     "html_redirect": "HTML routes show the transition and may forward to the canonical route; they are not used for machine-readable assets.",
@@ -2236,8 +2236,19 @@
       "semantic_equivalence": "current_public_packet_schema_preserved"
     },
     {
-      "canonical_path": "microcosm-ai-reader-digest.json",
-      "canonical_url": "https://wcook04.github.io/plectis/microcosm-ai-reader-digest.json",
+      "canonical_path": "plectis-site-map.json",
+      "canonical_url": "https://wcook04.github.io/plectis/plectis-site-map.json",
+      "content_type": "application/json; charset=utf-8",
+      "expected_behavior": "return current public JSON bytes under the old URL; never return HTML for this machine-readable object",
+      "legacy_path": "microcosm-site-map.json",
+      "legacy_url": "https://wcook04.github.io/plectis/microcosm-site-map.json",
+      "mode": "byte_compatible_alias",
+      "proof": "validate_legacy_compatibility parses the emitted legacy file as JSON",
+      "semantic_equivalence": "current_public_packet_schema_preserved"
+    },
+    {
+      "canonical_path": "plectis-ai-reader-digest.json",
+      "canonical_url": "https://wcook04.github.io/plectis/plectis-ai-reader-digest.json",
       "content_type": "application/json; charset=utf-8",
       "expected_behavior": "return current public JSON bytes under the old URL; never return HTML for this machine-readable object",
       "legacy_path": "microcosm-ai-reader-digest.json",
@@ -2247,8 +2258,19 @@
       "semantic_equivalence": "current_public_packet_schema_preserved"
     },
     {
-      "canonical_path": "microcosm-ai-review-packet.json",
-      "canonical_url": "https://wcook04.github.io/plectis/microcosm-ai-review-packet.json",
+      "canonical_path": "plectis-ai-reader-complete.json",
+      "canonical_url": "https://wcook04.github.io/plectis/plectis-ai-reader-complete.json",
+      "content_type": "application/json; charset=utf-8",
+      "expected_behavior": "return current public JSON bytes under the old URL; never return HTML for this machine-readable object",
+      "legacy_path": "microcosm-ai-reader-complete.json",
+      "legacy_url": "https://wcook04.github.io/plectis/microcosm-ai-reader-complete.json",
+      "mode": "byte_compatible_alias",
+      "proof": "validate_legacy_compatibility parses the emitted legacy file as JSON",
+      "semantic_equivalence": "current_public_packet_schema_preserved"
+    },
+    {
+      "canonical_path": "plectis-ai-review-packet.json",
+      "canonical_url": "https://wcook04.github.io/plectis/plectis-ai-review-packet.json",
       "content_type": "application/json; charset=utf-8",
       "expected_behavior": "return current public JSON bytes under the old URL; never return HTML for this machine-readable object",
       "legacy_path": "microcosm-ai-review-packet.json",
@@ -2423,5 +2445,5 @@
     }
   ],
   "schema": "plectis_legacy_route_manifest_v0",
-  "source_fingerprint": "4064a1aec260f9140555d448380226c9"
+  "source_fingerprint": "1fab5c1f401f7bc0148a117c0e849509"
 }

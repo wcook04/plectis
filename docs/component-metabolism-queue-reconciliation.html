@@ -90,7 +90,7 @@
 
         <h2 id="contract">Contract</h2>
           <p class="comp-card__what"><span class="comp-card__klabel">Does</span> A small, runnable model of a durable job queue. It puts jobs in a temporary scratch database, hands one out to a worker on a lease, recovers the job when the lease expires, and tracks claim-and-contradiction events on a shared blackboard. It then runs a consistency check that flags impossible situations for a human to review, for example a job marked &quot;running&quot; with no record of a run, or a run that finished while its job still says running. Two clean scenarios are checked end to end; two deliberately broken scenarios are confirmed to be caught and rejected. It is a faithful but bounded copy of the real machinery: it never touches the live production database, never starts agents, and never silently fixes anything.</p>
-          <p class="comp-card__scope"><span class="comp-card__klabel">Scope limit</span> It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational <a class="narrative-ref narrative-ref--term" href="glossary.html#glossary-witness" data-term="witness">witness</a>, not a machine-checked proof.</p>
+          <p class="comp-card__scope"><span class="comp-card__klabel">Scope limit</span> The bundle demonstrates a synthetic SQLite durable queue, lease recovery, blackboard claim-event projection, and cold-start reconciliation taxonomy. It is not a live non-public runtime export, not an agent dispatcher, not external model service, not ambiguous auto-repair, not a distributed database, and not launch-scope decision.</p>
 
         <h2 id="run">Run</h2>
         <div class="comp-card__run">
@@ -101,7 +101,7 @@
         <h2 id="evidence">Evidence</h2>
         <p class="comp-card__evidence"><span class="comp-card__klabel">Class</span><span class="comp-chip">Bounded runtime computation</span><span class="comp-chip">evidence 4/5</span><span class="comp-chip">Real runtime result</span><span class="comp-chip">Runs real tools</span></p>
           <p class="comp-card__links"><span class="comp-card__klabel">Links to</span> <a href="component-certificate-kernel-execution-lab.html">Certificate Kernel Execution Lab</a>, <a href="component-verifier-lab-kernel.html">Verifier Lab Kernel</a>, <a href="component-formal-math-lean-proof-witness.html">Formal Math Lean Proof Witness</a></p>
-          <p class="comp-card__tags-row"><span class="tag">formal-math</span><span class="tag">number-theory</span><span class="tag">exact-arithmetic</span></p>
+          <p class="comp-card__tags-row"><span class="tag">agent-concurrency</span><span class="tag">continuity</span><span class="tag">operational-discipline</span></p>
 
         <h2 id="source">Source</h2>
           <p class="comp-card__source"><span class="comp-card__klabel">Source</span> <a href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json#paper_module.metabolism_queue_reconciliation" data-link-kind="exogenous" rel="external noopener">Design note</a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/organs/metabolism_queue_reconciliation.py" data-link-kind="exogenous" rel="external noopener">Source</a></p>

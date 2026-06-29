@@ -1,6 +1,6 @@
 # Plectis
 
-> A runnable, source-linked public map of an AI-native workflow system. Each component is a small, source-bound check you can read, run, and trace to evidence -- served as static files with no backend and no network calls.
+> A public executable atlas of AI-native runtime mechanisms: each component names what it runs or replays, the evidence class behind it, the receipt/source handles to inspect, and the authority ceiling where the claim stops.
 
 Every map below is a generated projection of content-graph.json (the canonical object kernel); none of it is separately authored.
 
@@ -65,12 +65,12 @@ These source-linked objects are routed and searchable without promoting them bey
 
 ## Reader ladder (open in order of need)
 
-- [reader digest](microcosm-ai-reader-digest.json): the default AI handoff -- quick_path, canonical_question_routes, component_digest, family_digest, claim_ceiling_index, and provenance, without the deep bodies. Start here.
-- [complete text corpus](microcosm-ai-reader-complete.json): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, in one file. Open this when you want the whole site's text without re-rendered duplication.
+- [reader digest](plectis-ai-reader-digest.json): the default AI handoff -- quick_path, canonical_question_routes, component_digest, family_digest, claim_ceiling_index, and provenance, without the deep bodies. Start here.
+- [complete text corpus](plectis-ai-reader-complete.json): every public text body -- all component cards, paper-module bodies, doctrine entities, glossary terms, evidence profiles, and page prose -- carried once, deduplicated, in one file. Open this when you want the whole site's text without re-rendered duplication.
 - [concise guide](assets/ai-orientation-packet.js): ~16 KB orientation for paste-only workflows -- what Plectis is, the seven areas, the rank legend.
 - [reference index](docs/reference.html): the human middle layer -- areas, components, doctrine records, and paper modules in one navigable roster.
-- [AI review packet](microcosm-ai-review-packet.json): advanced full-text packet -- read_me_first, answer contract, question routes, starter prompts, view descriptors, and the full visible-text record in a single self-describing file.
-- [full JSON map](microcosm-site-map.json): the raw map without the capsule's instruction layers -- visible_text_index bodies, page text, and diagrams, for automation.
+- [AI review packet](plectis-ai-review-packet.json): advanced full-text packet -- read_me_first, answer contract, question routes, starter prompts, view descriptors, and the full visible-text record in a single self-describing file.
+- [full JSON map](plectis-site-map.json): the raw map without the capsule's instruction layers -- visible_text_index bodies, page text, and diagrams, for automation.
 - source of record: the public repository linked from each component's source_links.
 
 ## Machine-readable

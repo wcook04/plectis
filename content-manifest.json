@@ -62,10 +62,10 @@
         "public_page": "docs/architecture.html",
         "source": "microcosm-substrate/core/organ_atlas.json"
       },
-      "revision": "gsc_88731e31956f670d0e18",
+      "revision": "gsc_ad90761b31c78a848144",
       "scene_id": "microcosm_public_architecture",
       "schema": "graph_scene_manifest_v1",
-      "source_fingerprint": "b3ac0910b537b058a88838e82d721a34",
+      "source_fingerprint": "861e3356377282919ea3b4df53edb7fc",
       "source_ref": "microcosm-substrate/core/organ_families.json",
       "source_schema": "microcosm_public_architecture_graph_source_v1"
     },
@@ -1174,7 +1174,7 @@
       "principle": 20
     },
     "schema": "microcosm_public_content_graph_receipt_v1",
-    "source_fingerprint": "4064a1aec260f9140555d448380226c9",
+    "source_fingerprint": "1fab5c1f401f7bc0148a117c0e849509",
     "source_refs": [
       "microcosm-substrate/anti_principles/AP-1.json",
       "microcosm-substrate/anti_principles/AP-10.json",
@@ -1426,7 +1426,9 @@
       "content-graph.json",
       "content-manifest.json",
       "object-map.json",
+      "microcosm-site-map.json",
       "microcosm-ai-reader-digest.json",
+      "microcosm-ai-reader-complete.json",
       "microcosm-ai-review-packet.json",
       "legacy-route-manifest.json",
       "projection-status.json"
@@ -1434,7 +1436,7 @@
     "machine_readable_policy": "Old JSON packets, download files, generated assets, and projection-status routes remain machine-readable files. Only old human HTML pages use visible transition HTML; validation parses JSON routes and fails if they return HTML.",
     "manifest_path": "legacy-route-manifest.json",
     "mode_counts": {
-      "byte_compatible_alias": 16,
+      "byte_compatible_alias": 18,
       "html_redirect": 218,
       "legacy_404": 1,
       "legacy_projection_status": 1,
@@ -1453,14 +1455,14 @@
         "machine_readable": true,
         "mode": "byte_compatible_alias",
         "policy": "Machine-readable JSON and static assets are emitted as files so the old URL keeps its content type.",
-        "route_count": 16,
+        "route_count": 18,
         "sample_paths": [
           "content-graph.json",
           "content-manifest.json",
           "object-map.json",
+          "microcosm-site-map.json",
           "microcosm-ai-reader-digest.json",
-          "microcosm-ai-review-packet.json",
-          "assets/search-index.js"
+          "microcosm-ai-reader-complete.json"
         ]
       },
       {
@@ -1526,7 +1528,7 @@
         ]
       }
     ],
-    "route_count": 238,
+    "route_count": 240,
     "schema": "plectis_legacy_compatibility_summary_v0"
   },
   "page_identity": {
@@ -5406,7 +5408,7 @@
     "microcosm-substrate/ARCHITECTURE.md": "sha256:311f879d01e38c423ce8d6bcb6c896282413b8ae3fc35554df13ea9040d1334b",
     "microcosm-substrate/LICENSE": "sha256:5f73f0aafc768cc7c7f5da786dc7614296ee891a456faf175ab07456d3c35046",
     "microcosm-substrate/NOTICE": "sha256:5ee35efcac92a6e5009e305e2f662481e2a3b7fb6e6d95a275e519066a0b2375",
-    "microcosm-substrate/ORGANS.md": "sha256:6f9b63bfd1bb84256788472db36fe05753aaacf593e7eb44ee9e45e0f6a86973",
+    "microcosm-substrate/ORGANS.md": "sha256:c806bb2ffb82400a7dad4367234095f49c609916c4b6b07b4c86c67068e62226",
     "microcosm-substrate/PROVENANCE.md": "sha256:ae9e699b9d9a31ad38139fae240591ed1269502ad54dce425ab5e5f27f044ab8",
     "microcosm-substrate/QUICKSTART.md": "sha256:8a97b1a537d589e8f046c49acda0eee0455afecfbf86d566e1258607de1e242e",
     "microcosm-substrate/README.md": "sha256:6cd00ecf0b7ffb30fda01d13b542e288b98c2ab0118e087375d8041cf55cf3c2",
@@ -5428,7 +5430,7 @@
     "microcosm-substrate/anti_principles/AP-7.json": "sha256:b4958c38fe6f9f889a8c5ba02cff0362a69ae797b234cb61bebc6fc03f641bed",
     "microcosm-substrate/anti_principles/AP-8.json": "sha256:0fcc46ea008fb5ccb48aede94964e04c794181cd07a703ddbb0ebd781b310e54",
     "microcosm-substrate/anti_principles/AP-9.json": "sha256:0e6e78885214319cbe596dff586b05a4124e41bbb4e8d5f092212ead9aaebdf6",
-    "microcosm-substrate/atlas/agent_task_routes.json": "sha256:f5eb1282b13599aa9c74886cd5d6f722db7bf403cd926a28095a53af1eb71879",
+    "microcosm-substrate/atlas/agent_task_routes.json": "sha256:2fd8e48337927edb5684804b191401b2ebdba9d59432c1cfc35701a2a8ff31c2",
     "microcosm-substrate/atlas/entry_packet.json": "sha256:e97a81161db031f9b12b9d41dc66481c5c3fa125beeef2f814cca09205fc5973",
     "microcosm-substrate/axioms/AX-1.json": "sha256:9802f233f1b183f675fdd85992fa7ab01714950e30567bd0dda6d6c82b6822a8",
     "microcosm-substrate/axioms/AX-10.json": "sha256:c0873ec22165c53d443c3421553379a7f0ea38da02c80c89682f4e745143d635",
@@ -5459,7 +5461,7 @@
     "microcosm-substrate/core/doctrine_lattice_coverage.json": "sha256:b29cdb9bfc46708a94cfde441a30a2f48011b1b13431b42a0e7f9bd67ee6b4ae",
     "microcosm-substrate/core/doctrine_lattice_relations.json": "sha256:bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
     "microcosm-substrate/core/mechanism_sources.json": "sha256:d3966cf0af3c0a453f60b7ba98c8c19dc6bf8948da3178dfe1cf60b0174f25ef",
-    "microcosm-substrate/core/organ_atlas.json": "sha256:7436cb783d7c9d588b119f960dff6dd19d67dfb30eaba2d639b9dfdeda70a22d",
+    "microcosm-substrate/core/organ_atlas.json": "sha256:70fd6367a704e1168a06747cdad9ff1bcde9d3f9b0888b5723bac85aa800389f",
     "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
     "microcosm-substrate/core/organ_registry.json": "sha256:beebf3017d0a5abdafe7de9c44f13e5497f8bd53c2613a78f77fe0ca87cd8ce3",
     "microcosm-substrate/core/paper_module_capsules.json": "sha256:272336ef5d0a5fa11badbc4e13d990f3696fbe02c912774e7131b11e1d79ee3f",
@@ -5681,8 +5683,8 @@
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
     "microcosm-substrate/principles/P-9.json": "sha256:fdb204be762d17927c951f34f7f6ef08a86f51e408f55c1cb2e9c9743b01ff24",
-    "sites/microcosm/index.html": "sha256:cfee06392340488f90c05d4b2240a06ea05b8bd5f2a9a7cf1004deb73ab103c7",
-    "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:401fee9964433eb6e73eace56101417055884f5083bc1e98d9c7921c3215b512"
+    "sites/microcosm/index.html": "sha256:93df642f4f2687f0bbfde6d9e0565c5f0061f192efc5cb837fc1063b7d95bf38",
+    "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:e820aaed3d5af8565d53efab59e80c8bb301798b397688bc361a839bf458c361"
   },
   "source_of_truth_contract": {
     "analytics_default": "none",

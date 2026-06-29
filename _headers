@@ -46,9 +46,19 @@
   Content-Type: text/plain; charset=utf-8
   Cache-Control: public, max-age=300, must-revalidate
 
+/plectis-ai-reader-digest.json
+  Content-Type: application/json; charset=utf-8
+  Content-Disposition: attachment; filename="plectis-ai-reader-digest.json"
+  X-Content-Type-Options: nosniff
+
 /microcosm-ai-reader-digest.json
   Content-Type: application/json; charset=utf-8
   Content-Disposition: attachment; filename="microcosm-ai-reader-digest.json"
+  X-Content-Type-Options: nosniff
+
+/plectis-ai-review-packet.json
+  Content-Type: application/json; charset=utf-8
+  Content-Disposition: attachment; filename="plectis-ai-review-packet.json"
   X-Content-Type-Options: nosniff
 
 /microcosm-ai-review-packet.json

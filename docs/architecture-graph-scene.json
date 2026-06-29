@@ -4621,10 +4621,10 @@
         "public_page": "docs/architecture.html",
         "source": "microcosm-substrate/core/organ_atlas.json"
       },
-      "revision": "gsc_88731e31956f670d0e18",
+      "revision": "gsc_ad90761b31c78a848144",
       "scene_id": "microcosm_public_architecture",
       "schema": "graph_scene_manifest_v1",
-      "source_fingerprint": "b3ac0910b537b058a88838e82d721a34",
+      "source_fingerprint": "861e3356377282919ea3b4df53edb7fc",
       "source_ref": "microcosm-substrate/core/organ_families.json",
       "source_schema": "microcosm_public_architecture_graph_source_v1"
     },
@@ -6399,7 +6399,7 @@
       "public_page": "docs/architecture.html",
       "source": "microcosm-substrate/core/organ_atlas.json"
     },
-    "revision": "gsc_88731e31956f670d0e18",
+    "revision": "gsc_ad90761b31c78a848144",
     "rows": [],
     "scene_id": "microcosm_public_architecture",
     "schema": "graph_scene_v1",
@@ -6469,7 +6469,7 @@
       "source_edge_count": 255,
       "source_node_count": 106
     },
-    "source_fingerprint": "b3ac0910b537b058a88838e82d721a34",
+    "source_fingerprint": "861e3356377282919ea3b4df53edb7fc",
     "source_ref": "microcosm-substrate/core/organ_families.json",
     "source_schema": "microcosm_public_architecture_graph_source_v1",
     "type_registry": {

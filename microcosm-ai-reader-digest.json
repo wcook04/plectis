@@ -8,7 +8,7 @@
       "claim-boundary checks",
       "source-route triage"
     ],
-    "expands_into": "microcosm-ai-reader-complete.json",
+    "expands_into": "plectis-ai-reader-complete.json",
     "not_best_for": [
       "full page text",
       "paper-module bodies",
@@ -308,7 +308,7 @@
         "tag": "not_whole_system_correctness"
       },
       {
-        "component_count": 66,
+        "component_count": 74,
         "component_ids_in_full_map": true,
         "description": "Use it as evidence-scope metadata, not as a launch decision.",
         "example_component_ids": [
@@ -320,7 +320,7 @@
         "tag": "not_launch_authority"
       },
       {
-        "component_count": 34,
+        "component_count": 35,
         "component_ids_in_full_map": true,
         "description": "Public sharing stays limited to the declared public source refs and fixtures.",
         "example_component_ids": [
@@ -332,7 +332,19 @@
         "tag": "not_public_sharing_authority"
       },
       {
-        "component_count": 15,
+        "component_count": 27,
+        "component_ids_in_full_map": true,
+        "description": "Benchmark-like rows are fixture evidence, not product performance.",
+        "example_component_ids": [
+          "navigation_fitness_benchmark",
+          "certificate_kernel_execution_lab",
+          "formal_math_lean_proof_witness"
+        ],
+        "global_or_local": "local",
+        "tag": "not_benchmark_claim"
+      },
+      {
+        "component_count": 16,
         "component_ids_in_full_map": true,
         "description": "Use its bounded witness as local evidence, not theorem or proof-system correctness.",
         "example_component_ids": [
@@ -342,18 +354,6 @@
         ],
         "global_or_local": "local",
         "tag": "not_theorem_or_proof_authority"
-      },
-      {
-        "component_count": 26,
-        "component_ids_in_full_map": true,
-        "description": "Benchmark-like rows are fixture evidence, not product performance.",
-        "example_component_ids": [
-          "certificate_kernel_execution_lab",
-          "formal_math_lean_proof_witness",
-          "verifier_lab_execution_spine"
-        ],
-        "global_or_local": "local",
-        "tag": "not_benchmark_claim"
       },
       {
         "component_count": 5,
@@ -864,7 +864,9 @@
         "public_evidence_only",
         "not_hosted_service",
         "no_external_model_access",
-        "no_source_file_changes"
+        "no_source_file_changes",
+        "not_launch_authority",
+        "not_benchmark_claim"
       ],
       "command": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
       "component_detail_href": "docs/component-navigation-fitness-benchmark.html",
@@ -888,13 +890,13 @@
       "relative_href": "docs/component-navigation-fitness-benchmark.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "scope_limit": "The bundle demonstrates a route-packet evaluator for expected stable ids, forbidden first routes, and latency budgets. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not launch-scope decision.",
       "source_link_count": 2,
       "summary_line": "Measures a navigation result against its target for recall, precision, and speed on public examples.",
       "tags": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic"
+        "navigation",
+        "evaluation",
+        "architecture"
       ]
     },
     {
@@ -902,7 +904,8 @@
         "public_evidence_only",
         "not_hosted_service",
         "no_external_model_access",
-        "no_source_file_changes"
+        "no_source_file_changes",
+        "not_launch_authority"
       ],
       "command": "microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
       "component_detail_href": "docs/component-annex-knowledge-routing.html",
@@ -926,13 +929,12 @@
       "relative_href": "docs/component-annex-knowledge-routing.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "scope_limit": "The bundle demonstrates explainable tiered weighted-token retrieval over a sanitized reference catalog. It is not BM25, TF-IDF, embedding search, repository cloning, license authority, private reference corpus authority, or launch-scope decision.",
       "source_link_count": 2,
       "summary_line": "Runs a keyword-overlap match that ranks catalog entries, shows why each matched, and admits when none do.",
       "tags": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic"
+        "navigation",
+        "architecture"
       ]
     },
     {
@@ -1713,7 +1715,10 @@
         "public_evidence_only",
         "not_hosted_service",
         "no_external_model_access",
-        "no_source_file_changes"
+        "no_source_file_changes",
+        "not_launch_authority",
+        "not_public_sharing_authority",
+        "not_theorem_or_proof_authority"
       ],
       "command": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
       "component_detail_href": "docs/component-lean-proof-search-lab-runtime.html",
@@ -1737,7 +1742,7 @@
       "relative_href": "docs/component-lean-proof-search-lab-runtime.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "scope_limit": "This standard governs a bounded symbolic Lean proof-search lab over tiny public toy-theorem fixtures whose verdict source is the installed Lean subprocess only. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, is not frontier-scale math automation or online-RL bandit search, is not a private source prover-run export, and excludes launch or public sharing.",
       "source_link_count": 2,
       "summary_line": "Finds tactic scripts the real Lean prover accepts on toy theorems, and refuses proofs that cheat.",
       "tags": [
@@ -2432,7 +2437,8 @@
         "public_evidence_only",
         "not_hosted_service",
         "no_external_model_access",
-        "no_source_file_changes"
+        "no_source_file_changes",
+        "not_launch_authority"
       ],
       "command": "microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
       "component_detail_href": "docs/component-bridge-campaign-dag-validation.html",
@@ -2456,13 +2462,13 @@
       "relative_href": "docs/component-bridge-campaign-dag-validation.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "scope_limit": "The bundle validates a public bridge-campaign DAG contract and provider worker ceiling. It is not a dispatcher, not a live multi-agent run, not a provider safety proof, and not launch-scope decision.",
       "source_link_count": 2,
       "summary_line": "Runs shape checks on a fan-out work plan for unique steps, dependencies, and no cycles, not the plan itself.",
       "tags": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic"
+        "agent-concurrency",
+        "continuity",
+        "ai-safety"
       ]
     },
     {
@@ -2470,7 +2476,8 @@
         "public_evidence_only",
         "not_hosted_service",
         "no_external_model_access",
-        "no_source_file_changes"
+        "no_source_file_changes",
+        "not_launch_authority"
       ],
       "command": "microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
       "component_detail_href": "docs/component-metabolism-queue-reconciliation.html",
@@ -2494,13 +2501,13 @@
       "relative_href": "docs/component-metabolism-queue-reconciliation.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "scope_limit": "The bundle demonstrates a synthetic SQLite durable queue, lease recovery, blackboard claim-event projection, and cold-start reconciliation taxonomy. It is not a live non-public runtime export, not an agent dispatcher, not external model service, not ambiguous auto-repair, not a distributed database, and not launch-scope decision.",
       "source_link_count": 2,
       "summary_line": "Runs a scratch-database model of a durable job queue and flags impossible states for a human to review.",
       "tags": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic"
+        "agent-concurrency",
+        "continuity",
+        "operational-discipline"
       ]
     },
     {
@@ -2508,7 +2515,8 @@
         "public_evidence_only",
         "not_hosted_service",
         "no_external_model_access",
-        "no_source_file_changes"
+        "no_source_file_changes",
+        "not_launch_authority"
       ],
       "command": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
       "component_detail_href": "docs/component-egress-self-compliance-audit.html",
@@ -2532,13 +2540,13 @@
       "relative_href": "docs/component-egress-self-compliance-audit.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "scope_limit": "The bundle evaluates egress text through explicit phrase-membership policy. It is not taint analysis, prompt-injection defense, sandboxing, information-flow control, or launch-scope decision.",
       "source_link_count": 2,
       "summary_line": "Runs phrase-membership checks on an agent's own replies for three self-policing slips, not deep meaning.",
       "tags": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic"
+        "ai-safety",
+        "compliance",
+        "red-teaming"
       ]
     },
     {
@@ -2862,7 +2870,8 @@
         "public_evidence_only",
         "not_hosted_service",
         "no_external_model_access",
-        "no_source_file_changes"
+        "no_source_file_changes",
+        "not_launch_authority"
       ],
       "command": "microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
       "component_detail_href": "docs/component-derived-fact-provider-runtime.html",
@@ -2886,13 +2895,13 @@
       "relative_href": "docs/component-derived-fact-provider-runtime.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "scope_limit": "The bundle demonstrates registry-backed JSON-pointer, glob-count, and git-backed callable fact providers with provider failures represented as error rows. It is not a doctrine truth auditor, not a full source registry export, not semantic claim validation, and not launch-scope decision.",
       "source_link_count": 2,
       "summary_line": "Fills in facts from simple recipes and records a clear error when one points at missing data.",
       "tags": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic"
+        "research-workflows",
+        "provenance",
+        "provider operations"
       ]
     },
     {
@@ -3663,7 +3672,8 @@
         "public_evidence_only",
         "not_hosted_service",
         "no_external_model_access",
-        "no_source_file_changes"
+        "no_source_file_changes",
+        "not_launch_authority"
       ],
       "command": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
       "component_detail_href": "docs/component-generated-projection-drift-runtime.html",
@@ -3687,13 +3697,13 @@
       "relative_href": "docs/component-generated-projection-drift-runtime.html",
       "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "scope_limit": "The bundle demonstrates owner-routed generated projection drift detection over declared artifacts, source authorities, clean-result record fingerprints, and no-write check return codes. It is not semantic drift proof, not full source registry validation, not repair authority, and not launch-scope decision.",
       "source_link_count": 2,
       "summary_line": "Runs each owner's own drift check on generated files and flags repairs, without changing the file.",
       "tags": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic"
+        "drift-control",
+        "provenance",
+        "source intake"
       ]
     },
     {
@@ -3891,13 +3901,13 @@
   ],
   "composition_identity": {
     "artifact_kind": "public_site_json_map_packet",
-    "artifact_path": "microcosm-ai-reader-digest.json",
-    "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.microcosm-ai-reader-digest.json",
+    "artifact_path": "plectis-ai-reader-digest.json",
+    "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.plectis-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:91b51eea59d580e28727d67203d4f4e23e0394d2d612564603df6ef87a7a2768",
+    "payload_sha256_excluding_identity": "sha256:80f149e98f84da57ba916458f77ccd4122be928cba31397d8e3bb3764a1d5c80",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
-    "source_fingerprint": "4064a1aec260f9140555d448380226c9"
+    "source_fingerprint": "1fab5c1f401f7bc0148a117c0e849509"
   },
   "counts": {
     "component_count": 88,
@@ -3908,7 +3918,7 @@
     "emitted_route_count": 218,
     "evidence_profile_count": 349,
     "family_count": 7,
-    "legacy_route_count": 238,
+    "legacy_route_count": 240,
     "math_latex_asset_count": 0,
     "page_count": 217,
     "paper_module_availability_gap_count": 0,
@@ -3958,10 +3968,10 @@
   },
   "derived_from": "assets/site-packet.js",
   "expands_into": {
-    "full_json_map_download": "microcosm-site-map.json",
+    "full_json_map_download": "plectis-site-map.json",
     "full_json_map_global": "window.__MICROCOSM_SITE_PACKET__",
-    "full_text_corpus_download": "microcosm-ai-reader-complete.json",
-    "rule": "For every public text body (component cards, paper-module bodies, doctrine entities, glossary, evidence, page prose) carried once, open microcosm-ai-reader-complete.json. Open the full JSON map only for diagrams and the exhaustive object graph."
+    "full_text_corpus_download": "plectis-ai-reader-complete.json",
+    "rule": "For every public text body (component cards, paper-module bodies, doctrine entities, glossary, evidence, page prose) carried once, open plectis-ai-reader-complete.json. Open the full JSON map only for diagrams and the exhaustive object graph."
   },
   "family_digest": [
     {
@@ -4188,7 +4198,7 @@
   "freshness_note": {
     "explanation": "generated_at is a fixed deterministic sentinel so builds are reproducible. It is not a live timestamp and must not be reported as freshness.",
     "generated_at_is_sentinel": true,
-    "source_fingerprint": "4064a1aec260f9140555d448380226c9",
+    "source_fingerprint": "1fab5c1f401f7bc0148a117c0e849509",
     "version_handle": "source_fingerprint"
   },
   "generated_at": "1970-01-01T00:00:00+00:00",
@@ -4805,7 +4815,7 @@
   },
   "read_first": {
     "for_ai_assistants": [
-      "Start with the substance, not the contract: Plectis is a source-linked public map of an AI-native workflow system, where each public component carries an evidence mode, a 1-to-5 verdict-independence rank, a source route, and a stated scope limit. Route a question to the object that answers it. Areas go through family_digest, components through component_digest[], boundary questions (does this prove X, is it secure, can I trade on it) through claim_ceiling_index, and exact links through route_index and source_map. reader_contract and coverage_scope hold the rules; the routing objects order the search and do not pre-decide the verdict.",
+      "Start with the substance, not the contract: Plectis is a public executable atlas of AI-native runtime mechanisms, where each public component carries an evidence mode, a 1-to-5 verdict-independence rank, a source route, and a stated scope limit. Route a question to the object that answers it. Areas go through family_digest, components through component_digest[], boundary questions (does this prove X, is it secure, can I trade on it) through claim_ceiling_index, and exact links through route_index and source_map. reader_contract and coverage_scope hold the rules; the routing objects order the search and do not pre-decide the verdict.",
       "For current name and vocabulary questions, start with public_glossary; for first-pass navigation, start with quick_path; for Microcosm rename, legacy URL, or compatibility-name questions, start with lineage and legacy_compatibility instead. For component or source-object questions, start with component_digest[] (it carries label, rank, evidence_kind, public_runtime, runs_real_tools meaning, command route metadata, scope_limit, claim_ceiling_tags, and a full_record_pointer) and open visible_text_index.logical_records.components[] only when you need the full record, its source_links, or links_to. For doctrine questions, use visible_text_index.logical_records.rules_and_ideas[] as the synopsis/relationship row, then follow body_pointer to the one complete machine body record. For \"what are the areas\" questions use family_digest[]; for \"what does it not prove / is this secure / can I trade on it\" questions use claim_ceiling_index and the row's claim_ceiling_tags. Open paper-module, evidence-profile, and other long visible_text bodies only by id when a question needs them.",
       "Explain Plectis in plain public language; avoid internal project vocabulary the public site does not define.",
       "When you rely on a routeable object or page, include the relative_href back to the exact public view.",
@@ -6628,7 +6638,7 @@
     "schema": "microcosm_public_ai_orientation_route_index_v1",
     "start_here": [
       {
-        "label": "Run one local check",
+        "label": "Run a mechanism route",
         "relative_href": "docs/quickstart.html"
       },
       {
@@ -6672,7 +6682,7 @@
     "source_of_record": "https://github.com/wcook04/plectis",
     "title": "Plectis"
   },
-  "source_fingerprint": "4064a1aec260f9140555d448380226c9",
+  "source_fingerprint": "1fab5c1f401f7bc0148a117c0e849509",
   "source_map": {
     "link_return_rule": "Use object-map.json::objects[].route or route_contract.href to cite exact public views. site-packet.js intentionally carries only a bounded sample so export controls do not load the full object map.",
     "object_count": 876,
@@ -6761,7 +6771,7 @@
     "curated_source_hashes": {
       "microcosm-substrate/README.md": "sha256:6cd00ecf0b7ffb30fda01d13b542e288b98c2ab0118e087375d8041cf55cf3c2",
       "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
-      "sites/microcosm/index.html": "sha256:cfee06392340488f90c05d4b2240a06ea05b8bd5f2a9a7cf1004deb73ab103c7"
+      "sites/microcosm/index.html": "sha256:93df642f4f2687f0bbfde6d9e0565c5f0061f192efc5cb837fc1063b7d95bf38"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",
