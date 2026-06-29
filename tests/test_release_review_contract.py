@@ -92,6 +92,7 @@ def test_review_contract_answers_the_reviewer_questions() -> None:
         "make release-candidate-proof",
         "make release-candidate-proof-verify",
         "make release-review",
+        "make public-site-parity",
     ):
         assert command in text, command
     # The nonclaims and the no-rerun boundary are load-bearing: the contract
@@ -105,6 +106,9 @@ def test_review_contract_answers_the_reviewer_questions() -> None:
     assert "one cold-review command" in text
     assert "regenerates the proof packet fresh" in text
     assert "without rerunning anything" in text
+    assert "downloadable AI handoff packets" in text
+    assert "deployment-packet evidence" in text
+    assert "PYTHONPATH=src python3 -m microcosm_core public-site-parity" in text
     # The work-root and normalization obligations are part of the contract:
     # transient work never sits in-tree and reaches evidence only as tokens.
     assert "outside the source root" in text
@@ -132,6 +136,7 @@ def test_review_receipt_binds_live_subjects_and_expectation() -> None:
         receipt["commands"]["review_alias_behavior"]
         == "generate_fresh_then_verify_then_print_card"
     )
+    assert receipt["commands"]["public_site_parity"] == "make public-site-parity"
     assert receipt["commands"]["no_rerun_verify"] == (
         "make release-candidate-proof-verify"
     )

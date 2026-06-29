@@ -178,6 +178,12 @@ make that possible, and both have a generated page you can open:
   replays it without rerunning the substrate. Each of these records what happened
   and does not authorize release, standards, provider calls, proof correctness, or
   production use.
+- **The public site has its own parity check.** `make public-site-parity` reads
+  `origin/gh-pages` and the live Pages URL, parses the downloadable AI packets,
+  checks their recorded hashes, and compares their component/family/paper-module
+  counts and boundary fields with this source tree. It is the deployment-packet
+  proof, separate from `make ci` and the local release-review proof. The same
+  checker is also exposed as `PYTHONPATH=src python3 -m microcosm_core public-site-parity`.
 
 ## Name and history
 

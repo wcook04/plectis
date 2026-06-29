@@ -378,6 +378,10 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         "plectis comprehend --improvements rank concrete Plectis improvement targets"
         in output
     )
+    assert (
+        "plectis public-site-parity verify gh-pages/live downloadable packet parity "
+        "with this source tree"
+    ) in output
     task_hint = (
         "plectis agent-entry-composition --task "
         "{agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card"
@@ -646,6 +650,21 @@ def test_cli_comprehend_first_action_routes_lean_checks_to_runtime() -> None:
     payload = json.loads(result.stdout)
     assert payload["owner"]["organ_id"] == "lean_proof_search_lab_runtime"
     assert "lean-proof-search-lab-runtime" in payload["first_action"]["command"]
+
+
+def test_cli_comprehend_first_action_routes_public_site_parity() -> None:
+    result = _run_microcosm_cli(
+        "comprehend",
+        "--first-action",
+        "verify the public site downloadable packets match the checkout",
+    )
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["routing"]["basis"] == "public_site_parity_verification"
+    assert payload["first_action"]["command"] == (
+        "PYTHONPATH=src python3 -m microcosm_core public-site-parity"
+    )
+    assert "release authorization" in payload["proof_path"]["note"]
 
 
 def test_cli_comprehension_assay_first_action_is_green() -> None:

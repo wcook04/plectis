@@ -79,6 +79,8 @@ make release-review
 
 The run writes `release-candidate-proof.json` (the digest-bound evidence packet), `release-candidate-proof-card.md` (the human card), and — on verify — `release-candidate-proof-verification.json` under `.microcosm/release-candidate-proof/`. The review passes when generation reports status `pass` and verification reports `packet_valid`. Expect minutes, not seconds: the proof builds a fresh venv install and a full standalone export. The packet schema under review is `microcosm_first_action_release_candidate_proof_v2`.
 
+`make public-site-parity` is the separate public-site parity check, backed by `PYTHONPATH=src python3 -m microcosm_core public-site-parity`: it reads the generated `gh-pages` surface and the live Pages URL, parses the downloadable AI handoff packets, verifies their recorded byte hashes, and compares their component/family/paper-module counts and boundary fields with this source tree. It is deployment-packet evidence, not part of the local three-context release-candidate proof.
+
 ## Reading a failure
 
 A red result classifies; it is never a bare “bad repo”. Generate-side codes name which packet block reads `blocked` (the generate summary lists them as `blocked_codes`); verify-side codes appear literally in the verification receipt's `statuses`. Every named failure, with what it does and does not mean:
