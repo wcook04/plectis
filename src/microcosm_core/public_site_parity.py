@@ -33,6 +33,14 @@ HASHED_PATHS = tuple(
     for path in REQUIRED_PATHS
     if path not in {"projection-status.json", "plectis.html"}
 )
+PACKET_PATHS = (
+    "microcosm-ai-reader-digest.json",
+    "microcosm-ai-review-packet.json",
+    "microcosm-ai-reader-complete.json",
+    "plectis-ai-reader-digest.json",
+    "plectis-ai-review-packet.json",
+    "plectis-ai-reader-complete.json",
+)
 
 
 @dataclass(frozen=True)
@@ -70,7 +78,76 @@ def _sha256(data: bytes) -> str:
     return "sha256:" + hashlib.sha256(data).hexdigest()
 
 
+def _git_ref_exists(root: Path, ref: str) -> bool:
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(root),
+            "rev-parse",
+            "--verify",
+            "--quiet",
+            f"{ref}^{{commit}}",
+        ],
+        capture_output=True,
+    )
+    return result.returncode == 0
+
+
+def _remote_branch_ref(root: Path, ref: str) -> tuple[str, str, str] | None:
+    prefix = "refs/remotes/"
+    if ref.startswith(prefix):
+        remainder = ref[len(prefix) :]
+        remote, separator, branch = remainder.partition("/")
+        target_ref = ref
+    else:
+        remote, separator, branch = ref.partition("/")
+        target_ref = f"refs/remotes/{remote}/{branch}"
+    if not separator or not remote or not branch:
+        return None
+    result = subprocess.run(
+        ["git", "-C", str(root), "remote", "get-url", remote],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return None
+    return remote, branch, target_ref
+
+
+def _ensure_gh_pages_ref(root: Path, ref: str) -> None:
+    if _git_ref_exists(root, ref):
+        return
+    remote_ref = _remote_branch_ref(root, ref)
+    if remote_ref is None:
+        raise RuntimeError(
+            f"cannot resolve {ref!r}; fetch gh-pages or use --site-dir/--site-url"
+        )
+    remote, branch, target_ref = remote_ref
+    result = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(root),
+            "fetch",
+            "--depth=1",
+            "--no-tags",
+            remote,
+            f"{branch}:{target_ref}",
+        ],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0 or not _git_ref_exists(root, ref):
+        detail = result.stderr.strip() or result.stdout.strip()
+        suffix = f": {detail}" if detail else ""
+        raise RuntimeError(
+            f"cannot resolve {ref!r} after fetching {remote}/{branch}{suffix}"
+        )
+
+
 def _read_gh_pages(ref: str, paths: tuple[str, ...], root: Path) -> SiteSnapshot:
+    _ensure_gh_pages_ref(root, ref)
     files: dict[str, bytes] = {}
     for rel in paths:
         try:
@@ -144,6 +221,44 @@ def _site_field(payload: dict[str, Any], key: str) -> Any:
     return None
 
 
+def _packet_authority_errors(payload: dict[str, Any], rel: str) -> list[dict[str, Any]]:
+    errors: list[dict[str, Any]] = []
+    if "public_source_slice_distribution_authorized" in payload:
+        if payload.get("public_source_slice_distribution_authorized") is not True:
+            errors.append(
+                {
+                    "code": "packet_distribution_authority_mismatch",
+                    "path": rel,
+                    "field": "public_source_slice_distribution_authorized",
+                    "expected": True,
+                    "actual": payload.get("public_source_slice_distribution_authorized"),
+                }
+            )
+    elif payload.get("publication_authorized") is not True:
+        errors.append(
+            {
+                "code": "packet_publication_state_mismatch",
+                "path": rel,
+                "expected": True,
+                "actual": payload.get("publication_authorized"),
+            }
+        )
+    if (
+        "release_authority_granted" in payload
+        and payload.get("release_authority_granted") is not False
+    ):
+        errors.append(
+            {
+                "code": "packet_release_authority_mismatch",
+                "path": rel,
+                "field": "release_authority_granted",
+                "expected": False,
+                "actual": payload.get("release_authority_granted"),
+            }
+        )
+    return errors
+
+
 def _check_snapshot(
     snapshot: SiteSnapshot,
     *,
@@ -209,15 +324,7 @@ def _check_snapshot(
                     }
                 )
 
-    packets = [
-        "microcosm-ai-reader-digest.json",
-        "microcosm-ai-review-packet.json",
-        "microcosm-ai-reader-complete.json",
-        "plectis-ai-reader-digest.json",
-        "plectis-ai-review-packet.json",
-        "plectis-ai-reader-complete.json",
-    ]
-    for rel in packets:
+    for rel in PACKET_PATHS:
         payload = payloads[rel]
         counts = payload.get("counts", {})
         for key in ("component_count", "paper_module_count"):
@@ -261,15 +368,7 @@ def _check_snapshot(
                         "actual": actual,
                     }
                 )
-        if payload.get("publication_authorized") is not True:
-            errors.append(
-                {
-                    "code": "packet_publication_state_mismatch",
-                    "path": rel,
-                    "expected": True,
-                    "actual": payload.get("publication_authorized"),
-                }
-            )
+        errors.extend(_packet_authority_errors(payload, rel))
 
     content_manifest = payloads["content-manifest.json"]
     arch_summary = (
@@ -375,24 +474,26 @@ def check_public_site_parity(
 
 def _format(receipt: dict[str, Any]) -> str:
     lines = [
-        f"Plectis public site parity: {receipt['status']}",
-        f"primary: {receipt['primary']}",
+        f"Plectis public site parity: {receipt.get('status', 'unknown')}",
+        f"primary: {receipt.get('primary') or 'unavailable'}",
     ]
     if receipt.get("live"):
         lines.append(f"live: {receipt['live']}")
-    counts = receipt["source_counts"]
-    lines.append(
-        "source counts: "
-        f"components={counts['component_count']} "
-        f"families={counts['family_count']} "
-        f"paper_modules={counts['paper_module_count']}"
-    )
-    if receipt["errors"]:
+    counts = receipt.get("source_counts")
+    if isinstance(counts, dict):
+        lines.append(
+            "source counts: "
+            f"components={counts.get('component_count')} "
+            f"families={counts.get('family_count')} "
+            f"paper_modules={counts.get('paper_module_count')}"
+        )
+    errors = receipt.get("errors") or []
+    if errors:
         lines.append("errors:")
-        for err in receipt["errors"][:20]:
+        for err in errors[:20]:
             lines.append("  - " + json.dumps(err, sort_keys=True))
-        if len(receipt["errors"]) > 20:
-            lines.append(f"  ... {len(receipt['errors']) - 20} more")
+        if len(errors) > 20:
+            lines.append(f"  ... {len(errors) - 20} more")
     return "\n".join(lines)
 
 
