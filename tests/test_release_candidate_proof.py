@@ -10,6 +10,8 @@ claim from digest-bound evidence and refuse tampered or divergent packets.
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 import tomllib
 from pathlib import Path
 
@@ -1044,7 +1046,7 @@ def test_release_candidate_proof_still_blocks_source_root_leak(
 
 
 def test_package_install_smoke_build_lock_and_residue_clear(tmp_path: Path) -> None:
-    """Concurrent in-tree wheel builds are serialized and crashed-build residue
+    """Concurrent wheel builds are serialized and crashed-build residue
     is cleared before install: the lock is exclusive while held, and only the
     bdist staging trees are swept (build/lib cache survives)."""
     import fcntl
@@ -1075,6 +1077,111 @@ def test_package_install_smoke_build_lock_and_residue_clear(tmp_path: Path) -> N
     # Released on exit: a fresh exclusive acquisition succeeds.
     with smoke._source_build_lock(source_root):
         pass
+
+
+def test_package_install_smoke_stages_source_and_uses_work_dir_scratch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "package_install_smoke_staging",
+        MICROCOSM_ROOT / "scripts/package_install_smoke.py",
+    )
+    smoke = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(smoke)
+
+    source_root = tmp_path / "src-root"
+    (source_root / "src/microcosm_core").mkdir(parents=True)
+    (source_root / "pyproject.toml").write_text(
+        "[build-system]\nrequires=[]\nbuild-backend='setuptools.build_meta'\n",
+        encoding="utf-8",
+    )
+    (source_root / "build/bdist.leftover/wheel/pkg-0.1.dist-info").mkdir(
+        parents=True
+    )
+    (source_root / ".microcosm/private.json").parent.mkdir(parents=True)
+    (source_root / ".microcosm/private.json").write_text("{}", encoding="utf-8")
+    (source_root / ".venv/bin").mkdir(parents=True)
+    (source_root / "src/microcosm_core/__init__.py").write_text("", encoding="utf-8")
+
+    work_dir = tmp_path / "work"
+    calls: list[tuple[list[str], dict[str, str] | None, Path | None]] = []
+
+    def fake_run(
+        argv: list[str],
+        *,
+        cwd: Path | None = None,
+        env: dict[str, str] | None = None,
+        stdout_path: Path | None = None,
+    ) -> subprocess.CompletedProcess[str]:
+        del cwd
+        calls.append((argv, env, stdout_path))
+        stdout = ""
+        if "-c" in argv:
+            stdout = str(
+                work_dir
+                / "venv/lib/python/site-packages/microcosm_core/__init__.py"
+            )
+        if stdout_path is not None:
+            if stdout_path.suffix == ".json":
+                payload: dict[str, object] = {"status": "pass"}
+                if stdout_path.name == "authority.json":
+                    payload["authority_ceiling"] = {"release_authorized": False}
+                if stdout_path.name == "workingness.json":
+                    payload["card_status"] = "clear"
+                if stdout_path.name == "first-action.json":
+                    payload.update(
+                        {
+                            "found": True,
+                            "first_action": {
+                                "command": (
+                                    "PYTHONPATH=src python3 -m microcosm_core "
+                                    "comprehend --first-action goal"
+                                )
+                            },
+                            "proof_path": {"runnable_validator": "ok"},
+                            "reading_boundary": {"stop_condition": "ok"},
+                            "do_not_claim": "ok",
+                        }
+                    )
+                stdout_path.parent.mkdir(parents=True, exist_ok=True)
+                stdout_path.write_text(json.dumps(payload), encoding="utf-8")
+            else:
+                text = (
+                    "plectis 0.0.0\n"
+                    if stdout_path.name == "version.txt"
+                    else "pass\n"
+                )
+                stdout_path.parent.mkdir(parents=True, exist_ok=True)
+                stdout_path.write_text(text, encoding="utf-8")
+        return subprocess.CompletedProcess(argv, 0, stdout, "")
+
+    monkeypatch.setattr(smoke, "_run", fake_run)
+
+    smoke.run_package_smoke(source_root, work_dir, sys.executable)
+
+    staged_source = work_dir / "source"
+    assert staged_source.is_dir()
+    assert (staged_source / "pyproject.toml").is_file()
+    assert not (staged_source / "build").exists()
+    assert not (staged_source / ".microcosm/private.json").exists()
+    assert (staged_source / ".microcosm/package_build.lock").is_file()
+    assert not (staged_source / ".venv").exists()
+    assert (source_root / "build/bdist.leftover").is_dir()
+
+    pip_call = next(
+        argv_env
+        for argv_env in calls
+        if argv_env[0][1:4] == ["-m", "pip", "install"]
+    )
+    pip_argv, pip_env, _ = pip_call
+    assert pip_argv[-1] == str(staged_source)
+    assert str(source_root) not in pip_argv
+    assert pip_env is not None
+    assert pip_env["PIP_CACHE_DIR"] == str(work_dir / "pip-cache")
+    assert pip_env["PYTHONPYCACHEPREFIX"] == str(work_dir / "pycache")
+    assert pip_env["TMPDIR"] == str(work_dir / "tmp")
 
 
 def test_package_install_smoke_normalizes_work_refs_before_marker_assert() -> None:

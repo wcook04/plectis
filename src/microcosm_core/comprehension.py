@@ -93,7 +93,6 @@ PACKET_ROUTE_ASSAY_SCHEMA = "microcosm_packet_route_assay_v0"
 SELF_MODEL_SCHEMA = "microcosm_whole_system_self_model_v0"
 WHOLE_SYSTEM_ASSAY_SCHEMA = "microcosm_whole_system_comprehension_assay_v0"
 FIRST_ACTION_ASSAY_SCHEMA = "microcosm_first_action_assay_v0"
-DOCTRINE_PACKET_SCHEMA = "plectis_doctrine_comprehension_packet_v1"
 
 # atom_value_membrane_v0 -- the export contract every read pack declares. Only the
 # presence_only band is active in v0; the richer bands are declared but dormant so a
@@ -148,7 +147,6 @@ _START_HERE_ROUTES = [
     'plectis comprehend --first-action "<goal>"',
     "plectis comprehend --first-contact",
     "plectis comprehend --slice authority",
-    "plectis comprehend --slice doctrine",
     "plectis comprehend --organ <organ_id>",
     "plectis comprehend --slice organs",
 ]
@@ -175,7 +173,8 @@ _PRIVATE_PATH_RE = re.compile(r"/Users/[A-Za-z0-9._-]+|/home/[A-Za-z0-9._-]+")
 
 
 def default_root() -> Path:
-    """[ACTION]
+    """
+    [ACTION]
     Resolve the substrate root that holds core/ and receipts/.
 
     - Teleology: let comprehend find its public inputs regardless of the caller's
@@ -185,17 +184,23 @@ def default_root() -> Path:
       when it carries the public manifest triple, else the installed share root.
     - Fails: never raises; pure path resolution.
     - Reads: the public manifest probe files via resource_root.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return resource_root.microcosm_root()
 
 
 def _load_json(path: Path) -> Any:
-    """Parse a JSON file, returning None when it is absent or unreadable.
+    """
+    [ACTION]
+    Parse a JSON file, returning None when it is absent or unreadable.
 
     - Teleology: one tolerant reader so a missing join index degrades instead of crashing.
     - Guarantee: returns the parsed value, or None when the path is missing/unparseable.
     - Fails: never raises; OSError/ValueError are swallowed into None.
     - Reads: the file at ``path``.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     try:
         return json.loads(path.read_text())
@@ -203,16 +208,9 @@ def _load_json(path: Path) -> Any:
         return None
 
 
-def _dict(value: Any) -> dict[str, Any]:
-    return value if isinstance(value, dict) else {}
-
-
-def _list(value: Any) -> list[Any]:
-    return value if isinstance(value, list) else []
-
-
 def load_inputs(root: Path | None = None) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Load the three public inputs the compiler joins, tolerating absent ones.
 
     - Teleology: assemble the source-body-free input bundle for every compile call.
@@ -223,12 +221,13 @@ def load_inputs(root: Path | None = None) -> dict[str, Any]:
     - Reads: receipts/code_lens/code_lens_join_index_v0.json, core/organ_atlas.json,
       core/component_public_synopses.json under ``root``.
     - Non-goal: never opens source files or docstring atoms.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     base = root or default_root()
     join_index = _load_json(base / "receipts/code_lens/code_lens_join_index_v0.json")
     atlas = _load_json(base / "core/organ_atlas.json")
     synopses_doc = _load_json(base / "core/component_public_synopses.json")
-    doctrine_reader = _load_json(base / "core/doctrine_reader_projection.json")
     _membrane_guard(join_index)
     atlas_rows = (atlas or {}).get("organs") or []
     join_organs = ((join_index or {}).get("nodes") or {}).get("organ") or []
@@ -246,23 +245,21 @@ def load_inputs(root: Path | None = None) -> dict[str, Any]:
             str(n.get("organ_id")): n for n in join_organs if isinstance(n, dict)
         },
         "synopsis_by_organ": {str(k): str(v) for k, v in synopses.items()},
-        "doctrine_reader": doctrine_reader,
-        "doctrine_by_id": {
-            str(r.get("id")): r
-            for r in _list((doctrine_reader or {}).get("records"))
-            if isinstance(r, dict) and r.get("id")
-        },
     }
 
 
 def _membrane_guard(join_index: Any) -> None:
-    """Refuse to compile from a join index that leaked source bodies.
+    """
+    [ACTION]
+    Refuse to compile from a join index that leaked source bodies.
 
     - Teleology: enforce the presence_only membrane at the input boundary, mirroring
       the join-index builder's own leak refusal.
     - Guarantee: returns None when the snapshot is clean or absent.
     - Fails: ValueError when join_index.source_bodies_exported is truthy.
     - Reads: only the in-memory snapshot.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if isinstance(join_index, dict) and join_index.get("source_bodies_exported"):
         raise ValueError(
@@ -271,12 +268,17 @@ def _membrane_guard(join_index: Any) -> None:
 
 
 def _pack_skeleton(mode: str, goal: str | None) -> dict[str, Any]:
-    """Return the common read-pack envelope every mode fills in.
+    """
+    [ACTION]
+    Return the common read-pack envelope every mode fills in.
 
     - Teleology: guarantee one schema, membrane, and ceiling across all read packs.
     - Guarantee: returns a dict with schema_version, mode, goal, export_band,
       membrane, authority_ceiling, and empty selected_nodes/edges/refs/escalation lists.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "schema_version": READ_PACK_SCHEMA,
@@ -311,13 +313,17 @@ def _pack_skeleton(mode: str, goal: str | None) -> dict[str, Any]:
 
 
 def _family_roster(atlas_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Group atlas organ rows into a family roster with counts and members.
+    """
+    [ACTION]
+    Group atlas organ rows into a family roster with counts and members.
 
     - Teleology: give a cold agent the "what organs exist" map in one glance.
     - Guarantee: returns a list of {family, count, organs:[{organ_id, display_name,
       specialty}]} sorted by descending count then family name.
     - Fails: never raises; rows missing a family fall under "unspecified".
     - Reads: the in-memory atlas rows only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     families: dict[str, list[dict[str, Any]]] = {}
     for row in atlas_rows:
@@ -338,13 +344,17 @@ def _family_roster(atlas_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def _evidence_distribution(join_organs: list[dict[str, Any]]) -> dict[str, int]:
-    """Count organs per evidence_class from join-index organ nodes.
+    """
+    [ACTION]
+    Count organs per evidence_class from join-index organ nodes.
 
     - Teleology: surface how much of the substrate is validator vs projection vs
       macro-import, the core authority question.
     - Guarantee: returns evidence_class -> count, using "unspecified" for None.
     - Fails: never raises.
     - Reads: the in-memory organ nodes only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     dist: dict[str, int] = {}
     for node in join_organs:
@@ -354,7 +364,8 @@ def _evidence_distribution(join_organs: list[dict[str, Any]]) -> dict[str, int]:
 
 
 def compile_first_contact(inputs: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the substrate-orientation read pack for a cold clone.
 
     - Teleology: answer "what is this substrate and where do I start?" from public
@@ -365,6 +376,8 @@ def compile_first_contact(inputs: dict[str, Any]) -> dict[str, Any]:
     - Fails: never raises; absent atlas yields a degraded but valid pack.
     - Reads: the in-memory inputs bundle only.
     - Non-goal: emits no source bodies and no per-symbol docstrings.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     atlas = inputs.get("atlas") or {}
     atlas_rows = list(inputs.get("atlas_by_organ", {}).values())
@@ -402,7 +415,9 @@ def compile_first_contact(inputs: dict[str, Any]) -> dict[str, Any]:
 
 
 def _substrate_specificity_note(join_organs: list[dict[str, Any]]) -> dict[str, Any]:
-    """Summarize substrate-wide runner custody, the headline comprehension truth.
+    """
+    [ACTION]
+    Summarize substrate-wide runner custody, the headline comprehension truth.
 
     - Teleology: tell a cold agent up front that most organ runners are exact-copy
       macro bodies, so organ comprehension must come from registry metadata.
@@ -410,6 +425,8 @@ def _substrate_specificity_note(join_organs: list[dict[str, Any]]) -> dict[str, 
       organ nodes' runner_custody_basis.
     - Fails: never raises.
     - Reads: the in-memory organ nodes only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     split: dict[str, int] = {}
     resolved = 0
@@ -430,7 +447,9 @@ def _substrate_specificity_note(join_organs: list[dict[str, Any]]) -> dict[str, 
 
 
 def _resolved_refs(rows: Any, ref_key: str = "ref") -> list[str]:
-    """Extract resolved reference strings from an atlas ref list.
+    """
+    [ACTION]
+    Extract resolved reference strings from an atlas ref list.
 
     - Teleology: turn the atlas's {ref, resolution_status} rows into a flat ref list
       for the read pack's inspect-next surface.
@@ -438,6 +457,8 @@ def _resolved_refs(rows: Any, ref_key: str = "ref") -> list[str]:
       string rows pass through; non-list input yields [].
     - Fails: never raises.
     - Reads: only the supplied rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not isinstance(rows, list):
         return []
@@ -454,19 +475,25 @@ def _resolved_refs(rows: Any, ref_key: str = "ref") -> list[str]:
 
 
 def _organ_edges(join_index: Any, organ_id: str) -> list[dict[str, Any]]:
-    """Select the join-index edges originating from one organ.
+    """
+    [ACTION]
+    Select the join-index edges originating from one organ.
 
     - Teleology: give the organ pack its implemented_by_runner / emits_receipt edges.
     - Guarantee: returns the edge dicts whose ``from`` equals organ_id; [] when none.
     - Fails: never raises.
     - Reads: the in-memory join index only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     edges = (join_index or {}).get("edges") or []
     return [e for e in edges if isinstance(e, dict) and e.get("from") == organ_id]
 
 
 def _edges_touching(join_index: Any, organ_id: str) -> list[dict[str, Any]]:
-    """Select every join-index edge that touches one organ's graph neighborhood.
+    """
+    [ACTION]
+    Select every join-index edge that touches one organ's graph neighborhood.
 
     - Teleology: the v2 selection behind organ/claim/flow packets -- outgoing edges
       (runner, receipts, claim, family, wires, doctrine), the organ's claim-node
@@ -476,6 +503,8 @@ def _edges_touching(join_index: Any, organ_id: str) -> list[dict[str, Any]]:
       its claim node, or whose ``to`` is the organ; [] when the join index is absent.
     - Fails: never raises.
     - Reads: the in-memory join index only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     edges = (join_index or {}).get("edges") or []
     claim_id = f"claim::{organ_id}"
@@ -489,7 +518,9 @@ def _edges_touching(join_index: Any, organ_id: str) -> list[dict[str, Any]]:
 
 
 def _routes_serving(inputs: dict[str, Any], organ_id: str) -> list[dict[str, Any]]:
-    """Find the task-class routes whose fan-out lands on one organ.
+    """
+    [ACTION]
+    Find the task-class routes whose fan-out lands on one organ.
 
     - Teleology: answer "which entry points reach this organ, and with what stop
       condition?" from the join index's route plane.
@@ -499,6 +530,8 @@ def _routes_serving(inputs: dict[str, Any], organ_id: str) -> list[dict[str, Any
       route node carries one; [] when the route plane is absent.
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     state = _graph_state(inputs)
     route_by = {str(r.get("task_class")): r for r in state["route_nodes"]}
@@ -523,7 +556,9 @@ def _routes_serving(inputs: dict[str, Any], organ_id: str) -> list[dict[str, Any
 
 
 def _reading_boundary(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
-    """Build the organ's where-to-stop-reading block from the route plane.
+    """
+    [ACTION]
+    Build the organ's where-to-stop-reading block from the route plane.
 
     - Teleology: a cold agent needs a stopping rule, not just more material; this
       surfaces the strongest route-bound stop condition for the organ.
@@ -534,6 +569,8 @@ def _reading_boundary(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
       comprehension-layer guidance, not route data) is supplied.
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     routes = _routes_serving(inputs, organ_id)
     boundary: dict[str, Any] = {
@@ -556,7 +593,9 @@ def _reading_boundary(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
 
 
 def _runnable_command(command: Any) -> str:
-    """Render a command in its cold-runnable form for a fresh source clone.
+    """
+    [ACTION]
+    Render a command in its cold-runnable form for a fresh source clone.
 
     - Teleology: a packet that says "run this" must hand over a command that works
       VERBATIM from a fresh clone; the registry stores bare `python -m ...`
@@ -569,6 +608,9 @@ def _runnable_command(command: Any) -> str:
       "python " to "python3 "; other commands and non-strings pass through as
       str(command or "").
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     text = str(command or "")
     for console_name in ("plectis", "microcosm"):
@@ -586,7 +628,9 @@ _NEGATION_MARKERS = ("ignore ", "not ", "except ", "skip ", "without ", "don't w
 
 
 def _resolve_goal_organs(goal: str, inputs: dict[str, Any]) -> dict[str, Any]:
-    """Resolve organ mentions in a goal: normalized, negation-aware, earliest-first.
+    """
+    [ACTION]
+    Resolve organ mentions in a goal: normalized, negation-aware, earliest-first.
 
     - Teleology: "is the Mission Transaction Work Spine safe to edit?" and
       "ignore X, I want Y" must both land on the organ the agent MEANT --
@@ -600,6 +644,8 @@ def _resolve_goal_organs(goal: str, inputs: dict[str, Any]) -> dict[str, Any]:
       rest are recorded in also_named.
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     text = re.sub(r"[-_]", " ", (goal or "").lower())
     mentions: list[tuple[int, int, str]] = []  # (position, -length, organ_id)
@@ -636,7 +682,9 @@ def _resolve_goal_organs(goal: str, inputs: dict[str, Any]) -> dict[str, Any]:
 
 
 def _match_organ_tokens(goal: str, inputs: dict[str, Any]) -> str | None:
-    """Fuzzy subject-matter rung: match goal tokens against organ names.
+    """
+    [ACTION]
+    Fuzzy subject-matter rung: match goal tokens against organ names.
 
     - Teleology: "evaluate prompt injection defenses" names no route or exact
       organ id, but the substrate HAS an owning organ -- token overlap against
@@ -645,6 +693,8 @@ def _match_organ_tokens(goal: str, inputs: dict[str, Any]) -> str | None:
       its id/display tokens (score = matched count, ties by organ_id); else None.
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     tokens = _goal_tokens(goal)
     if not tokens:
@@ -665,7 +715,9 @@ def _match_organ_tokens(goal: str, inputs: dict[str, Any]) -> str | None:
 def _receipt_evidence(
     inputs: dict[str, Any], root: Path | None, organ_id: str
 ) -> dict[str, Any]:
-    """Split an organ's receipt refs into shipped evidence vs provenance pointers.
+    """
+    [ACTION]
+    Split an organ's receipt refs into shipped evidence vs provenance pointers.
 
     - Teleology: a contract must never tell a cold agent to expect a receipt the
       clone does not ship -- macrocosm adoption receipts (state/... paths) exist
@@ -677,6 +729,8 @@ def _receipt_evidence(
       deduplicated.
     - Fails: never raises; a missing root existence-checks against the default root.
     - Reads: the in-memory inputs bundle + path existence under root.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     base = root or default_root()
     ordered = _organ_receipts(inputs, organ_id)
@@ -704,7 +758,9 @@ _WRITE_FLAG_RE = re.compile(r"^--(?:[a-z0-9][a-z0-9-]*-)?out(?:=(?P<inline>.+))?
 
 
 def _write_targets(command: str) -> list[tuple[str, str]]:
-    """List every (flag, target) write destination a command names.
+    """
+    [ACTION]
+    List every (flag, target) write destination a command names.
 
     - Teleology: footprint honesty must see EVERY write flag (--out,
       --acceptance-out, --out=DIR), not only the first --out, or a clean_run
@@ -715,6 +771,9 @@ def _write_targets(command: str) -> list[tuple[str, str]]:
       duplicate flags are all kept (argparse last-wins is the caller's
       concern).
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     parts = str(command or "").split()
     targets: list[tuple[str, str]] = []
@@ -731,7 +790,9 @@ def _write_targets(command: str) -> list[tuple[str, str]]:
 
 
 def _is_ignored_out_dir(path: str) -> bool:
-    """Decide whether a write target stays outside the committed tree.
+    """
+    [ACTION]
+    Decide whether a write target stays outside the committed tree.
 
     - Teleology: the clean/dirty classification behind footprint honesty must
       be separator-aware and normalized, so `.microcosm/../receipts/x` or a
@@ -739,6 +800,9 @@ def _is_ignored_out_dir(path: str) -> bool:
     - Guarantee: True only for `<placeholder>` targets and normalized paths
       that are exactly .microcosm//tmp or sit under them.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     raw = str(path or "")
     if raw.startswith("<"):
@@ -753,7 +817,9 @@ def _is_ignored_out_dir(path: str) -> bool:
 
 
 def _writes_outputs_under(command: str) -> str | None:
-    """Extract the --out directory a first command writes fresh outputs under.
+    """
+    [ACTION]
+    Extract the --out directory a first command writes fresh outputs under.
 
     - Teleology: distinguish "receipts this run will write" from committed
       prior-run evidence, so expected outputs are never conflated with shipped
@@ -762,6 +828,9 @@ def _writes_outputs_under(command: str) -> str | None:
       last-wins), accepting both `--out DIR` and `--out=DIR`; None when the
       command names no --out flag.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     out_dir: str | None = None
     for flag, target in _write_targets(command):
@@ -774,7 +843,9 @@ _CLEAN_RUN_OUT_ROOT = ".microcosm/first_action_runs"
 
 
 def _clean_run_variant(command: str) -> dict[str, Any] | None:
-    """Build the no-footprint variant of a first command that writes into the tree.
+    """
+    [ACTION]
+    Build the no-footprint variant of a first command that writes into the tree.
 
     - Teleology: the literal first action must not silently dirty a cold clone;
       when a first command's write flags land in committed receipt paths, the
@@ -785,6 +856,9 @@ def _clean_run_variant(command: str) -> dict[str, Any] | None:
       redirected to .microcosm/first_action_runs/<leaf>; returns None when the
       command names no write flag or every target is already ignored.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     targets = _write_targets(command)
     if not targets or all(_is_ignored_out_dir(t) for _f, t in targets):
@@ -819,13 +893,18 @@ def _clean_run_variant(command: str) -> dict[str, Any] | None:
 
 
 def _positive_why(inputs: dict[str, Any], organ_id: str, fallback: str = "") -> str:
-    """Pick the POSITIVE purpose sentence for an organ (never a ceiling restatement).
+    """
+    [ACTION]
+    Pick the POSITIVE purpose sentence for an organ (never a ceiling restatement).
 
     - Teleology: a first-action why must say what the action does FOR the goal;
       scope limits and ceilings belong in the boundary fields, not here.
     - Guarantee: returns the public synopsis, else the human gloss, else the
       agent gloss, else the supplied fallback.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id) or {}
     return str(
@@ -837,7 +916,8 @@ def _positive_why(inputs: dict[str, Any], organ_id: str, fallback: str = "") -> 
 
 
 def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the per-organ comprehension read pack.
 
     - Teleology: answer "what does this organ do, how do I run it, and what may I
@@ -851,6 +931,8 @@ def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
     - Fails: returns a not_found pack (mode reference) when the organ id is unknown.
     - Reads: the in-memory inputs bundle only.
     - Non-goal: never reads or returns runner source bodies or docstring atoms.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id)
     join_node = inputs.get("join_by_organ", {}).get(organ_id)
@@ -910,13 +992,17 @@ def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
 
 
 def _organ_concept_refs(atlas_row: dict[str, Any]) -> list[str]:
-    """Collect an organ's resolved concept / paper-module / axiom / principle refs.
+    """
+    [ACTION]
+    Collect an organ's resolved concept / paper-module / axiom / principle refs.
 
     - Teleology: give the organ pack its doctrine evidence handles for drilldown.
     - Guarantee: returns a flat, de-duplicated list of resolved ref strings plus the
       paper_module_ref when present.
     - Fails: never raises.
     - Reads: only the supplied atlas row.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     refs: list[str] = []
     for key in ("concept_refs", "axiom_refs", "principle_refs"):
@@ -929,7 +1015,9 @@ def _organ_concept_refs(atlas_row: dict[str, Any]) -> list[str]:
 
 
 def _organ_specificity_risk(join_node: dict[str, Any]) -> dict[str, Any]:
-    """Restate an organ's runner specificity + custody as a trust-risk note.
+    """
+    [ACTION]
+    Restate an organ's runner specificity + custody as a trust-risk note.
 
     - Teleology: tell the agent whether the organ's runner atoms are body-specific or
       whether the runner is an exact-copy macro body to be read only via metadata.
@@ -937,6 +1025,8 @@ def _organ_specificity_risk(join_node: dict[str, Any]) -> dict[str, Any]:
       flags directory_coupling_marker runners as comprehend-via-metadata.
     - Fails: never raises.
     - Reads: only the supplied join node.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     basis = join_node.get("runner_custody_basis")
     note = (
@@ -955,7 +1045,9 @@ def _organ_specificity_risk(join_node: dict[str, Any]) -> dict[str, Any]:
 def _organ_source_spans(
     atlas_row: dict[str, Any], join_node: dict[str, Any]
 ) -> list[dict[str, Any]]:
-    """Build the organ's source-span escalation pointers from atlas code_loci.
+    """
+    [ACTION]
+    Build the organ's source-span escalation pointers from atlas code_loci.
 
     - Teleology: hand the agent exact path+symbol pointers to open ONLY when it must
       mutate or prove, keeping the default pack source-body-free.
@@ -963,6 +1055,8 @@ def _organ_source_spans(
       runner_source_ref; symbol lists are truncated to 12 names; no bodies included.
     - Fails: never raises.
     - Reads: only the supplied atlas row and join node.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     spans: list[dict[str, Any]] = []
     loci = atlas_row.get("code_loci") or []
@@ -983,7 +1077,8 @@ def _organ_source_spans(
 
 
 def compile_authority(inputs: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the authority/trust-boundary read pack.
 
     - Teleology: answer "what is authoritative vs projection, and what does passing
@@ -994,6 +1089,8 @@ def compile_authority(inputs: dict[str, Any]) -> dict[str, Any]:
     - Fails: never raises; absent inputs yield a degraded but valid pack.
     - Reads: the in-memory inputs bundle only.
     - Non-goal: never claims any release/source-export/whole-system authorization.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     atlas = inputs.get("atlas") or {}
     join_organs = list(inputs.get("join_by_organ", {}).values())
@@ -1030,99 +1127,9 @@ def compile_authority(inputs: dict[str, Any]) -> dict[str, Any]:
     return pack
 
 
-def compile_doctrine(inputs: dict[str, Any], target: str | None = None) -> dict[str, Any]:
-    """[ACTION]
-    Compile the doctrine reader packet from the generated reader projection.
-
-    - Teleology: answer doctrine questions from the same semantic model that feeds
-      repository Markdown and the website, including ordinary meaning, analogy
-      boundary, formal reading, examples, enforcement, and scope.
-    - Guarantee: returns a presence_only reference packet; with a target such as
-      AX-9/P-1/AP-1 it emits the full selected record, otherwise it emits one
-      bounded summary row per record plus the projection quality contract.
-    - Fails: never raises; missing reader projection yields found=False and the
-      owner commands needed to regenerate it.
-    - Reads: the in-memory doctrine_reader projection loaded from
-      core/doctrine_reader_projection.json.
-    - Non-goal: never treats the packet, Markdown, or website as semantic source
-      authority and never authorizes release or proof correctness.
-    """
-    projection = _dict(inputs.get("doctrine_reader"))
-    pack = _pack_skeleton("reference", "audit public doctrine")
-    pack["schema_version"] = DOCTRINE_PACKET_SCHEMA
-    pack["summary"]["what_not_to_trust"] = (
-        "This packet is a projection from core/doctrine_enrichment.json. It is not "
-        "source authority, proof authority, release approval, or a deployed-website receipt."
-    )
-    if not projection:
-        pack["found"] = False
-        pack["summary"]["what_this_is"] = "Doctrine reader projection is not generated yet."
-        pack["summary"]["what_to_inspect_next"] = [
-            "PYTHONPATH=src python3 scripts/build_doctrine_projection.py --write-reader-surfaces",
-            "PYTHONPATH=src python3 scripts/build_doctrine_projection.py --check-reader-surfaces",
-        ]
-        pack["selected_nodes"] = []
-        pack["evidence_refs"] = ["core/doctrine_enrichment.json"]
-        return pack
-
-    by_id = inputs.get("doctrine_by_id") or {}
-    target_id = str(target or "").strip().upper()
-    pack["found"] = True
-    pack["authority_boundary"] = projection.get("authority_boundary")
-    pack["source_of_record"] = projection.get("source_of_record")
-    pack["quality_contract"] = projection.get("quality_contract")
-    pack["projection_profiles"] = projection.get("projection_profiles")
-    pack["publication_state"] = projection.get("publication_state")
-    if target_id:
-        record = _dict(by_id.get(target_id))
-        pack["target"] = target_id
-        pack["found"] = bool(record)
-        pack["summary"]["what_this_is"] = (
-            f"Full doctrine reader packet for {target_id}."
-            if record
-            else f"No doctrine record matched {target_id}."
-        )
-        pack["summary"]["what_to_inspect_next"] = [
-            "plectis comprehend --slice doctrine",
-            "DOCTRINE.md",
-        ]
-        pack["selected_nodes"] = [record] if record else []
-    else:
-        records = [
-            {
-                "kind": "doctrine_record",
-                "id": row.get("id"),
-                "doctrine_kind": row.get("kind"),
-                "canonical_statement": row.get("canonical_statement"),
-                "plain_meaning": row.get("plain_meaning"),
-                "analogy_boundary": _dict(row.get("analogy")).get("boundary"),
-                "source_ref": _dict(row.get("source")).get("source_ref"),
-                "basis_digest": row.get("basis_digest"),
-                "drilldown": f"plectis comprehend --doctrine {row.get('id')}",
-            }
-            for row in _list(projection.get("records"))
-            if isinstance(row, dict)
-        ]
-        pack["summary"]["what_this_is"] = (
-            f"Doctrine reader index over {projection.get('record_count')} records "
-            "from core/doctrine_enrichment.json."
-        )
-        pack["summary"]["what_to_inspect_next"] = [
-            "plectis comprehend --doctrine AX-9",
-            "DOCTRINE.md",
-            "core/doctrine_reader_projection.json",
-        ]
-        pack["selected_nodes"] = records
-    pack["evidence_refs"] = [
-        "core/doctrine_enrichment.json",
-        "core/doctrine_reader_projection.json",
-        "DOCTRINE.md",
-    ]
-    return pack
-
-
 def compile_organs_index(inputs: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the organ roster read pack: one synopsis line per organ.
 
     - Teleology: give the agent the whole-category-at-a-glance roster so it can pick an
@@ -1131,6 +1138,8 @@ def compile_organs_index(inputs: dict[str, Any]) -> dict[str, Any]:
       {organ_id, display_name, specialty, family, synopsis, evidence_class}.
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     atlas_by = inputs.get("atlas_by_organ", {})
     join_by = inputs.get("join_by_organ", {})
@@ -1157,7 +1166,16 @@ def compile_organs_index(inputs: dict[str, Any]) -> dict[str, Any]:
 
 
 def _goal_path_token(token: str) -> str | None:
-    """Return a normalized path-like token from a freeform goal, if present."""
+    """
+    [ACTION]
+    Return a normalized path-like token from a freeform goal, if present.
+    - Teleology: Implements `_goal_path_token` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     candidate = token.strip("`'\".,;:!?()[]{}")
     if candidate.endswith(".py") or "/" in candidate:
         return candidate
@@ -1165,13 +1183,23 @@ def _goal_path_token(token: str) -> str | None:
 
 
 def _is_path_target(target: Any) -> bool:
-    """Return True when ``target`` is a source/path ref rather than an organ id."""
+    """
+    [ACTION]
+    Return True when ``target`` is a source/path ref rather than an organ id.
+    - Teleology: Implements `_is_path_target` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     text = str(target or "")
     return bool(text) and (text.endswith(".py") or "/" in text)
 
 
 def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str | None]:
-    """[ACTION]
+    """
+    [ACTION]
     Route a freeform goal string to a comprehension packet mode + target.
 
     - Teleology: let a cold agent ask in words and still land on the right bounded
@@ -1182,6 +1210,8 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
     - Fails: never raises; an empty/unknown goal routes to first-contact.
     - Reads: the in-memory inputs (organ id + family sets) only.
     - Non-goal: explicit CLI flags always override this fuzzy router.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values, declared filesystem outputs.
     """
     raw_text = goal or ""
     text = raw_text.lower()
@@ -1240,39 +1270,14 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
         return "mutation_plan", organ or path, None
     if path:
         return "path", path, None
-    # A bare "ax-"/"p-" substring matches ordinary hyphenated words ("top-down",
-    # "map-reduce", "max-pooling"), so gate on an anchored doctrine id that
-    # requires a digit (ax-9, ap-3, p-1) rather than the loose substring.
-    doctrine_id_present = bool(re.search(r"\b(?:ax|ap|p)-\d", text))
-    if doctrine_id_present or any(
+    if any(
         w in text
         for w in (
-            "doctrine",
-            "axiom",
-            "axioms",
-            "principle",
-            "principles",
-            "anti-principle",
-            "anti principles",
             "whole system", "whole microcosm", "everything", "self model", "self-model",
             "entire substrate", "operating picture", "all at once", "comprehend the whole",
             "comprehend all", "understand the whole", "comprehend everything",
         )
     ):
-        if doctrine_id_present or any(
-            marker in text
-            for marker in (
-                "doctrine",
-                "axiom",
-                "axioms",
-                "principle",
-                "principles",
-                "anti-principle",
-                "anti principles",
-            )
-        ):
-            match = re.search(r"\b(?:AX|AP|P)-\d+\b", raw_text, flags=re.IGNORECASE)
-            return "doctrine", match.group(0).upper() if match else None, None
         return "self-model", None, None
     if any(w in text for w in ("math", "proof", "lean", "formal", "theorem", "mathlib")):
         return "math", None, None
@@ -1296,7 +1301,9 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
 # --- atom_value_membrane_v1: bounded, custody-gated local excerpt extraction -------
 
 def _atom_value(docstring: str, atom: str, vocab: tuple[str, ...]) -> str:
-    """Extract ONE atom's bounded prose value from a docstring (local-band exporter).
+    """
+    [ACTION]
+    Extract ONE atom's bounded prose value from a docstring (local-band exporter).
 
     - Teleology: the sanctioned local exporter of a single authored atom's value, so
       a cold agent can read a symbol's Guarantee/Fails/Non-goal without opening source.
@@ -1307,6 +1314,8 @@ def _atom_value(docstring: str, atom: str, vocab: tuple[str, ...]) -> str:
     - Reads: only the supplied docstring.
     - Non-goal: never returns the whole docstring, the summary line, or source body;
       one bounded atom value only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     stop_markers = tuple(f"{a}:" for a in vocab)
     collected: list[str] = []
@@ -1328,19 +1337,25 @@ def _atom_value(docstring: str, atom: str, vocab: tuple[str, ...]) -> str:
 
 
 def _excerpt_fingerprint(symbol_name: str, atom_values: dict[str, str]) -> str:
-    """Return a 12-hex provenance fingerprint over a symbol's emitted atom values.
+    """
+    [ACTION]
+    Return a 12-hex provenance fingerprint over a symbol's emitted atom values.
 
     - Teleology: stamp each excerpt row so it is a drilldown hint tied to its source,
       not free-floating authority.
     - Guarantee: returns the first 12 hex chars of a sha256 over name + sorted values.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     blob = symbol_name + "|" + json.dumps(atom_values, sort_keys=True, ensure_ascii=True)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:12]
 
 
 def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Extract bounded, custody-gated atom-value excerpts from ONE owned source file.
 
     - Teleology: activate the local_semantic_excerpt band -- turn a file's authored
@@ -1360,6 +1375,7 @@ def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
       example/fixture/generated source, or anything into the public presence_only cache.
     - Escalates-to: project_substrate._load_manifest_custody_paths / _custody_basis as
       the authoritative custody signal.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     from . import project_substrate as ps
 
@@ -1443,7 +1459,8 @@ def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
 
 
 def compile_path_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile a local_semantic_excerpt read pack for one owned source file.
 
     - Teleology: the "read the code's self-description without opening the code"
@@ -1454,6 +1471,8 @@ def compile_path_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
     - Fails: never raises.
     - Reads: extract_atom_excerpts for the file.
     - Non-goal: not a public-cache surface; this pack is local-only and never presence_only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     base = root or default_root()
     excerpts = extract_atom_excerpts(base, rel_path)
@@ -1509,7 +1528,9 @@ def compile_path_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
 def _attach_organ_excerpts(
     pack: dict[str, Any], root: Path | None, organ_id: str, inputs: dict[str, Any]
 ) -> dict[str, Any]:
-    """Enrich an organ pack with owned-source atom excerpts from its code_loci.
+    """
+    [ACTION]
+    Enrich an organ pack with owned-source atom excerpts from its code_loci.
 
     - Teleology: let an organ pack carry the authored atoms of its OWNED governing
       code, while honestly noting that custody-bound runners stay behind the membrane.
@@ -1519,6 +1540,8 @@ def _attach_organ_excerpts(
     - Fails: never raises; an organ with no owned loci yields empty excerpts + notes.
     - Reads: extract_atom_excerpts per code_loci path.
     - Non-goal: never excerpts a custody-bound or non-owned locus.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id) or {}
     loci = atlas_row.get("code_loci") or []
@@ -1590,7 +1613,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "compact",
         "slo_ms": 200,
         "data_status": "full",
-        "next_packets": ["first_action", "self_model", "first_contact", "authority", "doctrine", "organs_index"],
+        "next_packets": ["first_action", "self_model", "first_contact", "authority", "organs_index"],
     },
     {
         "packet_id": "first_action",
@@ -1635,7 +1658,7 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "budget": "standard",
         "slo_ms": 300,
         "data_status": "full",
-        "next_packets": ["self_model", "authority", "doctrine", "organ_cluster", "organs_index", "mutation_plan"],
+        "next_packets": ["self_model", "authority", "organ_cluster", "organs_index", "mutation_plan"],
     },
     {
         "packet_id": "authority",
@@ -1651,21 +1674,6 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "slo_ms": 300,
         "data_status": "full",
         "next_packets": ["organ", "claim_trace"],
-    },
-    {
-        "packet_id": "doctrine",
-        "packet_kind": "reference",
-        "mode": "doctrine",
-        "when_needed": "audit axioms/principles/anti-principles with plain meaning, analogy boundary, formal reading, examples, and scope",
-        "command": "plectis comprehend --slice doctrine [--doctrine AX-9]",
-        "inputs": ["doctrine_reader_projection"],
-        "export_band": "presence_only",
-        "cache_policy": "on_demand",
-        "cache_ref": None,
-        "budget": "standard",
-        "slo_ms": 300,
-        "data_status": "full",
-        "next_packets": ["authority", "self_model", "organs_index"],
     },
     {
         "packet_id": "organs_index",
@@ -1797,30 +1805,39 @@ _SPEC_BY_ID: dict[str, dict[str, Any]] = {s["packet_id"]: s for s in PACKET_SPEC
 
 
 def packet_spec_for_mode(mode: str) -> dict[str, Any] | None:
-    """[ACTION]
+    """
+    [ACTION]
     Return the packet spec whose dispatch mode is ``mode`` (or None).
 
     - Teleology: let comprehend stamp a compiled pack with its packet identity/budget.
     - Guarantee: returns the spec dict for a known dispatch mode, else None.
     - Fails: never raises.
     - Reads: the in-memory _SPEC_BY_MODE map only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return _SPEC_BY_MODE.get(mode)
 
 
 def _budget_for(spec: dict[str, Any]) -> dict[str, int]:
-    """Resolve a spec's named budget band to {target_bytes, max_bytes}.
+    """
+    [ACTION]
+    Resolve a spec's named budget band to {target_bytes, max_bytes}.
 
     - Teleology: turn the spec's symbolic budget band into concrete byte bounds.
     - Guarantee: returns the PACKET_BUDGETS entry, defaulting to the standard band.
     - Fails: never raises.
     - Reads: PACKET_BUDGETS only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return PACKET_BUDGETS.get(str(spec.get("budget")), PACKET_BUDGETS["standard"])
 
 
 def _stamp_packet_identity(pack: dict[str, Any], spec: dict[str, Any]) -> dict[str, Any]:
-    """Stamp a compiled pack with its packet identity, byte-budget verdict, and scent.
+    """
+    [ACTION]
+    Stamp a compiled pack with its packet identity, byte-budget verdict, and scent.
 
     - Teleology: make every compiled pack self-describe as an atlas packet -- its id,
       kind, measured bytes vs budget, and the next_packets a reader should follow.
@@ -1830,6 +1847,7 @@ def _stamp_packet_identity(pack: dict[str, Any], spec: dict[str, Any]) -> dict[s
     - Reads: the spec and the pack's own serialized size.
     - Writes: mutates the pack in place.
     - Non-goal: never alters the pack's export_band or authority ceiling.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     budget = _budget_for(spec)
     actual = len(json.dumps(pack, ensure_ascii=True))
@@ -1847,13 +1865,17 @@ def _stamp_packet_identity(pack: dict[str, Any], spec: dict[str, Any]) -> dict[s
 
 
 def _shared_refs(rows: list[dict[str, Any]], key: str) -> list[str]:
-    """Collect the distinct resolved refs of ``key`` across organ rows, by frequency.
+    """
+    [ACTION]
+    Collect the distinct resolved refs of ``key`` across organ rows, by frequency.
 
     - Teleology: surface the doctrine a family/cluster shares so its pack shows a spine.
     - Guarantee: returns resolved ref strings sorted by descending occurrence then name;
       handles list-valued fields (mechanism_refs) and scalar fields (paper_module_ref).
     - Fails: never raises.
     - Reads: only the supplied rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     counts: dict[str, int] = {}
     for row in rows:
@@ -1870,7 +1892,8 @@ def _shared_refs(rows: list[dict[str, Any]], key: str) -> list[str]:
 
 
 def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the navigable packet menu -- the cold-agent first move.
 
     - Teleology: answer "which packet answers my question?" by projecting the packet
@@ -1883,6 +1906,8 @@ def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
     - Fails: never raises; a missing cache file simply omits cached_bytes.
     - Reads: PACKET_SPECS and any prebuilt cache files under the resolved root.
     - Non-goal: never compiles or inlines the packets themselves (it is the index).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     root = inputs.get("root") or default_root()
     pack = _pack_skeleton("reference", "which comprehension packet should I use?")
@@ -1949,7 +1974,8 @@ def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
 
 
 def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the family/subsystem read pack -- the whole-family-at-once middle doll.
 
     - Teleology: answer "what is this subsystem and which organs compose it?" so an
@@ -1961,6 +1987,8 @@ def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
     - Non-goal: never reads runner source or docstring atoms.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     atlas_by = inputs.get("atlas_by_organ", {})
     join_by = inputs.get("join_by_organ", {})
@@ -2035,7 +2063,8 @@ def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]
 
 
 def compile_math(inputs: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the formal-math / proof surfaces read pack.
 
     - Teleology: answer "where is the mathematics/proof and what does it claim?" by
@@ -2047,6 +2076,8 @@ def compile_math(inputs: dict[str, Any]) -> dict[str, Any]:
     - Fails: never raises; degrades to an empty member list if the family is absent.
     - Reads: the in-memory inputs bundle only.
     - Non-goal: never runs Lean, opens proof bodies, or asserts domain correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     family = "formal_math_and_proof"
     atlas_by = inputs.get("atlas_by_organ", {})
@@ -2089,7 +2120,8 @@ def compile_math(inputs: dict[str, Any]) -> dict[str, Any]:
 
 
 def compile_claim_trace(inputs: dict[str, Any], target: str) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the claim-justification trace for one organ: claim -> validator -> receipt.
 
     - Teleology: answer "how is this organ's public claim justified, and what bounds it?"
@@ -2104,6 +2136,8 @@ def compile_claim_trace(inputs: dict[str, Any], target: str) -> dict[str, Any]:
       is blank/unknown.
     - Reads: the in-memory inputs bundle only.
     - Non-goal: never opens validator source or receipt bodies; pointers only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     atlas_by = inputs.get("atlas_by_organ", {})
     join_by = inputs.get("join_by_organ", {})
@@ -2191,7 +2225,8 @@ def compile_claim_trace(inputs: dict[str, Any], target: str) -> dict[str, Any]:
 
 
 def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the execution-flow trace for one organ: validator -> runner -> receipt.
 
     - Teleology: answer "how does this organ run and what does it leave behind?" by
@@ -2205,6 +2240,8 @@ def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
     - Fails: returns a chooser pack (found False) when target is blank/unknown.
     - Reads: the in-memory inputs bundle only.
     - Non-goal: never opens runner source; it orders pointers, not bodies.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     atlas_by = inputs.get("atlas_by_organ", {})
     join_by = inputs.get("join_by_organ", {})
@@ -2290,18 +2327,25 @@ def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
 
 
 def _goal_tokens(text: str) -> list[str]:
-    """Tokenize a freeform goal for route matching (lowercase, len >= 3).
+    """
+    [ACTION]
+    Tokenize a freeform goal for route matching (lowercase, len >= 3).
 
     - Teleology: one tokenizer shared by the route matcher so scoring is
       deterministic and testable.
     - Guarantee: returns lowercase alphanumeric tokens of length >= 3 in order.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [t for t in re.split(r"[^a-z0-9]+", (text or "").lower()) if len(t) >= 3]
 
 
 def _tokens_overlap(a: str, b: str) -> bool:
-    """Loose token match: equality, >=4-char prefix, or >=6-char common prefix.
+    """
+    [ACTION]
+    Loose token match: equality, >=4-char prefix, or >=6-char common prefix.
 
     - Teleology: let "start" reach "started" AND "evaluate" reach "evaluation"
       without a stemmer dependency.
@@ -2309,6 +2353,9 @@ def _tokens_overlap(a: str, b: str) -> bool:
       or the two share a common prefix of length >= 6 (which bridges
       evaluate/evaluation while keeping short common words apart).
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if a == b:
         return True
@@ -2330,7 +2377,9 @@ _ACTION_VERB_RE = re.compile(
 
 
 def _match_task_route(goal: str, inputs: dict[str, Any]) -> dict[str, Any] | None:
-    """Match a freeform goal to the best task-class route node in the graph.
+    """
+    [ACTION]
+    Match a freeform goal to the best task-class route node in the graph.
 
     - Teleology: the goal->route half of the first-action compiler -- the route
       plane already encodes 'which organ owns this kind of task', so a goal that
@@ -2349,6 +2398,8 @@ def _match_task_route(goal: str, inputs: dict[str, Any]) -> dict[str, Any] | Non
       plane is absent; ties break by score then task_class name for determinism.
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     tokens = _goal_tokens(goal)
     if not tokens:
@@ -2390,7 +2441,9 @@ def _match_task_route(goal: str, inputs: dict[str, Any]) -> dict[str, Any] | Non
 
 
 def _custody_do_not_edit(join_node: dict[str, Any]) -> dict[str, Any]:
-    """Build the do-not-edit boundary for an organ's runner custody.
+    """
+    [ACTION]
+    Build the do-not-edit boundary for an organ's runner custody.
 
     - Teleology: a first-action contract must say what the agent may NOT touch
       before it says what to run.
@@ -2398,6 +2451,9 @@ def _custody_do_not_edit(join_node: dict[str, Any]) -> dict[str, Any]:
       runner_source_ref and an exact-copy warning, an owned runner returns an
       empty list with the validator-required note.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if join_node.get("runner_custody_basis") == "directory_coupling_marker":
         paths = [p for p in [join_node.get("runner_source_ref")] if p]
@@ -2415,12 +2471,17 @@ def _custody_do_not_edit(join_node: dict[str, Any]) -> dict[str, Any]:
 
 
 def _organ_receipts(inputs: dict[str, Any], organ_id: str) -> list[str]:
-    """Collect an organ's receipt refs (authority receipt first, deduplicated).
+    """
+    [ACTION]
+    Collect an organ's receipt refs (authority receipt first, deduplicated).
 
     - Teleology: the expected-receipts half of a first-action proof path.
     - Guarantee: returns the authority receipt (when present) followed by the
       organ's emits_receipt edge targets, without duplicates.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     join_node = inputs.get("join_by_organ", {}).get(organ_id) or {}
     receipts = [
@@ -2437,13 +2498,18 @@ def _organ_receipts(inputs: dict[str, Any], organ_id: str) -> list[str]:
 def _first_action_owner(
     inputs: dict[str, Any], organ_id: str, task_class: str | None
 ) -> dict[str, Any]:
-    """Build the owner block for a first-action contract.
+    """
+    [ACTION]
+    Build the owner block for a first-action contract.
 
     - Teleology: name WHO owns the first action -- organ, display name, family,
       custody -- so the agent can localize before it runs anything.
     - Guarantee: returns {organ_id, display_name, family, runner_custody_basis,
       evidence_class, task_class}; absent fields become None.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id) or {}
     join_node = inputs.get("join_by_organ", {}).get(organ_id) or {}
@@ -2460,7 +2526,16 @@ def _first_action_owner(
 def _first_action_path_contract(
     inputs: dict[str, Any], goal: str, path: str, *, mutation: bool
 ) -> dict[str, Any]:
-    """Build a first-action contract that preserves a named path target."""
+    """
+    [ACTION]
+    Build a first-action contract that preserves a named path target.
+    - Teleology: Implements `_first_action_path_contract` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     mode = "mutation_plan" if mutation else "path"
     command_flag = "--mutation" if mutation else "--path"
     command = _runnable_command(f"plectis comprehend {command_flag} {path}")
@@ -2572,7 +2647,8 @@ def _first_action_path_contract(
 def compile_first_action(
     inputs: dict[str, Any], root: Path | None, goal: str
 ) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the First Correct Action contract for a freeform cold-agent goal.
 
     - Teleology: convert a cold agent from "what is this?" to its FIRST CORRECT
@@ -2593,6 +2669,8 @@ def compile_first_action(
     - Non-goal: never instructs an edit, never exports source bodies, never
       grants release/correctness authority; the contract is navigation + proof
       pointers only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     base = root or default_root()
     atlas = inputs.get("atlas") or {}
@@ -2956,7 +3034,9 @@ def compile_first_action(
 def _release_improvement_targets(
     inputs: dict[str, Any], root: Path | None
 ) -> list[dict[str, Any]]:
-    """Return ranked concrete edit targets for release-comprehension work.
+    """
+    [ACTION]
+    Return ranked concrete edit targets for release-comprehension work.
 
     - Teleology: make a vague "what should I work on?" prompt actionable for a cold
       agent by pointing at the real files and tests that change clone comprehension.
@@ -2966,6 +3046,8 @@ def _release_improvement_targets(
     - Fails: never raises; path existence is advisory metadata only.
     - Reads: only in-memory inputs plus filesystem existence checks.
     - Non-goal: does not claim release authority or mutate anything.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     base = root or default_root()
     join_organs = list(inputs.get("join_by_organ", {}).values())
@@ -3060,12 +3142,30 @@ def _release_improvement_targets(
 
 
 def _claim_paths_for_improvement_target(target: Any) -> list[str]:
-    """Return the explicit owned paths a ranked improvement row asks an agent to claim."""
+    """
+    [ACTION]
+    Return the explicit owned paths a ranked improvement row asks an agent to claim.
+    - Teleology: Implements `_claim_paths_for_improvement_target` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return [part.strip() for part in str(target).split(" / ") if part.strip()]
 
 
 def _mutation_plan_command_for_improvement_target(target: Any) -> str | None:
-    """Return the local mutation-plan command when the target is a single owned path."""
+    """
+    [ACTION]
+    Return the local mutation-plan command when the target is a single owned path.
+    - Teleology: Implements `_mutation_plan_command_for_improvement_target` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     paths = _claim_paths_for_improvement_target(target)
     if len(paths) != 1:
         return None
@@ -3076,7 +3176,16 @@ def _mutation_plan_command_for_improvement_target(target: Any) -> str | None:
 
 
 def _improvement_next_action(row: dict[str, Any]) -> dict[str, Any]:
-    """Compile the machine-readable next action for the top improvement row."""
+    """
+    [ACTION]
+    Compile the machine-readable next action for the top improvement row.
+    - Teleology: Implements `_improvement_next_action` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     command = row.get("next_command") or (
         "PYTHONPATH=src python3 -m microcosm_core comprehend --improvements"
     )
@@ -3098,7 +3207,9 @@ def _improvement_next_action(row: dict[str, Any]) -> dict[str, Any]:
 def _improvement_row_for_target(
     inputs: dict[str, Any], root: Path | None, target: str
 ) -> dict[str, Any] | None:
-    """Return the ranked improvement row that owns ``target``, if any.
+    """
+    [ACTION]
+    Return the ranked improvement row that owns ``target``, if any.
 
     - Teleology: keep a path-specific mutation plan connected to the ranked
       cold-clone improvement packet that sent the agent there.
@@ -3106,6 +3217,8 @@ def _improvement_row_for_target(
       target path string; returns a copy so callers can annotate safely.
     - Fails: never raises; returns None when the target is not an improvement row.
     - Reads: in-memory inputs plus the same existence checks as improvement ranking.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     for row in _release_improvement_targets(inputs, root):
         claim_paths = [str(p) for p in row.get("claim_paths") or []]
@@ -3116,7 +3229,9 @@ def _improvement_row_for_target(
 
 
 def _join_index_improvement_row(inputs: dict[str, Any]) -> dict[str, Any]:
-    """Build the rank-3 join-index improvement row from the graph's ACTUAL state.
+    """
+    [ACTION]
+    Build the rank-3 join-index improvement row from the graph's ACTUAL state.
 
     - Teleology: keep the ranked improvement list honest across its own lifecycle --
       while route/claim topology is deferred the row says build it; once the v2
@@ -3127,6 +3242,8 @@ def _join_index_improvement_row(inputs: dict[str, Any]) -> dict[str, Any]:
       title/why/expected change reflect the computed deferred set.
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     deferred = {
         d["edge_class"] for d in _deferred_edges_for(inputs, _CANONICAL_EDGE_CLASSES)
@@ -3171,7 +3288,8 @@ def _join_index_improvement_row(inputs: dict[str, Any]) -> dict[str, Any]:
 def compile_mutation_plan(
     inputs: dict[str, Any], root: Path | None, target: str
 ) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the safe-mutation plan for an organ or owned path (local band).
 
     - Teleology: answer "I want to change this safely -- what do I inspect, test, and
@@ -3184,6 +3302,7 @@ def compile_mutation_plan(
     - Reads: the inputs bundle plus extract_atom_excerpts on owned loci.
     - Writes: nothing.
     - Non-goal: never excerpts a custody-bound runner; never authorizes the change.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     base = root or default_root()
     atlas_by = inputs.get("atlas_by_organ", {})
@@ -3390,7 +3509,9 @@ _EDGE_CLASS_RESIDUALS: dict[str, dict[str, str]] = {
 
 
 def _graph_state(inputs: dict[str, Any]) -> dict[str, Any]:
-    """Read the join index's graph contract, re-deriving resolution structurally.
+    """
+    [ACTION]
+    Read the join index's graph contract, re-deriving resolution structurally.
 
     - Teleology: one accessor for "what topology does this clone's join index
       actually carry?" so packets derive deferral from graph truth, not prose.
@@ -3403,6 +3524,8 @@ def _graph_state(inputs: dict[str, Any]) -> dict[str, Any]:
       declared label. An absent/old join index yields empty resolved + empty lists.
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     join_index = inputs.get("join_index") or {}
     graph = join_index.get("graph") if isinstance(join_index, dict) else None
@@ -3436,7 +3559,9 @@ def _graph_state(inputs: dict[str, Any]) -> dict[str, Any]:
 def _deferred_edges_for(
     inputs: dict[str, Any], classes: tuple[str, ...]
 ) -> list[dict[str, Any]]:
-    """Compute the deferred-edge rows a packet must surface, from graph truth.
+    """
+    [ACTION]
+    Compute the deferred-edge rows a packet must surface, from graph truth.
 
     - Teleology: keep deferred_edges honest in BOTH directions -- a packet neither
       hides a genuinely-missing edge class nor keeps apologizing for one the join
@@ -3449,6 +3574,8 @@ def _deferred_edges_for(
       requested classes are resolved.
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     state = _graph_state(inputs)
     builder_rows = {
@@ -3471,7 +3598,9 @@ def _deferred_edges_for(
 def _graph_backed_block(
     inputs: dict[str, Any], classes: tuple[str, ...]
 ) -> dict[str, Any]:
-    """Describe which requested edge classes this packet answers from the graph.
+    """
+    [ACTION]
+    Describe which requested edge classes this packet answers from the graph.
 
     - Teleology: the positive counterpart of _deferred_edges_for -- name what is
       now graph-backed so a reader can trust (and audit) the edges it follows.
@@ -3482,6 +3611,8 @@ def _graph_backed_block(
       actually exists, and otherwise says the index predates the graph block.
     - Fails: never raises.
     - Reads: the in-memory inputs bundle only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     state = _graph_state(inputs)
     block: dict[str, Any] = {
@@ -3501,7 +3632,9 @@ def _graph_backed_block(
 
 
 def _count_by(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
-    """Count rows by a string field, returned high-to-low (shared distribution helper).
+    """
+    [ACTION]
+    Count rows by a string field, returned high-to-low (shared distribution helper).
 
     - Teleology: the one counter behind the self-model's calibration rollup so evidence
       class / truth-accounting / strength distributions all read the same way.
@@ -3509,6 +3642,8 @@ def _count_by(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
       field becomes "unspecified".
     - Fails: never raises.
     - Reads: only the supplied rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     counts: dict[str, int] = {}
     for row in rows:
@@ -3523,7 +3658,9 @@ def _whole_substrate_rows(
     join_by: dict[str, Any],
     synopsis_by: dict[str, Any],
 ) -> list[dict[str, Any]]:
-    """Build the per-organ essence roster grouped by family (the comprehend-all payload).
+    """
+    [ACTION]
+    Build the per-organ essence roster grouped by family (the comprehend-all payload).
 
     - Teleology: let a cold agent read EVERY organ's essence + calibration in one pass --
       the literal "comprehend all 82 organs at once" body.
@@ -3533,6 +3670,8 @@ def _whole_substrate_rows(
     - Fails: never raises.
     - Reads: only the supplied in-memory maps.
     - Non-goal: never reads runner source or docstring atoms.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     out: list[dict[str, Any]] = []
     for entry in families:
@@ -3558,7 +3697,9 @@ def _whole_substrate_rows(
 def _public_reader_block(
     health: dict[str, Any], atlas: dict[str, Any]
 ) -> dict[str, Any]:
-    """Compile the public-safe, calibrated reader block (NOT a marketing summary).
+    """
+    [ACTION]
+    Compile the public-safe, calibrated reader block (NOT a marketing summary).
 
     - Teleology: let a skeptical external reader see what the system demonstrates, what it
       explicitly does NOT, and where the known thinness is -- quality inferred from honesty.
@@ -3567,6 +3708,8 @@ def _public_reader_block(
     - Fails: never raises.
     - Reads: only the supplied health rollup + atlas.
     - Non-goal: never asserts impressiveness, release, or domain correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     macro_runners = (health.get("runner_custody_split") or {}).get("directory_coupling_marker", 0)
     return {
@@ -3585,13 +3728,14 @@ def _public_reader_block(
             "plectis comprehend --self-model",
             "plectis comprehend --slice math",
             "plectis comprehend --slice claims --organ <a proof organ>",
-            "plectis comprehension-assay --whole-system",
+            "microcosm comprehension-assay --whole-system",
         ],
     }
 
 
 def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture") -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile the whole-Plectis self-model: the entire substrate in one budgeted packet.
 
     - Teleology: let a cold agent comprehend the WHOLE substrate at once -- every family,
@@ -3606,6 +3750,8 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     - Fails: never raises; an unknown profile falls back to operating_picture.
     - Reads: the in-memory inputs bundle only (atlas + join index + synopses).
     - Non-goal: never exports source bodies, asserts impressiveness, or grants release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     profile = profile if profile in _SELF_MODEL_PROFILES else "operating_picture"
     atlas_by = inputs.get("atlas_by_organ", {})
@@ -3785,7 +3931,6 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
 _MODE_COMPILERS = {
     "first-contact": lambda inputs, target: compile_first_contact(inputs),
     "authority": lambda inputs, target: compile_authority(inputs),
-    "doctrine": lambda inputs, target: compile_doctrine(inputs, target),
     "organs": lambda inputs, target: compile_organs_index(inputs),
     "organ": lambda inputs, target: compile_organ(inputs, target or ""),
     "packet-atlas": lambda inputs, target: compile_packet_atlas(inputs),
@@ -3808,7 +3953,8 @@ def comprehend(
     with_excerpts: bool = False,
     inputs: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Compile one comprehension packet and stamp its identity, budget, and latency.
 
     - Teleology: the single dispatch a CLI or test calls to get a goal-shaped packet --
@@ -3822,6 +3968,7 @@ def comprehend(
     - Reads: the substrate inputs (loaded here unless ``inputs`` is supplied).
     - Writes: nothing.
     - Non-goal: never writes excerpts into the committed presence_only cache.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     start = time.perf_counter()
     base_root = root or default_root()
@@ -3855,7 +4002,8 @@ def comprehend(
 def build_cached_read_packs(
     root: Path | None = None, out_dir: Path | None = None
 ) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Materialize the prebuilt first-contact / authority / organs read packs.
 
     - Teleology: Level-1 cache -- commit the presence_only entry packs (including the
@@ -3869,6 +4017,7 @@ def build_cached_read_packs(
     - Writes: the four prebuilt presence_only read-pack receipts.
     - Non-goal: never prebuilds local_semantic_excerpt packs (path/mutation_plan stay
       on-demand and local-only) or per-organ packs (82 of them stay on-demand).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     base = root or default_root()
     target = out_dir or (base / "receipts/code_lens/read_packs")
@@ -3899,11 +4048,16 @@ def build_cached_read_packs(
 # JSON dotted path that must be non-empty, and (optionally) an evidence token that must
 # appear in the rendered pack. No row requires opening source.
 def _assay_rows(sample_organ: str | None) -> list[dict[str, Any]]:
-    """Return the fixed assay question set, parameterized by a sample organ.
+    """
+    [ACTION]
+    Return the fixed assay question set, parameterized by a sample organ.
 
     - Teleology: define the cold-agent questions whose answers must live in read packs.
     - Guarantee: returns a list of {q, mode, organ, must_key, evidence_token} rows.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         {"q": "What is Microcosm?", "mode": "first-contact", "organ": None,
@@ -3930,11 +4084,16 @@ def _assay_rows(sample_organ: str | None) -> list[dict[str, Any]]:
 
 
 def _dig(pack: dict[str, Any], dotted: str) -> Any:
-    """Resolve a dotted key path into a pack, returning None when absent.
+    """
+    [ACTION]
+    Resolve a dotted key path into a pack, returning None when absent.
 
     - Teleology: let assay rows assert on nested pack fields by path.
     - Guarantee: returns the nested value or None; never raises on a missing key.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     cur: Any = pack
     for part in dotted.split("."):
@@ -3946,13 +4105,17 @@ def _dig(pack: dict[str, Any], dotted: str) -> Any:
 
 
 def _pack_leaks_source_body(pack: dict[str, Any]) -> bool:
-    """Detect whether a pack leaked a raw docstring atom bullet.
+    """
+    [ACTION]
+    Detect whether a pack leaked a raw docstring atom bullet.
 
     - Teleology: enforce the presence_only membrane on compiled output, not just input.
     - Guarantee: returns True iff the serialized pack contains a "- Teleology:"-style
       raw atom bullet marker.
     - Fails: never raises.
     - Reads: only the in-memory pack.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     body = json.dumps(pack, ensure_ascii=True)
     return any(marker in body for marker in _ATOM_BULLET_MARKERS)
@@ -3961,7 +4124,8 @@ def _pack_leaks_source_body(pack: dict[str, Any]) -> bool:
 def run_comprehension_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Run the cold-agent comprehension assay over the compiled read packs.
 
     - Teleology: prove the read packs actually let a cold agent answer substrate /
@@ -3973,6 +4137,7 @@ def run_comprehension_assay(
     - Reads: the substrate inputs once.
     - Writes: nothing.
     - Non-goal: does not call any LLM; "answerable" means the answer material is present.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     bundle = inputs if inputs is not None else load_inputs(root)
     join_by = bundle.get("join_by_organ", {})
@@ -4032,19 +4197,24 @@ def run_comprehension_assay(
 
 
 def _symbols_expose_atom(symbols: list[dict[str, Any]], atom: str) -> bool:
-    """True when at least one excerpt symbol exposes a value for the named atom.
+    """
+    [ACTION]
+    True when at least one excerpt symbol exposes a value for the named atom.
 
     - Teleology: the hard-assay predicate proving the local band actually carries a
       given authored atom's value, not merely that a symbol exists.
     - Guarantee: returns True iff some row's atom_values contains ``atom``.
     - Fails: never raises.
     - Reads: only the supplied excerpt rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return any(atom in (s.get("atom_values") or {}) for s in symbols)
 
 
 def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Run the hard assay that requires real authored atom-value content.
 
     - Teleology: prove the local_semantic_excerpt band carries actual code semantics
@@ -4059,6 +4229,7 @@ def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
     - Reads: the owned comprehension module's atoms + one custody-bound runner.
     - Writes: nothing.
     - Non-goal: does not call any LLM; "answerable" means the atom value is present.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     base = root or default_root()
     owned_target = "src/microcosm_core/comprehension.py"
@@ -4116,12 +4287,8 @@ _PACKET_ROUTE_FIXTURES: list[tuple[str, str]] = [
     ("I just cloned this repo, what is it?", "first_contact"),
     ("comprehend the whole microcosm at once", "self_model"),
     ("where are the math and proof surfaces?", "math"),
-    ("explain AX-9 doctrine", "doctrine"),
     ("how is this claim justified, what receipt proves it?", "claim_trace"),
     ("how does execution flow here", "flow"),
-    # Hyphenated English words must not trip the doctrine id markers (ax-/p-).
-    ("explain top-down execution flow", "flow"),
-    ("how does the map-reduce pipeline work", "flow"),
     ("what may I trust here?", "authority"),
     ("list all organs", "organs_index"),
     ("which packet should I use?", "packet_atlas"),
@@ -4135,7 +4302,9 @@ _PACKET_ROUTE_FIXTURES: list[tuple[str, str]] = [
 
 
 def _assay_sample_target(mode: str, inputs: dict[str, Any]) -> str | None:
-    """Pick a representative target so each parameterized packet can compile in the assay.
+    """
+    [ACTION]
+    Pick a representative target so each parameterized packet can compile in the assay.
 
     - Teleology: let the route assay actually compile organ/cluster/claim/flow/mutation
       packets, not only the parameterless ones.
@@ -4143,6 +4312,8 @@ def _assay_sample_target(mode: str, inputs: dict[str, Any]) -> str | None:
       mutation_plan, a sample organ id for organ/claim_trace/flow, else None.
     - Fails: never raises; returns None when no sample is available.
     - Reads: the in-memory inputs bundle only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if mode == "organ_cluster":
         roster = _family_roster(list(inputs.get("atlas_by_organ", {}).values()))
@@ -4161,7 +4332,8 @@ def _assay_sample_target(mode: str, inputs: dict[str, Any]) -> str | None:
 def run_packet_route_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Assay the packet atlas as a navigable product, not just an answer surface.
 
     - Teleology: prove the atlas NAVIGATES -- goals route to the right packet, every
@@ -4176,6 +4348,7 @@ def run_packet_route_assay(
     - Reads: the substrate inputs once and any prebuilt cache files.
     - Writes: nothing.
     - Non-goal: does not call any LLM; routing is the deterministic route_goal mapping.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     bundle = inputs if inputs is not None else load_inputs(root)
     base = bundle.get("root") or default_root()
@@ -4298,7 +4471,8 @@ _WHOLE_SYSTEM_QUESTIONS: list[tuple[str, str, str | None]] = [
 def run_whole_system_comprehension_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Assay whether the self-model lets a cold reader comprehend the WHOLE substrate.
 
     - Teleology: prove the self-model causes calibrated whole-system understanding -- a
@@ -4313,6 +4487,7 @@ def run_whole_system_comprehension_assay(
     - Reads: the substrate inputs once.
     - Writes: nothing.
     - Non-goal: does not call any LLM and does not score "impressiveness".
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     bundle = inputs if inputs is not None else load_inputs(root)
     base = bundle.get("root") or default_root()
@@ -4445,7 +4620,9 @@ _FIRST_ACTION_GRAPH_CLASSES = ("cross_organ_route_topology", "claim_node_ontolog
 
 
 def _first_action_contract_complete(contract: dict[str, Any]) -> bool:
-    """Decide whether a first-action contract carries every required surface.
+    """
+    [ACTION]
+    Decide whether a first-action contract carries every required surface.
 
     - Teleology: the completeness predicate behind the first-action assay -- a
       static doc-shaped answer without an action, proof path, or boundary must
@@ -4460,6 +4637,9 @@ def _first_action_contract_complete(contract: dict[str, Any]) -> bool:
       --out really redirects under .microcosm/ is also required (footprint
       honesty).
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     action = contract.get("first_action") or {}
     command = str(action.get("command") or "")
@@ -4515,7 +4695,8 @@ def _first_action_contract_complete(contract: dict[str, Any]) -> bool:
 def run_first_action_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """[ACTION]
+    """
+    [ACTION]
     Assay whether the graph converts cold-agent goals into first correct actions.
 
     - Teleology: prove the leap from self-comprehension to AGENT TRANSFER -- a
@@ -4534,6 +4715,7 @@ def run_first_action_assay(
     - Writes: nothing.
     - Non-goal: does not call any LLM; "selection" is the deterministic contract
       compiler's output measured against fixture expectations.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     bundle = inputs if inputs is not None else load_inputs(root)
     base = bundle.get("root") or default_root()

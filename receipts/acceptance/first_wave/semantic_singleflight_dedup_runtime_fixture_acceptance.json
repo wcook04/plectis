@@ -1,0 +1,16 @@
+{
+  "anti_claim": "The semantic singleflight dedup runtime computes content keys and collapses duplicate command runs over public fixtures only. It does not export private macro run state, credentials, provider state, or raw operator threads; it does not authorize release or publication; and a stale repo state cannot answer for a different run because the key folds repo state in.",
+  "body_in_receipt": false,
+  "claim_ceiling": "Keys and dedups command runs by a repo-state fingerprint -- argv, resolved cwd, git HEAD, a scoped dirty-tree fingerprint, and an env fingerprint -- over bounded public fixture commands. It does not guarantee global mutual exclusion, does not replace a lock service, does not prove cross-host correctness, and is not a job scheduler, a daemon, or release approval.",
+  "fixture_id": "first_wave.semantic_singleflight_dedup_runtime",
+  "generated_receipts": [
+    "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_result.json",
+    "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_board.json",
+    "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_validation_receipt.json",
+    "receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json"
+  ],
+  "organ_id": "semantic_singleflight_dedup_runtime",
+  "real_substrate_disposition": "real_substrate_capsule",
+  "schema_version": "semantic_singleflight_dedup_runtime_acceptance_receipt_v1",
+  "status": "pass"
+}

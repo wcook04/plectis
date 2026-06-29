@@ -21,7 +21,7 @@ assimilation, imported macro bodies, and exported macro-shaped bundles.
 absorbing anything:**
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"
+PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>" --format text
 ```
 
 It returns one graph-backed contract: the runnable command, the owning
@@ -162,7 +162,9 @@ verification.
 Do not launch multiple raw `pytest` processes against this root in parallel
 unless each one uses its own `--basetemp`. The Makefile targets already isolate
 pytest scratch roots per run; direct parallel subsets must do the same or they
-can race while copying fixture trees under `.microcosm/test-tmp/pytest`.
+can race while copying fixture trees if they share a basetemp. The standalone
+pytest config disables pytest's cache provider so direct runs do not write
+`.pytest_cache` into the checkout.
 
 The standalone clone does not currently provision Black or Ruff in the default
 or `.[test]` dependency path. Treat a missing `python -m black` / formatter

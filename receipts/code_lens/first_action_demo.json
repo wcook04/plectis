@@ -254,7 +254,7 @@
       "goal": "evaluate prompt injection defenses",
       "out_of_scope_note": null,
       "owner": {
-        "display_name": "Indirect Prompt Injection Information Flow Policy Replay",
+        "display_name": "Prompt-Injection Flow-Policy Replay",
         "evidence_class": "algorithmic_projection",
         "family": "agent_reliability_and_safety",
         "organ_id": "indirect_prompt_injection_information_flow_policy_replay",

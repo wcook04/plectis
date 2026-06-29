@@ -172,7 +172,7 @@
       "path": "source_modules/system/lib/closeout_executor.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
+        "contamination_class": "private_body_near_verbatim",
         "matched_private_ref": "system/lib/closeout_executor.py",
         "substitution": "public_safe_stub"
       },

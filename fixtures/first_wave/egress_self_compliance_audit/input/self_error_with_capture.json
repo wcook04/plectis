@@ -1,0 +1,6 @@
+{
+  "case_id": "self_error_with_capture",
+  "case_type": "positive",
+  "expected_ok": true,
+  "text": "My mistake: I miscounted the rows earlier. I have captured this in cap_quick_row_miscount as a failure mode in the task ledger."
+}

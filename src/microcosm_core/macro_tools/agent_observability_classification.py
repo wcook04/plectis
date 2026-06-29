@@ -7,6 +7,30 @@ classifier behavior for auth-failure loops, stale sources, schema gaps, and
 projection warnings while accepting only explicit public metadata envelopes.
 It does not read live home session logs, provider payload bodies, browser/HUD
 state, account/session state, credentials, cookies, or recipient-send material.
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.macro_tools.agent_observability_classification` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: PASS, BLOCKED, KIND, SCHEMA_VERSION, SOURCE_REF, TARGET_REF, SOURCE_SYMBOL_REFS, TARGET_SYMBOL_REFS, SOURCE_REFS, TARGET_REFS, CLASS_ID_AUTH_FAILURE_LOOP, CLAUDE_MEM_OBSERVER_CWD_FRAGMENT, AUTH_FAILURE_TOKENS, DEFAULT_AUTH_FAILURE_TOKEN_REQUIRED, DEFAULT_MIN_LOOP_FAILURES, INFRASTRUCTURE_SOURCE_RUNTIMES_FOR_NOISE, FORBIDDEN_PAYLOAD_KEYS, AUTHORITY_CEILING, ANTI_CLAIM, INPUT_NAMES, HASH_CHUNK_SIZE, classify_auth_failure_loop, noisy_session_ids_from_classes, stale_source_warnings, ...
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 from __future__ import annotations
 
@@ -133,11 +157,29 @@ HASH_CHUNK_SIZE = 1024 * 1024
 
 
 def _safe_mapping(value: object) -> Mapping[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_safe_mapping` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return value if isinstance(value, Mapping) else {}
 
 
 def _payload_text(event: Mapping[str, Any]) -> str:
-    """Best-effort flat string of the assistant content carried by `event`."""
+    """
+    [ACTION]
+    Best-effort flat string of the assistant content carried by `event`.
+    - Teleology: Implements `_payload_text` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     payload = _safe_mapping(event.get("payload"))
     parts: list[str] = []
     for key in ("content", "text", "message", "summary"):
@@ -161,6 +203,15 @@ def _looks_like_auth_failure(
     *,
     required: int = DEFAULT_AUTH_FAILURE_TOKEN_REQUIRED,
 ) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_looks_like_auth_failure` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not text:
         return False
     lowered = text.lower()
@@ -172,12 +223,30 @@ def _is_observer_cwd(
     cwd: object,
     fragment: str = CLAUDE_MEM_OBSERVER_CWD_FRAGMENT,
 ) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_is_observer_cwd` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(cwd, str) or not cwd or not fragment:
         return False
     return fragment in cwd
 
 
 def _representative_session(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_representative_session` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     seqs = [int(row.get("seq") or 0) for row in rows if row.get("seq") is not None]
     last_observed = ""
     for row in rows:
@@ -203,11 +272,18 @@ def classify_auth_failure_loop(
     cwd_fragment: str = CLAUDE_MEM_OBSERVER_CWD_FRAGMENT,
 ) -> Optional[dict[str, Any]]:
     """
+    [ACTION]
     Detect repeated unauthenticated assistant messages from SDK observer sessions.
 
     A session is flagged only when its `cwd` contains `cwd_fragment` and at
     least `min_failures` assistant-message events carry the authentication
     failure token floor.
+    - Teleology: Implements `classify_auth_failure_loop` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     grouped: dict[str, list[Mapping[str, Any]]] = defaultdict(list)
     for event in events:
@@ -279,7 +355,16 @@ def classify_auth_failure_loop(
 
 
 def noisy_session_ids_from_classes(noise_classes: Sequence[Mapping[str, Any]]) -> set[str]:
-    """Return session ids flagged by any noise class."""
+    """
+    [ACTION]
+    Return session ids flagged by any noise class.
+    - Teleology: Implements `noisy_session_ids_from_classes` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     out: set[str] = set()
     for entry in noise_classes:
         if not isinstance(entry, Mapping):
@@ -297,7 +382,16 @@ def stale_source_warnings(
     now: datetime,
     stale_after_s: float = 600.0,
 ) -> list[dict[str, Any]]:
-    """Flag source runtimes whose last observation is older than `stale_after_s`."""
+    """
+    [ACTION]
+    Flag source runtimes whose last observation is older than `stale_after_s`.
+    - Teleology: Implements `stale_source_warnings` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows: list[dict[str, Any]] = []
     for entry in source_status:
         if not isinstance(entry, Mapping):
@@ -322,6 +416,15 @@ def stale_source_warnings(
 
 
 def _parse_iso(value: object) -> Optional[datetime]:
+    """
+    [ACTION]
+    - Teleology: Implements `_parse_iso` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     if isinstance(value, datetime):
         return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
     if not value:
@@ -349,7 +452,16 @@ def classify_telemetry_quality(
     now: datetime,
     stale_source_after_s: float = 600.0,
 ) -> dict[str, Any]:
-    """Build the telemetry-quality panel for public mission status reducers."""
+    """
+    [ACTION]
+    Build the telemetry-quality panel for public mission status reducers.
+    - Teleology: Implements `classify_telemetry_quality` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     noise_classes: list[dict[str, Any]] = []
     auth = classify_auth_failure_loop(events)
     if auth:
@@ -443,6 +555,15 @@ def classify_telemetry_quality(
 def load_public_agent_observability_classification_bundle(
     input_dir: str | Path,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `load_public_agent_observability_classification_bundle` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     root = Path(input_dir)
     payloads: dict[str, Any] = {}
     for name in INPUT_NAMES:
@@ -457,6 +578,15 @@ def build_public_agent_observability_classification_view(
     *,
     now: datetime | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `build_public_agent_observability_classification_view` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     manifest = _safe_mapping(payloads.get("bundle_manifest"))
     events_payload = payloads.get("public_agent_events")
     source_payload = _safe_mapping(payloads.get("source_status"))
@@ -563,6 +693,15 @@ def build_public_agent_observability_classification_view(
 
 
 def _event_rows(payload: object) -> list[Mapping[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_event_rows` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if isinstance(payload, list):
         return [row for row in payload if isinstance(row, Mapping)]
     if isinstance(payload, Mapping):
@@ -573,6 +712,15 @@ def _event_rows(payload: object) -> list[Mapping[str, Any]]:
 
 
 def _source_status_rows(payload: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_status_rows` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     for key in ("source_status", "sources", "rows"):
         rows = payload.get(key)
         if isinstance(rows, list):
@@ -581,6 +729,15 @@ def _source_status_rows(payload: Mapping[str, Any]) -> list[Mapping[str, Any]]:
 
 
 def _walk_payload_keys(value: object) -> set[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_walk_payload_keys` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     keys: set[str] = set()
     if isinstance(value, Mapping):
         for key, child in value.items():
@@ -593,12 +750,30 @@ def _walk_payload_keys(value: object) -> set[str]:
 
 
 def _strings(value: object) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item.strip()]
 
 
 def _int_value(value: object, *, default: int) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `_int_value` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     try:
         return int(value)
     except (TypeError, ValueError):
@@ -606,6 +781,15 @@ def _int_value(value: object, *, default: int) -> int:
 
 
 def _optional_int(value: object) -> int | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_optional_int` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if value in (None, ""):
         return None
     try:
@@ -615,6 +799,15 @@ def _optional_int(value: object) -> int | None:
 
 
 def _float_value(value: object, *, default: float) -> float:
+    """
+    [ACTION]
+    - Teleology: Implements `_float_value` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     try:
         return float(value)
     except (TypeError, ValueError):
@@ -622,6 +815,15 @@ def _float_value(value: object, *, default: float) -> float:
 
 
 def _stable_digest(payload: object) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_stable_digest` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     encoded = json.dumps(
         payload,
         ensure_ascii=True,
@@ -632,6 +834,15 @@ def _stable_digest(payload: object) -> str:
 
 
 def _file_sha256(path: Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_file_sha256` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
@@ -640,6 +851,15 @@ def _file_sha256(path: Path) -> str:
 
 
 def _repo_root_from_target() -> Path | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_repo_root_from_target` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     for candidate in Path(__file__).resolve(strict=False).parents:
         if (candidate / SOURCE_REF).is_file():
             return candidate
@@ -647,6 +867,15 @@ def _repo_root_from_target() -> Path | None:
 
 
 def body_import_verification() -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `body_import_verification` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     target_path = Path(__file__).resolve(strict=False)
     repo_root = _repo_root_from_target()
     source_path = repo_root / SOURCE_REF if repo_root else None
@@ -690,6 +919,15 @@ def _bundle_finding(
     subject_id: str,
     subject_kind: str = "agent_observability_classification_input",
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_bundle_finding` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "error_code": code,
         "message": message,
@@ -700,6 +938,15 @@ def _bundle_finding(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.macro_tools.agent_observability_classification` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(
         prog="python -m microcosm_core.macro_tools.agent_observability_classification"
     )

@@ -1,0 +1,70 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "egress_self_compliance_audit_source_body_manifest",
+  "bundle_id": "exported_egress_self_compliance_audit_bundle",
+  "classification": "public_package_body_backed_composition_capsule",
+  "source_import_class": "public_safe_refactored_body",
+  "body_storage_policy": "public package source bodies are exercised in place by the organ acceptance command; this manifest binds their provenance and digest relation so old metadata cannot promote the organ by itself",
+  "receipt_body_policy": "receipts are evidence outputs only and are not counted as imported body substrate",
+  "body_in_receipt": false,
+  "source_open_payload_boundary": "non-secret Microcosm package source only; no provider state, credentials, sessions, raw private state, or release authority",
+  "validation_contract_ref": "checker.microcosm.validators.substrate_substitution_ledger",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "egress_self_compliance_audit_organ_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Surfaces the egress_self_compliance_gate capsule as a first-class agent-reliability organ. Adds the standard organ contract over the capsule's evaluate_text entrypoint: loads bounded JSON fixture cases, classifies positive vs negative by case_type/expected_ok, recomputes each verdict via the live capsule, asserts planted negatives are flagged red with the exact expected violating diagnostic_id (EXPECTED_NEGATIVE_CASES), aggregates a pass/fail status, projects a body-free result_card, and writes body-free result/board/validation (and optional acceptance) receipts via microcosm_core.receipts. Pass requires both positives clean (green), both negatives rejected with their expected marker, and the expected negative case_ids present.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py",
+      "path": "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 21878,
+      "line_count": 463,
+      "sha256": "sha256:66171094fc8971e6578f69a2c6e1355e6f4bc4634639f0f5081dd86095e8e1ba",
+      "target_sha256": "66171094fc8971e6578f69a2c6e1355e6f4bc4634639f0f5081dd86095e8e1ba",
+      "source_sha256": "66171094fc8971e6578f69a2c6e1355e6f4bc4634639f0f5081dd86095e8e1ba",
+      "required_anchors": [
+        "ORGAN_ID = \"egress_self_compliance_audit\"",
+        "def run"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.organs.egress_self_compliance_audit.run",
+        "tests/test_egress_self_compliance_audit.py"
+      ]
+    },
+    {
+      "module_id": "egress_self_compliance_audit_capsule_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Phrase-membership egress self-compliance policy over one agent-output text string. Runs three detectors that each fire only when a tripwire phrase is present AND its matching legitimiser phrase is absent: permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator. Returns green when no detector reports a violation, red otherwise. The capsule is the authority for the detection logic and phrase tables; it is a source-faithful public refactor of system/lib/egress_compliance.py.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+      "path": "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 18749,
+      "line_count": 385,
+      "sha256": "sha256:c42a1c82d7c158347fe7d6d9271b84562a66c9af9ef84a123992a81eb0a99ac4",
+      "target_sha256": "c42a1c82d7c158347fe7d6d9271b84562a66c9af9ef84a123992a81eb0a99ac4",
+      "source_sha256": "c42a1c82d7c158347fe7d6d9271b84562a66c9af9ef84a123992a81eb0a99ac4",
+      "required_anchors": [
+        "It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.",
+        "Ask for permission only after naming a real blast-radius blocker; "
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.engine_room.egress_self_compliance_gate",
+        "tests/test_egress_self_compliance_audit.py"
+      ]
+    }
+  ],
+  "blocked_import_debt": []
+}

@@ -1,0 +1,19 @@
+{
+  "case_id": "cycle_rejected",
+  "case_type": "negative",
+  "expected_ok": false,
+  "provider": "chatgpt",
+  "workers": 1,
+  "schema_version": "1.0",
+  "kind": "bridge_campaign",
+  "campaign_id": "cycle-demo",
+  "intent": "A campaign whose reducer and synthesis depend on each other, forming a cycle.",
+  "plan_path": "obsidian/observe_plans/cycle_cycle.md",
+  "nodes": [
+    {"label": "probe-a", "role": "probe", "input_mode": "receipts_only"},
+    {"label": "reducer-a", "role": "reducer", "input_mode": "receipts_only", "depends_on": ["synth"]},
+    {"label": "synth", "role": "synthesis", "input_mode": "receipts_only", "depends_on": ["reducer-a"]}
+  ],
+  "barrier": {"group_label": "synth", "description": "Barrier on the synthesis node."},
+  "continuation": {"packet_schema": "v1_receipts_navigational", "next_action": "Unreachable because the graph cycles."}
+}

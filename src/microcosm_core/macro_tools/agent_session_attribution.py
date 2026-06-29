@@ -20,6 +20,30 @@ get back attributed records. Callers (HTTP route, hook, CLI) own the I/O.
 Schema is ``agent_session_attribution_v0``: choices below are first-pass and
 subject to revision once at least one downstream consumer is wired (see the
 paper module ``agent_session_attribution.md``).
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.macro_tools.agent_session_attribution` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SCHEMA_VERSION, SOURCE_RUNTIME_TO_WORKLEDGER_ACTOR, INFRASTRUCTURE_SOURCE_RUNTIMES, CODEX_APP_STREAM_SESSION_IDS, ATTRIBUTION_STATUS_MATCHED, ATTRIBUTION_STATUS_ATS_ONLY, ATTRIBUTION_STATUS_WORKLEDGER_ONLY, ATTRIBUTION_STATUS_UNATTRIBUTABLE, ATTRIBUTION_STATUS_INFRASTRUCTURE, LIVENESS_LIVE, LIVENESS_RECENT, LIVENESS_STALE, LIVENESS_UNKNOWN, DEFAULT_LIVE_WINDOW_S, DEFAULT_RECENT_WINDOW_S, CODEX_PREFIX, SESSION_END_CANONICAL_TYPES, BETWEEN_TURN_CANONICAL_TYPES, AttributedSession, attribute_sessions, find_session_by_title, find_session_by_cwd, identify_self_session
+- Reads: call arguments, module constants, imported helpers.
+- Writes: return values, declared filesystem outputs and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: None beyond the Python standard library and local package imports.
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 from __future__ import annotations
 
@@ -88,6 +112,15 @@ BETWEEN_TURN_CANONICAL_TYPES = frozenset({
 
 @dataclass
 class AttributedSession:
+    """
+    [ROLE]
+    - Teleology: Groups `AttributedSession` data or behavior for `microcosm_core.macro_tools.agent_session_attribution` behind a documented class contract.
+    - Ownership: Owned by `microcosm_core.macro_tools.agent_session_attribution`; callers should construct or mutate instances only through declared fields, constructors, or methods.
+    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
+    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    """
     session_id: str
     source_runtime: Optional[str]
     actor: Optional[str]
@@ -114,6 +147,15 @@ class AttributedSession:
     match_strategy: Optional[str] = None
 
     def to_dict(self) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Implements `AttributedSession.to_dict` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         return asdict(self)
 
 
@@ -123,6 +165,7 @@ def _classify_currently_live(
     last_canonical_type: Optional[str],
 ) -> tuple[bool, bool]:
     """
+    [ACTION]
     Return (currently_live, mid_turn).
 
     currently_live = the session has not explicitly ended AND its last event
@@ -135,6 +178,12 @@ def _classify_currently_live(
     mid_turn = currently_live AND the last event indicates an in-flight turn
         (a tool call, plan, intent, prompt, etc.) rather than a between-turn
         marker. This is the "actively doing work right now" signal.
+    - Teleology: Implements `_classify_currently_live` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if liveness == LIVENESS_STALE or liveness == LIVENESS_UNKNOWN:
         return False, False
@@ -147,10 +196,28 @@ def _classify_currently_live(
 
 
 def _now() -> datetime:
+    """
+    [ACTION]
+    - Teleology: Implements `_now` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return datetime.now(timezone.utc)
 
 
 def _parse_iso(value: object) -> Optional[datetime]:
+    """
+    [ACTION]
+    - Teleology: Implements `_parse_iso` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     if not value:
         return None
     if isinstance(value, datetime):
@@ -168,6 +235,15 @@ def _parse_iso(value: object) -> Optional[datetime]:
 
 
 def _newest(*candidates: object) -> Optional[datetime]:
+    """
+    [ACTION]
+    - Teleology: Implements `_newest` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     best: Optional[datetime] = None
     for candidate in candidates:
         parsed = _parse_iso(candidate)
@@ -185,6 +261,15 @@ def _classify_liveness(
     live_window_s: int,
     recent_window_s: int,
 ) -> tuple[str, Optional[float]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_classify_liveness` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if newest_observed is None:
         return LIVENESS_UNKNOWN, None
     lag_s = max(0.0, (now - newest_observed).total_seconds())
@@ -196,6 +281,15 @@ def _classify_liveness(
 
 
 def _normalize_codex_id(session_id: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_normalize_codex_id` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if session_id.startswith(CODEX_PREFIX):
         return session_id[len(CODEX_PREFIX):]
     return session_id
@@ -208,11 +302,18 @@ def _build_workledger_lookup(
     dict[str, Mapping[str, Any]],
 ]:
     """
+    [ACTION]
     Return two lookups:
       * direct: session_id -> work-ledger record
       * normalized: codex-stripped session_id -> work-ledger record
     The normalized lookup lets ATS records with bare UUID match work-ledger
     entries that carry the ``codex:`` prefix.
+    - Teleology: Implements `_build_workledger_lookup` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     direct: dict[str, Mapping[str, Any]] = {}
     normalized: dict[str, Mapping[str, Any]] = {}
@@ -233,6 +334,15 @@ def _attribute_one(
     live_window_s: int,
     recent_window_s: int,
 ) -> AttributedSession:
+    """
+    [ACTION]
+    - Teleology: Implements `_attribute_one` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     session_id = str(ats_session.get("session_id") or "unknown")
     source_runtime = ats_session.get("source_runtime")
     last_observed_at = ats_session.get("last_observed_at")
@@ -401,6 +511,15 @@ def _workledger_only_record(
     live_window_s: int,
     recent_window_s: int,
 ) -> AttributedSession:
+    """
+    [ACTION]
+    - Teleology: Implements `_workledger_only_record` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     last_activity_at = record.get("last_activity_at")
     liveness, lag_s = _classify_liveness(
         newest_observed=_parse_iso(last_activity_at),
@@ -450,6 +569,7 @@ def attribute_sessions(
     include_stale_workledger_only: bool = False,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     Join the ATS ``active_sessions`` view with the work-ledger ``sessions`` map
     and return a single attributed view.
 
@@ -473,6 +593,12 @@ def attribute_sessions(
         When False (default), workledger-only sessions classified as ``stale``
         are dropped from the response. They number in the hundreds and would
         swamp consumers; set True for audit/debug.
+    - Teleology: Implements `attribute_sessions` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     now = now or _now()
     direct, normalized = _build_workledger_lookup(work_ledger_status.get("sessions") or {})
@@ -557,6 +683,7 @@ def find_session_by_title(
     case_sensitive: bool = False,
 ) -> Optional[dict[str, Any]]:
     """
+    [ACTION]
     Return the most-recent session whose ``title`` or ``current_activity``
     contains ``title_query`` as a substring. Use this so a hook or CLI can
     answer "which of these is me?" by grepping for a known prompt fragment
@@ -564,6 +691,12 @@ def find_session_by_title(
     ``last_observed_at`` falling back to ``last_activity_at``.
 
     The returned record is the same shape passed in. None if no match.
+    - Teleology: Implements `find_session_by_title` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     needle = title_query if case_sensitive else title_query.lower()
     candidates: list[tuple[Optional[datetime], Mapping[str, Any]]] = []
@@ -597,9 +730,16 @@ def find_session_by_cwd(
     source_runtime: Optional[str] = None,
 ) -> Optional[dict[str, Any]]:
     """
+    [ACTION]
     Return the most-recent session whose ``cwd`` equals (or is a path-prefix
     parent of) ``cwd``. Use as a fallback to ``find_session_by_title`` when
     no title fragment is known but the working directory is.
+    - Teleology: Implements `find_session_by_cwd` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = cwd.rstrip("/")
     candidates: list[tuple[Optional[datetime], Mapping[str, Any]]] = []
@@ -632,11 +772,18 @@ def identify_self_session(
     source_runtime: str = "claude_code",
 ) -> Optional[dict[str, Any]]:
     """
+    [ACTION]
     Try to find the calling session in ``sessions`` (typically the
     ``sessions`` field of an ``attribute_sessions`` view). Title match wins
     when provided; cwd match is the fallback. The caller's purpose is to
     learn its own ``session_id`` / ``phase_id`` / ``actor`` so it can
     classify other sessions as "concurrent on a different lane".
+    - Teleology: Implements `identify_self_session` for `microcosm_core.macro_tools.agent_session_attribution` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     sessions_list = list(sessions)
     if title_fragment:

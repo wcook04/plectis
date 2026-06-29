@@ -1,0 +1,21 @@
+{
+  "bundle_id": "public_egress_self_compliance_audit_bundle",
+  "organ_id": "egress_self_compliance_audit",
+  "input_mode": "exported_egress_self_compliance_audit_bundle",
+  "authored_organ": true,
+  "body_in_receipt": false,
+  "live_state_authority": false,
+  "release_authorized": false,
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "surfaces_capsule": "microcosm_core.engine_room.egress_self_compliance_gate",
+  "required_files": [
+    "bundle_manifest.json",
+    "command_displacement_no_receipt.json",
+    "permission_gate_with_named_blocker.json",
+    "permission_gate_without_blocker.json",
+    "self_error_with_capture.json",
+    "docs/README.md",
+    "source_modules/src/microcosm_core/organs/egress_self_compliance_audit.py"
+  ],
+  "claim_ceiling": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication."
+}

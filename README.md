@@ -8,8 +8,6 @@
 
 # Plectis
 
-[![CI](https://github.com/wcook04/plectis/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/wcook04/plectis/actions/workflows/ci.yml)
-
 **Run one command inside a code repository and get a local record you can read:
 what Plectis found, where each finding came from, what backs it, and the point
 where the claim stops.**
@@ -78,54 +76,28 @@ interactive map on the [website](https://wcook04.github.io/plectis/).
 
 ## Run it
 
-Fast cold-clone path:
-
-```bash
-git clone https://github.com/wcook04/plectis.git
-cd plectis
-./bootstrap.sh
-make smoke
-```
-
-That is the first-user path the README and website are meant to imply:
-bootstrap the source tree, then run the source-only smoke floor. It requires
-Python 3.11 or newer and a POSIX shell. The automated floor currently runs on
-Ubuntu across Python 3.11-3.13; macOS is expected through the same shell path,
-and Windows users should use WSL until native Windows CI exists.
-
-Install the `plectis` command only after the source smoke is green:
-
-```bash
-make install
-.venv/bin/plectis tour --format text .
-.venv/bin/plectis tour --card .
-```
-
-If you want to stay source-only for a hand check:
+From a clone, without installing anything:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core tour --format text .
 PYTHONPATH=src python3 -m microcosm_core tour --card .
 ```
 
+Or install the `plectis` command first:
+
+```bash
+python3 -m pip install -e '.[test]'
+plectis tour --format text .
+plectis tour --card .
+```
+
 [QUICKSTART.md](QUICKSTART.md) is the one-page version: the bootstrap probe, the
 browser view, the offline checks, and the boundary notes, in the order a cold
 clone needs them.
 
-To record local onboarding timings as JSON:
-
-```bash
-make onboarding-benchmark
-```
-
-The CI workflow publishes the same benchmark as an artifact for the current
-commit. The JSON records `clone_seconds`, `bootstrap_seconds`, `smoke_seconds`,
-`install_seconds`, `installed_tour_seconds`, and `total_seconds`; in an existing
-checkout `clone_seconds` is `null`, while CI uses a fresh public clone.
-
 ## What's inside
 
-Underneath that one run, Plectis is a small runtime and a spine of **78 components
+Underneath that one run, Plectis is a small runtime and a spine of **88 components
 grouped into seven areas**. One person sets the direction; AI agents do the building
 and upkeep; and every component's work is kept as evidence a separate check can read.
 
@@ -135,12 +107,12 @@ inside it — one line at a glance, or expanded in full:
 | Area | Components | What it is |
 |---|---|---|
 | [Entry & Reveal](ORGANS.md#entry--reveal) | 2 | The entry point, and what its short guided path actually proves. |
-| [Architecture & Navigation](ORGANS.md#architecture--navigation) | 10 | The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and make it navigable. |
-| [Formal Math & Proof](ORGANS.md#formal-math--proof) | 18 | The Lean proof-evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier-trace repair, bounded witnesses, and certificates. |
-| [Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays) | 17 | Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets. |
-| [Research & Science Replays](ORGANS.md#research--science-replays) | 8 | Replay specimens for scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation. |
-| [Import, Projection & Drift](ORGANS.md#import-projection--drift) | 19 | The membrane that brings non-secret substrate into the public tree and keeps projections honest instead of letting them drift from their source. |
-| [Work, Landing & Continuity](ORGANS.md#work-landing--continuity) | 4 | How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume. |
+| [Architecture & Navigation](ORGANS.md#architecture--navigation) | 12 | The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and make it navigable. |
+| [Formal Math & Proof](ORGANS.md#formal-math--proof) | 20 | The Lean proof-evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier-trace repair, bounded witnesses, and certificates. |
+| [Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays) | 20 | Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets. |
+| [Research & Science Replays](ORGANS.md#research--science-replays) | 9 | Replay specimens for scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation. |
+| [Import, Projection & Drift](ORGANS.md#import-projection--drift) | 20 | The membrane that brings non-secret substrate into the public tree and keeps projections honest instead of letting them drift from their source. |
+| [Work, Landing & Continuity](ORGANS.md#work-landing--continuity) | 5 | How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume. |
 
 For the full per-component cards, open the [System map](ORGANS.md).
 
@@ -151,9 +123,8 @@ For the full per-component cards, open the [System map](ORGANS.md).
 | Run the first local witness | [Quickstart](QUICKSTART.md) | The shortest path to a working local run. |
 | Understand how it works | [Architecture](ARCHITECTURE.md) | The runtime loop, the evidence loop, and the component families. |
 | Browse every component | [System map](ORGANS.md) | A generated card for each part, one line at a glance or in full. |
-| Audit the governing doctrine | [Doctrine](DOCTRINE.md) · [Axioms](AXIOMS.md) · [Principles](PRINCIPLES.md) · [Anti-principles](ANTI_PRINCIPLES.md) | The full reader projection with plain meaning, analogy boundaries, formal readings, examples, and scope; source rows live in `core/doctrine_enrichment.json` and the generated instance corpora. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
-| Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. A coding agent's first action is `plectis comprehend --first-action "<your goal>"`. |
+| Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. A coding agent's first action is `plectis comprehend --first-action "<your goal>" --format text`. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | The verification floor and how to raise an issue safely. |
 
 ## What Plectis does not claim
@@ -190,23 +161,16 @@ make that possible, and both have a generated page you can open:
   validator, or a fixture. The [Release review](RELEASE_REVIEW.md) sets out the
   claim under review and the evidence behind it, so you can weigh a finding by
   its support rather than by a headline count.
-
-Reviewer-grade commands are intentionally separate from the first-user smoke:
-
-```bash
-make flight-recorder
-make flight-recorder-verify
-make release-candidate-proof
-make release-candidate-proof-verify
-make release-review
-```
-
-`make flight-recorder-verify` checks a preserved packet without rerunning the substrate,
-including blocked/non-zero commands as preserved evidence. The packet
-does not authorize release, standards, provider calls, proof correctness, or
-production use. `make release-candidate-proof` is the distribution-true proof
-path for the first-action product; it does not authorize release. `make
-release-review` regenerates that proof and prints the reviewer contract.
+- **You can run the checks yourself.** The commands that build the evidence are
+  the ones a sceptic runs. `make release-review` regenerates and verifies the
+  [Release review](RELEASE_REVIEW.md). `make release-candidate-proof` proves the
+  first-action product end to end in a fresh checkout, and
+  `make release-candidate-proof-verify` re-checks that proof as a distribution-true
+  packet without rebuilding it. `make flight-recorder` records a run, keeping
+  blocked/non-zero commands as preserved evidence, and `make flight-recorder-verify`
+  replays it without rerunning the substrate. Each of these records what happened
+  and does not authorize release, standards, provider calls, proof correctness, or
+  production use.
 
 ## Name and history
 

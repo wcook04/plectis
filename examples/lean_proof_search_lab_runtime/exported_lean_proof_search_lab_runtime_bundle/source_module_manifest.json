@@ -1,0 +1,70 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "lean_proof_search_lab_runtime_source_body_manifest",
+  "bundle_id": "exported_lean_proof_search_lab_runtime_bundle",
+  "classification": "public_package_body_backed_composition_capsule",
+  "source_import_class": "public_safe_refactored_body",
+  "body_storage_policy": "public package source bodies are exercised in place by the organ acceptance command; this manifest binds their provenance and digest relation so old metadata cannot promote the organ by itself",
+  "receipt_body_policy": "receipts are evidence outputs only and are not counted as imported body substrate",
+  "body_in_receipt": false,
+  "source_open_payload_boundary": "non-secret Microcosm package source only; no provider state, credentials, sessions, raw private state, lean binary path, or release authority",
+  "validation_contract_ref": "checker.microcosm.validators.substrate_substitution_ledger",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "lean_proof_search_lab_runtime_organ_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Gated external-tool organ wrapper that surfaces the lean_proof_search_lab capsule: probes for the lean binary, runs the real proof-search over the fixture cases when Lean is present (tool_present_and_verified / tool_present_but_failed), returns a body-free terminal locked receipt when Lean is absent, and projects a result card plus body-free receipts. The runtime-spine bundle entry runs the exported bundle as a declared standalone contract without spawning Lean.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
+      "path": "microcosm-substrate/src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 25737,
+      "line_count": 535,
+      "sha256": "sha256:ded630822624db707ebee35d7f908850f04c2f7c188c3e47dd234584619d5056",
+      "target_sha256": "ded630822624db707ebee35d7f908850f04c2f7c188c3e47dd234584619d5056",
+      "source_sha256": "ded630822624db707ebee35d7f908850f04c2f7c188c3e47dd234584619d5056",
+      "required_anchors": [
+        "ORGAN_ID = \"lean_proof_search_lab_runtime\"",
+        "def run"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.organs.lean_proof_search_lab_runtime.run",
+        "tests/test_lean_proof_search_lab_runtime.py"
+      ]
+    },
+    {
+      "module_id": "lean_proof_search_lab_runtime_capsule_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Public-safe symbolic Lean proof-search lab: a bounded and/or candidate-tactic search that compiles each candidate with the real lean subprocess, a forward oracle-leak firewall over FORBIDDEN_FORWARD_FIELDS, a problem-id ablation that fails id-memorising policies, and a #print axioms cleanliness gate that rejects sorry-tainted candidates.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/lean_proof_search_lab.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/engine_room/lean_proof_search_lab.py",
+      "path": "microcosm-substrate/src/microcosm_core/engine_room/lean_proof_search_lab.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 60719,
+      "line_count": 1156,
+      "sha256": "sha256:3d2d1f0f5178f941eb4d15f6ca6848138756be6aadf84e1038f886d8094bb9d4",
+      "target_sha256": "3d2d1f0f5178f941eb4d15f6ca6848138756be6aadf84e1038f886d8094bb9d4",
+      "source_sha256": "3d2d1f0f5178f941eb4d15f6ca6848138756be6aadf84e1038f886d8094bb9d4",
+      "required_anchors": [
+        "def evaluate_fixture_dir",
+        "def check_candidate_with_lean"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.engine_room.lean_proof_search_lab",
+        "tests/test_lean_proof_search_lab_runtime.py"
+      ]
+    }
+  ],
+  "blocked_import_debt": []
+}

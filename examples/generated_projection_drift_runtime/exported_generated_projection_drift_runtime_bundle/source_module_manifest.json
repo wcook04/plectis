@@ -1,0 +1,70 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "generated_projection_drift_runtime_source_body_manifest",
+  "bundle_id": "exported_generated_projection_drift_runtime_bundle",
+  "classification": "public_package_body_backed_composition_capsule",
+  "source_import_class": "public_safe_refactored_body",
+  "body_storage_policy": "public package source bodies are exercised in place by the organ acceptance command; this manifest binds their provenance and digest relation so old metadata cannot promote the organ by itself",
+  "receipt_body_policy": "receipts are evidence outputs only and are not counted as imported body substrate",
+  "body_in_receipt": false,
+  "source_open_payload_boundary": "non-secret Microcosm package source only; no provider state, credentials, sessions, raw private state, or release authority",
+  "validation_contract_ref": "checker.microcosm.validators.substrate_substitution_ledger",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "generated_projection_drift_runtime_organ_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Surfaces the engine-room capsule as a first-class organ with the standard contract (bounded fixture cases, planted negatives, body-free receipts, result_card, CLI). _evaluate_case materialises each fixture's declared file tree into a per-case TemporaryDirectory scratch and calls the REAL capsule evaluate_case (no re-implementation, no baked answers); build_result returns status==pass only when both positives observe clean, both negatives are recomputed to drift carrying their expected status_reason marker, and the expected negative case ids are present.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py",
+      "path": "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 21885,
+      "line_count": 458,
+      "sha256": "sha256:5db0983fded0872455206787ee387951c2fe1a2e661e4884e4e8f6348f4bf3b5",
+      "target_sha256": "5db0983fded0872455206787ee387951c2fe1a2e661e4884e4e8f6348f4bf3b5",
+      "source_sha256": "5db0983fded0872455206787ee387951c2fe1a2e661e4884e4e8f6348f4bf3b5",
+      "required_anchors": [
+        "ORGAN_ID = \"generated_projection_drift_runtime\"",
+        "def run"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.organs.generated_projection_drift_runtime.run",
+        "tests/test_generated_projection_drift_runtime.py"
+      ]
+    },
+    {
+      "module_id": "generated_projection_drift_runtime_capsule_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Public-safe owner-routed generated-projection drift gate. Models each generated artifact as an owner row (artifact patterns, source authorities, a no-write check command); per owner it SHA-256-fingerprints source and artifact files, consults a prior-clean-receipt source-hash skip cache, enforces required-artifact presence and optional fact-authority lineage, then runs the owner's declared no-write check command and marks the owner clean only on a zero return with present artifacts. It is the drift authority, not a semantic content-diff proof, a repairer, or a release authority.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+      "path": "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 59289,
+      "line_count": 1119,
+      "sha256": "sha256:88b24b33fed7b6ea96dc84871905ba06100ca85d7831991f17d746d9557584e6",
+      "target_sha256": "88b24b33fed7b6ea96dc84871905ba06100ca85d7831991f17d746d9557584e6",
+      "source_sha256": "88b24b33fed7b6ea96dc84871905ba06100ca85d7831991f17d746d9557584e6",
+      "required_anchors": [
+        "owner-routed drift gate",
+        "uses prior clean receipts as a bounded skip cache"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.engine_room.generated_projection_drift_gate",
+        "tests/test_generated_projection_drift_runtime.py"
+      ]
+    }
+  ],
+  "blocked_import_debt": []
+}

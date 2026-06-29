@@ -1,0 +1,27 @@
+{
+  "case_id": "memorized_policy_negative",
+  "expected_status": "fail",
+  "expected_failure_kind": "problem_id_ablation_failure",
+  "expected_summary": {
+    "problem_count": 1,
+    "firewall_violation_count": 0,
+    "and_or_success_count": 1,
+    "hammer_success_count": 1,
+    "axiom_taint_count": 0,
+    "ablation_passed": false
+  },
+  "lab": {
+    "timeout_seconds": 8,
+    "beam_width": 4,
+    "max_depth": 2,
+    "policy_kind": "memorized_by_id",
+    "problems": [
+      {
+        "problem_id": "ps_fake_or_comm_but_goal_is_and_intro",
+        "theorem_name": "memorized_policy_probe",
+        "target_shape": "and_intro",
+        "theorem_signature": "theorem memorized_policy_probe (p q : Prop) : p -> q -> And p q := by"
+      }
+    ]
+  }
+}

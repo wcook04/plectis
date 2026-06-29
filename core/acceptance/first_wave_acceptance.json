@@ -1438,6 +1438,176 @@
       "status": "accepted_current_authority",
       "truth_accounting_bucket": "copied_non_secret_macro_body",
       "validator_command": "python -m microcosm_core.organs.batch12_release_claim_language_gate run --input fixtures/first_wave/batch12_release_claim_language_gate/input --out receipts/first_wave/batch12_release_claim_language_gate --acceptance-out receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json"
+    },
+    {
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "generated_receipts": [
+        "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_result.json",
+        "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_board.json",
+        "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_validation_receipt.json",
+        "receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json"
+      ],
+      "organ_id": "semantic_singleflight_dedup_runtime",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.semantic_singleflight_dedup_runtime",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.semantic_singleflight_dedup_runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json"
+    },
+    {
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "generated_receipts": [
+        "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_result.json",
+        "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_board.json",
+        "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_validation_receipt.json",
+        "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
+      ],
+      "organ_id": "finite_erdos_denominator_certificate_strike",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.finite_erdos_denominator_certificate_strike",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.finite_erdos_denominator_certificate_strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
+    },
+    {
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "generated_receipts": [
+        "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_result.json",
+        "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_board.json",
+        "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_validation_receipt.json",
+        "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
+      ],
+      "organ_id": "bridge_campaign_dag_validation",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.bridge_campaign_dag_validation",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.bridge_campaign_dag_validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
+    },
+    {
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "generated_receipts": [
+        "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_result.json",
+        "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_board.json",
+        "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_validation_receipt.json",
+        "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json"
+      ],
+      "organ_id": "metabolism_queue_reconciliation",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.metabolism_queue_reconciliation",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.metabolism_queue_reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json"
+    },
+    {
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "generated_receipts": [
+        "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_result.json",
+        "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_board.json",
+        "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_validation_receipt.json",
+        "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json"
+      ],
+      "organ_id": "derived_fact_provider_runtime",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.derived_fact_provider_runtime",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.derived_fact_provider_runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json"
+    },
+    {
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "generated_receipts": [
+        "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_result.json",
+        "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_board.json",
+        "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_validation_receipt.json",
+        "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json"
+      ],
+      "organ_id": "navigation_fitness_benchmark",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.navigation_fitness_benchmark",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.navigation_fitness_benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json"
+    },
+    {
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "generated_receipts": [
+        "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_result.json",
+        "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_board.json",
+        "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_validation_receipt.json",
+        "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json"
+      ],
+      "organ_id": "annex_knowledge_routing",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.annex_knowledge_routing",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.annex_knowledge_routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json"
+    },
+    {
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "generated_receipts": [
+        "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_result.json",
+        "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_board.json",
+        "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_validation_receipt.json",
+        "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json"
+      ],
+      "organ_id": "egress_self_compliance_audit",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.egress_self_compliance_audit",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.egress_self_compliance_audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json"
+    },
+    {
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "generated_receipts": [
+        "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_result.json",
+        "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_board.json",
+        "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_validation_receipt.json",
+        "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json"
+      ],
+      "organ_id": "generated_projection_drift_runtime",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.generated_projection_drift_runtime",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.generated_projection_drift_runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json"
+    },
+    {
+      "counts_as_real_substrate_progress": true,
+      "current_authority_receipt": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+      "evidence_class": "bounded_runtime_computation",
+      "generated_receipts": [
+        "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json",
+        "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json",
+        "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_validation_receipt.json",
+        "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
+      ],
+      "organ_id": "lean_proof_search_lab_runtime",
+      "real_substrate_disposition": "real_substrate_capsule",
+      "runner": "microcosm_core.organs.lean_proof_search_lab_runtime",
+      "status": "accepted_current_authority",
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "validator_command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
     }
   ],
   "anti_claim": "First-wave acceptance identifies current public runtime-spine authority, fixture receipts, and standard presence only. It does not authorize release, hosted-public publication, provider calls, trading or financial advice, secret export, Lean/Lake beyond the bounded public witness fixture, provider context execution, theorem/proof correctness, evidence-cell metadata as theorem correctness, or standards-registry source authority.",
@@ -1508,7 +1678,7 @@
   "recipient_work_authorized": false,
   "release_authorized": false,
   "schema_version": "first_wave_acceptance_plan_v1",
-  "standard_count": 78,
+  "standard_count": 80,
   "standards_registry_ref": "core/standards_registry.json",
   "status": "accepted_runtime_spine_verifier_lab_kernel_bound",
   "trading_or_financial_advice_authorized": false

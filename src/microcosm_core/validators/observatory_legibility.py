@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.validators.observatory_legibility` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: CHECKER_ID, OBSERVABLE_FIRST_ARTIFACT_CONTRACT_REF, OBSERVABLE_FIRST_ARTIFACT_SLOT_IDS, validate_legibility, main
+- Reads: call arguments, module constants, imported helpers, declared subprocess results.
+- Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.runtime_shell
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -24,11 +49,16 @@ OBSERVABLE_FIRST_ARTIFACT_SLOT_IDS = [
 
 
 def _public_relative(root: Path, path: Path) -> str:
-    """Render ``path`` as a public-root-relative POSIX string for receipts.
+    """
+    [ACTION]
+    Render ``path`` as a public-root-relative POSIX string for receipts.
 
     - Teleology: keep receipt path refs anchored to the public root so emitted paths never leak an absolute private filesystem prefix.
     - Guarantee: returns a forward-slash string; when ``path`` is under ``root`` it is relativized, otherwise the path's own POSIX form is returned.
     - Fails: never raises; on a ValueError from ``relative_to`` (path outside root) it falls back to ``path.as_posix()``.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     try:
         return path.resolve(strict=False).relative_to(root.resolve(strict=False)).as_posix()
@@ -37,11 +67,16 @@ def _public_relative(root: Path, path: Path) -> str:
 
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
-    """Read ``payload[key]`` as a defensively-typed list of dict rows.
+    """
+    [ACTION]
+    Read ``payload[key]`` as a defensively-typed list of dict rows.
 
     - Teleology: shield the assertion logic from malformed model shapes so a non-list or mixed-type value cannot crash row iteration.
     - Guarantee: returns a list containing only the dict elements of ``payload[key]``; an empty list when the key is missing, not a list, or has no dict rows.
     - Fails: never raises; returns ``[]`` for any non-list value at ``key``.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     value = payload.get(key, [])
     if not isinstance(value, list):
@@ -50,13 +85,18 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
 
 
 def _html_private_hits(html: str) -> list[str]:
-    """Scan rendered observatory HTML for private-leak needles.
+    """
+    [ACTION]
+    Scan rendered observatory HTML for private-leak needles.
 
     - Teleology: enforce the public-safety floor by detecting private filesystem roots, repo paths, Chrome support dirs, and secret-token prefixes in the HTML that would be shown to a cold reader.
     - Guarantee: returns the list of forbidden needles present in ``html`` (the needles are split-concatenated in source so this scanner does not itself embed a live secret); an empty list means no monitored private marker was found.
     - Fails: never raises; returns ``[]`` when no needle matches.
     - When-needed: inspect when the ``private_paths_absent`` HTML assertion fails or a release surface is suspected of leaking host paths.
     - Non-goal: a clean result does not authorize release or prove the HTML is fully secret-free; it only checks this fixed needle set.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         needle
@@ -71,23 +111,33 @@ def _html_private_hits(html: str) -> list[str]:
 
 
 def _all_false(payload: dict[str, Any], keys: list[str]) -> bool:
-    """Assert every named authority-ceiling key is strictly ``False``.
+    """
+    [ACTION]
+    Assert every named authority-ceiling key is strictly ``False``.
 
     - Teleology: encode the authority-ceiling check that each listed claim (release/provider/mutation/etc.) is explicitly denied, not merely missing.
     - Guarantee: returns True only when, for every key, ``payload.get(key) is False``; a missing key or any truthy/None value yields False.
     - Fails: never raises; returns False when any key is absent or not exactly ``False``.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return all(payload.get(key) is False for key in keys)
 
 
 def _source_open_body_floor_legible(floor: dict[str, Any]) -> bool:
-    """Decide whether the source-open body import floor is reader-legible without leaking bodies.
+    """
+    [ACTION]
+    Decide whether the source-open body import floor is reader-legible without leaking bodies.
 
     - Teleology: gate the structural-scale bridge so the floor proves material count and reader/summary/status refs while keeping body text out of status and receipts.
     - Guarantee: returns True only when status is PASS or "blocked", ``public_safe_body_material_count`` is an int > 0, both ``body_text_exported_in_status`` and ``body_text_exported_in_receipts`` are ``False``, and reader_action/summary_ref/full_status_ref are non-empty strings; a "blocked" floor additionally needs defect_count int > 0 plus a defect_preview list and a non-empty full_defects_ref.
     - Fails: never raises; returns False for a non-dict floor, a missing/zero material count, any exported body-text flag, or a "blocked" floor lacking defect evidence.
     - When-needed: inspect when ``structural_scale_bridge`` or the ``source_open_body_import_floor_legible`` model assertion blocks.
     - Non-goal: legibility here does not authorize exporting source bodies or claim the import floor is defect-free.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(floor, dict):
         return False
@@ -120,13 +170,18 @@ def _source_open_body_floor_legible(floor: dict[str, Any]) -> bool:
 
 
 def _tour_legibility_visible(tour: dict[str, Any]) -> bool:
-    """Decide whether the ten-minute tour is reader-visible, including its bounded-blocked form.
+    """
+    [ACTION]
+    Decide whether the ten-minute tour is reader-visible, including its bounded-blocked form.
 
     - Teleology: let a tour that is blocked only by expected bounded surfaces (macro body import / spine) still count as legible, provided it surfaces its blockers and authority ceiling rather than hiding them.
     - Guarantee: returns True when tour status is PASS; or when status is "blocked" AND blocking_surface_ids contains "macro_body_import_floor" and is a subset of {macro_body_import_floor, spine}, every blocking id has details, the source_open_body_import_floor is legible, ``safe_to_show.blocking_surface_ids_visible`` is True, there are >= 10 route_cards, "/tour" is in endpoint_path, and anti_claim contains "does not authorize release".
     - Fails: never raises; returns False for a non-dict tour, an out-of-allowlist blocker, hidden blocking ids, fewer than 10 route cards, a missing "/tour" endpoint, or an anti_claim missing the release-denial phrase.
     - When-needed: inspect when ``ten_minute_tour_status_pass`` / ``ten_minute_tour_legibility_visible`` assertions block.
     - Non-goal: a visible tour does not authorize release; it only certifies the tour board (and its bounded blockers) is inspectable.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(tour, dict):
         return False
@@ -186,7 +241,9 @@ def _observable_first_artifact_contract(
     evidence_class_ids: list[str],
     source_open_body_import_floor: dict[str, Any],
 ) -> dict[str, Any]:
-    """Build the observable-first-artifact readiness envelope over the six required slots.
+    """
+    [ACTION]
+    Build the observable-first-artifact readiness envelope over the six required slots.
 
     - Teleology: assert the compact command-to-route board exposes, in order, a local action, the selected route, a non-mutating work transaction, an event+evidence chain, an authority boundary, and a structural-scale bridge before any drilldown — so a cold reader sees the causal artifact first, not raw JSON.
     - Guarantee: returns a ``microcosm_observable_first_artifact_contract_v1`` dict whose top-level ``status`` is PASS only when all six slots are PASS, else "blocked" with the failing ids in ``blocked_slot_ids``; always carries ``slots``, ``contract_ref``, ``required_slot_ids``, ``presentation_boundary`` (raw_json_first / marketing / live-trace all disallowed), ``endpoint_order``, and an ``anti_claim`` denying release/hosting/provider/equivalence/whole-system claims.
@@ -194,6 +251,9 @@ def _observable_first_artifact_contract(
     - When-needed: inspect when ``observable_first_artifact_contract_pass`` blocks or to learn which of the six first-screen slots regressed.
     - Escalates-to: ``OBSERVABLE_FIRST_ARTIFACT_CONTRACT_REF`` (agent_route_observability_runtime.md#observable-first-artifact-contract) and the ``observable_first_artifact_proof`` block of the emitted receipt.
     - Non-goal: a PASS envelope does not authorize release, hosting, provider calls, private-data equivalence, or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     safe_to_show = (
         observatory_card.get("safe_to_show", {})
@@ -354,7 +414,9 @@ def validate_legibility(
     *,
     command: str,
 ) -> dict[str, Any]:
-    """Validate that the observatory's HTML and model are cold-reader-legible and authority-bounded, then emit a receipt.
+    """
+    [ACTION]
+    Validate that the observatory's HTML and model are cold-reader-legible and authority-bounded, then emit a receipt.
 
     - Teleology: the public route-readiness gate for the observatory surface — proves the first-screen/causal-chain HTML and the model carry the observable-first slots, every lens stays within its denied authority ceiling, and no private state leaks, before the surface is shown.
     - Guarantee: builds the model and HTML via ``RuntimeShell``, evaluates the ``html_assertions`` and ``model_assertions`` maps plus a private-state scan, sets ``status`` to PASS only when ``blocking_codes`` is empty (release/provider/source-mutation flags are inverted so an authorized flag becomes a blocking code), atomically writes the ``observatory_legibility_receipt_v1`` receipt to ``out_path``, and returns that receipt dict.
@@ -362,6 +424,9 @@ def validate_legibility(
     - When-needed: inspect when an observatory release surface must be proven inspectable, or when triaging which assertion produced a blocking code.
     - Escalates-to: the written receipt (``blocking_codes`` + per-lens proof blocks), ``CHECKER_ID`` checker.microcosm.validators.observatory_legibility, and ``private_state_scan`` for leak detail.
     - Non-goal: a PASS receipt does not authorize hosted release, publication, credentialed provider calls, source mutation, secret export, live Task Ledger mutation, private-root equivalence, or production deployment.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, subprocess side effects requested by the caller.
     """
     public_root = Path(root).resolve(strict=False)
     project_path = Path(project).expanduser().resolve(strict=False)
@@ -1914,11 +1979,16 @@ def validate_legibility(
 
 
 def _parser() -> argparse.ArgumentParser:
-    """Build the CLI argument parser for the observatory legibility validator.
+    """
+    [ACTION]
+    Build the CLI argument parser for the observatory legibility validator.
 
     - Teleology: define the ``--root``/``--project``/``--out`` contract so the checker can run as a standalone CLI under the validator harness.
     - Guarantee: returns an ``ArgumentParser`` with three required string arguments (root, project, out).
     - Fails: never raises here; missing required args surface later at ``parse_args`` time as argparse's SystemExit.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     parser = argparse.ArgumentParser(description="Validate Microcosm observatory legibility")
     parser.add_argument("--root", required=True)
@@ -1928,13 +1998,18 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entrypoint: run the legibility validation and map its status to a process exit code.
+    """
+    [ACTION]
+    CLI entrypoint: run the legibility validation and map its status to a process exit code.
 
     - Teleology: give the checker a harness-callable front door that turns the receipt status into a shell-usable pass/fail signal.
     - Guarantee: parses argv, derives the reproducible ``command`` string, calls ``validate_legibility``, and returns 0 when the receipt status is PASS, else 1; the receipt is written as a side effect.
     - Fails: returns 1 on a "blocked" receipt rather than raising; argparse exits via SystemExit on bad args, and IO/model errors from ``validate_legibility`` propagate.
     - When-needed: inspect when wiring this validator into a CI/harness gate or interpreting its exit code.
     - Escalates-to: ``validate_legibility`` and the receipt at the ``--out`` path.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     args = _parser().parse_args(argv)
     command = (

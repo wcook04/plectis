@@ -38,7 +38,7 @@
       "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.mjs",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
+        "contamination_class": "private_body_near_verbatim",
         "matched_private_ref": "tools/agent_trace_structurer/parser.mjs",
         "substitution": "public_safe_stub"
       },
@@ -50,7 +50,7 @@
       "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/agent_trace_structurer/parser.test.mjs",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
+        "contamination_class": "private_body_near_verbatim",
         "matched_private_ref": "tools/agent_trace_structurer/parser.test.mjs",
         "substitution": "public_safe_stub"
       },

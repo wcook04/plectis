@@ -31,6 +31,7 @@ from microcosm_core.macro_tools.command_output_sidecar import (
     SIDECAR_ROOT,
     maybe_route_to_sidecar,
 )
+from microcosm_core.organs import macro_projection_import_protocol
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
@@ -203,6 +204,18 @@ FORMAL_MATH_PROOFLINE_SPINE_MANIFEST = (
 EXECUTABLE_GRAMMAR_METABOLISM_MANIFEST = (
     BUNDLE_INPUT / "executable_grammar_metabolism_source_module_manifest.json"
 )
+
+
+def _is_verified_light_edit_manifest_row(row: dict) -> bool:
+    return str(row.get("source_to_target_relation") or "") in (
+        macro_projection_import_protocol.VERIFIED_LIGHT_EDIT_SOURCE_TO_TARGET_RELATIONS
+    )
+
+
+def _assert_verified_light_edit_manifest_row(row: dict) -> None:
+    assert row["sha256_match"] is False
+    if row.get("source_to_target_relation") == "public_light_edit_private_path_redaction":
+        assert row["public_light_edit_recipe_ref"].endswith("::_strong_private_path_hits")
 
 
 def test_command_output_projection_macro_tool_emits_required_projection_envelope() -> None:
@@ -412,9 +425,8 @@ def test_command_output_source_manifest_matches_exact_macro_sources() -> None:
         target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
         assert row["source_sha256"] == source_digest
         assert row["target_sha256"] == target_digest
-        if row.get("source_to_target_relation") == "public_light_edit_private_path_redaction":
-            assert row["sha256_match"] is False
-            assert row["public_light_edit_recipe_ref"].endswith("::_strong_private_path_hits")
+        if _is_verified_light_edit_manifest_row(row):
+            _assert_verified_light_edit_manifest_row(row)
         else:
             assert source_digest == target_digest
         target_text = target.read_text(encoding="utf-8")
@@ -438,9 +450,8 @@ def test_trace_capsule_source_manifest_matches_exact_macro_sources() -> None:
         target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
         assert row["source_sha256"] == source_digest
         assert row["target_sha256"] == target_digest
-        if row.get("source_to_target_relation") == "public_light_edit_private_path_redaction":
-            assert row["sha256_match"] is False
-            assert row["public_light_edit_recipe_ref"].endswith("::_strong_private_path_hits")
+        if _is_verified_light_edit_manifest_row(row):
+            _assert_verified_light_edit_manifest_row(row)
         else:
             assert source_digest == target_digest
         target_text = target.read_text(encoding="utf-8")
@@ -464,9 +475,8 @@ def test_route_selection_control_source_manifest_matches_exact_macro_sources() -
         target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
         assert row["source_sha256"] == source_digest
         assert row["target_sha256"] == target_digest
-        if row.get("source_to_target_relation") == "public_light_edit_private_path_redaction":
-            assert row["sha256_match"] is False
-            assert row["public_light_edit_recipe_ref"].endswith("::_strong_private_path_hits")
+        if _is_verified_light_edit_manifest_row(row):
+            _assert_verified_light_edit_manifest_row(row)
         else:
             assert source_digest == target_digest
         target_text = target.read_text(encoding="utf-8")
@@ -490,9 +500,8 @@ def test_navigation_context_rosetta_source_manifest_matches_exact_macro_sources(
         target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
         assert row["source_sha256"] == source_digest
         assert row["target_sha256"] == target_digest
-        if row.get("source_to_target_relation") == "public_light_edit_private_path_redaction":
-            assert row["sha256_match"] is False
-            assert row["public_light_edit_recipe_ref"].endswith("::_strong_private_path_hits")
+        if _is_verified_light_edit_manifest_row(row):
+            _assert_verified_light_edit_manifest_row(row)
         else:
             assert source_digest == target_digest
         target_text = target.read_text(encoding="utf-8")
@@ -1046,9 +1055,8 @@ def _assert_source_manifest_matches_exact_macro_sources(
         if source.is_file():
             source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
             assert row["source_sha256"] == source_digest
-            if row.get("source_to_target_relation") == "public_light_edit_private_path_redaction":
-                assert row["sha256_match"] is False
-                assert row["public_light_edit_recipe_ref"].endswith("::_strong_private_path_hits")
+            if _is_verified_light_edit_manifest_row(row):
+                _assert_verified_light_edit_manifest_row(row)
             else:
                 assert source_digest == target_digest
         else:

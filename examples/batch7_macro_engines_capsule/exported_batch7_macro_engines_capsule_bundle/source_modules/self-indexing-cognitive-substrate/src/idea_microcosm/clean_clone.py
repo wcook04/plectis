@@ -12,6 +12,10 @@ Copy the checkout to a temporary clone, install a Python socket-blocking
 sitecustomize guard, run local validator/probe commands, scan for private
 boundary markers, and emit a bounded receipt.
 
+[DEPENDENCIES]
+Uses local filesystem copies, subprocess validation commands, Python stdlib
+network guards, and the release-root redaction scanner.
+
 [CONSTRAINTS]
 This is local clean-clone evidence, not hosted-public, external clone, or
 publication authority.

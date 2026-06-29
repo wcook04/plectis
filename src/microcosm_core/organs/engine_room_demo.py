@@ -1,9 +1,34 @@
-"""Accepted Engine Room composition organ.
+"""
+Accepted Engine Room composition organ.
 
 This organ wraps the staged Engine Room capsules as one public runtime surface.
 The capsules stay in ``microcosm_core.engine_room``; this file provides the
 standard organ contract: fixture input, receipt writes, acceptance receipt,
 runtime-shell runner, and CLI dispatch.
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.organs.engine_room_demo` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_NAME, SCHEMA_VERSION, CLAIM_CEILING, ANTI_CLAIM, AUTHORITY_CEILING, build_result, run, run_engine_room_demo_bundle, build_parser, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.engine_room.demo, microcosm_core.receipts
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 
 from __future__ import annotations
@@ -58,6 +83,15 @@ AUTHORITY_CEILING = {
 
 
 def _read_json(path: Path) -> Mapping[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_read_json` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, Mapping):
         raise ValueError(f"{path} must contain a JSON object")
@@ -65,6 +99,15 @@ def _read_json(path: Path) -> Mapping[str, Any]:
 
 
 def _fixture_cases(input_path: str | Path) -> list[tuple[Path, Mapping[str, Any]]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_fixture_cases` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     path = Path(input_path)
     if path.is_file():
         return [(path, _read_json(path))]
@@ -75,6 +118,15 @@ def _fixture_cases(input_path: str | Path) -> list[tuple[Path, Mapping[str, Any]
 
 
 def _target_override_case(case: Mapping[str, Any], actual_targets: set[str]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_target_override_case` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     expected_targets = {
         str(value)
         for value in case.get("expected_jewel_targets", [])
@@ -93,6 +145,15 @@ def _target_override_case(case: Mapping[str, Any], actual_targets: set[str]) -> 
 
 
 def _failed_capsule_rows(receipt: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_failed_capsule_rows` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     demo_receipt = receipt.get("demo_receipt")
     if not isinstance(demo_receipt, Mapping):
         return []
@@ -114,6 +175,15 @@ def _failed_capsule_rows(receipt: Mapping[str, Any]) -> list[dict[str, Any]]:
 
 
 def _evaluate_case(case: Mapping[str, Any], *, root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_evaluate_case` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     case_type = str(case.get("case_type") or "positive")
     if case_type == "positive":
         receipt = audit_controller_coverage(
@@ -151,6 +221,15 @@ def _evaluate_case(case: Mapping[str, Any], *, root: Path) -> dict[str, Any]:
 
 
 def _fixture_ref(path: Path, *, public_root: Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_fixture_ref` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     resolved = path.resolve()
     for base in (public_root.resolve(), Path.cwd().resolve()):
         try:
@@ -161,6 +240,15 @@ def _fixture_ref(path: Path, *, public_root: Path) -> str:
 
 
 def build_result(input_path: str | Path, *, root: Path | None = None) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `build_result` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     microcosm_root = root or default_root()
     rows = [
         {
@@ -198,6 +286,15 @@ def build_result(input_path: str | Path, *, root: Path | None = None) -> dict[st
 
 
 def _build_board(result: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_build_board` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "schema_version": "engine_room_demo_board_v1",
         "organ_id": ORGAN_ID,
@@ -210,6 +307,15 @@ def _build_board(result: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _build_validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_build_validation_receipt` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "schema_version": "engine_room_demo_validation_receipt_v1",
         "organ_id": ORGAN_ID,
@@ -223,6 +329,15 @@ def _build_validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[
 
 
 def _build_acceptance_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_build_acceptance_receipt` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "schema_version": "engine_room_demo_acceptance_receipt_v1",
         "organ_id": ORGAN_ID,
@@ -243,6 +358,15 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     result = build_result(input_path)
     if command:
         result["command"] = command
@@ -275,10 +399,28 @@ def run_engine_room_demo_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run_engine_room_demo_bundle` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return run(input_path, out_dir, command)
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """
+    [ACTION]
+    - Teleology: Implements `build_parser` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(description="Run the accepted Engine Room demo organ.")
     subparsers = parser.add_subparsers(dest="command", required=True)
     for command in ("run", "run-engine-room-demo-bundle"):
@@ -291,6 +433,15 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.organs.engine_room_demo` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command in {"run", "run-engine-room-demo-bundle"}:
         result = run(args.input, args.out, acceptance_out=args.acceptance_out)

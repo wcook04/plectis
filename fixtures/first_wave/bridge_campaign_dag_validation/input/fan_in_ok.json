@@ -1,0 +1,21 @@
+{
+  "case_id": "fan_in_ok",
+  "case_type": "positive",
+  "expected_ok": true,
+  "provider": "claude",
+  "workers": 2,
+  "schema_version": "1.0",
+  "kind": "bridge_campaign",
+  "campaign_id": "fan-in-demo",
+  "intent": "Fan three parallel probes into one reducer and a single synthesis over public receipts.",
+  "plan_path": "obsidian/observe_plans/fan_in_cycle.md",
+  "nodes": [
+    {"label": "probe-a", "role": "probe", "input_mode": "receipts_only"},
+    {"label": "probe-b", "role": "probe", "input_mode": "receipts_only"},
+    {"label": "probe-c", "role": "probe", "input_mode": "receipts_only"},
+    {"label": "reducer-x", "role": "reducer", "input_mode": "receipts_only", "depends_on": ["probe-a", "probe-b", "probe-c"]},
+    {"label": "synth", "role": "synthesis", "input_mode": "receipts_only", "depends_on": ["reducer-x"]}
+  ],
+  "barrier": {"group_label": "synth", "description": "Barrier on the synthesis node after the three probes reduce."},
+  "continuation": {"packet_schema": "v1_receipts_navigational", "next_action": "Resume from the synthesis receipt with the reduced fan-in."}
+}

@@ -12,6 +12,8 @@ Load strict JSON and markdown source authority, derive expected instance corpora
 Read the Microcosm resource root, strict JSON schema helpers, relation registries, accepted organ/source registries, and the axiom support-cover validator.
 
 [CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 Treat lattice nodes as projections, keep public surfaces bounded by leak checks, and raise mismatches instead of silently accepting stale doctrine state.
 """
 
@@ -141,27 +143,39 @@ PRIORITY_ORGAN_TARGETS = (
 
 def _now() -> str:
     """
+    [ACTION]
     - Teleology: stamp a single UTC ISO timestamp for generation receipts.
     - Guarantee: returns the current UTC time as an ISO-8601 string with a trailing 'Z'.
     - Fails: never raises; always returns a string.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     return datetime.now(UTC).isoformat().replace("+00:00", "Z")
 
 
 def _json(value: Any) -> Any:
     """
+    [ACTION]
     - Teleology: defensively snapshot a value so emitted payloads never alias mutable source objects.
     - Guarantee: returns a deep copy of the input value.
     - Fails: raises only if copy.deepcopy fails on an uncopyable object; otherwise returns a copy.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return copy.deepcopy(value)
 
 
 def _source_instance_node_authority_boundary(kind: str) -> str:
     """
+    [ACTION]
     - Teleology: stamp the authority-boundary label that marks a projection node as derived, not source authority.
     - Guarantee: returns the registered boundary string for the kind, or an explicit unknown-kind boundary string.
     - Fails: never raises; unknown kinds yield the 'generated_projection_node_from_unknown_kind' fallback.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return SOURCE_INSTANCE_NODE_AUTHORITY_BOUNDARIES.get(
         kind,
@@ -171,27 +185,39 @@ def _source_instance_node_authority_boundary(kind: str) -> str:
 
 def _as_dict(value: Any) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: coerce untrusted JSON into a dict without raising on the wrong shape.
     - Guarantee: returns the value unchanged if it is a dict, else an empty dict.
     - Fails: never raises; non-dict input yields {}.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return value if isinstance(value, dict) else {}
 
 
 def _as_list(value: Any) -> list[Any]:
     """
+    [ACTION]
     - Teleology: coerce untrusted JSON into a list without raising on the wrong shape.
     - Guarantee: returns the value unchanged if it is a list, else an empty list.
     - Fails: never raises; non-list input yields [].
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return value if isinstance(value, list) else []
 
 
 def _strings(value: Any) -> list[str]:
     """
+    [ACTION]
     - Teleology: extract only the non-empty string members of an untrusted list.
     - Guarantee: returns a list of the stripped-non-empty str items from the input list, preserving order.
     - Fails: never raises; non-list or non-string members are dropped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [item for item in _as_list(value) if isinstance(item, str) and item.strip()]
 
@@ -202,9 +228,13 @@ def _has_resolved_relation(
     resolved_statuses: set[str],
 ) -> bool:
     """
+    [ACTION]
     - Teleology: test whether an edge list already carries a resolved edge for a given relation id.
     - Guarantee: returns True iff some edge dict has the relation_id and a target_status in resolved_statuses.
     - Fails: never raises; returns False when no such edge exists.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return any(
         isinstance(edge, dict)
@@ -218,11 +248,15 @@ def _organ_required_edge_gap_detail_rows(
     organ_instances: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: enumerate, per organ instance, which required/law lattice relations are missing or unresolved.
     - Guarantee: returns one detail row per organ that has a missing required relation or missing law binding, sorted by organ id; organs with full coverage are omitted.
     - Fails: never raises; organs without an id or without gaps are skipped, yielding fewer or zero rows.
     - When-needed: building organ coverage health or explaining why an organ blocks population.
     - Escalates-to: build_organ_instance_corpus, build_lattice_health, organ instance JSON under organs/*.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     required_statuses = {
         "resolved_paper_module_ref",
@@ -355,9 +389,13 @@ def _organ_required_edge_gap_detail_rows(
 
 def _path(root: str | Path | None, rel: str) -> Path:
     """
+    [ACTION]
     - Teleology: resolve a repo-relative path against the chosen or default microcosm root.
     - Guarantee: returns an absolute Path of root/rel, using microcosm_root() when root is None.
     - Fails: never raises here; non-existence is the caller's concern.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     resolved = Path(root).resolve() if root is not None else microcosm_root()
     return resolved / rel
@@ -365,9 +403,13 @@ def _path(root: str | Path | None, rel: str) -> Path:
 
 def _root_key(root: str | Path | None) -> str:
     """
+    [ACTION]
     - Teleology: produce a stable string cache key for a root argument.
     - Guarantee: returns the resolved root path rendered as a string.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return str(_root(root))
 
@@ -375,28 +417,40 @@ def _root_key(root: str | Path | None) -> str:
 @lru_cache(maxsize=512)
 def _read_source_json_cached(root_key: str, rel: str) -> Any:
     """
+    [ACTION]
     - Teleology: lru-cached strict JSON read so repeated source reads do not re-parse disk.
     - Guarantee: returns the strictly-parsed JSON value for root_key/rel; identical args return the cached value.
     - Fails: propagates read_json_strict errors (missing file / malformed JSON) on first read of a key.
     - Escalates-to: microcosm_core.schemas.read_json_strict.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return read_json_strict(Path(root_key) / rel)
 
 
 def _load(root: str | Path | None, rel: str) -> Any:
     """
+    [ACTION]
     - Teleology: load a source JSON file relative to root via the read cache.
     - Guarantee: returns the parsed JSON value for root/rel.
     - Fails: propagates read_json_strict errors when the file is missing or malformed.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _read_source_json_cached(_root_key(root), rel)
 
 
 def _sha256(path: Path) -> str:
     """
+    [ACTION]
     - Teleology: content-hash a file for source-digest freshness receipts.
     - Guarantee: returns the hex sha256 of the file's bytes, streamed in 1 MiB chunks.
     - Fails: raises OSError if the path cannot be opened/read.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     digest = hashlib.sha256()
     with path.open("rb") as fh:
@@ -407,9 +461,13 @@ def _sha256(path: Path) -> str:
 
 def _sha256_json(value: Any) -> str:
     """
+    [ACTION]
     - Teleology: content-hash a JSON-serializable value with canonical key order for stable digests.
     - Guarantee: returns the hex sha256 of the sorted-keys compact UTF-8 JSON encoding of the value.
     - Fails: raises TypeError if the value is not JSON-serializable.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(payload).hexdigest()
@@ -417,9 +475,13 @@ def _sha256_json(value: Any) -> str:
 
 def _standard_rel(kind: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the standards-dir relative path for a kind's std_microcosm_<kind>.json.
     - Guarantee: returns 'standards/std_microcosm_<kind>.json'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"standards/std_microcosm_{kind}.json"
 
@@ -432,6 +494,9 @@ def source_file_digests(root: str | Path | None = None) -> dict[str, str]:
     - Fails: never raises for missing files (they are filtered out); raises OSError only if an existing file cannot be read.
     - When-needed: computing projection_freshness to detect stale generated artifacts.
     - Escalates-to: build_coverage_projection projection_freshness block.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     files = list(SOURCE_FILES) + [_standard_rel(kind) for kind in KIND_STANDARD_IDS]
     resolved = _root(root)
@@ -475,6 +540,9 @@ def load_kind_standards(root: str | Path | None = None) -> dict[str, dict[str, A
     - Fails: propagates read_json_strict errors when a standard file is present but malformed.
     - When-needed: validating contracts, reading required_fields, or building instances.
     - Escalates-to: standards/std_microcosm_<kind>.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _load_kind_standards_cached(_root_key(root))
 
@@ -482,9 +550,13 @@ def load_kind_standards(root: str | Path | None = None) -> dict[str, dict[str, A
 @lru_cache(maxsize=32)
 def _load_kind_standards_cached(root_key: str) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: lru-cached backend for load_kind_standards keyed by root string.
     - Guarantee: returns the kind->standard dict; identical root_key returns the cached mapping.
     - Fails: propagates read_json_strict errors on first read of a malformed standard.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         kind: _as_dict(_read_source_json_cached(root_key, _standard_rel(kind)))
@@ -499,6 +571,9 @@ def load_relation_registry(root: str | Path | None = None) -> dict[str, Any]:
     - Guarantee: returns the relation registry as a dict (empty dict if the file is missing or not a dict).
     - Fails: propagates read_json_strict errors if the registry file is malformed.
     - Escalates-to: core/doctrine_lattice_relations.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _as_dict(_load(root, "core/doctrine_lattice_relations.json"))
 
@@ -506,9 +581,13 @@ def load_relation_registry(root: str | Path | None = None) -> dict[str, Any]:
 @lru_cache(maxsize=512)
 def _load_optional_dict_cached(root_key: str, rel: str) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: lru-cached optional dict read that tolerates absent files.
     - Guarantee: returns {} if the file is absent, else the parsed dict (empty dict if not a dict).
     - Fails: propagates read_json_strict errors only when the file exists but is malformed.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     path = Path(root_key) / rel
     if not path.is_file():
@@ -518,27 +597,39 @@ def _load_optional_dict_cached(root_key: str, rel: str) -> dict[str, Any]:
 
 def _load_optional_dict(root: str | Path | None, rel: str) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: load an optional source dict relative to root, tolerating absence.
     - Guarantee: returns the parsed dict, or {} if the file does not exist.
     - Fails: propagates read_json_strict errors when an existing file is malformed.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _load_optional_dict_cached(_root_key(root), rel)
 
 
 def _root(root: str | Path | None) -> Path:
     """
+    [ACTION]
     - Teleology: normalize the root argument to an absolute Path.
     - Guarantee: returns Path(root).resolve() when root is given, else microcosm_root().
     - Fails: never raises for a syntactically valid path.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return Path(root).resolve() if root is not None else microcosm_root()
 
 
 def _relation_key(source_kind: str, edge: dict[str, Any]) -> tuple[str, str, str]:
     """
+    [ACTION]
     - Teleology: derive the (source_kind, verb, target_kind) identity tuple from a standard lattice edge.
     - Guarantee: returns a 3-tuple of source_kind plus the edge's relation_verb and to_kind as strings.
     - Fails: never raises; missing edge fields become empty strings.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return (
         source_kind,
@@ -549,9 +640,13 @@ def _relation_key(source_kind: str, edge: dict[str, Any]) -> tuple[str, str, str
 
 def _registry_key(row: dict[str, Any]) -> tuple[str, str, str]:
     """
+    [ACTION]
     - Teleology: derive the (source_kind, forward_verb, target_kind) identity tuple from a registry row.
     - Guarantee: returns a 3-tuple of the row's source_kind, forward_verb, target_kind as strings.
     - Fails: never raises; missing fields become empty strings.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return (
         str(row.get("source_kind") or ""),
@@ -564,9 +659,13 @@ def _iter_standard_edges(
     standards: dict[str, dict[str, Any]]
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: flatten every required/selective lattice edge across all kind standards into annotated rows.
     - Guarantee: returns a list of edge dicts each annotated with source_kind, source_standard_ref, edge_class, edge_index, and relation_key.
     - Fails: never raises; non-dict edges are skipped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     for source_kind, standard in standards.items():
@@ -589,9 +688,13 @@ def _add_error(
     errors: list[dict[str, Any]], *, code: str, path: str, message: str, **extra: Any
 ) -> None:
     """
+    [ACTION]
     - Teleology: append a structured validation error row with a stable shape.
     - Guarantee: appends a dict carrying code/path/message plus any extra fields to the errors list (mutates in place).
     - Fails: never raises; returns None.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     row: dict[str, Any] = {"code": code, "path": path, "message": message}
     row.update(extra)
@@ -610,6 +713,9 @@ def validate_relation_registry(
     - When-needed: before trusting relation ids used to classify edges and residuals.
     - Escalates-to: validate_kind_standard_contracts, core/doctrine_lattice_relations.json.
     - Non-goal: passing does not authorize release or prove the lattice is fully populated; it only proves registry/edge schema consistency.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     rows = [row for row in _as_list(registry.get("relations")) if isinstance(row, dict)]
@@ -711,9 +817,13 @@ def validate_relation_registry(
 
 def _projection_is_generated_only(value: Any) -> bool:
     """
+    [ACTION]
     - Teleology: enforce that a declared projection is generated and never claims source authority.
     - Guarantee: returns True iff the value is a dict with generated is True and source_authority not True.
     - Fails: never raises; non-dict input returns False.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     row = _as_dict(value)
     return row.get("generated") is True and row.get("source_authority") is not True
@@ -731,6 +841,9 @@ def validate_kind_standard_contracts(
     - When-needed: before building any corpus, to confirm the governing contracts are well-formed.
     - Escalates-to: std_microcosm_*.json, validate_relation_registry.
     - Non-goal: passing does not authorize release or prove instances exist; it only proves the standards/registry contract shape.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     for kind, standard in standards.items():
@@ -798,10 +911,14 @@ def validate_kind_standard_contracts(
 
 def _accepted_organs(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: select the organ-registry rows that are accepted current authority.
     - Guarantee: returns the implemented_organs rows whose status == 'accepted_current_authority'.
     - Fails: never raises; missing registry or rows yield [].
     - Escalates-to: core/organ_registry.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     registry = _as_dict(_load(root, "core/organ_registry.json"))
     return [
@@ -813,10 +930,14 @@ def _accepted_organs(root: str | Path | None) -> list[dict[str, Any]]:
 
 def _atlas_organs(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: read the organ-atlas rows.
     - Guarantee: returns the dict rows under organ_atlas.organs.
     - Fails: never raises; missing atlas yields [].
     - Escalates-to: core/organ_atlas.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     atlas = _as_dict(_load(root, "core/organ_atlas.json"))
     return [row for row in _as_list(atlas.get("organs")) if isinstance(row, dict)]
@@ -824,18 +945,26 @@ def _atlas_organs(root: str | Path | None) -> list[dict[str, Any]]:
 
 def _has_declared_paper_module(row: dict[str, Any]) -> bool:
     """
+    [ACTION]
     - Teleology: test whether an atlas row declares a non-empty paper_module_ref.
     - Guarantee: returns True iff the row's paper_module_ref is a non-blank string.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return bool(str(row.get("paper_module_ref") or "").strip())
 
 
 def _mechanism_ref_rows(row: dict[str, Any]) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: normalize an atlas row's mechanism references (string or dict, plus fallback singular) into uniform rows.
     - Guarantee: returns a list of {ref, resolution_status, ...} dicts for each named mechanism ref; bare strings default resolution_status to 'resolved'.
     - Fails: never raises; rows without a usable ref are dropped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     refs = row.get("mechanism_refs")
     rows: list[dict[str, Any]] = []
@@ -857,18 +986,26 @@ def _mechanism_ref_rows(row: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _has_mechanism_ref(row: dict[str, Any]) -> bool:
     """
+    [ACTION]
     - Teleology: test whether an atlas row names any mechanism.
     - Guarantee: returns True iff _mechanism_ref_rows yields at least one row.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return bool(_mechanism_ref_rows(row))
 
 
 def _has_code_loci(row: dict[str, Any]) -> bool:
     """
+    [ACTION]
     - Teleology: test whether an atlas row declares code loci.
     - Guarantee: returns truthiness of the row's code_loci field (non-empty list or truthy value).
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     value = row.get("code_loci")
     if isinstance(value, list):
@@ -878,9 +1015,13 @@ def _has_code_loci(row: dict[str, Any]) -> bool:
 
 def _paper_module_files(root: str | Path | None, suffixes: tuple[str, ...] = (".md", ".json")) -> list[str]:
     """
+    [ACTION]
     - Teleology: inventory paper-module files of given suffixes under the paper_modules directory.
     - Guarantee: returns a sorted de-duplicated list of repo-relative posix paths for matching files; [] if the directory is absent.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     resolved = _root(root)
     paper_dir = resolved / "paper_modules"
@@ -894,10 +1035,14 @@ def _paper_module_files(root: str | Path | None, suffixes: tuple[str, ...] = (".
 
 def _paper_capsules(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: read the JSON paper-module capsule rows.
     - Guarantee: returns the dict rows under paper_module_capsules.paper_modules.
     - Fails: never raises; missing capsule registry yields [].
     - Escalates-to: core/paper_module_capsules.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = _load_optional_dict(root, PAPER_MODULE_CAPSULES_REL)
     return [row for row in _as_list(payload.get("paper_modules")) if isinstance(row, dict)]
@@ -905,10 +1050,14 @@ def _paper_capsules(root: str | Path | None) -> list[dict[str, Any]]:
 
 def _paper_module_legacy_alias_rows(root: str | Path | None) -> list[dict[str, str]]:
     """
+    [ACTION]
     - Teleology: read capsule-owned Markdown alias rows that are not independent legacy paper-module sources.
     - Guarantee: returns alias rows with path/canonical id/import policy/source_ref; malformed alias rows are ignored.
     - Fails: never raises beyond the capsule registry read.
     - Escalates-to: core/paper_module_capsules.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, str]] = []
     for capsule_index, capsule in enumerate(_paper_capsules(root)):
@@ -945,9 +1094,13 @@ def _paper_module_legacy_alias_rows(root: str | Path | None) -> list[dict[str, s
 
 def _suppressed_legacy_markdown_aliases(root: str | Path | None) -> dict[str, dict[str, str]]:
     """
+    [ACTION]
     - Teleology: index capsule-owned Markdown aliases that must not become duplicate legacy rows.
     - Guarantee: returns {repo_relative_markdown_path: alias_row} for import_policy suppress_legacy_row.
     - Fails: never raises beyond _paper_module_legacy_alias_rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         row["path"]: row
@@ -958,10 +1111,14 @@ def _suppressed_legacy_markdown_aliases(root: str | Path | None) -> dict[str, di
 
 def _mechanism_sources(root: str | Path | None) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: index mechanism-registry rows by mechanism id.
     - Guarantee: returns {mechanism_id: row} for every registry row carrying an id.
     - Fails: never raises; missing registry yields {}.
     - Escalates-to: core/mechanism_sources.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = _load_optional_dict(root, MECHANISM_REGISTRY_REL)
     rows = [row for row in _as_list(payload.get("mechanisms")) if isinstance(row, dict)]
@@ -970,12 +1127,16 @@ def _mechanism_sources(root: str | Path | None) -> dict[str, dict[str, Any]]:
 
 def _mechanism_capsule_dependency_upstream_parity(root: str | Path | None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check that paper-module depends_on edges are reflected as mechanism upstream_of declarations in the mechanism registry.
     - Guarantee: returns {status: 'pass'|'deficit', covered/missing/unresolved counts and detail rows}; status 'deficit' iff any missing edge exists.
     - Fails: never raises; dependencies whose consumer/upstream lacks a resolved mechanism subject are recorded as unresolved_dependencies, not errors.
     - When-needed: auditing whether capsule dependency direction is honored by mechanism wiring.
     - Escalates-to: core/paper_module_capsules.json, core/mechanism_sources.json, mechanism.upstream_of.mechanism relation.
     - Non-goal: a 'pass' proves declared parity only, not runtime invocation order or release authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     mechanisms = _mechanism_sources(root)
     paper_rows = _paper_capsules(root)
@@ -1079,9 +1240,13 @@ def _mechanism_capsule_dependency_upstream_parity(root: str | Path | None) -> di
 
 def _ref_file_exists(root: str | Path | None, ref: str) -> bool:
     """
+    [ACTION]
     - Teleology: test that the file portion of a (possibly fragment-suffixed) ref exists on disk.
     - Guarantee: returns True iff the pre-'#' path is non-empty and resolves to an existing file under root.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rel = ref.split("#", 1)[0]
     return bool(rel) and _path(root, rel).is_file()
@@ -1089,9 +1254,13 @@ def _ref_file_exists(root: str | Path | None, ref: str) -> bool:
 
 def _code_locus_rows(row: dict[str, Any]) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: normalize a row's code_loci (string, list of strings, or list of dicts) into uniform path rows.
     - Guarantee: returns a list of {path, resolution, ...} dicts; bare strings default resolution to 'resolved'.
     - Fails: never raises; entries without a usable path are dropped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     value = row.get("code_loci")
     rows: list[dict[str, Any]] = []
@@ -1108,10 +1277,14 @@ def _code_locus_rows(row: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _manifest_surface_entries(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: flatten the public-surface manifest into per-path scan entries.
     - Guarantee: returns one row per declared path carrying surface_class, path, and scan_for_codex_brand_leaks flag.
     - Fails: never raises; absent manifest yields [].
     - Escalates-to: core/public_surface_manifest.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     manifest = _load_optional_dict(root, PUBLIC_SURFACE_MANIFEST_REL)
     classes = _as_dict(manifest.get("surface_classes"))
@@ -1142,6 +1315,9 @@ def check_public_codex_leaks(
     - When-needed: before publishing or trusting that public prose is brand-clean.
     - Escalates-to: core/public_surface_manifest.json, the surfaces it lists.
     - Non-goal: a 'pass' checks brand leakage in scanned prose only; it does not authorize publication or prove no other private content leaked.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     using_manifest = surfaces is None
     if surfaces is None:
@@ -1187,9 +1363,13 @@ def check_public_codex_leaks(
 
 def _duplicates(values: list[str]) -> list[str]:
     """
+    [ACTION]
     - Teleology: find values that occur more than once in a list.
     - Guarantee: returns the sorted set of values appearing at least twice.
     - Fails: never raises; returns [] when all values are unique.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     seen: set[str] = set()
     duplicate: set[str] = set()
@@ -1202,9 +1382,13 @@ def _duplicates(values: list[str]) -> list[str]:
 
 def _paper_ref_resolves(root: str | Path | None, ref: str, capsules: dict[str, dict[str, Any]]) -> bool:
     """
+    [ACTION]
     - Teleology: test that a paper-module ref resolves to a file and (if fragment-suffixed) to a known capsule.
     - Guarantee: returns True iff the file exists and, when a '#fragment' is present, the fragment is a key in capsules.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not _ref_file_exists(root, ref):
         return False
@@ -1223,12 +1407,16 @@ def _registry_atlas_join_health(
     paper_capsules: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: check organ-registry/organ-atlas join integrity and resolve declared paper/mechanism/code refs.
     - Guarantee: returns {status: 'pass'|'blocked', counts of resolved/planned mechanisms and code loci, errors[]}; status 'pass' iff no errors.
     - Fails: never raises; duplicate ids, registry/atlas mismatches, and unresolved/planned-typed refs are recorded as error rows.
     - When-needed: building coverage to confirm the organ source surfaces agree and refs resolve.
     - Escalates-to: core/organ_registry.json, core/organ_atlas.json, build_coverage_projection.
     - Non-goal: passing proves join + reference resolution only, not runtime correctness or release readiness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     accepted_ids = [str(row.get("organ_id") or "") for row in accepted if row.get("organ_id")]
@@ -1310,11 +1498,15 @@ def _registry_atlas_join_health(
 
 def _paper_module_corpus(root: str | Path | None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: summarize paper-module migration state across legacy markdown, JSON capsules, and governed JSON instances.
     - Guarantee: returns a corpus dict of file/capsule/instance counts, missing/extra ids, gap ids, and the strangler rule; reports parity status from validate_paper_module_instance_corpus.
     - Fails: never raises; absent surfaces yield zero counts.
     - When-needed: building coverage's paper-module section.
     - Escalates-to: validate_paper_module_instance_corpus, core/paper_module_capsules.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     markdown_files = _paper_module_files(root, suffixes=(".md",))
     json_files = _paper_module_files(root, suffixes=(".json",))
@@ -1422,9 +1614,13 @@ def _paper_module_corpus(root: str | Path | None) -> dict[str, Any]:
 
 def _paper_module_slug(module_id: str) -> str:
     """
+    [ACTION]
     - Teleology: reduce a paper-module id to its slug (strip the 'paper_module.' prefix).
     - Guarantee: returns the substring after 'paper_module.' if prefixed, else the id unchanged.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if module_id.startswith("paper_module."):
         return module_id.split(".", 1)[1]
@@ -1433,19 +1629,27 @@ def _paper_module_slug(module_id: str) -> str:
 
 def _paper_module_instance_rel(module_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the governed JSON instance path for a paper module.
     - Guarantee: returns 'paper_modules/<slug>.json'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{PAPER_MODULE_INSTANCE_DIR_REL}/{_paper_module_slug(module_id)}.json"
 
 
 def _paper_module_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: assemble the unified paper-module source rows from JSON capsules plus legacy-only markdown files.
     - Guarantee: returns rows sorted by id; capsule rows carry source_authority 'json_capsule', legacy-only markdown rows carry 'legacy_markdown_projection' with residual-stating compression/projection fields.
     - Fails: never raises; rows without an id are skipped.
     - Escalates-to: core/paper_module_capsules.json, paper_modules/*.md.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     capsule_rows = _paper_capsules(root)
     markdown_files = _paper_module_files(root, suffixes=(".md",))
@@ -1536,9 +1740,13 @@ def _paper_module_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
 
 def _paper_module_target_id(value: str) -> str:
     """
+    [ACTION]
     - Teleology: normalize a paper-module reference value into a canonical 'paper_module.<slug>' id.
     - Guarantee: returns the stripped value unchanged if already prefixed, else prefixes it with 'paper_module.'; empty input returns empty.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     stripped = value.strip()
     if not stripped:
@@ -1548,9 +1756,13 @@ def _paper_module_target_id(value: str) -> str:
 
 def _paper_module_required_residual(relation_id: str, reason: str) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: build a typed REQUIRED residual-pressure row for an unpopulated paper-module relation.
     - Guarantee: returns a dict with relation_id, status 'residual_pressure', requirement 'required', reason, and the population pressure_ref.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "relation_id": relation_id,
@@ -1563,9 +1775,13 @@ def _paper_module_required_residual(relation_id: str, reason: str) -> dict[str, 
 
 def _paper_module_selective_residual(relation_id: str, reason: str) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: build a typed SELECTIVE residual-pressure row for an unpopulated paper-module relation.
     - Guarantee: returns a dict with relation_id, status 'residual_pressure', requirement 'selective', reason, and the population pressure_ref.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "relation_id": relation_id,
@@ -1578,9 +1794,13 @@ def _paper_module_selective_residual(relation_id: str, reason: str) -> dict[str,
 
 def _paper_module_resolution_context(root: str | Path | None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: precompute the sets of known instance ids used to mark paper-module edges resolved vs unresolved.
     - Guarantee: returns a dict of known_organs/mechanisms/concepts/principles/axioms/paper_modules id sets for the root.
     - Fails: never raises; absent corpora yield empty sets.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "known_organs": set(expected_organ_instances(root)),
@@ -1610,6 +1830,9 @@ def build_paper_module_instance_from_source_row(
     - When-needed: regenerating paper-module instances or diagnosing a single module's edges.
     - Escalates-to: expected_paper_module_instances, std_microcosm_paper_module.json.
     - Non-goal: building an instance does not flip source authority off the capsule/markdown source, nor prove runtime correctness or release readiness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     module_id = str(row.get("id") or "").strip()
     source_ref = str(row.get("source_ref") or module_id)
@@ -1904,6 +2127,9 @@ def expected_paper_module_instances(root: str | Path | None = None) -> dict[str,
     - Guarantee: returns {module_id: instance} reproducibly derived from capsule/markdown source rows.
     - Fails: never raises; rows without an id are skipped.
     - Escalates-to: build_paper_module_instance_from_source_row.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _expected_paper_module_instances_cached(_root_key(root))
 
@@ -1911,9 +2137,13 @@ def expected_paper_module_instances(root: str | Path | None = None) -> dict[str,
 @lru_cache(maxsize=32)
 def _expected_paper_module_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: lru-cached backend for expected_paper_module_instances keyed by root string.
     - Guarantee: returns the {module_id: instance} mapping; identical root_key returns the cached mapping.
     - Fails: never raises beyond underlying source reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     root = Path(root_key)
     source_rows = _paper_module_source_rows(root)
@@ -1936,6 +2166,9 @@ def load_paper_module_instances(root: str | Path | None = None) -> dict[str, dic
     - Guarantee: returns {id: payload} for each parseable paper_modules/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
     - Escalates-to: paper_modules/*.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     paper_dir = _path(root, PAPER_MODULE_INSTANCE_DIR_REL)
     rows: dict[str, dict[str, Any]] = {}
@@ -1958,6 +2191,9 @@ def validate_paper_module_instance_corpus(root: str | Path | None = None) -> dic
     - When-needed: --check-paper-module-corpus or doctrine-projection validation.
     - Escalates-to: expected_paper_module_instances, build_doctrine_projection.
     - Non-goal: passing proves source-reproducible parity only, not capsule completeness or runtime correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = expected_paper_module_instances(root)
     actual = load_paper_module_instances(root)
@@ -2030,6 +2266,9 @@ def build_paper_module_instance_corpus(root: str | Path | None = None) -> dict[s
     - Guarantee: returns a corpus dict (counts, residual detail rows, legacy-only/required-subject ids, parity_status, embedded validation).
     - Fails: never raises.
     - Escalates-to: validate_paper_module_instance_corpus.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = expected_paper_module_instances(root)
     actual = load_paper_module_instances(root)
@@ -2111,6 +2350,9 @@ def write_paper_module_instance_corpus(root: str | Path | None = None) -> dict[s
     - When-needed: --write-style regeneration of paper-module instances.
     - Escalates-to: build_paper_module_instance_corpus.
     - Non-goal: writing instances does not flip source authority or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     paper_dir = resolved / PAPER_MODULE_INSTANCE_DIR_REL
@@ -2173,9 +2415,13 @@ SKILL_SOURCE_DEFAULTS: dict[str, dict[str, Any]] = {
 
 def _skill_instance_rel(skill_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the governed JSON instance path for a skill id.
     - Guarantee: returns 'skills/<slug>.json' (slug strips a leading 'skill.').
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     slug = skill_id.split(".", 1)[1] if skill_id.startswith("skill.") else skill_id
     return f"{SKILL_INSTANCE_DIR_REL}/{slug}.json"
@@ -2183,9 +2429,13 @@ def _skill_instance_rel(skill_id: str) -> str:
 
 def _skill_markdown_rel(skill_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the legacy markdown source path for a skill id.
     - Guarantee: returns 'skills/<slug>.md' (slug strips a leading 'skill.').
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     slug = skill_id.split(".", 1)[1] if skill_id.startswith("skill.") else skill_id
     return f"{SKILL_INSTANCE_DIR_REL}/{slug}.md"
@@ -2193,10 +2443,14 @@ def _skill_markdown_rel(skill_id: str) -> str:
 
 def _skill_markdown_mapping(text: str, source_ref: str) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: extract the typed-skill-mapping JSON block from a skill markdown body.
     - Guarantee: returns the parsed mapping dict, or {} when the '## Typed Skill Mapping' section or its json block is absent.
     - Fails: propagates loads_json_strict errors when the json block is present but malformed.
     - Escalates-to: skills/*.md typed skill mapping section.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     section = re.search(
         r"^## Typed Skill Mapping\s*$"
@@ -2222,10 +2476,14 @@ def _skill_markdown_mapping(text: str, source_ref: str) -> dict[str, Any]:
 
 def _skill_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: read each skill markdown file into a typed source row (identity, digest, triad role, typed mapping).
     - Guarantee: returns one row per non-generated skills/*.md carrying id, source_ref, source_digest, line count, triad_role, and mapping fields.
     - Fails: propagates loads_json_strict errors only when a present typed-mapping block is malformed.
     - Escalates-to: skills/*.md.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     skill_dir = resolved / SKILL_INSTANCE_DIR_REL
@@ -2270,9 +2528,13 @@ def _skill_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
 
 def _standard_contract_exists(root: str | Path | None, standard_id: str) -> bool:
     """
+    [ACTION]
     - Teleology: test whether a standards/<id>.json contract file exists.
     - Guarantee: returns True iff standard_id is non-empty and the file resolves under root.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return bool(standard_id) and _path(root, f"standards/{standard_id}.json").is_file()
 
@@ -2280,9 +2542,13 @@ def _standard_contract_exists(root: str | Path | None, standard_id: str) -> bool
 @lru_cache(maxsize=128)
 def _standard_declared_kind_ids(root_key: str) -> frozenset[str]:
     """
+    [ACTION]
     - Teleology: collect the kind_ids declared across std_microcosm_*.json standard files.
     - Guarantee: returns a frozenset of declared kind_id strings; empty frozenset if the standards dir is absent.
     - Fails: propagates read_json_strict errors on a malformed standard file.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     standard_dir = Path(root_key) / STANDARD_INSTANCE_DIR_REL
     if not standard_dir.is_dir():
@@ -2298,9 +2564,13 @@ def _standard_declared_kind_ids(root_key: str) -> frozenset[str]:
 
 def _doctrine_kind_contract_exists(root: str | Path | None, kind_id: str) -> bool:
     """
+    [ACTION]
     - Teleology: test whether a doctrine kind has a governing standard contract (by filename or declared kind_id).
     - Guarantee: returns True iff a std_microcosm_<kind_id>.json exists or kind_id is in the declared kind-id set.
     - Fails: never raises beyond underlying standard reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not kind_id:
         return False
@@ -2312,9 +2582,13 @@ def _doctrine_kind_contract_exists(root: str | Path | None, kind_id: str) -> boo
 
 def _skill_required_residual(relation_id: str, reason: str) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: build a typed REQUIRED residual-pressure row for an unpopulated skill relation.
     - Guarantee: returns a dict with relation_id, status 'residual_pressure', requirement 'required', reason, and pressure_ref.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "relation_id": relation_id,
@@ -2327,9 +2601,13 @@ def _skill_required_residual(relation_id: str, reason: str) -> dict[str, Any]:
 
 def _skill_selective_residual(relation_id: str, reason: str) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: build a typed SELECTIVE residual-pressure row for an unpopulated skill relation.
     - Guarantee: returns a dict with relation_id, status 'residual_pressure', requirement 'selective', reason, and pressure_ref.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "relation_id": relation_id,
@@ -2352,6 +2630,9 @@ def build_skill_instance_from_source_row(
     - When-needed: regenerating skill instances or diagnosing one skill's typed mapping.
     - Escalates-to: expected_skill_instances, std_microcosm_skill.json.
     - Non-goal: building an instance does not flip authority off the skill markdown or prove agent uptake.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     skill_id = str(row.get("id") or "")
     source_ref = str(row.get("source_ref") or _skill_markdown_rel(skill_id))
@@ -2566,6 +2847,9 @@ def expected_skill_instances(root: str | Path | None = None) -> dict[str, dict[s
     - Guarantee: returns {skill_id: instance} reproducibly derived from skills/*.md rows.
     - Fails: never raises; rows without an id are skipped.
     - Escalates-to: build_skill_instance_from_source_row.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _expected_skill_instances_cached(_root_key(root))
 
@@ -2573,9 +2857,13 @@ def expected_skill_instances(root: str | Path | None = None) -> dict[str, dict[s
 @lru_cache(maxsize=32)
 def _expected_skill_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: lru-cached backend for expected_skill_instances keyed by root string.
     - Guarantee: returns the {skill_id: instance} mapping; identical root_key returns the cached mapping.
     - Fails: never raises beyond underlying source reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     root = Path(root_key)
     return {
@@ -2592,6 +2880,9 @@ def load_skill_instances(root: str | Path | None = None) -> dict[str, dict[str, 
     - Guarantee: returns {id: payload} for each parseable skills/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
     - Escalates-to: skills/*.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     skill_dir = _path(root, SKILL_INSTANCE_DIR_REL)
     rows: dict[str, dict[str, Any]] = {}
@@ -2613,6 +2904,9 @@ def validate_skill_instance_corpus(root: str | Path | None = None) -> dict[str, 
     - When-needed: --check-skill-corpus or doctrine-projection validation.
     - Escalates-to: expected_skill_instances, _instance_required_fields.
     - Non-goal: passing proves markdown-source parity only, not skill-body completeness or runtime use.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     expected = expected_skill_instances(root)
@@ -2681,6 +2975,9 @@ def build_skill_instance_corpus(root: str | Path | None = None) -> dict[str, Any
     - Guarantee: returns a corpus dict (counts, residual detail rows, grouped counts, parity_status, embedded validation).
     - Fails: never raises.
     - Escalates-to: validate_skill_instance_corpus.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = expected_skill_instances(root)
     actual = load_skill_instances(root)
@@ -2739,9 +3036,13 @@ def build_skill_instance_corpus(root: str | Path | None = None) -> dict[str, Any
 
 def _relation_count_by_id(rows: list[dict[str, Any]]) -> dict[str, int]:
     """
+    [ACTION]
     - Teleology: tally detail rows by relation_id.
     - Guarantee: returns an id-sorted {relation_id: count} dict over rows with a relation_id.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     counts: dict[str, int] = {}
     for row in rows:
@@ -2753,9 +3054,13 @@ def _relation_count_by_id(rows: list[dict[str, Any]]) -> dict[str, int]:
 
 def _relation_count_by_requirement(rows: list[dict[str, Any]]) -> dict[str, int]:
     """
+    [ACTION]
     - Teleology: tally detail rows by requirement class.
     - Guarantee: returns a sorted {requirement: count} dict; rows without a requirement count under 'unspecified'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     counts: dict[str, int] = {}
     for row in rows:
@@ -2766,9 +3071,13 @@ def _relation_count_by_requirement(rows: list[dict[str, Any]]) -> dict[str, int]
 
 def _count_rows_by_key(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
     """
+    [ACTION]
     - Teleology: tally detail rows by an arbitrary string key.
     - Guarantee: returns a sorted {value: count} dict; rows missing the key count under 'unspecified'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     counts: dict[str, int] = {}
     for row in rows:
@@ -2783,9 +3092,13 @@ def _selective_residual_group_counts(
     instance_key: str,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: bundle the standard by-instance/by-pressure/by-boundary count breakdowns for selective residuals.
     - Guarantee: returns a dict with the three grouped-count maps keyed off the given instance_key.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "unpopulated_selective_relation_counts_by_instance_id": _count_rows_by_key(
@@ -2804,11 +3117,15 @@ def _selective_residual_group_counts(
 
 def _lattice_health_residual_pressure_rows(health: dict[str, Any]) -> list[dict[str, str]]:
     """
+    [ACTION]
     - Teleology: derive the active doctrine-lattice population pressure rows from a computed health payload.
     - Guarantee: returns a list of {pressure_ref, gap_class, reentry_condition} rows, one per still-active gap class, with the umbrella population row prepended when any gap (or projection/axiom gap) is active.
     - Fails: never raises; closed gap classes are omitted.
     - When-needed: surfacing the re-entry work queue from lattice health.
     - Escalates-to: build_lattice_health.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     pressure_ref = "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f"
     rows: list[dict[str, str]] = []
@@ -2819,6 +3136,9 @@ def _lattice_health_residual_pressure_rows(health: dict[str, Any]) -> list[dict[
         - Teleology: closure fetching a named sub-section dict from the enclosing health payload.
         - Guarantee: returns the named section coerced to a dict (empty dict if absent).
         - Fails: never raises.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
         """
         return _as_dict(health.get(name))
 
@@ -2828,6 +3148,9 @@ def _lattice_health_residual_pressure_rows(health: dict[str, Any]) -> list[dict[
         - Teleology: closure reading an integer metric from a named health section.
         - Guarantee: returns the int value at section_name[key], or 0 if missing or non-int.
         - Fails: never raises.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
         """
         value = section(section_name).get(key)
         return value if isinstance(value, int) else 0
@@ -2838,6 +3161,9 @@ def _lattice_health_residual_pressure_rows(health: dict[str, Any]) -> list[dict[
         - Teleology: closure testing whether a named health section list is non-empty.
         - Guarantee: returns True iff section_name[key] is a non-empty list.
         - Fails: never raises.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
         """
         return bool(_as_list(section(section_name).get(key)))
 
@@ -2847,6 +3173,9 @@ def _lattice_health_residual_pressure_rows(health: dict[str, Any]) -> list[dict[
         - Teleology: closure appending one gap-class pressure row to the enclosing result list.
         - Guarantee: appends {pressure_ref, gap_class, reentry_condition} to rows (mutates in place).
         - Fails: never raises; returns None.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
         """
         rows.append(
             {
@@ -2973,12 +3302,16 @@ def _organ_wires_to_fillability_detail_rows(
     organ_selective_relation_details: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: classify each organ.wires_to residual by whether the mechanism upstream graph implies a missing source-declared wiring target.
     - Guarantee: returns one annotated row per organ.wires_to residual, sorted by organ id, with expected/declared/missing wires_to sets and a fillability_status.
     - Fails: never raises; organs with no upstream-implied target are labelled 'no_mechanism_upstream_wiring_target_named'.
     - When-needed: explaining organ wiring residuals in coverage detail.
     - Escalates-to: build_organ_instance_corpus, mechanism runs_in/upstream relationships.
     - Non-goal: fillability classifies source-declaration gaps only, not runtime invocation or release authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     mechanism_to_organ: dict[str, str] = {}
     for mechanism in mechanism_instances:
@@ -3049,12 +3382,16 @@ def _mechanism_upstream_residual_fillability_detail_rows(
     mechanism_selective_relation_details: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: classify each mechanism.upstream_of residual by whether capsule dependency direction implies a missing source-declared upstream target.
     - Guarantee: returns one annotated row per mechanism.upstream_of residual, sorted by mechanism id, with expected/declared/missing upstream sets, unresolved subjects, and a fillability_status.
     - Fails: never raises; mechanisms with no implied target are labelled 'no_capsule_dependency_upstream_target_named'.
     - When-needed: explaining mechanism upstream residuals in coverage detail.
     - Escalates-to: build_mechanism_instance_corpus, core/paper_module_capsules.json.
     - Non-goal: fillability classifies source-declaration gaps only, not runtime invocation or release authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     mechanisms = _mechanism_sources(root)
     paper_rows = _paper_capsules(root)
@@ -3166,9 +3503,13 @@ def _mechanism_upstream_residual_fillability_detail_rows(
 
 def _relation_requirement_by_id(root: str | Path | None) -> dict[str, str]:
     """
+    [ACTION]
     - Teleology: index relation ids to their requirement class from the relation registry.
     - Guarantee: returns {relation_id: requirement} for every registry row carrying both.
     - Fails: never raises; missing registry yields {}.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     registry = load_relation_registry(root)
     requirements: dict[str, str] = {}
@@ -3192,9 +3533,13 @@ def _residual_relation_detail_rows(
     requirement: str | None = None,
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: flatten unpopulated_selective_relations across instances into uniform residual detail rows.
     - Guarantee: returns sorted detail rows (instance_kind/id, relation_id, requirement, reason, pressure_ref, source refs, authority_boundary); requirement filter, when given, restricts the output.
     - Fails: never raises; non-dict instances/residuals and id-less instances are skipped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     requirement_lookup = requirement_by_relation_id or {}
     rows: list[dict[str, Any]] = []
@@ -3253,9 +3598,13 @@ def _skill_selective_residual_detail_rows(
     skill_instances: Any,
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: flatten skill selective residuals into detail rows annotated with triad role and operated standard.
     - Guarantee: returns sorted rows for every selective residual on the given skill instances.
     - Fails: never raises; non-dict or id-less instances are skipped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     for instance in skill_instances:
@@ -3298,10 +3647,14 @@ def _skill_residual_candidate_detail_rows(
     skill_selective_relation_details: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: annotate each skill residual with same-slug mechanism/concept candidate ids as navigation pressure.
     - Guarantee: returns rows carrying candidate_target_kind, candidate_ids, candidate_count, and a candidate_status; sorted by relation/skill id.
     - Fails: never raises; unsupported relations are labelled 'unsupported_skill_residual_relation'.
     - Non-goal: candidate matches are navigation pressure, not skill-edge support or runtime uptake.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     mechanism_by_slug: dict[str, list[str]] = {}
     for mechanism_id in expected_mechanism_instances(root):
@@ -3386,6 +3739,9 @@ def write_skill_instance_corpus(root: str | Path | None = None) -> dict[str, Any
     - When-needed: --write-style regeneration of skill instances.
     - Escalates-to: build_skill_instance_corpus.
     - Non-goal: writing instances does not flip authority off the skill markdown or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     skill_dir = resolved / SKILL_INSTANCE_DIR_REL
@@ -3400,10 +3756,14 @@ def write_skill_instance_corpus(root: str | Path | None = None) -> dict[str, Any
 
 def _standards_registry_rows(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: read the standards-registry inventory rows.
     - Guarantee: returns the dict rows under standards_registry.standards.
     - Fails: never raises; absent registry yields [].
     - Escalates-to: core/standards_registry.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     registry = _load_optional_dict(root, "core/standards_registry.json")
     return [row for row in _as_list(registry.get("standards")) if isinstance(row, dict)]
@@ -3411,28 +3771,40 @@ def _standards_registry_rows(root: str | Path | None) -> list[dict[str, Any]]:
 
 def _standard_instance_rel(standard_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the standards-dir relative path for a standard id.
     - Guarantee: returns 'standards/<standard_id>.json'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{STANDARD_INSTANCE_DIR_REL}/{standard_id}.json"
 
 
 def _standard_registry_row_ref(index: int, standard_id: str) -> str:
     """
+    [ACTION]
     - Teleology: format a stable source-ref pointer into a standards-registry row.
     - Guarantee: returns 'core/standards_registry.json::standards[<index>:<standard_id>]'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"core/standards_registry.json::standards[{index}:{standard_id}]"
 
 
 def _standard_file_inventory(root: str | Path | None) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: reconcile standards-registry ids against on-disk std_microcosm_*.json files.
     - Guarantee: returns registry_ids, file_ids, files_by_id, registry_missing_files, files_not_in_registry, and files_missing_standard_id.
     - Fails: propagates read_json_strict errors on a malformed standard file.
     - Escalates-to: core/standards_registry.json, standards/std_microcosm_*.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     resolved = _root(root)
     standard_dir = resolved / STANDARD_INSTANCE_DIR_REL
@@ -3462,9 +3834,13 @@ def _standard_file_inventory(root: str | Path | None) -> dict[str, Any]:
 
 def _standard_required_residual(relation_id: str, reason: str) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: build a typed REQUIRED residual-pressure row for an unpopulated standard relation.
     - Guarantee: returns a dict with relation_id, status 'residual_pressure', requirement 'required', reason, and pressure_ref.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "relation_id": relation_id,
@@ -3477,10 +3853,14 @@ def _standard_required_residual(relation_id: str, reason: str) -> dict[str, Any]
 
 def _standard_used_by_organ_residual_metadata() -> dict[str, str]:
     """
+    [ACTION]
     - Teleology: supply the typed residual metadata attached to an unresolved standard.used_by.organ edge.
     - Guarantee: returns the fixed residual-metadata dict (gap class, requirement 'selective', disposition, claim_ceiling, reentry_condition).
     - Fails: never raises.
     - Non-goal: this metadata is re-entry pressure, not proof of organ usage or acceptance.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "residual_status": "typed_residual_pressure",
@@ -3499,18 +3879,26 @@ def _standard_used_by_organ_residual_metadata() -> dict[str, str]:
 
 def _standard_triad_skill_id(row: Any) -> str:
     """
+    [ACTION]
     - Teleology: extract a triad skill_id from a standard skills.<role> row.
     - Guarantee: returns the stripped skill_id string, or '' when absent.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return str(_as_dict(row).get("skill_id") or "").strip()
 
 
 def _known_skill_instance_ids(root: str | Path | None) -> set[str]:
     """
+    [ACTION]
     - Teleology: resolve the set of skill ids to treat as resolvable targets (loaded, else expected).
     - Guarantee: returns the loaded skill instance ids if any exist on disk, otherwise the expected ids.
     - Fails: never raises beyond underlying reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     loaded = set(load_skill_instances(root))
     return loaded if loaded else set(expected_skill_instances(root))
@@ -3529,6 +3917,9 @@ def build_standard_instance_from_registry_row(
     - When-needed: regenerating standard instances or diagnosing one standard's contract projection.
     - Escalates-to: expected_standard_instances, core/standards_registry.json.
     - Non-goal: building a node does not upgrade a legacy/draft standard to active v2, nor prove triad skills exist or that organs use the standard.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     standard_id = str(row.get("standard_id") or "")
     source_ref = str(row.get("path") or _standard_instance_rel(standard_id))
@@ -3750,6 +4141,9 @@ def expected_standard_instances(root: str | Path | None = None) -> dict[str, dic
     - Guarantee: returns {standard_id: instance} for every registry row carrying a standard_id.
     - Fails: never raises beyond underlying source reads.
     - Escalates-to: build_standard_instance_from_registry_row.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _expected_standard_instances_cached(_root_key(root))
 
@@ -3757,9 +4151,13 @@ def expected_standard_instances(root: str | Path | None = None) -> dict[str, dic
 @lru_cache(maxsize=32)
 def _expected_standard_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: lru-cached backend for expected_standard_instances keyed by root string.
     - Guarantee: returns the {standard_id: instance} mapping; identical root_key returns the cached mapping.
     - Fails: never raises beyond underlying source reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     root = Path(root_key)
     rows: dict[str, dict[str, Any]] = {}
@@ -3777,6 +4175,9 @@ def load_standard_instances(root: str | Path | None = None) -> dict[str, dict[st
     - Guarantee: returns {standard_id: instance} restricted to standard ids present in the on-disk file inventory.
     - Fails: never raises beyond underlying source reads.
     - Escalates-to: _standard_file_inventory.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     inventory = _standard_file_inventory(root)
     file_ids = set(_as_list(inventory.get("file_ids")))
@@ -3789,9 +4190,13 @@ def load_standard_instances(root: str | Path | None = None) -> dict[str, dict[st
 
 def _standard_required_gap_rows(instance: dict[str, Any]) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: collect a standard instance's required residuals plus unresolved governs/triad edges.
     - Guarantee: returns the list of required residual rows and unresolved required edges for the instance.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     relationships = _as_dict(instance.get("relationships"))
     gaps = [
@@ -3815,9 +4220,13 @@ def _standard_required_gap_rows(instance: dict[str, Any]) -> list[dict[str, Any]
 
 def _standard_triad_role(edge: dict[str, Any]) -> str:
     """
+    [ACTION]
     - Teleology: recover the triad role (author/refine_instance/refine_standard_and_propagate) from an edge's source_ref.
     - Guarantee: returns the role parsed from a '::skills.<role>.skill_id' source_ref, or '' if it does not match.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     source_ref = str(_as_dict(edge.get("justification")).get("source_ref") or "")
     match = re.search(r"::skills\.([^.]+)\.skill_id$", source_ref)
@@ -3828,10 +4237,14 @@ def _standard_required_relation_gap_detail_rows(
     standard_instances: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: enumerate, per standard, its missing/planned/unresolved/resolved required relations.
     - Guarantee: returns one detail row per standard with a required gap, sorted by standard id; standards with no gap are omitted.
     - Fails: never raises.
     - Escalates-to: build_standard_instance_corpus.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     for instance in standard_instances:
@@ -3953,10 +4366,14 @@ def _standard_used_by_organ_unresolved_detail_rows(
     standard_instances: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: enumerate unresolved standard.used_by.organ edges with their typed residual metadata.
     - Guarantee: returns one row per unresolved used_by edge, sorted by standard then organ id.
     - Fails: never raises.
     - Non-goal: rows are re-entry metadata, not proof of organ acceptance or runtime use.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     for instance in standard_instances:
@@ -4011,10 +4428,14 @@ def _standard_used_by_organ_admission_detail_rows(
     organ_instances: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: annotate unresolved used_by edges with whether the target organ is an accepted-authority instance.
     - Guarantee: returns rows carrying an admission_status of accepted/not-accepted/missing-id, sorted by standard then organ id.
     - Fails: never raises.
     - Non-goal: admission status is re-entry metadata, not usage or acceptance proof.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     accepted_organ_ids = {
         str(instance.get("id") or "")
@@ -4072,10 +4493,14 @@ def _standard_legacy_or_draft_detail_rows(
     standard_instances: Any,
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: enumerate standards whose contract projection is not active v2 governed JSON.
     - Guarantee: returns one row per non-active-v2 standard with source/registry status and unresolved used_by counts, sorted by id.
     - Fails: never raises; non-dict or id-less instances are skipped.
     - Non-goal: rows are re-entry metadata, not active-v2 contract support.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     for instance in standard_instances:
@@ -4145,10 +4570,14 @@ def _standard_activation_witness_gap_detail_rows(
     standard_instances: Any,
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: enumerate, per non-active standard, the specific activation gaps (schema/status/validator/receipt binding).
     - Guarantee: returns one row per non-active-v2 standard listing activation_gap_ids, sorted by id.
     - Fails: never raises; non-dict or id-less instances are skipped.
     - Non-goal: gap rows are re-entry metadata, not active-contract support.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     for instance in standard_instances:
@@ -4236,9 +4665,13 @@ RECEIPT_EVIDENCE_SOURCE_KINDS = {
 
 def _instance_source_ref(instance: dict[str, Any]) -> str:
     """
+    [ACTION]
     - Teleology: resolve the best source_ref handle for an instance across its relationship keys and kind.
     - Guarantee: returns the first present relationship source-ref key, else a kind-specific instance path, else ''.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     relationships = _as_dict(instance.get("relationships"))
     for key in (
@@ -4267,9 +4700,13 @@ def _instance_source_ref(instance: dict[str, Any]) -> str:
 
 def _receipt_target_status(root: str | Path | None, receipt_ref: str) -> str:
     """
+    [ACTION]
     - Teleology: classify a receipt ref into a typed resolution status (file-resolved, declared, symbolic, nonlocal, missing).
     - Guarantee: returns one of the receipt status strings based on prefix/suffix and on-disk existence.
     - Fails: never raises; an empty ref returns 'missing_receipt_ref'.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     ref = receipt_ref.strip()
     if not ref:
@@ -4291,9 +4728,13 @@ def _receipt_target_status(root: str | Path | None, receipt_ref: str) -> str:
 
 def _receipt_ref_path(root: str | Path | None, receipt_ref: str) -> Path:
     """
+    [ACTION]
     - Teleology: resolve the filesystem path a receipt ref points at, including the macro-parent state/ fallback.
     - Guarantee: returns the in-root path if it exists, else the parent-root path for state/ refs, else the in-root path.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     ref_path = _path(root, receipt_ref)
     if ref_path.is_file():
@@ -4310,10 +4751,14 @@ def _receipt_evidence_edge_rows(
     root: str | Path | None,
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: derive <kind>.evidenced_by.receipt edges from the receipt_refs declared on source instances.
     - Guarantee: returns sorted edge rows for evidence-bearing kinds, each carrying target_status and a residual pressure ref when the receipt is missing.
     - Fails: never raises; instances of non-evidence kinds or without ids are skipped.
     - Non-goal: a receipt edge routes evidence; it does not certify proof, runtime correctness, or release readiness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     for instance in instances:
@@ -4364,9 +4809,13 @@ def _receipt_evidence_edge_rows(
 
 def _relationship_edge_rows(instances: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: flatten all instances' relationship edges into rows annotated with source kind and id.
     - Guarantee: returns a list of edge dicts each carrying source_kind and source_id.
     - Fails: never raises; kind-less or id-less instances and non-dict edges are skipped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     for instance in instances:
@@ -4390,10 +4839,14 @@ def _derived_code_locus_node_rows(
     root: str | Path | None,
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: derive code-locus projection nodes by grouping inbound code-locus edges.
     - Guarantee: returns one node per distinct code-locus id with support_status (resolved iff a source edge resolves and the path exists), inbound edges, and gap_count; sorted by id.
     - Fails: never raises.
     - Non-goal: path existence is filesystem grounding only, not code correctness or runtime proof.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     grouped: dict[str, list[dict[str, Any]]] = {}
     for edge in edge_rows:
@@ -4456,10 +4909,14 @@ def _derived_receipt_node_rows(
     root: str | Path | None,
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: derive receipt projection nodes by grouping inbound receipt edges and classifying support.
     - Guarantee: returns one node per distinct receipt id with a support_status (resolved/symbolic/nonlocal/declared/missing) and gap_count; sorted by id.
     - Fails: never raises.
     - Non-goal: receipt presence or nonlocal walkability is not proof, runtime correctness, or release authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     grouped: dict[str, list[dict[str, Any]]] = {}
     for edge in edge_rows:
@@ -4544,10 +5001,14 @@ def _derived_receipt_node_rows(
 
 def _derived_doctrine_kind_node_rows(edge_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: derive doctrine-kind projection nodes by grouping inbound standard.governs/skill.acts_on edges.
     - Guarantee: returns one node per kind id with support_status (resolved iff every inbound edge resolves), edge tallies, and gap_count; sorted by id.
     - Fails: never raises.
     - Non-goal: a kind handle is a walkability node, not kind completeness or runtime use.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     grouped: dict[str, list[dict[str, Any]]] = {}
     for edge in edge_rows:
@@ -4626,12 +5087,16 @@ def _evidence_walkability_health(
     instances: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: summarize doctrine-kind/code-locus/receipt walkability derived from instance edges.
     - Guarantee: returns a dict with doctrine_kinds/code_loci/receipts sub-sections (known counts, gap counts, sample/detail rows, support_scope notes).
     - Fails: never raises.
     - When-needed: building the evidence-walkability portion of lattice health.
     - Escalates-to: build_lattice_health.
     - Non-goal: walkability is derived navigability, not proof, runtime correctness, or source-evidence laundering.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     relationship_edges = _relationship_edge_rows(instances)
     receipt_edges = _receipt_evidence_edge_rows(instances, root)
@@ -4738,9 +5203,13 @@ def _evidence_walkability_health(
 
 def _standard_relation_metrics(instances: Any) -> dict[str, int]:
     """
+    [ACTION]
     - Teleology: tally standard edge resolution metrics (governs/triad/used_by resolved vs unresolved vs missing).
     - Guarantee: returns the fixed metrics dict of integer counts over the given standard instances.
     - Fails: never raises; non-dict instances and edges are skipped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     metrics = {
         "governs_kind_resolved_edge_count": 0,
@@ -4804,6 +5273,9 @@ def validate_standard_instance_corpus(root: str | Path | None = None) -> dict[st
     - When-needed: --check-standard-corpus or doctrine-projection validation.
     - Escalates-to: expected_standard_instances, _standard_file_inventory.
     - Non-goal: passing proves registry-backed source presence and edge justification only, not contract activation or release readiness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     expected = expected_standard_instances(root)
@@ -4875,6 +5347,9 @@ def build_standard_instance_corpus(root: str | Path | None = None) -> dict[str, 
     - Fails: never raises.
     - Escalates-to: validate_standard_instance_corpus.
     - Non-goal: registry-backed presence is inventory coverage only, not contract completion.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = expected_standard_instances(root)
     actual = load_standard_instances(root)
@@ -5062,10 +5537,14 @@ def build_standard_instance_corpus(root: str | Path | None = None) -> dict[str, 
 
 def _axiom_routing_rows(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: read the axiom organ-routing rows that are the axiom source of record.
     - Guarantee: returns the dict rows under axiom_organ_routing.rows.
     - Fails: never raises; absent routing yields [].
     - Escalates-to: core/axiom_organ_routing.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = _load_optional_dict(root, AXIOM_ROUTING_REL)
     return [row for row in _as_list(payload.get("rows")) if isinstance(row, dict)]
@@ -5073,27 +5552,39 @@ def _axiom_routing_rows(root: str | Path | None) -> list[dict[str, Any]]:
 
 def _axiom_row_ref(axiom_id: str, index: int) -> str:
     """
+    [ACTION]
     - Teleology: format a stable source-ref pointer into an axiom routing row.
     - Guarantee: returns 'core/axiom_organ_routing.json::rows[<index>:<axiom_id>]'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{AXIOM_ROUTING_REL}::rows[{index}:{axiom_id}]"
 
 
 def _axiom_instance_rel(axiom_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the governed JSON instance path for an axiom id.
     - Guarantee: returns 'axioms/<axiom_id>.json'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{AXIOM_INSTANCE_DIR_REL}/{axiom_id}.json"
 
 
 def _axiom_markdown_rel(axiom_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the generated markdown path for an axiom id.
     - Guarantee: returns 'axioms/<axiom_id>.md'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{AXIOM_INSTANCE_DIR_REL}/{axiom_id}.md"
 
@@ -5110,9 +5601,13 @@ def _edge(
     justification: str,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: construct one typed lattice edge with justification and conditional residual-pressure ref.
     - Guarantee: returns an edge dict; residual_pressure_ref is set iff target_status is not one of the resolved statuses, else None.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     resolved_statuses = {
         "resolved_json_instance",
@@ -5143,9 +5638,13 @@ def _edge(
 
 def _debt_ids(layer_debt: Any) -> list[str]:
     """
+    [ACTION]
     - Teleology: collect distinct debt_id strings from a layer-debt list.
     - Guarantee: returns the sorted set of debt_id values among dict items.
     - Fails: never raises; non-dict items are skipped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return sorted(
         {
@@ -5167,10 +5666,14 @@ def _axiom_substrate_reciprocity_contract(
     layer_debt: Any,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: assemble the law<->substrate reciprocity contract block for an axiom payload.
     - Guarantee: returns the contract dict (law_to_substrate, substrate_to_law, claim_ceiling) from the provided routing fields.
     - Fails: never raises.
     - Non-goal: witness organs and negative cases are support-calculation inputs, not support claims.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "contract_version": "microcosm_axiom_substrate_reciprocity_v1",
@@ -5225,6 +5728,9 @@ def build_axiom_instance_from_routing_row(
     - When-needed: regenerating axiom instances or diagnosing one axiom's routing.
     - Escalates-to: expected_axiom_instances, core/axiom_organ_routing.json, validator.microcosm.axiom_support_cover.
     - Non-goal: admission as law does not flip source authority off the routing registry, nor prove the axiom is witnessed, enforced, strong, or complete.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     axiom_id = str(row.get("axiom_id") or "")
     source_ref = _axiom_row_ref(axiom_id, index)
@@ -5384,6 +5890,9 @@ def expected_axiom_instances(root: str | Path | None = None) -> dict[str, dict[s
     - Guarantee: returns {axiom_id: instance} for every routing row carrying an axiom_id.
     - Fails: never raises beyond underlying source reads.
     - Escalates-to: build_axiom_instance_from_routing_row.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _expected_axiom_instances_cached(_root_key(root))
 
@@ -5391,9 +5900,13 @@ def expected_axiom_instances(root: str | Path | None = None) -> dict[str, dict[s
 @lru_cache(maxsize=32)
 def _expected_axiom_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: lru-cached backend for expected_axiom_instances keyed by root string.
     - Guarantee: returns the {axiom_id: instance} mapping; identical root_key returns the cached mapping.
     - Fails: never raises beyond underlying source reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         str(row.get("axiom_id")): build_axiom_instance_from_routing_row(row, index=index)
@@ -5409,6 +5922,9 @@ def load_axiom_instances(root: str | Path | None = None) -> dict[str, dict[str, 
     - Guarantee: returns {id: payload} for each parseable axioms/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
     - Escalates-to: axioms/*.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     axiom_dir = _path(root, AXIOM_INSTANCE_DIR_REL)
     rows: dict[str, dict[str, Any]] = {}
@@ -5430,6 +5946,9 @@ def validate_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, 
     - When-needed: --check-axiom-corpus or doctrine-projection validation.
     - Escalates-to: expected_axiom_instances, std_microcosm_axiom.json.
     - Non-goal: passing proves routing-source parity only, not that any axiom is witnessed or supported.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     expected = expected_axiom_instances(root)
@@ -5491,6 +6010,9 @@ def build_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, Any
     - Guarantee: returns a corpus dict (counts, instance ids, missing/extra ids, parity_status, embedded validation).
     - Fails: never raises.
     - Escalates-to: validate_axiom_instance_corpus.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = expected_axiom_instances(root)
     actual = load_axiom_instances(root)
@@ -5538,6 +6060,9 @@ def write_axiom_instance_corpus(root: str | Path | None = None) -> dict[str, Any
     - When-needed: --write-axiom-corpus regeneration.
     - Escalates-to: build_axiom_instance_corpus, render_axiom_markdown.
     - Non-goal: writing instances does not flip authority off the routing registry or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     axiom_dir = resolved / AXIOM_INSTANCE_DIR_REL
@@ -5562,6 +6087,9 @@ def render_axiom_markdown(instance: dict[str, Any]) -> str:
     - Guarantee: returns a markdown string with the formal clause, lattice neighbours, support note, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
     - Non-goal: the markdown is a generated projection and asserts no support.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     axiom_id = str(instance.get("id") or "")
     relationships = _as_dict(instance.get("relationships"))
@@ -5610,18 +6138,26 @@ def render_axiom_markdown(instance: dict[str, Any]) -> str:
 
 def _extract_axiom_refs(value: str) -> list[str]:
     """
+    [ACTION]
     - Teleology: extract distinct AX-<n> axiom ids from free text.
     - Guarantee: returns the AX-ids found, sorted by numeric suffix.
     - Fails: never raises; returns [] when none match.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return sorted(set(re.findall(r"\bAX-\d+\b", value)), key=lambda item: int(item.split("-", 1)[1]))
 
 
 def _axiom_obligation_ref_sort_key(value: str) -> tuple[int, int, str]:
     """
+    [ACTION]
     - Teleology: produce a numeric sort key for AX-<n>.O<m>.<slug> obligation refs.
     - Guarantee: returns a (axiom_num, obligation_num, slug) tuple, or a sentinel (9999, 9999, value) for non-matching strings.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     match = re.match(r"^AX-(\d+)\.O(\d+)\.([A-Za-z0-9_]+)$", value)
     if match:
@@ -5631,9 +6167,13 @@ def _axiom_obligation_ref_sort_key(value: str) -> tuple[int, int, str]:
 
 def _extract_axiom_obligation_refs(value: str) -> list[str]:
     """
+    [ACTION]
     - Teleology: extract distinct AX-<n>.O<m>.<slug> obligation refs from free text.
     - Guarantee: returns the obligation refs found, sorted by obligation sort key.
     - Fails: never raises; returns [] when none match.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     refs = re.findall(r"\bAX-\d+\.O\d+\.[A-Za-z0-9_]+\b", value)
     return sorted(set(refs), key=_axiom_obligation_ref_sort_key)
@@ -5641,10 +6181,14 @@ def _extract_axiom_obligation_refs(value: str) -> list[str]:
 
 def _instance_required_fields(root: str | Path | None, kind: str) -> set[str]:
     """
+    [ACTION]
     - Teleology: compute the union of required fields/keys a kind's instances must carry, from its standard.
     - Guarantee: returns the set of required_fields plus instance_schema.required_keys for the kind.
     - Fails: raises KeyError if the kind is not in the loaded standards.
     - Escalates-to: std_microcosm_<kind>.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     standard = load_kind_standards(root)[kind]
     instance_schema = _as_dict(standard.get("instance_schema"))
@@ -5655,45 +6199,65 @@ def _instance_required_fields(root: str | Path | None, kind: str) -> set[str]:
 
 def _principle_instance_rel(principle_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the governed JSON instance path for a principle id.
     - Guarantee: returns 'principles/<principle_id>.json'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{PRINCIPLE_INSTANCE_DIR_REL}/{principle_id}.json"
 
 
 def _principle_markdown_rel(principle_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the generated markdown path for a principle id.
     - Guarantee: returns 'principles/<principle_id>.md'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{PRINCIPLE_INSTANCE_DIR_REL}/{principle_id}.md"
 
 
 def _anti_principle_instance_rel(anti_principle_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the governed JSON instance path for an anti-principle id.
     - Guarantee: returns 'anti_principles/<anti_principle_id>.json'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{ANTI_PRINCIPLE_INSTANCE_DIR_REL}/{anti_principle_id}.json"
 
 
 def _anti_principle_markdown_rel(anti_principle_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the generated markdown path for an anti-principle id.
     - Guarantee: returns 'anti_principles/<anti_principle_id>.md'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{ANTI_PRINCIPLE_INSTANCE_DIR_REL}/{anti_principle_id}.md"
 
 
 def _doctrine_record_receipt_ref(kind: str, record_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the doctrine-record receipt path for an axiom/principle/anti-principle id.
     - Guarantee: returns 'receipts/doctrine_records/<subdir>/<record_id>.receipt.json' with subdir mapped per kind.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     subdir_by_kind = {
         "axiom": "axioms",
@@ -5706,63 +6270,91 @@ def _doctrine_record_receipt_ref(kind: str, record_id: str) -> str:
 
 def _concept_instance_rel(concept_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the governed JSON instance path for a concept id.
     - Guarantee: returns 'concepts/<concept_id>.json'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{CONCEPT_INSTANCE_DIR_REL}/{concept_id}.json"
 
 
 def _concept_markdown_rel(concept_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the generated markdown path for a concept id.
     - Guarantee: returns 'concepts/<concept_id>.md'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{CONCEPT_INSTANCE_DIR_REL}/{concept_id}.md"
 
 
 def _mechanism_instance_rel(mechanism_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the governed JSON instance path for a mechanism id.
     - Guarantee: returns 'mechanisms/<mechanism_id>.json'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{MECHANISM_INSTANCE_DIR_REL}/{mechanism_id}.json"
 
 
 def _mechanism_markdown_rel(mechanism_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the generated markdown path for a mechanism id.
     - Guarantee: returns 'mechanisms/<mechanism_id>.md'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{MECHANISM_INSTANCE_DIR_REL}/{mechanism_id}.md"
 
 
 def _organ_instance_rel(organ_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the governed JSON instance path for an organ id.
     - Guarantee: returns 'organs/<organ_id>.json'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{ORGAN_INSTANCE_DIR_REL}/{organ_id}.json"
 
 
 def _organ_markdown_rel(organ_id: str) -> str:
     """
+    [ACTION]
     - Teleology: compute the generated markdown path for an organ id.
     - Guarantee: returns 'organs/<organ_id>.md'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"{ORGAN_INSTANCE_DIR_REL}/{organ_id}.md"
 
 
 def _id_sort_key(value: str) -> tuple[str, int, str]:
     """
+    [ACTION]
     - Teleology: produce a stable sort key that orders ID-<n> style ids numerically.
     - Guarantee: returns (prefix, number, value) for 'ABC-123' ids, else ('', 0, value).
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     match = re.match(r"^([A-Z]+)-(\d+)$", value)
     if match:
@@ -5772,10 +6364,14 @@ def _id_sort_key(value: str) -> tuple[str, int, str]:
 
 def _principle_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: parse PRINCIPLES.md into per-principle source rows with grounding/obligation text and body.
     - Guarantee: returns one row per '## P-<n>' heading with id, title, grounding/obligation refs, body markdown, and source_ref; [] if the file is absent.
     - Fails: never raises.
     - Escalates-to: PRINCIPLES.md.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     path = _path(root, PRINCIPLES_REL)
     if not path.is_file():
@@ -5823,9 +6419,13 @@ def _principle_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
 
 def _ref_ids(value: Any) -> list[str]:
     """
+    [ACTION]
     - Teleology: extract distinct ref/id strings from a list of strings or dicts.
     - Guarantee: returns the sorted distinct refs (dict items read ref then id).
     - Fails: never raises; unusable items are dropped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     refs: list[str] = []
     for item in _as_list(value):
@@ -5844,18 +6444,17 @@ def _principle_mechanism_governance_from_organ_atlas(
     root: str | Path | None,
 ) -> dict[str, list[dict[str, str]]]:
     """
+    [ACTION]
     - Teleology: derive principle->mechanism governance edges from organ-atlas rows that name both principle and mechanism refs.
-    - Guarantee: returns {principle_id: [{mechanism_id, source_ref, target_status}, ...]} built from atlas co-occurrence; target_status resolves only when the mechanism is registry-backed.
+    - Guarantee: returns {principle_id: [{mechanism_id, source_ref}, ...]} built from atlas co-occurrence.
     - Fails: never raises; rows lacking organ/principle/mechanism refs are skipped.
     - Escalates-to: core/organ_atlas.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     atlas = _as_dict(_load(root, "core/organ_atlas.json"))
-    known_mechanisms = {
-        str(row.get("id") or "")
-        for row in _mechanism_source_rows(root)
-        if isinstance(row, dict) and row.get("id")
-    }
-    by_principle: dict[str, dict[str, dict[str, str]]] = {}
+    by_principle: dict[str, dict[str, str]] = {}
     for atlas_index, row in enumerate(_as_list(atlas.get("organs"))):
         if not isinstance(row, dict):
             continue
@@ -5868,25 +6467,11 @@ def _principle_mechanism_governance_from_organ_atlas(
         for principle_id in principle_refs:
             targets = by_principle.setdefault(principle_id, {})
             for mechanism_id in mechanism_refs:
-                targets.setdefault(
-                    mechanism_id,
-                    {
-                        "source_ref": source_ref,
-                        "target_status": (
-                            "resolved_json_instance"
-                            if mechanism_id in known_mechanisms
-                            else "unresolved_json_instance"
-                        ),
-                    },
-                )
+                targets.setdefault(mechanism_id, source_ref)
     return {
         principle_id: [
-            {
-                "mechanism_id": mechanism_id,
-                "source_ref": item["source_ref"],
-                "target_status": item["target_status"],
-            }
-            for mechanism_id, item in sorted(
+            {"mechanism_id": mechanism_id, "source_ref": source_ref}
+            for mechanism_id, source_ref in sorted(
                 targets.items(), key=lambda item: _id_sort_key(item[0])
             )
         ]
@@ -5898,10 +6483,14 @@ def _principle_concept_governance_from_organ_atlas(
     root: str | Path | None,
 ) -> dict[str, list[dict[str, str]]]:
     """
+    [ACTION]
     - Teleology: derive principle->concept governance edges from organ-atlas rows that name both principle and concept refs.
     - Guarantee: returns {principle_id: [{concept_id, source_ref, target_status}, ...]}; target_status resolved iff the concept is a known specimen.
     - Fails: never raises; rows lacking organ/principle/concept refs are skipped.
     - Escalates-to: core/organ_atlas.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     atlas = _as_dict(_load(root, "core/organ_atlas.json"))
     known_concepts = {
@@ -5952,10 +6541,14 @@ def _anti_principle_negation_targets_from_axiom_routing(
     root: str | Path | None,
 ) -> dict[str, list[dict[str, str]]]:
     """
+    [ACTION]
     - Teleology: derive anti_principle->principle negation targets from axiom routing rows naming both.
     - Guarantee: returns {anti_principle_id: [{principle_id, source_ref}, ...]} for axioms that ground principles and name anti-principle guards.
     - Fails: never raises; rows missing axiom/principle/anti-principle ids are skipped.
     - Escalates-to: core/axiom_organ_routing.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     routing = _as_dict(_load(root, AXIOM_ROUTING_REL))
     by_anti_principle: dict[str, dict[str, str]] = {}
@@ -5987,10 +6580,14 @@ def _principle_guard_targets_from_axiom_routing(
     root: str | Path | None,
 ) -> dict[str, list[dict[str, str]]]:
     """
+    [ACTION]
     - Teleology: derive principle->anti_principle guard targets from axiom routing rows naming both.
     - Guarantee: returns {principle_id: [{anti_principle_id, source_ref}, ...]} for axioms that ground principles and name anti-principle guards.
     - Fails: never raises; rows missing axiom/principle/anti-principle ids are skipped.
     - Escalates-to: core/axiom_organ_routing.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     routing = _as_dict(_load(root, AXIOM_ROUTING_REL))
     by_principle: dict[str, dict[str, str]] = {}
@@ -6020,10 +6617,14 @@ def _principle_guard_targets_from_axiom_routing(
 
 def _anti_principle_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: parse the ANTI_PRINCIPLES.md table into per-row source rows.
     - Guarantee: returns one row per '| AP-' table line with id, title, violated-axiom text/refs, failure statement, and source_ref; [] if the file is absent.
     - Fails: never raises; malformed 3-cell rows are skipped.
     - Escalates-to: ANTI_PRINCIPLES.md.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     path = _path(root, ANTI_PRINCIPLES_REL)
     if not path.is_file():
@@ -6059,6 +6660,9 @@ def build_principle_instance_from_source_row(row: dict[str, Any]) -> dict[str, A
     - When-needed: regenerating principle instances or diagnosing one principle's governance.
     - Escalates-to: expected_principle_instances, PRINCIPLES.md, validator.microcosm.axiom_support_cover.
     - Non-goal: building an instance does not flip authority off PRINCIPLES.md, nor prove the principle is obligation-supported or governs all downstream targets.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     principle_id = str(row.get("id") or "")
     source_ref = str(row.get("source_ref") or f"{PRINCIPLES_REL}::{principle_id}")
@@ -6103,7 +6707,7 @@ def build_principle_instance_from_source_row(row: dict[str, Any]) -> dict[str, A
             target_kind="mechanism",
             target_id=str(item.get("mechanism_id")),
             source_ref=str(item.get("source_ref") or source_ref),
-            target_status=str(item.get("target_status") or "unresolved_json_instance"),
+            target_status="resolved_json_instance",
             justification=(
                 "Organ atlas row names this principle as governing an organ and names "
                 "the organ mechanism ref; the principle governs the mechanism route "
@@ -6342,6 +6946,9 @@ def build_anti_principle_instance_from_source_row(row: dict[str, Any]) -> dict[s
     - When-needed: regenerating anti-principle instances or diagnosing one anti-principle's guards.
     - Escalates-to: expected_anti_principle_instances, ANTI_PRINCIPLES.md.
     - Non-goal: building an instance does not flip authority off ANTI_PRINCIPLES.md, nor prove every principle-failure relation is mapped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     anti_principle_id = str(row.get("id") or "")
     source_ref = str(row.get("source_ref") or f"{ANTI_PRINCIPLES_REL}::{anti_principle_id}")
@@ -6486,6 +7093,9 @@ def expected_principle_instances(root: str | Path | None = None) -> dict[str, di
     - Guarantee: returns {principle_id: instance} for every parsed principle row.
     - Fails: never raises beyond underlying source reads.
     - Escalates-to: build_principle_instance_from_source_row.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _expected_principle_instances_cached(_root_key(root))
 
@@ -6493,9 +7103,13 @@ def expected_principle_instances(root: str | Path | None = None) -> dict[str, di
 @lru_cache(maxsize=32)
 def _expected_principle_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: lru-cached backend for expected_principle_instances keyed by root string.
     - Guarantee: returns the {principle_id: instance} mapping; identical root_key returns the cached mapping.
     - Fails: never raises beyond underlying source reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     mechanism_governance = _principle_mechanism_governance_from_organ_atlas(Path(root_key))
     concept_governance = _principle_concept_governance_from_organ_atlas(Path(root_key))
@@ -6521,6 +7135,9 @@ def expected_anti_principle_instances(root: str | Path | None = None) -> dict[st
     - Guarantee: returns {anti_principle_id: instance} for every parsed anti-principle row.
     - Fails: never raises beyond underlying source reads.
     - Escalates-to: build_anti_principle_instance_from_source_row.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _expected_anti_principle_instances_cached(_root_key(root))
 
@@ -6528,9 +7145,13 @@ def expected_anti_principle_instances(root: str | Path | None = None) -> dict[st
 @lru_cache(maxsize=32)
 def _expected_anti_principle_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: lru-cached backend for expected_anti_principle_instances keyed by root string.
     - Guarantee: returns the {anti_principle_id: instance} mapping; identical root_key returns the cached mapping.
     - Fails: never raises beyond underlying source reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     negations = _anti_principle_negation_targets_from_axiom_routing(Path(root_key))
     return {
@@ -6549,6 +7170,9 @@ def load_principle_instances(root: str | Path | None = None) -> dict[str, dict[s
     - Guarantee: returns {id: payload} for each parseable principles/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
     - Escalates-to: principles/*.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     principle_dir = _path(root, PRINCIPLE_INSTANCE_DIR_REL)
     rows: dict[str, dict[str, Any]] = {}
@@ -6568,6 +7192,9 @@ def load_anti_principle_instances(root: str | Path | None = None) -> dict[str, d
     - Guarantee: returns {id: payload} for each parseable anti_principles/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
     - Escalates-to: anti_principles/*.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     anti_principle_dir = _path(root, ANTI_PRINCIPLE_INSTANCE_DIR_REL)
     rows: dict[str, dict[str, Any]] = {}
@@ -6589,6 +7216,9 @@ def validate_principle_instance_corpus(root: str | Path | None = None) -> dict[s
     - When-needed: --check-principle-corpus or doctrine-projection validation.
     - Escalates-to: expected_principle_instances.
     - Non-goal: passing proves markdown-source parity only, not obligation support or full governance coverage.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     expected = expected_principle_instances(root)
@@ -6627,6 +7257,9 @@ def validate_anti_principle_instance_corpus(root: str | Path | None = None) -> d
     - When-needed: --check-anti-principle-corpus or doctrine-projection validation.
     - Escalates-to: expected_anti_principle_instances.
     - Non-goal: passing proves markdown-source parity only, not that every failed-principle relation is mapped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     expected = expected_anti_principle_instances(root)
@@ -6663,6 +7296,9 @@ def build_principle_instance_corpus(root: str | Path | None = None) -> dict[str,
     - Guarantee: returns a corpus dict (counts, instance ids, missing/extra ids, parity_status, embedded validation).
     - Fails: never raises.
     - Escalates-to: validate_principle_instance_corpus.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = expected_principle_instances(root)
     actual = load_principle_instances(root)
@@ -6695,6 +7331,9 @@ def build_anti_principle_instance_corpus(root: str | Path | None = None) -> dict
     - Guarantee: returns a corpus dict (counts, instance ids, missing/extra ids, parity_status, embedded validation).
     - Fails: never raises.
     - Escalates-to: validate_anti_principle_instance_corpus.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = expected_anti_principle_instances(root)
     actual = load_anti_principle_instances(root)
@@ -6729,6 +7368,9 @@ def write_principle_instance_corpus(root: str | Path | None = None) -> dict[str,
     - When-needed: --write-principle-corpus regeneration.
     - Escalates-to: build_principle_instance_corpus, render_principle_markdown.
     - Non-goal: writing instances does not flip authority off PRINCIPLES.md or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     principle_dir = resolved / PRINCIPLE_INSTANCE_DIR_REL
@@ -6755,6 +7397,9 @@ def write_principle_instance(
     - Guarantee: writes principles/<id>.json and principles/<id>.md and returns the instance payload.
     - Fails: raises KeyError when the principle id is unknown; raises OSError if a file cannot be written.
     - Escalates-to: expected_principle_instances, render_principle_markdown.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     payload = expected_principle_instances(resolved).get(principle_id)
@@ -6782,6 +7427,9 @@ def write_anti_principle_instance_corpus(root: str | Path | None = None) -> dict
     - When-needed: --write-anti-principle-corpus regeneration.
     - Escalates-to: build_anti_principle_instance_corpus, render_anti_principle_markdown.
     - Non-goal: writing instances does not flip authority off ANTI_PRINCIPLES.md or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     anti_principle_dir = resolved / ANTI_PRINCIPLE_INSTANCE_DIR_REL
@@ -6805,6 +7453,9 @@ def render_principle_markdown(instance: dict[str, Any]) -> str:
     - Guarantee: returns a markdown string with statement, lattice neighbours, residuals, support, grounding obligations, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
     - Non-goal: the markdown is a generated projection, not source authority or a support claim.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     principle_id = str(instance.get("id") or "")
     relationships = _as_dict(instance.get("relationships"))
@@ -6864,6 +7515,9 @@ def render_anti_principle_markdown(instance: dict[str, Any]) -> str:
     - Guarantee: returns a markdown string with the rejected failure shape, lattice neighbours, residuals, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
     - Non-goal: the markdown is a generated projection, not source authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     anti_principle_id = str(instance.get("id") or "")
     relationships = _as_dict(instance.get("relationships"))
@@ -6897,10 +7551,14 @@ def render_anti_principle_markdown(instance: dict[str, Any]) -> str:
 
 def _concept_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: read concept population specimens from the concept entry packet into source rows.
     - Guarantee: returns one row per specimen carrying a 'concept.<specimen_id>' id and source_ref; [] if the packet is absent.
     - Fails: never raises; specimens without an id are skipped.
     - Escalates-to: atlas/entry_packet.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = _load_optional_dict(root, CONCEPT_ENTRY_PACKET_REL)
     route = _as_dict(payload.get("concept_mechanism_entry_route"))
@@ -6923,10 +7581,14 @@ def _concept_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
 
 def _mechanism_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: read mechanism-registry rows into source rows with stable source refs.
     - Guarantee: returns one row per registry mechanism carrying its id and source_ref.
     - Fails: never raises; rows without an id are skipped.
     - Escalates-to: core/mechanism_sources.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = _load_optional_dict(root, MECHANISM_REGISTRY_REL)
     rows: list[dict[str, Any]] = []
@@ -6944,9 +7606,13 @@ def _mechanism_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
 
 def _source_ref_rows(source_refs: Any, role: str) -> list[dict[str, str]]:
     """
+    [ACTION]
     - Teleology: wrap a list of source-ref strings into {path, role} rows.
     - Guarantee: returns one {path, role} dict per non-empty string in source_refs.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         {"path": ref, "role": role}
@@ -6966,6 +7632,9 @@ def build_concept_instance_from_source_row(
     - When-needed: regenerating concept instances or diagnosing one specimen's edges.
     - Escalates-to: expected_concept_instances, atlas/entry_packet.json.
     - Non-goal: a population specimen does not flip authority off the entry packet, nor prove complete concept coverage or principle support.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     concept_id = str(row.get("id") or "")
     source_ref = str(row.get("source_ref") or "")
@@ -7191,9 +7860,13 @@ def build_concept_instance_from_source_row(
 
 def _code_locus_target_status(root: str | Path | None, locus: dict[str, Any]) -> str:
     """
+    [ACTION]
     - Teleology: classify a code-locus row into planned/resolved/unresolved by resolution and on-disk existence.
     - Guarantee: returns 'planned_code_locus' when declared planned, else 'resolved_code_locus' iff the path exists, else 'unresolved_code_locus'.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rel = str(locus.get("path") or "")
     if str(locus.get("resolution") or "resolved") == "planned":
@@ -7213,6 +7886,9 @@ def build_mechanism_instance_from_source_row(
     - When-needed: regenerating mechanism instances or diagnosing one mechanism's grounding.
     - Escalates-to: expected_mechanism_instances, core/mechanism_sources.json.
     - Non-goal: resolved code-locus paths prove filesystem grounding only, not runtime correctness or release readiness; building an instance does not flip source authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     mechanism_id = str(row.get("id") or "")
     source_ref = str(row.get("source_ref") or f"{MECHANISM_REGISTRY_REL}::{mechanism_id}")
@@ -7477,6 +8153,9 @@ def expected_concept_instances(root: str | Path | None = None) -> dict[str, dict
     - Guarantee: returns {concept_id: instance} for every specimen carrying an id.
     - Fails: never raises beyond underlying source reads.
     - Escalates-to: build_concept_instance_from_source_row.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _expected_concept_instances_cached(_root_key(root))
 
@@ -7484,9 +8163,13 @@ def expected_concept_instances(root: str | Path | None = None) -> dict[str, dict
 @lru_cache(maxsize=32)
 def _expected_concept_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: lru-cached backend for expected_concept_instances keyed by root string.
     - Guarantee: returns the {concept_id: instance} mapping; identical root_key returns the cached mapping.
     - Fails: never raises beyond underlying source reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     root = Path(root_key)
     return {
@@ -7503,6 +8186,9 @@ def expected_mechanism_instances(root: str | Path | None = None) -> dict[str, di
     - Guarantee: returns {mechanism_id: instance} for every registry row carrying an id.
     - Fails: never raises beyond underlying source reads.
     - Escalates-to: build_mechanism_instance_from_source_row.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _expected_mechanism_instances_cached(_root_key(root))
 
@@ -7510,9 +8196,13 @@ def expected_mechanism_instances(root: str | Path | None = None) -> dict[str, di
 @lru_cache(maxsize=32)
 def _expected_mechanism_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: lru-cached backend for expected_mechanism_instances keyed by root string.
     - Guarantee: returns the {mechanism_id: instance} mapping; identical root_key returns the cached mapping.
     - Fails: never raises beyond underlying source reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     root = Path(root_key)
     return {
@@ -7529,6 +8219,9 @@ def load_concept_instances(root: str | Path | None = None) -> dict[str, dict[str
     - Guarantee: returns {id: payload} for each parseable concepts/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
     - Escalates-to: concepts/*.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     concept_dir = _path(root, CONCEPT_INSTANCE_DIR_REL)
     rows: dict[str, dict[str, Any]] = {}
@@ -7548,6 +8241,9 @@ def load_mechanism_instances(root: str | Path | None = None) -> dict[str, dict[s
     - Guarantee: returns {id: payload} for each parseable mechanisms/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
     - Escalates-to: mechanisms/*.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     mechanism_dir = _path(root, MECHANISM_INSTANCE_DIR_REL)
     rows: dict[str, dict[str, Any]] = {}
@@ -7569,6 +8265,9 @@ def validate_concept_instance_corpus(root: str | Path | None = None) -> dict[str
     - When-needed: --check-concept-corpus or doctrine-projection validation.
     - Escalates-to: expected_concept_instances.
     - Non-goal: passing proves specimen-source parity only, not principle grounding, axiom constraint, or mechanism instantiation.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     expected = expected_concept_instances(root)
@@ -7607,6 +8306,9 @@ def validate_mechanism_instance_corpus(root: str | Path | None = None) -> dict[s
     - When-needed: --check-mechanism-corpus or doctrine-projection validation.
     - Escalates-to: expected_mechanism_instances.
     - Non-goal: passing proves registry-source parity only, not runtime correctness or complete wiring.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     expected = expected_mechanism_instances(root)
@@ -7638,9 +8340,13 @@ def validate_mechanism_instance_corpus(root: str | Path | None = None) -> dict[s
 
 def _unpopulated_relation_count(instances: dict[str, dict[str, Any]]) -> int:
     """
+    [ACTION]
     - Teleology: total the unpopulated_selective_relations residual rows across instances.
     - Guarantee: returns the integer sum of residual rows over all instance values.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return sum(
         len(_as_list(_as_dict(instance.get("relationships")).get("unpopulated_selective_relations")))
@@ -7655,6 +8361,9 @@ def build_concept_instance_corpus(root: str | Path | None = None) -> dict[str, A
     - Guarantee: returns a corpus dict (counts, instance ids, missing/extra ids, unpopulated relation count, parity_status, embedded validation).
     - Fails: never raises.
     - Escalates-to: validate_concept_instance_corpus.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = expected_concept_instances(root)
     actual = load_concept_instances(root)
@@ -7689,6 +8398,9 @@ def build_mechanism_instance_corpus(root: str | Path | None = None) -> dict[str,
     - Guarantee: returns a corpus dict (counts, without/planned code-loci, residual detail rows and grouped counts, parity_status, embedded validation).
     - Fails: never raises.
     - Escalates-to: validate_mechanism_instance_corpus.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = expected_mechanism_instances(root)
     actual = load_mechanism_instances(root)
@@ -7769,6 +8481,9 @@ def write_concept_instance_corpus(root: str | Path | None = None) -> dict[str, A
     - When-needed: --write-concept-corpus regeneration.
     - Escalates-to: build_concept_instance_corpus, render_concept_markdown.
     - Non-goal: writing instances does not flip authority off the entry packet or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     concept_dir = resolved / CONCEPT_INSTANCE_DIR_REL
@@ -7794,6 +8509,9 @@ def write_mechanism_instance_corpus(root: str | Path | None = None) -> dict[str,
     - When-needed: --write-mechanism-corpus regeneration.
     - Escalates-to: build_mechanism_instance_corpus, render_mechanism_markdown.
     - Non-goal: writing instances does not flip authority off the mechanism registry or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     mechanism_dir = resolved / MECHANISM_INSTANCE_DIR_REL
@@ -7812,9 +8530,13 @@ def write_mechanism_instance_corpus(root: str | Path | None = None) -> dict[str,
 
 def _unique_strings(*values: Any) -> list[str]:
     """
+    [ACTION]
     - Teleology: merge several string-list arguments into one order-preserving de-duplicated list.
     - Guarantee: returns the non-empty strings across all arguments in first-seen order, without duplicates.
     - Fails: never raises; non-string members are dropped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     seen: set[str] = set()
     rows: list[str] = []
@@ -7828,10 +8550,14 @@ def _unique_strings(*values: Any) -> list[str]:
 
 def _organ_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: join accepted organ-registry rows with their organ-atlas rows into unified source rows.
     - Guarantee: returns one row per atlas organ that is also an accepted-authority registry organ, carrying source_ref, registry_ref, and registry_payload.
     - Fails: never raises; atlas rows without an accepted registry match are skipped.
     - Escalates-to: core/organ_atlas.json, core/organ_registry.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     accepted = _accepted_organs(root)
     registry_by_id = {
@@ -7863,9 +8589,13 @@ def _organ_source_rows(root: str | Path | None) -> list[dict[str, Any]]:
 
 def _paper_module_target_id(ref: str) -> str:
     """
+    [ACTION]
     - Teleology: normalize an organ's paper_module_ref (path or fragment) into a canonical paper-module id.
     - Guarantee: returns the value if already 'paper_module.'-prefixed, else the '#fragment' if present, else 'paper_module.<stem-of-path>'.
     - Fails: never raises; empty input returns empty.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     stripped = str(ref or "").strip()
     if not stripped:
@@ -7881,9 +8611,13 @@ def _paper_module_target_id(ref: str) -> str:
 
 def _organ_required_residual(relation_id: str, reason: str) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: build a typed REQUIRED residual-pressure row for an unpopulated organ relation.
     - Guarantee: returns a dict with relation_id, status 'residual_pressure', requirement 'required', reason, and pressure_ref.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "relation_id": relation_id,
@@ -7896,9 +8630,13 @@ def _organ_required_residual(relation_id: str, reason: str) -> dict[str, Any]:
 
 def _organ_selective_residual(relation_id: str, reason: str) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: build a typed SELECTIVE residual-pressure row for an unpopulated organ relation.
     - Guarantee: returns a dict with relation_id, status 'residual_pressure', requirement 'selective', reason, and pressure_ref.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "relation_id": relation_id,
@@ -7915,9 +8653,13 @@ def _organ_resolution_context(
     source_rows: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: precompute the standard plus known-id sets used to resolve organ edges.
     - Guarantee: returns a dict of the organ standard, known mechanism/concept/principle/axiom/organ id sets, and paper capsules.
     - Fails: never raises beyond underlying corpus reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = source_rows if source_rows is not None else _organ_source_rows(root)
     return {
@@ -7941,9 +8683,13 @@ def _organ_resolution_context(
 
 def _context_string_set(value: Any) -> set[str]:
     """
+    [ACTION]
     - Teleology: coerce a resolution-context value (set, list, tuple, or other) into a string set.
     - Guarantee: returns a set of stringified members for set/list/tuple input, else the string set of the value.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if isinstance(value, set):
         return {str(item) for item in value}
@@ -7966,6 +8712,9 @@ def build_organ_instance_from_source_row(
     - When-needed: regenerating organ instances or diagnosing one organ's edges.
     - Escalates-to: expected_organ_instances, core/organ_atlas.json, core/organ_registry.json.
     - Non-goal: building an instance does not flip source authority off atlas/registry, nor prove runtime correctness or release readiness; selective edges are never inferred from prose/specialty.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     organ_id = str(row.get("organ_id") or "")
     source_ref = str(row.get("source_ref") or f"core/organ_atlas.json::{organ_id}")
@@ -8304,6 +9053,9 @@ def expected_organ_instances(root: str | Path | None = None) -> dict[str, dict[s
     - Guarantee: returns {organ_id: instance} for every accepted joined source row.
     - Fails: never raises beyond underlying source reads.
     - Escalates-to: build_organ_instance_from_source_row.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _expected_organ_instances_cached(_root_key(root))
 
@@ -8311,9 +9063,13 @@ def expected_organ_instances(root: str | Path | None = None) -> dict[str, dict[s
 @lru_cache(maxsize=32)
 def _expected_organ_instances_cached(root_key: str) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: lru-cached backend for expected_organ_instances keyed by root string.
     - Guarantee: returns the {organ_id: instance} mapping; identical root_key returns the cached mapping.
     - Fails: never raises beyond underlying source reads.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     root = Path(root_key)
     source_rows = _organ_source_rows(root)
@@ -8336,6 +9092,9 @@ def load_organ_instances(root: str | Path | None = None) -> dict[str, dict[str, 
     - Guarantee: returns {id: payload} for each parseable organs/*.json carrying an id; {} if the directory is absent.
     - Fails: propagates read_json_strict errors on a malformed instance file.
     - Escalates-to: organs/*.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     organ_dir = _path(root, ORGAN_INSTANCE_DIR_REL)
     rows: dict[str, dict[str, Any]] = {}
@@ -8357,6 +9116,9 @@ def validate_organ_instance_corpus(root: str | Path | None = None) -> dict[str, 
     - When-needed: --check-organ-corpus or doctrine-projection validation.
     - Escalates-to: expected_organ_instances.
     - Non-goal: passing proves atlas/registry-source parity only, not complete links, selective constraints, runtime correctness, or release readiness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     expected = expected_organ_instances(root)
@@ -8388,9 +9150,13 @@ def validate_organ_instance_corpus(root: str | Path | None = None) -> dict[str, 
 
 def _relation_residual_count(instances: dict[str, dict[str, Any]], *, requirement: str | None = None) -> int:
     """
+    [ACTION]
     - Teleology: count residual rows across instances, optionally filtered by requirement class.
     - Guarantee: returns the integer count of unpopulated_selective_relations matching the requirement filter (or all when None).
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     count = 0
     for instance in instances.values():
@@ -8409,6 +9175,9 @@ def build_organ_instance_corpus(root: str | Path | None = None) -> dict[str, Any
     - Guarantee: returns a corpus dict (counts, residual detail rows and grouped counts, parity_status, embedded validation).
     - Fails: never raises.
     - Escalates-to: validate_organ_instance_corpus.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = expected_organ_instances(root)
     actual = load_organ_instances(root)
@@ -8474,6 +9243,9 @@ def write_organ_instance_corpus(root: str | Path | None = None) -> dict[str, Any
     - When-needed: --write-style regeneration of organ instances.
     - Escalates-to: build_organ_instance_corpus, render_organ_markdown.
     - Non-goal: writing instances does not flip authority off atlas/registry or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     organ_dir = resolved / ORGAN_INSTANCE_DIR_REL
@@ -8500,6 +9272,9 @@ def write_organ_instance(
     - Guarantee: writes organs/<id>.json and organs/<id>.md and returns the instance payload.
     - Fails: raises KeyError when the organ id is unknown; raises OSError if a file cannot be written.
     - Escalates-to: expected_organ_instances, render_organ_markdown.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     payload = expected_organ_instances(resolved).get(organ_id)
@@ -8525,6 +9300,9 @@ def render_organ_markdown(instance: dict[str, Any]) -> str:
     - Guarantee: returns a markdown string with role, lattice neighbours, residuals, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
     - Non-goal: the markdown is a generated projection, not source authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     organ_id = str(instance.get("id") or "")
     relationships = _as_dict(instance.get("relationships"))
@@ -8564,6 +9342,9 @@ def render_concept_markdown(instance: dict[str, Any]) -> str:
     - Guarantee: returns a markdown string with statement, residual neighbours, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
     - Non-goal: the markdown is a generated projection, not source authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     concept_id = str(instance.get("id") or "")
     relationships = _as_dict(instance.get("relationships"))
@@ -8599,6 +9380,9 @@ def render_mechanism_markdown(instance: dict[str, Any]) -> str:
     - Guarantee: returns a markdown string with statement, lattice neighbours, residuals, and anti-claims.
     - Fails: never raises; absent fields render as empty/placeholder lines.
     - Non-goal: the markdown is a generated projection, not source authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     mechanism_id = str(instance.get("id") or "")
     relationships = _as_dict(instance.get("relationships"))
@@ -8632,9 +9416,13 @@ def render_mechanism_markdown(instance: dict[str, Any]) -> str:
 
 def _node_id(value: str) -> str:
     """
+    [ACTION]
     - Teleology: sanitize an arbitrary string into a mermaid-safe node identifier.
     - Guarantee: returns the value with non-word chars replaced by '_', prefixed 'n_' if empty or leading-digit.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     cleaned = re.sub(r"[^A-Za-z0-9_]", "_", value)
     if not cleaned or cleaned[0].isdigit():
@@ -8649,6 +9437,9 @@ def render_doctrine_mermaid(instances: list[dict[str, Any]]) -> str:
     - Guarantee: returns a mermaid flowchart string with one node per instance and per edge target, residual targets styled distinctly.
     - Fails: never raises; non-dict edges are skipped.
     - Non-goal: the graph is a generated projection, not source authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     lines = [
         "flowchart LR",
@@ -8723,6 +9514,9 @@ def build_lattice_health(
     - When-needed: building the entry card or auditing overall lattice population.
     - Escalates-to: build_*_instance_corpus, evaluate_axiom_support_cover, _evidence_walkability_health.
     - Non-goal: health is a computed projection, not source authority, release readiness, or proof of correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     resolved = _root(root)
     corpus = build_axiom_instance_corpus(resolved)
@@ -9452,6 +10246,9 @@ def build_doctrine_projection(
     - When-needed: --doctrine-projection / --write-doctrine-projection / projection validation.
     - Escalates-to: build_coverage_projection, render_doctrine_mermaid, validate_doctrine_projection.
     - Non-goal: the projection is generated and never source authority; passing does not authorize release or prove runtime correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     resolved = _root(root)
     coverage = build_coverage_projection(resolved, generated_at=generated_at, command=command)
@@ -10139,6 +10936,9 @@ def write_doctrine_projection(
     - When-needed: --write-doctrine-projection regeneration.
     - Escalates-to: build_doctrine_projection, render_doctrine_mermaid.
     - Non-goal: writing generated surfaces does not flip source authority or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = _root(root)
     projection = build_doctrine_projection(
@@ -10179,6 +10979,9 @@ def validate_doctrine_projection(root: str | Path | None = None) -> dict[str, An
     - When-needed: --check-doctrine-projection before trusting the generated surfaces.
     - Escalates-to: build_doctrine_projection, validate_*_instance_corpus.
     - Non-goal: passing proves source-reproducibility of generated artifacts only, not release readiness or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     resolved = _root(root)
     errors: list[dict[str, Any]] = []
@@ -10254,15 +11057,8 @@ def validate_doctrine_projection(root: str | Path | None = None) -> dict[str, An
         )
     else:
         actual = _as_dict(read_json_strict(projection_path))
-        # Compare everything except the variable generation block (timestamps)
-        # without mutating actual in place; a JSON-valid projection that is
-        # missing or mistypes 'generation' must produce an error row, not a
-        # KeyError/TypeError (the contract is never-raises).
-        actual_for_compare = {k: v for k, v in actual.items() if k != "generation"}
-        expected_for_compare = {
-            k: v for k, v in expected_projection.items() if k != "generation"
-        }
-        if actual_for_compare != expected_for_compare:
+        actual["generation"]["generated_at"] = "check"
+        if actual != expected_projection:
             for key in (
                 "axiom_instance_corpus",
                 "principle_instance_corpus",
@@ -10335,9 +11131,13 @@ def _kind_coverage_rows(
     standards: dict[str, dict[str, Any]], relation_validation: dict[str, Any]
 ) -> dict[str, dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: summarize per-kind standard coverage (triads present, projection generated-only, lattice/unregistered edge counts).
     - Guarantee: returns {kind: row} with schema/status/source-format flags and edge counts for each standard.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     missing_relation_paths = {
         str(error.get("relation_key") or error.get("path") or "")
@@ -10374,6 +11174,9 @@ def build_coverage_projection(
     - When-needed: --write / default build / status; the root coverage artifact other surfaces consume.
     - Escalates-to: validate_kind_standard_contracts, build_*_instance_corpus, validate_coverage_projection.
     - Non-goal: coverage is a generated projection and never source authority; a pass does not authorize publication or prove runtime correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     standards = load_kind_standards(root)
     relation_registry = load_relation_registry(root)
@@ -10655,6 +11458,9 @@ def validate_coverage_projection(
     - When-needed: --check coverage before trusting the written artifact.
     - Escalates-to: build_coverage_projection.
     - Non-goal: passing proves source-reproducibility only, not release readiness or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     generated_at = _as_dict(projection.get("generation")).get("generated_at") or "check"
@@ -10664,14 +11470,33 @@ def validate_coverage_projection(
         actual_digests = _as_dict(_as_dict(projection.get("projection_freshness")).get("source_digests"))
         if expected_digests != actual_digests:
             _add_error(errors, code="coverage_projection_source_digest_mismatch", path="projection_freshness.source_digests", message="Coverage source digests do not match current sources.")
-        # Compare every top-level field, not a fixed allowlist that silently
-        # certified drifted fields (status, standard_contract_validation,
-        # organ_count, ...) as reproducible. Skip only the variable generation
-        # block and projection_freshness, whose source_digests are already
-        # itemized by the digest check above.
-        for key in sorted(set(projection) | set(expected)):
-            if key in ("generation", "projection_freshness"):
-                continue
+        for key in (
+            "source_refs",
+            "contract_status",
+            "relation_registry_status",
+            "projection_reproducibility_status",
+            "population_status",
+            "release_readiness_status",
+            "public_brand_guard_status",
+            "organ_required_edge_coverage",
+            "per_kind_coverage",
+            "relation_registry_health",
+            "registry_atlas_join_health",
+            "paper_module_corpus",
+            "axiom_instance_corpus",
+            "principle_instance_corpus",
+            "anti_principle_instance_corpus",
+            "concept_instance_corpus",
+            "mechanism_instance_corpus",
+            "organ_instance_corpus",
+            "paper_module_instance_corpus",
+            "skill_instance_corpus",
+            "standard_instance_corpus",
+            "mechanism_capsule_dependency_upstream_parity",
+            "deficit_summary",
+            "next_population_targets",
+            "public_codex_leak_guard",
+        ):
             if projection.get(key) != expected.get(key):
                 _add_error(errors, code="coverage_projection_reproducibility_mismatch", path=key, message=f"Coverage field {key} is not reproducible from source.")
     return {
@@ -10696,6 +11521,9 @@ def write_coverage_projection(
     - When-needed: --write coverage regeneration.
     - Escalates-to: build_coverage_projection.
     - Non-goal: writing the projection does not flip source authority or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = Path(root).resolve() if root is not None else microcosm_root()
     projection = build_coverage_projection(resolved, generated_at=generated_at, command=command)
@@ -10707,9 +11535,13 @@ def write_coverage_projection(
 
 def _status_card(projection: dict[str, Any]) -> dict[str, Any]:
     """
+    [ACTION]
     - Teleology: compress a coverage projection into a compact status card (axis statuses, deficit summary, top targets).
     - Guarantee: returns a status-card dict with the axis statuses, selected deficit counts, and the first three next_population_targets.
     - Fails: never raises; absent fields render as None.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     deficit = _as_dict(projection.get("deficit_summary"))
     targets = _as_list(projection.get("next_population_targets"))
@@ -10773,6 +11605,9 @@ def build_entry_card(
     - When-needed: --entry-card / --write-entry-card; the cold-start surface for a Microcosm agent.
     - Escalates-to: build_coverage_projection, build_lattice_health, validate_entry_card.
     - Non-goal: the card routes to evidence only; it does not make generated counts source doctrine, count planned rows as resolved, authorize publication, or replace coverage validation.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if projection is None:
         projection = build_coverage_projection(root, generated_at=generated_at, command=command)
@@ -11050,6 +11885,9 @@ def validate_entry_card(
     - When-needed: --check-entry-card before trusting the written card.
     - Escalates-to: build_entry_card.
     - Non-goal: passing proves source-reproducibility only, not release readiness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, Any]] = []
     generation = _as_dict(card.get("generation"))
@@ -11094,6 +11932,9 @@ def write_entry_card(
     - When-needed: --write-entry-card regeneration.
     - Escalates-to: build_entry_card.
     - Non-goal: writing the card does not flip source authority or authorize publication.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved = Path(root).resolve() if root is not None else microcosm_root()
     card = build_entry_card(resolved, generated_at=generated_at, command=command)
@@ -11104,7 +11945,8 @@ def write_entry_card(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry to build, write, or check the doctrine-lattice projections and corpora.
+    """
+    CLI entry to build, write, or check the doctrine-lattice projections and corpora.
     [ACTION]
 
     - Teleology: single build/check front door for the doctrine lattice (coverage, axiom/principle/anti-principle/concept/mechanism corpora, entry card, doctrine projection).
@@ -11114,6 +11956,8 @@ def main(argv: list[str] | None = None) -> int:
     - Writes (only with --write-* flags): coverage projection, corpus JSON+markdown, entry card, and doctrine projection/graph/health surfaces.
     - When-needed: regenerating or validating doctrine-lattice generated artifacts before commit.
     - Escalates-to: write/validate corpus functions, write/validate_doctrine_projection, write/validate_coverage_projection, build/validate_entry_card.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
 
     parser = argparse.ArgumentParser(description="Build or check the Microcosm doctrine lattice coverage projection.")

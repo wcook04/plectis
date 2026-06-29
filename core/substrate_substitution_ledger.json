@@ -20738,6 +20738,918 @@
       "stale_standard_language_status": "anti_claim_language_only",
       "supporting_body_count": 1,
       "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "acceptance_command": "python -m microcosm_core.organs.semantic_singleflight_dedup_runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+      "accepted_authority": true,
+      "body_support_class": "source_module_manifest_verified_body",
+      "claim_ceiling": "keys and dedups command runs by repo-state fingerprint; does not guarantee global mutual exclusion, does not replace a lock service, and does not prove cross-host correctness",
+      "claim_ceiling_source": "core/organ_registry.json",
+      "counts_as_real_substrate_progress": true,
+      "digest_drift_disposition_count": 0,
+      "digest_relation": [
+        {
+          "actual_target_sha256": "sha256:b997ef42ca8bc652708cd42fc6b6bdfca139bf53c1856b7cc2b530eda33a3b02",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:b997ef42ca8bc652708cd42fc6b6bdfca139bf53c1856b7cc2b530eda33a3b02",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/semantic_singleflight_dedup_runtime/exported_semantic_singleflight_dedup_runtime_bundle/source_module_manifest.json",
+          "module_id": "semantic_singleflight_dedup_runtime_organ_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/organs/semantic_singleflight_dedup_runtime.py",
+          "source_sha256": "sha256:b997ef42ca8bc652708cd42fc6b6bdfca139bf53c1856b7cc2b530eda33a3b02",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/organs/semantic_singleflight_dedup_runtime.py"
+        },
+        {
+          "actual_target_sha256": "sha256:6ef1a3550daad03e10c800ed23adaa8eb4360da1027889545a72137c2c6a36de",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:6ef1a3550daad03e10c800ed23adaa8eb4360da1027889545a72137c2c6a36de",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/semantic_singleflight_dedup_runtime/exported_semantic_singleflight_dedup_runtime_bundle/source_module_manifest.json",
+          "module_id": "semantic_singleflight_dedup_runtime_capsule_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/command_run_singleflight.py",
+          "source_sha256": "sha256:6ef1a3550daad03e10c800ed23adaa8eb4360da1027889545a72137c2c6a36de",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/engine_room/command_run_singleflight.py"
+        }
+      ],
+      "digest_relation_status": "pass",
+      "disposition": "real_substrate_capsule",
+      "evidence_class": "bounded_runtime_computation",
+      "examples_fixtures_consistency": "examples_body_manifest_controls_fixture_zero_receipt",
+      "fixture_declared_body_count": 0,
+      "fixture_manifest_ref": null,
+      "fixture_role": "no_fixture_authority",
+      "macro_refs": [
+        "microcosm-substrate/src/microcosm_core/organs/semantic_singleflight_dedup_runtime.py",
+        "microcosm-substrate/src/microcosm_core/engine_room/command_run_singleflight.py"
+      ],
+      "microcosm_target_refs": [
+        "src/microcosm_core/organs/semantic_singleflight_dedup_runtime.py",
+        "src/microcosm_core/engine_room/command_run_singleflight.py",
+        "examples/semantic_singleflight_dedup_runtime/exported_semantic_singleflight_dedup_runtime_bundle/source_module_manifest.json"
+      ],
+      "name_promise": {
+        "compute_import_markers": [],
+        "mechanism_theater_terms": [],
+        "name_promise_terms": [],
+        "policy_ref": "AP-15::mechanism_theater_name_promise",
+        "risky_evidence_class": false,
+        "runtime_compute_markers": [],
+        "scheduler_target": "maintain_current_disposition",
+        "schema_version": "microcosm_name_promise_axis_v1",
+        "source_exists": true,
+        "source_inspection_found_runtime_compute": false,
+        "source_ref": "src/microcosm_core/organs/semantic_singleflight_dedup_runtime.py",
+        "status": "no_compute_name_promise"
+      },
+      "next_repair": "maintain digest freshness and keep public exercise command green",
+      "organ_id": "semantic_singleflight_dedup_runtime",
+      "public_exercise_commands": [
+        "python -m microcosm_core.organs.semantic_singleflight_dedup_runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json"
+      ],
+      "real_body_count": 2,
+      "receipt_body_count": 0,
+      "registry_status": "accepted_current_authority",
+      "source_module_manifest_refs": [
+        "examples/semantic_singleflight_dedup_runtime/exported_semantic_singleflight_dedup_runtime_bundle/source_module_manifest.json"
+      ],
+      "stale_standard_language_status": "anti_claim_language_only",
+      "supporting_body_count": 2,
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "acceptance_command": "python -m microcosm_core.organs.finite_erdos_denominator_certificate_strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+      "accepted_authority": true,
+      "body_support_class": "source_module_manifest_verified_body",
+      "claim_ceiling": "computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+      "claim_ceiling_source": "core/organ_registry.json",
+      "counts_as_real_substrate_progress": true,
+      "digest_drift_disposition_count": 0,
+      "digest_relation": [
+        {
+          "actual_target_sha256": "sha256:6f8a9c580ce9b808527f7c221c5deb389fb7b897bb8e26856da5087d7d10373f",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:6f8a9c580ce9b808527f7c221c5deb389fb7b897bb8e26856da5087d7d10373f",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/finite_erdos_denominator_certificate_strike/exported_finite_erdos_denominator_certificate_strike_bundle/source_module_manifest.json",
+          "module_id": "finite_erdos_denominator_certificate_strike_organ_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/organs/finite_erdos_denominator_certificate_strike.py",
+          "source_sha256": "sha256:6f8a9c580ce9b808527f7c221c5deb389fb7b897bb8e26856da5087d7d10373f",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/organs/finite_erdos_denominator_certificate_strike.py"
+        },
+        {
+          "actual_target_sha256": "sha256:b824ca460533c8c98f4651e09d60b59f6ccf228530c1e611bf3d66952ae5e056",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:b824ca460533c8c98f4651e09d60b59f6ccf228530c1e611bf3d66952ae5e056",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/finite_erdos_denominator_certificate_strike/exported_finite_erdos_denominator_certificate_strike_bundle/source_module_manifest.json",
+          "module_id": "finite_erdos_denominator_certificate_strike_capsule_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/finite_denominator_order_certificate.py",
+          "source_sha256": "sha256:b824ca460533c8c98f4651e09d60b59f6ccf228530c1e611bf3d66952ae5e056",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/engine_room/finite_denominator_order_certificate.py"
+        }
+      ],
+      "digest_relation_status": "pass",
+      "disposition": "real_substrate_capsule",
+      "evidence_class": "bounded_runtime_computation",
+      "examples_fixtures_consistency": "examples_body_manifest_controls_fixture_zero_receipt",
+      "fixture_declared_body_count": 0,
+      "fixture_manifest_ref": null,
+      "fixture_role": "no_fixture_authority",
+      "macro_refs": [
+        "microcosm-substrate/src/microcosm_core/organs/finite_erdos_denominator_certificate_strike.py",
+        "microcosm-substrate/src/microcosm_core/engine_room/finite_denominator_order_certificate.py"
+      ],
+      "microcosm_target_refs": [
+        "src/microcosm_core/organs/finite_erdos_denominator_certificate_strike.py",
+        "src/microcosm_core/engine_room/finite_denominator_order_certificate.py",
+        "examples/finite_erdos_denominator_certificate_strike/exported_finite_erdos_denominator_certificate_strike_bundle/source_module_manifest.json"
+      ],
+      "name_promise": {
+        "compute_import_markers": [],
+        "mechanism_theater_terms": [],
+        "name_promise_terms": [],
+        "policy_ref": "AP-15::mechanism_theater_name_promise",
+        "risky_evidence_class": false,
+        "runtime_compute_markers": [],
+        "scheduler_target": "maintain_current_disposition",
+        "schema_version": "microcosm_name_promise_axis_v1",
+        "source_exists": true,
+        "source_inspection_found_runtime_compute": false,
+        "source_ref": "src/microcosm_core/organs/finite_erdos_denominator_certificate_strike.py",
+        "status": "no_compute_name_promise"
+      },
+      "next_repair": "maintain digest freshness and keep public exercise command green",
+      "organ_id": "finite_erdos_denominator_certificate_strike",
+      "public_exercise_commands": [
+        "python -m microcosm_core.organs.finite_erdos_denominator_certificate_strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
+      ],
+      "real_body_count": 2,
+      "receipt_body_count": 0,
+      "registry_status": "accepted_current_authority",
+      "source_module_manifest_refs": [
+        "examples/finite_erdos_denominator_certificate_strike/exported_finite_erdos_denominator_certificate_strike_bundle/source_module_manifest.json"
+      ],
+      "stale_standard_language_status": "anti_claim_language_only",
+      "supporting_body_count": 2,
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "acceptance_command": "python -m microcosm_core.organs.bridge_campaign_dag_validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+      "accepted_authority": true,
+      "body_support_class": "source_module_manifest_verified_body",
+      "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
+      "claim_ceiling_source": "core/organ_registry.json",
+      "counts_as_real_substrate_progress": true,
+      "digest_drift_disposition_count": 0,
+      "digest_relation": [
+        {
+          "actual_target_sha256": "sha256:bb82851fcd17c5862b0fd97ecc3daac7bd38c6118d1a1e07d9771da3aa256bcd",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:bb82851fcd17c5862b0fd97ecc3daac7bd38c6118d1a1e07d9771da3aa256bcd",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/bridge_campaign_dag_validation/exported_bridge_campaign_dag_validation_bundle/source_module_manifest.json",
+          "module_id": "bridge_campaign_dag_validation_organ_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/organs/bridge_campaign_dag_validation.py",
+          "source_sha256": "sha256:bb82851fcd17c5862b0fd97ecc3daac7bd38c6118d1a1e07d9771da3aa256bcd",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/organs/bridge_campaign_dag_validation.py"
+        },
+        {
+          "actual_target_sha256": "sha256:f9b8ff5d3b2ac5b348ef3344bf67efb07f2531a6799190d905e6abc23da88810",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:f9b8ff5d3b2ac5b348ef3344bf67efb07f2531a6799190d905e6abc23da88810",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/bridge_campaign_dag_validation/exported_bridge_campaign_dag_validation_bundle/source_module_manifest.json",
+          "module_id": "bridge_campaign_dag_validation_capsule_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/bridge_campaign_dag.py",
+          "source_sha256": "sha256:f9b8ff5d3b2ac5b348ef3344bf67efb07f2531a6799190d905e6abc23da88810",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/engine_room/bridge_campaign_dag.py"
+        }
+      ],
+      "digest_relation_status": "pass",
+      "disposition": "real_substrate_capsule",
+      "evidence_class": "bounded_runtime_computation",
+      "examples_fixtures_consistency": "examples_body_manifest_controls_fixture_zero_receipt",
+      "fixture_declared_body_count": 0,
+      "fixture_manifest_ref": null,
+      "fixture_role": "no_fixture_authority",
+      "macro_refs": [
+        "microcosm-substrate/src/microcosm_core/organs/bridge_campaign_dag_validation.py",
+        "microcosm-substrate/src/microcosm_core/engine_room/bridge_campaign_dag.py"
+      ],
+      "microcosm_target_refs": [
+        "src/microcosm_core/organs/bridge_campaign_dag_validation.py",
+        "src/microcosm_core/engine_room/bridge_campaign_dag.py",
+        "examples/bridge_campaign_dag_validation/exported_bridge_campaign_dag_validation_bundle/source_module_manifest.json"
+      ],
+      "name_promise": {
+        "compute_import_markers": [],
+        "mechanism_theater_terms": [],
+        "name_promise_terms": [],
+        "policy_ref": "AP-15::mechanism_theater_name_promise",
+        "risky_evidence_class": false,
+        "runtime_compute_markers": [],
+        "scheduler_target": "maintain_current_disposition",
+        "schema_version": "microcosm_name_promise_axis_v1",
+        "source_exists": true,
+        "source_inspection_found_runtime_compute": false,
+        "source_ref": "src/microcosm_core/organs/bridge_campaign_dag_validation.py",
+        "status": "no_compute_name_promise"
+      },
+      "next_repair": "maintain digest freshness and keep public exercise command green",
+      "organ_id": "bridge_campaign_dag_validation",
+      "public_exercise_commands": [
+        "python -m microcosm_core.organs.bridge_campaign_dag_validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
+      ],
+      "real_body_count": 2,
+      "receipt_body_count": 0,
+      "registry_status": "accepted_current_authority",
+      "source_module_manifest_refs": [
+        "examples/bridge_campaign_dag_validation/exported_bridge_campaign_dag_validation_bundle/source_module_manifest.json"
+      ],
+      "stale_standard_language_status": "anti_claim_language_only",
+      "supporting_body_count": 2,
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "acceptance_command": "python -m microcosm_core.organs.metabolism_queue_reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+      "accepted_authority": true,
+      "body_support_class": "source_module_manifest_verified_body",
+      "claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+      "claim_ceiling_source": "core/organ_registry.json",
+      "counts_as_real_substrate_progress": true,
+      "digest_drift_disposition_count": 0,
+      "digest_relation": [
+        {
+          "actual_target_sha256": "sha256:c023571df45ddee5aafa1cf9de470d554cfe481745a8f87c09a929f63fad3da8",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:c023571df45ddee5aafa1cf9de470d554cfe481745a8f87c09a929f63fad3da8",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/metabolism_queue_reconciliation/exported_metabolism_queue_reconciliation_bundle/source_module_manifest.json",
+          "module_id": "metabolism_queue_reconciliation_organ_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py",
+          "source_sha256": "sha256:c023571df45ddee5aafa1cf9de470d554cfe481745a8f87c09a929f63fad3da8",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/organs/metabolism_queue_reconciliation.py"
+        },
+        {
+          "actual_target_sha256": "sha256:be29b6eaa803904748ae0f2dca22008c9a9a4e58375fe1121a9a3d724845a670",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:be29b6eaa803904748ae0f2dca22008c9a9a4e58375fe1121a9a3d724845a670",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/metabolism_queue_reconciliation/exported_metabolism_queue_reconciliation_bundle/source_module_manifest.json",
+          "module_id": "metabolism_queue_reconciliation_capsule_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
+          "source_sha256": "sha256:be29b6eaa803904748ae0f2dca22008c9a9a4e58375fe1121a9a3d724845a670",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/engine_room/metabolism_runtime.py"
+        }
+      ],
+      "digest_relation_status": "pass",
+      "disposition": "real_substrate_capsule",
+      "evidence_class": "bounded_runtime_computation",
+      "examples_fixtures_consistency": "examples_body_manifest_controls_fixture_zero_receipt",
+      "fixture_declared_body_count": 0,
+      "fixture_manifest_ref": null,
+      "fixture_role": "no_fixture_authority",
+      "macro_refs": [
+        "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py",
+        "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py"
+      ],
+      "microcosm_target_refs": [
+        "src/microcosm_core/organs/metabolism_queue_reconciliation.py",
+        "src/microcosm_core/engine_room/metabolism_runtime.py",
+        "examples/metabolism_queue_reconciliation/exported_metabolism_queue_reconciliation_bundle/source_module_manifest.json"
+      ],
+      "name_promise": {
+        "compute_import_markers": [],
+        "mechanism_theater_terms": [],
+        "name_promise_terms": [],
+        "policy_ref": "AP-15::mechanism_theater_name_promise",
+        "risky_evidence_class": false,
+        "runtime_compute_markers": [],
+        "scheduler_target": "maintain_current_disposition",
+        "schema_version": "microcosm_name_promise_axis_v1",
+        "source_exists": true,
+        "source_inspection_found_runtime_compute": false,
+        "source_ref": "src/microcosm_core/organs/metabolism_queue_reconciliation.py",
+        "status": "no_compute_name_promise"
+      },
+      "next_repair": "maintain digest freshness and keep public exercise command green",
+      "organ_id": "metabolism_queue_reconciliation",
+      "public_exercise_commands": [
+        "python -m microcosm_core.organs.metabolism_queue_reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json"
+      ],
+      "real_body_count": 2,
+      "receipt_body_count": 0,
+      "registry_status": "accepted_current_authority",
+      "source_module_manifest_refs": [
+        "examples/metabolism_queue_reconciliation/exported_metabolism_queue_reconciliation_bundle/source_module_manifest.json"
+      ],
+      "stale_standard_language_status": "anti_claim_language_only",
+      "supporting_body_count": 2,
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "acceptance_command": "python -m microcosm_core.organs.derived_fact_provider_runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+      "accepted_authority": true,
+      "body_support_class": "source_module_manifest_verified_body",
+      "claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+      "claim_ceiling_source": "core/organ_registry.json",
+      "counts_as_real_substrate_progress": true,
+      "digest_drift_disposition_count": 0,
+      "digest_relation": [
+        {
+          "actual_target_sha256": "sha256:fc082ba55038e2073673838d08b7afd1c6057074330efbf12e1ba16be190edc6",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:fc082ba55038e2073673838d08b7afd1c6057074330efbf12e1ba16be190edc6",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/derived_fact_provider_runtime/exported_derived_fact_provider_runtime_bundle/source_module_manifest.json",
+          "module_id": "derived_fact_provider_runtime_organ_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py",
+          "source_sha256": "sha256:fc082ba55038e2073673838d08b7afd1c6057074330efbf12e1ba16be190edc6",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/organs/derived_fact_provider_runtime.py"
+        },
+        {
+          "actual_target_sha256": "sha256:2d55ee628bf57e76a64c2d0c303293944d8e89eb9ddb37aa04734a2520ea504b",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:2d55ee628bf57e76a64c2d0c303293944d8e89eb9ddb37aa04734a2520ea504b",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/derived_fact_provider_runtime/exported_derived_fact_provider_runtime_bundle/source_module_manifest.json",
+          "module_id": "derived_fact_provider_runtime_capsule_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
+          "source_sha256": "sha256:2d55ee628bf57e76a64c2d0c303293944d8e89eb9ddb37aa04734a2520ea504b",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/engine_room/derived_fact_provider_engine.py"
+        }
+      ],
+      "digest_relation_status": "pass",
+      "disposition": "real_substrate_capsule",
+      "evidence_class": "bounded_runtime_computation",
+      "examples_fixtures_consistency": "examples_body_manifest_controls_fixture_zero_receipt",
+      "fixture_declared_body_count": 0,
+      "fixture_manifest_ref": null,
+      "fixture_role": "no_fixture_authority",
+      "macro_refs": [
+        "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py",
+        "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py"
+      ],
+      "microcosm_target_refs": [
+        "src/microcosm_core/organs/derived_fact_provider_runtime.py",
+        "src/microcosm_core/engine_room/derived_fact_provider_engine.py",
+        "examples/derived_fact_provider_runtime/exported_derived_fact_provider_runtime_bundle/source_module_manifest.json"
+      ],
+      "name_promise": {
+        "compute_import_markers": [],
+        "mechanism_theater_terms": [],
+        "name_promise_terms": [],
+        "policy_ref": "AP-15::mechanism_theater_name_promise",
+        "risky_evidence_class": false,
+        "runtime_compute_markers": [],
+        "scheduler_target": "maintain_current_disposition",
+        "schema_version": "microcosm_name_promise_axis_v1",
+        "source_exists": true,
+        "source_inspection_found_runtime_compute": false,
+        "source_ref": "src/microcosm_core/organs/derived_fact_provider_runtime.py",
+        "status": "no_compute_name_promise"
+      },
+      "next_repair": "maintain digest freshness and keep public exercise command green",
+      "organ_id": "derived_fact_provider_runtime",
+      "public_exercise_commands": [
+        "python -m microcosm_core.organs.derived_fact_provider_runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json"
+      ],
+      "real_body_count": 2,
+      "receipt_body_count": 0,
+      "registry_status": "accepted_current_authority",
+      "source_module_manifest_refs": [
+        "examples/derived_fact_provider_runtime/exported_derived_fact_provider_runtime_bundle/source_module_manifest.json"
+      ],
+      "stale_standard_language_status": "anti_claim_language_only",
+      "supporting_body_count": 2,
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "acceptance_command": "python -m microcosm_core.organs.navigation_fitness_benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+      "accepted_authority": true,
+      "body_support_class": "source_module_manifest_verified_body",
+      "claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+      "claim_ceiling_source": "core/organ_registry.json",
+      "counts_as_real_substrate_progress": true,
+      "digest_drift_disposition_count": 0,
+      "digest_relation": [
+        {
+          "actual_target_sha256": "sha256:4183907c8851f4e4bab06c5a3daacebfe921a0be5b7723dc21024b22df16718d",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:4183907c8851f4e4bab06c5a3daacebfe921a0be5b7723dc21024b22df16718d",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/navigation_fitness_benchmark/exported_navigation_fitness_benchmark_bundle/source_module_manifest.json",
+          "module_id": "navigation_fitness_benchmark_organ_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/organs/navigation_fitness_benchmark.py",
+          "source_sha256": "sha256:4183907c8851f4e4bab06c5a3daacebfe921a0be5b7723dc21024b22df16718d",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/organs/navigation_fitness_benchmark.py"
+        },
+        {
+          "actual_target_sha256": "sha256:d505a03859eeeb2db9fa8652d89341c1eb42bda2f09545277214adca685535ab",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:d505a03859eeeb2db9fa8652d89341c1eb42bda2f09545277214adca685535ab",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/navigation_fitness_benchmark/exported_navigation_fitness_benchmark_bundle/source_module_manifest.json",
+          "module_id": "navigation_fitness_benchmark_capsule_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/navigation_fitness_benchmark.py",
+          "source_sha256": "sha256:d505a03859eeeb2db9fa8652d89341c1eb42bda2f09545277214adca685535ab",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/engine_room/navigation_fitness_benchmark.py"
+        }
+      ],
+      "digest_relation_status": "pass",
+      "disposition": "real_substrate_capsule",
+      "evidence_class": "bounded_runtime_computation",
+      "examples_fixtures_consistency": "examples_body_manifest_controls_fixture_zero_receipt",
+      "fixture_declared_body_count": 0,
+      "fixture_manifest_ref": null,
+      "fixture_role": "no_fixture_authority",
+      "macro_refs": [
+        "microcosm-substrate/src/microcosm_core/organs/navigation_fitness_benchmark.py",
+        "microcosm-substrate/src/microcosm_core/engine_room/navigation_fitness_benchmark.py"
+      ],
+      "microcosm_target_refs": [
+        "src/microcosm_core/organs/navigation_fitness_benchmark.py",
+        "src/microcosm_core/engine_room/navigation_fitness_benchmark.py",
+        "examples/navigation_fitness_benchmark/exported_navigation_fitness_benchmark_bundle/source_module_manifest.json"
+      ],
+      "name_promise": {
+        "compute_import_markers": [],
+        "mechanism_theater_terms": [],
+        "name_promise_terms": [],
+        "policy_ref": "AP-15::mechanism_theater_name_promise",
+        "risky_evidence_class": false,
+        "runtime_compute_markers": [],
+        "scheduler_target": "maintain_current_disposition",
+        "schema_version": "microcosm_name_promise_axis_v1",
+        "source_exists": true,
+        "source_inspection_found_runtime_compute": false,
+        "source_ref": "src/microcosm_core/organs/navigation_fitness_benchmark.py",
+        "status": "no_compute_name_promise"
+      },
+      "next_repair": "maintain digest freshness and keep public exercise command green",
+      "organ_id": "navigation_fitness_benchmark",
+      "public_exercise_commands": [
+        "python -m microcosm_core.organs.navigation_fitness_benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json"
+      ],
+      "real_body_count": 2,
+      "receipt_body_count": 0,
+      "registry_status": "accepted_current_authority",
+      "source_module_manifest_refs": [
+        "examples/navigation_fitness_benchmark/exported_navigation_fitness_benchmark_bundle/source_module_manifest.json"
+      ],
+      "stale_standard_language_status": "anti_claim_language_only",
+      "supporting_body_count": 2,
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "acceptance_command": "python -m microcosm_core.organs.annex_knowledge_routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+      "accepted_authority": true,
+      "body_support_class": "source_module_manifest_verified_body",
+      "claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+      "claim_ceiling_source": "core/organ_registry.json",
+      "counts_as_real_substrate_progress": true,
+      "digest_drift_disposition_count": 0,
+      "digest_relation": [
+        {
+          "actual_target_sha256": "sha256:acbffb76ca37c57b6dd21f5d47a89814f722cc6929b3170c9eaf8da392233a7c",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:acbffb76ca37c57b6dd21f5d47a89814f722cc6929b3170c9eaf8da392233a7c",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/annex_knowledge_routing/exported_annex_knowledge_routing_bundle/source_module_manifest.json",
+          "module_id": "annex_knowledge_routing_organ_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py",
+          "source_sha256": "sha256:acbffb76ca37c57b6dd21f5d47a89814f722cc6929b3170c9eaf8da392233a7c",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/organs/annex_knowledge_routing.py"
+        },
+        {
+          "actual_target_sha256": "sha256:874af215e96afe36badc2ac50e204cd6a681ed92954901796918346f16c54acf",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:874af215e96afe36badc2ac50e204cd6a681ed92954901796918346f16c54acf",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/annex_knowledge_routing/exported_annex_knowledge_routing_bundle/source_module_manifest.json",
+          "module_id": "annex_knowledge_routing_capsule_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py",
+          "source_sha256": "sha256:874af215e96afe36badc2ac50e204cd6a681ed92954901796918346f16c54acf",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/engine_room/annex_knowledge_router.py"
+        }
+      ],
+      "digest_relation_status": "pass",
+      "disposition": "real_substrate_capsule",
+      "evidence_class": "bounded_runtime_computation",
+      "examples_fixtures_consistency": "examples_body_manifest_controls_fixture_zero_receipt",
+      "fixture_declared_body_count": 0,
+      "fixture_manifest_ref": null,
+      "fixture_role": "no_fixture_authority",
+      "macro_refs": [
+        "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py",
+        "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py"
+      ],
+      "microcosm_target_refs": [
+        "src/microcosm_core/organs/annex_knowledge_routing.py",
+        "src/microcosm_core/engine_room/annex_knowledge_router.py",
+        "examples/annex_knowledge_routing/exported_annex_knowledge_routing_bundle/source_module_manifest.json"
+      ],
+      "name_promise": {
+        "compute_import_markers": [],
+        "mechanism_theater_terms": [],
+        "name_promise_terms": [],
+        "policy_ref": "AP-15::mechanism_theater_name_promise",
+        "risky_evidence_class": false,
+        "runtime_compute_markers": [],
+        "scheduler_target": "maintain_current_disposition",
+        "schema_version": "microcosm_name_promise_axis_v1",
+        "source_exists": true,
+        "source_inspection_found_runtime_compute": false,
+        "source_ref": "src/microcosm_core/organs/annex_knowledge_routing.py",
+        "status": "no_compute_name_promise"
+      },
+      "next_repair": "maintain digest freshness and keep public exercise command green",
+      "organ_id": "annex_knowledge_routing",
+      "public_exercise_commands": [
+        "python -m microcosm_core.organs.annex_knowledge_routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json"
+      ],
+      "real_body_count": 2,
+      "receipt_body_count": 0,
+      "registry_status": "accepted_current_authority",
+      "source_module_manifest_refs": [
+        "examples/annex_knowledge_routing/exported_annex_knowledge_routing_bundle/source_module_manifest.json"
+      ],
+      "stale_standard_language_status": "anti_claim_language_only",
+      "supporting_body_count": 2,
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "acceptance_command": "python -m microcosm_core.organs.egress_self_compliance_audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+      "accepted_authority": true,
+      "body_support_class": "source_module_manifest_verified_body",
+      "claim_ceiling": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
+      "claim_ceiling_source": "core/organ_registry.json",
+      "counts_as_real_substrate_progress": true,
+      "digest_drift_disposition_count": 0,
+      "digest_relation": [
+        {
+          "actual_target_sha256": "sha256:66171094fc8971e6578f69a2c6e1355e6f4bc4634639f0f5081dd86095e8e1ba",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:66171094fc8971e6578f69a2c6e1355e6f4bc4634639f0f5081dd86095e8e1ba",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/egress_self_compliance_audit/exported_egress_self_compliance_audit_bundle/source_module_manifest.json",
+          "module_id": "egress_self_compliance_audit_organ_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py",
+          "source_sha256": "sha256:66171094fc8971e6578f69a2c6e1355e6f4bc4634639f0f5081dd86095e8e1ba",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/organs/egress_self_compliance_audit.py"
+        },
+        {
+          "actual_target_sha256": "sha256:c42a1c82d7c158347fe7d6d9271b84562a66c9af9ef84a123992a81eb0a99ac4",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:c42a1c82d7c158347fe7d6d9271b84562a66c9af9ef84a123992a81eb0a99ac4",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/egress_self_compliance_audit/exported_egress_self_compliance_audit_bundle/source_module_manifest.json",
+          "module_id": "egress_self_compliance_audit_capsule_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+          "source_sha256": "sha256:c42a1c82d7c158347fe7d6d9271b84562a66c9af9ef84a123992a81eb0a99ac4",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/engine_room/egress_self_compliance_gate.py"
+        }
+      ],
+      "digest_relation_status": "pass",
+      "disposition": "real_substrate_capsule",
+      "evidence_class": "bounded_runtime_computation",
+      "examples_fixtures_consistency": "examples_body_manifest_controls_fixture_zero_receipt",
+      "fixture_declared_body_count": 0,
+      "fixture_manifest_ref": null,
+      "fixture_role": "no_fixture_authority",
+      "macro_refs": [
+        "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py",
+        "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py"
+      ],
+      "microcosm_target_refs": [
+        "src/microcosm_core/organs/egress_self_compliance_audit.py",
+        "src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+        "examples/egress_self_compliance_audit/exported_egress_self_compliance_audit_bundle/source_module_manifest.json"
+      ],
+      "name_promise": {
+        "compute_import_markers": [],
+        "mechanism_theater_terms": [],
+        "name_promise_terms": [],
+        "policy_ref": "AP-15::mechanism_theater_name_promise",
+        "risky_evidence_class": false,
+        "runtime_compute_markers": [],
+        "scheduler_target": "maintain_current_disposition",
+        "schema_version": "microcosm_name_promise_axis_v1",
+        "source_exists": true,
+        "source_inspection_found_runtime_compute": false,
+        "source_ref": "src/microcosm_core/organs/egress_self_compliance_audit.py",
+        "status": "no_compute_name_promise"
+      },
+      "next_repair": "maintain digest freshness and keep public exercise command green",
+      "organ_id": "egress_self_compliance_audit",
+      "public_exercise_commands": [
+        "python -m microcosm_core.organs.egress_self_compliance_audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json"
+      ],
+      "real_body_count": 2,
+      "receipt_body_count": 0,
+      "registry_status": "accepted_current_authority",
+      "source_module_manifest_refs": [
+        "examples/egress_self_compliance_audit/exported_egress_self_compliance_audit_bundle/source_module_manifest.json"
+      ],
+      "stale_standard_language_status": "anti_claim_language_only",
+      "supporting_body_count": 2,
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "acceptance_command": "python -m microcosm_core.organs.generated_projection_drift_runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+      "accepted_authority": true,
+      "body_support_class": "source_module_manifest_verified_body",
+      "claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+      "claim_ceiling_source": "core/organ_registry.json",
+      "counts_as_real_substrate_progress": true,
+      "digest_drift_disposition_count": 0,
+      "digest_relation": [
+        {
+          "actual_target_sha256": "sha256:5db0983fded0872455206787ee387951c2fe1a2e661e4884e4e8f6348f4bf3b5",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:5db0983fded0872455206787ee387951c2fe1a2e661e4884e4e8f6348f4bf3b5",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/generated_projection_drift_runtime/exported_generated_projection_drift_runtime_bundle/source_module_manifest.json",
+          "module_id": "generated_projection_drift_runtime_organ_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py",
+          "source_sha256": "sha256:5db0983fded0872455206787ee387951c2fe1a2e661e4884e4e8f6348f4bf3b5",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/organs/generated_projection_drift_runtime.py"
+        },
+        {
+          "actual_target_sha256": "sha256:88b24b33fed7b6ea96dc84871905ba06100ca85d7831991f17d746d9557584e6",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:88b24b33fed7b6ea96dc84871905ba06100ca85d7831991f17d746d9557584e6",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/generated_projection_drift_runtime/exported_generated_projection_drift_runtime_bundle/source_module_manifest.json",
+          "module_id": "generated_projection_drift_runtime_capsule_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+          "source_sha256": "sha256:88b24b33fed7b6ea96dc84871905ba06100ca85d7831991f17d746d9557584e6",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/engine_room/generated_projection_drift_gate.py"
+        }
+      ],
+      "digest_relation_status": "pass",
+      "disposition": "real_substrate_capsule",
+      "evidence_class": "external_subprocess_witness",
+      "examples_fixtures_consistency": "examples_body_manifest_controls_fixture_zero_receipt",
+      "fixture_declared_body_count": 0,
+      "fixture_manifest_ref": null,
+      "fixture_role": "no_fixture_authority",
+      "macro_refs": [
+        "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py",
+        "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py"
+      ],
+      "microcosm_target_refs": [
+        "src/microcosm_core/organs/generated_projection_drift_runtime.py",
+        "src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+        "examples/generated_projection_drift_runtime/exported_generated_projection_drift_runtime_bundle/source_module_manifest.json"
+      ],
+      "name_promise": {
+        "compute_import_markers": [],
+        "mechanism_theater_terms": [],
+        "name_promise_terms": [],
+        "policy_ref": "AP-15::mechanism_theater_name_promise",
+        "risky_evidence_class": false,
+        "runtime_compute_markers": [],
+        "scheduler_target": "maintain_current_disposition",
+        "schema_version": "microcosm_name_promise_axis_v1",
+        "source_exists": true,
+        "source_inspection_found_runtime_compute": false,
+        "source_ref": "src/microcosm_core/organs/generated_projection_drift_runtime.py",
+        "status": "no_compute_name_promise"
+      },
+      "next_repair": "maintain digest freshness and keep public exercise command green",
+      "organ_id": "generated_projection_drift_runtime",
+      "public_exercise_commands": [
+        "python -m microcosm_core.organs.generated_projection_drift_runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json"
+      ],
+      "real_body_count": 2,
+      "receipt_body_count": 0,
+      "registry_status": "accepted_current_authority",
+      "source_module_manifest_refs": [
+        "examples/generated_projection_drift_runtime/exported_generated_projection_drift_runtime_bundle/source_module_manifest.json"
+      ],
+      "stale_standard_language_status": "anti_claim_language_only",
+      "supporting_body_count": 2,
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "acceptance_command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+      "accepted_authority": true,
+      "body_support_class": "source_module_manifest_verified_body",
+      "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
+      "claim_ceiling_source": "core/organ_registry.json",
+      "counts_as_real_substrate_progress": true,
+      "digest_drift_disposition_count": 0,
+      "digest_relation": [
+        {
+          "actual_target_sha256": "sha256:ded630822624db707ebee35d7f908850f04c2f7c188c3e47dd234584619d5056",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:ded630822624db707ebee35d7f908850f04c2f7c188c3e47dd234584619d5056",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle/source_module_manifest.json",
+          "module_id": "lean_proof_search_lab_runtime_organ_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
+          "source_sha256": "sha256:ded630822624db707ebee35d7f908850f04c2f7c188c3e47dd234584619d5056",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/organs/lean_proof_search_lab_runtime.py"
+        },
+        {
+          "actual_target_sha256": "sha256:3d2d1f0f5178f941eb4d15f6ca6848138756be6aadf84e1038f886d8094bb9d4",
+          "body_copied": true,
+          "body_in_receipt": false,
+          "counts_as_real_body": true,
+          "expected_sha256": "sha256:3d2d1f0f5178f941eb4d15f6ca6848138756be6aadf84e1038f886d8094bb9d4",
+          "manifest_material_class": "public_microcosm_runtime_body",
+          "manifest_ref": "examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle/source_module_manifest.json",
+          "module_id": "lean_proof_search_lab_runtime_capsule_public_package_body",
+          "source_authority_role": "public_substrate_source",
+          "source_exists": true,
+          "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/lean_proof_search_lab.py",
+          "source_sha256": "sha256:3d2d1f0f5178f941eb4d15f6ca6848138756be6aadf84e1038f886d8094bb9d4",
+          "source_to_target_relation": "public_package_body_exercised_directly",
+          "status": "pass",
+          "target_exists": true,
+          "target_ref": "src/microcosm_core/engine_room/lean_proof_search_lab.py"
+        }
+      ],
+      "digest_relation_status": "pass",
+      "disposition": "real_substrate_capsule",
+      "evidence_class": "external_subprocess_witness",
+      "examples_fixtures_consistency": "examples_body_manifest_controls_fixture_zero_receipt",
+      "fixture_declared_body_count": 0,
+      "fixture_manifest_ref": null,
+      "fixture_role": "no_fixture_authority",
+      "macro_refs": [
+        "microcosm-substrate/src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
+        "microcosm-substrate/src/microcosm_core/engine_room/lean_proof_search_lab.py"
+      ],
+      "microcosm_target_refs": [
+        "src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
+        "src/microcosm_core/engine_room/lean_proof_search_lab.py",
+        "examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle/source_module_manifest.json"
+      ],
+      "name_promise": {
+        "compute_import_markers": [],
+        "mechanism_theater_terms": [],
+        "name_promise_terms": [
+          "proof"
+        ],
+        "policy_ref": "AP-15::mechanism_theater_name_promise",
+        "risky_evidence_class": false,
+        "runtime_compute_markers": [],
+        "scheduler_target": "maintain_claim_ceiling",
+        "schema_version": "microcosm_name_promise_axis_v1",
+        "source_exists": true,
+        "source_inspection_found_runtime_compute": false,
+        "source_ref": "src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
+        "status": "name_promise_not_in_risky_evidence_class"
+      },
+      "next_repair": "maintain digest freshness and keep public exercise command green",
+      "organ_id": "lean_proof_search_lab_runtime",
+      "public_exercise_commands": [
+        "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
+      ],
+      "real_body_count": 2,
+      "receipt_body_count": 0,
+      "registry_status": "accepted_current_authority",
+      "source_module_manifest_refs": [
+        "examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle/source_module_manifest.json"
+      ],
+      "stale_standard_language_status": "anti_claim_language_only",
+      "supporting_body_count": 2,
+      "truth_accounting_bucket": "real_runtime_receipt"
     }
   ],
   "schema_version": "microcosm_substrate_substitution_ledger_v1",
@@ -20755,48 +21667,48 @@
   },
   "status": "pass",
   "summary": {
-    "status": "pass",
-    "accepted_organ_count": 78,
+    "accepted_organ_count": 88,
+    "count_reconciliation": {
+      "acceptance_plan_count": 88,
+      "acceptance_summary_count": 74,
+      "divergence_disposition": "acceptance_summary_stale_projection_demoted_to_receipt_not_authority",
+      "registry_accepted_count": 88,
+      "status": "pass"
+    },
+    "deleted_demoted_historical_artifact_count": 0,
+    "digest_drift_disposition_count": 22,
     "disposition_counts": {
-      "real_substrate_capsule": 75,
+      "real_substrate_capsule": 85,
       "retained_regression_validator": 3
     },
-    "real_substrate_capsule_count": 75,
-    "retained_regression_validator_count": 3,
-    "deleted_demoted_historical_artifact_count": 0,
-    "real_body_count": 570,
-    "receipt_body_count": 0,
-    "digest_drift_disposition_count": 22,
     "fixture_authority_ban_status": "pass",
     "name_promise": {
-      "schema_version": "microcosm_name_promise_summary_v1",
-      "policy_ref": "AP-15::mechanism_theater_name_promise",
-      "status_counts": {
-        "no_compute_name_promise": 69,
-        "name_promise_non_runtime_obligation_in_risky_class": 5,
-        "name_promise_not_in_risky_evidence_class": 2,
-        "name_promise_backed_by_runtime_compute": 2
-      },
+      "mechanism_repair_targets": [],
       "mechanism_theater_count": 0,
-      "mechanism_repair_targets": []
+      "policy_ref": "AP-15::mechanism_theater_name_promise",
+      "schema_version": "microcosm_name_promise_summary_v1",
+      "status_counts": {
+        "name_promise_backed_by_runtime_compute": 2,
+        "name_promise_non_runtime_obligation_in_risky_class": 5,
+        "name_promise_not_in_risky_evidence_class": 3,
+        "no_compute_name_promise": 78
+      }
     },
-    "count_reconciliation": {
-      "status": "pass",
-      "registry_accepted_count": 78,
-      "acceptance_plan_count": 78,
-      "acceptance_summary_count": 74,
-      "divergence_disposition": "acceptance_summary_stale_projection_demoted_to_receipt_not_authority"
-    },
+    "real_body_count": 590,
+    "real_substrate_capsule_count": 85,
+    "receipt_body_count": 0,
+    "retained_regression_validator_count": 3,
+    "status": "pass",
     "validation_issue_count": 0
   },
   "validation": {
-    "schema_version": "microcosm_substrate_substitution_validation_v1",
+    "accepted_organ_count": 88,
+    "checked_row_count": 88,
     "checker_id": "checker.microcosm.validators.substrate_substitution_ledger",
-    "status": "pass",
+    "fixture_only_authority_banned": true,
     "issue_count": 0,
     "issues": [],
-    "accepted_organ_count": 78,
-    "checked_row_count": 78,
-    "fixture_only_authority_banned": true
+    "schema_version": "microcosm_substrate_substitution_validation_v1",
+    "status": "pass"
   }
 }

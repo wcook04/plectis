@@ -7,6 +7,30 @@ AgentTraceStore mechanics that make route decisions and trace capsules
 inspectable, while accepting only explicit public metadata envelopes. It does
 not read live home session logs, provider payload bodies, browser/HUD state,
 account/session state, credentials, cookies, or recipient-send material.
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.macro_tools.agent_observability_store` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: PASS, BLOCKED, KIND, SCHEMA_VERSION, SOURCE_REF, TARGET_REF, SOURCE_REFS, TARGET_REFS, SOURCE_SYMBOL_REFS, TARGET_SYMBOL_REFS, AUTHORITY_CEILING, ANTI_CLAIM, INPUT_NAMES, ACTIVITY_CANONICAL_TYPES, TRACE_DECISION_TYPES, FORBIDDEN_PAYLOAD_KEYS, MAX_EVENT_LINE_BYTES, MAX_PAYLOAD_VALUE_BYTES, MAX_PAYLOAD_CONTAINER_ITEMS, HASH_CHUNK_SIZE, AgentEvent, AgentTraceStore, PublicAgentObservabilitySampler, load_public_agent_observability_store_bundle, ...
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 from __future__ import annotations
 
@@ -137,6 +161,15 @@ HASH_CHUNK_SIZE = 1024 * 1024
 
 @dataclass(frozen=True)
 class AgentEvent:
+    """
+    [ROLE]
+    - Teleology: Groups `AgentEvent` data or behavior for `microcosm_core.macro_tools.agent_observability_store` behind a documented class contract.
+    - Ownership: Owned by `microcosm_core.macro_tools.agent_observability_store`; callers should construct or mutate instances only through declared fields, constructors, or methods.
+    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
+    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    """
     id: str
     seq: int
     schema: str
@@ -158,13 +191,40 @@ class AgentEvent:
     summary: Optional[str] = None
 
     def to_dict(self) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Implements `AgentEvent.to_dict` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         return _json_safe(asdict(self))
 
 
 class AgentTraceStore:
-    """Thread-safe append-only public trace materializer."""
+    """
+    [ROLE]
+    Thread-safe append-only public trace materializer.
+    - Teleology: Groups `AgentTraceStore` data or behavior for `microcosm_core.macro_tools.agent_observability_store` behind a documented class contract.
+    - Ownership: Owned by `microcosm_core.macro_tools.agent_observability_store`; callers should construct or mutate instances only through declared fields, constructors, or methods.
+    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
+    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    """
 
     def __init__(self, *, max_history: int = 2000, queue_size: int = 5000) -> None:
+        """
+        [ACTION]
+        - Teleology: Implements `AgentTraceStore.__init__` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         self.max_history = max(1, int(max_history))
         self._lock = threading.RLock()
         self._history: deque[dict[str, Any]] = deque(maxlen=self.max_history)
@@ -197,6 +257,15 @@ class AgentTraceStore:
         observed_at: Optional[str] = None,
         summary: Optional[str] = None,
     ) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Implements `AgentTraceStore.emit` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         safe_payload = _json_safe(dict(payload or {}))
         blocked_keys = sorted(FORBIDDEN_PAYLOAD_KEYS & _walk_payload_keys(safe_payload))
         if blocked_keys:
@@ -242,6 +311,15 @@ class AgentTraceStore:
         return event
 
     def emit_gap(self, *, source_runtime: str, reason: str, payload: Mapping[str, Any] | None = None) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Implements `AgentTraceStore.emit_gap` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         return self.emit(
             source_runtime=source_runtime,
             source_event_name="stream_gap",
@@ -251,6 +329,15 @@ class AgentTraceStore:
         )
 
     def ingest_public_event(self, row: Mapping[str, Any]) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Implements `AgentTraceStore.ingest_public_event` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         payload = row.get("payload") if isinstance(row.get("payload"), Mapping) else {}
         return self.emit(
             source_runtime=str(row.get("source_runtime") or "public_replay"),
@@ -272,6 +359,15 @@ class AgentTraceStore:
         )
 
     def get_telemetry_nowait(self) -> Optional[dict[str, Any]]:
+        """
+        [ACTION]
+        - Teleology: Implements `AgentTraceStore.get_telemetry_nowait` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         try:
             return self._telemetry_queue.get_nowait()
         except queue.Empty:
@@ -286,6 +382,15 @@ class AgentTraceStore:
         canonical_type: Optional[str] = None,
         limit: int = 500,
     ) -> list[dict[str, Any]]:
+        """
+        [ACTION]
+        - Teleology: Implements `AgentTraceStore.replay` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         limit = max(1, min(int(limit or 500), self.max_history))
         with self._lock:
             events = list(self._history)
@@ -303,6 +408,15 @@ class AgentTraceStore:
         return rows[-limit:]
 
     def status(self) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Implements `AgentTraceStore.status` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         with self._lock:
             active_sessions = sorted(
                 self._active_sessions.values(),
@@ -324,6 +438,15 @@ class AgentTraceStore:
             }
 
     def _index_event_locked(self, event: Mapping[str, Any]) -> None:
+        """
+        [ACTION]
+        - Teleology: Implements `AgentTraceStore._index_event_locked` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         canonical_type = str(event.get("canonical_type") or "unknown")
         source_runtime = str(event.get("source_runtime") or "unknown")
         session_id = str(event.get("session_id") or "unknown")
@@ -378,13 +501,40 @@ class AgentTraceStore:
 
 
 class PublicAgentObservabilitySampler:
-    """Deterministic public sampler wrapper over explicit metadata snapshots."""
+    """
+    [ROLE]
+    Deterministic public sampler wrapper over explicit metadata snapshots.
+    - Teleology: Groups `PublicAgentObservabilitySampler` data or behavior for `microcosm_core.macro_tools.agent_observability_store` behind a documented class contract.
+    - Ownership: Owned by `microcosm_core.macro_tools.agent_observability_store`; callers should construct or mutate instances only through declared fields, constructors, or methods.
+    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
+    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    """
 
     def __init__(self, store: AgentTraceStore) -> None:
+        """
+        [ACTION]
+        - Teleology: Implements `PublicAgentObservabilitySampler.__init__` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         self.store = store
         self.poll_count = 0
 
     def ingest_snapshot(self, snapshot: Mapping[str, Any]) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Implements `PublicAgentObservabilitySampler.ingest_snapshot` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         self.poll_count += 1
         return self.store.emit(
             source_runtime="public_sampler",
@@ -403,6 +553,15 @@ class PublicAgentObservabilitySampler:
 
 
 def load_public_agent_observability_store_bundle(input_dir: str | Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `load_public_agent_observability_store_bundle` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     root = Path(input_dir)
     return {
         path.stem: cast(dict[str, Any], read_json_strict(path))
@@ -411,6 +570,15 @@ def load_public_agent_observability_store_bundle(input_dir: str | Path) -> dict[
 
 
 def build_public_agent_observability_store_view(payloads: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `build_public_agent_observability_store_view` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     manifest = payloads.get("bundle_manifest") if isinstance(payloads.get("bundle_manifest"), Mapping) else {}
     events_payload = payloads.get("public_agent_events") if isinstance(payloads.get("public_agent_events"), Mapping) else {}
     policy = payloads.get("observability_policy") if isinstance(payloads.get("observability_policy"), Mapping) else {}
@@ -541,6 +709,15 @@ def build_public_agent_observability_store_view(payloads: Mapping[str, Any]) -> 
 
 
 def _validate_public_event_row(row: Mapping[str, Any], *, event_id: str) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_public_event_row` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, Any]] = []
     required = (
         "source_runtime",
@@ -597,6 +774,15 @@ def _validate_public_event_row(row: Mapping[str, Any], *, event_id: str) -> list
 
 
 def _validate_policy(policy: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_policy` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, Any]] = []
     required_false = (
         "live_home_session_logs_read",
@@ -649,6 +835,15 @@ def _validate_expected_summary(
     redacted_payload_count: int,
     metadata_digest_count: int,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_expected_summary` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     actual = _store_summary(store.status(), redacted_payload_count, metadata_digest_count)
     fields = (
         "event_count",
@@ -692,6 +887,15 @@ def _store_summary(
     redacted_payload_count: int,
     metadata_digest_count: int,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_store_summary` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     canonical_counts = status_payload.get("canonical_counts") if isinstance(status_payload.get("canonical_counts"), Mapping) else {}
     source_counts = status_payload.get("source_counts") if isinstance(status_payload.get("source_counts"), Mapping) else {}
     event_count = int(status_payload.get("seq") or 0)
@@ -727,6 +931,15 @@ def _store_summary(
 
 
 def _json_safe(value: Any) -> Any:
+    """
+    [ACTION]
+    - Teleology: Implements `_json_safe` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if value is None or isinstance(value, (str, int, float, bool)):
         return value
     if isinstance(value, Path):
@@ -743,6 +956,15 @@ def _json_safe(value: Any) -> Any:
 
 
 def _compact_summary(text: object, *, limit: int = 220) -> Optional[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_compact_summary` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     raw = " ".join(str(text or "").strip().split())
     if not raw:
         return None
@@ -752,6 +974,15 @@ def _compact_summary(text: object, *, limit: int = 220) -> Optional[str]:
 
 
 def _session_title_from_text(text: object) -> Optional[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_session_title_from_text` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     summary = _compact_summary(text, limit=96)
     if not summary:
         return None
@@ -760,6 +991,15 @@ def _session_title_from_text(text: object) -> Optional[str]:
 
 
 def _event_touched_files(event: Mapping[str, Any]) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_event_touched_files` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     payload = event.get("payload") if isinstance(event.get("payload"), Mapping) else {}
     candidates: list[Any] = []
     tool_input = payload.get("tool_input") if isinstance(payload.get("tool_input"), Mapping) else {}
@@ -788,10 +1028,28 @@ def _event_touched_files(event: Mapping[str, Any]) -> list[str]:
 
 
 def _compact_json_bytes(value: Any, *, sort_keys: bool = False) -> bytes:
+    """
+    [ACTION]
+    - Teleology: Implements `_compact_json_bytes` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return json.dumps(value, ensure_ascii=False, separators=(",", ":"), sort_keys=sort_keys).encode("utf-8")
 
 
 def _large_value_ref(value: Any, *, value_type: str, original_bytes: int) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_large_value_ref` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     raw = value if isinstance(value, str) else json.dumps(value, ensure_ascii=False, sort_keys=True)
     return {
         "compacted_payload_value": True,
@@ -802,6 +1060,15 @@ def _large_value_ref(value: Any, *, value_type: str, original_bytes: int) -> dic
 
 
 def _compact_payload_value(value: Any, *, depth: int = 0) -> Any:
+    """
+    [ACTION]
+    - Teleology: Implements `_compact_payload_value` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if isinstance(value, str):
         original_bytes = len(value.encode("utf-8"))
         if original_bytes > MAX_PAYLOAD_VALUE_BYTES:
@@ -843,6 +1110,15 @@ def _compact_payload_value(value: Any, *, depth: int = 0) -> Any:
 
 
 def _payload_skeleton(payload: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_payload_skeleton` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     keep_keys = (
         "session_id",
         "trace_id",
@@ -872,6 +1148,15 @@ def _payload_skeleton(payload: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _compact_event_if_oversized(event: dict[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_compact_event_if_oversized` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     original_bytes = len(_compact_json_bytes(event))
     if original_bytes <= MAX_EVENT_LINE_BYTES:
         return event
@@ -905,6 +1190,15 @@ def _compact_event_if_oversized(event: dict[str, Any]) -> dict[str, Any]:
 
 
 def _walk_payload_keys(payload: object) -> set[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_walk_payload_keys` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if isinstance(payload, Mapping):
         keys = {str(key) for key in payload}
         for value in payload.values():
@@ -919,6 +1213,15 @@ def _walk_payload_keys(payload: object) -> set[str]:
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_rows` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(payload, Mapping):
         return []
     value = payload.get(key, [])
@@ -928,27 +1231,72 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _optional_str(value: object) -> Optional[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_optional_str` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if value in (None, ""):
         return None
     return str(value)
 
 
 def _now_iso() -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_now_iso` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return datetime.now(timezone.utc).isoformat(timespec="milliseconds")
 
 
 def _stable_digest(payload: object) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_stable_digest` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     encoded = json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return "sha256:" + hashlib.sha256(encoded).hexdigest()
 
 
 def _file_sha256(path: Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_file_sha256` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
@@ -957,6 +1305,15 @@ def _file_sha256(path: Path) -> str:
 
 
 def _repo_root_from_target() -> Path | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_repo_root_from_target` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     for candidate in Path(__file__).resolve(strict=False).parents:
         if (candidate / SOURCE_REF).is_file():
             return candidate
@@ -964,6 +1321,15 @@ def _repo_root_from_target() -> Path | None:
 
 
 def _body_import_verification() -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_body_import_verification` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     target_path = Path(__file__).resolve(strict=False)
     repo_root = _repo_root_from_target()
     source_path = repo_root / SOURCE_REF if repo_root else None
@@ -995,6 +1361,15 @@ def _bundle_finding(
     subject_id: str,
     subject_kind: str = "agent_observability_store_input",
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_bundle_finding` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "error_code": code,
         "message": message,
@@ -1005,6 +1380,15 @@ def _bundle_finding(
 
 
 def main(argv: list[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.macro_tools.agent_observability_store` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(prog="python -m microcosm_core.macro_tools.agent_observability_store")
     parser.add_argument("action", choices=["validate-public-bundle"])
     parser.add_argument("--input", required=True)

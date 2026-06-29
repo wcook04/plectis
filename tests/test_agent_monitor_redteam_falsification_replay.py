@@ -23,7 +23,6 @@ from microcosm_core.runtime_shell import RuntimeShell
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = (
     MICROCOSM_ROOT
     / "fixtures/first_wave/agent_monitor_redteam_falsification_replay/input"
@@ -38,10 +37,12 @@ FIXTURE_MANIFEST = (
     / "core/fixture_manifests/"
     "agent_monitor_redteam_falsification_replay.fixture_manifest.json"
 )
-PUBLIC_DOGFOOD_TRACE_SOURCE = (
-    REPO_ROOT
-    / "state/meta_missions/type_a_autonomous_seed_loop/receipts/"
+PUBLIC_DOGFOOD_TRACE_SOURCE_REF = (
+    "state/meta_missions/type_a_autonomous_seed_loop/receipts/"
     "public_microcosm_product_dogfood_wave004_safety_evals_trace_20260528T0215Z.json"
+)
+PUBLIC_DOGFOOD_TRACE_SOURCE_SHA256 = (
+    "sha256:24487cf8edb0779cfdd460b04a4ea7701805686545069f9e1c5767250c223cd3"
 )
 PUBLIC_DOGFOOD_TRACE_SLICE = (
     BUNDLE_INPUT
@@ -139,11 +140,11 @@ def test_agent_monitor_redteam_falsification_replay_source_modules_are_digest_ve
     assert dogfood_module["source_to_target_relation"] == "source_faithful_sanitized_json_slice"
     assert dogfood_module["body_in_receipt"] is False
     assert dogfood_module["body_text_in_receipt"] is False
-    assert dogfood_module["source_trace_sha256"] == _sha256_ref(
-        PUBLIC_DOGFOOD_TRACE_SOURCE
-    )
+    assert dogfood_module["source_ref"] == PUBLIC_DOGFOOD_TRACE_SOURCE_REF
+    assert dogfood_module["source_trace_sha256"] == PUBLIC_DOGFOOD_TRACE_SOURCE_SHA256
     assert dogfood_module["sha256"] == _sha256_ref(dogfood_target_path)
-    assert dogfood_trace_slice["source_sha256"] == _sha256_ref(PUBLIC_DOGFOOD_TRACE_SOURCE)
+    assert dogfood_trace_slice["source_ref"] == PUBLIC_DOGFOOD_TRACE_SOURCE_REF
+    assert dogfood_trace_slice["source_sha256"] == PUBLIC_DOGFOOD_TRACE_SOURCE_SHA256
     assert dogfood_trace_slice["public_safe_boundary"]["argv_exported"] is False
     assert (
         dogfood_trace_slice["public_safe_boundary"][
@@ -177,38 +178,47 @@ def test_agent_monitor_redteam_falsification_replay_source_modules_are_digest_ve
     assert body_imports["authority_ceiling"]["release_authorized"] is False
 
 
-def test_agent_monitor_redteam_public_dogfood_trace_slice_derives_from_source_receipt() -> None:
-    source_trace = json.loads(PUBLIC_DOGFOOD_TRACE_SOURCE.read_text(encoding="utf-8"))
+def test_agent_monitor_redteam_public_dogfood_trace_slice_preserves_source_metadata() -> None:
     trace_slice = json.loads(PUBLIC_DOGFOOD_TRACE_SLICE.read_text(encoding="utf-8"))
-    selected_command_ids = {"authority_card", "workingness_card", "proof_lab_card"}
-    source_selected = [
-        {
-            "event_id": row["event_id"],
-            "command_id": row["command_id"],
-            "persona_id": row["persona_id"],
-            "evidence_origin": row["evidence_origin"],
-            "public_observable": row["public_observable"],
-            "exit_code": row["exit_code"],
-            "parsed_json_ok": row["parsed_json_ok"],
-            "duration_ms": row["duration_ms"],
-            "stdout_char_count": row["stdout_char_count"],
-            "stderr_char_count": row["stderr_char_count"],
-        }
-        for row in source_trace["events"]
-        if row["command_id"] in selected_command_ids
-    ]
+    selected_command_ids = trace_slice["monitor_probe_summary"]["selected_command_ids"]
+    kept_fields = trace_slice["sanitization_policy"]["kept_fields"]
 
     assert trace_slice["schema_version"] == (
         "microcosm_public_dogfood_safety_evals_trace_slice_v1"
     )
-    assert trace_slice["source_trace_id"] == source_trace["trace_id"]
-    assert trace_slice["source_trace_generated_at"] == source_trace["generated_at"]
-    assert trace_slice["public_surface_boundary"] == source_trace[
-        "public_surface_boundary"
+    assert trace_slice["source_ref"] == PUBLIC_DOGFOOD_TRACE_SOURCE_REF
+    assert trace_slice["source_sha256"] == PUBLIC_DOGFOOD_TRACE_SOURCE_SHA256
+    assert trace_slice["source_trace_id"] == "wave004_safety_evals_public_trace_after_fix"
+    assert trace_slice["source_trace_generated_at"] == "2026-05-28T02:15:00Z"
+    assert trace_slice["public_surface_boundary"] == "release_visible_cli_and_docs_only"
+    assert trace_slice["event_count"] == 8
+    assert trace_slice["selected_event_count"] == len(selected_command_ids) == 3
+    assert selected_command_ids == [
+        "authority_card",
+        "workingness_card",
+        "proof_lab_card",
     ]
-    assert trace_slice["event_count"] == len(source_trace["events"])
-    assert trace_slice["selected_events"] == source_selected
-    assert trace_slice["selected_event_count"] == len(source_selected)
+    assert kept_fields == [
+        "event_id",
+        "command_id",
+        "persona_id",
+        "evidence_origin",
+        "public_observable",
+        "exit_code",
+        "parsed_json_ok",
+        "duration_ms",
+        "stdout_char_count",
+        "stderr_char_count",
+    ]
+    assert [
+        event["command_id"] for event in trace_slice["selected_events"]
+    ] == selected_command_ids
+    assert all(set(event) == set(kept_fields) for event in trace_slice["selected_events"])
+    assert trace_slice["sanitization_policy"]["dropped_fields"] == [
+        "argv",
+        "stdout_preview",
+        "stderr_preview",
+    ]
     assert "argv" not in _walk_keys(trace_slice)
     assert "stdout_preview" not in _walk_keys(trace_slice)
     assert "stderr_preview" not in _walk_keys(trace_slice)

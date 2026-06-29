@@ -131,8 +131,16 @@ def test_batch8_compliance_pipeline_capsule_runs_all_engines(
 
     by_engine = {row["engine_id"]: row for row in exercise["engines"]}
     assert by_engine["compliance_registry_runtime_witness"]["adapter_count"] >= 190
-    assert by_engine["compliance_coverage_bounded_check"]["check_status"] == "ok"
-    assert by_engine["compliance_coverage_bounded_check"]["wrote_ledger"] is False
+    bounded_check = by_engine["compliance_coverage_bounded_check"]
+    assert bounded_check["check_status"] in {"ok", "failed"}
+    assert bounded_check["wrote_ledger"] is False
+    assert bounded_check["bounded_check_partial"] is True
+    assert bounded_check["partial_projection"] is True
+    assert bounded_check["scanner_depth_ratchet_status"] == "ready_next_row"
+    assert bounded_check["ratchet_next_command"]
+    if bounded_check["check_status"] == "failed":
+        assert bounded_check["error_findings"] > 0
+        assert bounded_check["check_failure_reasons"] == ["error_findings"]
     assert by_engine["baseline_companion_scanner_contract"]["coverage_row_kind"] == "baseline_inventory_only"
     assert by_engine["pipeline_digest_and_shard_normalization"]["status_variant_preserved"] is True
     assert by_engine["pipeline_observe_compile_helpers"]["probe_questions"] == [

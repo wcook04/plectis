@@ -1,0 +1,11 @@
+{
+  "case_id": "blackboard_projection_ok",
+  "case_type": "positive",
+  "expected_ok": true,
+  "case_kind": "blackboard_projection",
+  "intent": "Assert one blackboard claim, then contradict it, and project active claims so the contradiction invalidates the assertion leaving zero active claims and one contradiction.",
+  "expects": {
+    "active_claim_count": 0,
+    "contradiction_count": 1
+  }
+}

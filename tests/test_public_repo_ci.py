@@ -150,31 +150,16 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
         "concurrency:",
         "group: ${{ github.workflow }}-${{ github.ref }}",
         "cancel-in-progress: true",
-        "Tests Python ${{ matrix.python-version }}",
-        "User smoke and timing",
         "timeout-minutes: 30",
         'python-version: ["3.11", "3.12", "3.13"]',
-        "cache: pip",
-        "cache-dependency-path: pyproject.toml",
-        "run: make test",
-        "run: make user-smoke",
-        "make onboarding-benchmark",
-        "BENCHMARK_ARGS=\"--repo-url https://github.com/wcook04/plectis.git --ref ${{ github.sha }}\"",
-        "Upload onboarding benchmark",
-        "path: .microcosm/onboarding-benchmark.json",
-        "if-no-files-found: error",
+        "run: make ci",
     ):
         assert required in workflow
     _assert_inspectable_pinned_github_actions(
         workflow,
-        required_public_tags={
-            "actions/checkout@v7",
-            "actions/setup-python@v6",
-            "actions/upload-artifact@v7",
-        },
+        required_public_tags={"actions/checkout@v4", "actions/setup-python@v5"},
     )
 
-    assert "run: make ci" not in workflow
     for duplicated_command in (
         'python -m pip install -e ".[test]"',
         "python -m pytest",
@@ -215,9 +200,6 @@ def test_pyproject_license_metadata_matches_declared_build_backend_floor() -> No
         "License :: OSI Approved :: Apache Software License"
         not in pyproject["project"]["classifiers"]
     )
-    assert "Operating System :: OS Independent" not in pyproject["project"]["classifiers"]
-    assert "Operating System :: POSIX" in pyproject["project"]["classifiers"]
-    assert "Operating System :: MacOS :: MacOS X" in pyproject["project"]["classifiers"]
     assert pyproject["project"]["authors"] == [
         {"name": "William Cook", "email": "williamwkcook@gmail.com"}
     ]
@@ -249,11 +231,13 @@ def test_pyproject_urls_point_to_standalone_public_repository() -> None:
     )
 
 
-def test_pyproject_pytest_tmp_state_is_repo_local_and_bounded() -> None:
+def test_pyproject_pytest_tmp_state_delegates_high_churn_paths() -> None:
     pyproject = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
 
     pytest_options = pyproject["tool"]["pytest"]["ini_options"]
-    assert pytest_options["addopts"] == "-q --basetemp=.microcosm/test-tmp/pytest"
-    assert pytest_options["cache_dir"] == ".microcosm/test-tmp/.pytest_cache"
+    assert pytest_options["addopts"] == "-q -p no:cacheprovider"
+    assert "--basetemp" not in pytest_options["addopts"]
+    assert "cacheprovider" in pytest_options["addopts"]
+    assert "cache_dir" not in pytest_options
     assert pytest_options["tmp_path_retention_count"] == "1"
     assert pytest_options["tmp_path_retention_policy"] == "failed"

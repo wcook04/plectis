@@ -105,13 +105,13 @@ def test_agent_entry_card_composes_type_a_route_task_route_and_macro_floor() -> 
     assert organ_glance["source_ref"] == ORGAN_GLANCE_REF
     assert organ_glance["first_family_label"] == "Entry & Reveal"
     assert organ_glance["family_count"] == 7
-    assert organ_glance["organ_count"] == 82
-    assert organ_glance["capsule_accounting"]["accepted_organ_count"] == 82
+    assert organ_glance["organ_count"] == 78
+    assert organ_glance["capsule_accounting"]["accepted_organ_count"] == 78
     assert organ_glance["capsule_join_status_counts"] == {
-        "direct": 75,
+        "direct": 71,
         "paper_module_ref_bridge": 7,
     }
-    assert sum(len(family["organs"]) for family in organ_glance["families"]) == 82
+    assert sum(len(family["organs"]) for family in organ_glance["families"]) == 78
     cold_reader = organ_glance["families"][0]["organs"][0]
     assert cold_reader["organ_id"] == "cold_reader_route_map"
     assert cold_reader["one_line"]
@@ -2162,11 +2162,11 @@ def test_agent_entry_card_cli_writes_projection_and_receipt(tmp_path: Path) -> N
     assert receipt["accepted_organ_glance"] == {
         "source_ref": ORGAN_GLANCE_REF,
         "family_count": 7,
-        "organ_count": 82,
-        "capsule_join_status_counts": {
-            "direct": 75,
-            "paper_module_ref_bridge": 7,
-        },
+            "organ_count": 78,
+            "capsule_join_status_counts": {
+                "direct": 71,
+                "paper_module_ref_bridge": 7,
+            },
         "drilldown": "ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line",
     }
     assert set(receipt["viewer_modes"]) == {"type_a_agent", "human"}
@@ -2239,7 +2239,7 @@ def test_microcosm_cli_agent_entry_composition_card_is_compact() -> None:
     )
     assert card["task_route"]["primary_organ_id"] == "cold_reader_route_map"
     assert "relevant_organs" not in card["task_route"]
-    assert card["accepted_organ_glance"]["organ_count"] == 82
+    assert card["accepted_organ_glance"]["organ_count"] == 78
     assert "families" not in card["accepted_organ_glance"]
     assert {
         row["organ_id"] for row in card["macro_import_route_body_floor"]

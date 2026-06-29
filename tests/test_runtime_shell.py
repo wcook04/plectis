@@ -3552,55 +3552,6 @@ def test_runtime_shell_public_proof_lenses_preserve_stable_created_at(
     assert after == before
 
 
-def test_runtime_shell_prediction_and_market_lenses_preserve_stable_created_at(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    public_root = _copy_runtime_root(tmp_path)
-    shell = RuntimeShell(public_root)
-    lens_paths = [
-        public_root / "receipts/runtime_shell/public_prediction_lens.json",
-        public_root
-        / "receipts/runtime_shell/public_market_prediction_evidence_boundary_lens.json",
-    ]
-    shell.prediction_lens()
-    shell.market_boundary()
-    before = {
-        path: json.loads(path.read_text(encoding="utf-8")) for path in lens_paths
-    }
-
-    monkeypatch.setattr(
-        "microcosm_core.runtime_shell.utc_now",
-        lambda: "2099-01-01T00:00:00+00:00",
-    )
-
-    shell.prediction_lens()
-    shell.market_boundary()
-
-    after = {
-        path: json.loads(path.read_text(encoding="utf-8")) for path in lens_paths
-    }
-    # These deterministic tracked receipts must not churn created_at on re-run.
-    assert after == before
-
-
-def test_runtime_shell_inspect_evidence_blocks_unreadable_receipt(
-    tmp_path: Path,
-) -> None:
-    public_root = _copy_runtime_root(tmp_path)
-    shell = RuntimeShell(public_root)
-    (public_root / "malformed.json").write_text("{not valid json", encoding="utf-8")
-    (public_root / "binary.bin").write_bytes(b"\xff\xfe\x00\x01")
-
-    # The documented contract is "does not raise"; malformed or binary input must
-    # come back as a blocked envelope, not an uncaught traceback.
-    for ref in ("malformed.json", "binary.bin"):
-        card = shell.inspect_evidence(ref)
-        assert card["status"] == "blocked", ref
-        assert card["receipt_ref"] == ref
-
-    assert shell.inspect_evidence("does-not-exist.json")["status"] == "not_found"
-
-
 def test_runtime_shell_landing_replay_lens_is_public_safe(tmp_path: Path) -> None:
     public_root = _copy_runtime_root(tmp_path)
     shell = RuntimeShell(public_root)

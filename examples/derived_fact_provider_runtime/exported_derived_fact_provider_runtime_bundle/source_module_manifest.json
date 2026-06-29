@@ -1,0 +1,70 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "derived_fact_provider_runtime_source_body_manifest",
+  "bundle_id": "exported_derived_fact_provider_runtime_bundle",
+  "classification": "public_package_body_backed_composition_capsule",
+  "source_import_class": "public_safe_refactored_body",
+  "body_storage_policy": "public package source bodies are exercised in place by the organ acceptance command; this manifest binds their provenance and digest relation so old metadata cannot promote the organ by itself",
+  "receipt_body_policy": "receipts are evidence outputs only and are not counted as imported body substrate",
+  "body_in_receipt": false,
+  "source_open_payload_boundary": "non-secret Microcosm package source only; no provider state, credentials, sessions, raw private state, or release authority",
+  "validation_contract_ref": "checker.microcosm.validators.substrate_substitution_ledger",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "derived_fact_provider_runtime_organ_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "The organ wrapper `microcosm_core.organs.derived_fact_provider_runtime` adds the standard organ contract over that capsule without re-implementing it: it loads bounded JSON fixture cases, calls the capsule's real evaluate_case on each, and classifies positives (must resolve to expected values with an ok receipt) versus negatives (must be rejected by recomputation with the exact expected error_class firing on the planted-defect fact, mapped in EXPECTED_NEGATIVE_CASES). It projects a body-free result_card and writes body-free result/board/validation/acceptance receipts via microcosm_core.receipts, and exposes run / bundle / CLI dispatch mirroring the bridge_campaign_dag_validation template exactly.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py",
+      "path": "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 22541,
+      "line_count": 467,
+      "sha256": "sha256:fc082ba55038e2073673838d08b7afd1c6057074330efbf12e1ba16be190edc6",
+      "target_sha256": "fc082ba55038e2073673838d08b7afd1c6057074330efbf12e1ba16be190edc6",
+      "source_sha256": "fc082ba55038e2073673838d08b7afd1c6057074330efbf12e1ba16be190edc6",
+      "required_anchors": [
+        "ORGAN_ID = \"derived_fact_provider_runtime\"",
+        "def run"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.organs.derived_fact_provider_runtime.run",
+        "tests/test_derived_fact_provider_runtime.py"
+      ]
+    },
+    {
+      "module_id": "derived_fact_provider_runtime_capsule_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "The engine-room capsule `microcosm_core.engine_room.derived_fact_provider_engine` is the executable authority: a source-faithful public refactor of system/lib/derived_fact_hologram.py + codex/doctrine/facts/fact_registry.json. It evaluates an authored fact registry against a public-safe root, resolving each row through one of three providers \u2014 json_pointer (RFC 6901, including list-index traversal), glob_count (file-count matching with optional excluded prefixes), and named callable facts (git-tracked file/python counts via a git subprocess in a tempdir) \u2014 and turns any provider failure into an error-as-data row (provider_status=error, error_class, repair hint) that degrades the receipt status from ok to degraded rather than crashing the ledger.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
+      "path": "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 34273,
+      "line_count": 633,
+      "sha256": "sha256:2d55ee628bf57e76a64c2d0c303293944d8e89eb9ddb37aa04734a2520ea504b",
+      "target_sha256": "2d55ee628bf57e76a64c2d0c303293944d8e89eb9ddb37aa04734a2520ea504b",
+      "source_sha256": "2d55ee628bf57e76a64c2d0c303293944d8e89eb9ddb37aa04734a2520ea504b",
+      "required_anchors": [
+        "Registry-backed derived fact provider engine over public fixture roots.",
+        "provider failures become error rows with repair hints"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.engine_room.derived_fact_provider_engine",
+        "tests/test_derived_fact_provider_runtime.py"
+      ]
+    }
+  ],
+  "blocked_import_debt": []
+}

@@ -1,4 +1,5 @@
-"""Public-safe navigation fitness benchmark capsule.
+"""
+Public-safe navigation fitness benchmark capsule.
 
 This is a source-faithful public refactor of `system/lib/navigation_fitness.py`.
 It preserves the benchmark core: each cold-task fixture carries expected stable
@@ -9,6 +10,30 @@ The capsule evaluates public route-packet fixtures. It does not run the private
 macro `kernel.py`, does not validate embeddings, and does not claim universal
 navigation benchmark authority. A live-kernel claim requires packets captured
 from the real route runner.
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.engine_room.navigation_fitness_benchmark` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SCHEMA_VERSION, ORGAN_ID, SOURCE_REFS, SOURCE_TO_TARGET_RELATION, CLAIM_CEILING, ANTI_CLAIMS, DEFAULT_LATENCY_BUDGET_MS, NavigationFitnessTask, task_from_mapping, evaluate_task, evaluate_benchmark, evaluate_case, evaluate_fixture_dir, build_parser, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: None beyond the Python standard library and local package imports.
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 
 from __future__ import annotations
@@ -42,6 +67,15 @@ DEFAULT_LATENCY_BUDGET_MS = 1500
 
 @dataclass(frozen=True)
 class NavigationFitnessTask:
+    """
+    [ROLE]
+    - Teleology: Groups `NavigationFitnessTask` data or behavior for `microcosm_core.engine_room.navigation_fitness_benchmark` behind a documented class contract.
+    - Ownership: Owned by `microcosm_core.engine_room.navigation_fitness_benchmark`; callers should construct or mutate instances only through declared fields, constructors, or methods.
+    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
+    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    """
     task_id: str
     family: str
     task_prompt: str
@@ -54,16 +88,43 @@ class NavigationFitnessTask:
 
 
 def _string(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_string` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return str(value or "").strip()
 
 
 def _as_strings(value: Any) -> tuple[str, ...]:
+    """
+    [ACTION]
+    - Teleology: Implements `_as_strings` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
         return ()
     return tuple(str(item) for item in value if str(item).strip())
 
 
 def task_from_mapping(row: Mapping[str, Any]) -> NavigationFitnessTask:
+    """
+    [ACTION]
+    - Teleology: Implements `task_from_mapping` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return NavigationFitnessTask(
         task_id=_string(row.get("task_id")) or "unknown_task",
         family=_string(row.get("family")) or "public_fixture",
@@ -78,6 +139,15 @@ def task_from_mapping(row: Mapping[str, Any]) -> NavigationFitnessTask:
 
 
 def _percentile(values: Sequence[int], percentile: float) -> int | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_percentile` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not values:
         return None
     ordered = sorted(int(value) for value in values)
@@ -86,6 +156,15 @@ def _percentile(values: Sequence[int], percentile: float) -> int | None:
 
 
 def _match_expected(expected: set[str], selected: set[str]) -> tuple[list[str], list[str]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_match_expected` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     found: list[str] = []
     missing: list[str] = []
     for item in sorted(expected):
@@ -103,6 +182,15 @@ def _match_expected(expected: set[str], selected: set[str]) -> tuple[list[str], 
 
 
 def _packet_artifacts(packet: Mapping[str, Any]) -> set[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_packet_artifacts` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     artifacts = set(_as_strings(packet.get("selected_artifacts")))
     selected_rows = packet.get("selected_rows")
     if isinstance(selected_rows, Sequence) and not isinstance(selected_rows, (str, bytes)):
@@ -119,6 +207,15 @@ def _packet_artifacts(packet: Mapping[str, Any]) -> set[str]:
 
 
 def _packet_scent_text(packet: Mapping[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_packet_scent_text` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     parts = [
         packet.get("summary"),
         packet.get("title"),
@@ -135,6 +232,15 @@ def _packet_scent_text(packet: Mapping[str, Any]) -> str:
 
 
 def _scent_status(task: NavigationFitnessTask, packet: Mapping[str, Any]) -> tuple[str, list[str]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_scent_status` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     terms = [term.lower() for term in task.scent_terms if term]
     if not terms:
         return "unscored", []
@@ -144,6 +250,15 @@ def _scent_status(task: NavigationFitnessTask, packet: Mapping[str, Any]) -> tup
 
 
 def evaluate_task(task: NavigationFitnessTask, packet: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_task` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     selected = _packet_artifacts(packet)
     expected = set(task.expected_artifacts)
     found, missing = _match_expected(expected, selected)
@@ -206,6 +321,15 @@ def evaluate_task(task: NavigationFitnessTask, packet: Mapping[str, Any]) -> dic
 
 
 def _route_type_metrics(results: Sequence[Mapping[str, Any]]) -> dict[str, dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_route_type_metrics` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     buckets: dict[str, list[Mapping[str, Any]]] = {}
     for result in results:
         buckets.setdefault(_string(result.get("route_type")) or "unknown", []).append(result)
@@ -221,6 +345,15 @@ def _route_type_metrics(results: Sequence[Mapping[str, Any]]) -> dict[str, dict[
 
 
 def _debt_candidates(results: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_debt_candidates` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     debts: list[dict[str, Any]] = []
     for result in results:
         task_id = _string(result.get("task_id"))
@@ -248,6 +381,15 @@ def _debt_candidates(results: Sequence[Mapping[str, Any]]) -> list[dict[str, Any
 
 
 def evaluate_benchmark(benchmark: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_benchmark` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     cases = [case for case in (benchmark.get("cases") or []) if isinstance(case, Mapping)]
     results = [
         evaluate_task(task_from_mapping(case.get("task") if isinstance(case.get("task"), Mapping) else {}), case.get("packet") if isinstance(case.get("packet"), Mapping) else {})
@@ -281,6 +423,15 @@ def evaluate_benchmark(benchmark: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def evaluate_case(case: Mapping[str, Any], *, path: str = "") -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_case` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     receipt = evaluate_benchmark(case.get("benchmark") if isinstance(case.get("benchmark"), Mapping) else {})
     expected_summary = case.get("expected_summary") if isinstance(case.get("expected_summary"), Mapping) else {}
     summary_checks = [
@@ -326,6 +477,15 @@ def evaluate_case(case: Mapping[str, Any], *, path: str = "") -> dict[str, Any]:
 
 
 def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_fixture_dir` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     cases: list[dict[str, Any]] = []
     for path in sorted(input_dir.glob("*.json")):
         payload = json.loads(path.read_text(encoding="utf-8"))
@@ -348,6 +508,15 @@ def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """
+    [ACTION]
+    - Teleology: Implements `build_parser` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(description="Engine Room navigation fitness benchmark capsule.")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -362,6 +531,15 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.engine_room.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command == "evaluate-benchmark":
         benchmark = json.loads(Path(args.benchmark).read_text(encoding="utf-8"))

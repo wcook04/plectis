@@ -1,0 +1,8 @@
+{
+  "case_id": "scope_mutation_changes_key",
+  "case_type": "negative",
+  "exercise": "scope_mutation_changes_key",
+  "expected_ok": true,
+  "expected_negative_case": "scope_mutation_changes_key",
+  "note": "Mutating a scoped file flips the content key, so a stale repo state cannot dedup against a different run. The guard SINGLEFLIGHT_STALE_STATE_CANNOT_DEDUP is expected to fire."
+}

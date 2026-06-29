@@ -1,0 +1,58 @@
+{
+  "case_id": "clean_source_hash_cache_hit",
+  "case_type": "positive",
+  "expected_ok": true,
+  "expected_status": "clean",
+  "expected_owner_count": 1,
+  "files": [
+    {
+      "path": "source/spec.json",
+      "text": "{\"title\":\"cached\"}\n"
+    },
+    {
+      "path": "expected/report.md",
+      "text": "cached projection\n"
+    },
+    {
+      "path": "generated/report.md",
+      "text": "cached projection\n"
+    }
+  ],
+  "owners": [
+    {
+      "owner_id": "demo_projection",
+      "description": "A clean owner whose prior clean receipt lets the gate skip the no-write check via the source-hash cache.",
+      "artifacts": [
+        "generated/report.md"
+      ],
+      "source_authorities": [
+        "source/spec.json",
+        "expected/report.md"
+      ],
+      "check_command": [
+        "builtin:fail"
+      ],
+      "repair_command": [
+        "builtin:repair-demo"
+      ],
+      "manual_edit_boundary": "Do not hand-edit generated/report.md.",
+      "deterministic_regeneration_expectation": "generated/report.md is reproduced from source/spec.json and expected/report.md.",
+      "stale_drift_handling": "A prior clean receipt skips the check only while source and artifact hashes are unchanged."
+    }
+  ],
+  "source_hash_cache": {
+    "schema_version": "generated_projection_source_hash_receipts_v1",
+    "owners": {
+      "demo_projection": {
+        "owner_id": "demo_projection",
+        "status": "clean",
+        "check_command": [
+          "builtin:fail"
+        ],
+        "source_hash": "sha256:28b31ed0f2b12fe4288a9a91a9433841cf569393e889d361ee827eee94424a27",
+        "artifact_hash": "sha256:600bf489533cd3b7e6f92fc6c73f48c07f3c78b4cd54a1741af98bea3706e55d",
+        "artifact_missing_count": 0
+      }
+    }
+  }
+}

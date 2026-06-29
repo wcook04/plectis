@@ -166,7 +166,6 @@ def test_cli_hello_can_focus_type_a_agent_branch(
         "`plectis organ-surface-contract --card --root .`."
     ) in output
     assert "Proof: `plectis organ-surface-contract --card --root .`" in output
-    assert "doctrine reader: plectis comprehend --slice doctrine / DOCTRINE.md" in output
     assert (
         "Source-only first step: Run `PYTHONPATH=src python3 -m "
         "microcosm_core first-screen --card .`."
@@ -401,8 +400,6 @@ def test_cli_first_screen_accepts_card_alias(
     assert payload["output_policy"]["full_contract_command"] == (
         "plectis first-screen --full ."
     )
-    assert payload["doctrine_reader"]["command"] == "plectis comprehend --slice doctrine"
-    assert payload["doctrine_reader"]["markdown_ref"] == "DOCTRINE.md"
     assert payload["output_policy"]["full_contract_preserved"] is True
     assert payload["state_write_boundary"]["this_card_writes_microcosm_state"] is False
     assert payload["pre_install_probe"]["command"] == "./bootstrap.sh"

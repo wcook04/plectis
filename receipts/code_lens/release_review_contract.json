@@ -6,9 +6,9 @@
       "sha256": "88e0d9b818fcacce42121e8e4ec14e12db228586724e1078cbb0a47a788e92ba"
     },
     {
-      "bytes": 56187,
+      "bytes": 56166,
       "ref": "receipts/code_lens/first_action_demo.json",
-      "sha256": "0b491bf98102976a6718b9c06063464976b67611bf7b97fbbd03d5a1ed976ebc"
+      "sha256": "abf177436a03f1a0ded98cd8101d70d1061e4a3867cd6c2d9825b84a357ca841"
     }
   ],
   "assay_requirements": [

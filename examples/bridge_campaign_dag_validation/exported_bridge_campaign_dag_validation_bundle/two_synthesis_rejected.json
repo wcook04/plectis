@@ -1,0 +1,19 @@
+{
+  "case_id": "two_synthesis_rejected",
+  "case_type": "negative",
+  "expected_ok": false,
+  "provider": "chatgpt",
+  "workers": 1,
+  "schema_version": "1.0",
+  "kind": "bridge_campaign",
+  "campaign_id": "two-synthesis-demo",
+  "intent": "A campaign that declares two synthesis nodes, violating the single-synthesis rule.",
+  "plan_path": "obsidian/observe_plans/two_synthesis_cycle.md",
+  "nodes": [
+    {"label": "probe-a", "role": "probe", "input_mode": "receipts_only"},
+    {"label": "synth-1", "role": "synthesis", "input_mode": "receipts_only", "depends_on": ["probe-a"]},
+    {"label": "synth-2", "role": "synthesis", "input_mode": "receipts_only", "depends_on": ["probe-a"]}
+  ],
+  "barrier": {"group_label": "synth-1", "description": "Barrier naming only the first synthesis node."},
+  "continuation": {"packet_schema": "v1_receipts_navigational", "next_action": "Ambiguous because two synthesis nodes are declared."}
+}

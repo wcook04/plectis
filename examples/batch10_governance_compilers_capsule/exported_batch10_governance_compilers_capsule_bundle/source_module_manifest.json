@@ -47,7 +47,7 @@
       "path": "source_modules/tools/meta/dissemination/release_public_toggle_closure_map.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_near_verbatim",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "tools/meta/dissemination/release_public_toggle_closure_map.py",
         "substitution": "public_safe_stub"
       },
@@ -95,7 +95,7 @@
       "path": "source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
+        "contamination_class": "private_body_near_verbatim",
         "matched_private_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
         "substitution": "public_safe_stub"
       },
@@ -119,7 +119,7 @@
       "path": "source_modules/system/lib/action_quote.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_near_verbatim",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "system/lib/action_quote.py",
         "substitution": "public_safe_stub"
       },

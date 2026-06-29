@@ -174,9 +174,33 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
         "microcosm_first_screen_composition_card_v1"
     )
     assert status_card["schema_version"] == "microcosm_runtime_status_card_v1"
-    assert status_card["status"] == "pass"
+    status_body_floor_blocked = (
+        status_card["front_door_status"]["surface_statuses"].get(
+            "macro_body_import_floor"
+        )
+        != "pass"
+    )
+    assert status_card["status"] == (
+        "blocked" if status_body_floor_blocked else "pass"
+    )
+    if status_body_floor_blocked:
+        blocking_surface_ids = set(
+            status_card["front_door_status"]["blocking_surface_ids"]
+        )
+        assert "macro_body_import_floor" in blocking_surface_ids
+        assert blocking_surface_ids <= {"runtime_status", "macro_body_import_floor"}
+    else:
+        assert status_card["front_door_status"]["blocking_surface_ids"] == []
     assert status_card["front_door"]["project_state"]["status"] == "pass"
     assert status_card["front_door"]["state_write_proof"]["status"] == "pass"
+    assert (
+        status_card["front_door_status"]["surface_statuses"]["project_state"]
+        == "pass"
+    )
+    assert (
+        status_card["front_door_status"]["surface_statuses"]["state_write_proof"]
+        == "pass"
+    )
     assert status_card["front_door"]["selected_route_id"] == "readme_onboarding_route"
     assert observatory_card["schema_version"] == "microcosm_project_observatory_card_v1"
     assert observatory_card["first_screen_endpoint"] == "/project/first-screen"
@@ -202,7 +226,23 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
         projection_import_map["schema_version"]
         == "microcosm_public_projection_import_map_lens_v1"
     )
-    assert projection_import_map["status"] == "pass"
+    assert projection_import_map["status"] == (
+        "blocked" if status_body_floor_blocked else "pass"
+    )
+    if status_body_floor_blocked:
+        assert (
+            projection_import_map["source_body_import_floor_handoff"]["status"]
+            == "blocked"
+        )
+        assert (
+            projection_import_map["map_summary"]["source_body_handoff_status"]
+            == "blocked"
+        )
+    else:
+        assert (
+            projection_import_map["source_body_import_floor_handoff"]["status"]
+            == "pass"
+        )
     assert (
         workingness_card["schema_version"]
         == "microcosm_workingness_command_speed_card_v1"

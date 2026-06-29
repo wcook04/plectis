@@ -1,0 +1,36 @@
+{
+  "case_id": "note_route_ok",
+  "case_type": "positive",
+  "expected_ok": true,
+  "problem": "provider rate limit retry receipt",
+  "expected_top_slug": "provider-rate-limit-patterns",
+  "expected_note_id": "note_provider_backoff",
+  "expected_min_score": 40,
+  "catalog": {
+    "annexes": [
+      {
+        "slug": "provider-rate-limit-patterns",
+        "display_name": "Provider Rate Limit Patterns",
+        "description": "Backoff and retry patterns across provider APIs.",
+        "source_kind": "sanitized_fixture",
+        "routing_summary": {
+          "domains": ["agent-runtime"],
+          "clusters": ["provider-control"],
+          "problem_spaces": ["rate limit backoff across multiple llm providers"],
+          "capabilities": ["retry scheduling", "provider quota fallback"]
+        },
+        "notes": [
+          {
+            "id": "note_provider_backoff",
+            "relevance": 90,
+            "note": "Back off across multiple LLM providers and preserve a retry receipt.",
+            "routing": {
+              "problem_spaces": ["provider rate limit handling"],
+              "capabilities": ["backoff", "retry receipt"]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

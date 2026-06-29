@@ -1,0 +1,297 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "A pass means the surfaced fact-provider capsule resolved the authored fixture registries against their supplied roots and rejected the planted-defect registries by recomputation with the expected error_class. It does NOT mean any downstream prose claim is true (not a doctrine truth auditor), does NOT cover the full macro fact registry (not a full export), does NOT perform semantic claim validation, does NOT prove the provider correct beyond the bounded fixtures, and grants NO release, publication, private-source-export, or source-mutation authority. The only runtime variability admitted is filesystem reads, the git subprocess used by callable facts (over isolated tempdirs), and CLI argument reads.",
+    "card": "Surfaces the derived_fact_provider_engine capsule as an organ. It evaluates authored fact registries against bounded public fixture roots through three provider shapes — json_pointer (RFC 6901, list-index aware), glob_count (with excluded prefixes), and named callable facts (git-tracked counts) — and converts any provider failure into an error-as-data row (provider_status=error, error_class, repair hint) that degrades the receipt rather than crashing the ledger. The runner exercises two clean registries (pointer+glob; git-callable+array-index pointer) and self-falsifies on two planted defects (an absent source path -> FileNotFoundError, an unsupported provider_type -> ValueError), asserting the exact error_class marker fires. Receipts are body-free. It is not a doctrine truth auditor, not a full macro registry export, not semantic claim validation, and grants no release/publication authority.",
+    "one_line": "Registry-backed derived fact provider runtime: resolves JSON-pointer, glob-count, and git-backed callable facts over public fixture roots and turns provider failures into error-as-data rows, rejecting malformed registries by recomputation."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.derived_fact_provider_runtime",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[97:paper_module.derived_fact_provider_runtime]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "A pass means the surfaced fact-provider capsule resolved the authored fixture registries against their supplied roots and rejected the planted-defect registries by recomputation with the expected error_class. It does NOT mean any downstream prose claim is true (not a doctrine truth auditor), does NOT cover the full macro fact registry (not a full export), does NOT perform semantic claim validation, does NOT prove the provider correct beyond the bounded fixtures, and grants NO release, publication, private-source-export, or source-mutation authority. The only runtime variability admitted is filesystem reads, the git subprocess used by callable facts (over isolated tempdirs), and CLI argument reads.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.derived_fact_provider_runtime",
+        "status": "linked_from_capsule_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/derived_fact_provider_runtime.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.derived_fact_provider_runtime.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/derived_fact_provider_runtime.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/derived_fact_provider_runtime.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/derived_fact_provider_runtime.py",
+          "resolution": "resolved",
+          "role": "The organ wrapper `microcosm_core.organs.derived_fact_provider_runtime` adds the standard organ contract over that capsule without re-implementing it: it loads bounded JSON fixture cases, calls the capsule's real evaluate_case on each, and classifies positives (must resolve to expected values with an ok receipt) versus negatives (must be rejected by recomputation with the exact expected error_class firing on the planted-defect fact, mapped in EXPECTED_NEGATIVE_CASES). It projects a body-free result_card and writes body-free result/board/validation/acceptance receipts via microcosm_core.receipts, and exposes run / bundle / CLI dispatch mirroring the bridge_campaign_dag_validation template exactly.",
+          "symbols": [
+            "build_result",
+            "run",
+            "_evaluate_case",
+            "result_card",
+            "run_derived_fact_provider_runtime_bundle"
+          ]
+        },
+        {
+          "path": "src/microcosm_core/engine_room/derived_fact_provider_engine.py",
+          "resolution": "resolved",
+          "role": "The engine-room capsule `microcosm_core.engine_room.derived_fact_provider_engine` is the executable authority: a source-faithful public refactor of system/lib/derived_fact_hologram.py + codex/doctrine/facts/fact_registry.json. It evaluates an authored fact registry against a public-safe root, resolving each row through one of three providers — json_pointer (RFC 6901, including list-index traversal), glob_count (file-count matching with optional excluded prefixes), and named callable facts (git-tracked file/python counts via a git subprocess in a tempdir) — and turns any provider failure into an error-as-data row (provider_status=error, error_class, repair hint) that degrades the receipt status from ok to degraded rather than crashing the ledger.",
+          "symbols": [
+            "Registry-backed derived fact provider engine over public fixture roots.",
+            "provider failures become error rows with repair hints"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "A pass means the surfaced fact-provider capsule resolved the authored fixture registries against their supplied roots and rejected the planted-defect registries by recomputation with the expected error_class. It does NOT mean any downstream prose claim is true (not a doctrine truth auditor), does NOT cover the full macro fact registry (not a full export), does NOT perform semantic claim validation, does NOT prove the provider correct beyond the bounded fixtures, and grants NO release, publication, private-source-export, or source-mutation authority. The only runtime variability admitted is filesystem reads, the git subprocess used by callable facts (over isolated tempdirs), and CLI argument reads.",
+        "card": "Surfaces the derived_fact_provider_engine capsule as an organ. It evaluates authored fact registries against bounded public fixture roots through three provider shapes — json_pointer (RFC 6901, list-index aware), glob_count (with excluded prefixes), and named callable facts (git-tracked counts) — and converts any provider failure into an error-as-data row (provider_status=error, error_class, repair hint) that degrades the receipt rather than crashing the ledger. The runner exercises two clean registries (pointer+glob; git-callable+array-index pointer) and self-falsifies on two planted defects (an absent source path -> FileNotFoundError, an unsupported provider_type -> ValueError), asserting the exact error_class marker fires. Receipts are body-free. It is not a doctrine truth auditor, not a full macro registry export, not semantic claim validation, and grants no release/publication authority.",
+        "one_line": "Registry-backed derived fact provider runtime: resolves JSON-pointer, glob-count, and git-backed callable facts over public fixture roots and turns provider failures into error-as-data rows, rejecting malformed registries by recomputation."
+      },
+      "concept_refs": [
+        "concept.research_and_science_replay_evidence_bundle"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.derived_fact_provider_runtime",
+          "status": "linked_from_capsule_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/derived_fact_provider_runtime.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.derived_fact_provider_runtime.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.derived_fact_provider_runtime",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/derived_fact_provider_runtime.md",
+      "principle_refs": [
+        "P-3"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[97:paper_module.derived_fact_provider_runtime]",
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "derived_fact_provider_runtime"
+        }
+      ],
+      "title": "Derived Fact Provider Runtime"
+    },
+    "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-2"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/derived_fact_provider_runtime.py",
+        "resolution": "resolved",
+        "role": "The organ wrapper `microcosm_core.organs.derived_fact_provider_runtime` adds the standard organ contract over that capsule without re-implementing it: it loads bounded JSON fixture cases, calls the capsule's real evaluate_case on each, and classifies positives (must resolve to expected values with an ok receipt) versus negatives (must be rejected by recomputation with the exact expected error_class firing on the planted-defect fact, mapped in EXPECTED_NEGATIVE_CASES). It projects a body-free result_card and writes body-free result/board/validation/acceptance receipts via microcosm_core.receipts, and exposes run / bundle / CLI dispatch mirroring the bridge_campaign_dag_validation template exactly.",
+        "symbols": [
+          "build_result",
+          "run",
+          "_evaluate_case",
+          "result_card",
+          "run_derived_fact_provider_runtime_bundle"
+        ]
+      },
+      {
+        "path": "src/microcosm_core/engine_room/derived_fact_provider_engine.py",
+        "resolution": "resolved",
+        "role": "The engine-room capsule `microcosm_core.engine_room.derived_fact_provider_engine` is the executable authority: a source-faithful public refactor of system/lib/derived_fact_hologram.py + codex/doctrine/facts/fact_registry.json. It evaluates an authored fact registry against a public-safe root, resolving each row through one of three providers — json_pointer (RFC 6901, including list-index traversal), glob_count (file-count matching with optional excluded prefixes), and named callable facts (git-tracked file/python counts via a git subprocess in a tempdir) — and turns any provider failure into an error-as-data row (provider_status=error, error_class, repair hint) that degrades the receipt status from ok to degraded rather than crashing the ledger.",
+        "symbols": [
+          "Registry-backed derived fact provider engine over public fixture roots.",
+          "provider failures become error rows with repair hints"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.research_and_science_replay_evidence_bundle"
+    ],
+    "depends_on": [],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[97:paper_module.derived_fact_provider_runtime].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "derived_fact_provider_runtime",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[97:paper_module.derived_fact_provider_runtime].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.research_and_science_replay_evidence_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[97:paper_module.derived_fact_provider_runtime].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[97:paper_module.derived_fact_provider_runtime].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-2",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[97:paper_module.derived_fact_provider_runtime].code_loci[0]",
+          "summary": "The organ wrapper `microcosm_core.organs.derived_fact_provider_runtime` adds the standard organ contract over that capsule without re-implementing it: it loads bounded JSON fixture cases, calls the capsule's real evaluate_case on each, and classifies positives (must resolve to expected values with an ok receipt) versus negatives (must be rejected by recomputation with the exact expected error_class firing on the planted-defect fact, mapped in EXPECTED_NEGATIVE_CASES). It projects a body-free result_card and writes body-free result/board/validation/acceptance receipts via microcosm_core.receipts, and exposes run / bundle / CLI dispatch mirroring the bridge_campaign_dag_validation template exactly."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/derived_fact_provider_runtime.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[97:paper_module.derived_fact_provider_runtime].code_loci[1]",
+          "summary": "The engine-room capsule `microcosm_core.engine_room.derived_fact_provider_engine` is the executable authority: a source-faithful public refactor of system/lib/derived_fact_hologram.py + codex/doctrine/facts/fact_registry.json. It evaluates an authored fact registry against a public-safe root, resolving each row through one of three providers — json_pointer (RFC 6901, including list-index traversal), glob_count (file-count matching with optional excluded prefixes), and named callable facts (git-tracked file/python counts via a git subprocess in a tempdir) — and turns any provider failure into an error-as-data row (provider_status=error, error_class, repair hint) that degrades the receipt status from ok to degraded rather than crashing the ledger."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/engine_room/derived_fact_provider_engine.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/derived_fact_provider_runtime.md",
+    "principle_refs": [
+      "P-3"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[97:paper_module.derived_fact_provider_runtime]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "derived_fact_provider_runtime"
+      }
+    ],
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Paper-module source row does not name sibling/dependency module ids.",
+        "relation_id": "paper_module.depends_on.paper_module",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ]
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[97:paper_module.derived_fact_provider_runtime]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/derived_fact_provider_runtime.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/derived_fact_provider_runtime.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "Registry-backed derived fact provider runtime: resolves JSON-pointer, glob-count, and git-backed callable facts over public fixture roots and turns provider failures into error-as-data rows, rejecting malformed registries by recomputation.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "derived_fact_provider_runtime"
+    }
+  ],
+  "title": "Derived Fact Provider Runtime",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

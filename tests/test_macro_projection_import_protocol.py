@@ -162,6 +162,10 @@ COMMAND_OUTPUT_PROJECTION_BODY_MATERIAL_IDS = [
     "command_output_audit_body_import",
     "command_output_projection_standard_body_import",
 ]
+COMMAND_OUTPUT_PROJECTION_LIGHT_EDIT_BODY_MATERIAL_IDS = {
+    "command_output_projection_helper_body_import",
+    "command_output_sidecar_helper_body_import",
+}
 TRACE_CAPSULE_BODY_MATERIAL_IDS = [
     "trace_capsule_cli_prompt_trace_body_import",
     "trace_capsule_cli_prompt_trace_test_body_import",
@@ -894,7 +898,11 @@ def test_macro_projection_fixture_manifest_counts_exact_source_open_body_floor()
                 target_ref=row["target_ref"],
                 source_ref=row["source_ref"],
             ):
-                assert "source_modules/" in row["target_ref"]
+                assert "source_modules/" in row[
+                    "target_ref"
+                ] or row["target_ref"].startswith(
+                    "microcosm-substrate/src/microcosm_core/macro_tools/"
+                )
         else:
             assert row["sha256_match"] is True
             assert row.get("source_to_target_relation", "exact_copy") in (
@@ -4693,12 +4701,20 @@ def test_command_output_projection_source_modules_body_import_is_unified_under_m
             source=source,
             target=target,
         )
-        assert row["body_import_verification"]["verification_mode"] == (
-            "exact_source_digest_match"
-        )
-        assert row["body_import_verification"]["source_line_count"] == (
-            row["body_import_verification"]["target_line_count"]
-        )
+        verification = row["body_import_verification"]
+        if material_id in COMMAND_OUTPUT_PROJECTION_LIGHT_EDIT_BODY_MATERIAL_IDS:
+            assert verification["verification_mode"] == "verified_light_edit_recipe"
+            assert (
+                verification["source_to_target_relation"]
+                == "source_faithful_public_light_edit"
+            )
+            assert verification["rewrite_recipe_ref"].endswith(
+                "::public_module_contract_docstrings"
+            )
+            assert verification["source_line_count"] < verification["target_line_count"]
+        else:
+            assert verification["verification_mode"] == "exact_source_digest_match"
+            assert verification["source_line_count"] == verification["target_line_count"]
         assert row["body_text_in_receipt"] is False
 
     by_cell = {

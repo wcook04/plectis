@@ -408,7 +408,7 @@ def build_demo(root: Path) -> tuple[str, str]:
     lines.append("Ask with your own goal:")
     lines.append("")
     lines.append("```bash")
-    lines.append('PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"')
+    lines.append('PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>" --format text')
     lines.append("```")
     lines.append("")
     lines.append(

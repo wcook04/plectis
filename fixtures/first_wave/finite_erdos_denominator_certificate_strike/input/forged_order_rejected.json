@@ -1,0 +1,13 @@
+{
+  "case_id": "forged_order_rejected",
+  "case_type": "negative",
+  "exercise": "forged_order_rejected",
+  "support": [1, 2],
+  "base": 2,
+  "claimed": {
+    "numerator": 4,
+    "denominator": 3,
+    "order": 5
+  },
+  "note": "S_2({1,2}) = 1/1 + 1/3 = 4/3. The true certificate is P=4, Q=3, ord_3(2)=2=lcm({1,2}). This case forges only the order (claims 5). The runner recomputes ord_3(2)=2, finds it disagrees with the claim, and rejects the certificate with ERDOS_CERT_ORDER_MISMATCH."
+}

@@ -1,0 +1,85 @@
+{
+  "case_id": "clean_fanout_pass",
+  "case_type": "positive",
+  "expected_ok": true,
+  "expected_status": "pass",
+  "expected_summary": {
+    "task_count": 2,
+    "sufficiency_pass_count": 2,
+    "sufficiency_fail_count": 0,
+    "latency_fail_count": 0,
+    "debt_candidate_count": 0
+  },
+  "expected_task_statuses": {
+    "find_nav_theory_roof": {
+      "sufficiency_status": "pass",
+      "latency_status": "pass"
+    },
+    "find_session_diagnostics": {
+      "sufficiency_status": "pass",
+      "latency_status": "pass"
+    }
+  },
+  "benchmark": {
+    "suite": "clean_public_fixture",
+    "cases": [
+      {
+        "task": {
+          "task_id": "find_nav_theory_roof",
+          "family": "context_pack_discovery",
+          "task_prompt": "Find the theory roof for source-anchored navigation rows.",
+          "route_type": "context_pack",
+          "expected_artifacts": [
+            "paper_modules:navigation_hologram_theory"
+          ],
+          "forbidden_first_routes": [
+            "--paper-module"
+          ],
+          "latency_budget_ms": 1200,
+          "scent_terms": [
+            "navigation",
+            "hologram"
+          ]
+        },
+        "packet": {
+          "first_contact_command": "kernel.py --context-pack",
+          "command_used": "kernel.py --context-pack \"Find the theory roof\"",
+          "wall_ms": 310,
+          "selected_artifacts": [
+            "paper_modules:navigation_hologram_theory",
+            "drilldown:paper_lattice:navigation_hologram_theory"
+          ],
+          "summary": "navigation hologram theory row selected with a stable paper lattice drilldown"
+        }
+      },
+      {
+        "task": {
+          "task_id": "find_session_diagnostics",
+          "family": "context_pack_discovery",
+          "task_prompt": "Which skill watches Claude and Codex traces for bad movement?",
+          "route_type": "context_pack",
+          "expected_artifacts": [
+            "skills:agent_session_diagnostics"
+          ],
+          "forbidden_first_routes": [
+            "grep .claude"
+          ],
+          "latency_budget_ms": 1200,
+          "scent_terms": [
+            "session",
+            "diagnostics"
+          ]
+        },
+        "packet": {
+          "first_contact_command": "kernel.py --context-pack",
+          "command_used": "kernel.py --context-pack \"Which skill watches traces\"",
+          "wall_ms": 280,
+          "selected_artifacts": [
+            "skills:agent_session_diagnostics"
+          ],
+          "summary": "agent session diagnostics watches observed movement and route failures"
+        }
+      }
+    ]
+  }
+}

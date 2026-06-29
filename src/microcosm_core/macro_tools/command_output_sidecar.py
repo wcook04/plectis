@@ -18,6 +18,30 @@ Per-call overrides (in priority order):
    (set to `0` to force sidecar regardless of size).
 3. Default heavy-surface caps via `DEFAULT_THRESHOLDS`.
 4. No threshold set and not a heavy surface → inline.
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.macro_tools.command_output_sidecar` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: RECEIPT_KIND, RECEIPT_SCHEMA_VERSION, SIDECAR_ROOT, ENV_VAR, INLINE_OVERRIDE_ENV_VAR, DEFAULT_THRESHOLDS, maybe_route_to_sidecar
+- Reads: call arguments, module constants, imported helpers, environment variables.
+- Writes: return values, declared filesystem outputs and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: None beyond the Python standard library and local package imports.
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 from __future__ import annotations
 
@@ -42,10 +66,28 @@ DEFAULT_THRESHOLDS: Mapping[str, int] = {
 
 
 def _safe_surface(surface: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_safe_surface` for `microcosm_core.macro_tools.command_output_sidecar` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return "".join(ch if ch.isalnum() or ch in {"_", "-", "."} else "_" for ch in surface) or "unknown"
 
 
 def _payload_bytes(payload: Any) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `_payload_bytes` for `microcosm_core.macro_tools.command_output_sidecar` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     try:
         return len(json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2).encode("utf-8"))
     except TypeError:
@@ -53,6 +95,15 @@ def _payload_bytes(payload: Any) -> int:
 
 
 def _summary_for_payload(payload: Any) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_summary_for_payload` for `microcosm_core.macro_tools.command_output_sidecar` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(payload, Mapping):
         return {"top_keys": [], "kind": None}
     summary = payload.get("summary") if isinstance(payload.get("summary"), Mapping) else None
@@ -65,6 +116,15 @@ def _summary_for_payload(payload: Any) -> dict[str, Any]:
 
 
 def _read_threshold() -> int | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_read_threshold` for `microcosm_core.macro_tools.command_output_sidecar` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, environment variables.
+    - Writes: return values.
+    """
     raw = os.environ.get(ENV_VAR)
     if raw is None:
         return None
@@ -79,11 +139,29 @@ def _read_threshold() -> int | None:
 
 
 def _inline_override_active() -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_inline_override_active` for `microcosm_core.macro_tools.command_output_sidecar` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, environment variables.
+    - Writes: return values.
+    """
     raw = os.environ.get(INLINE_OVERRIDE_ENV_VAR)
     return raw is not None and raw.strip().lower() in {"1", "true", "yes", "on"}
 
 
 def _resolve_threshold(surface: str) -> tuple[int | None, str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_resolve_threshold` for `microcosm_core.macro_tools.command_output_sidecar` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     explicit = _read_threshold()
     if explicit is not None:
         return explicit, "env_override"
@@ -99,13 +177,21 @@ def maybe_route_to_sidecar(
     surface: str,
     repo_root: Path | str,
 ) -> dict[str, Any] | None:
-    """Return a receipt envelope when policy mandates sidecar containment.
+    """
+    [ACTION]
+    Return a receipt envelope when policy mandates sidecar containment.
 
     Resolution order (first match wins):
       1. AIW_COMMAND_OUTPUT_INLINE=1 → never sidecar (returns None).
       2. AIW_COMMAND_OUTPUT_SIDECAR_BYTES=N → that threshold for any surface.
       3. DEFAULT_THRESHOLDS[surface] → default cap for known heavy surfaces.
       4. Otherwise → inline (returns None).
+    - Teleology: Implements `maybe_route_to_sidecar` for `microcosm_core.macro_tools.command_output_sidecar` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     if _inline_override_active():
         return None

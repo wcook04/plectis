@@ -139,25 +139,25 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
     paper_modules = report["paper_module_readiness_audit"]
 
     assert report["reader_enrichment_total_objects"] == 49
-    assert report["governed_floor_total_objects"] == 155
+    assert report["governed_floor_total_objects"] == 160
     assert routing["status"] == "complete"
     assert routing["covered_kinds"] == ["concept", "mechanism"]
     assert concept["total"] == 11
     assert concept["routed"] == 11
     assert concept["incomplete_ids"] == []
     assert concept["issue_rows"] == []
-    assert mechanism["total"] == 95
-    assert mechanism["routed"] == 95
+    assert mechanism["total"] == 100
+    assert mechanism["routed"] == 100
     assert mechanism["incomplete_ids"] == []
     assert mechanism["issue_rows"] == []
-    assert mechanism["known_residual_selective_relation_row_count"] == 26
-    assert mechanism["known_residual_selective_relation_count"] == 26
-    assert mechanism["planned_edge_row_count"] == 1
-    assert mechanism["planned_edge_count"] == 1
-    assert mechanism["planned_edge_detail_count"] == 1
-    assert mechanism["planned_edge_counts_by_target_kind"] == {"organ": 1}
+    assert mechanism["known_residual_selective_relation_row_count"] == 27
+    assert mechanism["known_residual_selective_relation_count"] == 27
+    assert mechanism["planned_edge_row_count"] == 2
+    assert mechanism["planned_edge_count"] == 2
+    assert mechanism["planned_edge_detail_count"] == 2
+    assert mechanism["planned_edge_counts_by_target_kind"] == {"organ": 2}
     assert mechanism["planned_edge_counts_by_target_status"] == {
-        "planned_registry_or_atlas_target": 1
+        "planned_registry_or_atlas_target": 2
     }
     planned_details = {
         row["id"]: row for row in mechanism["planned_edge_details"]
@@ -180,7 +180,7 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
         "target_id": "microcosm_axiom_substrate",
         "target_status": "planned_registry_or_atlas_target",
         "source_ref": (
-            "core/mechanism_sources.json::mechanisms[85:"
+            "core/mechanism_sources.json::mechanisms[99:"
             "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary].runs_in"
         ),
         "summary": "Mechanism registry row names this organ as the runtime host.",
@@ -196,7 +196,7 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
             "support_evidence_or_release_authority"
         ),
         "planned_target_source_ref": (
-            "core/mechanism_sources.json::mechanisms[85:"
+            "core/mechanism_sources.json::mechanisms[99:"
             "mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary]"
             ".planned_targets[0]"
         ),
@@ -204,10 +204,10 @@ def test_health_projection_counts_doctrine_routing_floor() -> None:
     }
     assert paper_modules["status"] == "complete"
     assert paper_modules["readiness_complete"] is True
-    assert paper_modules["total_objects"] == 93
-    assert paper_modules["ready_objects"] == 93
+    assert paper_modules["total_objects"] == 98
+    assert paper_modules["ready_objects"] == 98
     assert paper_modules["source_authority_counts"] == {
-        "json_capsule": 93,
+        "json_capsule": 98,
     }
     assert paper_modules["required_residual_relation_count"] == 0
     assert paper_modules["selective_residual_relation_count"] == 0

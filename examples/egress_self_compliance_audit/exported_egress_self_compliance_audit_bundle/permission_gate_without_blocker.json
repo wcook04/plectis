@@ -1,0 +1,6 @@
+{
+  "case_id": "permission_gate_without_blocker",
+  "case_type": "negative",
+  "expected_ok": false,
+  "text": "The tests passed and the diff is small. Let me know if you want me to continue with the next wave."
+}

@@ -1,48 +1,32 @@
 {
   "body_in_receipt": false,
   "bundle_id": "doctrine_fact_claim_audit_runtime_example",
-  "module_count": 2,
-  "modules": [
+  "module_count": 0,
+  "modules": [],
+  "release_substitution_omissions": [
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 114309,
-      "line_count": 2836,
-      "material_class": "public_macro_source_body",
+      "module_id": null,
       "path": "source_modules/system/lib/derived_fact_hologram.py",
-      "required_anchors": [
-        "FactAssertion",
-        "fact",
-        "find_unbound_numeric_claims"
-      ],
-      "sha256": "7cc2118cae7670255495fde8b4817206d14c5fc5e8a96260a6f73e83741a0bed",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/derived_fact_hologram.py",
-      "source_sha256": "7cc2118cae7670255495fde8b4817206d14c5fc5e8a96260a6f73e83741a0bed",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/derived_fact_hologram.py",
-      "target_sha256": "7cc2118cae7670255495fde8b4817206d14c5fc5e8a96260a6f73e83741a0bed"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/derived_fact_hologram.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/derived_fact_hologram.py"
     },
     {
-      "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 206935,
-      "line_count": 4848,
-      "material_class": "public_macro_source_body",
+      "module_id": null,
       "path": "source_modules/system/lib/paper_modules.py",
-      "required_anchors": [
-        "paper",
-        "module"
-      ],
-      "sha256": "2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_ref": "system/lib/paper_modules.py",
-      "source_sha256": "2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/doctrine_fact_claim_audit/exported_doctrine_fact_claim_audit_bundle/source_modules/system/lib/paper_modules.py",
-      "target_sha256": "2be83e788c91dffdf33af0da0574f537cb30a0253f5bc9af70369931723d287d"
+      "release_substitution": {
+        "body_in_receipt": false,
+        "contamination_class": "private_body_exact_match",
+        "matched_private_ref": "system/lib/paper_modules.py",
+        "substitution": "public_safe_stub"
+      },
+      "source_ref": "system/lib/paper_modules.py"
     }
   ],
   "schema_version": "microcosm_doctrine_fact_claim_audit_source_module_manifest_v1",

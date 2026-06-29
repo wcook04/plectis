@@ -1,53 +1,28 @@
-"""[PURPOSE]
-- Teleology: Make sandbox policy-escape replay evidence inspectable through runnable
-  public fixture code while keeping claims bounded to emitted receipts and authority
-  ceilings.
-- Mechanism: The file re-derives sandbox allow/block decisions from risk classes and
-  verifies pre-execution logging, reversibility, and tool-output boundaries; helper
-  functions load fixtures, recompute predicates, normalize findings, build
-  result/board/card payloads, and write receipts.
-- Non-goal: Agent sandbox policy-escape replay validates synthetic action, policy
-  verdict, side-effect diff, rollback, cold-replay, negative-case, and authority-ceiling
-  receipts, and now emits public agent-execution trace spans over those public refs. It
-  does not authorize live sandbox escape, live secret handling, live network access,
-  host filesystem mutation, executable payload export, raw environment export, provider
-  calls, security benchmark claims, source mutation, or release.
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.organs.agent_sandbox_policy_escape_replay` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
 
 [INTERFACE]
-- CLI: `python -m microcosm_core.organs.agent_sandbox_policy_escape_replay <command>`
-  with detected subcommands run, run-sandbox-bundle.
-- Exports: validate_projection_protocol, validate_sandbox_policy,
-  validate_action_requests, validate_policy_verdicts, validate_side_effect_receipts,
-  validate_rollback_receipts, validate_cold_replay, validate_negative_cases, run,
-  run_sandbox_bundle, result_card, main.
-- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
-  referenced by each callable body.
-- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
-  artifacts only where the called body performs explicit writes.
+- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, BODY_IMPORT_STATUS, BODY_IMPORT_CLASSIFICATION, PRODUCT_PATH_ROLE, SOURCE_MODULE_MANIFEST_NAME, SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS, SOURCE_OPEN_BODY_SCHEMA, PUBLIC_SAFE_SOURCE_BODY_CLASSES, INPUT_NAMES, NEGATIVE_INPUT_NAMES, EXPECTED_NEGATIVE_CASES, REQUIRED_ACTION_FIELDS, REQUIRED_VERDICT_FIELDS, REQUIRED_EFFECT_FIELDS, ...
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, environment variables.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
 
 [FLOW]
-- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
-  negative-case rows through the local helper stack.
-- Validate: Recompute module-specific predicates from structured inputs rather than
-  trusting fixture verdict fields alone.
-- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
-  anti-claims and authority ceilings preserved.
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
 
 [DEPENDENCIES]
-- Required: microcosm_core.macro_tools.agent_execution_trace,
-  microcosm_core.secret_exclusion_scan, microcosm_core.receipts, microcosm_core.schemas
-- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+- Required: microcosm_core.macro_tools.agent_execution_trace, microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
 
 [CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutation is limited to explicit
-  run/write helpers invoked by the caller.
-- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
-  state, clock values, subprocess results, dependency availability, and parser
-  invocation are the admitted runtime variables.
-- Boundary: Receipts and cards must stay public-root relative and body-free for private,
-  provider, credential, oracle, hidden-answer, or raw exploit material.
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
-
 from __future__ import annotations
 
 import argparse
@@ -289,22 +264,14 @@ ANTI_CLAIM = (
 
 
 def _public_root_for_path(path: str | Path) -> Path:
-    """[ACTION] Find the nearest repository-style public root for a path.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_public_root_for_path`.
-    - Preconditions: Callers provide path in the shape consumed by the body; paths must
-      be resolvable for filesystem metadata checks.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns Path from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -319,40 +286,27 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
-    """[ACTION] Convert a path into a public-root-relative display reference.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_display`.
-    - Preconditions: Callers provide path, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to public_relative_path and applies local branch checks.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_display` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
-    """[ACTION] Return dictionary rows stored under a key in a mapping payload.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_rows`.
-    - Preconditions: Callers provide payload, key in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_rows` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(payload, dict):
         return []
@@ -361,20 +315,14 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
-    """[ACTION] Filter a list payload down to non-empty string values.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_strings`.
-    - Preconditions: Callers provide value in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(value, list):
         return []
@@ -382,23 +330,14 @@ def _strings(value: object) -> list[str]:
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
-    """[ACTION] Build the fixture input path list for the requested replay mode.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_input_paths`.
-    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; module constants INPUT_NAMES, NEGATIVE_INPUT_NAMES;
-      filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: INPUT_NAMES, NEGATIVE_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_input_paths` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -409,23 +348,14 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _sha256(path: Path) -> str:
-    """[ACTION] Stream a file through SHA-256 and return a prefixed digest.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_sha256`.
-    - Preconditions: Callers provide path in the shape consumed by the body; content
-      inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads.
-    - Reads: call arguments; filesystem/content inputs named by those arguments or
-      constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_sha256` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -435,21 +365,14 @@ def _sha256(path: Path) -> str:
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
-    """[ACTION] Resolve the source-module manifest path for fixture validation.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_source_module_manifest_path`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
-      return value.
-    - Guarantee: Returns Path from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SOURCE_MODULE_MANIFEST_NAME.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SOURCE_MODULE_MANIFEST_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
@@ -460,21 +383,14 @@ def _source_module_target_path(
     input_dir: Path,
     public_root: Path,
 ) -> Path:
-    """[ACTION] Resolve a target source-module reference to a local path.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_source_module_target_path`.
-    - Preconditions: Callers provide target_ref, input_dir, public_root in the shape
-      consumed by the body.
-    - Mechanism: Delegates to target_ref.removeprefix, normalized.startswith and applies
-      local branch checks.
-    - Guarantee: Returns Path from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     normalized = target_ref.removeprefix("microcosm-substrate/")
     if normalized.startswith("source_modules/"):
@@ -483,21 +399,14 @@ def _source_module_target_path(
 
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
-    """[ACTION] Resolve source-module file paths declared by fixture rows.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_source_module_paths`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_paths` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -521,21 +430,14 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
 
 
 def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
-    """[ACTION] Scan declared input paths for forbidden private or unsafe material.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_scan_paths_for_input`.
-    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
-      by the body.
-    - Mechanism: Delegates to _public_root_for_path, _input_paths, _source_module_paths
-      and applies local branch checks.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_paths_for_input` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     public_root = _public_root_for_path(input_dir)
     return [
@@ -545,21 +447,14 @@ def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Pa
 
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
-    """[ACTION] Collect source paths that determine replay freshness.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_freshness_paths`.
-    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_freshness_paths` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
@@ -572,28 +467,14 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
-    """[ACTION] Build the freshness basis used in receipts and cards.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_freshness_basis`.
-    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks; write
-      targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Computes SHA-256 evidence from the bytes or normalized data
-      it receives. Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants CARD_SCHEMA_VERSION; filesystem metadata
-      named by those arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: CARD_SCHEMA_VERSION.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -651,24 +532,14 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
 
 
 def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
-    """[ACTION] Build the freshness receipt for a replay bundle.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_fresh_bundle_receipt`.
-    - Preconditions: Callers provide input_dir, out_dir in the shape consumed by the
-      body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Delegates to _freshness_basis, payload.get, path.is_file,
-      read_json_strict, payload.get and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] | None from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; module constants BUNDLE_RESULT_NAME, ORGAN_ID; filesystem
-      metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: BUNDLE_RESULT_NAME, ORGAN_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_fresh_bundle_receipt` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -702,22 +573,14 @@ def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | No
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
-    """[ACTION] Load fixture JSON payloads into a filename-keyed mapping.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_load_payloads`.
-    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
-      by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -733,22 +596,14 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
-    """[ACTION] Create a normalized finding row for a validation predicate.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_finding`.
-    - Preconditions: Callers provide code, message, case_id, subject_id, subject_kind in
-      the shape consumed by the body.
-    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
-      return value.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_finding` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "error_code": code,
@@ -770,21 +625,14 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
-    """[ACTION] Create a normalized record row for receipt emission.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_record`.
-    - Preconditions: Callers provide findings, observed, code, message, case_id,
-      subject_id, subject_kind in the shape consumed by the body.
-    - Mechanism: Delegates to findings.append, add, _finding and applies local branch
-      checks.
-    - Guarantee: Returns None from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_record` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings.append(
         _finding(
@@ -799,21 +647,14 @@ def _record(
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
-    """[ACTION] Merge observed evidence rows into expected replay rows.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_merge_observed`.
-    - Preconditions: Callers provide *results in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, list[str]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -824,21 +665,14 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
-    """[ACTION] Merge finding collections while preserving deterministic order.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_merge_findings`.
-    - Preconditions: Callers provide *results in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_merge_findings` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     for result in results:
@@ -860,28 +694,14 @@ def _source_module_manifest_result(
     public_root: Path,
     require_manifest: bool,
 ) -> dict[str, Any]:
-    """[ACTION] Validate the source-module manifest and summarize its result.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_source_module_manifest_result`.
-    - Preconditions: Callers provide input_dir, public_root, require_manifest in the
-      shape consumed by the body; content inputs must exist and match the expected local
-      fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, called validators/helpers.
-    - Reads: call arguments; module constants PUBLIC_SAFE_SOURCE_BODY_CLASSES,
-      SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS; filesystem/content inputs named
-      by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: PUBLIC_SAFE_SOURCE_BODY_CLASSES, SOURCE_IMPORT_CLASS,
-      SOURCE_MODULE_IMPORT_STATUS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_manifest_result` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     manifest_ref = _display(manifest_path, public_root=public_root)
@@ -1097,26 +917,14 @@ def _source_module_manifest_result(
 def _source_open_body_import_summary(
     source_module_result: dict[str, Any],
 ) -> dict[str, Any]:
-    """[ACTION] Summarize source imports and body-open checks for public evidence.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_source_open_body_import_summary`.
-    - Preconditions: Callers provide source_module_result in the shape consumed by the
-      body.
-    - Mechanism: Delegates to _strings, source_module_result.get,
-      source_module_result.get, source_module_result.get, source_module_result.get and
-      applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants SOURCE_IMPORT_CLASS,
-      SOURCE_MODULE_IMPORT_STATUS, SOURCE_OPEN_BODY_SCHEMA.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS,
-      SOURCE_OPEN_BODY_SCHEMA.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, environment variables.
+    - Writes: return values.
     """
     module_ids = _strings(source_module_result.get("module_ids"))
     manifest_ref = source_module_result.get("source_module_manifest_ref")
@@ -1170,60 +978,40 @@ def _source_open_body_import_summary(
 
 
 def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
-    """[ACTION] List required keys that are absent or empty in a row.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_missing`.
-    - Preconditions: Callers provide row, required in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_missing` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [field for field in required if row.get(field) in (None, "", [])]
 
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
-    """[ACTION] Detect forbidden keys in a nested payload.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_has_forbidden_key`.
-    - Preconditions: Callers provide row in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns bool from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants FORBIDDEN_KEYS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: FORBIDDEN_KEYS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_has_forbidden_key` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return any(key in row for key in FORBIDDEN_KEYS)
 
 
 def _policy_shape_mismatches(row: dict[str, Any]) -> list[str]:
-    """[ACTION] Implement policy shape mismatches for this organ replay.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_policy_shape_mismatches`.
-    - Preconditions: Callers provide row in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants EXPECTED_ACTION_POLICY_SHAPES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: EXPECTED_ACTION_POLICY_SHAPES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_policy_shape_mismatches` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     risk_class = str(row.get("risk_class") or "")
     shape = EXPECTED_ACTION_POLICY_SHAPES.get(risk_class)
@@ -1243,23 +1031,14 @@ def _policy_shape_mismatches(row: dict[str, Any]) -> list[str]:
 
 
 def _derived_sandbox_policy_verdict(row: dict[str, Any]) -> tuple[str, str]:
-    """[ACTION] Implement derived sandbox policy verdict for this organ replay.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_derived_sandbox_policy_verdict`.
-    - Preconditions: Callers provide row in the shape consumed by the body.
-    - Mechanism: Delegates to row.get, _policy_shape_mismatches and applies local branch
-      checks.
-    - Guarantee: Returns tuple[str, str] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants EXPECTED_ACTION_POLICY,
-      FAIL_CLOSED_POLICY_SEMANTICS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: EXPECTED_ACTION_POLICY, FAIL_CLOSED_POLICY_SEMANTICS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_derived_sandbox_policy_verdict` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     risk_class = str(row.get("risk_class") or "")
     if risk_class in EXPECTED_ACTION_POLICY and not _policy_shape_mismatches(row):
@@ -1268,43 +1047,27 @@ def _derived_sandbox_policy_verdict(row: dict[str, Any]) -> tuple[str, str]:
 
 
 def _expected_action_policy(row: dict[str, Any]) -> tuple[str, str]:
-    """[ACTION] Implement expected action policy for this organ replay.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_expected_action_policy`.
-    - Preconditions: Callers provide row in the shape consumed by the body.
-    - Mechanism: Delegates to _derived_sandbox_policy_verdict and applies local branch
-      checks.
-    - Guarantee: Returns tuple[str, str] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_expected_action_policy` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _derived_sandbox_policy_verdict(row)
 
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate projection protocol against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `validate_projection_protocol`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants BODY_IMPORT_CLASSIFICATION,
-      BODY_IMPORT_STATUS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: BODY_IMPORT_CLASSIFICATION, BODY_IMPORT_STATUS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `validate_projection_protocol` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
@@ -1384,23 +1147,14 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
 
 
 def validate_sandbox_policy(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate sandbox policy against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `validate_sandbox_policy`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants REQUIRED_ACTION_FIELDS,
-      REQUIRED_EFFECT_FIELDS, REQUIRED_VERDICT_FIELDS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: REQUIRED_ACTION_FIELDS, REQUIRED_EFFECT_FIELDS, REQUIRED_VERDICT_FIELDS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `validate_sandbox_policy` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = payload if isinstance(payload, dict) else {}
     allowed = set(_strings(policy.get("allowed_verdicts")))
@@ -1464,22 +1218,14 @@ def validate_sandbox_policy(payload: object) -> dict[str, Any]:
 
 
 def validate_action_requests(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate action requests against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `validate_action_requests`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants REQUIRED_ACTION_FIELDS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: REQUIRED_ACTION_FIELDS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `validate_action_requests` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "action_requests")
     findings: list[dict[str, Any]] = []
@@ -1547,23 +1293,14 @@ def validate_policy_verdicts(
     request_ids: set[str],
     actions_by_request: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate policy verdicts against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `validate_policy_verdicts`.
-    - Preconditions: Callers provide payload, policy, request_ids, actions_by_request in
-      the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants REQUIRED_VERDICT_FIELDS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: REQUIRED_VERDICT_FIELDS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `validate_policy_verdicts` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "policy_verdicts")
     policy_rows = policy if isinstance(policy, dict) else {}
@@ -1711,23 +1448,14 @@ def validate_side_effect_receipts(
     verdicts_by_request: dict[str, str],
     expected_verdicts_by_request: dict[str, str],
 ) -> dict[str, Any]:
-    """[ACTION] Validate side effect receipts against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `validate_side_effect_receipts`.
-    - Preconditions: Callers provide payload, request_ids, verdicts_by_request,
-      expected_verdicts_by_request in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants REQUIRED_EFFECT_FIELDS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: REQUIRED_EFFECT_FIELDS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `validate_side_effect_receipts` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "side_effect_receipts")
     findings: list[dict[str, Any]] = []
@@ -1827,22 +1555,14 @@ def validate_side_effect_receipts(
 
 
 def validate_rollback_receipts(payload: object, request_ids: set[str]) -> dict[str, Any]:
-    """[ACTION] Validate rollback receipts against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `validate_rollback_receipts`.
-    - Preconditions: Callers provide payload, request_ids in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `validate_rollback_receipts` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "rollback_receipts")
     findings: list[dict[str, Any]] = []
@@ -1889,22 +1609,14 @@ def validate_rollback_receipts(payload: object, request_ids: set[str]) -> dict[s
 
 
 def validate_cold_replay(payload: object, request_ids: set[str]) -> dict[str, Any]:
-    """[ACTION] Validate cold replay against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `validate_cold_replay`.
-    - Preconditions: Callers provide payload, request_ids in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `validate_cold_replay` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "cold_replay")
     findings: list[dict[str, Any]] = []
@@ -1955,22 +1667,14 @@ def validate_cold_replay(payload: object, request_ids: set[str]) -> dict[str, An
 
 
 def validate_negative_cases(negative_payloads: dict[str, object]) -> dict[str, Any]:
-    """[ACTION] Validate negative cases against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `validate_negative_cases`.
-    - Preconditions: Callers provide negative_payloads in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `validate_negative_cases` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, environment variables.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -2072,28 +1776,14 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
-    """[ACTION] Assemble the replay result payload from validated evidence.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_build_result`.
-    - Preconditions: Callers provide input_dir, command, input_mode, include_negative in
-      the shape consumed by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants ANTI_CLAIM, AUTHORITY_CEILING,
-      BODY_IMPORT_CLASSIFICATION, BODY_IMPORT_STATUS, EXPECTED_NEGATIVE_CASES,
-      FIXTURE_ID, NEGATIVE_INPUT_NAMES, ORGAN_ID, ....
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ANTI_CLAIM, AUTHORITY_CEILING, BODY_IMPORT_CLASSIFICATION,
-      BODY_IMPORT_STATUS, EXPECTED_NEGATIVE_CASES, FIXTURE_ID, NEGATIVE_INPUT_NAMES,
-      ORGAN_ID, PRODUCT_PATH_ROLE, VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_build_result` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -2308,22 +1998,14 @@ def _build_result(
 
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Build the board projection from a replay result payload.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_board_from_result`.
-    - Preconditions: Callers provide result in the shape consumed by the body.
-    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
-      return value.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants ORGAN_ID.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ORGAN_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_board_from_result` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "schema_version": "agent_sandbox_policy_escape_replay_board_v1",
@@ -2387,26 +2069,14 @@ def _write_receipts(
     *,
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
-    """[ACTION] Write replay receipt payloads and return their public references.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_write_receipts`.
-    - Preconditions: Callers provide result, out_dir, acceptance_out in the shape
-      consumed by the body; write targets must be inside the caller-selected output or
-      temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants.
-    - Guarantee: Returns dict[str, Any] after writing only the declared receipt/output
-      artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
-      called validators/helpers.
-    - Reads: call arguments; module constants ACCEPTANCE_RECEIPT_REL, BOARD_NAME,
-      FIXTURE_ID, ORGAN_ID, RESULT_NAME, VALIDATION_RECEIPT_NAME, VALIDATOR_ID.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: ACCEPTANCE_RECEIPT_REL, BOARD_NAME, FIXTURE_ID, ORGAN_ID, RESULT_NAME,
-      VALIDATION_RECEIPT_NAME, VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
@@ -2501,22 +2171,14 @@ def run(
     command: str = "python -m microcosm_core.organs.agent_sandbox_policy_escape_replay run",
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the organ replay pipeline and return the computed result payload.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `run`.
-    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
-      shape consumed by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `run` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     result = _build_result(
         Path(input_dir),
@@ -2543,25 +2205,14 @@ def run_sandbox_bundle(
     *,
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run sandbox bundle for this organ replay.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `run_sandbox_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command, reuse_fresh_receipt in
-      the shape consumed by the body; write targets must be inside the caller-selected
-      output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
-      called validators/helpers.
-    - Reads: call arguments; module constants BUNDLE_RESULT_NAME.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: BUNDLE_RESULT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `run_sandbox_bundle` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -2590,20 +2241,14 @@ def run_sandbox_bundle(
 
 
 def _card_receipt_paths(paths: object) -> list[str]:
-    """[ACTION] Collect receipt paths rendered on the public card.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_card_receipt_paths`.
-    - Preconditions: Callers provide paths in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_card_receipt_paths` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(paths, list) or not all(isinstance(path, str) for path in paths):
         return []
@@ -2615,23 +2260,14 @@ def _card_receipt_paths(paths: object) -> list[str]:
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Build the compact result card from replay output.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `result_card`.
-    - Preconditions: Callers provide result in the shape consumed by the body.
-    - Mechanism: Delegates to result.get, result.get, result.get, result.get, trace.get
-      and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants CARD_OMITTED_FULL_PAYLOAD_KEYS,
-      CARD_SCHEMA_VERSION.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: CARD_OMITTED_FULL_PAYLOAD_KEYS, CARD_SCHEMA_VERSION.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `result_card` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, environment variables.
+    - Writes: return values.
     """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -2727,21 +2363,14 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def _parser() -> argparse.ArgumentParser:
-    """[ACTION] Build the command-line parser for this organ module.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `_parser`.
-    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
-      the body.
-    - Mechanism: Configures argparse commands and options that the module exposes.
-    - Guarantee: Returns argparse.ArgumentParser from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_parser` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     parser = argparse.ArgumentParser(prog="agent_sandbox_policy_escape_replay")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -2758,21 +2387,14 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
-
-    - Teleology: Supports agent sandbox policy escape replay by documenting and
-      preserving the exact local step implemented by `main`.
-    - Preconditions: Callers provide argv in the shape consumed by the body; write
-      targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants.
-    - Guarantee: Returns int from the selected CLI command path.
-    - Fails: Explicit raise paths include ValueError(args.action); called operations may
-      propagate their own exceptions.
-    - Reads: call arguments.
-    - Writes: filesystem output explicitly written by this body.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.organs.agent_sandbox_policy_escape_replay` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

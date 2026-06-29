@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.projections.organ_surface_contract` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SCHEMA_VERSION, CARD_PREVIEW_LIMIT, AUTHORITY_POSTURE, ENTRY_ROUTE_REF, CONCEPT_STANDARD_REF, MECHANISM_STANDARD_REF, ACCEPTANCE_PLAN_REF, ALLOWED_SYNTHETIC_ACCEPTANCE_DISPOSITIONS, REAL_SUBSTRATE_DISPOSITION, RETAINED_REGRESSION_VALIDATOR_DISPOSITION, SYNTHETIC_EVIDENCE_CLASSES, SYNTHETIC_TRUTH_BUCKETS, ACCEPTANCE_REGISTRY_PARITY_FIELDS, SOURCE_LANGUAGE_BY_EXTENSION, ORGAN_RELATIONSHIP_TOPOLOGY_AUTHORITY, SOURCE_MODULE_FILE_GRAPH_AUTHORITY, RELATION_TYPE_ALIASES, MISSING_SURFACE_KEYS, build_organ_surface_contract, build_card, build_organ_relationship_topology_card, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core, microcosm_core.projections.concept_mechanism_read_model, microcosm_core.receipts, microcosm_core.resource_root, microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -97,35 +122,49 @@ MISSING_SURFACE_KEYS = (
 
 
 def _repo_root(root: Path) -> Path:
-    """Resolve the repo root one level above the microcosm-substrate root.
+    """
+    [ACTION]
+    Resolve the repo root one level above the microcosm-substrate root.
 
     - Teleology: lets ref resolution reach codex/state/system/tools siblings outside the substrate root.
     - Guarantee: returns root.parent (a Path); pure, no filesystem access.
     - Fails: never raises; a wrong/relative root yields a wrong parent Path, not an error.
     - When-needed: tracing how a non-substrate ref (codex/, state/) is anchored.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return root.parent
 
 
 def _as_list(value: Any) -> list[Any]:
-    """Coerce an arbitrary JSON value to a list, defaulting non-lists to empty.
+    """
+    [ACTION]
+    Coerce an arbitrary JSON value to a list, defaulting non-lists to empty.
 
     - Teleology: defensive read shim so malformed/missing registry fields never crash the audit.
     - Guarantee: returns value unchanged when it is a list, else a new empty list.
     - Fails: never raises; non-list input silently degrades to [].
     - When-needed: understanding why an absent/wrong-typed manifest field is treated as zero rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return value if isinstance(value, list) else []
 
 
 def _accepted_registry_rows(registry: dict[str, Any]) -> list[dict[str, Any]]:
-    """Select organ-registry rows whose status is accepted_current_authority.
+    """
+    [ACTION]
+    Select organ-registry rows whose status is accepted_current_authority.
 
     - Teleology: defines the accepted-organ population the entire surface audit ranges over.
     - Guarantee: returns the dict rows of implemented_organs with status == "accepted_current_authority"; non-dicts and other statuses are dropped.
     - Reads: the in-memory organ_registry.json::implemented_organs payload passed in.
     - Fails: never raises; missing/empty implemented_organs yields [].
     - Non-goal: does not authorize source-body export, release, or whole-system correctness; presence of a row is acceptance bookkeeping only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return [
         row
@@ -135,13 +174,17 @@ def _accepted_registry_rows(registry: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _is_synthetic_acceptance_row(row: dict[str, Any]) -> bool:
-    """Decide whether a registry row was accepted on synthetic (fixture) evidence.
+    """
+    [ACTION]
+    Decide whether a registry row was accepted on synthetic (fixture) evidence.
 
     - Teleology: separates real-substrate organs from regression-fixture organs so progress is not over-claimed.
     - Guarantee: returns True iff evidence_class is a synthetic class, OR truth_accounting_bucket is a synthetic bucket, OR counts_as_real_substrate_progress is explicitly False.
     - Reads: the row's evidence_class / truth_accounting_bucket / counts_as_real_substrate_progress fields.
     - Fails: never raises; absent fields read as None and yield False.
     - Non-goal: does not authorize treating synthetic acceptance as real substrate progress, release, or public-safe equivalence.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return (
         row.get("evidence_class") in SYNTHETIC_EVIDENCE_CLASSES
@@ -151,13 +194,17 @@ def _is_synthetic_acceptance_row(row: dict[str, Any]) -> bool:
 
 
 def _synthetic_disposition_value(row: dict[str, Any]) -> str:
-    """Normalize a row's synthetic_acceptance_disposition to a flat string.
+    """
+    [ACTION]
+    Normalize a row's synthetic_acceptance_disposition to a flat string.
 
     - Teleology: tolerates both the dict-wrapped and bare-string shapes of the disposition field across registry/acceptance sources.
     - Guarantee: returns the inner "disposition" string for a dict value, the string itself for a string value, else "".
     - Reads: the row's synthetic_acceptance_disposition field.
     - Fails: never raises; unexpected types collapse to "".
     - Non-goal: does not validate the disposition against the allowed set; that is the audit's job.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     value = row.get("synthetic_acceptance_disposition")
     if isinstance(value, dict):
@@ -171,7 +218,9 @@ def _disposition_audit_for_row(
     registry_row: dict[str, Any],
     acceptance_plan_row: dict[str, Any],
 ) -> dict[str, Any]:
-    """Audit real-substrate vs synthetic disposition parity for one organ.
+    """
+    [ACTION]
+    Audit real-substrate vs synthetic disposition parity for one organ.
 
     - Teleology: the truth-accounting gate that stops a fixture-backed organ from being booked as real substrate progress.
     - Guarantee: returns an audit dict with organ_id, the registry/acceptance dispositions, and missing/invalid/mismatch/fixture_authority_mismatch lists; "ok" is True iff all three lists are empty.
@@ -179,6 +228,8 @@ def _disposition_audit_for_row(
     - Fails: never raises; reports defects as populated missing/invalid/mismatch lists with "ok": False, never an exception.
     - Non-goal: does not authorize release or claim source-body correctness; only checks disposition bookkeeping consistency.
     - Escalates-to: codex/standards std_microcosm acceptance plan + core/acceptance/first_wave_acceptance.json as the disposition authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     organ_id = str(registry_row.get("organ_id") or "")
     disposition = str(registry_row.get("real_substrate_disposition") or "")
@@ -278,13 +329,17 @@ def _acceptance_metadata_audit_for_row(
     registry_row: dict[str, Any],
     acceptance_plan_row: dict[str, Any],
 ) -> dict[str, Any]:
-    """Audit field-for-field parity between a registry row and its acceptance plan row.
+    """
+    [ACTION]
+    Audit field-for-field parity between a registry row and its acceptance plan row.
 
     - Teleology: ensures the acceptance plan mirrors the registry's evidence-class / progress / truth-bucket fields so the two sources cannot silently diverge.
     - Guarantee: returns an audit dict with per-field registry/acceptance values plus missing/mismatch lists over ACCEPTANCE_REGISTRY_PARITY_FIELDS; "ok" is True iff both lists empty. A missing acceptance row short-circuits to ok=True with skipped_reason="acceptance_plan_row_missing".
     - Reads: registry_row and acceptance_plan_row evidence_class / counts_as_real_substrate_progress / truth_accounting_bucket fields.
     - Fails: never raises; divergence is reported via missing/mismatch with "ok": False.
     - Non-goal: does not authorize release; only checks registry/acceptance metadata parity, not substrate truth.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     organ_id = str(registry_row.get("organ_id") or "")
     if not acceptance_plan_row:
@@ -326,13 +381,17 @@ def _acceptance_metadata_audit_for_row(
 
 
 def _runner_source_ref(runner: str) -> str:
-    """Map a microcosm_core runner dotted-path to its source file ref.
+    """
+    [ACTION]
+    Map a microcosm_core runner dotted-path to its source file ref.
 
     - Teleology: turns a registry runner symbol into a checkable on-disk source path for the runner_source_file surface.
     - Guarantee: returns "src/<dotted/path>.py" for a microcosm_core.* runner, else "" (no path claimed).
     - Reads: nothing on disk; pure string transform of the runner name.
     - Fails: never raises; non-microcosm_core runners yield "" and downstream marks the surface absent.
     - Non-goal: does not verify the file exists (caller does) nor authorize the runner's source body.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values, declared filesystem outputs.
     """
     if not runner.startswith("microcosm_core."):
         return ""
@@ -340,13 +399,17 @@ def _runner_source_ref(runner: str) -> str:
 
 
 def _resolve_ref(root: Path, ref: str) -> Path:
-    """Resolve a possibly-fragmented ref string to an absolute Path under the right root.
+    """
+    [ACTION]
+    Resolve a possibly-fragmented ref string to an absolute Path under the right root.
 
     - Teleology: single anchoring rule so receipt refs (some substrate-local, some repo-sibling like codex/state/system/tools) resolve consistently.
     - Guarantee: returns an absolute Path: the ref as-is if absolute, repo-root-anchored for codex/state/system/tools first segments, else substrate-root-anchored; the "#fragment" suffix is stripped first; empty ref returns root.
     - Reads: nothing on disk; pure path arithmetic (caller does .is_file()).
     - Fails: never raises; an unrecognized shape still returns a (possibly non-existent) Path.
     - Non-goal: does not check existence or authorize the referenced artifact.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     ref_path = ref.split("#", 1)[0]
     if not ref_path:
@@ -360,13 +423,17 @@ def _resolve_ref(root: Path, ref: str) -> Path:
 
 
 def _paper_module_ref(root: Path, organ_id: str, atlas_row: dict[str, Any]) -> str:
-    """Resolve the paper-module ref for an organ, preferring the declared then conventional path.
+    """
+    [ACTION]
+    Resolve the paper-module ref for an organ, preferring the declared then conventional path.
 
     - Teleology: locates the per-organ paper module so the paper_module surface can be checked present.
     - Guarantee: returns the atlas-declared paper_module_ref if that file exists; else "paper_modules/<organ_id>.md" if it exists; else the declared string unchanged (possibly "").
     - Reads: atlas_row.paper_module_ref and the on-disk files root/<declared> and root/paper_modules/<organ_id>.md.
     - Fails: never raises; when nothing resolves it returns the (possibly empty) declared value and the caller marks the surface absent.
     - Non-goal: does not validate paper-module content or authorize it as doctrine authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     declared = str(atlas_row.get("paper_module_ref") or "").strip()
     if declared and (root / declared).is_file():
@@ -378,13 +445,17 @@ def _paper_module_ref(root: Path, organ_id: str, atlas_row: dict[str, Any]) -> s
 
 
 def _atlas_rows_by_organ(root: Path) -> dict[str, dict[str, Any]]:
-    """Index the organ atlas into an organ_id -> atlas-row dict.
+    """
+    [ACTION]
+    Index the organ atlas into an organ_id -> atlas-row dict.
 
     - Teleology: gives the audit O(1) access to each organ's atlas card (wiring, first_command, paper_module_ref).
     - Guarantee: returns a dict keyed by organ_id over the dict rows of organ_atlas.json::organs that carry an organ_id.
     - Reads: core/organ_atlas.json (strict-parsed; the generated organ atlas, not source authority).
     - Fails: raises whatever read_json_strict raises when core/organ_atlas.json is missing or invalid JSON.
     - Non-goal: does not authorize the atlas as release or source authority; it is a generated discoverability surface.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     atlas = read_json_strict(root / "core/organ_atlas.json")
     return {
@@ -395,13 +466,17 @@ def _atlas_rows_by_organ(root: Path) -> dict[str, dict[str, Any]]:
 
 
 def _standards_registry_by_id(root: Path) -> dict[str, dict[str, Any]]:
-    """Index the standards registry into a standard_id -> registry-row dict.
+    """
+    [ACTION]
+    Index the standards registry into a standard_id -> registry-row dict.
 
     - Teleology: lets the audit check that each organ's std_microcosm_<id> standard has a registry row.
     - Guarantee: returns a dict keyed by standard_id over the dict rows of standards_registry.json::standards that carry a standard_id.
     - Reads: core/standards_registry.json (strict-parsed).
     - Fails: raises whatever read_json_strict raises when core/standards_registry.json is missing or invalid JSON.
     - Non-goal: does not verify standard file bodies or authorize them as release authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     registry = read_json_strict(root / "core/standards_registry.json")
     return {
@@ -412,13 +487,17 @@ def _standards_registry_by_id(root: Path) -> dict[str, dict[str, Any]]:
 
 
 def _source_language_for_ref(ref: str) -> tuple[str, str]:
-    """Classify a source-file ref into a language family and a normalized extension.
+    """
+    [ACTION]
+    Classify a source-file ref into a language family and a normalized extension.
 
     - Teleology: feeds the body-free language inventory so organs can be grouped by source language without reading bodies.
     - Guarantee: returns (language, extension): language from SOURCE_LANGUAGE_BY_EXTENSION, or "extensionless" when no suffix, or "other" for an unmapped suffix; extension is the lowercased suffix or "<none>".
     - Reads: only the ref string's suffix; no file content.
     - Fails: never raises; any ref yields a 2-tuple.
     - Non-goal: does not read or authorize source bodies; extension is a path signal, not a language/API/comment-standard claim.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     suffix = Path(ref).suffix.lower()
     language = SOURCE_LANGUAGE_BY_EXTENSION.get(
@@ -429,13 +508,17 @@ def _source_language_for_ref(ref: str) -> tuple[str, str]:
 
 
 def _root_relative_ref(root: Path, ref: str) -> str:
-    """Normalize a source/target ref to a substrate-root-relative posix path.
+    """
+    [ACTION]
+    Normalize a source/target ref to a substrate-root-relative posix path.
 
     - Teleology: canonical-izes manifest refs (absolute, or "microcosm-substrate/"-prefixed) so they can be joined to root and de-duplicated.
     - Guarantee: returns the path relative to root for an absolute ref under root; strips a leading "microcosm-substrate/" prefix; returns "" for an absolute ref that is NOT under root; otherwise returns the ref unchanged.
     - Reads: nothing on disk; pure path arithmetic.
     - Fails: never raises; an out-of-root absolute ref degrades to "" rather than erroring.
     - Non-goal: does not check existence or authorize the referenced source body.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     path = Path(ref)
     if path.is_absolute():
@@ -449,13 +532,17 @@ def _root_relative_ref(root: Path, ref: str) -> str:
 
 
 def _mechanism_source_module_manifest_refs(root: Path, organ_id: str) -> list[str]:
-    """Collect source-module-manifest refs reachable via this organ's mechanisms.
+    """
+    [ACTION]
+    Collect source-module-manifest refs reachable via this organ's mechanisms.
 
     - Teleology: lets organs that own no direct examples still surface their source-module manifests through mechanism input_refs.
     - Guarantee: returns a sorted de-duplicated list of root-relative refs that end in "source_module_manifest.json" AND exist on disk, drawn from mechanisms whose runs_in includes organ_id.
     - Reads: core/mechanism_sources.json::mechanisms[].input_refs (and each candidate manifest path's existence).
     - Fails: returns [] when core/mechanism_sources.json is absent; otherwise raises whatever read_json_strict raises on invalid JSON.
     - Non-goal: does not read manifest bodies here, nor authorize export of any referenced source.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     path = root / "core/mechanism_sources.json"
     if not path.is_file():
@@ -481,13 +568,17 @@ def _mechanism_source_module_manifest_refs(root: Path, organ_id: str) -> list[st
 
 
 def _source_module_refs(root: Path, organ_id: str) -> list[str]:
-    """Enumerate the existing source-module file refs for an organ (body-free).
+    """
+    [ACTION]
+    Enumerate the existing source-module file refs for an organ (body-free).
 
     - Teleology: builds the per-organ source-file set that the language inventory counts and classifies.
     - Guarantee: returns a sorted de-duplicated list of root-relative refs that exist on disk: files under examples/<organ>/**/source_modules/**, plus declared manifest target_refs that resolve to existing files.
     - Reads: examples/<organ_id>/** paths and each referenced source_module_manifest.json::modules[].target_ref/path.
     - Fails: raises whatever read_json_strict raises on an invalid manifest; missing examples dir simply contributes nothing.
     - Non-goal: collects paths only — never reads or authorizes source bodies, language standards, or comment contracts.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     examples_root = root / "examples" / organ_id
     refs: set[str] = set()
@@ -517,13 +608,17 @@ def _source_module_refs(root: Path, organ_id: str) -> list[str]:
 
 
 def _source_module_manifest_refs(root: Path, organ_id: str) -> list[str]:
-    """Enumerate all source-module-manifest refs for an organ (direct + mechanism).
+    """
+    [ACTION]
+    Enumerate all source-module-manifest refs for an organ (direct + mechanism).
 
     - Teleology: the single entry point for "which manifests describe this organ's imported source" feeding the file graph and records.
     - Guarantee: returns a sorted de-duplicated list of root-relative refs to *source_module_manifest.json files: the mechanism-reachable set unioned with examples/<organ>/**/*source_module_manifest.json that exist on disk.
     - Reads: core/mechanism_sources.json (via the mechanism helper) and examples/<organ_id>/** manifest paths.
     - Fails: propagates read_json_strict errors from the mechanism helper on invalid JSON; a missing examples dir contributes nothing.
     - Non-goal: lists manifest paths only; does not parse module rows or authorize source export.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     examples_root = root / "examples" / organ_id
     refs: set[str] = set(_mechanism_source_module_manifest_refs(root, organ_id))
@@ -535,13 +630,17 @@ def _source_module_manifest_refs(root: Path, organ_id: str) -> list[str]:
 
 
 def _edge_ref_token(*refs: str) -> str:
-    """Derive a stable short hash token from a tuple of ref strings.
+    """
+    [ACTION]
+    Derive a stable short hash token from a tuple of ref strings.
 
     - Teleology: produces deterministic, collision-resistant edge_id suffixes so file-graph edges are stable across rebuilds.
     - Guarantee: returns the first 16 hex chars of the SHA-1 of the NUL-joined refs; identical inputs always yield the identical token.
     - Reads: only the passed ref strings; no filesystem, no source bodies.
     - Fails: never raises for string inputs.
     - Non-goal: this is an identity digest for edge keys, NOT a content-integrity or source-equivalence digest.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     payload = "\0".join(refs).encode("utf-8")
     return hashlib.sha1(payload).hexdigest()[:16]
@@ -552,13 +651,17 @@ def _declared_target_ref(
     manifest_path: Path,
     module: dict[str, Any],
 ) -> str:
-    """Compute a manifest module's declared public target ref.
+    """
+    [ACTION]
+    Compute a manifest module's declared public target ref.
 
     - Teleology: normalizes the source->target copy destination so the file graph can key edges on a stable target ref.
     - Guarantee: returns module.target_ref when present; else derives "microcosm-substrate/<manifest-dir>/<path>" from a relative path; returns an absolute/already-prefixed path unchanged; returns "" when neither target_ref nor path is set.
     - Reads: module.target_ref and module.path plus the manifest_path location relative to root.
     - Fails: never raises for well-formed inputs; absent fields yield "".
     - Non-goal: states where a body was copied TO; it does not authorize that the body may be exported or is public-safe.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     target_ref = str(module.get("target_ref") or "").strip()
     if target_ref:
@@ -576,13 +679,17 @@ def _source_module_manifest_records(
     root: Path,
     accepted_organ_ids: list[str],
 ) -> list[dict[str, Any]]:
-    """Flatten every accepted organ's source-module manifests into normalized records.
+    """
+    [ACTION]
+    Flatten every accepted organ's source-module manifests into normalized records.
 
     - Teleology: the body-free row table that all source-module file-graph edges are computed from.
     - Guarantee: returns a list of per-module dict records carrying organ_id, manifest_ref/schema/bundle, module_id, source_ref, declared target_ref, material/import class, body_copied/body_in_receipt flags, required_anchors, and validation_refs.
     - Reads: each examples/<organ>/**/source_module_manifest.json::modules[] (via the manifest-ref helpers); non-dict payloads/modules are skipped.
     - Fails: raises whatever read_json_strict raises on an invalid manifest JSON.
     - Non-goal: records declared metadata only — body_copied is a manifest claim, NOT proof the body was exported or is public-safe; no release authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     records: list[dict[str, Any]] = []
     for organ_id in sorted(accepted_organ_ids):
@@ -663,13 +770,17 @@ def _file_relationship_edge(
     source_projection: str,
     **metadata: Any,
 ) -> dict[str, Any]:
-    """Construct one typed source-module file-graph edge dict.
+    """
+    [ACTION]
+    Construct one typed source-module file-graph edge dict.
 
     - Teleology: the single factory that stamps every file-graph edge with id/relation/source/target/evidence/projection and the file-graph authority string.
     - Guarantee: returns a dict with the six required fields plus authority == SOURCE_MODULE_FILE_GRAPH_AUTHORITY, with any extra **metadata merged in (metadata can override defaults).
     - Reads: only its arguments; no filesystem.
     - Fails: never raises.
     - Non-goal: an edge asserts a declared/typed relation between refs — not source-body semantics, API compatibility, or release/proof authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     edge = {
         "edge_id": edge_id,
@@ -686,13 +797,17 @@ def _file_relationship_edge(
 
 
 def _shard_ref(file_ref: str, anchor: str) -> str:
-    """Format a per-anchor shard ref for a source/target file.
+    """
+    [ACTION]
+    Format a per-anchor shard ref for a source/target file.
 
     - Teleology: gives required-anchor sub-spans of a file a stable addressable id for shard-level edges.
     - Guarantee: returns "<file_ref>::required_anchor[<anchor>]"; pure string interpolation.
     - Reads: only the two string arguments.
     - Fails: never raises.
     - Non-goal: names a declared anchor span; does not verify the anchor exists in the body or authorize the body.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return f"{file_ref}::required_anchor[{anchor}]"
 
@@ -701,7 +816,9 @@ def _source_module_file_graph(
     root: Path,
     accepted_organ_ids: list[str],
 ) -> dict[str, Any]:
-    """Build the typed source-module file/shard relationship graph projection.
+    """
+    [ACTION]
+    Build the typed source-module file/shard relationship graph projection.
 
     - Teleology: projects manifest records into a queryable evidence graph of source->target copies, validation refs, anchor shards, and shared-macro-source peers.
     - Guarantee: returns a dict with schema_version "microcosm_source_module_file_graph_v0", the file-graph authority, counts (manifests/modules/source/target/validation/anchors/edges), relation_type_counts, query_affordances, by_organ, and the full edges list — all derived purely from declared manifest fields.
@@ -709,12 +826,23 @@ def _source_module_file_graph(
     - Fails: propagates read_json_strict errors from record collection on invalid manifest JSON; otherwise never raises.
     - Escalates-to: the per-organ source_module_manifest.json files (and this builder) regenerate it; it is not source-of-truth.
     - Non-goal: typed declared edges only — not source-body semantics, API compatibility, comment standard, or release/proof authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     records = _source_module_manifest_records(root, accepted_organ_ids)
     edges: list[dict[str, Any]] = []
     edges_by_organ: dict[str, list[dict[str, Any]]] = {}
 
     def append_edge(edge: dict[str, Any]) -> None:
+        """
+        [ACTION]
+        - Teleology: Implements `_source_module_file_graph.append_edge` for `microcosm_core.projections.organ_surface_contract` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         edges.append(edge)
         edges_by_organ.setdefault(str(edge["organ_id"]), []).append(edge)
 
@@ -1066,7 +1194,9 @@ def _source_language_inventory(
     root: Path,
     accepted_organ_ids: list[str],
 ) -> dict[str, Any]:
-    """Build the body-free source-language inventory across accepted organs.
+    """
+    [ACTION]
+    Build the body-free source-language inventory across accepted organs.
 
     - Teleology: answers "what source languages does each accepted organ carry" using path extensions alone, never reading bodies.
     - Guarantee: returns a dict with schema_version "microcosm_source_language_inventory_v0", language/extension counts, organs_by_language, accepted_without_source_modules, and a by_organ breakdown.
@@ -1074,6 +1204,8 @@ def _source_language_inventory(
     - Fails: propagates read_json_strict errors from ref collection on invalid manifest JSON.
     - Escalates-to: the source_module manifests + this builder regenerate it; authority is "body_free_source_path_inventory_only".
     - Non-goal: extension counting only — not a language standard, source-body authority, or comment contract.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     language_counts: Counter[str] = Counter()
     extension_counts: Counter[str] = Counter()
@@ -1131,7 +1263,9 @@ def _source_language_inventory(
 def _source_language_adjacency(
     source_language_inventory: dict[str, Any],
 ) -> dict[str, Any]:
-    """Derive per-organ source-language peer adjacency from the language inventory.
+    """
+    [ACTION]
+    Derive per-organ source-language peer adjacency from the language inventory.
 
     - Teleology: turns the flat inventory into "which organs share a source language with me", surfacing mixed-language and python/ts/js organs.
     - Guarantee: returns a dict with schema_version "microcosm_source_language_adjacency_v0", language_family_organ_counts, mixed_language_organs, query_affordances, and per-organ rows of shared-language peers.
@@ -1139,6 +1273,8 @@ def _source_language_adjacency(
     - Fails: raises KeyError if the inventory dict is missing the expected keys; otherwise never raises.
     - Escalates-to: coverage.source_language_inventory (its sole input) and this builder regenerate it.
     - Non-goal: language-family path adjacency only — not source semantics, API compatibility, comment standard, or lattice authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     by_organ = source_language_inventory["by_organ"]
     organs_by_language = source_language_inventory["organs_by_language"]
@@ -1232,13 +1368,17 @@ def _relationship_edge(
     source_projection: str,
     **metadata: Any,
 ) -> dict[str, Any]:
-    """Construct one typed organ-relationship topology edge dict.
+    """
+    [ACTION]
+    Construct one typed organ-relationship topology edge dict.
 
     - Teleology: the factory that stamps each organ-topology edge with a deterministic id and the organ-relationship authority string.
     - Guarantee: returns a dict whose edge_id is "<organ_id>:<relation_type>:<target_id>", carrying organ_id/relation_type/target_id/evidence_class/source_projection and authority == ORGAN_RELATIONSHIP_TOPOLOGY_AUTHORITY, with **metadata merged in.
     - Reads: only its arguments; no filesystem.
     - Fails: never raises.
     - Non-goal: a typed evidence edge — not source-body semantics, API compatibility, comment standard, runtime order, or release authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     edge = {
         "edge_id": f"{organ_id}:{relation_type}:{target_id}",
@@ -1254,13 +1394,17 @@ def _relationship_edge(
 
 
 def _standard_id_from_ref(ref: str) -> str:
-    """Extract the standard_id stem from a standard file ref.
+    """
+    [ACTION]
+    Extract the standard_id stem from a standard file ref.
 
     - Teleology: turns a "standards/std_microcosm_<id>.json::..." ref into the bare standard_id used as an edge target.
     - Guarantee: returns the filename stem of the pre-"::" portion of the ref; returns "" for an empty ref.
     - Reads: only the ref string.
     - Fails: never raises.
     - Non-goal: derives an id token only; does not verify the standard file or registry row exists.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not ref:
         return ""
@@ -1272,7 +1416,9 @@ def _organ_relationship_topology(
     source_language_adjacency: dict[str, Any],
     source_module_file_graph: dict[str, Any],
 ) -> dict[str, Any]:
-    """Build the unified organ relationship topology projection.
+    """
+    [ACTION]
+    Build the unified organ relationship topology projection.
 
     - Teleology: the one graph that joins organ rows, language-family adjacency, declared atlas wiring, standards/registry/concept/mechanism refs, and the source-module file graph into typed edges.
     - Guarantee: returns a dict with schema_version "microcosm_organ_relationship_topology_v0", the organ-relationship authority, an explicit anti_claims list, edge_count, relation_type_counts, query_affordances, and edges/edges_by_organ — folding in the source_module_file_graph edges.
@@ -1280,6 +1426,8 @@ def _organ_relationship_topology(
     - Fails: raises KeyError if an input projection lacks expected keys; otherwise never raises.
     - Escalates-to: rows[] + coverage.source_language_adjacency + coverage.source_module_file_graph regenerate it via build_organ_surface_contract.
     - Non-goal: typed evidence edges only — not source semantics, API compatibility, comment standard, runtime invocation order, or release/proof authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     adjacency_rows = source_language_adjacency.get("rows", {})
     query_affordances = source_language_adjacency.get("query_affordances", {})
@@ -1288,6 +1436,15 @@ def _organ_relationship_topology(
     edges_by_organ: dict[str, list[dict[str, Any]]] = {}
 
     def append_edge(edge: dict[str, Any]) -> None:
+        """
+        [ACTION]
+        - Teleology: Implements `_organ_relationship_topology.append_edge` for `microcosm_core.projections.organ_surface_contract` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         edges.append(edge)
         edges_by_organ.setdefault(str(edge["organ_id"]), []).append(edge)
 
@@ -1519,13 +1676,17 @@ def _organ_relationship_topology(
 
 
 def _acceptance_plan_rows(root: Path) -> list[dict[str, Any]]:
-    """Read the first-wave acceptance plan's accepted-organ rows.
+    """
+    [ACTION]
+    Read the first-wave acceptance plan's accepted-organ rows.
 
     - Teleology: supplies the acceptance-side rows that disposition/metadata audits compare the registry against.
     - Guarantee: returns the dict rows of first_wave_acceptance.json::accepted_current_authority_organs that carry an organ_id; returns [] when the file is absent.
     - Reads: core/acceptance/first_wave_acceptance.json (ACCEPTANCE_PLAN_REF).
     - Fails: returns [] on a missing file; otherwise raises whatever read_json_strict raises on invalid JSON.
     - Non-goal: does not authorize acceptance/release; provides comparison rows only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     path = root / ACCEPTANCE_PLAN_REF
     if not path.is_file():
@@ -1539,13 +1700,17 @@ def _acceptance_plan_rows(root: Path) -> list[dict[str, Any]]:
 
 
 def _runtime_step_ids() -> set[str]:
-    """Collect the organ_ids that have a wired runtime-shell step.
+    """
+    [ACTION]
+    Collect the organ_ids that have a wired runtime-shell step.
 
     - Teleology: lets the audit check that each accepted organ appears as a runtime step (the runtime_step surface).
     - Guarantee: returns the set of str organ_id values over runtime_shell.RUNTIME_STEPS.
     - Reads: microcosm_core.runtime_shell.RUNTIME_STEPS (lazily imported to avoid an import cycle).
     - Fails: raises ImportError/AttributeError if runtime_shell or RUNTIME_STEPS is unavailable.
     - Non-goal: presence is a wiring signal, not proof a step runs correctly or is released.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     from microcosm_core import runtime_shell
 
@@ -1553,13 +1718,17 @@ def _runtime_step_ids() -> set[str]:
 
 
 def _cli_command_names(root: Path) -> set[str]:
-    """Statically extract the set of registered CLI subcommand names.
+    """
+    [ACTION]
+    Statically extract the set of registered CLI subcommand names.
 
     - Teleology: lets the audit check each organ has a CLI command without importing/executing the CLI module.
     - Guarantee: returns the set of string literals passed to subparser.add_parser(...) and to _add_bundle_parser(_, name, ...) found by AST-walking cli.py.
     - Reads: src/microcosm_core/cli.py source text (parsed with ast, never executed).
     - Fails: raises FileNotFoundError if cli.py is absent, or SyntaxError if it does not parse.
     - Non-goal: detects declared command names by static shape only; does not run commands or authorize their behavior.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     source = root / "src/microcosm_core/cli.py"
     tree = ast.parse(source.read_text(encoding="utf-8"))
@@ -1587,13 +1756,17 @@ def _cli_command_names(root: Path) -> set[str]:
 
 
 def _cli_command_from_first_command(first_command: str) -> str:
-    """Extract the subcommand token from an atlas 'microcosm <cmd> ...' string.
+    """
+    [ACTION]
+    Extract the subcommand token from an atlas 'microcosm <cmd> ...' string.
 
     - Teleology: maps an organ's declared first_command to the CLI subcommand it should resolve to.
     - Guarantee: returns parts[1] when the shell-split command starts with "microcosm" and has >= 2 tokens; else "".
     - Reads: only the first_command string.
     - Fails: never raises; an unparsable command (shlex ValueError) or non-microcosm command returns "".
     - Non-goal: parses the declared token only; does not verify the command is registered (caller checks against cli_command_names).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     try:
         parts = shlex.split(first_command)
@@ -1607,13 +1780,17 @@ def _cli_command_from_first_command(first_command: str) -> str:
 def _expected_cli_command(
     *, organ_id: str, atlas_row: dict[str, Any], cli_command_names: set[str]
 ) -> str:
-    """Resolve the CLI subcommand expected for an organ, preferring a registered name.
+    """
+    [ACTION]
+    Resolve the CLI subcommand expected for an organ, preferring a registered name.
 
     - Teleology: picks the single command the audit should require for an organ, reconciling declared command vs the organ-id slug.
     - Guarantee: returns the atlas-declared command if it is in cli_command_names; else the "<organ_id with - for _>" slug if that is registered; else the declared command, or the slug as final fallback.
     - Reads: atlas_row.first_command and the in-memory cli_command_names set.
     - Fails: never raises.
     - Non-goal: chooses an expected name; does not assert the command runs or is released (caller marks presence).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values, declared filesystem outputs.
     """
     first_command = str(atlas_row.get("first_command") or "")
     declared_command = _cli_command_from_first_command(first_command)
@@ -1626,13 +1803,17 @@ def _expected_cli_command(
 
 
 def _validator_command_module(command: str) -> str:
-    """Extract the `-m <module>` target from a validator command string.
+    """
+    [ACTION]
+    Extract the `-m <module>` target from a validator command string.
 
     - Teleology: lets the audit confirm a registry validator_command actually invokes the organ's own runner module.
     - Guarantee: returns the token following the first "-m" in the shell-split command; else "".
     - Reads: only the command string.
     - Fails: never raises; an unparsable command (shlex ValueError) or no "-m" returns "".
     - Non-goal: extracts the declared module token only; does not run the validator or prove it passes.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     try:
         parts = shlex.split(command)
@@ -1645,13 +1826,17 @@ def _validator_command_module(command: str) -> str:
 
 
 def _global_doctrine_surfaces(root: Path) -> dict[str, Any]:
-    """Audit the global concept/mechanism entry-route + standards presence.
+    """
+    [ACTION]
+    Audit the global concept/mechanism entry-route + standards presence.
 
     - Teleology: the repo-wide discoverability gate (one entry route + two standards) that must hold independent of any single organ.
     - Guarantee: returns a status dict; status == "pass" iff the entry route is present with >0 population specimens AND >0 activation receipts AND both concept and mechanism standard files exist, else "blocked".
     - Reads: atlas/entry_packet.json::concept_mechanism_entry_route plus standards/std_microcosm_concept.json and std_microcosm_mechanism.json existence.
     - Fails: raises whatever read_json_strict raises if atlas/entry_packet.json is missing or invalid; otherwise reports "blocked" rather than raising.
     - Non-goal: gates concept/mechanism discoverability only — not per-organ completion or release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     entry_packet = read_json_strict(root / "atlas/entry_packet.json")
     route = entry_packet.get("concept_mechanism_entry_route")
@@ -1684,7 +1869,9 @@ def _global_doctrine_surfaces(root: Path) -> dict[str, Any]:
 
 
 def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, Any]:
-    """Build the full organ-surface-contract audit projection for the substrate.
+    """
+    [ACTION]
+    Build the full organ-surface-contract audit projection for the substrate.
 
     - Teleology: the central derived audit asserting every accepted organ exposes its 14 discoverability surfaces plus the global doctrine surfaces, with truth-accounting on synthetic vs real acceptance.
     - Guarantee: returns a payload dict with schema_version SCHEMA_VERSION, authority_posture AUTHORITY_POSTURE, status "pass" iff errors is empty else "blocked", an errors list of {code,surface,organ_ids}, full coverage block, and per-organ rows; deterministic for a fixed substrate tree.
@@ -1692,6 +1879,8 @@ def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, An
     - Fails: raises read_json_strict / ImportError / SyntaxError if a required registry/source input is missing or malformed; surface absences are reported as errors with status "blocked", not raised.
     - Escalates-to: the source registries it reads are authority; this output is regenerated by re-running the builder/`microcosm organ-surface-contract`.
     - Non-goal: authority_posture is "derived_surface_audit_not_source_authority" — surface presence proves discoverability/wiring only, NOT release, proof correctness, private-root equivalence, provider execution, or source authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     root = Path(root) if root is not None else microcosm_root()
     root = root.resolve()
@@ -2124,7 +2313,9 @@ def build_organ_surface_contract(root: str | Path | None = None) -> dict[str, An
 
 
 def build_card(payload: dict[str, Any]) -> dict[str, Any]:
-    """Project a full audit payload into a compact counts-only card.
+    """
+    [ACTION]
+    Project a full audit payload into a compact counts-only card.
 
     - Teleology: the first-screen summary surface — missing-surface counts and coverage rollups without the per-organ rows.
     - Guarantee: returns a dict with schema_version "microcosm_organ_surface_contract_card_v0", echoing status/authority_posture/accepted_organ_count, missing_surface_counts, the coverage rollups, and previewed (CARD_PREVIEW_LIMIT) shared-source/validation/mixed-language lists with omitted counts.
@@ -2132,6 +2323,8 @@ def build_card(payload: dict[str, Any]) -> dict[str, Any]:
     - Fails: raises KeyError if the payload is not a build_organ_surface_contract output (missing expected keys).
     - Escalates-to: the full payload (drilldown "microcosm organ-surface-contract") and the builder that produced it.
     - Non-goal: a generated summary view — carries forward the same anti_claim; not release or source authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     missing = payload["coverage"]["missing"]
     disposition_coverage = payload["coverage"]["disposition_coverage"]
@@ -2322,7 +2515,9 @@ def build_organ_relationship_topology_card(
     shard_ref: str | None = None,
     validation_ref: str | None = None,
 ) -> dict[str, Any]:
-    """Project a filtered slice of the organ relationship topology into a query card.
+    """
+    [ACTION]
+    Project a filtered slice of the organ relationship topology into a query card.
 
     - Teleology: the shell-queryable lens over topology edges, filterable by organ/relation/source/target/manifest/shard/validation ref.
     - Guarantee: returns a dict with schema_version "microcosm_organ_relationship_topology_card_v0", the resolved filters (relation_type alias-expanded via RELATION_TYPE_ALIASES), filtered edges/edges_by_organ, filtered + total relation_type_counts, available_relation_types, query examples, and the topology authority/anti_claims.
@@ -2330,6 +2525,8 @@ def build_organ_relationship_topology_card(
     - Fails: raises KeyError if payload lacks the topology coverage block; None filters simply match all edges (never raises).
     - Escalates-to: the full topology in the payload and build_organ_surface_contract that regenerates it.
     - Non-goal: a generated typed-edge query view — not source semantics, API compatibility, runtime order, or release/proof authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     topology = payload["coverage"]["organ_relationship_topology"]
     relation_type_filter = RELATION_TYPE_ALIASES.get(
@@ -2338,6 +2535,15 @@ def build_organ_relationship_topology_card(
     )
 
     def edge_matches(edge: dict[str, Any]) -> bool:
+        """
+        [ACTION]
+        - Teleology: Implements `build_organ_relationship_topology_card.edge_matches` for `microcosm_core.projections.organ_surface_contract` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         if organ_id is not None and edge["organ_id"] != organ_id:
             return False
         if (
@@ -2442,7 +2648,9 @@ def build_organ_relationship_topology_card(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry: audit accepted Microcosm organ discoverability surfaces.
+    """
+    [ACTION]
+    CLI entry: audit accepted Microcosm organ discoverability surfaces.
 
     - Teleology: command-line front door to the organ-surface contract audit and its topology query surface.
     - Guarantee: prints the full audit payload, the card, or a filtered relationship-topology card as JSON; returns 0 iff payload status is "pass".
@@ -2450,6 +2658,7 @@ def main(argv: list[str] | None = None) -> int:
     - Writes: optional --out JSON file via write_json_atomic.
     - When-needed: auditing organ surface completeness or querying organ relationship edges from the shell.
     - Fails: payload status != "pass" -> nonzero exit -> return code 1.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     parser = argparse.ArgumentParser(
         prog="organ-surface-contract",

@@ -80,20 +80,9 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
     assert quickstart_path.is_file()
     assert "[QUICKSTART.md](QUICKSTART.md)" in readme
     for phrase in (
-        "make install",
-        ".venv/bin/plectis tour --format text .",
-        ".venv/bin/plectis tour --card .",
+        "python3 -m pip install -e '.[test]'",
         "PYTHONPATH=src python3 -m microcosm_core hello .",
         "make smoke",
-        "make onboarding-benchmark",
-        ".microcosm/onboarding-benchmark.json",
-        "clone_seconds",
-        "bootstrap_seconds",
-        "smoke_seconds",
-        "install_seconds",
-        "installed_tour_seconds",
-        "total_seconds",
-        "Windows should use WSL",
         ".microcosm/smoke/",
         "Plectis smoke check: pass",
         "authority: pass",
@@ -178,8 +167,9 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "plectis authority --card",
         "plectis stripping-guard",
         "make install",
-        ".venv/bin/python -m pip install -e '.[test]'",
-        "PYTHONPATH=src .venv/bin/python -m pytest tests/test_secret_exclusion_scan.py",
+        "VENV=/tmp/plectis-security-venv make install",
+        "/tmp/plectis-security-venv/bin/python -m pip install -e '.[test]'",
+        "PYTHONPATH=src /tmp/plectis-security-venv/bin/python -m pytest tests/test_secret_exclusion_scan.py",
         "PYTHONPATH=src python3 -m microcosm_core authority --card",
         "PYTHONPATH=src python3 -m microcosm_core stripping-guard",
         "tests/test_secret_exclusion_scan.py",
@@ -262,7 +252,8 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "public GitHub Actions entry",
         "Do not launch multiple raw `pytest` processes",
         "uses its own `--basetemp`",
-        ".microcosm/test-tmp/pytest",
+        "disables pytest's cache provider",
+        "direct runs do not write\n`.pytest_cache`",
     ):
         assert phrase in agents
     assert "ignored `.microcosm/cold_clone_probe.json` evidence" in normalized_agents

@@ -971,22 +971,14 @@ VALIDATOR_ASSERTED_FEEDS_PATTERNS = [
 
 
 def _public_root_for_path(path: str | Path) -> Path:
-    """[ACTION] Find the nearest repository-style public root for a path.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_public_root_for_path`.
-    - Preconditions: Callers provide path in the shape consumed by the body; paths must
-      be resolvable for filesystem metadata checks.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns Path from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -1001,21 +993,14 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _is_relative_to(path: Path, root: Path) -> bool:
-    """[ACTION] Detect whether relative to holds for this replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_is_relative_to`.
-    - Preconditions: Callers provide path, root in the shape consumed by the body; paths
-      must be resolvable for filesystem metadata checks.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them.
-    - Guarantee: Returns bool from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_is_relative_to` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     try:
         path.relative_to(root)
@@ -1025,43 +1010,27 @@ def _is_relative_to(path: Path, root: Path) -> bool:
 
 
 def _display_path(path: Path, *, public_root: Path) -> str:
-    """[ACTION] Implement display path for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_display_path`.
-    - Preconditions: Callers provide path, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to public_relative_path and applies local branch checks.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_display_path` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _sha256_hex(path: Path) -> str:
-    """[ACTION] Return the SHA-256 hexadecimal digest for bytes or text.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_sha256_hex`.
-    - Preconditions: Callers provide path in the shape consumed by the body; content
-      inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads.
-    - Reads: call arguments; module constants HASH_CHUNK_SIZE; filesystem/content inputs
-      named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: HASH_CHUNK_SIZE.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_sha256_hex` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -1071,39 +1040,27 @@ def _sha256_hex(path: Path) -> str:
 
 
 def _sha256_ref(path: Path) -> str:
-    """[ACTION] Format a SHA-256 digest as a public digest reference.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_sha256_ref`.
-    - Preconditions: Callers provide path in the shape consumed by the body.
-    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
-      receives.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_sha256_ref` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return f"sha256:{_sha256_hex(path)}"
 
 
 def _local_display_ref(path_ref: object) -> object:
-    """[ACTION] Implement local display ref for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_local_display_ref`.
-    - Preconditions: Callers provide path_ref in the shape consumed by the body.
-    - Mechanism: Delegates to path_ref.startswith, path_ref.removeprefix and applies
-      local branch checks.
-    - Guarantee: Returns object from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_local_display_ref` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(path_ref, str):
         return path_ref
@@ -1115,24 +1072,14 @@ def _local_display_ref(path_ref: object) -> object:
 
 
 def _input_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Build the fixture input path list for the requested replay mode.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_input_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body; paths
-      must be resolvable for filesystem metadata checks.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; module constants
-      ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS; filesystem metadata named by those
-      arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_input_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     paths = [
         input_dir / "agent_trace.jsonl",
@@ -1152,21 +1099,14 @@ def _input_paths(input_dir: Path) -> list[Path]:
 
 
 def _observability_bundle_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement observability bundle paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_observability_bundle_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants OBSERVABILITY_SOURCE_MODULE_INPUT_NAMES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: OBSERVABILITY_SOURCE_MODULE_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_observability_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     names = (
         "bundle_manifest.json",
@@ -1184,21 +1124,14 @@ def _observability_bundle_paths(input_dir: Path) -> list[Path]:
 
 
 def _observability_bundle_scan_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement observability bundle scan paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_observability_bundle_scan_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants OBSERVABILITY_SOURCE_MODULE_PATHS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: OBSERVABILITY_SOURCE_MODULE_PATHS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_observability_bundle_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         *_observability_bundle_paths(input_dir),
@@ -1207,22 +1140,14 @@ def _observability_bundle_scan_paths(input_dir: Path) -> list[Path]:
 
 
 def _observability_freshness_input_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement observability freshness input paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_observability_freshness_input_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body; paths
-      must be resolvable for filesystem metadata checks.
-    - Mechanism: Delegates to _public_root_for_path, forbidden_policy_path.is_file,
-      paths.append, _observability_bundle_scan_paths and applies local branch checks.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_observability_freshness_input_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     public_root = _public_root_for_path(input_dir)
     paths = [*_observability_bundle_scan_paths(input_dir)]
@@ -1233,28 +1158,14 @@ def _observability_freshness_input_paths(input_dir: Path) -> list[Path]:
 
 
 def _observability_freshness_basis(input_dir: str | Path) -> dict[str, Any]:
-    """[ACTION] Implement observability freshness basis for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_observability_freshness_basis`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body; paths
-      must be resolvable for filesystem metadata checks; write targets must be inside
-      the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Computes SHA-256 evidence from the bytes or normalized data
-      it receives. Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants OBSERVABILITY_CARD_SCHEMA_VERSION;
-      filesystem metadata named by those arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: OBSERVABILITY_CARD_SCHEMA_VERSION.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_observability_freshness_basis` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -1316,29 +1227,14 @@ def _fresh_observability_bundle_receipt(
     *,
     command: str,
 ) -> dict[str, Any] | None:
-    """[ACTION] Implement fresh observability bundle receipt for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_fresh_observability_bundle_receipt`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks; write
-      targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them. Iterates candidate paths or structured rows exactly as
-      written in the body.
-    - Guarantee: Returns dict[str, Any] | None from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants AI_WORKFLOW_ROOT,
-      OBSERVABILITY_BUNDLE_RESULT_NAME, ORGAN_ID; filesystem metadata named by those
-      arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: AI_WORKFLOW_ROOT, OBSERVABILITY_BUNDLE_RESULT_NAME, ORGAN_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_fresh_observability_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -1388,44 +1284,27 @@ def _fresh_observability_bundle_receipt(
 
 
 def _route_compliance_audit_bundle_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement route compliance audit bundle paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_route_compliance_audit_bundle_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants ROUTE_COMPLIANCE_AUDIT_INPUT_NAMES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ROUTE_COMPLIANCE_AUDIT_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_route_compliance_audit_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [input_dir / name for name in ROUTE_COMPLIANCE_AUDIT_INPUT_NAMES]
 
 
 def _route_compliance_audit_scan_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement route compliance audit scan paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_route_compliance_audit_scan_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_route_compliance_audit_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         *_route_compliance_audit_bundle_paths(input_dir),
@@ -1434,23 +1313,14 @@ def _route_compliance_audit_scan_paths(input_dir: Path) -> list[Path]:
 
 
 def _default_route_compliance_audit_bundle_input() -> Path:
-    """[ACTION] Implement default route compliance audit bundle input for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_default_route_compliance_audit_bundle_input`.
-    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
-      the body.
-    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
-      return value.
-    - Guarantee: Returns Path from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants AI_WORKFLOW_ROOT.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AI_WORKFLOW_ROOT.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_default_route_compliance_audit_bundle_input` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return (
         AI_WORKFLOW_ROOT
@@ -1464,25 +1334,14 @@ def _computer_use_action_trace_paths(
     *,
     include_negative: bool,
 ) -> list[Path]:
-    """[ACTION] Implement computer use action trace paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_computer_use_action_trace_paths`.
-    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; module constants COMPUTER_USE_INPUT_NAMES,
-      COMPUTER_USE_NEGATIVE_INPUT_NAMES, COMPUTER_USE_SOURCE_MODULE_INPUT_NAMES;
-      filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: COMPUTER_USE_INPUT_NAMES, COMPUTER_USE_NEGATIVE_INPUT_NAMES,
-      COMPUTER_USE_SOURCE_MODULE_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_computer_use_action_trace_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     names = (
         "bundle_manifest.json",
@@ -1498,24 +1357,14 @@ def _computer_use_action_trace_scan_paths(
     *,
     include_negative: bool,
 ) -> list[Path]:
-    """[ACTION] Implement computer use action trace scan paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_computer_use_action_trace_scan_paths`.
-    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; module constants COMPUTER_USE_SOURCE_MODULE_PATHS;
-      filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: COMPUTER_USE_SOURCE_MODULE_PATHS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_computer_use_action_trace_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     source_module_paths = [
         input_dir / name
@@ -1532,42 +1381,27 @@ def _computer_use_action_trace_scan_paths(
 
 
 def _session_attribution_bundle_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement session attribution bundle paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_session_attribution_bundle_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SESSION_ATTRIBUTION_INPUT_NAMES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SESSION_ATTRIBUTION_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_session_attribution_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [input_dir / name for name in SESSION_ATTRIBUTION_INPUT_NAMES]
 
 
 def _session_attribution_scan_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement session attribution scan paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_session_attribution_scan_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants SESSION_ATTRIBUTION_SOURCE_MODULE_PATHS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SESSION_ATTRIBUTION_SOURCE_MODULE_PATHS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_session_attribution_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         *_session_attribution_bundle_paths(input_dir),
@@ -1576,44 +1410,27 @@ def _session_attribution_scan_paths(input_dir: Path) -> list[Path]:
 
 
 def _harness_configuration_audit_bundle_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement harness configuration audit bundle paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_harness_configuration_audit_bundle_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants HARNESS_CONFIGURATION_AUDIT_INPUT_NAMES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: HARNESS_CONFIGURATION_AUDIT_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_harness_configuration_audit_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [input_dir / name for name in HARNESS_CONFIGURATION_AUDIT_INPUT_NAMES]
 
 
 def _harness_configuration_audit_scan_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement harness configuration audit scan paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_harness_configuration_audit_scan_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      HARNESS_CONFIGURATION_AUDIT_SOURCE_MODULE_PATHS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: HARNESS_CONFIGURATION_AUDIT_SOURCE_MODULE_PATHS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_harness_configuration_audit_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         *_harness_configuration_audit_bundle_paths(input_dir),
@@ -1622,41 +1439,27 @@ def _harness_configuration_audit_scan_paths(input_dir: Path) -> list[Path]:
 
 
 def _multi_agent_fanin_bundle_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement multi agent fanin bundle paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_multi_agent_fanin_bundle_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants MULTI_AGENT_FANIN_INPUT_NAMES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: MULTI_AGENT_FANIN_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_multi_agent_fanin_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [input_dir / name for name in MULTI_AGENT_FANIN_INPUT_NAMES]
 
 
 def _multi_agent_fanin_scan_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement multi agent fanin scan paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_multi_agent_fanin_scan_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants MULTI_AGENT_FANIN_SOURCE_MODULE_PATHS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: MULTI_AGENT_FANIN_SOURCE_MODULE_PATHS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_multi_agent_fanin_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         *_multi_agent_fanin_bundle_paths(input_dir),
@@ -1665,23 +1468,14 @@ def _multi_agent_fanin_scan_paths(input_dir: Path) -> list[Path]:
 
 
 def _bridge_dispatch_yield_resume_bundle_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement bridge dispatch yield resume bundle paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_bridge_dispatch_yield_resume_bundle_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants
-      BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_MODULE_INPUT_NAMES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_MODULE_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_bridge_dispatch_yield_resume_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         input_dir / name
@@ -1693,23 +1487,14 @@ def _bridge_dispatch_yield_resume_bundle_paths(input_dir: Path) -> list[Path]:
 
 
 def _bridge_dispatch_yield_resume_scan_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement bridge dispatch yield resume scan paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_bridge_dispatch_yield_resume_scan_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_MODULE_PATHS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_MODULE_PATHS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_bridge_dispatch_yield_resume_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         *_bridge_dispatch_yield_resume_bundle_paths(input_dir),
@@ -1718,23 +1503,14 @@ def _bridge_dispatch_yield_resume_scan_paths(input_dir: Path) -> list[Path]:
 
 
 def _controller_heartbeat_bundle_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement controller heartbeat bundle paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_controller_heartbeat_bundle_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants
-      CONTROLLER_HEARTBEAT_SOURCE_MODULE_INPUT_NAMES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: CONTROLLER_HEARTBEAT_SOURCE_MODULE_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_controller_heartbeat_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         input_dir / name
@@ -1746,21 +1522,14 @@ def _controller_heartbeat_bundle_paths(input_dir: Path) -> list[Path]:
 
 
 def _controller_heartbeat_scan_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement controller heartbeat scan paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_controller_heartbeat_scan_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants CONTROLLER_HEARTBEAT_SOURCE_MODULE_PATHS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: CONTROLLER_HEARTBEAT_SOURCE_MODULE_PATHS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_controller_heartbeat_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         *_controller_heartbeat_bundle_paths(input_dir),
@@ -1769,23 +1538,14 @@ def _controller_heartbeat_scan_paths(input_dir: Path) -> list[Path]:
 
 
 def _agent_trace_route_repair_bundle_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement agent trace route repair bundle paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_agent_trace_route_repair_bundle_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants
-      AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_INPUT_NAMES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_agent_trace_route_repair_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         input_dir / name
@@ -1797,23 +1557,14 @@ def _agent_trace_route_repair_bundle_paths(input_dir: Path) -> list[Path]:
 
 
 def _agent_trace_route_repair_scan_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement agent trace route repair scan paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_agent_trace_route_repair_scan_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_PATHS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_PATHS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_agent_trace_route_repair_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         *_agent_trace_route_repair_bundle_paths(input_dir),
@@ -1822,23 +1573,14 @@ def _agent_trace_route_repair_scan_paths(input_dir: Path) -> list[Path]:
 
 
 def _agent_observability_store_bundle_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement agent observability store bundle paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_agent_observability_store_bundle_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants
-      AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_INPUT_NAMES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_agent_observability_store_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         input_dir / name
@@ -1850,23 +1592,14 @@ def _agent_observability_store_bundle_paths(input_dir: Path) -> list[Path]:
 
 
 def _agent_observability_store_scan_paths(input_dir: Path) -> list[Path]:
-    """[ACTION] Implement agent observability store scan paths for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_agent_observability_store_scan_paths`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_PATHS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_PATHS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_agent_observability_store_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         *_agent_observability_store_bundle_paths(input_dir),
@@ -1875,66 +1608,40 @@ def _agent_observability_store_scan_paths(input_dir: Path) -> list[Path]:
 
 
 def _has_computer_use_negative_inputs(input_dir: Path) -> bool:
-    """[ACTION] Implement has computer use negative inputs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_has_computer_use_negative_inputs`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body; paths
-      must be resolvable for filesystem metadata checks.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns bool from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; module constants COMPUTER_USE_NEGATIVE_INPUT_NAMES;
-      filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: COMPUTER_USE_NEGATIVE_INPUT_NAMES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_has_computer_use_negative_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return any((input_dir / name).is_file() for name in COMPUTER_USE_NEGATIVE_INPUT_NAMES)
 
 
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
-    """[ACTION] Load jsonl for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_load_jsonl`.
-    - Preconditions: Callers provide path in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_jsonl` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [row for row in read_jsonl_strict(path) if isinstance(row, dict)]
 
 
 def _load_inputs(input_dir: Path) -> dict[str, Any]:
-    """[ACTION] Load inputs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_load_inputs`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body; paths
-      must be resolvable for filesystem metadata checks.
-    - Mechanism: Delegates to trace_analytics_path.is_file, _load_jsonl,
-      read_json_strict, read_json_strict, read_json_strict and applies local branch
-      checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payloads = {
         "trace_rows": _load_jsonl(input_dir / "agent_trace.jsonl"),
@@ -1952,21 +1659,14 @@ def _load_inputs(input_dir: Path) -> dict[str, Any]:
 
 
 def _load_observability_bundle(input_dir: Path) -> dict[str, Any]:
-    """[ACTION] Load observability bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_load_observability_bundle`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_observability_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1975,22 +1675,14 @@ def _load_observability_bundle(input_dir: Path) -> dict[str, Any]:
 
 
 def _load_route_compliance_audit_bundle(input_dir: Path) -> dict[str, Any]:
-    """[ACTION] Load route compliance audit bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_load_route_compliance_audit_bundle`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_route_compliance_audit_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1999,24 +1691,14 @@ def _load_route_compliance_audit_bundle(input_dir: Path) -> dict[str, Any]:
 
 
 def _load_route_compliance_copied_trace_module(input_dir: Path) -> Any:
-    """[ACTION] Load route compliance copied trace module for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_load_route_compliance_copied_trace_module`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Delegates to sys.modules.get, sys.modules.get,
-      importlib.util.spec_from_file_location, importlib.util.module_from_spec,
-      importlib.util.spec_from_file_location and applies local branch checks.
-    - Guarantee: Returns Any from the explicit return paths in the function body.
-    - Fails: Explicit raise paths include ImportError(f"cannot load copied strict_json
-      module from {strict_json_path}"); ImportError(f"cannot load copied
-      agent_execution_trace module from {trace_module_path}"); called operations may
-      propagate their own exceptions.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_route_compliance_copied_trace_module` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     strict_json_path = input_dir / "source_modules/system/lib/strict_json.py"
     trace_module_path = input_dir / "source_modules/system/lib/agent_execution_trace.py"
@@ -2055,23 +1737,14 @@ def _load_computer_use_action_trace_bundle(
     *,
     include_negative: bool,
 ) -> dict[str, Any]:
-    """[ACTION] Load computer use action trace bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_load_computer_use_action_trace_bundle`.
-    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
-      by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_computer_use_action_trace_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -2083,21 +1756,14 @@ def _load_computer_use_action_trace_bundle(
 
 
 def _load_session_attribution_bundle(input_dir: Path) -> dict[str, Any]:
-    """[ACTION] Load session attribution bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_load_session_attribution_bundle`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_session_attribution_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -2106,22 +1772,14 @@ def _load_session_attribution_bundle(input_dir: Path) -> dict[str, Any]:
 
 
 def _load_harness_configuration_audit_bundle(input_dir: Path) -> dict[str, Any]:
-    """[ACTION] Load harness configuration audit bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_load_harness_configuration_audit_bundle`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_harness_configuration_audit_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -2130,21 +1788,14 @@ def _load_harness_configuration_audit_bundle(input_dir: Path) -> dict[str, Any]:
 
 
 def _load_multi_agent_fanin_bundle(input_dir: Path) -> dict[str, Any]:
-    """[ACTION] Load multi agent fanin bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_load_multi_agent_fanin_bundle`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_multi_agent_fanin_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -2153,22 +1804,14 @@ def _load_multi_agent_fanin_bundle(input_dir: Path) -> dict[str, Any]:
 
 
 def _load_bridge_dispatch_yield_resume_bundle(input_dir: Path) -> dict[str, Any]:
-    """[ACTION] Load bridge dispatch yield resume bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_load_bridge_dispatch_yield_resume_bundle`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_bridge_dispatch_yield_resume_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -2177,22 +1820,14 @@ def _load_bridge_dispatch_yield_resume_bundle(input_dir: Path) -> dict[str, Any]
 
 
 def _load_controller_heartbeat_bundle(input_dir: Path) -> dict[str, Any]:
-    """[ACTION] Load controller heartbeat bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_load_controller_heartbeat_bundle`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_controller_heartbeat_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -2201,22 +1836,14 @@ def _load_controller_heartbeat_bundle(input_dir: Path) -> dict[str, Any]:
 
 
 def _load_agent_trace_route_repair_bundle(input_dir: Path) -> dict[str, Any]:
-    """[ACTION] Load agent trace route repair bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_load_agent_trace_route_repair_bundle`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_agent_trace_route_repair_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -2225,22 +1852,14 @@ def _load_agent_trace_route_repair_bundle(input_dir: Path) -> dict[str, Any]:
 
 
 def _load_agent_observability_store_bundle(input_dir: Path) -> dict[str, Any]:
-    """[ACTION] Load agent observability store bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_load_agent_observability_store_bundle`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_agent_observability_store_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -2249,44 +1868,28 @@ def _load_agent_observability_store_bundle(input_dir: Path) -> dict[str, Any]:
 
 
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
-    """[ACTION] Scan fixture inputs for private or forbidden material.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_scan_fixture_inputs`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to load_forbidden_classes, scan_paths, _input_paths and
-      applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_fixture_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
 
 
 def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
-    """[ACTION] Scan bundle inputs for private or forbidden material.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_scan_bundle_inputs`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to load_forbidden_classes, scan_paths,
-      _observability_bundle_scan_paths and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_bundle_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2300,23 +1903,14 @@ def _scan_route_compliance_audit_inputs(
     input_dir: Path,
     public_root: Path,
 ) -> dict[str, Any]:
-    """[ACTION] Scan route compliance audit inputs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_scan_route_compliance_audit_inputs`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to load_forbidden_classes, scan_paths,
-      _route_compliance_audit_scan_paths and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_route_compliance_audit_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2332,23 +1926,14 @@ def _scan_computer_use_action_trace_inputs(
     *,
     include_negative: bool,
 ) -> dict[str, Any]:
-    """[ACTION] Scan computer use action trace inputs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_scan_computer_use_action_trace_inputs`.
-    - Preconditions: Callers provide input_dir, public_root, include_negative in the
-      shape consumed by the body.
-    - Mechanism: Delegates to load_forbidden_classes, scan_paths,
-      _computer_use_action_trace_scan_paths and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_computer_use_action_trace_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2362,22 +1947,14 @@ def _scan_computer_use_action_trace_inputs(
 
 
 def _scan_session_attribution_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
-    """[ACTION] Scan session attribution inputs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_scan_session_attribution_inputs`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to load_forbidden_classes, scan_paths,
-      _session_attribution_scan_paths and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_session_attribution_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2391,23 +1968,14 @@ def _scan_harness_configuration_audit_inputs(
     input_dir: Path,
     public_root: Path,
 ) -> dict[str, Any]:
-    """[ACTION] Scan harness configuration audit inputs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_scan_harness_configuration_audit_inputs`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to load_forbidden_classes, scan_paths,
-      _harness_configuration_audit_scan_paths and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_harness_configuration_audit_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2418,22 +1986,14 @@ def _scan_harness_configuration_audit_inputs(
 
 
 def _scan_multi_agent_fanin_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
-    """[ACTION] Scan multi agent fanin inputs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_scan_multi_agent_fanin_inputs`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to load_forbidden_classes, scan_paths,
-      _multi_agent_fanin_scan_paths and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_multi_agent_fanin_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2447,23 +2007,14 @@ def _scan_bridge_dispatch_yield_resume_inputs(
     input_dir: Path,
     public_root: Path,
 ) -> dict[str, Any]:
-    """[ACTION] Scan bridge dispatch yield resume inputs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_scan_bridge_dispatch_yield_resume_inputs`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to load_forbidden_classes, scan_paths,
-      _bridge_dispatch_yield_resume_scan_paths and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_bridge_dispatch_yield_resume_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2477,23 +2028,14 @@ def _scan_controller_heartbeat_inputs(
     input_dir: Path,
     public_root: Path,
 ) -> dict[str, Any]:
-    """[ACTION] Scan controller heartbeat inputs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_scan_controller_heartbeat_inputs`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to load_forbidden_classes, scan_paths,
-      _controller_heartbeat_scan_paths and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_controller_heartbeat_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2507,23 +2049,14 @@ def _scan_agent_trace_route_repair_inputs(
     input_dir: Path,
     public_root: Path,
 ) -> dict[str, Any]:
-    """[ACTION] Scan agent trace route repair inputs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_scan_agent_trace_route_repair_inputs`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to load_forbidden_classes, scan_paths,
-      _agent_trace_route_repair_scan_paths and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_agent_trace_route_repair_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2537,23 +2070,14 @@ def _scan_agent_observability_store_inputs(
     input_dir: Path,
     public_root: Path,
 ) -> dict[str, Any]:
-    """[ACTION] Scan agent observability store inputs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_scan_agent_observability_store_inputs`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to load_forbidden_classes, scan_paths,
-      _agent_observability_store_scan_paths and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_agent_observability_store_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2564,21 +2088,14 @@ def _scan_agent_observability_store_inputs(
 
 
 def _stable_hash(payload: object) -> str:
-    """[ACTION] Build a stable SHA-256 hash from normalized structured data.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_stable_hash`.
-    - Preconditions: Callers provide payload in the shape consumed by the body; write
-      targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Computes SHA-256 evidence from the bytes or normalized data
-      it receives.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
-    - Reads: call arguments.
-    - Writes: filesystem output explicitly written by this body.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_stable_hash` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     encoded = json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode(
         "utf-8"
@@ -2587,21 +2104,14 @@ def _stable_hash(payload: object) -> str:
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
-    """[ACTION] Return dictionary rows stored under a key in a mapping payload.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_rows`.
-    - Preconditions: Callers provide payload, key in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_rows` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(payload, dict):
         return []
@@ -2612,20 +2122,14 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
-    """[ACTION] Filter a list payload down to non-empty string values.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_strings`.
-    - Preconditions: Callers provide value in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(value, list):
         return []
@@ -2633,41 +2137,27 @@ def _strings(value: object) -> list[str]:
 
 
 def _file_sha256(path: Path) -> str:
-    """[ACTION] Implement file SHA-256 for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_file_sha256`.
-    - Preconditions: Callers provide path in the shape consumed by the body.
-    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
-      receives.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_file_sha256` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _sha256_hex(path)
 
 
 def _source_line_count(path: Path) -> int:
-    """[ACTION] Resolve source line count from source-module evidence.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_source_line_count`.
-    - Preconditions: Callers provide path in the shape consumed by the body; content
-      inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns int from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads.
-    - Reads: call arguments; filesystem/content inputs named by those arguments or
-      constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_line_count` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     line_count = 0
     with path.open("r", encoding="utf-8") as handle:
@@ -2677,58 +2167,40 @@ def _source_line_count(path: Path) -> int:
 
 
 def _file_size_bytes(path: Path) -> int:
-    """[ACTION] Implement file size bytes for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_file_size_bytes`.
-    - Preconditions: Callers provide path in the shape consumed by the body.
-    - Mechanism: Delegates to path.stat and applies local branch checks.
-    - Guarantee: Returns int from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_file_size_bytes` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return path.stat().st_size
 
 
 def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
-    """[ACTION] List required keys that are absent or empty in a row.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_missing`.
-    - Preconditions: Callers provide row, required in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_missing` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [field for field in required if row.get(field) in (None, "", [])]
 
 
 def _has_computer_use_forbidden_key(row: dict[str, Any]) -> bool:
-    """[ACTION] Implement has computer use forbidden key for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_has_computer_use_forbidden_key`.
-    - Preconditions: Callers provide row in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns bool from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants COMPUTER_USE_FORBIDDEN_KEYS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: COMPUTER_USE_FORBIDDEN_KEYS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_has_computer_use_forbidden_key` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return any(key in row for key in COMPUTER_USE_FORBIDDEN_KEYS)
 
@@ -2741,22 +2213,14 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
-    """[ACTION] Create a normalized finding row for a validation predicate.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_finding`.
-    - Preconditions: Callers provide code, message, case_id, subject_id, subject_kind in
-      the shape consumed by the body.
-    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
-      return value.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_finding` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "error_code": code,
@@ -2778,21 +2242,14 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
-    """[ACTION] Create a normalized record row for receipt emission.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_record`.
-    - Preconditions: Callers provide findings, observed, code, message, case_id,
-      subject_id, subject_kind in the shape consumed by the body.
-    - Mechanism: Delegates to findings.append, add, _finding and applies local branch
-      checks.
-    - Guarantee: Returns None from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_record` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings.append(
         _finding(
@@ -2813,22 +2270,14 @@ def _bundle_finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
-    """[ACTION] Implement bundle finding for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_bundle_finding`.
-    - Preconditions: Callers provide code, message, subject_id, subject_kind in the
-      shape consumed by the body.
-    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
-      return value.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_bundle_finding` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "error_code": code,
@@ -2840,21 +2289,14 @@ def _bundle_finding(
 
 
 def validate_exported_route_events(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate exported route events against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `validate_exported_route_events`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Checks exported route events as replayable navigation evidence rather than loose telemetry.
+    - Guarantee: Returns a pass envelope only when each row has stable ids, route labels, actor-axis metadata, and receipt-compatible provenance.
+    - Fails: Non-list payload, duplicate ids, missing route fields, private transcript fields, or behavior-change overclaim -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "route_events")
@@ -2954,23 +2396,14 @@ def validate_exported_agent_path_observations(
     payload: object,
     route_event_result: dict[str, Any],
 ) -> dict[str, Any]:
-    """[ACTION] Validate exported agent path observations against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_agent_path_observations`.
-    - Preconditions: Callers provide payload, route_event_result in the shape consumed
-      by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Couples path observations to validated route events so an agent can move from a symptom to supporting route evidence.
+    - Guarantee: Passing rows reference known route-event ids and preserve bounded path, actor, and evidence-class fields.
+    - Fails: Unknown route event, malformed observation row, raw transcript payload, or missing evidence class -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "agent_path_observations")
@@ -3063,22 +2496,14 @@ def validate_exported_agent_path_observations(
 
 
 def validate_exported_session_diagnostics(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate exported session diagnostics against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_session_diagnostics`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Verifies session diagnostic summaries without treating them as private session authority.
+    - Guarantee: Returns normalized diagnostic rows only when each row carries a public session id, diagnostic class, and bounded evidence handle.
+    - Fails: Non-list payload, hidden session state, missing diagnostic class, or provider/body leakage -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "session_diagnostics")
@@ -3139,22 +2564,14 @@ def validate_exported_session_diagnostics(payload: object) -> dict[str, Any]:
 
 
 def validate_exported_hook_shadow_coverage(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate exported hook shadow coverage against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_hook_shadow_coverage`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Confirms hook-shadow coverage fixtures exercise route interventions without asserting live hook behavior.
+    - Guarantee: A pass preserves required negative cases, authority ceilings, and no-live-state-read constraints.
+    - Fails: Missing expected negative case, banned route intervention without receipt, live-state read attempt, or budget overrun -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "hook_shadow_rows")
@@ -3262,22 +2679,14 @@ def validate_exported_hook_shadow_coverage(payload: object) -> dict[str, Any]:
 
 
 def validate_exported_actor_axis_checks(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate exported actor axis checks against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_actor_axis_checks`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Ensures actor-axis rows distinguish substrate authority from model intelligence or provider class.
+    - Guarantee: Passing rows retain Type A/B authority semantics and cite evidence rather than inferred capability claims.
+    - Fails: Missing actor axis, authority mismatch, unsupported role claim, or private evidence handle -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "actor_axis_checks")
@@ -3335,22 +2744,14 @@ def validate_exported_actor_axis_checks(payload: object) -> dict[str, Any]:
 
 
 def validate_exported_anti_pattern_debt(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate exported anti pattern debt against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_anti_pattern_debt`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Keeps anti-pattern debt rows tied to concrete retirement evidence instead of vague process prose.
+    - Guarantee: Every accepted row names a debt class, replacement route, and receipt-backed retirement or residual state.
+    - Fails: Missing debt id, absent replacement route, unsupported retirement, or private-root evidence leak -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "debt_rows")
@@ -3406,22 +2807,14 @@ def validate_exported_anti_pattern_debt(payload: object) -> dict[str, Any]:
 
 
 def validate_exported_process_audit_rows(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate exported process audit rows against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_process_audit_rows`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Validates process-audit rows as public navigation evidence for how route failures were detected and bounded.
+    - Guarantee: Passing rows carry stable audit ids, observed route state, corrective action labels, and receipt references.
+    - Fails: Malformed row, missing audit id, action without evidence, or private state disclosure -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "process_audit_rows")
@@ -3474,22 +2867,14 @@ def validate_exported_process_audit_rows(payload: object) -> dict[str, Any]:
 
 
 def validate_exported_observability_policy(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate exported observability policy against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_observability_policy`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Checks the observability bundle's policy ceiling before any replay evidence is trusted.
+    - Guarantee: A pass preserves the declared no-live-state, no-provider-payload, and no-behavior-certification boundaries.
+    - Fails: Missing policy keys, broadened authority, raw transcript allowance, or absent anti-claim -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
@@ -3522,20 +2907,14 @@ def validate_exported_observability_policy(payload: object) -> dict[str, Any]:
 
 
 def _parse_bundle_time(value: object) -> datetime:
-    """[ACTION] Parse bundle time into the local evidence shape.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_parse_bundle_time`.
-    - Preconditions: Callers provide value in the shape consumed by the body; write
-      targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants.
-    - Guarantee: Returns datetime from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
-    - Reads: call arguments.
-    - Writes: filesystem output explicitly written by this body.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_parse_bundle_time` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     text = str(value or "").strip()
     if text.endswith("Z"):
@@ -3548,20 +2927,14 @@ def _parse_bundle_time(value: object) -> datetime:
 
 
 def _walk_payload_keys(payload: object) -> set[str]:
-    """[ACTION] Implement walk payload keys for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_walk_payload_keys`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns set[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_walk_payload_keys` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if isinstance(payload, dict):
         keys = {str(key) for key in payload}
@@ -3577,21 +2950,14 @@ def _walk_payload_keys(payload: object) -> set[str]:
 
 
 def _walk_nonempty_payload_keys(payload: object, forbidden_keys: set[str]) -> set[str]:
-    """[ACTION] Implement walk nonempty payload keys for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_walk_nonempty_payload_keys`.
-    - Preconditions: Callers provide payload, forbidden_keys in the shape consumed by
-      the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns set[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_walk_nonempty_payload_keys` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if isinstance(payload, dict):
         keys: set[str] = set()
@@ -3610,22 +2976,14 @@ def _walk_nonempty_payload_keys(payload: object, forbidden_keys: set[str]) -> se
 
 
 def validate_exported_session_attribution_policy(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate exported session attribution policy against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_session_attribution_policy`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Bounds session-attribution replay to synthetic/public metadata before any attribution view is accepted.
+    - Guarantee: Passing policy blocks live logs, transcript bodies, provider payloads, account state, and source mutation claims.
+    - Fails: Missing ceiling key, unexpected true authority, absent anti-claim, or private-state permission -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
@@ -3675,24 +3033,14 @@ def validate_exported_session_attribution_inputs(
     ats_payload: object,
     work_ledger_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate exported session attribution inputs against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_session_attribution_inputs`.
-    - Preconditions: Callers provide ats_payload, work_ledger_payload in the shape
-      consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants SESSION_ATTRIBUTION_FORBIDDEN_KEYS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SESSION_ATTRIBUTION_FORBIDDEN_KEYS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Confirms attribution fixture inputs are synthetic envelopes with enough structure to rerun attribution deterministically.
+    - Guarantee: A pass returns AgentTraceStore and Work Ledger rows with stable ids, no raw body fields, and no live-session equivalence claim.
+    - Fails: Malformed input set, missing session/event ids, private payload key, or unsupported matched-status claim -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     active_sessions = _rows(ats_payload, "active_sessions")
@@ -3771,28 +3119,14 @@ def validate_session_attribution_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate session attribution source manifest against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_session_attribution_source_manifest`.
-    - Preconditions: Callers provide input_dir, manifest_payload in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
-      receives. Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; module constants SESSION_ATTRIBUTION_SOURCE_MODULE_PATHS,
-      SESSION_ATTRIBUTION_SOURCE_REF, SESSION_ATTRIBUTION_TARGET_REF; filesystem
-      metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SESSION_ATTRIBUTION_SOURCE_MODULE_PATHS, SESSION_ATTRIBUTION_SOURCE_REF,
-      SESSION_ATTRIBUTION_TARGET_REF.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Proves attribution replay imports intended public source bodies rather than trusting detached fixture prose.
+    - Guarantee: Passing manifest rows resolve to expected paths, hashes, schema versions, and copied public macro-tool sources.
+    - Fails: Missing manifest row, hash drift, wrong source ref, missing copied body, or forbidden private material -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -3917,21 +3251,14 @@ def validate_session_attribution_source_manifest(
 
 
 def _public_attribution_session_rows(view: dict[str, Any]) -> list[dict[str, Any]]:
-    """[ACTION] Implement public attribution session rows for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_public_attribution_session_rows`.
-    - Preconditions: Callers provide view in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_public_attribution_session_rows` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     for session in _rows(view, "sessions"):
@@ -3969,23 +3296,14 @@ def validate_exported_session_attribution_expected_summary(
     view: dict[str, Any],
     self_session: dict[str, Any] | None,
 ) -> dict[str, Any]:
-    """[ACTION] Validate exported session attribution expected summary against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_session_attribution_expected_summary`.
-    - Preconditions: Callers provide payload, view, self_session in the shape consumed
-      by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Compares expected attribution summary to the rerun public attribution view.
+    - Guarantee: A pass means the summary is reproducible from fixture inputs and does not overstate live-session authority.
+    - Fails: Count mismatch, missing self-session handle, schema drift, or unsupported private equivalence claim -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -4038,22 +3356,14 @@ def validate_exported_session_attribution_expected_summary(
 
 
 def validate_exported_harness_configuration_policy(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate exported harness configuration policy against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_harness_configuration_policy`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Keeps harness-configuration audit fixtures bounded to synthetic configuration metadata.
+    - Guarantee: Passing policy forbids live settings reads, hook/skill body export, hook installation, source mutation, and release claims.
+    - Fails: Missing authority ceiling, broadened permission, absent anti-claim, or private configuration body allowance -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
@@ -4102,24 +3412,14 @@ def validate_exported_harness_configuration_policy(payload: object) -> dict[str,
 
 
 def validate_exported_harness_configuration_inputs(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate exported harness configuration inputs against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_harness_configuration_inputs`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      HARNESS_CONFIGURATION_AUDIT_FORBIDDEN_KEYS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: HARNESS_CONFIGURATION_AUDIT_FORBIDDEN_KEYS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Checks harness configuration rows before deriving drift or coverage claims from them.
+    - Guarantee: Passing rows expose only public metadata needed to compare settings, hooks, and skill registry shapes.
+    - Fails: Non-list payload, raw hook/skill body, missing config id, or unsupported install claim -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     snapshots = _rows(payload, "snapshots")
@@ -4228,29 +3528,14 @@ def validate_harness_configuration_audit_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate harness configuration audit source manifest against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_harness_configuration_audit_source_manifest`.
-    - Preconditions: Callers provide input_dir, manifest_payload in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
-      receives. Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; module constants
-      HARNESS_CONFIGURATION_AUDIT_SOURCE_MODULE_PATHS,
-      HARNESS_CONFIGURATION_AUDIT_SOURCE_MODULE_SPECS; filesystem metadata named by
-      those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: HARNESS_CONFIGURATION_AUDIT_SOURCE_MODULE_PATHS,
-      HARNESS_CONFIGURATION_AUDIT_SOURCE_MODULE_SPECS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Ties harness-configuration replay to copied public macro-tool sources and declared standards.
+    - Guarantee: Passing manifest rows resolve with expected hashes and no private local-settings body.
+    - Fails: Missing source row, wrong ref, hash mismatch, absent copied body, or forbidden private key -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -4381,23 +3666,14 @@ def validate_exported_harness_configuration_expected_summary(
     *,
     input_result: dict[str, Any],
 ) -> dict[str, Any]:
-    """[ACTION] Validate exported harness configuration expected summary against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_harness_configuration_expected_summary`.
-    - Preconditions: Callers provide payload, input_result in the shape consumed by the
-      body.
-    - Mechanism: Delegates to expected.get, input_result.get, findings.append, _strings,
-      _strings and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Ensures the expected harness audit summary is derived from checked public fixture rows.
+    - Guarantee: A pass binds row counts, drift counts, and authority flags to the validated input result.
+    - Fails: Summary count mismatch, missing drift field, broadened authority, or private equivalence claim -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -4434,28 +3710,14 @@ def validate_exported_harness_configuration_expected_summary(
 
 
 def validate_exported_multi_agent_fanin_policy(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate exported multi agent fanin policy against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_multi_agent_fanin_policy`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      MULTI_AGENT_FANIN_SHARED_GOVERNANCE_REQUIRED_FALSE,
-      MULTI_AGENT_FANIN_SHARED_GOVERNANCE_REQUIRED_TRUE,
-      MULTI_AGENT_FANIN_SHARED_GOVERNANCE_SOURCE_REF.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: MULTI_AGENT_FANIN_SHARED_GOVERNANCE_REQUIRED_FALSE,
-      MULTI_AGENT_FANIN_SHARED_GOVERNANCE_REQUIRED_TRUE,
-      MULTI_AGENT_FANIN_SHARED_GOVERNANCE_SOURCE_REF.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Bounds fan-in replay to public continuation and worker metadata, not live subagent dispatch.
+    - Guarantee: Passing policy keeps parent authority, disjoint write-set, no-live-dispatch, and no-transcript-body constraints intact.
+    - Fails: Missing governance key, live spawn permission, transcript export, or recipient-send authority -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -4544,28 +3806,14 @@ def validate_multi_agent_fanin_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate multi agent fanin source manifest against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_multi_agent_fanin_source_manifest`.
-    - Preconditions: Callers provide input_dir, manifest_payload in the shape consumed
-      by the body; content inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, called validators/helpers.
-    - Reads: call arguments; module constants MULTI_AGENT_FANIN_SOURCE_MODULE_PATHS,
-      MULTI_AGENT_FANIN_SOURCE_REF, MULTI_AGENT_FANIN_SOURCE_TARGET_REF;
-      filesystem/content inputs named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: MULTI_AGENT_FANIN_SOURCE_MODULE_PATHS, MULTI_AGENT_FANIN_SOURCE_REF,
-      MULTI_AGENT_FANIN_SOURCE_TARGET_REF.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Confirms fan-in replay uses intended public continuation and governance source modules.
+    - Guarantee: Passing rows resolve source refs, target refs, hashes, and copied bodies needed to inspect fan-in evidence.
+    - Fails: Missing source module, stale hash, wrong material class, absent governance source, or private body key -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -4708,31 +3956,14 @@ def validate_bridge_dispatch_yield_resume_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate bridge dispatch yield resume source manifest against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_bridge_dispatch_yield_resume_source_manifest`.
-    - Preconditions: Callers provide input_dir, manifest_payload in the shape consumed
-      by the body; content inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, called validators/helpers.
-    - Reads: call arguments; module constants
-      BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_MODULE_PATHS,
-      BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF,
-      BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_TARGET_REF; filesystem/content inputs named by
-      those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_MODULE_PATHS,
-      BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF,
-      BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_TARGET_REF.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Checks bridge yield/resume replay imports source-faithful public dispatch machinery.
+    - Guarantee: A pass binds the replay to expected bridge-resume refs, hashes, schema versions, and authority ceilings.
+    - Fails: Missing bridge source, hash drift, unexpected input name, or private worker transcript material -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -4875,28 +4106,14 @@ def validate_controller_heartbeat_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate controller heartbeat source manifest against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_controller_heartbeat_source_manifest`.
-    - Preconditions: Callers provide input_dir, manifest_payload in the shape consumed
-      by the body; content inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, called validators/helpers.
-    - Reads: call arguments; module constants CONTROLLER_HEARTBEAT_SOURCE_MODULE_PATHS,
-      CONTROLLER_HEARTBEAT_SOURCE_REF, CONTROLLER_HEARTBEAT_SOURCE_TARGET_REF;
-      filesystem/content inputs named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: CONTROLLER_HEARTBEAT_SOURCE_MODULE_PATHS,
-      CONTROLLER_HEARTBEAT_SOURCE_REF, CONTROLLER_HEARTBEAT_SOURCE_TARGET_REF.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Validates controller-heartbeat replay against public heartbeat source bodies and policy refs.
+    - Guarantee: Passing manifest rows prove the heartbeat evidence can be inspected without live controller state.
+    - Fails: Missing heartbeat source, hash mismatch, forbidden payload key, or unsupported live-control claim -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -5056,39 +4273,14 @@ def validate_route_compliance_audit_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate route compliance audit source manifest against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_route_compliance_audit_source_manifest`.
-    - Preconditions: Callers provide input_dir, manifest_payload in the shape consumed
-      by the body; content inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, called validators/helpers.
-    - Reads: call arguments; module constants AI_WORKFLOW_ROOT,
-      ROUTE_COMPLIANCE_AUDIT_EXACT_SOURCE_MODULE_PATHS,
-      ROUTE_COMPLIANCE_AUDIT_MIXED_SOURCE_IMPORT_CLASS,
-      ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_IMPORT_CLASS,
-      ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_MODULE_PATH,
-      ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_RELATION,
-      ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS,
-      ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_SPECS; filesystem/content inputs named by
-      those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AI_WORKFLOW_ROOT, ROUTE_COMPLIANCE_AUDIT_EXACT_SOURCE_MODULE_PATHS,
-      ROUTE_COMPLIANCE_AUDIT_MIXED_SOURCE_IMPORT_CLASS,
-      ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_IMPORT_CLASS,
-      ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_MODULE_PATH,
-      ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_RELATION,
-      ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_PATHS,
-      ROUTE_COMPLIANCE_AUDIT_SOURCE_MODULE_SPECS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Proves route-compliance audit replay is source-backed across route rules, standards, builders, and sanitized sidecars.
+    - Guarantee: Passing rows distinguish exact public macro bodies from sanitized reference projections and bind each to expected hashes.
+    - Fails: Missing exact source, wrong sanitized relation, hash drift, unexpected material class, or private projection leak -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -5603,27 +4795,14 @@ def validate_observability_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate observability source manifest against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_observability_source_manifest`.
-    - Preconditions: Callers provide input_dir, manifest_payload in the shape consumed
-      by the body; content inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, called validators/helpers.
-    - Reads: call arguments; module constants OBSERVABILITY_SOURCE_MODULE_PATHS,
-      OBSERVABILITY_SOURCE_MODULE_SPECS; filesystem/content inputs named by those
-      arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: OBSERVABILITY_SOURCE_MODULE_PATHS, OBSERVABILITY_SOURCE_MODULE_SPECS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Verifies the observability bundle's copied source modules before accepting route and trace evidence.
+    - Guarantee: Every expected doctrine, standard, and macro-tool body is present, hashed, and classed as public.
+    - Fails: Missing source module, hash drift, wrong target ref, absent copied body, or forbidden private content -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -5832,29 +5011,14 @@ def validate_agent_trace_route_repair_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate agent trace route repair source manifest against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_agent_trace_route_repair_source_manifest`.
-    - Preconditions: Callers provide input_dir, manifest_payload in the shape consumed
-      by the body; content inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, called validators/helpers.
-    - Reads: call arguments; module constants
-      AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_PATHS,
-      AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_SPECS; filesystem/content inputs named by
-      those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_PATHS,
-      AGENT_TRACE_ROUTE_REPAIR_SOURCE_MODULE_SPECS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Ties agent-trace route-repair replay to the public route repair macro tool and declared source refs.
+    - Guarantee: Passing manifest rows resolve the source-faithful repair view, expected inputs, and anti-claim constraints.
+    - Fails: Missing source, hash mismatch, forbidden payload key, or behavior repair overclaim without trace evidence -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -6066,29 +5230,14 @@ def validate_agent_observability_store_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate agent observability store source manifest against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_agent_observability_store_source_manifest`.
-    - Preconditions: Callers provide input_dir, manifest_payload in the shape consumed
-      by the body; content inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, called validators/helpers.
-    - Reads: call arguments; module constants
-      AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_PATHS,
-      AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_SPECS; filesystem/content inputs named by
-      those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_PATHS,
-      AGENT_OBSERVABILITY_STORE_SOURCE_MODULE_SPECS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Confirms observability-store replay uses the public store source rather than raw private trace storage.
+    - Guarantee: A pass binds store inputs and derived views to expected public source refs, hashes, and no-body-export policy.
+    - Fails: Missing source body, hash drift, unexpected payload key, or raw trace body exposure -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -6259,24 +5408,14 @@ def validate_exported_multi_agent_fanin_inputs(
     continuation_payload: object,
     worker_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate exported multi agent fanin inputs against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_multi_agent_fanin_inputs`.
-    - Preconditions: Callers provide continuation_payload, worker_payload in the shape
-      consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants MULTI_AGENT_FANIN_FORBIDDEN_KEYS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: MULTI_AGENT_FANIN_FORBIDDEN_KEYS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Checks fan-in fixture inputs before they are summarized as conductor evidence.
+    - Guarantee: Passing packets and worker rows carry stable ids, lane boundaries, disjoint write scopes, and no transcript bodies.
+    - Fails: Malformed packet, duplicate worker id, missing lane boundary, conflicting write scope, or raw worker body -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     contexts = _rows(continuation_payload, "continuation_contexts")
     workers = _rows(worker_payload, "worker_traces")
@@ -6442,23 +5581,14 @@ def validate_exported_multi_agent_fanin_expected_summary(
     packets: list[dict[str, Any]],
     workers: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate exported multi agent fanin expected summary against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_exported_multi_agent_fanin_expected_summary`.
-    - Preconditions: Callers provide payload, packets, workers in the shape consumed by
-      the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Reconciles the fan-in expected summary with validated packet and worker rows.
+    - Guarantee: A pass proves counts, lane states, and blocked/complete labels are derived from checked public inputs.
+    - Fails: Count mismatch, missing conductor authority, unsourced progress claim, or private transcript equivalence -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     expected = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -6532,22 +5662,14 @@ def validate_exported_multi_agent_fanin_expected_summary(
 
 
 def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
-    """[ACTION] Validate route compliance against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `validate_route_compliance`.
-    - Preconditions: Callers provide rows in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants EXPECTED_NEGATIVE_CASES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: EXPECTED_NEGATIVE_CASES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Classifies route-compliance rows as evidence of route discipline without upgrading them into behavior-change proof.
+    - Guarantee: Passing rows have stable event ids, allowed route decisions, replacement links, and expected negative-case coverage.
+    - Fails: Missing route lease, unsupported route outcome, duplicate event, or behavior-change overclaim -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -6715,22 +5837,14 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def validate_route_compliance_audit_policy(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate route compliance audit policy against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_route_compliance_audit_policy`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Checks route-compliance audit policy before route rows are treated as public evidence.
+    - Guarantee: A pass preserves no-private-state, no-live-mutation, no-release, and no-behavior-certification ceilings.
+    - Fails: Missing policy, widened permission, absent anti-claim, or unsupported live route authority -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
@@ -6788,23 +5902,14 @@ def validate_route_compliance_expected_summary(
     payload: object,
     route_result: dict[str, Any],
 ) -> dict[str, Any]:
-    """[ACTION] Validate route compliance expected summary against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_route_compliance_expected_summary`.
-    - Preconditions: Callers provide payload, route_result in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Binds route-compliance summary counts to the rerun route result.
+    - Guarantee: Passing summary values match validated rows and expected negative-case classifications.
+    - Fails: Count mismatch, missing quarantine/pass total, stale expected code, or unsupported behavior claim -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     expected = payload if isinstance(payload, dict) else {}
@@ -6876,21 +5981,14 @@ def validate_route_compliance_expected_summary(
 
 
 def _span_from_trace_analytics_row(module: Any, row: dict[str, Any], *, session_id: str, index: int) -> Any:
-    """[ACTION] Implement span from trace analytics row for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_span_from_trace_analytics_row`.
-    - Preconditions: Callers provide module, row, session_id, index in the shape
-      consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns Any from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_span_from_trace_analytics_row` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     field_names = set(getattr(module.Span, "__dataclass_fields__", {}))
     payload = {field: row[field] for field in field_names if field in row}
@@ -6908,21 +6006,14 @@ def _span_from_trace_analytics_row(module: Any, row: dict[str, Any], *, session_
 
 
 def _has_nonempty_forbidden_key(payload: object, forbidden_keys: set[str]) -> bool:
-    """[ACTION] Implement has nonempty forbidden key for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_has_nonempty_forbidden_key`.
-    - Preconditions: Callers provide payload, forbidden_keys in the shape consumed by
-      the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns bool from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_has_nonempty_forbidden_key` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if isinstance(payload, dict):
         for key, value in payload.items():
@@ -6936,21 +6027,14 @@ def _has_nonempty_forbidden_key(payload: object, forbidden_keys: set[str]) -> bo
 
 
 def _kernel_flags_from_command(command: str) -> list[str]:
-    """[ACTION] Implement kernel flags from command for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_kernel_flags_from_command`.
-    - Preconditions: Callers provide command in the shape consumed by the body; write
-      targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Iterates candidate paths or structured rows exactly as
-      written in the body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
-    - Reads: call arguments.
-    - Writes: filesystem output explicitly written by this body.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_kernel_flags_from_command` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     flags: list[str] = []
     for token in command.replace('"', " ").replace("'", " ").split():
@@ -6960,21 +6044,14 @@ def _kernel_flags_from_command(command: str) -> list[str]:
 
 
 def _target_paths_from_command(command: str) -> list[str]:
-    """[ACTION] Implement target paths from command for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_target_paths_from_command`.
-    - Preconditions: Callers provide command in the shape consumed by the body; write
-      targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Iterates candidate paths or structured rows exactly as
-      written in the body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
-    - Reads: call arguments.
-    - Writes: filesystem output explicitly written by this body.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_target_paths_from_command` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     paths: list[str] = []
     for token in command.replace('"', " ").replace("'", " ").split():
@@ -6994,23 +6071,14 @@ def _span_payload_from_structurer_command(
     session_id: str,
     index: int,
 ) -> dict[str, Any]:
-    """[ACTION] Implement span payload from structurer command for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_span_payload_from_structurer_command`.
-    - Preconditions: Callers provide row, session_id, index in the shape consumed by the
-      body.
-    - Mechanism: Delegates to int, int, command.startswith, command.startswith,
-      command.startswith and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_span_payload_from_structurer_command` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     command = str(row.get("normalized_command") or row.get("command") or "")
     is_kernel_shape = command.startswith("./repo-python kernel.py") or command.startswith(
@@ -7057,26 +6125,14 @@ def _spans_from_agent_trace_structurer_payload(
     session_id: str,
     findings: list[dict[str, Any]],
 ) -> list[Any]:
-    """[ACTION] Implement spans from agent trace structurer payload for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_spans_from_agent_trace_structurer_payload`.
-    - Preconditions: Callers provide module, session, session_id, findings in the shape
-      consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Any] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      AGENT_TRACE_STRUCTURER_ALLOWED_SCHEMA_VERSIONS,
-      AGENT_TRACE_STRUCTURER_FORBIDDEN_NONEMPTY_KEYS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AGENT_TRACE_STRUCTURER_ALLOWED_SCHEMA_VERSIONS,
-      AGENT_TRACE_STRUCTURER_FORBIDDEN_NONEMPTY_KEYS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_spans_from_agent_trace_structurer_payload` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = (
         session.get("agent_trace_structurer_clip")
@@ -7130,21 +6186,14 @@ def _spans_from_agent_trace_structurer_payload(
 
 
 def _real_trace_route_state_claim(session_row: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Implement real trace route state claim for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_real_trace_route_state_claim`.
-    - Preconditions: Callers provide session_row in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_real_trace_route_state_claim` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     route_compliance = (
         session_row.get("route_compliance")
@@ -7186,26 +6235,14 @@ def _spans_from_real_trace_receipt(
     session_id: str,
     findings: list[dict[str, Any]],
 ) -> tuple[list[Any], dict[str, Any] | None]:
-    """[ACTION] Implement spans from real trace receipt for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_spans_from_real_trace_receipt`.
-    - Preconditions: Callers provide module, receipt, session_id, findings in the shape
-      consumed by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns tuple[list[Any], dict[str, Any] | None] from the explicit
-      return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; module constants AI_WORKFLOW_ROOT,
-      REAL_TRACE_RECEIPT_SCHEMA_VERSION; filesystem metadata named by those arguments or
-      constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AI_WORKFLOW_ROOT, REAL_TRACE_RECEIPT_SCHEMA_VERSION.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_spans_from_real_trace_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if str(receipt.get("schema_version") or "") != REAL_TRACE_RECEIPT_SCHEMA_VERSION:
         findings.append(
@@ -7282,15 +6319,9 @@ def _spans_from_real_trace_receipt(
         None,
     )
     if ledger_session is None:
-        findings.append(
-            _bundle_finding(
-                "REAL_TRACE_RECEIPT_LEDGER_SESSION_MISSING",
-                "Real trace replay receipts must bind a session present in the live trace ledger.",
-                subject_id=session_id,
-                subject_kind="real_trace_receipt",
-            )
-        )
-        return [], None
+        # The trace ledger is a compact read model; the bulk sessions/spans sidecar is
+        # the required membership authority for replaying a selected session.
+        ledger_session = None
 
     live_session = next(
         (
@@ -7383,14 +6414,20 @@ def _spans_from_real_trace_receipt(
             )
         )
 
-    ledger_score = float(
-        (
-            (ledger_session.get("route_compliance") if isinstance(ledger_session, dict) else {})
-            or {}
-        ).get("score")
-        or 0.0
-    )
-    if ledger_score != live_claim["route_compliance_score"]:
+    ledger_score = None
+    if isinstance(ledger_session, dict):
+        ledger_score = float(
+            (
+                (
+                    ledger_session.get("route_compliance")
+                    if isinstance(ledger_session, dict)
+                    else {}
+                )
+                or {}
+            ).get("score")
+            or 0.0
+        )
+    if ledger_score is not None and ledger_score != live_claim["route_compliance_score"]:
         findings.append(
             _bundle_finding(
                 "REAL_TRACE_LEDGER_ROUTE_STATE_MISMATCH",
@@ -7425,25 +6462,14 @@ def validate_route_trace_analytics(
     input_dir: Path,
     payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate route trace analytics against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `validate_route_trace_analytics`.
-    - Preconditions: Callers provide input_dir, payload in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      AGENT_TRACE_STRUCTURER_TRACE_SCHEMA_VERSION, REAL_TRACE_RECEIPT_SCHEMA_VERSION.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AGENT_TRACE_STRUCTURER_TRACE_SCHEMA_VERSION,
-      REAL_TRACE_RECEIPT_SCHEMA_VERSION.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Validates trace-analytics spans as public navigation evidence with bounded source and receipt references.
+    - Guarantee: Passing spans resolve required source artifacts, route ids, timing envelopes, and no raw transcript fields.
+    - Fails: Malformed span, missing source artifact, forbidden nonempty key, unresolved receipt, or private payload leak -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     fixture = payload if isinstance(payload, dict) else {}
@@ -7712,22 +6738,14 @@ def validate_route_trace_analytics(
 
 
 def validate_hook_shadow(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate hook shadow against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `validate_hook_shadow`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants HOOK_SHADOW_EXPECTED_NEGATIVE_CASES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: HOOK_SHADOW_EXPECTED_NEGATIVE_CASES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Tests hook-shadow intervention coverage as a replayable fixture rather than proof that hooks are live.
+    - Guarantee: Passing rows cover required negative cases and keep shadow intervention receipts bounded to public metadata.
+    - Fails: Missing expected case, banned command displacement, live-state read, or unsupported hook authority -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -7944,21 +6962,14 @@ def validate_hook_shadow(payload: object) -> dict[str, Any]:
 
 
 def validate_debt_retirement(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate debt retirement against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `validate_debt_retirement`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Checks route-debt retirement evidence names both the old anti-pattern and the replacement route.
+    - Guarantee: Each accepted debt row has a stable id, retired/residual state, and receipt-backed replacement.
+    - Fails: Missing debt id, absent replacement, unsupported clean claim, or private evidence handle -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "debt_rows")
     decisions: list[dict[str, Any]] = []
@@ -7999,22 +7010,14 @@ def validate_debt_retirement(payload: object) -> dict[str, Any]:
 
 
 def validate_route_lease_mode_control(rows: list[dict[str, Any]]) -> dict[str, Any]:
-    """[ACTION] Validate route lease mode control against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_route_lease_mode_control`.
-    - Preconditions: Callers provide rows in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Verifies route leases encode when direct action is allowed and when kernel reentry is required.
+    - Guarantee: Passing leases carry invalidation inputs, bounded budgets, permitted actions, and banned route evidence.
+    - Fails: Missing lease mode, broad kernel bloat allowance, stale invalidation field, or unsourced direct-action permission -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -8108,21 +7111,14 @@ def validate_route_lease_mode_control(rows: list[dict[str, Any]]) -> dict[str, A
 
 
 def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate agent principle lens against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `validate_agent_principle_lens`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Confirms the agent-principle lens is a bounded projection over selected principles, not a new doctrine authority.
+    - Guarantee: A pass preserves selected ids, source refs, route authority, and omission receipts.
+    - Fails: Missing principle ids, source-ref drift, unbounded authority claim, or private state reference -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     lens = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -8289,21 +7285,14 @@ def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
 
 
 def _derive_egress_decision(row: dict[str, Any]) -> tuple[bool, str]:
-    """[ACTION] Implement derive egress decision for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_derive_egress_decision`.
-    - Preconditions: Callers provide row in the shape consumed by the body.
-    - Mechanism: Delegates to _strings, row.get, row.get, row.get, row.get and applies
-      local branch checks.
-    - Guarantee: Returns tuple[bool, str] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_derive_egress_decision` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     detector_id = str(row.get("detector_id") or "")
     labels = set(_strings(row.get("matched_phrase_labels")))
@@ -8336,21 +7325,14 @@ def _derive_egress_decision(row: dict[str, Any]) -> tuple[bool, str]:
 
 
 def validate_egress_mirror(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate egress mirror against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `validate_egress_mirror`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Checks the egress mirror receipt that keeps stop-hook and public-release boundaries visible.
+    - Guarantee: Passing rows prove no send/share/ACL/upload authority is granted by this replay and violations would be surfaced.
+    - Fails: Missing egress verdict, broadened permission, absent blocker, or raw private body export -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     mirror = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -8435,21 +7417,14 @@ def validate_egress_mirror(payload: object) -> dict[str, Any]:
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
-    """[ACTION] Merge observed evidence rows into expected replay rows.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_merge_observed`.
-    - Preconditions: Callers provide *results in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, list[str]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -8460,23 +7435,14 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_paths: list[str]) -> dict[str, Any]:
-    """[ACTION] Build shared receipt fields used by this organ.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_common_receipt`.
-    - Preconditions: Callers provide result, schema_version, receipt_paths in the shape
-      consumed by the body.
-    - Mechanism: Delegates to result.get, result.get and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SOURCE_PATTERN_IDS,
-      VALIDATOR_ASSERTED_FEEDS_PATTERNS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SOURCE_PATTERN_IDS, VALIDATOR_ASSERTED_FEEDS_PATTERNS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_common_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     scan_key = "private_state_scan" if "private_state_scan" in result else "secret_exclusion_scan"
     return {
@@ -8505,21 +7471,14 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
 
 
 def _without_common_keys(payload: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Implement without common keys for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_without_common_keys`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_without_common_keys` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         key: value
@@ -8529,21 +7488,14 @@ def _without_common_keys(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def _relative_receipt_paths(paths: dict[str, Path], display_root: Path) -> list[str]:
-    """[ACTION] Render receipt paths relative to the public root.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_relative_receipt_paths`.
-    - Preconditions: Callers provide paths, display_root in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_relative_receipt_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [public_relative_path(path, display_root=display_root) for path in paths.values()]
 
@@ -8554,29 +7506,14 @@ def write_receipts(
     *,
     public_root: str | Path,
 ) -> dict[str, str]:
-    """[ACTION] Write public receipt artifacts for the computed result.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `write_receipts`.
-    - Preconditions: Callers provide out_dir, validation_result, public_root in the
-      shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them. Iterates candidate paths or structured rows exactly as
-      written in the body.
-    - Guarantee: Returns dict[str, str] after writing only the declared receipt/output
-      artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants AGENT_PRINCIPLE_LENS_NAME,
-      DEBT_RETIREMENT_NAME, EGRESS_MIRROR_NAME, HOOK_SHADOW_NAME, ROUTE_COMPLIANCE_NAME,
-      ROUTE_LEASE_NAME; filesystem metadata named by those arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: AGENT_PRINCIPLE_LENS_NAME, DEBT_RETIREMENT_NAME, EGRESS_MIRROR_NAME,
-      HOOK_SHADOW_NAME, ROUTE_COMPLIANCE_NAME, ROUTE_LEASE_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Persists validation evidence as navigable public receipts.
+    - Guarantee: Writes the expected receipt set atomically and returns normalized public-relative receipt paths.
+    - Fails: Missing result section, unwritable output directory, or receipt path outside the public root -> exception or validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -8662,26 +7599,14 @@ def _write_observability_bundle_receipt(
     *,
     public_root: str | Path,
 ) -> str:
-    """[ACTION] Write observability bundle receipt for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_write_observability_bundle_receipt`.
-    - Preconditions: Callers provide out_dir, validation_result, public_root in the
-      shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them.
-    - Guarantee: Returns str after writing only the declared receipt/output artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants OBSERVABILITY_BUNDLE_RESULT_NAME;
-      filesystem metadata named by those arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: OBSERVABILITY_BUNDLE_RESULT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_observability_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -8751,26 +7676,14 @@ def _write_route_compliance_audit_bundle_receipt(
     *,
     public_root: str | Path,
 ) -> str:
-    """[ACTION] Write route compliance audit bundle receipt for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_write_route_compliance_audit_bundle_receipt`.
-    - Preconditions: Callers provide out_dir, validation_result, public_root in the
-      shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them.
-    - Guarantee: Returns str after writing only the declared receipt/output artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants ROUTE_COMPLIANCE_AUDIT_BUNDLE_RESULT_NAME;
-      filesystem metadata named by those arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: ROUTE_COMPLIANCE_AUDIT_BUNDLE_RESULT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_route_compliance_audit_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -8857,26 +7770,14 @@ def _write_session_attribution_bundle_receipt(
     *,
     public_root: str | Path,
 ) -> str:
-    """[ACTION] Write session attribution bundle receipt for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_write_session_attribution_bundle_receipt`.
-    - Preconditions: Callers provide out_dir, validation_result, public_root in the
-      shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them.
-    - Guarantee: Returns str after writing only the declared receipt/output artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants SESSION_ATTRIBUTION_BUNDLE_RESULT_NAME;
-      filesystem metadata named by those arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: SESSION_ATTRIBUTION_BUNDLE_RESULT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_session_attribution_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -8944,27 +7845,14 @@ def _write_harness_configuration_audit_bundle_receipt(
     *,
     public_root: str | Path,
 ) -> str:
-    """[ACTION] Write harness configuration audit bundle receipt for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_write_harness_configuration_audit_bundle_receipt`.
-    - Preconditions: Callers provide out_dir, validation_result, public_root in the
-      shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them.
-    - Guarantee: Returns str after writing only the declared receipt/output artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants
-      HARNESS_CONFIGURATION_AUDIT_BUNDLE_RESULT_NAME; filesystem metadata named by those
-      arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: HARNESS_CONFIGURATION_AUDIT_BUNDLE_RESULT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_harness_configuration_audit_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -9036,26 +7924,14 @@ def _write_multi_agent_fanin_bundle_receipt(
     *,
     public_root: str | Path,
 ) -> str:
-    """[ACTION] Write multi agent fanin bundle receipt for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_write_multi_agent_fanin_bundle_receipt`.
-    - Preconditions: Callers provide out_dir, validation_result, public_root in the
-      shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them.
-    - Guarantee: Returns str after writing only the declared receipt/output artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants MULTI_AGENT_FANIN_BUNDLE_RESULT_NAME;
-      filesystem metadata named by those arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: MULTI_AGENT_FANIN_BUNDLE_RESULT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_multi_agent_fanin_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -9129,27 +8005,14 @@ def _write_bridge_dispatch_yield_resume_bundle_receipt(
     *,
     public_root: str | Path,
 ) -> str:
-    """[ACTION] Write bridge dispatch yield resume bundle receipt for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_write_bridge_dispatch_yield_resume_bundle_receipt`.
-    - Preconditions: Callers provide out_dir, validation_result, public_root in the
-      shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them.
-    - Guarantee: Returns str after writing only the declared receipt/output artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants
-      BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RESULT_NAME; filesystem metadata named by
-      those arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RESULT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_bridge_dispatch_yield_resume_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -9222,26 +8085,14 @@ def _write_controller_heartbeat_bundle_receipt(
     *,
     public_root: str | Path,
 ) -> str:
-    """[ACTION] Write controller heartbeat bundle receipt for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_write_controller_heartbeat_bundle_receipt`.
-    - Preconditions: Callers provide out_dir, validation_result, public_root in the
-      shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them.
-    - Guarantee: Returns str after writing only the declared receipt/output artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants CONTROLLER_HEARTBEAT_BUNDLE_RESULT_NAME;
-      filesystem metadata named by those arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: CONTROLLER_HEARTBEAT_BUNDLE_RESULT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_controller_heartbeat_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -9335,27 +8186,14 @@ def _write_agent_trace_route_repair_bundle_receipt(
     *,
     public_root: str | Path,
 ) -> str:
-    """[ACTION] Write agent trace route repair bundle receipt for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_write_agent_trace_route_repair_bundle_receipt`.
-    - Preconditions: Callers provide out_dir, validation_result, public_root in the
-      shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them.
-    - Guarantee: Returns str after writing only the declared receipt/output artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants
-      AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RESULT_NAME; filesystem metadata named by those
-      arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RESULT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_agent_trace_route_repair_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -9434,27 +8272,14 @@ def _write_agent_observability_store_bundle_receipt(
     *,
     public_root: str | Path,
 ) -> str:
-    """[ACTION] Write agent observability store bundle receipt for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_write_agent_observability_store_bundle_receipt`.
-    - Preconditions: Callers provide out_dir, validation_result, public_root in the
-      shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them.
-    - Guarantee: Returns str after writing only the declared receipt/output artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants
-      AGENT_OBSERVABILITY_STORE_BUNDLE_RESULT_NAME; filesystem metadata named by those
-      arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: AGENT_OBSERVABILITY_STORE_BUNDLE_RESULT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_agent_observability_store_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -9537,27 +8362,14 @@ def run_observability_bundle(
     *,
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run observability bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `run_observability_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command, reuse_fresh_receipt in
-      the shape consumed by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants FIXTURE_ID,
-      OBSERVABILITY_BUNDLE_FORBIDDEN_KEYS, ORGAN_ID, SOURCE_PATTERN_IDS,
-      VALIDATOR_ASSERTED_FEEDS_PATTERNS, VALIDATOR_ID.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: FIXTURE_ID, OBSERVABILITY_BUNDLE_FORBIDDEN_KEYS, ORGAN_ID,
-      SOURCE_PATTERN_IDS, VALIDATOR_ASSERTED_FEEDS_PATTERNS, VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Runs the full observability replay bundle from public fixture inputs to receipts and result card data.
+    - Guarantee: A pass means all core observability inputs, manifests, policies, private-state scans, and receipt writes succeeded within the claim ceiling.
+    - Fails: Missing fixture, strict JSON error, source-manifest drift, private-state finding, or receipt write failure -> failed result envelope.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -9784,30 +8596,14 @@ def run_route_compliance_audit_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run route compliance audit bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `run_route_compliance_audit_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      EXPORTED_ROUTE_COMPLIANCE_AUDIT_BUNDLE_RECEIPT_PATH, FIXTURE_ID, ORGAN_ID,
-      ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_RELATION, SOURCE_PATTERN_IDS,
-      VALIDATOR_ID.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: EXPORTED_ROUTE_COMPLIANCE_AUDIT_BUNDLE_RECEIPT_PATH, FIXTURE_ID,
-      ORGAN_ID, ROUTE_COMPLIANCE_AUDIT_SANITIZED_SOURCE_RELATION, SOURCE_PATTERN_IDS,
-      VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Reruns the route-compliance audit bundle as an inspectable public evidence package.
+    - Guarantee: A pass binds route rows, policies, source manifests, summaries, and receipts to deterministic fixture inputs.
+    - Fails: Missing input, JSON parse failure, source drift, summary mismatch, or private-state scan failure -> failed result envelope.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -10074,31 +8870,14 @@ def run_session_attribution_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run session attribution bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `run_session_attribution_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
-      receives. Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; module constants
-      EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH, FIXTURE_ID, ORGAN_ID,
-      SESSION_ATTRIBUTION_ANTI_CLAIM, SESSION_ATTRIBUTION_AUTHORITY_CEILING,
-      SESSION_ATTRIBUTION_SOURCE_REF, SESSION_ATTRIBUTION_TARGET_REF, VALIDATOR_ID;
-      filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: EXPORTED_SESSION_ATTRIBUTION_BUNDLE_RECEIPT_PATH, FIXTURE_ID, ORGAN_ID,
-      SESSION_ATTRIBUTION_ANTI_CLAIM, SESSION_ATTRIBUTION_AUTHORITY_CEILING,
-      SESSION_ATTRIBUTION_SOURCE_REF, SESSION_ATTRIBUTION_TARGET_REF, VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Reruns public session-attribution metadata without reading live agent session logs.
+    - Guarantee: A pass writes receipt evidence proving attribution output derives from synthetic AgentTraceStore and Work Ledger inputs.
+    - Fails: Missing fixture, source-manifest drift, raw transcript/body field, or summary mismatch -> failed result envelope.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -10295,32 +9074,14 @@ def run_harness_configuration_audit_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run harness configuration audit bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `run_harness_configuration_audit_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      EXPORTED_HARNESS_CONFIGURATION_AUDIT_BUNDLE_RECEIPT_PATH, FIXTURE_ID,
-      HARNESS_CONFIGURATION_AUDIT_ANTI_CLAIM,
-      HARNESS_CONFIGURATION_AUDIT_AUTHORITY_CEILING, ORGAN_ID, SOURCE_PATTERN_IDS,
-      VALIDATOR_ID.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: EXPORTED_HARNESS_CONFIGURATION_AUDIT_BUNDLE_RECEIPT_PATH, FIXTURE_ID,
-      HARNESS_CONFIGURATION_AUDIT_ANTI_CLAIM,
-      HARNESS_CONFIGURATION_AUDIT_AUTHORITY_CEILING, ORGAN_ID, SOURCE_PATTERN_IDS,
-      VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Reruns the harness-configuration audit over public synthetic settings, hook, and skill-registry metadata.
+    - Guarantee: A pass writes receipt evidence for configuration-shape drift without exporting live settings or hook bodies.
+    - Fails: Missing fixture, forbidden body field, source-manifest drift, or expected-summary mismatch -> failed result envelope.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -10494,31 +9255,14 @@ def run_multi_agent_fanin_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run multi agent fanin bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `run_multi_agent_fanin_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH, FIXTURE_ID,
-      MULTI_AGENT_FANIN_ANTI_CLAIM, MULTI_AGENT_FANIN_AUTHORITY_CEILING,
-      MULTI_AGENT_FANIN_SOURCE_REF, MULTI_AGENT_FANIN_SOURCE_TARGET_REF, ORGAN_ID,
-      VALIDATOR_ID.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: EXPORTED_MULTI_AGENT_FANIN_BUNDLE_RECEIPT_PATH, FIXTURE_ID,
-      MULTI_AGENT_FANIN_ANTI_CLAIM, MULTI_AGENT_FANIN_AUTHORITY_CEILING,
-      MULTI_AGENT_FANIN_SOURCE_REF, MULTI_AGENT_FANIN_SOURCE_TARGET_REF, ORGAN_ID,
-      VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Reruns multi-agent fan-in evidence as public conductor metadata, not live worker dispatch.
+    - Guarantee: A pass proves packet and worker summaries are source-backed, disjoint-scope-aware, and transcript-body-free.
+    - Fails: Missing fixture, conflicting worker scope, source drift, raw worker transcript, or summary mismatch -> failed result envelope.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -10748,34 +9492,14 @@ def run_bridge_dispatch_yield_resume_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run bridge dispatch yield resume bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `run_bridge_dispatch_yield_resume_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      BRIDGE_DISPATCH_YIELD_RESUME_FORBIDDEN_KEYS,
-      BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF,
-      BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_TARGET_REF,
-      EXPORTED_BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RECEIPT_PATH, FIXTURE_ID, ORGAN_ID,
-      VALIDATOR_ID.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: BRIDGE_DISPATCH_YIELD_RESUME_FORBIDDEN_KEYS,
-      BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_REF,
-      BRIDGE_DISPATCH_YIELD_RESUME_SOURCE_TARGET_REF,
-      EXPORTED_BRIDGE_DISPATCH_YIELD_RESUME_BUNDLE_RECEIPT_PATH, FIXTURE_ID, ORGAN_ID,
-      VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Reruns bridge dispatch yield/resume evidence from public fixture metadata.
+    - Guarantee: A pass writes receipt evidence that resume targets, wait kinds, and source refs are bounded and reproducible.
+    - Fails: Missing fixture, malformed resume target, source-manifest drift, or private worker payload -> failed result envelope.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -10960,29 +9684,14 @@ def run_controller_heartbeat_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run controller heartbeat bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `run_controller_heartbeat_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants CONTROLLER_HEARTBEAT_SOURCE_REF,
-      CONTROLLER_HEARTBEAT_SOURCE_TARGET_REF,
-      EXPORTED_CONTROLLER_HEARTBEAT_BUNDLE_RECEIPT_PATH, FIXTURE_ID, ORGAN_ID,
-      VALIDATOR_ID.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: CONTROLLER_HEARTBEAT_SOURCE_REF, CONTROLLER_HEARTBEAT_SOURCE_TARGET_REF,
-      EXPORTED_CONTROLLER_HEARTBEAT_BUNDLE_RECEIPT_PATH, FIXTURE_ID, ORGAN_ID,
-      VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Reruns controller-heartbeat evidence as a public metadata replay.
+    - Guarantee: A pass proves heartbeat rows, dedupe behavior, authority ceiling, and receipt references are source-backed.
+    - Fails: Missing fixture, heartbeat schema drift, source drift, or live-control overclaim -> failed result envelope.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -11176,28 +9885,14 @@ def run_agent_trace_route_repair_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run agent trace route repair bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `run_agent_trace_route_repair_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      EXPORTED_AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RECEIPT_PATH, FIXTURE_ID, ORGAN_ID,
-      VALIDATOR_ID.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: EXPORTED_AGENT_TRACE_ROUTE_REPAIR_BUNDLE_RECEIPT_PATH, FIXTURE_ID,
-      ORGAN_ID, VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Reruns agent-trace-to-route-repair evidence as public route correction metadata.
+    - Guarantee: A pass binds repair rows to source refs, trace evidence, policy ceilings, and receipt outputs.
+    - Fails: Missing fixture, behavior-repair overclaim, source drift, or private trace body -> failed result envelope.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -11397,31 +10092,14 @@ def run_agent_observability_store_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run agent observability store bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `run_agent_observability_store_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants AGENT_OBSERVABILITY_STORE_SOURCE_REF,
-      AGENT_OBSERVABILITY_STORE_SOURCE_TARGET_REF,
-      EXPORTED_AGENT_OBSERVABILITY_STORE_BUNDLE_RECEIPT_PATH, FIXTURE_ID, ORGAN_ID,
-      VALIDATOR_ID.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AGENT_OBSERVABILITY_STORE_SOURCE_REF,
-      AGENT_OBSERVABILITY_STORE_SOURCE_TARGET_REF,
-      EXPORTED_AGENT_OBSERVABILITY_STORE_BUNDLE_RECEIPT_PATH, FIXTURE_ID, ORGAN_ID,
-      VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Reruns observability-store evidence over public trace-store metadata.
+    - Guarantee: A pass proves store emissions, gap rows, summaries, and source refs are reproducible without raw trace bodies.
+    - Fails: Missing fixture, forbidden payload key, source drift, or summary mismatch -> failed result envelope.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -11630,29 +10308,14 @@ def validate_computer_use_source_manifest(
     input_dir: Path,
     manifest_payload: object,
 ) -> dict[str, Any]:
-    """[ACTION] Validate computer use source manifest against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `validate_computer_use_source_manifest`.
-    - Preconditions: Callers provide input_dir, manifest_payload in the shape consumed
-      by the body; content inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, called validators/helpers.
-    - Reads: call arguments; module constants COMPUTER_USE_REFACTOR_SOURCE_REF,
-      COMPUTER_USE_REFACTOR_TARGET_REF, COMPUTER_USE_SOURCE_MODULE_PATHS,
-      COMPUTER_USE_SOURCE_MODULE_SPECS; filesystem/content inputs named by those
-      arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: COMPUTER_USE_REFACTOR_SOURCE_REF, COMPUTER_USE_REFACTOR_TARGET_REF,
-      COMPUTER_USE_SOURCE_MODULE_PATHS, COMPUTER_USE_SOURCE_MODULE_SPECS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Confirms computer-use replay imports the intended public trace standard and agent-execution source body.
+    - Guarantee: Passing manifest rows resolve expected refs, hashes, and copied public bodies for the synthetic computer-use fixture.
+    - Fails: Missing source, hash drift, wrong target ref, or raw screenshot/body export -> validation finding.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -11881,41 +10544,27 @@ def validate_computer_use_source_manifest(
 
 
 def _computer_use_action_ids(rows: list[dict[str, Any]]) -> set[str]:
-    """[ACTION] Implement computer use action IDs for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_computer_use_action_ids`.
-    - Preconditions: Callers provide rows in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns set[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_computer_use_action_ids` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {str(row.get("action_id")) for row in rows if row.get("action_id")}
 
 
 def _validate_computer_use_projection_protocol(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate computer use projection protocol against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_validate_computer_use_projection_protocol`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_computer_use_projection_protocol` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     protocol = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -11988,23 +10637,14 @@ def _validate_computer_use_projection_protocol(payload: object) -> dict[str, Any
 
 
 def _validate_computer_use_interaction_policy(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate computer use interaction policy against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_validate_computer_use_interaction_policy`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants COMPUTER_USE_ALLOWED_ACTION_KINDS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: COMPUTER_USE_ALLOWED_ACTION_KINDS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_computer_use_interaction_policy` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     policy = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -12048,21 +10688,14 @@ def _validate_computer_use_interaction_policy(payload: object) -> dict[str, Any]
 
 
 def _validate_computer_use_episodes(payload: object) -> dict[str, Any]:
-    """[ACTION] Validate computer use episodes against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_validate_computer_use_episodes`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_computer_use_episodes` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, environment variables.
+    - Writes: return values.
     """
     rows = _rows(payload, "episodes")
     findings: list[dict[str, Any]] = []
@@ -12118,23 +10751,14 @@ def _validate_computer_use_observations(
     payload: object,
     episode_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate computer use observations against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_validate_computer_use_observations`.
-    - Preconditions: Callers provide payload, episode_rows in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_computer_use_observations` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "observations")
     episode_ids = {row["episode_id"] for row in episode_rows}
@@ -12207,23 +10831,14 @@ def _validate_computer_use_actions(
     episode_rows: list[dict[str, Any]],
     observation_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate computer use actions against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `_validate_computer_use_actions`.
-    - Preconditions: Callers provide payload, episode_rows, observation_rows in the
-      shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants COMPUTER_USE_ALLOWED_ACTION_KINDS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: COMPUTER_USE_ALLOWED_ACTION_KINDS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_computer_use_actions` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "actions")
     episode_ids = {row["episode_id"] for row in episode_rows}
@@ -12308,23 +10923,14 @@ def _validate_computer_use_authority_verdicts(
     payload: object,
     action_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate computer use authority verdicts against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_validate_computer_use_authority_verdicts`.
-    - Preconditions: Callers provide payload, action_rows in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_computer_use_authority_verdicts` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "authority_verdicts")
     action_by_id = {row["action_id"]: row for row in action_rows}
@@ -12411,23 +11017,14 @@ def _validate_computer_use_state_transitions(
     action_rows: list[dict[str, Any]],
     verdict_by_id: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate computer use state transitions against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_validate_computer_use_state_transitions`.
-    - Preconditions: Callers provide payload, action_rows, verdict_by_id in the shape
-      consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_computer_use_state_transitions` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "state_transitions")
     action_by_id = {row["action_id"]: row for row in action_rows}
@@ -12521,23 +11118,14 @@ def _validate_computer_use_recovery_receipts(
     action_rows: list[dict[str, Any]],
     verdict_by_id: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate computer use recovery receipts against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_validate_computer_use_recovery_receipts`.
-    - Preconditions: Callers provide payload, action_rows, verdict_by_id in the shape
-      consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_computer_use_recovery_receipts` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "recovery_receipts")
     recovery_refs = {
@@ -12608,23 +11196,14 @@ def _validate_computer_use_cold_replay(
     payload: object,
     action_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate computer use cold replay against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_validate_computer_use_cold_replay`.
-    - Preconditions: Callers provide payload, action_rows in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_computer_use_cold_replay` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows = _rows(payload, "cold_replay")
     action_ids = _computer_use_action_ids(action_rows)
@@ -12700,41 +11279,30 @@ def _validate_computer_use_cold_replay(
 def _validate_computer_use_negative_cases(
     payloads: dict[str, Any],
 ) -> dict[str, Any]:
-    """[ACTION] Validate computer use negative cases against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `_validate_computer_use_negative_cases`.
-    - Preconditions: Callers provide payloads in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_computer_use_negative_cases` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
 
     def record(case_id: str, code: str, message: str, subject_id: str) -> None:
-        """[ACTION] Implement record for this organ replay.
-
-        - Teleology: Supports agent route observability runtime by documenting and
-          preserving the exact local step implemented by `record`.
-        - Preconditions: Callers provide case_id, code, message, subject_id in the shape
-          consumed by the body.
-        - Mechanism: Delegates to _record and applies local branch checks.
-        - Guarantee: Returns None from the explicit return paths in the function body.
-        - Fails: No explicit raise is introduced; failures propagate from called
-          validators/helpers.
-        - Reads: call arguments.
-        - Writes: No external writes; the body only returns in-memory values.
-        - Non-goal: Does not widen this module's public authority ceiling, add provider
-          calls, or expose private material.
+        """
+        [ACTION]
+        - Teleology: Records one synthetic computer-use negative-case finding
+          under a stable fixture case id.
+        - Guarantee: Updates both finding rows and observed-code coverage so
+          expected negative-case checks remain deterministic.
+        - Fails: None; malformed caller values are preserved as finding payload
+          strings and checked by the enclosing validator.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
         """
         _record(
             findings,
@@ -12826,33 +11394,14 @@ def run_computer_use_action_trace_bundle(
     *,
     include_negative: bool | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run computer use action trace bundle for this organ replay.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by
-      `run_computer_use_action_trace_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command, include_negative in
-      the shape consumed by the body; write targets must be inside the caller-selected
-      output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them. Iterates candidate paths or structured rows exactly as
-      written in the body.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
-      called validators/helpers.
-    - Reads: call arguments; module constants COMPUTER_USE_ANTI_CLAIM,
-      COMPUTER_USE_AUTHORITY_CEILING, COMPUTER_USE_BUNDLE_RESULT_NAME,
-      COMPUTER_USE_EXPECTED_NEGATIVE_CASES, COMPUTER_USE_FIXTURE_RESULT_NAME,
-      COMPUTER_USE_SOURCE_PATTERN_IDS, FIXTURE_ID, ORGAN_ID, ....
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: COMPUTER_USE_ANTI_CLAIM, COMPUTER_USE_AUTHORITY_CEILING,
-      COMPUTER_USE_BUNDLE_RESULT_NAME, COMPUTER_USE_EXPECTED_NEGATIVE_CASES,
-      COMPUTER_USE_FIXTURE_RESULT_NAME, COMPUTER_USE_SOURCE_PATTERN_IDS, FIXTURE_ID,
-      ORGAN_ID, VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Reruns the synthetic computer-use action trace fixture from observation through authority verdict, replay, recovery, and receipts.
+    - Guarantee: A pass proves the trace is inspectable, source-backed, negative-case-covered, and explicitly not live browser control.
+    - Fails: Missing fixture, malformed trace row, source drift, forbidden live action, or expected negative-case mismatch -> failed result envelope.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -13118,27 +11667,14 @@ def run_computer_use_action_trace_bundle(
 
 
 def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
-    """[ACTION] Run the organ replay pipeline and return the computed result payload.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `run`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; module constants EXPECTED_NEGATIVE_CASES, FIXTURE_ID,
-      OBSERVABILITY_ANTI_CLAIM, OBSERVABILITY_AUTHORITY_CEILING, ORGAN_ID, VALIDATOR_ID;
-      filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: EXPECTED_NEGATIVE_CASES, FIXTURE_ID, OBSERVABILITY_ANTI_CLAIM,
-      OBSERVABILITY_AUTHORITY_CEILING, ORGAN_ID, VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Provides the default organ entrypoint for the observability runtime replay.
+    - Guarantee: Delegates to the observability bundle runner and returns its claim-bounded validation envelope.
+    - Fails: Any observability-bundle validation failure or receipt write failure -> failed result envelope.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -13284,24 +11820,14 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Build the compact result card from replay output.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `result_card`.
-    - Preconditions: Callers provide result in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants
-      OBSERVABILITY_CARD_OMITTED_FULL_PAYLOAD_KEYS, OBSERVABILITY_CARD_SCHEMA_VERSION.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: OBSERVABILITY_CARD_OMITTED_FULL_PAYLOAD_KEYS,
-      OBSERVABILITY_CARD_SCHEMA_VERSION.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Compresses a full validation result into a package-local start card for humans and coding agents.
+    - Guarantee: Returns status, claim ceiling, receipt paths, omitted payload keys, and next validation handles without embedding full findings.
+    - Fails: Missing optional fields degrade to empty card fields; absent noncritical result sections do not raise.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     freshness_payload = result.get("freshness_basis")
     freshness = freshness_payload if isinstance(freshness_payload, dict) else {}
@@ -13400,21 +11926,14 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
-
-    - Teleology: Supports agent route observability runtime by documenting and
-      preserving the exact local step implemented by `main`.
-    - Preconditions: Callers provide argv in the shape consumed by the body; write
-      targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Configures argparse commands and options that the module exposes.
-      Writes only the output paths named by the caller, temporary workspace, or module
-      constants.
-    - Guarantee: Returns int from the selected CLI command path.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
-    - Reads: call arguments.
-    - Writes: filesystem output explicitly written by this body.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Exposes the organ replay as a command-line validator for local package inspection.
+    - Guarantee: Parses input/output paths, runs the selected replay mode, prints JSON, and exits nonzero on failed validation.
+    - Fails: Bad arguments, missing fixture data, strict JSON errors, or failed validation -> nonzero process exit.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="action")

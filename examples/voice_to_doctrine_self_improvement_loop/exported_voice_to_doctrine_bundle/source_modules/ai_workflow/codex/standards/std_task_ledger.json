@@ -170,6 +170,7 @@
         "state/task_ledger/events.jsonl or its deterministic projections are blocked by a live Work Ledger/path claim, single-writer lock, or serial intake queue."
       ],
       "payload_validation_rule": "Validate payload shape before treating settlement as in progress. A rejected payload that did not append is a local preflight failure, not partial ledger mutation; fix the payload and rerun through the same serial lane.",
+      "three_phase_receipt_assimilation_rule": "Do not collapse source_landed, receipt_assimilated, and projection_visible into one closeout proof. A source commit with a valid receipt request in state/task_ledger_intake/pending is source_landed_receipt_pending, not validated_complete; an applied intake request proves receipt_assimilated, while generated projection visibility is separately proven by projection manifest count/tail-hash freshness.",
       "exact_surface_status_vocabulary": [
         "exists",
         "missing",
@@ -179,6 +180,7 @@
       ],
       "exact_surface_status_rule": "integration_contract.exact_surfaces_discovered.status must use the validator vocabulary above. Use status=exists only for disk-grounded paths or historical exists evidence, status=missing only with absence evidence, and command/schema/implied only with evidence objects.",
       "serial_authority_rule": "Task Ledger metadata settlement is a same-authority append-log write. Do not run mutating task_ledger_apply.py commands in parallel; use one direct event command, one batch command, or the enqueue-execution-receipt/drain-intake lane when several agents need the same authority file.",
+      "serial_intake_replay_rule": "Exact drain-intake replay by request id or idempotency key must be idempotent: pending requests may append at most once, applied requests must return an already-applied/no-op classification, blocked requests must return the blocker, and none of these states may be reported as a missing pending receipt.",
       "claim_blocker_rule": "A live exclusive claim on state/task_ledger/events.jsonl is a governed blocker. Do not bypass it with the wrong session id, broad staging, manual projection edits, or direct JSONL edits.",
       "legal_continuations": [
         {
@@ -547,7 +549,8 @@
       "durable_side_work_rule": "Durable side work must be quick-captured, shaped, blocked, retired, propagated, or explicitly recorded as nothing_to_refine/already_propagated_verified through the Task Ledger or owning propagation lane.",
       "partial_instruction_residual_rule": "When a broad operator instruction contains more deliverables than the current runtime slice executes, the agent must bind the executed slice to the active mission/WorkItem and route each remaining durable deliverable to an existing matching cap_*/WorkItem, a new quick-capture, a blocker/retirement disposition, or an explicit no-residual/no-op verdict before final response. Native TODOs and prose summaries are scratch only.",
       "spawn_task_rule": "spawn_task/native chips may carry work only when they also create or point to a cap_*/WorkItem id; otherwise they are audit evidence for possible adapter leakage, not authority.",
-      "self_detected_error_capture_rule": "Self-detected errors are a tripwire trigger class equivalent to flag-without-capture. Any self-noticed mistake, false claim, fabricated id/path/fact, broken edit, wrong-tool detour, hallucinated CLI flag, or bad routing decision must be quick-captured BEFORE the operator-facing acknowledgment or correction, and the cap_id cited inline. Tripwire phrases include 'I was wrong', 'my mistake', 'I made an error', 'I broke', 'I fabricated', 'I made up', 'false claim', 'bad edit path', 'I miscounted', 'I misread', 'wrong file', 'wrong command'. The capture title names the failure class; --note carries one or two sentences of failure mode plus minimal recoverable context (quick on-the-fly register, not a postmortem). Tag with self_error plus the affected subsystem. Mistake-without-capture is a hard protocol violation, not a soft preference. Operator anchor: 2026-05-04 'if you ever make a mistake just add it to the todo as a failure mode with a bit of context, just a quick on the fly one'.",
+      "self_detected_error_capture_rule": "Self-detected errors are a tripwire trigger class equivalent to flag-without-capture. Any self-noticed mistake, false claim, fabricated id/path/fact, broken edit, wrong-tool detour, hallucinated CLI flag, or bad routing decision must be quick-captured BEFORE the operator-facing acknowledgment or correction, and the cap_id cited inline. Tripwire phrases include 'I was wrong', 'my mistake', 'I made an error', 'I broke', 'I fabricated', 'I made up', 'false claim', 'bad edit path', 'I miscounted', 'I misread', 'wrong file', 'wrong command'. The capture title names the failure class; --note carries one or two sentences of failure mode plus minimal recoverable context (quick on-the-fly register, not a postmortem). Tag with self_error plus the affected subsystem. Mistake-without-capture is a hard protocol violation, not a soft preference. Operator anchor: 2026-05-04 'if you ever make a mistake just add it to the todo as a failure mode with a bit of context, just a quick on the fly one'. This reflex is BOUNDED by self_error_capture_boundary_rule: a same-turn self-corrected tool-iteration step that never escaped to a durable or operator-facing surface is not a trigger, the append-first capture is always in-scope, and a missed ordering is recovered by capturing anyway — never by going silent.",
+      "self_error_capture_boundary_rule": "Boundary on self_detected_error_capture_rule that keeps the reflex sharp and fail-safe; it narrows the trigger and forbids the silence failure mode, it does not weaken capture for real escapes. (1) DURABLE-ESCAPE FLOOR: the reflex targets a mistake that ESCAPED into a durable or operator-facing surface — a false claim shown to the operator, a landed/written/committed edit, a wrong id/path/fact cited as truth, or a routing/decision that propagated. A wrong tool call the agent corrected inside the same turn with no external trace and no operator-facing false claim (a wrong jq/JSON path or grep refined by first inspecting the shape, a command retried with the right flags, an interface probed then used correctly) is normal tool iteration, NOT a self-error capture trigger. Apply the OBJECTIVE test 'did it escape the tool-iteration loop into a durable/operator surface?', never the subjective 'was it meaningful or durable?' — meaningfulness is the known rationalization that lets a real self-error talk itself out of capture; default to capture on any doubt about whether it escaped. (2) CAPTURE-IS-IN-SCOPE: the append-first quick-capture is an append-only observability/metabolic write and is ALWAYS in-scope; a session mutation-scope that restricts which work surfaces you may change never gates the capture reflex, because the capture is what makes the scoped work auditable, not a mutation of the scoped surface. Never treat 'I may only touch surface X' as a reason to skip the reflex. (3) TOO-LATE LANE: 'stay silent until the capture is authority-visible' is an ordering rule (do not announce a finding before capturing it); it is NOT license to suppress a mistake you already mentioned. If the ordering was missed and the mistake already shipped in prose, the recovery is to capture/correct anyway and cite the cap_id — never to suppress it, 'avoid mentioning it again', or go silent. Self-silencing about a real self-error is itself a hard violation, strictly worse than a late capture. Earned 2026-06-15 from a leaked Codex reasoning trace that rationalized a trivial self-corrected JSON-path probe into a deadlock between this reflex and a campaign mutation-scope and resolved it by self-silencing; specimen: docs/observations/codex_cot_leak_2026-06-15_dossier_ratchet.md.",
       "observed_failure_capture_invariant": "If an agent observes a failing test, command error, failed validation, substrate drift, contradiction, or self-error and does not fix it in the same turn, it must create or reference a durable WorkItem/capture before final response. Reporting the issue in prose is not a substitute for a WorkItem. The legal closeout states are: fixed and validated, captured as a new cap_*/WorkItem, or explicitly linked to an existing capture that names the original failure.",
       "quick_capture_receipt_rule": "A quick-capture is a receipt only after the command exits zero and the returned subject_id/cap_id is visible in Task Ledger authority through visibility_receipt.event_ids_visible_in_authority or projection_assimilation_state.authority_event_visible. Projection/card visibility is a separate assimilation state: without `--rebuild`, the receipt may be authority-visible while projection_status is stale_until_rebuild; with deferred rebuild, queued_for_drain and reentry_condition name the settlement lane. `quick-capture` takes `--title` and text fields such as `--statement`, `--summary` (compatibility alias for `--statement`), `--note`, or `--problem`; a positional title or nonzero command is a failed capture attempt. Prefer repeated `--tag` flags for tags; `--tags` is accepted as a quick-capture compatibility alias and normalizes comma-separated values into the same payload field. When compacting command output, preserve the returned subject_id/cap_id, command status, and visibility receipt as structured evidence; grep/head/tail summaries that hide the id or nonzero status are not sufficient receipt proof. Do not cite a cap_id, shape a WorkItem, or claim capture completed from an intended command, stderr, remembered interface, or projection/card visibility that has not been rebuilt.",
       "validation_warning_baseline_rule": "A Task Ledger validate result with validation_status=valid_with_warnings, error_count=0, and warning rows known to be historical/baseline or unrelated evidence-durability findings is warning-only closeout evidence, not a new side finding. It becomes a capture trigger only when a warning is task-owned, the warning class/count/source changed from the accepted baseline, or the operator explicitly asks to capture the warning. Do not quick-capture a baseline warning just to mention closeout. If a new warning must be captured under ledger concurrency, run exactly one serialized quick-capture without `--rebuild` or with projection-rebuild-policy off, wait for its authority-visible visibility_receipt, and do not start duplicate retry commands."
@@ -1304,6 +1307,82 @@
   },
   "execution_receipt_contract": {
     "purpose": "Task Ledger execution receipts preserve the proof that claimed work reached an evidence-backed closeout state.",
+    "calibration_spend_receipt_contract": {
+      "schema": "calibration_spend_receipt_v0",
+      "purpose": "When a generated-state measurement is used to change a durable calibration surface, the consumer must record a typed receipt that proves the measurement was settled and valid for that consumer, or records a typed bypass.",
+      "owner_guard": "tools/meta/factory/task_ledger_apply.py::record-execution-receipt",
+      "validator": "system/lib/calibration_spend_receipts.py::validate_calibration_spend_receipt",
+      "egress_consumer": "system/lib/egress_compliance.py::detect_generated_measurement_calibration_spend_without_gate",
+      "measurement_source_owner": "system/lib/generated_state_drainer.py::generated_projection_measurement_gate_v0",
+      "required_fields": [
+        "schema",
+        "subject_changed",
+        "actuation_class",
+        "measurement_source",
+        "measurement_gate_ref",
+        "measurement_valid_for_calibration",
+        "settlement_verdict",
+        "desired_generation_ref",
+        "observed_generation_ref",
+        "source_authority_ref",
+        "generated_or_effect_surface_ref",
+        "consumer_owner",
+        "predicate",
+        "postcondition_validation_refs",
+        "bypass_class",
+        "bypass_reason",
+        "commit_or_receipt_ref"
+      ],
+      "gate_mode_required_fields": [
+        "schema",
+        "subject_changed",
+        "actuation_class",
+        "measurement_source",
+        "measurement_gate_ref",
+        "measurement_valid_for_calibration",
+        "settlement_verdict",
+        "desired_generation_ref",
+        "observed_generation_ref",
+        "source_authority_ref",
+        "generated_or_effect_surface_ref",
+        "consumer_owner",
+        "predicate",
+        "postcondition_validation_refs",
+        "commit_or_receipt_ref"
+      ],
+      "bypass_mode_required_fields": [
+        "schema",
+        "subject_changed",
+        "actuation_class",
+        "measurement_source",
+        "consumer_owner",
+        "predicate",
+        "postcondition_validation_refs",
+        "bypass_class",
+        "bypass_reason",
+        "commit_or_receipt_ref"
+      ],
+      "admission_rule": "A structured calibration_spend_receipt inside an execution receipt must validate before the apply lane appends or queues work_item.execution_receipt_recorded. Phrase-level egress wording is compatibility telemetry only; it is not the preferred authority for new work.",
+      "passing_settlement_verdicts": [
+        "accepted",
+        "calibration_candidate",
+        "clean",
+        "ok",
+        "pass",
+        "passed",
+        "settled",
+        "settlement_clean",
+        "settlement_passed",
+        "valid",
+        "measurement_valid",
+        "measurement_valid_for_calibration"
+      ],
+      "schema_identity_rule": "The receipt schema field is a const, not a presence marker: schema must equal calibration_spend_receipt_v0.",
+      "negative_proof": "Wrong receipt schema, missing fields, measurement_valid_for_calibration != true, non-passing settlement_verdict, or missing postcondition_validation_refs must block receipt admission before authority append.",
+      "positive_proof": "A gate-mode receipt with schema == calibration_spend_receipt_v0, the producer's calibration_candidate measurement gate, desired/observed generation refs, source/effect refs, consumer owner, predicate, postcondition validation refs, and commit_or_receipt_ref is admissible.",
+      "bypass_proof": "A source-only, no-applicability, blocked, or operator-directed bypass is admissible only when bypass_class, bypass_reason, consumer owner, predicate, postcondition validation refs, and commit_or_receipt_ref are structured fields.",
+      "replay_proof": "Stop-hook replay should pass compact logged calibration_spend_receipts into the same detector so current policy can retire or keep historical blocks without relying only on message-preview phrases."
+    },
     "commit_hash_rule": "A commit_hash is required for landed git closeout receipts. It may be absent only for explicitly validated-uncommitted closeouts where the system could not write git metadata.",
     "validated_uncommitted_allowed_closeout_states": [
       "validated_uncommitted_git_metadata_blocked"

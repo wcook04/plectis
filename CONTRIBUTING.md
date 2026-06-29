@@ -72,22 +72,24 @@ and runs the installed `microcosm` console command through the compact cards.
 Use it when the question is package installability rather than source-form
 runtime behavior.
 
-The test target creates a repository-local `.venv`, installs the test extra
+The test target creates a checkout-keyed temporary venv under
+`$(TMPDIR)/microcosm-substrate-venv-<checkout-key>`, installs the test extra
 there, and then runs pytest, so a clean clone does not need pytest preinstalled
-or system-site package writes. If you want to install once up front, use
-`make install`. The Makefile also routes pytest basetemp, Python bytecode
+or system-site package writes. If you want a stable command path, set `VENV`
+explicitly when you install. The Makefile also routes pytest basetemp, Python bytecode
 cache, and `TMPDIR` under per-run folders inside
 `$(TMPDIR)/microcosm-substrate-test-tmp` so broad local runs do not share the
 same active basetemp. Each run removes its own scratch folder after pytest
 exits unless `PYTEST_KEEP_TMP=1` is set, and `make clean` removes the shared
 scratch parent if a previous run was interrupted. The scratch root stays outside
 the checkout so tests that inspect git ancestry keep their normal cold-clone
-shape.
+shape. Microcosm also disables pytest's cache provider in `pyproject.toml`, so
+direct pytest does not create `.pytest_cache` in the checkout.
 
 If you bypass `make` and run separate pytest subsets at the same time, pass a
-unique `--basetemp` to each process. The default raw pytest basetemp is shared
-through `.microcosm/test-tmp/pytest`, so parallel direct invocations can race
-while copying fixture trees even when the code under test is fine.
+unique `--basetemp` to each process. Parallel direct invocations can still race
+while copying fixture trees if they are forced to share one basetemp, even when
+the code under test is fine.
 
 For the full macro-root development suite, use `make test-all` from a checkout
 where the sibling macro source paths are present.
@@ -106,13 +108,14 @@ standalone public verification floor.
 After install, the fuller first-screen route is:
 
 ```bash
-.venv/bin/plectis hello .
-.venv/bin/plectis first-screen --card .
-.venv/bin/plectis tour --card .
-.venv/bin/plectis status --card .
-.venv/bin/plectis authority --card
-.venv/bin/plectis workingness --card
-.venv/bin/plectis legibility-scorecard
+VENV=/tmp/plectis-dev-venv make install
+/tmp/plectis-dev-venv/bin/plectis hello .
+/tmp/plectis-dev-venv/bin/plectis first-screen --card .
+/tmp/plectis-dev-venv/bin/plectis tour --card .
+/tmp/plectis-dev-venv/bin/plectis status --card .
+/tmp/plectis-dev-venv/bin/plectis authority --card
+/tmp/plectis-dev-venv/bin/plectis workingness --card
+/tmp/plectis-dev-venv/bin/plectis legibility-scorecard
 ```
 
 If editable install is not available, keep the same first-screen route in
@@ -189,12 +192,12 @@ authority is rejected.
 ## Validation Floor
 
 Run the focused tests for the surface you touched. For public-entry and
-boundary docs, first run `make install` or
-`.venv/bin/python -m pip install -e '.[test]'` if your environment does not
-already have the test extra installed, then use the source-tree form:
+boundary docs, first run `VENV=/tmp/plectis-dev-venv make install` if your
+environment does not already have the test extra installed, then use the
+source-tree form:
 
 ```bash
-PYTHONPATH=src .venv/bin/python -m pytest tests/test_public_entry_docs.py tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py
+PYTHONPATH=src /tmp/plectis-dev-venv/bin/python -m pytest tests/test_public_entry_docs.py tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py
 ```
 
 For the repository verification path used by GitHub Actions, use:

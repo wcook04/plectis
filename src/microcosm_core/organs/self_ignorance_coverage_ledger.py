@@ -1,47 +1,28 @@
-"""[PURPOSE]
-- Teleology: Make self-ignorance coverage ledger evidence inspectable through runnable
-  public fixture code while keeping claims bounded to emitted receipts and authority
-  ceilings.
-- Mechanism: The file diffs live atlas rows against materialized documentation so
-  unknown coverage remains explicit rather than assumed away; helper functions load
-  fixtures, recompute predicates, normalize findings, build result/board/card payloads,
-  and write receipts.
-- Non-goal: Self-ignorance coverage ledger projects known coverage debt between live
-  Kind Atlas rows and generated System Atlas materialization counts. It does not claim
-  literal unknown-unknown omniscience, absence proof, source mutation, or release
-  authority.
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.organs.self_ignorance_coverage_ledger` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
 
 [INTERFACE]
-- CLI: Import or dispatch `microcosm_core.organs.self_ignorance_coverage_ledger` through
-  package call sites and tests; no argparse subcommand was detected.
-- Exports: evaluate, evaluate_negative_case, run, run_self_ignorance_bundle, main.
-- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
-  referenced by each callable body.
-- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
-  artifacts only where the called body performs explicit writes.
+- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, EXPECTED_NEGATIVE_CASES, EXPECTED_COVERAGE_SCOPE, EXPECTED_SYSTEM_ATLAS_CHECK_COMMAND, ALLOWED_SYSTEM_ATLAS_CHECK_STATUSES, MATERIALIZED_PREFIX_BY_KIND, MATERIALIZED_ENTITY_KIND_BY_KIND, AUTHORITY_CEILING, ANTI_CLAIM, SPEC, evaluate, evaluate_negative_case, run, run_self_ignorance_bundle, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, declared filesystem outputs and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
 
 [FLOW]
-- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
-  negative-case rows through the local helper stack.
-- Validate: Recompute module-specific predicates from structured inputs rather than
-  trusting fixture verdict fields alone.
-- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
-  anti-claims and authority ceilings preserved.
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
 
 [DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common
-- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+- Required: microcosm_core.organs._crown_jewel_common, system.lib.kind_atlas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
 
 [CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutation is limited to explicit
-  run/write helpers invoked by the caller.
-- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
-  state, clock values, subprocess results, dependency availability, and parser
-  invocation are the admitted runtime variables.
-- Boundary: Receipts and cards must stay public-root relative and body-free for private,
-  provider, credential, oracle, hidden-answer, or raw exploit material.
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
-
 from __future__ import annotations
 
 import json
@@ -135,19 +116,14 @@ SPEC = CrownJewelSpec(
 
 
 def _int_or_none(value: object) -> int | None:
-    """[ACTION] Implement int or none for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_int_or_none`.
-    - Preconditions: Callers provide value in the shape consumed by the body.
-    - Mechanism: Delegates to int and applies local branch checks.
-    - Guarantee: Returns int | None from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_int_or_none` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if isinstance(value, bool):
         return None
@@ -162,20 +138,14 @@ def _int_or_none(value: object) -> int | None:
 
 
 def _strings(value: object) -> list[str]:
-    """[ACTION] Filter a list payload down to non-empty string values.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_strings`.
-    - Preconditions: Callers provide value in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(value, list):
         return []
@@ -186,24 +156,14 @@ def _materialized_ids_by_kind_from_graph(
     entities: list[dict[str, Any]],
     selected_kind_ids: set[str],
 ) -> dict[str, set[str]]:
-    """[ACTION] Implement materialized IDs by kind from graph for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_materialized_ids_by_kind_from_graph`.
-    - Preconditions: Callers provide entities, selected_kind_ids in the shape consumed
-      by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, set[str]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants MATERIALIZED_ENTITY_KIND_BY_KIND,
-      MATERIALIZED_PREFIX_BY_KIND.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: MATERIALIZED_ENTITY_KIND_BY_KIND, MATERIALIZED_PREFIX_BY_KIND.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_materialized_ids_by_kind_from_graph` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     ids_by_kind: dict[str, set[str]] = {kind_id: set() for kind_id in selected_kind_ids}
     for entity in entities:
@@ -227,22 +187,14 @@ def _system_atlas_graph_materialization(
     findings: list[dict[str, Any]],
     selected_kind_ids: set[str],
 ) -> dict[str, Any]:
-    """[ACTION] Implement system atlas graph materialization for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_system_atlas_graph_materialization`.
-    - Preconditions: Callers provide input_dir, findings, selected_kind_ids in the shape
-      consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_system_atlas_graph_materialization` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     graph_path = input_dir / "system_atlas_graph.json"
     graph = load_json_object(
@@ -284,24 +236,14 @@ def _live_system_atlas_graph_materialization(
     public_root: Path,
     selected_kind_ids: set[str],
 ) -> dict[str, Any]:
-    """[ACTION] Implement live system atlas graph materialization for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_live_system_atlas_graph_materialization`.
-    - Preconditions: Callers provide public_root, selected_kind_ids in the shape
-      consumed by the body; content inputs must exist and match the expected local
-      fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, called validators/helpers.
-    - Reads: call arguments; filesystem/content inputs named by those arguments or
-      constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_live_system_atlas_graph_materialization` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     repo_root = _repo_root_for_live_kind_atlas(public_root)
     if repo_root is None:
@@ -348,21 +290,14 @@ def _expected_entity_ids_source_backed(
     kind_atlas: dict[str, Any],
     graph_materialization: dict[str, Any],
 ) -> bool:
-    """[ACTION] Implement expected entity IDs source backed for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_expected_entity_ids_source_backed`.
-    - Preconditions: Callers provide kind_atlas, graph_materialization in the shape
-      consumed by the body.
-    - Mechanism: Delegates to kind_atlas.get, graph_materialization.get,
-      graph_materialization.get and applies local branch checks.
-    - Guarantee: Returns bool from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_expected_entity_ids_source_backed` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return (
         kind_atlas.get("materialized_entity_id_source_ref")
@@ -373,21 +308,14 @@ def _expected_entity_ids_source_backed(
 
 
 def _repo_root_for_live_kind_atlas(public_root: Path) -> Path | None:
-    """[ACTION] Implement repo root for live kind atlas for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_repo_root_for_live_kind_atlas`.
-    - Preconditions: Callers provide public_root in the shape consumed by the body;
-      paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Delegates to is_file and applies local branch checks.
-    - Guarantee: Returns Path | None from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_repo_root_for_live_kind_atlas` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     candidate = public_root.parent
     if (candidate / "system/lib/kind_atlas.py").is_file():
@@ -396,22 +324,14 @@ def _repo_root_for_live_kind_atlas(public_root: Path) -> Path | None:
 
 
 def _repo_root_for_source_validation(public_root: Path) -> Path | None:
-    """[ACTION] Implement repo root for source validation for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_repo_root_for_source_validation`.
-    - Preconditions: Callers provide public_root in the shape consumed by the body;
-      paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them.
-    - Guarantee: Returns Path | None from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_repo_root_for_source_validation` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     candidate = _repo_root_for_live_kind_atlas(public_root)
     if candidate is not None:
@@ -423,23 +343,14 @@ def _repo_root_for_source_validation(public_root: Path) -> Path | None:
 
 
 def _entity_source_exists(repo_root: Path, kind_id: str, entity_id: str) -> bool | None:
-    """[ACTION] Implement entity source exists for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_entity_source_exists`.
-    - Preconditions: Callers provide repo_root, kind_id, entity_id in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Delegates to entity_id.startswith, entity_id.removeprefix,
-      entity_id.startswith, entity_id.removeprefix, entity_id.startswith and applies
-      local branch checks.
-    - Guarantee: Returns bool | None from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_entity_source_exists` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if kind_id == "concepts" and entity_id.startswith("concept_"):
         concept_id = entity_id.removeprefix("concept_")
@@ -456,22 +367,14 @@ def _source_validate_expected_entity_ids(
     public_root: Path,
     ids_by_kind: dict[str, set[str]],
 ) -> dict[str, Any]:
-    """[ACTION] Resolve source validate expected entity IDs from source-module evidence.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_source_validate_expected_entity_ids`.
-    - Preconditions: Callers provide public_root, ids_by_kind in the shape consumed by
-      the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_validate_expected_entity_ids` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     repo_root = _repo_root_for_source_validation(public_root)
     if repo_root is None:
@@ -504,23 +407,14 @@ def _live_kind_atlas_rows(
     public_root: Path,
     kind_ids: list[str],
 ) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
-    """[ACTION] Implement live kind atlas rows for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_live_kind_atlas_rows`.
-    - Preconditions: Callers provide public_root, kind_ids in the shape consumed by the
-      body; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Iterates candidate paths or structured rows exactly as
-      written in the body.
-    - Guarantee: Returns tuple[dict[str, dict[str, Any]], dict[str, Any]] from the
-      explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
-      called validators/helpers.
-    - Reads: call arguments.
-    - Writes: filesystem output explicitly written by this body.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_live_kind_atlas_rows` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     repo_root = _repo_root_for_live_kind_atlas(public_root)
     if repo_root is None or not kind_ids:
@@ -562,22 +456,14 @@ def _rows_with_live_kind_atlas_counts(
     rows: list[dict[str, Any]],
     public_root: Path,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    """[ACTION] Implement rows with live kind atlas counts for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_rows_with_live_kind_atlas_counts`.
-    - Preconditions: Callers provide rows, public_root in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns tuple[list[dict[str, Any]], dict[str, Any]] from the explicit
-      return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_rows_with_live_kind_atlas_counts` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     kind_ids = [
         str(row.get("kind_id"))
@@ -608,21 +494,14 @@ def _rows_with_live_kind_atlas_counts(
 
 
 def _copied_build_system_atlas_evidence(source_manifest: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Implement copied build system atlas evidence for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_copied_build_system_atlas_evidence`.
-    - Preconditions: Callers provide source_manifest in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_copied_build_system_atlas_evidence` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     modules = source_manifest.get("modules") if isinstance(source_manifest, dict) else []
     for row in modules if isinstance(modules, list) else []:
@@ -659,25 +538,14 @@ def _projection_protocol_receipt(
     protocol: dict[str, Any],
     findings: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Implement projection protocol receipt for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_projection_protocol_receipt`.
-    - Preconditions: Callers provide protocol, findings in the shape consumed by the
-      body.
-    - Mechanism: Delegates to findings.append, findings.append, protocol.get,
-      protocol.get, protocol.get and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants ALLOWED_SYSTEM_ATLAS_CHECK_STATUSES,
-      EXPECTED_COVERAGE_SCOPE, EXPECTED_SYSTEM_ATLAS_CHECK_COMMAND.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ALLOWED_SYSTEM_ATLAS_CHECK_STATUSES, EXPECTED_COVERAGE_SCOPE,
-      EXPECTED_SYSTEM_ATLAS_CHECK_COMMAND.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_projection_protocol_receipt` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     finding_start = len(findings)
     coverage_scope = str(protocol.get("coverage_scope") or "")
@@ -723,22 +591,14 @@ def _projection_protocol_receipt(
 
 
 def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Evaluate fixture evidence and return a structured verdict.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `evaluate`.
-    - Preconditions: Callers provide input_dir, _public_root, _source_manifest in the
-      shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     kind_atlas = load_json_object(input_dir / "kind_atlas_rows.json", findings, label="Kind Atlas rows")
@@ -1103,20 +963,14 @@ def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, An
 
 
 def _write_json(path: Path, payload: object) -> None:
-    """[ACTION] Serialize a payload as formatted JSON at the requested path.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `_write_json`.
-    - Preconditions: Callers provide path, payload in the shape consumed by the body;
-      write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants.
-    - Guarantee: Returns None after writing only the declared receipt/output artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
-    - Reads: call arguments.
-    - Writes: filesystem output explicitly written by this body.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_json` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     path.write_text(
         json.dumps(payload, indent=2, sort_keys=True) + "\n",
@@ -1129,29 +983,14 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
-    """[ACTION] Evaluate a negative-case row and return its verdict fields.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `evaluate_negative_case`.
-    - Preconditions: Callers provide case_id, input_dir, _expected_codes in the shape
-      consumed by the body; content inputs must exist and match the expected local
-      fixture shape; write targets must be inside the caller-selected output or
-      temporary area.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Writes only the output paths named by the caller, temporary workspace, or
-      module constants. Normalizes Path values and public-root-relative references
-      before returning them. Iterates candidate paths or structured rows exactly as
-      written in the body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants ORGAN_ID, SPEC; filesystem/content inputs
-      named by those arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: ORGAN_ID, SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, declared filesystem outputs.
     """
     with TemporaryDirectory(prefix=f"{ORGAN_ID}-{case_id}-") as scratch:
         semantic_input = Path(scratch) / "input"
@@ -1230,22 +1069,14 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the organ replay pipeline and return the computed result payload.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `run`.
-    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
-      shape consumed by the body.
-    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SPEC.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `run` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1263,22 +1094,14 @@ def run_self_ignorance_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run self ignorance bundle for this organ replay.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `run_self_ignorance_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body.
-    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SPEC.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `run_self_ignorance_bundle` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1292,20 +1115,14 @@ def run_self_ignorance_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
-
-    - Teleology: Supports self ignorance coverage ledger by documenting and preserving
-      the exact local step implemented by `main`.
-    - Preconditions: Callers provide argv in the shape consumed by the body.
-    - Mechanism: Delegates to main_for_spec and applies local branch checks.
-    - Guarantee: Returns int from the selected CLI command path.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SPEC.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return main_for_spec(
         SPEC,

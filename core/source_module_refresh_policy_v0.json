@@ -1,7 +1,7 @@
 {
   "schema_version": "source_module_refresh_policy_v0",
   "policy_id": "microcosm_source_module_exact_copy_refresh_policy",
-  "policy_revision": "source_module_refresh_policy_2026_06_22_governed_mutation_v1",
+  "policy_revision": "source_module_refresh_policy_2026_06_28_agent_route_observability_builder_refresh_v1",
   "operation": "exact_copy_source_module_refresh",
   "authority_boundary": "Operation-scoped authority for canonical exact-copy source-module refresh only. This is not release, publication, source-mutation, provider-call, account/session, private-root equivalence, or whole-system correctness authority.",
   "authority_source": {
@@ -71,6 +71,26 @@
       "anti_claim": "This grant permits only the governed-mutation bundle exact-copy refresh for this source/target relation. It does not make tools/meta/factory globally source-open."
     },
     {
+      "grant_id": "agent_route_observability_trace_builder_exact_copy_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "tools/meta/factory/build_agent_execution_trace.py",
+      "source_to_target_relation": "exact_copy",
+      "material_ids": [
+        "agent_execution_trace_builder_source_body_import"
+      ],
+      "target_refs": [
+        "examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_modules/tools/meta/factory/build_agent_execution_trace.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_agent_route_observability_builder_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/agent_route_observability_runtime/exported_route_compliance_audit_bundle/source_module_manifest.json::agent_execution_trace_builder_source_body_import"
+      ],
+      "anti_claim": "This grant permits only the agent-route-observability audit bundle exact-copy refresh for this declared builder source body. It does not make tools/meta/factory globally source-open or grant release authority."
+    },
+    {
       "grant_id": "mechanistic_interpretability_agent_execution_trace_exact_copy_refresh_v1",
       "status": "active",
       "operation": "exact_copy_source_module_refresh",
@@ -89,6 +109,251 @@
         "microcosm-substrate/fixtures/first_wave/mechanistic_interpretability_circuit_attribution_replay/input/source_module_manifest.json::agent_execution_trace_tool_body_import"
       ],
       "anti_claim": "This grant permits only the mechanistic interpretability fixture exact-copy refresh for this source/target relation. It does not make system/lib globally source-open."
+    },
+    {
+      "grant_id": "macro_projection_agent_execution_trace_source_copy_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "source_to_target_relation": "exact_copy",
+      "material_ids": [
+        "agent_execution_trace_source_body_import"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_execution_trace.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_execution_trace_source_module_manifest.json::agent_execution_trace_source_body_import"
+      ],
+      "anti_claim": "This grant permits only the macro projection protocol exact-copy refresh for this declared material. It does not make system/lib globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "macro_projection_agent_execution_trace_light_edit_metadata_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/lib/agent_execution_trace.py",
+      "source_to_target_relation": "source_faithful_public_light_edit",
+      "material_ids": [
+        "agent_execution_trace_body_import"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/agent_execution_trace.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::agent_execution_trace_body_import"
+      ],
+      "anti_claim": "This grant permits only metadata refresh for the declared public light-edit import. It does not make system/lib globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "macro_projection_agent_observability_animation_source_copy_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/lib/agent_observability_animation.py",
+      "source_to_target_relation": "exact_copy",
+      "material_ids": [
+        "agent_observability_animation_source_body_import"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json::agent_observability_animation_source_body_import"
+      ],
+      "anti_claim": "This grant permits only the macro projection protocol exact-copy refresh for this declared material. It does not make system/lib globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "macro_projection_agent_session_attribution_copy_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/lib/agent_session_attribution.py",
+      "source_to_target_relation": "exact_copy",
+      "material_ids": [
+        "agent_session_attribution_body_import",
+        "agent_session_attribution_source_body_import",
+        "agent_route_session_attribution_source_body_import"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/agent_session_attribution.py",
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_session_attribution.py",
+        "examples/agent_route_observability_runtime/exported_session_attribution_bundle/source_modules/system/lib/agent_session_attribution.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::agent_session_attribution_body_import",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json::agent_session_attribution_source_body_import"
+      ],
+      "anti_claim": "This grant permits only declared agent-session attribution exact-copy refreshes in macro projection bundles. It does not make system/lib globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "macro_projection_agent_observability_animation_test_copy_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/server/tests/test_agent_observability_animation.py",
+      "source_to_target_relation": "exact_copy",
+      "material_ids": [
+        "agent_observability_animation_test_body_import"
+      ],
+      "target_refs": [
+        "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_agent_observability_animation.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/agent_observability_animation_source_module_manifest.json::agent_observability_animation_test_body_import"
+      ],
+      "anti_claim": "This grant permits only the macro projection protocol exact-copy refresh for this declared test material. It does not make system/server globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "macro_projection_agent_trace_route_repair_light_edit_metadata_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/lib/navigation_route_intervention.py",
+      "source_to_target_relation": "source_faithful_public_light_edit",
+      "material_ids": [
+        "agent_trace_route_repair_body_import"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/agent_trace_route_repair.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::agent_trace_route_repair_body_import"
+      ],
+      "anti_claim": "This grant permits only metadata refresh for the declared public light-edit import. It does not make system/lib globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "macro_projection_agent_observability_store_light_edit_metadata_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/lib/agent_observability.py",
+      "source_to_target_relation": "source_faithful_public_light_edit",
+      "material_ids": [
+        "agent_observability_store_body_import"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/agent_observability_store.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::agent_observability_store_body_import"
+      ],
+      "anti_claim": "This grant permits only metadata refresh for the declared public light-edit import. It does not make system/lib globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "macro_projection_continuation_packet_light_edit_metadata_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/lib/continuation_packet.py",
+      "source_to_target_relation": "source_faithful_public_light_edit",
+      "material_ids": [
+        "continuation_packet_body_import"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/continuation_packet.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::continuation_packet_body_import"
+      ],
+      "anti_claim": "This grant permits only metadata refresh for the declared public light-edit import. It does not make system/lib globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "macro_projection_bridge_resume_light_edit_metadata_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "tools/meta/bridge/bridge_resume.py",
+      "source_to_target_relation": "source_faithful_public_light_edit",
+      "material_ids": [
+        "bridge_resume_body_import"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/bridge_resume.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::bridge_resume_body_import"
+      ],
+      "anti_claim": "This grant permits only metadata refresh for the declared public light-edit import. It does not make tools/meta globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "macro_projection_controller_heartbeat_light_edit_metadata_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/lib/controller_heartbeat.py",
+      "source_to_target_relation": "source_faithful_public_light_edit",
+      "material_ids": [
+        "controller_heartbeat_body_import"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/controller_heartbeat.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/projection_protocol.json::controller_heartbeat_body_import"
+      ],
+      "anti_claim": "This grant permits only metadata refresh for the declared public light-edit import. It does not make system/lib globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "macro_projection_command_output_projection_light_edit_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/lib/command_output_projection.py",
+      "source_to_target_relation": "source_faithful_public_light_edit",
+      "material_ids": [
+        "command_output_projection_helper_body_import"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/command_output_projection.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_source_module_manifest.json::command_output_projection_helper_body_import"
+      ],
+      "anti_claim": "This grant permits only refresh for the declared command-output public light-edit import. It does not make system/lib globally source-open or grant release authority."
+    },
+    {
+      "grant_id": "macro_projection_command_output_sidecar_light_edit_refresh_v1",
+      "status": "active",
+      "operation": "exact_copy_source_module_refresh",
+      "source_ref": "system/lib/command_output_sidecar.py",
+      "source_to_target_relation": "source_faithful_public_light_edit",
+      "material_ids": [
+        "command_output_sidecar_helper_body_import"
+      ],
+      "target_refs": [
+        "src/microcosm_core/macro_tools/command_output_sidecar.py"
+      ],
+      "classification_override_scope": "restricted_private_control_plane_only",
+      "authority_revision": "source_module_refresh_policy_2026_06_28_macro_projection_refresh_v1",
+      "provenance_refs": [
+        "codex/standards/std_microcosm.json::public_release_posture",
+        "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/command_output_source_module_manifest.json::command_output_sidecar_helper_body_import"
+      ],
+      "anti_claim": "This grant permits only refresh for the declared command-output public light-edit import. It does not make system/lib globally source-open or grant release authority."
     }
   ]
 }

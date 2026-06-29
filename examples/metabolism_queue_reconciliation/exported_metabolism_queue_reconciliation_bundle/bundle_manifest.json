@@ -1,0 +1,21 @@
+{
+  "bundle_id": "public_metabolism_queue_reconciliation_bundle",
+  "organ_id": "metabolism_queue_reconciliation",
+  "input_mode": "exported_metabolism_queue_reconciliation_bundle",
+  "authored_organ": true,
+  "body_in_receipt": false,
+  "live_state_authority": false,
+  "release_authorized": false,
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "surfaces_capsule": "microcosm_core.engine_room.metabolism_runtime",
+  "required_files": [
+    "bundle_manifest.json",
+    "blackboard_projection_ok.json",
+    "finalized_run_running_job_rejected.json",
+    "queue_lease_recovery_ok.json",
+    "running_job_no_run_row_rejected.json",
+    "docs/README.md",
+    "source_modules/src/microcosm_core/organs/metabolism_queue_reconciliation.py"
+  ],
+  "claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication."
+}

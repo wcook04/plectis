@@ -1,50 +1,28 @@
-"""[PURPOSE]
-- Teleology: Make prediction-oracle reconciliation evidence inspectable through runnable
-  public fixture code while keeping claims bounded to emitted receipts and authority
-  ceilings.
-- Mechanism: The file reconciles point-in-time predictions with later realized outcomes
-  while enforcing time-boundary and no-advice constraints; helper functions load
-  fixtures, recompute predicates, normalize findings, build result/board/card payloads,
-  and write receipts.
-- Non-goal: Prediction oracle reconciliation validates synthetic fixture mechanics for
-  CP1 bifurcation resolution, CP2 target-universe gating, oracle grounding, diff
-  grading, and bounded dossier mutation. It does not trade, give financial or investment
-  advice, call live market providers, publish predictions, claim performance, import
-  private data, or authorize release.
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.organs.prediction_oracle_reconciliation` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
 
 [INTERFACE]
-- CLI: Import or dispatch `microcosm_core.organs.prediction_oracle_reconciliation`
-  through package call sites and tests; no argparse subcommand was detected.
-- Exports: validate_source_module_imports, validate_reconciliation_packet,
-  write_receipts, run, run_prediction_bundle, result_card, main.
-- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
-  referenced by each callable body.
-- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
-  artifacts only where the called body performs explicit writes.
+- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, MODULE_PATH, CARD_SCHEMA_VERSION, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, SOURCE_MODULE_MANIFEST_NAME, SOURCE_IMPORT_CLASS, SOURCE_BODY_STATUS, TRUTH_DIFF_EQUITY_MODULE_ID, TRUTH_DIFF_HELPERS, PACKET_NAME, NEGATIVE_INPUT_NAMES, EXPECTED_NEGATIVE_CASES, FORBIDDEN_AUTHORITY_FLAGS, ALLOWED_DIRECTIONS, DEGRADED_DIRECTION, ALLOWED_MUTATIONS, ALLOWED_ASSET_CLASSES, NUMERIC_LARGE_MISS_ABSOLUTE_FLOOR, ...
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
 
 [FLOW]
-- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
-  negative-case rows through the local helper stack.
-- Validate: Recompute module-specific predicates from structured inputs rather than
-  trusting fixture verdict fields alone.
-- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
-  anti-claims and authority ceilings preserved.
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
 
 [DEPENDENCIES]
-- Required: microcosm_core.secret_exclusion_scan, microcosm_core.receipts,
-  microcosm_core.schemas
-- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+- Required: microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
 
 [CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutation is limited to explicit
-  run/write helpers invoked by the caller.
-- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
-  state, clock values, subprocess results, dependency availability, and parser
-  invocation are the admitted runtime variables.
-- Boundary: Receipts and cards must stay public-root relative and body-free for private,
-  provider, credential, oracle, hidden-answer, or raw exploit material.
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
-
 from __future__ import annotations
 
 import argparse
@@ -178,22 +156,14 @@ ANTI_CLAIM = (
 
 
 def _public_root_for_path(path: str | Path) -> Path:
-    """[ACTION] Find the nearest repository-style public root for a path.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_public_root_for_path`.
-    - Preconditions: Callers provide path in the shape consumed by the body; paths must
-      be resolvable for filesystem metadata checks.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns Path from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -208,40 +178,27 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
-    """[ACTION] Convert a path into a public-root-relative display reference.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_display`.
-    - Preconditions: Callers provide path, public_root in the shape consumed by the
-      body.
-    - Mechanism: Delegates to public_relative_path and applies local branch checks.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_display` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
-    """[ACTION] Return dictionary rows stored under a key in a mapping payload.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_rows`.
-    - Preconditions: Callers provide payload, key in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_rows` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(payload, dict):
         return []
@@ -252,20 +209,14 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
-    """[ACTION] Filter a list payload down to non-empty string values.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_strings`.
-    - Preconditions: Callers provide value in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(value, list):
         return []
@@ -273,23 +224,14 @@ def _strings(value: object) -> list[str]:
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
-    """[ACTION] Build the fixture input path list for the requested replay mode.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_input_paths`.
-    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
-      by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; module constants NEGATIVE_INPUT_NAMES, PACKET_NAME;
-      filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: NEGATIVE_INPUT_NAMES, PACKET_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_input_paths` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     names = (PACKET_NAME, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -300,61 +242,41 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 
 def _strip_microcosm_prefix(ref: str) -> str:
-    """[ACTION] Remove the public microcosm prefix from a path reference when present.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_strip_microcosm_prefix`.
-    - Preconditions: Callers provide ref in the shape consumed by the body.
-    - Mechanism: Delegates to ref.startswith and applies local branch checks.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_strip_microcosm_prefix` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     prefix = "microcosm-substrate/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
 
 
 def _sha256(path: Path) -> str:
-    """[ACTION] Stream a file through SHA-256 and return a prefixed digest.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_sha256`.
-    - Preconditions: Callers provide path in the shape consumed by the body; content
-      inputs must exist and match the expected local fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Computes SHA-256 evidence from the bytes or normalized data it receives.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads.
-    - Reads: call arguments; filesystem/content inputs named by those arguments or
-      constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_sha256` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
-    """[ACTION] Resolve the source-module manifest path for fixture validation.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_source_module_manifest_path`.
-    - Preconditions: Callers provide input_dir in the shape consumed by the body.
-    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
-      return value.
-    - Guarantee: Returns Path from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SOURCE_MODULE_MANIFEST_NAME.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SOURCE_MODULE_MANIFEST_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
@@ -365,22 +287,14 @@ def _source_module_target_path(
     manifest_path: Path,
     public_root: Path,
 ) -> tuple[Path, str]:
-    """[ACTION] Resolve a target source-module reference to a local path.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_source_module_target_path`.
-    - Preconditions: Callers provide row, manifest_path, public_root in the shape
-      consumed by the body.
-    - Mechanism: Delegates to _strip_microcosm_prefix, row.get, _display, row.get and
-      applies local branch checks.
-    - Guarantee: Returns tuple[Path, str] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
     row_path = str(row.get("path") or "")
@@ -397,24 +311,14 @@ def _prediction_oracle_source_manifest_path(
     *,
     public_root: Path,
 ) -> Path | None:
-    """[ACTION] Implement prediction oracle source manifest path for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_prediction_oracle_source_manifest_path`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Delegates to direct.is_file, bundled.is_file and applies local branch
-      checks.
-    - Guarantee: Returns Path | None from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; module constants SOURCE_MODULE_MANIFEST_NAME; filesystem
-      metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SOURCE_MODULE_MANIFEST_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_prediction_oracle_source_manifest_path` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     direct = input_dir / SOURCE_MODULE_MANIFEST_NAME
     if direct.is_file():
@@ -433,24 +337,14 @@ def _truth_diff_equity_source_path(
     *,
     public_root: Path | None,
 ) -> tuple[Path, str, str] | None:
-    """[ACTION] Implement truth diff equity source path for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_truth_diff_equity_source_path`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns tuple[Path, str, str] | None from the explicit return paths in
-      the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; module constants TRUTH_DIFF_EQUITY_MODULE_ID; filesystem
-      metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: TRUTH_DIFF_EQUITY_MODULE_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_truth_diff_equity_source_path` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if input_dir is None or public_root is None:
         return None
@@ -475,21 +369,14 @@ def _truth_diff_equity_source_path(
 
 
 def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
-    """[ACTION] Resolve source artifact paths declared by manifest or fixture rows.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_source_artifact_paths`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Path] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_artifact_paths` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -508,22 +395,14 @@ def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
-    """[ACTION] Load fixture JSON payloads into a filename-keyed mapping.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_load_payloads`.
-    - Preconditions: Callers provide input_dir, include_negative in the shape consumed
-      by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         path.stem: read_json_strict(path)
@@ -536,25 +415,14 @@ def validate_source_module_imports(
     *,
     public_root: Path,
 ) -> dict[str, Any]:
-    """[ACTION] Validate source module imports against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `validate_source_module_imports`.
-    - Preconditions: Callers provide input_dir, public_root in the shape consumed by the
-      body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
-      receives. Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; module constants PUBLIC_SAFE_SOURCE_MODULE_CLASSES,
-      SOURCE_IMPORT_CLASS; filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: PUBLIC_SAFE_SOURCE_MODULE_CLASSES, SOURCE_IMPORT_CLASS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `validate_source_module_imports` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     manifest_ref = _display(manifest_path, public_root=public_root)
@@ -729,22 +597,14 @@ def validate_source_module_imports(
 
 
 def _empty_source_module_imports() -> dict[str, Any]:
-    """[ACTION] Return the empty import-verification shape used when no source modules exist.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_empty_source_module_imports`.
-    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
-      the body.
-    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
-      return value.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_empty_source_module_imports` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "status": PASS,
@@ -757,22 +617,14 @@ def _empty_source_module_imports() -> dict[str, Any]:
 
 
 def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Summarize source imports and body-open checks for public evidence.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_source_open_body_import_summary`.
-    - Preconditions: Callers provide source_imports in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants SOURCE_BODY_STATUS, SOURCE_IMPORT_CLASS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SOURCE_BODY_STATUS, SOURCE_IMPORT_CLASS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     modules = _rows(source_imports, "modules")
     module_ids = [str(row.get("module_id")) for row in modules if row.get("module_id")]
@@ -814,22 +666,14 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
-    """[ACTION] Create a normalized finding row for a validation predicate.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_finding`.
-    - Preconditions: Callers provide code, message, case_id, subject_id, subject_kind in
-      the shape consumed by the body.
-    - Mechanism: Uses local branch checks, literals, and comprehensions to compute the
-      return value.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_finding` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "error_code": code,
@@ -851,22 +695,14 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
-    """[ACTION] Create a normalized record row for receipt emission.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_record`.
-    - Preconditions: Callers provide findings, observed, code, message, case_id,
-      subject_id, subject_kind in the shape consumed by the body.
-    - Mechanism: Delegates to findings.append, _finding, add and applies local branch
-      checks.
-    - Guarantee: Returns None from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants EXPECTED_NEGATIVE_CASES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: EXPECTED_NEGATIVE_CASES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_record` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings.append(
         _finding(
@@ -882,20 +718,14 @@ def _record(
 
 
 def _to_float(value: object) -> float | None:
-    """[ACTION] Implement to float for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_to_float`.
-    - Preconditions: Callers provide value in the shape consumed by the body.
-    - Mechanism: Delegates to float, float and applies local branch checks.
-    - Guarantee: Returns float | None from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_to_float` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if isinstance(value, bool):
         return None
@@ -910,41 +740,27 @@ def _to_float(value: object) -> float | None:
 
 
 def _numeric_equal(left: float, right: float) -> bool:
-    """[ACTION] Implement numeric equal for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_numeric_equal`.
-    - Preconditions: Callers provide left, right in the shape consumed by the body.
-    - Mechanism: Delegates to abs and applies local branch checks.
-    - Guarantee: Returns bool from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants NUMERIC_RECOMPUTE_TOLERANCE.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: NUMERIC_RECOMPUTE_TOLERANCE.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_numeric_equal` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return abs(left - right) <= NUMERIC_RECOMPUTE_TOLERANCE
 
 
 def _target_asset_classes(packet: dict[str, Any]) -> dict[str, str]:
-    """[ACTION] Implement target asset classes for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_target_asset_classes`.
-    - Preconditions: Callers provide packet in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, str] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants ALLOWED_ASSET_CLASSES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ALLOWED_ASSET_CLASSES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_target_asset_classes` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     by_target: dict[str, str] = {}
     for row in _rows(packet, "target_universe"):
@@ -966,22 +782,14 @@ def _oracle_asset_class(
     target_id: str,
     target_asset_by_id: dict[str, str],
 ) -> str:
-    """[ACTION] Implement oracle asset class for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_oracle_asset_class`.
-    - Preconditions: Callers provide row, target_id, target_asset_by_id in the shape
-      consumed by the body.
-    - Mechanism: Delegates to upper, row.get, row.get, target_asset_by_id.get and
-      applies local branch checks.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants ALLOWED_ASSET_CLASSES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ALLOWED_ASSET_CLASSES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_oracle_asset_class` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     asset_class = str(
         row.get("asset_class")
@@ -993,22 +801,14 @@ def _oracle_asset_class(
 
 
 def _truth_diff_import_stubs() -> dict[str, types.ModuleType]:
-    """[ACTION] Implement truth diff import stubs for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_truth_diff_import_stubs`.
-    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
-      the body.
-    - Mechanism: Delegates to types.ModuleType, types.ModuleType, types.ModuleType and
-      applies local branch checks.
-    - Guarantee: Returns dict[str, types.ModuleType] from the explicit return paths in
-      the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_truth_diff_import_stubs` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     system_module = types.ModuleType("system")
     system_module.__path__ = []  # type: ignore[attr-defined]
@@ -1017,22 +817,14 @@ def _truth_diff_import_stubs() -> dict[str, types.ModuleType]:
     run_compare = types.ModuleType("system.lib.run_compare")
 
     def _empty_dict(*_args: object, **_kwargs: object) -> dict[str, Any]:
-        """[ACTION] Implement empty dict for this organ replay.
-
-        - Teleology: Supports prediction oracle reconciliation by documenting and
-          preserving the exact local step implemented by `_empty_dict`.
-        - Preconditions: Callers provide *_args, **_kwargs in the shape consumed by the
-          body.
-        - Mechanism: Uses local branch checks, literals, and comprehensions to compute
-          the return value.
-        - Guarantee: Returns dict[str, Any] from the explicit return paths in the
-          function body.
-        - Fails: No explicit raise is introduced; failures propagate from ordinary
-          Python evaluation in this body.
-        - Reads: call arguments.
-        - Writes: No external writes; the body only returns in-memory values.
-        - Non-goal: Does not widen this module's public authority ceiling, add provider
-          calls, or expose private material.
+        """
+        [ACTION]
+        - Teleology: Implements `_truth_diff_import_stubs._empty_dict` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
         """
         return {}
 
@@ -1048,22 +840,14 @@ def _truth_diff_import_stubs() -> dict[str, types.ModuleType]:
 
 
 def _load_truth_diff_equity_module(source_path: Path) -> Any:
-    """[ACTION] Load truth diff equity module for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_load_truth_diff_equity_module`.
-    - Preconditions: Callers provide source_path in the shape consumed by the body.
-    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
-      receives. Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns Any from the explicit return paths in the function body.
-    - Fails: Explicit raise paths include
-      ImportError("truth_diff_equity_source_loader_unavailable"); called operations may
-      propagate their own exceptions.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_truth_diff_equity_module` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     module_name = (
         "_microcosm_prediction_oracle_truth_diff_equity_"
@@ -1091,22 +875,14 @@ def _source_faithful_numeric_rows(
     grading: dict[str, Any],
     feed_price_maps: dict[str, dict[str, Any]],
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    """[ACTION] Resolve source faithful numeric rows from source-module evidence.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_source_faithful_numeric_rows`.
-    - Preconditions: Callers provide grading, feed_price_maps in the shape consumed by
-      the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns tuple[list[dict[str, Any]], dict[str, Any]] from the explicit
-      return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_faithful_numeric_rows` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     stock_rows = feed_price_maps.get("global_stock_feed", {})
@@ -1187,23 +963,14 @@ def _source_numeric_rows(
     input_dir: Path | None,
     public_root: Path | None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]:
-    """[ACTION] Resolve source numeric rows from source-module evidence.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_source_numeric_rows`.
-    - Preconditions: Callers provide grading, feed_price_maps, input_dir, public_root in
-      the shape consumed by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them.
-    - Guarantee: Returns tuple[list[dict[str, Any]], dict[str, Any], dict[str, Any]]
-      from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants TRUTH_DIFF_HELPERS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: TRUTH_DIFF_HELPERS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_source_numeric_rows` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     source = _truth_diff_equity_source_path(input_dir, public_root=public_root)
     provenance: dict[str, Any] = {
@@ -1252,26 +1019,14 @@ def _numeric_grading_inputs(
     findings: list[dict[str, Any]],
     observed: dict[str, set[str]],
 ) -> dict[str, Any]:
-    """[ACTION] Implement numeric grading inputs for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_numeric_grading_inputs`.
-    - Preconditions: Callers provide packet, prediction_by_id, case_id, findings,
-      observed in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants ALLOWED_DIRECTIONS, DEGRADED_DIRECTION,
-      EXPECTED_NEGATIVE_CASES, NUMERIC_LARGE_MISS_ABSOLUTE_FLOOR,
-      NUMERIC_LARGE_MISS_PERCENT_FLOOR.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ALLOWED_DIRECTIONS, DEGRADED_DIRECTION, EXPECTED_NEGATIVE_CASES,
-      NUMERIC_LARGE_MISS_ABSOLUTE_FLOOR, NUMERIC_LARGE_MISS_PERCENT_FLOOR.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_numeric_grading_inputs` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     target_asset_by_id = _target_asset_classes(packet)
     feed_price_maps: dict[str, dict[str, Any]] = {
@@ -1506,26 +1261,14 @@ def _numeric_reconciliation_rows(
     input_dir: Path | None,
     public_root: Path | None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement numeric reconciliation rows for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_numeric_reconciliation_rows`.
-    - Preconditions: Callers provide packet, prediction_by_id, case_id, findings,
-      observed, input_dir, public_root in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants ALLOWED_ASSET_CLASSES,
-      EXPECTED_NEGATIVE_CASES, NUMERIC_LARGE_MISS_ABSOLUTE_FLOOR,
-      NUMERIC_LARGE_MISS_PERCENT_FLOOR.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ALLOWED_ASSET_CLASSES, EXPECTED_NEGATIVE_CASES,
-      NUMERIC_LARGE_MISS_ABSOLUTE_FLOOR, NUMERIC_LARGE_MISS_PERCENT_FLOOR.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_numeric_reconciliation_rows` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     numeric_inputs = _numeric_grading_inputs(
         packet,
@@ -1615,21 +1358,14 @@ def _numeric_reconciliation_rows(
 
 
 def _authority_overclaim(payload: object) -> bool:
-    """[ACTION] Implement authority overclaim for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_authority_overclaim`.
-    - Preconditions: Callers provide payload in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns bool from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants FORBIDDEN_AUTHORITY_FLAGS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: FORBIDDEN_AUTHORITY_FLAGS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_authority_overclaim` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(payload, dict):
         return False
@@ -1640,20 +1376,14 @@ def _authority_overclaim(payload: object) -> bool:
 
 
 def _target_universe(packet: dict[str, Any]) -> set[str]:
-    """[ACTION] Implement target universe for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_target_universe`.
-    - Preconditions: Callers provide packet in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns set[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_target_universe` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     direct = set(_strings(packet.get("valid_prediction_targets")))
     rows = _rows(packet, "target_universe")
@@ -1662,20 +1392,14 @@ def _target_universe(packet: dict[str, Any]) -> set[str]:
 
 
 def _evidence_is_pre_t(ref: str) -> bool:
-    """[ACTION] Implement evidence is pre t for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_evidence_is_pre_t`.
-    - Preconditions: Callers provide ref in the shape consumed by the body.
-    - Mechanism: Delegates to ref.startswith, ref.startswith and applies local branch
-      checks.
-    - Guarantee: Returns bool from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_evidence_is_pre_t` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return ref.startswith("T-") or ref.startswith("t-")
 
@@ -1686,22 +1410,14 @@ def _validate_cp1(
     case_id: str,
     observed: dict[str, set[str]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate cp1 against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_validate_cp1`.
-    - Preconditions: Callers provide packet, case_id, observed in the shape consumed by
-      the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_cp1` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     branches = _rows(packet, "cp1_branches")
@@ -1755,23 +1471,14 @@ def _validate_cp2(
     case_id: str,
     observed: dict[str, set[str]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate CP2 against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_validate_cp2`.
-    - Preconditions: Callers provide packet, case_id, observed in the shape consumed by
-      the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants ALLOWED_DIRECTIONS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ALLOWED_DIRECTIONS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_cp2` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     universe = _target_universe(packet)
@@ -1837,23 +1544,14 @@ def _validate_oracle_diff(
     packet: dict[str, Any],
     prediction_by_id: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate oracle diff against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_validate_oracle_diff`.
-    - Preconditions: Callers provide packet, prediction_by_id in the shape consumed by
-      the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants ALLOWED_DIRECTIONS, DEGRADED_DIRECTION.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ALLOWED_DIRECTIONS, DEGRADED_DIRECTION.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_oracle_diff` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(packet, "oracle_diff")
@@ -1939,23 +1637,14 @@ def _validate_mutations(
     case_id: str,
     observed: dict[str, set[str]],
 ) -> dict[str, Any]:
-    """[ACTION] Validate mutations against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_validate_mutations`.
-    - Preconditions: Callers provide packet, case_id, observed in the shape consumed by
-      the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants ALLOWED_MUTATIONS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ALLOWED_MUTATIONS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_mutations` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     mutations = _rows(packet, "dossier_mutations")
@@ -2009,23 +1698,14 @@ def validate_reconciliation_packet(
     input_dir: Path | None = None,
     public_root: Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Validate reconciliation packet against the fixture evidence and authority ceiling.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `validate_reconciliation_packet`.
-    - Preconditions: Callers provide payload, case_id, input_dir, public_root in the
-      shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] whose verdict fields are derived from recomputed
-      predicates, not trusted input labels.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants EXPECTED_NEGATIVE_CASES.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: EXPECTED_NEGATIVE_CASES.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `validate_reconciliation_packet` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     packet = payload if isinstance(payload, dict) else {}
     observed: dict[str, set[str]] = defaultdict(set)
@@ -2141,22 +1821,14 @@ def _reconciliation_rows(
     numeric_rows: list[dict[str, Any]],
     mutation_ids: list[str],
 ) -> list[dict[str, Any]]:
-    """[ACTION] Implement reconciliation rows for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_reconciliation_rows`.
-    - Preconditions: Callers provide selected_branch_by_target, prediction_by_id,
-      oracle_rows, numeric_rows, mutation_ids in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_reconciliation_rows` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     oracle_by_prediction = {
@@ -2198,21 +1870,14 @@ def _reconciliation_rows(
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
-    """[ACTION] Merge observed evidence rows into expected replay rows.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_merge_observed`.
-    - Preconditions: Callers provide *results in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, list[str]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -2223,21 +1888,14 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
-    """[ACTION] Merge finding collections while preserving deterministic order.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_merge_findings`.
-    - Preconditions: Callers provide *results in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_merge_findings` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     for result in results:
@@ -2254,20 +1912,14 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Implement receipt safe scan for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_receipt_safe_scan`.
-    - Preconditions: Callers provide scan in the shape consumed by the body.
-    - Mechanism: Delegates to safe.pop and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_receipt_safe_scan` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     safe = dict(scan)
     safe.pop("forbidden_output_fields", None)
@@ -2281,27 +1933,14 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
-    """[ACTION] Assemble the replay result payload from validated evidence.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_build_result`.
-    - Preconditions: Callers provide input_dir, command, input_mode, include_negative in
-      the shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; module constants ANTI_CLAIM, AUTHORITY_CEILING,
-      EXPECTED_NEGATIVE_CASES, FIXTURE_ID, NEGATIVE_INPUT_NAMES, ORGAN_ID, VALIDATOR_ID;
-      filesystem metadata named by those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ANTI_CLAIM, AUTHORITY_CEILING, EXPECTED_NEGATIVE_CASES, FIXTURE_ID,
-      NEGATIVE_INPUT_NAMES, ORGAN_ID, VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_build_result` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -2442,22 +2081,14 @@ def _common_receipt(
     schema_version: str,
     receipt_paths: list[str],
 ) -> dict[str, Any]:
-    """[ACTION] Build shared receipt fields used by this organ.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_common_receipt`.
-    - Preconditions: Callers provide result, schema_version, receipt_paths in the shape
-      consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_common_receipt` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     keys = (
         "status",
@@ -2518,29 +2149,14 @@ def write_receipts(
     public_root: str | Path,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, str]:
-    """[ACTION] Write public receipt artifacts for the computed result.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `write_receipts`.
-    - Preconditions: Callers provide out_dir, result, public_root, acceptance_out in the
-      shape consumed by the body; paths must be resolvable for filesystem metadata
-      checks; write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them. Iterates candidate paths or structured rows exactly as
-      written in the body.
-    - Guarantee: Returns dict[str, str] after writing only the declared receipt/output
-      artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants ACCEPTANCE_RECEIPT_REL, BOARD_NAME,
-      ORGAN_ID, RESULT_NAME, VALIDATION_RECEIPT_NAME; filesystem metadata named by those
-      arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: ACCEPTANCE_RECEIPT_REL, BOARD_NAME, ORGAN_ID, RESULT_NAME,
-      VALIDATION_RECEIPT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `write_receipts` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -2646,22 +2262,14 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the organ replay pipeline and return the computed result payload.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `run`.
-    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
-      shape consumed by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `run` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     command_text = command or (
@@ -2690,25 +2298,14 @@ def run_prediction_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run prediction bundle for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `run_prediction_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body; write targets must be inside the caller-selected output or temporary
-      area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants. Normalizes Path values and public-root-relative references
-      before returning them.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
-      called validators/helpers.
-    - Reads: call arguments; module constants BUNDLE_RESULT_NAME.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: BUNDLE_RESULT_NAME.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `run_prediction_bundle` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     input_path = Path(input_dir)
     command_text = command or (
@@ -2738,21 +2335,14 @@ def run_prediction_bundle(
 
 
 def _scan_card(scan: object) -> dict[str, Any]:
-    """[ACTION] Scan card for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_scan_card`.
-    - Preconditions: Callers provide scan in the shape consumed by the body.
-    - Mechanism: Delegates to scan_row.get, scan_row.get, scan_row.get, scan_row.get,
-      scan_row.get and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_card` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     scan_row = scan if isinstance(scan, dict) else {}
     return {
@@ -2768,21 +2358,14 @@ def _scan_card(scan: object) -> dict[str, Any]:
 
 
 def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Implement authority ceiling card for this organ replay.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_authority_ceiling_card`.
-    - Preconditions: Callers provide result in the shape consumed by the body.
-    - Mechanism: Delegates to result.get, ceiling.get, ceiling.get, ceiling.get,
-      ceiling.get and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_authority_ceiling_card` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     ceiling = result.get("authority_ceiling", {})
     if not isinstance(ceiling, dict):
@@ -2814,25 +2397,14 @@ def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Build the compact result card from replay output.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `result_card`.
-    - Preconditions: Callers provide result in the shape consumed by the body.
-    - Mechanism: Delegates to result.get, result.get, result.get, result.get, result.get
-      and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants BOARD_NAME, BUNDLE_RESULT_NAME,
-      CARD_SCHEMA_VERSION, FIXTURE_ID, ORGAN_ID, RESULT_NAME, VALIDATION_RECEIPT_NAME,
-      VALIDATOR_ID.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: BOARD_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, FIXTURE_ID,
-      ORGAN_ID, RESULT_NAME, VALIDATION_RECEIPT_NAME, VALIDATOR_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `result_card` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     input_mode = result.get("input_mode")
     action = (
@@ -3003,22 +2575,14 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 
 def _parser() -> argparse.ArgumentParser:
-    """[ACTION] Build the command-line parser for this organ module.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `_parser`.
-    - Preconditions: Callers provide no caller-supplied values in the shape consumed by
-      the body.
-    - Mechanism: Configures argparse commands and options that the module exposes.
-      Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns argparse.ArgumentParser from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_parser` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     parser = argparse.ArgumentParser(description="Validate prediction oracle reconciliation")
     subparsers = parser.add_subparsers(dest="action", required=True)
@@ -3035,22 +2599,14 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
-
-    - Teleology: Supports prediction oracle reconciliation by documenting and preserving
-      the exact local step implemented by `main`.
-    - Preconditions: Callers provide argv in the shape consumed by the body; write
-      targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants.
-    - Guarantee: Returns int from the selected CLI command path.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
-      called validators/helpers.
-    - Reads: call arguments; module constants MODULE_PATH.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: MODULE_PATH.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.organs.prediction_oracle_reconciliation` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

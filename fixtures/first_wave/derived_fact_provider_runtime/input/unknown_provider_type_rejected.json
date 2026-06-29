@@ -1,0 +1,23 @@
+{
+  "case_id": "unknown_provider_type_rejected",
+  "case_type": "negative",
+  "expected_ok": false,
+  "expected_status": "degraded",
+  "expected_error_ids": ["demo.unknown_provider"],
+  "defect_fact_id": "demo.unknown_provider",
+  "expected_error_class": "ValueError",
+  "files": {
+    "README.md": "fixture root exists; the provider_type is unsupported\n"
+  },
+  "registry": {
+    "facts": [
+      {
+        "id": "demo.unknown_provider",
+        "title": "Unsupported provider_type becomes an error row",
+        "provider_type": "imaginary_provider",
+        "value_type": "integer",
+        "tags": ["demo", "negative", "unknown_provider"]
+      }
+    ]
+  }
+}

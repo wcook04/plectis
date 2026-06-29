@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.runtime_evidence_index` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: PASS, PRIVATE_STATE_SCAN_RECEIPT_KEY, SCHEMA_VERSION, INDEX_MODE, compact_receipt_summary, list_runtime_evidence
+- Reads: call arguments, module constants, imported helpers.
+- Writes: return values and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.bounded_paths, microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import os
@@ -16,7 +41,9 @@ INDEX_MODE = "compact_runtime_evidence_index_v1"
 
 
 def _read_json_object(path: Path) -> dict[str, Any]:
-    """Tolerantly load a single runtime-evidence receipt file as a JSON object.
+    """
+    [ACTION]
+    Tolerantly load a single runtime-evidence receipt file as a JSON object.
 
     - Teleology: receipt files on disk are untrusted/possibly-malformed input; this is the one tolerant reader so the index never crashes on a bad receipt.
     - Guarantee: returns the parsed top-level dict on success; returns {} for any OSError, StrictJsonError, or non-dict (list/scalar) payload.
@@ -24,6 +51,8 @@ def _read_json_object(path: Path) -> dict[str, Any]:
     - Reads: the receipt JSON at <path> via read_json_strict.
     - Non-goal: does not validate the receipt's evidence contract, authorize source-body export, or attest public-safe equivalence.
     - Escalates-to: read_json_strict / StrictJsonError in microcosm_core.schemas; _receipt_evidence_contract_summary for contract interpretation.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     try:
         payload = read_json_strict(path)
@@ -33,7 +62,9 @@ def _read_json_object(path: Path) -> dict[str, Any]:
 
 
 def _public_relative(path: Path, root: Path) -> str:
-    """Normalize a receipt path into a public-safe, root-relative posix ref.
+    """
+    [ACTION]
+    Normalize a receipt path into a public-safe, root-relative posix ref.
 
     - Teleology: emitted receipt_ref strings must not leak absolute/host paths; this normalizes every receipt path against the evidence root.
     - Guarantee: returns the path relative to root as a forward-slash posix string when path is under root; otherwise returns the path's own posix form unchanged.
@@ -41,6 +72,8 @@ def _public_relative(path: Path, root: Path) -> str:
     - Reads: only the in-memory <path> and <root> Path values; touches no filesystem.
     - Non-goal: does not guarantee absolute-path redaction when path is outside root, nor authorize release of the referenced receipt.
     - Escalates-to: release_export.py public-path scanning for the authoritative absolute-path leak check.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     try:
         return path.relative_to(root).as_posix()
@@ -49,18 +82,24 @@ def _public_relative(path: Path, root: Path) -> str:
 
 
 def _has_nonempty_list(payload: dict[str, Any], *keys: str) -> bool:
-    """Test whether any of the named receipt keys holds a non-empty list.
+    """
+    [ACTION]
+    Test whether any of the named receipt keys holds a non-empty list.
 
     - Teleology: several evidence-contract signals (e.g. negative cases) are encoded as list fields under varying key names; this collapses the alias set to one boolean.
     - Guarantee: returns True iff at least one key maps to a list value that is non-empty; missing keys and non-list values are treated as absent.
     - Fails: never raises; absent/None/non-list values -> False.
     - Reads: the given <keys> within the in-memory receipt <payload>.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return any(isinstance(payload.get(key), list) and bool(payload.get(key)) for key in keys)
 
 
 def _has_body_import_verification(payload: dict[str, Any]) -> bool:
-    """Detect whether a receipt carries macro-body copy/import verification rows.
+    """
+    [ACTION]
+    Detect whether a receipt carries macro-body copy/import verification rows.
 
     - Teleology: distinguishes receipts that prove a non-secret macro body was copied with provenance from receipts that merely assert a status; feeds the copied_non_secret_macro_body_with_provenance signal.
     - Guarantee: returns True iff any of the recognized body-import/copy keys maps to a non-empty dict or list; otherwise False.
@@ -68,6 +107,8 @@ def _has_body_import_verification(payload: dict[str, Any]) -> bool:
     - Reads: body_import_verification, body_import_verification_rows, body_copy_verification, body_copy_rows, body_copied_rows within the in-memory <payload>.
     - Non-goal: does not validate the verification rows' contents, authorize source-body export, or attest the copy is public-safe.
     - Escalates-to: import_binding_report.py / body-import verification tests for the authoritative provenance check.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return any(
         isinstance(payload.get(key), (dict, list)) and bool(payload.get(key))
@@ -82,7 +123,9 @@ def _has_body_import_verification(payload: dict[str, Any]) -> bool:
 
 
 def _receipt_evidence_contract_summary(payload: dict[str, Any]) -> dict[str, Any]:
-    """Derive the public evidence-contract summary booleans for one receipt.
+    """
+    [ACTION]
+    Derive the public evidence-contract summary booleans for one receipt.
 
     - Teleology: collapses a raw receipt into the honest evidence claims a reader may make about it (real runtime pass vs negative fixture vs blocked import debt), without exposing payload bodies.
     - Guarantee: returns a dict tagged contract_version runtime_real_receipt_evidence_contract_summary_v1 where real_runtime_receipt is True only when status == "pass" AND no negative-case lists are present; synthetic_receipt_is_product_evidence and unsafe_payload_bodies_in_receipt are always False; payload_boundary is always "inspect_drilldown".
@@ -90,6 +133,8 @@ def _receipt_evidence_contract_summary(payload: dict[str, Any]) -> dict[str, Any
     - Reads: status, negative-case lists, secret_exclusion_scan, the private-state-scan key, body-import keys, blocked_import_debt / projection_status within the in-memory <payload>.
     - Non-goal: does not authorize source-body export, treat a passing receipt as release-readiness, or assert whole-system correctness; the summary is a claim envelope, not proof.
     - Escalates-to: compact_receipt_summary (its only caller) and the "plectis evidence inspect <receipt_ref>" drilldown for the full contract.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     has_negative_cases = _has_nonempty_list(
         payload,
@@ -124,7 +169,9 @@ def _receipt_evidence_contract_summary(payload: dict[str, Any]) -> dict[str, Any
 
 
 def compact_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
-    """Project one receipt file into a body-free compact summary row.
+    """
+    [ACTION]
+    Project one receipt file into a body-free compact summary row.
 
     - Teleology: the per-receipt row of the runtime evidence index; surfaces identity + status + an honest evidence-contract summary while guaranteeing no payload body crosses the boundary.
     - Guarantee: returns a dict with a root-relative receipt_ref, status/schema_version/organ_id/input_mode/created_at lifted straight from the receipt (status defaults to "unknown"), body_in_receipt hard-coded False, and a nested evidence_contract_summary; never embeds raw receipt bodies.
@@ -133,6 +180,8 @@ def compact_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     - Reads: the receipt JSON at <path> (via _read_json_object), normalized against <root>.
     - Non-goal: does not authorize source-body export, validate the receipt, or treat the row as release authority.
     - Escalates-to: "plectis evidence inspect <receipt_ref>" for the full contract; _receipt_evidence_contract_summary for the booleans; tests covering runtime_evidence_index.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     payload = _read_json_object(path)
     receipt_ref = _public_relative(path, root)
@@ -149,13 +198,17 @@ def compact_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
 
 
 def _iter_json_files(root: Path) -> Iterator[Path]:
-    """Recursively yield every .json file under a directory, tolerantly.
+    """
+    [ACTION]
+    Recursively yield every .json file under a directory, tolerantly.
 
     - Teleology: enumerates candidate receipt files for the index without letting unreadable dirs/entries or symlink cycles abort the walk.
     - Guarantee: yields a Path for each regular .json file found by recursive os.scandir; directory recursion does not follow symlinks (follow_symlinks=False).
     - Fails: never raises; an unscannable root yields nothing and a per-entry OSError is skipped (continue) rather than propagated.
     - Reads: the on-disk directory tree under <root>.
     - Non-goal: does not parse, validate, or sort the files; ordering/limit are imposed downstream by _bounded_sorted_paths.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     try:
         with os.scandir(root) as entries:
@@ -176,7 +229,9 @@ def _iter_json_files(root: Path) -> Iterator[Path]:
 def list_runtime_evidence(
     root: str | Path, *, limit: int | None = None
 ) -> dict[str, Any]:
-    """Build the compact, body-free runtime-evidence index over a substrate root.
+    """
+    [ACTION]
+    Build the compact, body-free runtime-evidence index over a substrate root.
 
     - Teleology: the public read-surface that lists runtime-evidence receipts as compact rows with a stable schema, so agents can survey evidence without loading any receipt body.
     - Guarantee: returns a dict with schema_version microcosm_runtime_evidence_v1, status "pass", evidence_list_mode compact_runtime_evidence_index_v1, the total receipt_count, the returned_receipt_count, the echoed limit, a truncated flag (returned < total), and an evidence list of compact summary rows; rows are the lexicographically-first paths when a limit is given.
@@ -185,6 +240,8 @@ def list_runtime_evidence(
     - Reads: the <root>/receipts tree (recursively, via _iter_json_files) under the expanded/resolved root.
     - Non-goal: does not validate receipts, authorize release/source-body export, or assert the evidence proves whole-system correctness; truncated indexes are partial views.
     - Escalates-to: "plectis evidence inspect <receipt_ref>" (full_contract_drilldown) per row; compact_receipt_summary for row shape; tests covering runtime_evidence_index.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     root_path = Path(root).expanduser().resolve(strict=False)
     receipt_count, returned_receipts = _bounded_sorted_paths(

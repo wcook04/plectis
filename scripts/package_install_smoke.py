@@ -21,6 +21,24 @@ PRIVATE_MARKERS = (
 # it is normalized to this token BEFORE the private-marker assert. The assert
 # itself stays strict: any other absolute/private path still fails the smoke.
 WORK_DIR_TOKEN = "<work-dir>"
+SOURCE_STAGE_EXCLUDES = (
+    ".git",
+    ".hg",
+    ".microcosm",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".tox",
+    ".nox",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "*.egg-info",
+    "*.pyc",
+    ".DS_Store",
+)
 
 
 def _normalize_work_refs(text: str, work_dir: Path) -> str:
@@ -39,16 +57,29 @@ def _normalize_work_refs(text: str, work_dir: Path) -> str:
     return text
 
 
+def _stage_source_tree(source_root: Path, work_dir: Path) -> Path:
+    """Copy install inputs to work_dir so pip build residue stays out of source."""
+    staged_source = work_dir / "source"
+    if staged_source.exists():
+        shutil.rmtree(staged_source)
+    shutil.copytree(
+        source_root,
+        staged_source,
+        ignore=shutil.ignore_patterns(*SOURCE_STAGE_EXCLUDES),
+    )
+    return staged_source
+
+
 @contextlib.contextmanager
 def _source_build_lock(source_root: Path):
-    """Serialize in-tree wheel builds across concurrent smokes and proof runs.
+    """Serialize wheel builds across concurrent smokes and proof runs.
 
-    pip's in-tree build writes shared intermediates under <source-root>/build;
-    two concurrent builds race, and a crashed one leaves residue that fails
-    every later build ([Errno 17] on the staged dist-info). The lock lives at
-    .microcosm/package_build.lock (gitignored runtime state). POSIX flock
-    only; on Windows, or when the lock file cannot be opened, it degrades to
-    a no-op rather than blocking the smoke.
+    pip may write shared intermediates under <build-root>/build; two
+    concurrent builds race, and a crashed one leaves residue that fails every
+    later build ([Errno 17] on the staged dist-info). The lock lives at
+    .microcosm/package_build.lock under the build root. POSIX flock only; on
+    Windows, or when the lock file cannot be opened, it degrades to a no-op
+    rather than blocking the smoke.
     """
     handle = None
     if os.name != "nt":
@@ -153,6 +184,8 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
 
     if work_dir.exists():
         shutil.rmtree(work_dir)
+    work_dir.mkdir(parents=True)
+    staged_source = _stage_source_tree(source_root, work_dir)
     venv_dir = work_dir / "venv"
     output_dir = work_dir / "outputs"
     project_dir = work_dir / "project"
@@ -162,17 +195,27 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
     _run([python, "-m", "venv", str(venv_dir)])
     venv_python = _bin_dir(venv_dir) / ("python.exe" if os.name == "nt" else "python")
     plectis = _bin_dir(venv_dir) / ("plectis.exe" if os.name == "nt" else "plectis")
+    tmp_dir = work_dir / "tmp"
+    pycache_dir = work_dir / "pycache"
+    pip_cache_dir = work_dir / "pip-cache"
+    for scratch_dir in (tmp_dir, pycache_dir, pip_cache_dir):
+        scratch_dir.mkdir(parents=True, exist_ok=True)
     env = {
         **os.environ,
         "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+        "PIP_CACHE_DIR": str(pip_cache_dir),
+        "PYTHONPYCACHEPREFIX": str(pycache_dir),
+        "TMPDIR": str(tmp_dir),
+        "TMP": str(tmp_dir),
+        "TEMP": str(tmp_dir),
     }
     # A caller-supplied PYTHONPATH (e.g. a dev-tree src/) would shadow the
     # installed package inside the venv and turn this smoke into a checkout
     # test wearing an install costume. Scrub it so "fresh venv" stays true.
     env.pop("PYTHONPATH", None)
 
-    with _source_build_lock(source_root):
-        _clear_stale_wheel_staging(source_root)
+    with _source_build_lock(staged_source):
+        _clear_stale_wheel_staging(staged_source)
         _run(
             [
                 str(venv_python),
@@ -181,7 +224,7 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
                 "install",
                 "--disable-pip-version-check",
                 "--no-deps",
-                str(source_root),
+                str(staged_source),
             ],
             env=env,
         )
@@ -299,7 +342,7 @@ def main(argv: list[str] | None = None) -> int:
     - Guarantee: on return the fresh venv was built, the package installed, and all card checks passed without private-path leaks.
     - Fails: install/check failure or private-marker leak -> run_package_smoke raises SystemExit with a nonzero/diagnostic exit.
     - Reads: --source-root pyproject tree; --python interpreter.
-    - Writes: --work-dir venv, installed package, and captured card output files.
+    - Writes: --work-dir staged source copy, venv, pip/tmp/pycache scratch, installed package, and captured card output files.
     """
     parser = argparse.ArgumentParser(
         description=(

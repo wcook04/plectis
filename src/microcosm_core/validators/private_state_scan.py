@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.validators.private_state_scan` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SKIP_DIRS, SKIP_FILE_SUFFIXES, validate_scan, main
+- Reads: call arguments, module constants, imported helpers.
+- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.private_state_scan, microcosm_core.receipts
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -27,7 +52,9 @@ SKIP_FILE_SUFFIXES = {".pyc", ".pyo"}
 
 
 def _is_local_residue(path: Path, root: Path) -> bool:
-    """Classify a path as local build/tooling residue that the scan must skip.
+    """
+    [ACTION]
+    Classify a path as local build/tooling residue that the scan must skip.
 
     - Teleology: protects the private-state scan's signal from being diluted by build/VCS noise, keeping the public-safety verdict focused on real source under `root`.
     - Guarantee: returns True iff any path part is in SKIP_DIRS, any part ends with `.egg-info`, the suffix is in SKIP_FILE_SUFFIXES (`.pyc`/`.pyo`), or the basename is `.DS_Store`; otherwise False (path computed relative to `root`, falling back to the absolute path on ValueError).
@@ -36,6 +63,7 @@ def _is_local_residue(path: Path, root: Path) -> bool:
     - Writes: None
     - When-needed: inspect when deciding why a file was or was not included in the private-state scan walk.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     try:
         rel = path.relative_to(root)
@@ -51,7 +79,9 @@ def _is_local_residue(path: Path, root: Path) -> bool:
 
 
 def _iter_scan_paths(root: Path) -> Iterator[Path]:
-    """Yield every non-residue path under `root` for the private-state scan.
+    """
+    [ACTION]
+    Yield every non-residue path under `root` for the private-state scan.
 
     - Teleology: protects the completeness of the public-safety scan corpus, ensuring no real source file is silently dropped while build/VCS residue is pruned.
     - Guarantee: walks `root` via os.walk, prunes dirnames where `_is_local_residue` is True, and yields each remaining file path that is not `_is_local_residue`; emits paths only, never file contents.
@@ -60,6 +90,7 @@ def _iter_scan_paths(root: Path) -> Iterator[Path]:
     - Writes: None
     - When-needed: inspect to reproduce exactly which files `validate_scan` fed to the scanner.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     for dirpath, dirnames, filenames in os.walk(root):
         current = Path(dirpath)
@@ -75,7 +106,9 @@ def _iter_scan_paths(root: Path) -> Iterator[Path]:
 
 
 def validate_scan(root: str | Path, policy: str | Path | None = None) -> dict[str, Any]:
-    """Scan `root` for forbidden private-state classes and build a verdict receipt.
+    """
+    [ACTION]
+    Scan `root` for forbidden private-state classes and build a verdict receipt.
 
     - Teleology: protects the public-safe claim that exported substrate carries no forbidden private-state material, guarding against leaking declared private classes into a public export.
     - Guarantee: returns a `base_receipt("private_state_scan", "first_wave")` dict whose `status` mirrors `scan["status"]` (PASS only when the scan found no blocking hit) and carries the full `private_state_scan` findings plus `receipt_paths`.
@@ -85,6 +118,7 @@ def validate_scan(root: str | Path, policy: str | Path | None = None) -> dict[st
     - When-needed: trust before treating `root` as a clean public export; inspect the `private_state_scan` hits when status is non-PASS.
     - Escalates-to: `microcosm_core.private_state_scan.scan_paths` (status derivation) and `receipts/first_wave/private_state_scan.json`.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; it is not a complete secret scan and does not certify absence of secrets.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     root_path = Path(root)
     policy_path = (
@@ -110,7 +144,9 @@ def validate_scan(root: str | Path, policy: str | Path | None = None) -> dict[st
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entrypoint: run the private-state scan and persist its receipt.
+    """
+    [ACTION]
+    CLI entrypoint: run the private-state scan and persist its receipt.
 
     - Teleology: protects the private-state-scan gate as a runnable check, turning the scan verdict into a persisted receipt and a process exit code for CI/release tooling.
     - Guarantee: parses required `--root`/`--out` (optional `--policy`), calls `validate_scan`, writes the receipt to `--out` via `write_receipt`, and returns 0 iff `receipt["status"] == PASS` else 1.
@@ -120,6 +156,7 @@ def main(argv: list[str] | None = None) -> int:
     - When-needed: invoke as the release/CI private-state gate; trust the exit code as the pass/block signal.
     - Escalates-to: `validate_scan` (verdict) and the `--out` receipt file.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; exit 0 means no forbidden-class hit, not certified secret-free.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", required=True)

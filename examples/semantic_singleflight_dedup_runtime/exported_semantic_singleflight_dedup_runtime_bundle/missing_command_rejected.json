@@ -1,0 +1,8 @@
+{
+  "case_id": "missing_command_rejected",
+  "case_type": "negative",
+  "exercise": "missing_command_rejected",
+  "expected_ok": true,
+  "expected_negative_case": "missing_command_rejected",
+  "note": "An empty argv is rejected before any run is started. The guard SINGLEFLIGHT_EMPTY_ARGV_REJECTED is expected to fire."
+}
