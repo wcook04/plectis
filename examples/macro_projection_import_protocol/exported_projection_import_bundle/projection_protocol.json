@@ -11649,32 +11649,30 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:6c7dc91ea8a474d3abda17558629e45fd89e50cd39d051b4f66517371d456dcb",
+      "body_digest": "sha256:f105f18f4e9f2d14ed570a9606d174cb96ba7c7ddaf6db3f37ee6b14c19ba1ac",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:6c7dc91ea8a474d3abda17558629e45fd89e50cd39d051b4f66517371d456dcb",
-        "source_line_count": 15,
-        "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/check_station_geometry.py",
+        "source_body_digest": "sha256:f105f18f4e9f2d14ed570a9606d174cb96ba7c7ddaf6db3f37ee6b14c19ba1ac",
+        "source_line_count": 175,
+        "source_ref": "tools/meta/factory/check_station_geometry.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:6c7dc91ea8a474d3abda17558629e45fd89e50cd39d051b4f66517371d456dcb",
-        "target_line_count": 15,
+        "target_body_digest": "sha256:f105f18f4e9f2d14ed570a9606d174cb96ba7c7ddaf6db3f37ee6b14c19ba1ac",
+        "target_line_count": 175,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/check_station_geometry.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 15,
+      "body_line_count": 175,
       "body_text_in_receipt": false,
-      "byte_count": 528,
       "claim_ceiling": "public spatial world-model Station geometry source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, private video export, raw sensor body export, simulator-product authority, release, publication, private-root equivalence, or whole-system correctness authority",
       "classification": [
         "copied_non_secret_macro_body"
       ],
       "credential_exposure_risk": "low",
-      "line_count": 15,
       "material_class": "public_macro_tool_body",
       "material_id": "station_geometry_checker_source_body_import",
       "provenance_refs": [
@@ -11683,23 +11681,13 @@
         "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
       "public_safe_mode": "direct_verified_macro_body",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "tools/meta/factory/check_station_geometry.py",
-        "substitution": "public_safe_stub"
-      },
-      "sha256_match": true,
-      "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/check_station_geometry.py",
+      "source_ref": "tools/meta/factory/check_station_geometry.py",
       "source_refs": [
         "tools/meta/factory/check_station_geometry.py",
         "microcosm-substrate/examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
         "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/spatial_world_model_source_module_manifest.json"
       ],
-      "source_sha256": "6c7dc91ea8a474d3abda17558629e45fd89e50cd39d051b4f66517371d456dcb",
-      "source_to_target_relation": "exact_copy",
       "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/tools/meta/factory/check_station_geometry.py",
-      "target_sha256": "6c7dc91ea8a474d3abda17558629e45fd89e50cd39d051b4f66517371d456dcb",
       "validation_refs": [
         "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"
@@ -11727,32 +11715,30 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:951ebd4390488c5f2303226d7d4bb87671a980c234fbb85e03c9f0a161b556d4",
+      "body_digest": "sha256:9fd7af9310c07f159344bdc41e15fe17720b5594cb31cf130109980e169313b3",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:951ebd4390488c5f2303226d7d4bb87671a980c234fbb85e03c9f0a161b556d4",
-        "source_line_count": 15,
-        "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_station_geometry_check.py",
+        "source_body_digest": "sha256:9fd7af9310c07f159344bdc41e15fe17720b5594cb31cf130109980e169313b3",
+        "source_line_count": 44,
+        "source_ref": "system/server/tests/test_station_geometry_check.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:951ebd4390488c5f2303226d7d4bb87671a980c234fbb85e03c9f0a161b556d4",
-        "target_line_count": 15,
+        "target_body_digest": "sha256:9fd7af9310c07f159344bdc41e15fe17720b5594cb31cf130109980e169313b3",
+        "target_line_count": 44,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_station_geometry_check.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 15,
+      "body_line_count": 44,
       "body_text_in_receipt": false,
-      "byte_count": 540,
       "claim_ceiling": "public spatial world-model Station geometry source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, private video export, raw sensor body export, simulator-product authority, release, publication, private-root equivalence, or whole-system correctness authority",
       "classification": [
         "copied_non_secret_macro_body"
       ],
       "credential_exposure_risk": "low",
-      "line_count": 15,
       "material_class": "public_macro_tool_body",
       "material_id": "station_geometry_checker_test_body_import",
       "provenance_refs": [
@@ -11761,23 +11747,13 @@
         "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
       "public_safe_mode": "direct_verified_macro_body",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/server/tests/test_station_geometry_check.py",
-        "substitution": "public_safe_stub"
-      },
-      "sha256_match": true,
-      "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_station_geometry_check.py",
+      "source_ref": "system/server/tests/test_station_geometry_check.py",
       "source_refs": [
         "system/server/tests/test_station_geometry_check.py",
         "microcosm-substrate/examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
         "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/spatial_world_model_source_module_manifest.json"
       ],
-      "source_sha256": "951ebd4390488c5f2303226d7d4bb87671a980c234fbb85e03c9f0a161b556d4",
-      "source_to_target_relation": "exact_copy",
       "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/tests/test_station_geometry_check.py",
-      "target_sha256": "951ebd4390488c5f2303226d7d4bb87671a980c234fbb85e03c9f0a161b556d4",
       "validation_refs": [
         "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"
@@ -11805,32 +11781,30 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:e731004a3b3683c5030202415e08b0e49ee640b5ed94985a6760db49f467c8c2",
+      "body_digest": "sha256:a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
           "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"
         ],
-        "source_body_digest": "sha256:e731004a3b3683c5030202415e08b0e49ee640b5ed94985a6760db49f467c8c2",
-        "source_line_count": 7,
-        "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json",
+        "source_body_digest": "sha256:a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029",
+        "source_line_count": 63,
+        "source_ref": "system/server/ui/package.json",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:e731004a3b3683c5030202415e08b0e49ee640b5ed94985a6760db49f467c8c2",
-        "target_line_count": 7,
+        "target_body_digest": "sha256:a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029",
+        "target_line_count": 63,
         "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 7,
+      "body_line_count": 63,
       "body_text_in_receipt": false,
-      "byte_count": 258,
       "claim_ceiling": "public spatial world-model Station geometry source-module body import only; not live route repair, source mutation, Task Ledger mutation, provider calls, provider payload export, browser/HUD live-access export, account/session state export, credential export, private video export, raw sensor body export, simulator-product authority, release, publication, private-root equivalence, or whole-system correctness authority",
       "classification": [
         "copied_non_secret_macro_body"
       ],
       "credential_exposure_risk": "low",
-      "line_count": 7,
       "material_class": "public_macro_tool_body",
       "material_id": "station_geometry_build_wiring_source_body_import",
       "provenance_refs": [
@@ -11839,23 +11813,13 @@
         "codex/standards/std_microcosm.json#direct_import_with_verification"
       ],
       "public_safe_mode": "direct_verified_macro_body",
-      "release_substitution": {
-        "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
-        "matched_private_ref": "system/server/ui/package.json",
-        "substitution": "public_safe_stub"
-      },
-      "sha256_match": true,
-      "source_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json",
+      "source_ref": "system/server/ui/package.json",
       "source_refs": [
         "system/server/ui/package.json",
         "microcosm-substrate/examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle/source_module_manifest.json",
         "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/spatial_world_model_source_module_manifest.json"
       ],
-      "source_sha256": "e731004a3b3683c5030202415e08b0e49ee640b5ed94985a6760db49f467c8c2",
-      "source_to_target_relation": "exact_copy",
       "target_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/server/ui/package.json",
-      "target_sha256": "e731004a3b3683c5030202415e08b0e49ee640b5ed94985a6760db49f467c8c2",
       "validation_refs": [
         "microcosm-substrate/tests/test_spatial_world_model_counterfactual_simulation_replay.py::test_spatial_world_model_counterfactual_source_modules_are_exact_station_geometry_imports",
         "microcosm-substrate/tests/test_macro_projection_import_protocol.py::test_spatial_world_model_source_modules_body_import_is_unified_under_macro_projection_spine"

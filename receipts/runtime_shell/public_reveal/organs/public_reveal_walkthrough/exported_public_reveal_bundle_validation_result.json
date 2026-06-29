@@ -11,10 +11,10 @@
     "status": "pass",
     "whole_system_correctness_claim": false
   },
-  "body_copied_material_count": 5,
+  "body_copied_material_count": 1,
   "body_in_receipt": false,
   "bundle_id": "public_reveal_walkthrough_runtime_example",
-  "command": "microcosm reveal",
+  "command": "plectis reveal",
   "command_count": 8,
   "commands": [
     "microcosm authority --card",
@@ -26,7 +26,7 @@
     "microcosm serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765",
     "python -m pip install -e '.[test]'"
   ],
-  "created_at": "2026-06-14T01:26:41+00:00",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "error_codes": [],
   "evidence_ref_count": 11,
   "evidence_refs": [
@@ -82,7 +82,7 @@
     "body_in_receipt": false,
     "bundle_id": "public_reveal_walkthrough_runtime_example",
     "command_count": 8,
-    "current_body_material_count": 5,
+    "current_body_material_count": 1,
     "current_input_is_exported_bundle_witness": true,
     "current_source_body_import_status": "pass",
     "error_codes": [],
@@ -247,7 +247,7 @@
       "not_a_complete_secret_scan": true,
       "scope_id": "synthetic_sentinel_and_declared_import_policy"
     },
-    "scanned_path_count": 10,
+    "scanned_path_count": 6,
     "status": "pass",
     "synthetic_receipt_policy": "Synthetic receipts are admissible only as regression or negative-case harness artifacts, or as named blocked-import debt. They are not substitutes for non-secret macro substrate, real runtime receipts, real copied bodies, or source-faithful refactors."
   },
@@ -260,11 +260,11 @@
     "PYTHONPATH=src python3 -m microcosm_core run --card examples/runtime_shell/demo_project",
     "PYTHONPATH=src python3 -m microcosm_core serve /tmp/microcosm-scratch --host 127.0.0.1 --port 8765"
   ],
-  "source_module_count": 5,
+  "source_module_count": 1,
   "source_module_import_status": "copied_non_secret_public_reveal_macro_body_landed",
   "source_module_manifest_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json",
   "source_module_manifest_status": "pass",
-  "source_module_verified_count": 5,
+  "source_module_verified_count": 1,
   "source_open_body_imports": {
     "aggregate_floor_ref": "examples/public_reveal_walkthrough/exported_public_reveal_bundle/source_module_manifest.json::modules",
     "authority_ceiling": {
@@ -276,16 +276,10 @@
     },
     "body_in_receipt": false,
     "body_material_classes": {
-      "public_macro_receipt_body": 3,
-      "public_macro_tool_body": 1,
       "public_python_source_body": 1
     },
-    "body_material_count": 5,
+    "body_material_count": 1,
     "body_material_ids": [
-      "public_reveal_first_slice_execution_receipt_body_import",
-      "public_reveal_runtime_shell_reorientation_receipt_body_import",
-      "public_reveal_clean_clone_state_fixture_receipt_body_import",
-      "public_reveal_public_substrate_boundary_policy_body_import",
       "public_reveal_walkthrough_control_plane_source_body_import"
     ],
     "body_material_status": "copied_non_secret_public_reveal_macro_body_landed",
@@ -293,8 +287,6 @@
     "body_text_exported_in_workingness": false,
     "body_text_in_receipt": false,
     "material_classes": [
-      "public_macro_receipt_body",
-      "public_macro_tool_body",
       "public_python_source_body"
     ],
     "reader_action": "Open source_module_manifest.json plus source_modules/ inside the exported public reveal bundle for copied macro reconstruction receipts and public substrate boundary policy bodies; receipts carry refs, hashes, counts, and verdicts only.",

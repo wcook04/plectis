@@ -28,7 +28,7 @@
     "provider_suggested": 1,
     "retrieval_miss": 1
   },
-  "command": "microcosm verifier-lab-execution-spine-lens",
+  "command": "plectis verifier-lab-execution-spine-lens",
   "cp2_rows": [
     {
       "candidate_action_class": "premise_exact",
@@ -51,7 +51,7 @@
       "unsafe_payload_bodies_exported": false
     }
   ],
-  "created_at": "2026-06-04T14:41:15+00:00",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "endpoint": "/verifier-lab-execution-spine",
   "evolve_rows": [
     {
@@ -114,7 +114,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_verifier_lab_execution_spine_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm verifier-lab-execution-spine-lens",
+    "command": "plectis verifier-lab-execution-spine-lens",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -141,7 +141,7 @@
     "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
     "unsafe_payload_bodies_in_receipt": false
   },
-  "public_claim": "Microcosm exposes the verifier-lab execution spine as a public runtime lens: bounded Lean transition candidates are checked through Lake, CP2 and Evolve reruns are counted only as typed public transition effects, and proof bodies, oracle answers, provider payloads, stdout/stderr bodies, source mutation, and release claims stay outside the public authority boundary.",
+  "public_claim": "Plectis exposes the verifier-lab execution spine as a public runtime lens: bounded Lean transition candidates are checked through Lake, CP2 and Evolve reruns are counted only as typed public transition effects, and proof bodies, oracle answers, provider payloads, stdout/stderr bodies, source mutation, and release claims stay outside the public authority boundary.",
   "public_runtime_refs": [
     "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
   ],
@@ -206,7 +206,7 @@
     "scanned_path_count": 7,
     "status": "pass"
   },
-  "source_command": "microcosm verifier-lab-execution-spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
+  "source_command": "plectis verifier-lab-execution-spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
   "source_open_body_imports": {
     "aggregate_floor_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle/source_module_manifest.json::modules",
     "authority_ceiling": {

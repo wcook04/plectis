@@ -17,8 +17,8 @@
     "source_mutation_authorized": false,
     "tool_return_code_as_general_proof_claim": false
   },
-  "command": "microcosm proof-loop-depth",
-  "created_at": "2026-06-14T01:26:41+00:00",
+  "command": "plectis proof-loop-depth",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "endpoint": "/proof-loop-depth",
   "evidence_refs": [
     "receipts/runtime_shell/public_corpus_readiness_lens.json",
@@ -63,8 +63,8 @@
     "cache_freshness": {
       "input_refs_exported": false,
       "input_status": "current",
-      "latest_input_mtime_ns": 1781242310385553131,
-      "receipt_mtime_ns": 1781365288620237273,
+      "latest_input_mtime_ns": 1782712913503973997,
+      "receipt_mtime_ns": 1782745856570968085,
       "schema_version": "microcosm_proof_lab_cache_freshness_v1",
       "stale_input_count": 0,
       "status": "current",
@@ -72,11 +72,11 @@
     },
     "cache_status": "cached_receipt_read",
     "cached_card_status": "pass",
-    "cached_receipt_bytes": 38157,
+    "cached_receipt_bytes": 35021,
     "cached_receipt_ref": "/tmp/microcosm-proof-lab/exported_verifier_lab_kernel_bundle_validation_result.json",
     "card_id": "first_screen_verifier_lab_kernel",
     "classification": "real_runtime_receipt",
-    "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+    "command": "plectis proof-lab --out /tmp/microcosm-proof-lab",
     "component_metrics": {
       "corpus_count": 7,
       "lean_std_premise_count": 11,
@@ -112,8 +112,8 @@
       "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle/verifier_lab_packet.json",
       "examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/lake_project/MicrocosmProofWitness/Basic.lean"
     ],
-    "reader_action": "If cache_status is stale_cached_receipt, run microcosm proof-lab --out /tmp/microcosm-proof-lab before treating the cached proof-lab card as current.",
-    "rebuild_command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+    "reader_action": "If cache_status is stale_cached_receipt, run plectis proof-lab --out /tmp/microcosm-proof-lab before treating the cached proof-lab card as current.",
+    "rebuild_command": "plectis proof-lab --out /tmp/microcosm-proof-lab",
     "receipt_ref": "receipts/first_wave/verifier_lab_kernel/exported_verifier_lab_kernel_bundle_validation_result.json",
     "route_component_count": 9,
     "route_id": "formal_prover_context_strategy_gate",
@@ -152,7 +152,7 @@
     "bundle_ref": "examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle",
     "card_id": "first_screen_verifier_lab_execution_spine",
     "classification": "real_runtime_receipt",
-    "command": "microcosm verifier-lab-execution-spine-lens",
+    "command": "plectis verifier-lab-execution-spine-lens",
     "cp2_downstream_effect_count": 1,
     "evidence_class": "external_subprocess_witness",
     "evolve_accepted_count": 1,
@@ -178,7 +178,7 @@
       "scanned_path_count": 7,
       "status": "pass"
     },
-    "source_command": "microcosm verifier-lab-execution-spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
+    "source_command": "plectis verifier-lab-execution-spine run-execution-bundle --input examples/verifier_lab_execution_spine/exported_verifier_lab_execution_spine_bundle --out receipts/runtime_shell/demo_project/organs/verifier_lab_execution_spine",
     "status": "pass",
     "transition_count": 6
   },
@@ -393,7 +393,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_proof_loop_depth_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm proof-loop-depth",
+    "command": "plectis proof-loop-depth",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -440,7 +440,7 @@
     "public_drilldown_ref_count": 12,
     "unsafe_payload_body_export_count": 0
   },
-  "public_claim": "Microcosm exposes a proof-loop depth map: environment readiness, premise indexing, retrieval, tactic availability, target-shape routing, verifier trace, cold-rerun repair promotion, evidence-cell resolution, and tiny Lean witness boundaries are one inspectable metadata loop instead of a proof or benchmark claim.",
+  "public_claim": "Plectis exposes a proof-loop depth map: environment readiness, premise indexing, retrieval, tactic availability, target-shape routing, verifier trace, cold-rerun repair promotion, evidence-cell resolution, and tiny Lean witness boundaries are one inspectable metadata loop instead of a proof or benchmark claim.",
   "release_authorized": false,
   "safe_to_show": {
     "fixture_metadata_only": true,

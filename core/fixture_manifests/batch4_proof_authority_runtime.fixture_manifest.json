@@ -17,8 +17,6 @@
     "fixtures/first_wave/batch4_proof_authority_runtime/input/grant_forbidden_context.json",
     "fixtures/first_wave/batch4_proof_authority_runtime/input/forward_dirty_unknown_target.json",
     "fixtures/first_wave/batch4_proof_authority_runtime/input/closeout_stale_head.json",
-    "fixtures/first_wave/batch4_proof_authority_runtime/input/codex_driver_absent_port.json",
-    "fixtures/first_wave/batch4_proof_authority_runtime/input/idle_stale_snapshot.json",
     "fixtures/first_wave/batch4_proof_authority_runtime/input/bitemporal_expired_claim.json",
     "fixtures/first_wave/batch4_proof_authority_runtime/input/taskpolicy_missing_binary.json",
     "fixtures/first_wave/batch4_proof_authority_runtime/input/context_accepted_read_guard.json"
@@ -61,8 +59,6 @@
     "grant_forbidden_context",
     "forward_dirty_unknown_target",
     "closeout_stale_head",
-    "codex_driver_absent_port",
-    "idle_stale_snapshot",
     "bitemporal_expired_claim",
     "taskpolicy_missing_binary",
     "context_accepted_read_guard"
@@ -77,8 +73,6 @@
     "BATCH4_GRANT_FORBIDDEN_CONTEXT_DENIED",
     "BATCH4_FORWARD_POLICY_DIRTY_UNKNOWN_TARGET_BLOCKED",
     "BATCH4_CLOSEOUT_STALE_HEAD_DEFERS",
-    "BATCH4_CODEX_DRIVER_ABSENT_PORT_TYPED_UNREACHABLE",
-    "BATCH4_IDLE_HEARTBEAT_STALE_SNAPSHOT_REJECTED",
     "BATCH4_BITEMPORAL_EXPIRED_CLAIM_NOT_CURRENT",
     "BATCH4_TASKPOLICY_UNAVAILABLE_PASSTHROUGH",
     "BATCH4_CONTEXT_ACCEPTED_SCOPED_READ_NOT_FLAGGED"

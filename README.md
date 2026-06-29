@@ -94,6 +94,9 @@ plectis tour --format text .
 plectis tour --card .
 ```
 
+The `.[test]` extra is the supported cold-clone dependency path: it installs
+the public test/runtime helpers such as pytest, requests, NumPy, and pandas.
+
 [QUICKSTART.md](QUICKSTART.md) is the one-page version: the bootstrap probe, the
 browser view, the offline checks, and the boundary notes, in the order a cold
 clone needs them.

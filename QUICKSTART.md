@@ -46,6 +46,10 @@ From this directory:
 python3 -m pip install -e '.[test]'
 ```
 
+That extra is intentional for a cold clone. It installs the public test/runtime
+dependencies, including pytest, requests, NumPy, and pandas; source-only commands
+can run before this, but the full fixture and CI floor expects these packages.
+
 Or use the source form without installing:
 
 ```bash

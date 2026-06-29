@@ -15,8 +15,8 @@
     "release_authorized": false,
     "source_mutation_authorized": false
   },
-  "command": "microcosm option-surface-lens",
-  "created_at": "2026-06-01T15:48:06+00:00",
+  "command": "plectis option-surface-lens",
+  "created_at": "2026-06-29T15:45:24+00:00",
   "endpoint": "/option-surface-lens",
   "import_plan_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/import_plan.json",
   "import_projector_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",
@@ -33,7 +33,7 @@
   ],
   "option_rows": [
     {
-      "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
+      "authority_ceiling_ref": "plectis authority::public_compression_profile_option_surface_lens",
       "cleaned": [
         "private source path bodies",
         "volatile run counters"
@@ -50,7 +50,7 @@
       ],
       "option_row_id": "compression_profile_candidate_anchor",
       "option_stage": "candidate_pattern_anchor",
-      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
+      "payload_boundary_ref": "plectis option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
@@ -63,7 +63,7 @@
       "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_option_surface_lens_is_public_safe"
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
+      "authority_ceiling_ref": "plectis authority::public_compression_profile_option_surface_lens",
       "cleaned": [
         "live route rankings",
         "private phase-specific counts"
@@ -79,7 +79,7 @@
       ],
       "option_row_id": "quick_profile_public_card",
       "option_stage": "public_profile_contract",
-      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
+      "payload_boundary_ref": "plectis option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
@@ -87,12 +87,12 @@
       "release_authorized": false,
       "source_mutation_authorized": false,
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
-      "source_ref": "microcosm import-projector::candidate_selection",
+      "source_ref": "plectis import-projector::candidate_selection",
       "unsafe_payload_bodies_exported": false,
       "validation_ref": "tests/test_cli.py::test_cli_option_surface_lens_smoke"
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
+      "authority_ceiling_ref": "plectis authority::public_compression_profile_option_surface_lens",
       "cleaned": [
         "unbounded prompt stuffing",
         "private note bodies"
@@ -107,7 +107,7 @@
       ],
       "option_row_id": "full_profile_sidecar_boundary",
       "option_stage": "sidecar_projection",
-      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
+      "payload_boundary_ref": "plectis option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
@@ -115,12 +115,12 @@
       "release_authorized": false,
       "source_mutation_authorized": false,
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
-      "source_ref": "microcosm route-cleanup::option_surface_hygiene",
+      "source_ref": "plectis route-cleanup::option_surface_hygiene",
       "unsafe_payload_bodies_exported": false,
       "validation_ref": "tests/test_launch_compression.py::test_launch_compression_validator_proves_one_command_aha"
     },
     {
-      "authority_ceiling_ref": "microcosm authority::local_observatory",
+      "authority_ceiling_ref": "plectis authority::local_observatory",
       "cleaned": [
         "raw JSON first-screen dependence",
         "private drilldown payloads"
@@ -136,7 +136,7 @@
       ],
       "option_row_id": "observatory_option_surface_card",
       "option_stage": "runtime_binding",
-      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
+      "payload_boundary_ref": "plectis option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
@@ -144,12 +144,12 @@
       "release_authorized": false,
       "source_mutation_authorized": false,
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
-      "source_ref": "microcosm project-observatory::json_drilldowns",
+      "source_ref": "plectis project-observatory::json_drilldowns",
       "unsafe_payload_bodies_exported": false,
       "validation_ref": "tests/test_observatory_legibility.py::test_observatory_legibility_validator_exposes_causal_chain"
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
+      "authority_ceiling_ref": "plectis authority::public_compression_profile_option_surface_lens",
       "cleaned": [
         "green-check-only posture",
         "unbound profile claims"
@@ -165,7 +165,7 @@
       ],
       "option_row_id": "validator_option_profile_parity",
       "option_stage": "validation",
-      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
+      "payload_boundary_ref": "plectis option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
@@ -173,12 +173,12 @@
       "release_authorized": false,
       "source_mutation_authorized": false,
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
-      "source_ref": "microcosm launch-compression::assertions",
+      "source_ref": "plectis launch-compression::assertions",
       "unsafe_payload_bodies_exported": false,
       "validation_ref": "tests/test_observatory_legibility.py"
     },
     {
-      "authority_ceiling_ref": "microcosm landing-replay::scoped_commit_requires_head_advance",
+      "authority_ceiling_ref": "plectis landing-replay::scoped_commit_requires_head_advance",
       "cleaned": [
         "raw seed voice",
         "unreviewed public release language"
@@ -194,7 +194,7 @@
       ],
       "option_row_id": "seed_reentry_option_profile_contract",
       "option_stage": "reentry_contract",
-      "payload_boundary_ref": "microcosm option-surface-lens::payload_boundary",
+      "payload_boundary_ref": "plectis option-surface-lens::payload_boundary",
       "private_body_exported": false,
       "profile_switch_execution_authorized": false,
       "provider_payload_exported": false,
@@ -284,7 +284,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_compression_profile_option_surface_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm option-surface-lens",
+    "command": "plectis option-surface-lens",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -323,7 +323,7 @@
         "unsafe_payload_bodies_in_receipt",
         "payload_boundary"
       ],
-      "source_open_payload_boundary_ref": "microcosm option-surface-lens::payload_boundary"
+      "source_open_payload_boundary_ref": "plectis option-surface-lens::payload_boundary"
     },
     "source_refs": [
       "state/microcosm_portfolio/extracted_patterns_ledger.jsonl",
@@ -339,7 +339,7 @@
     ]
   },
   "projection_import_map_ref": "receipts/runtime_shell/public_projection_import_map_lens.json",
-  "public_claim": "Microcosm exposes the compression-profile governed option surface as a public read-model: profile choice becomes command, endpoint, receipt, sidecar, validation, and authority-ceiling rows without importing private bodies.",
+  "public_claim": "Plectis exposes the compression-profile governed option surface as a public read-model: profile choice becomes command, endpoint, receipt, sidecar, validation, and authority-ceiling rows without importing private bodies.",
   "release_authorized": false,
   "safe_to_show": {
     "option_surface_is_read_model_only": true,

@@ -13,12 +13,12 @@
     "source_mutation_authorized": false,
     "synthetic_public_projection_read_model_only": true
   },
-  "command": "microcosm projection-import-map",
-  "created_at": "2026-06-14T01:26:42+00:00",
+  "command": "plectis projection-import-map",
+  "created_at": "2026-06-29T15:45:24+00:00",
   "endpoint": "/projection-import-map",
   "import_rows": [
     {
-      "authority_ceiling_ref": "microcosm authority::runtime_reveal_import_bridge",
+      "authority_ceiling_ref": "plectis authority::runtime_reveal_import_bridge",
       "cleaned": [
         "macro-private bodies",
         "raw seed voice",
@@ -36,7 +36,7 @@
       ],
       "projection_status": "pass",
       "public_ref": "receipts/runtime_shell/intake_bridge/observatory_intake_bridge.json",
-      "public_surface": "microcosm intake",
+      "public_surface": "plectis intake",
       "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::macro_projection_import_protocol",
       "source_pattern_id": "macro_projection_import_protocol",
       "validation_refs": [
@@ -45,7 +45,7 @@
       ]
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_projection_safety_audit_lens",
+      "authority_ceiling_ref": "plectis authority::public_projection_safety_audit_lens",
       "cleaned": [
         "private source refs",
         "provider payloads"
@@ -61,7 +61,7 @@
       ],
       "projection_status": "pass",
       "public_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
-      "public_surface": "microcosm projection-safety",
+      "public_surface": "plectis projection-safety",
       "source_authority": "codex/standards/std_command_output_projection.json",
       "source_pattern_id": "omission_receipt_reversible_projection_boundary",
       "validation_refs": [
@@ -70,7 +70,7 @@
       ]
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_cold_reader_legibility_scorecard_lens",
+      "authority_ceiling_ref": "plectis authority::public_cold_reader_legibility_scorecard_lens",
       "cleaned": [
         "reader transcripts",
         "private macro context"
@@ -87,7 +87,7 @@
       ],
       "projection_status": "pass",
       "public_ref": "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
-      "public_surface": "microcosm legibility-scorecard",
+      "public_surface": "plectis legibility-scorecard",
       "source_authority": "microcosm-substrate/paper_modules/cold_reader_route_map.md",
       "source_pattern_id": "cold_reader_route_map",
       "validation_refs": [
@@ -96,7 +96,7 @@
       ]
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_repository_benchmark_transaction_lab_lens",
+      "authority_ceiling_ref": "plectis authority::public_repository_benchmark_transaction_lab_lens",
       "cleaned": [
         "private issue bodies",
         "oracle patch bodies",
@@ -115,7 +115,7 @@
       ],
       "projection_status": "pass",
       "public_ref": "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
-      "public_surface": "microcosm benchmark-lab",
+      "public_surface": "plectis benchmark-lab",
       "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::repository_agent_benchmark_transaction_lab",
       "source_pattern_id": "repository_agent_benchmark_transaction_lab",
       "validation_refs": [
@@ -124,7 +124,7 @@
       ]
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_agent_reliability_replay_gauntlet_lens",
+      "authority_ceiling_ref": "plectis authority::public_agent_reliability_replay_gauntlet_lens",
       "cleaned": [
         "live agent traces",
         "real secret material",
@@ -142,7 +142,7 @@
       ],
       "projection_status": "pass",
       "public_ref": "receipts/runtime_shell/public_agent_reliability_replay_gauntlet_lens.json",
-      "public_surface": "microcosm replay-gauntlet",
+      "public_surface": "plectis replay-gauntlet",
       "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::agent_reliability_replay_gauntlet",
       "source_pattern_id": "agent_reliability_replay_gauntlet",
       "validation_refs": [
@@ -151,7 +151,7 @@
       ]
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_verifier_trace_repair_lens",
+      "authority_ceiling_ref": "plectis authority::public_verifier_trace_repair_lens",
       "cleaned": [
         "proof bodies",
         "oracle-needed premise ids",
@@ -169,7 +169,7 @@
       ],
       "projection_status": "pass",
       "public_ref": "receipts/runtime_shell/public_verifier_trace_repair_lens.json",
-      "public_surface": "microcosm trace-lens && microcosm repair-loop",
+      "public_surface": "plectis trace-lens && plectis repair-loop",
       "source_authority": "state/microcosm_portfolio/extracted_patterns_ledger.jsonl::formal_math_verifier_trace_repair_loop_compound",
       "source_pattern_id": "formal_math_verifier_trace_repair_loop_compound",
       "validation_refs": [
@@ -178,35 +178,7 @@
       ]
     },
     {
-      "authority_ceiling_ref": "microcosm authority::macro_body_import_floor.source_body_import_lens::frontend_cockpit",
-      "cleaned": [
-        "live operator browser and session state",
-        "private root paths rewritten to relative source refs"
-      ],
-      "copied": [
-        "6 exact macro Station cockpit source bodies (2,301 lines)",
-        "source/target sha256 digest parity per module",
-        "child projection protocol bound to the macro import spine via parent_protocol_ref"
-      ],
-      "endpoint": "/authority",
-      "map_row_id": "frontend_cockpit_hud_source_modules_to_import_floor",
-      "omitted": [
-        "provider payload bodies",
-        "raw operator voice",
-        "private frontend runtime dependency and live browser access"
-      ],
-      "projection_status": "pass",
-      "public_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_bundle_manifest.json",
-      "public_surface": "microcosm authority && microcosm status",
-      "source_authority": "examples/macro_projection_import_protocol/exported_projection_import_bundle/frontend_cockpit_source_projection_protocol.json",
-      "source_pattern_id": "frontend_cockpit_hud_source_modules_import",
-      "validation_refs": [
-        "tests/test_frontend_cockpit_hud_source_bundle.py::test_frontend_cockpit_source_modules_are_exact_macro_imports",
-        "tests/test_runtime_shell.py::test_runtime_shell_child_projection_protocols_surface_in_source_body_lens"
-      ]
-    },
-    {
-      "authority_ceiling_ref": "microcosm authority::macro_body_import_floor.source_body_import_lens::compression_profiles",
+      "authority_ceiling_ref": "plectis authority::macro_body_import_floor.source_body_import_lens::compression_profiles",
       "cleaned": [
         "rendered private packet payloads",
         "private root paths rewritten to relative source refs"
@@ -225,7 +197,7 @@
       ],
       "projection_status": "pass",
       "public_ref": "examples/macro_projection_import_protocol/exported_projection_import_bundle/compression_profiles_source_module_manifest.json",
-      "public_surface": "microcosm authority && microcosm status",
+      "public_surface": "plectis authority && plectis status",
       "source_authority": "examples/macro_projection_import_protocol/exported_projection_import_bundle/self_comprehension_packet_compiler_source_projection_protocol.json",
       "source_pattern_id": "self_comprehension_packet_compiler_source_modules_import",
       "validation_refs": [
@@ -293,19 +265,19 @@
   ],
   "lens_id": "public_projection_import_map_lens",
   "map_summary": {
-    "authority_ceiling_row_count": 8,
+    "authority_ceiling_row_count": 7,
     "automated_import_guarantee": false,
     "private_body_export_count": 0,
     "proof_body_export_count": 0,
     "provider_payload_export_count": 0,
     "public_surface_count": 7,
     "release_authorized": false,
-    "row_count": 8,
-    "source_body_handoff_public_safe_body_material_count": 556,
+    "row_count": 7,
+    "source_body_handoff_public_safe_body_material_count": 395,
     "source_body_handoff_status": "pass",
-    "source_body_handoff_verified_source_module_family_count": 118,
+    "source_body_handoff_verified_source_module_family_count": 88,
     "stage_count": 6,
-    "validation_ref_count": 16
+    "validation_ref_count": 14
   },
   "negative_case_ids": [
     "private_body_copied_into_public_surface_rejected",
@@ -323,7 +295,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_projection_import_map_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm projection-import-map",
+    "command": "plectis projection-import-map",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -351,7 +323,7 @@
     "unsafe_payload_bodies_in_receipt": false
   },
   "projection_import_map_ref": "receipts/runtime_shell/public_projection_import_map_lens.json",
-  "public_claim": "Microcosm exposes a projection import map: each public runtime lens names what was copied from the macro pattern, what was cleaned, what was omitted, what authority ceiling remains, and which validators prove the projection.",
+  "public_claim": "Plectis exposes a projection import map: each public runtime lens names what was copied from the macro pattern, what was cleaned, what was omitted, what authority ceiling remains, and which validators prove the projection.",
   "release_authorized": false,
   "safe_to_show": {
     "private_paths_omitted": true,
@@ -377,46 +349,42 @@
   "source_body_import_floor_handoff": {
     "body_text_exported_in_receipts": false,
     "body_text_exported_in_status": false,
-    "direct_source_module_manifest_count": 57,
-    "direct_source_module_manifest_material_count": 301,
-    "full_status_ref": "microcosm status::macro_body_import_floor",
+    "direct_source_module_manifest_count": 35,
+    "direct_source_module_manifest_material_count": 146,
+    "full_status_ref": "plectis status::macro_body_import_floor",
     "latest_verified_source_module_family_ids": [
+      "exported_prediction_oracle_bundle",
       "exported_standards_meta_diagnostics_bundle",
       "exported_tactic_portfolio_availability_bundle",
-      "exported_symbol_classifier_bundle",
       "exported_verifier_lab_execution_spine_bundle",
       "exported_verifier_lab_kernel_bundle"
     ],
     "projection_map_role": "aggregate_handoff_not_body_text",
-    "public_safe_body_material_count": 556,
+    "public_safe_body_material_count": 395,
     "public_safe_body_material_counts_by_class": {
-      "public_macro_frontend_body": 24,
       "public_macro_packet_compiler_body": 2,
       "public_macro_packet_compiler_test_body": 1,
-      "public_macro_pattern_body": 36,
-      "public_macro_proof_body": 9,
-      "public_macro_receipt_body": 69,
-      "public_macro_tool_body": 409,
+      "public_macro_pattern_body": 29,
+      "public_macro_proof_body": 8,
+      "public_macro_receipt_body": 56,
+      "public_macro_tool_body": 293,
       "public_standard_body": 6
     },
     "reader_action": "Use this handoff to move from projection rows to the current source-open body floor without printing copied source text.",
     "schema_version": "microcosm_projection_import_map_source_body_floor_handoff_v1",
-    "source_body_lens_ref": "microcosm status::macro_body_import_floor.source_body_import_lens",
+    "source_body_lens_ref": "plectis status::macro_body_import_floor.source_body_import_lens",
     "source_module_family_spotlights": [
       {
-        "family_count": 9,
-        "module_count": 16,
-        "notable_family_ids": [
-          "exported_agent_observability_store_bundle",
-          "exported_agent_trace_route_repair_bundle"
-        ],
+        "family_count": 2,
+        "module_count": 2,
+        "notable_family_ids": [],
         "spotlight_id": "agent_route_observability_runtime"
       }
     ],
     "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
-    "source_ref": "microcosm status --card <project>::front_door.source_open_body_import_floor",
+    "source_ref": "plectis status --card <project>::front_door.source_open_body_import_floor",
     "status": "pass",
-    "verified_source_module_family_count": 118
+    "verified_source_module_family_count": 88
   },
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "status": "pass",
