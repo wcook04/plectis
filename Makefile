@@ -33,6 +33,7 @@ PUBLIC_TESTS ?= \
 	tests/test_public_repo_ci.py \
 	tests/test_public_repo_makefile.py \
 	tests/test_package_data_contract.py \
+	tests/test_public_source_body_custody.py \
 	tests/test_readme_first_screen_entry.py \
 	tests/test_observatory_browser_styles.py \
 	tests/test_proof_lab_cache_action_hint.py \
