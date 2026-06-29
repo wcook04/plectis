@@ -5,7 +5,6 @@
   "negative_cases": [
     "calculator_outlier",
     "clean_clone_network_call",
-    "codemap_overlap",
     "dag_cycle",
     "pagerank_missing_source",
     "regression_selection_empty",

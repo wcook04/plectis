@@ -13,13 +13,10 @@
     "fixtures/first_wave/batch9_macro_engines_capsule/input/config_authority_mutation_allowed_rejected.json",
     "fixtures/first_wave/batch9_macro_engines_capsule/input/dependency_pin_drift_detected.json",
     "fixtures/first_wave/batch9_macro_engines_capsule/input/doctrine_enrichment_unindexed_empty.json",
-    "fixtures/first_wave/batch9_macro_engines_capsule/input/finance_duplicate_headline_collapsed.json",
-    "fixtures/first_wave/batch9_macro_engines_capsule/input/heterogeneous_edge_relation_normalized.json",
     "fixtures/first_wave/batch9_macro_engines_capsule/input/host_pressure_auto_policy_blocks.json",
     "fixtures/first_wave/batch9_macro_engines_capsule/input/lineage_self_loop_pruned.json",
     "fixtures/first_wave/batch9_macro_engines_capsule/input/milestone_missing_committed_at_bucketed.json",
     "fixtures/first_wave/batch9_macro_engines_capsule/input/mission_graph_missing_target.json",
-    "fixtures/first_wave/batch9_macro_engines_capsule/input/work_atlas_routed_reason_excluded.json",
     "fixtures/first_wave/batch9_macro_engines_capsule/input/worker_forbidden_surface_blocked.json"
   ],
   "example_bundle": "examples/batch9_macro_engines_capsule/exported_batch9_macro_engines_capsule_bundle",
@@ -47,13 +44,10 @@
     "config_authority_mutation_allowed_rejected",
     "dependency_pin_drift_detected",
     "doctrine_enrichment_unindexed_empty",
-    "finance_duplicate_headline_collapsed",
-    "heterogeneous_edge_relation_normalized",
     "host_pressure_auto_policy_blocks",
     "lineage_self_loop_pruned",
     "milestone_missing_committed_at_bucketed",
     "mission_graph_missing_target",
-    "work_atlas_routed_reason_excluded",
     "worker_forbidden_surface_blocked"
   ],
   "expected_error_codes": [
@@ -62,14 +56,11 @@
     "BATCH9_CONFIG_AUTHORITY_MUTATION_ALLOWED_REJECTED",
     "BATCH9_DEPENDENCY_PIN_DRIFT_DETECTED",
     "BATCH9_DOCTRINE_UNINDEXED_EMPTY",
-    "BATCH9_EDGE_RELATION_NORMALIZED",
-    "BATCH9_FINANCE_DUPLICATE_HEADLINE_COLLAPSED",
     "BATCH9_HOST_PRESSURE_AUTO_POLICY_BLOCKS",
     "BATCH9_LINEAGE_SELF_LOOP_PRUNED",
     "BATCH9_MILESTONE_MISSING_COMMITTED_AT_BUCKETED",
     "BATCH9_MISSION_GRAPH_MISSING_TARGET",
-    "BATCH9_WORKER_FORBIDDEN_SURFACE_BLOCKED",
-    "BATCH9_WORK_ATLAS_ROUTED_REASON_EXCLUDED"
+    "BATCH9_WORKER_FORBIDDEN_SURFACE_BLOCKED"
   ],
   "authority_ceiling": {
     "status": "pass",

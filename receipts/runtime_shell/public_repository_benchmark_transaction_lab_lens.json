@@ -14,8 +14,8 @@
     "synthetic_fixture_only": true
   },
   "benchmark_lab_ref": "receipts/runtime_shell/public_repository_benchmark_transaction_lab_lens.json",
-  "command": "microcosm benchmark-lab",
-  "created_at": "2026-05-28T13:59:25+00:00",
+  "command": "plectis benchmark-lab",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "endpoint": "/benchmark-lab",
   "fixture_protocol": {
     "fail_to_pass_required": true,
@@ -68,7 +68,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_repository_benchmark_transaction_lab_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm benchmark-lab",
+    "command": "plectis benchmark-lab",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -95,7 +95,7 @@
     "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
     "unsafe_payload_bodies_in_receipt": false
   },
-  "public_claim": "Microcosm exposes a synthetic repository benchmark transaction lab: two issue/patch fixtures are graded by oracle diffs, FAIL_TO_PASS and PASS_TO_PASS-style guards, misleading-test denial, scoped diff receipts, workitem admission, and provider-slot cooldown metadata.",
+  "public_claim": "Plectis exposes a synthetic repository benchmark transaction lab: two issue/patch fixtures are graded by oracle diffs, FAIL_TO_PASS and PASS_TO_PASS-style guards, misleading-test denial, scoped diff receipts, workitem admission, and provider-slot cooldown metadata.",
   "release_authorized": false,
   "safe_to_show": {
     "oracle_patch_bodies_omitted": true,

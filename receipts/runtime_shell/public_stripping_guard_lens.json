@@ -13,13 +13,13 @@
     "secret_detection_completeness_claim": false,
     "source_mutation_authorized": false
   },
-  "command": "microcosm stripping-guard",
-  "created_at": "2026-05-28T13:52:23+00:00",
+  "command": "plectis stripping-guard",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "endpoint": "/stripping-guard",
   "guard_rows": [
     {
       "guard_row_id": "private_source_body_strip",
-      "payload_boundary_ref": "microcosm stripping-guard::payload_boundary",
+      "payload_boundary_ref": "plectis stripping-guard::payload_boundary",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -38,7 +38,7 @@
     },
     {
       "guard_row_id": "proof_body_strip",
-      "payload_boundary_ref": "microcosm stripping-guard::payload_boundary",
+      "payload_boundary_ref": "plectis stripping-guard::payload_boundary",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -57,7 +57,7 @@
     },
     {
       "guard_row_id": "provider_payload_strip",
-      "payload_boundary_ref": "microcosm stripping-guard::payload_boundary",
+      "payload_boundary_ref": "plectis stripping-guard::payload_boundary",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -76,7 +76,7 @@
     },
     {
       "guard_row_id": "private_path_payload_boundary",
-      "payload_boundary_ref": "microcosm stripping-guard::payload_boundary",
+      "payload_boundary_ref": "plectis stripping-guard::payload_boundary",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -95,7 +95,7 @@
     },
     {
       "guard_row_id": "secret_token_strip",
-      "payload_boundary_ref": "microcosm stripping-guard::payload_boundary",
+      "payload_boundary_ref": "plectis stripping-guard::payload_boundary",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -114,7 +114,7 @@
     },
     {
       "guard_row_id": "financial_advice_strip",
-      "payload_boundary_ref": "microcosm stripping-guard::payload_boundary",
+      "payload_boundary_ref": "plectis stripping-guard::payload_boundary",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -133,7 +133,7 @@
     },
     {
       "guard_row_id": "source_mutation_denial",
-      "payload_boundary_ref": "microcosm stripping-guard::payload_boundary",
+      "payload_boundary_ref": "plectis stripping-guard::payload_boundary",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -152,7 +152,7 @@
     },
     {
       "guard_row_id": "release_and_private_equivalence_denial",
-      "payload_boundary_ref": "microcosm stripping-guard::payload_boundary",
+      "payload_boundary_ref": "plectis stripping-guard::payload_boundary",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -161,7 +161,7 @@
       "release_authorized": false,
       "secret_token_exported": false,
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
-      "source_risk": "a public microcosm is a projection, not release approval or private-root equivalence",
+      "source_risk": "a public Plectis projection is not release approval or private-root equivalence",
       "strip_rule": "deny publication, hosted-public, benchmark, and secret-export claims",
       "unsafe_payload_bodies_exported": false,
       "validation_refs": [
@@ -198,7 +198,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_stripping_guard_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm stripping-guard",
+    "command": "plectis stripping-guard",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -225,7 +225,7 @@
     "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
     "unsafe_payload_bodies_in_receipt": false
   },
-  "public_claim": "Microcosm exposes a public/private stripping guard: every public-facing projection names the private body, proof body, provider payload, raw path, secret-completeness, finance, source-mutation, and release claims it must reject before becoming a public runtime surface.",
+  "public_claim": "Plectis exposes a public/private stripping guard: every public-facing projection names the private body, proof body, provider payload, raw path, secret-completeness, finance, source-mutation, and release claims it must reject before becoming a public runtime surface.",
   "release_authorized": false,
   "safe_to_show": {
     "private_paths_omitted": true,

@@ -110,9 +110,9 @@
       ],
       "status_reason": "The reveal/import bridge is landed as microcosm intake with a runtime receipt and first-run path through spine, intake, reveal, and evidence.",
       "target_refs": [
-        "microcosm intake",
-        "microcosm spine",
-        "microcosm reveal",
+        "plectis intake",
+        "plectis spine",
+        "plectis reveal",
         "examples/macro_projection_import_protocol/exported_projection_import_bundle",
         "receipts/runtime_shell/demo_project/organs/macro_projection_import_protocol"
       ],
@@ -2849,32 +2849,32 @@
     }
   ],
   "cold_reader_goal": "under_10_minutes_with_import_context_visible",
-  "command": "microcosm intake",
+  "command": "plectis intake",
   "consumed_cell_count": 80,
-  "created_at": "2026-06-14T01:26:41+00:00",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "first_run_bridge": [
     {
-      "command": "microcosm compile <project>",
+      "command": "plectis compile <project>",
       "step_id": "compile_project",
       "why": "create local .microcosm substrate state"
     },
     {
-      "command": "microcosm spine",
+      "command": "plectis spine",
       "step_id": "inspect_spine",
       "why": "see accepted runtime organs and authority ceiling"
     },
     {
-      "command": "microcosm intake",
+      "command": "plectis intake",
       "step_id": "inspect_import_bridge",
       "why": "see which macro projection cells are ready, landed, bridged, or consumed"
     },
     {
-      "command": "microcosm reveal",
+      "command": "plectis reveal",
       "step_id": "open_reveal",
       "why": "follow the ten-minute public reveal board"
     },
     {
-      "command": "microcosm evidence inspect <receipt>",
+      "command": "plectis evidence inspect <receipt>",
       "step_id": "drill_evidence",
       "why": "open receipts only after the causal path is visible"
     }
@@ -2883,7 +2883,7 @@
   "open_actionable_cell_count": 0,
   "projection_cell_count": 80,
   "projection_intake_ref": "receipts/first_wave/macro_projection_import_protocol/projection_import_intake_board.json",
-  "projection_plan_command": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
+  "projection_plan_command": "plectis macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
   "projection_status_counts": {
     "public_runtime_import_landed": 78,
     "runtime_bridge_landed": 1,
@@ -2908,7 +2908,7 @@
   },
   "public_claim": "Microcosm turns macro-pattern intake into a runnable source-open path: compile, spine, intake, reveal, and evidence drilldown over real substrate receipts.",
   "ready_cell_count": 80,
-  "reveal_command": "microcosm reveal",
+  "reveal_command": "plectis reveal",
   "runtime_bridge_evidence_refs": [
     "receipts/runtime_shell/intake_bridge/runtime_reveal_import_bridge.json",
     "receipts/runtime_shell/intake_bridge/organs/public_reveal_walkthrough/exported_public_reveal_bundle_validation_result.json",
@@ -2916,6 +2916,6 @@
     "receipts/first_wave/formal_math_readiness_gate/formal_math_readiness_extension_board.json"
   ],
   "schema_version": "microcosm_runtime_reveal_import_bridge_v1",
-  "spine_command": "microcosm spine",
+  "spine_command": "plectis spine",
   "status": "pass"
 }

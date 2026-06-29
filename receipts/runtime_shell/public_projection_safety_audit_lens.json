@@ -11,8 +11,8 @@
     "trading_or_financial_advice_authorized": false,
     "whole_system_correctness_claim": false
   },
-  "command": "microcosm projection-safety",
-  "created_at": "2026-05-28T16:12:42+00:00",
+  "command": "plectis projection-safety",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "endpoint": "/projection-safety",
   "lens_id": "public_projection_safety_audit_lens",
   "negative_case_ids": [
@@ -31,7 +31,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_projection_safety_audit_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm projection-safety",
+    "command": "plectis projection-safety",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -67,16 +67,16 @@
   },
   "projection_rows": [
     {
-      "authority_ceiling_ref": "microcosm authority::public_ten_minute_tour",
-      "command": "microcosm tour <project>",
+      "authority_ceiling_ref": "plectis authority::public_ten_minute_tour",
+      "command": "plectis tour <project>",
       "endpoint": "/tour",
       "omission_receipt": {
-        "drilldown": "microcosm evidence inspect <receipt>",
+        "drilldown": "plectis evidence inspect <receipt>",
         "omitted": [
           "raw compile payloads",
           "raw receipt bodies"
         ],
-        "source_ref": "microcosm tour <project>::evidence_refs"
+        "source_ref": "plectis tour <project>::evidence_refs"
       },
       "owner_route": "runtime_shell.tour",
       "private_body_exported": false,
@@ -88,8 +88,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::surface_authority",
-      "command": "microcosm authority",
+      "authority_ceiling_ref": "plectis authority::surface_authority",
+      "command": "plectis authority",
       "endpoint": "/authority",
       "omission_receipt": {
         "drilldown": "/authority",
@@ -109,8 +109,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_prediction_lens",
-      "command": "microcosm prediction-lens",
+      "authority_ceiling_ref": "plectis authority::public_prediction_lens",
+      "command": "plectis prediction-lens",
       "endpoint": "/prediction",
       "omission_receipt": {
         "drilldown": "/prediction",
@@ -131,8 +131,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_market_prediction_evidence_boundary_lens",
-      "command": "microcosm market-boundary",
+      "authority_ceiling_ref": "plectis authority::public_market_prediction_evidence_boundary_lens",
+      "command": "plectis market-boundary",
       "endpoint": "/market-boundary",
       "omission_receipt": {
         "drilldown": "/market-boundary",
@@ -143,7 +143,7 @@
           "trading or investment advice",
           "forecast performance guarantees"
         ],
-        "source_ref": "microcosm market-boundary::boundary_rows"
+        "source_ref": "plectis market-boundary::boundary_rows"
       },
       "owner_route": "runtime_shell.market_boundary",
       "private_body_exported": false,
@@ -155,8 +155,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_corpus_readiness_lens",
-      "command": "microcosm corpus-lens",
+      "authority_ceiling_ref": "plectis authority::public_corpus_readiness_lens",
+      "command": "plectis corpus-lens",
       "endpoint": "/corpus",
       "omission_receipt": {
         "drilldown": "/corpus",
@@ -176,8 +176,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_verifier_trace_repair_lens",
-      "command": "microcosm trace-lens",
+      "authority_ceiling_ref": "plectis authority::public_verifier_trace_repair_lens",
+      "command": "plectis trace-lens",
       "endpoint": "/trace",
       "omission_receipt": {
         "drilldown": "/trace",
@@ -198,8 +198,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_verifier_repair_loop_lens",
-      "command": "microcosm repair-loop",
+      "authority_ceiling_ref": "plectis authority::public_verifier_repair_loop_lens",
+      "command": "plectis repair-loop",
       "endpoint": "/repair-loop",
       "omission_receipt": {
         "drilldown": "/repair-loop",
@@ -220,8 +220,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_formal_evidence_cell_lens",
-      "command": "microcosm evidence-cells",
+      "authority_ceiling_ref": "plectis authority::public_formal_evidence_cell_lens",
+      "command": "plectis evidence-cells",
       "endpoint": "/evidence-cells",
       "omission_receipt": {
         "drilldown": "/evidence-cells",
@@ -242,8 +242,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_undeclared_library_prior_symbol_lens",
-      "command": "microcosm undeclared-library-prior-symbol-classifier",
+      "authority_ceiling_ref": "plectis authority::public_undeclared_library_prior_symbol_lens",
+      "command": "plectis undeclared-library-prior-symbol-classifier",
       "endpoint": "/undeclared-library-priors",
       "omission_receipt": {
         "drilldown": "/undeclared-library-priors",
@@ -266,8 +266,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_proof_loop_depth_lens",
-      "command": "microcosm proof-loop-depth",
+      "authority_ceiling_ref": "plectis authority::public_proof_loop_depth_lens",
+      "command": "plectis proof-loop-depth",
       "endpoint": "/proof-loop-depth",
       "omission_receipt": {
         "drilldown": "/proof-loop-depth",
@@ -290,8 +290,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_work_landing_replay_lens",
-      "command": "microcosm landing-replay",
+      "authority_ceiling_ref": "plectis authority::public_work_landing_replay_lens",
+      "command": "plectis landing-replay",
       "endpoint": "/landing-replay",
       "omission_receipt": {
         "drilldown": "/landing-replay",
@@ -312,11 +312,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_durable_agent_work_landing_replay_lens",
-      "command": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
+      "authority_ceiling_ref": "plectis authority::public_durable_agent_work_landing_replay_lens",
+      "command": "plectis durable-agent-work-landing-replay run-work-landing-bundle",
       "endpoint": "/landing-replay",
       "omission_receipt": {
-        "drilldown": "microcosm durable-agent-work-landing-replay run-work-landing-bundle",
+        "drilldown": "plectis durable-agent-work-landing-replay run-work-landing-bundle",
         "omitted": [
           "private worktree paths",
           "raw diffs",
@@ -336,11 +336,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_research_replication_rubric_artifact_replay_lens",
-      "command": "microcosm research-replication-rubric-artifact-replay run-replication-bundle",
+      "authority_ceiling_ref": "plectis authority::public_research_replication_rubric_artifact_replay_lens",
+      "command": "plectis research-replication-rubric-artifact-replay run-replication-bundle",
       "endpoint": "/research-replication",
       "omission_receipt": {
-        "drilldown": "microcosm research-replication-rubric-artifact-replay run-replication-bundle",
+        "drilldown": "plectis research-replication-rubric-artifact-replay run-replication-bundle",
         "omitted": [
           "private paper and data bodies",
           "hidden rubrics",
@@ -361,11 +361,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_world_model_projection_drift_control_room_lens",
-      "command": "microcosm world-model-projection-drift-control-room run-drift-control-bundle",
+      "authority_ceiling_ref": "plectis authority::public_world_model_projection_drift_control_room_lens",
+      "command": "plectis world-model-projection-drift-control-room run-drift-control-bundle",
       "endpoint": "/drift-control",
       "omission_receipt": {
-        "drilldown": "microcosm world-model-projection-drift-control-room run-drift-control-bundle",
+        "drilldown": "plectis world-model-projection-drift-control-room run-drift-control-bundle",
         "omitted": [
           "private runtime bodies",
           "live route repair actions",
@@ -385,11 +385,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_spatial_world_model_counterfactual_simulation_replay_lens",
-      "command": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle",
+      "authority_ceiling_ref": "plectis authority::public_spatial_world_model_counterfactual_simulation_replay_lens",
+      "command": "plectis spatial-world-model-counterfactual-simulation-replay run-simulation-bundle",
       "endpoint": "/spatial-simulation",
       "omission_receipt": {
-        "drilldown": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle",
+        "drilldown": "plectis spatial-world-model-counterfactual-simulation-replay run-simulation-bundle",
         "omitted": [
           "private video bodies",
           "raw sensor payloads",
@@ -411,11 +411,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_materials_chemistry_closed_loop_lab_safety_replay_lens",
-      "command": "microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle",
+      "authority_ceiling_ref": "plectis authority::public_materials_chemistry_closed_loop_lab_safety_replay_lens",
+      "command": "plectis materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
-        "drilldown": "microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle",
+        "drilldown": "plectis materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle",
         "omitted": [
           "wet-lab protocol steps",
           "hazardous synthesis instructions",
@@ -438,11 +438,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_mechanistic_interpretability_circuit_attribution_replay_lens",
-      "command": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle",
+      "authority_ceiling_ref": "plectis authority::public_mechanistic_interpretability_circuit_attribution_replay_lens",
+      "command": "plectis mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle",
       "endpoint": "/circuit-attribution",
       "omission_receipt": {
-        "drilldown": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle",
+        "drilldown": "plectis mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle",
         "omitted": [
           "private model weights",
           "raw activation dumps",
@@ -464,8 +464,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_view_quality_action_map_lens",
-      "command": "microcosm view-quality",
+      "authority_ceiling_ref": "plectis authority::public_view_quality_action_map_lens",
+      "command": "plectis view-quality",
       "endpoint": "/view-quality",
       "omission_receipt": {
         "drilldown": "/view-quality",
@@ -486,8 +486,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_projection_drift_control_lens",
-      "command": "microcosm drift-control",
+      "authority_ceiling_ref": "plectis authority::public_projection_drift_control_lens",
+      "command": "plectis drift-control",
       "endpoint": "/drift-control",
       "omission_receipt": {
         "drilldown": "/drift-control",
@@ -497,7 +497,7 @@
           "provider payloads",
           "source mutation authority"
         ],
-        "source_ref": "microcosm drift-control::drift_rows"
+        "source_ref": "plectis drift-control::drift_rows"
       },
       "owner_route": "runtime_shell.projection_drift",
       "private_body_exported": false,
@@ -509,8 +509,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_route_cleanup_contract_lens",
-      "command": "microcosm route-cleanup",
+      "authority_ceiling_ref": "plectis authority::public_route_cleanup_contract_lens",
+      "command": "plectis route-cleanup",
       "endpoint": "/route-cleanup",
       "omission_receipt": {
         "drilldown": "/route-cleanup",
@@ -520,7 +520,7 @@
           "generated region bodies",
           "provider payloads"
         ],
-        "source_ref": "microcosm route-cleanup::cleanup_rows"
+        "source_ref": "plectis route-cleanup::cleanup_rows"
       },
       "owner_route": "runtime_shell.route_cleanup",
       "private_body_exported": false,
@@ -532,8 +532,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_hook_intervention_coverage_lens",
-      "command": "microcosm hook-coverage",
+      "authority_ceiling_ref": "plectis authority::public_hook_intervention_coverage_lens",
+      "command": "plectis hook-coverage",
       "endpoint": "/hook-coverage",
       "omission_receipt": {
         "drilldown": "/hook-coverage",
@@ -554,8 +554,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_agent_reliability_replay_gauntlet_lens",
-      "command": "microcosm replay-gauntlet",
+      "authority_ceiling_ref": "plectis authority::public_agent_reliability_replay_gauntlet_lens",
+      "command": "plectis replay-gauntlet",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
         "drilldown": "/replay-gauntlet",
@@ -577,8 +577,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_repository_benchmark_transaction_lab_lens",
-      "command": "microcosm benchmark-lab",
+      "authority_ceiling_ref": "plectis authority::public_repository_benchmark_transaction_lab_lens",
+      "command": "plectis benchmark-lab",
       "endpoint": "/benchmark-lab",
       "omission_receipt": {
         "drilldown": "/benchmark-lab",
@@ -600,11 +600,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_agent_benchmark_integrity_anti_gaming_lens",
-      "command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle",
+      "authority_ceiling_ref": "plectis authority::public_agent_benchmark_integrity_anti_gaming_lens",
+      "command": "plectis agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle",
       "endpoint": "/benchmark-lab",
       "omission_receipt": {
-        "drilldown": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle",
+        "drilldown": "plectis agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle",
         "omitted": [
           "private issue bodies",
           "oracle patch bodies",
@@ -624,11 +624,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_agent_monitor_redteam_falsification_lens",
-      "command": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle",
+      "authority_ceiling_ref": "plectis authority::public_agent_monitor_redteam_falsification_lens",
+      "command": "plectis agent-monitor-redteam-falsification-replay run-monitor-bundle",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
-        "drilldown": "microcosm agent-monitor-redteam-falsification-replay run-monitor-bundle",
+        "drilldown": "plectis agent-monitor-redteam-falsification-replay run-monitor-bundle",
         "omitted": [
           "private chain-of-thought",
           "internal code",
@@ -649,11 +649,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_agent_sabotage_scheming_monitor_replay_lens",
-      "command": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle",
+      "authority_ceiling_ref": "plectis authority::public_agent_sabotage_scheming_monitor_replay_lens",
+      "command": "plectis agent-sabotage-scheming-monitor-replay run-sabotage-bundle",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
-        "drilldown": "microcosm agent-sabotage-scheming-monitor-replay run-sabotage-bundle",
+        "drilldown": "plectis agent-sabotage-scheming-monitor-replay run-sabotage-bundle",
         "omitted": [
           "live sabotage instructions",
           "real credentials or account identifiers",
@@ -674,11 +674,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_agent_sandbox_policy_escape_replay_lens",
-      "command": "microcosm agent-sandbox-policy-escape-replay run-sandbox-bundle",
+      "authority_ceiling_ref": "plectis authority::public_agent_sandbox_policy_escape_replay_lens",
+      "command": "plectis agent-sandbox-policy-escape-replay run-sandbox-bundle",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
-        "drilldown": "microcosm agent-sandbox-policy-escape-replay run-sandbox-bundle",
+        "drilldown": "plectis agent-sandbox-policy-escape-replay run-sandbox-bundle",
         "omitted": [
           "real secrets or credentials",
           "live network targets",
@@ -699,11 +699,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_indirect_prompt_injection_information_flow_policy_replay_lens",
-      "command": "microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle",
+      "authority_ceiling_ref": "plectis authority::public_indirect_prompt_injection_information_flow_policy_replay_lens",
+      "command": "plectis indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
-        "drilldown": "microcosm indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle",
+        "drilldown": "plectis indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle",
         "omitted": [
           "real email, document, browser, or account material",
           "raw system, developer, prompt, or tool-output bodies",
@@ -724,11 +724,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_agentic_vulnerability_discovery_patch_proof_replay_lens",
-      "command": "microcosm agentic-vulnerability-discovery-patch-proof-replay run-patch-proof-bundle",
+      "authority_ceiling_ref": "plectis authority::public_agentic_vulnerability_discovery_patch_proof_replay_lens",
+      "command": "plectis agentic-vulnerability-discovery-patch-proof-replay run-patch-proof-bundle",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
-        "drilldown": "microcosm agentic-vulnerability-discovery-patch-proof-replay run-patch-proof-bundle",
+        "drilldown": "plectis agentic-vulnerability-discovery-patch-proof-replay run-patch-proof-bundle",
         "omitted": [
           "live targets",
           "real CVE exploitation details",
@@ -751,11 +751,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_agent_memory_temporal_conflict_lens",
-      "command": "microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
+      "authority_ceiling_ref": "plectis authority::public_agent_memory_temporal_conflict_lens",
+      "command": "plectis agent-memory-temporal-conflict-replay run-memory-bundle",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
-        "drilldown": "microcosm agent-memory-temporal-conflict-replay run-memory-bundle",
+        "drilldown": "plectis agent-memory-temporal-conflict-replay run-memory-bundle",
         "omitted": [
           "raw transcript bodies",
           "private memory candidate bodies",
@@ -776,11 +776,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_sleeper_memory_poisoning_quarantine_lens",
-      "command": "microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle",
+      "authority_ceiling_ref": "plectis authority::public_sleeper_memory_poisoning_quarantine_lens",
+      "command": "plectis sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
-        "drilldown": "microcosm sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle",
+        "drilldown": "plectis sleeper-memory-poisoning-quarantine-replay run-quarantine-bundle",
         "omitted": [
           "private memory bodies",
           "raw transcript bodies",
@@ -801,11 +801,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_mcp_tool_authority_replay_lens",
-      "command": "microcosm mcp-tool-authority-replay run-tool-authority-bundle",
+      "authority_ceiling_ref": "plectis authority::public_mcp_tool_authority_replay_lens",
+      "command": "plectis mcp-tool-authority-replay run-tool-authority-bundle",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
-        "drilldown": "microcosm mcp-tool-authority-replay run-tool-authority-bundle",
+        "drilldown": "plectis mcp-tool-authority-replay run-tool-authority-bundle",
         "omitted": [
           "credential values",
           "provider payloads",
@@ -826,11 +826,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_proof_derived_governed_mutation_authorization_lens",
-      "command": "microcosm proof-derived-governed-mutation-authorization run-authorization-bundle",
+      "authority_ceiling_ref": "plectis authority::public_proof_derived_governed_mutation_authorization_lens",
+      "command": "plectis proof-derived-governed-mutation-authorization run-authorization-bundle",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
-        "drilldown": "microcosm proof-derived-governed-mutation-authorization run-authorization-bundle",
+        "drilldown": "plectis proof-derived-governed-mutation-authorization run-authorization-bundle",
         "omitted": [
           "standing credentials",
           "live cloud/account credentials",
@@ -851,11 +851,11 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_belief_state_process_reward_replay_lens",
-      "command": "microcosm belief-state-process-reward-replay run-reward-bundle",
+      "authority_ceiling_ref": "plectis authority::public_belief_state_process_reward_replay_lens",
+      "command": "plectis belief-state-process-reward-replay run-reward-bundle",
       "endpoint": "/replay-gauntlet",
       "omission_receipt": {
-        "drilldown": "microcosm belief-state-process-reward-replay run-reward-bundle",
+        "drilldown": "plectis belief-state-process-reward-replay run-reward-bundle",
         "omitted": [
           "hidden reasoning bodies",
           "live RL or training traces",
@@ -875,8 +875,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_cold_reader_legibility_scorecard_lens",
-      "command": "microcosm legibility-scorecard",
+      "authority_ceiling_ref": "plectis authority::public_cold_reader_legibility_scorecard_lens",
+      "command": "plectis legibility-scorecard",
       "endpoint": "/legibility-scorecard",
       "omission_receipt": {
         "drilldown": "/legibility-scorecard",
@@ -886,7 +886,7 @@
           "proof bodies",
           "provider payloads"
         ],
-        "source_ref": "microcosm legibility-scorecard::checkpoint_rows"
+        "source_ref": "plectis legibility-scorecard::checkpoint_rows"
       },
       "owner_route": "runtime_shell.legibility_scorecard",
       "private_body_exported": false,
@@ -898,8 +898,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_projection_import_map_lens",
-      "command": "microcosm projection-import-map",
+      "authority_ceiling_ref": "plectis authority::public_projection_import_map_lens",
+      "command": "plectis projection-import-map",
       "endpoint": "/projection-import-map",
       "omission_receipt": {
         "drilldown": "/projection-import-map",
@@ -909,7 +909,7 @@
           "provider payloads",
           "automated import guarantee"
         ],
-        "source_ref": "microcosm projection-import-map::import_rows"
+        "source_ref": "plectis projection-import-map::import_rows"
       },
       "owner_route": "runtime_shell.projection_import_map",
       "private_body_exported": false,
@@ -921,8 +921,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_import_projector_contract_lens",
-      "command": "microcosm import-projector",
+      "authority_ceiling_ref": "plectis authority::public_import_projector_contract_lens",
+      "command": "plectis import-projector",
       "endpoint": "/import-projector",
       "omission_receipt": {
         "drilldown": "/import-projector",
@@ -933,7 +933,7 @@
           "automated import execution",
           "lossless private projection claims"
         ],
-        "source_ref": "microcosm import-projector::projector_rows"
+        "source_ref": "plectis import-projector::projector_rows"
       },
       "owner_route": "runtime_shell.import_projector",
       "private_body_exported": false,
@@ -945,8 +945,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_compression_profile_option_surface_lens",
-      "command": "microcosm option-surface-lens",
+      "authority_ceiling_ref": "plectis authority::public_compression_profile_option_surface_lens",
+      "command": "plectis option-surface-lens",
       "endpoint": "/option-surface-lens",
       "omission_receipt": {
         "drilldown": "/option-surface-lens",
@@ -956,7 +956,7 @@
           "profile switching authority",
           "lossless private projection claims"
         ],
-        "source_ref": "microcosm option-surface-lens::option_rows"
+        "source_ref": "plectis option-surface-lens::option_rows"
       },
       "owner_route": "runtime_shell.option_surface_lens",
       "private_body_exported": false,
@@ -968,8 +968,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_stripping_guard_lens",
-      "command": "microcosm stripping-guard",
+      "authority_ceiling_ref": "plectis authority::public_stripping_guard_lens",
+      "command": "plectis stripping-guard",
       "endpoint": "/stripping-guard",
       "omission_receipt": {
         "drilldown": "/stripping-guard",
@@ -980,7 +980,7 @@
           "raw private path refs",
           "secret detector completeness claims"
         ],
-        "source_ref": "microcosm stripping-guard::guard_rows"
+        "source_ref": "plectis stripping-guard::guard_rows"
       },
       "owner_route": "runtime_shell.stripping_guard",
       "private_body_exported": false,
@@ -992,8 +992,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_standards_control_lens",
-      "command": "microcosm standards-control",
+      "authority_ceiling_ref": "plectis authority::public_standards_control_lens",
+      "command": "plectis standards-control",
       "endpoint": "/standards-control",
       "omission_receipt": {
         "drilldown": "/standards-control",
@@ -1003,7 +1003,7 @@
           "release/publication authority",
           "standards completeness guarantee"
         ],
-        "source_ref": "microcosm standards-control::standards_rows"
+        "source_ref": "plectis standards-control::standards_rows"
       },
       "owner_route": "runtime_shell.standards_control",
       "private_body_exported": false,
@@ -1015,8 +1015,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::runtime_reveal_import_bridge",
-      "command": "microcosm intake",
+      "authority_ceiling_ref": "plectis authority::runtime_reveal_import_bridge",
+      "command": "plectis intake",
       "endpoint": "/intake",
       "omission_receipt": {
         "drilldown": "/intake",
@@ -1036,8 +1036,8 @@
       "source_mutation_authorized": false
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_reveal_view",
-      "command": "microcosm reveal",
+      "authority_ceiling_ref": "plectis authority::public_reveal_view",
+      "command": "plectis reveal",
       "endpoint": "/reveal",
       "omission_receipt": {
         "drilldown": "/reveal",
@@ -1069,7 +1069,7 @@
     "reversible_drilldown_count": 42,
     "source_mutation_authorized_count": 0
   },
-  "public_claim": "Microcosm exposes a projection-safety audit: every compressed public lens carries an omission receipt, a named drilldown, and an explicit authority ceiling before it can be treated as legible public state.",
+  "public_claim": "Plectis exposes a projection-safety audit: every compressed public lens carries an omission receipt, a named drilldown, and an explicit authority ceiling before it can be treated as legible public state.",
   "release_authorized": false,
   "safe_to_show": {
     "omitted_content_has_named_drilldown": true,

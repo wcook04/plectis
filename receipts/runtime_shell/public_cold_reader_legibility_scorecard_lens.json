@@ -15,17 +15,17 @@
   },
   "card_first_entry_path": {
     "commands": [
-      "microcosm hello <project>",
-      "microcosm tour --card <project>",
-      "microcosm status --card <project>",
-      "microcosm authority --card",
-      "microcosm workingness --card",
-      "microcosm legibility-scorecard"
+      "plectis hello <project>",
+      "plectis tour --card <project>",
+      "plectis status --card <project>",
+      "plectis authority --card",
+      "plectis workingness --card",
+      "plectis legibility-scorecard"
     ],
     "drilldown_after": [
-      "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-      "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
-      "microcosm evidence inspect <receipt>"
+      "plectis proof-lab --out /tmp/microcosm-proof-lab",
+      "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
+      "plectis evidence inspect <receipt>"
     ],
     "pre_install_probe": {
       "authority_ceiling": {
@@ -55,12 +55,12 @@
   "checkpoint_rows": [
     {
       "checkpoint_id": "repo_to_local_substrate",
-      "command": "microcosm hello <project>",
+      "command": "plectis hello <project>",
       "command_sequence": [
-        "microcosm hello <project>"
+        "plectis hello <project>"
       ],
       "endpoint": "/",
-      "evidence_ref": "microcosm first-screen <project>",
+      "evidence_ref": "plectis first-screen <project>",
       "expected_signal": "human first-screen card names the local substrate and points to behavior proofs",
       "minute_budget": 2,
       "pass_condition": "hello_card_visible_before_behavior_drilldowns",
@@ -70,12 +70,12 @@
     },
     {
       "checkpoint_id": "entry_path_visible",
-      "command": "microcosm tour --card <project>",
+      "command": "plectis tour --card <project>",
       "command_sequence": [
-        "microcosm tour --card <project>"
+        "plectis tour --card <project>"
       ],
       "endpoint": "/tour",
-      "evidence_ref": "microcosm tour --card <project>::front_door_status",
+      "evidence_ref": "plectis tour --card <project>::front_door_status",
       "expected_signal": "front-door status, state refs, and next commands are visible before full route cards",
       "minute_budget": 2,
       "pass_condition": "tour_card_status_pass_and_front_door_status_visible",
@@ -83,12 +83,12 @@
     },
     {
       "checkpoint_id": "authority_ceiling_visible",
-      "command": "microcosm authority --card",
+      "command": "plectis authority --card",
       "command_sequence": [
-        "microcosm authority --card"
+        "plectis authority --card"
       ],
       "endpoint": "/authority-card",
-      "evidence_ref": "microcosm authority --card",
+      "evidence_ref": "plectis authority --card",
       "expected_signal": "release, provider, source mutation, proof, benchmark, and secret-export ceilings are false in the compact card",
       "minute_budget": 1,
       "pass_condition": "authority_card_has_false_public_ceiling",
@@ -96,11 +96,11 @@
     },
     {
       "checkpoint_id": "weird_substrate_visible",
-      "command": "microcosm trace-lens",
+      "command": "plectis trace-lens",
       "command_sequence": [
-        "microcosm trace-lens",
-        "microcosm replay-gauntlet",
-        "microcosm benchmark-lab"
+        "plectis trace-lens",
+        "plectis replay-gauntlet",
+        "plectis benchmark-lab"
       ],
       "endpoint": "/trace + /replay-gauntlet + /benchmark-lab",
       "evidence_ref": "receipts/runtime_shell/public_projection_safety_audit_lens.json",
@@ -111,9 +111,9 @@
     },
     {
       "checkpoint_id": "observatory_not_decorative",
-      "command": "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
+      "command": "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7",
       "command_sequence": [
-        "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+        "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
       ],
       "endpoint": "/",
       "evidence_ref": "receipts/runtime_shell/wave039_observatory_legibility.json",
@@ -124,9 +124,9 @@
     },
     {
       "checkpoint_id": "receipts_after_causality",
-      "command": "microcosm evidence inspect <receipt>",
+      "command": "plectis evidence inspect <receipt>",
       "command_sequence": [
-        "microcosm evidence inspect <receipt>"
+        "plectis evidence inspect <receipt>"
       ],
       "endpoint": "/evidence",
       "evidence_ref": "receipts/runtime_shell/public_cold_reader_legibility_scorecard_lens.json",
@@ -136,8 +136,8 @@
       "reader_question": "How do I verify the claim without reading the macro root?"
     }
   ],
-  "command": "microcosm legibility-scorecard",
-  "created_at": "2026-05-31T02:31:49+00:00",
+  "command": "plectis legibility-scorecard",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "endpoint": "/legibility-scorecard",
   "evidence_refs": [
     "receipts/runtime_shell/public_ten_minute_tour.json",
@@ -175,7 +175,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_cold_reader_legibility_scorecard_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm legibility-scorecard",
+    "command": "plectis legibility-scorecard",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -202,13 +202,13 @@
     "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
     "unsafe_payload_bodies_in_receipt": false
   },
-  "public_claim": "Microcosm exposes a cold-reader legibility checkpoint read-model: the public reveal must answer what it is, what to run, what evidence exists, what is not claimed, and how to extend it inside a 10-minute local path.",
+  "public_claim": "Plectis exposes a cold-reader legibility checkpoint read-model: the public reveal must answer what it is, what to run, what evidence exists, what is not claimed, and how to extend it inside a 10-minute local path.",
   "reader_question_rows": [
     {
       "answer_contract": "repo -> .microcosm local operating substrate",
-      "proof_command": "microcosm hello <project>",
+      "proof_command": "plectis hello <project>",
       "proof_command_sequence": [
-        "microcosm hello <project>"
+        "plectis hello <project>"
       ],
       "question": "What is Microcosm?",
       "question_id": "identity"
@@ -216,37 +216,37 @@
     {
       "answer_contract": "pre-install bootstrap probe, then hello, compact cards, authority ceiling, and drilldowns",
       "pre_install_probe_command": "./bootstrap.sh",
-      "proof_command": "microcosm hello <project>",
+      "proof_command": "plectis hello <project>",
       "proof_command_sequence": [
-        "microcosm hello <project>",
-        "microcosm tour --card <project>"
+        "plectis hello <project>",
+        "plectis tour --card <project>"
       ],
       "question": "What should I run first?",
       "question_id": "first_run"
     },
     {
       "answer_contract": "compact JSON cards, receipts, validators, and endpoint parity",
-      "proof_command": "microcosm status --card <project>",
+      "proof_command": "plectis status --card <project>",
       "proof_command_sequence": [
-        "microcosm status --card <project>"
+        "plectis status --card <project>"
       ],
       "question": "What makes this more than prose?",
       "question_id": "evidence"
     },
     {
       "answer_contract": "no release, secret export, provider execution, proof correctness, benchmark score, or reader-success guarantee",
-      "proof_command": "microcosm authority --card",
+      "proof_command": "plectis authority --card",
       "proof_command_sequence": [
-        "microcosm authority --card"
+        "plectis authority --card"
       ],
       "question": "What claims are out of scope?",
       "question_id": "limits"
     },
     {
       "answer_contract": "add an owned runtime surface, receipt, validator, docs, and authority ceiling",
-      "proof_command": "microcosm legibility-scorecard",
+      "proof_command": "plectis legibility-scorecard",
       "proof_command_sequence": [
-        "microcosm legibility-scorecard"
+        "plectis legibility-scorecard"
       ],
       "question": "How would I add a new organ or lens?",
       "question_id": "extension"
@@ -254,14 +254,14 @@
   ],
   "release_authorized": false,
   "required_commands": [
-    "microcosm hello <project>",
-    "microcosm tour --card <project>",
-    "microcosm status --card <project>",
-    "microcosm authority --card",
-    "microcosm workingness --card",
-    "microcosm legibility-scorecard",
-    "microcosm proof-lab --out /tmp/microcosm-proof-lab",
-    "microcosm serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
+    "plectis hello <project>",
+    "plectis tour --card <project>",
+    "plectis status --card <project>",
+    "plectis authority --card",
+    "plectis workingness --card",
+    "plectis legibility-scorecard",
+    "plectis proof-lab --out /tmp/microcosm-proof-lab",
+    "plectis serve <project> --host 127.0.0.1 --port 8765 --max-requests 7"
   ],
   "required_endpoints": [
     "/tour",

@@ -47,7 +47,11 @@ Start with:
 PYTHONPATH=src python3 -m microcosm_core hello .
 PYTHONPATH=src python3 -m microcosm_core tour --card .
 PYTHONPATH=src python3 -m microcosm_core authority --card
+PYTHONPATH=src python3 -m microcosm_core comprehend --slice mechanism
 ```
+
+The last command gives a mechanism-faithful read of every organ — what each one
+computes, verifies, and rejects — before judging the set as a whole.
 
 After installation, use the Plectis console command as the public-primary entry
 point:
@@ -56,6 +60,7 @@ point:
 plectis hello .
 plectis tour --card .
 plectis authority --card
+plectis comprehend --slice mechanism
 ```
 
 The legacy `microcosm` command remains a compatibility alias for existing local

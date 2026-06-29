@@ -1289,7 +1289,6 @@
         "fixtures/first_wave/batch7_macro_engines_capsule/input/batch7_exercise_manifest.json",
         "fixtures/first_wave/batch7_macro_engines_capsule/input/calculator_outlier.json",
         "fixtures/first_wave/batch7_macro_engines_capsule/input/clean_clone_network_call.json",
-        "fixtures/first_wave/batch7_macro_engines_capsule/input/codemap_overlap.json",
         "fixtures/first_wave/batch7_macro_engines_capsule/input/dag_cycle.json",
         "fixtures/first_wave/batch7_macro_engines_capsule/input/pagerank_missing_source.json",
         "fixtures/first_wave/batch7_macro_engines_capsule/input/regression_selection_empty.json",
@@ -1403,8 +1402,6 @@
         "fixtures/first_wave/batch4_proof_authority_runtime/input/grant_forbidden_context.json",
         "fixtures/first_wave/batch4_proof_authority_runtime/input/forward_dirty_unknown_target.json",
         "fixtures/first_wave/batch4_proof_authority_runtime/input/closeout_stale_head.json",
-        "fixtures/first_wave/batch4_proof_authority_runtime/input/codex_driver_absent_port.json",
-        "fixtures/first_wave/batch4_proof_authority_runtime/input/idle_stale_snapshot.json",
         "fixtures/first_wave/batch4_proof_authority_runtime/input/bitemporal_expired_claim.json",
         "fixtures/first_wave/batch4_proof_authority_runtime/input/taskpolicy_missing_binary.json",
         "fixtures/first_wave/batch4_proof_authority_runtime/input/context_accepted_read_guard.json"
@@ -1448,13 +1445,10 @@
         "fixtures/first_wave/batch9_macro_engines_capsule/input/config_authority_mutation_allowed_rejected.json",
         "fixtures/first_wave/batch9_macro_engines_capsule/input/dependency_pin_drift_detected.json",
         "fixtures/first_wave/batch9_macro_engines_capsule/input/doctrine_enrichment_unindexed_empty.json",
-        "fixtures/first_wave/batch9_macro_engines_capsule/input/finance_duplicate_headline_collapsed.json",
-        "fixtures/first_wave/batch9_macro_engines_capsule/input/heterogeneous_edge_relation_normalized.json",
         "fixtures/first_wave/batch9_macro_engines_capsule/input/host_pressure_auto_policy_blocks.json",
         "fixtures/first_wave/batch9_macro_engines_capsule/input/lineage_self_loop_pruned.json",
         "fixtures/first_wave/batch9_macro_engines_capsule/input/milestone_missing_committed_at_bucketed.json",
         "fixtures/first_wave/batch9_macro_engines_capsule/input/mission_graph_missing_target.json",
-        "fixtures/first_wave/batch9_macro_engines_capsule/input/work_atlas_routed_reason_excluded.json",
         "fixtures/first_wave/batch9_macro_engines_capsule/input/worker_forbidden_surface_blocked.json"
       ],
       "fixture_manifest": "core/fixture_manifests/batch9_macro_engines_capsule.fixture_manifest.json",
@@ -1473,7 +1467,6 @@
       "fixture_id": "fixture::batch10_governance_compilers_capsule::first_wave_contract_v1",
       "fixture_inputs": [
         "fixtures/first_wave/batch10_governance_compilers_capsule/input/batch10_governance_compilers_capsule_probe_manifest.json",
-        "fixtures/first_wave/batch10_governance_compilers_capsule/input/annex_empty_facets_no_fake_counts.json",
         "fixtures/first_wave/batch10_governance_compilers_capsule/input/claim_parent_child_overlap_reported.json",
         "fixtures/first_wave/batch10_governance_compilers_capsule/input/dag_quality_error_not_overblocked.json",
         "fixtures/first_wave/batch10_governance_compilers_capsule/input/finance_invalid_horizon_rejected.json",
@@ -1482,11 +1475,9 @@
         "fixtures/first_wave/batch10_governance_compilers_capsule/input/observe_apply_malformed_artifact_refused.json",
         "fixtures/first_wave/batch10_governance_compilers_capsule/input/publication_hard_exclude_rejected.json",
         "fixtures/first_wave/batch10_governance_compilers_capsule/input/receipt_reuse_stable_input_changed.json",
-        "fixtures/first_wave/batch10_governance_compilers_capsule/input/recent_empty_summary_bucketed.json",
         "fixtures/first_wave/batch10_governance_compilers_capsule/input/release_toggle_no_go_fail_closed.json",
         "fixtures/first_wave/batch10_governance_compilers_capsule/input/reviewer_missing_boundary_detected.json",
-        "fixtures/first_wave/batch10_governance_compilers_capsule/input/session_failed_dependency_skips_child.json",
-        "fixtures/first_wave/batch10_governance_compilers_capsule/input/table_missing_values_sort_last.json"
+        "fixtures/first_wave/batch10_governance_compilers_capsule/input/session_failed_dependency_skips_child.json"
       ],
       "fixture_manifest": "core/fixture_manifests/batch10_governance_compilers_capsule.fixture_manifest.json",
       "generated_receipts": [

@@ -12,8 +12,8 @@
     "standards_completeness_claim": false,
     "standards_registry_source_authority": false
   },
-  "command": "microcosm standards-control",
-  "created_at": "2026-06-14T01:26:42+00:00",
+  "command": "plectis standards-control",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "endpoint": "/standards-control",
   "input_refs": {
     "first_wave_acceptance": "core/acceptance/first_wave_acceptance.json",
@@ -39,7 +39,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_standards_control_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm standards-control",
+    "command": "plectis standards-control",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -66,7 +66,7 @@
     "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
     "unsafe_payload_bodies_in_receipt": false
   },
-  "public_claim": "Microcosm exposes a public standards-control lens: standards registry, standard pressure, validator receipt coverage, fixture manifests, acceptance commands, docs, authority ceilings, and projection safety are checked as one read-model before public claims can strengthen.",
+  "public_claim": "Plectis exposes a public standards-control lens: standards registry, standard pressure, validator receipt coverage, fixture manifests, acceptance commands, docs, authority ceilings, and projection safety are checked as one read-model before public claims can strengthen.",
   "release_authorized": false,
   "safe_to_show": {
     "private_paths_omitted": true,
@@ -89,7 +89,7 @@
   ],
   "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
   "source_statuses": {
-    "acceptance_command_count": 73,
+    "acceptance_command_count": 69,
     "fixture_manifest_schema": "microcosm_fixture_manifest_v1",
     "public_standard_pressure_schema": "public_microcosm_standard_pressure_v1",
     "standards_registry_schema": "standards_registry_v1",
@@ -99,8 +99,8 @@
   "standards_rows": [
     {
       "control_row_id": "standards_registry_contract",
-      "observed_count": 146,
-      "payload_boundary_ref": "microcosm standards-control::standards_rows",
+      "observed_count": 151,
+      "payload_boundary_ref": "plectis standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -119,7 +119,7 @@
     {
       "control_row_id": "public_standard_pressure_contract",
       "observed_count": 46,
-      "payload_boundary_ref": "microcosm standards-control::standards_rows",
+      "payload_boundary_ref": "plectis standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -137,8 +137,8 @@
     },
     {
       "control_row_id": "validator_receipt_coverage_contract",
-      "observed_count": 510,
-      "payload_boundary_ref": "microcosm standards-control::standards_rows",
+      "observed_count": 471,
+      "payload_boundary_ref": "plectis standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -156,8 +156,8 @@
     },
     {
       "control_row_id": "acceptance_gate_contract",
-      "observed_count": 73,
-      "payload_boundary_ref": "microcosm standards-control::standards_rows",
+      "observed_count": 69,
+      "payload_boundary_ref": "plectis standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -170,13 +170,13 @@
       "unsafe_payload_bodies_exported": false,
       "validation_refs": [
         "core/acceptance/first_wave_acceptance.json",
-        "microcosm standards-registry --registry core/standards_registry.json"
+        "plectis standards-registry --registry core/standards_registry.json"
       ]
     },
     {
       "control_row_id": "fixture_manifest_contract",
-      "observed_count": 93,
-      "payload_boundary_ref": "microcosm standards-control::standards_rows",
+      "observed_count": 88,
+      "payload_boundary_ref": "plectis standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -195,7 +195,7 @@
     {
       "control_row_id": "docs_entry_contract",
       "observed_count": 3,
-      "payload_boundary_ref": "microcosm standards-control::standards_rows",
+      "payload_boundary_ref": "plectis standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -214,7 +214,7 @@
     {
       "control_row_id": "authority_ceiling_contract",
       "observed_count": 1,
-      "payload_boundary_ref": "microcosm standards-control::standards_rows",
+      "payload_boundary_ref": "plectis standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -223,17 +223,17 @@
       "required_signal": "release, provider, source mutation, and secret export are false",
       "source_authority_claim": false,
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
-      "source_ref": "microcosm authority::public_standards_control_lens",
+      "source_ref": "plectis authority::public_standards_control_lens",
       "unsafe_payload_bodies_exported": false,
       "validation_refs": [
-        "microcosm authority",
+        "plectis authority",
         "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe"
       ]
     },
     {
       "control_row_id": "projection_safety_contract",
       "observed_count": 1,
-      "payload_boundary_ref": "microcosm standards-control::standards_rows",
+      "payload_boundary_ref": "plectis standards-control::standards_rows",
       "private_body_exported": false,
       "proof_body_exported": false,
       "provider_payload_exported": false,
@@ -242,28 +242,28 @@
       "required_signal": "projection row is reversible and carries authority ceiling",
       "source_authority_claim": false,
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
-      "source_ref": "microcosm projection-safety::public_standards_control_lens",
+      "source_ref": "plectis projection-safety::public_standards_control_lens",
       "unsafe_payload_bodies_exported": false,
       "validation_refs": [
-        "microcosm projection-safety",
+        "plectis projection-safety",
         "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe"
       ]
     }
   ],
   "standards_summary": {
-    "acceptance_command_count": 73,
-    "fixture_manifest_count": 93,
+    "acceptance_command_count": 69,
+    "fixture_manifest_count": 88,
     "negative_case_count": 8,
     "private_body_export_count": 0,
     "proof_body_export_count": 0,
     "provider_payload_export_count": 0,
     "release_authorized": false,
     "source_authority_claim_count": 0,
-    "standard_count": 146,
+    "standard_count": 151,
     "standard_pressure_row_count": 46,
     "standards_control_row_count": 8,
     "validation_ref_count": 16,
-    "validator_receipt_ref_count": 510
+    "validator_receipt_ref_count": 471
   },
   "status": "pass",
   "unsafe_payload_bodies_in_receipt": false

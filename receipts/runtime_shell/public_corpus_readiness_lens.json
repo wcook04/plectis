@@ -13,7 +13,7 @@
     "release_authorized": false,
     "source_mutation_authorized": false
   },
-  "command": "microcosm corpus-lens",
+  "command": "plectis corpus-lens",
   "consumer_gate": {
     "allowed_case_ids": [
       "miniF2F_lean3_translation_smoke_allowed"
@@ -249,7 +249,7 @@
       "miniF2F_lean3_annex"
     ]
   },
-  "created_at": "2026-05-26T01:10:13+00:00",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "endpoint": "/corpus",
   "error_codes": [
     "CONSUMER_SKIPS_CORPUS_READINESS_GATE",
@@ -274,14 +274,14 @@
     "proof_body_leakage",
     "release_overclaim"
   ],
-  "organ_command": "microcosm corpus-readiness-mathlib-absence-gate run-projection-bundle",
+  "organ_command": "plectis corpus-readiness-mathlib-absence-gate run-projection-bundle",
   "organ_id": "corpus_readiness_mathlib_absence_gate",
   "payload_boundary": {
     "account_session_state_exported": false,
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_corpus_readiness_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm corpus-lens",
+    "command": "plectis corpus-lens",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -308,7 +308,7 @@
     "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
     "unsafe_payload_bodies_in_receipt": false
   },
-  "public_claim": "Microcosm exposes formal-math corpus/toolchain readiness as a public metadata lens: Mathlib import absence, absent LeanDojo/Pantograph corpora, translation-smoke-only rows, consumer gating, and anti-claim coverage before retrieval or proof-witness work.",
+  "public_claim": "Plectis exposes formal-math corpus/toolchain readiness as a public metadata lens: Mathlib import absence, absent LeanDojo/Pantograph corpora, translation-smoke-only rows, consumer gating, and anti-claim coverage before retrieval or proof-witness work.",
   "public_contract": {
     "consumer_gate_required": true,
     "mathlib_lake_project_import_available": false,

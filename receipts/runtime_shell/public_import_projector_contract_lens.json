@@ -15,7 +15,7 @@
     "release_authorized": false,
     "source_mutation_authorized": false
   },
-  "command": "microcosm import-projector",
+  "command": "plectis import-projector",
   "contract_stages": [
     {
       "purpose": "choose a macro pattern only when it has a source-open public target shape",
@@ -76,7 +76,7 @@
       "stage_id": "validation_and_closeout"
     }
   ],
-  "created_at": "2026-05-28T16:12:42+00:00",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "endpoint": "/import-projector",
   "import_projector_ref": "receipts/runtime_shell/public_import_projector_contract_lens.json",
   "lens_id": "public_import_projector_contract_lens",
@@ -97,7 +97,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_import_projector_contract_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm import-projector",
+    "command": "plectis import-projector",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -126,7 +126,7 @@
   },
   "projector_rows": [
     {
-      "authority_ceiling_ref": "microcosm authority::public_import_projector_contract_lens",
+      "authority_ceiling_ref": "plectis authority::public_import_projector_contract_lens",
       "cleaned": [
         "private source path bodies",
         "operator-specific context"
@@ -154,7 +154,7 @@
       "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_import_projector_contract_lens_is_public_safe"
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_projection_import_map_lens",
+      "authority_ceiling_ref": "plectis authority::public_projection_import_map_lens",
       "cleaned": [
         "lossless-import language",
         "automatic success language"
@@ -177,11 +177,11 @@
       "public_output": "projection manifest row with copied, cleaned, omitted, and validated fields",
       "release_authorized": false,
       "source_mutation_authorized": false,
-      "source_ref": "microcosm projection-import-map::import_stages",
+      "source_ref": "plectis projection-import-map::import_stages",
       "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_import_map_lens_is_public_safe"
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_stripping_guard_lens",
+      "authority_ceiling_ref": "plectis authority::public_stripping_guard_lens",
       "cleaned": [
         "private bodies",
         "proof bodies",
@@ -206,11 +206,11 @@
       "public_output": "omission receipt with drilldown before claim",
       "release_authorized": false,
       "source_mutation_authorized": false,
-      "source_ref": "microcosm stripping-guard::guard_rows",
+      "source_ref": "plectis stripping-guard::guard_rows",
       "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_stripping_guard_lens_is_public_safe"
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_import_projector_contract_lens",
+      "authority_ceiling_ref": "plectis authority::public_import_projector_contract_lens",
       "cleaned": [
         "release permission ambiguity",
         "private-data equivalence claims"
@@ -233,11 +233,11 @@
       "public_output": "surface-specific authority ceiling and anti-claim",
       "release_authorized": false,
       "source_mutation_authorized": false,
-      "source_ref": "microcosm authority::surface_authority",
+      "source_ref": "plectis authority::surface_authority",
       "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_authority_map_is_public_safe"
     },
     {
-      "authority_ceiling_ref": "microcosm projection-safety::projection_rows",
+      "authority_ceiling_ref": "plectis projection-safety::projection_rows",
       "cleaned": [
         "private examples",
         "real user or account data"
@@ -264,7 +264,7 @@
       "validation_ref": "tests/test_launch_compression.py::test_launch_compression_validator_proves_one_command_aha"
     },
     {
-      "authority_ceiling_ref": "microcosm authority::surface_authority",
+      "authority_ceiling_ref": "plectis authority::surface_authority",
       "cleaned": [
         "unstable local file paths",
         "private route payloads"
@@ -285,14 +285,14 @@
       "projector_stage": "runtime_binding",
       "proof_body_exported": false,
       "provider_payload_exported": false,
-      "public_output": "microcosm command, endpoint, receipt, and status row",
+      "public_output": "plectis command, endpoint, receipt, and status row",
       "release_authorized": false,
       "source_mutation_authorized": false,
       "source_ref": "src/microcosm_core/runtime_shell.py",
       "validation_ref": "tests/test_cli.py::test_cli_import_projector_contract_smoke"
     },
     {
-      "authority_ceiling_ref": "microcosm authority::local_observatory",
+      "authority_ceiling_ref": "plectis authority::local_observatory",
       "cleaned": [
         "raw JSON first-screen dependence",
         "private drilldown payloads"
@@ -316,11 +316,11 @@
       "public_output": "first-screen HTML section plus JSON drilldown endpoint",
       "release_authorized": false,
       "source_mutation_authorized": false,
-      "source_ref": "microcosm project-observatory model",
+      "source_ref": "plectis project-observatory model",
       "validation_ref": "tests/test_observatory_legibility.py::test_observatory_legibility_validator_exposes_causal_chain"
     },
     {
-      "authority_ceiling_ref": "microcosm authority::public_projection_safety_audit_lens",
+      "authority_ceiling_ref": "plectis authority::public_projection_safety_audit_lens",
       "cleaned": [
         "unbounded export claims",
         "private body assumptions"
@@ -344,11 +344,11 @@
       "public_output": "registered projection row with omission receipt",
       "release_authorized": false,
       "source_mutation_authorized": false,
-      "source_ref": "microcosm projection-safety::projection_rows",
+      "source_ref": "plectis projection-safety::projection_rows",
       "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_is_public_safe"
     },
     {
-      "authority_ceiling_ref": "microcosm landing-replay::scoped_commit_requires_head_advance",
+      "authority_ceiling_ref": "plectis landing-replay::scoped_commit_requires_head_advance",
       "cleaned": [
         "private prompt bodies",
         "unlanded release language"
@@ -391,7 +391,7 @@
     "stage_count": 6,
     "validation_ref_count": 9
   },
-  "public_claim": "Microcosm exposes a repeatable import-projector contract: future macro patterns must name what was copied, cleaned, omitted, bounded, validated, surfaced, and closed out before they become public runtime cells.",
+  "public_claim": "Plectis exposes a repeatable import-projector contract: future macro patterns must name what was copied, cleaned, omitted, bounded, validated, surfaced, and closed out before they become public runtime cells.",
   "release_authorized": false,
   "safe_to_show": {
     "generated_regions_require_owner_builders": true,

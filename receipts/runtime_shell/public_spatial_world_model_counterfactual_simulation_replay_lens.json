@@ -20,7 +20,7 @@
   },
   "body_copied_material_count": 3,
   "body_material_status": "copied_non_secret_macro_body_landed",
-  "command": "microcosm spatial-simulation",
+  "command": "plectis spatial-simulation",
   "counterfactual_replays": [
     {
       "action_trace_ref": "action_trace::warehouse_occlusion_left_forklift_stop",
@@ -251,13 +251,13 @@
       "unsafe_payload_bodies_exported": false
     }
   ],
-  "created_at": "2026-06-14T01:26:42+00:00",
+  "created_at": "2026-06-29T15:43:19+00:00",
   "endpoint": "/spatial-simulation",
   "finding_count": 0,
   "fixture_id": "first_wave.spatial_world_model_counterfactual_simulation_replay",
   "freshness_basis": {
-    "command": "microcosm spatial-simulation",
-    "digest": "sha256:c87d690476d6ec1c2fba6cd681e8b180081afe0a152b239cccd969b944ba2d34",
+    "command": "plectis spatial-simulation",
+    "digest": "sha256:9e4e696f922f6c2be2ec8457757005fb680f8a33a2fb77b230ab754c91985db9",
     "input_count": 12,
     "input_mode": "exported_spatial_world_model_simulation_bundle",
     "input_ref": "examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle",
@@ -313,9 +313,9 @@
         "sha256": "sha256:a37aa1839cc8fa0cec7f688da411fd74302fb76300cf138ff33e80679971e029"
       },
       {
-        "bytes": 71736,
+        "bytes": 103366,
         "path": "src/microcosm_core/organs/spatial_world_model_counterfactual_simulation_replay.py",
-        "sha256": "sha256:d4d4686e7a6d5af3b175826fc6b75805a2d277431c664c72d704ffc365bbecdc"
+        "sha256": "sha256:a3e3929a7507179956d67f3dea5b9191801a4bc96156ff16bb82beab9e338e97"
       },
       {
         "bytes": 4362,
@@ -345,7 +345,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_spatial_world_model_counterfactual_simulation_replay_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm spatial-simulation",
+    "command": "plectis spatial-simulation",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",

@@ -20,7 +20,7 @@
       "cleanup_action_class": "route_entry_order",
       "cleanup_row_id": "atlas_first_contact_before_wide_search",
       "generated_region_hand_edit_authorized": false,
-      "owner_route": "microcosm spine",
+      "owner_route": "plectis spine",
       "payload_boundary_ref": "public_route_cleanup_contract_lens::cleanup_rows",
       "private_body_exported": false,
       "provider_payload_exported": false,
@@ -44,7 +44,7 @@
       "private_body_exported": false,
       "provider_payload_exported": false,
       "public_boundary": "grep_is_drilldown_after_named_target_or_exact_error_string",
-      "public_drilldown_ref": "microcosm route-cleanup",
+      "public_drilldown_ref": "plectis route-cleanup",
       "release_authorized": false,
       "route_deletion_authorized": false,
       "source_mutation_authorized": false,
@@ -63,7 +63,7 @@
       "private_body_exported": false,
       "provider_payload_exported": false,
       "public_boundary": "generated_region_hand_edit_is_rejected_until_owner_builder_runs",
-      "public_drilldown_ref": "microcosm projection-safety",
+      "public_drilldown_ref": "plectis projection-safety",
       "release_authorized": false,
       "route_deletion_authorized": false,
       "source_mutation_authorized": false,
@@ -82,7 +82,7 @@
       "private_body_exported": false,
       "provider_payload_exported": false,
       "public_boundary": "option_surface_rows_are_not_first_contact_control_edges",
-      "public_drilldown_ref": "microcosm spine",
+      "public_drilldown_ref": "plectis spine",
       "release_authorized": false,
       "route_deletion_authorized": false,
       "source_mutation_authorized": false,
@@ -101,7 +101,7 @@
       "private_body_exported": false,
       "provider_payload_exported": false,
       "public_boundary": "collision_signal_blocks_or_replans_mutation_before_landing",
-      "public_drilldown_ref": "microcosm authority",
+      "public_drilldown_ref": "plectis authority",
       "release_authorized": false,
       "route_deletion_authorized": false,
       "source_mutation_authorized": false,
@@ -153,7 +153,7 @@
       "cleanup_action_class": "public_private_projection_guard",
       "cleanup_row_id": "public_private_route_cleanup_boundary",
       "generated_region_hand_edit_authorized": false,
-      "owner_route": "microcosm stripping-guard + microcosm projection-safety",
+      "owner_route": "plectis stripping-guard + plectis projection-safety",
       "payload_boundary_ref": "public_route_cleanup_contract_lens::cleanup_rows",
       "private_body_exported": false,
       "provider_payload_exported": false,
@@ -163,7 +163,7 @@
       "route_deletion_authorized": false,
       "source_mutation_authorized": false,
       "source_open_body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
-      "source_ref": "microcosm stripping-guard::guard_rows",
+      "source_ref": "plectis stripping-guard::guard_rows",
       "source_signal": "route cleanup must preserve public/private stripping and projection safety",
       "unsafe_payload_bodies_exported": false,
       "validation_ref": "tests/test_runtime_shell.py::test_runtime_shell_projection_safety_lens_uses_payload_boundary"
@@ -184,8 +184,8 @@
     "unsafe_payload_body_export_count": 0,
     "validation_ref_count": 8
   },
-  "command": "microcosm route-cleanup",
-  "created_at": "2026-05-28T16:12:42+00:00",
+  "command": "plectis route-cleanup",
+  "created_at": "2026-06-29T15:33:18+00:00",
   "endpoint": "/route-cleanup",
   "lens_id": "public_route_cleanup_contract_lens",
   "negative_case_ids": [
@@ -204,7 +204,7 @@
     "body_policy": "source_open_except_secret_credential_provider_account_session_and_live_access_payloads",
     "boundary_id": "public_route_cleanup_contract_lens",
     "browser_or_hud_live_access_exported": false,
-    "command": "microcosm route-cleanup",
+    "command": "plectis route-cleanup",
     "credential_equivalent_payloads_exported": false,
     "excluded_public_payload_classes": [
       "secrets",
@@ -231,7 +231,7 @@
     "synthetic_fixture_policy": "negative_case_or_regression_harness_only",
     "unsafe_payload_bodies_in_receipt": false
   },
-  "public_claim": "Microcosm exposes route cleanup as a public contract: start from entry surfaces, refresh generated projections with owner builders, respect option-surface drilldown boundaries, claim work before edits, and land through scoped evidence or captured blockers.",
+  "public_claim": "Plectis exposes route cleanup as a public contract: start from entry surfaces, refresh generated projections with owner builders, respect option-surface drilldown boundaries, claim work before edits, and land through scoped evidence or captured blockers.",
   "release_authorized": false,
   "route_cleanup_lens_ref": "receipts/runtime_shell/public_route_cleanup_contract_lens.json",
   "safe_to_show": {
@@ -264,7 +264,7 @@
     "system/lib/navigation_context_pack.py",
     "tools/meta/factory/work_ledger.py::session-preflight",
     "tools/meta/control/scoped_commit.py",
-    "microcosm projection-safety::projection_rows"
+    "plectis projection-safety::projection_rows"
   ],
   "status": "pass",
   "unsafe_payload_bodies_in_receipt": false

@@ -1819,6 +1819,67 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
     assert "First step:" in agent_text
 
 
+def test_entry_surfaces_route_mechanism_preflight_before_assessment() -> None:
+    """A cold agent must be routed to the mechanism lane before judging Plectis.
+
+    The proven failure class is unrouted impression formation: an agent samples the
+    nearest surfaces (wrappers, line counts, one-line glosses) and emits that as a
+    whole-system verdict. The hand-authored entry surfaces must make
+    ``comprehend --slice mechanism`` the preflight for any "how impressive / what do
+    the components do / is finance thin" assessment. Deterministic: command-present,
+    CLI-real, anti-overfit language, reviewer route, and the human route-map.
+    """
+    preflight = "comprehend --slice mechanism"
+
+    # (1) command-present on the surfaces that carry the rule body. The adapters stay
+    # thin (a separate contract caps them) and instead ROUTE to AGENTS.md, where the
+    # reflex lives -- Codex/Cursor auto-load AGENTS.md, Claude Code reaches it via the
+    # adapter pointer below.
+    for rel in ("AGENTS.md", "README.md", "SOURCE_STATUS.md"):
+        text = (MICROCOSM_ROOT / rel).read_text(encoding="utf-8")
+        assert preflight in text, f"{rel} dropped the mechanism preflight command"
+    for rel in ("CLAUDE.md", "CODEX.md", "CURSOR.md"):
+        adapter = (MICROCOSM_ROOT / rel).read_text(encoding="utf-8")
+        assert "First read `AGENTS.md`" in adapter, f"{rel} stopped routing to AGENTS.md"
+
+    # (2) the routed command is real CLI, not aspirational doc prose.
+    import importlib
+
+    comprehension = importlib.import_module("microcosm_core.comprehension")
+    assert "mechanism" in comprehension._MODE_COMPILERS
+    cli = importlib.import_module("microcosm_core.cli")
+    assert preflight in str(cli.FIRST_SCREEN_HELP)
+
+    agents = (MICROCOSM_ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert "Mechanism-before-impression reflex" in agents
+    # Isolate the reflex bullet so proximity assertions cannot pass on unrelated text.
+    reflex = agents.split("Mechanism-before-impression reflex", 1)[1].split("- **", 1)[0]
+
+    # (3) anti-overfit language: name the failure class and the sentinels-as-tells.
+    assert preflight in reflex
+    assert any(p in reflex for p in ("nearest surfaces", "wrappers", "one-line glosses"))
+    assert "sentinel" in reflex
+    for sentinel in (
+        "finance_forecast_evaluation_spine",
+        "finite_erdos_denominator_certificate_strike",
+        "agent_sabotage_scheming_monitor_replay",
+        "batch8_audio_level_rms_port",
+    ):
+        assert sentinel in reflex, f"reflex dropped sentinel {sentinel}"
+
+    # (4) the reflex sends a skeptical reviewer to the mechanism lane first.
+    assert "reviewer" in reflex
+    # (6) whole-substrate framing, not a brittle hardcoded organ count.
+    assert "every organ" in reflex
+
+    # (5) the human route-map maps an assessment-shaped goal to the mechanism command.
+    readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
+    route_rows = [ln for ln in readme.splitlines() if ln.startswith("|") and preflight in ln]
+    assert any(
+        ("how impressive" in ln) or ("what each one actually does" in ln) for ln in route_rows
+    ), "README 'Choose a route' lacks an assessment-goal -> mechanism row"
+
+
 # ---------------------------------------------------------------------------
 # First-contact command/docs parity guard.
 #
