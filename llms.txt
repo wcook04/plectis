@@ -1,6 +1,6 @@
 # Plectis
 
-> A public executable atlas of AI-native runtime mechanisms: each component names what it runs or replays, the evidence class behind it, the receipt/source handles to inspect, and the authority ceiling where the claim stops.
+> A public executable atlas of AI-native runtime mechanisms: each component names what it runs or replays, the evidence class behind it, the receipt/source handles to inspect, and the authority ceiling where the claim stops. Read order: mechanisms -> evidence discipline -> local runtime. The mechanisms are the public artifact; evidence records and local result records are the accountability layer, not the product.
 
 Every map below is a generated projection of content-graph.json (the canonical object kernel); none of it is separately authored.
 

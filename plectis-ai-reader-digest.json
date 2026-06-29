@@ -3904,7 +3904,7 @@
     "artifact_path": "plectis-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.plectis-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:068a0431c0ce09c4d713c7c0d7b73021d9f488c985bbde529ef1e94161498361",
+    "payload_sha256_excluding_identity": "sha256:6460d00ce177d655a5b2157a9ad76215ae2032b9927810ba749f1c4f81bf3a78",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
     "source_fingerprint": "1fab5c1f401f7bc0148a117c0e849509"
@@ -4234,6 +4234,7 @@
       "strategic_private_origin_metadata_requiring_explicit_allowlist",
       "prohibited_secret_or_live_payload"
     ],
+    "distribution_decision": "authorized_for_standalone_public_source_slice_distribution",
     "personal_disclosure_policy": {
       "allowed_public_contact_fields": [
         "William Cook",
@@ -4279,8 +4280,9 @@
         "scope_limit"
       ]
     },
-    "publication_authorized": true,
-    "release_decision": "authorized_for_standalone_public_source_slice_distribution",
+    "public_source_slice_distribution_authorized": true,
+    "release_authority_boundary": "This authorizes distribution of the standalone public source slice and review packets only; it does not grant hosted-service, production-security, provider-affiliation, professional-advice, trading/investment, formal-proof correctness, source-mutation, release, or private-root-equivalence authority.",
+    "release_authority_granted": false,
     "release_mode": "populated_source_release",
     "reuse_terms_pointer": "legal_manifest.present_packet_and_docs_reuse_terms",
     "schema": "microcosm_hostile_recipient_public_export_egress_v0",
@@ -4766,7 +4768,7 @@
       }
     ]
   },
-  "publication_authorized": true,
+  "public_source_slice_distribution_authorized": true,
   "quick_path": {
     "answer_area_questions_from": [
       "family_digest[]"
@@ -4815,7 +4817,7 @@
   },
   "read_first": {
     "for_ai_assistants": [
-      "Start with the substance, not the contract: Plectis is a public executable atlas of AI-native runtime mechanisms, where each public component carries an evidence mode, a 1-to-5 verdict-independence rank, a source route, and a stated scope limit. Route a question to the object that answers it. Areas go through family_digest, components through component_digest[], boundary questions (does this prove X, is it secure, can I trade on it) through claim_ceiling_index, and exact links through route_index and source_map. reader_contract and coverage_scope hold the rules; the routing objects order the search and do not pre-decide the verdict.",
+      "Start with the substance, not the contract: Plectis is a public executable atlas of AI-native runtime mechanisms. Read order: mechanisms -> evidence discipline -> local runtime. The mechanisms are the public artifact; evidence records and local result records are the accountability layer, not the product. Each public component carries an evidence mode, a 1-to-5 verdict-independence rank, a source route, and a stated scope limit. Route a question to the object that answers it. Areas go through family_digest, components through component_digest[], boundary questions (does this prove X, is it secure, can I trade on it) through claim_ceiling_index, and exact links through route_index and source_map. reader_contract and coverage_scope hold the rules; the routing objects order the search and do not pre-decide the verdict.",
       "For current name and vocabulary questions, start with public_glossary; for first-pass navigation, start with quick_path; for Microcosm rename, legacy URL, or compatibility-name questions, start with lineage and legacy_compatibility instead. For component or source-object questions, start with component_digest[] (it carries label, rank, evidence_kind, public_runtime, runs_real_tools meaning, command route metadata, scope_limit, claim_ceiling_tags, and a full_record_pointer) and open visible_text_index.logical_records.components[] only when you need the full record, its source_links, or links_to. For doctrine questions, use visible_text_index.logical_records.rules_and_ideas[] as the synopsis/relationship row, then follow body_pointer to the one complete machine body record. For \"what are the areas\" questions use family_digest[]; for \"what does it not prove / is this secure / can I trade on it\" questions use claim_ceiling_index and the row's claim_ceiling_tags. Open paper-module, evidence-profile, and other long visible_text bodies only by id when a question needs them.",
       "Explain Plectis in plain public language; avoid internal project vocabulary the public site does not define.",
       "When you rely on a routeable object or page, include the relative_href back to the exact public view.",
@@ -4863,6 +4865,7 @@
     "schema": "microcosm_public_ai_orientation_reader_contract_v1",
     "source_authority": "pages/components/paper_modules/source_refs plus linked public repository files"
   },
+  "release_authority_granted": false,
   "role": "primary_public_ai_handoff",
   "route_index": {
     "machine_readable": [
