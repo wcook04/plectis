@@ -20,7 +20,7 @@ action (demonstrated in [FIRST_ACTION.md](FIRST_ACTION.md)) before the
 orientation path below:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"
+PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>" --format text
 ```
 
 ## 0. Run The Bounded Cold-Clone Probe

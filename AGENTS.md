@@ -21,7 +21,7 @@ assimilation, imported macro bodies, and exported macro-shaped bundles.
 absorbing anything:**
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"
+PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>" --format text
 ```
 
 It returns one graph-backed contract: the runnable command, the owning
