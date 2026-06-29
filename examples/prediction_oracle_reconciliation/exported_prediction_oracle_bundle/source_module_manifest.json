@@ -218,7 +218,7 @@
       "body_in_receipt": false,
       "byte_count": 4357,
       "credential_exposure_risk": "low",
-      "line_count": 31,
+      "line_count": 32,
       "material_class": "public_macro_tool_body",
       "module_id": "prediction_oracle_node_lab_decide_body_import",
       "path": "source_artifacts/macro_source/codex/substrate/nodes/lab/decide.json",
