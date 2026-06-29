@@ -1,0 +1,229 @@
+{
+  "schema_version": "public_microcosm_standard_v2",
+  "standard_id": "std_microcosm_bridge_campaign_dag_validation",
+  "kind_id": "bridge_campaign_dag_validation",
+  "kind_name": "Bridge campaign DAG validation",
+  "status": "active",
+  "first_wave_required": false,
+  "authority_boundary": "public_safe_bridge_campaign_dag_validation_accepted_organ_standard",
+  "anti_claim": "The capsule validates a public bridge-campaign DAG contract and provider worker ceiling. It is not a dispatcher, not a live multi-agent run, not a provider safety proof, and not release authority.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Organ-facing public copy must stay within the accepted organ claim ceiling and must not imply release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority."
+  },
+  "authority_ceiling": {
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "standard_authority": "public_bridge_campaign_dag_validation_standard_schema_and_failure_envelope",
+    "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
+    "accepted_organ_ref": "core/organ_registry.json#bridge_campaign_dag_validation",
+    "claim_ceiling_ref": "core/organ_registry.json#bridge_campaign_dag_validation.claim_ceiling",
+    "evidence_class": "bounded_runtime_computation",
+    "truth_accounting_bucket": "real_runtime_receipt",
+    "live_session_authority": false,
+    "provider_authority": false,
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false,
+    "release_authority": false
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_bridge_campaign_dag_validation_runtime_metadata_and_receipts",
+    "allowed_public_inputs": [
+      "standard ids",
+      "public source refs",
+      "fixture ids",
+      "validator ids",
+      "receipt ids",
+      "authority ceilings",
+      "anti-claims",
+      "public fixture ids",
+      "validator command identity",
+      "validator result status",
+      "body-free receipt refs",
+      "authority ceilings and anti-claims",
+      "public relative source paths"
+    ],
+    "forbidden_public_inputs": [
+      "credentials",
+      "cookies_or_sessions",
+      "provider_payload_bodies",
+      "private account state",
+      "raw operator transcripts",
+      "private home-path literals",
+      "release approval state",
+      "private macro-root equivalence claims"
+    ],
+    "status": "pass"
+  },
+  "required_fields": [
+    "cycle_rejected",
+    "provider_ceiling_rejected",
+    "dangling_synthesis_rejected",
+    "authority_ceiling",
+    "anti_claim",
+    "validator_contract",
+    "receipt_refs",
+    "failure_modes"
+  ],
+  "validation_rules": [
+    "validate required source refs or target refs remain public-safe",
+    "preserve draft/staged status until an active v2 acceptance lane supplies validator and receipt evidence",
+    "reject release, provider dispatch, source mutation, private-root equivalence, and whole-system correctness claims",
+    "require the accepted organ validator command to recompute the bounded public fixture result",
+    "require generated receipts and acceptance receipt refs to remain body-free and public-relative",
+    "require claim ceiling, evidence class, truth-accounting bucket, and authority ceiling to match core/organ_registry.json",
+    "reject release, publication, provider-dispatch, source-mutation, private-root equivalence, and whole-system correctness claims"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.bridge_campaign_dag_validation",
+    "command": "python -m microcosm_core.organs.bridge_campaign_dag_validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+    "minimum_checks": [
+      "accepted_organ_validator_command_recomputes_fixture",
+      "authority_ceiling_matches_organ_registry",
+      "body_free_receipt_refs_present",
+      "negative_or_forged_cases_rejected_when_declared"
+    ]
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.bridge_campaign_dag_validation",
+    "python -m microcosm_core.organs.bridge_campaign_dag_validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
+  ],
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.bridge_campaign_dag_validation",
+    "body_in_receipt": false,
+    "must_record": [
+      "validator_result_status",
+      "authority_ceiling",
+      "anti_claim",
+      "claim_ceiling",
+      "evidence_class",
+      "truth_accounting_bucket",
+      "body_free_receipt_refs"
+    ]
+  },
+  "receipt_expectations": [
+    "record validator command identity, observed result status, authority ceiling, and anti-claim",
+    "record public-relative receipt refs and avoid source bodies, credentials, provider payloads, private paths, or operator transcripts",
+    "record the accepted organ claim ceiling and do not treat validator success as release or publication authority"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.bridge_campaign_dag_validation",
+    "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_result.json",
+    "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_board.json",
+    "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_validation_receipt.json",
+    "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
+  ],
+  "source_refs": [
+    {
+      "field": "organ_runtime",
+      "path": "src/microcosm_core/organs/bridge_campaign_dag_validation.py",
+      "role": "public_runtime_source"
+    },
+    {
+      "field": "paper_module",
+      "path": "paper_modules/bridge_campaign_dag_validation.md",
+      "role": "public_explanation_surface"
+    },
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/bridge_campaign_dag_validation/input",
+      "role": "public_fixture_input"
+    },
+    {
+      "field": "validation_test",
+      "path": "tests/test_bridge_campaign_dag_validation.py",
+      "role": "public_runtime_test"
+    },
+    {
+      "field": "engine_room_capsule",
+      "path": "src/microcosm_core/engine_room/bridge_campaign_dag.py",
+      "role": "public_source_faithful_runtime_capsule"
+    },
+    {
+      "field": "staged_capsule_source",
+      "path": "standards/std_microcosm_engine_room_bridge_campaign_dag.json",
+      "role": "promoted_staged_capsule_content_source"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#bridge_campaign_dag_validation",
+    "used_by_organs": [
+      "bridge_campaign_dag_validation"
+    ],
+    "governed_by": [
+      "std_microcosm_organ",
+      "std_microcosm_receipt",
+      "std_microcosm_private_fixture"
+    ],
+    "source_ref": "standards/std_microcosm_bridge_campaign_dag_validation.json",
+    "promoted_from_staged_capsule": "std_microcosm_engine_room_bridge_campaign_dag"
+  },
+  "standard_payload": {
+    "ontology": "Accepted Microcosm organ standard for `bridge_campaign_dag_validation`: Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
+    "teleology": "Expose `bridge_campaign_dag_validation` as a bounded public runtime/receipt contract with validator-backed evidence, while keeping the claim ceiling and release boundary visible to cold readers and release gates.",
+    "anti_purpose": "Using `bridge_campaign_dag_validation` as proof of broader runtime correctness, release readiness, provider authority, private-root equivalence, or claims outside its accepted organ ceiling.",
+    "compression_bands": [
+      "organ_id",
+      "validator",
+      "fixture",
+      "receipt",
+      "claim_ceiling",
+      "authority_ceiling",
+      "failure_modes"
+    ],
+    "failure_modes": [
+      "accepted organ standard file missing or not discoverable as std_microcosm_<organ_id>.json",
+      "validator command, receipt id, or authority receipt drifts from core/organ_registry.json",
+      "bounded fixture result is trusted from prose or stale receipts instead of recomputed by the validator",
+      "public receipt embeds private paths, provider payloads, credentials, raw operator text, or source bodies",
+      "evidence class or truth-accounting bucket is overclaimed beyond the accepted organ row",
+      "green validator output is treated as release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority",
+      "deterministic bounded computation is replaced by fixture echo, schema-only replay, or unverified static metadata"
+    ],
+    "rebuild_action": "active_v2_promotion_from_accepted_organ_registry",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "std_microcosm_engine_room_bridge_campaign_dag_v1",
+        "status": "staged_capsule_pending_shared_registry_integration"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "staged_capsule_pending_shared_registry_integration",
+      "validator_id": "validator.microcosm.organs.bridge_campaign_dag_validation",
+      "receipt_id": "receipt.microcosm.bridge_campaign_dag_validation",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+      "organ_evidence_class": "bounded_runtime_computation",
+      "organ_evidence_strength_rank": 4,
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bind the source row but do not grant release, provider dispatch, private-root equivalence, runtime correctness, or whole-system correctness authority."
+    }
+  },
+  "wave": "w2_bridge_campaign_dag_validation_standard_floor",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.bridge_campaign_dag_validation.author",
+      "status": "planned",
+      "purpose": "create a valid Bridge campaign DAG validation runtime instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.bridge_campaign_dag_validation.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Bridge campaign DAG validation without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.bridge_campaign_dag_validation.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_bridge_campaign_dag_validation and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
+}

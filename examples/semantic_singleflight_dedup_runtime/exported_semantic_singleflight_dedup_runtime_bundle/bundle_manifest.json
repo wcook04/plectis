@@ -1,0 +1,21 @@
+{
+  "bundle_id": "public_semantic_singleflight_dedup_runtime_bundle",
+  "organ_id": "semantic_singleflight_dedup_runtime",
+  "input_mode": "exported_semantic_singleflight_dedup_runtime_bundle",
+  "authored_organ": true,
+  "body_in_receipt": false,
+  "live_state_authority": false,
+  "release_authorized": false,
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "surfaces_capsule": "microcosm_core.engine_room.command_run_singleflight",
+  "required_files": [
+    "bundle_manifest.json",
+    "single_leader.json",
+    "completed_reuse.json",
+    "scope_mutation_changes_key.json",
+    "missing_command_rejected.json",
+    "docs/README.md",
+    "source_modules/src/microcosm_core/organs/semantic_singleflight_dedup_runtime.py"
+  ],
+  "claim_ceiling": "Keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands; does not guarantee global mutual exclusion, does not replace a lock service, does not prove cross-host correctness, and is not release approval."
+}

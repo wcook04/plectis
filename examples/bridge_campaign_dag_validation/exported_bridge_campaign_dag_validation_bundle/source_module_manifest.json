@@ -1,0 +1,70 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "bridge_campaign_dag_validation_source_body_manifest",
+  "bundle_id": "exported_bridge_campaign_dag_validation_bundle",
+  "classification": "public_package_body_backed_composition_capsule",
+  "source_import_class": "public_safe_refactored_body",
+  "body_storage_policy": "public package source bodies are exercised in place by the organ acceptance command; this manifest binds their provenance and digest relation so old metadata cannot promote the organ by itself",
+  "receipt_body_policy": "receipts are evidence outputs only and are not counted as imported body substrate",
+  "body_in_receipt": false,
+  "source_open_payload_boundary": "non-secret Microcosm package source only; no provider state, credentials, sessions, raw private state, or release authority",
+  "validation_contract_ref": "checker.microcosm.validators.substrate_substitution_ledger",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "bridge_campaign_dag_validation_organ_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Bridge campaign DAG validation organ wrapper, fixture exercises, and acceptance receipt writer",
+      "source_ref": "microcosm-substrate/src/microcosm_core/organs/bridge_campaign_dag_validation.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/organs/bridge_campaign_dag_validation.py",
+      "path": "microcosm-substrate/src/microcosm_core/organs/bridge_campaign_dag_validation.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 20692,
+      "line_count": 446,
+      "sha256": "sha256:bb82851fcd17c5862b0fd97ecc3daac7bd38c6118d1a1e07d9771da3aa256bcd",
+      "target_sha256": "bb82851fcd17c5862b0fd97ecc3daac7bd38c6118d1a1e07d9771da3aa256bcd",
+      "source_sha256": "bb82851fcd17c5862b0fd97ecc3daac7bd38c6118d1a1e07d9771da3aa256bcd",
+      "required_anchors": [
+        "ORGAN_ID = \"bridge_campaign_dag_validation\"",
+        "def run"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.organs.bridge_campaign_dag_validation.run",
+        "tests/test_bridge_campaign_dag_validation.py"
+      ]
+    },
+    {
+      "module_id": "bridge_campaign_dag_validation_capsule_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Surfaced bridge campaign fan-in DAG validator that checks schema, unique labels, dependency edges, acyclicity, single synthesis reaching a probe, barrier alignment, and provider safe-parallelism",
+      "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/bridge_campaign_dag.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/engine_room/bridge_campaign_dag.py",
+      "path": "microcosm-substrate/src/microcosm_core/engine_room/bridge_campaign_dag.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 32117,
+      "line_count": 629,
+      "sha256": "sha256:f9b8ff5d3b2ac5b348ef3344bf67efb07f2531a6799190d905e6abc23da88810",
+      "target_sha256": "f9b8ff5d3b2ac5b348ef3344bf67efb07f2531a6799190d905e6abc23da88810",
+      "source_sha256": "f9b8ff5d3b2ac5b348ef3344bf67efb07f2531a6799190d905e6abc23da88810",
+      "required_anchors": [
+        "def validate_campaign",
+        "class ValidationResult"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.engine_room.bridge_campaign_dag.validate_campaign",
+        "tests/test_bridge_campaign_dag_validation.py"
+      ]
+    }
+  ],
+  "blocked_import_debt": []
+}

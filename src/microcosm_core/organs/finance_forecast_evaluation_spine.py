@@ -1,45 +1,15 @@
-"""[PURPOSE]
-- Teleology: Make finance forecast-evaluation spine evidence inspectable through
-  runnable public fixture code while keeping claims bounded to emitted receipts and
-  authority ceilings.
-- Mechanism: The file runs no-lookahead forecast comparison statistics and emits typed
-  refusals when statistics dependencies are unavailable; helper functions load fixtures,
-  recompute predicates, normalize findings, build result/board/card payloads, and write
-  receipts.
-- Non-goal: Finance forecast evaluation spine runs statistical checks over synthetic
-  market-shaped fixtures only. It is not investment or trading advice, uses no live
-  market data, proves no track record or performance claim, mutates no optimizer, and
-  treats SciPy absence as a typed HLN refusal.
+"""
+Finance forecast evaluation spine replay organ.
 
-[INTERFACE]
-- CLI: Import or dispatch `microcosm_core.organs.finance_forecast_evaluation_spine`
-  through package call sites and tests; no argparse subcommand was detected.
-- Exports: evaluate, evaluate_negative_case, run, run_finance_forecast_bundle, main.
-- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
-  referenced by each callable body.
-- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
-  artifacts only where the called body performs explicit writes.
-
-[FLOW]
-- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
-  negative-case rows through the local helper stack.
-- Validate: Recompute module-specific predicates from structured inputs rather than
-  trusting fixture verdict fields alone.
-- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
-  anti-claims and authority ceilings preserved.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common
-- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+[PURPOSE] Validate the synthetic finance-evaluation fixture boundary for forecast statistics, split integrity, and no-advice/no-live-data claim ceilings.
+[INTERFACE] Exposes CrownJewelSpec entrypoints for fixture evaluation, negative-case evaluation, bundle validation, and CLI execution.
+[FLOW] Load loss matrices and policy fixtures, reject lookahead or advice overclaims, either bind an exported standalone statistics contract or run copied statistics modules, then emit bounded receipts.
+[DEPENDENCIES] Uses copied finance source modules when available, JSON fixture inputs, subprocess isolation, date parsing, and the shared crown-jewel organ harness.
+[CONSTRAINTS] The organ never uses live market data, never gives investment or trading advice, and treats a pass as evidence of fixture wiring rather than forecast performance.
 
 [CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutation is limited to explicit
-  run/write helpers invoked by the caller.
-- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
-  state, clock values, subprocess results, dependency availability, and parser
-  invocation are the admitted runtime variables.
-- Boundary: Receipts and cards must stay public-root relative and body-free for private,
-  provider, credential, oracle, hidden-answer, or raw exploit material.
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 
 from __future__ import annotations
@@ -127,21 +97,14 @@ SPEC = CrownJewelSpec(
 
 
 def _source_modules_root(source_manifest: dict[str, Any], input_dir: Path) -> Path:
-    """[ACTION] Resolve the copied source_modules directory from the source manifest.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `_source_modules_root`.
-    - Preconditions: Callers provide source_manifest, input_dir in the shape consumed by
-      the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them.
-    - Guarantee: Returns Path from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Resolve the copied source_modules directory from a validated source manifest, falling back to the fixture input directory for local runs.
+    - Teleology: Implements `_source_modules_root` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     manifest_path = source_manifest.get("source_manifest_path")
     if isinstance(manifest_path, str) and manifest_path:
@@ -150,23 +113,14 @@ def _source_modules_root(source_manifest: dict[str, Any], input_dir: Path) -> Pa
 
 
 def _is_exported_finance_bundle(input_dir: Path, source_manifest: dict[str, Any]) -> bool:
-    """[ACTION] Detect when inputs match the exported finance bundle shape.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `_is_exported_finance_bundle`.
-    - Preconditions: Callers provide input_dir, source_manifest in the shape consumed by
-      the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Delegates to is_file, source_manifest.get and applies local branch
-      checks.
-    - Guarantee: Returns bool from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks.
-    - Reads: call arguments; module constants SPEC; filesystem metadata named by those
-      arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Detect when the input is the exported finance bundle shape so evaluation can use the standalone public statistics contract.
+    - Teleology: Implements `_is_exported_finance_bundle` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return (
         input_dir.name == SPEC.bundle_input_mode
@@ -180,23 +134,14 @@ def _standalone_exported_statistics_contract(
     matrix: dict[str, Any],
     paired_loss_series: dict[str, Any],
 ) -> dict[str, Any]:
-    """[ACTION] Build a bounded statistics witness from exported fixture rows.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by
-      `_standalone_exported_statistics_contract`.
-    - Preconditions: Callers provide matrix, paired_loss_series in the shape consumed by
-      the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Build a bounded statistics witness from exported fixture rows when copied runtime execution is intentionally not re-run.
+    - Teleology: Implements `_standalone_exported_statistics_contract` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, subprocess side effects requested by the caller.
     """
     rows = [row for row in matrix.get("rows", []) if isinstance(row, dict)]
     candidate_ids = [
@@ -291,25 +236,14 @@ def _run_stats_subprocess(
     family_loss_matrix: dict[str, Any],
     paired_loss_series: dict[str, Any],
 ) -> dict[str, Any]:
-    """[ACTION] Serialize finance fixtures and delegate statistics execution to the cached subprocess helper.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `_run_stats_subprocess`.
-    - Preconditions: Callers provide source_modules_root, family_loss_matrix,
-      paired_loss_series in the shape consumed by the body; write targets must be inside
-      the caller-selected output or temporary area; external binaries must be available
-      when that branch is selected.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes,
-      subprocess execution, called validators/helpers.
-    - Reads: call arguments.
-    - Writes: filesystem output explicitly written by this body; subprocess side effects
-      limited to the invoked command/workspace.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Serialize the finance fixtures and delegate statistics execution to the cached subprocess helper.
+    - Teleology: Implements `_run_stats_subprocess` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, subprocess side effects requested by the caller.
     """
     payload_text = json.dumps(
         {
@@ -324,25 +258,14 @@ def _run_stats_subprocess(
 
 @lru_cache(maxsize=16)
 def _run_stats_subprocess_cached(source_modules_root: str, payload_text: str) -> dict[str, Any]:
-    """[ACTION] Execute copied finance statistics modules in a subprocess and capture hashes plus typed refusal evidence.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `_run_stats_subprocess_cached`.
-    - Preconditions: Callers provide source_modules_root, payload_text in the shape
-      consumed by the body; content inputs must exist and match the expected local
-      fixture shape; external binaries must be available when that branch is selected.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Runs the declared subprocess command and records its return-code evidence.
-      Computes SHA-256 evidence from the bytes or normalized data it receives.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, subprocess execution, called validators/helpers.
-    - Reads: call arguments; filesystem/content inputs named by those arguments or
-      constants.
-    - Writes: subprocess side effects limited to the invoked command/workspace.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Execute copied finance statistics modules in a subprocess and capture hashes plus typed HLN refusal evidence.
+    - Teleology: Implements `_run_stats_subprocess_cached` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
     """
     script = r"""
 import builtins
@@ -452,20 +375,14 @@ print(json.dumps({
 
 
 def _sha256_text(text: str) -> str:
-    """[ACTION] Return the SHA-256 digest for text content.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `_sha256_text`.
-    - Preconditions: Callers provide text in the shape consumed by the body.
-    - Mechanism: Computes SHA-256 evidence from the bytes or normalized data it
-      receives.
-    - Guarantee: Returns str from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Hash subprocess streams so receipts can prove output identity without exporting stream bodies.
+    - Teleology: Implements `_sha256_text` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, subprocess side effects requested by the caller.
     """
     import hashlib
 
@@ -473,20 +390,14 @@ def _sha256_text(text: str) -> str:
 
 
 def _parse_iso_date(value: object) -> date | None:
-    """[ACTION] Parse fixture ISO dates while treating malformed values as absent evidence.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `_parse_iso_date`.
-    - Preconditions: Callers provide value in the shape consumed by the body.
-    - Mechanism: Delegates to date.fromisoformat and applies local branch checks.
-    - Guarantee: Returns date | None from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Parse fixture date strings into date objects while treating malformed values as absent evidence.
+    - Teleology: Implements `_parse_iso_date` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(value, str):
         return None
@@ -497,22 +408,14 @@ def _parse_iso_date(value: object) -> date | None:
 
 
 def _lookahead_split_findings(paired_loss_series: dict[str, Any]) -> list[dict[str, Any]]:
-    """[ACTION] Find split-order or lookahead violations in finance fixture rows.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `_lookahead_split_findings`.
-    - Preconditions: Callers provide paired_loss_series in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Scan paired-loss rows for lookahead or inverted event-window violations before statistics are trusted.
+    - Teleology: Implements `_lookahead_split_findings` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     rows = [row for row in paired_loss_series.get("rows", []) if isinstance(row, dict)]
@@ -550,22 +453,14 @@ def _lookahead_split_findings(paired_loss_series: dict[str, Any]) -> list[dict[s
 
 
 def _policy_findings(policy: dict[str, Any]) -> list[dict[str, Any]]:
-    """[ACTION] Find advice, live-data, and performance-claim policy violations.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `_policy_findings`.
-    - Preconditions: Callers provide policy in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants FALSE_BOUNDARY_FLAGS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: FALSE_BOUNDARY_FLAGS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Enforce the no-advice, no-live-data, no-performance-claim boundary flags from the finance policy fixture.
+    - Teleology: Implements `_policy_findings` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     for flag in FALSE_BOUNDARY_FLAGS:
@@ -590,24 +485,14 @@ def _evaluate_payloads(
     policy: dict[str, Any],
     initial_findings: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Evaluate finance payloads and return bounded fixture findings.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `_evaluate_payloads`.
-    - Preconditions: Callers provide input_dir, source_manifest, matrix, paired, policy,
-      initial_findings in the shape consumed by the body; external binaries must be
-      available when that branch is selected.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from subprocess
-      execution, called validators/helpers.
-    - Reads: call arguments; module constants FALSE_BOUNDARY_FLAGS.
-    - Writes: subprocess side effects limited to the invoked command/workspace.
-    - Couples: FALSE_BOUNDARY_FLAGS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Combine policy, split, source-manifest, and statistics checks into the bounded finance-evaluation receipt payload.
+    - Teleology: Implements `_evaluate_payloads` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
     """
     findings: list[dict[str, Any]] = list(initial_findings or [])
     findings.extend(_policy_findings(policy))
@@ -710,22 +595,14 @@ def _evaluate_payloads(
 
 
 def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Evaluate fixture evidence and return a structured verdict.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `evaluate`.
-    - Preconditions: Callers provide input_dir, _public_root, source_manifest in the
-      shape consumed by the body.
-    - Mechanism: Delegates to load_json_object, load_json_object, load_json_object,
-      _evaluate_payloads and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Load positive fixture inputs and pass them into the finance evaluation spine with any JSON-loading findings preserved.
+    - Teleology: Implements `evaluate` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     matrix = load_json_object(input_dir / "family_loss_matrix.json", findings, label="family loss matrix")
@@ -746,29 +623,14 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
-    """[ACTION] Evaluate a negative-case row and return its verdict fields.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `evaluate_negative_case`.
-    - Preconditions: Callers provide case_id, input_dir, _expected_codes in the shape
-      consumed by the body; content inputs must exist and match the expected local
-      fixture shape; write targets must be inside the caller-selected output or
-      temporary area.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Writes only the output paths named by the caller, temporary workspace, or
-      module constants. Normalizes Path values and public-root-relative references
-      before returning them. Iterates candidate paths or structured rows exactly as
-      written in the body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, filesystem writes, called validators/helpers.
-    - Reads: call arguments; module constants SPEC; filesystem/content inputs named by
-      those arguments or constants.
-    - Writes: filesystem output explicitly written by this body.
-    - Couples: SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Apply one semantic negative mutation and return the error-code receipt proving the expected rejection path.
+    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     input_path = Path(input_dir)
     public_root = public_root_for_path(input_path)
@@ -831,22 +693,14 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the organ replay pipeline and return the computed result payload.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `run`.
-    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
-      shape consumed by the body.
-    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SPEC.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Run the normal finance forecast fixture through the shared crown-jewel organ harness.
+    - Teleology: Implements `run` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -864,22 +718,14 @@ def run_finance_forecast_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run finance forecast bundle for this organ replay.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `run_finance_forecast_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body.
-    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SPEC.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Run the exported finance bundle input mode through the same evaluator and negative-case checker.
+    - Teleology: Implements `run_finance_forecast_bundle` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -893,20 +739,14 @@ def run_finance_forecast_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
-
-    - Teleology: Supports finance forecast evaluation spine by documenting and
-      preserving the exact local step implemented by `main`.
-    - Preconditions: Callers provide argv in the shape consumed by the body.
-    - Mechanism: Delegates to main_for_spec and applies local branch checks.
-    - Guarantee: Returns int from the selected CLI command path.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SPEC.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION] Dispatch CLI actions for this organ through the shared CrownJewelSpec command surface.
+    - Teleology: Implements `main` for `microcosm_core.organs.finance_forecast_evaluation_spine` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return main_for_spec(
         SPEC,

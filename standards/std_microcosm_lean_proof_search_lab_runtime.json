@@ -1,0 +1,221 @@
+{
+  "schema_version": "public_microcosm_standard_v2",
+  "standard_id": "std_microcosm_lean_proof_search_lab_runtime",
+  "kind_id": "lean_proof_search_lab_runtime",
+  "kind_name": "Lean proof search lab runtime",
+  "status": "active",
+  "first_wave_required": false,
+  "authority_boundary": "public_safe_lean_proof_search_lab_subprocess_witness_fixture_standard",
+  "anti_claim": "This standard governs a bounded symbolic Lean proof-search lab over tiny public toy-theorem fixtures whose verdict source is the installed Lean subprocess only. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, is not frontier-scale math automation or online-RL bandit search, is not a private macro prover-run export, and does not authorize release or publication.",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Lean lab language must state that toy-theorem closure under an external Lean subprocess is a bounded tool witness, not neural theorem proving, open-problem progress, oracle forwarding, or release authority."
+  },
+  "authority_ceiling": {
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "standard_authority": "public_lean_proof_search_lab_subprocess_witness_schema_and_failure_envelope",
+    "neural_theorem_prover": false,
+    "frontier_scale_math_automation": false,
+    "online_rl_bandit": false,
+    "private_macro_run_export": false,
+    "oracle_body_forward_solver": false,
+    "open_problem_resolution": false,
+    "accepted_organ_ref": "core/organ_registry.json#lean_proof_search_lab_runtime",
+    "claim_ceiling_ref": "core/organ_registry.json#lean_proof_search_lab_runtime.claim_ceiling",
+    "live_session_authority": false,
+    "provider_authority": false,
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false,
+    "release_authority": false
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_lean_subprocess_witness_metadata_over_bounded_toy_fixtures",
+    "allowed_public_inputs": [
+      "public toy-theorem fixture ids",
+      "candidate tactic ids and search-trace metadata",
+      "negative-case ids and error codes",
+      "lean binary availability and version status",
+      "public validation refs",
+      "public-relative receipt refs"
+    ],
+    "forbidden_public_inputs": [
+      "private oracle proof bodies",
+      "private macro prover-run exports",
+      "provider payload bodies",
+      "raw operator transcripts",
+      "credentials",
+      "cookies_or_sessions",
+      "private home-path literals",
+      "release approval state"
+    ],
+    "status": "pass"
+  },
+  "required_fields": [
+    "positive_symbolic_lab_pass",
+    "oracle_field_negative",
+    "memorized_policy_negative",
+    "sorry_axiom_negative",
+    "lean_availability_status",
+    "authority_ceiling",
+    "anti_claim"
+  ],
+  "validation_rules": [
+    "accept the positive fixture only when the installed Lean subprocess actually closes the toy theorems",
+    "require the forward oracle-leak firewall to reject any candidate that carries a leaked oracle proof body",
+    "require the problem-id ablation to reject policies that only succeed because they memorised the problem id",
+    "require the #print axioms cleanliness gate to reject sorry- or unsafe-axiom-tainted candidates",
+    "return a terminal locked state that verifies nothing when the lean binary is absent, never a pass",
+    "reject neural-theorem-proving, open-problem, frontier-automation, online-RL, private-macro-export, release, and publication claims"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.lean_proof_search_lab_runtime",
+    "command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+    "minimum_checks": [
+      "positive_symbolic_lab_pass",
+      "oracle_field_negative",
+      "memorized_policy_negative",
+      "sorry_axiom_negative",
+      "lean_availability_lock",
+      "print_axioms_cleanliness"
+    ]
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.lean_proof_search_lab_runtime",
+    "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
+  ],
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.lean_proof_search_lab_runtime",
+    "body_in_receipt": false,
+    "must_record": [
+      "positive_symbolic_lab_pass",
+      "oracle_firewall_rejections",
+      "problem_id_ablation",
+      "print_axioms_cleanliness",
+      "lean_availability_status",
+      "authority_ceiling",
+      "anti_claim"
+    ]
+  },
+  "receipt_expectations": [
+    "record the positive symbolic-lab pass and the four rejected negative-case ids",
+    "record lean binary availability and version status, and the locked state when lean is absent",
+    "record authority ceiling and anti-claim",
+    "do not place oracle proof bodies, private prover-run exports, credentials, or provider payloads in receipts"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.lean_proof_search_lab_runtime",
+    "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+    "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json",
+    "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json",
+    "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_validation_receipt.json"
+  ],
+  "source_refs": [
+    {
+      "field": "organ_runtime",
+      "path": "src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
+      "role": "public_runtime_source"
+    },
+    {
+      "field": "paper_module",
+      "path": "paper_modules/lean_proof_search_lab_runtime.md",
+      "role": "public_explanation_surface"
+    },
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/lean_proof_search_lab_runtime/input",
+      "role": "public_fixture_input"
+    },
+    {
+      "field": "validation_test",
+      "path": "tests/test_engine_room_lean_proof_search_lab.py",
+      "role": "public_runtime_test"
+    },
+    {
+      "field": "staged_capsule_source",
+      "path": "standards/std_microcosm_engine_room_lean_proof_search_lab.json",
+      "role": "promoted_staged_capsule_content_source"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#lean_proof_search_lab_runtime",
+    "used_by_organs": [
+      "lean_proof_search_lab_runtime"
+    ],
+    "governed_by": [
+      "std_microcosm_organ",
+      "std_microcosm_receipt",
+      "std_microcosm_private_fixture"
+    ],
+    "promoted_from_staged_capsule": "std_microcosm_engine_room_lean_proof_search_lab",
+    "source_ref": "standards/std_microcosm_lean_proof_search_lab_runtime.json"
+  },
+  "standard_payload": {
+    "ontology": "A gated external-tool witness organ that runs a symbolic Lean proof-search lab over bounded public toy theorems: an and/or candidate-tactic search and a statement-only hammer shell out to the installed `lean` binary to compile each candidate tactic body, guarded by a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate.",
+    "teleology": "Show that a small symbolic tactic search closes toy theorems with a real Lean subprocess as the verdict source, while structurally rejecting oracle leakage, memorised-policy shortcuts, and axiom taint, and locking rather than faking a pass when Lean is unavailable.",
+    "anti_purpose": "A proof-automation demo that counts tool absence as a pass, forwards an oracle proof body as its own search, or claims neural theorem proving or open-problem progress from a bounded fixture run.",
+    "compression_bands": [
+      "toy_theorem",
+      "candidate_tactic",
+      "oracle_firewall",
+      "problem_id_ablation",
+      "axiom_cleanliness",
+      "lean_availability",
+      "receipt"
+    ],
+    "failure_modes": [
+      "lean binary absent but the run reports a pass instead of a terminal locked state",
+      "candidate accepted while #print axioms shows sorry or unsafe-axiom taint",
+      "forward oracle proof body leaked into the search and counted as a found tactic",
+      "policy that only succeeds because it memorised the problem id passes the ablation",
+      "tool-absence locked state counted as a mechanism failure rather than a non-verifying lock",
+      "symbolic toy-theorem closure overclaimed as neural theorem proving or open-problem progress",
+      "Lean subprocess verdict treated as release, publication, or whole-system-correctness authority"
+    ],
+    "rebuild_action": "active_v2_promotion_from_staged_capsule",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "public_microcosm_standard_v1",
+        "status": "draft"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "staged_capsule_pending_shared_registry_integration",
+      "validator_id": "validator.microcosm.organs.lean_proof_search_lab_runtime",
+      "receipt_id": "receipt.microcosm.lean_proof_search_lab_runtime",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+      "organ_evidence_class": "external_subprocess_witness",
+      "organ_evidence_strength_rank": 4,
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bound the source row but do not grant release, provider dispatch, private-root equivalence, or whole-system correctness authority."
+    }
+  },
+  "wave": "w2_lean_proof_search_lab_runtime_standard_floor",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.lean_proof_search_lab_runtime.author",
+      "status": "planned",
+      "purpose": "create a valid Lean proof search lab runtime instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.lean_proof_search_lab_runtime.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Lean proof search lab runtime without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.lean_proof_search_lab_runtime.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_lean_proof_search_lab_runtime and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
+}

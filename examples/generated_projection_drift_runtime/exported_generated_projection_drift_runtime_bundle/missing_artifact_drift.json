@@ -1,0 +1,34 @@
+{
+  "case_id": "missing_artifact_drift",
+  "case_type": "negative",
+  "expected_ok": false,
+  "expected_status": "drift",
+  "expected_owner_count": 1,
+  "files": [
+    {
+      "path": "source/spec.json",
+      "text": "{\"title\":\"missing\"}\n"
+    }
+  ],
+  "owners": [
+    {
+      "owner_id": "missing_projection",
+      "description": "The declared artifact never landed; presence is required even when the owner check command itself passes.",
+      "artifacts": [
+        "generated/missing.md"
+      ],
+      "source_authorities": [
+        "source/spec.json"
+      ],
+      "check_command": [
+        "builtin:pass"
+      ],
+      "repair_command": [
+        "builtin:repair-demo"
+      ],
+      "manual_edit_boundary": "Do not hand-edit generated/missing.md.",
+      "deterministic_regeneration_expectation": "generated/missing.md must be regenerated from source/spec.json.",
+      "stale_drift_handling": "A missing required artifact marks the owner as drift regardless of the check command return code."
+    }
+  ]
+}

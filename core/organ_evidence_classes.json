@@ -555,6 +555,96 @@
       "evidence_strength_rank": 5,
       "organ_id": "batch7_demo_take_console_capsule",
       "truth_accounting_bucket": "copied_non_secret_macro_body"
+    },
+    {
+      "classification_basis": "public source-faithful refactor of command_run_singleflight surfaced as a first-class operational-discipline organ; the runnable exercise builds content keys from argv, resolved cwd, git HEAD, a scoped dirty-tree fingerprint, and an env fingerprint, demonstrates leader and completed-run-reuse dedup hits over public fixture commands, and observes two negative cases (a scoped mutation that flips the key so stale state cannot dedup, and an empty argv that is rejected), while keeping global mutual exclusion, distributed lock service, cross-host correctness, release, and publication authority false",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.bounded_runtime_computation",
+      "evidence_strength_rank": 4,
+      "organ_id": "semantic_singleflight_dedup_runtime",
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "classification_basis": "public source-faithful realization of the finite denominator-order certificate at the heart of the Erdos #257 period-noncollapse strike; the runnable exercise sums S_F(b)=sum 1/(b^n-1) as an exact Fraction, reads the reduced denominator Q, computes the multiplicative order of b mod Q by repeated multiplication, cross-checks Q against the closed form B/gcd(A_L,B), and confirms ord_Q(b)=lcm(F) over positive cases including a reducing case, while rejecting forged certificates (a wrong order or a wrong denominator) by recomputation and keeping solves-Erdos257, machine-checked-proof, oracle-or-prover, provider, release, and publication authority false",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.bounded_runtime_computation",
+      "evidence_strength_rank": 4,
+      "organ_id": "finite_erdos_denominator_certificate_strike",
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "classification_basis": "public source-faithful realization of the bridge campaign fan-in DAG validator; the runnable exercise validates each campaign spec against a public-safe subset of the macro CR/VR rule families - schema and identity, unique node labels, existing dependency edges, DFS acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism - accepting two well-formed campaigns (a linear chain and a three-way fan-in) and rejecting a cyclic campaign (CR012) and a two-synthesis campaign (CR013) by recomputation, while keeping dispatch, multi-agent execution, provider-safety-proof, release, and publication authority false",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.bounded_runtime_computation",
+      "evidence_strength_rank": 4,
+      "organ_id": "bridge_campaign_dag_validation",
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "classification_basis": "Classified bounded_runtime_computation because each case actually executes the capsule's real runtime: it stands up a temp SQLite store, runs DDL/inserts/updates, performs lease math against the process clock, projects claim events, and runs the reconciler over the resulting rows. This is genuine bounded computation over a synthetic store, not a fixture echo (output is not pre-baked in the fixture), not a schema replay (it mutates and reads real SQLite state), and not an external subprocess/semantic-validator (no external binary, no NL judgement). Negatives are rejected by recomputation: the reconciler derives the firing rule from observed job/run/log state, and substituting a wrong expected marker flips the organ to fail.",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.bounded_runtime_computation",
+      "evidence_strength_rank": 4,
+      "organ_id": "metabolism_queue_reconciliation",
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "classification_basis": "evidence_class=bounded_runtime_computation because the organ runs the real capsule computation end-to-end over authored fixtures with a deterministic, bounded workload: JSON-pointer resolution, glob enumeration, and a small git index built inside an isolated tempdir. It is not a mere fixture_echo (it recomputes values and compares observed vs expected, and falsifiability is demonstrated), not a schema_replay (it executes the provider logic, not just shape-checks), not an algorithmic_projection (no model/extrapolation), not an external_subprocess_witness in the gating sense (the git subprocess is an internal callable-fact detail over a throwaway tempdir, not the central claimed mechanism and not an absent dependency), and not a semantic_validator (it explicitly does NOT judge truth of claims). family_id=research_and_science_replays fits a registry/provider data-resolution runtime that replays authored fact-resolution cases with planted-defect rejection; it is closer to a research/replay data-evaluation organ than to entry, navigation, formal proof, agent-safety, import-projection, or work-landing families.",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.bounded_runtime_computation",
+      "evidence_strength_rank": 4,
+      "organ_id": "derived_fact_provider_runtime",
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "classification_basis": "Classified as bounded_runtime_computation: the organ runs the real capsule's deterministic, stdlib-only benchmark recomputation (set-based recall/precision, substring forbidden-route check, scent-term coverage, integer latency-budget comparison, percentile summary) over small bounded fixture inputs at call time. It is not a mere fixture echo/replay (the verdict is computed, not stored), not an algorithmic projection (it executes the actual scoring code path on the inputs), and needs no external subprocess, prover, or network \u2014 so external_subprocess_witness / semantic_validator do not apply. Negatives are decided by recomputation contradicting a planted expectation, confirmed by two falsifiability probes.",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.bounded_runtime_computation",
+      "evidence_strength_rank": 4,
+      "organ_id": "navigation_fitness_benchmark",
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "classification_basis": "evidence_class=bounded_runtime_computation because _evaluate_case invokes the real capsule function route_catalog (which transitively runs route_annexes) over each fixture and compares the live-computed status/slug/score/note-ids to fixture expectations \u2014 it is genuine deterministic computation over bounded inputs, not a fixture echo (the answers are recomputed, not read from the fixture) and not an external subprocess (pure in-process stdlib). family_id=architecture_and_navigation because the mechanism is a routing/navigation surface: it maps a problem statement onto ranked entries of a knowledge catalog (annex discovery/navigation), which is the architecture-and-navigation concern rather than math/proof, agent-reliability, or science-replay. gate_runnable=true: no absent dependency; build_result returns status=pass with 4 cases under PYTHONPATH=src python3.",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.bounded_runtime_computation",
+      "evidence_strength_rank": 4,
+      "organ_id": "annex_knowledge_routing",
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "classification_basis": "Classified bounded_runtime_computation because each case executes the capsule's real phrase-membership detection at runtime: it recomputes the three detector verdicts (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator) over the agent-output text by testing tripwire-phrase presence against legitimiser-phrase absence, and compares the observed green/red verdict plus the firing diagnostic id to the case expectation. It is not a fixture echo or schema replay (the verdict is recomputed, proven by repair/break flips), not an external subprocess, and explicitly not semantic understanding; it is bounded deterministic computation over public fixtures. Negatives are rejected by recomputation: a planted policy-violating text fires its tripwire without a legitimiser and the gate flags it red with the expected diagnostic id.",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "bounded_runtime_computation",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.bounded_runtime_computation",
+      "evidence_strength_rank": 4,
+      "organ_id": "egress_self_compliance_audit",
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "classification_basis": "evidence_class=external_subprocess_witness because the surfaced mechanism's drift verdict is a check-command return-code witness (the capsule's no-write check command, run through its command runner \u2014 the same path that would invoke subprocess.run for an external owner command), not a pure in-module computation. The two positives and two negatives each route through the capsule's real check pipeline; negatives are rejected by recomputation (planted byte -> check_command_failed via builtin:assert-file-equals; missing artifact -> artifact_missing presence check), and the cache-hit positive is proven to skip the command via the real source-hash cache (check_mode=source_hash_cache_hit, hit_count=1). gate_runnable=true because every fixture stays on the in-process builtin command surface, so no absent external binary is needed.",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "external_subprocess_witness",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.bounded_runtime_computation",
+      "evidence_strength_rank": 4,
+      "organ_id": "generated_projection_drift_runtime",
+      "truth_accounting_bucket": "real_runtime_receipt"
+    },
+    {
+      "classification_basis": "evidence_class=external_subprocess_witness because the surfaced mechanism's verdict is produced by the installed Lean subprocess: run_and_or_search and run_statement_only_hammer call check_candidate_with_lean which shells out to `lean` to compile each candidate tactic body, a #print axioms cleanliness gate rejects sorry-tainted candidates, and a forward oracle firewall plus a problem-id ablation reject leaked oracle bodies and policies that only work because they memorised the problem id. The positive fixture is accepted only when real Lean closes the toy theorems; the four negatives are rejected by recomputation (two oracle-firewall violations, one axiom taint, one problem-id ablation failure). It is a gated external-tool witness: when the lean binary is absent the organ returns a terminal locked state and verifies nothing rather than counting tool-absence as a mechanism failure or faking a pass.",
+      "counts_as_real_substrate_progress": true,
+      "evidence_class": "external_subprocess_witness",
+      "evidence_profile_ref": "core/organ_evidence_classes.json::class_profiles.bounded_runtime_computation",
+      "evidence_strength_rank": 4,
+      "organ_id": "lean_proof_search_lab_runtime",
+      "truth_accounting_bucket": "real_runtime_receipt"
     }
   ],
   "registry_id": "microcosm_organ_evidence_classes",

@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.validators.dependency_preflight` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: CHECKER_ID, ACCEPTED_ORGAN_IDS, ACCEPTANCE_PLAN_REL, AUTHORITY_SNAPSHOT_REL, EVIDENCE_CLASS_REGISTRY_REL, DEFERRED_ORGAN_IDS, run_dependency_preflight, main
+- Reads: call arguments, module constants, imported helpers, declared subprocess results.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.runtime_shell, microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -25,7 +50,9 @@ DEFERRED_ORGAN_IDS = ["formal_math_lean_proof_organ"]
 
 
 def _public_root_for_path(path: str | Path) -> Path:
-    """Resolve the public substrate root that scopes all preflight path display and scanning.
+    """
+    [ACTION]
+    Resolve the public substrate root that scopes all preflight path display and scanning.
 
     - Teleology: protects the public-root boundary claim (private-path display + forbidden-class scope) from leaking host/absolute or out-of-tree roots into the receipt.
     - Guarantee: returns a resolved directory Path that either is named ``microcosm-substrate`` or carries the public markers (``pyproject.toml`` + ``src/microcosm_core`` + ``core/private_state_forbidden_classes.json``), walking ``start`` and its parents.
@@ -35,6 +62,7 @@ def _public_root_for_path(path: str | Path) -> Path:
     - When-needed: trust when establishing which root scopes public-relative display and private-state scanning for a given out_path.
     - Escalates-to: microcosm-substrate/core/private_state_forbidden_classes.json (the marker that confirms a true public root).
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -49,23 +77,33 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
-    """Render a path as a public-root-relative display string for receipt fields.
+    """
+    [ACTION]
+    Render a path as a public-root-relative display string for receipt fields.
 
     - Teleology: keeps receipt-visible paths scoped to the public root so host/absolute paths never leak into the dependency-preflight receipt.
     - Guarantee: returns the string from ``public_relative_path(path, display_root=public_root)`` (path relativized under public_root, or its safe public form).
     - Fails: delegates to public_relative_path; raises only if that helper raises, otherwise returns a string.
     - Non-goal: does not authorize release, source-body export, or private-root equivalence; only formats a display string.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
-    """Strip the forbidden-output-fields detail from a private-state scan before it enters the receipt.
+    """
+    [ACTION]
+    Strip the forbidden-output-fields detail from a private-state scan before it enters the receipt.
 
     - Teleology: protects the public-safe-receipt claim by dropping the ``forbidden_output_fields`` payload that could echo private-class detail.
     - Guarantee: returns a shallow copy of ``scan`` with the ``forbidden_output_fields`` key removed (all other keys preserved verbatim); the input dict is not mutated.
     - Fails: never raises; returns the copied dict even when ``forbidden_output_fields`` is absent.
     - Non-goal: does not authorize release or assert the scan passed; only redacts one field for receipt safety.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     safe = dict(scan)
     safe.pop("forbidden_output_fields", None)
@@ -73,36 +111,51 @@ def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
 
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
-    """Extract the dict-shaped rows under a payload key, discarding non-dict entries.
+    """
+    [ACTION]
+    Extract the dict-shaped rows under a payload key, discarding non-dict entries.
 
     - Teleology: gives every downstream registry/plan/snapshot reader a defensive row accessor so malformed non-dict entries never reach contract logic.
     - Guarantee: returns a list containing only the dict elements of ``payload[key]``; returns ``[]`` when the key is absent or its value is not iterable-of-dicts.
     - Fails: raises ``TypeError`` only if ``payload[key]`` is present but not iterable; otherwise never raises and returns a filtered list.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     value = payload.get(key, [])
     return [row for row in value if isinstance(row, dict)]
 
 
 def _organ_registry(public_root: Path) -> dict[str, Any]:
-    """Load the public organ registry that is the source-of-authority for accepted organs.
+    """
+    [ACTION]
+    Load the public organ registry that is the source-of-authority for accepted organs.
 
     - Teleology: provides the single registry source whose ``accepted_current_authority`` rows define the organ set the whole preflight reconciles against.
     - Guarantee: returns the parsed JSON object from ``public_root/core/organ_registry.json`` via read_json_strict.
     - Fails: missing or malformed/non-JSON registry -> ``read_json_strict`` raises (FileNotFound / json / value error) and propagates; there is no empty-envelope fallback.
     - When-needed: trust when you need the authoritative accepted-organ source before any cross-surface convergence check.
     - Escalates-to: core/organ_registry.json (the registry itself).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return read_json_strict(public_root / "core/organ_registry.json")
 
 
 def _accepted_from_registry(registry: dict[str, Any]) -> list[str]:
-    """Project the accepted-current-authority organ ids out of the registry payload.
+    """
+    [ACTION]
+    Project the accepted-current-authority organ ids out of the registry payload.
 
     - Teleology: defines the canonical accepted-organ id list that every preflight convergence surface is measured against.
     - Guarantee: returns the ``organ_id`` (stringified) of each ``implemented_organs`` row whose ``status == "accepted_current_authority"``, in registry order.
     - Fails: never raises; returns ``[]`` when no row qualifies or ``implemented_organs`` is absent/non-list (via _rows).
     - When-needed: trust when you need the registry-derived accepted set rather than the runtime-step set.
     - Escalates-to: core/organ_registry.json (``implemented_organs[].status``).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         str(row.get("organ_id"))
@@ -112,18 +165,25 @@ def _accepted_from_registry(registry: dict[str, Any]) -> list[str]:
 
 
 def _fixture_input_exists(public_root: Path, rel: str) -> bool:
-    """Test whether a declared fixture input path is present under the public root.
+    """
+    [ACTION]
+    Test whether a declared fixture input path is present under the public root.
 
     - Teleology: backs the fixture-input-presence claim by checking each declared input on disk relative to the public root.
     - Guarantee: returns ``True`` iff ``public_root/rel`` exists on the filesystem, else ``False``.
     - Fails: never raises; a non-existent path returns ``False`` rather than erroring.
     - Escalates-to: fixtures/first_wave/<organ_id>/input (the on-disk fixture inputs being probed).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return (public_root / rel).exists()
 
 
 def _public_fixture_manifest(public_root: Path, organ_id: str, row: dict[str, Any]) -> Path:
-    """Resolve the public-tree fixture-manifest path for an organ, never trusting a macro path.
+    """
+    [ACTION]
+    Resolve the public-tree fixture-manifest path for an organ, never trusting a macro path.
 
     - Teleology: protects the fixture-presence claim from following a macro/foreign ``fixture_manifest`` path; re-homes it under the public ``core/fixture_manifests`` tree.
     - Guarantee: returns ``public_root/core/fixture_manifests/<name>`` using only the macro manifest's basename; prefers the existing file, else the canonical ``<organ_id>.fixture_manifest.json`` if it exists, else the basename path.
@@ -133,6 +193,7 @@ def _public_fixture_manifest(public_root: Path, organ_id: str, row: dict[str, An
     - When-needed: trust when locating the public manifest for an accepted organ before checking inputs.
     - Escalates-to: core/fixture_manifests/<organ_id>.fixture_manifest.json (canonical public manifest).
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     macro_manifest = Path(str(row.get("fixture_manifest") or ""))
     manifest_name = macro_manifest.name or f"{organ_id}.fixture_manifest.json"
@@ -146,7 +207,9 @@ def _public_fixture_manifest(public_root: Path, organ_id: str, row: dict[str, An
 
 
 def _public_manifest_inputs(manifest_path: Path) -> list[str]:
-    """Extract declared fixture input path strings from a public fixture manifest.
+    """
+    [ACTION]
+    Extract declared fixture input path strings from a public fixture manifest.
 
     - Teleology: protects the fixture-input-presence claim by reading inputs from the public manifest rather than trusting macro readiness rows.
     - Guarantee: returns a list of input path strings drawn from ``manifest["inputs"]`` (each dict row's ``path`` or each bare string row); returns ``[]`` when the file is absent, the payload is not a dict, or ``inputs`` is not a list.
@@ -156,6 +219,7 @@ def _public_manifest_inputs(manifest_path: Path) -> list[str]:
     - When-needed: trust when enumerating which fixture input paths must exist on disk for an accepted organ.
     - Escalates-to: core/fixture_manifests/<organ_id>.fixture_manifest.json (the ``inputs`` array it parses).
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     if not manifest_path.is_file():
         return []
@@ -174,12 +238,17 @@ def _public_manifest_inputs(manifest_path: Path) -> list[str]:
 
 
 def _negative_case_count(payload: Any) -> int:
-    """Count negative-matrix cases across the several shapes the matrix file may take.
+    """
+    [ACTION]
+    Count negative-matrix cases across the several shapes the matrix file may take.
 
     - Teleology: yields the receipt's ``negative_matrix_case_count`` regardless of whether the matrix is a bare list, a keyed-rows dict, or a free-form mapping.
     - Guarantee: returns ``len(payload)`` for a list; for a dict, the length of the first present list under ``negative_cases``/``cases``/``rows``, else the count of dict/list values; ``0`` for any other type.
     - Fails: never raises; an unrecognized payload type returns ``0``.
     - When-needed: trust when reporting how many negative cases the preflight observed (a count, not a pass/fail gate).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if isinstance(payload, list):
         return len(payload)
@@ -193,11 +262,16 @@ def _negative_case_count(payload: Any) -> int:
 
 
 def _id_counts(ids: list[str]) -> dict[str, int]:
-    """Tally occurrences of each id, the primitive behind duplicate detection.
+    """
+    [ACTION]
+    Tally occurrences of each id, the primitive behind duplicate detection.
 
     - Teleology: provides the per-id multiplicity map that ``_duplicates`` uses to flag double-registered evidence-class / authority rows.
     - Guarantee: returns a dict mapping each distinct id in ``ids`` to its occurrence count (sum of counts equals ``len(ids)``).
     - Fails: never raises; an empty input returns ``{}``.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     counts: dict[str, int] = {}
     for item in ids:
@@ -206,23 +280,33 @@ def _id_counts(ids: list[str]) -> dict[str, int]:
 
 
 def _duplicates(ids: list[str]) -> list[str]:
-    """Return the ids that appear more than once, driving duplicate-row lifecycle defects.
+    """
+    [ACTION]
+    Return the ids that appear more than once, driving duplicate-row lifecycle defects.
 
     - Teleology: surfaces double-registered organ ids (evidence-class, authority snapshot) so the coverage pass can emit a duplicate defect.
     - Guarantee: returns the sorted, de-duplicated list of ids whose occurrence count in ``ids`` exceeds one; ``[]`` when all ids are unique.
     - Fails: never raises; an empty input returns ``[]``.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return sorted(item for item, count in _id_counts(ids).items() if count > 1)
 
 
 def _accepted_plan_organs(public_root: Path) -> list[str]:
-    """Read the accepted organ ids declared by the first-wave acceptance plan.
+    """
+    [ACTION]
+    Read the accepted organ ids declared by the first-wave acceptance plan.
 
     - Teleology: provides the acceptance-plan side of the accepted-vs-plan convergence so plan/registry divergence becomes a lifecycle defect.
     - Guarantee: returns the truthy ``organ_id`` strings from ``accepted_current_authority_organs`` rows of ``public_root/core/acceptance/first_wave_acceptance.json``; returns ``[]`` when that file is absent.
     - Fails: malformed/non-JSON plan -> ``read_json_strict`` raises and propagates; a missing file returns ``[]`` (no raise).
     - When-needed: trust when reconciling the acceptance plan against the registry accepted set.
     - Escalates-to: core/acceptance/first_wave_acceptance.json (ACCEPTANCE_PLAN_REL).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     path = public_root / ACCEPTANCE_PLAN_REL
     if not path.is_file():
@@ -236,13 +320,18 @@ def _accepted_plan_organs(public_root: Path) -> list[str]:
 
 
 def _evidence_class_rows(public_root: Path) -> list[dict[str, Any]]:
-    """Load the organ evidence-class rows that bind each organ to its evidence discipline.
+    """
+    [ACTION]
+    Load the organ evidence-class rows that bind each organ to its evidence discipline.
 
     - Teleology: provides the evidence-class registry rows used to check one-class-per-organ and the external-subprocess-witness receipt invariant.
     - Guarantee: returns the dict rows under ``organ_evidence_classes`` from ``public_root/core/organ_evidence_classes.json``; returns ``[]`` when that file is absent.
     - Fails: malformed/non-JSON registry -> ``read_json_strict`` raises and propagates; a missing file returns ``[]`` (no raise).
     - When-needed: trust when verifying evidence-class coverage and witness-receipt evidence per organ.
     - Escalates-to: core/organ_evidence_classes.json (EVIDENCE_CLASS_REGISTRY_REL).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, subprocess side effects requested by the caller.
     """
     path = public_root / EVIDENCE_CLASS_REGISTRY_REL
     if not path.is_file():
@@ -252,7 +341,9 @@ def _evidence_class_rows(public_root: Path) -> list[dict[str, Any]]:
 
 
 def _authority_snapshot(public_root: Path) -> dict[str, Any]:
-    """Load the public runtime-shell authority snapshot used to check organ/surface lens convergence.
+    """
+    [ACTION]
+    Load the public runtime-shell authority snapshot used to check organ/surface lens convergence.
 
     - Teleology: protects the public-authority convergence claim (organ/surface lens coverage) from a missing or non-dict ``public_authority_map.json`` snapshot.
     - Guarantee: returns the snapshot dict from ``public_root/receipts/runtime_shell/public_authority_map.json`` when it is a dict; returns ``{}`` when the file is absent or the payload is not a dict.
@@ -262,6 +353,7 @@ def _authority_snapshot(public_root: Path) -> dict[str, Any]:
     - When-needed: trust when reconciling accepted organs against published authority/lens rows.
     - Escalates-to: receipts/runtime_shell/public_authority_map.json (AUTHORITY_SNAPSHOT_REL).
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     path = public_root / AUTHORITY_SNAPSHOT_REL
     if not path.is_file():
@@ -271,11 +363,16 @@ def _authority_snapshot(public_root: Path) -> dict[str, Any]:
 
 
 def _surface_mentions_organ(surface: dict[str, Any], organ_id: str) -> bool:
-    """Decide whether a public surface row references an organ by id or hyphen-slug.
+    """
+    [ACTION]
+    Decide whether a public surface row references an organ by id or hyphen-slug.
 
     - Teleology: backs the public-lens coverage claim by detecting whether a command-path organ is actually mentioned by a published surface row.
     - Guarantee: returns ``True`` iff ``organ_id`` or its ``_``->``-`` slug appears in the joined ``surface_id``/``command``/``endpoint``/``authority_role`` text of the surface row, else ``False``.
     - Fails: never raises; missing keys are coerced to empty strings before matching.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     slug = organ_id.replace("_", "-")
     text = " ".join(
@@ -293,11 +390,16 @@ def _add_lifecycle_defect(
     surface: str | None = None,
     detail: dict[str, Any] | None = None,
 ) -> None:
-    """Append one normalized lifecycle-defect record to the accumulating defects list.
+    """
+    [ACTION]
+    Append one normalized lifecycle-defect record to the accumulating defects list.
 
     - Teleology: gives the coverage pass a single shaped constructor for every lifecycle defect so defect records stay schema-consistent.
     - Guarantee: mutates ``defects`` in place by appending a dict with ``defect_id`` plus, when provided, ``organ_id``/``surface``/``detail`` keys; returns ``None``.
     - Fails: never raises; omitted optional fields are simply absent from the appended record.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     defect: dict[str, Any] = {"defect_id": defect_id}
     if organ_id is not None:
@@ -317,12 +419,17 @@ def _consumer_contract_row(
     owner_surface: str,
     receipt_ref: str | None = None,
 ) -> dict[str, Any]:
-    """Build one consumer-surface convergence row comparing required vs observed organ ids.
+    """
+    [ACTION]
+    Build one consumer-surface convergence row comparing required vs observed organ ids.
 
     - Teleology: encodes the per-surface contract (runtime steps, acceptance plan, evidence registry, authority/lens rows, fixtures) so convergence is auditable surface-by-surface.
     - Guarantee: returns a row with ``status`` = PASS when neither ``missing_organ_ids`` (required minus observed) nor ``stale_organ_ids`` (observed minus required) is non-empty, else ``"blocked"``; echoes both id lists, ``owner_surface``, and an optional ``receipt_ref``.
     - Fails: never raises; returns a ``"blocked"`` row (not an exception) whenever sets diverge.
     - Non-goal: does not authorize release or repair; it only records the convergence verdict for one surface.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     missing = [
         organ_id for organ_id in required_for_organ_ids if organ_id not in observed_organ_ids
@@ -357,7 +464,9 @@ def _organ_lifecycle_convergence(
     public_lens_organs: set[str],
     fixture_checks: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """Assemble the consumer-contract convergence block across all six lifecycle consumer surfaces.
+    """
+    [ACTION]
+    Assemble the consumer-contract convergence block across all six lifecycle consumer surfaces.
 
     - Teleology: gives the receipt one authoritative convergence object that proves accepted organs are consistently consumed by runtime steps, the acceptance plan, evidence registry, authority/lens rows, and fixtures.
     - Guarantee: returns an ``organ_lifecycle_convergence_v1`` dict whose ``status`` is PASS iff every consumer-surface row passes, listing affected surfaces/organs and pinning ``release_authority``/``proof_authority``/``source_body_exported`` all to ``False``.
@@ -365,6 +474,9 @@ def _organ_lifecycle_convergence(
     - When-needed: trust when you need the cross-surface convergence verdict and the list of organs/surfaces that diverged.
     - Escalates-to: receipts/runtime_shell/public_authority_map.json + receipts/preflight/dependency_preflight.json (its required_snapshot_refs).
     - Non-goal: does not authorize release, provider calls, source export, or proof correctness; it asserts consumer-contract convergence only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     fixture_pass_ids = [
         str(row.get("organ_id"))
@@ -473,7 +585,9 @@ def _organ_lifecycle_coverage(
     accepted: list[str],
     fixture_checks: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """Run the full organ-lifecycle coverage pass and emit every lifecycle defect it finds.
+    """
+    [ACTION]
+    Run the full organ-lifecycle coverage pass and emit every lifecycle defect it finds.
 
     - Teleology: the central coverage gate that cross-checks accepted organs against runtime steps, the acceptance plan, evidence classes, fixtures/receipts, the authority snapshot, public lens rows, and witness-receipt evidence.
     - Guarantee: returns an ``organ_lifecycle_coverage_v1`` dict whose ``status`` is PASS iff ``defects == []``, carrying the defect list, ``accepted_order_status``, coverage counts, the nested convergence block, and the ``anti_claim`` ceiling.
@@ -481,6 +595,9 @@ def _organ_lifecycle_coverage(
     - When-needed: trust when you need the authoritative list of organ-lifecycle defects and the overall coverage verdict.
     - Escalates-to: tests/test_dependency_preflight.py + core/organ_registry.json (the registry/test pair backing every invariant here).
     - Non-goal: does not authorize release, provider calls, source mutation, or private-data equivalence; checks public convergence only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, declared filesystem outputs, subprocess side effects requested by the caller.
     """
     runtime_ids = list(ACCEPTED_ORGAN_IDS)
     accepted_plan_ids = _accepted_plan_organs(public_root)
@@ -689,7 +806,9 @@ def run_dependency_preflight(
     *,
     command: str,
 ) -> dict[str, Any]:
-    """Run the public dependency preflight and atomically write its receipt to out_path.
+    """
+    [ACTION]
+    Run the public dependency preflight and atomically write its receipt to out_path.
 
     - Teleology: the public entrypoint that gates the accepted runtime-spine — it proves build-dependency closure, fixture presence, wave-order, lifecycle convergence, and private-state cleanliness before any build proceeds.
     - Guarantee: returns and writes a ``dependency_preflight_receipt_v1`` dict whose ``status`` is PASS iff ``blocked_dependency_codes`` is empty; the receipt always pins ``authority_ceiling`` (release/provider/private-equivalence all False, Lean/Lake bounded-public-witness-only) and is persisted via write_json_atomic.
@@ -697,6 +816,9 @@ def run_dependency_preflight(
     - When-needed: trust when establishing whether the accepted public runtime spine is dependency/fixture/lifecycle-ready and private-state-clean for a build.
     - Escalates-to: tests/test_dependency_preflight.py + receipts/preflight/dependency_preflight.json (the written receipt at out_path).
     - Non-goal: a PASS does not authorize release, hosted operations, credentialed provider calls, secret export, financial advice, or Lean/Lake beyond the bounded public witness fixture; it asserts public preflight readiness only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     output_file = Path(out_path)
     public_root = _public_root_for_path(output_file)
@@ -828,11 +950,16 @@ def run_dependency_preflight(
 
 
 def _parser() -> argparse.ArgumentParser:
-    """Build the CLI argument parser for the dependency-preflight command.
+    """
+    [ACTION]
+    Build the CLI argument parser for the dependency-preflight command.
 
     - Teleology: defines the command-line surface (``--readiness``/``--negative-matrix``/``--out``) through which operators and CI invoke the preflight.
     - Guarantee: returns an ``ArgumentParser`` requiring all three string options; supplies the public-preflight description.
     - Fails: never raises at construction; missing required args raise ``SystemExit`` only later, at ``parse_args`` time in ``main``.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     parser = argparse.ArgumentParser(description="Run public dependency preflight")
     parser.add_argument("--readiness", required=True)
@@ -842,7 +969,9 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entrypoint: parse args, run the preflight, and map its status to an exit code.
+    """
+    [ACTION]
+    CLI entrypoint: parse args, run the preflight, and map its status to an exit code.
 
     - Teleology: the process-level adapter that lets CI/shell gate a build on the preflight verdict via exit status.
     - Guarantee: runs ``run_dependency_preflight`` with the parsed ``--readiness``/``--negative-matrix``/``--out`` and the reconstructed command string; returns ``0`` iff the receipt ``status`` is PASS, else ``1``.
@@ -850,6 +979,9 @@ def main(argv: list[str] | None = None) -> int:
     - When-needed: trust as the shell/CI invocation surface; for the receipt object itself, call run_dependency_preflight directly.
     - Escalates-to: run_dependency_preflight (same module) for the full receipt and authority ceiling.
     - Non-goal: a ``0`` exit does not authorize release, provider calls, or anything beyond the bounded public preflight it ran.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     args = _parser().parse_args(argv)
     command = (

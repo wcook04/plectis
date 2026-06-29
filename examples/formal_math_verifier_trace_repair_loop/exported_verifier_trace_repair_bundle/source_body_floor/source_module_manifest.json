@@ -7,8 +7,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 83456,
-      "line_count": 2095,
+      "byte_count": 127450,
+      "line_count": 2615,
       "material_class": "public_microcosm_organ_source_body",
       "module_id": "formal_math_verifier_trace_repair_loop_public_organ_source_body_import",
       "path": "source_modules/microcosm_core/organs/formal_math_verifier_trace_repair_loop.py",
@@ -16,19 +16,21 @@
         "ORGAN_ID = \"formal_math_verifier_trace_repair_loop\"",
         "def run"
       ],
-      "sha256": "sha256:ca9c1b9ab39de66df0d1f00c35af12d3ffcebbbc0d368883dce3ded3ab415014",
+      "sha256": "sha256:7b3e0c3ccc671804c68d83b5f1c3a79a7c4b2aa3fc2c4e67902ceac1a3dda34e",
       "sha256_match": true,
       "source_byte_count": 83456,
       "source_import_class": "copied_non_secret_public_substrate_body",
       "source_line_count": 2095,
       "source_ref": "src/microcosm_core/organs/formal_math_verifier_trace_repair_loop.py",
       "source_role": "Public verifier trace repair loop organ logic used to replay repair evidence while generated run artifacts stay evidence-only.",
-      "source_sha256": "sha256:ca9c1b9ab39de66df0d1f00c35af12d3ffcebbbc0d368883dce3ded3ab415014",
+      "source_sha256": "sha256:7b3e0c3ccc671804c68d83b5f1c3a79a7c4b2aa3fc2c4e67902ceac1a3dda34e",
+      "source_target_sha256_match": true,
       "source_to_target_relation": "exact_copy",
       "target_byte_count": 83456,
+      "target_expected_digest_match": true,
       "target_line_count": 2095,
       "target_ref": "microcosm-substrate/examples/formal_math_verifier_trace_repair_loop/exported_verifier_trace_repair_bundle/source_body_floor/source_modules/microcosm_core/organs/formal_math_verifier_trace_repair_loop.py",
-      "target_sha256": "sha256:ca9c1b9ab39de66df0d1f00c35af12d3ffcebbbc0d368883dce3ded3ab415014",
+      "target_sha256": "sha256:7b3e0c3ccc671804c68d83b5f1c3a79a7c4b2aa3fc2c4e67902ceac1a3dda34e",
       "validation_refs": [
         "tests/test_substrate_substitution_ledger.py::test_state_run_generated_json_sources_do_not_count_as_real_substrate"
       ]

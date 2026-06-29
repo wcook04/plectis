@@ -93,7 +93,7 @@ def test_status_card_uses_current_default_proof_lab_receipt(
             "cache_status": "stale_cached_receipt",
             "cache_action": {
                 "status": "actionable",
-                "command": "microcosm proof-lab --out /tmp/microcosm-proof-lab",
+                "command": "plectis proof-lab --out /tmp/microcosm-proof-lab",
             },
         },
         "front_door": {},

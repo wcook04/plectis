@@ -1,0 +1,297 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "Command-receipt evidence over bounded public fixtures, not runtime-product completeness. Establishes only that the capsule's phrase-membership detectors reproduce the declared green/red verdicts and diagnostic markers on the authored cases. Does NOT establish coverage of real agent output, semantic correctness, adversarial robustness, or any safety guarantee; does not authorize release, publication, provider calls, or source mutation.",
+    "card": "Egress Self-Compliance Audit surfaces the egress_self_compliance_gate capsule: a transparent substring policy that flags three ways an agent's own output can break its operating discipline — asking permission with no named blocker, confessing an error with no durable capture, or displacing a command onto the operator with no execution receipt. Each detector fires only when a tripwire phrase appears without its legitimiser. The organ replays 2 compliant and 2 planted-violation fixtures through the live capsule, asserting each violation reproduces with its exact diagnostic marker. Honest ceiling: phrase membership only — no taint analysis, no prompt-injection defense, no semantics; paraphrased violations are missed.",
+    "one_line": "Phrase-membership audit of agent-output text for three egress self-compliance slips (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator), verified by recomputation over public fixtures."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.egress_self_compliance_audit",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[100:paper_module.egress_self_compliance_audit]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "Command-receipt evidence over bounded public fixtures, not runtime-product completeness. Establishes only that the capsule's phrase-membership detectors reproduce the declared green/red verdicts and diagnostic markers on the authored cases. Does NOT establish coverage of real agent output, semantic correctness, adversarial robustness, or any safety guarantee; does not authorize release, publication, provider calls, or source mutation.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.egress_self_compliance_audit",
+        "status": "linked_from_capsule_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/egress_self_compliance_audit.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.egress_self_compliance_audit.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/egress_self_compliance_audit.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/egress_self_compliance_audit.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/egress_self_compliance_audit.py",
+          "resolution": "resolved",
+          "role": "Surfaces the egress_self_compliance_gate capsule as a first-class agent-reliability organ. Adds the standard organ contract over the capsule's evaluate_text entrypoint: loads bounded JSON fixture cases, classifies positive vs negative by case_type/expected_ok, recomputes each verdict via the live capsule, asserts planted negatives are flagged red with the exact expected violating diagnostic_id (EXPECTED_NEGATIVE_CASES), aggregates a pass/fail status, projects a body-free result_card, and writes body-free result/board/validation (and optional acceptance) receipts via microcosm_core.receipts. Pass requires both positives clean (green), both negatives rejected with their expected marker, and the expected negative case_ids present.",
+          "symbols": [
+            "build_result",
+            "run",
+            "_evaluate_case",
+            "run_egress_self_compliance_audit_bundle",
+            "result_card"
+          ]
+        },
+        {
+          "path": "src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+          "resolution": "resolved",
+          "role": "Phrase-membership egress self-compliance policy over one agent-output text string. Runs three detectors that each fire only when a tripwire phrase is present AND its matching legitimiser phrase is absent: permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator. Returns green when no detector reports a violation, red otherwise. The capsule is the authority for the detection logic and phrase tables; it is a source-faithful public refactor of system/lib/egress_compliance.py.",
+          "symbols": [
+            "It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.",
+            "Ask for permission only after naming a real blast-radius blocker;"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "Command-receipt evidence over bounded public fixtures, not runtime-product completeness. Establishes only that the capsule's phrase-membership detectors reproduce the declared green/red verdicts and diagnostic markers on the authored cases. Does NOT establish coverage of real agent output, semantic correctness, adversarial robustness, or any safety guarantee; does not authorize release, publication, provider calls, or source mutation.",
+        "card": "Egress Self-Compliance Audit surfaces the egress_self_compliance_gate capsule: a transparent substring policy that flags three ways an agent's own output can break its operating discipline — asking permission with no named blocker, confessing an error with no durable capture, or displacing a command onto the operator with no execution receipt. Each detector fires only when a tripwire phrase appears without its legitimiser. The organ replays 2 compliant and 2 planted-violation fixtures through the live capsule, asserting each violation reproduces with its exact diagnostic marker. Honest ceiling: phrase membership only — no taint analysis, no prompt-injection defense, no semantics; paraphrased violations are missed.",
+        "one_line": "Phrase-membership audit of agent-output text for three egress self-compliance slips (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator), verified by recomputation over public fixtures."
+      },
+      "concept_refs": [
+        "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.egress_self_compliance_audit",
+          "status": "linked_from_capsule_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/egress_self_compliance_audit.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.egress_self_compliance_audit.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.egress_self_compliance_audit",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/egress_self_compliance_audit.md",
+      "principle_refs": [
+        "P-3"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[100:paper_module.egress_self_compliance_audit]",
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "egress_self_compliance_audit"
+        }
+      ],
+      "title": "Egress Self-Compliance Audit"
+    },
+    "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-2"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/egress_self_compliance_audit.py",
+        "resolution": "resolved",
+        "role": "Surfaces the egress_self_compliance_gate capsule as a first-class agent-reliability organ. Adds the standard organ contract over the capsule's evaluate_text entrypoint: loads bounded JSON fixture cases, classifies positive vs negative by case_type/expected_ok, recomputes each verdict via the live capsule, asserts planted negatives are flagged red with the exact expected violating diagnostic_id (EXPECTED_NEGATIVE_CASES), aggregates a pass/fail status, projects a body-free result_card, and writes body-free result/board/validation (and optional acceptance) receipts via microcosm_core.receipts. Pass requires both positives clean (green), both negatives rejected with their expected marker, and the expected negative case_ids present.",
+        "symbols": [
+          "build_result",
+          "run",
+          "_evaluate_case",
+          "run_egress_self_compliance_audit_bundle",
+          "result_card"
+        ]
+      },
+      {
+        "path": "src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+        "resolution": "resolved",
+        "role": "Phrase-membership egress self-compliance policy over one agent-output text string. Runs three detectors that each fire only when a tripwire phrase is present AND its matching legitimiser phrase is absent: permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator. Returns green when no detector reports a violation, red otherwise. The capsule is the authority for the detection logic and phrase tables; it is a source-faithful public refactor of system/lib/egress_compliance.py.",
+        "symbols": [
+          "It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.",
+          "Ask for permission only after naming a real blast-radius blocker;"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.agent_reliability_and_safety_validator_bundle"
+    ],
+    "depends_on": [],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[100:paper_module.egress_self_compliance_audit].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "egress_self_compliance_audit",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[100:paper_module.egress_self_compliance_audit].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.agent_reliability_and_safety_validator_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[100:paper_module.egress_self_compliance_audit].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[100:paper_module.egress_self_compliance_audit].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-2",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[100:paper_module.egress_self_compliance_audit].code_loci[0]",
+          "summary": "Surfaces the egress_self_compliance_gate capsule as a first-class agent-reliability organ. Adds the standard organ contract over the capsule's evaluate_text entrypoint: loads bounded JSON fixture cases, classifies positive vs negative by case_type/expected_ok, recomputes each verdict via the live capsule, asserts planted negatives are flagged red with the exact expected violating diagnostic_id (EXPECTED_NEGATIVE_CASES), aggregates a pass/fail status, projects a body-free result_card, and writes body-free result/board/validation (and optional acceptance) receipts via microcosm_core.receipts. Pass requires both positives clean (green), both negatives rejected with their expected marker, and the expected negative case_ids present."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/egress_self_compliance_audit.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[100:paper_module.egress_self_compliance_audit].code_loci[1]",
+          "summary": "Phrase-membership egress self-compliance policy over one agent-output text string. Runs three detectors that each fire only when a tripwire phrase is present AND its matching legitimiser phrase is absent: permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator. Returns green when no detector reports a violation, red otherwise. The capsule is the authority for the detection logic and phrase tables; it is a source-faithful public refactor of system/lib/egress_compliance.py."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/egress_self_compliance_audit.md",
+    "principle_refs": [
+      "P-3"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[100:paper_module.egress_self_compliance_audit]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "egress_self_compliance_audit"
+      }
+    ],
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Paper-module source row does not name sibling/dependency module ids.",
+        "relation_id": "paper_module.depends_on.paper_module",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ]
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[100:paper_module.egress_self_compliance_audit]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/egress_self_compliance_audit.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/egress_self_compliance_audit.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "Phrase-membership audit of agent-output text for three egress self-compliance slips (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator), verified by recomputation over public fixtures.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "egress_self_compliance_audit"
+    }
+  ],
+  "title": "Egress Self-Compliance Audit",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "case_id": "clean_command_owner",
+  "case_type": "positive",
+  "expected_ok": true,
+  "expected_status": "clean",
+  "expected_owner_count": 1,
+  "files": [
+    {
+      "path": "source/spec.json",
+      "text": "{\"title\":\"clean\"}\n"
+    },
+    {
+      "path": "expected/report.md",
+      "text": "clean projection\n"
+    },
+    {
+      "path": "generated/report.md",
+      "text": "clean projection\n"
+    }
+  ],
+  "owners": [
+    {
+      "owner_id": "demo_projection",
+      "description": "One public generated report whose no-write check command passes.",
+      "artifacts": [
+        "generated/report.md"
+      ],
+      "source_authorities": [
+        "source/spec.json",
+        "expected/report.md"
+      ],
+      "check_command": [
+        "builtin:assert-file-equals",
+        "expected/report.md",
+        "generated/report.md"
+      ],
+      "repair_command": [
+        "builtin:repair-demo"
+      ],
+      "manual_edit_boundary": "Do not hand-edit generated/report.md.",
+      "deterministic_regeneration_expectation": "generated/report.md must match expected/report.md.",
+      "stale_drift_handling": "Run the no-write owner check before landing generated/report.md."
+    }
+  ]
+}

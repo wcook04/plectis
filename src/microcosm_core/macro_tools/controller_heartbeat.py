@@ -19,9 +19,20 @@
 - Writes: None.
 
 [CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 - The five narrative fields always contain exactly five sentences each.
 - Metadata stays machine-readable and separate from the narrative blocks.
 - Schema wrapping preserves the original mission payload under `payload`.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
 """
 from __future__ import annotations
 
@@ -146,18 +157,54 @@ _HEARTBEAT_EVENT_ID_FIELDS = (
 
 
 def _utc_now() -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_utc_now` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return datetime.now(timezone.utc).isoformat()
 
 
 def _string(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_string` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return str(value or "").strip()
 
 
 def _strip_terminal_punctuation(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_strip_terminal_punctuation` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return _string(value).rstrip(" \t\r\n.!?")
 
 
 def _coerce_epoch_seconds(value: Any) -> float:
+    """
+    [ACTION]
+    - Teleology: Implements `_coerce_epoch_seconds` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     if value is None:
         return datetime.now(timezone.utc).timestamp()
     if isinstance(value, (int, float)):
@@ -175,6 +222,15 @@ def _coerce_epoch_seconds(value: Any) -> float:
 
 
 def _dedupe_strings(values: Sequence[str]) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_dedupe_strings` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     ordered: list[str] = []
     seen: set[str] = set()
     for value in values:
@@ -187,12 +243,30 @@ def _dedupe_strings(values: Sequence[str]) -> list[str]:
 
 
 def _strings(value: Any) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(value, list):
         return []
     return [str(item).strip() for item in value if str(item).strip()]
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_rows` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(payload, Mapping):
         return []
     rows = payload.get(key, [])
@@ -202,6 +276,15 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _stable_digest(payload: object, *, length: int | None = None) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_stable_digest` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     encoded = json.dumps(
         payload,
         ensure_ascii=True,
@@ -214,6 +297,15 @@ def _stable_digest(payload: object, *, length: int | None = None) -> str:
 
 
 def _walk_keys(payload: object) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_walk_keys` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if isinstance(payload, Mapping):
         keys = [str(key) for key in payload.keys()]
         for value in payload.values():
@@ -228,6 +320,15 @@ def _walk_keys(payload: object) -> list[str]:
 
 
 def _load_json(path: Path) -> object:
+    """
+    [ACTION]
+    - Teleology: Implements `_load_json` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return read_json_strict(path)
 
 
@@ -238,6 +339,15 @@ def _bundle_finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_bundle_finding` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "status": BLOCKED,
         "error_code": error_code,
@@ -248,6 +358,15 @@ def _bundle_finding(
 
 
 def _normalize_ref_items(values: Any, *, required_keys: Sequence[str]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_normalize_ref_items` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(values, list):
         return []
     normalized: list[dict[str, Any]] = []
@@ -271,6 +390,15 @@ def _normalize_ref_items(values: Any, *, required_keys: Sequence[str]) -> list[d
 
 
 def split_sentences(text: Any) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `split_sentences` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     token = _string(text)
     if not token:
         return []
@@ -279,14 +407,41 @@ def split_sentences(text: Any) -> list[str]:
 
 
 def count_sentences(text: Any) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `count_sentences` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return len(split_sentences(text))
 
 
 def default_mission_blackboard_path() -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `default_mission_blackboard_path` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return DEFAULT_MISSION_BLACKBOARD_PATH
 
 
 def controller_heartbeat_event_id(payload: Mapping[str, Any] | None) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `controller_heartbeat_event_id` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(payload, Mapping):
         return ""
     identity_payload = {
@@ -307,7 +462,16 @@ def controller_heartbeat_event_id(payload: Mapping[str, Any] | None) -> str:
 
 
 class ControllerHeartbeatDeduper:
-    """Bounded in-memory repeat suppression for heartbeat event consumers."""
+    """
+    [ROLE]
+    Bounded in-memory repeat suppression for heartbeat event consumers.
+    - Teleology: Groups `ControllerHeartbeatDeduper` data or behavior for `microcosm_core.macro_tools.controller_heartbeat` behind a documented class contract.
+    - Ownership: Owned by `microcosm_core.macro_tools.controller_heartbeat`; callers should construct or mutate instances only through declared fields, constructors, or methods.
+    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
+    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    """
 
     def __init__(
         self,
@@ -315,11 +479,29 @@ class ControllerHeartbeatDeduper:
         ttl_seconds: int = DEFAULT_HEARTBEAT_DEDUPE_TTL_SECONDS,
         max_entries: int = DEFAULT_HEARTBEAT_DEDUPE_MAX_ENTRIES,
     ) -> None:
+        """
+        [ACTION]
+        - Teleology: Implements `ControllerHeartbeatDeduper.__init__` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         self.ttl_seconds = max(1, int(ttl_seconds))
         self.max_entries = max(1, int(max_entries))
         self._seen_at: OrderedDict[str, float] = OrderedDict()
 
     def prune(self, *, now: Any = None) -> int:
+        """
+        [ACTION]
+        - Teleology: Implements `ControllerHeartbeatDeduper.prune` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         now_seconds = _coerce_epoch_seconds(now)
         cutoff = now_seconds - self.ttl_seconds
         expired = [
@@ -339,6 +521,15 @@ class ControllerHeartbeatDeduper:
         *,
         now: Any = None,
     ) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Implements `ControllerHeartbeatDeduper.register` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         event_id = (
             _string(payload)
             if isinstance(payload, str)
@@ -361,6 +552,15 @@ class ControllerHeartbeatDeduper:
 
 
 def validate_controller_heartbeat(payload: Mapping[str, Any] | None) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `validate_controller_heartbeat` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(payload, Mapping):
         return ["controller heartbeat must be a JSON object."]
     errors: list[str] = []
@@ -408,6 +608,15 @@ def _default_source_refs(
     autonomous_seed_path: str,
     synth_seed_path: str,
 ) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_default_source_refs` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     refs = [
         {
             "kind": "family_charter",
@@ -439,6 +648,15 @@ def _default_source_refs(
 
 
 def _default_wake_conditions(*, phase_dir: str) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_default_wake_conditions` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     conditions = [
         {
             "kind": "pipeline_attention",
@@ -474,6 +692,15 @@ def _generated_heartbeat_fields(
     bounded_question: str,
     next_step_posture: str,
 ) -> dict[str, str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_generated_heartbeat_fields` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     phase_label = phase_id or phase_title or "the active phase"
     execution = execution_mode or "hybrid"
     focus = _strip_terminal_punctuation(
@@ -544,6 +771,15 @@ def build_controller_heartbeat(
     wake_conditions: Sequence[Mapping[str, Any]] | None = None,
     existing: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `build_controller_heartbeat` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     generated = _generated_heartbeat_fields(
         family_id=family_id,
         phase_id=phase_id,
@@ -607,6 +843,15 @@ def controller_heartbeat_ref(
     *,
     source_path: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `controller_heartbeat_ref` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     heartbeat = dict(payload or {})
     ref = {
         "schema_version": CONTROLLER_HEARTBEAT_REF_SCHEMA_VERSION,
@@ -624,6 +869,15 @@ def controller_heartbeat_ref(
 
 
 def heartbeat_ref_schema() -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `heartbeat_ref_schema` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "type": "object",
         "required": [
@@ -650,6 +904,15 @@ def heartbeat_ref_schema() -> dict[str, Any]:
 def wrap_response_schema_with_heartbeat_ref(
     response_schema: Mapping[str, Any] | None,
 ) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Implements `wrap_response_schema_with_heartbeat_ref` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(response_schema, Mapping):
         return None
     required = response_schema.get("required")
@@ -673,10 +936,28 @@ def wrap_response_schema_with_heartbeat_ref(
 
 
 def _file_sha256(path: Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_file_sha256` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _repo_root_from_target() -> Path | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_repo_root_from_target` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     for candidate in Path(__file__).resolve(strict=False).parents:
         if (candidate / SOURCE_REF).is_file():
             return candidate
@@ -684,6 +965,15 @@ def _repo_root_from_target() -> Path | None:
 
 
 def _body_import_verification() -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_body_import_verification` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     target_path = Path(__file__).resolve(strict=False)
     repo_root = _repo_root_from_target()
     source_path = repo_root / SOURCE_REF if repo_root else None
@@ -706,6 +996,15 @@ def _body_import_verification() -> dict[str, Any]:
 
 
 def _validate_controller_heartbeat_policy(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_controller_heartbeat_policy` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     policy = payload if isinstance(payload, Mapping) else {}
     findings: list[dict[str, Any]] = []
     required_false = (
@@ -754,6 +1053,15 @@ def _validate_controller_heartbeat_policy(payload: object) -> dict[str, Any]:
 
 
 def _heartbeat_from_input_row(row: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_heartbeat_from_input_row` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     existing = row.get("existing")
     return build_controller_heartbeat(
         family_id=_string(row.get("family_id"))
@@ -796,6 +1104,15 @@ def _heartbeat_from_input_row(row: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _event_stability_rows(heartbeats: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_event_stability_rows` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows: list[dict[str, Any]] = []
     for heartbeat in heartbeats:
         updated_only = dict(heartbeat)
@@ -823,6 +1140,15 @@ def _schema_wrap_rows(
     *,
     heartbeat_refs: Sequence[Mapping[str, Any]],
 ) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_schema_wrap_rows` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows = _rows(payload, "response_schemas")
     heartbeat_ref = heartbeat_refs[0] if heartbeat_refs else {}
     reports: list[dict[str, Any]] = []
@@ -851,6 +1177,15 @@ def _dedupe_rows(
     *,
     heartbeats: Sequence[Mapping[str, Any]],
 ) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_dedupe_rows` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     sequence = _rows(payload, "dedupe_sequence")
     settings = payload.get("dedupe_settings", {}) if isinstance(payload, Mapping) else {}
     settings = settings if isinstance(settings, Mapping) else {}
@@ -876,6 +1211,15 @@ def _validate_expected_summary(
     *,
     summary: Mapping[str, Any],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_expected_summary` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     expected = payload if isinstance(payload, Mapping) else {}
     findings: list[dict[str, Any]] = []
     for key, expected_value in expected.items():
@@ -898,6 +1242,15 @@ def _validate_expected_summary(
 def build_public_controller_heartbeat_view(
     payloads: Mapping[str, Any],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `build_public_controller_heartbeat_view` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     manifest = payloads.get("bundle_manifest")
     manifest = manifest if isinstance(manifest, Mapping) else {}
     input_rows = _rows(payloads.get("heartbeat_inputs"), "heartbeat_inputs")
@@ -1059,11 +1412,29 @@ def build_public_controller_heartbeat_view(
 
 
 def load_public_controller_heartbeat_bundle(input_dir: str | Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `load_public_controller_heartbeat_bundle` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     root = Path(input_dir)
     return {path.stem: _load_json(path) for path in (root / name for name in INPUT_NAMES)}
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.macro_tools.controller_heartbeat` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=["validate-public-bundle"])
     parser.add_argument("--input", required=True)

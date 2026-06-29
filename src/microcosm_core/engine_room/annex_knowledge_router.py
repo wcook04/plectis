@@ -1,4 +1,5 @@
-"""Public-safe annex knowledge router capsule.
+"""
+Public-safe annex knowledge router capsule.
 
 This is a source-faithful public refactor of
 `system/lib/annex_registry.py::route_annexes`. It preserves the tiered routing
@@ -9,6 +10,30 @@ matches.
 The capsule routes over a sanitized in-memory catalog. It does not clone third
 party repositories, does not ship the private annex corpus, and does not claim
 BM25, TF-IDF, embeddings, semantic search, or license-review authority.
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.engine_room.annex_knowledge_router` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SCHEMA_VERSION, ORGAN_ID, SOURCE_REFS, SOURCE_TO_TARGET_RELATION, CLAIM_CEILING, ANTI_CLAIMS, ROUTE_MATCH_STOPWORDS, sort_notes_by_relevance, route_annexes, route_catalog, evaluate_case, evaluate_fixture_dir, build_parser, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: None beyond the Python standard library and local package imports.
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 
 from __future__ import annotations
@@ -64,10 +89,28 @@ ROUTE_MATCH_STOPWORDS = {
 
 
 def _string(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_string` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return str(value or "").strip()
 
 
 def _normalized_query_text(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_normalized_query_text` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     lowered = _string(value).lower()
     lowered = re.sub(r"[_/]+", " ", lowered)
     lowered = lowered.replace("-", " ")
@@ -76,6 +119,15 @@ def _normalized_query_text(value: Any) -> str:
 
 
 def _query_tokens(value: Any) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_query_tokens` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return [
         token
         for token in _normalized_query_text(value).split()
@@ -84,6 +136,15 @@ def _query_tokens(value: Any) -> list[str]:
 
 
 def _dedupe_preserving_order(values: Sequence[str]) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_dedupe_preserving_order` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     seen: set[str] = set()
     output: list[str] = []
     for value in values:
@@ -96,12 +157,30 @@ def _dedupe_preserving_order(values: Sequence[str]) -> list[str]:
 
 
 def _coerce_routing_list(value: Any) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_coerce_routing_list` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
         return []
     return _dedupe_preserving_order([_string(item) for item in value if _string(item)])
 
 
 def _family_routing(family: Mapping[str, Any]) -> dict[str, list[str]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_family_routing` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     routing = dict(family.get("routing") or {}) if isinstance(family.get("routing"), Mapping) else {}
     return {
         "domains": _coerce_routing_list(routing.get("domains")),
@@ -112,6 +191,15 @@ def _family_routing(family: Mapping[str, Any]) -> dict[str, list[str]]:
 
 
 def _note_routing(note: Mapping[str, Any]) -> dict[str, list[str]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_note_routing` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     routing = dict(note.get("routing") or {}) if isinstance(note.get("routing"), Mapping) else {}
     return {
         "problem_spaces": _coerce_routing_list(routing.get("problem_spaces")),
@@ -120,6 +208,15 @@ def _note_routing(note: Mapping[str, Any]) -> dict[str, list[str]]:
 
 
 def _relevance_value(note: Mapping[str, Any]) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `_relevance_value` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     try:
         value = int(note.get("relevance"))
     except (TypeError, ValueError):
@@ -128,6 +225,15 @@ def _relevance_value(note: Mapping[str, Any]) -> int:
 
 
 def sort_notes_by_relevance(notes: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `sort_notes_by_relevance` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows = [dict(note) for note in notes]
     return sorted(rows, key=lambda note: (-_relevance_value(note), str(note.get("id") or "")))
 
@@ -140,6 +246,15 @@ def _route_match_score(
     phrase_weight: int,
     token_weight: int,
 ) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `_route_match_score` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     normalized_query = _normalized_query_text(query)
     normalized_candidate = _normalized_query_text(candidate)
     if not normalized_query or not normalized_candidate:
@@ -155,6 +270,15 @@ def _route_match_score(
 
 
 def _routing_summary_from_family(overview: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_routing_summary_from_family` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     existing = overview.get("routing_summary")
     if isinstance(existing, Mapping):
         return dict(existing)
@@ -192,7 +316,16 @@ def route_annexes(
     include_notes: bool = True,
     limit: int | None = None,
 ) -> list[dict[str, Any]]:
-    """Rank sanitized annex rows for a problem statement."""
+    """
+    [ACTION]
+    Rank sanitized annex rows for a problem statement.
+    - Teleology: Implements `route_annexes` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
 
     normalized_problem = _normalized_query_text(problem)
     if not normalized_problem:
@@ -333,6 +466,15 @@ def route_catalog(
     include_notes: bool = True,
     limit: int | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `route_catalog` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows = route_annexes(
         problem,
         catalog=catalog,
@@ -358,6 +500,15 @@ def route_catalog(
 
 
 def evaluate_case(case: Mapping[str, Any], *, path: str = "") -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_case` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     catalog = case.get("catalog") if isinstance(case.get("catalog"), Mapping) else {}
     receipt = route_catalog(
         catalog,
@@ -396,6 +547,15 @@ def evaluate_case(case: Mapping[str, Any], *, path: str = "") -> dict[str, Any]:
 
 
 def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_fixture_dir` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     cases: list[dict[str, Any]] = []
     for path in sorted(input_dir.glob("*.json")):
         payload = json.loads(path.read_text(encoding="utf-8"))
@@ -418,6 +578,15 @@ def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """
+    [ACTION]
+    - Teleology: Implements `build_parser` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(description="Engine Room annex knowledge router capsule.")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -437,6 +606,15 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command == "route":
         payload = json.loads(Path(args.catalog).read_text(encoding="utf-8"))

@@ -1,0 +1,6 @@
+{
+  "case_id": "command_displacement_no_receipt",
+  "case_type": "negative",
+  "expected_ok": false,
+  "text": "You can run make smoke to verify the package before you ship it."
+}

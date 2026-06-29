@@ -89,7 +89,7 @@ Short command tails below; the per-section blocks and the receipt carry every co
 | explain the system to me | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
 | what's going on here? | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
 | How do I evaluate the finance forecasting system? | `task_class_route_match (finance)` | `finance_forecast_evaluation_spine` | `finance-forecast-evaluation-spine run --input fixture...` |
-| check the lean proof evidence | `task_class_route_match (lean)` | `proof_diagnostic_evidence_spine` | `proof-diagnostic-evidence-spine run --input fixtures/...` |
+| check the lean proof evidence | `task_class_route_match (lean-subprocess)` | `lean_proof_search_lab_runtime` | `lean-proof-search-lab-runtime run --input fixtures/fi...` |
 | evaluate prompt injection defenses | `organ_token_match (indirect_prompt_injection_information_flow_policy_replay)` | `indirect_prompt_injection_information_flow_policy_replay` | `indirect-prompt-injection-information-flow-policy-rep...` |
 | where do I start with this clone? | `task_class_route_match (getting-started)` | `cold_reader_route_map` | `cold-reader-route-map run-route-map-bundle --input ex...` |
 | evaluate agent benchmark gaming | `task_class_route_match (agent-evaluation)` | `agent_benchmark_integrity_anti_gaming_replay` | `agent-benchmark-integrity-anti-gaming-replay run-benc...` |
@@ -149,16 +149,15 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 
 **“check the lean proof evidence”**
 
-- resolved via: `task_class_route_match (lean)` -> owner `proof_diagnostic_evidence_spine`
-- run: `PYTHONPATH=src python3 -m microcosm_core proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card`
-- why: Sorts proof-pipeline checks into accepted or rejected without inflating a pass.
-- prove: `PYTHONPATH=src python3 -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine`
-- committed evidence (prior runs): `receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json`, `receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json`, `receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json` (+2 more)
-- fresh outputs land under: `receipts/first_wave/proof_diagnostic_evidence_spine`
+- resolved via: `task_class_route_match (lean-subprocess)` -> owner `lean_proof_search_lab_runtime`
+- run: `PYTHONPATH=src python3 -m microcosm_core lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json`
+- why: Finds tactic scripts the real Lean prover accepts on toy theorems, and refuses proofs that cheat.
+- prove: `PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json`
+- fresh outputs land under: `receipts/first_wave/lean_proof_search_lab_runtime`
 - footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
-- no-footprint run: `PYTHONPATH=src python3 -m microcosm_core proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out .microcosm/first_action_runs/proof_diagnostic_evidence_spine --card` (outputs under `.microcosm/first_action_runs/proof_diagnostic_evidence_spine`)
+- no-footprint run: `PYTHONPATH=src python3 -m microcosm_core lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out .microcosm/first_action_runs/lean_proof_search_lab_runtime --acceptance-out .microcosm/first_action_runs/lean_proof_search_lab_runtime_fixture_acceptance.json` (outputs under `.microcosm/first_action_runs/lean_proof_search_lab_runtime`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
-- do not claim: It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, call providers, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or who...
+- do not claim: It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not...
 
 **“evaluate prompt injection defenses”**
 

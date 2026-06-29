@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.organs.macro_projection_import_protocol` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, INTAKE_BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, PUBLIC_ROOT_POLICY_REL, MODULE_PUBLIC_ROOT, PRIVATE_MACRO_SOURCE_MODULE_ROOT, DEPENDENCY_PREFLIGHT_RECEIPT_REL, ORGAN_REGISTRY_REL, ORGAN_LIFECYCLE_ACCEPTED_COUNT_FIELDS, ORGAN_LIFECYCLE_PRODUCT_AUTHORITY_COUNT_FIELDS, ORGAN_LIFECYCLE_COUNT_FIELDS, INPUT_NAMES, NEGATIVE_INPUT_NAMES, EXPECTED_NEGATIVE_CASES, TRUE_FORBIDDEN_MATERIAL_CLASSES, PUBLIC_SAFE_BODY_MATERIAL_CLASSES, PUBLIC_SAFE_BODY_COPY_POLICY, METADATA_COPY_POLICY, ...
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan, microcosm_core.validators.source_module_boundary
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -2557,10 +2582,28 @@ CELL_STATUS_OVERRIDES: dict[str, dict[str, Any]] = {
 
 
 def _is_public_root(candidate: Path) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_is_public_root` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return (candidate / PUBLIC_ROOT_POLICY_REL).is_file()
 
 
 def _public_root_for_path(path: str | Path) -> Path:
+    """
+    [ACTION]
+    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
     candidates = [
@@ -2580,10 +2623,28 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_display` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return public_relative_path(path, display_root=public_root)
 
 
 def _stored_receipt_paths(paths: list[str]) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_stored_receipt_paths` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     normalized = normalize_public_receipt_paths({"receipt_paths": paths})
     values = normalized.get("receipt_paths") if isinstance(normalized, dict) else paths
     if isinstance(values, list) and all(isinstance(path, str) for path in values):
@@ -2592,15 +2653,42 @@ def _stored_receipt_paths(paths: list[str]) -> list[str]:
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
+    """
+    [ACTION]
+    - Teleology: Implements `_input_paths` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return [input_dir / name for name in names]
 
 
 def _has_negative_input_set(input_dir: Path) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_has_negative_input_set` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return all((input_dir / name).is_file() for name in NEGATIVE_INPUT_NAMES)
 
 
 def _exported_bundle_run_compatibility_route() -> dict[str, str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_exported_bundle_run_compatibility_route` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "requested_action": "run",
         "resolved_action": "run-projection-bundle",
@@ -2611,6 +2699,15 @@ def _exported_bundle_run_compatibility_route() -> dict[str, str]:
 
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         path.stem: read_json_strict(path)
         for path in _input_paths(input_dir, include_negative=include_negative)
@@ -2618,6 +2715,15 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_rows` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(payload, dict):
         return []
     rows = payload.get(key, [])
@@ -2627,17 +2733,44 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(value, list):
         return []
     return [str(item) for item in value if isinstance(item, str) and item]
 
 
 def _strip_public_root_prefix(ref: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_strip_public_root_prefix` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     prefix = f"{STANDALONE_RUNTIME_ROOT_REF}/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
 
 
 def _digest_with_prefix(value: object) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_digest_with_prefix` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     text = str(value or "")
     if not text:
         return ""
@@ -2645,6 +2778,15 @@ def _digest_with_prefix(value: object) -> str:
 
 
 def _public_bound_private_root_token(ref: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_public_bound_private_root_token` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     normalized = _normalize_runtime_root_ref(ref.split("::", 1)[0])
     for token in PUBLIC_BOUND_PRIVATE_ROOT_TOKENS:
         if token in normalized:
@@ -2653,6 +2795,15 @@ def _public_bound_private_root_token(ref: str) -> str:
 
 
 def _finance_material_id_for_source_ref(source_ref: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_finance_material_id_for_source_ref` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     path = Path(source_ref)
     if path.parts[:2] != ("tools", "finance") or path.suffix != ".py":
         return ""
@@ -2660,6 +2811,15 @@ def _finance_material_id_for_source_ref(source_ref: str) -> str:
 
 
 def _manifest_ref_path(ref: str, *, public_root: Path, input_dir: Path) -> Path | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_manifest_ref_path` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not ref.endswith("source_module_manifest.json"):
         return None
     ref_path = Path(_strip_public_root_prefix(ref))
@@ -2680,6 +2840,15 @@ def _manifest_body_row_from_source_module(
     cell_row: dict[str, Any],
     manifest_ref: str,
 ) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_manifest_body_row_from_source_module` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     source_ref = str(module_row.get("source_ref") or "")
     target_ref = _strip_public_root_prefix(
         str(module_row.get("target_ref") or module_row.get("path") or "")
@@ -2753,6 +2922,15 @@ def _augment_protocol_from_source_module_manifests(
     input_dir: Path,
     public_root: Path,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_augment_protocol_from_source_module_manifests` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     protocol = dict(protocol_payload) if isinstance(protocol_payload, dict) else {}
     plan = plan_payload if isinstance(plan_payload, dict) else {}
     copied_material = list(_rows(protocol, "copied_material"))
@@ -2811,6 +2989,15 @@ def _finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_finding` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "error_code": code,
         "message": message,
@@ -2831,6 +3018,15 @@ def _record(
     subject_id: str,
     subject_kind: str,
 ) -> None:
+    """
+    [ACTION]
+    - Teleology: Implements `_record` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings.append(
         _finding(
             code,
@@ -2844,6 +3040,15 @@ def _record(
 
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
         for case_id, codes in result.get("observed_negative_cases", {}).items():
@@ -2853,6 +3058,15 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_merge_findings` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, Any]] = []
     for result in results:
         findings.extend(result.get("findings", []))
@@ -2868,6 +3082,15 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _accepted_organ_count(public_root: Path) -> int | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_accepted_organ_count` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     registry_path = public_root / ORGAN_REGISTRY_REL
     if not registry_path.is_file():
         return None
@@ -2883,6 +3106,15 @@ def _accepted_organ_count(public_root: Path) -> int | None:
 
 
 def _lifecycle_accepted_count(coverage_counts: dict[str, Any]) -> int | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_lifecycle_accepted_count` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     count = coverage_counts.get("accepted_organ_count")
     return count if isinstance(count, int) else None
 
@@ -2897,6 +3129,15 @@ def _add_dependency_preflight_defect(
     subject_id: str,
     subject_kind: str = "dependency_preflight_receipt",
 ) -> None:
+    """
+    [ACTION]
+    - Teleology: Implements `_add_dependency_preflight_defect` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     defects.append(
         {
             "defect_code": defect_code,
@@ -2919,6 +3160,15 @@ def _add_dependency_preflight_defect(
 
 
 def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_dependency_preflight_lifecycle_gate` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     receipt_path = public_root / DEPENDENCY_PREFLIGHT_RECEIPT_REL
     receipt_ref = _display(receipt_path, public_root=public_root)
     defects: list[dict[str, Any]] = []
@@ -3087,6 +3337,15 @@ def _dependency_preflight_lifecycle_gate(public_root: Path) -> dict[str, Any]:
 
 
 def _authority_upgrade(payload: object) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_authority_upgrade` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(payload, dict):
         return False
     ceiling = payload.get("authority_ceiling", payload)
@@ -3096,6 +3355,15 @@ def _authority_upgrade(payload: object) -> bool:
 
 
 def _release_or_equivalence_overclaim(payload: object) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_release_or_equivalence_overclaim` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(payload, dict):
         return False
     ceiling = payload.get("authority_ceiling", payload)
@@ -3119,6 +3387,15 @@ def _public_safe_import_status(
     *,
     import_policy: dict[str, Any],
 ) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_public_safe_import_status` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     material_class = str(row.get("material_class") or "")
     if material_class not in PUBLIC_SAFE_BODY_MATERIAL_CLASSES:
         return None
@@ -3126,6 +3403,15 @@ def _public_safe_import_status(
 
 
 def _sha256_digest(path: Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_sha256_digest` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(BODY_DIGEST_CHUNK_SIZE), b""):
@@ -3134,6 +3420,15 @@ def _sha256_digest(path: Path) -> str:
 
 
 def _body_stats(path: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_body_stats` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     data = path.read_bytes()
     digest = hashlib.sha256(data).hexdigest()
     return {
@@ -3146,16 +3441,43 @@ def _body_stats(path: Path) -> dict[str, Any]:
 
 
 def _digest_for_existing_format(existing: Any, stats: dict[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_digest_for_existing_format` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if str(existing or "").startswith(BODY_DIGEST_PREFIX):
         return str(stats["body_digest"])
     return str(stats["sha256"])
 
 
 def _path_preimage_digest(path: Path) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_path_preimage_digest` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return _sha256_digest(path) if path.is_file() else None
 
 
 def _refresh_mutation_class(*, relation: str, verified_light_edit: bool) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_refresh_mutation_class` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if verified_light_edit:
         return "verified_light_edit_metadata_refresh"
     if relation in EXACT_COPY_SOURCE_TO_TARGET_RELATIONS or relation == "":
@@ -3164,6 +3486,15 @@ def _refresh_mutation_class(*, relation: str, verified_light_edit: bool) -> str:
 
 
 def _sanitize_receipt_payload(value: Any) -> Any:
+    """
+    [ACTION]
+    - Teleology: Implements `_sanitize_receipt_payload` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if isinstance(value, dict):
         return {
             key: _sanitize_receipt_payload(item)
@@ -3176,6 +3507,15 @@ def _sanitize_receipt_payload(value: Any) -> Any:
 
 
 def _plan_fingerprint(payload: dict[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_plan_fingerprint` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     data = json.dumps(
         _sanitize_receipt_payload(payload),
         ensure_ascii=True,
@@ -3193,6 +3533,15 @@ def _build_source_module_refresh_plan(
     source_module_refresh_authority: dict[str, Any],
     pending_authority_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_build_source_module_refresh_plan` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     target_copy_entries = [
         dict(entry)
         for _target_key, entry in sorted(target_copy_plans.items(), key=lambda item: item[0])
@@ -3250,6 +3599,15 @@ def _revalidate_source_module_refresh_plan(
     pending_authority_rows: list[dict[str, Any]],
     public_root: Path,
 ) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_revalidate_source_module_refresh_plan` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, Any]] = []
 
     fresh_authority = evaluate_source_module_refresh_authority(
@@ -3333,6 +3691,15 @@ def _resolve_source_path(
     source_root: Path,
     public_root: Path | None = None,
 ) -> Path | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_resolve_source_path` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     ref_path = Path(source_ref.split("::", 1)[0])
     if ref_path.is_absolute() or ".." in ref_path.parts:
         return None
@@ -3363,6 +3730,15 @@ def _pending_source_coupling(
     source_root: Path,
     public_root: Path,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_pending_source_coupling` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    """
     unique_refs = sorted({str(ref).split("::", 1)[0] for ref in source_refs if ref})
     resolved_rows: list[dict[str, Any]] = []
     for source_ref in unique_refs:
@@ -3498,6 +3874,15 @@ def _git_status_rows_for_paths(
     schema_version: str,
     row_kind: str,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_git_status_rows_for_paths` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    """
     resolved_rows: list[dict[str, Any]] = []
     seen_paths: set[str] = set()
     roles_by_key: dict[str, list[str]] = defaultdict(list)
@@ -3636,6 +4021,15 @@ def _pending_output_coupling(
     git_probe_root: Path,
     public_root: Path,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_pending_output_coupling` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return _git_status_rows_for_paths(
         paths,
         git_probe_root=git_probe_root,
@@ -3646,6 +4040,15 @@ def _pending_output_coupling(
 
 
 def _resolve_public_target_path(target_ref: str, *, public_root: Path) -> Path | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_resolve_public_target_path` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     ref_path = Path(target_ref.split("::", 1)[0])
     if ref_path.is_absolute() or ".." in ref_path.parts:
         return None
@@ -3660,6 +4063,15 @@ def _resolve_manifest_target_path(
     manifest_path: Path,
     public_root: Path,
 ) -> Path | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_resolve_manifest_target_path` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     ref_path = Path(target_ref.split("::", 1)[0])
     if ref_path.is_absolute() or ".." in ref_path.parts:
         return None
@@ -3680,6 +4092,15 @@ def _resolve_manifest_target_path(
 
 
 def _iter_source_module_manifest_paths(root: Path, *, recursive: bool) -> Iterator[Path]:
+    """
+    [ACTION]
+    - Teleology: Implements `_iter_source_module_manifest_paths` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not root.is_dir():
         return
     try:
@@ -3709,6 +4130,15 @@ def _source_module_manifest_paths(
     public_root: Path,
     all_examples: bool,
 ) -> list[Path]:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_manifest_paths` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     candidates: list[Path] = []
     if input_path.is_file() and input_path.name.endswith("source_module_manifest.json"):
         candidates.append(input_path)
@@ -3738,6 +4168,15 @@ def _target_adjacent_source_module_manifest_paths(
     *,
     public_root: Path,
 ) -> list[Path]:
+    """
+    [ACTION]
+    - Teleology: Implements `_target_adjacent_source_module_manifest_paths` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     public_root_resolved = public_root.resolve(strict=False)
     target_resolved = target_path.resolve(strict=False)
     try:
@@ -3756,6 +4195,15 @@ def _target_adjacent_source_module_manifest_paths(
 
 
 def _bundle_manifest_for_target(target_path: Path, *, public_root: Path) -> Path | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_bundle_manifest_for_target` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     public_root_resolved = public_root.resolve(strict=False)
     try:
         target_path.resolve(strict=False).relative_to(public_root_resolved)
@@ -3779,10 +4227,14 @@ def _co_update_bundle_manifest_expected_rows(
     defects: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: a refresh must move every declared digest authority in one wave; bundle_manifest.json files[] rows carry expected_sha256/expected_line_count for copied bodies and silently go stale when only source_module_manifest.json is refreshed (split-provenance defect class).
     - Guarantee: for every exact-copy target seen this wave, the nearest enclosing bundle_manifest.json files[] row matching the target's bundle-relative path is reconciled to the refreshed source stats; touched manifests join json_updates; returns one receipt row per changed entry. Re-running on a half-refreshed bundle repairs the stale rows even when bodies already match.
     - Fails: never raises; files[] rows that reference a refreshed target without any expected_* field are path listings, not digest authorities, and are skipped untouched.
     - Non-goal: does not invent files[] rows, does not touch bundle manifests that never reference a refreshed target, does not validate bundle semantics beyond digest/line coherence.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     updated_rows: list[dict[str, Any]] = []
     for source_path, target_path in exact_copy_targets.values():
@@ -3855,10 +4307,14 @@ def _reconcile_bundle_manifest_self_row(
     apply: bool,
 ) -> list[dict[str, Any]]:
     """
+    [ACTION]
     - Teleology: bundle_manifest.json files[] rows may pin the source_module_manifest.json file itself; rewriting the manifest stales that pin, so refresh must reconcile it from the manifest's post-write bytes (third digest authority in the split-provenance class).
     - Guarantee: with apply=True (after the manifest file is written) the matching files[] row is updated from the on-disk manifest bytes and the touched bundle manifest joins bundle_updates; with apply=False it only reports the pending reconcile as deferred_digest_recompute rows.
     - Fails: never raises; missing bundle manifest, missing files[] table, or rows without expected_* fields are skipped untouched.
     - Non-goal: does not serialize-predict digests (disk bytes after write are the truth), does not touch rows for other files.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     bundle_manifest_path = _bundle_manifest_for_target(
         manifest_path, public_root=public_root
@@ -3930,6 +4386,15 @@ def _reconcile_bundle_manifest_self_row(
 
 
 def _source_module_protocol_paths(input_path: Path, *, public_root: Path) -> list[Path]:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_protocol_paths` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     candidates: list[Path] = []
     if input_path.is_file() and input_path.name == "projection_protocol.json":
         candidates.append(input_path)
@@ -3949,6 +4414,15 @@ def _source_module_protocol_paths(input_path: Path, *, public_root: Path) -> lis
 
 
 def _source_module_row_is_exact_copy(row: dict[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_row_is_exact_copy` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if row.get("body_in_receipt") is True:
         return False
     if row.get("body_copied") is False:
@@ -3973,6 +4447,15 @@ def _source_module_row_is_exact_copy(row: dict[str, Any]) -> bool:
 
 
 def _source_module_row_is_verified_light_edit(row: dict[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_row_is_verified_light_edit` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if row.get("body_in_receipt") is True:
         return False
     if row.get("body_copied") is False:
@@ -3984,10 +4467,28 @@ def _source_module_row_is_verified_light_edit(row: dict[str, Any]) -> bool:
 
 
 def _source_module_row_is_refreshable(row: dict[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_row_is_refreshable` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return _source_module_row_is_exact_copy(row) or _source_module_row_is_verified_light_edit(row)
 
 
 def _source_module_row_material_id(row: dict[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_module_row_material_id` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return str(
         row.get("module_id")
         or row.get("material_id")
@@ -4008,6 +4509,15 @@ def _update_source_module_manifest_row(
     defects: list[dict[str, Any]],
     exact_copy_targets: dict[str, tuple[Path, Path]] | None = None,
 ) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_update_source_module_manifest_row` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     material_id = _source_module_row_material_id(row)
     source_ref = str(row.get("source_ref") or "")
     target_ref = str(row.get("target_ref") or row.get("path") or "")
@@ -4223,6 +4733,15 @@ def _update_protocol_refreshable_row(
     target_copy_plans: dict[str, dict[str, Any]],
     defects: list[dict[str, Any]],
 ) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_update_protocol_refreshable_row` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     verification = row.get("body_import_verification")
     if not isinstance(verification, dict):
         return None
@@ -4414,6 +4933,15 @@ def refresh_exact_copy_source_modules(
     command: str | None = None,
     _pre_write_hook: Any | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `refresh_exact_copy_source_modules` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     input_path = Path(input_dir)
     public_root = _public_root_for_path(input_path)
     source_root_path = (
@@ -4444,6 +4972,15 @@ def refresh_exact_copy_source_modules(
     exact_copy_targets: dict[str, tuple[Path, Path]] = {}
 
     def process_manifest_paths(paths: list[Path]) -> None:
+        """
+        [ACTION]
+        - Teleology: Implements `refresh_exact_copy_source_modules.process_manifest_paths` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         for manifest_path in paths:
             key = str(manifest_path.resolve(strict=False))
             if key in processed_manifest_keys:
@@ -4865,6 +5402,15 @@ def refresh_exact_copy_source_modules(
 
 
 def _body_digest_is_placeholder(value: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_body_digest_is_placeholder` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     lowered = value.lower()
     if not value.startswith(BODY_DIGEST_PREFIX):
         return True
@@ -4877,6 +5423,15 @@ def _body_digest_is_placeholder(value: str) -> bool:
 
 
 def _source_ref_file_candidates(source_ref: str, *, public_root: Path | None) -> list[Path]:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_ref_file_candidates` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     ref_path = Path(source_ref.split("::", 1)[0])
     if ref_path.is_absolute() or ".." in ref_path.parts:
         return []
@@ -4925,6 +5480,15 @@ def _source_ref_file_candidates(source_ref: str, *, public_root: Path | None) ->
 
 
 def _first_existing_source_ref(source_refs: list[str], *, public_root: Path | None) -> tuple[str, Path] | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_first_existing_source_ref` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     for source_ref in source_refs:
         for candidate in _source_ref_file_candidates(source_ref, public_root=public_root):
             if candidate.is_file():
@@ -4939,6 +5503,15 @@ def _body_import_verification_findings(
     declared_digest: str,
     public_root: Path | None,
 ) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_body_import_verification_findings` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, Any]] = []
     verification = row.get("body_import_verification")
     if not isinstance(verification, dict):
@@ -5144,6 +5717,15 @@ def _public_safe_body_target_findings(
     *,
     public_root: Path | None,
 ) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_public_safe_body_target_findings` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if public_root is None or row.get("body_copied") is not True:
         return []
 
@@ -5218,6 +5800,15 @@ def _public_safe_body_target_findings(
 
 
 def _forbidden_body_request(payload: object, *, import_policy: dict[str, Any] | None = None) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_forbidden_body_request` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     policy = import_policy or {}
     subjects: list[str] = []
     for key in ("copied_material", "material_requests", "source_refs"):
@@ -5256,6 +5847,15 @@ def validate_projection_protocol(
     import_policy: dict[str, Any] | None = None,
     public_root: Path | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `validate_projection_protocol` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     protocol = payload if isinstance(payload, dict) else {}
     policy = import_policy or {}
     source_refs = _strings(protocol.get("source_refs"))
@@ -5437,6 +6037,15 @@ def validate_projection_protocol(
 
 
 def validate_cleaning_policy(payload: object) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `validate_cleaning_policy` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     policy = payload if isinstance(payload, dict) else {}
     forbidden = set(_strings(policy.get("forbidden_material_classes")))
     actions = _strings(policy.get("required_cleaning_actions"))
@@ -5490,6 +6099,15 @@ def validate_import_plan(
     missing_validation_negative: object | None = None,
     public_safe_material_ids: set[str] | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `validate_import_plan` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     plan = payload if isinstance(payload, dict) else {}
     cells = _rows(plan, "proposed_cells")
     known_public_safe_material_ids = public_safe_material_ids or set()
@@ -5599,6 +6217,15 @@ def validate_import_plan(
 
 
 def _source_refs_for_material(row: dict[str, Any]) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_refs_for_material` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     source_refs = _strings(row.get("source_refs"))
     source_ref = row.get("source_ref")
     if isinstance(source_ref, str) and source_ref and source_ref not in source_refs:
@@ -5607,6 +6234,15 @@ def _source_refs_for_material(row: dict[str, Any]) -> list[str]:
 
 
 def _target_ref_carries_source_ref(target_ref: object, source_ref: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_target_ref_carries_source_ref` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(target_ref, str) or not source_ref:
         return False
     normalized_target = _normalize_runtime_root_ref(target_ref.split("::", 1)[0])
@@ -5617,18 +6253,45 @@ def _target_ref_carries_source_ref(target_ref: object, source_ref: str) -> bool:
 
 
 def _classification_values(value: object) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_classification_values` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if isinstance(value, str) and value:
         return [value]
     return _strings(value)
 
 
 def _normalize_runtime_root_ref(ref: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_normalize_runtime_root_ref` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if ref.startswith(f"{STANDALONE_RUNTIME_ROOT_REF}/"):
         return ref[len(STANDALONE_RUNTIME_ROOT_REF) + 1 :]
     return ref
 
 
 def _runtime_ref_leak_reason(ref: str) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_runtime_ref_leak_reason` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     normalized = _normalize_runtime_root_ref(ref)
     if not normalized:
         return "empty_runtime_ref"
@@ -5642,6 +6305,15 @@ def _runtime_ref_leak_reason(ref: str) -> str | None:
 
 
 def _standalone_runtime_ref_rows(refs: list[str], *, role: str) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_standalone_runtime_ref_rows` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows: list[dict[str, Any]] = []
     for ref in refs:
         normalized = _normalize_runtime_root_ref(ref)
@@ -5659,6 +6331,15 @@ def _standalone_runtime_ref_rows(refs: list[str], *, role: str) -> list[dict[str
 
 
 def _runtime_dependency_rows(payload: object) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_runtime_dependency_rows` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows = _rows(payload, "runtime_dependencies")
     if rows:
         return rows
@@ -5670,6 +6351,15 @@ def _runtime_dependency_rows(payload: object) -> list[dict[str, Any]]:
 
 
 def _standalone_dependency_leaks(payload: object) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_standalone_dependency_leaks` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     leaks: list[dict[str, Any]] = []
     for row in _runtime_dependency_rows(payload):
         ref = str(row.get("runtime_ref") or row.get("ref") or row.get("path") or "")
@@ -5692,6 +6382,15 @@ def _standalone_dependency_leaks(payload: object) -> list[dict[str, Any]]:
 def validate_standalone_runtime_severance(
     standalone_negative: object | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `validate_standalone_runtime_severance` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
     for leak in _standalone_dependency_leaks(standalone_negative):
@@ -5716,6 +6415,15 @@ def _public_safe_body_import_rows(
     *,
     import_policy: dict[str, Any],
 ) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_public_safe_body_import_rows` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows: list[dict[str, Any]] = []
     for row in _rows(protocol_payload, "copied_material"):
         classification = _public_safe_import_status(row, import_policy=import_policy)
@@ -5756,6 +6464,15 @@ def _projection_cell_rows(
     *,
     public_safe_imports_by_id: dict[str, dict[str, Any]],
 ) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_projection_cell_rows` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     cells: list[dict[str, Any]] = []
     for row in _rows(plan_payload, "proposed_cells"):
         cell_id = str(row.get("cell_id") or "projection_cell")
@@ -5859,6 +6576,15 @@ def _projection_cell_rows(
 
 
 def _omitted_material_rows(protocol_payload: dict[str, Any]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_omitted_material_rows` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return [
         {
             "material_id": str(row.get("material_id") or "omitted_material"),
@@ -5884,6 +6610,15 @@ def _build_projection_intake_board(
     observed_negative_cases: dict[str, list[str]],
     missing_negative_cases: list[str],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_build_projection_intake_board` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     protocol_payload = (
         payloads.get("projection_protocol")
         if isinstance(payloads.get("projection_protocol"), dict)
@@ -5972,10 +6707,28 @@ def _build_runtime_severance_board(
     import_plan: dict[str, Any],
     dependency_preflight_gate: dict[str, Any],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_build_runtime_severance_board` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     runtime_rows: list[dict[str, Any]] = []
     seen_runtime: set[tuple[str, str]] = set()
 
     def add_runtime_refs(refs: list[str], *, role: str) -> None:
+        """
+        [ACTION]
+        - Teleology: Implements `_build_runtime_severance_board.add_runtime_refs` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         for row in _standalone_runtime_ref_rows(refs, role=role):
             key = (str(row["ref"]), role)
             if key in seen_runtime:
@@ -6083,6 +6836,15 @@ def _build_result(
     input_mode: str,
     include_negative: bool,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_build_result` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     payloads["projection_protocol"] = _augment_protocol_from_source_module_manifests(
@@ -6289,6 +7051,15 @@ def _common_receipt(
     schema_version: str,
     receipt_paths: list[str],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_common_receipt` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     keys = (
         "status",
         "organ_id",
@@ -6355,6 +7126,15 @@ def write_receipts(
     public_root: str | Path,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, str]:
+    """
+    [ACTION]
+    - Teleology: Implements `write_receipts` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     target = Path(out_dir)
     if not target.is_absolute():
         target = Path.cwd() / target
@@ -6457,6 +7237,15 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     input_path = Path(input_dir)
     command_text = command or (
         "python -m microcosm_core.organs.macro_projection_import_protocol run "
@@ -6493,6 +7282,15 @@ def run_projection_bundle(
     *,
     compatibility_route: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run_projection_bundle` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     input_path = Path(input_dir)
     command_text = command or (
         "python -m microcosm_core.organs.macro_projection_import_protocol "
@@ -6524,6 +7322,15 @@ def run_projection_bundle(
 
 
 def _top_level_json_mtime_refs(input_path: Path) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_top_level_json_mtime_refs` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not input_path.is_dir():
         return []
     rows: list[dict[str, Any]] = []
@@ -6547,6 +7354,15 @@ def _cached_receipt_source_mtime_refs(
     *,
     public_root: Path,
 ) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_cached_receipt_source_mtime_refs` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     refs = payload.get("source_refs")
     if not isinstance(refs, list):
         return []
@@ -6582,6 +7398,15 @@ def _source_ref_digest_manifest(
     *,
     public_root: Path,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_ref_digest_manifest` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     aggregate = hashlib.sha256()
     tracked_count = 0
     missing_count = 0
@@ -6628,6 +7453,15 @@ def projection_bundle_cached_card(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `projection_bundle_cached_card` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     input_path = Path(input_dir)
     target = Path(out_dir)
     if not target.is_absolute():
@@ -6788,6 +7622,15 @@ def projection_bundle_cached_card(
 
 
 def preview_import_plan(input_dir: str | Path, command: str | None = None) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `preview_import_plan` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     input_path = Path(input_dir)
     include_negative = _has_negative_input_set(input_path)
     command_text = command or (
@@ -6888,6 +7731,15 @@ def preview_import_plan(input_dir: str | Path, command: str | None = None) -> di
 
 
 def _parser() -> argparse.ArgumentParser:
+    """
+    [ACTION]
+    - Teleology: Implements `_parser` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(
         description=(
             "Validate macro projection import protocol bundles. Bundle inputs are "
@@ -6964,6 +7816,15 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.organs.macro_projection_import_protocol` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = _parser()
     args = parser.parse_args(argv)
     if args.action == "run":

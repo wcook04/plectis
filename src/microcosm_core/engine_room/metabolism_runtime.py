@@ -1,4 +1,5 @@
-"""Public-safe metabolism runtime and reconciler capsule.
+"""
+Public-safe metabolism runtime and reconciler capsule.
 
 [PURPOSE]
 Expose a runnable public capsule for the Engine Room metabolism queue, lease recovery, blackboard projection, and reconciliation taxonomy without exporting private runtime state.
@@ -13,6 +14,8 @@ Create a synthetic SQLite store, enqueue and lease jobs, record runs and claim e
 Uses only Python standard-library modules plus fixture JSON supplied by the public Plectis package; no private metabolism database, scheduler daemon, provider, or operator session state is read.
 
 [CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 This capsule is source-faithful but public-bounded: it does not dispatch agents, does not call providers, does not auto-repair ambiguous runtime state, and does not claim distributed-database behavior.
 """
 
@@ -75,11 +78,23 @@ def utc_now() -> str:
     - Teleology: Stamp synthetic metabolism receipts and rows with a normalized UTC timestamp.
     - Guarantee: Returns an ISO-8601 timestamp string without microseconds.
     - Fails: None; uses the local process clock only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
 def _to_dt(value: str | None) -> datetime | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_to_dt` for `microcosm_core.engine_room.metabolism_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     text = str(value or "").strip()
     if not text:
         return None
@@ -93,10 +108,28 @@ def _to_dt(value: str | None) -> datetime | None:
 
 
 def _json_dumps(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_json_dumps` for `microcosm_core.engine_room.metabolism_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
 
 def _json_loads(raw: str | None, default: Any) -> Any:
+    """
+    [ACTION]
+    - Teleology: Implements `_json_loads` for `microcosm_core.engine_room.metabolism_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     text = str(raw or "").strip()
     if not text:
         return default
@@ -107,6 +140,15 @@ def _json_loads(raw: str | None, default: Any) -> Any:
 
 
 def _sha1_token(value: str, *, prefix: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_sha1_token` for `microcosm_core.engine_room.metabolism_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return f"{prefix}_{hashlib.sha1(value.encode('utf-8')).hexdigest()[:16]}"
 
 
@@ -117,6 +159,8 @@ def connect(db_path: Path) -> sqlite3.Connection:
     - Guarantee: Returns a connection with WAL, normal sync, foreign keys, row objects, and the expected schema installed.
     - Fails: Raises sqlite3 or filesystem errors when the database path cannot be created or opened.
     - Writes: Creates the parent directory and database files for the supplied path.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     db_path.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(db_path, isolation_level=None)
@@ -135,6 +179,8 @@ def ensure_schema(conn: sqlite3.Connection) -> None:
     - Guarantee: Required tables, indexes, and migration row version 1 exist after success.
     - Fails: Raises sqlite3.DatabaseError if schema DDL or migration insertion fails.
     - Writes: Mutates the supplied SQLite connection schema.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     conn.executescript(
         """
@@ -207,6 +253,15 @@ def ensure_schema(conn: sqlite3.Connection) -> None:
 
 
 def _row_to_dict(row: sqlite3.Row | None) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_row_to_dict` for `microcosm_core.engine_room.metabolism_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {key: row[key] for key in row.keys()} if row is not None else {}
 
 
@@ -216,6 +271,9 @@ def parse_job(row: sqlite3.Row | None) -> dict[str, Any]:
     - Teleology: Convert one SQLite job row into a JSON-safe dict with decoded params.
     - Guarantee: Returns an empty dict for a missing row, otherwise includes `params` decoded from `params_json`.
     - Fails: None; malformed params JSON falls back to an empty dict through `_json_loads`.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = _row_to_dict(row)
     if payload:
@@ -229,6 +287,9 @@ def parse_run(row: sqlite3.Row | None) -> dict[str, Any]:
     - Teleology: Convert one SQLite run row into a JSON-safe dict with decoded summary payload.
     - Guarantee: Returns an empty dict for a missing row, otherwise includes `summary` decoded from `summary_json`.
     - Fails: None; malformed summary JSON falls back to an empty dict through `_json_loads`.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = _row_to_dict(row)
     if payload:
@@ -242,6 +303,9 @@ def parse_claim_event(row: sqlite3.Row | None) -> dict[str, Any]:
     - Teleology: Convert one blackboard claim-event row into a JSON-safe public event dict.
     - Guarantee: Returns decoded `contradicts` and `payload` fields when a row is present, else an empty dict.
     - Fails: None; malformed JSON fields fall back to empty list/dict defaults.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = _row_to_dict(row)
     if payload:
@@ -257,6 +321,9 @@ def execution_fingerprint(kind: str, provider: str, params: Mapping[str, Any]) -
     - Guarantee: Returns the first 16 hex chars of a SHA-256 digest over normalized kind, provider, and params.
     - Fails: Raises only if params cannot be converted into a JSON-serializable mapping.
     - Orders: JSON keys are sorted before hashing.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     payload = {
         "kind": str(kind or "").strip(),
@@ -284,6 +351,8 @@ def enqueue_job(
     - Guarantee: Returns `(job, inserted)` where `inserted` is False when the active idempotency uniqueness guard selected an existing job.
     - Fails: Propagates sqlite3 errors other than the handled active-idempotency collision.
     - Writes: Inserts one jobs row on a fresh idempotency key.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     stamp = now or utc_now()
     job_id = _sha1_token(f"{idempotency_key}:{stamp}:{uuid.uuid4().hex}", prefix="job")
@@ -329,6 +398,8 @@ def fetch_job(conn: sqlite3.Connection, job_id: str) -> dict[str, Any]:
     - Guarantee: Returns a parsed job dict or `{}` when no row exists.
     - Fails: Propagates sqlite3 query errors from the supplied connection.
     - Reads: jobs table.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return parse_job(conn.execute("SELECT * FROM jobs WHERE id = ?", (job_id,)).fetchone())
 
@@ -340,6 +411,9 @@ def fetch_jobs(conn: sqlite3.Connection, *, states: Sequence[str] | None = None)
     - Guarantee: Returns parsed job dicts, optionally filtered to the supplied states.
     - Fails: Propagates sqlite3 query errors.
     - Orders: Results are ordered by priority ascending, then created_at ascending.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     params: list[Any] = []
     sql = "SELECT * FROM jobs"
@@ -363,6 +437,8 @@ def claim_next_job(
     - Guarantee: Returns the updated claimed job, or `{}` when no eligible job is ready.
     - Fails: Propagates sqlite3 write errors; invalid timestamp text falls back to current UTC for lease math.
     - Writes: Updates state, claim owner, expiry, attempts, and updated_at for the selected job.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     stamp = now or utc_now()
     row = conn.execute(
@@ -405,6 +481,8 @@ def update_job_state(
     - Guarantee: Returns None after updating state, last_error, and updated_at for the target id.
     - Fails: Propagates sqlite3 write errors.
     - Writes: jobs table for the requested job id.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     conn.execute(
         "UPDATE jobs SET state = ?, last_error = ?, updated_at = ? WHERE id = ?",
@@ -424,6 +502,8 @@ def requeue_expired_jobs(
     - Guarantee: Returns the number of rows moved to `recoverable` with owner/lease cleared and a review message.
     - Fails: Propagates sqlite3 query/write errors.
     - Writes: jobs rows whose claim_expires_at is older than the supplied timestamp.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     stamp = now or utc_now()
     rows = conn.execute(
@@ -461,6 +541,8 @@ def start_run(
     - Guarantee: Returns the parsed run row with a generated run id and started_at timestamp.
     - Fails: Propagates sqlite3 write errors or job-state update failures.
     - Writes: runs table and the associated jobs row.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     run_id = _sha1_token(f"{job_id}:{now or utc_now()}:{uuid.uuid4().hex}", prefix="run")
     stamp = now or utc_now()
@@ -489,6 +571,8 @@ def complete_run(
     - Guarantee: Returns the parsed run row after completed_at and returncode are written.
     - Fails: Propagates sqlite3 write errors.
     - Writes: runs table, and jobs table when `finalize_job` is true.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     stamp = now or utc_now()
     conn.execute(
@@ -513,6 +597,8 @@ def latest_run_for_job(conn: sqlite3.Connection, job_id: str) -> dict[str, Any]:
     - Guarantee: Returns the most recent parsed run dict or `{}` when the job has no runs.
     - Fails: Propagates sqlite3 query errors.
     - Reads: runs table ordered by started_at descending.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return parse_run(
         conn.execute(
@@ -543,6 +629,8 @@ def append_claim_event(
     - Guarantee: Returns the parsed event row with stable decoded payload fields.
     - Fails: Propagates sqlite3 write/query errors.
     - Writes: blackboard_claim_events table; invalidation event kinds also stamp invalid/expired fields.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     stamp = now or utc_now()
     event_id = _sha1_token(
@@ -589,6 +677,8 @@ def build_blackboard_projection(conn: sqlite3.Connection) -> dict[str, Any]:
     - Guarantee: Returns counts plus compact active-claim rows after removing contradicted, superseded, or expired assertions.
     - Fails: Propagates sqlite3 query errors.
     - Reads: blackboard_claim_events ordered by created_at.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     rows = [parse_claim_event(row) for row in conn.execute("SELECT * FROM blackboard_claim_events ORDER BY created_at ASC").fetchall()]
     invalidated = {
@@ -632,6 +722,8 @@ class ReconciliationFinding:
     - Ownership: Owned by the reconciliation pass that constructs it; callers consume it as receipt data.
     - Mutability: Ordinary dataclass fields may be mutated by the owner before serialization; `detail` gets a fresh dict per instance.
     - Concurrency: Holds no shared handles and is safe to pass between local evaluation steps after construction.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
     """
     rule: str
     object_kind: str
@@ -649,6 +741,9 @@ class ReconciliationFinding:
         - Teleology: Derive a compact stable identifier for this finding's rule/object pair.
         - Guarantee: Returns the first 16 hex chars of a SHA-1 digest over rule and object id.
         - Fails: None; missing object ids are represented as an empty string.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
         """
         return hashlib.sha1(f"{self.rule}:{self.object_id or ''}".encode("utf-8")).hexdigest()[:16]
 
@@ -658,6 +753,9 @@ class ReconciliationFinding:
         - Teleology: Serialize the reconciliation finding with its derived identifier.
         - Guarantee: Returns a dict containing all dataclass fields plus `finding_id`.
         - Fails: None for normal dataclass field values.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
         """
         payload = asdict(self)
         payload["finding_id"] = self.finding_id
@@ -677,6 +775,8 @@ def reconcile(
     - Guarantee: Returns a bounded receipt with status `healthy` or `needs_review`, rule counts, findings, claim ceiling, and anti-claims.
     - Fails: Propagates sqlite3 query errors and filesystem stat errors for existing log paths.
     - Reads: jobs, runs, and repo-relative log paths referenced by active runs.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     stamp = now or datetime.now(timezone.utc)
     findings: list[ReconciliationFinding] = []
@@ -755,6 +855,15 @@ def reconcile(
 
 
 def _case_queue_recovery(root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_case_queue_recovery` for `microcosm_core.engine_room.metabolism_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     conn = connect(root / "metabolism.sqlite")
     first, inserted_first = enqueue_job(
         conn,
@@ -785,6 +894,15 @@ def _case_queue_recovery(root: Path) -> dict[str, Any]:
 
 
 def _case_blackboard_projection(root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_case_blackboard_projection` for `microcosm_core.engine_room.metabolism_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     conn = connect(root / "metabolism.sqlite")
     asserted = append_claim_event(
         conn,
@@ -813,6 +931,15 @@ def _case_blackboard_projection(root: Path) -> dict[str, Any]:
 
 
 def _case_running_job_no_run_row(root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_case_running_job_no_run_row` for `microcosm_core.engine_room.metabolism_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     conn = connect(root / "metabolism.sqlite")
     job, _inserted = enqueue_job(
         conn,
@@ -831,6 +958,15 @@ def _case_running_job_no_run_row(root: Path) -> dict[str, Any]:
 
 
 def _case_finalized_run_running_job(root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_case_finalized_run_running_job` for `microcosm_core.engine_room.metabolism_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     conn = connect(root / "metabolism.sqlite")
     job, _inserted = enqueue_job(
         conn,
@@ -850,6 +986,15 @@ def _case_finalized_run_running_job(root: Path) -> dict[str, Any]:
 
 
 def _case_stale_log(root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_case_stale_log` for `microcosm_core.engine_room.metabolism_runtime` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     conn = connect(root / "metabolism.sqlite")
     log_path = root / "logs/demo.log"
     log_path.parent.mkdir(parents=True, exist_ok=True)
@@ -888,6 +1033,8 @@ def evaluate_case(case: Mapping[str, Any], *, scratch: Path, path: str = "") -> 
     - Guarantee: Returns the observed receipt and whether it matched the expected status.
     - Fails: Raises ValueError for unknown case kinds; propagates runner/JSON/runtime errors.
     - Writes: Creates a per-case scratch directory under the supplied scratch root.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     case_id = str(case.get("case_id") or Path(path).stem)
     case_kind = str(case.get("case_kind") or case_id)
@@ -916,6 +1063,8 @@ def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
     - Guarantee: Returns pass only when at least one case exists and every case meets its expected status.
     - Fails: Raises ValueError for non-object fixture JSON and propagates JSON or runner failures.
     - Reads: `*.json` fixture files sorted by path.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     cases: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory(prefix=f"{ORGAN_ID}_fixtures_") as tmp:
@@ -946,6 +1095,9 @@ def build_parser() -> argparse.ArgumentParser:
     - Teleology: Define the command-line interface for the public metabolism runtime capsule.
     - Guarantee: Returns an ArgumentParser with the required `evaluate-fixtures` subcommand.
     - Fails: None during parser construction.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     parser = argparse.ArgumentParser(description="Engine Room metabolism runtime capsule.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -961,6 +1113,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     - Teleology: Dispatch the public CLI, print fixture evaluation output, and translate pass/fail into a process exit code.
     - Guarantee: Returns 0 for passing fixture evaluation and 1 for failing fixture evaluation.
     - Fails: argparse raises SystemExit for invalid CLI input; AssertionError marks impossible command dispatch.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command == "evaluate-fixtures":

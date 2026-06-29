@@ -7,8 +7,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 60615,
-      "line_count": 1530,
+      "byte_count": 89842,
+      "line_count": 1879,
       "material_class": "public_microcosm_organ_source_body",
       "module_id": "target_shape_tactic_routing_gate_public_organ_source_body_import",
       "path": "source_modules/microcosm_core/organs/target_shape_tactic_routing_gate.py",
@@ -16,19 +16,21 @@
         "ORGAN_ID = \"target_shape_tactic_routing_gate\"",
         "def run"
       ],
-      "sha256": "sha256:79b69af9e2f379a10542f61f15929bb043a1b76e0d8963337538d77081525611",
+      "sha256": "sha256:b4ff97bc21d8c17dc8317b929aeb984e38acbba00fa4ff3ec82984cc1193ab31",
       "sha256_match": true,
       "source_byte_count": 60615,
       "source_import_class": "copied_non_secret_public_substrate_body",
       "source_line_count": 1530,
       "source_ref": "src/microcosm_core/organs/target_shape_tactic_routing_gate.py",
       "source_role": "Public target-shape tactic routing gate logic used to classify proof goals before tactic selection.",
-      "source_sha256": "sha256:79b69af9e2f379a10542f61f15929bb043a1b76e0d8963337538d77081525611",
+      "source_sha256": "sha256:b4ff97bc21d8c17dc8317b929aeb984e38acbba00fa4ff3ec82984cc1193ab31",
+      "source_target_sha256_match": true,
       "source_to_target_relation": "exact_copy",
       "target_byte_count": 60615,
+      "target_expected_digest_match": true,
       "target_line_count": 1530,
       "target_ref": "microcosm-substrate/examples/target_shape_tactic_routing_gate/exported_target_shape_tactic_routing_bundle/source_body_floor/source_modules/microcosm_core/organs/target_shape_tactic_routing_gate.py",
-      "target_sha256": "sha256:79b69af9e2f379a10542f61f15929bb043a1b76e0d8963337538d77081525611",
+      "target_sha256": "sha256:b4ff97bc21d8c17dc8317b929aeb984e38acbba00fa4ff3ec82984cc1193ab31",
       "validation_refs": [
         "tests/test_substrate_substitution_ledger.py::test_state_run_generated_json_sources_do_not_count_as_real_substrate"
       ]

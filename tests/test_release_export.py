@@ -385,6 +385,106 @@ if __name__ == "__main__":
     return root
 
 
+def test_candidate_doctrine_lattice_refresh_gates_on_reproducibility_not_population(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    target = tmp_path / release_export.ARTIFACT_DIR_NAME
+    target.mkdir()
+    for ref in release_export.DOCTRINE_LATTICE_REFRESH_REQUIRED_REFS:
+        _write(target / ref, "{}\n")
+
+    from microcosm_core import doctrine_lattice
+
+    def fake_write_doctrine_projection(root: Path, *, command: str) -> dict[str, object]:
+        assert root == target
+        assert command == "release_export_candidate_projection_refresh"
+        return {"status": "blocked", "coverage_health": {"status": "deficit"}}
+
+    def fake_write_coverage_projection(
+        root: Path,
+        out: Path,
+        *,
+        command: str,
+    ) -> dict[str, object]:
+        assert root == target
+        assert out == target / "core/doctrine_lattice_coverage.json"
+        assert command == "release_export_candidate_projection_refresh"
+        return {"status": "pass"}
+
+    def fake_write_entry_card(
+        root: Path,
+        out: Path,
+        *,
+        command: str,
+    ) -> dict[str, object]:
+        assert root == target
+        assert out == target / doctrine_lattice.ENTRY_CARD_REL
+        assert command == "release_export_candidate_projection_refresh"
+        return {"status": "pass"}
+
+    monkeypatch.setattr(
+        doctrine_lattice, "write_doctrine_projection", fake_write_doctrine_projection
+    )
+    monkeypatch.setattr(
+        doctrine_lattice, "write_coverage_projection", fake_write_coverage_projection
+    )
+    monkeypatch.setattr(doctrine_lattice, "write_entry_card", fake_write_entry_card)
+    monkeypatch.setattr(
+        doctrine_lattice,
+        "validate_doctrine_projection",
+        lambda root: {
+            "status": "blocked",
+            "errors": [
+                {
+                    "code": "organ_json_instance_missing",
+                    "organ_id": "organ.example",
+                    "path": "organs/example.json",
+                },
+                {
+                    "code": "doctrine_projection_edge_target_unresolved",
+                    "target_kind": "organ",
+                    "target_id": "organ.example",
+                    "path": "atlas/doctrine_lattice_projection.json::edges[1]",
+                },
+                {
+                    "code": "doctrine_projection_edge_target_unresolved",
+                    "target_kind": "mechanism",
+                    "target_id": "mechanism.public_capsule.validates_public_capsule",
+                    "path": "atlas/doctrine_lattice_projection.json::edges[2]",
+                }
+            ],
+        },
+    )
+    monkeypatch.setattr(
+        doctrine_lattice,
+        "validate_coverage_projection",
+        lambda projection, root: {"status": "pass", "errors": []},
+    )
+    monkeypatch.setattr(
+        doctrine_lattice,
+        "validate_entry_card",
+        lambda card, root: {"status": "pass", "errors": []},
+    )
+
+    receipt = release_export._refresh_candidate_doctrine_lattice(target)
+
+    assert receipt["status"] == "pass"
+    assert receipt["projection_status"] == "pass"
+    assert receipt["projection_validation_status"] == "blocked"
+    assert receipt["coverage_status"] == "pass"
+    assert receipt["entry_card_status"] == "pass"
+    assert receipt["projection_payload_status"] == "blocked"
+    assert receipt["projection_health_status"] == "deficit"
+    assert receipt["non_blocking_population_error_count"] == 3
+    assert receipt["non_blocking_population_error_codes"] == [
+        "doctrine_projection_edge_target_unresolved",
+        "organ_json_instance_missing"
+    ]
+    assert receipt["blocking_reasons"] == []
+    assert receipt["validation_errors"]["projection"] == []
+
+
 def test_release_export_generates_clean_standalone_folder_and_receipt(
     tmp_path: Path,
 ) -> None:

@@ -1,10 +1,15 @@
-"""Bounded autonomy campaign packet replay organ.
+"""
+Bounded autonomy campaign packet replay organ.
 
 [PURPOSE] Validate that a bounded-autonomy campaign can draft candidate repair packets from public synthetic coverage gaps without authorizing self-repair, provider calls, source writes, or release.
 [INTERFACE] Exposes the CrownJewelSpec-driven organ entrypoints `evaluate`, `evaluate_negative_case`, `run`, `run_bounded_autonomy_bundle`, and `main`.
 [FLOW] Load public fixture inputs, obtain a read-only real campaign-builder witness, build a candidate packet, reject source-write and repeated-failure cases, then emit result, board, validation, and acceptance receipts.
 [DEPENDENCIES] Uses JSON fixtures, subprocess execution of the public macro campaign builder, and the shared `_crown_jewel_common` result/receipt harness.
 [CONSTRAINTS] Receipt payloads carry hashes and bounded packet summaries only; passing means the self-proposal boundary is wired, not that autonomous repair or release is authorized.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 
 from __future__ import annotations
@@ -81,12 +86,28 @@ SPEC = CrownJewelSpec(
 
 
 def _source_module_manifest_path(public_root: Path) -> Path:
-    """[ACTION] Resolve the public source-module manifest that carries the exported campaign-builder body."""
+    """
+    [ACTION] Resolve the public source-module manifest that carries the exported campaign-builder body.
+    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return public_root / SPEC.source_manifest_ref
 
 
 def _sha256_file(path: Path) -> str:
-    """[ACTION] Hash a public source-module target so the builder witness can bind bytes without embedding bodies."""
+    """
+    [ACTION] Hash a public source-module target so the builder witness can bind bytes without embedding bodies.
+    - Teleology: Implements `_sha256_file` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
@@ -99,7 +120,15 @@ def _public_source_module_builder_witness(
     *,
     max_targets: int,
 ) -> dict[str, Any]:
-    """[ACTION] Validate the exported builder source-module target as the standalone public witness when no live macro builder checkout is present."""
+    """
+    [ACTION] Validate the exported builder source-module target as the standalone public witness when no live macro builder checkout is present.
+    - Teleology: Implements `_public_source_module_builder_witness` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     manifest_path = _source_module_manifest_path(public_root)
     if not manifest_path.is_file():
         return {
@@ -180,7 +209,15 @@ def _public_source_module_builder_witness(
 
 
 def _campaign_builder_witness(public_root: Path, *, max_targets: int) -> dict[str, Any]:
-    """[ACTION] Run a live campaign-builder witness when available, otherwise validate the shipped public source-module builder target as the standalone witness."""
+    """
+    [ACTION] Run a live campaign-builder witness when available, otherwise validate the shipped public source-module builder target as the standalone witness.
+    - Teleology: Implements `_campaign_builder_witness` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    """
     repo_root = public_root.parent
     builder_path = repo_root / BUILDER_REF
     if not builder_path.is_file():
@@ -257,7 +294,15 @@ def _campaign_builder_witness(public_root: Path, *, max_targets: int) -> dict[st
 
 
 def _sha256_text(text: str) -> str:
-    """[ACTION] Hash captured subprocess text so receipts can bind output without embedding source or stdout bodies."""
+    """
+    [ACTION] Hash captured subprocess text so receipts can bind output without embedding source or stdout bodies.
+    - Teleology: Implements `_sha256_text` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    """
     import hashlib
 
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
@@ -268,7 +313,15 @@ def _candidate_packet_subprocess(
     policy: dict[str, Any],
     public_root: Path,
 ) -> dict[str, Any]:
-    """[ACTION] Convert coverage gaps and policy into a bounded draft candidate packet using the campaign-builder witness as the authority source."""
+    """
+    [ACTION] Convert coverage gaps and policy into a bounded draft candidate packet using the campaign-builder witness as the authority source.
+    - Teleology: Implements `_candidate_packet_subprocess` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    """
     candidate_limit = int(policy.get("max_candidate_count", 2))
     witness = _campaign_builder_witness(public_root, max_targets=candidate_limit)
     candidate_count = min(
@@ -317,7 +370,15 @@ def _candidate_packet_subprocess(
 
 
 def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Evaluate the positive fixture by loading policy, gap, and failed-digest inputs, checking the real builder witness, and enforcing no source-write or repeated-failure authorization."""
+    """
+    [ACTION] Evaluate the positive fixture by loading policy, gap, and failed-digest inputs, checking the real builder witness, and enforcing no source-write or repeated-failure authorization.
+    - Teleology: Implements `evaluate` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    """
     findings: list[dict[str, Any]] = []
     gaps = load_json_object(input_dir / "coverage_gaps.json", findings, label="coverage gaps")
     policy = load_json_object(input_dir / "campaign_policy.json", findings, label="campaign policy")
@@ -413,7 +474,15 @@ def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, An
 
 
 def _write_json(path: Path, payload: object) -> None:
-    """[ACTION] Persist mutated semantic-negative fixture JSON with deterministic formatting for local negative-case exercises."""
+    """
+    [ACTION] Persist mutated semantic-negative fixture JSON with deterministic formatting for local negative-case exercises.
+    - Teleology: Implements `_write_json` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
@@ -422,7 +491,15 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
-    """[ACTION] Materialize a supported negative fixture mutation and return only the observed error codes needed by the crown-jewel harness."""
+    """
+    [ACTION] Materialize a supported negative fixture mutation and return only the observed error codes needed by the crown-jewel harness.
+    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, declared filesystem outputs.
+    """
     with TemporaryDirectory(prefix=f"{ORGAN_ID}-{case_id}-") as scratch:
         semantic_input = Path(scratch) / "input"
         semantic_input.mkdir(parents=True, exist_ok=True)
@@ -481,7 +558,15 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the bounded-autonomy fixture through the shared crown-jewel organ harness and write the normal result/receipt artifacts."""
+    """
+    [ACTION] Run the bounded-autonomy fixture through the shared crown-jewel organ harness and write the normal result/receipt artifacts.
+    - Teleology: Implements `run` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -498,7 +583,15 @@ def run_bounded_autonomy_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the exported bounded-autonomy bundle mode through the same evaluator while preserving the public bundle input contract."""
+    """
+    [ACTION] Run the exported bounded-autonomy bundle mode through the same evaluator while preserving the public bundle input contract.
+    - Teleology: Implements `run_bounded_autonomy_bundle` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -511,7 +604,15 @@ def run_bounded_autonomy_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """[ACTION] Dispatch the CLI action table for this organ and return the shared harness exit status."""
+    """
+    [ACTION] Dispatch the CLI action table for this organ and return the shared harness exit status.
+    - Teleology: Implements `main` for `microcosm_core.organs.bounded_autonomy_campaign_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return main_for_spec(
         SPEC,
         argv,

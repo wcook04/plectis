@@ -1,0 +1,23 @@
+{
+  "case_id": "no_overlap_rejected",
+  "case_type": "negative",
+  "expected_ok": false,
+  "problem": "subaquatic origami choreography for migrating waterfowl",
+  "catalog": {
+    "annexes": [
+      {
+        "slug": "provider-rate-limit-patterns",
+        "display_name": "Provider Rate Limit Patterns",
+        "description": "Backoff and retry patterns across provider APIs.",
+        "tags": ["providers", "retry", "backoff"],
+        "source_kind": "sanitized_fixture",
+        "routing_summary": {
+          "domains": ["agent-runtime"],
+          "clusters": ["provider-control"],
+          "problem_spaces": ["rate limit backoff across multiple llm providers"],
+          "capabilities": ["retry scheduling", "provider quota fallback"]
+        }
+      }
+    ]
+  }
+}

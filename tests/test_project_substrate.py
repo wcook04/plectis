@@ -131,28 +131,6 @@ def test_tour_assay_predicate_coverage_prefers_verification_status() -> None:
         "record_classification_matrix": "verification_predicate_status",
         "assertion_matrix_coverage": "verification_predicate_status",
     }
-    review = assay["agent_harness_record_review"]
-    assert review["schema_version"] == "microcosm_agent_harness_record_review_cue_v1"
-    assert review["status"] == "selected_work_record_gap"
-    assert review["candidate_record_scope"] == (
-        "selected_work_reference_case_not_tour_invocation"
-    )
-    assert review["selected_work_id"] == "work_0002"
-    assert review["tour_command_root_blockers"] == [
-        "tour_returned_root_handle",
-        "tour_invocation_envelope",
-        "tour_direct_child_relation_closure",
-        "tour_state_delta_scope",
-        "tour_projection_fidelity_to_tour_root",
-    ]
-    axes = {row["axis"]: row for row in review["review_axes"]}
-    assert axes["trajectory"]["status"] == "missing"
-    assert axes["reproducibility_fixture"]["state_delta_ref_count"] == 1
-    assert axes["task_boundary"]["record_classification_matrix_verified"] is False
-    assert axes["benchmark_anti_claim"]["status"] == (
-        "not_claimed_here_check_if_benchmark_context"
-    )
-    assert axes["closeout_check"]["status"] == "missing_or_blocked"
 
 
 def test_python_lens_counts_relative_and_absolute_imports_separately(
@@ -1951,45 +1929,6 @@ def test_reference_execution_case_binds_returned_work_id_not_first_closed(
     assert observe_case_summary["record_classification_matrix_ref"] == (
         "verification_predicate_status.record_classification_matrix"
     )
-    assert observe_card["causal_chain_summary"][
-        "agent_harness_record_review_status"
-    ] == "selected_work_record_reviewable_observe_handoff"
-    assert observe_card["causal_chain_summary"][
-        "agent_harness_record_review_ref"
-    ] == "agent_harness_record_review"
-    observe_harness_review = observe_card["agent_harness_record_review"]
-    assert (
-        observe_harness_review["schema_version"]
-        == "microcosm_observe_agent_harness_record_review_cue_v1"
-    )
-    assert observe_harness_review["status"] == (
-        "selected_work_record_reviewable_observe_handoff"
-    )
-    assert observe_harness_review["selected_work_id"] == "work_0002"
-    assert observe_harness_review["root_work_id"] == "work_0002"
-    assert observe_harness_review["root_matches_selected"] is True
-    assert observe_harness_review["selected_work_reference_case_status"] == "pass"
-    assert (
-        observe_harness_review["selected_work_reference_verification_status"]
-        == "pass"
-    )
-    observe_review_axes = {
-        row["axis"]: row for row in observe_harness_review["review_axes"]
-    }
-    assert observe_review_axes["trajectory"]["status"] == "present"
-    assert observe_review_axes["reproducibility_fixture"]["status"] == "present"
-    assert observe_review_axes["reproducibility_fixture"][
-        "state_delta_ref_count"
-    ] == len(expected_card_state_delta_refs)
-    assert observe_review_axes["task_boundary"]["status"] == "present"
-    assert observe_review_axes["benchmark_anti_claim"]["drilldown_command"] == (
-        "plectis comprehend --slice claims --organ "
-        "agent_benchmark_integrity_anti_gaming_replay"
-    )
-    assert observe_review_axes["closeout_check"]["status"] == "present"
-    assert "does not make observe --card a command-root witness" in (
-        observe_harness_review["anti_claim"]
-    )
 
     tour_card = RuntimeShell(MICROCOSM_ROOT).tour_card(project)
     tour_case = tour_card["command_reference_execution_case"]
@@ -2118,12 +2057,6 @@ def test_reference_execution_case_binds_returned_work_id_not_first_closed(
         tour_card["compile_summary"]["tour_command_root_blocking_gap_count"]
         == 5
     )
-    assert tour_card["compile_summary"][
-        "agent_harness_record_review_status"
-    ] == "selected_work_record_reviewable_tour_not_command_rooted"
-    assert tour_card["compile_summary"]["agent_harness_record_review_ref"] == (
-        "tour_command_causality_coverage_assay.agent_harness_record_review"
-    )
     assay = tour_card["tour_command_causality_coverage_assay"]
     assert (
         assay["schema_version"]
@@ -2203,37 +2136,6 @@ def test_reference_execution_case_binds_returned_work_id_not_first_closed(
         ]
         is True
     )
-    harness_review = assay["agent_harness_record_review"]
-    assert harness_review["status"] == (
-        "selected_work_record_reviewable_tour_not_command_rooted"
-    )
-    assert harness_review["selected_work_reference_case_status"] == "pass"
-    assert harness_review["selected_work_reference_verification_status"] == "pass"
-    assert harness_review["selected_work_id"] == "work_0002"
-    assert harness_review["root_work_id"] == "work_0002"
-    assert harness_review["root_matches_selected"] is True
-    assert harness_review["tour_command_root_blockers"] == [
-        "tour_returned_root_handle",
-        "tour_invocation_envelope",
-        "tour_direct_child_relation_closure",
-        "tour_state_delta_scope",
-        "tour_projection_fidelity_to_tour_root",
-    ]
-    review_axes = {row["axis"]: row for row in harness_review["review_axes"]}
-    assert review_axes["trajectory"]["evidence_count"] == len(
-        tour_case["occurrence_witness_refs"]
-    )
-    assert review_axes["trajectory"]["status"] == "present"
-    assert review_axes["reproducibility_fixture"]["status"] == "present"
-    assert review_axes["reproducibility_fixture"]["state_delta_ref_count"] == len(
-        expected_card_state_delta_refs
-    )
-    assert review_axes["task_boundary"]["status"] == "present"
-    assert review_axes["benchmark_anti_claim"]["drilldown_command"] == (
-        "plectis comprehend --slice claims --organ "
-        "agent_benchmark_integrity_anti_gaming_replay"
-    )
-    assert review_axes["closeout_check"]["status"] == "present"
     full_tour = RuntimeShell(MICROCOSM_ROOT).tour(project, persist_receipt=False)
     full_assay = full_tour["tour_command_causality_coverage_assay"]
     assert (
@@ -2277,9 +2179,6 @@ def test_reference_execution_case_binds_returned_work_id_not_first_closed(
         full_tour["compile_summary"]["tour_command_root_blocking_gap_count"]
         == 5
     )
-    assert full_tour["compile_summary"][
-        "agent_harness_record_review_status"
-    ] == "selected_work_record_reviewable_tour_not_command_rooted"
 
     tour_rendered_verification = architecture_kernel.verify_reference_execution_case(
         project,

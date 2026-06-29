@@ -7,8 +7,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 78346,
-      "line_count": 1919,
+      "byte_count": 122977,
+      "line_count": 2448,
       "material_class": "public_microcosm_organ_source_body",
       "module_id": "tactic_portfolio_availability_probe_public_organ_source_body_import",
       "path": "source_modules/microcosm_core/organs/tactic_portfolio_availability_probe.py",
@@ -16,19 +16,21 @@
         "ORGAN_ID = \"tactic_portfolio_availability_probe\"",
         "def run"
       ],
-      "sha256": "sha256:993f2636806f94f17044b65969aabea06dd59e5dade88c68a4b7646dc8a83a73",
+      "sha256": "sha256:63bc7a7835cee8c91fe2b5bff0baa03503abb70aa545c61e40cbe4d2e79242f6",
       "sha256_match": true,
       "source_byte_count": 78346,
       "source_import_class": "copied_non_secret_public_substrate_body",
       "source_line_count": 1919,
       "source_ref": "src/microcosm_core/organs/tactic_portfolio_availability_probe.py",
       "source_role": "Public Microcosm formal/prover organ logic used to validate public-safe readiness evidence.",
-      "source_sha256": "sha256:993f2636806f94f17044b65969aabea06dd59e5dade88c68a4b7646dc8a83a73",
+      "source_sha256": "sha256:63bc7a7835cee8c91fe2b5bff0baa03503abb70aa545c61e40cbe4d2e79242f6",
+      "source_target_sha256_match": true,
       "source_to_target_relation": "exact_copy",
       "target_byte_count": 78346,
+      "target_expected_digest_match": true,
       "target_line_count": 1919,
       "target_ref": "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_body_floor/source_modules/microcosm_core/organs/tactic_portfolio_availability_probe.py",
-      "target_sha256": "sha256:993f2636806f94f17044b65969aabea06dd59e5dade88c68a4b7646dc8a83a73",
+      "target_sha256": "sha256:63bc7a7835cee8c91fe2b5bff0baa03503abb70aa545c61e40cbe4d2e79242f6",
       "validation_refs": [
         "tests/test_substrate_substitution_ledger.py::test_state_run_generated_lean_sources_do_not_count_as_real_substrate"
       ]

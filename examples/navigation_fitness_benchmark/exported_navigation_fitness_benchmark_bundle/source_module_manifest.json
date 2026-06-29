@@ -1,0 +1,70 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "navigation_fitness_benchmark_source_body_manifest",
+  "bundle_id": "exported_navigation_fitness_benchmark_bundle",
+  "classification": "public_package_body_backed_composition_capsule",
+  "source_import_class": "public_safe_refactored_body",
+  "body_storage_policy": "public package source bodies are exercised in place by the organ acceptance command; this manifest binds their provenance and digest relation so old metadata cannot promote the organ by itself",
+  "receipt_body_policy": "receipts are evidence outputs only and are not counted as imported body substrate",
+  "body_in_receipt": false,
+  "source_open_payload_boundary": "non-secret Microcosm package source only; no provider state, credentials, sessions, raw private state, or release authority",
+  "validation_contract_ref": "checker.microcosm.validators.substrate_substitution_ledger",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "navigation_fitness_benchmark_organ_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Organ wrapper that surfaces the capsule under the standard organ contract: bounded fixture cases, two planted positive and two planted negative cases, an aggregate pass/fail build_result, a body-free result_card, body-free validation/acceptance receipts via microcosm_core.receipts, and CLI dispatch. _evaluate_case calls the REAL capsule evaluate_case (no re-implementation, no baked answers) and decides observed_ok from expectation_met plus, for negatives, the presence of the expected recomputed failure marker.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/organs/navigation_fitness_benchmark.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/organs/navigation_fitness_benchmark.py",
+      "path": "microcosm-substrate/src/microcosm_core/organs/navigation_fitness_benchmark.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 22365,
+      "line_count": 466,
+      "sha256": "sha256:4183907c8851f4e4bab06c5a3daacebfe921a0be5b7723dc21024b22df16718d",
+      "target_sha256": "4183907c8851f4e4bab06c5a3daacebfe921a0be5b7723dc21024b22df16718d",
+      "source_sha256": "4183907c8851f4e4bab06c5a3daacebfe921a0be5b7723dc21024b22df16718d",
+      "required_anchors": [
+        "ORGAN_ID = \"navigation_fitness_benchmark\"",
+        "def run"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.organs.navigation_fitness_benchmark.run",
+        "tests/test_navigation_fitness_benchmark.py"
+      ]
+    },
+    {
+      "module_id": "navigation_fitness_benchmark_capsule_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Public-safe, source-faithful refactor of system/lib/navigation_fitness.py. Given route-packet fixtures, it recomputes per-task recall and precision of selected artifacts against expected stable ids (with prefix-glob matching), checks the first-contact command against a forbidden-first-route list, scores scent-term coverage, derives a latency verdict against a per-task budget, classifies a sufficiency status with a typed failure kind, and aggregates summary metrics (p50/p95 wall, pass/fail counts) plus sufficiency and latency debt candidates. evaluate_case also re-derives the benchmark and reports whether the recomputation matches a case's planted expectation.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/navigation_fitness_benchmark.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/engine_room/navigation_fitness_benchmark.py",
+      "path": "microcosm-substrate/src/microcosm_core/engine_room/navigation_fitness_benchmark.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 31342,
+      "line_count": 566,
+      "sha256": "sha256:d505a03859eeeb2db9fa8652d89341c1eb42bda2f09545277214adca685535ab",
+      "target_sha256": "d505a03859eeeb2db9fa8652d89341c1eb42bda2f09545277214adca685535ab",
+      "source_sha256": "d505a03859eeeb2db9fa8652d89341c1eb42bda2f09545277214adca685535ab",
+      "required_anchors": [
+        "Curated route-packet benchmark evaluator for expected stable ids",
+        "forbidden_hits = [route for route in task.forbidden_first_routes if route and route in first_contact_command]"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.engine_room.navigation_fitness_benchmark",
+        "tests/test_navigation_fitness_benchmark.py"
+      ]
+    }
+  ],
+  "blocked_import_debt": []
+}

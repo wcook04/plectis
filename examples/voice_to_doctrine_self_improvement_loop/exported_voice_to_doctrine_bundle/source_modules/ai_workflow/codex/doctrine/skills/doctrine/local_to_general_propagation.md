@@ -19,6 +19,7 @@ triggers:
   - "A trace shows repeated detection or classification while actuator, validator, or generated-builder closure remains unproven"
   - "A continuous monitor, regression conscience, or polling trace reports committed-HEAD churn, quiet-window races, watch receipts, scratch-log eviction, or host-pressure backoff"
   - "A scoped commit, private-index commit, or transaction landing trace repeatedly loses parent CAS after refreshed validation and must stop with a canonical validated-uncommitted receipt"
+  - "A trace has a truncated dirty-path preview, same-file foreign hunks, or hunk-only scoped commit pressure"
   - "A trace shows macro/public mirror copy refresh, exact-copy manifest drift, source-to-target digest drift, or public safety membrane before write"
   - "A mirror/import trace changes validation status under a different runner or discovers an active owner daemon over candidate manifests"
   - "A trace asks for better Playwright, computer use, frontend control, click/drag modeling, or agent-native actuator integration"
@@ -225,6 +226,8 @@ Extract and route these fields before adopting the transcript's closeout:
 
 Do not replay old embedded commands merely because the transcript says "next". Do not resume, rerun, or finish historical capture/commit/push/background commands when the latest operator asked for validation, diagnosis, generalized refinement, or closeout review; first classify them as historical evidence, current continuation, or blocked/in-flight work with owner readback. Do not erase a landed scoped slice because a later global executor is blocked by foreign work, and do not call the whole system green because the owned slice is green. If a later red belongs to the current owned surface and has no durable capture, capture or patch before mentioning it; if it belongs to another active owner, yield with the owner/session/re-entry predicate instead of bypassing the claim. Product names, commit counts, memory files, and one backup tool's wording are examples unless the selected owner is explicitly that lane.
 
+If the post-success trace shows a scoped or private-index commit landing and the next push/private-backup attempt hits `github_push_bloat_gate_v1`, a push-range bloat gate, or `publication_recovery.direct_push_allowed=false`, classify it as `publication_bloat_gate_after_local_landing` under the existing receipt-plane bundle. The local commit is not undone and the owned slice is not dirty again; prove it with the commit hash plus owned-path containment or mission closeout verdict, then route publication through `run_git.py audit push --json`, `mission_transaction_preflight.py --github-push-bloat-gate`, or `publication_lane.py plan --repo-root .`. Do not retry raw `repo-git push`, force-push, rewrite history, broaden into global dirty cleanup, or treat the blocked publication lane as permission to keep doing object-level work unless the latest operator explicitly asked for publication reconciliation.
+
 ### Moving Publication / Presentation-Filtered Validation Traces
 
 When a trace reports that the remote moved under the agent, a fast-forward or rebase absorbed concurrent commits, a test verdict came through a presentation pipeline, or a dogfood/harness expectation was stale, classify it as `moving_publication_validation_receipt_boundary`, not as a product-specific release story. The reusable rule is receipt identity: publication, validation, and harness/readback each need their own currentness proof after the substrate moves.
@@ -270,6 +273,36 @@ Extract and route these fields before staging or closeout:
 6. landing decision: land only the owned slice, record a claim-settlement continuation, capture a blocked residual, or coordinate with the source owner.
 
 Do not collapse this class into "the builder is noisy" or "all generated output is mine because my command produced it." A scoped source fix can be green while a generated projection correctly reveals unrelated source-coupled drift. Conversely, a wide generated diff is not automatically foreign: if its source inputs are committed/owned, the write profile is declared, and validation proves the full generated set, it may be landed as an intentional generated refresh. Product names, organ names, and one trace's file list are examples unless the selected owner is that generator family.
+
+### Concurrent Builder / Moving Budget Traces
+
+When a trace says the same source builder, sanitizer, projector, or generated-output lane is already being edited by another owner, classify the case as `concurrent_builder_quiescence_boundary`, not as a product-specific wording race or a generic dirty-tree blocker. The reusable rule is quiescence before duplicate source edits or calibration: do not manually repeat an in-flight semantic fix, and do not tune a size, count, digest, timeout, or budget knob from a generated artifact while the owner is actively rewriting the source or outputs that determine the measured value.
+
+Extract and route these fields before mutating:
+
+1. source owner: file/function/builder id, uncommitted hunk or owner claim, and whether the hunk is landing the same semantic fix;
+2. generated/effect surface: generated paths, digest/status sidecar, validation leak, scrub count, packet size, or other output that will change after the owner write;
+3. calibration knob: byte budget, count threshold, timeout, cap, denylist, schema allowance, or fixture expectation being considered;
+4. quiescence proof: current `HEAD`, dirty readback, owner write/check command, and the stable post-write measurement needed before tuning;
+5. action split: coordinate with the owner, land only disjoint owner-surface guidance, capture a blocked residual, or record already-propagated proof;
+6. re-entry condition: owner hunk landed or released, builder check/write rerun, generated output readback stable, focused validator rerun, then tune only if the measured value still violates the contract.
+
+Invalid closeouts include manually rewording through the same source projector while the owner hunk is live, bumping a budget against a moving generated size, treating a captured residual as the source fix, or calling validation green from a pre-quiescence artifact. Product names, one replacement phrase, one digest size, and one generated occurrence count are examples unless the selected owner is explicitly that builder or budget lane.
+
+### Same-File Dirty Preview / Patch Landing Traces
+
+When a trace says a dirty-path preview was truncated, a target file contains foreign same-file hunks, or the agent must land only one hunk from a dirty file, classify the case as `same_file_hunk_isolation_boundary`, not as generic dirty-tree pressure. The reusable rule is exact path currentness before landing: a capped preview is a hint to inspect, not a receipt that the target path is safe.
+
+Extract and route these fields before mutating or closing:
+
+1. target path and intended owned hunk;
+2. preview source, preview limit, and why the preview was insufficient;
+3. exact target-path diff, `HEAD` readback, and whether the foreign hunk is committed, uncommitted, generated, or owner-claimed;
+4. Work Ledger claim check or owner-session evidence for the target path;
+5. landing decision: full-path only when all hunks are owned, patch-mode for hunk-only ownership, split to disjoint owned files, coordinate with owner, or blocked same-file receipt;
+6. validation and re-entry condition for any held hunk.
+
+Do not promote the named file, constant, replacement token, hunk count, or preview limit into doctrine. The durable invariant is that hunk ownership is proven by exact path diff/readback and landed through the matching scoped-commit mode.
 
 ### Review-To-Executor Launch-Blocker Traces
 

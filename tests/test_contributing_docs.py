@@ -9,12 +9,12 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     text = (MICROCOSM_ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
 
-    assert "repository-local `.venv`" in text
-    assert "[Public Repo Map](README.md#public-repo-map)" in text
-    assert "[Component Map](README.md#component-map)" in text
+    assert "checkout-keyed temporary venv" in text
+    assert "[Public Repo Map](README.md#choose-a-route)" in text
+    assert "[Component Map](README.md#choose-a-route)" in text
     assert "contributor routing layer" in text
     assert "validation lanes after that route" in text
-    assert text.index("[Public Repo Map](README.md#public-repo-map)") < text.index(
+    assert text.index("[Public Repo Map](README.md#choose-a-route)") < text.index(
         "The smoke target is the no-install public sanity check."
     )
     assert "`.microcosm/` route state through `tour --card`" in text
@@ -23,8 +23,8 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert "workingness: clear" in text
     assert "served status: pass" in text
     assert "make install" in text
-    assert ".venv/bin/python -m pip install -e '.[test]'" in text
-    assert ".venv/bin/plectis hello ." in text
+    assert "VENV=/tmp/plectis-dev-venv make install" in text
+    assert "/tmp/plectis-dev-venv/bin/plectis hello ." in text
     assert "pytest basetemp, Python bytecode" in text
     assert "per-run folders inside" in text
     assert "`$(TMPDIR)/microcosm-substrate-test-tmp`" in text
@@ -34,9 +34,12 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert "make clean` removes the shared" in text
     assert "scratch root stays outside" in text
     assert "the checkout so tests" in text
+    assert "disables pytest's cache provider" in text
+    assert "direct pytest does not create `.pytest_cache`" in text
     assert "run separate pytest subsets at the same time" in text
     assert "unique `--basetemp` to each process" in text
-    assert "parallel direct invocations can race" in text
+    assert "Parallel direct invocations can still race" in text
+    assert ".microcosm/test-tmp/pytest" not in text
     source_only_section = text.split(
         "If editable install is not available",
         1,
@@ -74,8 +77,9 @@ def test_contributing_direct_validation_names_test_extra_prerequisite() -> None:
     assert "`domain_specialist` / `domain-specialist` is the\nspecialty" in text
     assert "generated organ specialty index" in " ".join(text.split())
     assert (
-        "PYTHONPATH=src .venv/bin/python -m pytest tests/test_public_entry_docs.py "
-        "tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py"
+        "PYTHONPATH=src /tmp/plectis-dev-venv/bin/python -m pytest "
+        "tests/test_public_entry_docs.py tests/test_secret_exclusion_scan.py "
+        "tests/test_private_state_scan.py"
     ) in text
     assert "python3 -m pip install -e '.[test]'" not in text
     assert (

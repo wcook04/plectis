@@ -49,7 +49,7 @@
       "path": "source_modules/ai_workflow/system/lib/kernel/commands/apply.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "system/lib/kernel/commands/apply.py",
         "substitution": "public_safe_stub"
       },
@@ -61,7 +61,7 @@
       "path": "source_modules/ai_workflow/tools/meta/observability/exogenous_nav_ladder_grader.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "tools/meta/observability/exogenous_nav_ladder_grader.py",
         "substitution": "public_safe_stub"
       },
@@ -97,7 +97,7 @@
       "path": "source_modules/ai_workflow/tools/meta/observability/frontend_nav_graph.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "tools/meta/observability/frontend_nav_graph.py",
         "substitution": "public_safe_stub"
       },
@@ -109,7 +109,7 @@
       "path": "source_modules/ai_workflow/tools/meta/observability/session_analyzer.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "tools/meta/observability/session_analyzer.py",
         "substitution": "public_safe_stub"
       },
@@ -121,7 +121,7 @@
       "path": "source_modules/ai_workflow/tools/meta/dissemination/demo_take_story_package.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "tools/meta/dissemination/demo_take_story_package.py",
         "substitution": "public_safe_stub"
       },
@@ -145,7 +145,7 @@
       "rewrite_recipe": "Preserve portability gate boundary-policy, latest-result, and status computation semantics while replacing private operator identity and raw-seed family path detector literals with public placeholder sentinels.",
       "source_import_class": "source_faithful_public_refactor",
       "source_ref": "tools/meta/dissemination/portability_gate.py",
-      "source_sha256": "4be885aa7ddc5a30b0e116cc935af02d83be3bf0d94e95de78f8a839439e884d",
+      "source_sha256": "a06611f873ee81336be95aa8f6b273d93bb16b92152809de42719be8cef5a518",
       "source_to_target_relation": "source_faithful_public_refactor_private_identity_literal_removed",
       "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/portability_gate.py",
       "target_sha256": "e6db41595e892402a84713f22acef1f7a670ec6c1ff9794266f4831bdb703fef"
@@ -185,7 +185,7 @@
       "rewrite_recipe": "Preserve projection secret scan credential/path/provider detector classes while replacing private operator identity and raw-seed family path detector literals with public placeholder sentinels.",
       "source_import_class": "source_faithful_public_refactor",
       "source_ref": "tools/meta/dissemination/projection_secret_scan.py",
-      "source_sha256": "17e979b41b02090d404af72ca0295d46bafb9155d03e5c0a5ca35b3805bee8c2",
+      "source_sha256": "04eb60fb124473b41f7843d50e1b83f18fcb26667cabe43046616503710f3871",
       "source_to_target_relation": "source_faithful_public_refactor_private_identity_literal_removed",
       "target_ref": "microcosm-substrate/examples/batch11_saturation_engines_capsule/exported_batch11_saturation_engines_capsule_bundle/source_modules/ai_workflow/tools/meta/dissemination/projection_secret_scan.py",
       "target_sha256": "0344e7c11714afad654ad908a3c9a9f4e80f5527574a2da63ba8ea2241424548"

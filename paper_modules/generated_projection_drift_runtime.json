@@ -1,0 +1,297 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "A clean result means the selected owner's declared no-write check passed and its required artifacts were present for the supplied root over bounded public fixtures. It is command-receipt-style evidence, not a semantic proof, not a file repairer, not full-registry validation, and not release/publication/source-mutation authority.",
+    "card": "Generated Projection Drift Runtime surfaces a public-safe drift gate over generated build artifacts. Each owner row pairs an artifact, its source authorities, and a no-write check command. The gate SHA-256-fingerprints source and artifact files, consults a prior-clean source-hash skip cache, requires declared artifacts to be present, and runs the owner check, marking an owner clean only on a zero return with present artifacts. Four bounded public fixtures exercise it: a passing no-write check, a genuine source-hash cache hit (the check is skipped), a planted artifact byte rejected as check_command_failed, and a missing required artifact rejected as artifact_missing. It flags drift; it does not repair files, prove content-diff equivalence for every macro builder, validate the whole registry, or authorize release.",
+    "one_line": "An owner-routed gate that fingerprints generated artifacts against their sources, uses a prior-clean skip cache, and runs each owner's no-write check to flag projection drift by recomputation."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.generated_projection_drift_runtime",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[101:paper_module.generated_projection_drift_runtime]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "A clean result means the selected owner's declared no-write check passed and its required artifacts were present for the supplied root over bounded public fixtures. It is command-receipt-style evidence, not a semantic proof, not a file repairer, not full-registry validation, and not release/publication/source-mutation authority.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.generated_projection_drift_runtime",
+        "status": "linked_from_capsule_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/generated_projection_drift_runtime.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.generated_projection_drift_runtime.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/generated_projection_drift_runtime.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/generated_projection_drift_runtime.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/generated_projection_drift_runtime.py",
+          "resolution": "resolved",
+          "role": "Surfaces the engine-room capsule as a first-class organ with the standard contract (bounded fixture cases, planted negatives, body-free receipts, result_card, CLI). _evaluate_case materialises each fixture's declared file tree into a per-case TemporaryDirectory scratch and calls the REAL capsule evaluate_case (no re-implementation, no baked answers); build_result returns status==pass only when both positives observe clean, both negatives are recomputed to drift carrying their expected status_reason marker, and the expected negative case ids are present.",
+          "symbols": [
+            "build_result",
+            "_evaluate_case",
+            "run",
+            "run_generated_projection_drift_runtime_bundle",
+            "EXPECTED_NEGATIVE_CASES"
+          ]
+        },
+        {
+          "path": "src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+          "resolution": "resolved",
+          "role": "Public-safe owner-routed generated-projection drift gate. Models each generated artifact as an owner row (artifact patterns, source authorities, a no-write check command); per owner it SHA-256-fingerprints source and artifact files, consults a prior-clean-receipt source-hash skip cache, enforces required-artifact presence and optional fact-authority lineage, then runs the owner's declared no-write check command and marks the owner clean only on a zero return with present artifacts. It is the drift authority, not a semantic content-diff proof, a repairer, or a release authority.",
+          "symbols": [
+            "owner-routed drift gate",
+            "uses prior clean receipts as a bounded skip cache"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "A clean result means the selected owner's declared no-write check passed and its required artifacts were present for the supplied root over bounded public fixtures. It is command-receipt-style evidence, not a semantic proof, not a file repairer, not full-registry validation, and not release/publication/source-mutation authority.",
+        "card": "Generated Projection Drift Runtime surfaces a public-safe drift gate over generated build artifacts. Each owner row pairs an artifact, its source authorities, and a no-write check command. The gate SHA-256-fingerprints source and artifact files, consults a prior-clean source-hash skip cache, requires declared artifacts to be present, and runs the owner check, marking an owner clean only on a zero return with present artifacts. Four bounded public fixtures exercise it: a passing no-write check, a genuine source-hash cache hit (the check is skipped), a planted artifact byte rejected as check_command_failed, and a missing required artifact rejected as artifact_missing. It flags drift; it does not repair files, prove content-diff equivalence for every macro builder, validate the whole registry, or authorize release.",
+        "one_line": "An owner-routed gate that fingerprints generated artifacts against their sources, uses a prior-clean skip cache, and runs each owner's no-write check to flag projection drift by recomputation."
+      },
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.generated_projection_drift_runtime",
+          "status": "linked_from_capsule_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/generated_projection_drift_runtime.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.generated_projection_drift_runtime.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.generated_projection_drift_runtime",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/generated_projection_drift_runtime.md",
+      "principle_refs": [
+        "P-3"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[101:paper_module.generated_projection_drift_runtime]",
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "generated_projection_drift_runtime"
+        }
+      ],
+      "title": "Generated Projection Drift Runtime"
+    },
+    "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-2"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/generated_projection_drift_runtime.py",
+        "resolution": "resolved",
+        "role": "Surfaces the engine-room capsule as a first-class organ with the standard contract (bounded fixture cases, planted negatives, body-free receipts, result_card, CLI). _evaluate_case materialises each fixture's declared file tree into a per-case TemporaryDirectory scratch and calls the REAL capsule evaluate_case (no re-implementation, no baked answers); build_result returns status==pass only when both positives observe clean, both negatives are recomputed to drift carrying their expected status_reason marker, and the expected negative case ids are present.",
+        "symbols": [
+          "build_result",
+          "_evaluate_case",
+          "run",
+          "run_generated_projection_drift_runtime_bundle",
+          "EXPECTED_NEGATIVE_CASES"
+        ]
+      },
+      {
+        "path": "src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+        "resolution": "resolved",
+        "role": "Public-safe owner-routed generated-projection drift gate. Models each generated artifact as an owner row (artifact patterns, source authorities, a no-write check command); per owner it SHA-256-fingerprints source and artifact files, consults a prior-clean-receipt source-hash skip cache, enforces required-artifact presence and optional fact-authority lineage, then runs the owner's declared no-write check command and marks the owner clean only on a zero return with present artifacts. It is the drift authority, not a semantic content-diff proof, a repairer, or a release authority.",
+        "symbols": [
+          "owner-routed drift gate",
+          "uses prior clean receipts as a bounded skip cache"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.import_projection_and_drift_control_bundle"
+    ],
+    "depends_on": [],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[101:paper_module.generated_projection_drift_runtime].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "generated_projection_drift_runtime",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[101:paper_module.generated_projection_drift_runtime].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.import_projection_and_drift_control_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[101:paper_module.generated_projection_drift_runtime].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[101:paper_module.generated_projection_drift_runtime].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-2",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[101:paper_module.generated_projection_drift_runtime].code_loci[0]",
+          "summary": "Surfaces the engine-room capsule as a first-class organ with the standard contract (bounded fixture cases, planted negatives, body-free receipts, result_card, CLI). _evaluate_case materialises each fixture's declared file tree into a per-case TemporaryDirectory scratch and calls the REAL capsule evaluate_case (no re-implementation, no baked answers); build_result returns status==pass only when both positives observe clean, both negatives are recomputed to drift carrying their expected status_reason marker, and the expected negative case ids are present."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/generated_projection_drift_runtime.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[101:paper_module.generated_projection_drift_runtime].code_loci[1]",
+          "summary": "Public-safe owner-routed generated-projection drift gate. Models each generated artifact as an owner row (artifact patterns, source authorities, a no-write check command); per owner it SHA-256-fingerprints source and artifact files, consults a prior-clean-receipt source-hash skip cache, enforces required-artifact presence and optional fact-authority lineage, then runs the owner's declared no-write check command and marks the owner clean only on a zero return with present artifacts. It is the drift authority, not a semantic content-diff proof, a repairer, or a release authority."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/generated_projection_drift_runtime.md",
+    "principle_refs": [
+      "P-3"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[101:paper_module.generated_projection_drift_runtime]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "generated_projection_drift_runtime"
+      }
+    ],
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Paper-module source row does not name sibling/dependency module ids.",
+        "relation_id": "paper_module.depends_on.paper_module",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ]
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[101:paper_module.generated_projection_drift_runtime]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/generated_projection_drift_runtime.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/generated_projection_drift_runtime.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "An owner-routed gate that fingerprints generated artifacts against their sources, uses a prior-clean skip cache, and runs each owner's no-write check to flag projection drift by recomputation.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "generated_projection_drift_runtime"
+    }
+  ],
+  "title": "Generated Projection Drift Runtime",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

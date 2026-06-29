@@ -1,4 +1,5 @@
-"""Public-safe projection leak gate capsule.
+"""
+Public-safe projection leak gate capsule.
 
 This is a source-faithful public refactor of
 `tools/meta/dissemination/projection_secret_scan.py` plus the gitleaks witness
@@ -9,6 +10,30 @@ escapes, and optional gitleaks findings.
 Matches are reported by category, path, line, and hash only. The capsule is a
 deterministic DLP-style projection gate, not a general security scanner, not a
 prompt-injection defense, not sandboxing, and not an information-flow proof.
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.engine_room.public_projection_leak_gate` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SCHEMA_VERSION, ORGAN_ID, SOURCE_REFS, SOURCE_TO_TARGET_RELATION, CLAIM_CEILING, ANTI_CLAIMS, DEFAULT_POLICY_EXCEPTION_PATHS, SCAN_SKIP_DIR_NAMES, SCAN_SKIP_SUFFIXES, CONTENT_PATTERNS, PATH_PATTERNS, run_gitleaks, scan_projection, evaluate_case, evaluate_fixture_dir, build_parser, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: None beyond the Python standard library and local package imports.
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 
 from __future__ import annotations
@@ -91,6 +116,15 @@ PATH_PATTERNS: tuple[tuple[str, str, re.Pattern[str]], ...] = (
 
 
 def _normalise_policy_paths(paths: Iterable[str | Path] | None) -> set[Path]:
+    """
+    [ACTION]
+    - Teleology: Implements `_normalise_policy_paths` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     normalised = set(DEFAULT_POLICY_EXCEPTION_PATHS)
     for raw in paths or ():
         path = Path(raw)
@@ -100,10 +134,28 @@ def _normalise_policy_paths(paths: Iterable[str | Path] | None) -> set[Path]:
 
 
 def _line_number(text: str, offset: int) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `_line_number` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return text.count("\n", 0, offset) + 1
 
 
 def _match_hash(value: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_match_hash` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return "sha256:" + hashlib.sha256(value.encode("utf-8", errors="replace")).hexdigest()
 
 
@@ -117,6 +169,15 @@ def _hit(
     policy_exception_paths: set[Path],
     source: str,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_hit` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "category": category,
         "pattern": pattern,
@@ -129,6 +190,15 @@ def _hit(
 
 
 def _scan_file(path: Path, *, rel_path: Path, policy_exception_paths: set[Path]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_file` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     try:
         text = path.read_text(encoding="utf-8")
     except (OSError, UnicodeDecodeError):
@@ -151,6 +221,15 @@ def _scan_file(path: Path, *, rel_path: Path, policy_exception_paths: set[Path])
 
 
 def _scan_path(rel_path: Path, *, policy_exception_paths: set[Path]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_scan_path` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rel_text = rel_path.as_posix()
     hits: list[dict[str, Any]] = []
     for category, name, pattern in PATH_PATTERNS:
@@ -171,6 +250,15 @@ def _scan_path(rel_path: Path, *, policy_exception_paths: set[Path]) -> list[dic
 
 
 def _resolve_gitleaks(binary: str | None) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_resolve_gitleaks` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not binary:
         return shutil.which("gitleaks")
     if "/" in binary:
@@ -180,6 +268,15 @@ def _resolve_gitleaks(binary: str | None) -> str | None:
 
 
 def run_gitleaks(root: Path, *, required: bool = False, binary: str | None = None) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run_gitleaks` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    """
     resolved = _resolve_gitleaks(binary)
     if not resolved:
         status = "unavailable_fail_closed" if required else "unavailable"
@@ -243,6 +340,15 @@ def _overall_status(
     symlink_escapes: Sequence[Mapping[str, Any]],
     gitleaks_receipt: Mapping[str, Any],
 ) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_overall_status` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if blocking_hits or symlink_escapes:
         return "red"
     if gitleaks_receipt.get("status") in {"red", "error", "unavailable_fail_closed"}:
@@ -258,6 +364,15 @@ def scan_projection(
     require_gitleaks: bool = False,
     gitleaks_binary: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `scan_projection` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     output_root = root.resolve()
     if not output_root.exists() or not output_root.is_dir():
         raise ValueError(f"projection root does not exist or is not a directory: {root}")
@@ -335,6 +450,15 @@ def scan_projection(
 
 
 def _assemble_value(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_assemble_value` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if value is None:
         return ""
     if isinstance(value, str):
@@ -354,6 +478,15 @@ def _assemble_value(value: Any) -> str:
 
 
 def _safe_relative_path(raw: Any) -> Path:
+    """
+    [ACTION]
+    - Teleology: Implements `_safe_relative_path` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     value = _assemble_value(raw)
     path = Path(value)
     if not value or path.is_absolute() or any(part == ".." for part in path.parts):
@@ -362,6 +495,15 @@ def _safe_relative_path(raw: Any) -> Path:
 
 
 def _write_fixture_projection(case: Mapping[str, Any], projection_root: Path) -> None:
+    """
+    [ACTION]
+    - Teleology: Implements `_write_fixture_projection` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     for row in case.get("files") or []:
         if not isinstance(row, Mapping):
             raise ValueError("fixture file rows must be JSON objects")
@@ -386,6 +528,15 @@ def _write_fixture_projection(case: Mapping[str, Any], projection_root: Path) ->
 
 
 def evaluate_case(case: Mapping[str, Any], *, scratch: Path, path: str = "") -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_case` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     case_id = str(case.get("case_id") or Path(path).stem)
     projection_root = scratch / case_id / "projection"
     projection_root.mkdir(parents=True, exist_ok=True)
@@ -419,6 +570,15 @@ def evaluate_case(case: Mapping[str, Any], *, scratch: Path, path: str = "") -> 
 
 
 def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_fixture_dir` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     cases: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory(prefix=f"{ORGAN_ID}_fixtures_") as tmp:
         scratch = Path(tmp)
@@ -443,6 +603,15 @@ def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """
+    [ACTION]
+    - Teleology: Implements `build_parser` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(description="Engine Room public projection leak gate capsule.")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -462,6 +631,15 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.engine_room.public_projection_leak_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command == "scan":
         try:

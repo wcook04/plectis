@@ -1,4 +1,5 @@
-"""Public-safe generated projection drift gate capsule.
+"""
+Public-safe generated projection drift gate capsule.
 
 This is a source-faithful public refactor of
 `tools/meta/control/projection_drift.py` and
@@ -11,6 +12,30 @@ The capsule is an owner-routed drift gate, not a semantic proof that every
 builder in the macro registry is content-diff based. A clean result means the
 selected owner's declared no-write check passed and required artifacts were
 present for the supplied root.
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.engine_room.generated_projection_drift_gate` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SCHEMA_VERSION, ORGAN_ID, SOURCE_REFS, SOURCE_TO_TARGET_RELATION, CLAIM_CEILING, ANTI_CLAIMS, DEFAULT_COMMAND_TIMEOUT_SECONDS, FACT_AUTHORITY_LINEAGE_REQUIRED_FIELDS, ALLOWED_FACT_AUTHORITY_TREATMENTS, ProjectionOwner, projection_pattern_matches_path, owner_matches_path, select_projection_owners, check_projection_drift, owner_from_mapping, owners_from_json, evaluate_case, evaluate_fixture_dir, build_parser, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: None beyond the Python standard library and local package imports.
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 
 from __future__ import annotations
@@ -65,6 +90,15 @@ ALLOWED_FACT_AUTHORITY_TREATMENTS = (
 
 @dataclass(frozen=True)
 class ProjectionOwner:
+    """
+    [ROLE]
+    - Teleology: Groups `ProjectionOwner` data or behavior for `microcosm_core.engine_room.generated_projection_drift_gate` behind a documented class contract.
+    - Ownership: Owned by `microcosm_core.engine_room.generated_projection_drift_gate`; callers should construct or mutate instances only through declared fields, constructors, or methods.
+    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
+    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    """
     owner_id: str
     description: str
     artifacts: tuple[str, ...]
@@ -78,23 +112,68 @@ class ProjectionOwner:
     require_fact_authority_lineage: bool = False
 
     def to_dict(self) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Implements `ProjectionOwner.to_dict` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         return asdict(self)
 
 
 def _utc_now() -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_utc_now` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat()
 
 
 def _sha256_bytes(data: bytes) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_sha256_bytes` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return "sha256:" + hashlib.sha256(data).hexdigest()
 
 
 def _sha256_json(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_sha256_json` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     data = json.dumps(value, ensure_ascii=False, separators=(",", ":"), sort_keys=True).encode("utf-8")
     return _sha256_bytes(data)
 
 
 def _normalise_path_token(path: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_normalise_path_token` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     token = str(path or "").replace("\\", "/").strip("/")
     while token.startswith("./"):
         token = token[2:]
@@ -102,11 +181,29 @@ def _normalise_path_token(path: str) -> str:
 
 
 def _has_glob_token(pattern: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_has_glob_token` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return any(token in pattern for token in ("*", "?", "["))
 
 
 def projection_pattern_matches_path(pattern: str, path: str) -> bool:
-    """Return whether a registry pattern covers a repo-relative path."""
+    """
+    [ACTION]
+    Return whether a registry pattern covers a repo-relative path.
+    - Teleology: Implements `projection_pattern_matches_path` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
 
     normalized_pattern = _normalise_path_token(pattern)
     normalized_path = _normalise_path_token(path)
@@ -122,6 +219,15 @@ def projection_pattern_matches_path(pattern: str, path: str) -> bool:
 
 
 def owner_matches_path(owner: ProjectionOwner, path: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `owner_matches_path` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     patterns = tuple(owner.artifacts) + tuple(owner.source_authorities)
     return any(projection_pattern_matches_path(pattern, path) for pattern in patterns)
 
@@ -132,6 +238,15 @@ def select_projection_owners(
     owner_ids: Iterable[str] | None = None,
     changed_paths: Iterable[str] | None = None,
 ) -> tuple[list[ProjectionOwner], dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `select_projection_owners` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     requested = {str(owner_id).strip() for owner_id in (owner_ids or []) if str(owner_id).strip()}
     paths = [str(path).strip() for path in (changed_paths or []) if str(path).strip()]
     rows = [owner for owner in owners if not requested or owner.owner_id in requested]
@@ -150,6 +265,15 @@ def select_projection_owners(
 
 
 def _relative_to_root(root: Path, path: Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_relative_to_root` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     try:
         return path.resolve().relative_to(root.resolve()).as_posix()
     except ValueError:
@@ -157,6 +281,15 @@ def _relative_to_root(root: Path, path: Path) -> str:
 
 
 def _files_for_pattern(root: Path, pattern: str) -> tuple[list[Path], list[str]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_files_for_pattern` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     token = _normalise_path_token(pattern)
     if not token:
         return [], [pattern]
@@ -176,6 +309,15 @@ def _files_for_pattern(root: Path, pattern: str) -> tuple[list[Path], list[str]]
 
 
 def _fingerprint_patterns(root: Path, patterns: Sequence[str]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_fingerprint_patterns` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     entries: list[dict[str, str]] = []
     missing: list[str] = []
     seen_paths: set[str] = set()
@@ -209,6 +351,15 @@ def _fingerprint_patterns(root: Path, patterns: Sequence[str]) -> dict[str, Any]
 
 
 def _owner_fingerprint(root: Path, owner: ProjectionOwner) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_owner_fingerprint` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     source = _fingerprint_patterns(root, owner.source_authorities)
     artifacts = _fingerprint_patterns(root, owner.artifacts)
     return {
@@ -226,16 +377,43 @@ def _owner_fingerprint(root: Path, owner: ProjectionOwner) -> dict[str, Any]:
 
 
 def _nonempty_string(value: Any) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_nonempty_string` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return isinstance(value, str) and bool(value.strip())
 
 
 def _string_list(value: Any) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_string_list` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(value, Sequence) or isinstance(value, (str, bytes, bytearray)):
         return []
     return [str(item).strip() for item in value if str(item).strip()]
 
 
 def _fact_authority_lineage_receipt(owner: ProjectionOwner) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_fact_authority_lineage_receipt` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     lineage = owner.fact_authority_lineage
     required = bool(owner.require_fact_authority_lineage)
     if lineage is None:
@@ -288,6 +466,15 @@ def _source_hash_cache_hit(
     fingerprint: Mapping[str, Any],
     source_hash_cache: Mapping[str, Any],
 ) -> Mapping[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_hash_cache_hit` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if int(fingerprint.get("artifact_missing_count") or 0):
         return None
     owners = source_hash_cache.get("owners") if isinstance(source_hash_cache, Mapping) else None
@@ -308,6 +495,15 @@ def _source_hash_cache_hit(
 
 
 def _expand_command(command: Sequence[str], root: Path) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_expand_command` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     replacements = {
         "{python}": sys.executable,
         "{root}": str(root),
@@ -331,6 +527,15 @@ def _command_receipt(
     stderr: str = "",
     source: str = "subprocess",
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_command_receipt` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    """
     return {
         "command": list(command),
         "started_at": started_at,
@@ -345,6 +550,15 @@ def _command_receipt(
 
 
 def _run_builtin_command(command: Sequence[str], root: Path) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_run_builtin_command` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     if not command:
         return None
     started_at = _utc_now()
@@ -399,6 +613,15 @@ def _run_command(
     *,
     timeout_seconds: int = DEFAULT_COMMAND_TIMEOUT_SECONDS,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_run_command` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    """
     if not command:
         now = _utc_now()
         return _command_receipt(command=(), returncode=2, started_at=now, ended_at=now, stderr="missing command\n")
@@ -447,6 +670,15 @@ def _run_command(
 
 
 def _cached_clean_result(owner: ProjectionOwner, fingerprint: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_cached_clean_result` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     now = _utc_now()
     return _command_receipt(
         command=owner.check_command,
@@ -469,6 +701,15 @@ def _check_owner(
     use_source_hash_cache: bool = True,
     timeout_seconds: int = DEFAULT_COMMAND_TIMEOUT_SECONDS,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_check_owner` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     fingerprint = _owner_fingerprint(root, owner)
     lineage_receipt = _fact_authority_lineage_receipt(owner)
     cache_row = (
@@ -523,6 +764,15 @@ def check_projection_drift(
     use_source_hash_cache: bool = True,
     timeout_seconds: int = DEFAULT_COMMAND_TIMEOUT_SECONDS,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `check_projection_drift` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     selected, selection = select_projection_owners(
         owners,
         owner_ids=owner_ids,
@@ -576,7 +826,25 @@ def check_projection_drift(
 
 
 def owner_from_mapping(row: Mapping[str, Any]) -> ProjectionOwner:
+    """
+    [ACTION]
+    - Teleology: Implements `owner_from_mapping` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     def strings(key: str) -> tuple[str, ...]:
+        """
+        [ACTION]
+        - Teleology: Implements `owner_from_mapping.strings` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         value = row.get(key)
         if isinstance(value, str):
             return (value,)
@@ -605,6 +873,15 @@ def owner_from_mapping(row: Mapping[str, Any]) -> ProjectionOwner:
 
 
 def owners_from_json(path: Path) -> list[ProjectionOwner]:
+    """
+    [ACTION]
+    - Teleology: Implements `owners_from_json` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     payload = json.loads(path.read_text(encoding="utf-8"))
     rows = payload.get("owners") if isinstance(payload, Mapping) else None
     if not isinstance(rows, list):
@@ -613,6 +890,15 @@ def owners_from_json(path: Path) -> list[ProjectionOwner]:
 
 
 def _assemble_value(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_assemble_value` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if value is None:
         return ""
     if isinstance(value, str):
@@ -629,6 +915,15 @@ def _assemble_value(value: Any) -> str:
 
 
 def _safe_relative_path(raw: Any) -> Path:
+    """
+    [ACTION]
+    - Teleology: Implements `_safe_relative_path` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     value = _assemble_value(raw)
     path = Path(value)
     if not value or path.is_absolute() or any(part == ".." for part in path.parts):
@@ -637,6 +932,15 @@ def _safe_relative_path(raw: Any) -> Path:
 
 
 def _write_fixture_tree(case: Mapping[str, Any], root: Path) -> None:
+    """
+    [ACTION]
+    - Teleology: Implements `_write_fixture_tree` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     for row in case.get("files") or []:
         if not isinstance(row, Mapping):
             raise ValueError("fixture file rows must be JSON objects")
@@ -648,11 +952,29 @@ def _write_fixture_tree(case: Mapping[str, Any], root: Path) -> None:
 
 
 def _source_hash_cache_from_case(case: Mapping[str, Any]) -> Mapping[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_hash_cache_from_case` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     cache = case.get("source_hash_cache")
     return cache if isinstance(cache, Mapping) else {}
 
 
 def evaluate_case(case: Mapping[str, Any], *, scratch: Path, path: str = "") -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_case` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     case_id = str(case.get("case_id") or Path(path).stem)
     case_root = scratch / case_id / "repo"
     case_root.mkdir(parents=True, exist_ok=True)
@@ -691,6 +1013,15 @@ def evaluate_case(case: Mapping[str, Any], *, scratch: Path, path: str = "") -> 
 
 
 def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_fixture_dir` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     cases: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory(prefix=f"{ORGAN_ID}_fixtures_") as tmp:
         scratch = Path(tmp)
@@ -715,6 +1046,15 @@ def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """
+    [ACTION]
+    - Teleology: Implements `build_parser` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(description="Engine Room generated projection drift gate.")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -735,6 +1075,15 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.engine_room.generated_projection_drift_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command == "check":
         cache: Mapping[str, Any] = {}

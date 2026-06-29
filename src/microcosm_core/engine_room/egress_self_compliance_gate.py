@@ -1,4 +1,5 @@
-"""Public-safe egress self-compliance gate capsule.
+"""
+Public-safe egress self-compliance gate capsule.
 
 This source-faithful public refactor carries the macro egress policy shape from
 `system/lib/egress_compliance.py`: routine permission ceremony is a violation
@@ -8,6 +9,30 @@ violation unless the text also records that the command was actually run.
 
 It is phrase-membership policy, not taint analysis, sandboxing, or prompt
 injection defense.
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.engine_room.egress_self_compliance_gate` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SCHEMA_VERSION, ORGAN_ID, SOURCE_REFS, SOURCE_TO_TARGET_RELATION, CLAIM_CEILING, ANTI_CLAIMS, PERMISSION_GATE_PHRASES, LEGITIMATE_BLOCKER_PHRASES, SELF_ERROR_TRIPWIRE_PHRASES, DURABLE_BINDING_PHRASES, COMMAND_DISPLACEMENT_PHRASES, COMMAND_EXECUTION_RECEIPT_PHRASES, DetectorResult, detect_permission_gate_without_blocker, detect_self_error_without_capture, detect_command_displacement_to_operator, DETECTORS, evaluate_text, evaluate_case, evaluate_fixture_dir, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: None beyond the Python standard library and local package imports.
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 
 from __future__ import annotations
@@ -105,6 +130,15 @@ COMMAND_EXECUTION_RECEIPT_PHRASES = (
 
 @dataclass(frozen=True)
 class DetectorResult:
+    """
+    [ROLE]
+    - Teleology: Groups `DetectorResult` data or behavior for `microcosm_core.engine_room.egress_self_compliance_gate` behind a documented class contract.
+    - Ownership: Owned by `microcosm_core.engine_room.egress_self_compliance_gate`; callers should construct or mutate instances only through declared fields, constructors, or methods.
+    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
+    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    """
     diagnostic_id: str
     violation: bool
     matched_tripwires: tuple[str, ...]
@@ -114,14 +148,41 @@ class DetectorResult:
 
 
 def _body(text: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_body` for `microcosm_core.engine_room.egress_self_compliance_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return str(text or "").lower()
 
 
 def _matches(text: str, phrases: Sequence[str]) -> tuple[str, ...]:
+    """
+    [ACTION]
+    - Teleology: Implements `_matches` for `microcosm_core.engine_room.egress_self_compliance_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return tuple(phrase for phrase in phrases if phrase in text)
 
 
 def detect_permission_gate_without_blocker(text: Any) -> DetectorResult | None:
+    """
+    [ACTION]
+    - Teleology: Implements `detect_permission_gate_without_blocker` for `microcosm_core.engine_room.egress_self_compliance_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     body = _body(text)
     matched_gates = _matches(body, PERMISSION_GATE_PHRASES)
     if not matched_gates:
@@ -142,6 +203,15 @@ def detect_permission_gate_without_blocker(text: Any) -> DetectorResult | None:
 
 
 def detect_self_error_without_capture(text: Any) -> DetectorResult | None:
+    """
+    [ACTION]
+    - Teleology: Implements `detect_self_error_without_capture` for `microcosm_core.engine_room.egress_self_compliance_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     body = _body(text)
     matched_tripwires = _matches(body, SELF_ERROR_TRIPWIRE_PHRASES)
     if not matched_tripwires:
@@ -162,6 +232,15 @@ def detect_self_error_without_capture(text: Any) -> DetectorResult | None:
 
 
 def detect_command_displacement_to_operator(text: Any) -> DetectorResult | None:
+    """
+    [ACTION]
+    - Teleology: Implements `detect_command_displacement_to_operator` for `microcosm_core.engine_room.egress_self_compliance_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     body = _body(text)
     matched_tripwires = _matches(body, COMMAND_DISPLACEMENT_PHRASES)
     if not matched_tripwires:
@@ -189,6 +268,15 @@ DETECTORS = (
 
 
 def evaluate_text(text: Any) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_text` for `microcosm_core.engine_room.egress_self_compliance_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows = [row for detector in DETECTORS if (row := detector(text)) is not None]
     return {
         "schema_version": SCHEMA_VERSION,
@@ -204,6 +292,15 @@ def evaluate_text(text: Any) -> dict[str, Any]:
 
 
 def evaluate_case(case: Mapping[str, Any], *, path: str = "") -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_case` for `microcosm_core.engine_room.egress_self_compliance_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     expected_status = str(case.get("expected_status") or "").strip().lower()
     receipt = evaluate_text(case.get("text") or "")
     expectation_met = bool(expected_status) and receipt["status"] == expected_status
@@ -218,6 +315,15 @@ def evaluate_case(case: Mapping[str, Any], *, path: str = "") -> dict[str, Any]:
 
 
 def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_fixture_dir` for `microcosm_core.engine_room.egress_self_compliance_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     cases: list[dict[str, Any]] = []
     for path in sorted(input_dir.glob("*.json")):
         payload = json.loads(path.read_text(encoding="utf-8"))
@@ -239,6 +345,15 @@ def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.engine_room.egress_self_compliance_gate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
 

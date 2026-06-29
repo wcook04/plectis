@@ -13017,6 +13017,1135 @@
       "to_type": "doctrine_ref"
     },
     {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_result.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_board.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/semantic_singleflight_dedup_runtime/semantic_singleflight_dedup_runtime_validation_receipt.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "asserts_claim",
+      "to": "claim::semantic_singleflight_dedup_runtime",
+      "to_type": "claim"
+    },
+    {
+      "from": "claim::semantic_singleflight_dedup_runtime",
+      "from_type": "claim",
+      "kind": "validated_by",
+      "to": "python -m microcosm_core.organs.semantic_singleflight_dedup_runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+      "to_type": "validator_command"
+    },
+    {
+      "from": "claim::semantic_singleflight_dedup_runtime",
+      "from_type": "claim",
+      "kind": "proven_by",
+      "to": "receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "member_of_family",
+      "to": "work_landing_and_continuity",
+      "to_type": "family"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "mission_transaction_work_spine",
+      "to_type": "organ"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "durable_agent_work_landing_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "concurrency_mission_control",
+      "to_type": "organ"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "engine_room_demo",
+      "to_type": "organ"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "axiom",
+      "to": "AX-1",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "axiom",
+      "to": "AX-9",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-1",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-2",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-3",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-9",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "concept",
+      "to": "concept.work_landing_and_continuity_control_bundle",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "semantic_singleflight_dedup_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "paper_module",
+      "to": "core/paper_module_capsules.json#paper_module.semantic_singleflight_dedup_runtime",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_result.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_board.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_validation_receipt.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "asserts_claim",
+      "to": "claim::finite_erdos_denominator_certificate_strike",
+      "to_type": "claim"
+    },
+    {
+      "from": "claim::finite_erdos_denominator_certificate_strike",
+      "from_type": "claim",
+      "kind": "validated_by",
+      "to": "python -m microcosm_core.organs.finite_erdos_denominator_certificate_strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+      "to_type": "validator_command"
+    },
+    {
+      "from": "claim::finite_erdos_denominator_certificate_strike",
+      "from_type": "claim",
+      "kind": "proven_by",
+      "to": "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "member_of_family",
+      "to": "formal_math_and_proof",
+      "to_type": "family"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "verifier_lab_kernel",
+      "to_type": "organ"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "axiom",
+      "to": "AX-2",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-3",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "concept",
+      "to": "concept.formal_math_and_proof_witness_bundle",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "finite_erdos_denominator_certificate_strike",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "paper_module",
+      "to": "core/paper_module_capsules.json#paper_module.finite_erdos_denominator_certificate_strike",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_result.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_board.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/bridge_campaign_dag_validation/bridge_campaign_dag_validation_validation_receipt.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "asserts_claim",
+      "to": "claim::bridge_campaign_dag_validation",
+      "to_type": "claim"
+    },
+    {
+      "from": "claim::bridge_campaign_dag_validation",
+      "from_type": "claim",
+      "kind": "validated_by",
+      "to": "python -m microcosm_core.organs.bridge_campaign_dag_validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+      "to_type": "validator_command"
+    },
+    {
+      "from": "claim::bridge_campaign_dag_validation",
+      "from_type": "claim",
+      "kind": "proven_by",
+      "to": "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "member_of_family",
+      "to": "formal_math_and_proof",
+      "to_type": "family"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "verifier_lab_kernel",
+      "to_type": "organ"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "axiom",
+      "to": "AX-2",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-3",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "concept",
+      "to": "concept.formal_math_and_proof_witness_bundle",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "bridge_campaign_dag_validation",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "paper_module",
+      "to": "core/paper_module_capsules.json#paper_module.bridge_campaign_dag_validation",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_result.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_board.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/metabolism_queue_reconciliation/metabolism_queue_reconciliation_validation_receipt.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "asserts_claim",
+      "to": "claim::metabolism_queue_reconciliation",
+      "to_type": "claim"
+    },
+    {
+      "from": "claim::metabolism_queue_reconciliation",
+      "from_type": "claim",
+      "kind": "validated_by",
+      "to": "python -m microcosm_core.organs.metabolism_queue_reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+      "to_type": "validator_command"
+    },
+    {
+      "from": "claim::metabolism_queue_reconciliation",
+      "from_type": "claim",
+      "kind": "proven_by",
+      "to": "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "member_of_family",
+      "to": "formal_math_and_proof",
+      "to_type": "family"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "verifier_lab_kernel",
+      "to_type": "organ"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "axiom",
+      "to": "AX-2",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-3",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "concept",
+      "to": "concept.formal_math_and_proof_witness_bundle",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "metabolism_queue_reconciliation",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "paper_module",
+      "to": "core/paper_module_capsules.json#paper_module.metabolism_queue_reconciliation",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_result.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_board.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/derived_fact_provider_runtime/derived_fact_provider_runtime_validation_receipt.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "asserts_claim",
+      "to": "claim::derived_fact_provider_runtime",
+      "to_type": "claim"
+    },
+    {
+      "from": "claim::derived_fact_provider_runtime",
+      "from_type": "claim",
+      "kind": "validated_by",
+      "to": "python -m microcosm_core.organs.derived_fact_provider_runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+      "to_type": "validator_command"
+    },
+    {
+      "from": "claim::derived_fact_provider_runtime",
+      "from_type": "claim",
+      "kind": "proven_by",
+      "to": "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "member_of_family",
+      "to": "formal_math_and_proof",
+      "to_type": "family"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "verifier_lab_kernel",
+      "to_type": "organ"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "axiom",
+      "to": "AX-2",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-3",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "concept",
+      "to": "concept.formal_math_and_proof_witness_bundle",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "derived_fact_provider_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "paper_module",
+      "to": "core/paper_module_capsules.json#paper_module.derived_fact_provider_runtime",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_result.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_board.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/navigation_fitness_benchmark/navigation_fitness_benchmark_validation_receipt.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "asserts_claim",
+      "to": "claim::navigation_fitness_benchmark",
+      "to_type": "claim"
+    },
+    {
+      "from": "claim::navigation_fitness_benchmark",
+      "from_type": "claim",
+      "kind": "validated_by",
+      "to": "python -m microcosm_core.organs.navigation_fitness_benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+      "to_type": "validator_command"
+    },
+    {
+      "from": "claim::navigation_fitness_benchmark",
+      "from_type": "claim",
+      "kind": "proven_by",
+      "to": "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "member_of_family",
+      "to": "formal_math_and_proof",
+      "to_type": "family"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "verifier_lab_kernel",
+      "to_type": "organ"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "axiom",
+      "to": "AX-2",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-3",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "concept",
+      "to": "concept.formal_math_and_proof_witness_bundle",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "navigation_fitness_benchmark",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "paper_module",
+      "to": "core/paper_module_capsules.json#paper_module.navigation_fitness_benchmark",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_result.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_board.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/annex_knowledge_routing/annex_knowledge_routing_validation_receipt.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "asserts_claim",
+      "to": "claim::annex_knowledge_routing",
+      "to_type": "claim"
+    },
+    {
+      "from": "claim::annex_knowledge_routing",
+      "from_type": "claim",
+      "kind": "validated_by",
+      "to": "python -m microcosm_core.organs.annex_knowledge_routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+      "to_type": "validator_command"
+    },
+    {
+      "from": "claim::annex_knowledge_routing",
+      "from_type": "claim",
+      "kind": "proven_by",
+      "to": "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "member_of_family",
+      "to": "formal_math_and_proof",
+      "to_type": "family"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "verifier_lab_kernel",
+      "to_type": "organ"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "axiom",
+      "to": "AX-2",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-3",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "concept",
+      "to": "concept.formal_math_and_proof_witness_bundle",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "annex_knowledge_routing",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "paper_module",
+      "to": "core/paper_module_capsules.json#paper_module.annex_knowledge_routing",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_result.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_board.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/egress_self_compliance_audit/egress_self_compliance_audit_validation_receipt.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "asserts_claim",
+      "to": "claim::egress_self_compliance_audit",
+      "to_type": "claim"
+    },
+    {
+      "from": "claim::egress_self_compliance_audit",
+      "from_type": "claim",
+      "kind": "validated_by",
+      "to": "python -m microcosm_core.organs.egress_self_compliance_audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+      "to_type": "validator_command"
+    },
+    {
+      "from": "claim::egress_self_compliance_audit",
+      "from_type": "claim",
+      "kind": "proven_by",
+      "to": "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "member_of_family",
+      "to": "formal_math_and_proof",
+      "to_type": "family"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "verifier_lab_kernel",
+      "to_type": "organ"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "axiom",
+      "to": "AX-2",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-3",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "concept",
+      "to": "concept.formal_math_and_proof_witness_bundle",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "egress_self_compliance_audit",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "paper_module",
+      "to": "core/paper_module_capsules.json#paper_module.egress_self_compliance_audit",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_result.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_board.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/generated_projection_drift_runtime/generated_projection_drift_runtime_validation_receipt.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "asserts_claim",
+      "to": "claim::generated_projection_drift_runtime",
+      "to_type": "claim"
+    },
+    {
+      "from": "claim::generated_projection_drift_runtime",
+      "from_type": "claim",
+      "kind": "validated_by",
+      "to": "python -m microcosm_core.organs.generated_projection_drift_runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+      "to_type": "validator_command"
+    },
+    {
+      "from": "claim::generated_projection_drift_runtime",
+      "from_type": "claim",
+      "kind": "proven_by",
+      "to": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "member_of_family",
+      "to": "formal_math_and_proof",
+      "to_type": "family"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "verifier_lab_kernel",
+      "to_type": "organ"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "axiom",
+      "to": "AX-2",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-3",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "concept",
+      "to": "concept.formal_math_and_proof_witness_bundle",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "generated_projection_drift_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "paper_module",
+      "to": "core/paper_module_capsules.json#paper_module.generated_projection_drift_runtime",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_validation_receipt.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "emits_receipt",
+      "to": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "asserts_claim",
+      "to": "claim::lean_proof_search_lab_runtime",
+      "to_type": "claim"
+    },
+    {
+      "from": "claim::lean_proof_search_lab_runtime",
+      "from_type": "claim",
+      "kind": "validated_by",
+      "to": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+      "to_type": "validator_command"
+    },
+    {
+      "from": "claim::lean_proof_search_lab_runtime",
+      "from_type": "claim",
+      "kind": "proven_by",
+      "to": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+      "to_type": "receipt"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "member_of_family",
+      "to": "formal_math_and_proof",
+      "to_type": "family"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "verifier_lab_kernel",
+      "to_type": "organ"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "wires_to",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "axiom",
+      "to": "AX-2",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "principle",
+      "to": "P-3",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "concept",
+      "to": "concept.formal_math_and_proof_witness_bundle",
+      "to_type": "doctrine_ref"
+    },
+    {
+      "from": "lean_proof_search_lab_runtime",
+      "from_type": "organ",
+      "kind": "grounded_in_doctrine",
+      "ref_kind": "paper_module",
+      "to": "core/paper_module_capsules.json#paper_module.lean_proof_search_lab_runtime",
+      "to_type": "doctrine_ref"
+    },
+    {
       "from": "agent-concurrency",
       "from_type": "route",
       "kind": "routes_to",
@@ -13030,6 +14159,14 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "concurrency_mission_control",
+      "to_type": "organ"
+    },
+    {
+      "from": "agent-concurrency",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "semantic_singleflight_dedup_runtime",
       "to_type": "organ"
     },
     {
@@ -13069,7 +14206,23 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
-      "to": "agent_benchmark_integrity_anti_gaming_replay",
+      "to": "agent_closeout_faithfulness_audit",
+      "to_type": "organ"
+    },
+    {
+      "from": "agent-evaluation",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "bounded_autonomy_campaign_packet",
+      "to_type": "organ"
+    },
+    {
+      "from": "agent-evaluation",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "provider_context_recipe_budget_policy",
       "to_type": "organ"
     },
     {
@@ -13086,6 +14239,14 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "batch8_validator_checker_capsule",
+      "to_type": "organ"
+    },
+    {
+      "from": "agent-evaluation",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "agent_benchmark_integrity_anti_gaming_replay",
       "to_type": "organ"
     },
     {
@@ -13166,30 +14327,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "agent_route_observability_runtime",
-      "to_type": "organ"
-    },
-    {
-      "from": "agent-evaluation",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "provider_context_recipe_budget_policy",
-      "to_type": "organ"
-    },
-    {
-      "from": "agent-evaluation",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "agent_closeout_faithfulness_audit",
-      "to_type": "organ"
-    },
-    {
-      "from": "agent-evaluation",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "bounded_autonomy_campaign_packet",
       "to_type": "organ"
     },
     {
@@ -13197,7 +14334,23 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
-      "to": "agent_benchmark_integrity_anti_gaming_replay",
+      "to": "agent_closeout_faithfulness_audit",
+      "to_type": "organ"
+    },
+    {
+      "from": "ai-safety",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "bounded_autonomy_campaign_packet",
+      "to_type": "organ"
+    },
+    {
+      "from": "ai-safety",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "provider_context_recipe_budget_policy",
       "to_type": "organ"
     },
     {
@@ -13214,6 +14367,14 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "batch8_validator_checker_capsule",
+      "to_type": "organ"
+    },
+    {
+      "from": "ai-safety",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "agent_benchmark_integrity_anti_gaming_replay",
       "to_type": "organ"
     },
     {
@@ -13294,30 +14455,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "agent_route_observability_runtime",
-      "to_type": "organ"
-    },
-    {
-      "from": "ai-safety",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "provider_context_recipe_budget_policy",
-      "to_type": "organ"
-    },
-    {
-      "from": "ai-safety",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "agent_closeout_faithfulness_audit",
-      "to_type": "organ"
-    },
-    {
-      "from": "ai-safety",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "bounded_autonomy_campaign_packet",
       "to_type": "organ"
     },
     {
@@ -13454,6 +14591,22 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "concurrency_mission_control",
+      "to_type": "organ"
+    },
+    {
+      "from": "continuity",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "semantic_singleflight_dedup_runtime",
+      "to_type": "organ"
+    },
+    {
+      "from": "deduplication",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "primary",
+      "to": "semantic_singleflight_dedup_runtime",
       "to_type": "organ"
     },
     {
@@ -13721,6 +14874,70 @@
       "to_type": "organ"
     },
     {
+      "from": "exact-arithmetic",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "primary",
+      "to": "navigation_fitness_benchmark",
+      "to_type": "organ"
+    },
+    {
+      "from": "exact-arithmetic",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "annex_knowledge_routing",
+      "to_type": "organ"
+    },
+    {
+      "from": "exact-arithmetic",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "finite_erdos_denominator_certificate_strike",
+      "to_type": "organ"
+    },
+    {
+      "from": "exact-arithmetic",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "bridge_campaign_dag_validation",
+      "to_type": "organ"
+    },
+    {
+      "from": "exact-arithmetic",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "metabolism_queue_reconciliation",
+      "to_type": "organ"
+    },
+    {
+      "from": "exact-arithmetic",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "egress_self_compliance_audit",
+      "to_type": "organ"
+    },
+    {
+      "from": "exact-arithmetic",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "derived_fact_provider_runtime",
+      "to_type": "organ"
+    },
+    {
+      "from": "exact-arithmetic",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "generated_projection_drift_runtime",
+      "to_type": "organ"
+    },
+    {
       "from": "finance",
       "from_type": "route",
       "kind": "routes_to",
@@ -13733,7 +14950,7 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "batch12_market_dashboard_read_model_capsule",
+      "to": "batch12_prediction_market_board_capsule",
       "to_type": "organ"
     },
     {
@@ -13741,7 +14958,7 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "batch12_prediction_market_board_capsule",
+      "to": "batch12_market_dashboard_read_model_capsule",
       "to_type": "organ"
     },
     {
@@ -13781,47 +14998,15 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
-      "to": "research_replication_rubric_artifact_replay",
-      "to_type": "organ"
-    },
-    {
-      "from": "forecasting",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "spatial_world_model_counterfactual_simulation_replay",
-      "to_type": "organ"
-    },
-    {
-      "from": "forecasting",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "materials_chemistry_closed_loop_lab_safety_replay",
-      "to_type": "organ"
-    },
-    {
-      "from": "forecasting",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "mechanistic_interpretability_circuit_attribution_replay",
-      "to_type": "organ"
-    },
-    {
-      "from": "forecasting",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "prediction_oracle_reconciliation",
-      "to_type": "organ"
-    },
-    {
-      "from": "forecasting",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
       "to": "finance_forecast_evaluation_spine",
+      "to_type": "organ"
+    },
+    {
+      "from": "forecasting",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "batch12_prediction_market_board_capsule",
       "to_type": "organ"
     },
     {
@@ -13837,7 +15022,111 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "batch12_prediction_market_board_capsule",
+      "to": "mechanistic_interpretability_circuit_attribution_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "forecasting",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "spatial_world_model_counterfactual_simulation_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "forecasting",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "research_replication_rubric_artifact_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "forecasting",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "materials_chemistry_closed_loop_lab_safety_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "forecasting",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "prediction_oracle_reconciliation",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-math",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "primary",
+      "to": "navigation_fitness_benchmark",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-math",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "annex_knowledge_routing",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-math",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "finite_erdos_denominator_certificate_strike",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-math",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "lean_proof_search_lab_runtime",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-math",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "bridge_campaign_dag_validation",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-math",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "metabolism_queue_reconciliation",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-math",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "egress_self_compliance_audit",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-math",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "derived_fact_provider_runtime",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-math",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "generated_projection_drift_runtime",
       "to_type": "organ"
     },
     {
@@ -13845,6 +15134,46 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-methods",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-methods",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "verifier_lab_execution_spine",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-methods",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "corpus_readiness_mathlib_absence_gate",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-methods",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "batch4_proof_authority_runtime",
+      "to_type": "organ"
+    },
+    {
+      "from": "formal-methods",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
       "to": "proof_diagnostic_evidence_spine",
       "to_type": "organ"
     },
@@ -13854,14 +15183,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "formal_math_readiness_gate",
-      "to_type": "organ"
-    },
-    {
-      "from": "formal-methods",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "corpus_readiness_mathlib_absence_gate",
       "to_type": "organ"
     },
     {
@@ -13941,39 +15262,7 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "formal_math_lean_proof_witness",
-      "to_type": "organ"
-    },
-    {
-      "from": "formal-methods",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
       "to": "verifier_lab_kernel",
-      "to_type": "organ"
-    },
-    {
-      "from": "formal-methods",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "verifier_lab_execution_spine",
-      "to_type": "organ"
-    },
-    {
-      "from": "formal-methods",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "certificate_kernel_execution_lab",
-      "to_type": "organ"
-    },
-    {
-      "from": "formal-methods",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "batch4_proof_authority_runtime",
       "to_type": "organ"
     },
     {
@@ -14045,6 +15334,46 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "lean",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "lean",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "verifier_lab_execution_spine",
+      "to_type": "organ"
+    },
+    {
+      "from": "lean",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "corpus_readiness_mathlib_absence_gate",
+      "to_type": "organ"
+    },
+    {
+      "from": "lean",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "batch4_proof_authority_runtime",
+      "to_type": "organ"
+    },
+    {
+      "from": "lean",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
       "to": "proof_diagnostic_evidence_spine",
       "to_type": "organ"
     },
@@ -14054,14 +15383,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "formal_math_readiness_gate",
-      "to_type": "organ"
-    },
-    {
-      "from": "lean",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "corpus_readiness_mathlib_absence_gate",
       "to_type": "organ"
     },
     {
@@ -14141,14 +15462,6 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "formal_math_lean_proof_witness",
-      "to_type": "organ"
-    },
-    {
-      "from": "lean",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
       "to": "verifier_lab_kernel",
       "to_type": "organ"
     },
@@ -14157,31 +15470,15 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "verifier_lab_execution_spine",
-      "to_type": "organ"
-    },
-    {
-      "from": "lean",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "certificate_kernel_execution_lab",
-      "to_type": "organ"
-    },
-    {
-      "from": "lean",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "batch4_proof_authority_runtime",
-      "to_type": "organ"
-    },
-    {
-      "from": "lean",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
       "to": "proof_derived_governed_mutation_authorization",
+      "to_type": "organ"
+    },
+    {
+      "from": "lean-subprocess",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "primary",
+      "to": "lean_proof_search_lab_runtime",
       "to_type": "organ"
     },
     {
@@ -14273,11 +15570,91 @@
       "to_type": "organ"
     },
     {
+      "from": "number-theory",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "primary",
+      "to": "navigation_fitness_benchmark",
+      "to_type": "organ"
+    },
+    {
+      "from": "number-theory",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "annex_knowledge_routing",
+      "to_type": "organ"
+    },
+    {
+      "from": "number-theory",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "finite_erdos_denominator_certificate_strike",
+      "to_type": "organ"
+    },
+    {
+      "from": "number-theory",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "bridge_campaign_dag_validation",
+      "to_type": "organ"
+    },
+    {
+      "from": "number-theory",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "metabolism_queue_reconciliation",
+      "to_type": "organ"
+    },
+    {
+      "from": "number-theory",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "egress_self_compliance_audit",
+      "to_type": "organ"
+    },
+    {
+      "from": "number-theory",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "derived_fact_provider_runtime",
+      "to_type": "organ"
+    },
+    {
+      "from": "number-theory",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "generated_projection_drift_runtime",
+      "to_type": "organ"
+    },
+    {
+      "from": "operational-discipline",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "primary",
+      "to": "semantic_singleflight_dedup_runtime",
+      "to_type": "organ"
+    },
+    {
       "from": "oracle-boundary",
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
       "to": "batch7_oracle_sibling_capsule",
+      "to_type": "organ"
+    },
+    {
+      "from": "proof-search",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "primary",
+      "to": "lean_proof_search_lab_runtime",
       "to_type": "organ"
     },
     {
@@ -14477,6 +15854,38 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "provider-ops",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "provider-ops",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "verifier_lab_execution_spine",
+      "to_type": "organ"
+    },
+    {
+      "from": "provider-ops",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "corpus_readiness_mathlib_absence_gate",
+      "to_type": "organ"
+    },
+    {
+      "from": "provider-ops",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
       "to": "proof_diagnostic_evidence_spine",
       "to_type": "organ"
     },
@@ -14486,14 +15895,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "formal_math_readiness_gate",
-      "to_type": "organ"
-    },
-    {
-      "from": "provider-ops",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "corpus_readiness_mathlib_absence_gate",
       "to_type": "organ"
     },
     {
@@ -14541,14 +15942,6 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "formal_math_lean_proof_witness",
-      "to_type": "organ"
-    },
-    {
-      "from": "provider-ops",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
       "to": "verifier_lab_kernel",
       "to_type": "organ"
     },
@@ -14557,23 +15950,7 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "verifier_lab_execution_spine",
-      "to_type": "organ"
-    },
-    {
-      "from": "provider-ops",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "certificate_kernel_execution_lab",
-      "to_type": "organ"
-    },
-    {
-      "from": "provider-ops",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "agent_benchmark_integrity_anti_gaming_replay",
+      "to": "provider_context_recipe_budget_policy",
       "to_type": "organ"
     },
     {
@@ -14590,6 +15967,14 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "batch8_validator_checker_capsule",
+      "to_type": "organ"
+    },
+    {
+      "from": "provider-ops",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "agent_benchmark_integrity_anti_gaming_replay",
       "to_type": "organ"
     },
     {
@@ -14621,15 +16006,7 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "provider_context_recipe_budget_policy",
-      "to_type": "organ"
-    },
-    {
-      "from": "provider-ops",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "research_replication_rubric_artifact_replay",
+      "to": "batch12_prediction_market_board_capsule",
       "to_type": "organ"
     },
     {
@@ -14645,7 +16022,7 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "prediction_oracle_reconciliation",
+      "to": "research_replication_rubric_artifact_replay",
       "to_type": "organ"
     },
     {
@@ -14653,7 +16030,7 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "batch12_prediction_market_board_capsule",
+      "to": "prediction_oracle_reconciliation",
       "to_type": "organ"
     },
     {
@@ -14693,7 +16070,23 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
-      "to": "agent_benchmark_integrity_anti_gaming_replay",
+      "to": "agent_closeout_faithfulness_audit",
+      "to_type": "organ"
+    },
+    {
+      "from": "red-teaming",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "bounded_autonomy_campaign_packet",
+      "to_type": "organ"
+    },
+    {
+      "from": "red-teaming",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "provider_context_recipe_budget_policy",
       "to_type": "organ"
     },
     {
@@ -14710,6 +16103,14 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "batch8_validator_checker_capsule",
+      "to_type": "organ"
+    },
+    {
+      "from": "red-teaming",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "agent_benchmark_integrity_anti_gaming_replay",
       "to_type": "organ"
     },
     {
@@ -14793,75 +16194,19 @@
       "to_type": "organ"
     },
     {
-      "from": "red-teaming",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "provider_context_recipe_budget_policy",
-      "to_type": "organ"
-    },
-    {
-      "from": "red-teaming",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "agent_closeout_faithfulness_audit",
-      "to_type": "organ"
-    },
-    {
-      "from": "red-teaming",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "bounded_autonomy_campaign_packet",
-      "to_type": "organ"
-    },
-    {
       "from": "research-workflows",
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
-      "to": "research_replication_rubric_artifact_replay",
-      "to_type": "organ"
-    },
-    {
-      "from": "research-workflows",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "spatial_world_model_counterfactual_simulation_replay",
-      "to_type": "organ"
-    },
-    {
-      "from": "research-workflows",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "materials_chemistry_closed_loop_lab_safety_replay",
-      "to_type": "organ"
-    },
-    {
-      "from": "research-workflows",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "mechanistic_interpretability_circuit_attribution_replay",
-      "to_type": "organ"
-    },
-    {
-      "from": "research-workflows",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "prediction_oracle_reconciliation",
-      "to_type": "organ"
-    },
-    {
-      "from": "research-workflows",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
       "to": "finance_forecast_evaluation_spine",
+      "to_type": "organ"
+    },
+    {
+      "from": "research-workflows",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "batch12_prediction_market_board_capsule",
       "to_type": "organ"
     },
     {
@@ -14877,7 +16222,39 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "batch12_prediction_market_board_capsule",
+      "to": "mechanistic_interpretability_circuit_attribution_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "research-workflows",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "spatial_world_model_counterfactual_simulation_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "research-workflows",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "research_replication_rubric_artifact_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "research-workflows",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "materials_chemistry_closed_loop_lab_safety_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "research-workflows",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "prediction_oracle_reconciliation",
       "to_type": "organ"
     },
     {
@@ -14902,6 +16279,78 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "agent_sandbox_policy_escape_replay",
+      "to_type": "organ"
+    },
+    {
+      "from": "self-falsifying",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "primary",
+      "to": "lean_proof_search_lab_runtime",
+      "to_type": "organ"
+    },
+    {
+      "from": "self-falsifying-certificate",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "primary",
+      "to": "navigation_fitness_benchmark",
+      "to_type": "organ"
+    },
+    {
+      "from": "self-falsifying-certificate",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "annex_knowledge_routing",
+      "to_type": "organ"
+    },
+    {
+      "from": "self-falsifying-certificate",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "finite_erdos_denominator_certificate_strike",
+      "to_type": "organ"
+    },
+    {
+      "from": "self-falsifying-certificate",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "bridge_campaign_dag_validation",
+      "to_type": "organ"
+    },
+    {
+      "from": "self-falsifying-certificate",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "metabolism_queue_reconciliation",
+      "to_type": "organ"
+    },
+    {
+      "from": "self-falsifying-certificate",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "egress_self_compliance_audit",
+      "to_type": "organ"
+    },
+    {
+      "from": "self-falsifying-certificate",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "derived_fact_provider_runtime",
+      "to_type": "organ"
+    },
+    {
+      "from": "self-falsifying-certificate",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "generated_projection_drift_runtime",
       "to_type": "organ"
     },
     {
@@ -15069,6 +16518,46 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "primary",
+      "to": "certificate_kernel_execution_lab",
+      "to_type": "organ"
+    },
+    {
+      "from": "theorem-proving",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "formal_math_lean_proof_witness",
+      "to_type": "organ"
+    },
+    {
+      "from": "theorem-proving",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "verifier_lab_execution_spine",
+      "to_type": "organ"
+    },
+    {
+      "from": "theorem-proving",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "corpus_readiness_mathlib_absence_gate",
+      "to_type": "organ"
+    },
+    {
+      "from": "theorem-proving",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "batch4_proof_authority_runtime",
+      "to_type": "organ"
+    },
+    {
+      "from": "theorem-proving",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
       "to": "proof_diagnostic_evidence_spine",
       "to_type": "organ"
     },
@@ -15078,14 +16567,6 @@
       "kind": "routes_to",
       "role": "relevant",
       "to": "formal_math_readiness_gate",
-      "to_type": "organ"
-    },
-    {
-      "from": "theorem-proving",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "corpus_readiness_mathlib_absence_gate",
       "to_type": "organ"
     },
     {
@@ -15165,14 +16646,6 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "formal_math_lean_proof_witness",
-      "to_type": "organ"
-    },
-    {
-      "from": "theorem-proving",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
       "to": "verifier_lab_kernel",
       "to_type": "organ"
     },
@@ -15181,31 +16654,15 @@
       "from_type": "route",
       "kind": "routes_to",
       "role": "relevant",
-      "to": "verifier_lab_execution_spine",
-      "to_type": "organ"
-    },
-    {
-      "from": "theorem-proving",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "certificate_kernel_execution_lab",
-      "to_type": "organ"
-    },
-    {
-      "from": "theorem-proving",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
-      "to": "batch4_proof_authority_runtime",
-      "to_type": "organ"
-    },
-    {
-      "from": "theorem-proving",
-      "from_type": "route",
-      "kind": "routes_to",
-      "role": "relevant",
       "to": "proof_derived_governed_mutation_authorization",
+      "to_type": "organ"
+    },
+    {
+      "from": "theorem-proving",
+      "from_type": "route",
+      "kind": "routes_to",
+      "role": "relevant",
+      "to": "lean_proof_search_lab_runtime",
       "to_type": "organ"
     },
     {
@@ -15277,14 +16734,14 @@
       }
     ],
     "edge_kind_counts": {
-      "asserts_claim": 78,
-      "emits_receipt": 326,
-      "grounded_in_doctrine": 886,
-      "member_of_family": 78,
-      "proven_by": 78,
-      "routes_to": 280,
-      "validated_by": 78,
-      "wires_to": 208
+      "asserts_claim": 88,
+      "emits_receipt": 366,
+      "grounded_in_doctrine": 930,
+      "member_of_family": 88,
+      "proven_by": 88,
+      "routes_to": 321,
+      "validated_by": 88,
+      "wires_to": 239
     },
     "edge_kinds": [
       "asserts_claim",
@@ -16168,6 +17625,116 @@
         "organ_id": "batch12_release_claim_language_gate",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
         "validator_command": "python -m microcosm_core.organs.batch12_release_claim_language_gate run --input fixtures/first_wave/batch12_release_claim_language_gate/input --out receipts/first_wave/batch12_release_claim_language_gate --acceptance-out receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+        "claim_ceiling": "keys and dedups command runs by repo-state fingerprint; does not guarantee global mutual exclusion, does not replace a lock service, and does not prove cross-host correctness",
+        "claim_ceiling_restated": "It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or release approval.",
+        "claim_id": "claim::semantic_singleflight_dedup_runtime",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "semantic_singleflight_dedup_runtime",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.semantic_singleflight_dedup_runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+        "claim_ceiling": "computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+        "claim_ceiling_restated": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "claim_id": "claim::finite_erdos_denominator_certificate_strike",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "finite_erdos_denominator_certificate_strike",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.finite_erdos_denominator_certificate_strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+        "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
+        "claim_ceiling_restated": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "claim_id": "claim::bridge_campaign_dag_validation",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "bridge_campaign_dag_validation",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.bridge_campaign_dag_validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+        "claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+        "claim_ceiling_restated": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "claim_id": "claim::metabolism_queue_reconciliation",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "metabolism_queue_reconciliation",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.metabolism_queue_reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+        "claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+        "claim_ceiling_restated": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "claim_id": "claim::derived_fact_provider_runtime",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "derived_fact_provider_runtime",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.derived_fact_provider_runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+        "claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+        "claim_ceiling_restated": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "claim_id": "claim::navigation_fitness_benchmark",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "navigation_fitness_benchmark",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.navigation_fitness_benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+        "claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+        "claim_ceiling_restated": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "claim_id": "claim::annex_knowledge_routing",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "annex_knowledge_routing",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.annex_knowledge_routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+        "claim_ceiling": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
+        "claim_ceiling_restated": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "claim_id": "claim::egress_self_compliance_audit",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "organ_id": "egress_self_compliance_audit",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.egress_self_compliance_audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+        "claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+        "claim_ceiling_restated": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "claim_id": "claim::generated_projection_drift_runtime",
+        "evidence_class": "external_subprocess_witness",
+        "evidence_strength_rank": 4,
+        "organ_id": "generated_projection_drift_runtime",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.generated_projection_drift_runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
+        "claim_ceiling_restated": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "claim_id": "claim::lean_proof_search_lab_runtime",
+        "evidence_class": "external_subprocess_witness",
+        "evidence_strength_rank": 4,
+        "organ_id": "lean_proof_search_lab_runtime",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
       }
     ],
     "family": [
@@ -16185,7 +17752,7 @@
       },
       {
         "family_id": "formal_math_and_proof",
-        "organ_count": 18
+        "organ_count": 27
       },
       {
         "family_id": "import_projection_and_drift",
@@ -16197,7 +17764,7 @@
       },
       {
         "family_id": "work_landing_and_continuity",
-        "organ_count": 4
+        "organ_count": 5
       }
     ],
     "organ": [
@@ -17604,13 +19171,193 @@
         "status": "accepted_current_authority",
         "truth_accounting_bucket": "copied_non_secret_macro_body",
         "validator_command": "python -m microcosm_core.organs.batch12_release_claim_language_gate run --input fixtures/first_wave/batch12_release_claim_language_gate/input --out receipts/first_wave/batch12_release_claim_language_gate --acceptance-out receipts/acceptance/first_wave/batch12_release_claim_language_gate_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+        "claim_ceiling": "keys and dedups command runs by repo-state fingerprint; does not guarantee global mutual exclusion, does not replace a lock service, and does not prove cross-host correctness",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "family": "work_landing_and_continuity",
+        "organ_id": "semantic_singleflight_dedup_runtime",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "receipt_count": 4,
+        "runner_custody_basis": null,
+        "runner_module": "microcosm_core.organs.semantic_singleflight_dedup_runtime",
+        "runner_source_ref": "src/microcosm_core/organs/semantic_singleflight_dedup_runtime.py",
+        "runner_source_resolved": false,
+        "runner_specificity": null,
+        "status": "accepted_current_authority",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.semantic_singleflight_dedup_runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+        "claim_ceiling": "computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "family": "formal_math_and_proof",
+        "organ_id": "finite_erdos_denominator_certificate_strike",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "receipt_count": 4,
+        "runner_custody_basis": null,
+        "runner_module": "microcosm_core.organs.finite_erdos_denominator_certificate_strike",
+        "runner_source_ref": "src/microcosm_core/organs/finite_erdos_denominator_certificate_strike.py",
+        "runner_source_resolved": false,
+        "runner_specificity": null,
+        "status": "accepted_current_authority",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.finite_erdos_denominator_certificate_strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+        "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "family": "formal_math_and_proof",
+        "organ_id": "bridge_campaign_dag_validation",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "receipt_count": 4,
+        "runner_custody_basis": null,
+        "runner_module": "microcosm_core.organs.bridge_campaign_dag_validation",
+        "runner_source_ref": "src/microcosm_core/organs/bridge_campaign_dag_validation.py",
+        "runner_source_resolved": false,
+        "runner_specificity": null,
+        "status": "accepted_current_authority",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.bridge_campaign_dag_validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+        "claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "family": "formal_math_and_proof",
+        "organ_id": "metabolism_queue_reconciliation",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "receipt_count": 4,
+        "runner_custody_basis": null,
+        "runner_module": "microcosm_core.organs.metabolism_queue_reconciliation",
+        "runner_source_ref": "src/microcosm_core/organs/metabolism_queue_reconciliation.py",
+        "runner_source_resolved": false,
+        "runner_specificity": null,
+        "status": "accepted_current_authority",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.metabolism_queue_reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+        "claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "family": "formal_math_and_proof",
+        "organ_id": "derived_fact_provider_runtime",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "receipt_count": 4,
+        "runner_custody_basis": null,
+        "runner_module": "microcosm_core.organs.derived_fact_provider_runtime",
+        "runner_source_ref": "src/microcosm_core/organs/derived_fact_provider_runtime.py",
+        "runner_source_resolved": false,
+        "runner_specificity": null,
+        "status": "accepted_current_authority",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.derived_fact_provider_runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+        "claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "family": "formal_math_and_proof",
+        "organ_id": "navigation_fitness_benchmark",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "receipt_count": 4,
+        "runner_custody_basis": null,
+        "runner_module": "microcosm_core.organs.navigation_fitness_benchmark",
+        "runner_source_ref": "src/microcosm_core/organs/navigation_fitness_benchmark.py",
+        "runner_source_resolved": false,
+        "runner_specificity": null,
+        "status": "accepted_current_authority",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.navigation_fitness_benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+        "claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "family": "formal_math_and_proof",
+        "organ_id": "annex_knowledge_routing",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "receipt_count": 4,
+        "runner_custody_basis": null,
+        "runner_module": "microcosm_core.organs.annex_knowledge_routing",
+        "runner_source_ref": "src/microcosm_core/organs/annex_knowledge_routing.py",
+        "runner_source_resolved": false,
+        "runner_specificity": null,
+        "status": "accepted_current_authority",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.annex_knowledge_routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+        "claim_ceiling": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
+        "evidence_class": "bounded_runtime_computation",
+        "evidence_strength_rank": 4,
+        "family": "formal_math_and_proof",
+        "organ_id": "egress_self_compliance_audit",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "receipt_count": 4,
+        "runner_custody_basis": null,
+        "runner_module": "microcosm_core.organs.egress_self_compliance_audit",
+        "runner_source_ref": "src/microcosm_core/organs/egress_self_compliance_audit.py",
+        "runner_source_resolved": false,
+        "runner_specificity": null,
+        "status": "accepted_current_authority",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.egress_self_compliance_audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+        "claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+        "evidence_class": "external_subprocess_witness",
+        "evidence_strength_rank": 4,
+        "family": "formal_math_and_proof",
+        "organ_id": "generated_projection_drift_runtime",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "receipt_count": 4,
+        "runner_custody_basis": null,
+        "runner_module": "microcosm_core.organs.generated_projection_drift_runtime",
+        "runner_source_ref": "src/microcosm_core/organs/generated_projection_drift_runtime.py",
+        "runner_source_resolved": false,
+        "runner_specificity": null,
+        "status": "accepted_current_authority",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.generated_projection_drift_runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json"
+      },
+      {
+        "authority_receipt": "receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
+        "evidence_class": "external_subprocess_witness",
+        "evidence_strength_rank": 4,
+        "family": "formal_math_and_proof",
+        "organ_id": "lean_proof_search_lab_runtime",
+        "real_substrate_disposition": "real_substrate_capsule",
+        "receipt_count": 4,
+        "runner_custody_basis": null,
+        "runner_module": "microcosm_core.organs.lean_proof_search_lab_runtime",
+        "runner_source_ref": "src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
+        "runner_source_resolved": false,
+        "runner_specificity": null,
+        "status": "accepted_current_authority",
+        "truth_accounting_bucket": "real_runtime_receipt",
+        "validator_command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
       }
     ],
     "route": [
       {
         "allowed_scope": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
         "first_command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
-        "organ_count": 2,
+        "organ_count": 3,
         "primary_display_name": "Mission Transaction Work Spine",
         "primary_organ_id": "mission_transaction_work_spine",
         "route_role": "agent_task_class_to_organ_selector",
@@ -17628,21 +19375,21 @@
         "task_class": "agent-entry"
       },
       {
-        "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
-        "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
+        "allowed_scope": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+        "first_command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
         "organ_count": 16,
-        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
-        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "primary_display_name": "Agent Closeout Faithfulness Audit",
+        "primary_organ_id": "agent_closeout_faithfulness_audit",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "agent-evaluation"
       },
       {
-        "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
-        "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
+        "allowed_scope": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+        "first_command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
         "organ_count": 16,
-        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
-        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "primary_display_name": "Agent Closeout Faithfulness Audit",
+        "primary_organ_id": "agent_closeout_faithfulness_audit",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "ai-safety"
@@ -17690,12 +19437,22 @@
       {
         "allowed_scope": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
         "first_command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
-        "organ_count": 4,
+        "organ_count": 5,
         "primary_display_name": "Mission Transaction Work Spine",
         "primary_organ_id": "mission_transaction_work_spine",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "continuity"
+      },
+      {
+        "allowed_scope": "It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or launch-scope decision.",
+        "first_command": "microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+        "organ_count": 1,
+        "primary_display_name": "Semantic Singleflight Dedup Runtime",
+        "primary_organ_id": "semantic_singleflight_dedup_runtime",
+        "route_role": "agent_task_class_to_organ_selector",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
+        "task_class": "deduplication"
       },
       {
         "allowed_scope": "It validates only public-safe Demo Take Console copied Swift source bodies and bounded deterministic exercises; it does not launch the app, authorize screen or microphone capture, export recording sessions, execute FFmpeg, dispatch WhisperKit or other models, change source files, prove complete UI coverage, authorize public sharing, or include launch operations.",
@@ -17738,6 +19495,16 @@
         "task_class": "evaluation"
       },
       {
+        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "first_command": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+        "organ_count": 8,
+        "primary_display_name": "Navigation Fitness Benchmark",
+        "primary_organ_id": "navigation_fitness_benchmark",
+        "route_role": "agent_task_class_to_organ_selector",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
+        "task_class": "exact-arithmetic"
+      },
+      {
         "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
         "first_command": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
         "organ_count": 7,
@@ -17748,21 +19515,31 @@
         "task_class": "finance"
       },
       {
-        "allowed_scope": "It validates the shape and presence of synthetic replay metadata and receipt references only - it does not run any experiment, metric script, or rerun, excludes any claim that a paper was actually replicated, that a benchmark claims was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes public sharing or launch.",
-        "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay",
+        "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
+        "first_command": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
         "organ_count": 8,
-        "primary_display_name": "Research Replication Rubric Artifact Replay",
-        "primary_organ_id": "research_replication_rubric_artifact_replay",
+        "primary_display_name": "Finance Forecast Evaluation Spine",
+        "primary_organ_id": "finance_forecast_evaluation_spine",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "forecasting"
       },
       {
-        "allowed_scope": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.",
-        "first_command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
+        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "first_command": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+        "organ_count": 9,
+        "primary_display_name": "Navigation Fitness Benchmark",
+        "primary_organ_id": "navigation_fitness_benchmark",
+        "route_role": "agent_task_class_to_organ_selector",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
+        "task_class": "formal-math"
+      },
+      {
+        "allowed_scope": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
+        "first_command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
         "organ_count": 18,
-        "primary_display_name": "Proof Diagnostic Evidence Spine",
-        "primary_organ_id": "proof_diagnostic_evidence_spine",
+        "primary_display_name": "Certificate Kernel Execution Lab",
+        "primary_organ_id": "certificate_kernel_execution_lab",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "formal-methods"
@@ -17798,14 +19575,24 @@
         "task_class": "interesting-parts"
       },
       {
-        "allowed_scope": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.",
-        "first_command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
+        "allowed_scope": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
+        "first_command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
         "organ_count": 18,
-        "primary_display_name": "Proof Diagnostic Evidence Spine",
-        "primary_organ_id": "proof_diagnostic_evidence_spine",
+        "primary_display_name": "Certificate Kernel Execution Lab",
+        "primary_organ_id": "certificate_kernel_execution_lab",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "lean"
+      },
+      {
+        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "first_command": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "organ_count": 1,
+        "primary_display_name": "Lean Proof-Search Lab Runtime",
+        "primary_organ_id": "lean_proof_search_lab_runtime",
+        "route_role": "agent_task_class_to_organ_selector",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
+        "task_class": "lean-subprocess"
       },
       {
         "allowed_scope": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
@@ -17828,6 +19615,26 @@
         "task_class": "navigation"
       },
       {
+        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "first_command": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+        "organ_count": 8,
+        "primary_display_name": "Navigation Fitness Benchmark",
+        "primary_organ_id": "navigation_fitness_benchmark",
+        "route_role": "agent_task_class_to_organ_selector",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
+        "task_class": "number-theory"
+      },
+      {
+        "allowed_scope": "It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or launch-scope decision.",
+        "first_command": "microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+        "organ_count": 1,
+        "primary_display_name": "Semantic Singleflight Dedup Runtime",
+        "primary_organ_id": "semantic_singleflight_dedup_runtime",
+        "route_role": "agent_task_class_to_organ_selector",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
+        "task_class": "operational-discipline"
+      },
+      {
         "allowed_scope": "It validates only public-safe Oracle sibling copied source bodies and bounded deterministic exercises; it does not run Oracle reasoning, dispatch providers or bridges, invoke GodModeEngine, change source files, prove semantic truth, prove all Oracle paths are covered, authorize public sharing, or include launch operations.",
         "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.batch7_oracle_sibling_capsule run --input fixtures/first_wave/batch7_oracle_sibling_capsule/input --out receipts/first_wave/batch7_oracle_sibling_capsule --acceptance-out receipts/acceptance/first_wave/batch7_oracle_sibling_capsule_fixture_acceptance.json",
         "organ_count": 1,
@@ -17836,6 +19643,16 @@
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "oracle-boundary"
+      },
+      {
+        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "first_command": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "organ_count": 1,
+        "primary_display_name": "Lean Proof-Search Lab Runtime",
+        "primary_organ_id": "lean_proof_search_lab_runtime",
+        "route_role": "agent_task_class_to_organ_selector",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
+        "task_class": "proof-search"
       },
       {
         "allowed_scope": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
@@ -17858,21 +19675,21 @@
         "task_class": "provider-ops"
       },
       {
-        "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
-        "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
+        "allowed_scope": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+        "first_command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
         "organ_count": 16,
-        "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
-        "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+        "primary_display_name": "Agent Closeout Faithfulness Audit",
+        "primary_organ_id": "agent_closeout_faithfulness_audit",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "red-teaming"
       },
       {
-        "allowed_scope": "It validates the shape and presence of synthetic replay metadata and receipt references only - it does not run any experiment, metric script, or rerun, excludes any claim that a paper was actually replicated, that a benchmark claims was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes public sharing or launch.",
-        "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay",
+        "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
+        "first_command": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
         "organ_count": 8,
-        "primary_display_name": "Research Replication Rubric Artifact Replay",
-        "primary_organ_id": "research_replication_rubric_artifact_replay",
+        "primary_display_name": "Finance Forecast Evaluation Spine",
+        "primary_organ_id": "finance_forecast_evaluation_spine",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "research-workflows"
@@ -17888,6 +19705,26 @@
         "task_class": "security"
       },
       {
+        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "first_command": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "organ_count": 1,
+        "primary_display_name": "Lean Proof-Search Lab Runtime",
+        "primary_organ_id": "lean_proof_search_lab_runtime",
+        "route_role": "agent_task_class_to_organ_selector",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
+        "task_class": "self-falsifying"
+      },
+      {
+        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "first_command": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+        "organ_count": 8,
+        "primary_display_name": "Navigation Fitness Benchmark",
+        "primary_organ_id": "navigation_fitness_benchmark",
+        "route_role": "agent_task_class_to_organ_selector",
+        "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
+        "task_class": "self-falsifying-certificate"
+      },
+      {
         "allowed_scope": "verified non-secret macro body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, private-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
         "first_command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
         "organ_count": 20,
@@ -17898,11 +19735,11 @@
         "task_class": "source-import"
       },
       {
-        "allowed_scope": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.",
-        "first_command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
-        "organ_count": 18,
-        "primary_display_name": "Proof Diagnostic Evidence Spine",
-        "primary_organ_id": "proof_diagnostic_evidence_spine",
+        "allowed_scope": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
+        "first_command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+        "organ_count": 19,
+        "primary_display_name": "Certificate Kernel Execution Lab",
+        "primary_organ_id": "certificate_kernel_execution_lab",
         "route_role": "agent_task_class_to_organ_selector",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.",
         "task_class": "theorem-proving"
@@ -17937,13 +19774,13 @@
     "not whole-system correctness"
   ],
   "rollup": {
-    "claim_node_count": 78,
-    "edge_count": 2012,
+    "claim_node_count": 88,
+    "edge_count": 2208,
     "family_node_count": 7,
-    "organ_count": 78,
-    "organs_reachable_from_routes": 78,
+    "organ_count": 88,
+    "organs_reachable_from_routes": 88,
     "organs_with_resolved_runner_source": 0,
-    "route_node_count": 32,
+    "route_node_count": 41,
     "route_targets_unknown": 0,
     "runner_custody_split": {},
     "source_file_node_count": 0

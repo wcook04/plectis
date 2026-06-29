@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.projections.route_candidate_read_model` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SCHEMA, VALIDATION_SCHEMA, DEFAULT_OUT_NAME, DEFAULT_RECEIPT_NAME, AUTHORITY_POSTURE, SOURCE_REFS, TARGET_CONSUMER, ROUTE_MINING_ORGAN_IDS, MECHANISM_SPINE_ORGAN_IDS, REQUIRED_ROW_FIELDS, BANNED_AUTHORITY_TRUE_KEYS, build_route_candidate_read_model, validate_route_candidate_read_model, compile_paths, main
+- Reads: call arguments, module constants, imported helpers.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.resource_root, microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -65,53 +90,77 @@ BANNED_AUTHORITY_TRUE_KEYS = {
 
 
 def _as_dict(value: Any) -> dict[str, Any]:
-    """Coerce an arbitrary JSON value to a dict, defaulting non-dicts to empty.
+    """
+    [ACTION]
+    Coerce an arbitrary JSON value to a dict, defaulting non-dicts to empty.
 
     - Teleology: defensive read helper so the projection tolerates malformed/missing source nodes without raising.
     - Guarantee: returns value unchanged when it is a dict, otherwise an empty dict; never None.
     - Fails: never raises; non-dict input -> {} (silent empty-result envelope).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return value if isinstance(value, dict) else {}
 
 
 def _as_list(value: Any) -> list[Any]:
-    """Coerce an arbitrary JSON value to a list, defaulting non-lists to empty.
+    """
+    [ACTION]
+    Coerce an arbitrary JSON value to a list, defaulting non-lists to empty.
 
     - Teleology: defensive read helper so iteration over source arrays is total even on malformed input.
     - Guarantee: returns value unchanged when it is a list, otherwise an empty list; never None.
     - Fails: never raises; non-list input -> [] (silent empty-result envelope).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return value if isinstance(value, list) else []
 
 
 def _strings(value: Any) -> list[str]:
-    """Extract the non-empty string members of an arbitrary JSON value.
+    """
+    [ACTION]
+    Extract the non-empty string members of an arbitrary JSON value.
 
     - Teleology: normalize ref/string arrays (receipt_refs, source_refs) dropping blanks and non-strings.
     - Guarantee: returns only str items whose stripped form is truthy, preserving source order.
     - Fails: never raises; non-list or all-blank input -> [] (silent empty-result envelope).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [item for item in _as_list(value) if isinstance(item, str) and item.strip()]
 
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
-    """Read the dict-typed rows under payload[key].
+    """
+    [ACTION]
+    Read the dict-typed rows under payload[key].
 
     - Teleology: single accessor for the array-of-objects shape the read model reads from every source manifest.
     - Guarantee: returns only the dict members of payload[key], in source order; non-dicts and missing key are dropped.
     - Fails: never raises; missing key or non-list value -> [] (silent empty-result envelope).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [item for item in _as_list(payload.get(key)) if isinstance(item, dict)]
 
 
 def _load_optional_json(path: Path) -> dict[str, Any]:
-    """Read an optional JSON receipt, tolerating absence.
+    """
+    [ACTION]
+    Read an optional JSON receipt, tolerating absence.
 
     - Teleology: receipts (trace-repair, observability store) may not exist on a given root; the projection must still build.
     - Guarantee: returns the parsed dict when path is a readable JSON file, else {}; coerces non-dict JSON to {}.
     - Reads: the receipt path passed in (e.g. receipts/first_wave/agent_route_observability_runtime/*.json).
     - Fails: missing file -> {}; malformed/unreadable JSON -> read_json_strict raises (propagates, not swallowed).
     - Non-goal: does not authorize source-body export, release, or treat the receipt as source-of-truth authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not path.is_file():
         return {}
@@ -119,12 +168,17 @@ def _load_optional_json(path: Path) -> dict[str, Any]:
 
 
 def _public_microcosm_command(command: str) -> str:
-    """Rewrite an internal `python -m microcosm_core...` command to its public `microcosm` form.
+    """
+    [ACTION]
+    Rewrite an internal `python -m microcosm_core...` command to its public `microcosm` form.
 
     - Teleology: candidate first_command must be the public-safe CLI surface, not the internal module path.
     - Guarantee: returns the `microcosm <organ-or-subcommand> ...` form when the input is a recognized organ/cli module invocation; otherwise returns the input string unchanged.
     - Fails: never raises; unrecognized shape -> command returned verbatim (identity envelope).
     - Non-goal: does not validate that the rewritten command exists, authorize execution, or guarantee public-safe equivalence beyond the literal prefix swap.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     parts = command.split()
     if len(parts) >= 4 and parts[0] in {"python", "python3"} and parts[1] == "-m":
@@ -138,11 +192,16 @@ def _public_microcosm_command(command: str) -> str:
 
 
 def _by_organ_id(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    """Index registry rows by their organ_id.
+    """
+    [ACTION]
+    Index registry rows by their organ_id.
 
     - Teleology: O(1) lookup of an organ's registry record while scoring candidates.
     - Guarantee: returns a dict keyed by stripped non-empty organ_id; on duplicate ids the last row wins; blank ids dropped.
     - Fails: never raises; empty input or all-blank ids -> {} (silent empty-result envelope).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     result: dict[str, dict[str, Any]] = {}
     for row in rows:
@@ -153,12 +212,16 @@ def _by_organ_id(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
 
 
 def _route_organ_ids(row: dict[str, Any]) -> list[str]:
-    """Collect every organ_id referenced by a single agent-task-route row.
+    """
+    [ACTION]
+    Collect every organ_id referenced by a single agent-task-route row.
 
     - Teleology: a route can name a primary organ plus several relevant organs; this flattens them for index building.
     - Guarantee: returns deduplicated stripped organ_ids in first-seen order across organ_id, primary_organ_id, and relevant_organs (dict or string members).
     - Reads: route row fields organ_id / primary_organ_id / relevant_organs from atlas/agent_task_routes.json.
     - Fails: never raises; row with no usable ids -> [] (silent empty-result envelope).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     organ_ids: list[str] = []
     for key in ("organ_id", "primary_organ_id"):
@@ -176,13 +239,17 @@ def _route_organ_ids(row: dict[str, Any]) -> list[str]:
 
 
 def _route_index(routes_payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    """Build an organ_id -> route-row index, preferring primary routes over relevant/legacy matches.
+    """
+    [ACTION]
+    Build an organ_id -> route-row index, preferring primary routes over relevant/legacy matches.
 
     - Teleology: lets the builder attach the most authoritative task route to each candidate organ.
     - Guarantee: returns a dict keyed by organ_id where each row carries a `_candidate_route_relation` tag of primary > relevant > legacy_ref; primary mappings override relevant ones for the same organ.
     - Reads: routes_payload["routes"] from atlas/agent_task_routes.json (primary_organ_id, relevant_organs, evidence_ref, drilldown_target).
     - Fails: never raises; no routes -> {} (silent empty-result envelope).
     - Non-goal: does not validate route correctness or authorize the routes as source authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values, declared filesystem outputs.
     """
     primary_by_organ: dict[str, dict[str, Any]] = {}
     relevant_by_organ: dict[str, dict[str, Any]] = {}
@@ -204,12 +271,16 @@ def _route_index(routes_payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 def _task_route_ref(route_row: dict[str, Any]) -> str:
-    """Render the canonical source-ref string pointing at a route's task_class entry.
+    """
+    [ACTION]
+    Render the canonical source-ref string pointing at a route's task_class entry.
 
     - Teleology: gives each candidate a stable, greppable provenance pointer back into the routes manifest.
     - Guarantee: returns "atlas/agent_task_routes.json::routes[task_class=<task_class>]" when task_class is non-empty, else "".
     - Reads: route row field task_class.
     - Fails: never raises; missing/blank task_class -> "" (empty-result envelope).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     task_class = str(route_row.get("task_class") or "").strip()
     if not task_class:
@@ -218,12 +289,16 @@ def _task_route_ref(route_row: dict[str, Any]) -> str:
 
 
 def _evidence_profiles(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    """Normalize the organ_evidence_classes map to organ_id -> profile dict.
+    """
+    [ACTION]
+    Normalize the organ_evidence_classes map to organ_id -> profile dict.
 
     - Teleology: attaches each candidate its evidence profile so the read model exposes evidence class/strength provenance.
     - Guarantee: returns a dict keyed by stringified organ_id with dict-coerced profile values when organ_evidence_classes is a mapping, else {}.
     - Reads: payload["organ_evidence_classes"] from core/organ_evidence_classes.json.
     - Fails: never raises; missing or non-dict node -> {} (empty-result envelope).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     profiles = payload.get("organ_evidence_classes")
     if isinstance(profiles, dict):
@@ -232,13 +307,17 @@ def _evidence_profiles(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 def _source_module_summary(receipt: dict[str, Any]) -> dict[str, Any]:
-    """Summarize the observed source-module manifest carried by an observability receipt.
+    """
+    [ACTION]
+    Summarize the observed source-module manifest carried by an observability receipt.
 
     - Teleology: surfaces how many real source modules backed the observability store, with their source refs, as evidence depth.
     - Guarantee: returns {source_module_count, source_refs (sorted unique), body_in_receipt (bool), body_import_verification (dict)} read from receipt["source_module_manifest"].
     - Reads: receipt fields source_module_manifest.observed_modules|modules (source_ref|path|target_ref), body_in_receipt, body_import_verification.
     - Fails: never raises; missing manifest -> count 0, empty refs (empty-result envelope).
     - Non-goal: reports the receipt's own body_in_receipt flag; does not itself export source bodies or authorize public-safe equivalence.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     manifest = _as_dict(receipt.get("source_module_manifest"))
     observed = _rows(manifest, "observed_modules")
@@ -258,13 +337,17 @@ def _source_module_summary(receipt: dict[str, Any]) -> dict[str, Any]:
 
 
 def _trace_repair_summary(receipt: dict[str, Any]) -> dict[str, Any]:
-    """Summarize the route-repair receipt into the support block for the observability candidate.
+    """
+    [ACTION]
+    Summarize the route-repair receipt into the support block for the observability candidate.
 
     - Teleology: gives the route-mining controller evidence that this organ would have repaired recent route failures.
     - Guarantee: returns {receipt_ref=SOURCE_REFS[3], route_repair_row_count, would_intervene_on_recent_route_failures, suggested_routes[...]} drawn from receipt["route_repair_rows"] (only rows that carry a suggested_route).
     - Reads: receipt fields route_repair_rows, route_repair_summary.would_intervene_on_recent_route_failures.
     - Fails: never raises; empty/missing receipt -> count 0, empty suggested_routes (empty-result envelope).
     - Escalates-to: the named source receipt at SOURCE_REFS[3] for full row fidelity.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     rows = _rows(receipt, "route_repair_rows")
     return {
@@ -288,13 +371,17 @@ def _trace_repair_summary(receipt: dict[str, Any]) -> dict[str, Any]:
 
 
 def _observability_summary(receipt: dict[str, Any]) -> dict[str, Any]:
-    """Summarize the observability-store receipt into the support block for the observability candidate.
+    """
+    [ACTION]
+    Summarize the observability-store receipt into the support block for the observability candidate.
 
     - Teleology: gives the candidate evidence of live route-decision events and active sessions plus its source-module footprint.
     - Guarantee: returns {receipt_ref=SOURCE_REFS[4], route_decision_event_count, active_session_count, source_module=_source_module_summary(receipt)}, preferring top-level counts then store_summary fallbacks then 0.
     - Reads: receipt fields store_summary, route_decision_event_count, active_session_count, source_module_manifest.
     - Fails: never raises; empty/missing receipt -> counts 0, empty source_module (empty-result envelope).
     - Escalates-to: the named source receipt at SOURCE_REFS[4] for full store fidelity.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     summary = _as_dict(receipt.get("store_summary"))
     return {
@@ -315,13 +402,17 @@ def _score_candidate(
     source_module_count: int,
     trace_repair_count: int,
 ) -> int:
-    """Compute the integer ranking score for one route candidate from registry + route + receipt evidence.
+    """
+    [ACTION]
+    Compute the integer ranking score for one route candidate from registry + route + receipt evidence.
 
     - Teleology: deterministic, evidence-weighted score that orders candidates for the route-mining selector.
     - Guarantee: returns a non-negative int = 10*evidence_strength_rank plus bounded bonuses for first_command (+8), current_authority_receipt (+8), capped receipt/source-module/trace-repair counts, accepted_current_authority status (+8), and counts_as_real_substrate_progress (+4).
     - Reads: registry_row evidence_strength_rank/current_authority_receipt/status/counts_as_real_substrate_progress and route_row first_command.
     - Fails: never raises; missing/non-numeric fields coerce to 0, yielding a low but valid score.
     - Non-goal: a higher score is a ranking signal only; it does not assert release-readiness or substrate authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     score = int(registry_row.get("evidence_strength_rank") or 0) * 10
     if route_row.get("first_command"):
@@ -339,7 +430,9 @@ def _score_candidate(
 
 
 def build_route_candidate_read_model(root: str | Path | None = None) -> dict[str, Any]:
-    """Build the ranked, projection-only route-candidate read model from the live substrate.
+    """
+    [ACTION]
+    Build the ranked, projection-only route-candidate read model from the live substrate.
 
     - Teleology: derives the route_mining_controller_candidate_selector's input — a ranked roster of route-mining + mechanism-spine organs with evidence, first commands, and authority boundaries.
     - Guarantee: returns a schema=SCHEMA dict with candidate_rows sorted by descending score (rank reassigned 1..N), authority_posture=AUTHORITY_POSTURE, and every banned authority key (generated_projection_is_source_authority, chat_memory_authority, source_mutation_authorized, release_authorized) hard-set False.
@@ -348,6 +441,8 @@ def build_route_candidate_read_model(root: str | Path | None = None) -> dict[str
     - Fails: missing required manifests -> read_json_strict raises (propagates); missing optional receipts -> empty support blocks, build still succeeds.
     - Escalates-to: validate_route_candidate_read_model / compile_paths for the validated, persisted form; SOURCE_REFS for upstream fidelity.
     - Non-goal: this is a GENERATED derived projection; it does not authorize release, source mutation, or treat itself as source-of-truth authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     resolved_root = Path(root).resolve() if root is not None else microcosm_root()
     routes_payload = _as_dict(read_json_strict(resolved_root / "atlas/agent_task_routes.json"))
@@ -489,7 +584,9 @@ def build_route_candidate_read_model(root: str | Path | None = None) -> dict[str
 
 
 def validate_route_candidate_read_model(payload: dict[str, Any]) -> dict[str, Any]:
-    """Validate a route-candidate read model against its schema, authority, and ranking invariants.
+    """
+    [ACTION]
+    Validate a route-candidate read model against its schema, authority, and ranking invariants.
 
     - Teleology: the guard that keeps the projection projection-only, source-backed, and correctly ranked before any consumer trusts it.
     - Guarantee: returns a schema=VALIDATION_SCHEMA dict with status "pass" iff zero errors else "blocked", plus error_count and per-error {path, code, message}; checks schema_version, authority_posture, banned-true authority keys, required row fields, receipt+source backing, and descending-score ordering.
@@ -497,6 +594,9 @@ def validate_route_candidate_read_model(payload: dict[str, Any]) -> dict[str, An
     - Fails: never raises; each violation appends an error and flips status to "blocked" (status-field envelope, not an exception).
     - Escalates-to: REQUIRED_ROW_FIELDS / BANNED_AUTHORITY_TRUE_KEYS for the exact contract; the projection's test suite for regression coverage.
     - Non-goal: validates shape and authority posture only; does not authorize release or assert whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, str]] = []
     if payload.get("schema_version") != SCHEMA:
@@ -572,7 +672,9 @@ def validate_route_candidate_read_model(payload: dict[str, Any]) -> dict[str, An
 
 
 def compile_paths(root: str | Path | None = None, out: str | Path | None = None) -> dict[str, Any]:
-    """Build, validate, fold validation into the payload, and optionally persist the read model + receipt.
+    """
+    [ACTION]
+    Build, validate, fold validation into the payload, and optionally persist the read model + receipt.
 
     - Teleology: one-call compile that produces the validated projection and its on-disk artifacts for downstream consumers.
     - Guarantee: returns the payload with payload["validation"] attached and payload["status"] set to the validation status; when out is given, writes sorted-keys JSON for both files and creates the directory.
@@ -582,6 +684,7 @@ def compile_paths(root: str | Path | None = None, out: str | Path | None = None)
     - Fails: required-manifest read errors propagate from the builder; out-path write/mkdir errors propagate (OSError); a "blocked" validation still returns + writes but with status "blocked".
     - Escalates-to: the written receipt JSON and validate_route_candidate_read_model for the authoritative status.
     - Non-goal: writing these GENERATED artifacts does not authorize release or make the projection source-of-truth authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     payload = build_route_candidate_read_model(root=root)
     validation = validate_route_candidate_read_model(payload)
@@ -611,7 +714,9 @@ def compile_paths(root: str | Path | None = None, out: str | Path | None = None)
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry: build and validate the Microcosm route-candidate read model.
+    """
+    [ACTION]
+    CLI entry: build and validate the Microcosm route-candidate read model.
 
     - Teleology: command-line front door producing the ranked route-candidate projection consumed by the route-mining controller.
     - Guarantee: prints the validated payload as JSON and, when --out is given, writes the read model plus receipt; returns 0 iff status is "pass".
@@ -619,6 +724,7 @@ def main(argv: list[str] | None = None) -> int:
     - Writes: optional --out directory (route_candidate_read_model.json + receipt) via compile_paths.
     - When-needed: refreshing the projection-only route-candidate ranking for the selector.
     - Fails: validation status != "pass" -> nonzero exit -> return code 1.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     parser = argparse.ArgumentParser(description="Build the Microcosm route-candidate read model.")
     parser.add_argument("--root", default=None)

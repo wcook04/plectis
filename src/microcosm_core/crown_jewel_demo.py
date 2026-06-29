@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.crown_jewel_demo` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SCHEMA_VERSION, RECEIPT_NAME, ANTI_CLAIM, MICROCOSM_ROOT, DEFAULT_OUT, run, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.macro_tools, microcosm_core.organs, microcosm_core.receipts
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -35,26 +60,34 @@ DEFAULT_OUT = MICROCOSM_ROOT / "receipts/first_wave/crown_jewel_demo"
 
 
 def _sha256_json(payload: object) -> str:
-    """Stable content digest of a JSON-able payload for receipt fingerprinting.
+    """
+    [ACTION]
+    Stable content digest of a JSON-able payload for receipt fingerprinting.
 
     - Teleology: give each organ/runtime result a deterministic identity in the receipt without inlining its body.
     - Guarantee: returns the hex SHA-256 of the canonically serialized (sort_keys, str-coerced) payload; identical payloads yield identical digests.
     - Fails: never raises for JSON-able input; non-serializable objects fall back to `str()` via `default=str` rather than erroring.
     - Reads: nothing on disk; hashes only the in-memory payload.
     - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness; it is a fingerprint only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     text = json.dumps(payload, sort_keys=True, default=str)
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
 def _file_digest(path: Path) -> str | None:
-    """Hex SHA-256 of a written artifact, used to fingerprint sidecar output in the receipt.
+    """
+    [ACTION]
+    Hex SHA-256 of a written artifact, used to fingerprint sidecar output in the receipt.
 
     - Teleology: bind a receipt row to the exact bytes of an emitted file without copying its contents into the receipt.
     - Guarantee: returns the hex SHA-256 of the file's bytes when `path` is a regular file; returns None when it is missing or not a file.
     - Fails: never raises for the missing-file case; returns None instead. Read errors on an existing file (permissions/IO) propagate as OSError.
     - Reads: the bytes at `path` (a generated sidecar/receipt artifact).
     - Non-goal: does not authorize source-body export, public-safe equivalence, or release; it only fingerprints already-emitted output.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not path.is_file():
         return None
@@ -62,13 +95,17 @@ def _file_digest(path: Path) -> str | None:
 
 
 def _rel(path: Path) -> str:
-    """Render a path as a microcosm-root-relative posix ref for portable receipt refs.
+    """
+    [ACTION]
+    Render a path as a microcosm-root-relative posix ref for portable receipt refs.
 
     - Teleology: keep receipt path refs root-relative and host-agnostic so they do not leak the absolute private filesystem layout.
     - Guarantee: returns the posix path relative to MICROCOSM_ROOT when `path` is under it; otherwise returns the path's own posix form unchanged.
     - Fails: never raises; the out-of-root case is caught (ValueError) and falls back to `path.as_posix()`.
     - Reads: only the in-memory path plus MICROCOSM_ROOT; no filesystem read (resolve uses strict=False).
     - Non-goal: does not authorize release or guarantee the referenced path exists; it only normalizes the ref string.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     try:
         return path.resolve(strict=False).relative_to(MICROCOSM_ROOT).as_posix()
@@ -77,7 +114,9 @@ def _rel(path: Path) -> str:
 
 
 def _organ_card(organ_id: str, result: dict[str, Any]) -> dict[str, Any]:
-    """Compact one organ run's result into a body-free receipt card.
+    """
+    [ACTION]
+    Compact one organ run's result into a body-free receipt card.
 
     - Teleology: project a verbose organ result into a fixed-shape, fingerprint-only card for the crown-jewel receipt (no organ body inlined).
     - Guarantee: returns a dict carrying organ_id, the organ's reported status, receipt_refs, a result_digest over (status/exercise/source_module_status/observed_negative_cases), negative-case count, missing_negative_cases, anti_claim, and `body_in_receipt: False`.
@@ -85,6 +124,8 @@ def _organ_card(organ_id: str, result: dict[str, Any]) -> dict[str, Any]:
     - Reads: only the in-memory `result` dict from the organ runner; no disk read.
     - Escalates-to: the underlying organ runner's own receipt under out_dir/organs/<organ_id> for full-fidelity status and negative cases.
     - Non-goal: does not validate or re-run the organ; it transcribes whatever the runner reported and authorizes no release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     receipt_refs = [str(ref) for ref in result.get("receipt_paths", [])]
     return {
@@ -117,7 +158,9 @@ def _run_organ(
     out_dir: Path,
     runner: Callable[..., dict[str, Any]],
 ) -> dict[str, Any]:
-    """Run one flagship organ on its public example bundle and return its receipt card.
+    """
+    [ACTION]
+    Run one flagship organ on its public example bundle and return its receipt card.
 
     - Teleology: the single per-organ execution seam — resolve the example input under root, invoke the organ's runner into a per-organ out dir, and card the result.
     - Guarantee: invokes `runner(MICROCOSM_ROOT/input_ref, out_dir/organs/organ_id)` and returns its `_organ_card`; the runner writes its own receipts under that out dir.
@@ -125,13 +168,18 @@ def _run_organ(
     - When-needed: when adding/exercising one organ in the demo or tracing a single organ's status independent of the full run.
     - Escalates-to: `_organ_card` for card shape and the organ runner's receipts under out_dir/organs/<organ_id> for full fidelity.
     - Non-goal: does not aggregate pass/blocked across organs (that is `run`) and authorizes no release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     result = runner(MICROCOSM_ROOT / input_ref, out_dir / "organs" / organ_id)
     return _organ_card(organ_id, result)
 
 
 def _runtime_safety_checks(out_dir: Path) -> list[dict[str, Any]]:
-    """Exercise the three runtime-safety containment probes and return their receipt cards.
+    """
+    [ACTION]
+    Exercise the three runtime-safety containment probes and return their receipt cards.
 
     - Teleology: prove bounded runtime behavior (durable work-landing replay, command-output sidecar containment, work-landing control validation) alongside the organ set, body-free.
     - Guarantee: returns a 3-element list of body-free check cards (durable_agent_work_landing_replay, command_output_sidecar, work_landing_control_spine), each with status, receipt ref(s), and a digest; the control-spine check captures its redirected stdout digest and flags `known_blocker` when its status != "pass".
@@ -139,6 +187,9 @@ def _runtime_safety_checks(out_dir: Path) -> list[dict[str, Any]]:
     - When-needed: when verifying the demo's runtime-safety surface or diagnosing why the crown-jewel run reports a runtime hard failure vs. a known blocker.
     - Escalates-to: receipts under out_dir/runtime_safety/* and the sidecar workspace under out_dir/sidecar_workspace for each probe's full output.
     - Non-goal: does not prove full concurrent-mutation protection or production safety; each card's anti_claim bounds the proof to the fixture, and it authorizes no release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     checks: list[dict[str, Any]] = []
     durable_result = durable_agent_work_landing_replay.run_work_landing_bundle(
@@ -225,7 +276,9 @@ def _runtime_safety_checks(out_dir: Path) -> list[dict[str, Any]]:
 
 
 def run(out_dir: str | Path = DEFAULT_OUT, *, command: str = "microcosm crown-jewel-demo run") -> dict[str, Any]:
-    """Execute the full Crown Jewel demo: five organs + runtime-safety checks under one receipt.
+    """
+    [ACTION]
+    Execute the full Crown Jewel demo: five organs + runtime-safety checks under one receipt.
 
     - Teleology: the public board-emitter that runs the curated showcase end-to-end on public fixtures and writes one top-level pass/blocked receipt.
     - Guarantee: runs five organ runners and the three runtime-safety probes, atomically writes crown_jewel_demo_receipt.json at out_dir, and returns the receipt payload; `status` is "pass" iff no organ failed and no non-excused runtime hard failure occurred, else "blocked".
@@ -234,6 +287,8 @@ def run(out_dir: str | Path = DEFAULT_OUT, *, command: str = "microcosm crown-je
     - When-needed: demonstrating the flagship organ set + runtime safety on public fixtures, or producing the receipt the CLI/main prints.
     - Escalates-to: SCHEMA_VERSION `microcosm_crown_jewel_demo_receipt_v1` receipt at receipt_ref; `_run_organ`/`_runtime_safety_checks` and their per-probe receipts for full fidelity.
     - Non-goal: per ANTI_CLAIM, does not claim production release, live market data, provider execution, full concurrent-mutation protection, source-mutation authority, or private-root equivalence.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     out_path = Path(out_dir)
     out_path.mkdir(parents=True, exist_ok=True)
@@ -310,7 +365,9 @@ def run(out_dir: str | Path = DEFAULT_OUT, *, command: str = "microcosm crown-je
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry for the Crown Jewel demo `run` subcommand.
+    """
+    [ACTION]
+    CLI entry for the Crown Jewel demo `run` subcommand.
 
     - Teleology: single public showcase command that exercises five flagship organs plus runtime-safety checks under one receipt.
     - Guarantee: on `run`, the demo executes, a receipt is printed, and exit code matches its pass/blocked status.
@@ -319,6 +376,7 @@ def main(argv: list[str] | None = None) -> int:
     - Writes: crown_jewel_demo_receipt.json plus per-organ/runtime receipts under `--out` (default receipts/first_wave/crown_jewel_demo).
     - When-needed: demonstrating the curated organ set end-to-end on public fixtures.
     - Escalates-to: run, _runtime_safety_checks, the five organ runners.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
 
     parser = argparse.ArgumentParser(prog="microcosm crown-jewel-demo")

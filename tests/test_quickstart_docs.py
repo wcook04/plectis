@@ -17,7 +17,7 @@ def test_quickstart_names_source_only_browser_serve_path() -> None:
         maxsplit=1,
     )[1].split("Read those as a first-screen contract", maxsplit=1)[0]
 
-    assert "[README Component Map](README.md#component-map)" in quickstart
+    assert "[README Component Map](README.md#choose-a-route)" in quickstart
     assert "runtime package, command cards, public" in quickstart
     assert "doctrine, evidence fixtures, source capsules, and validation shell" in (
         quickstart

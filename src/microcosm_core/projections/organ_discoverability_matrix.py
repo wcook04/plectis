@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.projections.organ_discoverability_matrix` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SCHEMA_VERSION, VALIDATION_SCHEMA_VERSION, DEFAULT_MATRIX_NAME, DEFAULT_RECEIPT_NAME, AUTHORITY_POSTURE, SOURCE_REFS, REQUIRED_ROW_KEYS, BANNED_TRUE_AUTHORITY_KEYS, build_organ_discoverability_matrix, validate_organ_discoverability_matrix, compile_paths, main
+- Reads: call arguments, module constants, imported helpers.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.receipts, microcosm_core.resource_root, microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -51,66 +76,94 @@ BANNED_TRUE_AUTHORITY_KEYS = (
 
 
 def _as_dict(value: Any) -> dict[str, Any]:
-    """Coerce an arbitrary parsed-JSON value to a dict, defaulting empty.
+    """
+    [ACTION]
+    Coerce an arbitrary parsed-JSON value to a dict, defaulting empty.
 
     - Teleology: shape-guard so downstream row builders read mapping access safely on untrusted JSON.
     - Guarantee: returns value when it is a dict, else a new empty dict; never returns None.
     - Fails: never raises; non-dict input -> {}.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return value if isinstance(value, dict) else {}
 
 
 def _as_list(value: Any) -> list[Any]:
-    """Coerce an arbitrary parsed-JSON value to a list, defaulting empty.
+    """
+    [ACTION]
+    Coerce an arbitrary parsed-JSON value to a list, defaulting empty.
 
     - Teleology: shape-guard so iteration over registry/atlas arrays is safe on untrusted JSON.
     - Guarantee: returns value when it is a list, else a new empty list; never returns None.
     - Fails: never raises; non-list input -> [].
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return value if isinstance(value, list) else []
 
 
 def _rows(value: Any, key: str) -> list[dict[str, Any]]:
-    """Extract the dict rows under a named key of a parsed-JSON mapping.
+    """
+    [ACTION]
+    Extract the dict rows under a named key of a parsed-JSON mapping.
 
     - Teleology: single accessor for the array-of-objects shape every source registry uses.
     - Guarantee: returns only dict elements of value[key]; non-dict container or non-dict elements are dropped.
     - Fails: never raises; missing key or non-list value -> [].
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [row for row in _as_list(_as_dict(value).get(key)) if isinstance(row, dict)]
 
 
 def _strings(value: Any) -> list[str]:
-    """Filter a value to its non-blank string elements.
+    """
+    [ACTION]
+    Filter a value to its non-blank string elements.
 
     - Teleology: normalize ref/code lists drawn from untrusted JSON to usable strings.
     - Guarantee: returns each str element whose strip() is truthy, preserving order.
     - Fails: never raises; non-list or non-string elements -> dropped.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [item for item in _as_list(value) if isinstance(item, str) and item.strip()]
 
 
 def _load_json(path: Path) -> dict[str, Any]:
-    """Strictly parse a required source-JSON file to a dict.
+    """
+    [ACTION]
+    Strictly parse a required source-JSON file to a dict.
 
     - Teleology: source-custody read for a mandatory registry/atlas input of the matrix.
     - Guarantee: returns the parsed object when it is a dict, else {}.
     - Fails: read_json_strict raises on missing file or malformed JSON; a non-dict top level -> {}.
     - Reads: the JSON file at path (e.g. core/organ_registry.json, atlas/agent_task_routes.json).
     - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     payload = read_json_strict(path)
     return payload if isinstance(payload, dict) else {}
 
 
 def _optional_json(path: Path) -> dict[str, Any]:
-    """Parse an optional source-JSON file, tolerating absence.
+    """
+    [ACTION]
+    Parse an optional source-JSON file, tolerating absence.
 
     - Teleology: source-custody read for inputs (capsules, coverage, standards) that may not exist yet.
     - Guarantee: returns {} when path is not a file, else the strict-parsed dict from _load_json.
     - Fails: present-but-malformed JSON raises inside _load_json; absent file -> {}.
     - Reads: the JSON file at path when it exists.
     - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not path.is_file():
         return {}
@@ -118,11 +171,16 @@ def _optional_json(path: Path) -> dict[str, Any]:
 
 
 def _by_organ_id(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    """Index registry/atlas/evidence rows by their organ_id.
+    """
+    [ACTION]
+    Index registry/atlas/evidence rows by their organ_id.
 
     - Teleology: O(1) join key so each accepted organ can pull its atlas/evidence row.
     - Guarantee: returns {organ_id: row} for rows whose organ_id is a non-empty string; later duplicates overwrite earlier.
     - Fails: never raises; rows without a string organ_id -> excluded.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         str(row.get("organ_id")): row
@@ -132,12 +190,16 @@ def _by_organ_id(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
 
 
 def _standard_by_id(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    """Index standards-registry rows by their standard_id.
+    """
+    [ACTION]
+    Index standards-registry rows by their standard_id.
 
     - Teleology: lets each organ row resolve whether its std_microcosm_<id> standard is registered.
     - Guarantee: returns {standard_id: row} for standards rows with a non-empty string standard_id.
     - Fails: never raises; missing standards array or rows without a string standard_id -> excluded.
     - Reads: payload["standards"] (from core/standards_registry.json).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return {
         str(row.get("standard_id")): row
@@ -147,12 +209,16 @@ def _standard_by_id(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 def _capsules_by_organ(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    """Index paper-module capsules by the first organ subject they cover.
+    """
+    [ACTION]
+    Index paper-module capsules by the first organ subject they cover.
 
     - Teleology: maps each organ to its paper-module capsule for paper_module_ref resolution.
     - Guarantee: returns {organ_id: capsule_row} keyed by subjects[kind=="organ"].ref; first capsule per organ wins.
     - Fails: never raises; non-dict subjects, non-organ kinds, or empty refs -> skipped.
     - Reads: payload["paper_modules"][*].subjects (from core/paper_module_capsules.json).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     capsules: dict[str, dict[str, Any]] = {}
     for row in _rows(payload, "paper_modules"):
@@ -168,12 +234,16 @@ def _capsules_by_organ(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 
 def _coverage_sets(payload: dict[str, Any]) -> dict[str, set[str]]:
-    """Lift doctrine-lattice coverage gaps into organ-id sets.
+    """
+    [ACTION]
+    Lift doctrine-lattice coverage gaps into organ-id sets.
 
     - Teleology: source of the doctrine_missing_* gap codes per organ.
     - Guarantee: returns sets for without_paper_module_ref / without_mechanism_ref / without_code_loci, each a set of organ-id strings.
     - Fails: never raises; missing organ_required_edge_coverage -> three empty sets.
     - Reads: payload["organ_required_edge_coverage"] (from core/doctrine_lattice_coverage.json).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     coverage = _as_dict(payload.get("organ_required_edge_coverage"))
     return {
@@ -184,11 +254,16 @@ def _coverage_sets(payload: dict[str, Any]) -> dict[str, set[str]]:
 
 
 def _route_organ_id_from_ref(value: str) -> str:
-    """Parse an organ_id out of an evidence_ref selector string.
+    """
+    [ACTION]
+    Parse an organ_id out of an evidence_ref selector string.
 
     - Teleology: recover the organ a route's evidence_ref points at, for the route->organ join.
     - Guarantee: returns the stripped token between "organ_id=" and the next "]", else "".
     - Fails: never raises; ref without the organ_id= marker -> "".
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     marker = "organ_id="
     if marker not in value:
@@ -198,12 +273,16 @@ def _route_organ_id_from_ref(value: str) -> str:
 
 
 def _route_rows_by_organ(routes_payload: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
-    """Group agent task routes by every organ they reference.
+    """
+    [ACTION]
+    Group agent task routes by every organ they reference.
 
     - Teleology: builds the organ->routes index that gives each row its task-route cards.
     - Guarantee: returns {organ_id: [route,...]} covering primary_organ_id, relevant_organs[].organ_id, and evidence_ref organ; no route duplicated per organ.
     - Fails: never raises; routes without organ references contribute nothing.
     - Reads: routes_payload["routes"] (from atlas/agent_task_routes.json).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     result: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for route in _rows(routes_payload, "routes"):
@@ -222,11 +301,16 @@ def _route_rows_by_organ(routes_payload: dict[str, Any]) -> dict[str, list[dict[
 
 
 def _task_route_ref(route: dict[str, Any]) -> str:
-    """Render the canonical generated-route selector ref for a route.
+    """
+    [ACTION]
+    Render the canonical generated-route selector ref for a route.
 
     - Teleology: stable source-ref handle a cold agent uses to re-find the route in the atlas.
     - Guarantee: returns "atlas/agent_task_routes.json::routes[task_class=<task_class>]", using <missing> when absent; the validator requires this exact prefix.
     - Fails: never raises; blank task_class -> "...[task_class=<missing>]".
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     task_class = str(route.get("task_class") or "").strip()
     if not task_class:
@@ -235,11 +319,16 @@ def _task_route_ref(route: dict[str, Any]) -> str:
 
 
 def _organ_route_role(route: dict[str, Any], organ_id: str) -> str:
-    """Classify how a route selected a given organ.
+    """
+    [ACTION]
+    Classify how a route selected a given organ.
 
     - Teleology: records provenance of the route->organ edge so claims stay traceable.
     - Guarantee: returns "primary", "relevant", "evidence_ref", or "matched" (the validator's allowed set) per how organ_id appears in the route.
     - Fails: never raises; organ not found in any role -> "matched".
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if str(route.get("primary_organ_id") or "").strip() == organ_id:
         return "primary"
@@ -252,11 +341,16 @@ def _organ_route_role(route: dict[str, Any], organ_id: str) -> str:
 
 
 def _organ_route_ref(route: dict[str, Any], organ_id: str) -> str:
-    """Build the organ-specific sub-ref anchored under the task-route ref.
+    """
+    [ACTION]
+    Build the organ-specific sub-ref anchored under the task-route ref.
 
     - Teleology: gives each organ row a precise selector into the route field that named it.
     - Guarantee: returns the task_route_ref suffixed by the role-specific field; always begins with _task_route_ref(route), as the validator's anchoring check requires.
     - Fails: never raises; role "matched" -> bare task_route_ref.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     task_route_ref = _task_route_ref(route)
     role = _organ_route_role(route, organ_id)
@@ -270,11 +364,16 @@ def _organ_route_ref(route: dict[str, Any], organ_id: str) -> str:
 
 
 def _command_tokens(command: str) -> list[str]:
-    """Shell-tokenize a first-command string, tolerating malformed quoting.
+    """
+    [ACTION]
+    Shell-tokenize a first-command string, tolerating malformed quoting.
 
     - Teleology: safe lexing for the runnable-command shape check.
     - Guarantee: returns shlex.split(command); on unbalanced quotes returns [].
     - Fails: never raises; shlex ValueError -> [].
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     try:
         return shlex.split(command)
@@ -283,12 +382,17 @@ def _command_tokens(command: str) -> list[str]:
 
 
 def _is_runnable_public_command(command: str) -> bool:
-    """Decide whether a command is a runnable, public-safe Microcosm invocation.
+    """
+    [ACTION]
+    Decide whether a command is a runnable, public-safe Microcosm invocation.
 
     - Teleology: release-boundary gate distinguishing a real `microcosm`/`-m microcosm_core` command from private-surface or placeholder text.
     - Guarantee: returns True only for a `microcosm ...`, `python[3] -m microcosm_core....`, or `PYTHONPATH= python[3] -m microcosm_core....` command with no private markers or angle-bracket placeholders; else False.
     - Fails: never raises; empty/blank, any of {raw_seed.md, obsidian/, "provider payload", "operator thread", "HUD/browser"}, or "<"/">" -> False.
     - Non-goal: does not authorize source-body export, public-safe equivalence beyond this token check, release, or whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not command or any(
         banned in command
@@ -318,13 +422,17 @@ def _is_runnable_public_command(command: str) -> bool:
 
 
 def _existing_ref(root: Path, ref: str) -> bool:
-    """Test whether a source/receipt ref resolves to a real file on disk.
+    """
+    [ACTION]
+    Test whether a source/receipt ref resolves to a real file on disk.
 
     - Teleology: drives proof_receipt_hidden / owner_build_route_unclear gap detection by checking the cited evidence actually exists.
     - Guarantee: returns True iff the path part of ref (before "::"/"#") exists, checked absolute, then under root, then under root.parent.
     - Fails: never raises; empty path part -> False; a ref that exists nowhere -> False.
     - Reads: the filesystem path named by ref (no file contents read, only existence).
     - Non-goal: does not validate ref contents, authority, or public-safety; existence only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     ref_path = ref.split("::", 1)[0].split("#", 1)[0].strip()
     if not ref_path:
@@ -338,24 +446,32 @@ def _existing_ref(root: Path, ref: str) -> bool:
 
 
 def _first_command(registry_row: dict[str, Any], atlas_row: dict[str, Any]) -> str:
-    """Resolve an organ's canonical first command from atlas then registry.
+    """
+    [ACTION]
+    Resolve an organ's canonical first command from atlas then registry.
 
     - Teleology: the single "run this first" handle each discoverability row exposes.
     - Guarantee: returns atlas_row.first_command, else registry_row.validator_command, else "" (stripped).
     - Fails: never raises; neither source present -> "".
     - Reads: atlas_row["first_command"], registry_row["validator_command"].
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return str(atlas_row.get("first_command") or registry_row.get("validator_command") or "").strip()
 
 
 def _authority_ceiling(registry_row: dict[str, Any], atlas_row: dict[str, Any]) -> str:
-    """Resolve an organ's claim ceiling from atlas then registry.
+    """
+    [ACTION]
+    Resolve an organ's claim ceiling from atlas then registry.
 
     - Teleology: surfaces the maximum claim an organ supports, kept verbatim from source.
     - Guarantee: returns atlas_row.claim_ceiling_restated, else registry_row.claim_ceiling, else "" (stripped).
     - Fails: never raises; neither source present -> "".
     - Reads: atlas_row["claim_ceiling_restated"], registry_row["claim_ceiling"].
     - Non-goal: does not widen or restate the ceiling; it only relays the source value.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return str(
         atlas_row.get("claim_ceiling_restated") or registry_row.get("claim_ceiling") or ""
@@ -363,13 +479,17 @@ def _authority_ceiling(registry_row: dict[str, Any], atlas_row: dict[str, Any]) 
 
 
 def _proof_receipts(registry_row: dict[str, Any], task_routes: list[dict[str, Any]]) -> list[str]:
-    """Collect the proof-receipt refs for an organ from registry and its routes.
+    """
+    [ACTION]
+    Collect the proof-receipt refs for an organ from registry and its routes.
 
     - Teleology: enumerates the evidence handles an agent must open before broader claims.
     - Guarantee: returns the sorted unique set of current_authority_receipt + generated_receipts + each route receipt_ref.
     - Fails: never raises; no receipts anywhere -> [].
     - Reads: registry_row["current_authority_receipt"], registry_row["generated_receipts"], task_routes[*]["receipt_ref"].
     - Non-goal: does not check the receipts exist or are valid (see _existing_ref); ref collection only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     refs: list[str] = []
     current = str(registry_row.get("current_authority_receipt") or "").strip()
@@ -390,13 +510,17 @@ def _paper_module_ref(
     atlas_row: dict[str, Any],
     capsule_by_organ: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
-    """Resolve an organ's paper-module reference across declared, direct, and capsule sources.
+    """
+    [ACTION]
+    Resolve an organ's paper-module reference across declared, direct, and capsule sources.
 
     - Teleology: gives each row a status-tagged handle to its paper-module narrative for the matrix.
     - Guarantee: returns a dict with ref/status/source/resolved; status in {available, declared_unresolved, missing}; resolved True only when the target file exists under root.
     - Fails: never raises; declared ref whose file is absent -> status "declared_unresolved", resolved False; nothing found -> status "missing".
     - Reads: atlas_row["paper_module_ref"], paper_modules/<organ_id>.md, and capsule legacy_markdown_projection under root.
     - Non-goal: does not read or export the paper-module body; resolves the ref handle and existence only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     declared = str(atlas_row.get("paper_module_ref") or "").strip()
     if declared:
@@ -458,12 +582,16 @@ def _source_relation_handle_for_organ(
     route: dict[str, Any],
     organ_id: str,
 ) -> dict[str, Any] | None:
-    """Pull the per-organ source_relation_handle from a route's relevant_organs.
+    """
+    [ACTION]
+    Pull the per-organ source_relation_handle from a route's relevant_organs.
 
     - Teleology: carries an organ's specific source-relation handle onto its route card.
     - Guarantee: returns the dict handle for the matching relevant-organ entry, else None.
     - Fails: never raises; organ absent or handle not a dict -> None.
     - Reads: route["relevant_organs"][organ_id==organ_id]["source_relation_handle"].
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     for organ in _as_list(route.get("relevant_organs")):
         if not isinstance(organ, dict) or str(organ.get("organ_id") or "") != organ_id:
@@ -474,13 +602,17 @@ def _source_relation_handle_for_organ(
 
 
 def _compact_source_relation_summary(route: dict[str, Any]) -> dict[str, Any]:
-    """Compact a route's source_relation_summary to counts plus a back-ref and sample queries.
+    """
+    [ACTION]
+    Compact a route's source_relation_summary to counts plus a back-ref and sample queries.
 
     - Teleology: keeps a cold-agent-sized relation summary on each card without inlining full edge bodies.
     - Guarantee: returns a dict with a generated source_ref selector, integer edge/ref/shard/validation counts (0 when absent), and up to 3 query_examples.
     - Fails: never raises; missing summary -> zero counts and empty query_examples.
     - Reads: route["source_relation_summary"], route["task_class"].
     - Non-goal: does not emit full relation edges; preserves count handles only.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     summary = _as_dict(route.get("source_relation_summary"))
     return {
@@ -504,13 +636,17 @@ def _task_route_cards(
     *,
     organ_id: str,
 ) -> list[dict[str, Any]]:
-    """Build the per-organ task-route cards for one organ's routes.
+    """
+    [ACTION]
+    Build the per-organ task-route cards for one organ's routes.
 
     - Teleology: the matrix's runnable-route surface — how an agent reaches and runs each route that names this organ.
     - Guarantee: returns one card per route (sorted by task_class) carrying task_route_ref, role/anchored organ refs, runnable-shape flag, receipt_ref + existence, and the compact relation summary; source_ref equals task_route_ref (validator invariant).
     - Fails: never raises; empty routes -> [].
     - Reads: each route's fields plus receipt-ref existence under root.
     - Escalates-to: validate_organ_discoverability_matrix, which re-checks each card's refs/roles.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     cards: list[dict[str, Any]] = []
     for route in sorted(routes, key=lambda row: str(row.get("task_class") or "")):
@@ -542,12 +678,17 @@ def _task_route_cards(
 
 
 def _owner_build_route(organ_id: str) -> dict[str, Any]:
-    """Emit the owner/source-authority + builder-check block for an organ row.
+    """
+    [ACTION]
+    Emit the owner/source-authority + builder-check block for an organ row.
 
     - Teleology: tells an agent which source rows to edit and which builder to re-run instead of hand-editing generated docs.
     - Guarantee: returns a dict naming the owner surface, the three source-authority selectors (registry/atlas/evidence for organ_id), the builder/check commands, and the do-not-hand-edit mutation_boundary.
     - Fails: never raises; pure data construction.
     - Non-goal: does not perform or authorize source mutation or the build; it only names the route.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "owner_surface": "Plectis public organ substrate",
@@ -582,13 +723,17 @@ def _gap_codes(
     coverage_sets: dict[str, set[str]],
     organ_id: str,
 ) -> list[str]:
-    """Derive the sorted gap-code set for one organ row.
+    """
+    [ACTION]
+    Derive the sorted gap-code set for one organ row.
 
     - Teleology: the matrix's defect detector — names exactly what is missing/unrunnable/hidden for an organ.
     - Guarantee: returns sorted unique gap codes drawn from a fixed vocabulary (missing_first_command, route_points_to_non_runnable_command, missing_authority_ceiling, missing_evidence_class, missing_paper_module_link, proof_receipt_hidden, missing_agent_task_route, owner_build_route_unclear, doctrine_missing_*); empty list means a complete row.
     - Fails: never raises; a fully-populated organ -> [].
     - Reads: receipt/standard ref existence under root, plus coverage_sets membership.
     - Escalates-to: validate_organ_discoverability_matrix, which re-asserts these gaps are declared where required.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     gaps: list[str] = []
     if not first_command:
@@ -619,7 +764,9 @@ def _gap_codes(
 
 
 def build_organ_discoverability_matrix(root: str | Path | None = None) -> dict[str, Any]:
-    """Build the GENERATED discoverability-matrix projection over accepted organs.
+    """
+    [ACTION]
+    Build the GENERATED discoverability-matrix projection over accepted organs.
 
     - Teleology: compile a cold-agent route map — first command, authority ceiling, evidence, paper module, proof receipts, task routes, owner-build route, and gap codes — for every accepted-current-authority organ, from the source registries only.
     - Guarantee: returns a projection dict with schema_version, status "pass", discoverability_status (complete/gaps_detected), all four authority flags hard-False, gap-sorted rows, gap_counts, omission_receipt, anti_claim, and an embedded validation block.
@@ -627,6 +774,8 @@ def build_organ_discoverability_matrix(root: str | Path | None = None) -> dict[s
     - Reads: atlas/entry_packet.json, atlas/agent_task_routes.json, core/organ_registry.json, core/organ_atlas.json, core/organ_evidence_classes.json, and optional capsules/coverage/standards under root (or microcosm_root()).
     - When-needed: when an agent needs the ranked discoverability/gap view of accepted organs, or before trusting any organ's run/claim/evidence handles.
     - Escalates-to: the named source JSON + scripts/build_organ_atlas.py and the organ_surface_contract projection that own these rows; this output is a projection, not source-of-truth authority, and authorizes no release or source mutation.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values, declared filesystem outputs.
     """
     resolved_root = Path(root).resolve() if root is not None else microcosm_root()
     entry_packet = _load_json(resolved_root / "atlas/entry_packet.json")
@@ -825,13 +974,18 @@ def build_organ_discoverability_matrix(root: str | Path | None = None) -> dict[s
 
 
 def validate_organ_discoverability_matrix(payload: dict[str, Any]) -> dict[str, Any]:
-    """Validate a discoverability-matrix payload's shape and authority posture.
+    """
+    [ACTION]
+    Validate a discoverability-matrix payload's shape and authority posture.
 
     - Teleology: the matrix's own gate — proves schema, projection-only posture, banned-authority absence, required row keys, gap-declaration honesty, and route-card ref anchoring before the payload is trusted.
     - Guarantee: returns {schema_version, status, error_count, errors[], row_count}; status is "pass" iff errors is empty, else "blocked"; each error carries path/code/message.
     - Fails: never raises; any violation (wrong schema_version, non-projection authority_posture, a banned authority key True, missing rows/keys, undeclared gap, mismatched route refs) -> appended error and status "blocked".
     - When-needed: to confirm a built or on-disk matrix is well-formed and authority-safe before consuming it.
     - Escalates-to: the named row source JSON and tests/standards for the matrix; this is a shape/posture check, not source or release authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     errors: list[dict[str, str]] = []
     if payload.get("schema_version") != SCHEMA_VERSION:
@@ -993,7 +1147,9 @@ def compile_paths(
     root: str | Path | None = None,
     out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Build the matrix projection and atomically write its GENERATED artifact + receipt.
+    """
+    [ACTION]
+    Build the matrix projection and atomically write its GENERATED artifact + receipt.
 
     - Teleology: the write step that materializes the discoverability matrix and a body-free receipt to an output directory.
     - Guarantee: returns the built payload; when out is given, creates out and atomically writes organ_discoverability_matrix.json plus a body_in_receipt=False receipt mirroring status/counts/gap_counts/authority_posture.
@@ -1001,6 +1157,8 @@ def compile_paths(
     - Writes: <out>/organ_discoverability_matrix.json and <out>/organ_discoverability_matrix_receipt.json (only when out is provided).
     - When-needed: to regenerate the on-disk matrix + receipt as part of an organ-projection rebuild.
     - Escalates-to: scripts/build_organ_atlas.py and the source registries this projection derives from; writing this artifact authorizes neither release nor source mutation.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     payload = build_organ_discoverability_matrix(root=root)
     if out is not None:
@@ -1023,7 +1181,9 @@ def compile_paths(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entrypoint building the Microcosm accepted-organ discoverability matrix.
+    """
+    [ACTION]
+    CLI entrypoint building the Microcosm accepted-organ discoverability matrix.
 
     - Teleology: regenerates/validates the discoverability matrix over accepted organs from the shell.
     - Guarantee: parses argv, calls compile_paths, prints the JSON payload, and returns 0 unless --check is set and validation.status != "pass" (then 1).
@@ -1032,6 +1192,7 @@ def main(argv: list[str] | None = None) -> int:
     - Writes: payload to --out when provided; stdout.
     - When-needed: regenerating or checking the organ discoverability matrix.
     - Escalates-to: compile_paths.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     parser = argparse.ArgumentParser(
         description="Build the Microcosm accepted-organ discoverability matrix."

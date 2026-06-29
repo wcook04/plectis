@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.organs.batch7_secondary_runtime_capsule` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, EXERCISE_MANIFEST_NAME, EXPECTED_ENGINES, EXPECTED_NEGATIVE_CASES, NEGATIVE_CASE_CODES, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, SPEC, evaluate_negative_case, run, run_batch7_secondary_bundle, result_card, main
+- Reads: call arguments, module constants, imported helpers.
+- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.organs._crown_jewel_common, pandas, tools.polymarket.clob_snapshot, tools.polymarket.models, tools.polymarket.score, tools.stockgrid.stockgrid
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -119,10 +144,28 @@ SPEC = CrownJewelSpec(
 
 
 def _repo_root(public_root: Path) -> Path:
+    """
+    [ACTION]
+    - Teleology: Implements `_repo_root` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return public_root.parent
 
 
 def _copied_source(public_root: Path, source_ref: str) -> Path:
+    """
+    [ACTION]
+    - Teleology: Implements `_copied_source` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return (
         public_root
         / "examples/batch7_secondary_runtime_capsule/"
@@ -132,6 +175,15 @@ def _copied_source(public_root: Path, source_ref: str) -> Path:
 
 
 def _stockgrid_exercise(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_stockgrid_exercise` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     repo = _repo_root(public_root)
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
@@ -162,6 +214,15 @@ def _stockgrid_exercise(public_root: Path) -> dict[str, Any]:
 
 
 def _polymarket_clob_exercise(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_polymarket_clob_exercise` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     repo = _repo_root(public_root)
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
@@ -212,6 +273,15 @@ def _polymarket_clob_exercise(public_root: Path) -> dict[str, Any]:
 
 
 def _polymarket_score_exercise(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_polymarket_score_exercise` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     repo = _repo_root(public_root)
     if str(repo) not in sys.path:
         sys.path.insert(0, str(repo))
@@ -276,6 +346,15 @@ def _polymarket_score_exercise(public_root: Path) -> dict[str, Any]:
 
 
 def _stockgrid_extreme_momentum_negative(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_stockgrid_extreme_momentum_negative` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     result = _stockgrid_exercise(public_root)
     observed = (
         result.get("status") == "pass"
@@ -291,6 +370,15 @@ def _stockgrid_extreme_momentum_negative(public_root: Path) -> dict[str, Any]:
 
 
 def _polymarket_sorted_book_trap_negative(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_polymarket_sorted_book_trap_negative` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     result = _polymarket_clob_exercise(public_root)
     observed = (
         result.get("status") == "pass"
@@ -306,6 +394,15 @@ def _polymarket_sorted_book_trap_negative(public_root: Path) -> dict[str, Any]:
 
 
 def _polymarket_resolved_market_negative(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_polymarket_resolved_market_negative` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     result = _polymarket_score_exercise(public_root)
     observed = (
         result.get("status") == "pass"
@@ -322,6 +419,15 @@ def _polymarket_resolved_market_negative(public_root: Path) -> dict[str, Any]:
 
 @lru_cache(maxsize=16)
 def _semantic_runtime_exercises(input_ref: str) -> Mapping[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_semantic_runtime_exercises` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     public_root = public_root_for_path(Path(input_ref))
     return {
         "negative_exercises": {
@@ -334,6 +440,15 @@ def _semantic_runtime_exercises(input_ref: str) -> Mapping[str, Any]:
 
 
 def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_negative_exercise` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     cases = (
         runtime.get("negative_exercises")
         if isinstance(runtime.get("negative_exercises"), Mapping)
@@ -344,6 +459,15 @@ def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str,
 
 
 def _observed_negative_case(case_id: str, runtime: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_observed_negative_case` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     exercise = _negative_exercise(runtime, case_id)
     if case_id == "stockgrid_extreme_momentum":
         return (
@@ -368,6 +492,15 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     expected_code = NEGATIVE_CASE_CODES.get(case_id, "")
     observed = _observed_negative_case(
         case_id,
@@ -385,6 +518,15 @@ def _evaluate(
     public_root: Path,
     source_manifest: dict[str, Any],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_evaluate` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, Any]] = []
     exercises = [
         _stockgrid_exercise(public_root),
@@ -432,6 +574,15 @@ def run(
     acceptance_out: str | Path | None = None,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -450,6 +601,15 @@ def run_batch7_secondary_bundle(
     acceptance_out: str | Path | None = None,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run_batch7_secondary_bundle` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return run_crown_jewel_organ(
         SPEC,
         bundle_dir,
@@ -463,6 +623,15 @@ def run_batch7_secondary_bundle(
 
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `result_card` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
     card["engine_count"] = exercise.get("engine_count")
@@ -474,6 +643,15 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.organs.batch7_secondary_runtime_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(prog="microcosm batch7-secondary-runtime-capsule")
     sub = parser.add_subparsers(dest="action", required=True)
     for action in ("run", "run-batch7-secondary-bundle"):

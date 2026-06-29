@@ -80,7 +80,7 @@
       "path": "source_modules/system/lib/cognitive_operator_registry.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
+        "contamination_class": "private_body_near_verbatim",
         "matched_private_ref": "system/lib/cognitive_operator_registry.py",
         "substitution": "public_safe_stub"
       },

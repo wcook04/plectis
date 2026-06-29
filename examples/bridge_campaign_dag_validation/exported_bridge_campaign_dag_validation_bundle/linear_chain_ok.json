@@ -1,0 +1,19 @@
+{
+  "case_id": "linear_chain_ok",
+  "case_type": "positive",
+  "expected_ok": true,
+  "provider": "chatgpt",
+  "workers": 2,
+  "schema_version": "1.0",
+  "kind": "bridge_campaign",
+  "campaign_id": "linear-chain-demo",
+  "intent": "Fan one probe through a reducer into a single synthesis over public receipts.",
+  "plan_path": "obsidian/observe_plans/linear_cycle.md",
+  "nodes": [
+    {"label": "probe-a", "role": "probe", "input_mode": "receipts_only"},
+    {"label": "reducer-a", "role": "reducer", "input_mode": "receipts_only", "depends_on": ["probe-a"]},
+    {"label": "synth", "role": "synthesis", "input_mode": "receipts_only", "depends_on": ["reducer-a"]}
+  ],
+  "barrier": {"group_label": "synth", "description": "Barrier on the single synthesis node before continuation."},
+  "continuation": {"packet_schema": "v1_receipts_navigational", "next_action": "Resume the next wave from the synthesis receipt."}
+}

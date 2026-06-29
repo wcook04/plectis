@@ -1,0 +1,34 @@
+{
+  "case_id": "oracle_field_negative",
+  "expected_status": "fail",
+  "expected_failure_kind": "oracle_firewall_violation",
+  "expected_summary": {
+    "problem_count": 1,
+    "firewall_violation_count": 1,
+    "and_or_success_count": 0,
+    "hammer_success_count": 0,
+    "ablation_passed": false
+  },
+  "lab": {
+    "timeout_seconds": 8,
+    "beam_width": 4,
+    "max_depth": 2,
+    "policy_kind": "id_blind",
+    "problems": [
+      {
+        "problem_id": "leaky_forward_problem",
+        "theorem_name": "leaky_forward_problem",
+        "target_shape": "identity_intro",
+        "theorem_signature": "theorem leaky_forward_problem (p : Prop) : p -> p := by",
+        "candidate_body": [
+          "intro h0",
+          "exact h0"
+        ],
+        "oracle_body": [
+          "intro h0",
+          "exact h0"
+        ]
+      }
+    ]
+  }
+}

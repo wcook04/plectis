@@ -1,0 +1,21 @@
+{
+  "bundle_id": "public_annex_knowledge_routing_bundle",
+  "organ_id": "annex_knowledge_routing",
+  "input_mode": "exported_annex_knowledge_routing_bundle",
+  "authored_organ": true,
+  "body_in_receipt": false,
+  "live_state_authority": false,
+  "release_authorized": false,
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "surfaces_capsule": "microcosm_core.engine_room.annex_knowledge_router",
+  "required_files": [
+    "bundle_manifest.json",
+    "domain_filter_rejected.json",
+    "no_overlap_rejected.json",
+    "note_route_ok.json",
+    "structured_route_ok.json",
+    "docs/README.md",
+    "source_modules/src/microcosm_core/organs/annex_knowledge_routing.py"
+  ],
+  "claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority."
+}

@@ -7,8 +7,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 38478,
-      "line_count": 131,
+      "byte_count": 38850,
+      "line_count": 132,
       "material_class": "public_macro_pattern_body",
       "module_id": "agent_instruction_router_body_import",
       "path": "source_modules/docs/agent_instruction_router.md",
@@ -18,15 +18,15 @@
         "Many Type A / Codex / Claude autonomous seeds are running in one phase",
         "Fix Microcosm by cutting misleading prep/scoring layers or importing real macro substrate into a runnable public-root surface"
       ],
-      "sha256": "50f699cb6d141b1caafe55aa4442543f4f80e94d2156c69d1d761b21974110cb",
+      "sha256": "6c2ee985bc6849115a7c906f6746680cb5899921bcfdbd421de06714d7a58561",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_ref": "docs/agent_instruction_router.md",
       "source_role": "Docs-first agent instruction router mapping recurring task shapes to governing markdown, kernel routes, Work Ledger coordination, and Microcosm public-body import entrypoints.",
-      "source_sha256": "50f699cb6d141b1caafe55aa4442543f4f80e94d2156c69d1d761b21974110cb",
+      "source_sha256": "6c2ee985bc6849115a7c906f6746680cb5899921bcfdbd421de06714d7a58561",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/source_modules/docs/agent_instruction_router.md",
-      "target_sha256": "50f699cb6d141b1caafe55aa4442543f4f80e94d2156c69d1d761b21974110cb",
+      "target_sha256": "6c2ee985bc6849115a7c906f6746680cb5899921bcfdbd421de06714d7a58561",
       "validation_refs": [
         "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_source_manifest_matches_exact_macro_sources",
         "microcosm-substrate/tests/test_cold_reader_route_map.py::test_cold_reader_exported_bundle_validates_runtime_shape",
@@ -140,7 +140,7 @@
       "path": "source_modules/system/lib/kernel/commands/comprehension_snapshot.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
+        "contamination_class": "private_body_near_verbatim",
         "matched_private_ref": "system/lib/kernel/commands/comprehension_snapshot.py",
         "substitution": "public_safe_stub"
       },
