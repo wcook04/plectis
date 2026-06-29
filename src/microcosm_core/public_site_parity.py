@@ -21,6 +21,9 @@ JSON_PACKET_PATHS = (
     "microcosm-ai-reader-digest.json",
     "microcosm-ai-review-packet.json",
     "microcosm-ai-reader-complete.json",
+    "plectis-ai-reader-digest.json",
+    "plectis-ai-review-packet.json",
+    "plectis-ai-reader-complete.json",
 )
 HTML_PATHS = ("index.html", "plectis.html")
 TEXT_PATHS = ("llms.txt",)
@@ -210,6 +213,9 @@ def _check_snapshot(
         "microcosm-ai-reader-digest.json",
         "microcosm-ai-review-packet.json",
         "microcosm-ai-reader-complete.json",
+        "plectis-ai-reader-digest.json",
+        "plectis-ai-review-packet.json",
+        "plectis-ai-reader-complete.json",
     ]
     for rel in packets:
         payload = payloads[rel]
@@ -225,7 +231,10 @@ def _check_snapshot(
                         "actual": counts.get(key),
                     }
                 )
-        if rel != "microcosm-ai-reader-complete.json":
+        if rel not in {
+            "microcosm-ai-reader-complete.json",
+            "plectis-ai-reader-complete.json",
+        }:
             if counts.get("family_count") != source_counts["family_count"]:
                 errors.append(
                     {
@@ -303,8 +312,8 @@ def _check_snapshot(
         f'data-mc-fact="component_count">{source_counts["component_count"]}',
         SOURCE_OF_RECORD,
         "no hosted service",
-        "microcosm-ai-reader-digest.json",
-        "microcosm-ai-review-packet.json",
+        "plectis-ai-reader-digest.json",
+        "plectis-ai-review-packet.json",
         "llms.txt",
     )
     for rel in HTML_PATHS:

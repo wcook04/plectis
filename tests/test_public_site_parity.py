@@ -67,6 +67,9 @@ def _write_snapshot(site_dir: Path, *, component_count: int | None = None) -> No
         ("microcosm-ai-reader-digest.json", packet_counts),
         ("microcosm-ai-review-packet.json", packet_counts),
         ("microcosm-ai-reader-complete.json", complete_counts),
+        ("plectis-ai-reader-digest.json", packet_counts),
+        ("plectis-ai-review-packet.json", packet_counts),
+        ("plectis-ai-reader-complete.json", complete_counts),
     ):
         _write_json(
             site_dir / name,
@@ -80,7 +83,7 @@ def _write_snapshot(site_dir: Path, *, component_count: int | None = None) -> No
         '<span data-mc-fact="component_count">'
         f'{counts["component_count"]}</span> '
         f'{public_site_parity.SOURCE_OF_RECORD} no hosted service '
-        "microcosm-ai-reader-digest.json microcosm-ai-review-packet.json llms.txt"
+        "plectis-ai-reader-digest.json plectis-ai-review-packet.json llms.txt"
     )
     (site_dir / "index.html").write_text(html, encoding="utf-8")
     (site_dir / "plectis.html").write_text(html, encoding="utf-8")
@@ -95,8 +98,8 @@ def _write_snapshot(site_dir: Path, *, component_count: int | None = None) -> No
         {
             "artifact_identity": {"exact_byte_sha256_by_path": hashes},
             "ai_orientation_packet": {
-                "primary_public_handoff": "microcosm-ai-reader-digest.json",
-                "advanced_public_handoff": "microcosm-ai-review-packet.json",
+                "primary_public_handoff": "plectis-ai-reader-digest.json",
+                "advanced_public_handoff": "plectis-ai-review-packet.json",
             },
         },
     )
