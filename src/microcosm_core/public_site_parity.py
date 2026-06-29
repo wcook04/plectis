@@ -116,10 +116,10 @@ def _remote_branch_ref(root: Path, ref: str) -> tuple[str, str, str] | None:
 
 
 def _ensure_gh_pages_ref(root: Path, ref: str) -> None:
-    if _git_ref_exists(root, ref):
-        return
     remote_ref = _remote_branch_ref(root, ref)
     if remote_ref is None:
+        if _git_ref_exists(root, ref):
+            return
         raise RuntimeError(
             f"cannot resolve {ref!r}; fetch gh-pages or use --site-dir/--site-url"
         )
@@ -133,7 +133,7 @@ def _ensure_gh_pages_ref(root: Path, ref: str) -> None:
             "--depth=1",
             "--no-tags",
             remote,
-            f"{branch}:{target_ref}",
+            f"+{branch}:{target_ref}",
         ],
         capture_output=True,
         text=True,
