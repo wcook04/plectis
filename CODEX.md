@@ -6,7 +6,7 @@ contract is `AGENTS.md`; do not duplicate or override it here.
 First read `AGENTS.md`. With a goal, convert it into your first correct action
 (demonstrated in `FIRST_ACTION.md`); then run the bootstrap preview and card:
 ```bash
-PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>"
+PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>" --format text
 ./bootstrap.sh --dry-run
 PYTHONPATH=src python3 -m microcosm_core hello --reader agent .
 ```

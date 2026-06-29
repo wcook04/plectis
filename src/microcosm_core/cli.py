@@ -1097,6 +1097,152 @@ def _add_bundle_parser(subparsers, command: str) -> argparse.ArgumentParser:
     return subparsers.add_parser(command, **kwargs)
 
 
+def _display_command(command: object) -> str:
+    """
+    [ACTION]
+    Normalize a stored command string to its short ``plectis ...`` display form.
+
+    - Teleology: the cold-entry card shows one command spelling (``plectis X``); the
+      verbose ``PYTHONPATH=src python3 -m microcosm_core X`` source form is a single
+      footnote, not duplicated on every row.
+    - Guarantee: returns the command with any known source-only prefix rewritten to
+      ``plectis``; returns the input unchanged when no prefix matches; ``""`` for empty.
+    - Reads: call argument only. Writes: return value.
+    """
+    text = str(command or "").strip()
+    if not text:
+        return ""
+    for prefix in (
+        "PYTHONPATH=src python3 -m microcosm_core",
+        "PYTHONPATH=src python -m microcosm_core",
+        "python3 -m microcosm_core",
+        "python -m microcosm_core",
+    ):
+        if text.startswith(prefix + " "):
+            return "plectis" + text[len(prefix):]
+    return text
+
+
+def _render_comprehend_card(pack: dict) -> str:
+    """
+    [ACTION]
+    Render a comprehension pack as an answer-first cold-entry text card.
+
+    - Teleology: a cold human/agent running the first documented command sees the
+      actual answer first, then the proof, then navigation, with the authority
+      ceiling stated once at the tail -- not a sorted-JSON firehose that opens with
+      ``authority_ceiling`` / ``budget`` / ``do_not_claim`` before the answer.
+    - Guarantee: returns a plain-text card; metadata/ceiling never precede the answer;
+      commands display as ``plectis ...`` with a single source-only footnote; absent
+      sections are skipped so the renderer degrades across comprehend modes.
+    - Reads: the pack dict only. Writes: returns a string (no stdout/files).
+    """
+    lines: list[str] = []
+    mode = str(pack.get("mode") or pack.get("packet_id") or "comprehension")
+    titles = {
+        "first_action": "Plectis - first correct action",
+        "first-contact": "Plectis - first contact",
+        "self-model": "Plectis - whole-system self-model",
+        "organ": "Plectis - organ read",
+        "packet-atlas": "Plectis - packet atlas",
+    }
+    if pack.get("first_action"):
+        lines.append("Plectis - first correct action")
+    else:
+        lines.append(titles.get(mode, f"Plectis comprehension - {mode}"))
+    summary = pack.get("summary") if isinstance(pack.get("summary"), dict) else {}
+    what = str(summary.get("what_this_is") or "").strip()
+    if what:
+        lines.append(what)
+    lines.append("")
+
+    # 1. THE ANSWER -- first action / route, before any metadata or caveat.
+    fa = pack.get("first_action") if isinstance(pack.get("first_action"), dict) else None
+    if fa:
+        lines.append("Do this first:")
+        cmd = _display_command(fa.get("command"))
+        if cmd:
+            lines.append(f"  $ {cmd}")
+        why = str(fa.get("why") or "").strip()
+        if why:
+            lines.append(f"  why: {why}")
+        clean_run = fa.get("clean_run")
+        if isinstance(clean_run, dict):
+            clean_run = clean_run.get("command")
+        clean = _display_command(clean_run)
+        if clean:
+            lines.append(f"  no-write variant: {clean}")
+        writes = str(fa.get("writes_outputs_under") or "").strip()
+        if writes:
+            lines.append(f"  writes under: {writes}")
+        lines.append("")
+
+    # first-contact / self-model orientation body (when there is no single action).
+    rmf = pack.get("read_me_first")
+    if isinstance(rmf, list) and rmf:
+        lines.append("Read me first:")
+        for item in rmf[:6]:
+            lines.append(f"  - {str(item).strip()}")
+        lines.append("")
+    elif isinstance(rmf, str) and rmf.strip():
+        lines.append("Read me first:")
+        lines.append(f"  {rmf.strip()}")
+        lines.append("")
+
+    # 2. PROOF -- validator + receipts + the honest graph counts.
+    proof = pack.get("proof_path") if isinstance(pack.get("proof_path"), dict) else {}
+    if proof:
+        vcmd = _display_command(proof.get("runnable_validator") or proof.get("validator_command"))
+        receipts = proof.get("receipt_refs") or proof.get("committed_receipts") or []
+        if vcmd or receipts:
+            lines.append("Prove it:")
+            if vcmd:
+                lines.append(f"  $ {vcmd}")
+            if isinstance(receipts, list) and receipts:
+                lines.append(f"  receipts: {len(receipts)} committed (e.g. {receipts[0]})")
+            lines.append("")
+    graph = pack.get("graph_backed") if isinstance(pack.get("graph_backed"), dict) else {}
+    counts = graph.get("edge_kind_counts") if isinstance(graph.get("edge_kind_counts"), dict) else {}
+    if counts:
+        top = ", ".join(f"{k} {v}" for k, v in list(counts.items())[:6])
+        lines.append(f"Graph-backed: {top}")
+        lines.append("")
+
+    # 3. NAVIGATION -- where to go when this is not the question.
+    nxt = pack.get("next_packet_commands")
+    if not (isinstance(nxt, list) and nxt):
+        nxt = pack.get("if_this_is_wrong")
+    if isinstance(nxt, list) and nxt:
+        lines.append("Not your question? Reroute:")
+        for entry in nxt[:5]:
+            disp = _display_command(entry)
+            if disp:
+                lines.append(f"  $ {disp}")
+        lines.append("")
+
+    # 4. CEILING -- once, at the tail, present and truthful.
+    ceiling = pack.get("authority_ceiling") if isinstance(pack.get("authority_ceiling"), dict) else {}
+    dnc = str(pack.get("do_not_claim") or "").strip()
+    if ceiling or dnc:
+        lines.append("What this does NOT claim:")
+        denied = [
+            key.replace("_authorized", "").replace("_authority", "").replace("_", " ").strip()
+            for key, value in sorted(ceiling.items())
+            if value is False
+        ]
+        if denied:
+            lines.append("  no authority for: " + ", ".join(denied))
+        if dnc:
+            lines.append(f"  {dnc}")
+        lines.append("")
+
+    lines.append(
+        "commands shown as `plectis ...`; from a source checkout prefix "
+        "`PYTHONPATH=src python3 -m microcosm_core`."
+    )
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def _print_json(payload: dict, *, exit_code: int | None = None) -> int:
     """Print a payload as sorted ASCII JSON and return a status-derived exit code.
 
@@ -3916,6 +4062,12 @@ def main(argv: list[str] | None = None) -> int:
     comprehend_parser.add_argument(
         "--root", help="substrate root override (defaults to the package root)"
     )
+    comprehend_parser.add_argument(
+        "--format",
+        choices=["json", "text"],
+        default="json",
+        help="output format: json (default, machine-readable) or text (answer-first cold-entry card)",
+    )
     comprehension_assay_parser = subparsers.add_parser(
         "comprehension-assay",
         help="run the cold-agent comprehension assay over the read packs",
@@ -4874,6 +5026,9 @@ def main(argv: list[str] | None = None) -> int:
             pack = comprehension.comprehend(root=comprehend_root, goal=args.goal)
         else:
             pack = comprehension.comprehend(root=comprehend_root, mode="first-contact")
+        if getattr(args, "format", "json") == "text":
+            print(_render_comprehend_card(pack))
+            return 0
         return _print_json(pack, exit_code=0)
     if args.command == "comprehension-assay":
         assay_root = Path(args.root) if args.root else None
