@@ -17,7 +17,7 @@ research runtime: 88 bounded components across formal proof, agent reliability
 and safety, research and forecasting, projection-drift control, validators, work
 landing, and continuity.**
 
-Each component has a runner or source locus, evidence class, receipt path, and
+Each component has a runner, source loci, evidence class, receipt path, and
 authority ceiling. The local CLI is how you inspect and falsify those claims: it
 runs entirely on your machine, makes no network or model calls, writes local
 evidence records only when you ask for behavior proof, and never changes the
@@ -34,6 +34,27 @@ The product is the executable mechanism atlas. Receipts are the accountability
 layer: they show what ran, what evidence class backs a claim, and where that
 claim stops.
 
+Read Plectis in this order: **mechanisms -> evidence discipline -> local
+runtime**. If the record layer sounds like the product, the project has been
+underclaimed and underread. If a validator result sounds like release, proof,
+security, finance, provider, mutation, or private-system authority, the project
+has been overclaimed and overread.
+
+The strongest public claim is deliberately two-sided:
+
+- **What is here:** a public executable cross-section of a larger AI-native
+  workflow and research runtime, published as 88 bounded mechanisms with source
+  handles, commands or replays, evidence classes, receipts, and authority
+  ceilings.
+- **What backs it:** public code, copied non-secret source bodies, bounded
+  public replays, subprocess witnesses, deterministic projections, validators,
+  and generated registry/atlas records.
+- **Where it stops:** Plectis is a research prototype and developer tool. It is
+  not a hosted service, production-security system, professional-advice system,
+  provider-affiliated product, trading or investment-advice system, formal-proof
+  correctness oracle, source-mutation authority, release authority, or
+  private-root equivalent.
+
 | Mechanism family | Public examples | What the runner or replay does |
 |---|---|---|
 | Formal proof and certificates | Lean proof-search lab; finite Erdos denominator-order certificate | Runs gated proof-search or exact rational certificate fixtures, with absence gates and no theorem-correctness overclaim. |
@@ -41,6 +62,22 @@ claim stops.
 | Research and forecasting | Finance forecast evaluation spine; replication and lab-safety replays | Runs statistical or scientific workflow fixtures with typed refusals such as no market authority. |
 | Projection drift and validators | Generated projection drift runtime; public-entry and body-floor validators | Recomputes owner-routed projections and blocks stale or overbroad public claims. |
 | Work landing and continuity | Mission transaction work spine; durable agent work landing replay | Records reversible work transactions, scoped commit discipline, receipt draining, and detached-run continuity. |
+
+That means the proof language can be ambitious without becoming loose. The
+formal-proof cluster is a bounded proof-adjacent lab: readiness gates, premise
+retrieval, tactic routing, verifier-trace repair, Lean subprocess witnesses, and
+exact-arithmetic certificate specimens, not theorem-proof authority. The agent
+safety cluster turns failure modes into replayable public mechanisms: prompt
+injection, sandbox and tool-authority boundaries, memory poisoning, sabotage
+monitoring, benchmark gaming, and closeout faithfulness, not production safety
+approval. The research cluster carries forecasting, prediction, replication,
+mechanistic-interpretability, spatial-model, and lab-safety workflow capsules,
+not domain expertise, market advice, or track-record authority. The
+projection-drift cluster is the public membrane for source imports, public-safe
+body copies, generated projection checks, source-drift capsules, and release
+claim-language gates, not permission to export private/live material. The
+work-continuity cluster shows how agent work is landed, resumed, checked, and
+bounded, not authority to mutate a caller's source tree.
 
 Start with the mechanism and authority lenses before forming a whole-repo
 judgement:

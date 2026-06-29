@@ -82,6 +82,7 @@ HERO_BANNED_PATTERNS: tuple[tuple[str, str], ...] = (
 )
 FRONT_DOOR_SIGNIFICANCE_WORD_LIMIT = 850
 FRONT_DOOR_LOCAL_ONLY_WORD_LIMIT = 180
+FRONT_DOOR_CLAIM_GRAMMAR_WORD_LIMIT = 1500
 FRONT_DOOR_REQUIRED_PATTERNS: tuple[tuple[str, str], ...] = (
     (
         r"\bpublic\b.{0,80}\bexecutable\b|\bexecutable\b.{0,80}\bpublic\b",
@@ -105,6 +106,53 @@ FRONT_DOOR_LOCAL_ONLY_PATTERNS: tuple[tuple[str, str], ...] = (
         "run-one-command-local-record-primary-frame",
     ),
     (r"\blocal evidence router\b", "local-evidence-router-primary-frame"),
+)
+FRONT_DOOR_CLAIM_GRAMMAR_PATTERNS: tuple[tuple[str, str], ...] = (
+    (
+        r"\bmechanisms?\s*[-=]+>\s*evidence discipline\s*[-=]+>\s*local runtime\b",
+        "mechanism-evidence-runtime-read-order",
+    ),
+    (r"\bunderclaimed?\b|\bunderclaiming\b", "underclaim-guard"),
+    (r"\bunderread\b", "underclaim-underread-guard"),
+    (r"\boverclaimed?\b|\boverclaiming\b", "overclaim-guard"),
+    (r"\boverread\b", "overclaim-overread-guard"),
+    (
+        r"\bresearch prototype\b.{0,80}\bdeveloper tool\b",
+        "prototype-developer-tool-ceiling",
+    ),
+    (r"\bnot a hosted service\b", "hosted-service-ceiling"),
+    (r"\bproduction-security\b", "production-security-ceiling"),
+    (r"\bprofessional-advice\b", "professional-advice-ceiling"),
+    (r"\bprovider-affiliated\b", "provider-affiliation-ceiling"),
+    (r"\btrading or investment-advice\b", "trading-investment-ceiling"),
+    (r"\bformal-proof correctness\b", "formal-proof-correctness-ceiling"),
+    (r"\bsource-mutation authority\b", "source-mutation-ceiling"),
+    (r"\brelease authority\b", "release-authority-ceiling"),
+    (r"\bprivate-root equivalent\b", "private-root-equivalence-ceiling"),
+    (r"\bcopied non-secret source bodies\b", "copied-non-secret-source-boundary"),
+    (r"\bbounded public replays\b", "bounded-public-replay-boundary"),
+)
+FRONT_DOOR_FAMILY_CEILING_PATTERNS: tuple[tuple[str, str], ...] = (
+    (
+        r"\bformal-proof cluster\b.{0,260}\bnot theorem-proof authority\b",
+        "formal-proof-family-ceiling",
+    ),
+    (
+        r"\bagent safety cluster\b.{0,260}\bnot production safety approval\b",
+        "agent-safety-family-ceiling",
+    ),
+    (
+        r"\bresearch cluster\b.{0,320}\bnot domain expertise\b.{0,120}\btrack-record authority\b",
+        "research-family-ceiling",
+    ),
+    (
+        r"\bprojection-drift cluster\b.{0,320}\bnot permission to export private/live material\b",
+        "projection-drift-family-ceiling",
+    ),
+    (
+        r"\bwork-continuity cluster\b.{0,260}\bnot authority to mutate\b",
+        "work-continuity-family-ceiling",
+    ),
 )
 
 
@@ -336,17 +384,36 @@ def validate_readme_front_door(
         for pattern, label in FRONT_DOOR_LOCAL_ONLY_PATTERNS
         if re.search(pattern, local_only_window, flags=re.DOTALL)
     )
+    claim_grammar_window = _word_window(
+        text, FRONT_DOOR_CLAIM_GRAMMAR_WORD_LIMIT
+    ).lower()
+    missing_claim_grammar = sorted(
+        label
+        for pattern, label in FRONT_DOOR_CLAIM_GRAMMAR_PATTERNS
+        if not re.search(pattern, claim_grammar_window, flags=re.DOTALL)
+    )
+    missing_family_ceilings = sorted(
+        label
+        for pattern, label in FRONT_DOOR_FAMILY_CEILING_PATTERNS
+        if not re.search(pattern, claim_grammar_window, flags=re.DOTALL)
+    )
     findings["front_door_required_context_missing"] = missing_significance
     findings["registry_component_count"] = registry_count
     findings["front_door_component_count_claims"] = sorted(count_claims)
     findings["registry_component_count_bound_in_front_door"] = count_claim_bound
     findings["front_door_local_only_frames"] = local_only_frames
+    findings["front_door_claim_grammar_missing"] = missing_claim_grammar
+    findings["front_door_family_ceilings_missing"] = missing_family_ceilings
     if missing_significance:
         blocking.append("README_FRONT_DOOR_SIGNIFICANCE_MISSING")
     if registry_count is None or not count_claim_bound:
         blocking.append("README_FRONT_DOOR_COMPONENT_COUNT_UNBOUND")
     if local_only_frames:
         blocking.append("README_FRONT_DOOR_LOCAL_ONLY_FRAME")
+    if missing_claim_grammar:
+        blocking.append("README_FRONT_DOOR_CLAIM_GRAMMAR_MISSING")
+    if missing_family_ceilings:
+        blocking.append("README_FRONT_DOOR_FAMILY_CEILING_MISSING")
 
     # --- 7. witness command present AND bound to the canonical first command ---
     entry_packet_path = public_root / "atlas/entry_packet.json"
