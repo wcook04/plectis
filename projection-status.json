@@ -1959,6 +1959,10 @@
         "byte_count": 12407258,
         "sha256": "sha256:9d58c0c410eecf267677eaf67cc7880188f59bfc4b89fc641dc8c42e6469ec97"
       },
+      "plectis.html": {
+        "byte_count": 37484,
+        "sha256": "sha256:ee4db27ef24703d7c49d2ac0a433fd6ffaeb26a55be840e85f4928b1ad5df280"
+      },
       "robots.txt": {
         "byte_count": 92,
         "sha256": "sha256:db69a73d65d7edde5f0857456c26f5a06c5fd3ec24b95d6dd7b70d048a5e859f"
