@@ -221,9 +221,13 @@ def test_read_gh_pages_fetches_default_remote_ref_when_missing(
         if cmd[3] == "rev-parse":
             return subprocess.CompletedProcess(cmd, 0 if ref_exists["value"] else 1)
         if cmd[3:6] == ["remote", "get-url", "origin"]:
-            return subprocess.CompletedProcess(cmd, 0, stdout="https://example.invalid/repo.git\n")
+            return subprocess.CompletedProcess(
+                cmd,
+                0,
+                stdout="https://example.invalid/repo.git\n",
+            )
         if cmd[3] == "fetch":
-            assert cmd[-2:] == ["origin", "gh-pages:refs/remotes/origin/gh-pages"]
+            assert cmd[-2:] == ["origin", "+gh-pages:refs/remotes/origin/gh-pages"]
             ref_exists["value"] = True
             return subprocess.CompletedProcess(cmd, 0, stdout="", stderr="")
         if cmd[3] == "show":
@@ -241,6 +245,41 @@ def test_read_gh_pages_fetches_default_remote_ref_when_missing(
 
     assert snapshot.files["index.html"] == b"<html>Plectis</html>"
     assert any(call[3] == "fetch" for call in calls)
+
+
+def test_read_gh_pages_refreshes_existing_default_remote_ref(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    calls: list[list[str]] = []
+
+    def fake_run(cmd: list[str], **kwargs: Any) -> subprocess.CompletedProcess:
+        calls.append(cmd)
+        if cmd[3] == "rev-parse":
+            return subprocess.CompletedProcess(cmd, 0)
+        if cmd[3:6] == ["remote", "get-url", "origin"]:
+            return subprocess.CompletedProcess(
+                cmd,
+                0,
+                stdout="https://example.invalid/repo.git\n",
+            )
+        if cmd[3] == "fetch":
+            assert cmd[-2:] == ["origin", "+gh-pages:refs/remotes/origin/gh-pages"]
+            return subprocess.CompletedProcess(cmd, 0, stdout="", stderr="")
+        if cmd[3] == "show":
+            return subprocess.CompletedProcess(cmd, 0, stdout=b"fresh gh-pages bytes")
+        raise AssertionError(f"unexpected git command: {cmd}")
+
+    monkeypatch.setattr(public_site_parity.subprocess, "run", fake_run)
+
+    snapshot = public_site_parity._read_gh_pages(
+        "origin/gh-pages",
+        ("llms.txt",),
+        tmp_path,
+    )
+
+    assert snapshot.files["llms.txt"] == b"fresh gh-pages bytes"
+    assert [call[3] for call in calls].count("fetch") == 1
 
 
 def test_public_site_parity_formatter_handles_exception_receipt() -> None:
