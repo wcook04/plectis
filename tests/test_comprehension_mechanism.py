@@ -244,3 +244,43 @@ def test_assessment_goals_route_to_mechanism_without_hijacking_named_systems() -
     assert finance["owner"]["organ_id"] == "finance_forecast_evaluation_spine"
     assert finance["routing"]["basis"] == "task_class_route_match"
     assert "finance-forecast-evaluation-spine" in finance["first_action"]["command"]
+
+
+def test_authority_and_self_model_carry_public_front_door_claim() -> None:
+    """The source-body-free packets must not underclaim Plectis as a local router.
+
+    README is the human front door, but coding agents often start from
+    ``comprehend --self-model`` or ``--slice authority``. Those packets need the
+    same mechanism-first identity and ceiling grammar so the agent sees the
+    product, evidence discipline, and boundary in one pass.
+    """
+    inputs = _real_inputs()
+    expected = C.public_cross_section_claim(88)
+
+    authority = C.comprehend(mode="authority", inputs=inputs)
+    assert expected in authority["summary"]["what_this_is"]
+    assert any(
+        "plectis comprehend --slice mechanism" in route
+        for route in authority["summary"]["what_to_inspect_next"]
+    )
+    claim_node = next(
+        node
+        for node in authority["selected_nodes"]
+        if node["kind"] == "public_claim_ceiling"
+    )
+    assert expected in claim_node["what_is_here"]
+    assert "bounded public replays" in claim_node["what_backs_it"]
+    assert "No hosted service" in authority["do_not_claim"]
+    rendered_authority = cli._render_comprehend_card(authority)
+    assert expected in rendered_authority
+    assert "No hosted service" in rendered_authority
+
+    self_model = C.comprehend(mode="self-model", inputs=inputs)
+    first_lines = self_model["read_me_first"]
+    assert first_lines[0] == expected
+    assert "mechanisms -> evidence discipline -> local runtime" in " ".join(first_lines[:3])
+    assert "--slice mechanism" in " ".join(first_lines[:4])
+    assert "Microcosm is a" not in " ".join(first_lines[:4])
+    rendered_self_model = cli._render_comprehend_card(self_model)
+    assert expected in rendered_self_model
+    assert "No hosted service" in rendered_self_model

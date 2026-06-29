@@ -6,13 +6,13 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 17373,
+    "actual_bytes": 19493,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
     "within_budget": true
   },
-  "compile_ms": 0.324,
+  "compile_ms": 0.216,
   "evidence_refs": [
     "core/organ_atlas.json",
     "core/component_public_synopses.json",
@@ -70,11 +70,282 @@
     {
       "families": [
         {
+          "count": 27,
+          "family": "formal_math_and_proof",
+          "organs": [
+            {
+              "display_name": "Proof Diagnostic Evidence Spine",
+              "organ_id": "proof_diagnostic_evidence_spine",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Math Readiness Gate",
+              "organ_id": "formal_math_readiness_gate",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Corpus Readiness Mathlib Absence Gate",
+              "organ_id": "corpus_readiness_mathlib_absence_gate",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Mathematical Strategy Atlas Hypothesis Scorer",
+              "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Tactic Portfolio Availability Probe",
+              "organ_id": "tactic_portfolio_availability_probe",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Target Shape Tactic Routing Gate",
+              "organ_id": "target_shape_tactic_routing_gate",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Lean Std Premise Index",
+              "organ_id": "lean_std_premise_index",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Formal Math Premise Retrieval",
+              "organ_id": "formal_math_premise_retrieval",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Math Verifier Trace Repair Loop",
+              "organ_id": "formal_math_verifier_trace_repair_loop",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Evidence Cell Anchor Resolver",
+              "organ_id": "formal_evidence_cell_anchor_resolver",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Undeclared Library Prior Symbol Classifier",
+              "organ_id": "undeclared_library_prior_symbol_classifier",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Ring2 Premise Retrieval Precision Recall Harness",
+              "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Math Lean Proof Witness",
+              "organ_id": "formal_math_lean_proof_witness",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Verifier Lab Kernel",
+              "organ_id": "verifier_lab_kernel",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Verifier Lab Execution Spine",
+              "organ_id": "verifier_lab_execution_spine",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Proof Derived Governed Mutation Authorization",
+              "organ_id": "proof_derived_governed_mutation_authorization",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Certificate Kernel Execution Lab",
+              "organ_id": "certificate_kernel_execution_lab",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Proof / Control / Runtime Import Capsule",
+              "organ_id": "batch4_proof_authority_runtime",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Finite Erdos Denominator-Order Certificate Strike",
+              "organ_id": "finite_erdos_denominator_certificate_strike",
+              "specialty": [
+                "formal-math",
+                "number-theory",
+                "exact-arithmetic",
+                "self-falsifying-certificate"
+              ]
+            },
+            {
+              "display_name": "Bridge Campaign DAG Validation",
+              "organ_id": "bridge_campaign_dag_validation",
+              "specialty": [
+                "formal-math",
+                "number-theory",
+                "exact-arithmetic",
+                "self-falsifying-certificate"
+              ]
+            },
+            {
+              "display_name": "Metabolism Queue Reconciliation",
+              "organ_id": "metabolism_queue_reconciliation",
+              "specialty": [
+                "formal-math",
+                "number-theory",
+                "exact-arithmetic",
+                "self-falsifying-certificate"
+              ]
+            },
+            {
+              "display_name": "Derived Fact Provider Runtime",
+              "organ_id": "derived_fact_provider_runtime",
+              "specialty": [
+                "formal-math",
+                "number-theory",
+                "exact-arithmetic",
+                "self-falsifying-certificate"
+              ]
+            },
+            {
+              "display_name": "Navigation Fitness Benchmark",
+              "organ_id": "navigation_fitness_benchmark",
+              "specialty": [
+                "formal-math",
+                "number-theory",
+                "exact-arithmetic",
+                "self-falsifying-certificate"
+              ]
+            },
+            {
+              "display_name": "Annex Knowledge Routing",
+              "organ_id": "annex_knowledge_routing",
+              "specialty": [
+                "formal-math",
+                "number-theory",
+                "exact-arithmetic",
+                "self-falsifying-certificate"
+              ]
+            },
+            {
+              "display_name": "Egress Self-Compliance Audit",
+              "organ_id": "egress_self_compliance_audit",
+              "specialty": [
+                "formal-math",
+                "number-theory",
+                "exact-arithmetic",
+                "self-falsifying-certificate"
+              ]
+            },
+            {
+              "display_name": "Generated Projection Drift Runtime",
+              "organ_id": "generated_projection_drift_runtime",
+              "specialty": [
+                "formal-math",
+                "number-theory",
+                "exact-arithmetic",
+                "self-falsifying-certificate"
+              ]
+            },
+            {
+              "display_name": "Lean Proof-Search Lab Runtime",
+              "organ_id": "lean_proof_search_lab_runtime",
+              "specialty": [
+                "formal-math",
+                "theorem-proving",
+                "proof-search",
+                "lean-subprocess",
+                "self-falsifying"
+              ]
+            }
+          ]
+        },
+        {
           "count": 20,
           "family": "import_projection_and_drift",
           "organs": [
             {
-              "display_name": "World Model Projection Drift Control Room",
+              "display_name": "Projection-Drift Contract Validator",
               "organ_id": "world_model_projection_drift_control_room",
               "specialty": [
                 "source-import",
@@ -271,186 +542,6 @@
           ]
         },
         {
-          "count": 18,
-          "family": "formal_math_and_proof",
-          "organs": [
-            {
-              "display_name": "Proof Diagnostic Evidence Spine",
-              "organ_id": "proof_diagnostic_evidence_spine",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Formal Math Readiness Gate",
-              "organ_id": "formal_math_readiness_gate",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Corpus Readiness Mathlib Absence Gate",
-              "organ_id": "corpus_readiness_mathlib_absence_gate",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Mathematical Strategy Atlas Hypothesis Scorer",
-              "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            },
-            {
-              "display_name": "Tactic Portfolio Availability Probe",
-              "organ_id": "tactic_portfolio_availability_probe",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            },
-            {
-              "display_name": "Target Shape Tactic Routing Gate",
-              "organ_id": "target_shape_tactic_routing_gate",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            },
-            {
-              "display_name": "Lean Std Premise Index",
-              "organ_id": "lean_std_premise_index",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            },
-            {
-              "display_name": "Formal Math Premise Retrieval",
-              "organ_id": "formal_math_premise_retrieval",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Formal Math Verifier Trace Repair Loop",
-              "organ_id": "formal_math_verifier_trace_repair_loop",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Formal Evidence Cell Anchor Resolver",
-              "organ_id": "formal_evidence_cell_anchor_resolver",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Undeclared Library Prior Symbol Classifier",
-              "organ_id": "undeclared_library_prior_symbol_classifier",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Ring2 Premise Retrieval Precision Recall Harness",
-              "organ_id": "ring2_premise_retrieval_precision_recall_harness",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Formal Math Lean Proof Witness",
-              "organ_id": "formal_math_lean_proof_witness",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Verifier Lab Kernel",
-              "organ_id": "verifier_lab_kernel",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Verifier Lab Execution Spine",
-              "organ_id": "verifier_lab_execution_spine",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Proof Derived Governed Mutation Authorization",
-              "organ_id": "proof_derived_governed_mutation_authorization",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            },
-            {
-              "display_name": "Certificate Kernel Execution Lab",
-              "organ_id": "certificate_kernel_execution_lab",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Proof / Control / Runtime Import Capsule",
-              "organ_id": "batch4_proof_authority_runtime",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            }
-          ]
-        },
-        {
           "count": 16,
           "family": "agent_reliability_and_safety",
           "organs": [
@@ -485,7 +576,7 @@
               ]
             },
             {
-              "display_name": "Agent Monitor Redteam Falsification Replay",
+              "display_name": "Monitor Evidence-Boundary Replay",
               "organ_id": "agent_monitor_redteam_falsification_replay",
               "specialty": [
                 "ai-safety",
@@ -494,7 +585,7 @@
               ]
             },
             {
-              "display_name": "Agent Sabotage Scheming Monitor Replay",
+              "display_name": "Sabotage-Monitor Contract Replay",
               "organ_id": "agent_sabotage_scheming_monitor_replay",
               "specialty": [
                 "ai-safety",
@@ -514,7 +605,7 @@
               ]
             },
             {
-              "display_name": "Sleeper Memory Poisoning Quarantine Replay",
+              "display_name": "Memory-Poisoning Quarantine Policy Replay",
               "organ_id": "sleeper_memory_poisoning_quarantine_replay",
               "specialty": [
                 "ai-safety",
@@ -524,7 +615,7 @@
               ]
             },
             {
-              "display_name": "MCP Tool Authority Replay",
+              "display_name": "MCP Tool-Authority Policy Replay",
               "organ_id": "mcp_tool_authority_replay",
               "specialty": [
                 "ai-safety",
@@ -534,7 +625,7 @@
               ]
             },
             {
-              "display_name": "Belief State Process Reward Replay",
+              "display_name": "Belief-State Reward Bundle Replay",
               "organ_id": "belief_state_process_reward_replay",
               "specialty": [
                 "ai-safety",
@@ -543,7 +634,7 @@
               ]
             },
             {
-              "display_name": "Agent Sandbox Policy Escape Replay",
+              "display_name": "Sandbox-Policy Replay",
               "organ_id": "agent_sandbox_policy_escape_replay",
               "specialty": [
                 "ai-safety",
@@ -553,7 +644,7 @@
               ]
             },
             {
-              "display_name": "Indirect Prompt Injection Information Flow Policy Replay",
+              "display_name": "Prompt-Injection Flow-Policy Replay",
               "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
               "specialty": [
                 "ai-safety",
@@ -562,7 +653,7 @@
               ]
             },
             {
-              "display_name": "Agentic Vulnerability Discovery Patch Proof Replay",
+              "display_name": "Vulnerability Patch-Proof Replay",
               "organ_id": "agentic_vulnerability_discovery_patch_proof_replay",
               "specialty": [
                 "ai-safety",
@@ -726,7 +817,7 @@
               ]
             },
             {
-              "display_name": "Spatial World Model Counterfactual Simulation Replay",
+              "display_name": "Gridworld Counterfactual State Replay",
               "organ_id": "spatial_world_model_counterfactual_simulation_replay",
               "specialty": [
                 "research-workflows",
@@ -734,7 +825,7 @@
               ]
             },
             {
-              "display_name": "Mechanistic Interpretability Circuit Attribution Replay",
+              "display_name": "Toy-Transformer Attribution Replay",
               "organ_id": "mechanistic_interpretability_circuit_attribution_replay",
               "specialty": [
                 "research-workflows",
@@ -752,7 +843,7 @@
               ]
             },
             {
-              "display_name": "Materials Chemistry Closed Loop Lab Safety Replay",
+              "display_name": "Materials Lab-Safety Refusal Replay",
               "organ_id": "materials_chemistry_closed_loop_lab_safety_replay",
               "specialty": [
                 "research-workflows",
@@ -791,7 +882,7 @@
           ]
         },
         {
-          "count": 4,
+          "count": 5,
           "family": "work_landing_and_continuity",
           "organs": [
             {
@@ -813,7 +904,7 @@
               ]
             },
             {
-              "display_name": "Bridge Phase Continuity Runtime",
+              "display_name": "Bridge-Continuity Acceptance Replay",
               "organ_id": "bridge_phase_continuity_runtime",
               "specialty": [
                 "workflow-engineering",
@@ -829,6 +920,16 @@
                 "continuity",
                 "provider-ops",
                 "work-ledger"
+              ]
+            },
+            {
+              "display_name": "Semantic Singleflight Dedup Runtime",
+              "organ_id": "semantic_singleflight_dedup_runtime",
+              "specialty": [
+                "agent-concurrency",
+                "operational-discipline",
+                "deduplication",
+                "continuity"
               ]
             }
           ]
@@ -865,8 +966,8 @@
     {
       "by_evidence_class": {
         "algorithmic_projection": 27,
-        "bounded_runtime_computation": 5,
-        "external_subprocess_witness": 7,
+        "bounded_runtime_computation": 13,
+        "external_subprocess_witness": 9,
         "semantic_validator": 18,
         "verified_macro_body_import": 21
       },
@@ -877,7 +978,7 @@
   "specificity_risks": [
     {
       "custody_split": {
-        "unresolved": 78
+        "unresolved": 88
       },
       "kind": "runner_custody",
       "note": "Most organ runners are exact-copy macro bodies (directory_coupling_marker); comprehend them via registry metadata + receipts, not by reading the runner.",
@@ -886,13 +987,13 @@
   ],
   "summary": {
     "what_not_to_trust": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
-    "what_this_is": "Microcosm is a local-first, source-open substrate of 78 runtime organs across 7 families. Comprehend it through governed metadata -- glosses, evidence classes, receipts, and authority ceilings -- rather than by reading source. Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority.",
+    "what_this_is": "Plectis is a public executable cross-section of an AI-native workflow and research runtime: 88 bounded components across formal proof, agent reliability and safety, research and forecasting, projection-drift control, validators, work landing, and continuity. This first-contact packet is a source-body-free public substrate map over 7 families: comprehend it through governed metadata -- mechanisms, evidence classes, receipts, and authority ceilings -- rather than by reading source. Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority.",
     "what_to_inspect_next": [
-      "microcosm comprehend --first-action \"<goal>\"",
-      "microcosm comprehend --first-contact",
-      "microcosm comprehend --slice authority",
-      "microcosm comprehend --organ <organ_id>",
-      "microcosm comprehend --slice organs"
+      "plectis comprehend --first-action \"<goal>\"",
+      "plectis comprehend --first-contact",
+      "plectis comprehend --slice authority",
+      "plectis comprehend --organ <organ_id>",
+      "plectis comprehend --slice organs"
     ]
   }
 }

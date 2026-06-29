@@ -6,13 +6,14 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 20423,
+    "actual_bytes": 28204,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
     "within_budget": true
   },
-  "compile_ms": 0.392,
+  "compile_ms": 0.13,
+  "do_not_claim": "No hosted service, production readiness, provider execution, source mutation, private-root equivalence, formal-proof correctness, benchmark score, trading or investment advice, release authority, or whole-system correctness.",
   "evidence_refs": [
     "core/organ_atlas.json",
     "core/organ_evidence_classes.json"
@@ -66,8 +67,8 @@
     {
       "by_evidence_class": {
         "algorithmic_projection": 27,
-        "bounded_runtime_computation": 5,
-        "external_subprocess_witness": 7,
+        "bounded_runtime_computation": 13,
+        "external_subprocess_witness": 9,
         "semantic_validator": 18,
         "verified_macro_body_import": 21
       },
@@ -464,6 +465,56 @@
           "claim_ceiling": "verified non-secret macro body import only, not source authority, private-root equivalence, release, or publication",
           "evidence_class": "verified_macro_body_import",
           "organ_id": "batch12_release_claim_language_gate"
+        },
+        {
+          "claim_ceiling": "keys and dedups command runs by repo-state fingerprint; does not guarantee global mutual exclusion, does not replace a lock service, and does not prove cross-host correctness",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "semantic_singleflight_dedup_runtime"
+        },
+        {
+          "claim_ceiling": "computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "finite_erdos_denominator_certificate_strike"
+        },
+        {
+          "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence.",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "bridge_campaign_dag_validation"
+        },
+        {
+          "claim_ceiling": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or call providers, does not auto-repair ambiguous state, is not a distributed database, and does not authorize release or publication.",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "metabolism_queue_reconciliation"
+        },
+        {
+          "claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication.",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "derived_fact_provider_runtime"
+        },
+        {
+          "claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority.",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "navigation_fitness_benchmark"
+        },
+        {
+          "claim_ceiling": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or release authority.",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "annex_knowledge_routing"
+        },
+        {
+          "claim_ceiling": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it does not authorize release or publication.",
+          "evidence_class": "bounded_runtime_computation",
+          "organ_id": "egress_self_compliance_audit"
+        },
+        {
+          "claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+          "evidence_class": "external_subprocess_witness",
+          "organ_id": "generated_projection_drift_runtime"
+        },
+        {
+          "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
+          "evidence_class": "external_subprocess_witness",
+          "organ_id": "lean_proof_search_lab_runtime"
         }
       ],
       "kind": "claim_ceilings"
@@ -471,15 +522,22 @@
     {
       "kind": "authority_boundary",
       "text": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority."
+    },
+    {
+      "kind": "public_claim_ceiling",
+      "what_backs_it": "public code, copied non-secret source bodies, bounded public replays, subprocess witnesses, deterministic projections, validators, and generated registry/atlas records",
+      "what_is_here": "Plectis is a public executable cross-section of an AI-native workflow and research runtime: 88 bounded components across formal proof, agent reliability and safety, research and forecasting, projection-drift control, validators, work landing, and continuity.",
+      "where_it_stops": "No hosted service, production readiness, provider execution, source mutation, private-root equivalence, formal-proof correctness, benchmark score, trading or investment advice, release authority, or whole-system correctness."
     }
   ],
   "source_span_escalation": [],
   "specificity_risks": [],
   "summary": {
-    "what_not_to_trust": "Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
-    "what_this_is": "Authority map of the substrate: every organ carries an evidence class and a restated claim ceiling. Glosses and projections are navigation metadata, not source authority.",
+    "what_not_to_trust": "Glosses and projections are navigation metadata, not source authority. Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based progress, maturity, readiness, product completeness, release, private-root equivalence, proof correctness, provider-call, secret-export, or whole-system-correctness authority.",
+    "what_this_is": "Plectis is a public executable cross-section of an AI-native workflow and research runtime: 88 bounded components across formal proof, agent reliability and safety, research and forecasting, projection-drift control, validators, work landing, and continuity. The authority map keeps that claim inspectable: every component carries an evidence class, receipt path, and restated claim ceiling.",
     "what_to_inspect_next": [
-      "microcosm comprehend --organ <organ_id> for a single organ's ceiling",
+      "plectis comprehend --slice mechanism before assessing significance",
+      "plectis comprehend --organ <organ_id> for a single organ's ceiling",
       "core/organ_evidence_classes.json for evidence-class definitions"
     ]
   }

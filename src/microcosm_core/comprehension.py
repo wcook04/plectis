@@ -130,6 +130,38 @@ AUTHORITY_CEILING: dict[str, bool] = {
     "whole_system_correctness_authorized": False,
 }
 
+PUBLIC_MECHANISM_AREAS = (
+    "formal proof, agent reliability and safety, research and forecasting, "
+    "projection-drift control, validators, work landing, and continuity"
+)
+PUBLIC_CEILING_DO_NOT_CLAIM = (
+    "No hosted service, production readiness, provider execution, source mutation, "
+    "private-root equivalence, formal-proof correctness, benchmark score, trading "
+    "or investment advice, release authority, or whole-system correctness."
+)
+
+
+def public_cross_section_claim(component_count: int | None) -> str:
+    """
+    [ACTION]
+    Return the public front-door identity sentence for the current component count.
+
+    - Teleology: keep generated comprehension and first-action surfaces aligned
+      with the README's mechanism-first claim instead of drifting back to local
+      record or first-action mechanics.
+    - Guarantee: returns one bounded public claim and never grants release,
+      proof-correctness, provider, source-mutation, or private-system authority.
+    - Fails: never raises.
+    - Reads: call arguments only.
+    - Writes: return values.
+    """
+    count = int(component_count or 0)
+    count_phrase = f"{count} bounded components" if count else "bounded components"
+    return (
+        "Plectis is a public executable cross-section of an AI-native workflow "
+        f"and research runtime: {count_phrase} across {PUBLIC_MECHANISM_AREAS}."
+    )
+
 PUBLIC_SITE_PARITY_COMMAND = (
     "PYTHONPATH=src python3 -m microcosm_core public-site-parity"
 )
@@ -511,10 +543,12 @@ def compile_first_contact(inputs: dict[str, Any]) -> dict[str, Any]:
     organ_count = len(atlas_rows) or len(join_organs)
     boundary = str(atlas.get("authority_boundary") or "")
     pack["summary"]["what_this_is"] = (
-        f"Microcosm is a local-first, source-open substrate of {organ_count} runtime "
-        f"organs across {len(roster)} families. Comprehend it through governed "
-        "metadata -- glosses, evidence classes, receipts, and authority ceilings -- "
-        "rather than by reading source. " + boundary
+        public_cross_section_claim(organ_count)
+        + f" This first-contact packet is a source-body-free public substrate map "
+        f"over {len(roster)} families: comprehend it through governed metadata -- "
+        "mechanisms, evidence classes, receipts, and authority ceilings -- rather "
+        "than by reading source. "
+        + boundary
     ).strip()
     pack["summary"]["what_to_inspect_next"] = list(_START_HERE_ROUTES)
     pack["summary"]["what_not_to_trust"] = str(atlas.get("anti_claim") or "")
@@ -1331,17 +1365,24 @@ def compile_authority(inputs: dict[str, Any]) -> dict[str, Any]:
     """
     atlas = inputs.get("atlas") or {}
     join_organs = list(inputs.get("join_by_organ", {}).values())
+    atlas_by = inputs.get("atlas_by_organ", {})
+    organ_count = len(atlas_by) or len(join_organs)
     pack = _pack_skeleton("reference", "inspect the authority boundary")
     pack["summary"]["what_this_is"] = (
-        "Authority map of the substrate: every organ carries an evidence class and a "
-        "restated claim ceiling. Glosses and projections are navigation metadata, not "
-        "source authority."
+        public_cross_section_claim(organ_count)
+        + " The authority map keeps that claim inspectable: every component "
+        "carries an evidence class, receipt path, and restated claim ceiling."
     )
     pack["summary"]["what_to_inspect_next"] = [
+        "plectis comprehend --slice mechanism before assessing significance",
         "plectis comprehend --organ <organ_id> for a single organ's ceiling",
         "core/organ_evidence_classes.json for evidence-class definitions",
     ]
-    pack["summary"]["what_not_to_trust"] = str(atlas.get("anti_claim") or "")
+    pack["summary"]["what_not_to_trust"] = (
+        "Glosses and projections are navigation metadata, not source authority. "
+        + (str(atlas.get("anti_claim") or "").strip())
+    ).strip()
+    pack["do_not_claim"] = PUBLIC_CEILING_DO_NOT_CLAIM
     pack["selected_nodes"] = [
         {
             "kind": "evidence_distribution",
@@ -1359,6 +1400,16 @@ def compile_authority(inputs: dict[str, Any]) -> dict[str, Any]:
             ],
         },
         {"kind": "authority_boundary", "text": atlas.get("authority_boundary")},
+        {
+            "kind": "public_claim_ceiling",
+            "what_is_here": public_cross_section_claim(organ_count),
+            "what_backs_it": (
+                "public code, copied non-secret source bodies, bounded public "
+                "replays, subprocess witnesses, deterministic projections, "
+                "validators, and generated registry/atlas records"
+            ),
+            "where_it_stops": PUBLIC_CEILING_DO_NOT_CLAIM,
+        },
     ]
     pack["evidence_refs"] = ["core/organ_atlas.json", "core/organ_evidence_classes.json"]
     return pack
@@ -1435,6 +1486,7 @@ def compile_mechanism_index(inputs: dict[str, Any]) -> dict[str, Any]:
         "A mechanism line names machinery and scope; it is not a correctness proof, a "
         "benchmark result, or release authority."
     )
+    pack["do_not_claim"] = PUBLIC_CEILING_DO_NOT_CLAIM
     nodes: list[dict[str, Any]] = []
     for entry in families:
         for member in sorted(entry["organs"], key=lambda m: str(m.get("organ_id"))):
@@ -4408,23 +4460,28 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     }
     exact_copy = custody_split.get("directory_coupling_marker", 0)
 
-    pack = _pack_skeleton("explanation", "comprehend the whole Microcosm")
+    pack = _pack_skeleton("explanation", "comprehend the whole Plectis substrate")
     pack["schema_version"] = SELF_MODEL_SCHEMA
     pack["context_profile"] = profile
     pack["target_reader"] = "cold Type A / cold codebase reader"
     # FRONT ANCHOR -- the strongest, load-bearing facts first (lost-in-the-middle guard).
     pack["read_me_first"] = [
-        f"Microcosm is a {organ_count}-organ self-describing substrate; each organ is a bounded "
-        "capability with a runner, a validator command, an authority ceiling, and emitted receipts.",
+        public_cross_section_claim(organ_count),
+        "Each component has a runner or replay, source loci, evidence class, "
+        "receipt path, and authority ceiling; receipts are the accountability "
+        "layer, not the product.",
+        "Read order: mechanisms -> evidence discipline -> local runtime. Start "
+        "with --slice mechanism before judging what the system actually does.",
         f"Custody truth: {exact_copy}/{organ_count} organ runners are EXACT-COPY macro bodies -- "
         "comprehend them via registry metadata + receipts, not runner source.",
         "Every read here is source-body-free (presence_only); nothing in this packet authorizes "
-        "release, source export, or whole-system correctness.",
-        f"{len(families)} organ families. This packet IS the hub: open --slice cluster --family <f> "
-        "for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow.",
+        "release, source export, proof correctness, provider execution, source mutation, "
+        "investment advice, private-system equivalence, or whole-system correctness.",
         'Have a concrete goal? plectis comprehend --first-action "<goal>" converts it into ONE '
         "graph-backed first action -- owner, runnable command, validator, receipts, stop condition, "
         "do-not-edit boundary. FIRST_ACTION.md demonstrates this across a goal battery.",
+        f"{len(families)} organ families. This packet IS the hub: open --slice cluster --family <f> "
+        "for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow.",
     ]
     if {"cross_organ_route_topology", "claim_node_ontology"} <= state["resolved"]:
         routes_with_stop = sum(
@@ -4443,10 +4500,11 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
             "proof-internal structure remains deferred."
         )
     pack["summary"]["what_this_is"] = (
-        str(atlas.get("authority_boundary") or "A self-describing organ substrate.")
+        public_cross_section_claim(organ_count)
     )
     pack["summary"]["what_to_inspect_next"] = ["plectis comprehend --slice organs"]
-    pack["summary"]["what_not_to_trust"] = str(atlas.get("anti_claim") or "")
+    pack["summary"]["what_not_to_trust"] = PUBLIC_CEILING_DO_NOT_CLAIM
+    pack["do_not_claim"] = PUBLIC_CEILING_DO_NOT_CLAIM
     pack["sections"] = [
         "read_me_first", "major_subsystems", "route_topology", "code_lens_health",
         "authority_membrane", "thin_or_projection_surfaces", "deferred_edges",

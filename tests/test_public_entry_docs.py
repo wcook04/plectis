@@ -969,6 +969,13 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     assert "[AGENT_ROUTES.md](AGENT_ROUTES.md)" in agents
     assert "[ORGANS.md#find-your-specialty](ORGANS.md#find-your-specialty)" in agents
     assert "Plectis is the public repo form of the macro system" in agents
+    assert "public executable atlas" in agents
+    assert "88 bounded components" in agents
+    assert "mechanism atlas" in agents
+    assert "evidence class, receipt path, and authority ceiling" in agents
+    assert normalized_agents.index("public executable atlas") < normalized_agents.index(
+        "local project operating substrate"
+    )
     assert "not a synthetic safety proxy" in agents
     assert "Public should carry private by default" in agents
     assert "as much of the macro substrate as possible" in normalized_agents

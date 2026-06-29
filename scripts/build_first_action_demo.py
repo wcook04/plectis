@@ -392,11 +392,22 @@ def build_demo(root: Path) -> tuple[str, str]:
     full_example = next(
         (s for s in surfaces if s.get("goal") == FULL_EXAMPLE_GOAL), surfaces[0]
     )
+    organ_count = len((bundle.get("atlas_by_organ") or {}))
 
     lines: list[str] = []
     lines.append("# First Correct Action")
     lines.append("")
     lines.append(f"<!-- {GENERATED_MARKER} -->")
+    lines.append("")
+    lines.append(C.public_cross_section_claim(organ_count))
+    lines.append("")
+    lines.append(
+        "This page is the goal-localization layer over that mechanism atlas. It "
+        "does not replace the component map or the evidence discipline; it shows "
+        "how a cold reader or coding agent turns a concrete goal into the single "
+        "bounded component, runner, validator, receipt set, stop condition, and "
+        "authority ceiling that should be inspected first."
+    )
     lines.append("")
     lines.append(
         "This repository converts a freeform goal into **one safe, runnable first "
