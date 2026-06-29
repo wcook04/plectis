@@ -14,7 +14,7 @@
       "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
+        "contamination_class": "private_body_near_verbatim",
         "matched_private_ref": "system/lib/agent_observability_animation.py",
         "substitution": "public_safe_stub"
       },
@@ -26,7 +26,7 @@
       "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_observability_animation_coverage.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
+        "contamination_class": "private_body_near_verbatim",
         "matched_private_ref": "system/lib/agent_observability_animation_coverage.py",
         "substitution": "public_safe_stub"
       },
@@ -38,7 +38,7 @@
       "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/agent_session_attribution.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
+        "contamination_class": "restricted_private_source_ref",
         "matched_private_ref": "system/lib/agent_session_attribution.py",
         "substitution": "public_safe_stub"
       },

@@ -8,6 +8,30 @@ and hook-shadow coverage semantics, while accepting only public process-audit
 metadata. It does not parse provider payloads, hidden reasoning, transcript
 bodies, browser/HUD state, account/session state, credentials, or live hook
 state.
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.macro_tools.agent_trace_route_repair` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: PASS, BLOCKED, KIND, SCHEMA_VERSION, SOURCE_REFS, SOURCE_SYMBOL_REFS, TARGET_REF, TARGET_REFS, TARGET_SYMBOL_REFS, AUTHORITY_CEILING, ANTI_CLAIM, INPUT_NAMES, FORBIDDEN_PAYLOAD_KEYS, ENTRY_REPLACEMENT_ROUTE, CONTEXT_PACK_ROUTE, NAV_METABOLISM_ROUTE, PHASE_TASK_ALIGNMENT_ROUTE, HASH_CHUNK_SIZE, RouteRepairSuggestion, ROUTE_REPAIR_SUGGESTIONS, REPAIR_CLASS_ROUTE_SUGGESTIONS, PROCESS_PATTERN_ALIASES, route_repair_for, build_hook_shadow_coverage, ...
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 from __future__ import annotations
 
@@ -114,6 +138,15 @@ HASH_CHUNK_SIZE = 1024 * 1024
 
 @dataclass(frozen=True)
 class RouteRepairSuggestion:
+    """
+    [ROLE]
+    - Teleology: Groups `RouteRepairSuggestion` data or behavior for `microcosm_core.macro_tools.agent_trace_route_repair` behind a documented class contract.
+    - Ownership: Owned by `microcosm_core.macro_tools.agent_trace_route_repair`; callers should construct or mutate instances only through declared fields, constructors, or methods.
+    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
+    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    """
     anti_pattern_id: str
     repair_class: str
     bad_first_contact_shape: str
@@ -125,6 +158,15 @@ class RouteRepairSuggestion:
     followup_surfaces: tuple[str, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Implements `RouteRepairSuggestion.to_dict` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
+        """
         row = asdict(self)
         row["expected_artifacts"] = list(self.expected_artifacts)
         row["followup_surfaces"] = list(self.followup_surfaces)
@@ -339,6 +381,15 @@ def route_repair_for(
     anti_pattern_id: str | None = None,
     repair_class: str | None = None,
 ) -> RouteRepairSuggestion | None:
+    """
+    [ACTION]
+    - Teleology: Implements `route_repair_for` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     key = str(anti_pattern_id or "").strip()
     key = PROCESS_PATTERN_ALIASES.get(key, key)
     if key in ROUTE_REPAIR_SUGGESTIONS:
@@ -350,6 +401,15 @@ def route_repair_for(
 
 
 def _recent_patterns(process_audit: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_recent_patterns` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     patterns: list[dict[str, Any]] = []
     for pattern in process_audit.get("patterns") or []:
         if not isinstance(pattern, Mapping):
@@ -373,6 +433,15 @@ def build_hook_shadow_coverage(
     process_repairs: Mapping[str, Mapping[str, Any]] | None = None,
     top_n: int = 4,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `build_hook_shadow_coverage` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     repairs = process_repairs or {}
     rows: list[dict[str, Any]] = []
     for pattern in _recent_patterns(process_audit)[: max(1, top_n)]:
@@ -422,6 +491,15 @@ def build_hook_shadow_coverage(
 
 
 def suggestion_message(suggestion: RouteRepairSuggestion) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `suggestion_message` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     expected = ", ".join(f"`{artifact}`" for artifact in suggestion.expected_artifacts)
     followup = ""
     if suggestion.followup_surfaces:
@@ -437,10 +515,28 @@ def suggestion_message(suggestion: RouteRepairSuggestion) -> str:
 
 
 def _read_json(path: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_read_json` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return cast(dict[str, Any], read_json_strict(path))
 
 
 def load_public_agent_trace_route_repair_bundle(input_dir: str | Path) -> dict[str, dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `load_public_agent_trace_route_repair_bundle` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     input_path = Path(input_dir)
     return {
         name.removesuffix(".json"): _read_json(input_path / name)
@@ -449,6 +545,15 @@ def load_public_agent_trace_route_repair_bundle(input_dir: str | Path) -> dict[s
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_rows` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(payload, Mapping):
         return []
     rows = payload.get(key, [])
@@ -458,12 +563,30 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 
 def _strings(value: object) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(value, list):
         return []
     return [str(item).strip() for item in value if str(item).strip()]
 
 
 def _walk_payload_keys(payload: object) -> set[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_walk_payload_keys` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if isinstance(payload, Mapping):
         keys = {str(key) for key in payload}
         for value in payload.values():
@@ -478,6 +601,15 @@ def _walk_payload_keys(payload: object) -> set[str]:
 
 
 def _stable_digest(payload: object) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_stable_digest` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     encoded = json.dumps(
         payload,
         ensure_ascii=True,
@@ -488,6 +620,15 @@ def _stable_digest(payload: object) -> str:
 
 
 def _file_sha256(path: Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_file_sha256` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
@@ -496,6 +637,15 @@ def _file_sha256(path: Path) -> str:
 
 
 def _repo_root_from_target() -> Path | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_repo_root_from_target` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     for candidate in Path(__file__).resolve(strict=False).parents:
         if (candidate / SOURCE_REFS[0]).is_file():
             return candidate
@@ -503,6 +653,15 @@ def _repo_root_from_target() -> Path | None:
 
 
 def _body_import_verification() -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_body_import_verification` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     target_path = Path(__file__).resolve(strict=False)
     repo_root = _repo_root_from_target()
     source_path = repo_root / SOURCE_REFS[0] if repo_root else None
@@ -547,6 +706,15 @@ def _bundle_finding(
     subject_id: str,
     subject_kind: str,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_bundle_finding` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "status": BLOCKED,
         "error_code": error_code,
@@ -561,6 +729,15 @@ def _expected_summary_validation(
     expected: Mapping[str, Any],
     actual: Mapping[str, Any],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_expected_summary_validation` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     keys = (
         "top_pattern_count",
         "covered_top_pattern_count",
@@ -585,6 +762,15 @@ def _expected_summary_validation(
 
 
 def _validate_policy(payload: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_validate_policy` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     required_false_flags = (
         "live_hook_install_authorized",
         "live_route_repair_authorized",
@@ -624,6 +810,15 @@ def _validate_policy(payload: Mapping[str, Any]) -> dict[str, Any]:
 def build_public_agent_trace_route_repair_view(
     payloads: Mapping[str, Mapping[str, Any]],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `build_public_agent_trace_route_repair_view` for `microcosm_core.macro_tools.agent_trace_route_repair` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     manifest = payloads.get("bundle_manifest", {})
     process_audit = payloads.get("process_audit", {})
     repairs_payload = payloads.get("process_pattern_repairs", {})

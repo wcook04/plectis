@@ -1,0 +1,73 @@
+{
+  "anti_claim": "The semantic singleflight dedup runtime computes content keys and collapses duplicate command runs over public fixtures only. It does not export private macro run state, credentials, provider state, or raw operator threads; it does not authorize release or publication; and a stale repo state cannot answer for a different run because the key folds repo state in.",
+  "authority_ceiling": {
+    "cross_host_correctness_proof": false,
+    "distributed_lock_service": false,
+    "global_mutual_exclusion": false,
+    "job_scheduler": false,
+    "private_root_equivalence": false,
+    "production_ready": false,
+    "publication_authorized": false,
+    "real_substrate_disposition": "real_substrate_capsule",
+    "release_authorized": false,
+    "source_mutation_authorized": false,
+    "status": "pass"
+  },
+  "body_in_receipt": false,
+  "case_count": 4,
+  "cases": [
+    {
+      "case_id": "completed_reuse",
+      "case_type": "positive",
+      "counter_value": "1",
+      "observed_error_codes": [],
+      "observed_ok": true,
+      "observed_role": "reused"
+    },
+    {
+      "case_id": "missing_command_rejected",
+      "case_type": "negative",
+      "error": "argv must not be empty",
+      "observed_error_codes": [
+        "SINGLEFLIGHT_EMPTY_ARGV_REJECTED"
+      ],
+      "observed_ok": true
+    },
+    {
+      "case_id": "scope_mutation_changes_key",
+      "case_type": "negative",
+      "key_changed": true,
+      "observed_error_codes": [
+        "SINGLEFLIGHT_STALE_STATE_CANNOT_DEDUP"
+      ],
+      "observed_ok": true
+    },
+    {
+      "case_id": "single_leader",
+      "case_type": "positive",
+      "observed_error_codes": [],
+      "observed_ok": true,
+      "observed_role": "leader"
+    }
+  ],
+  "claim_ceiling": "Keys and dedups command runs by a repo-state fingerprint -- argv, resolved cwd, git HEAD, a scoped dirty-tree fingerprint, and an env fingerprint -- over bounded public fixture commands. It does not guarantee global mutual exclusion, does not replace a lock service, does not prove cross-host correctness, and is not a job scheduler, a daemon, or release approval.",
+  "created_at": "2026-06-28T17:47:39+00:00",
+  "expected_negative_cases": {
+    "missing_command_rejected": [
+      "SINGLEFLIGHT_EMPTY_ARGV_REJECTED"
+    ],
+    "scope_mutation_changes_key": [
+      "SINGLEFLIGHT_STALE_STATE_CANNOT_DEDUP"
+    ]
+  },
+  "fixture_id": "first_wave.semantic_singleflight_dedup_runtime",
+  "input_mode": "semantic_singleflight_dedup_fixture_cases",
+  "negative_case_count": 2,
+  "observed_negative_case_count": 2,
+  "organ_id": "semantic_singleflight_dedup_runtime",
+  "passed_positive_case_count": 2,
+  "positive_case_count": 2,
+  "schema_version": "semantic_singleflight_dedup_runtime_organ_v1",
+  "status": "pass",
+  "validator_id": "validator.microcosm.organs.semantic_singleflight_dedup_runtime"
+}

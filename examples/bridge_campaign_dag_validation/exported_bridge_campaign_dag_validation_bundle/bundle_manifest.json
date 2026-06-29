@@ -1,0 +1,21 @@
+{
+  "bundle_id": "public_bridge_campaign_dag_validation_bundle",
+  "organ_id": "bridge_campaign_dag_validation",
+  "input_mode": "exported_bridge_campaign_dag_validation_bundle",
+  "authored_organ": true,
+  "body_in_receipt": false,
+  "live_state_authority": false,
+  "release_authorized": false,
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "surfaces_capsule": "microcosm_core.engine_room.bridge_campaign_dag",
+  "required_files": [
+    "bundle_manifest.json",
+    "cycle_rejected.json",
+    "fan_in_ok.json",
+    "linear_chain_ok.json",
+    "two_synthesis_rejected.json",
+    "docs/README.md",
+    "source_modules/src/microcosm_core/organs/bridge_campaign_dag_validation.py"
+  ],
+  "claim_ceiling": "Validates a bridge campaign fan-in DAG against a public-safe subset of the macro CR/VR rule families over bounded public fixtures (schema and identity, unique node labels, existing dependency edges, acyclicity, exactly one synthesis node reaching a probe, barrier alignment, and provider safe-parallelism) and rejects malformed campaigns by recomputation; does not dispatch agents, execute campaigns, prove provider correctness, authorize release or publication, or claim full private-root equivalence."
+}

@@ -14,7 +14,7 @@
       "path": "microcosm-substrate/examples/macro_projection_import_protocol/exported_projection_import_bundle/source_modules/system/lib/annex_routing_coverage.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
+        "contamination_class": "private_body_near_verbatim",
         "matched_private_ref": "system/lib/annex_routing_coverage.py",
         "substitution": "public_safe_stub"
       },

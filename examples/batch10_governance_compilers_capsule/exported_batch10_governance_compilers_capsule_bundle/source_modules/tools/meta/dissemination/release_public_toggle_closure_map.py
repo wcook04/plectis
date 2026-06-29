@@ -2,7 +2,7 @@
 
 The original control-plane body is intentionally not part of the public slice.
 Matched private ref: tools/meta/dissemination/release_public_toggle_closure_map.py
-Boundary class: private_body_near_verbatim
+Boundary class: private_body_exact_match
 """
 
 PUBLIC_MICROCOSM_STUB = True

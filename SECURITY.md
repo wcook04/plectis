@@ -66,23 +66,24 @@ It writes ignored `.microcosm/cold_clone_probe.json` evidence and does not
 refresh tracked receipts. Use `./bootstrap.sh --dry-run` when you need the
 exact command without writing the ignored receipt.
 
-Then install the repository-local test extra so the pytest route uses the same
-standalone environment as the public repo:
+Then install the test extra into a temporary venv so the pytest route uses the
+same standalone environment as the public repo without writing a venv into a
+Drive-backed checkout:
 
 ```bash
-make install
-.venv/bin/plectis authority --card
-.venv/bin/plectis stripping-guard
-PYTHONPATH=src .venv/bin/python -m pytest tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py tests/test_public_entry_docs.py
+VENV=/tmp/plectis-security-venv make install
+/tmp/plectis-security-venv/bin/plectis authority --card
+/tmp/plectis-security-venv/bin/plectis stripping-guard
+PYTHONPATH=src /tmp/plectis-security-venv/bin/python -m pytest tests/test_secret_exclusion_scan.py tests/test_private_state_scan.py tests/test_public_entry_docs.py
 ```
 
-The legacy `.venv/bin/microcosm` command remains supported as a compatibility
-alias. If you are not using the Makefile wrapper, create the same local test
-environment explicitly:
+The legacy `microcosm` command remains supported as a compatibility alias. If
+you are not using the Makefile wrapper, create the same local test environment
+explicitly outside the checkout:
 
 ```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -e '.[test]'
+python3 -m venv /tmp/plectis-security-venv
+/tmp/plectis-security-venv/bin/python -m pip install -e '.[test]'
 ```
 
 If the `plectis` console command is not available yet and you only need the
@@ -115,9 +116,9 @@ codes, and release gate fields in the report. The expected public boundary is:
 If a report claims release approval exists, it must name the separate operator
 authorization receipt that changed those fields.
 
-Do not attach local validation byproducts such as `.venv/`, `.microcosm/`, or
-pytest caches to a public report. The release receipt path is the evidence
-handle; raw environment state is not.
+Do not attach local validation byproducts such as venv directories,
+`.microcosm/`, or pytest caches to a public report. The release receipt path is
+the evidence handle; raw environment state is not.
 
 When reporting a suspected leak, include the path, command, receipt id, and a
 short redacted description. Do not paste the suspected secret, private payload,

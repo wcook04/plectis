@@ -1,0 +1,70 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "metabolism_queue_reconciliation_source_body_manifest",
+  "bundle_id": "exported_metabolism_queue_reconciliation_bundle",
+  "classification": "public_package_body_backed_composition_capsule",
+  "source_import_class": "public_safe_refactored_body",
+  "body_storage_policy": "public package source bodies are exercised in place by the organ acceptance command; this manifest binds their provenance and digest relation so old metadata cannot promote the organ by itself",
+  "receipt_body_policy": "receipts are evidence outputs only and are not counted as imported body substrate",
+  "body_in_receipt": false,
+  "source_open_payload_boundary": "non-secret Microcosm package source only; no provider state, credentials, sessions, raw private state, or release authority",
+  "validation_contract_ref": "checker.microcosm.validators.substrate_substitution_ledger",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "metabolism_queue_reconciliation_organ_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Organ wrapper that surfaces the metabolism_runtime capsule as a first-class organ: loads bounded fixture cases, drives the capsule's real evaluate_case over a transient temp scratch root, separates positive (clean compute, no reconciliation defect) from negative (planted inconsistency rejected by the reconciler with an expected rule marker), and emits body-free result/board/validation/acceptance receipts plus CLI dispatch. Imports only from microcosm_core.engine_room.metabolism_runtime and microcosm_core.receipts.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py",
+      "path": "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 22865,
+      "line_count": 466,
+      "sha256": "sha256:c023571df45ddee5aafa1cf9de470d554cfe481745a8f87c09a929f63fad3da8",
+      "target_sha256": "c023571df45ddee5aafa1cf9de470d554cfe481745a8f87c09a929f63fad3da8",
+      "source_sha256": "c023571df45ddee5aafa1cf9de470d554cfe481745a8f87c09a929f63fad3da8",
+      "required_anchors": [
+        "ORGAN_ID = \"metabolism_queue_reconciliation\"",
+        "def run"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.organs.metabolism_queue_reconciliation.run",
+        "tests/test_metabolism_queue_reconciliation.py"
+      ]
+    },
+    {
+      "module_id": "metabolism_queue_reconciliation_capsule_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Public-safe Engine Room metabolism capsule: a synthetic SQLite durable job queue with active-idempotency uniqueness guard, lease claim and expired-lease recovery, a blackboard claim-event ledger with active-claim projection (contradiction invalidates assertion), and a cold-start reconciliation pass that flags job/run/log inconsistencies for operator review under a small named rule taxonomy. Stdlib-only over a temp store; ships no live private runtime.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
+      "path": "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 50767,
+      "line_count": 1132,
+      "sha256": "sha256:be29b6eaa803904748ae0f2dca22008c9a9a4e58375fe1121a9a3d724845a670",
+      "target_sha256": "be29b6eaa803904748ae0f2dca22008c9a9a4e58375fe1121a9a3d724845a670",
+      "source_sha256": "be29b6eaa803904748ae0f2dca22008c9a9a4e58375fe1121a9a3d724845a670",
+      "required_anchors": [
+        "Public-safe metabolism runtime and reconciler capsule.",
+        "RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\""
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.engine_room.metabolism_runtime",
+        "tests/test_metabolism_queue_reconciliation.py"
+      ]
+    }
+  ],
+  "blocked_import_debt": []
+}

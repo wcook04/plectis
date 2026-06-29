@@ -16,7 +16,7 @@
   "first_wave_required_standard_count": 114,
   "generated_from": "state/microcosm_portfolio/reconstruction/standards_manifest_v1.json",
   "schema_version": "standards_registry_v1",
-  "standard_count": 141,
+  "standard_count": 151,
   "standards": [
     {
       "first_wave_required": true,
@@ -1334,12 +1334,12 @@
       "path": "standards/std_microcosm_agent_sabotage_scheming_monitor_replay.json",
       "receipt_id": "receipt.microcosm.agent_sabotage_scheming_monitor_replay",
       "standard_id": "std_microcosm_agent_sabotage_scheming_monitor_replay",
+      "status": "accepted_public_runtime_standard",
       "used_by_organs": [
         "agent_sabotage_scheming_monitor_replay"
       ],
       "validator_id": "validator.microcosm.organs.agent_sabotage_scheming_monitor_replay",
-      "wave": "w1_agent_sabotage_scheming_monitor_replay",
-      "status": "accepted_public_runtime_standard"
+      "wave": "w1_agent_sabotage_scheming_monitor_replay"
     },
     {
       "first_wave_required": true,
@@ -1360,96 +1360,96 @@
       "path": "standards/std_microcosm_sleeper_memory_poisoning_quarantine_replay.json",
       "receipt_id": "receipt.microcosm.sleeper_memory_poisoning_quarantine_replay",
       "standard_id": "std_microcosm_sleeper_memory_poisoning_quarantine_replay",
+      "status": "accepted_public_runtime_standard",
       "used_by_organs": [
         "sleeper_memory_poisoning_quarantine_replay"
       ],
       "validator_id": "validator.microcosm.organs.sleeper_memory_poisoning_quarantine_replay",
-      "wave": "w1_sleeper_memory_poisoning_quarantine_replay",
-      "status": "accepted_public_runtime_standard"
+      "wave": "w1_sleeper_memory_poisoning_quarantine_replay"
     },
     {
       "kind_id": "mcp_tool_authority_replay",
       "path": "standards/std_microcosm_mcp_tool_authority_replay.json",
       "receipt_id": "receipt.microcosm.mcp_tool_authority_replay",
       "standard_id": "std_microcosm_mcp_tool_authority_replay",
+      "status": "accepted_public_runtime_standard",
       "used_by_organs": [
         "mcp_tool_authority_replay"
       ],
       "validator_id": "validator.microcosm.organs.mcp_tool_authority_replay",
-      "wave": "w1_mcp_tool_authority_replay",
-      "status": "accepted_public_runtime_standard"
+      "wave": "w1_mcp_tool_authority_replay"
     },
     {
       "kind_id": "proof_derived_governed_mutation_authorization",
       "path": "standards/std_microcosm_proof_derived_governed_mutation_authorization.json",
       "receipt_id": "receipt.microcosm.proof_derived_governed_mutation_authorization",
       "standard_id": "std_microcosm_proof_derived_governed_mutation_authorization",
+      "status": "accepted_public_runtime_standard",
       "used_by_organs": [
         "proof_derived_governed_mutation_authorization"
       ],
       "validator_id": "validator.microcosm.organs.proof_derived_governed_mutation_authorization",
-      "wave": "w1_proof_derived_governed_mutation_authorization",
-      "status": "accepted_public_runtime_standard"
+      "wave": "w1_proof_derived_governed_mutation_authorization"
     },
     {
       "kind_id": "belief_state_process_reward_replay",
       "path": "standards/std_microcosm_belief_state_process_reward_replay.json",
       "receipt_id": "receipt.microcosm.belief_state_process_reward_replay",
       "standard_id": "std_microcosm_belief_state_process_reward_replay",
+      "status": "accepted_public_runtime_standard",
       "used_by_organs": [
         "belief_state_process_reward_replay"
       ],
       "validator_id": "validator.microcosm.organs.belief_state_process_reward_replay",
-      "wave": "w1_belief_state_process_reward_replay",
-      "status": "accepted_public_runtime_standard"
+      "wave": "w1_belief_state_process_reward_replay"
     },
     {
       "kind_id": "agent_sandbox_policy_escape_replay",
       "path": "standards/std_microcosm_agent_sandbox_policy_escape_replay.json",
       "receipt_id": "receipt.microcosm.agent_sandbox_policy_escape_replay",
       "standard_id": "std_microcosm_agent_sandbox_policy_escape_replay",
+      "status": "accepted_public_runtime_standard",
       "used_by_organs": [
         "agent_sandbox_policy_escape_replay"
       ],
       "validator_id": "validator.microcosm.organs.agent_sandbox_policy_escape_replay",
-      "wave": "w1_agent_sandbox_policy_escape_replay",
-      "status": "accepted_public_runtime_standard"
+      "wave": "w1_agent_sandbox_policy_escape_replay"
     },
     {
       "kind_id": "indirect_prompt_injection_information_flow_policy_replay",
       "path": "standards/std_microcosm_indirect_prompt_injection_information_flow_policy_replay.json",
       "receipt_id": "receipt.microcosm.indirect_prompt_injection_information_flow_policy_replay",
       "standard_id": "std_microcosm_indirect_prompt_injection_information_flow_policy_replay",
+      "status": "accepted_public_runtime_standard",
       "used_by_organs": [
         "indirect_prompt_injection_information_flow_policy_replay"
       ],
       "validator_id": "validator.microcosm.organs.indirect_prompt_injection_information_flow_policy_replay",
-      "wave": "w1_indirect_prompt_injection_information_flow_policy_replay",
-      "status": "accepted_public_runtime_standard"
+      "wave": "w1_indirect_prompt_injection_information_flow_policy_replay"
     },
     {
       "kind_id": "agentic_vulnerability_discovery_patch_proof_replay",
       "path": "standards/std_microcosm_agentic_vulnerability_discovery_patch_proof_replay.json",
       "receipt_id": "receipt.microcosm.agentic_vulnerability_discovery_patch_proof_replay",
       "standard_id": "std_microcosm_agentic_vulnerability_discovery_patch_proof_replay",
+      "status": "accepted_public_runtime_standard",
       "used_by_organs": [
         "agentic_vulnerability_discovery_patch_proof_replay"
       ],
       "validator_id": "validator.microcosm.organs.agentic_vulnerability_discovery_patch_proof_replay",
-      "wave": "w1_agentic_vulnerability_discovery_patch_proof_replay",
-      "status": "accepted_public_runtime_standard"
+      "wave": "w1_agentic_vulnerability_discovery_patch_proof_replay"
     },
     {
       "kind_id": "materials_chemistry_closed_loop_lab_safety_replay",
       "path": "standards/std_microcosm_materials_chemistry_closed_loop_lab_safety_replay.json",
       "receipt_id": "receipt.microcosm.materials_chemistry_closed_loop_lab_safety_replay",
       "standard_id": "std_microcosm_materials_chemistry_closed_loop_lab_safety_replay",
+      "status": "accepted_public_runtime_standard",
       "used_by_organs": [
         "materials_chemistry_closed_loop_lab_safety_replay"
       ],
       "validator_id": "validator.microcosm.organs.materials_chemistry_closed_loop_lab_safety_replay",
-      "wave": "w1_materials_chemistry_lab_safety_replay",
-      "status": "accepted_public_runtime_standard"
+      "wave": "w1_materials_chemistry_lab_safety_replay"
     },
     {
       "first_wave_required": true,
@@ -1470,12 +1470,12 @@
       "path": "standards/std_microcosm_voice_to_doctrine_self_improvement_loop.json",
       "receipt_id": "receipt.microcosm.voice_to_doctrine_self_improvement_loop",
       "standard_id": "std_microcosm_voice_to_doctrine_self_improvement_loop",
+      "status": "accepted_public_runtime_standard",
       "used_by_organs": [
         "voice_to_doctrine_self_improvement_loop"
       ],
       "validator_id": "validator.microcosm.organs.voice_to_doctrine_self_improvement_loop",
-      "wave": "w1_voice_to_doctrine_self_improvement_loop",
-      "status": "accepted_public_runtime_standard"
+      "wave": "w1_voice_to_doctrine_self_improvement_loop"
     },
     {
       "first_wave_required": true,
@@ -2054,6 +2054,146 @@
       "used_by_organs": [],
       "validator_id": "validator.microcosm.doctrine_enrichment_health",
       "wave": "w1_doctrine_enrichment_health_projection"
+    },
+    {
+      "first_wave_required": false,
+      "kind_id": "lean_proof_search_lab_runtime",
+      "kind_name": "Lean proof search lab runtime",
+      "path": "standards/std_microcosm_lean_proof_search_lab_runtime.json",
+      "receipt_id": "receipt.microcosm.lean_proof_search_lab_runtime",
+      "standard_id": "std_microcosm_lean_proof_search_lab_runtime",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "lean_proof_search_lab_runtime"
+      ],
+      "validator_id": "validator.microcosm.organs.lean_proof_search_lab_runtime",
+      "wave": "w2_lean_proof_search_lab_runtime_standard_floor"
+    },
+    {
+      "first_wave_required": false,
+      "kind_id": "semantic_singleflight_dedup_runtime",
+      "kind_name": "Semantic singleflight dedup runtime",
+      "path": "standards/std_microcosm_semantic_singleflight_dedup_runtime.json",
+      "receipt_id": "receipt.microcosm.semantic_singleflight_dedup_runtime",
+      "standard_id": "std_microcosm_semantic_singleflight_dedup_runtime",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "semantic_singleflight_dedup_runtime"
+      ],
+      "validator_id": "validator.microcosm.organs.semantic_singleflight_dedup_runtime",
+      "wave": "w2_semantic_singleflight_dedup_runtime_standard_floor"
+    },
+    {
+      "first_wave_required": false,
+      "kind_id": "finite_erdos_denominator_certificate_strike",
+      "kind_name": "Finite Erdos denominator certificate strike",
+      "path": "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json",
+      "receipt_id": "receipt.microcosm.finite_erdos_denominator_certificate_strike",
+      "standard_id": "std_microcosm_finite_erdos_denominator_certificate_strike",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "finite_erdos_denominator_certificate_strike"
+      ],
+      "validator_id": "validator.microcosm.organs.finite_erdos_denominator_certificate_strike",
+      "wave": "w2_finite_erdos_denominator_certificate_strike_standard_floor"
+    },
+    {
+      "first_wave_required": false,
+      "kind_id": "bridge_campaign_dag_validation",
+      "kind_name": "Bridge campaign DAG validation",
+      "path": "standards/std_microcosm_bridge_campaign_dag_validation.json",
+      "receipt_id": "receipt.microcosm.bridge_campaign_dag_validation",
+      "standard_id": "std_microcosm_bridge_campaign_dag_validation",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "bridge_campaign_dag_validation"
+      ],
+      "validator_id": "validator.microcosm.organs.bridge_campaign_dag_validation",
+      "wave": "w2_bridge_campaign_dag_validation_standard_floor"
+    },
+    {
+      "first_wave_required": false,
+      "kind_id": "metabolism_queue_reconciliation",
+      "kind_name": "Metabolism queue reconciliation",
+      "path": "standards/std_microcosm_metabolism_queue_reconciliation.json",
+      "receipt_id": "receipt.microcosm.metabolism_queue_reconciliation",
+      "standard_id": "std_microcosm_metabolism_queue_reconciliation",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "metabolism_queue_reconciliation"
+      ],
+      "validator_id": "validator.microcosm.organs.metabolism_queue_reconciliation",
+      "wave": "w2_metabolism_queue_reconciliation_standard_floor"
+    },
+    {
+      "first_wave_required": false,
+      "kind_id": "derived_fact_provider_runtime",
+      "kind_name": "Derived fact provider runtime",
+      "path": "standards/std_microcosm_derived_fact_provider_runtime.json",
+      "receipt_id": "receipt.microcosm.derived_fact_provider_runtime",
+      "standard_id": "std_microcosm_derived_fact_provider_runtime",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "derived_fact_provider_runtime"
+      ],
+      "validator_id": "validator.microcosm.organs.derived_fact_provider_runtime",
+      "wave": "w2_derived_fact_provider_runtime_standard_floor"
+    },
+    {
+      "first_wave_required": false,
+      "kind_id": "navigation_fitness_benchmark",
+      "kind_name": "Navigation fitness benchmark",
+      "path": "standards/std_microcosm_navigation_fitness_benchmark.json",
+      "receipt_id": "receipt.microcosm.navigation_fitness_benchmark",
+      "standard_id": "std_microcosm_navigation_fitness_benchmark",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "navigation_fitness_benchmark"
+      ],
+      "validator_id": "validator.microcosm.organs.navigation_fitness_benchmark",
+      "wave": "w2_navigation_fitness_benchmark_standard_floor"
+    },
+    {
+      "first_wave_required": false,
+      "kind_id": "annex_knowledge_routing",
+      "kind_name": "Annex knowledge routing",
+      "path": "standards/std_microcosm_annex_knowledge_routing.json",
+      "receipt_id": "receipt.microcosm.annex_knowledge_routing",
+      "standard_id": "std_microcosm_annex_knowledge_routing",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "annex_knowledge_routing"
+      ],
+      "validator_id": "validator.microcosm.organs.annex_knowledge_routing",
+      "wave": "w2_annex_knowledge_routing_standard_floor"
+    },
+    {
+      "first_wave_required": false,
+      "kind_id": "egress_self_compliance_audit",
+      "kind_name": "Egress self-compliance audit",
+      "path": "standards/std_microcosm_egress_self_compliance_audit.json",
+      "receipt_id": "receipt.microcosm.egress_self_compliance_audit",
+      "standard_id": "std_microcosm_egress_self_compliance_audit",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "egress_self_compliance_audit"
+      ],
+      "validator_id": "validator.microcosm.organs.egress_self_compliance_audit",
+      "wave": "w2_egress_self_compliance_audit_standard_floor"
+    },
+    {
+      "first_wave_required": false,
+      "kind_id": "generated_projection_drift_runtime",
+      "kind_name": "Generated projection drift runtime",
+      "path": "standards/std_microcosm_generated_projection_drift_runtime.json",
+      "receipt_id": "receipt.microcosm.generated_projection_drift_runtime",
+      "standard_id": "std_microcosm_generated_projection_drift_runtime",
+      "status": "accepted_public_runtime_standard",
+      "used_by_organs": [
+        "generated_projection_drift_runtime"
+      ],
+      "validator_id": "validator.microcosm.organs.generated_projection_drift_runtime",
+      "wave": "w2_generated_projection_drift_runtime_standard_floor"
     }
   ],
   "status": "current_public_standard_registry_cognitive_operator_registry_bound"

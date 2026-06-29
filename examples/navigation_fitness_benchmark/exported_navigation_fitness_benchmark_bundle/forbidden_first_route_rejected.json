@@ -1,0 +1,45 @@
+{
+  "case_id": "forbidden_first_route_rejected",
+  "case_type": "negative",
+  "expected_ok": false,
+  "expected_status": "pass",
+  "expected_task_statuses": {
+    "bypassed_context_pack_front_door": {
+      "sufficiency_status": "pass",
+      "sufficiency_failure_kind": null,
+      "latency_status": "pass"
+    }
+  },
+  "benchmark": {
+    "suite": "forbidden_route_public_fixture",
+    "cases": [
+      {
+        "task": {
+          "task_id": "bypassed_context_pack_front_door",
+          "family": "adversarial_forbidden_route",
+          "task_prompt": "Find the navigation theory document via the canonical front door.",
+          "route_type": "context_pack",
+          "expected_artifacts": [
+            "paper_modules:navigation_hologram_theory"
+          ],
+          "forbidden_first_routes": [
+            "--paper-module"
+          ],
+          "latency_budget_ms": 1200,
+          "scent_terms": [
+            "navigation",
+            "theory"
+          ]
+        },
+        "packet": {
+          "first_contact_command": "kernel.py --paper-module navigation theory",
+          "wall_ms": 160,
+          "selected_artifacts": [
+            "paper_modules:navigation_hologram_theory"
+          ],
+          "summary": "navigation theory row exists but the first route bypassed the context-pack front door"
+        }
+      }
+    ]
+  }
+}

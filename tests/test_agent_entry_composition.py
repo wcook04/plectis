@@ -5,6 +5,7 @@ import json
 import os
 import subprocess
 import sys
+from collections import Counter
 from pathlib import Path
 
 import pytest
@@ -32,6 +33,17 @@ def _build() -> dict:
         root=MICROCOSM_ROOT,
         task="Microcosm agent entry composition projection",
         command="pytest",
+    )
+
+
+def _organ_glance_expected_counts(organ_glance: dict) -> tuple[int, dict[str, int]]:
+    family_organs = [
+        organ
+        for family in organ_glance["families"]
+        for organ in family["organs"]
+    ]
+    return len(family_organs), dict(
+        Counter(organ["capsule_join_status"] for organ in family_organs)
     )
 
 
@@ -105,13 +117,15 @@ def test_agent_entry_card_composes_type_a_route_task_route_and_macro_floor() -> 
     assert organ_glance["source_ref"] == ORGAN_GLANCE_REF
     assert organ_glance["first_family_label"] == "Entry & Reveal"
     assert organ_glance["family_count"] == 7
-    assert organ_glance["organ_count"] == 82
-    assert organ_glance["capsule_accounting"]["accepted_organ_count"] == 82
-    assert organ_glance["capsule_join_status_counts"] == {
-        "direct": 75,
-        "paper_module_ref_bridge": 7,
-    }
-    assert sum(len(family["organs"]) for family in organ_glance["families"]) == 82
+    expected_organ_count, expected_join_status_counts = _organ_glance_expected_counts(
+        organ_glance
+    )
+    assert organ_glance["organ_count"] == expected_organ_count
+    assert (
+        organ_glance["capsule_accounting"]["accepted_organ_count"]
+        == expected_organ_count
+    )
+    assert organ_glance["capsule_join_status_counts"] == expected_join_status_counts
     cold_reader = organ_glance["families"][0]["organs"][0]
     assert cold_reader["organ_id"] == "cold_reader_route_map"
     assert cold_reader["one_line"]
@@ -2131,6 +2145,9 @@ def test_agent_entry_card_cli_writes_projection_and_receipt(tmp_path: Path) -> N
 
     card = json.loads(card_path.read_text(encoding="utf-8"))
     receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    expected_organ_count, expected_join_status_counts = _organ_glance_expected_counts(
+        payload["accepted_organ_glance"]
+    )
     assert card["task_route"]["task_class"] == "agent-entry"
     assert receipt["selected_task_class"] == "agent-entry"
     assert receipt["selected_viewer"] == "all"
@@ -2162,11 +2179,8 @@ def test_agent_entry_card_cli_writes_projection_and_receipt(tmp_path: Path) -> N
     assert receipt["accepted_organ_glance"] == {
         "source_ref": ORGAN_GLANCE_REF,
         "family_count": 7,
-        "organ_count": 82,
-        "capsule_join_status_counts": {
-            "direct": 75,
-            "paper_module_ref_bridge": 7,
-        },
+        "organ_count": expected_organ_count,
+        "capsule_join_status_counts": expected_join_status_counts,
         "drilldown": "ORGANS.md#microcosm-at-a-glance--every-organ-in-one-line",
     }
     assert set(receipt["viewer_modes"]) == {"type_a_agent", "human"}
@@ -2227,6 +2241,9 @@ def test_microcosm_cli_exposes_agent_entry_composition_card(tmp_path: Path) -> N
 def test_microcosm_cli_agent_entry_composition_card_is_compact() -> None:
     payload = _build()
     card = compact_agent_entry_card(payload)
+    expected_organ_count, _ = _organ_glance_expected_counts(
+        payload["accepted_organ_glance"]
+    )
 
     assert card["schema"] == "microcosm_agent_entry_composition_compact_card_v0"
     assert card["compact_projection_of"] == "microcosm_agent_entry_composition_projection_v0"
@@ -2239,7 +2256,7 @@ def test_microcosm_cli_agent_entry_composition_card_is_compact() -> None:
     )
     assert card["task_route"]["primary_organ_id"] == "cold_reader_route_map"
     assert "relevant_organs" not in card["task_route"]
-    assert card["accepted_organ_glance"]["organ_count"] == 82
+    assert card["accepted_organ_glance"]["organ_count"] == expected_organ_count
     assert "families" not in card["accepted_organ_glance"]
     assert {
         row["organ_id"] for row in card["macro_import_route_body_floor"]

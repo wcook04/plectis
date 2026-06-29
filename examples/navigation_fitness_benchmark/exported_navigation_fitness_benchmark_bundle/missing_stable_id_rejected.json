@@ -1,0 +1,40 @@
+{
+  "case_id": "missing_stable_id_rejected",
+  "case_type": "negative",
+  "expected_ok": false,
+  "expected_status": "pass",
+  "expected_task_statuses": {
+    "wanted_diagnostics_but_got_other": {
+      "sufficiency_status": "pass",
+      "sufficiency_failure_kind": null
+    }
+  },
+  "benchmark": {
+    "suite": "missing_id_public_fixture",
+    "cases": [
+      {
+        "task": {
+          "task_id": "wanted_diagnostics_but_got_other",
+          "family": "skill_discovery",
+          "task_prompt": "Find the right surface for diagnosing recent agent route failures.",
+          "route_type": "context_pack",
+          "expected_artifacts": [
+            "skills:agent_session_diagnostics"
+          ],
+          "forbidden_first_routes": [
+            "--skill-find"
+          ],
+          "latency_budget_ms": 1200
+        },
+        "packet": {
+          "first_contact_command": "kernel.py --context-pack",
+          "wall_ms": 260,
+          "selected_artifacts": [
+            "skills:navigation_metabolism"
+          ],
+          "summary": "route debt row selected but agent session diagnostics was never surfaced"
+        }
+      }
+    ]
+  }
+}

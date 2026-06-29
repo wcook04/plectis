@@ -1,0 +1,25 @@
+{
+  "bundle_id": "public_lean_proof_search_lab_runtime_bundle",
+  "organ_id": "lean_proof_search_lab_runtime",
+  "input_mode": "exported_lean_proof_search_lab_runtime_bundle",
+  "authored_organ": true,
+  "body_in_receipt": false,
+  "live_state_authority": false,
+  "release_authorized": false,
+  "external_tool_required": "lean",
+  "execution_witness_mode": "standalone_exported_contract",
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "surfaces_capsule": "microcosm_core.engine_room.lean_proof_search_lab",
+  "required_files": [
+    "bundle_manifest.json",
+    "source_module_manifest.json",
+    "memorized_policy_negative.json",
+    "nested_oracle_field_negative.json",
+    "oracle_field_negative.json",
+    "positive_symbolic_lab_pass.json",
+    "sorry_axiom_negative.json",
+    "docs/README.md",
+    "source_modules/src/microcosm_core/organs/lean_proof_search_lab_runtime.py"
+  ],
+  "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication."
+}

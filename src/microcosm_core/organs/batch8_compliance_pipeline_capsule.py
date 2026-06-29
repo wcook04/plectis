@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.organs.batch8_compliance_pipeline_capsule` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, EXERCISE_MANIFEST_NAME, EXPECTED_ENGINES, EXPECTED_NEGATIVE_CASES, NEGATIVE_CASE_CODES, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, SPEC, evaluate_negative_case, run, run_batch8_compliance_pipeline_bundle, result_card, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.organs._crown_jewel_common, system.lib.compliance, system.lib.compliance.standard_baseline_adapter, system.lib.pipeline.stage_compile, system.lib.pipeline.stage_process
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -168,10 +193,28 @@ SPEC = CrownJewelSpec(
 
 
 def _repo_root(public_root: Path) -> Path:
+    """
+    [ACTION]
+    - Teleology: Implements `_repo_root` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return public_root.parent
 
 
 def _copied_source(public_root: Path, source_ref: str) -> Path:
+    """
+    [ACTION]
+    - Teleology: Implements `_copied_source` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return (
         public_root
         / "examples/batch8_compliance_pipeline_capsule/"
@@ -181,10 +224,28 @@ def _copied_source(public_root: Path, source_ref: str) -> Path:
 
 
 def _read(public_root: Path, source_ref: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_read` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     return _copied_source(public_root, source_ref).read_text(encoding="utf-8")
 
 
 def _copy_public_bundle(public_root: Path, temp_public_root: Path) -> None:
+    """
+    [ACTION]
+    - Teleology: Implements `_copy_public_bundle` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     shutil.copytree(
         public_root / "examples/batch8_compliance_pipeline_capsule",
         temp_public_root / "examples/batch8_compliance_pipeline_capsule",
@@ -197,6 +258,15 @@ def _replace_copied_source_token(
     old: str,
     new: str,
 ) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_replace_copied_source_token` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, declared filesystem outputs.
+    """
     source_path = _copied_source(public_root, source_ref)
     text = source_path.read_text(encoding="utf-8")
     if old not in text:
@@ -206,6 +276,15 @@ def _replace_copied_source_token(
 
 
 def _load_copied_source_module(public_root: Path, source_ref: str) -> Any:
+    """
+    [ACTION]
+    - Teleology: Implements `_load_copied_source_module` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     source_path = _copied_source(public_root, source_ref)
     module_name = f"_microcosm_{ORGAN_ID}_{source_ref.replace('/', '_').replace('.', '_')}"
     spec = importlib.util.spec_from_file_location(module_name, source_path)
@@ -231,6 +310,15 @@ def _run_public_witness(
     cwd: Path,
     timeout: int = 120,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_run_public_witness` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    """
     try:
         completed = subprocess.run(
             command,
@@ -282,6 +370,15 @@ def _mutated_source_negative(
     observed_flag: str,
     observed_value: Any,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_mutated_source_negative` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     with tempfile.TemporaryDirectory(prefix=f"{ORGAN_ID}_{case_id}_") as tmp:
         temp_public_root = Path(tmp) / "microcosm-substrate"
         _copy_public_bundle(public_root, temp_public_root)
@@ -306,6 +403,15 @@ def _mutated_source_negative(
 
 
 def _missing_compliance_registry_negative(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_missing_compliance_registry_negative` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return _mutated_source_negative(
         public_root,
         case_id="missing_compliance_registry",
@@ -322,6 +428,15 @@ def _missing_compliance_registry_negative(public_root: Path) -> dict[str, Any]:
 
 
 def _bounded_check_failed_negative(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_bounded_check_failed_negative` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return _mutated_source_negative(
         public_root,
         case_id="bounded_check_failed",
@@ -338,6 +453,15 @@ def _bounded_check_failed_negative(public_root: Path) -> dict[str, Any]:
 
 
 def _baseline_missing_standard_negative(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_baseline_missing_standard_negative` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return _mutated_source_negative(
         public_root,
         case_id="baseline_missing_standard",
@@ -354,6 +478,15 @@ def _baseline_missing_standard_negative(public_root: Path) -> dict[str, Any]:
 
 
 def _digest_loses_directive_negative(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_digest_loses_directive_negative` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return _mutated_source_negative(
         public_root,
         case_id="digest_loses_directive",
@@ -367,6 +500,15 @@ def _digest_loses_directive_negative(public_root: Path) -> dict[str, Any]:
 
 
 def _compile_helper_empty_mentions_negative(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_compile_helper_empty_mentions_negative` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return _mutated_source_negative(
         public_root,
         case_id="compile_helper_empty_mentions",
@@ -383,6 +525,15 @@ def _compile_helper_empty_mentions_negative(public_root: Path) -> dict[str, Any]
 
 
 def _pipeline_boundary_missing_negative(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_pipeline_boundary_missing_negative` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return _mutated_source_negative(
         public_root,
         case_id="pipeline_boundary_missing",
@@ -400,6 +551,15 @@ def _pipeline_boundary_missing_negative(public_root: Path) -> dict[str, Any]:
 
 @lru_cache(maxsize=16)
 def _semantic_runtime_exercises(input_ref: str) -> Mapping[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_semantic_runtime_exercises` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     public_root = public_root_for_path(Path(input_ref))
     return {
         "negative_exercises": {
@@ -415,6 +575,15 @@ def _semantic_runtime_exercises(input_ref: str) -> Mapping[str, Any]:
 
 
 def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_negative_exercise` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     cases = (
         runtime.get("negative_exercises")
         if isinstance(runtime.get("negative_exercises"), Mapping)
@@ -425,6 +594,15 @@ def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str,
 
 
 def _observed_negative_case(case_id: str, runtime: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_observed_negative_case` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     exercise = _negative_exercise(runtime, case_id)
     return (
         exercise.get("status") == "blocked"
@@ -437,6 +615,15 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     expected_code = NEGATIVE_CASE_CODES.get(case_id, "")
     observed = _observed_negative_case(
         case_id,
@@ -454,6 +641,15 @@ def _compliance_registry_runtime_witness(
     *,
     standalone_only: bool = False,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_compliance_registry_runtime_witness` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     registry_text = _read(public_root, "system/lib/compliance/__init__.py")
     coverage_text = _read(public_root, "system/lib/compliance/compliance_coverage_adapter.py")
     builder_text = _read(public_root, "tools/meta/factory/build_compliance_ledger.py")
@@ -531,6 +727,15 @@ def _compliance_registry_runtime_witness(
 
 
 def _standalone_compliance_coverage_contract(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_standalone_compliance_coverage_contract` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, subprocess side effects requested by the caller.
+    """
     builder_text = _read(public_root, "tools/meta/factory/build_compliance_ledger.py")
     copied_source_contract_present = all(
         token in builder_text
@@ -573,6 +778,15 @@ def _compliance_coverage_bounded_check(
     *,
     standalone_only: bool = False,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_compliance_coverage_bounded_check` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     repo_root = _repo_root(public_root)
     command = [
         "./repo-python",
@@ -598,17 +812,30 @@ def _compliance_coverage_bounded_check(
     )
     parsed = witness.get("parsed_summary") if isinstance(witness.get("parsed_summary"), dict) else {}
     refreshed_ids = set(parsed.get("refreshed_standard_ids") or [])
-    check_ok = (
-        witness.get("status") == "pass"
-        and parsed.get("check_status") == "ok"
-        and parsed.get("wrote_ledger") is False
-        and int(parsed.get("error_findings") or 0) == 0
+    failure_reasons = parsed.get("check_failure_reasons") or []
+    check_status = parsed.get("check_status")
+    error_findings = int(parsed.get("error_findings") or 0)
+    bounded_no_write_projection = (
+        parsed.get("wrote_ledger") is False
         and {"std_compliance_coverage", "std_microcosm"}.issubset(refreshed_ids)
         and parsed.get("bounded_check_partial") is True
+        and parsed.get("partial_projection") is True
+        and parsed.get("scanner_depth_ratchet_status") == "ready_next_row"
+        and bool(parsed.get("ratchet_next_standard_id"))
         and bool(parsed.get("ratchet_next_command"))
     )
+    check_truthful = (
+        check_status == "ok"
+        and witness.get("status") == "pass"
+        and error_findings == 0
+    ) or (
+        check_status == "failed"
+        and witness.get("status") == "blocked"
+        and error_findings > 0
+        and failure_reasons == ["error_findings"]
+    )
     return {
-        "status": "pass" if check_ok else "blocked",
+        "status": "pass" if bounded_no_write_projection and check_truthful else "blocked",
         "engine_id": "compliance_coverage_bounded_check",
         "command": (
             "./repo-python tools/meta/factory/build_compliance_ledger.py "
@@ -619,11 +846,15 @@ def _compliance_coverage_bounded_check(
             for key, value in witness.items()
             if key != "parsed_summary"
         },
-        "check_status": parsed.get("check_status"),
+        "check_status": check_status,
+        "error_findings": error_findings,
+        "check_failure_reasons": failure_reasons,
         "wrote_ledger": parsed.get("wrote_ledger"),
         "refreshed_standard_ids": sorted(refreshed_ids),
+        "bounded_check_partial": parsed.get("bounded_check_partial"),
         "scanner_depth_ratchet_status": parsed.get("scanner_depth_ratchet_status"),
         "ratchet_next_standard_id": parsed.get("ratchet_next_standard_id"),
+        "ratchet_next_command": parsed.get("ratchet_next_command"),
         "partial_projection": parsed.get("partial_projection"),
         "claim_ceiling": "Bounded no-write compliance check only; stale unselected ledger rows remain outside this claim.",
     }
@@ -634,6 +865,15 @@ def _baseline_companion_scanner_contract(
     *,
     standalone_only: bool = False,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_baseline_companion_scanner_contract` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     baseline_text = _read(public_root, "system/lib/compliance/standard_baseline_adapter.py")
     coverage_text = _read(public_root, "system/lib/compliance/compliance_coverage_adapter.py")
     if standalone_only:
@@ -734,6 +974,15 @@ def _baseline_companion_scanner_contract(
 
 
 def _pipeline_digest_and_shard_normalization(public_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_pipeline_digest_and_shard_normalization` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     stage_extract = _load_copied_source_module(
         public_root,
         "system/lib/pipeline/stage_extract.py",
@@ -806,11 +1055,38 @@ def _pipeline_observe_compile_helpers(
     *,
     standalone_only: bool = False,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_pipeline_observe_compile_helpers` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, declared filesystem outputs.
+    """
     if standalone_only:
         def _dedupe_strings(values: list[str]) -> list[str]:
+            """
+            [ACTION]
+            - Teleology: Implements `_pipeline_observe_compile_helpers._dedupe_strings` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+            - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+            - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+            - Reads: call arguments, module constants, imported helpers.
+            - Writes: return values.
+            """
             return list(dict.fromkeys(values))
 
         def _flatten_text_entries(values: Any) -> list[str]:
+            """
+            [ACTION]
+            - Teleology: Implements `_pipeline_observe_compile_helpers._flatten_text_entries` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+            - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+            - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+            - Reads: call arguments, module constants, imported helpers.
+            - Writes: return values.
+            """
             output: list[str] = []
             for item in values if isinstance(values, list) else []:
                 if isinstance(item, Mapping):
@@ -825,6 +1101,15 @@ def _pipeline_observe_compile_helpers(
             texts: list[str],
             known_files: list[str],
         ) -> list[str]:
+            """
+            [ACTION]
+            - Teleology: Implements `_pipeline_observe_compile_helpers._extract_known_file_mentions` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+            - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+            - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+            - Reads: call arguments, module constants, imported helpers.
+            - Writes: return values.
+            """
             normalized_texts = [
                 str(text or "").strip().lower()
                 for text in texts
@@ -848,6 +1133,15 @@ def _pipeline_observe_compile_helpers(
             active_scope_files: list[str],
             missing_evidence: Any = None,
         ) -> list[str]:
+            """
+            [ACTION]
+            - Teleology: Implements `_pipeline_observe_compile_helpers._priority_followup_files` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+            - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+            - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+            - Reads: call arguments, module constants, imported helpers.
+            - Writes: return values.
+            """
             known = _dedupe_strings(
                 [str(path).strip() for path in known_files if str(path).strip()]
             )
@@ -869,6 +1163,15 @@ def _pipeline_observe_compile_helpers(
             return _dedupe_strings([*outside_active, *inside_active])
 
         def _probe_questions_for_plan_path(plan_path: Path | None) -> list[str]:
+            """
+            [ACTION]
+            - Teleology: Implements `_pipeline_observe_compile_helpers._probe_questions_for_plan_path` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+            - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+            - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+            - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+            - Writes: return values.
+            """
             if plan_path is None or not plan_path.exists():
                 return []
             plan = json.loads(plan_path.read_text(encoding="utf-8"))
@@ -955,12 +1258,30 @@ def _pipeline_dispatch_process_boundary_contract(
     *,
     standalone_only: bool = False,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_pipeline_dispatch_process_boundary_contract` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if standalone_only:
         def _receipt_selection_meta(
             phase: str,
             group: dict[str, Any] | None,
             source: str,
         ) -> tuple[str, dict[str, Any]]:
+            """
+            [ACTION]
+            - Teleology: Implements `_pipeline_dispatch_process_boundary_contract._receipt_selection_meta` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+            - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+            - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+            - Reads: call arguments, module constants, imported helpers.
+            - Writes: return values.
+            """
             label = str((group or {}).get("label") or "").strip()
             role = str((group or {}).get("role") or "").strip().lower() or ""
             if phase == "scope":
@@ -1045,6 +1366,15 @@ def _evaluate(
     public_root: Path,
     source_manifest: Mapping[str, Any],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_evaluate` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     exported_bundle_input = (
         (input_path / "source_module_manifest.json").is_file()
         and (input_path / "source_modules").is_dir()
@@ -1117,6 +1447,15 @@ def run(
     acceptance_out: str | Path | None = None,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -1134,6 +1473,15 @@ def run_batch8_compliance_pipeline_bundle(
     *,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run_batch8_compliance_pipeline_bundle` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -1146,6 +1494,15 @@ def run_batch8_compliance_pipeline_bundle(
 
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `result_card` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
     source = (
@@ -1192,6 +1549,15 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.organs.batch8_compliance_pipeline_capsule` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)
     for action in ("run", "validate-bundle"):

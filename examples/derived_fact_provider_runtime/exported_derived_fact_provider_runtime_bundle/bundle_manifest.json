@@ -1,0 +1,21 @@
+{
+  "bundle_id": "public_derived_fact_provider_runtime_bundle",
+  "organ_id": "derived_fact_provider_runtime",
+  "input_mode": "exported_derived_fact_provider_runtime_bundle",
+  "authored_organ": true,
+  "body_in_receipt": false,
+  "live_state_authority": false,
+  "release_authorized": false,
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "surfaces_capsule": "microcosm_core.engine_room.derived_fact_provider_engine",
+  "required_files": [
+    "bundle_manifest.json",
+    "git_callable_and_pointer_index_clean.json",
+    "json_pointer_glob_clean.json",
+    "missing_source_path_rejected.json",
+    "unknown_provider_type_rejected.json",
+    "docs/README.md",
+    "source_modules/src/microcosm_core/organs/derived_fact_provider_runtime.py"
+  ],
+  "claim_ceiling": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it does not authorize release or publication."
+}

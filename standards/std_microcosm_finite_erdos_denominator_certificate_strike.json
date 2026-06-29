@@ -1,0 +1,211 @@
+{
+  "schema_version": "public_microcosm_standard_v2",
+  "standard_id": "std_microcosm_finite_erdos_denominator_certificate_strike",
+  "kind_id": "finite_erdos_denominator_certificate_strike",
+  "kind_name": "Finite Erdos denominator certificate strike",
+  "status": "active",
+  "first_wave_required": false,
+  "authority_boundary": "public_safe_finite_erdos_denominator_certificate_strike_accepted_organ_standard",
+  "anti_claim": "computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+  "anti_claim_contract": {
+    "required": true,
+    "rule": "Organ-facing public copy must stay within the accepted organ claim ceiling and must not imply release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority."
+  },
+  "authority_ceiling": {
+    "status": "bounded_by_accepted_organ_claim_ceiling",
+    "standard_authority": "public_finite_erdos_denominator_certificate_strike_standard_schema_and_failure_envelope",
+    "claim_ceiling": "computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+    "accepted_organ_ref": "core/organ_registry.json#finite_erdos_denominator_certificate_strike",
+    "claim_ceiling_ref": "core/organ_registry.json#finite_erdos_denominator_certificate_strike.claim_ceiling",
+    "evidence_class": "bounded_runtime_computation",
+    "truth_accounting_bucket": "real_runtime_receipt",
+    "live_session_authority": false,
+    "provider_authority": false,
+    "release_authorized": false,
+    "publication_authorized": false,
+    "provider_dispatch": false,
+    "source_mutation_authorized": false,
+    "private_root_equivalence_claim": false,
+    "whole_system_correctness_claim": false,
+    "runtime_correctness_claim": false,
+    "release_authority": false
+  },
+  "public_private_boundary": {
+    "default_posture": "public_safe_finite_erdos_denominator_certificate_strike_runtime_metadata_and_receipts",
+    "allowed_public_inputs": [
+      "public fixture ids",
+      "public source refs",
+      "validator command identity",
+      "validator result status",
+      "body-free receipt refs",
+      "authority ceilings and anti-claims",
+      "public relative source paths"
+    ],
+    "forbidden_public_inputs": [
+      "credentials",
+      "cookies_or_sessions",
+      "provider_payload_bodies",
+      "private account state",
+      "raw operator transcripts",
+      "private home-path literals",
+      "release approval state",
+      "private macro-root equivalence claims"
+    ],
+    "status": "pass"
+  },
+  "required_fields": [
+    "authority_ceiling",
+    "anti_claim",
+    "validator_contract",
+    "receipt_refs",
+    "failure_modes"
+  ],
+  "validation_rules": [
+    "require the accepted organ validator command to recompute the bounded public fixture result",
+    "require generated receipts and acceptance receipt refs to remain body-free and public-relative",
+    "require claim ceiling, evidence class, truth-accounting bucket, and authority ceiling to match core/organ_registry.json",
+    "reject release, publication, provider-dispatch, source-mutation, private-root equivalence, and whole-system correctness claims"
+  ],
+  "validator_contract": {
+    "required": true,
+    "validator_id": "validator.microcosm.organs.finite_erdos_denominator_certificate_strike",
+    "command": "python -m microcosm_core.organs.finite_erdos_denominator_certificate_strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+    "minimum_checks": [
+      "accepted_organ_validator_command_recomputes_fixture",
+      "authority_ceiling_matches_organ_registry",
+      "body_free_receipt_refs_present",
+      "negative_or_forged_cases_rejected_when_declared"
+    ]
+  },
+  "validator_refs": [
+    "validator.microcosm.organs.finite_erdos_denominator_certificate_strike",
+    "python -m microcosm_core.organs.finite_erdos_denominator_certificate_strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
+  ],
+  "receipt_contract": {
+    "required": true,
+    "receipt_id": "receipt.microcosm.finite_erdos_denominator_certificate_strike",
+    "body_in_receipt": false,
+    "must_record": [
+      "validator_result_status",
+      "authority_ceiling",
+      "anti_claim",
+      "claim_ceiling",
+      "evidence_class",
+      "truth_accounting_bucket",
+      "body_free_receipt_refs"
+    ]
+  },
+  "receipt_expectations": [
+    "record validator command identity, observed result status, authority ceiling, and anti-claim",
+    "record public-relative receipt refs and avoid source bodies, credentials, provider payloads, private paths, or operator transcripts",
+    "record the accepted organ claim ceiling and do not treat validator success as release or publication authority"
+  ],
+  "receipt_refs": [
+    "receipt.microcosm.finite_erdos_denominator_certificate_strike",
+    "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_result.json",
+    "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_board.json",
+    "receipts/first_wave/finite_erdos_denominator_certificate_strike/finite_erdos_denominator_certificate_strike_validation_receipt.json",
+    "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json"
+  ],
+  "source_refs": [
+    {
+      "field": "organ_runtime",
+      "path": "src/microcosm_core/organs/finite_erdos_denominator_certificate_strike.py",
+      "role": "public_runtime_source"
+    },
+    {
+      "field": "paper_module",
+      "path": "paper_modules/finite_erdos_denominator_certificate_strike.md",
+      "role": "public_explanation_surface"
+    },
+    {
+      "field": "fixture_input",
+      "path": "fixtures/first_wave/finite_erdos_denominator_certificate_strike/input",
+      "role": "public_fixture_input"
+    },
+    {
+      "field": "validation_test",
+      "path": "tests/test_finite_erdos_denominator_certificate_strike.py",
+      "role": "public_runtime_test"
+    },
+    {
+      "field": "engine_room_capsule",
+      "path": "src/microcosm_core/engine_room/finite_denominator_order_certificate.py",
+      "role": "public_source_faithful_runtime_capsule"
+    }
+  ],
+  "relationships": {
+    "canonical_organ_model_ref": "core/organ_registry.json#finite_erdos_denominator_certificate_strike",
+    "used_by_organs": [
+      "finite_erdos_denominator_certificate_strike"
+    ],
+    "governed_by": [
+      "std_microcosm_organ",
+      "std_microcosm_receipt",
+      "std_microcosm_private_fixture"
+    ],
+    "source_ref": "standards/std_microcosm_finite_erdos_denominator_certificate_strike.json"
+  },
+  "standard_payload": {
+    "ontology": "Accepted Microcosm organ standard for `finite_erdos_denominator_certificate_strike`: computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact arithmetic and rejects forged certificates; does not prove the infinite Erdos #257, is not an oracle, prover, or provider, and is not a machine-checked proof",
+    "teleology": "Expose `finite_erdos_denominator_certificate_strike` as a bounded public runtime/receipt contract with validator-backed evidence, while keeping the claim ceiling and release boundary visible to cold readers and release gates.",
+    "anti_purpose": "Using `finite_erdos_denominator_certificate_strike` as proof of broader runtime correctness, release readiness, provider authority, private-root equivalence, or claims outside its accepted organ ceiling.",
+    "compression_bands": [
+      "organ_id",
+      "validator",
+      "fixture",
+      "receipt",
+      "claim_ceiling",
+      "authority_ceiling",
+      "failure_modes"
+    ],
+    "failure_modes": [
+      "accepted organ standard file missing or not discoverable as std_microcosm_<organ_id>.json",
+      "validator command, receipt id, or authority receipt drifts from core/organ_registry.json",
+      "bounded fixture result is trusted from prose or stale receipts instead of recomputed by the validator",
+      "public receipt embeds private paths, provider payloads, credentials, raw operator text, or source bodies",
+      "evidence class or truth-accounting bucket is overclaimed beyond the accepted organ row",
+      "green validator output is treated as release, publication, provider, private-root-equivalence, source-mutation, runtime-correctness, or whole-system-correctness authority",
+      "deterministic bounded computation is replaced by fixture echo, schema-only replay, or unverified static metadata"
+    ],
+    "rebuild_action": "active_v2_promotion_from_accepted_organ_registry",
+    "contract_version": "public_microcosm_standard_v2",
+    "contract_projection_basis": {
+      "source_schema_version": "public_microcosm_standard_v2",
+      "source_status": "active",
+      "source_upgraded_from": {
+        "schema_version": "accepted_organ_missing_standard_gap",
+        "status": "missing_standard_gap"
+      },
+      "runtime_acceptance_status": "accepted_current_authority_organ_registry_backed",
+      "registry_status_before_activation": "accepted_organ_standard_missing",
+      "validator_id": "validator.microcosm.organs.finite_erdos_denominator_certificate_strike",
+      "receipt_id": "receipt.microcosm.finite_erdos_denominator_certificate_strike",
+      "organ_authority_receipt": "receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+      "organ_evidence_class": "bounded_runtime_computation",
+      "organ_evidence_strength_rank": 4,
+      "truth_accounting_bucket": "real_runtime_receipt",
+      "authority_boundary": "computed standard-lattice contract only; accepted organ registry and receipt anchors bind the source row but do not grant release, provider dispatch, private-root equivalence, runtime correctness, or whole-system correctness authority."
+    }
+  },
+  "wave": "w2_finite_erdos_denominator_certificate_strike_standard_floor",
+  "skills": {
+    "author": {
+      "skill_id": "skill.microcosm.finite_erdos_denominator_certificate_strike.author",
+      "status": "planned",
+      "purpose": "create a valid Finite Erdos denominator certificate strike runtime instance"
+    },
+    "refine_instance": {
+      "skill_id": "skill.microcosm.finite_erdos_denominator_certificate_strike.refine_instance",
+      "status": "planned",
+      "purpose": "improve an existing Finite Erdos denominator certificate strike without corrupting authority"
+    },
+    "refine_standard_and_propagate": {
+      "skill_id": "skill.microcosm.finite_erdos_denominator_certificate_strike.refine_standard_and_propagate",
+      "status": "planned",
+      "purpose": "change std_microcosm_finite_erdos_denominator_certificate_strike and propagate through governed artifacts plus generated lattice projections"
+    }
+  },
+  "source_format": "json",
+  "source_authority": "json_standard_contract_backed_by_accepted_organ_registry_receipt"
+}

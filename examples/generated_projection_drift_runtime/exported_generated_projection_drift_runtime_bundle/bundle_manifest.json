@@ -1,0 +1,21 @@
+{
+  "bundle_id": "public_generated_projection_drift_runtime_bundle",
+  "organ_id": "generated_projection_drift_runtime",
+  "input_mode": "exported_generated_projection_drift_runtime_bundle",
+  "authored_organ": true,
+  "body_in_receipt": false,
+  "live_state_authority": false,
+  "release_authorized": false,
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "surfaces_capsule": "microcosm_core.engine_room.generated_projection_drift_gate",
+  "required_files": [
+    "bundle_manifest.json",
+    "clean_command_owner.json",
+    "clean_source_hash_cache_hit.json",
+    "missing_artifact_drift.json",
+    "planted_byte_drift.json",
+    "docs/README.md",
+    "source_modules/src/microcosm_core/organs/generated_projection_drift_runtime.py"
+  ],
+  "claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release."
+}

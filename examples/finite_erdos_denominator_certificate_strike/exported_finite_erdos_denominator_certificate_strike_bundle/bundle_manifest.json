@@ -1,0 +1,21 @@
+{
+  "bundle_id": "public_finite_erdos_denominator_certificate_strike_bundle",
+  "organ_id": "finite_erdos_denominator_certificate_strike",
+  "input_mode": "exported_finite_erdos_denominator_certificate_strike_bundle",
+  "authored_organ": true,
+  "body_in_receipt": false,
+  "live_state_authority": false,
+  "release_authorized": false,
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "surfaces_capsule": "microcosm_core.engine_room.finite_denominator_order_certificate",
+  "required_files": [
+    "bundle_manifest.json",
+    "certificate_holds.json",
+    "certificate_holds_after_reduction.json",
+    "forged_order_rejected.json",
+    "forged_denominator_rejected.json",
+    "docs/README.md",
+    "source_modules/src/microcosm_core/organs/finite_erdos_denominator_certificate_strike.py"
+  ],
+  "claim_ceiling": "Computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; does not prove the open infinite Erdos #257, is not an oracle, prover, or provider result, and is not release approval."
+}

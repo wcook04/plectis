@@ -129,7 +129,7 @@
       "path": "source_modules/ai_workflow/system/server/tests/test_operator_thread_memory.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "system/server/tests/test_operator_thread_memory.py",
         "substitution": "public_safe_stub"
       },
@@ -141,7 +141,7 @@
       "path": "source_modules/ai_workflow/system/lib/agent_execution_trace.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "private_body_exact_match",
+        "contamination_class": "private_body_near_verbatim",
         "matched_private_ref": "system/lib/agent_execution_trace.py",
         "substitution": "public_safe_stub"
       },

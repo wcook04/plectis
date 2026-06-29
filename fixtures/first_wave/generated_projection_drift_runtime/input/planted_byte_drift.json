@@ -1,0 +1,49 @@
+{
+  "case_id": "planted_byte_drift",
+  "case_type": "negative",
+  "expected_ok": false,
+  "expected_status": "drift",
+  "expected_owner_count": 1,
+  "files": [
+    {
+      "path": "source/spec.json",
+      "text": "{\"title\":\"expected\"}\n"
+    },
+    {
+      "path": "expected/report.md",
+      "text": "expected projection\n"
+    },
+    {
+      "path": "generated/report.md",
+      "text_parts": [
+        "expected projection",
+        "\n",
+        "planted drift byte\n"
+      ]
+    }
+  ],
+  "owners": [
+    {
+      "owner_id": "demo_projection",
+      "description": "The owner no-write check recomputes the artifact and detects the planted byte that does not match the source authority.",
+      "artifacts": [
+        "generated/report.md"
+      ],
+      "source_authorities": [
+        "source/spec.json",
+        "expected/report.md"
+      ],
+      "check_command": [
+        "builtin:assert-file-equals",
+        "expected/report.md",
+        "generated/report.md"
+      ],
+      "repair_command": [
+        "builtin:repair-demo"
+      ],
+      "manual_edit_boundary": "Do not hand-edit generated/report.md.",
+      "deterministic_regeneration_expectation": "generated/report.md must byte-match expected/report.md.",
+      "stale_drift_handling": "A failing no-write check marks the owner as drift; do not land the artifact."
+    }
+  ]
+}

@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.macro_tools.continuation_packet` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: PASS, BLOCKED, KIND, SCHEMA_VERSION, SOURCE_REF, SOURCE_REFS, SOURCE_SYMBOL_REFS, TARGET_REF, TARGET_REFS, TARGET_SYMBOL_REFS, WAIT_KINDS, AUTHORITY_CEILING, ANTI_CLAIM, PUBLIC_CONTEXT_KEYS, body_import_verification, canonical_continuation_packet_path, render_public_resume_prompt, render_public_wake_prompt, build_public_continuation_packet, write_public_continuation_packet, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: None beyond the Python standard library and local package imports.
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -73,20 +98,56 @@ PUBLIC_CONTEXT_KEYS = (
 
 
 def _utc_now() -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_utc_now` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return datetime.now(timezone.utc).isoformat()
 
 
 def _string(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_string` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return str(value or "").strip()
 
 
 def _strings(value: Any) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(value, list):
         return []
     return [str(item).strip() for item in value if str(item).strip()]
 
 
 def _relative_public_path(path: str | Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_relative_public_path` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     token = _string(path).replace("\\", "/").strip("/")
     while token.startswith("../"):
         token = token[3:]
@@ -94,6 +155,15 @@ def _relative_public_path(path: str | Path) -> str:
 
 
 def _stable_digest(payload: object, *, length: int | None = None) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_stable_digest` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     encoded = json.dumps(
         payload,
         ensure_ascii=True,
@@ -105,10 +175,28 @@ def _stable_digest(payload: object, *, length: int | None = None) -> str:
 
 
 def _file_digest(path: Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_file_digest` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
 def _repo_root_from_target() -> Path | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_repo_root_from_target` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     for candidate in Path(__file__).resolve(strict=False).parents:
         if (candidate / SOURCE_REF).is_file():
             return candidate
@@ -116,6 +204,15 @@ def _repo_root_from_target() -> Path | None:
 
 
 def body_import_verification() -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `body_import_verification` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     target_path = Path(__file__).resolve(strict=False)
     repo_root = _repo_root_from_target()
     source_path = repo_root / SOURCE_REF if repo_root is not None else None
@@ -140,6 +237,15 @@ def body_import_verification() -> dict[str, Any]:
 
 
 def canonical_continuation_packet_path(artifact_dir: str | Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `canonical_continuation_packet_path` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rel = _relative_public_path(artifact_dir)
     if not rel:
         return "continuation_packet.json"
@@ -147,6 +253,15 @@ def canonical_continuation_packet_path(artifact_dir: str | Path) -> str:
 
 
 def _public_family_continuity(source_context: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_public_family_continuity` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     continuity = source_context.get("family_continuity")
     if isinstance(continuity, Mapping):
         return {
@@ -168,6 +283,15 @@ def _public_family_continuity(source_context: Mapping[str, Any]) -> dict[str, An
 
 
 def _public_compaction_capsule(source_context: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_public_compaction_capsule` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     capsule = source_context.get("compaction_resume_capsule")
     if isinstance(capsule, Mapping):
         return {
@@ -185,6 +309,15 @@ def _public_compaction_capsule(source_context: Mapping[str, Any]) -> dict[str, A
 
 
 def _public_context(source_context: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_public_context` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     context = {
         key: source_context[key]
         for key in PUBLIC_CONTEXT_KEYS
@@ -203,6 +336,15 @@ def _public_context(source_context: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def render_public_resume_prompt(packet: Mapping[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `render_public_resume_prompt` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     context = packet.get("public_context") if isinstance(packet.get("public_context"), Mapping) else {}
     next_action = _string(context.get("safe_next_action")) or _string(context.get("current_task_id"))
     lines = [
@@ -217,6 +359,15 @@ def render_public_resume_prompt(packet: Mapping[str, Any]) -> str:
 
 
 def render_public_wake_prompt(packet: Mapping[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `render_public_wake_prompt` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     context = packet.get("public_context") if isinstance(packet.get("public_context"), Mapping) else {}
     refs = ", ".join(_strings(context.get("context_refs"))[:4]) or "packet context refs"
     return "\n".join(
@@ -236,6 +387,15 @@ def build_public_continuation_packet(
     source_context: Mapping[str, Any] | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `build_public_continuation_packet` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     normalized_wait_kind = _string(wait_kind)
     if normalized_wait_kind not in WAIT_KINDS:
         raise ValueError(f"Unsupported continuation packet wait kind: {wait_kind!r}")
@@ -286,6 +446,15 @@ def write_public_continuation_packet(
     packet: Mapping[str, Any],
     root: str | Path = ".",
 ) -> tuple[str, dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `write_public_continuation_packet` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     target_rel = _string(packet.get("continuation_packet_path")) or canonical_continuation_packet_path(
         artifact_dir
     )
@@ -297,10 +466,28 @@ def write_public_continuation_packet(
 
 
 def _load_json(path: str | Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_load_json` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
 def main(argv: list[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.macro_tools.continuation_packet` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(prog="python -m microcosm_core.macro_tools.continuation_packet")
     parser.add_argument("action", choices=["build-public-packet"])
     parser.add_argument("--input", required=True)

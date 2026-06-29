@@ -9,11 +9,12 @@
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 8959,
+      "byte_count": 17164,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 233,
+      "line_count": 330,
       "material_class": "public_macro_tool_body",
       "module_id": "command_output_projection_helper_body_import",
+      "public_light_edit_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/command_output_projection.py::public_module_contract_docstrings",
       "required_anchors": [
         "ENVELOPE_KIND",
         "REQUIRED_FIELDS",
@@ -21,23 +22,25 @@
         "def row_band_unavailable(",
         "def envelope_required_fields("
       ],
-      "sha256_match": true,
+      "sha256_match": false,
       "source_open_payload_boundary": "body_in_bundle_or_public_macro_tools_not_receipt",
       "source_ref": "system/lib/command_output_projection.py",
       "source_role": "Command-output projection envelope helper for required fields, currentness, omission receipts, validation contracts, row ids, and row-band refusals",
       "source_sha256": "5702da67065c71a7dc54c58c5b136883e1069edf167b177dee3d17f0604b9288",
+      "source_to_target_relation": "source_faithful_public_light_edit",
       "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/command_output_projection.py",
-      "target_sha256": "5702da67065c71a7dc54c58c5b136883e1069edf167b177dee3d17f0604b9288"
+      "target_sha256": "a92a0c2f3066f35a50cce7d86f1c1c7f1cbf99751a4c3bcaf6d19218b0ae562d"
     },
     {
       "anchor_count": 5,
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 5753,
+      "byte_count": 12835,
       "classification": "copied_non_secret_macro_body",
-      "line_count": 158,
+      "line_count": 244,
       "material_class": "public_macro_tool_body",
       "module_id": "command_output_sidecar_helper_body_import",
+      "public_light_edit_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/command_output_sidecar.py::public_module_contract_docstrings",
       "required_anchors": [
         "RECEIPT_KIND",
         "DEFAULT_THRESHOLDS",
@@ -45,13 +48,14 @@
         "AIW_COMMAND_OUTPUT_SIDECAR_BYTES",
         "read_next"
       ],
-      "sha256_match": true,
+      "sha256_match": false,
       "source_open_payload_boundary": "body_in_bundle_or_public_macro_tools_not_receipt",
       "source_ref": "system/lib/command_output_sidecar.py",
       "source_role": "Sidecar containment helper for heavy command-output payloads with inline/sidecar thresholds and bounded read-next receipts",
       "source_sha256": "0955788922106930f94483927896506ab6274e5f78ae54ca0c9b89757bbadad0",
+      "source_to_target_relation": "source_faithful_public_light_edit",
       "target_ref": "microcosm-substrate/src/microcosm_core/macro_tools/command_output_sidecar.py",
-      "target_sha256": "0955788922106930f94483927896506ab6274e5f78ae54ca0c9b89757bbadad0"
+      "target_sha256": "dd10536ca890c58591e8630fc17d3f9bb030d7e5b174777fd34f583da1dc4dc4"
     },
     {
       "anchor_count": 5,

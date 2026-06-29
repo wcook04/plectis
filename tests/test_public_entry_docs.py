@@ -84,20 +84,9 @@ def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
     assert quickstart_path.is_file()
     assert "[QUICKSTART.md](QUICKSTART.md)" in readme
     for phrase in (
-        "make install",
-        ".venv/bin/plectis tour --format text .",
-        ".venv/bin/plectis tour --card .",
+        "python3 -m pip install -e '.[test]'",
         "PYTHONPATH=src python3 -m microcosm_core hello .",
         "make smoke",
-        "make onboarding-benchmark",
-        ".microcosm/onboarding-benchmark.json",
-        "clone_seconds",
-        "bootstrap_seconds",
-        "smoke_seconds",
-        "install_seconds",
-        "installed_tour_seconds",
-        "total_seconds",
-        "Windows should use WSL",
         ".microcosm/smoke/",
         "Plectis smoke check: pass",
         "authority: pass",
@@ -182,8 +171,9 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "plectis authority --card",
         "plectis stripping-guard",
         "make install",
-        ".venv/bin/python -m pip install -e '.[test]'",
-        "PYTHONPATH=src .venv/bin/python -m pytest tests/test_secret_exclusion_scan.py",
+        "VENV=/tmp/plectis-security-venv make install",
+        "/tmp/plectis-security-venv/bin/python -m pip install -e '.[test]'",
+        "PYTHONPATH=src /tmp/plectis-security-venv/bin/python -m pytest tests/test_secret_exclusion_scan.py",
         "PYTHONPATH=src python3 -m microcosm_core authority --card",
         "PYTHONPATH=src python3 -m microcosm_core stripping-guard",
         "tests/test_secret_exclusion_scan.py",
@@ -266,7 +256,8 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "public GitHub Actions entry",
         "Do not launch multiple raw `pytest` processes",
         "uses its own `--basetemp`",
-        ".microcosm/test-tmp/pytest",
+        "disables pytest's cache provider",
+        "direct runs do not write\n`.pytest_cache`",
     ):
         assert phrase in agents
     assert "ignored `.microcosm/cold_clone_probe.json` evidence" in normalized_agents
@@ -1920,4 +1911,62 @@ def test_entry_docs_advertise_only_supported_comprehend_flags() -> None:
     assert not offenders, (
         "entry docs advertise comprehend flags the CLI does not accept:\n"
         + "\n".join(offenders)
+    )
+
+
+# ---------------------------------------------------------------------------
+# Component/organ count parity guard.
+#
+# Earned 2026-06-29: public README said "78 components", public AGENTS said
+# "82 organ essences", and the registry held 88 accepted organs -- three
+# different totals across surfaces. A cold reviewer reads that as the
+# "source of truth" claim being fake. A count literal in the public entry docs
+# must equal the registry (or be de-pinned to registry-routed phrasing).
+# ---------------------------------------------------------------------------
+
+_COUNT_LITERAL_RE = re.compile(
+    r"\b(\d+)\s+(?:components?|organs?|organ essences?)\b", re.IGNORECASE
+)
+_FAMILY_TABLE_ROW_RE = re.compile(
+    r"^\|\s*\[[^\]]+\]\(ORGANS\.md#[^)]+\)\s*\|\s*(\d+)\s*\|"
+)
+
+
+def _registry_accepted_count() -> int:
+    return len(_accepted_registry_rows())
+
+
+def test_public_entry_docs_state_no_stale_component_or_organ_count() -> None:
+    expected = _registry_accepted_count()
+    offenders: list[str] = []
+    for name in ("README.md", "AGENTS.md", "QUICKSTART.md", "FIRST_ACTION.md"):
+        path = MICROCOSM_ROOT / name
+        if not path.exists():
+            continue
+        for n, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            for match in _COUNT_LITERAL_RE.finditer(line):
+                if int(match.group(1)) != expected:
+                    offenders.append(
+                        f"{name}:{n} states '{match.group(0)}' but the registry "
+                        f"has {expected} accepted organs"
+                    )
+    assert not offenders, (
+        "public entry docs state a component/organ count that disagrees with the "
+        "registry (make it registry-true or de-pin the number):\n" + "\n".join(offenders)
+    )
+
+
+def test_readme_family_count_table_sums_to_registry() -> None:
+    expected = _registry_accepted_count()
+    readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
+    counts = [
+        int(match.group(1))
+        for line in readme.splitlines()
+        if (match := _FAMILY_TABLE_ROW_RE.match(line))
+    ]
+    if not counts:
+        return  # table shape changed / de-pinned -> nothing to check here
+    assert sum(counts) == expected, (
+        f"README family-count table sums to {sum(counts)} ({counts}) but the "
+        f"registry has {expected} accepted organs"
     )

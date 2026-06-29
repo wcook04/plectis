@@ -1,47 +1,28 @@
-"""[PURPOSE]
-- Teleology: Make doctrine fact-and-claim audit evidence inspectable through runnable
-  public fixture code while keeping claims bounded to emitted receipts and authority
-  ceilings.
-- Mechanism: The file checks documentation claims against source files, anchors,
-  references, and unbound numeric-claim detection; helper functions load fixtures,
-  recompute predicates, normalize findings, build result/board/card payloads, and write
-  receipts.
-- Non-goal: Doctrine fact claim audit checks only public fixture fact counts, code-loci
-  existence, anchor presence, DAG references, and synthetic volatile numeric claim
-  binding cases. It is not a comprehension engine, does not prove a minimum read graph,
-  does not export private doctrine, and does not authorize release.
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.organs.doctrine_fact_claim_audit` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
 
 [INTERFACE]
-- CLI: Import or dispatch `microcosm_core.organs.doctrine_fact_claim_audit` through
-  package call sites and tests; no argparse subcommand was detected.
-- Exports: evaluate, evaluate_negative_case, run, run_doctrine_fact_bundle, main.
-- Reads: Declared fixture inputs, source manifests, module constants, and call arguments
-  referenced by each callable body.
-- Writes: Receipt JSON, board/result/card payloads, CLI output, and temporary execution
-  artifacts only where the called body performs explicit writes.
+- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, CONCRETE_UNBOUND_NUMERIC_CLAIM_CODE, AX10_VOLATILE_NUMERIC_UNBOUND_CODE, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, BLOCKED_FACT_CLAIM_IDS, ANTI_CLAIM, SPEC, evaluate, evaluate_negative_case, run, run_doctrine_fact_bundle, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, declared filesystem outputs and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
 
 [FLOW]
-- Load: Resolve public roots, fixture paths, source manifests, policy rows, and
-  negative-case rows through the local helper stack.
-- Validate: Recompute module-specific predicates from structured inputs rather than
-  trusting fixture verdict fields alone.
-- Emit: Assemble result, board, validation, acceptance, and command-card surfaces with
-  anti-claims and authority ceilings preserved.
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
 
 [DEPENDENCIES]
 - Required: microcosm_core.organs._crown_jewel_common
-- Claim ceiling: ANTI_CLAIM provide the local boundary consumed by emitted surfaces.
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
 
 [CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutation is limited to explicit
-  run/write helpers invoked by the caller.
-- Determinism: Pure validation paths are deterministic for equal inputs; filesystem
-  state, clock values, subprocess results, dependency availability, and parser
-  invocation are the admitted runtime variables.
-- Boundary: Receipts and cards must stay public-root relative and body-free for private,
-  provider, credential, oracle, hidden-answer, or raw exploit material.
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
-
 from __future__ import annotations
 
 import copy
@@ -139,21 +120,14 @@ SPEC = CrownJewelSpec(
 
 
 def _manifest_base(source_manifest: dict[str, Any], input_dir: Path) -> Path:
-    """[ACTION] Implement manifest base for this organ replay.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `_manifest_base`.
-    - Preconditions: Callers provide source_manifest, input_dir in the shape consumed by
-      the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them.
-    - Guarantee: Returns Path from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_manifest_base` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     manifest_path = source_manifest.get("source_manifest_path")
     if isinstance(manifest_path, str) and manifest_path:
@@ -162,21 +136,14 @@ def _manifest_base(source_manifest: dict[str, Any], input_dir: Path) -> Path:
 
 
 def _resolve_code_locus(locus: dict[str, Any], *, manifest_base: Path) -> Path:
-    """[ACTION] Resolve code locus for this organ replay.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `_resolve_code_locus`.
-    - Preconditions: Callers provide locus, manifest_base in the shape consumed by the
-      body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them.
-    - Guarantee: Returns Path from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_resolve_code_locus` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     path = Path(str(locus.get("path") or ""))
     if path.is_absolute():
@@ -190,24 +157,14 @@ def _load_derived_fact_module(
     input_dir: Path,
     findings: list[dict[str, Any]],
 ) -> Any | None:
-    """[ACTION] Load derived fact module for this organ replay.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `_load_derived_fact_module`.
-    - Preconditions: Callers provide source_manifest, input_dir, findings in the shape
-      consumed by the body; paths must be resolvable for filesystem metadata checks.
-    - Mechanism: Delegates to _manifest_base, importlib.util.spec_from_file_location,
-      importlib.util.module_from_spec, module_path.is_file, findings.append and applies
-      local branch checks.
-    - Guarantee: Returns Any | None from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem
-      metadata checks, called validators/helpers.
-    - Reads: call arguments; module constants ORGAN_ID; filesystem metadata named by
-      those arguments or constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ORGAN_ID.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_load_derived_fact_module` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     manifest_base = _manifest_base(source_manifest, input_dir)
     module_path = manifest_base / "source_modules/system/lib/derived_fact_hologram.py"
@@ -254,21 +211,14 @@ def _fact_assertions_for_sections(
     case_id: str,
     sections: list[str],
 ) -> list[Any]:
-    """[ACTION] Implement fact assertions for sections for this organ replay.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `_fact_assertions_for_sections`.
-    - Preconditions: Callers provide module, case_id, sections in the shape consumed by
-      the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[Any] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_fact_assertions_for_sections` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     assertion_type = getattr(module, "FactAssertion")
     return [
@@ -288,20 +238,14 @@ def _fact_assertions_for_sections(
 
 
 def _strings(value: Any) -> list[str]:
-    """[ACTION] Filter a list payload down to non-empty string values.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `_strings`.
-    - Preconditions: Callers provide value in the shape consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns list[str] from the explicit return paths in the function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_strings` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [str(item) for item in value if isinstance(item, str)] if isinstance(value, list) else []
 
@@ -312,24 +256,14 @@ def _evaluate_numeric_claims(
     source_manifest: dict[str, Any],
     findings: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """[ACTION] Evaluate numeric claims and return structured verdict fields.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `_evaluate_numeric_claims`.
-    - Preconditions: Callers provide input_dir, source_manifest, findings in the shape
-      consumed by the body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants AX10_VOLATILE_NUMERIC_UNBOUND_CODE,
-      CONCRETE_UNBOUND_NUMERIC_CLAIM_CODE.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AX10_VOLATILE_NUMERIC_UNBOUND_CODE, CONCRETE_UNBOUND_NUMERIC_CLAIM_CODE.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_evaluate_numeric_claims` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payload = load_json_object(input_dir / "numeric_claims.json", findings, label="numeric claims")
     module = _load_derived_fact_module(
@@ -477,24 +411,14 @@ def _first_screen_fact_claim_rows(
     unknown_edge_refs: list[str],
     numeric_claims: dict[str, Any],
 ) -> list[dict[str, Any]]:
-    """[ACTION] Implement first screen fact claim rows for this organ replay.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `_first_screen_fact_claim_rows`.
-    - Preconditions: Callers provide fact_rows, expected_count, code_locus_count,
-      verified_locus_count, dag_edges, unknown_edge_refs, numeric_claims in the shape
-      consumed by the body.
-    - Mechanism: Delegates to int, int, numeric_claims.get, numeric_claims.get,
-      numeric_claims.get and applies local branch checks.
-    - Guarantee: Returns list[dict[str, Any]] from the explicit return paths in the
-      function body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants AUTHORITY_CEILING, BLOCKED_FACT_CLAIM_IDS.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: AUTHORITY_CEILING, BLOCKED_FACT_CLAIM_IDS.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_first_screen_fact_claim_rows` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     source_route = "doctrine_fact_claim_audit.py::evaluate/_evaluate_numeric_claims"
     ceiling = AUTHORITY_CEILING["authority_ceiling"]
@@ -617,24 +541,14 @@ def _first_screen_fact_claim_rows(
 
 
 def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any]) -> dict[str, Any]:
-    """[ACTION] Evaluate fixture evidence and return a structured verdict.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `evaluate`.
-    - Preconditions: Callers provide input_dir, _public_root, source_manifest in the
-      shape consumed by the body; content inputs must exist and match the expected local
-      fixture shape.
-    - Mechanism: Reads declared local content and decodes or hashes it as the body
-      shows. Iterates candidate paths or structured rows exactly as written in the body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem/content
-      reads, called validators/helpers.
-    - Reads: call arguments; filesystem/content inputs named by those arguments or
-      constants.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     assertions = load_json_object(input_dir / "fact_assertions.json", findings, label="fact assertions")
@@ -740,41 +654,27 @@ def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any
 
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
-    """[ACTION] Serialize a payload as formatted JSON at the requested path.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `_write_json`.
-    - Preconditions: Callers provide path, payload in the shape consumed by the body;
-      write targets must be inside the caller-selected output or temporary area.
-    - Mechanism: Writes only the output paths named by the caller, temporary workspace,
-      or module constants.
-    - Guarantee: Returns None after writing only the declared receipt/output artifacts.
-    - Fails: No explicit raise is introduced; failures propagate from filesystem writes.
-    - Reads: call arguments.
-    - Writes: filesystem output explicitly written by this body.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_write_json` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
     """
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def _semantic_case_payloads(input_dir: Path, findings: list[dict[str, Any]]) -> dict[str, Any]:
-    """[ACTION] Implement semantic case payloads for this organ replay.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `_semantic_case_payloads`.
-    - Preconditions: Callers provide input_dir, findings in the shape consumed by the
-      body.
-    - Mechanism: Iterates candidate paths or structured rows exactly as written in the
-      body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `_semantic_case_payloads` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     payloads = {
         name: load_json_object(input_dir / name, findings, label=name)
@@ -788,24 +688,14 @@ def evaluate_negative_case(
     input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
-    """[ACTION] Evaluate a negative-case row and return its verdict fields.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `evaluate_negative_case`.
-    - Preconditions: Callers provide case_id, input_dir, _expected_codes in the shape
-      consumed by the body.
-    - Mechanism: Normalizes Path values and public-root-relative references before
-      returning them. Iterates candidate paths or structured rows exactly as written in
-      the body.
-    - Guarantee: Returns dict[str, Any] from the explicit return paths in the function
-      body.
-    - Fails: No explicit raise is introduced; failures propagate from called
-      validators/helpers.
-    - Reads: call arguments; module constants ORGAN_ID, SPEC.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: ORGAN_ID, SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     findings: list[dict[str, Any]] = []
     source_input = Path(input_dir)
@@ -877,22 +767,14 @@ def run(
     *,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Run the organ replay pipeline and return the computed result payload.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `run`.
-    - Preconditions: Callers provide input_dir, out_dir, command, acceptance_out in the
-      shape consumed by the body.
-    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SPEC.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `run` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -910,22 +792,14 @@ def run_doctrine_fact_bundle(
     out_dir: str | Path,
     command: str | None = None,
 ) -> dict[str, Any]:
-    """[ACTION] Implement run doctrine fact bundle for this organ replay.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `run_doctrine_fact_bundle`.
-    - Preconditions: Callers provide input_dir, out_dir, command in the shape consumed
-      by the body.
-    - Mechanism: Delegates to run_crown_jewel_organ and applies local branch checks.
-    - Guarantee: Returns dict[str, Any] representing the completed replay or bundle
-      execution.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SPEC.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `run_doctrine_fact_bundle` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -939,20 +813,14 @@ def run_doctrine_fact_bundle(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """[ACTION] Parse command-line arguments and dispatch the selected organ command.
-
-    - Teleology: Supports doctrine fact claim audit by documenting and preserving the
-      exact local step implemented by `main`.
-    - Preconditions: Callers provide argv in the shape consumed by the body.
-    - Mechanism: Delegates to main_for_spec and applies local branch checks.
-    - Guarantee: Returns int from the selected CLI command path.
-    - Fails: No explicit raise is introduced; failures propagate from ordinary Python
-      evaluation in this body.
-    - Reads: call arguments; module constants SPEC.
-    - Writes: No external writes; the body only returns in-memory values.
-    - Couples: SPEC.
-    - Non-goal: Does not widen this module's public authority ceiling, add provider
-      calls, or expose private material.
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return main_for_spec(
         SPEC,

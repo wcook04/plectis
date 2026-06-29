@@ -1,0 +1,7 @@
+{
+  "case_id": "single_leader",
+  "case_type": "positive",
+  "exercise": "single_leader",
+  "expected_ok": true,
+  "note": "A first command run becomes the leader, runs once, and returns its captured output."
+}

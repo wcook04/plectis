@@ -11,8 +11,8 @@ def test_security_docs_name_release_authority_receipt_boundary() -> None:
     normalized = " ".join(security.split())
 
     for phrase in (
-        "[Public Repo Map](README.md#public-repo-map)",
-        "[Component Map](README.md#component-map)",
+        "[Public Repo Map](README.md#choose-a-route)",
+        "[Component Map](README.md#choose-a-route)",
         "Security reports should name paths through those public surfaces",
         "command cards, evidence fixtures, source capsules, validation shell, and release receipts",
         "## Release-Authority Reports",
@@ -29,6 +29,6 @@ def test_security_docs_name_release_authority_receipt_boundary() -> None:
     ):
         assert phrase in normalized
 
-    assert security.index("[Public Repo Map](README.md#public-repo-map)") < security.index(
+    assert security.index("[Public Repo Map](README.md#choose-a-route)") < security.index(
         "## Reportable Boundary Failures"
     )

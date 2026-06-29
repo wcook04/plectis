@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.organs.batch8_audio_level_rms_port` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, PROBE_MANIFEST_NAME, SWIFT_SOURCE_REF, EXPECTED_CASES, EXPECTED_NEGATIVE_CASES, BYTE_REFERENCE_CASES_KEY, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, SPEC, normalized_level, evaluate_negative_case, run, run_batch8_audio_level_rms_bundle, result_card, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.organs._crown_jewel_common
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -71,7 +96,7 @@ ANTI_CLAIM = (
 
 SOURCE_REQUIRED_ANCHORS = {
     SWIFT_SOURCE_REF: (
-        "private static func normalizedLevel(from sampleBuffer: CMSampleBuffer) -> Float",
+        "static func normalizedLevel(from sampleBuffer: CMSampleBuffer) -> Float",
         "kAudioFormatFlagIsFloat",
         "Int16.max",
         "return min(max(rms * 8, 0), 1)",
@@ -101,7 +126,16 @@ SPEC = CrownJewelSpec(
 
 
 def normalized_level(samples: Sequence[float | int], sample_format: str) -> float:
-    """Python port of AudioLevelMonitor.normalizedLevel's pure RMS scaling."""
+    """
+    [ACTION]
+    Python port of AudioLevelMonitor.normalizedLevel's pure RMS scaling.
+    - Teleology: Implements `normalized_level` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if sample_format not in {"float32", "int16"}:
         raise ValueError(f"unsupported audio sample format: {sample_format}")
     if not samples:
@@ -127,20 +161,56 @@ def normalized_level(samples: Sequence[float | int], sample_format: str) -> floa
 
 
 def _case_rows(payload: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_case_rows` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows = payload.get("cases")
     return [row for row in rows if isinstance(row, dict)] if isinstance(rows, list) else []
 
 
 def _byte_case_rows(payload: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_byte_case_rows` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows = payload.get(BYTE_REFERENCE_CASES_KEY)
     return [row for row in rows if isinstance(row, dict)] if isinstance(rows, list) else []
 
 
 def _is_finite_number(value: object) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_is_finite_number` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(float(value))
 
 
 def _decode_int16_wav(path: Path) -> tuple[list[int], dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_decode_int16_wav` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     with wave.open(str(path), "rb") as handle:
         channels = handle.getnchannels()
         sample_width = handle.getsampwidth()
@@ -167,6 +237,15 @@ def _decode_int16_wav(path: Path) -> tuple[list[int], dict[str, Any]]:
 
 
 def _evaluate_reference_cases(probe: Mapping[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_evaluate_reference_cases` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, Any]] = []
     case_results: list[dict[str, Any]] = []
     observed_ids: list[str] = []
@@ -248,6 +327,15 @@ def _evaluate_byte_reference_cases(
     probe: Mapping[str, Any],
     input_path: Path,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_evaluate_byte_reference_cases` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, Any]] = []
     case_results: list[dict[str, Any]] = []
     for row in _byte_case_rows(probe):
@@ -340,6 +428,15 @@ def _evaluate_byte_reference_cases(
 
 
 def _evaluate_negative_exercises(input_path: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_evaluate_negative_exercises` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, Any]] = []
     empty_level = normalized_level([], "float32")
     clamp_level = normalized_level([1.0, -1.0, 0.5], "float32")
@@ -408,6 +505,15 @@ def evaluate_negative_case(
     _input_dir: Path,
     _expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if case_id == "audio_level_empty_buffer_zero":
         observed = normalized_level([], "float32")
         return {
@@ -463,6 +569,15 @@ def _audio_evaluator(
     public_root: Path,
     source_manifest: dict[str, Any],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_audio_evaluator` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     del public_root
     probe = load_json_object(input_path / PROBE_MANIFEST_NAME, [], label=PROBE_MANIFEST_NAME)
     case_results, case_findings = _evaluate_reference_cases(probe)
@@ -511,6 +626,15 @@ def run(
     command: str | None = None,
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -528,6 +652,15 @@ def run_batch8_audio_level_rms_bundle(
     *,
     command: str | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run_batch8_audio_level_rms_bundle` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return run_crown_jewel_organ(
         SPEC,
         input_dir,
@@ -540,6 +673,15 @@ def run_batch8_audio_level_rms_bundle(
 
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `result_card` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
     source = (
@@ -584,6 +726,15 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.organs.batch8_audio_level_rms_port` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)
     for action in ("run", "validate-bundle"):

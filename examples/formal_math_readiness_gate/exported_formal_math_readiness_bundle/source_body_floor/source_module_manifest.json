@@ -7,8 +7,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 76551,
-      "line_count": 1971,
+      "byte_count": 120741,
+      "line_count": 2500,
       "material_class": "public_microcosm_organ_source_body",
       "module_id": "formal_math_readiness_gate_public_organ_source_body_import",
       "path": "source_modules/microcosm_core/organs/formal_math_readiness_gate.py",
@@ -16,19 +16,21 @@
         "ORGAN_ID = \"formal_math_readiness_gate\"",
         "def run"
       ],
-      "sha256": "sha256:b2e122656fa85552a886edccf00e7b12df2d4a21740b8e9dc0ca2eab441d7b07",
+      "sha256": "sha256:bcd79c63ac9d01b155230c265bcdb523993b43e29d110abbddfcb03d1e42e6fa",
       "sha256_match": true,
       "source_byte_count": 76551,
       "source_import_class": "copied_non_secret_public_substrate_body",
       "source_line_count": 1971,
       "source_ref": "src/microcosm_core/organs/formal_math_readiness_gate.py",
       "source_role": "Public Microcosm formal/prover organ logic used to validate public-safe readiness evidence.",
-      "source_sha256": "sha256:b2e122656fa85552a886edccf00e7b12df2d4a21740b8e9dc0ca2eab441d7b07",
+      "source_sha256": "sha256:bcd79c63ac9d01b155230c265bcdb523993b43e29d110abbddfcb03d1e42e6fa",
+      "source_target_sha256_match": true,
       "source_to_target_relation": "exact_copy",
       "target_byte_count": 76551,
+      "target_expected_digest_match": true,
       "target_line_count": 1971,
       "target_ref": "microcosm-substrate/examples/formal_math_readiness_gate/exported_formal_math_readiness_bundle/source_body_floor/source_modules/microcosm_core/organs/formal_math_readiness_gate.py",
-      "target_sha256": "sha256:b2e122656fa85552a886edccf00e7b12df2d4a21740b8e9dc0ca2eab441d7b07",
+      "target_sha256": "sha256:bcd79c63ac9d01b155230c265bcdb523993b43e29d110abbddfcb03d1e42e6fa",
       "validation_refs": [
         "tests/test_substrate_substitution_ledger.py::test_state_run_generated_lean_sources_do_not_count_as_real_substrate"
       ]

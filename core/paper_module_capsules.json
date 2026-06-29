@@ -7340,6 +7340,696 @@
         }
       },
       "strangler_note": "This capsule binds the authored Markdown projection, axiom support-cover validator, axiom routing registry, governing axiom standard, and mechanism row while leaving axiom witness-route source authority in core/axiom_organ_routing.json and computed claim ceilings in validator.microcosm.axiom_support_cover. It does not treat generated Markdown, generated Atlas output, support-cover receipts, coverage counts, or capsule prose as axiom proof, release authority, source-mutation authority, or hand-stamped claim_ceiling/strongest_allowed_claim authority."
+    },
+    {
+      "id": "paper_module.semantic_singleflight_dedup_runtime",
+      "kind": "paper_module",
+      "title": "Semantic Singleflight Dedup Runtime",
+      "source_authority": "json_capsule",
+      "compression": {
+        "one_line": "The semantic singleflight dedup runtime surfaces the public command-run singleflight capsule and dedups command runs by a content key built from argv, resolved cwd, git HEAD, a scoped dirty-tree fingerprint, and an env fingerprint, over bounded public fixtures only.",
+        "card": "Semantic Singleflight Dedup Runtime is the public operational-discipline replay for content-addressed command dedup. It runs bounded fixture exercises that build the command key, show a leader run and a completed-run reuse hit (the side-effecting counter stays at 1), and observe two negative cases: a scoped file mutation that flips the key so a stale working tree cannot answer for a different run, and an empty command that is rejected. It writes body-free receipts and surfaces microcosm_core.engine_room.command_run_singleflight without exporting live state.",
+        "authority_ceiling": "Public fixture and receipt evidence only; it keys and dedups command runs by repo-state fingerprint and does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, live run-state export, release approval, or publication approval."
+      },
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "semantic_singleflight_dedup_runtime"
+        }
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/semantic_singleflight_dedup_runtime.py",
+          "symbols": [
+            "build_result",
+            "result_card",
+            "run",
+            "_evaluate_case",
+            "EXPECTED_NEGATIVE_CASES"
+          ],
+          "role": "Runtime and receipt-writing locus for the singleflight dedup fixture exercises, negative cases, result-card projection, and body-free receipts.",
+          "resolution": "resolved"
+        },
+        {
+          "path": "src/microcosm_core/engine_room/command_run_singleflight.py",
+          "symbols": [
+            "build_command_key",
+            "run_command_singleflight"
+          ],
+          "role": "Surfaced public capsule that computes the content-addressed command key and performs leader/follower collapse and completed-run reuse.",
+          "resolution": "resolved"
+        }
+      ],
+      "concept_refs": [
+        "concept.work_landing_and_continuity_control_bundle"
+      ],
+      "principle_refs": [
+        "P-1",
+        "P-2",
+        "P-3",
+        "P-9"
+      ],
+      "axiom_refs": [
+        "AX-1",
+        "AX-9"
+      ],
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced command_run_singleflight capsule. It does not treat receipts, dedup hits, or capsule prose as a concurrency-control guarantee, a lock service, cross-host correctness proof, release authority, source-mutation authority, or whole-system correctness.",
+      "legacy_markdown_projection": "paper_modules/semantic_singleflight_dedup_runtime.md",
+      "generated_projections": {
+        "markdown": {
+          "path": "paper_modules/semantic_singleflight_dedup_runtime.md",
+          "status": "legacy_import_projection_until_roundtrip_builder",
+          "generated": false
+        },
+        "mermaid": {
+          "projection_id": "paper_module.semantic_singleflight_dedup_runtime.mermaid",
+          "status": "available_from_capsule_edges",
+          "generated": true
+        },
+        "atlas_card": {
+          "projection_id": "organ_atlas.semantic_singleflight_dedup_runtime",
+          "status": "linked_from_capsule_edges",
+          "generated": true
+        }
+      }
+    },
+    {
+      "id": "paper_module.finite_erdos_denominator_certificate_strike",
+      "kind": "paper_module",
+      "title": "Finite Erdos Denominator-Order Certificate Strike",
+      "source_authority": "json_capsule",
+      "compression": {
+        "one_line": "The finite Erdos denominator-order certificate strike surfaces the public finite_denominator_order_certificate capsule and verifies, in exact rational arithmetic, that ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q over bounded public fixtures.",
+        "card": "Finite Erdos Denominator-Order Certificate Strike is the public formal-math replay for the finite period-noncollapse certificate. It sums 1/(b^n-1) over a finite support as an exact Fraction, reads the reduced denominator Q, computes the multiplicative order of b mod Q, cross-checks Q against the closed form B/gcd(A_L,B), and confirms ord_Q(b)=lcm(F) on small cases including a reducing case. It self-falsifies: a forged order or denominator is rejected by recomputation. It writes body-free receipts and surfaces microcosm_core.engine_room.finite_denominator_order_certificate without calling providers.",
+        "authority_ceiling": "Public fixture and receipt evidence only; it computes a finite denominator-order certificate in exact arithmetic and does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, is not a machine-checked proof of even the finite statement, and is not release approval or publication approval."
+      },
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "finite_erdos_denominator_certificate_strike"
+        }
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/finite_erdos_denominator_certificate_strike.py",
+          "symbols": [
+            "build_result",
+            "result_card",
+            "run",
+            "_evaluate_case",
+            "EXPECTED_NEGATIVE_CASES"
+          ],
+          "role": "Runtime and receipt-writing locus for the certificate fixture exercises, forged-certificate negative cases, result-card projection, and body-free receipts.",
+          "resolution": "resolved"
+        },
+        {
+          "path": "src/microcosm_core/engine_room/finite_denominator_order_certificate.py",
+          "symbols": [
+            "compute_finite_denominator_order_certificate",
+            "verify_finite_denominator_order_certificate"
+          ],
+          "role": "Surfaced public capsule that computes the exact rational, the reduced denominator, and the multiplicative order, and rejects forged certificates by recomputation.",
+          "resolution": "resolved"
+        }
+      ],
+      "concept_refs": [
+        "concept.formal_math_and_proof_witness_bundle"
+      ],
+      "principle_refs": [
+        "P-3"
+      ],
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "legacy_markdown_projection": "paper_modules/finite_erdos_denominator_certificate_strike.md",
+      "generated_projections": {
+        "markdown": {
+          "path": "paper_modules/finite_erdos_denominator_certificate_strike.md",
+          "status": "legacy_import_projection_until_roundtrip_builder",
+          "generated": false
+        },
+        "mermaid": {
+          "projection_id": "paper_module.finite_erdos_denominator_certificate_strike.mermaid",
+          "status": "available_from_capsule_edges",
+          "generated": true
+        },
+        "atlas_card": {
+          "projection_id": "organ_atlas.finite_erdos_denominator_certificate_strike",
+          "status": "linked_from_capsule_edges",
+          "generated": true
+        }
+      }
+    },
+    {
+      "id": "paper_module.bridge_campaign_dag_validation",
+      "kind": "paper_module",
+      "title": "Bridge Campaign DAG Validation",
+      "source_authority": "json_capsule",
+      "compression": {
+        "one_line": "The bridge campaign DAG validation organ surfaces the public bridge_campaign_dag capsule and checks, over bounded public fixtures, that a fan-in campaign graph is well formed: unique labels, existing dependency edges, acyclicity, exactly one synthesis reaching a probe, barrier alignment, and a worker count within the provider safe-parallelism ceiling.",
+        "card": "Bridge Campaign DAG Validation is the public agent-orchestration replay for a fan-in campaign graph. It validates each campaign spec against a public-safe subset of the macro CR/VR rule families: schema and identity, unique node labels, dependency edges that reference existing nodes, DFS acyclicity, exactly one synthesis node that reaches a probe, a barrier naming that synthesis, and a requested worker count within the provider safe-parallelism ceiling. It accepts a linear chain and a three-way fan-in, and self-falsifies: a cyclic campaign is rejected with CR012 and a two-synthesis campaign with CR013. It writes body-free receipts and surfaces microcosm_core.engine_room.bridge_campaign_dag without dispatching agents or calling providers.",
+        "authority_ceiling": "Public fixture and receipt evidence only; it validates campaign DAG structure and does not dispatch agents, execute campaigns, prove provider correctness or safety, and is not release approval or publication approval."
+      },
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "bridge_campaign_dag_validation"
+        }
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/bridge_campaign_dag_validation.py",
+          "symbols": [
+            "build_result",
+            "result_card",
+            "run",
+            "_evaluate_case",
+            "EXPECTED_NEGATIVE_CASES"
+          ],
+          "role": "Runtime and receipt-writing locus for the campaign-validation fixture exercises, rejected-campaign negative cases, result-card projection, and body-free receipts.",
+          "resolution": "resolved"
+        },
+        {
+          "path": "src/microcosm_core/engine_room/bridge_campaign_dag.py",
+          "symbols": [
+            "validate_campaign",
+            "validate_fixture_dir",
+            "ValidationResult"
+          ],
+          "role": "Surfaced public capsule that validates a campaign DAG against the CR/VR rule families and rejects malformed campaigns by recomputation.",
+          "resolution": "resolved"
+        }
+      ],
+      "concept_refs": [
+        "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "principle_refs": [
+        "P-3"
+      ],
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "legacy_markdown_projection": "paper_modules/bridge_campaign_dag_validation.md",
+      "generated_projections": {
+        "markdown": {
+          "path": "paper_modules/bridge_campaign_dag_validation.md",
+          "status": "legacy_import_projection_until_roundtrip_builder",
+          "generated": false
+        },
+        "mermaid": {
+          "projection_id": "paper_module.bridge_campaign_dag_validation.mermaid",
+          "status": "available_from_capsule_edges",
+          "generated": true
+        },
+        "atlas_card": {
+          "projection_id": "organ_atlas.bridge_campaign_dag_validation",
+          "status": "linked_from_capsule_edges",
+          "generated": true
+        }
+      }
+    },
+    {
+      "id": "paper_module.metabolism_queue_reconciliation",
+      "kind": "paper_module",
+      "title": "Metabolism Queue Reconciliation",
+      "source_authority": "json_capsule",
+      "compression": {
+        "one_line": "Runs a synthetic SQLite durable-queue capsule over public fixtures and rejects planted job/run/log inconsistencies by recomputing the reconciliation taxonomy.",
+        "card": "Metabolism Queue Reconciliation surfaces the Engine Room metabolism_runtime capsule: a stdlib-only synthetic SQLite job queue with idempotency-guarded enqueue, lease claim and expired-lease recovery, a blackboard claim-event projection where contradictions invalidate assertions, and a cold-start reconciler over the job/run/log triple. The organ exercises two clean scenarios (lease recovery to recoverable with a healthy reconcile; a contradiction zeroing active claims) and two planted-defect scenarios (a running job with no run row; a finalized run whose job is still running), asserting the reconciler rejects each defect with its expected rule id. Status is pass only when both positives compute clean, both negatives are rejected with the expected marker, and both expected negative ids are present. No live private database, no agent dispatch, no provider call, no auto-repair.",
+        "authority_ceiling": "Real-substrate capsule run over public fixtures; status pass attests only that the synthetic queue/reconciliation computation behaved as specified on these bounded cases. Does NOT export the live private metabolism database/scheduler, does NOT dispatch agents, does NOT call providers, does NOT auto-repair ambiguous runtime state, is NOT a distributed database, is NOT an oracle/prover, and does NOT authorize release, publication, production use, or source mutation."
+      },
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "metabolism_queue_reconciliation"
+        }
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/metabolism_queue_reconciliation.py",
+          "symbols": [
+            "build_result",
+            "run",
+            "_evaluate_case",
+            "run_metabolism_queue_reconciliation_bundle"
+          ],
+          "role": "Organ wrapper that surfaces the metabolism_runtime capsule as a first-class organ: loads bounded fixture cases, drives the capsule's real evaluate_case over a transient temp scratch root, separates positive (clean compute, no reconciliation defect) from negative (planted inconsistency rejected by the reconciler with an expected rule marker), and emits body-free result/board/validation/acceptance receipts plus CLI dispatch. Imports only from microcosm_core.engine_room.metabolism_runtime and microcosm_core.receipts.",
+          "resolution": "resolved"
+        },
+        {
+          "path": "src/microcosm_core/engine_room/metabolism_runtime.py",
+          "symbols": [
+            "Public-safe metabolism runtime and reconciler capsule.",
+            "RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\""
+          ],
+          "role": "Public-safe Engine Room metabolism capsule: a synthetic SQLite durable job queue with active-idempotency uniqueness guard, lease claim and expired-lease recovery, a blackboard claim-event ledger with active-claim projection (contradiction invalidates assertion), and a cold-start reconciliation pass that flags job/run/log inconsistencies for operator review under a small named rule taxonomy. Stdlib-only over a temp store; ships no live private runtime.",
+          "resolution": "resolved"
+        }
+      ],
+      "concept_refs": [
+        "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "principle_refs": [
+        "P-3"
+      ],
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "legacy_markdown_projection": "paper_modules/metabolism_queue_reconciliation.md",
+      "generated_projections": {
+        "markdown": {
+          "path": "paper_modules/metabolism_queue_reconciliation.md",
+          "status": "legacy_import_projection_until_roundtrip_builder",
+          "generated": false
+        },
+        "mermaid": {
+          "projection_id": "paper_module.metabolism_queue_reconciliation.mermaid",
+          "status": "available_from_capsule_edges",
+          "generated": true
+        },
+        "atlas_card": {
+          "projection_id": "organ_atlas.metabolism_queue_reconciliation",
+          "status": "linked_from_capsule_edges",
+          "generated": true
+        }
+      }
+    },
+    {
+      "id": "paper_module.derived_fact_provider_runtime",
+      "kind": "paper_module",
+      "title": "Derived Fact Provider Runtime",
+      "source_authority": "json_capsule",
+      "compression": {
+        "one_line": "Registry-backed derived fact provider runtime: resolves JSON-pointer, glob-count, and git-backed callable facts over public fixture roots and turns provider failures into error-as-data rows, rejecting malformed registries by recomputation.",
+        "card": "Surfaces the derived_fact_provider_engine capsule as an organ. It evaluates authored fact registries against bounded public fixture roots through three provider shapes — json_pointer (RFC 6901, list-index aware), glob_count (with excluded prefixes), and named callable facts (git-tracked counts) — and converts any provider failure into an error-as-data row (provider_status=error, error_class, repair hint) that degrades the receipt rather than crashing the ledger. The runner exercises two clean registries (pointer+glob; git-callable+array-index pointer) and self-falsifies on two planted defects (an absent source path -> FileNotFoundError, an unsupported provider_type -> ValueError), asserting the exact error_class marker fires. Receipts are body-free. It is not a doctrine truth auditor, not a full macro registry export, not semantic claim validation, and grants no release/publication authority.",
+        "authority_ceiling": "A pass means the surfaced fact-provider capsule resolved the authored fixture registries against their supplied roots and rejected the planted-defect registries by recomputation with the expected error_class. It does NOT mean any downstream prose claim is true (not a doctrine truth auditor), does NOT cover the full macro fact registry (not a full export), does NOT perform semantic claim validation, does NOT prove the provider correct beyond the bounded fixtures, and grants NO release, publication, private-source-export, or source-mutation authority. The only runtime variability admitted is filesystem reads, the git subprocess used by callable facts (over isolated tempdirs), and CLI argument reads."
+      },
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "derived_fact_provider_runtime"
+        }
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/derived_fact_provider_runtime.py",
+          "symbols": [
+            "build_result",
+            "run",
+            "_evaluate_case",
+            "result_card",
+            "run_derived_fact_provider_runtime_bundle"
+          ],
+          "role": "The organ wrapper `microcosm_core.organs.derived_fact_provider_runtime` adds the standard organ contract over that capsule without re-implementing it: it loads bounded JSON fixture cases, calls the capsule's real evaluate_case on each, and classifies positives (must resolve to expected values with an ok receipt) versus negatives (must be rejected by recomputation with the exact expected error_class firing on the planted-defect fact, mapped in EXPECTED_NEGATIVE_CASES). It projects a body-free result_card and writes body-free result/board/validation/acceptance receipts via microcosm_core.receipts, and exposes run / bundle / CLI dispatch mirroring the bridge_campaign_dag_validation template exactly.",
+          "resolution": "resolved"
+        },
+        {
+          "path": "src/microcosm_core/engine_room/derived_fact_provider_engine.py",
+          "symbols": [
+            "Registry-backed derived fact provider engine over public fixture roots.",
+            "provider failures become error rows with repair hints"
+          ],
+          "role": "The engine-room capsule `microcosm_core.engine_room.derived_fact_provider_engine` is the executable authority: a source-faithful public refactor of system/lib/derived_fact_hologram.py + codex/doctrine/facts/fact_registry.json. It evaluates an authored fact registry against a public-safe root, resolving each row through one of three providers — json_pointer (RFC 6901, including list-index traversal), glob_count (file-count matching with optional excluded prefixes), and named callable facts (git-tracked file/python counts via a git subprocess in a tempdir) — and turns any provider failure into an error-as-data row (provider_status=error, error_class, repair hint) that degrades the receipt status from ok to degraded rather than crashing the ledger.",
+          "resolution": "resolved"
+        }
+      ],
+      "concept_refs": [
+        "concept.research_and_science_replay_evidence_bundle"
+      ],
+      "principle_refs": [
+        "P-3"
+      ],
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "legacy_markdown_projection": "paper_modules/derived_fact_provider_runtime.md",
+      "generated_projections": {
+        "markdown": {
+          "path": "paper_modules/derived_fact_provider_runtime.md",
+          "status": "legacy_import_projection_until_roundtrip_builder",
+          "generated": false
+        },
+        "mermaid": {
+          "projection_id": "paper_module.derived_fact_provider_runtime.mermaid",
+          "status": "available_from_capsule_edges",
+          "generated": true
+        },
+        "atlas_card": {
+          "projection_id": "organ_atlas.derived_fact_provider_runtime",
+          "status": "linked_from_capsule_edges",
+          "generated": true
+        }
+      }
+    },
+    {
+      "id": "paper_module.navigation_fitness_benchmark",
+      "kind": "paper_module",
+      "title": "Navigation Fitness Benchmark",
+      "source_authority": "json_capsule",
+      "compression": {
+        "one_line": "Recomputes a curated route-packet navigation benchmark — recall, precision, forbidden-first-route, scent coverage, latency, and debt — over bounded public fixtures, accepting a case only when the recomputation matches its planted expectation.",
+        "card": "Navigation Fitness Benchmark surfaces the engine-room route-packet benchmark capsule. Each fixture pairs a navigation task (expected stable ids, forbidden first routes, latency budget, scent terms) with the route packet a router actually produced. The capsule recomputes recall/precision against the expected ids, checks the first route against the forbidden list, scores scent coverage, derives a latency verdict, and collects sufficiency/latency debt — then reports whether the recomputation matches the case's planted expectation. Two positive cases match their expectations and are accepted (one carrying an honestly-anticipated latency debt); two negative cases plant a route defect plus a deliberately-wrong \"it passed\" expectation, which the recomputation contradicts, so they are rejected with the real failure marker (missing_id, forbidden_route) firing. Scope: curated public fixtures only — not a live kernel run, not an embedding benchmark, not a universal navigation score, not release authority.",
+        "authority_ceiling": "Command-receipt evidence over bounded public fixtures, not runtime-product completeness. A pass means the curated route-packet cases recomputed as expected (positives accepted, negatives rejected by recomputation with the expected markers); it does NOT establish live private-kernel navigation quality, embedding quality, universal benchmark authority, production readiness, or release/publication authorization. Receipts are body-free command evidence, not proof of substrate correctness."
+      },
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "navigation_fitness_benchmark"
+        }
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/navigation_fitness_benchmark.py",
+          "symbols": [
+            "build_result",
+            "run",
+            "_evaluate_case",
+            "run_navigation_fitness_benchmark_bundle",
+            "result_card"
+          ],
+          "role": "Organ wrapper that surfaces the capsule under the standard organ contract: bounded fixture cases, two planted positive and two planted negative cases, an aggregate pass/fail build_result, a body-free result_card, body-free validation/acceptance receipts via microcosm_core.receipts, and CLI dispatch. _evaluate_case calls the REAL capsule evaluate_case (no re-implementation, no baked answers) and decides observed_ok from expectation_met plus, for negatives, the presence of the expected recomputed failure marker.",
+          "resolution": "resolved"
+        },
+        {
+          "path": "src/microcosm_core/engine_room/navigation_fitness_benchmark.py",
+          "symbols": [
+            "Curated route-packet benchmark evaluator for expected stable ids",
+            "forbidden_hits = [route for route in task.forbidden_first_routes if route and route in first_contact_command]"
+          ],
+          "role": "Public-safe, source-faithful refactor of system/lib/navigation_fitness.py. Given route-packet fixtures, it recomputes per-task recall and precision of selected artifacts against expected stable ids (with prefix-glob matching), checks the first-contact command against a forbidden-first-route list, scores scent-term coverage, derives a latency verdict against a per-task budget, classifies a sufficiency status with a typed failure kind, and aggregates summary metrics (p50/p95 wall, pass/fail counts) plus sufficiency and latency debt candidates. evaluate_case also re-derives the benchmark and reports whether the recomputation matches a case's planted expectation.",
+          "resolution": "resolved"
+        }
+      ],
+      "concept_refs": [
+        "concept.architecture_and_navigation_route_contract_bundle"
+      ],
+      "principle_refs": [
+        "P-3"
+      ],
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "legacy_markdown_projection": "paper_modules/navigation_fitness_benchmark.md",
+      "generated_projections": {
+        "markdown": {
+          "path": "paper_modules/navigation_fitness_benchmark.md",
+          "status": "legacy_import_projection_until_roundtrip_builder",
+          "generated": false
+        },
+        "mermaid": {
+          "projection_id": "paper_module.navigation_fitness_benchmark.mermaid",
+          "status": "available_from_capsule_edges",
+          "generated": true
+        },
+        "atlas_card": {
+          "projection_id": "organ_atlas.navigation_fitness_benchmark",
+          "status": "linked_from_capsule_edges",
+          "generated": true
+        }
+      }
+    },
+    {
+      "id": "paper_module.annex_knowledge_routing",
+      "kind": "paper_module",
+      "title": "Annex Knowledge Routing",
+      "source_authority": "json_capsule",
+      "compression": {
+        "one_line": "Explainable tiered weighted-token retrieval that ranks a sanitized annex catalog against a problem statement and rejects unroutable problems with no_match.",
+        "card": "Annex Knowledge Routing scores each entry of a sanitized in-memory annex catalog against a problem statement across four descending-weight tiers — structured routing fields, family text, open-first summaries, then curated notes — combining exact-match, phrase-containment, and token-overlap signals per tier into a ranked list with a per-row match breakdown and matched note ids. It is deliberately a transparent keyword-overlap retriever, not BM25/TF-IDF/embeddings/semantic search, and it routes only over the catalog handed to it (no repo cloning, no private corpus, no license authority). The organ exercises the real capsule over four public fixtures: two positives route cleanly to the expected top slug above a minimum score (one via structured fields, one via a curated note), and two negatives self-falsify by recomputing to no_match — one because the problem shares no token with the catalog, one because a domain filter excludes the only candidate. Status is pass only when both positives route, both negatives are rejected with the expected no_match marker, and both expected negative case ids are present.",
+        "authority_ceiling": "Real-substrate capsule surfaced over bounded public fixtures. Does NOT clone repositories, ship the private annex corpus, perform semantic/embedding/BM25/TF-IDF search, adjudicate licenses or provenance, call providers or external solvers, mutate source, or authorize release or publication. Routes only over the sanitized catalog supplied in each case; absolute scores are catalog-relative (no statistical normalization). Not a production retrieval system and not private-root equivalent."
+      },
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "annex_knowledge_routing"
+        }
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/annex_knowledge_routing.py",
+          "symbols": [
+            "build_result",
+            "run",
+            "_evaluate_case",
+            "result_card",
+            "run_annex_knowledge_routing_bundle"
+          ],
+          "role": "Organ wrapper that surfaces the capsule as a first-class organ: loads bounded fixture cases, drives the REAL capsule entrypoint route_catalog per case, compares observed routing status / top slug / score / matched note id against fixture expectations, self-falsifies on two planted no_match negatives via EXPECTED_NEGATIVE_CASES, and emits body-free result/board/validation/acceptance receipts. Mirrors the bridge_campaign_dag_validation contract exactly.",
+          "resolution": "resolved"
+        },
+        {
+          "path": "src/microcosm_core/engine_room/annex_knowledge_router.py",
+          "symbols": [
+            "Explainable tiered weighted-token retrieval over a sanitized annex catalog",
+            "Rank sanitized annex rows for a problem statement"
+          ],
+          "role": "Public-safe source-faithful refactor of system/lib/annex_registry.py::route_annexes. Scores each annex in a sanitized catalog against a problem statement across four descending-weight evidence tiers (structured routing fields > family text > open-first summaries > curated notes), combining exact-match / phrase-containment / token-overlap signals per tier, then ranks non-zero rows and emits a per-row match_breakdown plus matched note ids. Returns status=routed when at least one candidate scores positive, else no_match.",
+          "resolution": "resolved"
+        }
+      ],
+      "concept_refs": [
+        "concept.architecture_and_navigation_route_contract_bundle"
+      ],
+      "principle_refs": [
+        "P-3"
+      ],
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "legacy_markdown_projection": "paper_modules/annex_knowledge_routing.md",
+      "generated_projections": {
+        "markdown": {
+          "path": "paper_modules/annex_knowledge_routing.md",
+          "status": "legacy_import_projection_until_roundtrip_builder",
+          "generated": false
+        },
+        "mermaid": {
+          "projection_id": "paper_module.annex_knowledge_routing.mermaid",
+          "status": "available_from_capsule_edges",
+          "generated": true
+        },
+        "atlas_card": {
+          "projection_id": "organ_atlas.annex_knowledge_routing",
+          "status": "linked_from_capsule_edges",
+          "generated": true
+        }
+      }
+    },
+    {
+      "id": "paper_module.egress_self_compliance_audit",
+      "kind": "paper_module",
+      "title": "Egress Self-Compliance Audit",
+      "source_authority": "json_capsule",
+      "compression": {
+        "one_line": "Phrase-membership audit of agent-output text for three egress self-compliance slips (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator), verified by recomputation over public fixtures.",
+        "card": "Egress Self-Compliance Audit surfaces the egress_self_compliance_gate capsule: a transparent substring policy that flags three ways an agent's own output can break its operating discipline — asking permission with no named blocker, confessing an error with no durable capture, or displacing a command onto the operator with no execution receipt. Each detector fires only when a tripwire phrase appears without its legitimiser. The organ replays 2 compliant and 2 planted-violation fixtures through the live capsule, asserting each violation reproduces with its exact diagnostic marker. Honest ceiling: phrase membership only — no taint analysis, no prompt-injection defense, no semantics; paraphrased violations are missed.",
+        "authority_ceiling": "Command-receipt evidence over bounded public fixtures, not runtime-product completeness. Establishes only that the capsule's phrase-membership detectors reproduce the declared green/red verdicts and diagnostic markers on the authored cases. Does NOT establish coverage of real agent output, semantic correctness, adversarial robustness, or any safety guarantee; does not authorize release, publication, provider calls, or source mutation."
+      },
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "egress_self_compliance_audit"
+        }
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/egress_self_compliance_audit.py",
+          "symbols": [
+            "build_result",
+            "run",
+            "_evaluate_case",
+            "run_egress_self_compliance_audit_bundle",
+            "result_card"
+          ],
+          "role": "Surfaces the egress_self_compliance_gate capsule as a first-class agent-reliability organ. Adds the standard organ contract over the capsule's evaluate_text entrypoint: loads bounded JSON fixture cases, classifies positive vs negative by case_type/expected_ok, recomputes each verdict via the live capsule, asserts planted negatives are flagged red with the exact expected violating diagnostic_id (EXPECTED_NEGATIVE_CASES), aggregates a pass/fail status, projects a body-free result_card, and writes body-free result/board/validation (and optional acceptance) receipts via microcosm_core.receipts. Pass requires both positives clean (green), both negatives rejected with their expected marker, and the expected negative case_ids present.",
+          "resolution": "resolved"
+        },
+        {
+          "path": "src/microcosm_core/engine_room/egress_self_compliance_gate.py",
+          "symbols": [
+            "It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.",
+            "Ask for permission only after naming a real blast-radius blocker;"
+          ],
+          "role": "Phrase-membership egress self-compliance policy over one agent-output text string. Runs three detectors that each fire only when a tripwire phrase is present AND its matching legitimiser phrase is absent: permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator. Returns green when no detector reports a violation, red otherwise. The capsule is the authority for the detection logic and phrase tables; it is a source-faithful public refactor of system/lib/egress_compliance.py.",
+          "resolution": "resolved"
+        }
+      ],
+      "concept_refs": [
+        "concept.agent_reliability_and_safety_validator_bundle"
+      ],
+      "principle_refs": [
+        "P-3"
+      ],
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "legacy_markdown_projection": "paper_modules/egress_self_compliance_audit.md",
+      "generated_projections": {
+        "markdown": {
+          "path": "paper_modules/egress_self_compliance_audit.md",
+          "status": "legacy_import_projection_until_roundtrip_builder",
+          "generated": false
+        },
+        "mermaid": {
+          "projection_id": "paper_module.egress_self_compliance_audit.mermaid",
+          "status": "available_from_capsule_edges",
+          "generated": true
+        },
+        "atlas_card": {
+          "projection_id": "organ_atlas.egress_self_compliance_audit",
+          "status": "linked_from_capsule_edges",
+          "generated": true
+        }
+      }
+    },
+    {
+      "id": "paper_module.generated_projection_drift_runtime",
+      "kind": "paper_module",
+      "title": "Generated Projection Drift Runtime",
+      "source_authority": "json_capsule",
+      "compression": {
+        "one_line": "An owner-routed gate that fingerprints generated artifacts against their sources, uses a prior-clean skip cache, and runs each owner's no-write check to flag projection drift by recomputation.",
+        "card": "Generated Projection Drift Runtime surfaces a public-safe drift gate over generated build artifacts. Each owner row pairs an artifact, its source authorities, and a no-write check command. The gate SHA-256-fingerprints source and artifact files, consults a prior-clean source-hash skip cache, requires declared artifacts to be present, and runs the owner check, marking an owner clean only on a zero return with present artifacts. Four bounded public fixtures exercise it: a passing no-write check, a genuine source-hash cache hit (the check is skipped), a planted artifact byte rejected as check_command_failed, and a missing required artifact rejected as artifact_missing. It flags drift; it does not repair files, prove content-diff equivalence for every macro builder, validate the whole registry, or authorize release.",
+        "authority_ceiling": "A clean result means the selected owner's declared no-write check passed and its required artifacts were present for the supplied root over bounded public fixtures. It is command-receipt-style evidence, not a semantic proof, not a file repairer, not full-registry validation, and not release/publication/source-mutation authority."
+      },
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "generated_projection_drift_runtime"
+        }
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/generated_projection_drift_runtime.py",
+          "symbols": [
+            "build_result",
+            "_evaluate_case",
+            "run",
+            "run_generated_projection_drift_runtime_bundle",
+            "EXPECTED_NEGATIVE_CASES"
+          ],
+          "role": "Surfaces the engine-room capsule as a first-class organ with the standard contract (bounded fixture cases, planted negatives, body-free receipts, result_card, CLI). _evaluate_case materialises each fixture's declared file tree into a per-case TemporaryDirectory scratch and calls the REAL capsule evaluate_case (no re-implementation, no baked answers); build_result returns status==pass only when both positives observe clean, both negatives are recomputed to drift carrying their expected status_reason marker, and the expected negative case ids are present.",
+          "resolution": "resolved"
+        },
+        {
+          "path": "src/microcosm_core/engine_room/generated_projection_drift_gate.py",
+          "symbols": [
+            "owner-routed drift gate",
+            "uses prior clean receipts as a bounded skip cache"
+          ],
+          "role": "Public-safe owner-routed generated-projection drift gate. Models each generated artifact as an owner row (artifact patterns, source authorities, a no-write check command); per owner it SHA-256-fingerprints source and artifact files, consults a prior-clean-receipt source-hash skip cache, enforces required-artifact presence and optional fact-authority lineage, then runs the owner's declared no-write check command and marks the owner clean only on a zero return with present artifacts. It is the drift authority, not a semantic content-diff proof, a repairer, or a release authority.",
+          "resolution": "resolved"
+        }
+      ],
+      "concept_refs": [
+        "concept.import_projection_and_drift_control_bundle"
+      ],
+      "principle_refs": [
+        "P-3"
+      ],
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "legacy_markdown_projection": "paper_modules/generated_projection_drift_runtime.md",
+      "generated_projections": {
+        "markdown": {
+          "path": "paper_modules/generated_projection_drift_runtime.md",
+          "status": "legacy_import_projection_until_roundtrip_builder",
+          "generated": false
+        },
+        "mermaid": {
+          "projection_id": "paper_module.generated_projection_drift_runtime.mermaid",
+          "status": "available_from_capsule_edges",
+          "generated": true
+        },
+        "atlas_card": {
+          "projection_id": "organ_atlas.generated_projection_drift_runtime",
+          "status": "linked_from_capsule_edges",
+          "generated": true
+        }
+      }
+    },
+    {
+      "id": "paper_module.lean_proof_search_lab_runtime",
+      "kind": "paper_module",
+      "title": "Lean Proof-Search Lab Runtime",
+      "source_authority": "json_capsule",
+      "compression": {
+        "one_line": "Gated external-tool proof-search lab that searches toy Lean theorems, checks each candidate with the installed Lean subprocess, and rejects oracle leaks, axiom taint, and problem-id memorisation by recomputation; locked and claimless when Lean is absent.",
+        "card": "Lean Proof-Search Lab Runtime surfaces the engine-room lean_proof_search_lab capsule: a bounded and/or symbolic tactic search over public toy theorems where every candidate body is compiled by the real `lean` subprocess. It enforces three epistemic-discipline guards and self-falsifies on each: a forward oracle firewall (no proof body, oracle body, or oracle-needed premise ids may be forwarded), a #print axioms cleanliness gate (sorry-tainted candidates are rejected), and a problem-id ablation (a policy that only works because it memorised the problem id fails once the id is renamed). The organ exercises one positive case (Lean closes lab_and_intro and lab_or_comm) and four planted negatives (two oracle-firewall violations, one axiom taint, one problem-id ablation failure). It is a gated external-tool witness: with Lean installed it reports tool_present_and_verified, without Lean it is terminally locked and claims no verification. Not neural theorem proving, not a solver of any open problem, no oracle-body forwarding, no release or publication authority.",
+        "authority_ceiling": "Real-substrate external-tool witness over bounded public toy theorems. A pass attests only that the installed Lean subprocess closed the toy positive theorems and rejected the planted oracle-leak, axiom-taint, and problem-id-memorisation negatives on these fixtures. It does NOT prove any open mathematical problem, is NOT neural theorem proving, does NOT forward oracle proof bodies, is NOT an oracle/prover authority, and does NOT authorize release, publication, production use, or source mutation. When Lean is absent the organ is locked and attests nothing at all."
+      },
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "lean_proof_search_lab_runtime"
+        }
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/lean_proof_search_lab_runtime.py",
+          "symbols": [
+            "build_result",
+            "result_card",
+            "run",
+            "run_lean_proof_search_lab_runtime_bundle",
+            "lean_available",
+            "EXPECTED_NEGATIVE_CASES",
+            "AUTHORITY_CEILING"
+          ],
+          "role": "Gated external-tool organ wrapper that surfaces the lean_proof_search_lab capsule: probes for the lean binary, runs the real proof-search over the fixture cases when Lean is present (tool_present_and_verified / tool_present_but_failed), returns a body-free terminal locked receipt when Lean is absent, and projects a result card plus body-free receipts. The runtime-spine bundle entry runs the exported bundle as a declared standalone contract without spawning Lean.",
+          "resolution": "resolved"
+        },
+        {
+          "path": "src/microcosm_core/engine_room/lean_proof_search_lab.py",
+          "symbols": [
+            "evaluate_fixture_dir",
+            "evaluate_case",
+            "evaluate_lab",
+            "check_candidate_with_lean",
+            "run_and_or_search",
+            "run_blind_policy_ablation"
+          ],
+          "role": "Public-safe symbolic Lean proof-search lab: a bounded and/or candidate-tactic search that compiles each candidate with the real lean subprocess, a forward oracle-leak firewall over FORBIDDEN_FORWARD_FIELDS, a problem-id ablation that fails id-memorising policies, and a #print axioms cleanliness gate that rejects sorry-tainted candidates.",
+          "resolution": "resolved"
+        }
+      ],
+      "concept_refs": [
+        "concept.formal_math_and_proof_witness_bundle"
+      ],
+      "principle_refs": [
+        "P-3"
+      ],
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "legacy_markdown_projection": "paper_modules/lean_proof_search_lab_runtime.md",
+      "generated_projections": {
+        "markdown": {
+          "path": "paper_modules/lean_proof_search_lab_runtime.md",
+          "status": "legacy_import_projection_until_roundtrip_builder",
+          "generated": false
+        },
+        "mermaid": {
+          "projection_id": "paper_module.lean_proof_search_lab_runtime.mermaid",
+          "status": "available_from_capsule_edges",
+          "generated": true
+        },
+        "atlas_card": {
+          "projection_id": "organ_atlas.lean_proof_search_lab_runtime",
+          "status": "linked_from_capsule_edges",
+          "generated": true
+        }
+      }
     }
   ]
 }

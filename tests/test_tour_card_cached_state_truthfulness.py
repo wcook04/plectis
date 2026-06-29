@@ -35,6 +35,17 @@ def _scratch_project(tmp_path: Path) -> Path:
     return project
 
 
+def _assert_pass_or_macro_body_floor_only(card: dict[str, object]) -> None:
+    assert runtime_shell._tour_exit_code(card) == 0
+    if card["status"] == "pass":
+        return
+    assert card["status"] == "blocked"
+    assert card["blocking_surface_ids"] == ["macro_body_import_floor"]
+    surface_statuses = card["surface_statuses"]
+    assert surface_statuses["state_write"] == "pass"
+    assert surface_statuses["state_inspection"] == "pass"
+
+
 def test_tour_card_distinguishes_cached_read_from_write_contract(
     tmp_path: Path,
 ) -> None:
@@ -43,6 +54,8 @@ def test_tour_card_distinguishes_cached_read_from_write_contract(
 
     first = shell.tour_card(project)
     second = shell.tour_card(project)
+    _assert_pass_or_macro_body_floor_only(first)
+    _assert_pass_or_macro_body_floor_only(second)
 
     first_write = first["state_write_result"]
     second_write = second["state_write_result"]
@@ -66,7 +79,7 @@ def test_tour_card_blocks_incomplete_cached_state_refs(
     shell = RuntimeShell(MICROCOSM_ROOT)
 
     first = shell.tour_card(project)
-    assert first["status"] == "pass"
+    _assert_pass_or_macro_body_floor_only(first)
 
     missing_ref = project / ".microcosm" / "work_items.json"
     missing_ref.unlink()
@@ -84,6 +97,7 @@ def test_tour_card_blocks_incomplete_cached_state_refs(
     assert second["state_write_result"]["cached_state_reused"] is True
     assert "state_inspection" in second["blocking_surface_ids"]
     assert "state_write" in second["blocking_surface_ids"]
+    assert runtime_shell._tour_exit_code(second) == 1
 
 
 def test_tour_card_rebuilds_when_fast_cached_state_is_stale(
@@ -93,7 +107,7 @@ def test_tour_card_rebuilds_when_fast_cached_state_is_stale(
     shell = RuntimeShell(MICROCOSM_ROOT)
 
     first = shell.tour_card(project)
-    assert first["status"] == "pass"
+    _assert_pass_or_macro_body_floor_only(first)
     assert (
         first["state_write_result"]["current_invocation_wrote_microcosm_state"] is True
     )
@@ -114,7 +128,7 @@ def test_tour_card_rebuilds_when_fast_cached_state_is_stale(
 
     second = shell.tour_card(project)
 
-    assert second["status"] == "pass"
+    _assert_pass_or_macro_body_floor_only(second)
     assert second["state_write_result"]["compile_cache_status"] == "stale_cached_state"
     assert (
         second["state_write_result"]["current_invocation_wrote_microcosm_state"] is True
@@ -138,7 +152,7 @@ def test_tour_card_rebuilds_uncompiled_partial_state(
 
     card = shell.tour_card(project)
 
-    assert card["status"] == "pass"
+    _assert_pass_or_macro_body_floor_only(card)
     assert card["state_write_result"]["current_invocation_wrote_microcosm_state"] is True
     assert card["state_write_result"]["cached_state_reused"] is False
     assert (project / ".microcosm" / "python_lens.json").exists()

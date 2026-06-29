@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.validators.launch_compression` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: CHECKER_ID, PRIVATE_HIT_NEEDLES, RECEIPT_FORWARD_NEEDLES, validate_launch_compression, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, environment variables.
+- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core, microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.runtime_shell
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -30,7 +55,9 @@ RECEIPT_FORWARD_NEEDLES = (
 
 
 def _public_relative(root: Path, path: Path) -> str:
-    """Render a path as a public-root-relative posix string for receipt emission.
+    """
+    [ACTION]
+    Render a path as a public-root-relative posix string for receipt emission.
 
     - Teleology: protects the receipt's `receipt_paths` claim from leaking absolute/private filesystem prefixes outside the public root.
     - Guarantee: returns `path` made relative to `root` (both resolved strict=False) as a posix string when `path` is under `root`.
@@ -39,6 +66,7 @@ def _public_relative(root: Path, path: Path) -> str:
     - Writes: None
     - When-needed: trust when reading `receipt_paths` to know an emitted path is public-root-relative; inspect when the path looks absolute (out-of-root fallback fired).
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; out-of-root paths are returned unredacted.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     try:
         return path.resolve(strict=False).relative_to(root.resolve(strict=False)).as_posix()
@@ -47,13 +75,16 @@ def _public_relative(root: Path, path: Path) -> str:
 
 
 def _read_text_or_empty(path: Path) -> str:
-    """Read a file's full utf-8 text, returning "" instead of raising on absence/IO error.
+    """
+    [ACTION]
+    Read a file's full utf-8 text, returning "" instead of raising on absence/IO error.
 
     - Teleology: gives the launch-compression validator a missing-tolerant source reader so README/pyproject absence degrades to empty-string assertions rather than crashing the receipt build.
     - Guarantee: returns `path.read_text(encoding="utf-8")` when `path.is_file()` is true; returns "" when the path is not a file or an OSError occurs during read.
     - Fails: never raises on a `Path` input; OSError during read is caught and collapsed to "" (missing/unreadable file is indistinguishable from empty here).
     - Reads: the full contents of `path` if it is a file.
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     try:
         return path.read_text(encoding="utf-8") if path.is_file() else ""
@@ -62,13 +93,16 @@ def _read_text_or_empty(path: Path) -> str:
 
 
 def _first_lines(path: Path, count: int) -> str:
-    """Read at most `count` leading lines of a file, newline-stripped and rejoined with "\\n".
+    """
+    [ACTION]
+    Read at most `count` leading lines of a file, newline-stripped and rejoined with "\n".
 
     - Teleology: produces the bounded README "first screen" slice the validator inspects for the one-line-identity / quickstart assertions without loading the whole file.
-    - Guarantee: returns the first `count` lines of `path`, each stripped of trailing CR/LF and joined by "\\n"; returns "" when `count <= 0` or an OSError occurs opening/reading the file.
+    - Guarantee: returns the first `count` lines of `path`, each stripped of trailing CR/LF and joined by "\n"; returns "" when `count <= 0` or an OSError occurs opening/reading the file.
     - Fails: never raises on a `Path` input; non-positive `count` short-circuits to "" and OSError is caught and collapsed to "".
     - Reads: up to `count` lines streamed from `path` (utf-8).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     if count <= 0:
         return ""
@@ -80,13 +114,16 @@ def _first_lines(path: Path, count: int) -> str:
 
 
 def _without_fenced_code_blocks(text: str) -> str:
-    """Strip triple-backtick fenced code blocks (and their fence lines) from markdown text.
+    """
+    [ACTION]
+    Strip triple-backtick fenced code blocks (and their fence lines) from markdown text.
 
     - Teleology: lets the `first_screen_not_receipt_forward` assertion test prose-only README intro, so example commands inside ``` fences do not falsely trip the receipt-forward needle scan.
-    - Guarantee: returns `text` with every line inside a ```-delimited fence removed and both fence-delimiter lines dropped, surviving lines rejoined by "\\n"; a fence opened but never closed drops all remaining lines.
+    - Guarantee: returns `text` with every line inside a ```-delimited fence removed and both fence-delimiter lines dropped, surviving lines rejoined by "\n"; a fence opened but never closed drops all remaining lines.
     - Fails: never raises on a `str` input; cannot signal an unbalanced fence (it just consumes to end of text).
     - Reads: the in-memory string only.
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     kept: list[str] = []
     in_fence = False
@@ -100,7 +137,9 @@ def _without_fenced_code_blocks(text: str) -> str:
 
 
 def _private_hits(text: str) -> list[str]:
-    """Return the private-leak needles found verbatim in `text`.
+    """
+    [ACTION]
+    Return the private-leak needles found verbatim in `text`.
 
     - Teleology: protects the `private_paths_absent` public-safety claim by surfacing which private-path/secret markers (`PRIVATE_HIT_NEEDLES`: home roots, repo path, Chrome support dir, secret-key prefix) appear in a public-facing string.
     - Guarantee: returns the sublist of `PRIVATE_HIT_NEEDLES` for which `needle in text` is true, in declaration order; empty list means none of those exact needles were present.
@@ -109,12 +148,15 @@ def _private_hits(text: str) -> list[str]:
     - Writes: None
     - When-needed: inspect when `private_paths_absent` is False to see which marker leaked.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; a fixed substring denylist is not complete secret/private-path detection.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     return [needle for needle in PRIVATE_HIT_NEEDLES if needle in text]
 
 
 def _has_private_hits(text: str) -> bool:
-    """Boolean predicate: does `text` contain any private-leak needle.
+    """
+    [ACTION]
+    Boolean predicate: does `text` contain any private-leak needle.
 
     - Teleology: protects the `private_paths_absent` public-safety gate by collapsing `_private_hits` to a pass/fail signal over a single public-facing string (README first screen, observatory HTML, state-file lines).
     - Guarantee: returns True iff `_private_hits(text)` is non-empty, i.e. at least one `PRIVATE_HIT_NEEDLES` marker is a substring of `text`; otherwise False.
@@ -123,12 +165,15 @@ def _has_private_hits(text: str) -> bool:
     - Writes: None
     - When-needed: trust as the leaf predicate behind the `private_paths_absent` assertion; True on any checked surface flips that assertion False and emits LAUNCH_COMPRESSION_PRIVATE_PATHS_ABSENT_FAILED.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; False is not proof of public-safety, only absence of these exact substrings.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     return bool(_private_hits(text))
 
 
 def _jsonable_has_private_hits(value: Any) -> bool:
-    """Recursively test a JSON-able value (str/dict/list/tuple) for private-leak needles.
+    """
+    [ACTION]
+    Recursively test a JSON-able value (str/dict/list/tuple) for private-leak needles.
 
     - Teleology: protects the `private_paths_absent` gate against private-path/secret markers hiding anywhere inside the compiled + runtime-lens payloads (`private_hit_payloads`), including nested dict keys and list items.
     - Guarantee: returns True iff some reachable string — a dict key (coerced via `str(key)`), a dict value, a list/tuple element, or a bare string — contains a `PRIVATE_HIT_NEEDLES` marker per `_has_private_hits`; recurses depth-first across dict/list/tuple.
@@ -137,6 +182,7 @@ def _jsonable_has_private_hits(value: Any) -> bool:
     - Writes: None
     - When-needed: trust when confirming a runtime-lens / compile payload carries no listed private marker before it feeds `private_paths_absent`.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; non-JSON leaf types and non-listed secrets are not inspected.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     if isinstance(value, str):
         return _has_private_hits(value)
@@ -151,7 +197,9 @@ def _jsonable_has_private_hits(value: Any) -> bool:
 
 
 def _state_files_have_private_hits(paths: Iterable[Path]) -> bool:
-    """Scan `.json`/`.jsonl` state files line-by-line for private-leak needles.
+    """
+    [ACTION]
+    Scan `.json`/`.jsonl` state files line-by-line for private-leak needles.
 
     - Teleology: protects the `private_paths_absent` gate by checking on-disk local state (`.microcosm` STATE_DIR walk) for private-path/secret markers before the launch surface is declared public-safe.
     - Guarantee: returns True on the first line of any `.json`/`.jsonl` path that contains a `PRIVATE_HIT_NEEDLES` marker per `_has_private_hits`; returns False only after every such file streams clean; non-`.json`/`.jsonl` suffixes are skipped.
@@ -161,6 +209,7 @@ def _state_files_have_private_hits(paths: Iterable[Path]) -> bool:
     - When-needed: trust as the disk-state arm of `private_paths_absent`; True means a state file leaked a listed marker and flips that assertion False.
     - Escalates-to: STATE_DIR layout via project_substrate; inspect the offending `.json`/`.jsonl` file when True.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; skipped suffixes, unreadable files, and non-listed secrets are not covered.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     for path in paths:
         if path.suffix not in {".json", ".jsonl"}:
@@ -175,13 +224,16 @@ def _state_files_have_private_hits(paths: Iterable[Path]) -> bool:
 
 
 def _walk_files(root: Path) -> Iterator[Path]:
-    """Recursively yield every regular file under `root`, not following symlinks, IO-error tolerant.
+    """
+    [ACTION]
+    Recursively yield every regular file under `root`, not following symlinks, IO-error tolerant.
 
     - Teleology: provides the symlink-safe, missing-tolerant file enumeration that feeds the on-disk private-state scan (`_walk_state_files`) without escaping the tree via symlinked dirs.
     - Guarantee: yields a `Path` for each non-symlink regular file in the `root` subtree (depth-first), descending only into real subdirectories; symlinked dirs/files are not followed.
     - Fails: never raises; an OSError on scandir(root) ends that level silently (return), a per-entry OSError skips that entry (continue) — unreadable dirs/entries are omitted, not surfaced.
     - Reads: directory entries (names + dirent type) under `root`; not file contents.
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     try:
         with os.scandir(root) as entries:
@@ -198,13 +250,16 @@ def _walk_files(root: Path) -> Iterator[Path]:
 
 
 def _walk_state_files(project: Path) -> Iterator[Path]:
-    """Yield every file under the project's local `.microcosm` state dir (STATE_DIR).
+    """
+    [ACTION]
+    Yield every file under the project's local `.microcosm` state dir (STATE_DIR).
 
     - Teleology: scopes the private-leak disk scan to the compiled local state directory the launch loop creates, so `_state_files_have_private_hits` checks only generated state, not the whole project.
     - Guarantee: yields each non-symlink regular file under `project / project_substrate.STATE_DIR` via `_walk_files`; an absent STATE_DIR yields nothing.
     - Fails: never raises; inherits `_walk_files` IO-error tolerance (missing/unreadable dirs produce an empty stream).
     - Reads: directory entries under the project STATE_DIR; not file contents.
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     yield from _walk_files(project / project_substrate.STATE_DIR)
 
@@ -216,7 +271,9 @@ def validate_launch_compression(
     *,
     command: str,
 ) -> dict[str, Any]:
-    """Validate that the public first screen + one-command local loop expose `repo -> .microcosm` safely, and emit a launch_compression receipt.
+    """
+    [ACTION]
+    Validate that the public first screen + one-command local loop expose `repo -> .microcosm` safely, and emit a launch_compression receipt.
 
     - Teleology: the launch-compression release gate — proves the README first screen is identity/quickstart-forward (not receipt-forward), every runtime lens passes with its authority ceiling pinned False, and no private path/secret leaks into the public-facing surfaces.
     - Guarantee: compiles the project with runtime receipt writes suppressed, builds a boolean `assertions` map (first-screen copy, per-lens status==PASS + endpoint/command visibility + authority-ceiling denials + `private_paths_absent`), turns every False assertion into a sorted `LAUNCH_COMPRESSION_<KEY>_FAILED` code, appends `LAUNCH_COMPRESSION_PRIVATE_STATE_SCAN_BLOCKED` if the private_state scan reports blocking hits, sets status=PASS when no blocking codes else "blocked", atomically writes the receipt to `out_path`, and returns that receipt dict.
@@ -226,6 +283,7 @@ def validate_launch_compression(
     - When-needed: inspect when a launch/first-screen/public-safety gate is "blocked" — read `blocking_codes` to see which assertion or the private-state scan failed.
     - Escalates-to: the written `launch_compression_receipt_v1` at `out_path` (assertions + blocking_codes + private_state_scan); the launch_compression test suite; `private_state_scan.scan_paths` for the secret/path scan detail.
     - Non-goal: does not authorize hosted release, publication, hosting, credentialed provider calls, source mutation, private-root equivalence, or proof/benchmark correctness — receipt `authority_ceiling` pins all of these False and PASS means only "this public surface is compression-faithful and leak-free for the listed needles", not whole-system correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     public_root = Path(root).resolve(strict=False)
     project_path = Path(project).expanduser().resolve(strict=False)
@@ -1269,13 +1327,16 @@ def validate_launch_compression(
 
 
 def _parser() -> argparse.ArgumentParser:
-    """Build the CLI argument parser for the launch-compression checker.
+    """
+    [ACTION]
+    Build the CLI argument parser for the launch-compression checker.
 
     - Teleology: defines the command-line contract (`--root`, `--project`, `--out`) that lets the validator run as `python -m microcosm_core.validators.launch_compression`.
     - Guarantee: returns an ArgumentParser requiring `--root`, `--project`, and `--out`; parsing without all three triggers argparse's usage error.
     - Fails: never raises at construction; missing required args surface at parse time as argparse SystemExit(2) with a usage message.
     - Reads: nothing (pure parser definition).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     parser = argparse.ArgumentParser(description="Validate Microcosm launch compression")
     parser.add_argument("--root", required=True)
@@ -1285,7 +1346,9 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entrypoint: run launch-compression validation and return a pass/fail exit code.
+    """
+    [ACTION]
+    CLI entrypoint: run launch-compression validation and return a pass/fail exit code.
 
     - Teleology: the process-level shell that wires parsed args into `validate_launch_compression` and maps the receipt status onto a shell exit code for CI/release gating.
     - Guarantee: parses `argv` (or sys.argv), runs the validator writing a receipt to `--out`, and returns 0 when the receipt status == PASS, else 1.
@@ -1294,6 +1357,7 @@ def main(argv: list[str] | None = None) -> int:
     - Writes: the receipt JSON at `--out` via `validate_launch_compression`.
     - When-needed: inspect when the launch-compression check is wired into a script/CI gate and you need its exit semantics.
     - Escalates-to: the receipt written at `--out` (status + blocking_codes); `validate_launch_compression` for what each code means.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     args = _parser().parse_args(argv)
     command = (

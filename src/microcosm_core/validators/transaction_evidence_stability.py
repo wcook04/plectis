@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.validators.transaction_evidence_stability` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: CHECKER_ID, STATE_DIR, EVENT_STREAM, EVIDENCE_DIR, EXPLANATION_DIR, validate_stability, main
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core, microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -21,11 +46,16 @@ EXPLANATION_DIR = "explanations"
 
 
 def _project_relative(project: Path, path: Path) -> str:
-    """Render a path as a stable project-relative POSIX ref for receipts.
+    """
+    [ACTION]
+    Render a path as a stable project-relative POSIX ref for receipts.
 
     - Teleology: stable refs in the receipt must be project-relative so they are reproducible and not host-absolute.
     - Guarantee: returns the POSIX path of `path` relative to `project` when nested under it; else returns `path.as_posix()` unchanged.
     - Fails: never raises; on ValueError (path not under project) falls back to the absolute POSIX string.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     try:
         return path.resolve(strict=False).relative_to(project.resolve(strict=False)).as_posix()
@@ -34,11 +64,16 @@ def _project_relative(project: Path, path: Path) -> str:
 
 
 def _read_json(path: Path) -> dict[str, Any]:
-    """Strict-read a JSON file, normalizing absence and non-dict roots to {}.
+    """
+    [ACTION]
+    Strict-read a JSON file, normalizing absence and non-dict roots to {}.
 
     - Teleology: state-artifact readers must tolerate missing files without crashing the validation pass.
     - Guarantee: returns the parsed dict when the file exists and decodes to an object; returns {} when the file is absent or the root is not a dict.
     - Fails: propagates the decode error from `read_json_strict` on a present-but-malformed JSON file; missing file returns {}.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not path.is_file():
         return {}
@@ -47,21 +82,31 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
-    """Materialize a JSONL file as the list of its dict rows.
+    """
+    [ACTION]
+    Materialize a JSONL file as the list of its dict rows.
 
     - Teleology: callers that need the whole event/record list (not a stream) get an eager list view.
     - Guarantee: returns every line of `path` that decodes to a dict, in file order; empty list when the file is absent.
     - Fails: propagates `json.loads` errors from `_iter_jsonl_dict_rows` on a malformed line; missing file returns [].
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return list(_iter_jsonl_dict_rows(path))
 
 
 def _iter_jsonl_dict_rows(path: Path) -> Iterator[dict[str, Any]]:
-    """Lazily yield the dict rows of a JSONL file, skipping blank lines.
+    """
+    [ACTION]
+    Lazily yield the dict rows of a JSONL file, skipping blank lines.
 
     - Teleology: the event stream may be large; streaming avoids holding the whole history in memory during summary.
     - Guarantee: yields each non-blank line that decodes to a dict, in file order; non-dict lines are silently dropped.
     - Fails: propagates `json.loads` errors on a non-blank, non-JSON line; absent file yields nothing.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
     """
     if not path.is_file():
         return
@@ -79,12 +124,17 @@ def _event_stream_summary(
     *,
     evidence_ref_set: set[str],
 ) -> dict[str, Any]:
-    """Summarize the event stream: count, ids, duplicates, unresolved evidence refs.
+    """
+    [ACTION]
+    Summarize the event stream: count, ids, duplicates, unresolved evidence refs.
 
     - Teleology: the work/event stability checks need one pass over the append-only event log to detect duplicate ids and dangling evidence refs.
     - Guarantee: returns {event_count, event_ids (set), duplicate_event_ids (sorted), event_findings} where event_findings lists events whose `evidence_ref` is not in `evidence_ref_set`.
     - Fails: never raises on absent stream (yields nothing -> zero counts); propagates a malformed-line decode error from the underlying iterator.
     - When-needed: inspect when an event-stability blocking code (duplicate or unresolved evidence) needs explaining.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     event_count = 0
     event_ids: set[str] = set()
@@ -116,11 +166,16 @@ def _event_stream_summary(
 
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
-    """Extract `payload[key]` as a list of dict rows, defending against bad shapes.
+    """
+    [ACTION]
+    Extract `payload[key]` as a list of dict rows, defending against bad shapes.
 
     - Teleology: state payloads are external JSON; row extraction must not trust that a key holds a list of objects.
     - Guarantee: returns only the dict elements of `payload[key]` when it is a list; returns [] when the key is absent or not a list.
     - Fails: never raises; non-list or non-dict content degrades to [] / filtered rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     value = payload.get(key, [])
     if not isinstance(value, list):
@@ -129,22 +184,32 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
 
 
 def _ref_path(project: Path, ref: str) -> Path:
-    """Resolve a `.microcosm/`-relative ref string to a concrete project path.
+    """
+    [ACTION]
+    Resolve a `.microcosm/`-relative ref string to a concrete project path.
 
     - Teleology: evidence/event refs are stored as state-relative strings; existence checks need the on-disk path.
     - Guarantee: returns `project / STATE_DIR / <ref minus the STATE_DIR/ prefix>`; an already-bare ref is joined as-is.
     - Fails: never raises; pure path arithmetic with no filesystem access.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     rel = ref.removeprefix(f"{STATE_DIR}/")
     return project / STATE_DIR / rel
 
 
 def _ref_exists(project: Path, ref: str) -> bool:
-    """Report whether an evidence ref (optionally `path::fragment`) points at a real file.
+    """
+    [ACTION]
+    Report whether an evidence ref (optionally `path::fragment`) points at a real file.
 
     - Teleology: closeout/explanation refs must resolve to an existing artifact for stability to hold.
     - Guarantee: returns True iff the file at the ref (with any `::`-suffixed fragment stripped) exists; False otherwise.
     - Fails: never raises; non-existent or unparseable ref returns False.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if "::" in ref:
         ref = ref.split("::", 1)[0]
@@ -152,11 +217,16 @@ def _ref_exists(project: Path, ref: str) -> bool:
 
 
 def _duplicate_ids(rows: list[dict[str, Any]], key: str) -> list[str]:
-    """Find id values that appear more than once across rows.
+    """
+    [ACTION]
+    Find id values that appear more than once across rows.
 
     - Teleology: pattern/route id uniqueness is a stability invariant; this is the shared duplicate detector.
     - Guarantee: returns the sorted set of `row[key]` values (as strings) that occur in two or more rows; None values are skipped.
     - Fails: never raises; empty or key-absent rows yield [].
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     seen: set[str] = set()
     duplicate: set[str] = set()
@@ -172,11 +242,16 @@ def _duplicate_ids(rows: list[dict[str, Any]], key: str) -> list[str]:
 
 
 def _iter_state_files(path: Path) -> Iterator[Path]:
-    """Recursively yield every regular file under a directory (symlink-safe).
+    """
+    [ACTION]
+    Recursively yield every regular file under a directory (symlink-safe).
 
     - Teleology: the private-state scan and state-file inventory must walk all of `.microcosm/` without following symlinks out of the tree.
     - Guarantee: yields each non-symlink regular file under `path`, descending into non-symlink subdirectories only.
     - Fails: raises OSError (e.g. FileNotFoundError) if `path` is not a readable directory.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     with os.scandir(path) as entries:
         for entry in entries:
@@ -188,11 +263,16 @@ def _iter_state_files(path: Path) -> Iterator[Path]:
 
 
 def _iter_json_files(path: Path) -> Iterator[Path]:
-    """Recursively yield the `.json` files under a directory.
+    """
+    [ACTION]
+    Recursively yield the `.json` files under a directory.
 
     - Teleology: evidence/explanation dirs hold per-record JSON; iteration must select only `.json` artifacts.
     - Guarantee: yields every regular file under `path` whose suffix is `.json`; yields nothing when `path` is not a directory.
     - Fails: never raises on a missing directory (guarded by is_dir); propagates OSError from traversal of an unreadable present directory.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not path.is_dir():
         return
@@ -202,11 +282,16 @@ def _iter_json_files(path: Path) -> Iterator[Path]:
 
 
 def _state_files(project: Path) -> list[Path]:
-    """Collect the sorted `.json`/`.jsonl` files in the project's state dir.
+    """
+    [ACTION]
+    Collect the sorted `.json`/`.jsonl` files in the project's state dir.
 
     - Teleology: defines the exact file set handed to the private-state scanner for boundary enforcement.
     - Guarantee: returns the sorted list of files under `<project>/.microcosm` with suffix `.json` or `.jsonl`; returns [] when the state dir is absent.
     - Fails: never raises on a missing state dir; propagates OSError from traversal of an unreadable present dir.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     state = project / STATE_DIR
     if not state.is_dir():
@@ -219,11 +304,16 @@ def _state_files(project: Path) -> list[Path]:
 
 
 def _evidence_refs(project: Path) -> set[str]:
-    """Build the set of project-relative refs for all evidence JSON files.
+    """
+    [ACTION]
+    Build the set of project-relative refs for all evidence JSON files.
 
     - Teleology: the authoritative set against which event/work/closeout evidence refs are checked for resolution.
     - Guarantee: returns the set of project-relative POSIX refs for every `.json` under `.microcosm/evidence`; empty set when that dir is absent.
     - Fails: never raises on a missing evidence dir; propagates OSError from traversal of an unreadable present dir.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     evidence_dir = project / STATE_DIR / EVIDENCE_DIR
     if not evidence_dir.is_dir():
@@ -235,21 +325,31 @@ def _evidence_refs(project: Path) -> set[str]:
 
 
 def _has_json_file(path: Path) -> bool:
-    """Report whether a directory contains at least one `.json` file.
+    """
+    [ACTION]
+    Report whether a directory contains at least one `.json` file.
 
     - Teleology: the state-artifact semantics table marks evidence/explanation dirs present only when populated.
     - Guarantee: returns True iff `path` is a directory containing one or more `.json` files (any depth); False otherwise.
     - Fails: never raises; non-directory path returns False.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return path.is_dir() and any(_iter_json_files(path))
 
 
 def _state_artifact_semantics(project: Path) -> list[dict[str, Any]]:
-    """Describe each state artifact's replacement/append semantics and presence.
+    """
+    [ACTION]
+    Describe each state artifact's replacement/append semantics and presence.
 
     - Teleology: the receipt documents which `.microcosm/*` artifacts are stable, replaced-from-source, or append-only so readers understand the stability model.
     - Guarantee: returns a fixed-shape list of {state_ref, semantics, exists} rows, with `exists` computed live against `project` at call time.
     - Fails: never raises; presence probes degrade to exists=False for absent paths.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return [
         {
@@ -307,7 +407,9 @@ def validate_stability(
     *,
     command: str,
 ) -> dict[str, Any]:
-    """Validate project-local transaction/evidence causal stability and emit a receipt.
+    """
+    [ACTION]
+    Validate project-local transaction/evidence causal stability and emit a receipt.
 
     - Teleology: the module entrypoint that proves a project's `.microcosm` state is internally consistent (refs resolve, ids unique, events append-only, evidence replacement recorded, graph well-formed) and free of private-state leakage, under a hardcoded authority ceiling.
     - Guarantee: writes a `transaction_evidence_stability_receipt_v1` to `out_path` and returns it; `status` is PASS when no blocking codes, else "blocked"; every `authority_ceiling.*` flag and `consistency_summary.release_authorized` is False regardless of pass/fail.
@@ -315,6 +417,9 @@ def validate_stability(
     - When-needed: inspect when a project transaction-evidence gate blocks, or to learn which stability invariant produced a given blocking code.
     - Escalates-to: receipt at `out_path` (findings + blocking_codes); behavior pinned by tests under microcosm-substrate/tests for this checker; private-state policy at core/private_state_forbidden_classes.json.
     - Non-goal: a PASS does not authorize hosted release, publication, credentialed provider calls, source mutation, secret export, private-root equivalence, live Task Ledger mutation, or production deployment.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     public_root = Path(root).resolve(strict=False)
     project_path = Path(project).expanduser().resolve(strict=False)
@@ -590,11 +695,16 @@ def validate_stability(
 
 
 def _parser() -> argparse.ArgumentParser:
-    """Build the CLI argument parser for the stability checker.
+    """
+    [ACTION]
+    Build the CLI argument parser for the stability checker.
 
     - Teleology: defines the `--root`/`--project`/`--out` contract for invoking the validator as a module.
     - Guarantee: returns an ArgumentParser requiring `--root`, `--project`, and `--out`.
     - Fails: never raises at construction; argument errors surface later at parse time via argparse SystemExit.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     parser = argparse.ArgumentParser(description="Validate project transaction/evidence stability")
     parser.add_argument("--root", required=True)
@@ -604,13 +714,18 @@ def _parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entrypoint: run the stability validation and map status to an exit code.
+    """
+    [ACTION]
+    CLI entrypoint: run the stability validation and map status to an exit code.
 
     - Teleology: gives the module a process-exit contract suitable for CI gating.
     - Guarantee: runs `validate_stability` with the parsed args and returns 0 when the receipt status is PASS, else 1.
     - Fails: raises SystemExit on argparse errors; propagates exceptions from validate_stability (malformed state JSON, unwritable out path).
     - Escalates-to: the written receipt and validate_stability's own contract for the meaning of a non-zero exit.
     - Non-goal: exit 0 reports project-local stability only; it does not authorize release, hosting, or any privileged operation.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     args = _parser().parse_args(argv)
     command = (

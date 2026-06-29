@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.project_substrate` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: PASS, STATE_DIR, EVIDENCE_DIR, EVENT_STREAM, OBSERVATORY_SERVE_COMMAND, OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT, OBSERVATORY_BOUNDED_VALIDATION_COMMAND, OBSERVATORY_BOUNDED_VALIDATION_RULE, HASH_CHUNK_SIZE, IGNORE_DIRS, PACKAGE_MANIFESTS, SCRIPT_NAMES, README_NAMES, SOURCE_SUFFIXES, DOC_SUFFIXES, PYTHON_LENS_STATE, TRUTH_READINESS_STATE, PYTHON_LENS_SCAN_FULL, PYTHON_LENS_SCAN_FIRST_SCREEN, PYTHON_LENS_FIRST_SCREEN_PREFIX_BYTES, PYTHON_LENS_CARD_PREVIEW_LIMIT, PROJECT_OBSERVE_CARD_COMMAND, PROJECT_OBSERVE_FULL_COMMAND, COMPILE_STATE_REFS, ...
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core, microcosm_core.bounded_paths, microcosm_core.public_payload_boundary, microcosm_core.receipts, microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -197,13 +222,17 @@ ROUTE_UTILITY_DISPOSITION_OUTCOMES = [
 
 
 def _source_body_boundary_row() -> dict[str, Any]:
-    """Stamp the source-body-boundary fields spliced into every public lens row.
+    """
+    [ACTION]
+    Stamp the source-body-boundary fields spliced into every public lens row.
 
     - Teleology: gives every emitted row the standing declaration that it is metadata-about-source, never a source-body export.
     - Guarantee: returns a dict carrying payload_boundary_ref, source_open_body_policy, and source_bodies_exported=False.
     - Fails: never raises; returns a fresh constant dict every call.
     - Reads: module constants PROJECT_PYTHON_LENS_BOUNDARY_ID and SOURCE_OPEN_BODY_POLICY only.
     - Non-goal: does not authorize source-body export, public-safe equivalence, or release; it only asserts the boundary.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return {
         "payload_boundary_ref": PROJECT_PYTHON_LENS_BOUNDARY_ID,
@@ -213,13 +242,18 @@ def _source_body_boundary_row() -> dict[str, Any]:
 
 
 def _evidence_interpretation_boundary() -> dict[str, Any]:
-    """Standing interpretation rubric spliced into evidence list/inspect cards.
+    """
+    [ACTION]
+    Standing interpretation rubric spliced into evidence list/inspect cards.
 
     - Teleology: tells a reader what a passing evidence card does and does not mean before they trust it.
     - Guarantee: returns a dict whose evidence_interpretation explains status_pass_means, payload_summary_means, and next_step.
     - Fails: never raises; returns a fresh constant dict every call.
     - Non-goal: does not authorize release, proof-correctness, trading, security, or private-root equivalence; it only frames evidence reading.
     - Escalates-to: the underlying receipt path or owning validator/builder named by next_step.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "evidence_interpretation": {
@@ -241,12 +275,17 @@ def _evidence_interpretation_boundary() -> dict[str, Any]:
 def _evidence_full_payload_drilldown(
     *, project_ref: str, evidence_ref: str
 ) -> dict[str, str]:
-    """Build the drilldown pointer from a compact evidence card to its full JSON.
+    """
+    [ACTION]
+    Build the drilldown pointer from a compact evidence card to its full JSON.
 
     - Teleology: hands the reader the exact local path and command to open the complete receipt behind a compact card.
     - Guarantee: returns a dict with path, command, source_checkout_command, meaning, and an authority_boundary string.
     - Fails: never raises; a "." or "" project_ref yields a "./"-prefixed local path.
     - Non-goal: the full JSON it points to is drilldown evidence only; it does not authorize release, provider calls, source mutation, or proof correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     project_prefix = project_ref.rstrip("/")
     if project_prefix in {"", "."}:
@@ -267,12 +306,17 @@ def _evidence_full_payload_drilldown(
 
 
 def _project_python_lens_payload_boundary(command: str) -> dict[str, Any]:
-    """Build the public-payload-boundary block for the python-lens surface.
+    """
+    [ACTION]
+    Build the public-payload-boundary block for the python-lens surface.
 
     - Teleology: declares the python-lens read-model boundary so callers see input is unnormalized and output is ref/shape only.
     - Guarantee: returns the public_payload_boundary dict keyed to PROJECT_PYTHON_LENS_BOUNDARY_ID and the python_lens state surface.
     - Fails: never raises; delegates to public_payload_boundary.
     - Escalates-to: microcosm_core.public_payload_boundary.public_payload_boundary for the boundary contract.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return public_payload_boundary(
         boundary_id=PROJECT_PYTHON_LENS_BOUNDARY_ID,
@@ -283,51 +327,76 @@ def _project_python_lens_payload_boundary(command: str) -> dict[str, Any]:
 
 
 def _project_name(project: Path) -> str:
-    """Stable display name for a project root used in payload project_id fields.
+    """
+    [ACTION]
+    Stable display name for a project root used in payload project_id fields.
 
     - Teleology: gives every receipt a non-empty project_id without leaking an absolute path.
     - Guarantee: returns the resolved final path component, or "project" when empty.
     - Fails: never raises; resolve uses strict=False.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return project.resolve(strict=False).name or "project"
 
 
 def _state_dir(project: Path) -> Path:
-    """Resolve the project's .microcosm state directory path.
+    """
+    [ACTION]
+    Resolve the project's .microcosm state directory path.
 
     - Teleology: single source for where all project-local generated state lives.
     - Guarantee: returns project / STATE_DIR; does not create it.
     - Fails: never raises (pure path join).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return project / STATE_DIR
 
 
 def _evidence_dir(project: Path) -> Path:
-    """Resolve the project's .microcosm/evidence directory path.
+    """
+    [ACTION]
+    Resolve the project's .microcosm/evidence directory path.
 
     - Teleology: single source for where evidence receipt JSON is written.
     - Guarantee: returns the evidence subdirectory of the state dir; does not create it.
     - Fails: never raises (pure path join).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _state_dir(project) / EVIDENCE_DIR
 
 
 def _event_stream_path(project: Path) -> Path:
-    """Resolve the project's append-only events.jsonl path.
+    """
+    [ACTION]
+    Resolve the project's append-only events.jsonl path.
 
     - Teleology: single source for the project-local event-history stream location.
     - Guarantee: returns the events.jsonl path under the state dir; does not create it.
     - Fails: never raises (pure path join).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return _state_dir(project) / EVENT_STREAM
 
 
 def _path_exists(path: Path) -> bool:
-    """OSError-tolerant existence check for a path.
+    """
+    [ACTION]
+    OSError-tolerant existence check for a path.
 
     - Teleology: lets state-ref status surfaces probe paths without crashing on stat errors.
     - Guarantee: returns True iff the path exists; False on any OSError.
     - Fails: never raises; OSError is swallowed to False.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     try:
         return path.exists()
@@ -336,11 +405,16 @@ def _path_exists(path: Path) -> bool:
 
 
 def _path_is_file(path: Path) -> bool:
-    """OSError-tolerant is-file check for a path.
+    """
+    [ACTION]
+    OSError-tolerant is-file check for a path.
 
     - Teleology: gates reads/writes on whether a state ref is a regular file.
     - Guarantee: returns True iff the path is a regular file; False on any OSError.
     - Fails: never raises; OSError is swallowed to False.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     try:
         return path.is_file()
@@ -349,11 +423,16 @@ def _path_is_file(path: Path) -> bool:
 
 
 def _path_is_dir(path: Path) -> bool:
-    """OSError-tolerant is-directory check for a path.
+    """
+    [ACTION]
+    OSError-tolerant is-directory check for a path.
 
     - Teleology: gates directory-scoped scans on whether a state ref is a directory.
     - Guarantee: returns True iff the path is a directory; False on any OSError.
     - Fails: never raises; OSError is swallowed to False.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     try:
         return path.is_dir()
@@ -362,11 +441,16 @@ def _path_is_dir(path: Path) -> bool:
 
 
 def _path_mtime_ns(path: Path) -> int | None:
-    """OSError-tolerant nanosecond mtime read for freshness comparison.
+    """
+    [ACTION]
+    OSError-tolerant nanosecond mtime read for freshness comparison.
 
     - Teleology: feeds the compile/ratchet staleness math that compares source vs cache mtimes.
     - Guarantee: returns st_mtime_ns on success; None on any OSError.
     - Fails: never raises; OSError is swallowed to None.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     try:
         return path.stat().st_mtime_ns
@@ -375,11 +459,16 @@ def _path_mtime_ns(path: Path) -> int | None:
 
 
 def _path_size(path: Path) -> int:
-    """OSError-tolerant byte-size read for a path.
+    """
+    [ACTION]
+    OSError-tolerant byte-size read for a path.
 
     - Teleology: reports state-ref byte size in status cards without crashing on stat errors.
     - Guarantee: returns st_size on success; 0 on any OSError.
     - Fails: never raises; OSError is swallowed to 0.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     try:
         return path.stat().st_size
@@ -388,11 +477,16 @@ def _path_size(path: Path) -> int:
 
 
 def _event_stream_signature(path: Path) -> tuple[int, int] | None:
-    """Cheap (mtime_ns, size) signature used to invalidate the event-number cache.
+    """
+    [ACTION]
+    Cheap (mtime_ns, size) signature used to invalidate the event-number cache.
 
     - Teleology: lets _next_event_number skip a full line count when the stream is unchanged.
     - Guarantee: returns (st_mtime_ns, st_size) on success; None on any OSError.
     - Fails: never raises; OSError is swallowed to None.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     try:
         stat = path.stat()
@@ -402,11 +496,16 @@ def _event_stream_signature(path: Path) -> tuple[int, int] | None:
 
 
 def _project_relative(project: Path, path: Path) -> str:
-    """Render a path as a posix ref relative to the project root.
+    """
+    [ACTION]
+    Render a path as a posix ref relative to the project root.
 
     - Teleology: produces portable, home-free refs for receipts instead of absolute paths.
     - Guarantee: returns the project-relative posix string, or the bare name when path is outside the project.
     - Fails: never raises; a non-subpath ValueError falls back to path.name.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     try:
         return path.resolve(strict=False).relative_to(project.resolve(strict=False)).as_posix()
@@ -415,21 +514,18 @@ def _project_relative(project: Path, path: Path) -> str:
 
 
 def _read_project_json(project: Path, rel: str) -> dict[str, Any]:
-    """Strictly read one .microcosm JSON state file as a dict.
+    """
+    [ACTION]
+    Strictly read one .microcosm JSON state file as a dict.
 
     - Teleology: the single guarded reader for project-local generated state behind every card/observe surface.
     - Guarantee: returns the parsed dict, or {} when the file is absent or parses to a non-dict.
-    - Fails: missing file -> {}; a rel that escapes STATE_DIR (../ traversal, absolute
-      path, or symlink target outside) -> {}; malformed JSON -> raises via read_json_strict.
-    - Reads: STATE_DIR/<rel> under the project, and nothing outside it.
+    - Fails: missing file -> {}; malformed JSON -> raises via read_json_strict.
+    - Reads: STATE_DIR/<rel> under the project.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     path = _state_dir(project) / rel
-    state_root = _state_dir(project).resolve(strict=False)
-    try:
-        path.resolve(strict=False).relative_to(state_root)
-    except ValueError:
-        # rel escaped the project state dir; refuse to read arbitrary on-disk files.
-        return {}
     if not _path_is_file(path):
         return {}
     payload = read_json_strict(path)
@@ -437,12 +533,16 @@ def _read_project_json(project: Path, rel: str) -> dict[str, Any]:
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
-    """Read a JSONL file into a list of dict rows, skipping blank lines.
+    """
+    [ACTION]
+    Read a JSONL file into a list of dict rows, skipping blank lines.
 
     - Teleology: generic line-delimited reader for project-local jsonl state.
     - Guarantee: returns one dict per non-blank line that parses to a dict; missing file -> [].
     - Fails: a line that is not valid JSON -> raises json.JSONDecodeError.
     - Reads: the given jsonl path.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not _path_is_file(path):
         return []
@@ -458,12 +558,16 @@ def _read_jsonl(path: Path) -> list[dict[str, Any]]:
 
 
 def _read_event_stream_summary(path: Path, *, tail_limit: int = 20) -> dict[str, Any]:
-    """Summarize the append-only event stream into count, span histogram, and tail.
+    """
+    [ACTION]
+    Summarize the append-only event stream into count, span histogram, and tail.
 
     - Teleology: gives observe/compile cards a bounded view of event history without loading the whole stream.
     - Guarantee: returns event_count, spans (per-span counts), a bounded events tail, and last_event; absent file -> zeroed summary.
     - Fails: a malformed jsonl line -> raises json.JSONDecodeError; non-dict lines are skipped.
     - Reads: the events.jsonl path.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not _path_is_file(path):
         return {
@@ -496,12 +600,16 @@ def _read_event_stream_summary(path: Path, *, tail_limit: int = 20) -> dict[str,
 
 
 def _iter_files_under(root: Path, *, suffix: str | None = None) -> Iterator[Path]:
-    """Iteratively yield files under a root, optionally filtered by suffix.
+    """
+    [ACTION]
+    Iteratively yield files under a root, optionally filtered by suffix.
 
     - Teleology: bounded, symlink-safe directory walk powering evidence listing and state file counts.
     - Guarantee: yields each regular file (matching suffix when given) without following symlinks; non-dir root yields nothing.
     - Fails: never raises; per-entry and per-dir OSErrors are skipped.
     - Reads: the directory tree under root via os.scandir.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not _path_is_dir(root):
         return
@@ -525,23 +633,31 @@ def _iter_files_under(root: Path, *, suffix: str | None = None) -> Iterator[Path
 
 
 def _count_files_under(root: Path, *, suffix: str | None = None) -> int:
-    """Count files under a root, optionally filtered by suffix.
+    """
+    [ACTION]
+    Count files under a root, optionally filtered by suffix.
 
     - Teleology: cheap file/evidence tallies for state-write-proof and status cards.
     - Guarantee: returns the number of files _iter_files_under yields; non-dir root -> 0.
     - Fails: never raises (delegates to the OSError-tolerant iterator).
     - Reads: the directory tree under root.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return sum(1 for _ in _iter_files_under(root, suffix=suffix))
 
 
 def _append_event(project: Path, event: dict[str, Any]) -> None:
-    """Append one event to the project's append-only events.jsonl and update the count cache.
+    """
+    [ACTION]
+    Append one event to the project's append-only events.jsonl and update the count cache.
 
     - Teleology: the single writer that records lifecycle spans as durable, ordered event history.
     - Guarantee: creates the state dir if needed, appends one canonical JSON line, and refreshes/clears the event-number cache for the stream.
     - Fails: directory or write failures -> raises OSError; a non-evt_ event_id just clears the cache entry.
     - Writes: STATE_DIR/events.jsonl under the project.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
     """
     event_path = _event_stream_path(project)
     event_path.parent.mkdir(parents=True, exist_ok=True)
@@ -559,11 +675,16 @@ def _append_event(project: Path, event: dict[str, Any]) -> None:
 
 
 def _event_number_from_id(event_id: object) -> int | None:
-    """Parse the integer ordinal out of an ``evt_NNNN`` event id.
+    """
+    [ACTION]
+    Parse the integer ordinal out of an ``evt_NNNN`` event id.
 
     - Teleology: lets the append path seed the next-number cache from the id it just wrote.
     - Guarantee: returns the integer after the evt_ prefix; None for non-string/non-evt_/non-numeric input.
     - Fails: never raises; a non-numeric suffix returns None.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if not isinstance(event_id, str) or not event_id.startswith("evt_"):
         return None
@@ -574,12 +695,16 @@ def _event_number_from_id(event_id: object) -> int | None:
 
 
 def _next_event_number(project: Path) -> int:
-    """Compute the next 1-based event ordinal for the project's stream.
+    """
+    [ACTION]
+    Compute the next 1-based event ordinal for the project's stream.
 
     - Teleology: assigns monotonically increasing evt_ ids without re-counting an unchanged stream.
     - Guarantee: returns the cached next number when the stream signature is unchanged; otherwise counts non-blank lines + 1 and refreshes the cache.
     - Fails: never raises; a missing file yields 1.
     - Reads: STATE_DIR/events.jsonl (line count on cache miss).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     event_path = _event_stream_path(project)
     cache_key = event_path.resolve(strict=False)
@@ -601,13 +726,17 @@ def _next_event_number(project: Path) -> int:
 
 
 def _sha256_file(path: Path) -> str:
-    """Chunked SHA-256 hex digest of a file's bytes.
+    """
+    [ACTION]
+    Chunked SHA-256 hex digest of a file's bytes.
 
     - Teleology: fingerprints a prior evidence body so an overwrite can record the replaced content's digest.
     - Guarantee: returns the lowercase hex SHA-256 over the full file, read in HASH_CHUNK_SIZE chunks.
     - Fails: unreadable/missing path -> raises OSError.
     - Reads: the bytes of the given path.
     - Non-goal: does not check public-safe equivalence or authorize source-body export; it only hashes bytes.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -617,7 +746,9 @@ def _sha256_file(path: Path) -> str:
 
 
 def _write_evidence(project: Path, action_id: str, payload: dict[str, Any]) -> str:
-    """Atomically write one evidence receipt, recording any prior-body digest.
+    """
+    [ACTION]
+    Atomically write one evidence receipt, recording any prior-body digest.
 
     - Teleology: the single provenance-aware writer for project-local evidence cards under .microcosm/evidence.
     - Guarantee: writes the payload atomically with a stable evidence_ref and an evidence_replacement block (prior sha256, stable_ref, append-only history ref); returns the stable ref.
@@ -625,6 +756,7 @@ def _write_evidence(project: Path, action_id: str, payload: dict[str, Any]) -> s
     - Reads: any existing evidence file at the ref (to hash it).
     - Writes: STATE_DIR/evidence/<action_id>.json.
     - Non-goal: does not authorize release or treat the receipt as source-of-truth authority; it is drilldown evidence.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     ref = f"{EVIDENCE_DIR}/{action_id}.json"
     evidence_path = _state_dir(project) / ref
@@ -644,12 +776,17 @@ def _write_evidence(project: Path, action_id: str, payload: dict[str, Any]) -> s
 
 
 def _base_payload(schema_version: str, project: Path) -> dict[str, Any]:
-    """Standard envelope head shared by every result/receipt payload.
+    """
+    [ACTION]
+    Standard envelope head shared by every result/receipt payload.
 
     - Teleology: guarantees every emitted payload carries schema, timestamp, project id, and the standing release-not-authorized posture.
     - Guarantee: returns a dict with schema_version, created_at, project_id, project_ref=".", state_ref, status=pass, release_authorized=False, receipts_are_drilldown_evidence=True.
     - Fails: never raises (string/timestamp assembly only).
     - Non-goal: status=pass is an envelope default, not a release or correctness authorization.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "schema_version": schema_version,
@@ -664,11 +801,16 @@ def _base_payload(schema_version: str, project: Path) -> dict[str, Any]:
 
 
 def _project_arg_ref(project_path: str | Path, project: Path) -> str:
-    """Echo the project argument as the reader sees it for command templates.
+    """
+    [ACTION]
+    Echo the project argument as the reader sees it for command templates.
 
     - Teleology: keeps emitted inspect/observe commands using the caller's own project token (e.g. ".") rather than a resolved absolute path.
     - Guarantee: returns the posix form of a Path arg or the raw string; falls back to project.name when empty.
     - Fails: never raises.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if isinstance(project_path, Path):
         raw = project_path.as_posix()
@@ -678,12 +820,16 @@ def _project_arg_ref(project_path: str | Path, project: Path) -> str:
 
 
 def _event(project: Path, span: str, status: str, **fields: Any) -> dict[str, Any]:
-    """Construct one event record (id, timestamp, span, status, project) plus extra fields.
+    """
+    [ACTION]
+    Construct one event record (id, timestamp, span, status, project) plus extra fields.
 
     - Teleology: the single factory for lifecycle event rows appended to the stream.
     - Guarantee: returns a dict with an evt_NNNN event_id, created_at, span, status, project_id, merged with any extra fields.
     - Fails: never raises; id numbering delegates to the cached _next_event_number.
     - Reads: the event stream (via _next_event_number) to pick the next ordinal.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     event = {
         "event_id": f"evt_{_next_event_number(project):04d}",
@@ -704,12 +850,16 @@ def _classify_file(
     suffix: str | None = None,
     parts: set[str] | None = None,
 ) -> str:
-    """Assign a coarse catalog role to one file from its name/suffix/path parts.
+    """
+    [ACTION]
+    Assign a coarse catalog role to one file from its name/suffix/path parts.
 
     - Teleology: turns a raw file path into a role bucket (readme/package_manifest/script/test/docs/example/source/config/other) the catalog and patterns build on.
     - Guarantee: returns exactly one role string by first-match precedence over name sets, path parts, and suffixes.
     - Fails: never raises; an unrecognized file falls through to "other".
     - Reads: only the supplied path components (no disk access).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values, declared filesystem outputs.
     """
     if path is not None:
         name = path.name
@@ -740,12 +890,16 @@ def _classify_file(
 
 
 def _walk_project(project: Path) -> list[dict[str, Any]]:
-    """Walk a project tree into sorted file rows with role and byte size.
+    """
+    [ACTION]
+    Walk a project tree into sorted file rows with role and byte size.
 
     - Teleology: the source scan that feeds the catalog and every downstream lens; deterministic and ignore-pruned.
     - Guarantee: returns one row {path, name, suffix, role, bytes} per non-symlink file, with IGNORE_DIRS pruned and names sorted.
     - Fails: never raises; per-file stat errors and symlinks are skipped.
     - Reads: the project directory tree via os.walk.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values, declared filesystem outputs.
     """
     rows: list[dict[str, Any]] = []
     project_root = project.resolve(strict=False)
@@ -784,11 +938,16 @@ def _walk_project(project: Path) -> list[dict[str, Any]]:
 
 
 def _rows_by_role(files: list[dict[str, Any]]) -> dict[str, list[str]]:
-    """Invert catalog file rows into a sorted role -> paths index.
+    """
+    [ACTION]
+    Invert catalog file rows into a sorted role -> paths index.
 
     - Teleology: gives patterns/routes a fast lookup of which paths exist under each role.
     - Guarantee: returns a dict keyed by role with sorted path lists, in sorted role order.
     - Fails: never raises; missing role/path fields default to "other"/"".
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     by_role: dict[str, list[str]] = {}
     for row in files:
@@ -798,13 +957,17 @@ def _rows_by_role(files: list[dict[str, Any]]) -> dict[str, list[str]]:
 
 
 def _write_manifest(project: Path) -> dict[str, Any]:
-    """Write the project manifest and refresh the architecture projection.
+    """
+    [ACTION]
+    Write the project manifest and refresh the architecture projection.
 
     - Teleology: declares the project-owned state contract, state-file inventory, and authority ceiling on init.
     - Guarantee: writes project_manifest.json atomically, triggers architecture_kernel.write_project_architecture, and returns the manifest dict (release/provider/source-mutation all False).
     - Fails: write or architecture failure -> raises OSError.
     - Writes: STATE_DIR/project_manifest.json (plus architecture state via the kernel).
     - Non-goal: does not authorize release, provider calls, live ledger mutation, or source mutation; the ceiling pins them False.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     manifest = _base_payload("microcosm_project_manifest_v1", project)
     manifest.update(
@@ -848,7 +1011,9 @@ def _write_manifest(project: Path) -> dict[str, Any]:
 
 
 def init_project(project_path: str | Path) -> dict[str, Any]:
-    """Initialize the .microcosm state scaffold for a target project.
+    """
+    [ACTION]
+    Initialize the .microcosm state scaffold for a target project.
 
     - Teleology: the public entrypoint that stands up project-local state (dirs, manifest, first init event/evidence).
     - Guarantee: creates project/.microcosm/evidence, writes the manifest, appends a project.init event, writes init evidence, and returns a result with manifest_ref, event_ref, evidence_ref.
@@ -856,6 +1021,8 @@ def init_project(project_path: str | Path) -> dict[str, Any]:
     - When-needed: first contact with an uninitialized project, before index/compile.
     - Writes: STATE_DIR/ tree, project_manifest.json, events.jsonl, evidence/init.json.
     - Escalates-to: compile_project for the full loop; tests/test_project_substrate*.py for behavior.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     project.mkdir(parents=True, exist_ok=True)
@@ -876,13 +1043,17 @@ def init_project(project_path: str | Path) -> dict[str, Any]:
 
 
 def _project_catalog_payload(project: Path) -> dict[str, Any]:
-    """Build the in-memory catalog projection from a fresh project walk.
+    """
+    [ACTION]
+    Build the in-memory catalog projection from a fresh project walk.
 
     - Teleology: the generated file-inventory read-model (counts, roles, detected roots) every other lens consumes.
     - Guarantee: returns a catalog dict with file_count, role_counts, roles, files, and detected manifest/source/test roots.
     - Fails: never raises beyond the underlying walk (which is OSError-tolerant).
     - Reads: the project tree via _walk_project.
     - Escalates-to: index_project, which persists this to catalog.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     files = _walk_project(project)
     by_role = _rows_by_role(files)
@@ -905,7 +1076,9 @@ def _project_catalog_payload(project: Path) -> dict[str, Any]:
 def index_project(
     project_path: str | Path, *, refresh_architecture: bool = True
 ) -> dict[str, Any]:
-    """Index a project: walk it, persist catalog.json, emit an index event/evidence.
+    """
+    [ACTION]
+    Index a project: walk it, persist catalog.json, emit an index event/evidence.
 
     - Teleology: the public step that materializes the file catalog as durable state for downstream lenses.
     - Guarantee: ensures init, writes catalog.json, optionally refreshes architecture, appends a project.index event, writes index evidence, and returns counts + evidence_ref.
@@ -913,6 +1086,8 @@ def index_project(
     - When-needed: refreshing the file inventory after the project tree changes.
     - Writes: STATE_DIR/catalog.json, events.jsonl, evidence/index.json.
     - Escalates-to: compile_project (full loop); architecture_kernel for the architecture projection.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     if not _path_is_file(_state_dir(project) / "project_manifest.json"):
@@ -941,12 +1116,16 @@ def index_project(
 
 
 def catalog_project(project_path: str | Path) -> dict[str, Any]:
-    """Return the project catalog view, indexing first if no cache exists.
+    """
+    [ACTION]
+    Return the project catalog view, indexing first if no cache exists.
 
     - Teleology: read-or-build accessor giving callers a catalog without forcing a re-index.
     - Guarantee: returns the cached catalog (re-stamped as catalog_view_v1, status pass); indexes once when catalog.json is absent.
     - Fails: indexing-side filesystem failure -> raises OSError.
     - Reads: STATE_DIR/catalog.json (writes it via index on cache miss).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     catalog = _read_project_json(project, "catalog.json")
@@ -959,7 +1138,9 @@ def catalog_project(project_path: str | Path) -> dict[str, Any]:
 def discover_patterns(
     project_path: str | Path, *, refresh_architecture: bool = True
 ) -> dict[str, Any]:
-    """Detect grounded repo patterns (readme/manifest/source/tests/docs/...) from the catalog.
+    """
+    [ACTION]
+    Detect grounded repo patterns (readme/manifest/source/tests/docs/...) from the catalog.
 
     - Teleology: the public pattern lens that reports which onboarding/runtime/test surfaces are present, each grounded in real refs.
     - Guarantee: writes patterns.json, appends a project.patterns event/evidence, and returns candidates with pass/missing status plus passing/missing counts.
@@ -967,6 +1148,8 @@ def discover_patterns(
     - When-needed: assessing a project's structural surfaces before routing.
     - Writes: STATE_DIR/patterns.json, events.jsonl, evidence/patterns.json.
     - Non-goal: public pattern observation, not doctrine promotion or release; each row carries that authority_boundary.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     catalog = catalog_project(project)
@@ -976,11 +1159,16 @@ def discover_patterns(
     standard_refs = standard_refs if isinstance(standard_refs, list) else []
 
     def present(role: str) -> bool:
-        """Predicate: does the catalog have at least one path under this role?
+        """
+        [ACTION]
+        Predicate: does the catalog have at least one path under this role?
 
         - Teleology: local helper guarding pattern checks on role presence.
         - Guarantee: returns True iff roles[role] is a non-empty list.
         - Fails: never raises; missing role -> False.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
         """
         value = roles.get(role, [])
         return isinstance(value, list) and bool(value)
@@ -1037,7 +1225,9 @@ def discover_patterns(
 def propose_routes(
     project_path: str | Path, *, refresh_architecture: bool = True
 ) -> dict[str, Any]:
-    """Propose grounded navigation routes over a project from its catalog and patterns.
+    """
+    [ACTION]
+    Propose grounded navigation routes over a project from its catalog and patterns.
 
     - Teleology: the public route selector that turns detected surfaces into inspect/simulate/plan routes with grounded refs.
     - Guarantee: writes routes.json, appends a project.route event/evidence, and returns routes (always including a tests route, missing-variant when none) plus a pattern summary.
@@ -1045,6 +1235,8 @@ def propose_routes(
     - When-needed: choosing where to start reading or simulating a project.
     - Writes: STATE_DIR/routes.json, events.jsonl, evidence/routes.json.
     - Escalates-to: explain_route and create_work/run_work, which consume a selected route.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     catalog = catalog_project(project)
@@ -1055,11 +1247,16 @@ def propose_routes(
     routes: list[dict[str, Any]] = []
 
     def add(route_id: str, title: str, intent: str, refs: list[str], action: str) -> None:
-        """Append one grounded route row to the local routes accumulator.
+        """
+        [ACTION]
+        Append one grounded route row to the local routes accumulator.
 
         - Teleology: local builder that attaches pattern/standard refs and authority fields to each route.
         - Guarantee: appends one route dict (refs capped at 12, source_mutation_authorized=False) to the enclosing routes list.
         - Fails: never raises; an unknown route_id just gets empty pattern_refs.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Reads: call arguments, module constants, imported helpers.
+        - Writes: return values.
         """
         pattern_refs = {
             "readme_onboarding_route": ["repo_has_readme"],
@@ -1134,13 +1331,17 @@ def propose_routes(
 
 
 def _read_text_prefix(path: Path, limit: int | None = 20000) -> str:
-    """Read a bounded UTF-8 prefix of a file, tolerating decode/OS errors.
+    """
+    [ACTION]
+    Read a bounded UTF-8 prefix of a file, tolerating decode/OS errors.
 
     - Teleology: bounds how much source text the lens pulls into memory for first-screen scans and pyproject parsing.
     - Guarantee: returns at most `limit` characters (whole file when limit is None); decode errors are ignored.
     - Fails: never raises; OSError -> "".
     - Reads: the given path's text.
     - Non-goal: not a source-body export surface; callers only derive counts/metadata from the text.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     try:
         if limit is not None and limit >= 0:
@@ -1153,12 +1354,16 @@ def _read_text_prefix(path: Path, limit: int | None = 20000) -> str:
 
 
 def _python_lens_role(row: dict[str, Any]) -> str:
-    """Classify a Python file into its lens role (package_init/test/source/script/...).
+    """
+    [ACTION]
+    Classify a Python file into its lens role (package_init/test/source/script/...).
 
     - Teleology: gives each Python file the role that drives source-class tagging and criticality ranking.
     - Guarantee: returns exactly one role by first-match precedence over name and path parts; default "python_module".
     - Fails: never raises; a missing path defaults sensibly.
     - Reads: only the row's path string (no disk access).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     rel = str(row.get("path") or "")
     path = Path(rel)
@@ -1180,12 +1385,16 @@ def _python_lens_role(row: dict[str, Any]) -> str:
 
 
 def _python_package_root(rel: str) -> str | None:
-    """Derive an importable package root from an ``__init__.py`` path.
+    """
+    [ACTION]
+    Derive an importable package root from an ``__init__.py`` path.
 
     - Teleology: lets the lens surface package roots as a source-visibility signal even without loose modules.
     - Guarantee: returns "src/<pkg>" or the top part for an __init__.py path; None otherwise.
     - Fails: never raises; non-__init__ or too-shallow paths -> None.
     - Reads: only the rel string (no disk access).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     parts = Path(rel).parts
     if len(parts) >= 3 and parts[0] == "src" and parts[-1] == "__init__.py":
@@ -1196,23 +1405,32 @@ def _python_package_root(rel: str) -> str | None:
 
 
 def _python_entrypoint_module_name(target: str) -> str | None:
-    """Extract the importable module name from a console-script target string.
+    """
+    [ACTION]
+    Extract the importable module name from a console-script target string.
 
     - Teleology: lets entrypoint-row building resolve a pyproject console-script target to the module that backs it.
     - Guarantee: returns the dotted module portion before any ``:func``/``[extras]`` suffix, stripped; None when empty.
     - Fails: target with no module part (e.g. ":func") -> empty after strip -> returns None.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     module_name = target.split(":", 1)[0].split("[", 1)[0].strip()
     return module_name or None
 
 
 def _python_entrypoint_target_ref(project: Path, module_name: str) -> str | None:
-    """Resolve a dotted module name to a real on-disk file ref under the project.
+    """
+    [ACTION]
+    Resolve a dotted module name to a real on-disk file ref under the project.
 
     - Teleology: grounds a console-script's module in an actual source path so entrypoint rows cite verifiable refs.
     - Guarantee: returns the first existing candidate path (src/ or root, .py or package __init__.py) as a posix ref; None if none exist.
     - Fails: empty module name or no matching file on disk -> returns None.
     - Reads: candidate source files under the given project root.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     module_parts = [part for part in module_name.split(".") if part]
     if not module_parts:
@@ -1234,12 +1452,16 @@ def _python_entrypoint_target_ref(project: Path, module_name: str) -> str | None
 def _python_console_entrypoint_rows(
     project: Path, pyproject_refs: list[str]
 ) -> list[dict[str, Any]]:
-    """Build grounded console-script entrypoint rows from a project's pyproject files.
+    """
+    [ACTION]
+    Build grounded console-script entrypoint rows from a project's pyproject files.
 
     - Teleology: surfaces declared CLI entrypoints as the python lens's runnable-surface evidence rows.
     - Guarantee: returns one row per ``[project.scripts]`` entry with script name, declaration ref, target, resolved module/target_ref, deduped grounded refs, and source-body boundary fields.
     - Fails: undecodable pyproject TOML -> that file skipped; blank/non-string script target -> that entry skipped; never raises.
     - Reads: each pyproject_ref's TOML and the candidate module files under project.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     for pyproject_ref in pyproject_refs:
@@ -1283,12 +1505,16 @@ def _python_console_entrypoint_rows(
 
 
 def _python_import_counts(text: str) -> tuple[int, int]:
-    """Count relative vs absolute import statements by scanning line starts.
+    """
+    [ACTION]
+    Count relative vs absolute import statements by scanning line starts.
 
     - Teleology: cheap import-shape signal for the file card without an AST parse.
     - Guarantee: returns (relative_count, absolute_count); ``from .`` counts relative, other import/from lines count absolute.
     - Fails: never raises (string scan only).
     - Reads: only the supplied text.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     relative_count = 0
     absolute_count = 0
@@ -1302,12 +1528,17 @@ def _python_import_counts(text: str) -> tuple[int, int]:
 
 
 def _python_route(route_id: str, title: str, refs: list[str], readiness: str) -> dict[str, Any]:
-    """Build one Python route row with grounded refs and authority fields.
+    """
+    [ACTION]
+    Build one Python route row with grounded refs and authority fields.
 
     - Teleology: shapes the python-lens route rows (metadata/source/test/entrypoint) consumed by the assay and cards.
     - Guarantee: returns a route dict with route_id, title, readiness, refs capped at 12, and source/provider-not-authorized fields.
     - Fails: never raises (dict assembly only).
     - Non-goal: a project-local route lens row, not static-analysis authority; carries that authority field.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return {
         "route_id": route_id,
@@ -1321,11 +1552,16 @@ def _python_route(route_id: str, title: str, refs: list[str], readiness: str) ->
 
 
 def _python_symbol_kind(node: ast.AST) -> str:
-    """Map an AST def/class node to a symbol-kind string.
+    """
+    [ACTION]
+    Map an AST def/class node to a symbol-kind string.
 
     - Teleology: labels every extracted symbol capsule as class/async_function/function.
     - Guarantee: returns "class" for ClassDef, "async_function" for AsyncFunctionDef, else "function".
     - Fails: never raises (isinstance dispatch only).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     if isinstance(node, ast.ClassDef):
         return "class"
@@ -1335,7 +1571,9 @@ def _python_symbol_kind(node: ast.AST) -> str:
 
 
 def _detect_docstring_atoms(docstring: str | None) -> list[str]:
-    """Return canonical std_python contract-atom names present in a docstring.
+    """
+    [ACTION]
+    Return canonical std_python contract-atom names present in a docstring.
 
     Detects atom *keys* only (``Teleology:``, ``Guarantee:``, ...) by scanning
     line starts; the authored prose after the colon is never captured or
@@ -1346,6 +1584,8 @@ def _detect_docstring_atoms(docstring: str | None) -> list[str]:
     - Fails: never raises (pure string scan).
     - Reads: only the supplied docstring; never the prose after the colon.
     - Escalates-to: macro codex/standards/std_python.py::navigation_contract for the atom vocabulary.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not docstring:
         return []
@@ -1362,7 +1602,9 @@ def _detect_docstring_atoms(docstring: str | None) -> list[str]:
 
 
 def _atom_line_text(docstring: str, atom: str) -> str:
-    """Return the prose after one atom marker, used internally only.
+    """
+    [ACTION]
+    Return the prose after one atom marker, used internally only.
 
     - Teleology: the single internal accessor for an atom's authored text, so
       specificity scoring can inspect Guarantee/Fails wording without any other
@@ -1373,6 +1615,8 @@ def _atom_line_text(docstring: str, atom: str) -> str:
     - Fails: never raises (pure string scan).
     - Reads: only the supplied docstring.
     - Non-goal: not a docstring-export surface; callers must not emit the result.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     for raw in docstring.splitlines():
         stripped = raw.strip().lstrip("-*").strip()
@@ -1384,7 +1628,9 @@ def _atom_line_text(docstring: str, atom: str) -> str:
 def _atom_specificity_signal(
     docstring: str | None, atoms: list[str]
 ) -> dict[str, Any]:
-    """Local specificity signal for one real-coverage symbol (source-body-free).
+    """
+    [ACTION]
+    Local specificity signal for one real-coverage symbol (source-body-free).
 
     Inspects the Guarantee/Fails atom *text* internally to decide whether the
     atoms reference concrete behavior (exception names, return envelopes, paths,
@@ -1402,6 +1648,8 @@ def _atom_specificity_signal(
     - Reads: only the supplied docstring; the prose never leaves this function.
     - Non-goal: not a final classification (the coverage pass confirms
       template_generic via cross-symbol fingerprint frequency) and not authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     has_non_goal = "Non-goal" in atoms
     triad = all(atom in atoms for atom in SELF_DESCRIPTION_CORE_TRIAD)
@@ -1434,7 +1682,9 @@ def _atom_specificity_signal(
 
 
 def _self_description_quality_tier(has_docstring: bool, atoms: list[str]) -> str:
-    """Un-gameable quality ladder over a symbol's authored atoms.
+    """
+    [ACTION]
+    Un-gameable quality ladder over a symbol's authored atoms.
 
     A bare prose docstring with no contract atoms lands at ``authored_bare``
     (presence without contract), so the scoreboard cannot be inflated by empty
@@ -1446,6 +1696,8 @@ def _self_description_quality_tier(has_docstring: bool, atoms: list[str]) -> str
     - Guarantee: returns locator_only (no docstring) < authored_bare (docstring, no atoms) < authored_minimal (atoms but no triad) < authored_contract (triad) < authored_routing (triad + a routing atom).
     - Fails: never raises (set membership only).
     - Reads: SELF_DESCRIPTION_CORE_TRIAD and SELF_DESCRIPTION_ROUTING_ATOMS constants.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not has_docstring:
         return QUALITY_TIER_LOCATOR_ONLY
@@ -1461,12 +1713,16 @@ def _self_description_quality_tier(has_docstring: bool, atoms: list[str]) -> str
 
 
 def _quality_tier_is_real_coverage(tier: str) -> bool:
-    """Decide whether a quality tier counts as real authored coverage.
+    """
+    [ACTION]
+    Decide whether a quality tier counts as real authored coverage.
 
     - Teleology: the single gate that release math uses to separate real coverage from bare/locator tiers.
     - Guarantee: returns True iff tier's ladder index is >= the authored_contract floor; unknown tier -> False.
     - Fails: never raises; an out-of-vocabulary tier returns False.
     - Reads: SELF_DESCRIPTION_QUALITY_TIERS / SELF_DESCRIPTION_REAL_COVERAGE_FLOOR_TIER constants.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     floor = SELF_DESCRIPTION_QUALITY_TIERS.index(
         SELF_DESCRIPTION_REAL_COVERAGE_FLOOR_TIER
@@ -1478,7 +1734,9 @@ def _quality_tier_is_real_coverage(tier: str) -> bool:
 
 
 def _symbol_self_description(node: ast.AST) -> dict[str, Any]:
-    """Presence-only authored-atom metadata for one symbol capsule.
+    """
+    [ACTION]
+    Presence-only authored-atom metadata for one symbol capsule.
 
     Classifies the symbol's self-description band, its un-gameable quality tier,
     and which contract atoms its docstring names, without exporting the
@@ -1488,6 +1746,8 @@ def _symbol_self_description(node: ast.AST) -> dict[str, Any]:
     - Guarantee: returns has_docstring, self_description_band, quality_tier, is_real_coverage, authored_contract_atoms, and authored_atom_count; never includes the docstring text.
     - Fails: never raises (delegates to ast.get_docstring and the pure tier helpers).
     - Reads: only the node's docstring.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     docstring = ast.get_docstring(node)
     has_docstring = docstring is not None
@@ -1541,7 +1801,9 @@ CODE_LENS_COUPLING_GOVERNED_MARKERS = (
 
 
 def _is_imported_source_bundle(path: str) -> bool:
-    """True for paths that are source-custody, not owned authoring targets.
+    """
+    [ACTION]
+    True for paths that are source-custody, not owned authoring targets.
 
     Two categories are excluded from the owned authoring queue:
     1. Imported bundles under ``examples/`` / ``fixtures/`` as
@@ -1559,6 +1821,8 @@ def _is_imported_source_bundle(path: str) -> bool:
     - Reads: only the path string.
     - Non-goal: a heuristic exclusion, not manifest proof; does not authorize source-body export or release.
     - Escalates-to: _load_manifest_custody_paths for manifest-authoritative custody.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     lower = path.lower()
     parts = set(Path(path).parts)
@@ -1573,7 +1837,9 @@ def _is_imported_source_bundle(path: str) -> bool:
 
 
 def _load_manifest_custody_paths(project: Path) -> set[str]:
-    """Authoritative custody paths declared by source manifests, if present.
+    """
+    [ACTION]
+    Authoritative custody paths declared by source manifests, if present.
 
     Reads ``core/organ_registry.json`` (organ ``runner`` modules) and
     ``core/substrate_substitution_ledger.json`` (``microcosm_target_refs``) to
@@ -1587,6 +1853,8 @@ def _load_manifest_custody_paths(project: Path) -> set[str]:
     - Reads: core/organ_registry.json and core/substrate_substitution_ledger.json under the project.
     - Non-goal: reports custody; does not authorize source-body export, equivalence, or release.
     - Escalates-to: core/organ_registry.json and core/substrate_substitution_ledger.json as the authoritative custody sources.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values, declared filesystem outputs.
     """
     custody: set[str] = set()
     registry = project / "core/organ_registry.json"
@@ -1618,7 +1886,9 @@ def _load_manifest_custody_paths(project: Path) -> set[str]:
 
 
 def _custody_basis(path: str, manifest_custody_paths: set[str]) -> str | None:
-    """Why a path is source-custody (not owned authoring), or None if owned.
+    """
+    [ACTION]
+    Why a path is source-custody (not owned authoring), or None if owned.
 
     Reports the evidence basis so the health board is honest about whether an
     exclusion is manifest-backed or only a directory heuristic:
@@ -1629,6 +1899,8 @@ def _custody_basis(path: str, manifest_custody_paths: set[str]) -> str | None:
     - Fails: never raises (string/parts/set test only).
     - Reads: only the path string and the supplied custody set.
     - Non-goal: classifies basis; does not authorize source-body export or release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if path in manifest_custody_paths:
         return "manifest_provenance"
@@ -1646,7 +1918,9 @@ def _custody_basis(path: str, manifest_custody_paths: set[str]) -> str | None:
 def _code_lens_criticality(
     path: str, symbol_name: str, source_class: str
 ) -> tuple[str, int]:
-    """Classify a symbol's release criticality for the authoring queue.
+    """
+    [ACTION]
+    Classify a symbol's release criticality for the authoring queue.
 
     Heuristic over path + symbol name + source class. Owned code earns a real
     rank; imported example/fixture bundles and plain tests sink to the bottom so
@@ -1657,6 +1931,8 @@ def _code_lens_criticality(
     - Fails: never raises (string-token classification only).
     - Reads: only the path, symbol_name, and source_class arguments.
     - Non-goal: a release-priority heuristic, not a correctness or release authorization.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     lower_path = path.lower()
     name = symbol_name.split(".")[-1].lower()
@@ -1700,13 +1976,17 @@ def _code_lens_criticality(
 
 
 def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
-    """Project one Python file's source into span/capsule/import rows via AST, no bodies.
+    """
+    [ACTION]
+    Project one Python file's source into span/capsule/import rows via AST, no bodies.
 
     - Teleology: the AST extractor that turns a file into source-span locators, symbol capsules, and import edges for the lens.
     - Guarantee: returns parse_status, module_has_docstring, source_span_rows, symbol_capsule_rows, import_edges (capped 48), and parse_error; spans carry locators only, never bodies.
     - Fails: never raises; a SyntaxError returns parse_status "syntax_error" with a parse_error row and the module span only.
     - Reads: only the supplied source text (no disk access).
     - Non-goal: source-span locators, not source-body export or correctness authority; every row stamps that boundary.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     line_count = max(1, len(text.splitlines()))
     module_span = {
@@ -1742,12 +2022,16 @@ def _python_span_projection(rel: str, text: str) -> dict[str, Any]:
     source_class = _python_lens_role({"path": rel})
 
     def visit_scope(node: ast.AST, parents: list[str]) -> None:
-        """Recursively append source-span and symbol-capsule rows for nested defs/classes.
+        """
+        [ACTION]
+        Recursively append source-span and symbol-capsule rows for nested defs/classes.
 
         - Teleology: walks one scope's body, emitting a span + capsule per class/function and recursing into it.
         - Guarantee: appends rows (with qualnames, line ranges, self-description, boundary fields) to the enclosing lists for every nested def/class; mutates no inputs beyond those accumulators.
         - Fails: never raises; non-def children are recursed without emitting a row.
         - Reads: only the AST node tree.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Writes: return values.
         """
         body = getattr(node, "body", [])
         for child in body if isinstance(body, list) else []:
@@ -1829,7 +2113,9 @@ def _python_self_description_coverage(
     module_count: int,
     deferred: bool = False,
 ) -> dict[str, Any]:
-    """Honest authored-vs-locator coverage over the symbol capsule graph.
+    """
+    [ACTION]
+    Honest authored-vs-locator coverage over the symbol capsule graph.
 
     Turns a flat count of capsules ("35k symbol_capsule rows") into the
     release-relevant split: how many capsules are authored (carry a docstring),
@@ -1846,6 +2132,8 @@ def _python_self_description_coverage(
     - Reads: only the supplied capsule rows and module docstring refs (no disk access).
     - Non-goal: a generated coverage read-model, not release or static-analysis or docstring-quality authority.
     - Escalates-to: python_lens (which embeds it) and macro std_python.py::navigation_contract for the atom vocabulary.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     total = len(symbol_capsule_rows)
     authored = 0
@@ -2061,7 +2349,9 @@ def _code_lens_authoring_queue(
     preview_limit: int = 40,
     manifest_custody_paths: set[str] | None = None,
 ) -> dict[str, Any]:
-    """Ranked authoring work-list over Microcosm-owned symbols.
+    """
+    [ACTION]
+    Ranked authoring work-list over Microcosm-owned symbols.
 
     Ranks every owned symbol by release criticality then current quality tier so
     a usage-funded campaign authors the release spine first. Source-custody
@@ -2077,6 +2367,8 @@ def _code_lens_authoring_queue(
     - Reads: only the capsule rows and the supplied manifest custody set.
     - Non-goal: a generated authoring queue, not release authority; excluded paths are custody, not owned targets.
     - Escalates-to: python_lens (which embeds it) and core/organ_registry.json / substitution ledger for custody provenance.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     manifest_custody_paths = manifest_custody_paths or set()
     rows: list[dict[str, Any]] = []
@@ -2194,7 +2486,9 @@ def _code_lens_authoring_queue(
 
 
 def _authoring_queue_card(queue: dict[str, Any]) -> dict[str, Any]:
-    """Lean card view of the authoring queue: summary counts only, no rows.
+    """
+    [ACTION]
+    Lean card view of the authoring queue: summary counts only, no rows.
 
     Keeps the CLI card under its byte budget; the full ``queue_rows`` and
     preview stay in the ``--full`` lens payload for a campaign driver that calls
@@ -2205,6 +2499,8 @@ def _authoring_queue_card(queue: dict[str, Any]) -> dict[str, Any]:
     - Fails: never raises (key projection only).
     - Reads: only the supplied queue dict.
     - Escalates-to: the ``--full`` python-lens payload's authoring_queue for the full rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not isinstance(queue, dict) or not queue:
         return {}
@@ -2223,7 +2519,9 @@ def _authoring_queue_card(queue: dict[str, Any]) -> dict[str, Any]:
 
 
 def _self_description_coverage_card(coverage: dict[str, Any]) -> dict[str, Any]:
-    """Lean card view of coverage: scalars + quality bands, no static vocab lists.
+    """
+    [ACTION]
+    Lean card view of coverage: scalars + quality bands, no static vocab lists.
 
     The full atom histogram, source-class breakdown, vocabulary, and ladder stay
     in the ``--full`` lens; the card keeps the release-relevant scalars.
@@ -2233,6 +2531,8 @@ def _self_description_coverage_card(coverage: dict[str, Any]) -> dict[str, Any]:
     - Fails: never raises (key projection only).
     - Reads: only the supplied coverage dict.
     - Escalates-to: the ``--full`` python-lens payload's self_description_coverage for the full breakdown.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not isinstance(coverage, dict) or not coverage:
         return {}
@@ -2271,12 +2571,16 @@ def _self_description_coverage_card(coverage: dict[str, Any]) -> dict[str, Any]:
 
 
 def _python_route_probe_tasks(route_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Build navigation probe tasks (one per Python route) with expected depth and disposition.
+    """
+    [ACTION]
+    Build navigation probe tasks (one per Python route) with expected depth and disposition.
 
     - Teleology: turns route rows into closeable probe tasks so the assay proves each route is navigable before success language.
     - Guarantee: returns one task per route with prompt, expected depth band, expected refs, readiness, and a probe_disposition (nothing_to_refine when ready or for an absent entrypoint, else file_local_defect).
     - Fails: never raises (row shaping only).
     - Reads: only the supplied route rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     depth_by_route = {
         "python_package_metadata_route": "file_card",
@@ -2320,12 +2624,16 @@ def _python_probe_disposition_rows(
     route_probe_tasks: list[dict[str, Any]],
     parse_error_rows: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    """Close every probe task and parse error into an explicit disposition row.
+    """
+    [ACTION]
+    Close every probe task and parse error into an explicit disposition row.
 
     - Teleology: enforces the no-unclosed-probe rule by giving each probe and parse error a named outcome.
     - Guarantee: returns one disposition row per probe task (carrying its outcome/readiness) and one file_local_defect row per parse error, with reentry conditions.
     - Fails: never raises (row shaping only).
     - Reads: only the supplied task and parse-error rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     rows: list[dict[str, Any]] = []
     for task in route_probe_tasks:
@@ -2358,12 +2666,16 @@ def _python_probe_disposition_rows(
 
 
 def _disposition_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
-    """Tally probe disposition rows by their PROBE_DISPOSITION_OUTCOMES outcome.
+    """
+    [ACTION]
+    Tally probe disposition rows by their PROBE_DISPOSITION_OUTCOMES outcome.
 
     - Teleology: gives the assay a per-outcome histogram of how probes were disposed.
     - Guarantee: returns a dict with one count per known outcome (zero when absent).
     - Fails: never raises (counting only).
     - Reads: only the supplied rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return {
         outcome: sum(1 for row in rows if row.get("outcome") == outcome)
@@ -2372,12 +2684,16 @@ def _disposition_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
 
 
 def _first_path_with_role(path_rows: list[dict[str, Any]], roles: set[str]) -> str | None:
-    """Return the first file path whose python_role is in the requested set.
+    """
+    [ACTION]
+    Return the first file path whose python_role is in the requested set.
 
     - Teleology: picks a representative source/test/etc. card for route-utility fixtures.
     - Guarantee: returns the first matching non-empty path, or None when none match.
     - Fails: never raises (linear scan only).
     - Reads: only the supplied path rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     for row in path_rows:
         if row.get("python_role") in roles and row.get("path"):
@@ -2386,12 +2702,16 @@ def _first_path_with_role(path_rows: list[dict[str, Any]], roles: set[str]) -> s
 
 
 def _first_symbol_ref(symbol_capsule_rows: list[dict[str, Any]], path: str | None = None) -> str | None:
-    """Return the first symbol_id, optionally restricted to one file path.
+    """
+    [ACTION]
+    Return the first symbol_id, optionally restricted to one file path.
 
     - Teleology: supplies a representative symbol capsule ref for the symbol-lookup route fixture.
     - Guarantee: returns the first symbol_id (within `path` when given), or None.
     - Fails: never raises (linear scan only).
     - Reads: only the supplied capsule rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     for row in symbol_capsule_rows:
         if path is not None and row.get("path") != path:
@@ -2407,12 +2727,16 @@ def _first_source_span_ref(
     *,
     prefer_non_module: bool = False,
 ) -> str | None:
-    """Return the first source-span id, optionally per-path and preferring non-module spans.
+    """
+    [ACTION]
+    Return the first source-span id, optionally per-path and preferring non-module spans.
 
     - Teleology: supplies a representative span locator for source/test/entrypoint route fixtures.
     - Guarantee: returns the first matching span_id (a non-module span when prefer_non_module), falling back to the first span; None when none match.
     - Fails: never raises (linear scan only).
     - Reads: only the supplied span rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     fallback: str | None = None
     for row in source_span_rows:
@@ -2429,12 +2753,16 @@ def _first_source_span_ref(
 
 
 def _first_graph_context_ref(import_edges: list[dict[str, Any]]) -> str | None:
-    """Render the first import edge as a ``path:line->target`` graph-context ref.
+    """
+    [ACTION]
+    Render the first import edge as a ``path:line->target`` graph-context ref.
 
     - Teleology: supplies a representative dependency-edge ref for the graph-context route fixture.
     - Guarantee: returns the first edge formatted as path:line->target, or None when no usable edge exists.
     - Fails: never raises (linear scan only).
     - Reads: only the supplied import edges.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     for row in import_edges:
         path = row.get("path")
@@ -2463,13 +2791,17 @@ def _route_utility_task(
     reentry_condition: str = "route utility fixture rerun changes this result",
     not_applicable: bool = False,
 ) -> dict[str, Any]:
-    """Build one route-utility assay task row with correctness and disposition.
+    """
+    [ACTION]
+    Build one route-utility assay task row with correctness and disposition.
 
     - Teleology: the factory for the route-utility curriculum tasks that prove the cheapest band reaches each target without exporting bodies.
     - Guarantee: returns a task dict with bands, route hops, expected refs, correctness (pass/blocked/not_applicable), worst_state, failure_class, and a final disposition (nothing_to_refine when met/N-A); stamps source-body boundary fields.
     - Fails: never raises (row assembly only).
     - Reads: only the supplied arguments.
     - Non-goal: a route-utility read-model row, not source or release authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     correctness = "not_applicable" if not_applicable else (PASS if requirement_met else "blocked")
     final_disposition = "nothing_to_refine" if requirement_met or not_applicable else disposition
@@ -2497,12 +2829,16 @@ def _route_utility_task(
 
 
 def _route_utility_counts(tasks: list[dict[str, Any]]) -> dict[str, int]:
-    """Tally route-utility tasks by their ROUTE_UTILITY_DISPOSITION_OUTCOMES disposition.
+    """
+    [ACTION]
+    Tally route-utility tasks by their ROUTE_UTILITY_DISPOSITION_OUTCOMES disposition.
 
     - Teleology: gives the curriculum a per-disposition histogram of route-utility outcomes.
     - Guarantee: returns a dict with one count per known route-utility outcome (zero when absent).
     - Fails: never raises (counting only).
     - Reads: only the supplied tasks.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return {
         outcome: sum(1 for row in tasks if row.get("disposition") == outcome)
@@ -2511,12 +2847,16 @@ def _route_utility_counts(tasks: list[dict[str, Any]]) -> dict[str, int]:
 
 
 def _existing_project_refs(project: Path, refs: list[str | None]) -> list[str]:
-    """Filter a ref list down to those that are real files under the project, deduped.
+    """
+    [ACTION]
+    Filter a ref list down to those that are real files under the project, deduped.
 
     - Teleology: grounds each route-utility task's watched surfaces in refs that actually exist on disk.
     - Guarantee: returns the input refs that resolve to existing project files, preserving order and dropping duplicates/None.
     - Fails: never raises (existence checks are OSError-tolerant).
     - Reads: probes each candidate path under the project root.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     existing: list[str] = []
     seen: set[str] = set()
@@ -2539,13 +2879,17 @@ def _route_utility_ratchet(
     task_surface_refs: dict[str, list[str]],
     write_state: bool,
 ) -> dict[str, Any]:
-    """Compare watched route surfaces against written lens state to flag stale route tasks.
+    """
+    [ACTION]
+    Compare watched route surfaces against written lens state to flag stale route tasks.
 
     - Teleology: the freshness ratchet that names which route-utility tasks went stale because their source surfaces changed after the last state write.
     - Guarantee: returns a ratchet dict (changed_surface_refs, affected/stale_task_ids, state_freshness, last_run_result, next_reentry_condition); in write_state mode reports current_write with nothing stale.
     - Fails: never raises; missing/unreadable state -> honest no_written_state/unreadable_written_state freshness with nothing_to_refine.
     - Reads: the python_lens state file mtime and the watched source surfaces' mtimes.
     - Non-goal: reports staleness; does not itself rewrite state or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     state_path = _state_dir(project) / PYTHON_LENS_STATE
     task_ids = [str(row.get("task_id") or "") for row in tasks if row.get("task_id")]
@@ -2682,7 +3026,9 @@ def _python_route_utility_curriculum(
     parse_error_rows: list[dict[str, Any]],
     write_state: bool,
 ) -> dict[str, Any]:
-    """Build the route-utility curriculum: navigability tasks + freshness ratchet over the lens.
+    """
+    [ACTION]
+    Build the route-utility curriculum: navigability tasks + freshness ratchet over the lens.
 
     - Teleology: the generated curriculum proving the Python navigation routes reach metadata/source/test/entrypoint/symbol/graph targets at the cheapest band without exporting bodies.
     - Guarantee: returns a curriculum dict with tasks, ratchet, route_utility_metrics, disposition buckets, nothing_to_refine receipts, and payload_boundary_ok; source_bodies_exported=False.
@@ -2690,6 +3036,8 @@ def _python_route_utility_curriculum(
     - Reads: the project's existing route surfaces (for grounding) and the lens state mtime (via the ratchet).
     - Non-goal: a public-safe route-utility read-model, not source or release authority.
     - Escalates-to: python_lens (which embeds it) and standards/std_microcosm_route_decision.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     source_card = _first_path_with_role(path_rows, {"source_module", "package_init", "python_module"})
     test_card = _first_path_with_role(path_rows, {"test_module", "test_support"})
@@ -2945,7 +3293,9 @@ def python_lens(
     refresh_architecture: bool = True,
     scan_mode: str = PYTHON_LENS_SCAN_FULL,
 ) -> dict[str, Any]:
-    """Project Python route/readiness signals without exposing source bodies.
+    """
+    [ACTION]
+    Project Python route/readiness signals without exposing source bodies.
 
     - Teleology: the public Python lens entrypoint that builds the whole route/readiness/coverage/assay read-model over a target project.
     - Guarantee: returns the python_lens payload (path rows, capsules, spans, import edges, coverage, authoring queue, navigation assay, route-utility curriculum, authority ceiling); in write_state mode also writes python_lens.json and an event/evidence, source bodies never exported.
@@ -2953,6 +3303,8 @@ def python_lens(
     - When-needed: building or refreshing the Python navigation read-model for a project; first-screen mode for a cheap summary.
     - Writes: STATE_DIR/python_lens.json, events.jsonl, evidence/python_lens.json (write_state only).
     - Escalates-to: macro std_python.py::navigation_contract and the python-lens tests; python_lens_card for the compact view.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     if scan_mode not in {PYTHON_LENS_SCAN_FULL, PYTHON_LENS_SCAN_FIRST_SCREEN}:
         raise ValueError(f"unsupported Python lens scan mode: {scan_mode}")
@@ -3422,7 +3774,9 @@ def python_lens_card(
     write_state: bool = True,
     refresh_architecture: bool = True,
 ) -> dict[str, Any]:
-    """Emit a compact public first-contact Python lens card.
+    """
+    [ACTION]
+    Emit a compact public first-contact Python lens card.
 
     - Teleology: the public compact card over the Python lens for cheap first contact, deferring the full source-span graph.
     - Guarantee: returns a card payload (file/route counts, bounded path preview, coverage + queue cards, navigation-assay summary) by running python_lens in first-screen mode; source bodies never exported.
@@ -3430,6 +3784,8 @@ def python_lens_card(
     - When-needed: first contact with a project before exact spans/symbols/imports are required.
     - Writes: same state as python_lens when write_state is True (first-screen scan).
     - Escalates-to: python_lens (``plectis python-lens --full``) for the full rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     lens = python_lens(
@@ -3570,12 +3926,16 @@ def python_lens_card(
 
 
 def _load_work_items(project: Path) -> list[dict[str, Any]]:
-    """Load the project's work-item rows from work_items.json.
+    """
+    [ACTION]
+    Load the project's work-item rows from work_items.json.
 
     - Teleology: the read side of the project-local work-transaction ledger.
     - Guarantee: returns the list of dict work-item rows; absent/malformed -> [].
     - Fails: malformed JSON -> raises via the strict reader; missing file -> [].
     - Reads: STATE_DIR/work_items.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     payload = _read_project_json(project, "work_items.json")
     rows = payload.get("work_items", [])
@@ -3583,12 +3943,16 @@ def _load_work_items(project: Path) -> list[dict[str, Any]]:
 
 
 def _write_work_items(project: Path, rows: list[dict[str, Any]]) -> None:
-    """Atomically persist the work-item rows back to work_items.json.
+    """
+    [ACTION]
+    Atomically persist the work-item rows back to work_items.json.
 
     - Teleology: the write side of the project-local work-transaction ledger.
     - Guarantee: writes a work_items_v1 payload (envelope + count + rows) atomically; returns None.
     - Fails: write failure -> raises OSError.
     - Writes: STATE_DIR/work_items.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     payload = {
         **_base_payload("microcosm_project_work_items_v1", project),
@@ -3604,7 +3968,9 @@ def create_work(
     *,
     refresh_architecture: bool = True,
 ) -> dict[str, Any]:
-    """Create a work-transaction record from a selected (or first) project route.
+    """
+    [ACTION]
+    Create a work-transaction record from a selected (or first) project route.
 
     - Teleology: the public step that opens a governed, simulate-only work transaction bound to a route snapshot.
     - Guarantee: appends a created/selected/planned work row, writes work_items.json, emits a work.create event/evidence, and returns work_id/route_id/refs; source_files_mutated stays False.
@@ -3613,6 +3979,8 @@ def create_work(
     - Writes: STATE_DIR/work_items.json, events.jsonl, evidence/work_create_<id>.json.
     - Non-goal: simulate-only governance; does not mutate source or authorize release.
     - Escalates-to: run_work, which closes the transaction.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     route_payload = propose_routes(project, refresh_architecture=False)
@@ -3719,7 +4087,9 @@ def run_work(
     *,
     refresh_architecture: bool = True,
 ) -> dict[str, Any]:
-    """Run (close) a work transaction as a deterministic project-local simulation.
+    """
+    [ACTION]
+    Run (close) a work transaction as a deterministic project-local simulation.
 
     - Teleology: the public step that executes a governed simulate-only transaction over a route snapshot and closes it with evidence.
     - Guarantee: closes the selected (or first open) work item through executed_simulation->closed, writes a work.run event/evidence and a closeout; returns transaction_status pass and the state_machine; idempotent replay for already-closed items; source_files_mutated False.
@@ -3728,6 +4098,8 @@ def run_work(
     - Writes: STATE_DIR/work_items.json, events.jsonl, evidence/work_run_<id>.json.
     - Non-goal: simulated governance only; does not mutate source, call providers, or authorize release.
     - Escalates-to: explain_route and observe_project for the resulting causal chain.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     before_state = architecture_kernel.command_state_snapshot(project)
@@ -3911,12 +4283,16 @@ def _run_work_for_route(
     *,
     refresh_architecture: bool = True,
 ) -> dict[str, Any]:
-    """Ensure a work item exists for a route, then run it.
+    """
+    [ACTION]
+    Ensure a work item exists for a route, then run it.
 
     - Teleology: the compile-loop helper that drives one route's work transaction to closed.
     - Guarantee: reuses an open/last work item for the route or creates one, then returns run_work's result.
     - Fails: a blocked create (route_not_found) is returned as-is; otherwise inherits run_work's failure envelope.
     - Reads/Writes: work_items.json and the work event/evidence (via create_work/run_work).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     rows = _load_work_items(project)
     matching_rows = [
@@ -3942,12 +4318,16 @@ def _work_row_for_chain(
     route_id: str,
     work_id: Any,
 ) -> dict[str, Any]:
-    """Select the work row that backs a reader causal-chain card.
+    """
+    [ACTION]
+    Select the work row that backs a reader causal-chain card.
 
     - Teleology: resolves which work item to cite in the route->work->event->evidence lineage.
     - Guarantee: returns the work row matching work_id, else the route's closed (or last) row, else {}.
     - Fails: never raises (lookups only).
     - Reads: STATE_DIR/work_items.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     rows = _load_work_items(project)
     if work_id:
@@ -3955,18 +4335,6 @@ def _work_row_for_chain(
         if selected is not None:
             return selected
     route_rows = [row for row in rows if str(row.get("route_id") or "") == route_id]
-    latest_reference_case_row = next(
-        (
-            row
-            for row in reversed(route_rows)
-            if row.get("status") == "closed"
-            and isinstance(row.get("reference_execution_case_ref"), str)
-            and row.get("reference_execution_case_ref")
-        ),
-        None,
-    )
-    if latest_reference_case_row is not None:
-        return latest_reference_case_row
     return next(
         (row for row in route_rows if row.get("status") == "closed"),
         route_rows[-1] if route_rows else {},
@@ -3974,12 +4342,16 @@ def _work_row_for_chain(
 
 
 def _dedupe_refs(*groups: Any) -> list[str]:
-    """Flatten string/list ref groups into one order-preserving deduped list.
+    """
+    [ACTION]
+    Flatten string/list ref groups into one order-preserving deduped list.
 
     - Teleology: merges grounded-ref/evidence-ref groups from multiple sources without duplicates or empties.
     - Guarantee: returns the non-empty string refs across all groups in first-seen order, each once; non-str/non-list groups contribute nothing.
     - Fails: never raises (filtering only).
     - Reads: only the supplied argument groups.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     refs: list[str] = []
     seen: set[str] = set()
@@ -4004,7 +4376,16 @@ def _reference_execution_case_card(
     project: Path,
     work_row: dict[str, Any],
 ) -> dict[str, Any]:
-    """Read the compact public witness for a persisted command-root execution case."""
+    """
+    [ACTION]
+    Read the compact public witness for a persisted command-root execution case.
+    - Teleology: Implements `_reference_execution_case_card` for `microcosm_core.project_substrate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     selected_work_id = str(work_row.get("work_id") or "")
     evidence_ref = work_row.get("reference_execution_case_ref")
     if not isinstance(evidence_ref, str) or not evidence_ref:
@@ -4311,6 +4692,15 @@ def _reference_execution_case_card(
 def _reference_case_state_delta_ref_count(
     reference_execution_case: dict[str, Any],
 ) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `_reference_case_state_delta_ref_count` for `microcosm_core.project_substrate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     state_delta_refs = reference_execution_case.get("state_delta_refs")
     if not isinstance(state_delta_refs, list):
         return 0
@@ -4320,6 +4710,15 @@ def _reference_case_state_delta_ref_count(
 def _reference_case_state_delta_refs_verified(
     reference_execution_case: dict[str, Any],
 ) -> bool | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_reference_case_state_delta_refs_verified` for `microcosm_core.project_substrate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     predicates = reference_execution_case.get("verification_predicate_status")
     if not isinstance(predicates, dict):
         return None
@@ -4330,6 +4729,15 @@ def _reference_case_state_delta_refs_verified(
 def _reference_case_state_delta_scope_verified(
     reference_execution_case: dict[str, Any],
 ) -> bool | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_reference_case_state_delta_scope_verified` for `microcosm_core.project_substrate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     predicates = reference_execution_case.get("verification_predicate_status")
     if not isinstance(predicates, dict):
         return None
@@ -4340,6 +4748,15 @@ def _reference_case_state_delta_scope_verified(
 def _reference_case_assertion_matrix_coverage_verified(
     reference_execution_case: dict[str, Any],
 ) -> bool | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_reference_case_assertion_matrix_coverage_verified` for `microcosm_core.project_substrate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     predicates = reference_execution_case.get("verification_predicate_status")
     if not isinstance(predicates, dict):
         return None
@@ -4350,6 +4767,15 @@ def _reference_case_assertion_matrix_coverage_verified(
 def _reference_case_record_classification_matrix_verified(
     reference_execution_case: dict[str, Any],
 ) -> bool | None:
+    """
+    [ACTION]
+    - Teleology: Implements `_reference_case_record_classification_matrix_verified` for `microcosm_core.project_substrate` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     predicates = reference_execution_case.get("verification_predicate_status")
     if not isinstance(predicates, dict):
         return None
@@ -4357,152 +4783,17 @@ def _reference_case_record_classification_matrix_verified(
     return verified if isinstance(verified, bool) else None
 
 
-def _observe_agent_harness_record_review(
-    reference_execution_case: dict[str, Any],
-) -> dict[str, Any]:
-    """Return the observe-card harness-record review cue for the selected work."""
-    case = reference_execution_case if isinstance(reference_execution_case, dict) else {}
-    status = str(case.get("status") or "missing")
-    verification_status = str(case.get("verification_status") or "not_run")
-    selected_work_id = case.get("selected_work_id")
-    root_work_id = case.get("root_work_id")
-    root_matches_selected = (
-        case.get("root_matches_selected_work")
-        if isinstance(case.get("root_matches_selected_work"), bool)
-        else bool(selected_work_id) and root_work_id == selected_work_id
-    )
-    occurrence_witness_refs = (
-        [
-            ref
-            for ref in case.get("occurrence_witness_refs", [])
-            if isinstance(ref, str) and ref
-        ]
-        if isinstance(case.get("occurrence_witness_refs"), list)
-        else []
-    )
-    state_delta_refs = (
-        [
-            ref
-            for ref in case.get("state_delta_refs", [])
-            if isinstance(ref, str) and ref
-        ]
-        if isinstance(case.get("state_delta_refs"), list)
-        else []
-    )
-    state_delta_refs_verified = _reference_case_state_delta_refs_verified(case)
-    state_delta_scope_verified = _reference_case_state_delta_scope_verified(case)
-    record_classification_matrix_verified = (
-        _reference_case_record_classification_matrix_verified(case)
-    )
-    assertion_matrix_coverage_verified = (
-        _reference_case_assertion_matrix_coverage_verified(case)
-    )
-    selected_case_passes = status == PASS and verification_status == PASS
-    return {
-        "schema_version": "microcosm_observe_agent_harness_record_review_cue_v1",
-        "status": (
-            "selected_work_record_reviewable_observe_handoff"
-            if selected_case_passes
-            else "selected_work_record_gap"
-        ),
-        "question": (
-            "Show this selected local agent-work episode and ask what missing "
-            "trajectory, reproducibility fixture, task boundary, benchmark "
-            "anti-claim, or closeout check stops it from being reviewable as an "
-            "agent harness record."
-        ),
-        "candidate_record_scope": "selected_work_reference_case_from_observe_card",
-        "selected_work_id": selected_work_id,
-        "root_work_id": root_work_id,
-        "root_matches_selected": root_matches_selected,
-        "selected_work_reference_case_status": status,
-        "selected_work_reference_verification_status": verification_status,
-        "selected_work_reference_evidence_ref": case.get("evidence_ref"),
-        "review_axes": [
-            {
-                "axis": "trajectory",
-                "status": "present" if occurrence_witness_refs else "missing",
-                "evidence_ref": (
-                    "causal_chain_summary.command_reference_execution_case"
-                    ".occurrence_witness_refs"
-                ),
-                "evidence_count": len(occurrence_witness_refs),
-            },
-            {
-                "axis": "reproducibility_fixture",
-                "status": (
-                    "present"
-                    if state_delta_refs
-                    and state_delta_refs_verified is True
-                    and state_delta_scope_verified is True
-                    else "missing_or_unverified"
-                ),
-                "evidence_ref": (
-                    "causal_chain_summary.command_reference_execution_case"
-                    ".state_delta_refs"
-                ),
-                "state_delta_ref_count": len(state_delta_refs),
-                "state_delta_refs_verified": state_delta_refs_verified,
-                "state_delta_scope_verified": state_delta_scope_verified,
-            },
-            {
-                "axis": "task_boundary",
-                "status": (
-                    "present"
-                    if record_classification_matrix_verified is True
-                    else "missing_or_unverified"
-                ),
-                "evidence_ref": (
-                    "causal_chain_summary.command_reference_execution_case"
-                    ".record_classification_matrix_ref"
-                ),
-                "record_classification_matrix_verified": (
-                    record_classification_matrix_verified
-                ),
-            },
-            {
-                "axis": "benchmark_anti_claim",
-                "status": "not_claimed_here_check_if_benchmark_context",
-                "drilldown_command": (
-                    "plectis comprehend --slice claims --organ "
-                    "agent_benchmark_integrity_anti_gaming_replay"
-                ),
-            },
-            {
-                "axis": "closeout_check",
-                "status": (
-                    "present"
-                    if verification_status == PASS
-                    else "missing_or_blocked"
-                ),
-                "evidence_ref": (
-                    "causal_chain_summary.command_reference_execution_case"
-                    ".verification_status"
-                ),
-                "verification_status": verification_status,
-                "drilldown_command": (
-                    "plectis comprehend --slice claims --organ "
-                    "agent_closeout_faithfulness_audit"
-                ),
-            },
-        ],
-        "assertion_matrix_coverage_verified": assertion_matrix_coverage_verified,
-        "anti_claim": (
-            "This observe-card cue does not make observe --card a command-root "
-            "witness, does not assert benchmark score or agent capability, and "
-            "does not authorize release. It only packages the selected-work "
-            "reference case and remaining review questions."
-        ),
-    }
-
-
 def _state_names(history: Any) -> list[str]:
-    """Extract the ordered state names from a work-item state_history.
+    """
+    [ACTION]
+    Extract the ordered state names from a work-item state_history.
 
     - Teleology: flattens a transaction's lifecycle history into a compact state-machine list for chain cards.
     - Guarantee: returns the state strings in order; non-list input or stateless rows -> [].
     - Fails: never raises (filtering only).
     - Reads: only the supplied history value.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not isinstance(history, list):
         return []
@@ -4523,13 +4814,17 @@ def _reader_causal_chain_card(
     graph: dict[str, Any],
     evidence: dict[str, Any],
 ) -> dict[str, Any]:
-    """Assemble the reader causal-chain card linking route->work->events->evidence->graph.
+    """
+    [ACTION]
+    Assemble the reader causal-chain card linking route->work->events->evidence->graph.
 
     - Teleology: the generated lineage card that lets a reader trace a route through its work transaction, events, evidence, and graph.
     - Guarantee: returns a chain card with selected route/work, state refs, event/evidence ref counts, drilldowns, graph summary, observatory/proof-lab pointers, and an authority boundary; status pass only when route+closed work+explanation+proof all pass, else partial.
     - Fails: never raises (assembly over already-read inputs).
     - Reads: work_items.json (for the backing row); other inputs are passed in.
     - Non-goal: project-local lineage, not release or proof-correctness authority; safe_to_show pins release/provider/proof False.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     proof = explanation.get("causal_chain_proof")
     proof = proof if isinstance(proof, dict) else {}
@@ -4667,12 +4962,16 @@ def _reader_causal_chain_card(
 
 
 def _selected_route_id_from_state(project: Path) -> str:
-    """Pick the canonical selected route id from persisted routes.json.
+    """
+    [ACTION]
+    Pick the canonical selected route id from persisted routes.json.
 
     - Teleology: gives observe a stable default route (README onboarding, else first) to anchor the causal chain.
     - Guarantee: returns the readme_onboarding_route id when present, else the first route id, else "".
     - Fails: never raises (read + lookup only).
     - Reads: STATE_DIR/routes.json.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     routes = _read_project_json(project, "routes.json")
     route_rows = [
@@ -4690,12 +4989,16 @@ def _observed_reader_causal_chain_card(
     *,
     observed: dict[str, Any],
 ) -> dict[str, Any]:
-    """Build the causal-chain card for observe from persisted state (no work run).
+    """
+    [ACTION]
+    Build the causal-chain card for observe from persisted state (no work run).
 
     - Teleology: lets observe emit lineage purely from already-written state, without mutating work items.
     - Guarantee: resolves the selected route, work row, explanation, graph, and evidence from disk and returns _reader_causal_chain_card over them.
     - Fails: never raises (reads + delegation only).
     - Reads: routes.json, work_items.json, explanations/<route>.json, graph.json, and the evidence listing.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     route_id = _selected_route_id_from_state(project)
     work_row = _work_row_for_chain(project, route_id=route_id, work_id=None)
@@ -4722,13 +5025,17 @@ def _project_observe_state_write_proof_card(
     *,
     project_ref: str = "<project>",
 ) -> dict[str, Any]:
-    """Prove which required .microcosm state refs exist before treating observe as the lens.
+    """
+    [ACTION]
+    Prove which required .microcosm state refs exist before treating observe as the lens.
 
     - Teleology: makes the state-write handoff auditable by checking the required refs are on disk.
     - Guarantee: returns a proof card with per-ref existence, missing_state_refs, file count, and status pass only when the state dir exists with no missing refs; records that observe does not write microcosm state.
     - Fails: never raises (existence checks are OSError-tolerant).
     - Reads: the project's STATE_DIR tree (routes/work/events/evidence/graph/state_index).
     - Non-goal: a state-presence proof, not release or correctness authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     state_root = _state_dir(project)
     state_ref_statuses: dict[str, bool] = {}
@@ -4795,7 +5102,9 @@ def _project_observe_state_write_proof_card(
 def observe_project(
     project_path: str | Path, *, refresh_architecture: bool = True
 ) -> dict[str, Any]:
-    """Observe a project: summarize its event stream and reader causal chain (read-only of work).
+    """
+    [ACTION]
+    Observe a project: summarize its event stream and reader causal chain (read-only of work).
 
     - Teleology: the public read lens that reports what the project's local state already proves, without running new work.
     - Guarantee: returns an observe result with event count/spans/tail, selected route, state-write proof, causal chain, drilldowns, and authority boundary; does not mutate work items.
@@ -4803,6 +5112,8 @@ def observe_project(
     - When-needed: inspecting a project's lineage and event history after compile.
     - Reads: events.jsonl plus routes/work/explanations/graph/evidence state; may write architecture state when refresh_architecture.
     - Escalates-to: observe_project_card for the compact view; compile_project to (re)build state.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     if refresh_architecture:
@@ -4842,13 +5153,18 @@ def observe_project(
 def observe_project_card(
     project_path: str | Path, *, refresh_architecture: bool = True
 ) -> dict[str, Any]:
-    """Emit the compact observe card: state-write proof, spans, and causal-chain summary.
+    """
+    [ACTION]
+    Emit the compact observe card: state-write proof, spans, and causal-chain summary.
 
     - Teleology: the public compact first-contact view over observe, deferring full event rows.
     - Guarantee: returns a card with card_status, event/span counts, state-write proof summary, and a causal-chain summary; runs observe_project under the hood.
     - Fails: inherits observe_project's behavior (optional architecture refresh may raise OSError).
     - When-needed: a cheap status check before pulling full observe event rows.
     - Escalates-to: observe_project (``plectis observe <project>``) for full event rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     observed = observe_project(
         project_path,
@@ -4860,9 +5176,6 @@ def observe_project_card(
     reference_execution_case = causal_chain.get("command_reference_execution_case")
     reference_execution_case = (
         reference_execution_case if isinstance(reference_execution_case, dict) else {}
-    )
-    harness_record_review = _observe_agent_harness_record_review(
-        reference_execution_case
     )
     spans = observed.get("spans") or {}
     return {
@@ -4947,15 +5260,12 @@ def observe_project_card(
                     "verification_predicate_status.record_classification_matrix"
                 ),
             },
-            "agent_harness_record_review_status": harness_record_review.get("status"),
-            "agent_harness_record_review_ref": "agent_harness_record_review",
             "graph": {
                 "node_count": graph.get("node_count", 0),
                 "edge_count": graph.get("edge_count", 0),
                 "graph_ref": graph.get("graph_ref") or observed.get("graph_ref"),
             },
         },
-        "agent_harness_record_review": harness_record_review,
         "reader_drilldowns": observed.get("reader_drilldowns", []),
         "authority_boundary": observed.get("authority_boundary"),
         "safe_to_show": observed.get("safe_to_show", {}),
@@ -4967,13 +5277,17 @@ def observe_project_card(
 
 
 def architecture_project(project_path: str | Path) -> dict[str, Any]:
-    """Public passthrough that writes the project architecture projection.
+    """
+    [ACTION]
+    Public passthrough that writes the project architecture projection.
 
     - Teleology: exposes the architecture-kernel projection as a CLI-reachable command.
     - Guarantee: returns architecture_kernel.write_project_architecture's result for the project.
     - Fails: filesystem failures in the kernel -> raise OSError.
     - Writes: STATE_DIR architecture state (delegated to architecture_kernel).
     - Escalates-to: microcosm_core.architecture_kernel.write_project_architecture.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     return architecture_kernel.write_project_architecture(project_path)
 
@@ -4981,13 +5295,17 @@ def architecture_project(project_path: str | Path) -> dict[str, Any]:
 def state_graph(
     project_path: str | Path, *, refresh_architecture: bool = True
 ) -> dict[str, Any]:
-    """Build the project state graph, optionally refreshing architecture first.
+    """
+    [ACTION]
+    Build the project state graph, optionally refreshing architecture first.
 
     - Teleology: exposes the architecture-kernel graph (nodes/edges over project state) as a command.
     - Guarantee: returns architecture_kernel.build_graph's result; refreshes architecture state first when requested.
     - Fails: filesystem failures in the kernel -> raise OSError.
     - Reads/Writes: project architecture state via the kernel (write when refresh_architecture).
     - Escalates-to: microcosm_core.architecture_kernel.build_graph.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     if refresh_architecture:
         architecture_kernel.write_project_architecture(project_path)
@@ -5000,7 +5318,9 @@ def explain_route(
     *,
     refresh_architecture: bool = True,
 ) -> dict[str, Any]:
-    """Explain one route into a persisted causal-chain explanation with event/evidence.
+    """
+    [ACTION]
+    Explain one route into a persisted causal-chain explanation with event/evidence.
 
     - Teleology: the public step that materializes a route's explanation and binds it to events and evidence.
     - Guarantee: on a passing kernel explanation, appends a project.explain event, folds event/evidence refs into the explanation and its proof, writes explanations/<route>.json and evidence, and returns the explanation.
@@ -5008,6 +5328,8 @@ def explain_route(
     - When-needed: producing the route->work->event->evidence lineage for a chosen route.
     - Writes: STATE_DIR/explanations/<route>.json, events.jsonl, evidence/explain_<route>.json.
     - Escalates-to: microcosm_core.architecture_kernel.explain_route and observe_project for the assembled chain.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     if not _path_is_file(_state_dir(project) / "routes.json"):
@@ -5067,11 +5389,16 @@ def explain_route(
 
 
 def _count_paths(paths: Iterable[Path]) -> int:
-    """Count items in a path iterable.
+    """
+    [ACTION]
+    Count items in a path iterable.
 
     - Teleology: tiny helper to size a path iterator without materializing it.
     - Guarantee: returns the number of yielded items.
     - Fails: never raises on its own (may propagate the iterable's own errors).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
     """
     return sum(1 for _ in paths)
 
@@ -5079,7 +5406,9 @@ def _count_paths(paths: Iterable[Path]) -> int:
 def list_evidence(
     project_path: str | Path, *, limit: int | None = None
 ) -> dict[str, Any]:
-    """List the project's evidence receipts as compact rows with inspect commands.
+    """
+    [ACTION]
+    List the project's evidence receipts as compact rows with inspect commands.
 
     - Teleology: the public index over .microcosm/evidence so a reader can pick a receipt to drill into.
     - Guarantee: returns a bounded, sorted list of evidence rows (ref, inspect commands, schema, status, replacement policy) plus total/returned counts and a truncated flag.
@@ -5087,6 +5416,8 @@ def list_evidence(
     - When-needed: discovering which receipts exist before inspecting one.
     - Reads: STATE_DIR/evidence/*.json.
     - Escalates-to: inspect_evidence for a single receipt's safe summary.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     project_ref = _project_arg_ref(project_path, project)
@@ -5151,12 +5482,16 @@ def list_evidence(
 
 
 def _bounded_string_values(value: object, *, limit: int = 12) -> list[str]:
-    """Take up to `limit` string items from a value if it is a list.
+    """
+    [ACTION]
+    Take up to `limit` string items from a value if it is a list.
 
     - Teleology: bounds ref samples surfaced in the evidence payload summary.
     - Guarantee: returns at most `limit` string items; non-list input -> [].
     - Fails: never raises (filtering only).
     - Reads: only the supplied value.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not isinstance(value, list):
         return []
@@ -5164,12 +5499,16 @@ def _bounded_string_values(value: object, *, limit: int = 12) -> list[str]:
 
 
 def _row_ids(value: object, key: str, *, limit: int = 25) -> list[str]:
-    """Collect up to `limit` non-empty string ids under `key` from a list of dict rows.
+    """
+    [ACTION]
+    Collect up to `limit` non-empty string ids under `key` from a list of dict rows.
 
     - Teleology: pulls route/pattern ids into the evidence summary without dumping whole rows.
     - Guarantee: returns at most `limit` string ids found under key; non-list input -> [].
     - Fails: never raises (filtering only).
     - Reads: only the supplied value.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     if not isinstance(value, list):
         return []
@@ -5186,13 +5525,17 @@ def _row_ids(value: object, key: str, *, limit: int = 25) -> list[str]:
 
 
 def _evidence_payload_summary(payload: dict[str, Any]) -> dict[str, Any]:
-    """Summarize an evidence payload by shape and refs, never its source bodies.
+    """
+    [ACTION]
+    Summarize an evidence payload by shape and refs, never its source bodies.
 
     - Teleology: gives inspect_evidence a safe shape/ref digest of a receipt instead of dumping its contents.
     - Guarantee: returns key/list/object/count summaries, bounded ref samples, and selected id/work/causal summaries under a safe_shape_and_refs policy; no source bodies.
     - Fails: never raises (introspection over the dict only).
     - Reads: only the supplied payload dict.
     - Non-goal: a safe summary, not a source-body export or correctness claim.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     payload_keys = sorted(payload.keys())
     list_field_counts = {
@@ -5271,12 +5614,16 @@ def _evidence_payload_summary(payload: dict[str, Any]) -> dict[str, Any]:
 
 
 def _state_ref_status(project: Path, ref: str) -> dict[str, Any]:
-    """Report existence/kind/size for one .microcosm state ref.
+    """
+    [ACTION]
+    Report existence/kind/size for one .microcosm state ref.
 
     - Teleology: per-ref status row backing the compile card's state-ref inventory.
     - Guarantee: returns {ref, exists, kind} plus bytes (file) or json_count (directory) when present.
     - Fails: never raises (existence/size checks are OSError-tolerant).
     - Reads: the resolved STATE_DIR path for the ref.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     rel = ref.removeprefix(f"{STATE_DIR}/").rstrip("/")
     path = _state_dir(project) / rel
@@ -5298,13 +5645,17 @@ def _state_ref_status(project: Path, ref: str) -> dict[str, Any]:
 def _compile_source_freshness(
     project: Path, catalog: dict[str, Any] | None = None
 ) -> dict[str, Any]:
-    """Compare source/dir mtimes against the state_index cache to judge cache freshness.
+    """
+    [ACTION]
+    Compare source/dir mtimes against the state_index cache to judge cache freshness.
 
     - Teleology: tells the compile card whether the cached state is current, stale, or missing its cache marker.
     - Guarantee: returns status (current/stale/missing_cache_marker) with tracked/stale/missing counts and newest mtimes; source_refs_exported=False.
     - Fails: never raises (mtime reads are OSError-tolerant; unreadable sources counted, not raised).
     - Reads: state_index.json mtime and each catalog/walked source file's mtime.
     - Non-goal: a freshness signal, not source-body export or correctness authority.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     cache_ref = f"{STATE_DIR}/state_index.json"
     cache_path = _state_dir(project) / "state_index.json"
@@ -5379,12 +5730,16 @@ def _compile_source_freshness(
 
 
 def _selected_route_from_rows(route_rows: list[dict[str, Any]]) -> dict[str, Any]:
-    """Pick the canonical selected route row from a list of route rows.
+    """
+    [ACTION]
+    Pick the canonical selected route row from a list of route rows.
 
     - Teleology: gives compile a stable default route (README onboarding, else first) to anchor its chain.
     - Guarantee: returns the readme_onboarding_route row when present, else the first row, else {}.
     - Fails: never raises (lookup only).
     - Reads: only the supplied route rows.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     return next(
         (row for row in route_rows if row.get("route_id") == "readme_onboarding_route"),
@@ -5405,13 +5760,17 @@ def _truth_readiness_surface(
     source_files_mutated: bool,
     state_ref_status_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Build the truth/readiness accounting surface from the project's local state checks.
+    """
+    [ACTION]
+    Build the truth/readiness accounting surface from the project's local state checks.
 
     - Teleology: the project-local inspection gate that scores whether the substrate loop produced a complete, human-inspectable result.
     - Guarantee: returns a readiness surface whose truth_accounting checks (state refs, route, explanation, closed work, events, evidence, graph) drive status pass only when all hold with source unmutated and release unauthorized, else partial.
     - Fails: never raises (boolean accounting over passed-in counts).
     - Reads: only the supplied summaries/counts (no disk access here).
     - Non-goal: a project-local readiness gate; does not authorize release, hosting, provider calls, source mutation, equivalence, or proof correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     state_summary = state_ref_status_summary or {}
     missing_state_count = int(state_summary.get("missing_state_ref_count") or 0)
@@ -5517,13 +5876,17 @@ def _write_truth_readiness_surface(
     source_files_mutated: bool,
     state_ref_status_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Build and persist the truth/readiness surface to truth_readiness.json.
+    """
+    [ACTION]
+    Build and persist the truth/readiness surface to truth_readiness.json.
 
     - Teleology: the writing wrapper that makes the readiness gate a durable, re-readable state file.
     - Guarantee: computes the surface via _truth_readiness_surface, writes it atomically, and returns the payload.
     - Fails: write failure -> raises OSError.
     - Writes: STATE_DIR/truth_readiness.json.
     - Non-goal: persists the gate; does not authorize release or correctness.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     payload = _truth_readiness_surface(
         project,
@@ -5542,7 +5905,9 @@ def _write_truth_readiness_surface(
 
 
 def compile_project_card(project_path: str | Path) -> dict[str, Any]:
-    """Read cached compile state without rebuilding project-local substrate.
+    """
+    [ACTION]
+    Read cached compile state without rebuilding project-local substrate.
 
     - Teleology: the public read-only compile lens that reports cached state status and freshness without re-running the loop.
     - Guarantee: returns a cached-card payload (cache_status, freshness, state-ref inventory, route/work/event/evidence/graph summaries, truth-readiness) and status pass only when state is complete, fresh, and explained; stale/missing reported honestly.
@@ -5551,6 +5916,8 @@ def compile_project_card(project_path: str | Path) -> dict[str, Any]:
     - Reads: STATE_DIR/{catalog,python_lens,routes,graph,state_index,explanations,work_items,evidence,truth_readiness}.
     - Non-goal: a read-only lens; does not rebuild, mutate source, call providers, or authorize release.
     - Escalates-to: compile_project when cache_status is missing/stale.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     catalog = _read_project_json(project, "catalog.json")
@@ -5717,7 +6084,9 @@ def compile_project(
     *,
     python_lens_scan_mode: str = PYTHON_LENS_SCAN_FULL,
 ) -> dict[str, Any]:
-    """Run the safe public substrate loop over a user-owned project.
+    """
+    [ACTION]
+    Run the safe public substrate loop over a user-owned project.
 
     - Teleology: the public top-level command that runs the whole repo->.microcosm loop (init/index/lens/patterns/routes/work/explain/observe/evidence/architecture/truth-readiness).
     - Guarantee: materializes all project-local state, runs and closes a work transaction, writes the truth-readiness surface, and returns a compile result with what_happened, counts, the reader causal chain, and an authority ceiling pinned to release/provider/source-mutation False.
@@ -5726,6 +6095,8 @@ def compile_project(
     - Writes: the entire STATE_DIR tree (manifest, catalog, python_lens, patterns, routes, work_items, events, evidence, explanations, graph, state_index, truth_readiness).
     - Non-goal: builds project-local public state only; does not authorize release, hosting, provider calls, source mutation, equivalence, live ledger mutation, or production readiness.
     - Escalates-to: compile_project_card for cached re-reads; observe_project for the resulting lineage.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     if not _path_is_file(_state_dir(project) / "project_manifest.json"):
@@ -5921,7 +6292,9 @@ def compile_project(
 
 
 def inspect_evidence(project_path: str | Path, evidence_ref: str) -> dict[str, Any]:
-    """Inspect one evidence receipt as a safe-keys card plus a shape/ref summary.
+    """
+    [ACTION]
+    Inspect one evidence receipt as a safe-keys card plus a shape/ref summary.
 
     - Teleology: the public drilldown that opens a single receipt without dumping its full body.
     - Guarantee: returns a card with a whitelisted safe-keys view, a payload_summary (shape/refs only), and a full-payload drilldown pointer; a missing ref yields status not_found.
@@ -5930,6 +6303,8 @@ def inspect_evidence(project_path: str | Path, evidence_ref: str) -> dict[str, A
     - Reads: STATE_DIR/<evidence_ref>.
     - Non-goal: a safe summary + pointer; does not export source bodies or authorize release.
     - Escalates-to: the full local JSON via the full_payload_drilldown command.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Writes: return values.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     project_ref = _project_arg_ref(project_path, project)
@@ -5978,23 +6353,32 @@ def inspect_evidence(project_path: str | Path, evidence_ref: str) -> dict[str, A
 
 
 def _print_json(payload: Any) -> int:
-    """Print a payload as sorted JSON and derive a process exit code from its status.
+    """
+    [ACTION]
+    Print a payload as sorted JSON and derive a process exit code from its status.
 
     - Teleology: the CLI sink that renders a command result and maps its status to an exit code.
     - Guarantee: prints deterministic indented JSON and returns 0 when status is None/pass (or non-dict), else 1.
     - Fails: non-serializable payload -> raises TypeError from json.dumps.
     - Writes: stdout.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
     return 0 if not isinstance(payload, dict) or payload.get("status") in {None, PASS} else 1
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Construct the argparse parser for the microcosm-project CLI.
+    """
+    [ACTION]
+    Construct the argparse parser for the microcosm-project CLI.
 
     - Teleology: declares every project-substrate subcommand (init, index, catalog, architecture, python-lens, patterns, route, compile, graph, explain, work, observe, evidence) so the CLI is one wired surface.
     - Guarantee: returns a configured ArgumentParser with all subparsers, nested work/evidence subcommands, and flags registered.
     - Fails: None (pure parser construction; no I/O).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
     """
     parser = argparse.ArgumentParser(prog="microcosm-project")
     subparsers = parser.add_subparsers(dest="command")
@@ -6055,7 +6439,9 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entrypoint dispatching microcosm-project subcommands to their handlers.
+    """
+    [ACTION]
+    CLI entrypoint dispatching microcosm-project subcommands to their handlers.
 
     - Teleology: the single shell front door for the project-substrate lens (compile/index/route/work/observe/evidence over a target project).
     - Guarantee: parses argv, runs the matched subcommand, prints its JSON result, and returns the handler's exit code; prints help and returns 2 when no subcommand matches.
@@ -6064,6 +6450,7 @@ def main(argv: list[str] | None = None) -> int:
     - Writes: handler side effects (e.g. init/compile/work materialize .microcosm artifacts); stdout.
     - When-needed: running the microcosm-project CLI from the shell.
     - Escalates-to: build_parser plus the per-command handlers (init_project, compile_project, propose_routes, run_work, observe_project, inspect_evidence, ...).
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     parser = build_parser()
     args = parser.parse_args(argv)

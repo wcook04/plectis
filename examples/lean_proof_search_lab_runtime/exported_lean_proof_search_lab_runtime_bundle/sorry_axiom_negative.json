@@ -1,0 +1,32 @@
+{
+  "case_id": "sorry_axiom_negative",
+  "expected_status": "fail",
+  "expected_failure_kind": "axiom_taint_detected",
+  "expected_summary": {
+    "problem_count": 1,
+    "firewall_violation_count": 0,
+    "and_or_success_count": 1,
+    "hammer_success_count": 1,
+    "axiom_taint_count": 1,
+    "ablation_passed": true
+  },
+  "lab": {
+    "timeout_seconds": 8,
+    "beam_width": 4,
+    "max_depth": 2,
+    "policy_kind": "id_blind",
+    "extra_candidate_bodies": [
+      [
+        "sorry"
+      ]
+    ],
+    "problems": [
+      {
+        "problem_id": "sorry_taint_probe",
+        "theorem_name": "sorry_taint_probe",
+        "target_shape": "true_intro",
+        "theorem_signature": "theorem sorry_taint_probe : True := by"
+      }
+    ]
+  }
+}

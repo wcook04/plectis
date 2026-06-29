@@ -30,7 +30,9 @@
         "cognitive_operator_registry",
         "routing_anti_patterns_registry",
         "doctrine_fact_claim_audit",
-        "self_ignorance_coverage_ledger"
+        "self_ignorance_coverage_ledger",
+        "navigation_fitness_benchmark",
+        "annex_knowledge_routing"
       ]
     },
     {
@@ -38,9 +40,13 @@
       "family_id": "formal_math_and_proof",
       "label": "Formal Math & Proof",
       "organ_ids": [
+        "certificate_kernel_execution_lab",
+        "formal_math_lean_proof_witness",
+        "verifier_lab_execution_spine",
+        "corpus_readiness_mathlib_absence_gate",
+        "batch4_proof_authority_runtime",
         "proof_diagnostic_evidence_spine",
         "formal_math_readiness_gate",
-        "corpus_readiness_mathlib_absence_gate",
         "mathematical_strategy_atlas_hypothesis_scorer",
         "tactic_portfolio_availability_probe",
         "target_shape_tactic_routing_gate",
@@ -50,12 +56,10 @@
         "formal_evidence_cell_anchor_resolver",
         "undeclared_library_prior_symbol_classifier",
         "ring2_premise_retrieval_precision_recall_harness",
-        "formal_math_lean_proof_witness",
         "verifier_lab_kernel",
-        "verifier_lab_execution_spine",
-        "certificate_kernel_execution_lab",
-        "batch4_proof_authority_runtime",
-        "proof_derived_governed_mutation_authorization"
+        "proof_derived_governed_mutation_authorization",
+        "finite_erdos_denominator_certificate_strike",
+        "lean_proof_search_lab_runtime"
       ]
     },
     {
@@ -63,9 +67,13 @@
       "family_id": "agent_reliability_and_safety",
       "label": "Agent Reliability & Safety Replays",
       "organ_ids": [
-        "agent_benchmark_integrity_anti_gaming_replay",
+        "agent_closeout_faithfulness_audit",
+        "bounded_autonomy_campaign_packet",
+        "provider_context_recipe_budget_policy",
         "batch10_cold_eval_honesty_capsule",
         "batch8_validator_checker_capsule",
+        "batch7_secondary_runtime_capsule",
+        "agent_benchmark_integrity_anti_gaming_replay",
         "agent_monitor_redteam_falsification_replay",
         "agent_sabotage_scheming_monitor_replay",
         "agent_memory_temporal_conflict_replay",
@@ -76,10 +84,9 @@
         "indirect_prompt_injection_information_flow_policy_replay",
         "agentic_vulnerability_discovery_patch_proof_replay",
         "agent_route_observability_runtime",
-        "provider_context_recipe_budget_policy",
-        "agent_closeout_faithfulness_audit",
-        "bounded_autonomy_campaign_packet",
-        "batch7_secondary_runtime_capsule"
+        "bridge_campaign_dag_validation",
+        "metabolism_queue_reconciliation",
+        "egress_self_compliance_audit"
       ]
     },
     {
@@ -87,14 +94,15 @@
       "family_id": "research_and_science_replays",
       "label": "Research & Science Replays",
       "organ_ids": [
-        "research_replication_rubric_artifact_replay",
-        "spatial_world_model_counterfactual_simulation_replay",
-        "materials_chemistry_closed_loop_lab_safety_replay",
-        "mechanistic_interpretability_circuit_attribution_replay",
-        "prediction_oracle_reconciliation",
         "finance_forecast_evaluation_spine",
+        "batch12_prediction_market_board_capsule",
         "batch12_market_dashboard_read_model_capsule",
-        "batch12_prediction_market_board_capsule"
+        "mechanistic_interpretability_circuit_attribution_replay",
+        "spatial_world_model_counterfactual_simulation_replay",
+        "research_replication_rubric_artifact_replay",
+        "materials_chemistry_closed_loop_lab_safety_replay",
+        "prediction_oracle_reconciliation",
+        "derived_fact_provider_runtime"
       ]
     },
     {
@@ -120,7 +128,8 @@
         "tool_server_pressure_inventory",
         "batch8_compliance_pipeline_capsule",
         "batch10_live_source_drift_capsule",
-        "batch12_release_claim_language_gate"
+        "batch12_release_claim_language_gate",
+        "generated_projection_drift_runtime"
       ]
     },
     {
@@ -131,7 +140,8 @@
         "mission_transaction_work_spine",
         "durable_agent_work_landing_replay",
         "bridge_phase_continuity_runtime",
-        "concurrency_mission_control"
+        "concurrency_mission_control",
+        "semantic_singleflight_dedup_runtime"
       ]
     }
   ],

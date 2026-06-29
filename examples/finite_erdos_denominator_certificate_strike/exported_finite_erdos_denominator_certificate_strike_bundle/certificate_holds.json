@@ -1,0 +1,13 @@
+{
+  "case_id": "certificate_holds",
+  "case_type": "positive",
+  "exercise": "certificate_holds",
+  "support": [2],
+  "base": 2,
+  "claimed": {
+    "numerator": 1,
+    "denominator": 3,
+    "order": 2
+  },
+  "note": "S_2({2}) = 1/(2^2 - 1) = 1/3. Q=3, ord_3(2)=2 (2, 4=1 mod 3), lcm({2})=2. Certificate ord_Q(b)=lcm(F) holds with no reduction. The runner recomputes P/Q/order exactly and confirms the claimed values match."
+}

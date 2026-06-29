@@ -164,7 +164,7 @@
       "routing_note": null
     },
     {
-      "do_not_claim": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, call providers, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public release, authorize publication or recipient work, or establish secret export.",
+      "do_not_claim": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
       "do_not_edit": {
         "note": "runner is owned; edits still require the validator + refreshed receipts",
         "paths": []
@@ -172,58 +172,54 @@
       "first_action": {
         "action_kind": "run_fixture_command",
         "clean_run": {
-          "command": "PYTHONPATH=src python3 -m microcosm_core proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out .microcosm/first_action_runs/proof_diagnostic_evidence_spine --card",
+          "command": "PYTHONPATH=src python3 -m microcosm_core lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out .microcosm/first_action_runs/lean_proof_search_lab_runtime --acceptance-out .microcosm/first_action_runs/lean_proof_search_lab_runtime_fixture_acceptance.json",
           "note": "same run with outputs redirected to the ignored .microcosm/ tree; the committed receipts stay the comparison baseline and the clone stays clean",
-          "writes_outputs_under": ".microcosm/first_action_runs/proof_diagnostic_evidence_spine"
+          "writes_outputs_under": ".microcosm/first_action_runs/lean_proof_search_lab_runtime"
         },
-        "command": "PYTHONPATH=src python3 -m microcosm_core proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
-        "committed_receipts": [
-          "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
-          "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
-          "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json"
-        ],
-        "committed_receipts_more": 2,
-        "why": "Sorts proof-pipeline checks into accepted or rejected without inflating a pass.",
-        "writes_outputs_under": "receipts/first_wave/proof_diagnostic_evidence_spine"
+        "command": "PYTHONPATH=src python3 -m microcosm_core lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "committed_receipts": [],
+        "committed_receipts_more": 0,
+        "why": "Finds tactic scripts the real Lean prover accepts on toy theorems, and refuses proofs that cheat.",
+        "writes_outputs_under": "receipts/first_wave/lean_proof_search_lab_runtime"
       },
       "found": true,
       "goal": "check the lean proof evidence",
       "out_of_scope_note": null,
       "owner": {
-        "display_name": "Proof Diagnostic Evidence Spine",
-        "evidence_class": "algorithmic_projection",
+        "display_name": "Lean Proof-Search Lab Runtime",
+        "evidence_class": "external_subprocess_witness",
         "family": "formal_math_and_proof",
-        "organ_id": "proof_diagnostic_evidence_spine",
+        "organ_id": "lean_proof_search_lab_runtime",
         "runner_custody_basis": null,
-        "task_class": "lean"
+        "task_class": "lean-subprocess"
       },
       "proof_path": {
         "note": null,
         "provenance_receipts": [
           {
             "exists_in_clone": false,
-            "path": "state/microcosm_portfolio/reconstruction/proof_diagnostic_evidence_spine_current_authority_adoption_receipt_v1.json"
+            "path": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_result.json"
+          },
+          {
+            "exists_in_clone": false,
+            "path": "receipts/first_wave/lean_proof_search_lab_runtime/lean_proof_search_lab_runtime_board.json"
           }
         ],
-        "receipt_refs": [
-          "receipts/first_wave/proof_diagnostic_evidence_spine/proof_receipts.json",
-          "receipts/first_wave/proof_diagnostic_evidence_spine/provider_payload_policy_result.json",
-          "receipts/first_wave/proof_diagnostic_evidence_spine/diagnostic_board.json"
-        ],
-        "receipt_refs_more": 2,
-        "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine",
+        "receipt_refs": [],
+        "receipt_refs_more": 0,
+        "runnable_validator": "PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
         "validation_commands": [],
-        "validator_command": "python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine"
+        "validator_command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
       },
       "reading_boundary": {
-        "allowed_scope": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.",
+        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
       },
       "routing": {
         "basis": "task_class_route_match",
-        "task_class": "lean"
+        "task_class": "lean-subprocess"
       },
       "routing_note": null
     },
@@ -254,7 +250,7 @@
       "goal": "evaluate prompt injection defenses",
       "out_of_scope_note": null,
       "owner": {
-        "display_name": "Indirect Prompt Injection Information Flow Policy Replay",
+        "display_name": "Prompt-Injection Flow-Policy Replay",
         "evidence_class": "algorithmic_projection",
         "family": "agent_reliability_and_safety",
         "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
@@ -275,7 +271,7 @@
         "validator_command": "python -m microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay run --input fixtures/first_wave/indirect_prompt_injection_information_flow_policy_replay/input --out receipts/first_wave/indirect_prompt_injection_information_flow_policy_replay --acceptance-out receipts/acceptance/first_wave/indirect_prompt_injection_information_flow_policy_replay_fixture_acceptance.json"
       },
       "reading_boundary": {
-        "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
+        "allowed_scope": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -389,7 +385,7 @@
         "validator_command": "python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input fixtures/first_wave/agent_benchmark_integrity_anti_gaming_replay/input --out receipts/first_wave/agent_benchmark_integrity_anti_gaming_replay"
       },
       "reading_boundary": {
-        "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
+        "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, provider execution, live-repo mutation, private/oracle/hidden-gold body access, product progress, or release readiness.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."

@@ -17,8 +17,7 @@ authors = [
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
-  "Operating System :: MacOS :: MacOS X",
-  "Operating System :: POSIX",
+  "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -706,11 +705,50 @@ where = ["src"]
 "share/plectis/examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/tools/shadow" = ["examples/batch8_tools_tail_primitives_capsule/exported_batch8_tools_tail_primitives_capsule_bundle/source_modules/tools/shadow/*.py"]
 "share/plectis/examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle" = ["examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/*.json"]
 "share/plectis/examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm" = ["examples/batch8_validator_checker_capsule/exported_batch8_validator_checker_capsule_bundle/source_modules/self-indexing-cognitive-substrate/src/idea_microcosm/*.py"]
+"share/plectis/examples/semantic_singleflight_dedup_runtime/exported_semantic_singleflight_dedup_runtime_bundle" = ["examples/semantic_singleflight_dedup_runtime/exported_semantic_singleflight_dedup_runtime_bundle/*.json"]
+"share/plectis/examples/semantic_singleflight_dedup_runtime/exported_semantic_singleflight_dedup_runtime_bundle/docs" = ["examples/semantic_singleflight_dedup_runtime/exported_semantic_singleflight_dedup_runtime_bundle/docs/*.md"]
+"share/plectis/examples/semantic_singleflight_dedup_runtime/exported_semantic_singleflight_dedup_runtime_bundle/source_modules/src/microcosm_core/organs" = ["examples/semantic_singleflight_dedup_runtime/exported_semantic_singleflight_dedup_runtime_bundle/source_modules/src/microcosm_core/organs/*.py"]
+"share/plectis/fixtures/first_wave/semantic_singleflight_dedup_runtime/input" = ["fixtures/first_wave/semantic_singleflight_dedup_runtime/input/*.json"]
+"share/plectis/examples/finite_erdos_denominator_certificate_strike/exported_finite_erdos_denominator_certificate_strike_bundle" = ["examples/finite_erdos_denominator_certificate_strike/exported_finite_erdos_denominator_certificate_strike_bundle/*.json"]
+"share/plectis/examples/finite_erdos_denominator_certificate_strike/exported_finite_erdos_denominator_certificate_strike_bundle/docs" = ["examples/finite_erdos_denominator_certificate_strike/exported_finite_erdos_denominator_certificate_strike_bundle/docs/*.md"]
+"share/plectis/examples/finite_erdos_denominator_certificate_strike/exported_finite_erdos_denominator_certificate_strike_bundle/source_modules/src/microcosm_core/organs" = ["examples/finite_erdos_denominator_certificate_strike/exported_finite_erdos_denominator_certificate_strike_bundle/source_modules/src/microcosm_core/organs/*.py"]
+"share/plectis/fixtures/first_wave/finite_erdos_denominator_certificate_strike/input" = ["fixtures/first_wave/finite_erdos_denominator_certificate_strike/input/*.json"]
+"share/plectis/examples/bridge_campaign_dag_validation/exported_bridge_campaign_dag_validation_bundle" = ["examples/bridge_campaign_dag_validation/exported_bridge_campaign_dag_validation_bundle/*.json"]
+"share/plectis/examples/bridge_campaign_dag_validation/exported_bridge_campaign_dag_validation_bundle/docs" = ["examples/bridge_campaign_dag_validation/exported_bridge_campaign_dag_validation_bundle/docs/*.md"]
+"share/plectis/examples/bridge_campaign_dag_validation/exported_bridge_campaign_dag_validation_bundle/source_modules/src/microcosm_core/organs" = ["examples/bridge_campaign_dag_validation/exported_bridge_campaign_dag_validation_bundle/source_modules/src/microcosm_core/organs/*.py"]
+"share/plectis/fixtures/first_wave/bridge_campaign_dag_validation/input" = ["fixtures/first_wave/bridge_campaign_dag_validation/input/*.json"]
+"share/plectis/examples/metabolism_queue_reconciliation/exported_metabolism_queue_reconciliation_bundle" = ["examples/metabolism_queue_reconciliation/exported_metabolism_queue_reconciliation_bundle/*.json"]
+"share/plectis/examples/metabolism_queue_reconciliation/exported_metabolism_queue_reconciliation_bundle/docs" = ["examples/metabolism_queue_reconciliation/exported_metabolism_queue_reconciliation_bundle/docs/*.md"]
+"share/plectis/examples/metabolism_queue_reconciliation/exported_metabolism_queue_reconciliation_bundle/source_modules/src/microcosm_core/organs" = ["examples/metabolism_queue_reconciliation/exported_metabolism_queue_reconciliation_bundle/source_modules/src/microcosm_core/organs/*.py"]
+"share/plectis/fixtures/first_wave/metabolism_queue_reconciliation/input" = ["fixtures/first_wave/metabolism_queue_reconciliation/input/*.json"]
+"share/plectis/examples/derived_fact_provider_runtime/exported_derived_fact_provider_runtime_bundle" = ["examples/derived_fact_provider_runtime/exported_derived_fact_provider_runtime_bundle/*.json"]
+"share/plectis/examples/derived_fact_provider_runtime/exported_derived_fact_provider_runtime_bundle/docs" = ["examples/derived_fact_provider_runtime/exported_derived_fact_provider_runtime_bundle/docs/*.md"]
+"share/plectis/examples/derived_fact_provider_runtime/exported_derived_fact_provider_runtime_bundle/source_modules/src/microcosm_core/organs" = ["examples/derived_fact_provider_runtime/exported_derived_fact_provider_runtime_bundle/source_modules/src/microcosm_core/organs/*.py"]
+"share/plectis/fixtures/first_wave/derived_fact_provider_runtime/input" = ["fixtures/first_wave/derived_fact_provider_runtime/input/*.json"]
+"share/plectis/examples/navigation_fitness_benchmark/exported_navigation_fitness_benchmark_bundle" = ["examples/navigation_fitness_benchmark/exported_navigation_fitness_benchmark_bundle/*.json"]
+"share/plectis/examples/navigation_fitness_benchmark/exported_navigation_fitness_benchmark_bundle/docs" = ["examples/navigation_fitness_benchmark/exported_navigation_fitness_benchmark_bundle/docs/*.md"]
+"share/plectis/examples/navigation_fitness_benchmark/exported_navigation_fitness_benchmark_bundle/source_modules/src/microcosm_core/organs" = ["examples/navigation_fitness_benchmark/exported_navigation_fitness_benchmark_bundle/source_modules/src/microcosm_core/organs/*.py"]
+"share/plectis/fixtures/first_wave/navigation_fitness_benchmark/input" = ["fixtures/first_wave/navigation_fitness_benchmark/input/*.json"]
+"share/plectis/examples/annex_knowledge_routing/exported_annex_knowledge_routing_bundle" = ["examples/annex_knowledge_routing/exported_annex_knowledge_routing_bundle/*.json"]
+"share/plectis/examples/annex_knowledge_routing/exported_annex_knowledge_routing_bundle/docs" = ["examples/annex_knowledge_routing/exported_annex_knowledge_routing_bundle/docs/*.md"]
+"share/plectis/examples/annex_knowledge_routing/exported_annex_knowledge_routing_bundle/source_modules/src/microcosm_core/organs" = ["examples/annex_knowledge_routing/exported_annex_knowledge_routing_bundle/source_modules/src/microcosm_core/organs/*.py"]
+"share/plectis/fixtures/first_wave/annex_knowledge_routing/input" = ["fixtures/first_wave/annex_knowledge_routing/input/*.json"]
+"share/plectis/examples/egress_self_compliance_audit/exported_egress_self_compliance_audit_bundle" = ["examples/egress_self_compliance_audit/exported_egress_self_compliance_audit_bundle/*.json"]
+"share/plectis/examples/egress_self_compliance_audit/exported_egress_self_compliance_audit_bundle/docs" = ["examples/egress_self_compliance_audit/exported_egress_self_compliance_audit_bundle/docs/*.md"]
+"share/plectis/examples/egress_self_compliance_audit/exported_egress_self_compliance_audit_bundle/source_modules/src/microcosm_core/organs" = ["examples/egress_self_compliance_audit/exported_egress_self_compliance_audit_bundle/source_modules/src/microcosm_core/organs/*.py"]
+"share/plectis/fixtures/first_wave/egress_self_compliance_audit/input" = ["fixtures/first_wave/egress_self_compliance_audit/input/*.json"]
+"share/plectis/examples/generated_projection_drift_runtime/exported_generated_projection_drift_runtime_bundle" = ["examples/generated_projection_drift_runtime/exported_generated_projection_drift_runtime_bundle/*.json"]
+"share/plectis/examples/generated_projection_drift_runtime/exported_generated_projection_drift_runtime_bundle/docs" = ["examples/generated_projection_drift_runtime/exported_generated_projection_drift_runtime_bundle/docs/*.md"]
+"share/plectis/examples/generated_projection_drift_runtime/exported_generated_projection_drift_runtime_bundle/source_modules/src/microcosm_core/organs" = ["examples/generated_projection_drift_runtime/exported_generated_projection_drift_runtime_bundle/source_modules/src/microcosm_core/organs/*.py"]
+"share/plectis/fixtures/first_wave/generated_projection_drift_runtime/input" = ["fixtures/first_wave/generated_projection_drift_runtime/input/*.json"]
+"share/plectis/examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle" = ["examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle/*.json"]
+"share/plectis/examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle/docs" = ["examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle/docs/*.md"]
+"share/plectis/examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle/source_modules/src/microcosm_core/organs" = ["examples/lean_proof_search_lab_runtime/exported_lean_proof_search_lab_runtime_bundle/source_modules/src/microcosm_core/organs/*.py"]
+"share/plectis/fixtures/first_wave/lean_proof_search_lab_runtime/input" = ["fixtures/first_wave/lean_proof_search_lab_runtime/input/*.json"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
-addopts = "-q --basetemp=.microcosm/test-tmp/pytest"
-cache_dir = ".microcosm/test-tmp/.pytest_cache"
+addopts = "-q -p no:cacheprovider"
 tmp_path_retention_count = "1"
 tmp_path_retention_policy = "failed"

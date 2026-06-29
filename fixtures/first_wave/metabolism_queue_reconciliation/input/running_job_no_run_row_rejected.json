@@ -1,0 +1,12 @@
+{
+  "case_id": "running_job_no_run_row_rejected",
+  "case_type": "negative",
+  "expected_ok": false,
+  "case_kind": "running_job_no_run_row",
+  "intent": "Planted defect: a job is forced into the running state without ever recording a run row, so the reconciler must reject the store for operator review.",
+  "expected_reconciliation_rule": "running_job_no_run_row",
+  "expects": {
+    "reconcile_status": "needs_review",
+    "fires_rule": "running_job_no_run_row"
+  }
+}

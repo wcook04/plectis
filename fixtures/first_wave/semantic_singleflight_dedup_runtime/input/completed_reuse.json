@@ -1,0 +1,7 @@
+{
+  "case_id": "completed_reuse",
+  "case_type": "positive",
+  "exercise": "completed_reuse",
+  "expected_ok": true,
+  "note": "A second run with the same content key reuses the completed run instead of executing again; the side-effecting counter stays at 1."
+}

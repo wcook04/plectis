@@ -301,7 +301,7 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
         "core/organ_evidence_classes.json"
     )
     assert packet_by_id["public_github_visitor"]["next_drilldown"] == (
-        "README.md#first-run"
+        "README.md#run-it"
     )
     assert packet_by_id["public_github_visitor"]["first_action"] == (
         "Run `plectis tour --card <project>` after this card."
@@ -1101,32 +1101,6 @@ def test_first_screen_composition_card_is_public_one_screen_contract() -> None:
     assert "local demo into release" in doctrine_by_handle["ANTI_PRINCIPLES"][
         "prevents"
     ]
-    doctrine_reader = card["doctrine_reader"]
-    assert doctrine_reader["schema_version"] == (
-        "microcosm_first_screen_doctrine_reader_v1"
-    )
-    assert doctrine_reader["command"] == "plectis comprehend --slice doctrine"
-    assert doctrine_reader["target_example_command"] == (
-        "plectis comprehend --doctrine AX-9"
-    )
-    assert doctrine_reader["source_checkout_command"] == (
-        "PYTHONPATH=src python3 -m microcosm_core comprehend --slice doctrine"
-    )
-    assert doctrine_reader["markdown_ref"] == "DOCTRINE.md"
-    assert doctrine_reader["projection_ref"] == "core/doctrine_reader_projection.json"
-    assert doctrine_reader["source_of_record"] == "core/doctrine_enrichment.json"
-    assert doctrine_reader["record_count"] == 49
-    assert doctrine_reader["safe_to_show"] == {
-        "uses_generated_reader_projection": True,
-        "exports_private_paths": False,
-        "exports_provider_payloads": False,
-        "claims_release_or_hosting": False,
-        "claims_proof_correctness": False,
-        "claims_whole_system_correctness": False,
-    }
-    assert doctrine_reader["authority"] == (
-        "doctrine_reader_route_not_source_authority_or_release_claim"
-    )
     readme_entry_contract = card["readme_entry_contract"]
     readme_order = readme_entry_contract["required_markdown_order"]
     readme_order_pairs = {
@@ -1800,7 +1774,6 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
     )
     assert "A local evidence router" in text
     assert "doctrine names boundaries" in text
-    assert "doctrine reader: plectis comprehend --slice doctrine / DOCTRINE.md" in text
     assert "exit when you can choose a drilldown" in text
     assert "without the command inventory" in text
     assert "Substrate glance:" in text

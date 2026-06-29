@@ -1,3 +1,28 @@
+"""
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.validators.source_module_boundary` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: CHECKER_ID, SCHEMA_VERSION, REFRESH_AUTHORITY_CHECKER_ID, REFRESH_AUTHORITY_SCHEMA_VERSION, REFRESH_POLICY_VALIDATION_SCHEMA_VERSION, SOURCE_MODULE_REFRESH_POLICY_SCHEMA_VERSION, SOURCE_MODULE_REFRESH_POLICY_REF, EXACT_COPY_SOURCE_MODULE_REFRESH_OPERATION, PASS, BLOCKED, REF_FIELD_KEYS, REF_FIELD_SUFFIXES, SOURCE_REF_FIELD_KEYS, TARGET_REF_FIELD_KEYS, SOURCE_MODULE_CLAIM_MARKER_KEYS, NON_REF_KEYS, ROW_ID_KEYS, FORBIDDEN_COMPONENTS, FORBIDDEN_SUBSTRINGS, RESTRICTED_PRIVATE_SOURCE_PREFIXES, RESTRICTED_PRIVATE_SOURCE_FILENAMES, REFRESH_POLICY_TOP_LEVEL_KEYS, REFRESH_GRANT_KEYS, REFRESH_GRANT_STATUSES, ...
+- Reads: call arguments, module constants, imported helpers.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: microcosm_core.schemas
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+"""
 from __future__ import annotations
 
 import argparse
@@ -235,12 +260,16 @@ ANTI_CLAIM = (
 
 
 def _normalize_ref(ref: object) -> str:
-    """Normalize a ref to a stripped, leading-``./``-free string.
+    """
+    [ACTION]
+    Normalize a ref to a stripped, leading-``./``-free string.
 
     - Teleology: protects ref-comparison and classification from spurious mismatches caused by whitespace or ``./`` prefixes.
     - Guarantee: returns a stripped string with all leading ``./`` segments removed; ``None``/falsy inputs yield ``""``.
     - Fails: None (coerces any input via str(); cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     value = str(ref or "").strip()
     while value.startswith("./"):
@@ -249,12 +278,16 @@ def _normalize_ref(ref: object) -> str:
 
 
 def _path_portion(ref: str) -> str:
-    """Extract the filesystem-path portion of a ref, dropping anchors/selectors.
+    """
+    [ACTION]
+    Extract the filesystem-path portion of a ref, dropping anchors/selectors.
 
     - Teleology: protects path-component checks from being fooled by ``#anchor`` or ``::selector`` suffixes appended to a source ref.
     - Guarantee: returns the stripped substring before any ``#``; when a ``::`` selector follows a path-like first segment (contains ``/`` or ends in .json/.jsonl/.py/.md/.lean) it returns only that path segment.
     - Fails: None (pure string slicing; cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     path = ref.split("#", 1)[0]
     if "::" in path:
@@ -265,24 +298,32 @@ def _path_portion(ref: str) -> str:
 
 
 def _path_parts(ref: str) -> list[str]:
-    """Split a ref's path portion into non-empty ``/``-separated components.
+    """
+    [ACTION]
+    Split a ref's path portion into non-empty ``/``-separated components.
 
     - Teleology: protects component-level boundary checks (forbidden parts, ``..`` traversal, source_modules tail) by giving a normalized, separator-agnostic part list.
     - Guarantee: returns the path portion (backslashes folded to ``/``) split on ``/`` with empty segments dropped; ``""`` ref yields ``[]``.
     - Fails: None (pure; cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     path = _path_portion(ref).replace("\\", "/")
     return [part for part in path.split("/") if part]
 
 
 def _row_id(row: dict[str, Any], fallback: str) -> str:
-    """Resolve a stable row identifier from known id keys, else a fallback.
+    """
+    [ACTION]
+    Resolve a stable row identifier from known id keys, else a fallback.
 
     - Teleology: protects finding-row provenance so blocked refs/claims trace back to a stable manifest row id rather than an anonymous path.
     - Guarantee: returns the first nonempty stripped value among ROW_ID_KEYS (module_id/material_id/cell_id/witness_id/manifest_id/bundle_id); when none present returns the supplied fallback.
     - Fails: None (always returns a string; cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     for key in ROW_ID_KEYS:
         value = str(row.get(key) or "").strip()
@@ -292,12 +333,16 @@ def _row_id(row: dict[str, Any], fallback: str) -> str:
 
 
 def _is_ref_field(key: str) -> bool:
-    """Decide whether a manifest key names a path-like source ref.
+    """
+    [ACTION]
+    Decide whether a manifest key names a path-like source ref.
 
     - Teleology: protects the ref-harvest scan from both misses (untracked ref keys) and false positives (policy/prose keys that end in ref-like suffixes).
     - Guarantee: returns True iff key is not in NON_REF_KEYS AND (key is in REF_FIELD_KEYS or ends in one of _ref/_refs/_path/_paths); returns False otherwise.
     - Fails: None (pure boolean predicate; cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     if key in NON_REF_KEYS:
         return False
@@ -305,12 +350,16 @@ def _is_ref_field(key: str) -> bool:
 
 
 def _string_ref_values(value: object, *, field_path: str) -> Iterator[tuple[str, str]]:
-    """Yield (field_path, normalized_ref) for every nonempty string under a ref field.
+    """
+    [ACTION]
+    Yield (field_path, normalized_ref) for every nonempty string under a ref field.
 
     - Teleology: protects the ref scan from missing refs nested inside lists/dicts hung off a ref-shaped key.
     - Guarantee: yields one (indexed/dotted field_path, normalized_ref) tuple per nonempty string leaf; recurses into lists (``[i]``) and dicts (``.key``); empty/normalized-away strings are skipped.
     - Fails: None (generator over the value tree; non-str/list/dict leaves yield nothing; cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     if isinstance(value, str):
         normalized = _normalize_ref(value)
@@ -325,12 +374,16 @@ def _string_ref_values(value: object, *, field_path: str) -> Iterator[tuple[str,
 
 
 def _has_nonempty_value(row: dict[str, Any], keys: Iterable[str]) -> bool:
-    """Report whether any of the given keys holds a nonempty ref string or list.
+    """
+    [ACTION]
+    Report whether any of the given keys holds a nonempty ref string or list.
 
     - Teleology: protects claim-shape detection (has-source-ref / has-target) from treating blank or whitespace-only ref fields as present.
     - Guarantee: returns True iff some key maps to a string that normalizes nonempty, or to a list containing at least one normalize-nonempty item; False otherwise.
     - Fails: None (pure predicate; non-str/list values are ignored; cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     for key in keys:
         value = row.get(key)
@@ -342,12 +395,16 @@ def _has_nonempty_value(row: dict[str, Any], keys: Iterable[str]) -> bool:
 
 
 def _first_source_ref(row: dict[str, Any]) -> str:
-    """Return the first normalized source ref from the row's source fields.
+    """
+    [ACTION]
+    Return the first normalized source ref from the row's source fields.
 
     - Teleology: protects blocked-claim findings by attaching a concrete source ref (for the ``ref`` field) when a row overclaims body material.
     - Guarantee: returns the first normalize-nonempty value scanning SOURCE_REF_FIELD_KEYS (source_ref/source_refs/source_path/source_paths), descending into list values; returns ``""`` when none found.
     - Fails: None (always returns a string; cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     for key in SOURCE_REF_FIELD_KEYS:
         value = row.get(key)
@@ -362,12 +419,16 @@ def _first_source_ref(row: dict[str, Any]) -> str:
 
 
 def _source_modules_tail(ref: object) -> str:
-    """Return the path tail after the ``source_modules`` component, else ``""``.
+    """
+    [ACTION]
+    Return the path tail after the ``source_modules`` component, else ``""``.
 
     - Teleology: protects the path/target alignment check by reducing two refs to the body-identity tail under ``source_modules`` so a path↔target_ref mismatch can be detected.
     - Guarantee: returns the ``/``-joined parts following the first ``source_modules`` component; returns ``""`` when no ``source_modules`` component is present.
     - Fails: None (returns ``""`` on the ValueError-absent case; cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     parts = _path_parts(_normalize_ref(ref))
     try:
@@ -379,7 +440,9 @@ def _source_modules_tail(ref: object) -> str:
 
 
 def _restricted_private_source_match(ref: str) -> str:
-    """Return the restricted private source prefix matched by a source ref.
+    """
+    [ACTION]
+    Return the restricted private source prefix matched by a source ref.
 
     - Teleology: protects public source-module import from treating control-plane
       source paths as source-open merely because they are relative.
@@ -388,6 +451,8 @@ def _restricted_private_source_match(ref: str) -> str:
       no restricted prefix matches.
     - Fails: None (pure string matching; cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     candidates: list[str] = []
     path = _path_portion(ref).replace("\\", "/").lstrip("/")
@@ -418,12 +483,16 @@ def _restricted_private_source_match(ref: str) -> str:
 
 
 def _looks_like_source_module_claim(row: dict[str, Any]) -> bool:
-    """Detect whether a dict row is a source-module import claim worth auditing.
+    """
+    [ACTION]
+    Detect whether a dict row is a source-module import claim worth auditing.
 
     - Teleology: protects the claim-overclaim scan from auditing arbitrary dicts by gating on rows that both name a source ref and carry an import-claim marker.
     - Guarantee: returns True iff the row has a nonempty source ref (SOURCE_REF_FIELD_KEYS) AND contains at least one SOURCE_MODULE_CLAIM_MARKER_KEYS key (e.g. body_copied, copy_policy, material_class, source_to_target_relation); False otherwise.
     - Fails: None (pure predicate; cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     return _has_nonempty_value(row, SOURCE_REF_FIELD_KEYS) and any(
         key in row for key in SOURCE_MODULE_CLAIM_MARKER_KEYS
@@ -437,7 +506,9 @@ def extract_source_module_claim_rows(
     prefix: str = "",
     inherited_row_id: str = "",
 ) -> list[dict[str, Any]]:
-    """Extract source-module claim rows that can overstate import authority.
+    """
+    [ACTION]
+    Extract source-module claim rows that can overstate import authority.
 
     - Teleology: protects the exact-copy import boundary from manifest rows that claim copied/source-faithful body material without a public source_modules target or that stash bodies in receipts.
     - Guarantee: returns a list of finding-dicts (possibly empty), each carrying manifest_ref/field_path/row_id/ref plus one error_code in {source_module_body_in_receipt_claim, source_module_target_ref_missing, source_module_path_target_ref_mismatch} and a coordination_action; never reads referenced bodies.
@@ -447,6 +518,7 @@ def extract_source_module_claim_rows(
     - When-needed: trust when checking a manifest for body-material overclaims before an exact-copy refresh write.
     - Escalates-to: evaluate_source_module_boundary (folds these into blocked_refs) / source_module_boundary_card_v1.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
 
     rows: list[dict[str, Any]] = []
@@ -555,7 +627,9 @@ def extract_source_ref_rows(
     prefix: str = "",
     inherited_row_id: str = "",
 ) -> list[dict[str, str]]:
-    """Extract path-like source-module refs without reading referenced bodies.
+    """
+    [ACTION]
+    Extract path-like source-module refs without reading referenced bodies.
 
     - Teleology: protects the source-ref classification gate by harvesting every path-like ref string from a manifest so none escape the boundary scan.
     - Guarantee: returns a list (possibly empty) of {manifest_ref, field_path, row_id, ref} dicts for each string under a ref-shaped key (REF_FIELD_KEYS / *_ref/_refs/_path/_paths suffix, minus NON_REF_KEYS), with refs normalized via _normalize_ref; only nonempty refs are emitted.
@@ -564,6 +638,7 @@ def extract_source_ref_rows(
     - Writes: None
     - When-needed: trust when enumerating candidate source refs to classify before exact-copy refresh.
     - Escalates-to: _classify_source_ref (per-ref verdict) / evaluate_source_module_boundary.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
 
     rows: list[dict[str, str]] = []
@@ -608,7 +683,9 @@ def extract_source_ref_rows(
 
 
 def _classify_source_ref(ref: str) -> dict[str, str] | None:
-    """Classify one source ref as boundary-safe (None) or blocked (finding dict).
+    """
+    [ACTION]
+    Classify one source ref as boundary-safe (None) or blocked (finding dict).
 
     - Teleology: protects the public exact-copy import boundary from refs pointing at host-private roots, parent traversal, raw operator voice, or credential/provider/session/HUD material.
     - Guarantee: returns None when the normalized ref is a relative public macro path clearing every rule; otherwise returns a {error_code, reason} dict naming the first violated rule (source_ref_absolute_or_home_private_root, source_ref_parent_traversal, source_ref_raw_operator_voice, source_ref_forbidden_component:<part>, or source_ref_forbidden_boundary_text:<token>).
@@ -618,6 +695,7 @@ def _classify_source_ref(ref: str) -> dict[str, str] | None:
     - When-needed: trust as the per-ref verdict before allowing a source ref into an exact-copy refresh write.
     - Escalates-to: evaluate_source_module_boundary (aggregates into blocked_refs) / source_module_boundary_card_v1.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     value = _normalize_ref(ref)
     if not value:
@@ -689,7 +767,16 @@ def _classify_source_ref(ref: str) -> dict[str, str] | None:
 
 
 def _source_ref_match_variants(ref: object) -> set[str]:
-    """Return normalized source-ref variants used for grant matching."""
+    """
+    [ACTION]
+    Return normalized source-ref variants used for grant matching.
+    - Teleology: Implements `_source_ref_match_variants` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     value = _normalize_ref(ref)
     variants = {value} if value else set()
     path = _path_portion(value).replace("\\", "/").lstrip("/")
@@ -707,6 +794,15 @@ def _source_ref_match_variants(ref: object) -> set[str]:
 
 
 def _target_ref_match_variants(ref: object) -> set[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_target_ref_match_variants` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     value = _normalize_ref(ref)
     variants = {value} if value else set()
     for item in list(variants):
@@ -716,6 +812,15 @@ def _target_ref_match_variants(ref: object) -> set[str]:
 
 
 def _canonical_refresh_ref(ref: object) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_canonical_refresh_ref` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     value = _normalize_ref(ref).replace("\\", "/")
     if value.startswith("microcosm-substrate/"):
         value = value.removeprefix("microcosm-substrate/")
@@ -723,6 +828,15 @@ def _canonical_refresh_ref(ref: object) -> str:
 
 
 def _ref_is_canonical_segment_path(ref: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_ref_is_canonical_segment_path` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not ref:
         return False
     if ref.startswith(("/", "../")) or "/../" in f"/{ref}/":
@@ -733,6 +847,15 @@ def _ref_is_canonical_segment_path(ref: str) -> bool:
 
 
 def _target_ref_matches_prefix(target: str, prefix: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_target_ref_matches_prefix` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     target_value = _canonical_refresh_ref(target).rstrip("/")
     prefix_value = _canonical_refresh_ref(prefix).rstrip("/")
     return bool(
@@ -743,6 +866,15 @@ def _target_ref_matches_prefix(target: str, prefix: str) -> bool:
 
 
 def _as_string_list(value: object) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_as_string_list` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if value is None:
         return []
     if isinstance(value, str):
@@ -753,6 +885,15 @@ def _as_string_list(value: object) -> list[str]:
 
 
 def _default_refresh_policy(policy_ref: str = "<missing>") -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_default_refresh_policy` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "schema_version": SOURCE_MODULE_REFRESH_POLICY_SCHEMA_VERSION,
         "policy_id": "missing_source_module_refresh_policy",
@@ -768,10 +909,28 @@ def _default_refresh_policy(policy_ref: str = "<missing>") -> dict[str, Any]:
 
 
 def _policy_for_fingerprint(policy: dict[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_policy_for_fingerprint` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     return {key: value for key, value in policy.items() if not key.startswith("_")}
 
 
 def source_module_refresh_policy_fingerprint(policy: dict[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `source_module_refresh_policy_fingerprint` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     payload = json.dumps(
         _policy_for_fingerprint(policy),
         ensure_ascii=True,
@@ -786,7 +945,16 @@ def load_source_module_refresh_policy(
     public_root: str | Path | None = None,
     policy_path: str | Path | None = None,
 ) -> dict[str, Any]:
-    """Load the operation-scoped exact-copy refresh grant policy."""
+    """
+    [ACTION]
+    Load the operation-scoped exact-copy refresh grant policy.
+    - Teleology: Implements `load_source_module_refresh_policy` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     resolved_policy_path: Path | None = Path(policy_path) if policy_path else None
     if resolved_policy_path is None and public_root is not None:
         resolved_policy_path = Path(public_root) / SOURCE_MODULE_REFRESH_POLICY_REF
@@ -803,6 +971,15 @@ def load_source_module_refresh_policy(
 
 
 def _source_finding_disposition(finding: dict[str, str] | None) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_source_finding_disposition` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not finding:
         return "public_open"
     if str(finding.get("error_code") or "").startswith(
@@ -813,6 +990,15 @@ def _source_finding_disposition(finding: dict[str, str] | None) -> str:
 
 
 def _is_hard_denied_source_finding(finding: dict[str, str] | None) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_is_hard_denied_source_finding` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return _source_finding_disposition(finding) == "hard_denied"
 
 
@@ -823,6 +1009,15 @@ def _policy_finding(
     message: str,
     severity: str = BLOCKED,
 ) -> dict[str, str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_policy_finding` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return {
         "finding_code": code,
         "path": path,
@@ -832,6 +1027,15 @@ def _policy_finding(
 
 
 def _grant_target_exact_values(grant: dict[str, Any]) -> set[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_grant_target_exact_values` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     targets: set[str] = set()
     for ref in _as_string_list(grant.get("target_refs") or grant.get("target_ref")):
         targets.update(_target_ref_match_variants(ref))
@@ -839,6 +1043,15 @@ def _grant_target_exact_values(grant: dict[str, Any]) -> set[str]:
 
 
 def _grant_target_prefix_values(grant: dict[str, Any]) -> set[str]:
+    """
+    [ACTION]
+    - Teleology: Implements `_grant_target_prefix_values` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     prefixes: set[str] = set()
     for ref in _as_string_list(grant.get("target_ref_prefixes")):
         prefixes.update(_target_ref_match_variants(ref))
@@ -846,6 +1059,15 @@ def _grant_target_prefix_values(grant: dict[str, Any]) -> set[str]:
 
 
 def _grant_matches_target_scope(row_targets: set[str], grant: dict[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_grant_matches_target_scope` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     canonical_row_targets = {
         _canonical_refresh_ref(target) for target in row_targets if target
     }
@@ -861,6 +1083,15 @@ def _grant_matches_target_scope(row_targets: set[str], grant: dict[str, Any]) ->
 
 
 def _grant_overlap_signature(grant: dict[str, Any]) -> tuple[Any, ...]:
+    """
+    [ACTION]
+    - Teleology: Implements `_grant_overlap_signature` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     source_variants = tuple(sorted(_source_ref_match_variants(grant.get("source_ref"))))
     relations = tuple(
         sorted(
@@ -881,6 +1112,15 @@ def compile_source_module_refresh_policy(
     *,
     operation: str = EXACT_COPY_SOURCE_MODULE_REFRESH_OPERATION,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `compile_source_module_refresh_policy` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, str]] = []
     if not isinstance(policy, dict):
         return {
@@ -1169,6 +1409,15 @@ def _matches_refresh_grant(
     *,
     operation: str,
 ) -> bool:
+    """
+    [ACTION]
+    - Teleology: Implements `_matches_refresh_grant` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if str(grant.get("status") or "") != REFRESH_GRANT_ACTIVE_STATUS:
         return False
     if str(grant.get("operation") or "") != operation:
@@ -1202,6 +1451,15 @@ def _matching_refresh_grants(
     *,
     operation: str,
 ) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Implements `_matching_refresh_grants` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return [
         grant
         for grant in grants
@@ -1218,7 +1476,16 @@ def evaluate_source_module_refresh_authority(
     policy_path: str | Path | None = None,
     operation: str = EXACT_COPY_SOURCE_MODULE_REFRESH_OPERATION,
 ) -> dict[str, Any]:
-    """Join pure source classification with operation-scoped refresh grants."""
+    """
+    [ACTION]
+    Join pure source classification with operation-scoped refresh grants.
+    - Teleology: Implements `evaluate_source_module_refresh_authority` for `microcosm_core.validators.source_module_boundary` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     refresh_policy = (
         load_source_module_refresh_policy(public_root=public_root, policy_path=policy_path)
         if policy is None
@@ -1414,12 +1681,16 @@ def evaluate_source_module_refresh_authority(
 
 
 def _dedupe_rows(rows: Iterable[dict[str, str]]) -> list[dict[str, str]]:
-    """Collapse duplicate ref/claim rows by (manifest_ref, field_path, ref, error_code).
+    """
+    [ACTION]
+    Collapse duplicate ref/claim rows by (manifest_ref, field_path, ref, error_code).
 
     - Teleology: protects the boundary card's counts from double-counting the same ref/finding harvested twice across nested or repeated manifest structures.
     - Guarantee: returns a new list keeping the first dict per (manifest_ref, field_path, ref, error_code) key, ordered by that sorted key tuple; copies each row (does not mutate inputs).
     - Fails: None (empty iterable yields []; cannot raise or return a failure envelope).
     - Writes: None
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments, module constants, imported helpers.
     """
     unique: dict[tuple[str, str, str, str], dict[str, str]] = {}
     for row in rows:
@@ -1438,7 +1709,9 @@ def evaluate_source_module_boundary(
     *,
     direct_refs: Iterable[str] = (),
 ) -> dict[str, Any]:
-    """Render the read-only source-module boundary card over manifests/direct refs.
+    """
+    [ACTION]
+    Render the read-only source-module boundary card over manifests/direct refs.
 
     - Teleology: protects the exact-copy refresh write from importing host-private, credential, provider-payload, raw-seed, or receipt-stashed source-module bodies before the digest/claim gates run.
     - Guarantee: returns a source_module_boundary_card_v1 dict with status PASS iff there are zero blocked_refs (blocked refs + blocked claim rows), else BLOCKED; the card reports input_manifest_count/refs, source_ref/safe_ref/blocked_ref/blocked_source_module_claim counts, blocked_refs (each with error_code+coordination_action), safe_refs, body_in_receipt=False, boundary_policy, next_action, reentry_condition, and the fixed anti_claim.
@@ -1448,6 +1721,7 @@ def evaluate_source_module_boundary(
     - When-needed: trust as the no-write first-screen verdict before any exact-copy source-module refresh.
     - Escalates-to: main (CLI exit code) / source_module_boundary_card_v1 / downstream digest and claim gates.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     ref_rows: list[dict[str, str]] = []
     blocked_claim_rows: list[dict[str, Any]] = []
@@ -1545,7 +1819,9 @@ def evaluate_source_module_boundary(
 
 
 def _load_manifest_rows(paths: Iterable[str]) -> list[tuple[str, Any]]:
-    """Load each manifest path into a (path, parsed-payload) tuple via strict JSON read.
+    """
+    [ACTION]
+    Load each manifest path into a (path, parsed-payload) tuple via strict JSON read.
 
     - Teleology: protects the boundary card from malformed manifests by parsing each manifest strictly and pairing it with its path for provenance.
     - Guarantee: returns one (path, payload) tuple per input path, payload parsed by read_json_strict; empty input yields [].
@@ -1553,6 +1829,7 @@ def _load_manifest_rows(paths: Iterable[str]) -> list[tuple[str, Any]]:
     - Reads: each manifest JSON file at the given path on disk.
     - Writes: None
     - Escalates-to: microcosm_core.schemas.read_json_strict.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     rows: list[tuple[str, Any]] = []
     for path in paths:
@@ -1562,7 +1839,9 @@ def _load_manifest_rows(paths: Iterable[str]) -> list[tuple[str, Any]]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry: print the source-module boundary card and gate exit on ``--check``.
+    """
+    [ACTION]
+    CLI entry: print the source-module boundary card and gate exit on ``--check``.
 
     - Teleology: protects CI/pre-refresh pipelines by surfacing the boundary verdict as JSON and a nonzero exit when blocked refs/claims exist.
     - Guarantee: prints the evaluate_source_module_boundary card as indented sorted JSON; returns 0 when status is PASS or ``--check`` was not passed, and 1 when ``--check`` is set and status is not PASS.
@@ -1572,6 +1851,7 @@ def main(argv: list[str] | None = None) -> int:
     - When-needed: trust as the command-line gate before an exact-copy source-module refresh.
     - Escalates-to: evaluate_source_module_boundary / source_module_boundary_card_v1.
     - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
     """
     parser = argparse.ArgumentParser(
         description=(

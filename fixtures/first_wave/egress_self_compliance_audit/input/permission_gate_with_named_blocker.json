@@ -1,0 +1,6 @@
+{
+  "case_id": "permission_gate_with_named_blocker",
+  "case_type": "positive",
+  "expected_ok": true,
+  "text": "Should I proceed? I am stopping before the remote push because it crosses the publication boundary and is irreversible."
+}

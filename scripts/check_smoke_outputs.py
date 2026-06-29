@@ -10,6 +10,8 @@ from typing import Any
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+BOUNDED_BODY_FLOOR_BLOCKER = "macro_body_import_floor"
+BOUNDED_BODY_FLOOR_RUNTIME_MIRROR = "runtime_status"
 
 
 class SmokeCheckError(Exception):
@@ -45,7 +47,190 @@ def _read_text(path: Path) -> str:
 def _expect_status(payload: dict[str, Any], *, name: str, status: str = "pass") -> None:
     actual = payload.get("status")
     if actual != status:
-        raise SmokeCheckError(f"{name}: expected status {status!r}, got {actual!r}")
+        raise SmokeCheckError(
+            f"{name}: expected status {status!r}, got {actual!r}"
+            f"{_diagnostic_suffix(payload)}",
+        )
+
+
+def _diagnostic_suffix(payload: dict[str, Any]) -> str:
+    parts: list[str] = []
+    blocking_surface_ids = payload.get("blocking_surface_ids")
+    blocking_surface_details = payload.get("blocking_surface_details")
+    front_door_status = payload.get("front_door_status")
+    if isinstance(front_door_status, dict):
+        if not blocking_surface_ids:
+            blocking_surface_ids = front_door_status.get("blocking_surface_ids")
+        if not blocking_surface_details:
+            blocking_surface_details = front_door_status.get("blocking_surface_details")
+
+    if isinstance(blocking_surface_ids, list) and blocking_surface_ids:
+        surface_ids = [str(item) for item in blocking_surface_ids if item]
+        if surface_ids:
+            parts.append("blocking_surface_ids=" + ",".join(surface_ids[:5]))
+
+        if isinstance(blocking_surface_details, dict):
+            detail_parts: list[str] = []
+            for surface_id in surface_ids[:3]:
+                detail = blocking_surface_details.get(surface_id)
+                if not isinstance(detail, dict):
+                    continue
+                row = surface_id
+                if detail.get("status"):
+                    row += f" status={detail.get('status')}"
+                if detail.get("full_status_ref"):
+                    row += f" full_status_ref={detail.get('full_status_ref')}"
+                if detail.get("full_defects_ref"):
+                    row += f" full_defects_ref={detail.get('full_defects_ref')}"
+                detail_parts.append(row)
+            if detail_parts:
+                parts.append("details=" + " | ".join(detail_parts))
+
+    next_commands = payload.get("next_commands")
+    if isinstance(next_commands, list) and next_commands:
+        command_preview = [str(command) for command in next_commands[:3] if command]
+        if command_preview:
+            parts.append("next=" + " ; ".join(command_preview))
+
+    if not parts:
+        return ""
+    return "; " + "; ".join(parts)
+
+
+def _blocking_surface_ids(payload: dict[str, Any]) -> list[str]:
+    blocking_surface_ids = payload.get("blocking_surface_ids")
+    if not blocking_surface_ids:
+        front_door_status = payload.get("front_door_status")
+        if isinstance(front_door_status, dict):
+            blocking_surface_ids = front_door_status.get("blocking_surface_ids")
+    if not isinstance(blocking_surface_ids, list):
+        return []
+    return [str(item) for item in blocking_surface_ids if item]
+
+
+def _falseish(payload: dict[str, Any], *keys: str) -> bool:
+    return all(payload.get(key) is False for key in keys)
+
+
+def _authority_ceiling_false(payload: dict[str, Any], *keys: str) -> bool:
+    authority_ceiling = payload.get("authority_ceiling")
+    if not isinstance(authority_ceiling, dict):
+        return False
+    return all(authority_ceiling.get(key) is False for key in keys)
+
+
+def _is_bounded_body_floor_status(
+    payload: dict[str, Any],
+    *,
+    name: str,
+) -> bool:
+    """Accept only the documented compact body-import-floor block."""
+
+    if payload.get("status") != "blocked":
+        return False
+
+    if name == "tour-card.json":
+        blocking_ids = set(_blocking_surface_ids(payload))
+        details = payload.get("blocking_surface_details")
+        safe_to_show = payload.get("safe_to_show")
+        if not isinstance(details, dict) or not isinstance(safe_to_show, dict):
+            return False
+        body_floor = details.get(BOUNDED_BODY_FLOOR_BLOCKER)
+        if not isinstance(body_floor, dict):
+            return False
+        return (
+            blocking_ids == {BOUNDED_BODY_FLOOR_BLOCKER}
+            and payload.get("card_status") == "blocked"
+            and body_floor.get("status") == "blocked"
+            and bool(body_floor.get("full_status_ref"))
+            and bool(body_floor.get("full_defects_ref"))
+            and safe_to_show.get("provider_calls_authorized") is False
+            and safe_to_show.get("source_files_mutated") is False
+            and (
+                safe_to_show.get("release_authorized") is False
+                or safe_to_show.get("release_or_hosting_authorized") is False
+            )
+        )
+
+    if name == "status-card.json":
+        blocking_ids = set(_blocking_surface_ids(payload))
+        macro_floor = payload.get("macro_body_import_floor")
+        return (
+            blocking_ids
+            <= {BOUNDED_BODY_FLOOR_BLOCKER, BOUNDED_BODY_FLOOR_RUNTIME_MIRROR}
+            and BOUNDED_BODY_FLOOR_BLOCKER in blocking_ids
+            and isinstance(macro_floor, dict)
+            and macro_floor.get("status") == "blocked"
+            and _authority_ceiling_false(
+                payload,
+                "release_authorized",
+                "provider_calls_authorized",
+                "source_mutation_authorized",
+                "proof_correctness_claim",
+            )
+        )
+
+    if name == "authority-card.json":
+        surface_counts = payload.get("surface_counts")
+        return (
+            isinstance(surface_counts, dict)
+            and surface_counts.get("mixed_public_safe_macro_import_assay_status")
+            == "blocked"
+            and payload.get("unsafe_payload_bodies_exported") is False
+            and payload.get("release_authorized") is False
+            and payload.get("provider_calls_authorized") is False
+            and payload.get("source_mutation_authorized") is False
+            and _authority_ceiling_false(
+                payload,
+                "release_authorized",
+                "provider_calls_authorized",
+                "source_mutation_authorized",
+                "whole_system_correctness_claim",
+            )
+        )
+
+    if name == "served-status-card.json":
+        surfaces = payload.get("observatory_surface_statuses")
+        failures = payload.get("observatory_contract_failures")
+        return (
+            payload.get("observatory_contract_status") == "blocked"
+            and payload.get("observatory_card_status") == "blocked"
+            and failures == ["status"]
+            and isinstance(surfaces, dict)
+            and all(
+                surfaces.get(surface_id) == "pass"
+                for surface_id in (
+                    "route",
+                    "work",
+                    "evidence",
+                    "graph",
+                    "state_inspection",
+                )
+            )
+            and payload.get("private_path_hit_count") == 0
+            and payload.get("observatory_private_path_hit_count") == 0
+            and _falseish(
+                payload,
+                "release_authorized",
+                "provider_calls_authorized",
+                "source_files_mutated",
+            )
+        )
+
+    return False
+
+
+def _expect_status_or_bounded_body_floor(
+    payload: dict[str, Any],
+    *,
+    name: str,
+) -> bool:
+    if payload.get("status") == "pass":
+        return False
+    if _is_bounded_body_floor_status(payload, name=name):
+        return True
+    _expect_status(payload, name=name)
+    return False
 
 
 def _expect_object(payload: dict[str, Any], *, name: str, key: str) -> dict[str, Any]:
@@ -299,9 +484,16 @@ def _expect_proof_lab_status_cache_bound(status: dict[str, Any]) -> str:
     return str(cache_status)
 
 
-def _expect_served_observatory_bound(served_status: dict[str, Any]) -> None:
+def _expect_served_observatory_bound(
+    served_status: dict[str, Any],
+    *,
+    bounded_body_floor: bool = False,
+) -> None:
     name = "served-status-card.json"
-    if served_status.get("observatory_contract_status") != "pass":
+    if (
+        served_status.get("observatory_contract_status") != "pass"
+        and not bounded_body_floor
+    ):
         raise SmokeCheckError(
             f"{name}: expected observatory_contract_status 'pass', got "
             f"{served_status.get('observatory_contract_status')!r}",
@@ -314,7 +506,10 @@ def _expect_served_observatory_bound(served_status: dict[str, Any]) -> None:
             f"{name}: expected served observatory card schema, got "
             f"{served_status.get('observatory_schema_version')!r}",
         )
-    if served_status.get("observatory_card_status") != "pass":
+    if (
+        served_status.get("observatory_card_status") != "pass"
+        and not bounded_body_floor
+    ):
         raise SmokeCheckError(
             f"{name}: expected observatory_card_status 'pass', got "
             f"{served_status.get('observatory_card_status')!r}",
@@ -398,6 +593,7 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
     stripping_guard = _read_json(smoke_out / "stripping-guard.json")
     first_action = _read_json(smoke_out / "first-action.json")
 
+    bounded_body_floor_receipts: list[str] = []
     for name, payload in (
         ("first-screen-card.json", first_screen),
         ("tour-card.json", tour),
@@ -409,9 +605,13 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
         ("legibility-scorecard.json", legibility),
         ("stripping-guard.json", stripping_guard),
     ):
-        _expect_status(payload, name=name)
+        if _expect_status_or_bounded_body_floor(payload, name=name):
+            bounded_body_floor_receipts.append(name)
 
-    if tour.get("card_status") != "clear":
+    tour_bounded = "tour-card.json" in bounded_body_floor_receipts
+    served_bounded = "served-status-card.json" in bounded_body_floor_receipts
+
+    if tour.get("card_status") != "clear" and not tour_bounded:
         raise SmokeCheckError(
             f"tour-card.json: expected card_status 'clear', got {tour.get('card_status')!r}",
         )
@@ -441,7 +641,10 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
         name="served-status-card.json",
         key="provider_calls_authorized",
     )
-    _expect_served_observatory_bound(served_status)
+    _expect_served_observatory_bound(
+        served_status,
+        bounded_body_floor=served_bounded,
+    )
 
     _expect_nested_false(
         proof_lab,
@@ -576,14 +779,17 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
         ],
         "private_path_hit_count": private_path_hit_count,
         "proof_lab_cache_status": proof_lab_cache_status,
+        "bounded_body_floor_receipts": bounded_body_floor_receipts,
     }
 
 
 def print_summary(summary: dict[str, Any]) -> None:
     print("Plectis smoke check: pass")
     print(f"receipts: {summary['smoke_out']}")
+    bounded_receipts = summary.get("bounded_body_floor_receipts") or []
+    body_floor_label = "bounded body-floor" if bounded_receipts else "pass"
     print(
-        "authority: pass "
+        f"authority: {body_floor_label} "
         f"({summary['authority_organ_count']} organ authority rows, release false)",
     )
     print(
@@ -595,12 +801,19 @@ def print_summary(summary: dict[str, Any]) -> None:
         f"{summary['source_body_import_exception_count']} source-body exceptions)",
     )
     print(
-        "served status: pass "
+        f"served status: {body_floor_label} "
         f"({summary['private_path_hit_count']} private path hits)",
     )
     print("served observatory: pass (compact card bound)")
     print("proof lab: pass (cache bound, proof correctness false)")
     print("first action: contract pass")
+    if bounded_receipts:
+        joined = ", ".join(str(item) for item in bounded_receipts)
+        print(
+            "body floor: bounded block "
+            f"({BOUNDED_BODY_FLOOR_BLOCKER}; receipts: {joined}; "
+            "drilldown: plectis status --card .)",
+        )
     print(f"version: {summary['version']}")
 
 

@@ -1,0 +1,297 @@
+{
+  "anti_claims": [
+    "This paper-module JSON row does not prove runtime correctness, release readiness, or whole-system completeness.",
+    "Legacy Markdown presence is not treated as source authority or as typed subject evidence.",
+    "Capsule-backed subject/code edges are structural references only; they do not prove implementation correctness."
+  ],
+  "authority_boundary": "public_paper_module_json_seeded_from_capsule_registry_not_legacy_markdown_authority",
+  "compression": {
+    "authority_ceiling": "Real-substrate capsule surfaced over bounded public fixtures. Does NOT clone repositories, ship the private annex corpus, perform semantic/embedding/BM25/TF-IDF search, adjudicate licenses or provenance, call providers or external solvers, mutate source, or authorize release or publication. Routes only over the sanitized catalog supplied in each case; absolute scores are catalog-relative (no statistical normalization). Not a production retrieval system and not private-root equivalent.",
+    "card": "Annex Knowledge Routing scores each entry of a sanitized in-memory annex catalog against a problem statement across four descending-weight tiers — structured routing fields, family text, open-first summaries, then curated notes — combining exact-match, phrase-containment, and token-overlap signals per tier into a ranked list with a per-row match breakdown and matched note ids. It is deliberately a transparent keyword-overlap retriever, not BM25/TF-IDF/embeddings/semantic search, and it routes only over the catalog handed to it (no repo cloning, no private corpus, no license authority). The organ exercises the real capsule over four public fixtures: two positives route cleanly to the expected top slug above a minimum score (one via structured fields, one via a curated note), and two negatives self-falsify by recomputing to no_match — one because the problem shares no token with the catalog, one because a domain filter excludes the only candidate. Status is pass only when both positives route, both negatives are rejected with the expected no_match marker, and both expected negative case ids are present.",
+    "one_line": "Explainable tiered weighted-token retrieval that ranks a sanitized annex catalog against a problem statement and rejects unroutable problems with no_match."
+  },
+  "created_at": "2026-06-02T00:00:00Z",
+  "id": "paper_module.annex_knowledge_routing",
+  "kind": "paper_module",
+  "omission_receipt": {
+    "drilldown": "core/paper_module_capsules.json::paper_modules[99:paper_module.annex_knowledge_routing]",
+    "omitted": [
+      "private macro source bodies",
+      "raw operator voice",
+      "provider payload bodies",
+      "public Markdown prose body round-trip equivalence",
+      "legacy-only subject edges not named by JSON capsules"
+    ],
+    "reason": "Paper-module instance preserves capsule fields or a legacy Markdown path inventory. Legacy-only rows do not flip source authority; required subjects and selective law/neighbour/code edges remain residual unless source JSON names ids.",
+    "residual_pressure": [
+      {
+        "gap_class": "paper_module_json_capsule_and_edge_population",
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reentry_condition": "Author JSON capsules and typed subject/edge rows from source evidence, then regenerate paper-module JSON instances and projections."
+      }
+    ]
+  },
+  "paper_module_payload": {
+    "authority_ceiling": "Real-substrate capsule surfaced over bounded public fixtures. Does NOT clone repositories, ship the private annex corpus, perform semantic/embedding/BM25/TF-IDF search, adjudicate licenses or provenance, call providers or external solvers, mutate source, or authorize release or publication. Routes only over the sanitized catalog supplied in each case; absolute scores are catalog-relative (no statistical normalization). Not a production retrieval system and not private-root equivalent.",
+    "contract_version": "microcosm_paper_module_instance_payload_v1",
+    "generated_projections": {
+      "atlas_card": {
+        "generated": true,
+        "projection_id": "organ_atlas.annex_knowledge_routing",
+        "status": "linked_from_capsule_edges"
+      },
+      "markdown": {
+        "generated": false,
+        "path": "paper_modules/annex_knowledge_routing.md",
+        "status": "legacy_import_projection_until_roundtrip_builder"
+      },
+      "mermaid": {
+        "generated": true,
+        "projection_id": "paper_module.annex_knowledge_routing.mermaid",
+        "status": "available_from_capsule_edges"
+      }
+    },
+    "legacy_markdown_projection": "paper_modules/annex_knowledge_routing.md",
+    "projection_contract": {
+      "authority_flip_status": "not_flipped",
+      "markdown_status": "legacy_import_projection_until_roundtrip_builder",
+      "source_json_rel": "paper_modules/annex_knowledge_routing.json"
+    },
+    "source_authority": "json_capsule",
+    "source_row": {
+      "axiom_refs": [
+        "AX-2"
+      ],
+      "code_loci": [
+        {
+          "path": "src/microcosm_core/organs/annex_knowledge_routing.py",
+          "resolution": "resolved",
+          "role": "Organ wrapper that surfaces the capsule as a first-class organ: loads bounded fixture cases, drives the REAL capsule entrypoint route_catalog per case, compares observed routing status / top slug / score / matched note id against fixture expectations, self-falsifies on two planted no_match negatives via EXPECTED_NEGATIVE_CASES, and emits body-free result/board/validation/acceptance receipts. Mirrors the bridge_campaign_dag_validation contract exactly.",
+          "symbols": [
+            "build_result",
+            "run",
+            "_evaluate_case",
+            "result_card",
+            "run_annex_knowledge_routing_bundle"
+          ]
+        },
+        {
+          "path": "src/microcosm_core/engine_room/annex_knowledge_router.py",
+          "resolution": "resolved",
+          "role": "Public-safe source-faithful refactor of system/lib/annex_registry.py::route_annexes. Scores each annex in a sanitized catalog against a problem statement across four descending-weight evidence tiers (structured routing fields > family text > open-first summaries > curated notes), combining exact-match / phrase-containment / token-overlap signals per tier, then ranks non-zero rows and emits a per-row match_breakdown plus matched note ids. Returns status=routed when at least one candidate scores positive, else no_match.",
+          "symbols": [
+            "Explainable tiered weighted-token retrieval over a sanitized annex catalog",
+            "Rank sanitized annex rows for a problem statement"
+          ]
+        }
+      ],
+      "compression": {
+        "authority_ceiling": "Real-substrate capsule surfaced over bounded public fixtures. Does NOT clone repositories, ship the private annex corpus, perform semantic/embedding/BM25/TF-IDF search, adjudicate licenses or provenance, call providers or external solvers, mutate source, or authorize release or publication. Routes only over the sanitized catalog supplied in each case; absolute scores are catalog-relative (no statistical normalization). Not a production retrieval system and not private-root equivalent.",
+        "card": "Annex Knowledge Routing scores each entry of a sanitized in-memory annex catalog against a problem statement across four descending-weight tiers — structured routing fields, family text, open-first summaries, then curated notes — combining exact-match, phrase-containment, and token-overlap signals per tier into a ranked list with a per-row match breakdown and matched note ids. It is deliberately a transparent keyword-overlap retriever, not BM25/TF-IDF/embeddings/semantic search, and it routes only over the catalog handed to it (no repo cloning, no private corpus, no license authority). The organ exercises the real capsule over four public fixtures: two positives route cleanly to the expected top slug above a minimum score (one via structured fields, one via a curated note), and two negatives self-falsify by recomputing to no_match — one because the problem shares no token with the catalog, one because a domain filter excludes the only candidate. Status is pass only when both positives route, both negatives are rejected with the expected no_match marker, and both expected negative case ids are present.",
+        "one_line": "Explainable tiered weighted-token retrieval that ranks a sanitized annex catalog against a problem statement and rejects unroutable problems with no_match."
+      },
+      "concept_refs": [
+        "concept.architecture_and_navigation_route_contract_bundle"
+      ],
+      "generated_projections": {
+        "atlas_card": {
+          "generated": true,
+          "projection_id": "organ_atlas.annex_knowledge_routing",
+          "status": "linked_from_capsule_edges"
+        },
+        "markdown": {
+          "generated": false,
+          "path": "paper_modules/annex_knowledge_routing.md",
+          "status": "legacy_import_projection_until_roundtrip_builder"
+        },
+        "mermaid": {
+          "generated": true,
+          "projection_id": "paper_module.annex_knowledge_routing.mermaid",
+          "status": "available_from_capsule_edges"
+        }
+      },
+      "id": "paper_module.annex_knowledge_routing",
+      "kind": "paper_module",
+      "legacy_markdown_projection": "paper_modules/annex_knowledge_routing.md",
+      "principle_refs": [
+        "P-3"
+      ],
+      "source_authority": "json_capsule",
+      "source_ref": "core/paper_module_capsules.json::paper_modules[99:paper_module.annex_knowledge_routing]",
+      "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+      "subjects": [
+        {
+          "kind": "organ",
+          "ref": "annex_knowledge_routing"
+        }
+      ],
+      "title": "Annex Knowledge Routing"
+    },
+    "strangler_note": "This capsule binds the authored organ source, public fixtures, and the surfaced finite_denominator_order_certificate capsule. It does not treat receipts, holding certificates, or capsule prose as a solution to Erdos #257, a machine-checked proof, an oracle or prover result, release authority, source-mutation authority, or whole-system correctness.",
+    "support_contract": {
+      "computed_by": "microcosm_core.doctrine_lattice.build_doctrine_projection",
+      "support_status": "json_capsule_subject_edges_computed_not_correctness_claim"
+    }
+  },
+  "receipt_refs": [],
+  "relationships": {
+    "axiom_refs": [
+      "AX-2"
+    ],
+    "code_loci": [
+      {
+        "path": "src/microcosm_core/organs/annex_knowledge_routing.py",
+        "resolution": "resolved",
+        "role": "Organ wrapper that surfaces the capsule as a first-class organ: loads bounded fixture cases, drives the REAL capsule entrypoint route_catalog per case, compares observed routing status / top slug / score / matched note id against fixture expectations, self-falsifies on two planted no_match negatives via EXPECTED_NEGATIVE_CASES, and emits body-free result/board/validation/acceptance receipts. Mirrors the bridge_campaign_dag_validation contract exactly.",
+        "symbols": [
+          "build_result",
+          "run",
+          "_evaluate_case",
+          "result_card",
+          "run_annex_knowledge_routing_bundle"
+        ]
+      },
+      {
+        "path": "src/microcosm_core/engine_room/annex_knowledge_router.py",
+        "resolution": "resolved",
+        "role": "Public-safe source-faithful refactor of system/lib/annex_registry.py::route_annexes. Scores each annex in a sanitized catalog against a problem statement across four descending-weight evidence tiers (structured routing fields > family text > open-first summaries > curated notes), combining exact-match / phrase-containment / token-overlap signals per tier, then ranks non-zero rows and emits a per-row match_breakdown plus matched note ids. Returns status=routed when at least one candidate scores positive, else no_match.",
+        "symbols": [
+          "Explainable tiered weighted-token retrieval over a sanitized annex catalog",
+          "Rank sanitized annex rows for a problem statement"
+        ]
+      }
+    ],
+    "concept_refs": [
+      "concept.architecture_and_navigation_route_contract_bundle"
+    ],
+    "depends_on": [],
+    "edges": [
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[99:paper_module.annex_knowledge_routing].subjects[0]",
+          "summary": "Paper-module capsule names this organ/mechanism as an explained subject."
+        },
+        "relation_id": "paper_module.explains.organ_or_mechanism",
+        "relation_verb": "explains",
+        "residual_pressure_ref": null,
+        "reverse_verb": "explained_by",
+        "target_id": "annex_knowledge_routing",
+        "target_kind": "organ",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[99:paper_module.annex_knowledge_routing].concept_refs",
+          "summary": "Paper-module source row names this concept as a governing concept."
+        },
+        "relation_id": "paper_module.governed_by.concept",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "concept.architecture_and_navigation_route_contract_bundle",
+        "target_kind": "concept",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[99:paper_module.annex_knowledge_routing].principle_refs",
+          "summary": "Paper-module source row names this governing principle."
+        },
+        "relation_id": "paper_module.governed_by.principle",
+        "relation_verb": "governed_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "governs",
+        "target_id": "P-3",
+        "target_kind": "principle",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[99:paper_module.annex_knowledge_routing].axiom_refs",
+          "summary": "Paper-module source row names this axiom as a law boundary."
+        },
+        "relation_id": "paper_module.abides_by.axiom",
+        "relation_verb": "abides_by",
+        "residual_pressure_ref": null,
+        "reverse_verb": "constrains",
+        "target_id": "AX-2",
+        "target_kind": "axiom",
+        "target_status": "resolved_json_instance"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[99:paper_module.annex_knowledge_routing].code_loci[0]",
+          "summary": "Organ wrapper that surfaces the capsule as a first-class organ: loads bounded fixture cases, drives the REAL capsule entrypoint route_catalog per case, compares observed routing status / top slug / score / matched note id against fixture expectations, self-falsifies on two planted no_match negatives via EXPECTED_NEGATIVE_CASES, and emits body-free result/board/validation/acceptance receipts. Mirrors the bridge_campaign_dag_validation contract exactly."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/organs/annex_knowledge_routing.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      },
+      {
+        "justification": {
+          "source_ref": "core/paper_module_capsules.json::paper_modules[99:paper_module.annex_knowledge_routing].code_loci[1]",
+          "summary": "Public-safe source-faithful refactor of system/lib/annex_registry.py::route_annexes. Scores each annex in a sanitized catalog against a problem statement across four descending-weight evidence tiers (structured routing fields > family text > open-first summaries > curated notes), combining exact-match / phrase-containment / token-overlap signals per tier, then ranks non-zero rows and emits a per-row match_breakdown plus matched note ids. Returns status=routed when at least one candidate scores positive, else no_match."
+        },
+        "relation_id": "paper_module.cites.code_locus",
+        "relation_verb": "cites",
+        "residual_pressure_ref": null,
+        "reverse_verb": "cited_by",
+        "target_id": "src/microcosm_core/engine_room/annex_knowledge_router.py",
+        "target_kind": "code_locus",
+        "target_status": "resolved_code_locus"
+      }
+    ],
+    "legacy_markdown_projection": "paper_modules/annex_knowledge_routing.md",
+    "principle_refs": [
+      "P-3"
+    ],
+    "source_authority": "json_capsule",
+    "source_ref": "core/paper_module_capsules.json::paper_modules[99:paper_module.annex_knowledge_routing]",
+    "subjects": [
+      {
+        "kind": "organ",
+        "ref": "annex_knowledge_routing"
+      }
+    ],
+    "unpopulated_selective_relations": [
+      {
+        "pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
+        "reason": "Paper-module source row does not name sibling/dependency module ids.",
+        "relation_id": "paper_module.depends_on.paper_module",
+        "requirement": "selective",
+        "status": "residual_pressure"
+      }
+    ]
+  },
+  "schema_version": "microcosm_paper_module_instance_v1",
+  "source_refs": [
+    {
+      "path": "core/paper_module_capsules.json::paper_modules[99:paper_module.annex_knowledge_routing]",
+      "role": "json_capsule_source_of_record_until_instance_authority_flip"
+    },
+    {
+      "path": "paper_modules/annex_knowledge_routing.json",
+      "role": "governed_json_parity_seed"
+    },
+    {
+      "path": "paper_modules/annex_knowledge_routing.md",
+      "role": "legacy_markdown_projection_not_source_authority"
+    }
+  ],
+  "statement": "Explainable tiered weighted-token retrieval that ranks a sanitized annex catalog against a problem statement and rejects unroutable problems with no_match.",
+  "status": "active",
+  "subjects": [
+    {
+      "kind": "organ",
+      "ref": "annex_knowledge_routing"
+    }
+  ],
+  "title": "Annex Knowledge Routing",
+  "validator_refs": [
+    "microcosm-substrate/scripts/build_doctrine_projection.py --check-paper-module-corpus"
+  ]
+}

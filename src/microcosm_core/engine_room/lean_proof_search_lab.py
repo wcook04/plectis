@@ -1,4 +1,5 @@
-"""Public-safe Lean proof-search lab capsule.
+"""
+Public-safe Lean proof-search lab capsule.
 
 This is a source-faithful public refactor of the macro prover lab scripts:
 `tools/meta/factory/run_prover_leakproof_and_or_deep_search.py`,
@@ -11,6 +12,30 @@ It runs tiny public Lean statements through bounded symbolic tactic search,
 statement-only candidate checking, problem-id ablation, and axiom cleanliness
 checks. It does not ship the private macro run state, does not use oracle proof
 bodies as forward evidence, and is not a neural or frontier theorem prover.
+
+[PURPOSE]
+- Teleology: Exposes `microcosm_core.engine_room.lean_proof_search_lab` as a documented Microcosm public source module.
+- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
+- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+
+[INTERFACE]
+- Exports: SCHEMA_VERSION, ORGAN_ID, FIXTURE_EVALUATION_MAX_WORKERS, SOURCE_REFS, SOURCE_TO_TARGET_RELATION, CLAIM_CEILING, ANTI_CLAIMS, FORBIDDEN_FORWARD_FIELDS, STATUS_FORWARD_SUCCESS, STATUS_FORWARD_FAIL, STATUS_ORACLE_FIREWALL, STATUS_AXIOM_TAINT, DEFAULT_LEAN_TIMEOUT_SECONDS, LeanProblem, CandidateAction, infer_target_shape, check_candidate_with_lean, run_and_or_search, run_statement_only_hammer, run_blind_policy_ablation, evaluate_lab, evaluate_case, evaluate_fixture_dir, build_parser, ...
+- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
+- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
+- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
+
+[FLOW]
+- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
+- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
+- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
+
+[DEPENDENCIES]
+- Required: None beyond the Python standard library and local package imports.
+- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
+
+[CONSTRAINTS]
+- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
+- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
 """
 
 from __future__ import annotations
@@ -76,6 +101,15 @@ _LEAN_CHECK_LOCKS_GUARD = threading.Lock()
 
 @dataclass(frozen=True)
 class LeanProblem:
+    """
+    [ROLE]
+    - Teleology: Groups `LeanProblem` data or behavior for `microcosm_core.engine_room.lean_proof_search_lab` behind a documented class contract.
+    - Ownership: Owned by `microcosm_core.engine_room.lean_proof_search_lab`; callers should construct or mutate instances only through declared fields, constructors, or methods.
+    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
+    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    """
     problem_id: str
     theorem_name: str
     theorem_signature: str
@@ -84,6 +118,15 @@ class LeanProblem:
 
 @dataclass(frozen=True)
 class CandidateAction:
+    """
+    [ROLE]
+    - Teleology: Groups `CandidateAction` data or behavior for `microcosm_core.engine_room.lean_proof_search_lab` behind a documented class contract.
+    - Ownership: Owned by `microcosm_core.engine_room.lean_proof_search_lab`; callers should construct or mutate instances only through declared fields, constructors, or methods.
+    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
+    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
+    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    """
     action_id: str
     tactic_id: str
     body: tuple[str, ...]
@@ -92,22 +135,58 @@ class CandidateAction:
 
 
 def _string(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_string` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return str(value or "").strip()
 
 
 def _as_strings(value: Any) -> tuple[str, ...]:
+    """
+    [ACTION]
+    - Teleology: Implements `_as_strings` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
         return ()
     return tuple(str(item) for item in value if str(item).strip())
 
 
 def _sha(value: Any, size: int = 16) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_sha` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     encoded = json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()[:size]
 
 
 @lru_cache(maxsize=1)
 def _lean_version() -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_lean_version` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     path = shutil.which("lean")
     if not path:
         return {"available": False, "path": None, "version": None}
@@ -121,6 +200,15 @@ def _lean_version() -> dict[str, Any]:
 
 
 def _problem_from_mapping(row: Mapping[str, Any]) -> LeanProblem:
+    """
+    [ACTION]
+    - Teleology: Implements `_problem_from_mapping` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     theorem_name = _string(row.get("theorem_name")) or _string(row.get("problem_id")) or "public_theorem"
     return LeanProblem(
         problem_id=_string(row.get("problem_id")) or theorem_name,
@@ -131,12 +219,30 @@ def _problem_from_mapping(row: Mapping[str, Any]) -> LeanProblem:
 
 
 def _public_problem(row: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_public_problem` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     public = {key: value for key, value in row.items() if key not in FORBIDDEN_FORWARD_FIELDS}
     public.setdefault("target_shape", infer_target_shape(_string(row.get("theorem_signature"))))
     return public
 
 
 def _forbidden_field_paths(value: Any, *, prefix: str = "") -> tuple[str, ...]:
+    """
+    [ACTION]
+    - Teleology: Implements `_forbidden_field_paths` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if isinstance(value, Mapping):
         paths: list[str] = []
         for key, nested in value.items():
@@ -156,6 +262,15 @@ def _forbidden_field_paths(value: Any, *, prefix: str = "") -> tuple[str, ...]:
 
 
 def _forward_firewall(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_forward_firewall` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     findings: list[dict[str, Any]] = []
     for index, row in enumerate(rows):
         paths = _forbidden_field_paths(row)
@@ -179,6 +294,15 @@ def _forward_firewall(rows: Sequence[Mapping[str, Any]]) -> dict[str, Any]:
 
 
 def infer_target_shape(theorem_signature: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `infer_target_shape` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     text = " ".join(theorem_signature.split())
     if "Or p q -> Or q p" in text:
         return "or_comm"
@@ -200,6 +324,15 @@ def infer_target_shape(theorem_signature: str) -> str:
 
 
 def _base_candidate_actions(problem: LeanProblem) -> list[CandidateAction]:
+    """
+    [ACTION]
+    - Teleology: Implements `_base_candidate_actions` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     facts = {
         "identity_intro": ("hypothesis_exact",),
         "and_intro": ("And.intro",),
@@ -226,12 +359,30 @@ def _base_candidate_actions(problem: LeanProblem) -> list[CandidateAction]:
 
 
 def _statement_only_candidate_actions(problem: LeanProblem) -> list[CandidateAction]:
+    """
+    [ACTION]
+    - Teleology: Implements `_statement_only_candidate_actions` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     actions = _base_candidate_actions(problem)
     preferred = [action for action in actions if action.action_id == problem.target_shape]
     return preferred or actions
 
 
 def _statement_source(problem: LeanProblem, body: Sequence[str], *, print_axioms: bool = True) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_statement_source` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if not problem.theorem_signature:
         raise ValueError("theorem_signature is required")
     lines = [problem.theorem_signature]
@@ -242,6 +393,15 @@ def _statement_source(problem: LeanProblem, body: Sequence[str], *, print_axioms
 
 
 def _canonical_theorem_signature(theorem_name: str, theorem_signature: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Implements `_canonical_theorem_signature` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     canonical_name = "__microcosm_cached_theorem__"
     if theorem_name and theorem_name in theorem_signature:
         return theorem_signature.replace(theorem_name, canonical_name, 1)
@@ -254,6 +414,15 @@ def _canonical_theorem_signature(theorem_name: str, theorem_signature: str) -> s
 
 
 def _classify_axioms(stdout: str, source: str, returncode: int) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_classify_axioms` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     sorry_present = bool(re.search(r"(?m)^\s*sorry\b", source))
     clean_marker = "does not depend on any axioms" in stdout
     tainted_marker = "depends on axioms" in stdout and not clean_marker
@@ -273,6 +442,15 @@ def check_candidate_with_lean(
     *,
     timeout_seconds: int = DEFAULT_LEAN_TIMEOUT_SECONDS,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `check_candidate_with_lean` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     source = _statement_source(problem, body)
     canonical_signature = _canonical_theorem_signature(
         problem.theorem_name,
@@ -321,6 +499,15 @@ def _check_candidate_with_lean_singleflight(
     body: tuple[str, ...],
     timeout_seconds: int,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_check_candidate_with_lean_singleflight` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     key = (theorem_signature, target_shape, body, int(timeout_seconds))
     with _LEAN_CHECK_LOCKS_GUARD:
         lock = _LEAN_CHECK_LOCKS.setdefault(key, threading.Lock())
@@ -342,6 +529,15 @@ def _check_candidate_with_lean_cached(
     body: tuple[str, ...],
     timeout_seconds: int,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `_check_candidate_with_lean_cached` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    - Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    """
     problem = LeanProblem(
         problem_id="semantic_cache_probe",
         theorem_name="__microcosm_cached_theorem__",
@@ -405,6 +601,15 @@ def run_and_or_search(
     timeout_seconds: int = DEFAULT_LEAN_TIMEOUT_SECONDS,
     extra_candidates: Sequence[Sequence[str]] = (),
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run_and_or_search` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     actions = _base_candidate_actions(problem)
     for index, body in enumerate(extra_candidates):
         actions.insert(
@@ -484,6 +689,15 @@ def run_statement_only_hammer(
     *,
     timeout_seconds: int = DEFAULT_LEAN_TIMEOUT_SECONDS,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run_statement_only_hammer` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows: list[dict[str, Any]] = []
     selected: dict[str, Any] | None = None
     for index, action in enumerate(_statement_only_candidate_actions(problem)):
@@ -535,10 +749,28 @@ def run_statement_only_hammer(
 
 
 def _policy_signature(action: CandidateAction) -> tuple[Any, ...]:
+    """
+    [ACTION]
+    - Teleology: Implements `_policy_signature` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     return (action.action_id, action.tactic_id, action.body)
 
 
 def _rename_problem_id(problem: LeanProblem, index: int) -> LeanProblem:
+    """
+    [ACTION]
+    - Teleology: Implements `_rename_problem_id` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, declared filesystem outputs.
+    """
     new_name = f"ablated_{index:03d}_{problem.theorem_name}"
     signature = problem.theorem_signature.replace(problem.theorem_name, new_name, 1)
     return LeanProblem(
@@ -550,6 +782,15 @@ def _rename_problem_id(problem: LeanProblem, index: int) -> LeanProblem:
 
 
 def _blind_action(problem: LeanProblem, *, policy_kind: str = "id_blind") -> CandidateAction:
+    """
+    [ACTION]
+    - Teleology: Implements `_blind_action` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     if policy_kind == "memorized_by_id":
         if "fake_or_comm" in problem.problem_id:
             return CandidateAction(
@@ -571,6 +812,15 @@ def run_blind_policy_ablation(
     policy_kind: str = "id_blind",
     timeout_seconds: int = DEFAULT_LEAN_TIMEOUT_SECONDS,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `run_blind_policy_ablation` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     rows: list[dict[str, Any]] = []
     mismatch_rows: list[dict[str, Any]] = []
     original_success = 0
@@ -647,6 +897,15 @@ def run_blind_policy_ablation(
 
 
 def evaluate_lab(payload: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_lab` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     raw_problems = [row for row in payload.get("problems", []) if isinstance(row, Mapping)]
     firewall = _forward_firewall(raw_problems)
     public_rows = [_public_problem(row) for row in raw_problems]
@@ -752,6 +1011,15 @@ def evaluate_lab(payload: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def evaluate_case(case: Mapping[str, Any], *, path: str = "") -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_case` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values.
+    """
     receipt = evaluate_lab(case.get("lab") if isinstance(case.get("lab"), Mapping) else {})
     expected_summary = case.get("expected_summary") if isinstance(case.get("expected_summary"), Mapping) else {}
     summary_checks = [
@@ -781,9 +1049,27 @@ def evaluate_case(case: Mapping[str, Any], *, path: str = "") -> dict[str, Any]:
 
 
 def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Implements `evaluate_fixture_dir` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values.
+    """
     paths = sorted(input_dir.glob("*.json"))
 
     def evaluate_path(path: Path) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Implements `evaluate_fixture_dir.evaluate_path` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+        - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+        - Writes: return values.
+        """
         payload = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(payload, Mapping):
             raise ValueError(f"{path} did not contain a JSON object")
@@ -812,6 +1098,15 @@ def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    """
+    [ACTION]
+    - Teleology: Implements `build_parser` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     parser = argparse.ArgumentParser(description="Engine Room Lean proof-search lab capsule.")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -826,6 +1121,15 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
+    """
+    [ACTION]
+    - Teleology: Implements `main` for `microcosm_core.engine_room.lean_proof_search_lab` while keeping the callable contract visible to source-module readers.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
+    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
+    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
+    - Writes: return values, stdout/stderr or CLI result text.
+    """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command == "evaluate-lab":
         payload = json.loads(Path(args.lab).read_text(encoding="utf-8"))

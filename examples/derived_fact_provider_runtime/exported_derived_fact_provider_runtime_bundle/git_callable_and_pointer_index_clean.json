@@ -1,0 +1,51 @@
+{
+  "case_id": "git_callable_and_pointer_index_clean",
+  "case_type": "positive",
+  "expected_ok": true,
+  "expected_status": "ok",
+  "expected_values": {
+    "demo.tracked_files": 2,
+    "demo.tracked_python": 1,
+    "demo.second_entry": "beta"
+  },
+  "defect_fact_id": null,
+  "expected_error_class": null,
+  "files": {
+    "README.md": "tracked readme\n",
+    "src/tool.py": "print('tracked')\n",
+    "scratch/untracked.py": "print('not counted')\n",
+    "state/list.json": {
+      "entries": ["alpha", "beta", "gamma"]
+    }
+  },
+  "git_tracked": ["README.md", "src/tool.py"],
+  "registry": {
+    "facts": [
+      {
+        "id": "demo.tracked_files",
+        "title": "Git tracked file count via callable",
+        "provider_type": "callable",
+        "callable": "git_tracked_file_count",
+        "value_type": "integer",
+        "tags": ["demo", "callable", "git"]
+      },
+      {
+        "id": "demo.tracked_python",
+        "title": "Git tracked Python file count via callable",
+        "provider_type": "callable",
+        "callable": "git_tracked_python_count",
+        "value_type": "integer",
+        "tags": ["demo", "callable", "git", "python"]
+      },
+      {
+        "id": "demo.second_entry",
+        "title": "Second list entry via JSON pointer array index",
+        "provider_type": "json_pointer",
+        "source_path": "state/list.json",
+        "pointer": "/entries/1",
+        "value_type": "string",
+        "tags": ["demo", "json_pointer", "rfc6901"]
+      }
+    ]
+  }
+}

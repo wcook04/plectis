@@ -131,8 +131,8 @@ flowchart LR
 Read the headline number the way the whole system is built to be read:
 
 ```text
-Reads as:       78 components.
-Means:          78 public component contracts, each with its own evidence line.
+Reads as:       88 components.
+Means:          88 public component contracts, each with its own evidence line.
 Does not mean:  product maturity, or whole-system correctness.
 ```
 
@@ -146,15 +146,15 @@ This facet is the deep drilldown; skip it on a first read. It is body-free relat
 
 | Handle | Count |
 |---|---:|
-| Accepted organs with source relations | 77 |
-| Source-module edges | 7931 |
-| Source files (per-organ aggregate) | 671 |
-| Source shards (per-organ aggregate) | 2431 |
-| Target files (per-organ aggregate) | 682 |
-| Target shards (per-organ aggregate) | 2473 |
-| Validation refs (per-organ aggregate) | 115 |
+| Accepted organs with source relations | 66 |
+| Source-module edges | 3104 |
+| Source files (per-organ aggregate) | 300 |
+| Source shards (per-organ aggregate) | 673 |
+| Target files (per-organ aggregate) | 304 |
+| Target shards (per-organ aggregate) | 686 |
+| Validation refs (per-organ aggregate) | 121 |
 
-Top relation types: `source_shard.retained_as_public_target_shard` `2474` · `source_shard.validated_by_ref` `1404` · `target_shard.validated_by_ref` `1404` · `target_file.shares_macro_source_with_target_file` `912` · `source_file.copied_to_public_target` `683`
+Top relation types: `source_shard.retained_as_public_target_shard` `686` · `source_shard.validated_by_ref` `579` · `target_shard.validated_by_ref` `579` · `source_file.validated_by_ref` `346` · `target_file.validated_by_ref` `346`
 
 Route into the live topology surface:
 
@@ -185,7 +185,7 @@ The full spine, in one table. Components do not call each other; each binds to t
 
 ## Level 3 — the organ spine, grouped into families
 
-The 78 accepted components cluster into 7 families, grouped by what they help you do rather than by how finished they are. Each family below links into [ORGANS.md](ORGANS.md), where every component has a card: its job, its first command, its evidence class, and its scope limit.
+The 88 accepted components cluster into 7 families, grouped by what they help you do rather than by how finished they are. Each family below links into [ORGANS.md](ORGANS.md), where every component has a card: its job, its first command, its evidence class, and its scope limit.
 
 ```mermaid
 flowchart LR
@@ -195,12 +195,12 @@ flowchart LR
   R --> O[Observatory + explain]
   R --> S[Organ spine]
   S --> EAR["Entry & Reveal (2)"]
-  S --> AAN["Architecture & Navigation (10)"]
-  S --> FMAP["Formal Math & Proof (18)"]
-  S --> ARAS["Agent Reliability & Safety Replays (17)"]
-  S --> RASR["Research & Science Replays (8)"]
-  S --> IPAD["Import, Projection & Drift (19)"]
-  S --> WLAC["Work, Landing & Continuity (4)"]
+  S --> AAN["Architecture & Navigation (12)"]
+  S --> FMAP["Formal Math & Proof (20)"]
+  S --> ARAS["Agent Reliability & Safety Replays (20)"]
+  S --> RASR["Research & Science Replays (9)"]
+  S --> IPAD["Import, Projection & Drift (20)"]
+  S --> WLAC["Work, Landing & Continuity (5)"]
   S --> V[Validators + receipts]
   S --> AC[Scope limit]
 ```
@@ -208,12 +208,12 @@ flowchart LR
 | Family | Organs | What it helps you do |
 |---|---|---|
 | [Entry & Reveal](ORGANS.md#entry--reveal) | 2 | Microcosm's entry point and what its short guided path actually proves. |
-| [Architecture & Navigation](ORGANS.md#architecture--navigation) | 10 | The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and make it navigable. |
-| [Formal Math & Proof](ORGANS.md#formal-math--proof) | 18 | The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates. |
-| [Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays) | 17 | Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets. |
-| [Research & Science Replays](ORGANS.md#research--science-replays) | 8 | Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation. |
-| [Import, Projection & Drift](ORGANS.md#import-projection--drift) | 19 | The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source. |
-| [Work, Landing & Continuity](ORGANS.md#work-landing--continuity) | 4 | How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume. |
+| [Architecture & Navigation](ORGANS.md#architecture--navigation) | 12 | The kernel primitives, pattern binding, doctrine grammar, route plane, and standards that give the system its shape and make it navigable. |
+| [Formal Math & Proof](ORGANS.md#formal-math--proof) | 20 | The Lean/proof evidence pipeline: corpus readiness, premise retrieval, tactic routing, verifier trace repair, bounded witnesses, and certificates. |
+| [Agent Reliability & Safety Replays](ORGANS.md#agent-reliability--safety-replays) | 20 | Source-open replay specimens for agent failure modes: red-team monitors, sabotage, sandbox escape, prompt injection, tool authority, memory poisoning, benchmark gaming, route observability, and provider budgets. |
+| [Research & Science Replays](ORGANS.md#research--science-replays) | 9 | Replay specimens that project scientific and forecasting workflows: replication rubrics, spatial world models, materials-lab safety, mechanistic interpretability, and prediction reconciliation. |
+| [Import, Projection & Drift](ORGANS.md#import-projection--drift) | 20 | The membrane that brings non-secret macro substrate into the public tree and keeps projections honest instead of letting them drift from source. |
+| [Work, Landing & Continuity](ORGANS.md#work-landing--continuity) | 5 | How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume. |
 
 ## Level 3 — organ wiring map
 
@@ -225,7 +225,7 @@ flowchart LR
     o0_0["Cold Reader Route Map"]
     o0_1["Public Reveal Walkthrough"]
   end
-  subgraph F1["Architecture & Navigation (10)"]
+  subgraph F1["Architecture & Navigation (12)"]
     o1_0["Pattern Binding Contract"]
     o1_1["Pattern Assimilation Step"]
     o1_2["Executable Doctrine Grammar"]
@@ -236,59 +236,67 @@ flowchart LR
     o1_7["Routing Anti Patterns Registry"]
     o1_8["Doctrine Fact Claim Audit"]
     o1_9["Self Ignorance Coverage Ledger"]
+    o1_10["Navigation Fitness Benchmark"]
+    o1_11["Annex Knowledge Routing"]
   end
-  subgraph F2["Formal Math & Proof (18)"]
-    o2_0["Proof Diagnostic Evidence Spine"]
-    o2_1["Formal Math Readiness Gate"]
-    o2_2["Corpus Readiness Mathlib Absence Gate"]
-    o2_3["Mathematical Strategy Atlas Hypothesis Scorer"]
-    o2_4["Tactic Portfolio Availability Probe"]
-    o2_5["Target Shape Tactic Routing Gate"]
-    o2_6["Lean Std Premise Index"]
-    o2_7["Formal Math Premise Retrieval"]
-    o2_8["Formal Math Verifier Trace Repair Loop"]
-    o2_9["Formal Evidence Cell Anchor Resolver"]
-    o2_10["Undeclared Library Prior Symbol Classifier"]
-    o2_11["Ring2 Premise Retrieval Precision Recall Harness"]
-    o2_12["Formal Math Lean Proof Witness"]
-    o2_13["Verifier Lab Kernel"]
-    o2_14["Verifier Lab Execution Spine"]
-    o2_15["Certificate Kernel Execution Lab"]
-    o2_16["Proof / Control / Runtime Import Capsule"]
+  subgraph F2["Formal Math & Proof (20)"]
+    o2_0["Certificate Kernel Execution Lab"]
+    o2_1["Formal Math Lean Proof Witness"]
+    o2_2["Verifier Lab Execution Spine"]
+    o2_3["Corpus Readiness Mathlib Absence Gate"]
+    o2_4["Proof / Control / Runtime Import Capsule"]
+    o2_5["Proof Diagnostic Evidence Spine"]
+    o2_6["Formal Math Readiness Gate"]
+    o2_7["Mathematical Strategy Atlas Hypothesis Scorer"]
+    o2_8["Tactic Portfolio Availability Probe"]
+    o2_9["Target Shape Tactic Routing Gate"]
+    o2_10["Lean Std Premise Index"]
+    o2_11["Formal Math Premise Retrieval"]
+    o2_12["Formal Math Verifier Trace Repair Loop"]
+    o2_13["Formal Evidence Cell Anchor Resolver"]
+    o2_14["Undeclared Library Prior Symbol Classifier"]
+    o2_15["Ring2 Premise Retrieval Precision Recall Harness"]
+    o2_16["Verifier Lab Kernel"]
     o2_17["Proof Derived Governed Mutation Authorization"]
+    o2_18["Finite Erdos Denominator-Order Certificate Strike"]
+    o2_19["Lean Proof-Search Lab Runtime"]
   end
-  subgraph F3["Agent Reliability & Safety Replays (17)"]
-    o3_0["Agent Benchmark Integrity Anti Gaming Replay"]
-    o3_1["Cold-Eval Honesty Capsule"]
-    o3_2["Validator Checker Capsule"]
-    o3_3["Agent Monitor Redteam Falsification Replay"]
-    o3_4["Agent Sabotage Scheming Monitor Replay"]
-    o3_5["Agent Memory Temporal Conflict Replay"]
-    o3_6["Sleeper Memory Poisoning Quarantine Replay"]
-    o3_7["MCP Tool Authority Replay"]
-    o3_8["Belief State Process Reward Replay"]
-    o3_9["Agent Sandbox Policy Escape Replay"]
-    o3_10["Indirect Prompt Injection Information Flow Policy Replay"]
-    o3_11["Agentic Vulnerability Discovery Patch Proof Replay"]
-    o3_12["Agent Route Observability Runtime"]
-    o3_13["Provider Context Recipe Budget Policy"]
-    o3_14["Agent Closeout Faithfulness Audit"]
-    o3_15["Bounded Autonomy Campaign Packet"]
-    o3_16["Secondary Runtime Source Capsule"]
+  subgraph F3["Agent Reliability & Safety Replays (20)"]
+    o3_0["Agent Closeout Faithfulness Audit"]
+    o3_1["Bounded Autonomy Campaign Packet"]
+    o3_2["Provider Context Recipe Budget Policy"]
+    o3_3["Cold-Eval Honesty Capsule"]
+    o3_4["Validator Checker Capsule"]
+    o3_5["Secondary Runtime Source Capsule"]
+    o3_6["Agent Benchmark Integrity Anti Gaming Replay"]
+    o3_7["Monitor Evidence-Boundary Replay"]
+    o3_8["Sabotage-Monitor Contract Replay"]
+    o3_9["Agent Memory Temporal Conflict Replay"]
+    o3_10["Memory-Poisoning Quarantine Policy Replay"]
+    o3_11["MCP Tool-Authority Policy Replay"]
+    o3_12["Belief-State Reward Bundle Replay"]
+    o3_13["Sandbox-Policy Replay"]
+    o3_14["Prompt-Injection Flow-Policy Replay"]
+    o3_15["Vulnerability Patch-Proof Replay"]
+    o3_16["Agent Route Observability Runtime"]
+    o3_17["Bridge Campaign DAG Validation"]
+    o3_18["Metabolism Queue Reconciliation"]
+    o3_19["Egress Self-Compliance Audit"]
   end
-  subgraph F4["Research & Science Replays (8)"]
-    o4_0["Research Replication Rubric Artifact Replay"]
-    o4_1["Spatial World Model Counterfactual Simulation Replay"]
-    o4_2["Materials Chemistry Closed Loop Lab Safety Replay"]
-    o4_3["Mechanistic Interpretability Circuit Attribution Replay"]
-    o4_4["Prediction Oracle Reconciliation"]
-    o4_5["Finance Forecast Evaluation Spine"]
-    o4_6["Market Dashboard Read-Model Capsule"]
-    o4_7["Prediction Market Board Capsule"]
+  subgraph F4["Research & Science Replays (9)"]
+    o4_0["Finance Forecast Evaluation Spine"]
+    o4_1["Prediction Market Board Capsule"]
+    o4_2["Market Dashboard Read-Model Capsule"]
+    o4_3["Toy-Transformer Attribution Replay"]
+    o4_4["Gridworld Counterfactual State Replay"]
+    o4_5["Research Replication Rubric Artifact Replay"]
+    o4_6["Materials Lab-Safety Refusal Replay"]
+    o4_7["Prediction Oracle Reconciliation"]
+    o4_8["Derived Fact Provider Runtime"]
   end
-  subgraph F5["Import, Projection & Drift (19)"]
+  subgraph F5["Import, Projection & Drift (20)"]
     o5_0["Macro Projection Import Protocol"]
-    o5_1["World Model Projection Drift Control Room"]
+    o5_1["Projection-Drift Contract Validator"]
     o5_2["Unsurfaced Macro Primitives Capsule"]
     o5_3["Authority Systems Source Capsule"]
     o5_4["Trace, Code-Map and Scheduling Engines Capsule"]
@@ -306,15 +314,17 @@ flowchart LR
     o5_16["Compliance Pipeline Capsule"]
     o5_17["Live Source Drift Capsule"]
     o5_18["Release Claim-Language Gate"]
+    o5_19["Generated Projection Drift Runtime"]
   end
-  subgraph F6["Work, Landing & Continuity (4)"]
+  subgraph F6["Work, Landing & Continuity (5)"]
     o6_0["Mission Transaction Work Spine"]
     o6_1["Durable Agent Work Landing Replay"]
-    o6_2["Bridge Phase Continuity Runtime"]
+    o6_2["Bridge-Continuity Acceptance Replay"]
     o6_3["Concurrency Mission Control"]
+    o6_4["Semantic Singleflight Dedup Runtime"]
   end
   o0_0 --> o1_3
-  o0_0 --> o3_12
+  o0_0 --> o3_16
   o0_0 --> o1_0
   o0_0 --> o1_8
   o0_0 --> o1_1
@@ -324,16 +334,16 @@ flowchart LR
   o0_1 --> o5_18
   o0_1 --> o4_3
   o0_1 --> o5_9
-  o0_1 --> o3_2
+  o0_1 --> o3_4
   o1_0 --> o1_3
-  o1_0 --> o3_12
+  o1_0 --> o3_16
   o1_0 --> o0_0
   o1_0 --> o5_0
   o1_0 --> o1_1
   o1_0 --> o1_5
   o1_2 --> o1_8
   o1_3 --> o0_0
-  o1_3 --> o3_12
+  o1_3 --> o3_16
   o1_3 --> o1_7
   o1_3 --> o1_0
   o1_3 --> o1_8
@@ -345,147 +355,171 @@ flowchart LR
   o1_3 --> o5_16
   o1_5 --> o1_1
   o1_7 --> o1_3
-  o1_7 --> o3_12
+  o1_7 --> o3_16
   o1_7 --> o0_0
   o1_8 --> o5_11
   o1_8 --> o1_9
-  o2_0 --> o2_8
-  o2_0 --> o2_9
-  o2_0 --> o2_12
-  o2_0 --> o2_13
-  o2_0 --> o2_11
-  o2_0 --> o2_5
-  o2_1 --> o2_12
-  o2_1 --> o5_0
-  o2_1 --> o2_16
-  o2_1 --> o3_13
-  o2_1 --> o2_4
+  o1_10 --> o2_0
+  o1_10 --> o2_16
+  o1_10 --> o2_1
+  o1_11 --> o2_0
+  o1_11 --> o2_16
+  o1_11 --> o2_1
+  o2_1 --> o2_11
+  o2_1 --> o2_6
   o2_1 --> o2_5
-  o2_2 --> o2_13
-  o2_2 --> o2_4
-  o2_2 --> o2_10
-  o2_2 --> o2_12
-  o2_4 --> o2_2
-  o2_4 --> o2_8
-  o2_4 --> o2_5
-  o2_4 --> o2_10
-  o2_4 --> o2_13
-  o2_5 --> o2_8
-  o2_5 --> o2_9
-  o2_5 --> o2_0
-  o2_5 --> o2_4
+  o2_1 --> o2_16
+  o2_1 --> o2_2
+  o2_2 --> o2_0
+  o2_2 --> o5_11
+  o2_3 --> o2_16
+  o2_3 --> o2_8
+  o2_3 --> o2_14
+  o2_3 --> o2_1
+  o2_5 --> o2_12
   o2_5 --> o2_13
+  o2_5 --> o2_1
+  o2_5 --> o2_16
+  o2_5 --> o2_15
+  o2_5 --> o2_9
+  o2_6 --> o2_1
+  o2_6 --> o5_0
+  o2_6 --> o2_4
+  o2_6 --> o3_2
   o2_6 --> o2_8
-  o2_6 --> o2_13
-  o2_6 --> o2_3
-  o2_6 --> o2_10
-  o2_7 --> o2_12
-  o2_7 --> o2_8
-  o2_7 --> o2_6
-  o2_7 --> o2_13
-  o2_7 --> o2_3
-  o2_7 --> o2_11
+  o2_6 --> o2_9
+  o2_8 --> o2_3
+  o2_8 --> o2_12
   o2_8 --> o2_9
-  o2_8 --> o2_0
-  o2_8 --> o2_13
-  o2_8 --> o2_5
   o2_8 --> o2_14
-  o2_9 --> o2_8
-  o2_9 --> o2_0
+  o2_8 --> o2_16
+  o2_9 --> o2_12
+  o2_9 --> o2_13
   o2_9 --> o2_5
-  o2_10 --> o2_2
-  o2_10 --> o2_4
-  o2_10 --> o3_13
-  o2_11 --> o2_3
-  o2_11 --> o2_13
-  o2_12 --> o2_7
-  o2_12 --> o2_1
-  o2_12 --> o2_0
+  o2_9 --> o2_8
+  o2_9 --> o2_16
+  o2_10 --> o2_12
+  o2_10 --> o2_16
+  o2_10 --> o2_7
+  o2_10 --> o2_14
+  o2_11 --> o2_1
+  o2_11 --> o2_12
+  o2_11 --> o2_10
+  o2_11 --> o2_16
+  o2_11 --> o2_7
+  o2_11 --> o2_15
   o2_12 --> o2_13
-  o2_12 --> o2_14
-  o2_13 --> o2_2
-  o2_13 --> o2_6
-  o2_13 --> o2_7
-  o2_13 --> o2_4
-  o2_13 --> o2_5
-  o2_13 --> o2_11
-  o2_13 --> o2_8
-  o2_13 --> o2_0
+  o2_12 --> o2_5
+  o2_12 --> o2_16
+  o2_12 --> o2_9
+  o2_12 --> o2_2
   o2_13 --> o2_12
-  o2_13 --> o2_14
-  o2_14 --> o2_15
-  o2_14 --> o5_11
+  o2_13 --> o2_5
+  o2_13 --> o2_9
+  o2_14 --> o2_3
+  o2_14 --> o2_8
+  o2_14 --> o3_2
+  o2_15 --> o2_7
+  o2_15 --> o2_16
+  o2_16 --> o2_3
+  o2_16 --> o2_10
+  o2_16 --> o2_11
+  o2_16 --> o2_8
+  o2_16 --> o2_9
+  o2_16 --> o2_15
+  o2_16 --> o2_12
+  o2_16 --> o2_5
+  o2_16 --> o2_1
+  o2_16 --> o2_2
   o2_17 --> o5_18
-  o2_17 --> o2_16
+  o2_17 --> o2_4
   o2_17 --> o5_8
-  o3_0 --> o4_0
-  o3_0 --> o3_1
+  o2_18 --> o2_0
+  o2_18 --> o2_16
+  o2_18 --> o2_1
+  o2_19 --> o2_0
+  o2_19 --> o2_16
+  o2_19 --> o2_1
   o3_2 --> o3_1
-  o3_2 --> o5_18
-  o3_3 --> o3_4
-  o3_5 --> o3_6
-  o3_7 --> o3_9
-  o3_7 --> o3_6
-  o3_9 --> o3_6
-  o3_12 --> o1_3
-  o3_12 --> o0_0
-  o3_12 --> o1_7
-  o3_12 --> o1_0
-  o3_12 --> o5_0
-  o3_12 --> o3_15
-  o3_12 --> o5_14
-  o3_12 --> o2_16
-  o3_12 --> o5_2
-  o3_12 --> o5_4
-  o3_12 --> o5_16
-  o3_12 --> o3_5
-  o3_12 --> o3_9
-  o3_12 --> o3_13
-  o3_12 --> o3_8
-  o3_13 --> o3_15
-  o3_13 --> o5_15
-  o4_0 --> o4_2
-  o4_0 --> o4_3
-  o4_0 --> o4_4
+  o3_2 --> o5_15
+  o3_4 --> o3_3
+  o3_4 --> o5_18
+  o3_6 --> o4_5
+  o3_6 --> o3_3
+  o3_7 --> o3_8
+  o3_9 --> o3_10
+  o3_11 --> o3_13
+  o3_11 --> o3_10
+  o3_13 --> o3_10
+  o3_16 --> o1_3
+  o3_16 --> o0_0
+  o3_16 --> o1_7
+  o3_16 --> o1_0
+  o3_16 --> o5_0
+  o3_16 --> o3_1
+  o3_16 --> o5_14
+  o3_16 --> o2_4
+  o3_16 --> o5_2
+  o3_16 --> o5_4
+  o3_16 --> o5_16
+  o3_16 --> o3_9
+  o3_16 --> o3_13
+  o3_16 --> o3_2
+  o3_16 --> o3_12
+  o3_17 --> o2_0
+  o3_17 --> o2_16
+  o3_17 --> o2_1
+  o3_18 --> o2_0
+  o3_18 --> o2_16
+  o3_18 --> o2_1
+  o3_19 --> o2_0
+  o3_19 --> o2_16
+  o3_19 --> o2_1
   o4_0 --> o4_1
-  o4_0 --> o3_1
-  o4_2 --> o4_1
-  o4_4 --> o4_6
-  o4_4 --> o4_7
-  o4_4 --> o5_10
+  o4_0 --> o4_7
+  o4_1 --> o5_10
+  o4_2 --> o5_2
+  o4_5 --> o4_6
+  o4_5 --> o4_3
   o4_5 --> o4_7
   o4_5 --> o4_4
-  o4_6 --> o5_2
+  o4_5 --> o3_3
+  o4_6 --> o4_4
+  o4_7 --> o4_2
+  o4_7 --> o4_1
   o4_7 --> o5_10
-  o5_0 --> o2_1
-  o5_0 --> o3_12
+  o4_8 --> o2_0
+  o4_8 --> o2_16
+  o4_8 --> o2_1
+  o5_0 --> o2_6
+  o5_0 --> o3_16
   o5_0 --> o6_0
   o5_0 --> o1_3
   o5_0 --> o1_0
-  o5_0 --> o4_2
+  o5_0 --> o4_6
   o5_0 --> o5_14
   o5_0 --> o5_16
   o5_0 --> o5_13
   o5_0 --> o5_17
-  o5_0 --> o2_16
+  o5_0 --> o2_4
   o5_0 --> o5_3
   o5_0 --> o5_2
   o5_0 --> o5_4
   o5_0 --> o5_6
   o5_0 --> o5_5
-  o5_0 --> o3_16
+  o5_0 --> o3_5
   o5_0 --> o5_9
   o5_0 --> o5_8
   o5_0 --> o5_12
   o5_0 --> o6_3
   o5_0 --> o5_11
   o5_0 --> o1_2
-  o5_1 --> o4_2
-  o5_1 --> o4_3
-  o5_1 --> o4_4
-  o5_1 --> o4_1
-  o5_1 --> o5_15
   o5_1 --> o4_6
+  o5_1 --> o4_3
+  o5_1 --> o4_7
+  o5_1 --> o4_4
+  o5_1 --> o5_15
+  o5_1 --> o4_2
   o5_1 --> o5_10
   o5_4 --> o5_8
   o5_4 --> o5_7
@@ -493,34 +527,41 @@ flowchart LR
   o5_5 --> o5_7
   o5_6 --> o5_9
   o5_6 --> o5_2
-  o5_10 --> o4_7
+  o5_10 --> o4_1
   o5_11 --> o5_16
-  o5_11 --> o3_2
+  o5_11 --> o3_4
   o5_12 --> o5_13
   o5_14 --> o5_0
   o5_14 --> o5_16
   o5_14 --> o1_3
-  o5_14 --> o3_12
+  o5_14 --> o3_16
   o5_16 --> o5_0
   o5_16 --> o5_14
   o5_16 --> o1_3
-  o5_16 --> o3_12
+  o5_16 --> o3_16
   o5_17 --> o5_13
-  o6_0 --> o3_15
+  o5_19 --> o2_0
+  o5_19 --> o2_16
+  o5_19 --> o2_1
+  o6_0 --> o3_1
   o6_0 --> o6_3
   o6_0 --> o5_0
   o6_0 --> o5_15
   o6_0 --> o5_17
-  o6_0 --> o2_16
+  o6_0 --> o2_4
   o6_0 --> o5_7
-  o6_0 --> o3_0
-  o6_0 --> o3_11
-  o6_1 --> o3_14
+  o6_0 --> o3_6
+  o6_0 --> o3_15
+  o6_1 --> o3_0
   o6_1 --> o5_0
-  o6_2 --> o3_5
+  o6_2 --> o3_9
   o6_2 --> o6_3
   o6_3 --> o6_0
   o6_3 --> o5_17
+  o6_4 --> o6_0
+  o6_4 --> o6_1
+  o6_4 --> o6_3
+  o6_4 --> o5_11
 ```
 
 ## Level 4 — import & drift membrane

@@ -166,7 +166,7 @@
       "path": "source_modules/ai_workflow/tools/meta/factory/run_formal_math_erdos257_period_noncollapse_strike.py",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "tools/meta/factory/run_formal_math_erdos257_period_noncollapse_strike.py",
         "substitution": "public_safe_stub"
       },
@@ -178,7 +178,7 @@
       "path": "source_modules/ai_workflow/state/lean_diagnostics/runs/20260521T014829Z--e18ca474ac--Erdos257PeriodNoncollapse_CertificateKernel.lean.json",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "state/lean_diagnostics/runs/20260521T014829Z--e18ca474ac--Erdos257PeriodNoncollapse_CertificateKernel.lean.json",
         "substitution": "public_safe_stub"
       },
@@ -190,7 +190,7 @@
       "path": "source_modules/ai_workflow/state/lean_diagnostics/runs/20260521T022730Z--0a326ab55e--Erdos257PeriodNoncollapse_GeneratedCertificates.lean.json",
       "release_substitution": {
         "body_in_receipt": false,
-        "contamination_class": "restricted_private_source_ref",
+        "contamination_class": "private_body_exact_match",
         "matched_private_ref": "state/lean_diagnostics/runs/20260521T022730Z--0a326ab55e--Erdos257PeriodNoncollapse_GeneratedCertificates.lean.json",
         "substitution": "public_safe_stub"
       },

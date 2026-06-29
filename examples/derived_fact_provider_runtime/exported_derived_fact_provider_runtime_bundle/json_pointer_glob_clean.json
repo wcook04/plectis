@@ -1,0 +1,44 @@
+{
+  "case_id": "json_pointer_glob_clean",
+  "case_type": "positive",
+  "expected_ok": true,
+  "expected_status": "ok",
+  "expected_values": {
+    "demo.summary_count": 7,
+    "demo.markdown_count": 2
+  },
+  "defect_fact_id": null,
+  "expected_error_class": null,
+  "files": {
+    "state/report.json": {
+      "summary": {
+        "fact_count": 7
+      }
+    },
+    "docs/a.md": "alpha\n",
+    "docs/b.md": "beta\n",
+    "private/ignored.md": "excluded\n"
+  },
+  "registry": {
+    "facts": [
+      {
+        "id": "demo.summary_count",
+        "title": "Summary fact count via JSON pointer",
+        "provider_type": "json_pointer",
+        "source_path": "state/report.json",
+        "pointer": "/summary/fact_count",
+        "value_type": "integer",
+        "tags": ["demo", "json_pointer"]
+      },
+      {
+        "id": "demo.markdown_count",
+        "title": "Public docs markdown count via glob",
+        "provider_type": "glob_count",
+        "glob": "docs/*.md",
+        "exclude_prefixes": ["private/"],
+        "value_type": "integer",
+        "tags": ["demo", "glob_count"]
+      }
+    ]
+  }
+}

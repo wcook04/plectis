@@ -1,0 +1,21 @@
+{
+  "bundle_id": "public_navigation_fitness_benchmark_bundle",
+  "organ_id": "navigation_fitness_benchmark",
+  "input_mode": "exported_navigation_fitness_benchmark_bundle",
+  "authored_organ": true,
+  "body_in_receipt": false,
+  "live_state_authority": false,
+  "release_authorized": false,
+  "source_to_target_relation": "source_faithful_public_refactor",
+  "surfaces_capsule": "microcosm_core.engine_room.navigation_fitness_benchmark",
+  "required_files": [
+    "bundle_manifest.json",
+    "clean_fanout_pass.json",
+    "forbidden_first_route_rejected.json",
+    "latency_debt_pass.json",
+    "missing_stable_id_rejected.json",
+    "docs/README.md",
+    "source_modules/src/microcosm_core/organs/navigation_fitness_benchmark.py"
+  ],
+  "claim_ceiling": "Recomputes a curated route-packet navigation benchmark over bounded public fixtures: recall and precision of selected artifacts against expected stable ids, forbidden-first-route checks, scent-term coverage, latency status against a per-task budget, and sufficiency/latency debt candidates. Each case carries a planted expectation, and the runner accepts a case only when the recomputation matches it; planted negative cases are rejected by recomputation. It is not a live private kernel run, not an embedding benchmark, not a universal navigation benchmark, and not release authority."
+}

@@ -1,0 +1,49 @@
+{
+  "case_id": "latency_debt_pass",
+  "case_type": "positive",
+  "expected_ok": true,
+  "expected_status": "pass",
+  "expected_summary": {
+    "task_count": 1,
+    "sufficiency_pass_count": 1,
+    "sufficiency_fail_count": 0,
+    "latency_pass_count": 0,
+    "latency_fail_count": 1,
+    "debt_candidate_count": 1
+  },
+  "expected_task_statuses": {
+    "slow_but_sufficient_route": {
+      "sufficiency_status": "pass",
+      "latency_status": "fail"
+    }
+  },
+  "benchmark": {
+    "suite": "latency_public_fixture",
+    "cases": [
+      {
+        "task": {
+          "task_id": "slow_but_sufficient_route",
+          "family": "latency_debt",
+          "task_prompt": "Prioritize route bloat and context compression debt.",
+          "route_type": "context_pack",
+          "expected_artifacts": [
+            "skills:navigation_metabolism"
+          ],
+          "latency_budget_ms": 100,
+          "scent_terms": [
+            "navigation",
+            "debt"
+          ]
+        },
+        "packet": {
+          "first_contact_command": "kernel.py --context-pack",
+          "wall_ms": 830,
+          "selected_artifacts": [
+            "skills:navigation_metabolism"
+          ],
+          "summary": "navigation debt route was exposed, but the packet was too slow for budget"
+        }
+      }
+    ]
+  }
+}

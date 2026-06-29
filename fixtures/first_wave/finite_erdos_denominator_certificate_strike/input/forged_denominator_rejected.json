@@ -1,0 +1,13 @@
+{
+  "case_id": "forged_denominator_rejected",
+  "case_type": "negative",
+  "exercise": "forged_denominator_rejected",
+  "support": [3],
+  "base": 2,
+  "claimed": {
+    "numerator": 1,
+    "denominator": 5,
+    "order": 3
+  },
+  "note": "S_2({3}) = 1/(2^3 - 1) = 1/7. The true certificate is P=1, Q=7, ord_7(2)=3=lcm({3}). This case forges only the denominator (claims 5). The runner recomputes Q=7, finds it disagrees with the claim, and rejects the certificate with ERDOS_CERT_DENOMINATOR_MISMATCH."
+}

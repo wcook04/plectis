@@ -1,0 +1,14 @@
+{
+  "case_id": "queue_lease_recovery_ok",
+  "case_type": "positive",
+  "expected_ok": true,
+  "case_kind": "queue_recovery",
+  "intent": "Enqueue under an active-idempotency guard, lease one job, let the lease expire, and recover it to recoverable while a fresh reconcile stays healthy.",
+  "expects": {
+    "inserted_first": true,
+    "inserted_second_blocked_by_idempotency": true,
+    "expired_lease_requeued": 1,
+    "final_state": "recoverable",
+    "reconcile_status": "healthy"
+  }
+}

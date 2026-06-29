@@ -1,0 +1,32 @@
+{
+  "case_id": "positive_symbolic_lab_pass",
+  "expected_status": "pass",
+  "expected_summary": {
+    "problem_count": 2,
+    "firewall_violation_count": 0,
+    "and_or_success_count": 2,
+    "hammer_success_count": 2,
+    "axiom_taint_count": 0,
+    "ablation_passed": true
+  },
+  "lab": {
+    "timeout_seconds": 8,
+    "beam_width": 6,
+    "max_depth": 3,
+    "policy_kind": "id_blind",
+    "problems": [
+      {
+        "problem_id": "lab_and_intro",
+        "theorem_name": "lab_and_intro",
+        "target_shape": "and_intro",
+        "theorem_signature": "theorem lab_and_intro (p q : Prop) : p -> q -> And p q := by"
+      },
+      {
+        "problem_id": "lab_or_comm",
+        "theorem_name": "lab_or_comm",
+        "target_shape": "or_comm",
+        "theorem_signature": "theorem lab_or_comm (p q : Prop) : Or p q -> Or q p := by"
+      }
+    ]
+  }
+}

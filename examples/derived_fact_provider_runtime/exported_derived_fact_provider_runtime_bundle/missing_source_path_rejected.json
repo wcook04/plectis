@@ -1,0 +1,25 @@
+{
+  "case_id": "missing_source_path_rejected",
+  "case_type": "negative",
+  "expected_ok": false,
+  "expected_status": "degraded",
+  "expected_error_ids": ["demo.missing_source"],
+  "defect_fact_id": "demo.missing_source",
+  "expected_error_class": "FileNotFoundError",
+  "files": {
+    "README.md": "fixture root exists but the referenced source is absent\n"
+  },
+  "registry": {
+    "facts": [
+      {
+        "id": "demo.missing_source",
+        "title": "JSON pointer over an absent source path",
+        "provider_type": "json_pointer",
+        "source_path": "state/does_not_exist.json",
+        "pointer": "/summary/fact_count",
+        "value_type": "integer",
+        "tags": ["demo", "negative", "missing_source"]
+      }
+    ]
+  }
+}

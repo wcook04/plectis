@@ -2,7 +2,7 @@
 
 The original control-plane body is intentionally not part of the public slice.
 Matched private ref: system/lib/active_execution_constellation.py
-Boundary class: private_body_exact_match
+Boundary class: private_body_near_verbatim
 """
 
 PUBLIC_MICROCOSM_STUB = True

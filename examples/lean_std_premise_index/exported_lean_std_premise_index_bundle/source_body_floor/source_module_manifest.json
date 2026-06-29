@@ -7,8 +7,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 60361,
-      "line_count": 1562,
+      "byte_count": 98060,
+      "line_count": 2019,
       "material_class": "public_microcosm_organ_source_body",
       "module_id": "lean_std_premise_index_public_organ_source_body_import",
       "path": "source_modules/microcosm_core/organs/lean_std_premise_index.py",
@@ -16,19 +16,21 @@
         "ORGAN_ID = \"lean_std_premise_index\"",
         "def run"
       ],
-      "sha256": "sha256:b18dc7b842ba18665df06a26bc297b184e7031eee9ad82507b3ec6e37ebb5bfd",
+      "sha256": "sha256:eae6ca89e39ae458d721877c55f29fa88d2b08ff8f836385c09e745d28a46419",
       "sha256_match": true,
       "source_byte_count": 60361,
       "source_import_class": "copied_non_secret_public_substrate_body",
       "source_line_count": 1562,
       "source_ref": "src/microcosm_core/organs/lean_std_premise_index.py",
       "source_role": "Public Lean Std premise-index organ logic used to build and validate premise descriptors.",
-      "source_sha256": "sha256:b18dc7b842ba18665df06a26bc297b184e7031eee9ad82507b3ec6e37ebb5bfd",
+      "source_sha256": "sha256:eae6ca89e39ae458d721877c55f29fa88d2b08ff8f836385c09e745d28a46419",
+      "source_target_sha256_match": true,
       "source_to_target_relation": "exact_copy",
       "target_byte_count": 60361,
+      "target_expected_digest_match": true,
       "target_line_count": 1562,
       "target_ref": "microcosm-substrate/examples/lean_std_premise_index/exported_lean_std_premise_index_bundle/source_body_floor/source_modules/microcosm_core/organs/lean_std_premise_index.py",
-      "target_sha256": "sha256:b18dc7b842ba18665df06a26bc297b184e7031eee9ad82507b3ec6e37ebb5bfd",
+      "target_sha256": "sha256:eae6ca89e39ae458d721877c55f29fa88d2b08ff8f836385c09e745d28a46419",
       "validation_refs": [
         "tests/test_substrate_substitution_ledger.py::test_state_run_generated_json_sources_do_not_count_as_real_substrate"
       ]

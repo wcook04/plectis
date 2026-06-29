@@ -1,0 +1,70 @@
+{
+  "schema_version": "microcosm_source_module_manifest_v1",
+  "manifest_id": "annex_knowledge_routing_source_body_manifest",
+  "bundle_id": "exported_annex_knowledge_routing_bundle",
+  "classification": "public_package_body_backed_composition_capsule",
+  "source_import_class": "public_safe_refactored_body",
+  "body_storage_policy": "public package source bodies are exercised in place by the organ acceptance command; this manifest binds their provenance and digest relation so old metadata cannot promote the organ by itself",
+  "receipt_body_policy": "receipts are evidence outputs only and are not counted as imported body substrate",
+  "body_in_receipt": false,
+  "source_open_payload_boundary": "non-secret Microcosm package source only; no provider state, credentials, sessions, raw private state, or release authority",
+  "validation_contract_ref": "checker.microcosm.validators.substrate_substitution_ledger",
+  "module_count": 2,
+  "modules": [
+    {
+      "module_id": "annex_knowledge_routing_organ_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Organ wrapper that surfaces the capsule as a first-class organ: loads bounded fixture cases, drives the REAL capsule entrypoint route_catalog per case, compares observed routing status / top slug / score / matched note id against fixture expectations, self-falsifies on two planted no_match negatives via EXPECTED_NEGATIVE_CASES, and emits body-free result/board/validation/acceptance receipts. Mirrors the bridge_campaign_dag_validation contract exactly.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py",
+      "path": "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 21765,
+      "line_count": 459,
+      "sha256": "sha256:acbffb76ca37c57b6dd21f5d47a89814f722cc6929b3170c9eaf8da392233a7c",
+      "target_sha256": "acbffb76ca37c57b6dd21f5d47a89814f722cc6929b3170c9eaf8da392233a7c",
+      "source_sha256": "acbffb76ca37c57b6dd21f5d47a89814f722cc6929b3170c9eaf8da392233a7c",
+      "required_anchors": [
+        "ORGAN_ID = \"annex_knowledge_routing\"",
+        "def run"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.organs.annex_knowledge_routing.run",
+        "tests/test_annex_knowledge_routing.py"
+      ]
+    },
+    {
+      "module_id": "annex_knowledge_routing_capsule_public_package_body",
+      "classification": "public_package_body",
+      "material_class": "public_microcosm_runtime_body",
+      "source_import_class": "public_safe_refactored_body",
+      "source_role": "Public-safe source-faithful refactor of system/lib/annex_registry.py::route_annexes. Scores each annex in a sanitized catalog against a problem statement across four descending-weight evidence tiers (structured routing fields > family text > open-first summaries > curated notes), combining exact-match / phrase-containment / token-overlap signals per tier, then ranks non-zero rows and emits a per-row match_breakdown plus matched note ids. Returns status=routed when at least one candidate scores positive, else no_match.",
+      "source_ref": "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py",
+      "target_ref": "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py",
+      "path": "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py",
+      "source_to_target_relation": "public_package_body_exercised_directly",
+      "body_copied": true,
+      "body_in_receipt": false,
+      "byte_count": 31536,
+      "line_count": 649,
+      "sha256": "sha256:874af215e96afe36badc2ac50e204cd6a681ed92954901796918346f16c54acf",
+      "target_sha256": "874af215e96afe36badc2ac50e204cd6a681ed92954901796918346f16c54acf",
+      "source_sha256": "874af215e96afe36badc2ac50e204cd6a681ed92954901796918346f16c54acf",
+      "required_anchors": [
+        "Explainable tiered weighted-token retrieval over a sanitized annex catalog",
+        "Rank sanitized annex rows for a problem statement"
+      ],
+      "required_anchors_present": true,
+      "validation_refs": [
+        "microcosm_core.engine_room.annex_knowledge_router",
+        "tests/test_annex_knowledge_routing.py"
+      ]
+    }
+  ],
+  "blocked_import_debt": []
+}

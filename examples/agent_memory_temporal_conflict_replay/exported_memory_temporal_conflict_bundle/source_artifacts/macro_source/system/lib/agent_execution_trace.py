@@ -29,6 +29,29 @@
 - `write_agent_execution_trace(...)` writes the bounded hologram surfaces and
   the full spans/sessions under state/.
 - `load_trace_rules(...)` loads the authored rules registry.
+
+[FLOW]
+- Mechanism: Load trace rules, discover bounded Claude/Codex session files,
+  parse each provider stream into normalized spans, finalize session summaries,
+  aggregate bottlenecks/patterns, and emit process read models.
+- Orders: Session discovery sorts newest first; row-level projections preserve
+  parser order and cap expensive windows through rule-configured limits.
+
+[DEPENDENCIES]
+- system.lib.strict_json: strict JSONL parsing and read-model loading.
+- codex/doctrine/process/trace_rules.json: route-compliance and ingest policy.
+- codex/standards/std_agent_execution_trace.json: process read-model contract.
+- state/agent_telemetry/process: optional full-span write destination.
+
+[CONSTRAINTS]
+- Atomicity: Writes use whole-file JSON/JSONL replacement for each materialized
+  read model; no partial append semantics are exposed as authority.
+- Determinism: Stable ordering is derived from session mtimes, span sequence,
+  and sorted/capped aggregate rows.
+- Forbid: Hidden reasoning, prompt bodies, raw stdout/stderr dumps, or
+  unbounded tool-result bodies in compact surfaces.
+- Non-goal: Executing commands, replaying sessions, or mutating provider
+  session stores.
 """
 from __future__ import annotations
 
@@ -249,6 +272,13 @@ TRACE_LEVEL_ALIASES = {
 
 
 def _normalize_trace_level(level: str | None) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_normalize_trace_level`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     raw = (level or "tape").strip() or "tape"
     return TRACE_LEVEL_ALIASES.get(raw, raw)
 
@@ -347,6 +377,14 @@ _CODEX_READ_FUNCTION_NAMES = {"view_image"}
 
 @dataclass
 class Span:
+    """
+    [ROLE]
+    - Teleology: Represent one normalized observed tool/action interval from a provider session.
+    - Ownership: Created by provider parsers and consumed by trace finalizers/read-model builders.
+    - Mutability: Mutable while parser fields are assembled; treated as immutable once serialized.
+    - Concurrency: Per-parse value object with no shared synchronization or global mutation.
+    - Schema: Span identifiers, timing, command shape, targets, output metrics, and bounded previews.
+    """
     span_id: str
     agent: str
     session_id: str
@@ -376,6 +414,13 @@ class Span:
     output_preview: list[str] = field(default_factory=list)
 
     def as_dict(self) -> dict[str, Any]:
+        """
+        [ACTION]
+        - Teleology: Serialize a Span into the JSON-safe row shape used by trace artifacts.
+        - Preconditions: Span fields have been normalized by a provider parser.
+        - Guarantee: Returns stable scalar/list/dict values and omits optional empty fields.
+        - Fails: None.
+        """
         payload: dict[str, Any] = {
             "span_id": self.span_id,
             "agent": self.agent,
@@ -430,10 +475,24 @@ class Span:
 # Helpers
 # ---------------------------------------------------------------------------
 def _utc_iso() -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_utc_iso`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
 def _parse_iso(ts: str | None) -> datetime | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_parse_iso`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not ts:
         return None
     try:
@@ -444,12 +503,26 @@ def _parse_iso(ts: str | None) -> datetime | None:
 
 
 def _ensure_utc(value: datetime) -> datetime:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_ensure_utc`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if value.tzinfo is None:
         return value.replace(tzinfo=timezone.utc)
     return value.astimezone(timezone.utc)
 
 
 def _span_at_or_after(span: Mapping[str, Any], cutoff: datetime | None) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_span_at_or_after`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if cutoff is None:
         return True
     cutoff_utc = _ensure_utc(cutoff)
@@ -462,6 +535,13 @@ def _span_at_or_after(span: Mapping[str, Any], cutoff: datetime | None) -> bool:
 
 
 def _ensure_example_command_shape_tags(example: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_ensure_example_command_shape_tags`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     row = dict(example)
     if row.get("command_shape_tags") is None:
         row["command_shape_tags"] = _command_shape_tags(
@@ -473,10 +553,24 @@ def _ensure_example_command_shape_tags(example: Mapping[str, Any]) -> dict[str, 
 
 
 def _ensure_examples_command_shape_tags(rows: Iterable[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_ensure_examples_command_shape_tags`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return [_ensure_example_command_shape_tags(row) for row in rows if isinstance(row, Mapping)]
 
 
 def _duration_ms(start: str | None, end: str | None) -> int:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_duration_ms`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     a = _parse_iso(start)
     b = _parse_iso(end)
     if a is None or b is None:
@@ -486,6 +580,13 @@ def _duration_ms(start: str | None, end: str | None) -> int:
 
 
 def _relpath(path: Path, *, repo_root: Path) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_relpath`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     try:
         return path.relative_to(repo_root).as_posix()
     except ValueError:
@@ -493,6 +594,13 @@ def _relpath(path: Path, *, repo_root: Path) -> str:
 
 
 def _safe_read_json(path: Path) -> Any:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_safe_read_json`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     try:
         return read_json_strict(path)
     except (OSError, StrictJsonError):
@@ -500,6 +608,13 @@ def _safe_read_json(path: Path) -> Any:
 
 
 def _safe_read_json_with_receipt(path: Path, *, repo_root: Path) -> tuple[Any, dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_safe_read_json_with_receipt`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     rel = _relpath(path, repo_root=repo_root)
     try:
         raw = path.read_bytes()
@@ -523,6 +638,13 @@ def _safe_read_json_with_receipt(path: Path, *, repo_root: Path) -> tuple[Any, d
 
 
 def _file_sha256(path: Path) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_file_sha256`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     try:
         return hashlib.sha256(path.read_bytes()).hexdigest()
     except OSError:
@@ -530,6 +652,13 @@ def _file_sha256(path: Path) -> str | None:
 
 
 def _file_mtime_iso(path: Path) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_file_mtime_iso`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     try:
         return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).isoformat(timespec="seconds")
     except OSError:
@@ -537,6 +666,13 @@ def _file_mtime_iso(path: Path) -> str | None:
 
 
 def _truncate(text: str | None, limit: int) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_truncate`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if text is None:
         return None
     raw = str(text)
@@ -546,6 +682,13 @@ def _truncate(text: str | None, limit: int) -> str | None:
 
 
 def _truncate_utf8_bytes(text: str, max_bytes: int, *, suffix: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_truncate_utf8_bytes`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if max_bytes <= 0:
         return text
     raw = text.encode("utf-8")
@@ -557,6 +700,13 @@ def _truncate_utf8_bytes(text: str, max_bytes: int, *, suffix: str) -> str:
 
 
 def _payload_text_for_sizing(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_payload_text_for_sizing`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if value is None:
         return ""
     if isinstance(value, str):
@@ -575,6 +725,13 @@ def _payload_text_for_sizing(value: Any) -> str:
 
 
 def _text_output_metrics(text: str) -> dict[str, int]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_text_output_metrics`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not text:
         return {"output_byte_count": 0, "output_line_count": 0}
     return {
@@ -584,11 +741,25 @@ def _text_output_metrics(text: str) -> dict[str, int]:
 
 
 def _output_metrics_from_value(value: Any) -> dict[str, int | None]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_output_metrics_from_value`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     metrics = _text_output_metrics(_payload_text_for_sizing(value))
     return {**metrics, "stdout_byte_count": None, "stderr_byte_count": None}
 
 
 def _output_metrics_from_codex_output(raw_output: Any, parsed_output: Mapping[str, Any] | None) -> dict[str, int | None]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_output_metrics_from_codex_output`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if parsed_output:
         stdout = parsed_output.get("stdout")
         stderr = parsed_output.get("stderr")
@@ -617,6 +788,13 @@ _TOOL_SCAFFOLD_LINE_RE = re.compile(
 
 
 def _strip_tool_scaffold_for_preview(text: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_strip_tool_scaffold_for_preview`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     lines = str(text or "").splitlines()
     output_markers = [idx for idx, line in enumerate(lines) if line.strip() == "Output:"]
     if output_markers:
@@ -625,12 +803,26 @@ def _strip_tool_scaffold_for_preview(text: str) -> str:
 
 
 def _clean_preview_line(line: str, *, char_limit: int) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_clean_preview_line`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     cleaned = _ANSI_RE.sub("", str(line)).rstrip()
     cleaned = _READ_LINE_NUMBER_RE.sub("", cleaned)
     return _truncate(cleaned, char_limit) or ""
 
 
 def _output_preview_from_text(text: str, *, max_lines: int = 8, line_chars: int = 220) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_output_preview_from_text`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     rows: list[str] = []
     for raw_line in _strip_tool_scaffold_for_preview(text).splitlines():
         line = _clean_preview_line(raw_line, char_limit=line_chars)
@@ -643,6 +835,13 @@ def _output_preview_from_text(text: str, *, max_lines: int = 8, line_chars: int 
 
 
 def _output_preview_from_value(value: Any, *, max_lines: int = 8, line_chars: int = 220) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_output_preview_from_value`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return _output_preview_from_text(_payload_text_for_sizing(value), max_lines=max_lines, line_chars=line_chars)
 
 
@@ -653,6 +852,13 @@ def _output_preview_from_codex_output(
     max_lines: int = 8,
     line_chars: int = 220,
 ) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_output_preview_from_codex_output`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if parsed_output:
         stdout = parsed_output.get("stdout")
         stderr = parsed_output.get("stderr")
@@ -669,6 +875,13 @@ def _output_preview_from_codex_output(
 
 
 def _preview_diff_line(line: str, *, limit: int = 160) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_preview_diff_line`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     raw = str(line or "").replace("\t", "    ").rstrip("\n\r")
     return _truncate(raw, limit) or ""
 
@@ -680,6 +893,13 @@ def _diff_stats_from_old_new(
     path: str | None = None,
     preview_limit: int = 12,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_diff_stats_from_old_new`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     old_raw = "" if old_text is None else str(old_text)
     new_raw = "" if new_text is None else str(new_text)
     old_lines = old_raw.splitlines()
@@ -724,6 +944,13 @@ def _merge_edit_summaries(
     target_paths: Iterable[str],
     preview_limit: int = 12,
 ) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_merge_edit_summaries`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     rows = [dict(row) for row in summaries if isinstance(row, Mapping)]
     if not rows:
         return None
@@ -752,6 +979,13 @@ def _merge_edit_summaries(
 
 
 def _edit_summary_from_claude_input(tool_name: str, tool_input: Mapping[str, Any], target_paths: list[str]) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_edit_summary_from_claude_input`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     path = str(tool_input.get("file_path") or (target_paths[0] if target_paths else ""))
     if tool_name == "Write":
         content = str(tool_input.get("content") or "")
@@ -807,6 +1041,13 @@ def _edit_summary_from_claude_input(tool_name: str, tool_input: Mapping[str, Any
 
 
 def _patch_text_from_codex_args(args: Mapping[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_patch_text_from_codex_args`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     for key in ("patch", "input", "diff", "unified_diff", "__raw"):
         value = args.get(key)
         if isinstance(value, str) and value.strip():
@@ -815,6 +1056,13 @@ def _patch_text_from_codex_args(args: Mapping[str, Any]) -> str:
 
 
 def _extract_patch_target_paths(patch_text: str) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_extract_patch_target_paths`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     paths: list[str] = []
     for line in str(patch_text or "").splitlines():
         raw = line.strip()
@@ -839,6 +1087,13 @@ def _extract_patch_target_paths(patch_text: str) -> list[str]:
 
 
 def _edit_summary_from_patch_text(patch_text: str, *, target_paths: Iterable[str]) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_edit_summary_from_patch_text`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not str(patch_text or "").strip():
         return None
     plus_lines: list[str] = []
@@ -876,12 +1131,26 @@ def _edit_summary_from_patch_text(patch_text: str, *, target_paths: Iterable[str
 
 
 def _is_kernel_command(cmd: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_is_kernel_command`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if _KERNEL_COMMAND_MARKER not in str(cmd or "").lower():
         return False
     return any(pat.search(cmd) for pat in _KERNEL_PREFIX_PATTERNS)
 
 
 def _extract_kernel_flags(cmd: str) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_extract_kernel_flags`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not _is_kernel_command(cmd):
         return []
     return list({match.group(0) for match in _KERNEL_FLAG_RE.finditer(cmd)})
@@ -925,6 +1194,13 @@ _KERNEL_ROUTE_FLAG_PRIORITY: tuple[str, ...] = (
 
 
 def _pick_primary_kernel_flag(flags: Iterable[str]) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_pick_primary_kernel_flag`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     flag_set = {str(flag) for flag in flags if flag}
     if not flag_set:
         return None
@@ -935,6 +1211,13 @@ def _pick_primary_kernel_flag(flags: Iterable[str]) -> str | None:
 
 
 def _bash_action_kind(cmd: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_bash_action_kind`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     lower = cmd.lower()
     if _is_kernel_command(lower):
         return "kernel_command"
@@ -952,6 +1235,13 @@ def _bash_action_kind(cmd: str) -> str:
 
 
 def _is_work_ledger_session_preflight_command(lower_command: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_is_work_ledger_session_preflight_command`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return bool(
         re.search(
             r"(?:^|[;&|]\s*)(?:(?:\./)?repo-python\s+|python3?\s+)?"
@@ -962,6 +1252,13 @@ def _is_work_ledger_session_preflight_command(lower_command: str) -> bool:
 
 
 def _is_mission_transaction_preflight_command(lower_command: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_is_mission_transaction_preflight_command`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return bool(
         re.search(
             r"(?:^|[;&|]\s*)(?:(?:\./)?repo-python\s+|python3?\s+)?"
@@ -972,11 +1269,25 @@ def _is_mission_transaction_preflight_command(lower_command: str) -> bool:
 
 
 def _normalize_command(cmd: str, *, limit: int = 120) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_normalize_command`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     collapsed = " ".join((cmd or "").split())
     return _truncate(collapsed, limit) or ""
 
 
 def _extract_target_paths(cmd: str) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_extract_target_paths`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     tokens = []
     for match in re.finditer(r"[A-Za-z0-9_./-]+\.[A-Za-z0-9_.-]+", cmd or ""):
         tok = match.group(0).strip("./")
@@ -992,10 +1303,24 @@ def _extract_target_paths(cmd: str) -> list[str]:
 
 
 def _codex_function_basename(fn_name: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_codex_function_basename`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return str(fn_name or "").rsplit(".", 1)[-1]
 
 
 def _codex_tool_summary(fn_name: str, args: Mapping[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_codex_tool_summary`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     parts = [str(fn_name or "function_call")]
     for key in ("session_id", "yield_time_ms", "timeout_ms", "agent_type", "path"):
         if key in args and args.get(key) not in (None, ""):
@@ -1012,11 +1337,25 @@ def _codex_tool_summary(fn_name: str, args: Mapping[str, Any]) -> str:
 
 
 def _command_shape_tags(kind: str, command: str | None, target_paths: Iterable[str]) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_command_shape_tags`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     targets = tuple(str(path) for path in target_paths if str(path))
     return list(_command_shape_tags_cached(str(kind or ""), command or "", targets))
 
 
 def _process_bottleneck_triage_quote_command(kind: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_process_bottleneck_triage_quote_command`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     action_kind = str(kind or "bash_other")
     return (
         "./repo-python tools/meta/control/action_quote.py --action process_bottleneck_triage "
@@ -1025,6 +1364,13 @@ def _process_bottleneck_triage_quote_command(kind: str) -> str:
 
 
 def _first_concrete_test_scope(examples: Iterable[Mapping[str, Any]]) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_first_concrete_test_scope`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     for example in examples:
         if not isinstance(example, Mapping):
             continue
@@ -1043,6 +1389,13 @@ def _first_concrete_test_scope(examples: Iterable[Mapping[str, Any]]) -> str | N
 
 
 def _is_projection_heavy_validation_command(command_lower: str, targets: tuple[str, ...]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_is_projection_heavy_validation_command`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     text = " ".join((command_lower, " ".join(path.lower() for path in targets)))
     if "build_microcosm_public_site.py" in text or "test_build_microcosm_public_site.py" in text:
         return True
@@ -1060,6 +1413,13 @@ def _is_projection_heavy_validation_command(command_lower: str, targets: tuple[s
 
 @lru_cache(maxsize=8192)
 def _command_shape_tags_cached(kind: str, command: str, targets: tuple[str, ...]) -> tuple[str, ...]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_command_shape_tags_cached`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     lower = command.lower()
     tags: list[str] = []
     projection_heavy_validation = _is_projection_heavy_validation_command(lower, targets)
@@ -1256,6 +1616,13 @@ _KERNEL_ROUTE_REASON_STANDARD_REF = "types.RouteLeaseModeControl.kernel_route_re
 
 @lru_cache(maxsize=1)
 def _kernel_route_reason_by_flag() -> dict[str, str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_kernel_route_reason_by_flag`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     payload = _safe_read_json(STANDARD_PATH)
     raw_map: Any = None
     if isinstance(payload, Mapping):
@@ -1281,6 +1648,13 @@ def _kernel_route_reason_by_flag() -> dict[str, str]:
 
 
 def _kernel_call_reason(span: Span) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_kernel_call_reason`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not span.is_kernel_shape:
         return None
     flags = set(span.kernel_flags)
@@ -1294,6 +1668,13 @@ def _kernel_call_reason(span: Span) -> str | None:
 
 
 def _is_direct_data_plane_action(span: Span) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_is_direct_data_plane_action`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if span.action_kind in _DIRECT_DATA_PLANE_ACTION_KINDS:
         return True
     lower = (span.normalized_command or span.command or "").lower()
@@ -1313,6 +1694,13 @@ def _mode_signal(
     reason: str,
     detail: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_mode_signal`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     payload: dict[str, Any] = {
         "signal_id": signal_id,
         "severity": severity,
@@ -1339,11 +1727,12 @@ def _mode_signal(
 
 
 def _route_lease_mode_control(spans: list[Span]) -> dict[str, Any]:
-    """Infer route-lease consumption from observable commands only.
-
-    The lease itself is emitted by ``--entry``; traces do not capture hidden
-    reasoning, so this reducer only classifies command-shape evidence after
-    that entry handoff.
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_route_lease_mode_control`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
     """
     entry_spans = [
         sp
@@ -1475,6 +1864,13 @@ def _route_lease_mode_control(spans: list[Span]) -> dict[str, Any]:
 
 
 def _aggregate_mode_control(session_rows: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_aggregate_mode_control`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     counts: Counter[str] = Counter()
     examples: dict[str, list[dict[str, Any]]] = defaultdict(list)
     session_hits: dict[str, set[str]] = defaultdict(set)
@@ -1518,6 +1914,13 @@ def _aggregate_mode_control(session_rows: Iterable[Mapping[str, Any]]) -> dict[s
 
 
 def _example_matches_frontend_vitest(example: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_example_matches_frontend_vitest`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(example.get("normalized_command") or "").lower()
     target_paths = [str(path).lower() for path in example.get("target_paths") or [] if str(path)]
     joined_targets = " ".join(target_paths)
@@ -1533,17 +1936,38 @@ def _example_matches_frontend_vitest(example: Mapping[str, Any]) -> bool:
 
 
 def _example_matches_paper_module_output_limiter(example: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_example_matches_paper_module_output_limiter`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(example.get("normalized_command") or "").lower()
     tags = {str(tag) for tag in example.get("command_shape_tags") or []}
     return "paper_module" in tags and "output_limited" in tags and "--paper-module" in command
 
 
 def _example_matches_task_ledger_rebuild(example: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_example_matches_task_ledger_rebuild`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(example.get("normalized_command") or "").lower()
     return "tools/meta/factory/task_ledger_apply.py" in command and bool(re.search(r"\brebuild\b", command))
 
 
 def _example_matches_task_ledger_quick_capture(example: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_example_matches_task_ledger_quick_capture`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(example.get("normalized_command") or "").lower()
     if "tools/meta/factory/task_ledger_apply.py" not in command:
         return False
@@ -1551,6 +1975,13 @@ def _example_matches_task_ledger_quick_capture(example: Mapping[str, Any]) -> bo
 
 
 def _example_matches_microcosm_circuit_attribution(example: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_example_matches_microcosm_circuit_attribution`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(example.get("normalized_command") or "").lower()
     if "circuit-attribution" not in command:
         return False
@@ -1561,6 +1992,13 @@ def _example_matches_microcosm_circuit_attribution(example: Mapping[str, Any]) -
 
 
 def _example_matches_host_filesystem_find(example: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_example_matches_host_filesystem_find`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(example.get("normalized_command") or "").lower()
     if not RAW_FIND_COMMAND_RE.search(command):
         return False
@@ -1585,6 +2023,13 @@ def _example_matches_host_filesystem_find(example: Mapping[str, Any]) -> bool:
 
 
 def _example_matches_git_object_find(example: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_example_matches_git_object_find`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(example.get("normalized_command") or "").lower()
     if not RAW_FIND_COMMAND_RE.search(command):
         return False
@@ -1592,12 +2037,26 @@ def _example_matches_git_object_find(example: Mapping[str, Any]) -> bool:
 
 
 def _kernel_flag_quote_scope(flag: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_kernel_flag_quote_scope`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     scope = flag.strip().lstrip("-").strip()
     scope = re.sub(r"[^A-Za-z0-9_.:-]+", "-", scope).strip("-")
     return scope or "kernel"
 
 
 def _kernel_flag_command_surface_hint(flag: str) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_kernel_flag_command_surface_hint`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     scope = _kernel_flag_quote_scope(flag)
     return {
         "hint_id": "route_kernel_flag_through_command_surface",
@@ -1619,6 +2078,13 @@ def _kernel_flag_command_surface_hint(flag: str) -> dict[str, Any]:
 
 
 def _merge_repair_hints_by_id(*groups: Iterable[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_merge_repair_hints_by_id`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     merged: list[dict[str, Any]] = []
     seen: set[str] = set()
     for group in groups:
@@ -1635,6 +2101,13 @@ def _merge_repair_hints_by_id(*groups: Iterable[Mapping[str, Any]]) -> list[dict
 
 
 def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_bottleneck_repair_hints`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     tag_counts: Counter[str] = Counter()
     example_rows: list[Mapping[str, Any]] = []
     for example in examples:
@@ -2219,6 +2692,13 @@ def _bottleneck_repair_hints(kind: str, examples: Iterable[Mapping[str, Any]]) -
 
 
 def _bottleneck_actionability(kind: str, examples: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_bottleneck_actionability`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     example_rows = [example for example in examples if isinstance(example, Mapping)]
     tag_counts: Counter[str] = Counter()
     for example in example_rows:
@@ -2252,6 +2732,13 @@ def _bottleneck_actionability(kind: str, examples: Iterable[Mapping[str, Any]]) 
 
 
 def _bottleneck_summary_sort_key(row: Mapping[str, Any]) -> tuple[int, int, int, int]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_bottleneck_summary_sort_key`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return (
         int(row.get("optimization_priority_score") or 0),
         int(row.get("p95_ms") or 0),
@@ -2346,6 +2833,13 @@ _CONTEXT_YIELD_BOUNDED_PREFLIGHT_ACCEPTED_BYTES = _CONTEXT_YIELD_BOUNDED_DIAGNOS
 
 
 def _context_yield_motif_score(active_bytes: int, span_count: int) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_motif_score`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if active_bytes >= 1_000_000 or span_count >= 20:
         return "high"
     if active_bytes >= 128_000 or span_count >= 5:
@@ -2354,6 +2848,13 @@ def _context_yield_motif_score(active_bytes: int, span_count: int) -> str:
 
 
 def _example_preview(example: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_example_preview`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return _summary_drop_none(
         {
             "session_id": example.get("session_id"),
@@ -2373,6 +2874,13 @@ def _example_preview(example: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _context_yield_motifs_for_example(example: Mapping[str, Any]) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_motifs_for_example`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     kind = str(example.get("action_kind") or "")
     command = str(example.get("normalized_command") or "")
     lower = command.lower()
@@ -2429,6 +2937,13 @@ def _context_yield_motifs_for_example(example: Mapping[str, Any]) -> list[str]:
 
 
 def _context_yield_route_used(motif: str, example: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_route_used`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(example.get("normalized_command") or "").lower()
     tags = {str(tag) for tag in example.get("command_shape_tags") or []}
     if motif == "raw_body_before_selection":
@@ -2453,6 +2968,13 @@ def _context_yield_route_used(motif: str, example: Mapping[str, Any]) -> bool:
 
 
 def _context_yield_bounded_context_pack_packet(example: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_bounded_context_pack_packet`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(example.get("normalized_command") or "").lower()
     output_bytes = _summary_int(example.get("output_byte_count"))
     tags = {str(tag) for tag in example.get("command_shape_tags") or []}
@@ -2464,6 +2986,13 @@ def _context_yield_bounded_context_pack_packet(example: Mapping[str, Any]) -> bo
 
 
 def _context_yield_bounded_preflight_packet(example: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_bounded_preflight_packet`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(example.get("normalized_command") or "").lower()
     output_bytes = _summary_int(example.get("output_byte_count"))
     tags = {str(tag) for tag in example.get("command_shape_tags") or []}
@@ -2481,6 +3010,13 @@ def _context_yield_bounded_preflight_packet(example: Mapping[str, Any]) -> bool:
 
 
 def _context_yield_bounded_diagnostic_packet(example: Mapping[str, Any]) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_bounded_diagnostic_packet`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(example.get("normalized_command") or "").lower()
     output_bytes = _summary_int(example.get("output_byte_count"))
     tags = {str(tag) for tag in example.get("command_shape_tags") or []}
@@ -2505,6 +3041,13 @@ def _context_yield_governance_status(
     *,
     route_available: bool,
 ) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_governance_status`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     output_bytes = _summary_int(example.get("output_byte_count"))
     target_paths = [str(path) for path in example.get("target_paths") or [] if str(path)]
     tags = {str(tag) for tag in example.get("command_shape_tags") or []}
@@ -2538,6 +3081,13 @@ def _context_yield_governance_status(
 
 
 def _context_yield_status_counts_payload(counts: Mapping[str, Any], *, fallback_span_count: int) -> dict[str, int]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_status_counts_payload`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     counter = Counter({str(key): int(value or 0) for key, value in dict(counts).items()})
     if fallback_span_count and not any(counter.get(status, 0) for status in _CONTEXT_YIELD_GOVERNANCE_STATUSES):
         counter["needs_owner_patch"] = fallback_span_count
@@ -2549,6 +3099,13 @@ def _context_yield_status_bytes_payload(
     *,
     fallback_active_bytes: int,
 ) -> dict[str, int]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_status_bytes_payload`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     counter = Counter({str(key): int(value or 0) for key, value in dict(counts).items()})
     if fallback_active_bytes and not any(counter.get(status, 0) for status in _CONTEXT_YIELD_GOVERNANCE_STATUSES):
         counter["needs_owner_patch"] = fallback_active_bytes
@@ -2556,14 +3113,35 @@ def _context_yield_status_bytes_payload(
 
 
 def _context_yield_actionable_status_count(status_counts: Mapping[str, int]) -> int:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_actionable_status_count`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return sum(int(status_counts.get(status) or 0) for status in _CONTEXT_YIELD_ACTIONABLE_STATUSES)
 
 
 def _context_yield_actionable_status_bytes(status_bytes: Mapping[str, int]) -> int:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_actionable_status_bytes`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return sum(int(status_bytes.get(status) or 0) for status in _CONTEXT_YIELD_ACTIONABLE_STATUSES)
 
 
 def _context_yield_route_gap(status_counts: Mapping[str, int], *, route_available: bool) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_route_gap`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not route_available:
         return "no_existing_route_recorded"
     if int(status_counts.get("governed_route_available_but_not_used") or 0):
@@ -2587,6 +3165,13 @@ def _context_yield_decision(
     span_count: int,
     actionable_span_count: int,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_decision`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     actionable_count = _context_yield_actionable_status_count(status_counts)
     patch_owner_surface = meta.get("owner_surface") if actionable_count else None
     no_source_exception = actionable_count == 0
@@ -2616,11 +3201,25 @@ def _context_yield_decision(
 
 
 def _counter_payload(counter: Mapping[str, Any], *, limit: int = 8) -> dict[str, int]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_counter_payload`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     normalized = Counter({str(key): int(value or 0) for key, value in dict(counter).items() if str(key)})
     return {key: int(value) for key, value in normalized.most_common(limit)}
 
 
 def _context_yield_cluster_payload(raw_row: Mapping[str, Any], status: str) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_cluster_payload`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     tag_counts = raw_row.get("governance_status_tag_counts") or {}
     action_counts = raw_row.get("governance_status_action_counts") or {}
     target_counts = raw_row.get("governance_status_target_counts") or {}
@@ -2633,6 +3232,13 @@ def _context_yield_cluster_payload(raw_row: Mapping[str, Any], status: str) -> d
 
 
 def _context_yield_scope_candidate(examples: Iterable[Mapping[str, Any]]) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_scope_candidate`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     actionable_statuses = {
         "ungoverned",
         "governed_route_available_but_not_used",
@@ -2653,6 +3259,13 @@ def _context_yield_scope_candidate(examples: Iterable[Mapping[str, Any]]) -> str
 
 
 def _context_yield_valid_scope(scope: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_valid_scope`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return bool(
         scope
         and scope not in {".", "./"}
@@ -2663,6 +3276,13 @@ def _context_yield_valid_scope(scope: str) -> bool:
 
 
 def _context_yield_scope_candidate_from_counts(raw_row: Mapping[str, Any], status: str) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_scope_candidate_from_counts`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     counts_by_status = raw_row.get("governance_status_path_counts")
     if not isinstance(counts_by_status, Mapping):
         return None
@@ -2680,6 +3300,13 @@ def _context_yield_scope_candidate_from_counts(raw_row: Mapping[str, Any], statu
 
 
 def _concrete_context_yield_route(route: Any, scope: str | None) -> str | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_concrete_context_yield_route`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     route_text = str(route or "").strip()
     if not route_text or not scope:
         return None
@@ -2697,6 +3324,13 @@ def _context_yield_steering(
     meta: Mapping[str, Any],
     raw_row: Mapping[str, Any],
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_context_yield_steering`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     applies_to_status = "governed_route_available_but_not_used"
     does_not_apply_to = [
         "accepted_required_context",
@@ -2798,6 +3432,13 @@ def _compute_context_yield_attribution(
     session_rows: list[Mapping[str, Any]],
     generated_at: str,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_compute_context_yield_attribution`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     motif_rows: dict[str, dict[str, Any]] = {}
     scoped_diff_paths: dict[str, set[str]] = defaultdict(set)
     read_paths: dict[str, set[str]] = defaultdict(set)
@@ -3024,6 +3665,13 @@ def _skipped_context_yield_attribution(
     generated_at: str,
     reason: str,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_skipped_context_yield_attribution`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return {
         "kind": "context_yield_attribution_packet",
         "schema_version": CONTEXT_YIELD_ATTRIBUTION_SCHEMA_VERSION,
@@ -3060,14 +3708,35 @@ def _skipped_context_yield_attribution(
 
 
 def _is_grep_shape_tool(tool_name: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_is_grep_shape_tool`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return tool_name in {"Grep", "Glob"}
 
 
 def _is_read_shape_tool(tool_name: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_is_read_shape_tool`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return tool_name in {"Read", "NotebookRead"}
 
 
 def _iter_jsonl(path: Path, *, strict: bool = True) -> Iterator[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_iter_jsonl`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     try:
         with path.open("r", encoding="utf-8") as fh:
             for line_number, line in enumerate(fh, start=1):
@@ -3091,6 +3760,13 @@ def _iter_jsonl(path: Path, *, strict: bool = True) -> Iterator[dict[str, Any]]:
 # Rules registry
 # ---------------------------------------------------------------------------
 def load_trace_rules(path: Path | None = None) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Load the authored trace-rules registry that governs parsing caps and route scoring.
+    - Preconditions: `path` is None or points at a JSON object.
+    - Guarantee: Returns a mutable dict copy of the rules payload.
+    - Fails: Raises ValueError when the registry is missing or not a JSON object.
+    """
     payload = _safe_read_json(path or TRACE_RULES_PATH)
     if not isinstance(payload, Mapping):
         raise ValueError(f"trace_rules.json not loadable: {path or TRACE_RULES_PATH}")
@@ -3098,11 +3774,25 @@ def load_trace_rules(path: Path | None = None) -> dict[str, Any]:
 
 
 def _ladder_flags_in_order(rules: Mapping[str, Any]) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_ladder_flags_in_order`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     seq = rules.get("navigation_reference_sequence") or []
     return [str(entry.get("kernel_flag") or "").strip() for entry in seq if isinstance(entry, Mapping) and entry.get("kernel_flag")]
 
 
 def _all_ladder_flags(rules: Mapping[str, Any]) -> set[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_all_ladder_flags`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     flags = set(_ladder_flags_in_order(rules))
     flags.update(str(f).strip() for f in (rules.get("kernel_flag_aliases_included_in_ladder") or []) if str(f).strip())
     return flags
@@ -3120,6 +3810,14 @@ def parse_claude_session(
     strict_json: bool = True,
     finalize_profile: str = "full",
 ) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Convert one Claude Code JSONL session into normalized spans and a finalized session row.
+    - Preconditions: `path` names a Claude session file and `rules` is the loaded trace-rules mapping.
+    - Reads: The supplied JSONL file; no provider state is modified.
+    - Guarantee: Returns `{session, spans}` for repo-local sessions, or None when the session is outside this repo.
+    - Fails: Malformed rows are skipped; unexpected caller-visible exceptions are left to the caller boundary.
+    """
     session_id = path.stem
     agent = "claude_code"
     repo_root_str = str(repo_root)
@@ -3300,6 +3998,14 @@ def parse_codex_session(
     strict_json: bool = True,
     finalize_profile: str = "full",
 ) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Convert one Codex rollout JSONL session into normalized spans and a finalized session row.
+    - Preconditions: `path` names a Codex rollout file and `rules` is the loaded trace-rules mapping.
+    - Reads: The supplied rollout JSONL file; no provider state is modified.
+    - Guarantee: Returns `{session, spans}` for sessions with repo-local context or observed spans.
+    - Fails: Malformed argument/output payloads degrade to bounded raw markers instead of aborting parsing.
+    """
     session_id = path.stem.replace("rollout-", "")
     agent = "codex"
     repo_root_str = str(repo_root)
@@ -3496,6 +4202,13 @@ def parse_codex_session(
 # Per-session finalize: turns, compliance, anti-pattern detections, digests
 # ---------------------------------------------------------------------------
 def _percentile(values: list[int], p: float) -> int:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_percentile`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not values:
         return 0
     if len(values) == 1:
@@ -3508,6 +4221,13 @@ def _percentile(values: list[int], p: float) -> int:
 
 
 def _compute_route_compliance(spans: list[Span], rules: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_compute_route_compliance`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     ladder_order = _ladder_flags_in_order(rules)
     ladder_flags = _all_ladder_flags(rules)
     first_kernel = next((sp.sequence_index for sp in spans if sp.is_kernel_shape), -1)
@@ -3555,6 +4275,13 @@ def _compute_route_compliance(spans: list[Span], rules: Mapping[str, Any]) -> di
 
 
 def _compute_bottlenecks(spans: list[Span], rules: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_compute_bottlenecks`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     by_kind: dict[str, list[int]] = defaultdict(list)
     output_by_kind: dict[str, list[int]] = defaultdict(list)
     longest_by_kind: dict[str, list[Span]] = defaultdict(list)
@@ -3597,6 +4324,13 @@ def _compute_bottlenecks(spans: list[Span], rules: Mapping[str, Any]) -> dict[st
 
 
 def _detect_anti_patterns(spans: list[Span], *, session_started_at: str | None, session_ended_at: str | None, rules: Mapping[str, Any]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_detect_anti_patterns`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     findings: list[dict[str, Any]] = []
     severities = rules.get("anti_pattern_severities") or {}
     cold_boot_count = int(rules.get("cold_boot_probe_span_count") or 3)
@@ -3709,6 +4443,13 @@ def _detect_anti_patterns(spans: list[Span], *, session_started_at: str | None, 
 
 
 def _summarize_hot_targets(spans: list[Span], *, top_n: int = 10) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summarize_hot_targets`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     counts: Counter[str] = Counter()
     for sp in spans:
         for p in sp.target_paths:
@@ -3717,16 +4458,37 @@ def _summarize_hot_targets(spans: list[Span], *, top_n: int = 10) -> list[dict[s
 
 
 def _span_shape_tags(sp: Span) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_span_shape_tags`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return _command_shape_tags(sp.action_kind, sp.normalized_command or sp.command or "", sp.target_paths)
 
 
 def _span_mapping_value(span: Mapping[str, Any] | Span) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_span_mapping_value`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if isinstance(span, Span):
         return span.as_dict()
     return dict(span)
 
 
 def _span_display_command(span: Mapping[str, Any], *, char_limit: int) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_span_display_command`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = str(span.get("normalized_command") or span.get("command") or "").strip()
     paths = [str(path) for path in span.get("target_paths") or [] if str(path)]
     if (
@@ -3745,6 +4507,13 @@ def _span_display_command(span: Mapping[str, Any], *, char_limit: int) -> str:
 
 
 def _compact_edit_summary(value: Any, *, preview_limit: int) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_compact_edit_summary`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not isinstance(value, Mapping):
         return None
     preview = [str(line) for line in list(value.get("preview") or [])[:preview_limit]]
@@ -3763,6 +4532,13 @@ def _compact_edit_summary(value: Any, *, preview_limit: int) -> dict[str, Any] |
 
 
 def _trace_output_summary(span: Mapping[str, Any], *, preview_lines: int = 0, preview_chars: int = 160) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_trace_output_summary`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     preview = [
         _clean_preview_line(str(line), char_limit=preview_chars)
         for line in list(span.get("output_preview") or [])[:preview_lines]
@@ -3787,6 +4563,13 @@ def _compact_trace_level(
     session_id: str,
     level: str,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_compact_trace_level`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     spec = TRACE_COMPACTNESS_PROFILES.get(level)
     if spec is None:
         raise ValueError(f"unknown trace compactness level: {level}")
@@ -3856,6 +4639,13 @@ def build_trace_compactness_levels(
     selected_level: str = "tape",
     session: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Build the compactness ladder for one session trace without exposing raw bodies.
+    - Preconditions: `spans` are Span rows or span-like mappings and `selected_level` names a known profile.
+    - Guarantee: Returns available levels plus the selected compact row payload.
+    - Fails: Raises ValueError for an unknown trace compactness level.
+    """
     levels = list(TRACE_COMPACTNESS_PROFILES)
     selected_level = _normalize_trace_level(selected_level)
     if selected_level not in set(levels):
@@ -3918,6 +4708,13 @@ def build_trace_compactness_levels(
 
 
 def _short_int(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_short_int`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     try:
         n = int(value or 0)
     except (TypeError, ValueError):
@@ -3930,6 +4727,13 @@ def _short_int(value: Any) -> str:
 
 
 def _short_ms(value: Any) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_short_ms`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     try:
         ms = int(value or 0)
     except (TypeError, ValueError):
@@ -3940,6 +4744,13 @@ def _short_ms(value: Any) -> str:
 
 
 def _is_validation_command(command: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_is_validation_command`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     raw = str(command or "")
     return bool(
         re.search(
@@ -3950,11 +4761,25 @@ def _is_validation_command(command: str) -> bool:
 
 
 def _is_commit_command(command: str) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_is_commit_command`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     raw = str(command or "")
     return bool(re.search(r"\b(git\s+commit|scoped_commit\.py|./checkpoint|record-execution-receipt)\b", raw))
 
 
 def _tape_action_label(kind: Any, command: str = "") -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_tape_action_label`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if _is_validation_command(command):
         return "test"
     if _is_commit_command(command):
@@ -3978,6 +4803,13 @@ def _tape_action_label(kind: Any, command: str = "") -> str:
 
 
 def _turn_think_line(turn: int, spans: list[Mapping[str, Any]]) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_turn_think_line`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     counts: Counter[str] = Counter(
         _tape_action_label(span.get("action_kind"), str(span.get("normalized_command") or span.get("command") or ""))
         for span in spans
@@ -3996,6 +4828,13 @@ def _turn_think_line(turn: int, spans: list[Mapping[str, Any]]) -> str:
 
 
 def _compact_turns_line(span_rows: list[Mapping[str, Any]], *, limit: int = 8) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_compact_turns_line`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     by_turn: dict[int, list[Mapping[str, Any]]] = defaultdict(list)
     for span in span_rows:
         by_turn[int(span.get("turn_index") or 0)].append(span)
@@ -4021,6 +4860,13 @@ def _output_status_text(
     compact: bool = False,
     tiny: bool = False,
 ) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_output_status_text`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     output = output or {}
     status = str(output.get("outcome") or "ok")
     duration = _short_ms(duration_ms)
@@ -4046,6 +4892,13 @@ def _render_output_preview(
     indent: str = "    ",
     preview: bool = True,
 ) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_render_output_preview`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not output:
         return []
     out = f"{indent}{_output_status_text(output, duration_ms=duration_ms, preview=preview)}"
@@ -4058,6 +4911,13 @@ def _render_output_preview(
 
 
 def _trace_final_state_line(span_rows: list[Mapping[str, Any]], *, session: Mapping[str, Any], level: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_trace_final_state_line`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     counts: Counter[str] = Counter()
     edit_plus = 0
     edit_minus = 0
@@ -4090,6 +4950,13 @@ def _trace_final_state_line(span_rows: list[Mapping[str, Any]], *, session: Mapp
 
 
 def _trace_provider_arg(session: Mapping[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_trace_provider_arg`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     agent = str(session.get("agent") or "").lower()
     if "claude" in agent:
         return "claude"
@@ -4099,10 +4966,24 @@ def _trace_provider_arg(session: Mapping[str, Any]) -> str:
 
 
 def _trace_session_token(session: Mapping[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_trace_session_token`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return str(session.get("session_id") or "latest")
 
 
 def _trace_exact_closeout_command(session: Mapping[str, Any]) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_trace_exact_closeout_command`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     provider = _trace_provider_arg(session)
     session_token = _trace_session_token(session)
     return (
@@ -4118,6 +4999,13 @@ def _closeout_row(
     output_preview_lines: int = 1,
     edit_preview_lines: int = 2,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_closeout_row`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = _span_display_command(span, char_limit=command_chars).replace("\n", " ").strip()
     output = _trace_output_summary(span, preview_lines=output_preview_lines, preview_chars=160)
     edit = _compact_edit_summary(span.get("edit_summary"), preview_limit=edit_preview_lines)
@@ -4137,6 +5025,13 @@ def _closeout_row(
 
 
 def _trace_closeout_summary(span_rows: list[Mapping[str, Any]], *, session: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_trace_closeout_summary`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     target_counts: Counter[str] = Counter()
     changed_counts: Counter[str] = Counter()
     action_counts: Counter[str] = Counter()
@@ -4204,6 +5099,13 @@ def _render_closeout_trace_tape(
     *,
     session: Mapping[str, Any],
 ) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_render_closeout_trace_tape`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     closeout = _trace_closeout_summary(span_rows, session=session)
     lines = [_trace_final_state_line(span_rows, session=session, level="closeout")]
     lines.append(
@@ -4248,10 +5150,24 @@ def _render_closeout_trace_tape(
 
 
 def _tape_marker(label: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_tape_marker`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return "$" if label == "cmd" else label
 
 
 def _ultra_tape_marker(label: str) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_ultra_tape_marker`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return {
         "cmd": "$",
         "read": "R",
@@ -4279,6 +5195,13 @@ def _render_trace_tape_rows(
     tiny_status: bool = False,
     ultra: bool = False,
 ) -> list[str]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_render_trace_tape_rows`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     by_turn: dict[int, list[Mapping[str, Any]]] = defaultdict(list)
     if include_turns:
         for span in span_rows:
@@ -4356,7 +5279,13 @@ def render_trace_tape(
     selected_level: str = "tape",
     max_chars: int = 10000,
 ) -> str:
-    """Render a low-scaffold chronological trace for human browsing."""
+    """
+    [ACTION]
+    - Teleology: Render a low-scaffold chronological trace for human browsing.
+    - Preconditions: `session` contains at least a session identifier and `spans` are span-like rows.
+    - Guarantee: Returns UTF-8 bounded text using progressively smaller row renderings when needed.
+    - Fails: None; unknown levels fall back to `tape`.
+    """
     level = _normalize_trace_level(selected_level)
     if level not in TRACE_COMPACTNESS_PROFILES:
         level = "tape"
@@ -4448,6 +5377,13 @@ def render_trace_tape(
 
 
 def _build_trace_index(span_rows: list[Mapping[str, Any]], *, session_id: str) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_build_trace_index`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     rows: list[dict[str, Any]] = []
     for idx, span in enumerate(span_rows):
         command = str(span.get("normalized_command") or span.get("command") or "")
@@ -4495,6 +5431,13 @@ def build_trace_tape_artifacts(
     tape_max_chars: int,
     include_raw_sidecar: bool = False,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Package rendered trace text, a row index, and an optional raw sidecar for one session.
+    - Preconditions: `session` identifies the selected session and `selected_level` is acceptable to `render_trace_tape`.
+    - Guarantee: Returns the three trace artifact slots with raw sidecar omitted unless requested.
+    - Fails: Propagates renderer/index errors from malformed span rows.
+    """
     spans = [_span_mapping_value(span) for span in span_rows]
     session_id = str(session.get("session_id") or "")
     tape = render_trace_tape(spans, session=session, selected_level=selected_level, max_chars=tape_max_chars)
@@ -4523,6 +5466,13 @@ def build_trace_tape_artifacts(
 
 
 def _summarize_task_result_reads(spans: list[Span], *, session_id: str, limit: int = 6) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summarize_task_result_reads`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     rows = [
         sp
         for sp in spans
@@ -4591,7 +5541,13 @@ def _summary_thought_trace(
     kernel_flag_counts: Mapping[str, int],
     action_kind_counts: Mapping[str, int],
 ) -> dict[str, Any]:
-    """Project the observable command/path/process summary without reading model prose."""
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_thought_trace`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     repeated_commands = [
         {"signal": "repeated_command", "command": row.get("command"), "count": row.get("count")}
         for row in top_commands
@@ -4649,6 +5605,13 @@ def _summary_thought_trace(
 
 
 def _ranking_span_payload(sp: Span) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_ranking_span_payload`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return {
         "span_id": sp.span_id,
         "agent": sp.agent,
@@ -4687,7 +5650,13 @@ def _finalize_session_bottleneck_rankings(
     truncation_notes: list[dict[str, Any]],
     last_record_ts: str | None,
 ) -> dict[str, Any]:
-    """Finalize only the fields required by live process-bottleneck rankings."""
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_finalize_session_bottleneck_rankings`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     del rules, git_branch, model_counts
     action_kind_counts: Counter[str] = Counter(sp.action_kind for sp in spans)
     action_kind_durations: dict[str, int] = defaultdict(int)
@@ -4740,6 +5709,13 @@ def _finalize_session(
     truncation_notes: list[dict[str, Any]],
     last_record_ts: str | None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_finalize_session`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     turn_count = max((sp.turn_index for sp in spans), default=0)
     action_kind_counts: Counter[str] = Counter(sp.action_kind for sp in spans)
     action_kind_durations: dict[str, int] = defaultdict(int)
@@ -4824,11 +5800,25 @@ def _finalize_session(
 # Discovery
 # ---------------------------------------------------------------------------
 def _claude_project_slug(repo_root: Path) -> str:
-    """Claude Code encodes project paths as slashes-and-underscores -> hyphens, with a leading hyphen."""
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_claude_project_slug`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return "-" + str(repo_root).replace("/", "-").lstrip("-").replace("_", "-")
 
 
 def discover_claude_sessions(*, repo_root: Path, home: Path, since_ts: str | None, limit: int | None) -> list[Path]:
+    """
+    [ACTION]
+    - Teleology: Discover recent Claude Code session JSONL files for the current repo slug.
+    - Preconditions: `home` points at a user home directory and `repo_root` is resolved or resolvable.
+    - Reads: `~/.claude/projects/<repo-slug>`.
+    - Guarantee: Returns newest-first paths capped by `limit` when positive.
+    - Fails: None; missing project directories return an empty list.
+    """
     slug = _claude_project_slug(repo_root)
     projects_dir = home / ".claude" / "projects" / slug
     if not projects_dir.exists():
@@ -4845,6 +5835,14 @@ def discover_claude_sessions(*, repo_root: Path, home: Path, since_ts: str | Non
 
 
 def discover_codex_sessions(*, home: Path, since_ts: str | None, limit: int | None) -> list[Path]:
+    """
+    [ACTION]
+    - Teleology: Discover recent Codex rollout JSONL files under the local session store.
+    - Preconditions: `home` points at a user home directory.
+    - Reads: `~/.codex/sessions`.
+    - Guarantee: Returns newest-first rollout paths capped by `limit` when positive.
+    - Fails: None; missing session directories return an empty list.
+    """
     sessions_dir = home / ".codex" / "sessions"
     if not sessions_dir.exists():
         return []
@@ -4864,6 +5862,13 @@ def discover_codex_sessions(*, home: Path, since_ts: str | None, limit: int | No
 
 
 def _safe_mtime(path: Path) -> float:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_safe_mtime`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     try:
         return path.stat().st_mtime
     except OSError:
@@ -4871,6 +5876,13 @@ def _safe_mtime(path: Path) -> float:
 
 
 def _named_child_dirs(path: Path) -> list[Path]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_named_child_dirs`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     try:
         children = [child for child in path.iterdir() if child.is_dir()]
     except OSError:
@@ -4879,7 +5891,13 @@ def _named_child_dirs(path: Path) -> list[Path]:
 
 
 def _discover_codex_sessions_from_date_dirs(sessions_dir: Path, *, limit: int) -> list[Path]:
-    """Fast path for ~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl."""
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_discover_codex_sessions_from_date_dirs`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     files: list[Path] = []
     for year_dir in _named_child_dirs(sessions_dir):
         if not (len(year_dir.name) == 4 and year_dir.name.isdigit()):
@@ -4902,6 +5920,13 @@ def _discover_codex_sessions_from_date_dirs(sessions_dir: Path, *, limit: int) -
 
 
 def _process_trace_sources(repo_root: Path) -> dict[str, list[str]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_process_trace_sources`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return {
         "live": [
             _relpath(repo_root / STANDARD_PATH.relative_to(REPO_ROOT), repo_root=repo_root),
@@ -4918,6 +5943,13 @@ def _process_trace_sources(repo_root: Path) -> dict[str, list[str]]:
 
 
 def _summary_int(value: Any) -> int:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_int`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     try:
         return int(value or 0)
     except (TypeError, ValueError):
@@ -4925,10 +5957,24 @@ def _summary_int(value: Any) -> int:
 
 
 def _summary_drop_none(row: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_drop_none`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return {str(key): value for key, value in row.items() if value is not None}
 
 
 def _summary_top_mapping_items(value: Mapping[str, Any] | None, *, limit: int = 10) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_top_mapping_items`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not isinstance(value, Mapping):
         return {}
     items = sorted(value.items(), key=lambda item: (-_summary_int(item[1]), str(item[0])))
@@ -4936,6 +5982,13 @@ def _summary_top_mapping_items(value: Mapping[str, Any] | None, *, limit: int = 
 
 
 def _summary_compact_command_rows(rows: list[Any], *, limit: int = 8) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_command_rows`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     compact: list[dict[str, Any]] = []
     for row in rows[:limit]:
         if not isinstance(row, Mapping):
@@ -4957,6 +6010,13 @@ def _summary_compact_command_rows(rows: list[Any], *, limit: int = 8) -> list[di
 
 
 def _summary_compact_bottleneck_preview(rows: list[Any], *, limit: int = 6) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_bottleneck_preview`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     compact: list[dict[str, Any]] = []
     for row in rows[:limit]:
         if not isinstance(row, Mapping):
@@ -5000,6 +6060,13 @@ COMPACT_REPAIR_HINT_PRIORITIES = {
 
 
 def _summary_compact_repair_hint_sort_key(row_with_index: tuple[int, Any]) -> tuple[int, int]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_repair_hint_sort_key`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     index, row = row_with_index
     if not isinstance(row, Mapping):
         return (100, index)
@@ -5008,6 +6075,13 @@ def _summary_compact_repair_hint_sort_key(row_with_index: tuple[int, Any]) -> tu
 
 
 def _summary_compact_repair_hints(rows: list[Any], *, limit: int = 2) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_repair_hints`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     compact: list[dict[str, Any]] = []
     ranked_rows = sorted(enumerate(rows), key=_summary_compact_repair_hint_sort_key)
     for _index, row in ranked_rows[:limit]:
@@ -5035,6 +6109,13 @@ def _summary_compact_repair_hints(rows: list[Any], *, limit: int = 2) -> list[di
 
 
 def _kernel_flag_repair_hints(by_flag: Iterable[Any], *, limit: int = 2) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_kernel_flag_repair_hints`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     hints: list[dict[str, Any]] = []
     seen: set[str] = set()
     for row in by_flag:
@@ -5076,6 +6157,13 @@ def _kernel_flag_repair_hints(by_flag: Iterable[Any], *, limit: int = 2) -> list
 
 
 def _summary_compact_kernel_flag_rows(rows: list[Any], *, limit: int = 2) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_kernel_flag_rows`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     compact: list[dict[str, Any]] = []
     for row in rows[:limit]:
         if not isinstance(row, Mapping):
@@ -5095,6 +6183,13 @@ def _summary_compact_kernel_flag_rows(rows: list[Any], *, limit: int = 2) -> lis
 
 
 def _summary_compact_pattern_rows(rows: list[Any], *, limit: int = 8) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_pattern_rows`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     compact: list[dict[str, Any]] = []
     for row in rows[:limit]:
         if not isinstance(row, Mapping):
@@ -5113,6 +6208,13 @@ def _summary_compact_pattern_rows(rows: list[Any], *, limit: int = 8) -> list[di
 
 
 def _summary_compact_audit_findings(rows: list[Any], *, limit: int = 8) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_audit_findings`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     compact: list[dict[str, Any]] = []
     for row in rows[:limit]:
         if not isinstance(row, Mapping):
@@ -5136,6 +6238,13 @@ def _summary_compact_process_bottlenecks(
     limit: int = 8,
     example_limit: int = 3,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_process_bottlenecks`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not isinstance(value, Mapping):
         return {}
     items = sorted(
@@ -5191,6 +6300,13 @@ def _summary_compact_process_bottlenecks(
 
 
 def _summary_compact_thought_trace(value: Mapping[str, Any] | None) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_thought_trace`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not isinstance(value, Mapping):
         return {}
     command_trace = [
@@ -5238,6 +6354,13 @@ def _summary_compact_thought_trace(value: Mapping[str, Any] | None) -> dict[str,
 
 
 def _summary_compact_task_result_reads(value: Any, *, limit: int = 4) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_task_result_reads`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not isinstance(value, Mapping):
         return {"count": 0, "total_output_bytes": 0, "top_reads": []}
     return _summary_drop_none(
@@ -5267,6 +6390,13 @@ def _summary_compact_task_result_reads(value: Any, *, limit: int = 4) -> dict[st
 
 
 def _summary_compact_audit_summary(summary: Mapping[str, Any] | None) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_audit_summary`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if not isinstance(summary, Mapping):
         return {}
     return _summary_drop_none(
@@ -5294,6 +6424,13 @@ def _summary_compact_audit_summary(summary: Mapping[str, Any] | None) -> dict[st
 
 
 def _summary_compact_process_session(session: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_process_session`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     compliance = session.get("route_compliance") if isinstance(session.get("route_compliance"), Mapping) else {}
     return {
         "session_id": session.get("session_id"),
@@ -5333,6 +6470,13 @@ def _summary_compact_process_session(session: Mapping[str, Any]) -> dict[str, An
 
 
 def _summary_compact_process_audit(audit: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_process_audit`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     summary = audit.get("summary") if isinstance(audit.get("summary"), Mapping) else {}
     return {
         "summary": _summary_compact_audit_summary(summary),
@@ -5366,6 +6510,13 @@ def _summary_compact_process_audit(audit: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _summary_compact_source_freshness(source_freshness: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_source_freshness`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     receipt = source_freshness.get("source_hash_receipt")
     compact_receipt: dict[str, Any] = {}
     if isinstance(receipt, Mapping):
@@ -5405,6 +6556,13 @@ def _summary_compact_source_freshness(source_freshness: Mapping[str, Any]) -> di
 
 
 def _summary_compact_warning_index(warnings: Iterable[Any]) -> list[dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_summary_compact_warning_index`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     rows: list[dict[str, Any]] = []
     for warning in warnings:
         if not isinstance(warning, Mapping):
@@ -5420,6 +6578,13 @@ def _summary_compact_warning_index(warnings: Iterable[Any]) -> list[dict[str, An
 
 
 def _process_summary_identity_scope(raw: str, session: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_process_summary_identity_scope`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     request = str(raw or "latest").strip().lower()
     selected_session_id = session.get("session_id")
     selected_agent = session.get("agent")
@@ -5468,6 +6633,13 @@ def _process_summary_identity_scope(raw: str, session: Mapping[str, Any]) -> dic
 
 
 def _read_model_receipt(path: Path, *, repo_root: Path) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_read_model_receipt`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return {
         "path": _relpath(path, repo_root=repo_root),
         "exists": path.exists(),
@@ -5477,6 +6649,13 @@ def _read_model_receipt(path: Path, *, repo_root: Path) -> dict[str, Any]:
 
 
 def _process_summary_age_seconds(payload: Mapping[str, Any] | None) -> float | None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_process_summary_age_seconds`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     generated_dt = _parse_iso(str((payload or {}).get("generated_at") or ""))
     if generated_dt is None:
         return None
@@ -5486,6 +6665,13 @@ def _process_summary_age_seconds(payload: Mapping[str, Any] | None) -> float | N
 
 
 def _default_process_session_limit(repo_root: Path) -> int:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_default_process_session_limit`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     try:
         rules = load_trace_rules(repo_root / TRACE_RULES_PATH.relative_to(REPO_ROOT))
         return int(((rules.get("ingest") or {}).get("default_session_lookback_count")) or 20)
@@ -5494,6 +6680,13 @@ def _default_process_session_limit(repo_root: Path) -> int:
 
 
 def _effective_process_session_limit(repo_root: Path, session_limit: int | None) -> int:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_effective_process_session_limit`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     if session_limit is not None:
         return session_limit
     return _default_process_session_limit(repo_root)
@@ -5505,6 +6698,13 @@ def _process_summary_window_matches(
     since_ts: str | None,
     session_limit: int | None,
 ) -> bool:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_process_summary_window_matches`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     summary = payload.get("summary") if isinstance(payload.get("summary"), Mapping) else {}
     window = summary.get("window") if isinstance(summary.get("window"), Mapping) else {}
     return window.get("since") == since_ts and _summary_int(window.get("session_limit")) == _summary_int(session_limit)
@@ -5516,6 +6716,13 @@ def _process_summary_cached_read_models(
     since_ts: str | None,
     session_limit: int | None,
 ) -> tuple[dict[str, Any] | None, dict[str, Any] | None, dict[str, Any] | None, dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_process_summary_cached_read_models`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     ledger_path = repo_root / LEDGER_PATH.relative_to(REPO_ROOT)
     audit_path = repo_root / AUDIT_PATH.relative_to(REPO_ROOT)
     summary_path = repo_root / SUMMARY_PATH.relative_to(REPO_ROOT)
@@ -5612,6 +6819,13 @@ def _process_summary_force_command(
     since_ts: str | None = None,
     session_limit: int | None = None,
 ) -> str:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_process_summary_force_command`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     command = f"./repo-python kernel.py --process-summary {request} --force"
     if since_ts:
         command += f" --after {since_ts}"
@@ -5630,6 +6844,13 @@ def _build_process_summary_packet_from_models(
     since_ts: str | None = None,
     command_session_limit: int | None = None,
 ) -> tuple[int, dict[str, Any]]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_build_process_summary_packet_from_models`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     session = select_session(ledger, request)
     if session is None:
         alt = [
@@ -5734,6 +6955,13 @@ def _missing_process_summary_status_packet(
     source_freshness: Mapping[str, Any],
     force_live_command: str,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_missing_process_summary_status_packet`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return {
         "kind": "kernel.navigate.process_summary",
         "schema_version": PROCESS_SUMMARY_ROUTE_SCHEMA_VERSION,
@@ -5802,7 +7030,14 @@ def build_process_summary_route_packet(
     session_limit: int | None = None,
     force_live: bool = False,
 ) -> tuple[int, dict[str, Any]]:
-    """Build the kernel --process-summary packet from cached read models unless --force is explicit."""
+    """
+    [ACTION]
+    - Teleology: Build the kernel process-summary packet from cached read models unless live parsing is requested.
+    - Preconditions: `repo_root` points at this repo and `request` is a session id or provider alias.
+    - Reads: Cached process read models, trace rules, and optional live rollout files when `force_live` is true.
+    - Guarantee: Returns `(exit_code, packet)` with compact session/audit context or a shaped missing-cache packet.
+    - Fails: Returns a non-zero packet for unavailable stale caches that cannot answer the request.
+    """
     repo_root = repo_root.resolve()
     raw = (request or "latest").strip() or "latest"
     sources = _process_trace_sources(repo_root)
@@ -5901,7 +7136,14 @@ def build_process_trace_route_packet(
     tape_max_chars: int = 10000,
     include_raw_sidecar: bool = False,
 ) -> tuple[int, dict[str, Any]]:
-    """Build a chronological command/output/edit trace packet for one session."""
+    """
+    [ACTION]
+    - Teleology: Build a chronological command/output/edit trace packet for one selected session.
+    - Preconditions: `trace_level` names a compactness profile and `request` resolves to a session row.
+    - Reads: Live-bounded process trace payloads derived from provider session files.
+    - Guarantee: Returns `(0, packet)` with compactness rows, closeout summary, and optional tape artifacts.
+    - Fails: Returns non-zero packets for unknown levels or unresolved session requests.
+    """
     repo_root = repo_root.resolve()
     raw = (request or "latest").strip() or "latest"
     selected_level = _normalize_trace_level(trace_level)
@@ -6048,7 +7290,14 @@ def load_process_bottleneck_summary_cache(
     limit: int | None = None,
     action_kinds: Iterable[str] | None = None,
 ) -> dict[str, Any]:
-    """Read the materialized process bottleneck summary without parsing rollouts."""
+    """
+    [ACTION]
+    - Teleology: Read the materialized process bottleneck summary without parsing live rollouts.
+    - Preconditions: `repo_root` points at this repo; optional filters name action kinds.
+    - Reads: `codex/hologram/process/summary.json` plus static trace-rule/source receipts.
+    - Guarantee: Returns a probe packet that distinguishes cache availability from live authority.
+    - Fails: None; malformed or missing projections return a shaped unavailable status.
+    """
     started = time.perf_counter()
     repo_root = repo_root.resolve()
     summary_path = repo_root / SUMMARY_PATH.relative_to(REPO_ROOT)
@@ -6058,6 +7307,13 @@ def load_process_bottleneck_summary_cache(
     warnings: list[str] = []
 
     def rel(path: Path) -> str:
+        """
+        [ACTION]
+        - Teleology: Support the agent execution trace pipeline at `load_process_bottleneck_summary_cache.rel`.
+        - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+        - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+        - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+        """
         return _relpath(path, repo_root=repo_root)
 
     source_receipts = [
@@ -6311,6 +7567,14 @@ def build_agent_execution_trace(
     parse_codex_output_payloads: bool = True,
     build_profile: str = "full",
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Materialize the full agent execution trace read model from bounded provider sessions.
+    - Preconditions: Trace rules are loadable and session discovery inputs are either provided or discoverable.
+    - Reads: Claude/Codex session JSONL files, trace rules, and the execution-trace standard.
+    - Guarantee: Returns ledger, audit, navigation cache, patterns, summary, full sessions, and spans by session.
+    - Fails: Per-session parse failures are recorded as findings; hard failures propagate from missing rules.
+    """
     repo_root = repo_root.resolve()
     bottleneck_rankings_profile = build_profile == "bottleneck_rankings"
     rules = load_trace_rules(rules_path or (repo_root / TRACE_RULES_PATH.relative_to(REPO_ROOT)))
@@ -6725,12 +7989,26 @@ def build_agent_execution_trace(
 
 
 def _bounded_session_row(row: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_bounded_session_row`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     trimmed = dict(row)
     trimmed.pop("bottlenecks", None)
     return trimmed
 
 
 def _nav_row(row: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_nav_row`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     return {
         "session_id": row.get("session_id"),
         "agent": row.get("agent"),
@@ -6756,6 +8034,13 @@ def _nav_row(row: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def _write_json(path: Path, payload: Mapping[str, Any]) -> None:
+    """
+    [ACTION]
+    - Teleology: Support the agent execution trace pipeline at `_write_json`.
+    - Preconditions: Caller supplies arguments compatible with the existing parser, renderer, or read-model context.
+    - Guarantee: Preserves the existing return contract and side-effect boundary for this scope.
+    - Fails: Propagates implementation-specific exceptions or returns the existing shaped fallback where the body handles errors.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
@@ -6772,6 +8057,14 @@ def write_agent_execution_trace(
     timestamp: str | None = None,
     write_state_dir: Path | None = None,
 ) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Write the agent execution trace read models and full session/span sidecars to disk.
+    - Preconditions: `build_agent_execution_trace` can produce a payload for the requested window.
+    - Writes: `codex/hologram/process/*.json` and timestamped state JSONL sidecars.
+    - Guarantee: Returns a receipt with repo-relative artifact paths and summary counts.
+    - Fails: Propagates filesystem and build errors; no provider session store is mutated.
+    """
     payload = build_agent_execution_trace(
         repo_root=repo_root,
         rules_path=rules_path,
@@ -6816,6 +8109,14 @@ def write_agent_execution_trace(
 
 
 def load_execution_trace_audit(*, repo_root: Path = REPO_ROOT, build_if_missing: bool = True) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Load the process audit read model, optionally building it when absent.
+    - Preconditions: `repo_root` points at this repo.
+    - Reads: `codex/hologram/process/audit.json` and optionally provider sessions.
+    - Guarantee: Returns an audit-shaped dict even when build-if-missing is disabled.
+    - Fails: Build errors propagate only when `build_if_missing` requires live materialization.
+    """
     path = repo_root / AUDIT_PATH.relative_to(REPO_ROOT)
     payload = _safe_read_json(path)
     if isinstance(payload, Mapping):
@@ -6826,6 +8127,14 @@ def load_execution_trace_audit(*, repo_root: Path = REPO_ROOT, build_if_missing:
 
 
 def load_execution_trace_ledger(*, repo_root: Path = REPO_ROOT, build_if_missing: bool = True) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Load the process ledger read model, optionally building it when absent.
+    - Preconditions: `repo_root` points at this repo.
+    - Reads: `codex/hologram/process/ledger.json` and optionally provider sessions.
+    - Guarantee: Returns a ledger-shaped dict even when build-if-missing is disabled.
+    - Fails: Build errors propagate only when `build_if_missing` requires live materialization.
+    """
     path = repo_root / LEDGER_PATH.relative_to(REPO_ROOT)
     payload = _safe_read_json(path)
     if isinstance(payload, Mapping):
@@ -6836,6 +8145,13 @@ def load_execution_trace_ledger(*, repo_root: Path = REPO_ROOT, build_if_missing
 
 
 def select_session(ledger: Mapping[str, Any], request: str) -> dict[str, Any] | None:
+    """
+    [ACTION]
+    - Teleology: Resolve a user/session token to the best matching ledger session row.
+    - Preconditions: `ledger` has a `sessions` list or an empty equivalent.
+    - Guarantee: Returns a copy of the matched session row or None when no match exists.
+    - Fails: None.
+    """
     raw = str(request or "").strip().lower()
     sessions = list(ledger.get("sessions") or [])
     if not sessions:
@@ -6868,6 +8184,13 @@ def select_session(ledger: Mapping[str, Any], request: str) -> dict[str, Any] | 
 
 
 def compare_agents(ledger: Mapping[str, Any]) -> dict[str, Any]:
+    """
+    [ACTION]
+    - Teleology: Aggregate high-level Claude versus Codex execution-shape metrics from the ledger.
+    - Preconditions: `ledger` contains session rows with action counts and route-compliance payloads.
+    - Guarantee: Returns fixed provider buckets with sessions, spans, average compliance, shape shares, and anti-pattern counts.
+    - Fails: None; malformed rows are skipped or coerced through default counters.
+    """
     buckets: dict[str, dict[str, Any]] = {
         "claude_code": {"sessions": 0, "total_spans": 0, "avg_route_compliance": 0.0, "grep_share": 0.0, "kernel_share": 0.0, "anti_pattern_counts": Counter()},
         "codex": {"sessions": 0, "total_spans": 0, "avg_route_compliance": 0.0, "grep_share": 0.0, "kernel_share": 0.0, "anti_pattern_counts": Counter()},

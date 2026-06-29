@@ -1,0 +1,34 @@
+{
+  "case_id": "nested_oracle_field_negative",
+  "expected_status": "fail",
+  "expected_failure_kind": "oracle_firewall_violation",
+  "expected_summary": {
+    "problem_count": 1,
+    "firewall_violation_count": 1,
+    "and_or_success_count": 0,
+    "hammer_success_count": 0,
+    "ablation_passed": false
+  },
+  "lab": {
+    "timeout_seconds": 8,
+    "beam_width": 4,
+    "max_depth": 2,
+    "policy_kind": "id_blind",
+    "problems": [
+      {
+        "problem_id": "nested_leaky_forward_problem",
+        "theorem_name": "nested_leaky_forward_problem",
+        "target_shape": "identity_intro",
+        "theorem_signature": "theorem nested_leaky_forward_problem (p : Prop) : p -> p := by",
+        "metadata": {
+          "provider_text": "nested provider payload must not pass the public firewall",
+          "repair_plan": {
+            "oracle_needed_premise_ids": [
+              "private_oracle_premise_id"
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

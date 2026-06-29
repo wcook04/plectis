@@ -1,0 +1,12 @@
+{
+  "case_id": "finalized_run_running_job_rejected",
+  "case_type": "negative",
+  "expected_ok": false,
+  "case_kind": "finalized_run_running_job",
+  "intent": "Planted defect: a run is finalized with a completed_at while its job is still marked running, so the reconciler must reject the contradictory terminal/non-terminal state for operator review.",
+  "expected_reconciliation_rule": "run_finalized_but_job_running",
+  "expects": {
+    "reconcile_status": "needs_review",
+    "fires_rule": "run_finalized_but_job_running"
+  }
+}
