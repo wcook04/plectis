@@ -23,6 +23,11 @@ def test_cli_hello_prints_shared_first_screen_card(
 
     output.encode("ascii")
     assert output.startswith("Plectis first screen\n")
+    assert output.splitlines()[1].startswith(
+        "What it is: A public executable atlas of 88 AI-native runtime mechanisms"
+    )
+    assert "Read order: mechanisms -> evidence discipline -> local runtime" in output
+    assert output.index("What it is:") < output.index("Pre-install probe:")
     assert "Pre-install probe: ./bootstrap.sh -> .microcosm/cold_clone_probe.json" in output
     assert (
         "Source-only card: PYTHONPATH=src python3 -m microcosm_core hello ."

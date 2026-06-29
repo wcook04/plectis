@@ -1807,10 +1807,15 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
     composition = importlib.import_module("microcosm_core.first_screen_composition")
     card = composition.first_screen_composition_card(MICROCOSM_ROOT, project_label=".")
     hello_text = composition.first_screen_text_card(card)
+    assert hello_text.splitlines()[1].startswith(
+        "What it is: A public executable atlas"
+    )
+    assert "Read order: mechanisms -> evidence discipline -> local runtime" in hello_text
     assert 'Have a goal? plectis comprehend --first-action "<your goal>"' in hello_text
-    # The goal line must LEAD the card (line 2, directly under the title), not
-    # trail it: position is the product here, presence alone can be demoted.
-    assert hello_text.splitlines()[1].startswith("Have a goal? ")
+    # The mechanism identity must lead the card; the goal-shaped command remains
+    # above install/runtime mechanics so no second first action is taught.
+    assert hello_text.index("What it is:") < hello_text.index("Have a goal? ")
+    assert hello_text.index("Have a goal? ") < hello_text.index("Pre-install probe:")
     # The retired label must not reappear on the reader ladder: the route
     # ladder teaches steps, the product owns "first action".
     assert "First action:" not in hello_text

@@ -1474,18 +1474,34 @@ def test_first_action_public_site_parity_goal_routes_to_verifier(tmp_path: Path)
     refusal."""
     _write_fixture(tmp_path)
 
-    pack = C.comprehend(
-        root=tmp_path,
-        mode="first_action",
-        target="verify the deployed public site downloadable AI packets match this source checkout",
-    )
+    for goal in (
+        "verify the deployed public site downloadable AI packets match this source checkout",
+        "how do I verify the website agrees with the repo?",
+    ):
+        pack = C.comprehend(root=tmp_path, mode="first_action", target=goal)
 
-    assert pack["routing"]["basis"] == "public_site_parity_verification"
-    assert pack["first_action"]["action_kind"] == "run_verification_command"
-    assert pack["first_action"]["command"] == C.PUBLIC_SITE_PARITY_COMMAND
-    assert "release authorization" in pack["proof_path"]["note"]
-    assert C._first_action_contract_complete(pack) is True
-    assert all(v is False for v in pack["authority_ceiling"].values())
+        assert pack["routing"]["basis"] == "public_site_parity_verification", goal
+        assert pack["first_action"]["action_kind"] == "run_verification_command", goal
+        assert pack["first_action"]["command"] == C.PUBLIC_SITE_PARITY_COMMAND, goal
+        assert "release authorization" in pack["proof_path"]["note"], goal
+        assert C._first_action_contract_complete(pack) is True, goal
+        assert all(v is False for v in pack["authority_ceiling"].values()), goal
+
+
+def test_first_action_public_readiness_prompts_route_to_getting_started(tmp_path: Path) -> None:
+    """Concrete clone/package/dependency questions should not fall back to the
+    generic first-contact packet."""
+    for goal in (
+        "run the quickstart",
+        "why does dependency preflight fail?",
+        "can I package this?",
+    ):
+        pack = C.comprehend(root=C.default_root(), mode="first_action", target=goal)
+        assert pack["routing"]["basis"] == "task_class_route_match", goal
+        assert pack["owner"]["task_class"] == "getting-started", goal
+        assert "first_contact" not in pack["first_action"]["command"], goal
+        assert C._first_action_contract_complete(pack) is True
+        assert all(v is False for v in pack["authority_ceiling"].values())
 
 
 def test_first_action_assay_flags_graph_bypass_on_legacy_clone(tmp_path: Path) -> None:

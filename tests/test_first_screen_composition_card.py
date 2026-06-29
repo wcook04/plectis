@@ -1770,6 +1770,18 @@ def test_first_screen_text_card_is_terminal_sized_and_honest() -> None:
 
     text.encode("ascii")
     assert text.startswith("Plectis first screen\n")
+    assert text.splitlines()[1].startswith(
+        "What it is: A public executable atlas of 88 AI-native runtime mechanisms"
+    )
+    assert (
+        text.index("What it is: A public executable atlas")
+        < text.index('Have a goal? plectis comprehend --first-action "<your goal>"')
+        < text.index("Pre-install probe: ./bootstrap.sh")
+    )
+    assert (
+        "Read order: mechanisms -> evidence discipline -> local runtime; "
+        "evidence records are the accountability layer, not the product."
+    ) in text
     assert (
         "Source-only card: PYTHONPATH=src python3 -m microcosm_core hello ."
         in text

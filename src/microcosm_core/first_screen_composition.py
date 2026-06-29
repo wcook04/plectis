@@ -84,9 +84,9 @@ STANDARD_SURFACE_ALIASES = {
     "reader_route_ids": ("reader_routes",),
     "terminal_text_projection": ("text_projection",),
 }
-# 33 = the 32-line reader ladder plus the one goal-entry line ("Have a goal?"),
-# which must stay above the orientation ladder so the card cannot teach a
-# second first action.
+# 33 = the bounded reader ladder plus the mechanism-first identity/read-order
+# lines. These must stay above the orientation ladder so the card cannot teach a
+# receipt-first first impression.
 TEXT_CARD_MAX_LINES = 33
 COMPACT_JSON_CARD_MAX_CHARS = 16000
 TEXT_READER_CHOICES = ("all",) + READER_ROUTE_IDS + tuple(READER_ROUTE_ALIASES)
@@ -5338,6 +5338,15 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
     lines = [
         "Plectis first screen",
         (
+            "What it is: A public executable atlas of "
+            f"{mechanism_count} AI-native runtime mechanisms; evidence records "
+            "show runner/source, evidence class, receipt path, and authority ceiling."
+        ),
+        (
+            "Read order: mechanisms -> evidence discipline -> local runtime; "
+            "evidence records are the accountability layer, not the product."
+        ),
+        (
             'Have a goal? plectis comprehend --first-action "<your goal>" --format text | '
             "Source-only: PYTHONPATH=src python3 -m microcosm_core comprehend "
             '--first-action "<your goal>" --format text | Demonstrated in FIRST_ACTION.md'
@@ -5351,12 +5360,6 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
             f"{source_behavior_suffix}"
         ),
         check_state_line,
-        "",
-        (
-            "What it is: A public executable atlas of "
-            f"{mechanism_count} AI-native runtime mechanisms; evidence records "
-            "show runner/source, evidence class, receipt path, and authority ceiling."
-        ),
         *_substrate_glance_lines(payload),
         "Why the counts are honest:",
         _scale_summary_line(payload),
