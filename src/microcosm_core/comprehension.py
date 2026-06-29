@@ -2777,7 +2777,61 @@ def _public_site_parity_goal(text: str) -> bool:
         or "deployed site" in text
         or "downloadable ai" in text
     )
-    return bool(verification and packet_surface and public_surface)
+    site_surface = tokens & {"pages", "site", "website"}
+    source_surface = tokens & {"checkout", "repo", "repository", "source", "tree"}
+    agreement_surface = tokens & {"agree", "agrees", "match", "matches", "parity"}
+    return bool(
+        verification
+        and (
+            (packet_surface and public_surface)
+            or (site_surface and source_surface and agreement_surface)
+        )
+    )
+
+
+def _public_getting_started_goal(text: str) -> bool:
+    """
+    [ACTION]
+    Detect concrete public clone/install/package/dependency-start intents.
+
+    - Teleology: keep cold-reader setup questions on the getting-started route
+      instead of a generic first-contact packet when the graph has that route.
+    - Guarantee: True only for public-readiness setup terms such as quickstart,
+      dependency preflight, editable install, package smoke, or bootstrap.
+    - Fails: never raises.
+    - Non-goal: does not execute the command or authorize release.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments.
+    - Writes: return values.
+    """
+    lowered = (text or "").lower()
+    tokens = set(_goal_tokens(lowered))
+    explicit_phrases = (
+        "run the quickstart",
+        "run quickstart",
+        "dependency preflight",
+        "package smoke",
+        "package this",
+        "can i package",
+        "editable install",
+        "test extras",
+    )
+    if any(phrase in lowered for phrase in explicit_phrases):
+        return True
+    return bool(
+        tokens
+        & {
+            "bootstrap",
+            "dependencies",
+            "dependency",
+            "install",
+            "package",
+            "packaging",
+            "quickstart",
+            "setup",
+            "venv",
+        }
+    )
 
 
 def _tokens_overlap(a: str, b: str) -> bool:
@@ -3334,10 +3388,11 @@ def compile_first_action(
             "plectis comprehend --packet-atlas",
         ]
         return pack
-    # Start-shaped intent maps deterministically to the getting-started route
-    # when the graph carries one; otherwise the generic matcher gets its chance.
+    # Start/package/dependency intent maps deterministically to the getting-started
+    # route when the graph carries one; otherwise the generic matcher gets its
+    # chance.
     route = None
-    if mode == "first_action":
+    if mode == "first_action" or _public_getting_started_goal(text):
         route = next(
             (
                 r

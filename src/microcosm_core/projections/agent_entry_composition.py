@@ -386,7 +386,7 @@ def _normalize_task_class(task: str | None) -> str:
     - Reads: call arguments, module constants, imported helpers.
     - Writes: return values, declared filesystem outputs.
     """
-    value = (task or "").strip().lower()
+    value = (task or "").strip().lower().rstrip(" ?!.")
     natural_key = value.replace("_", " ").replace("-", " ")
     if not value:
         return DEFAULT_TASK
@@ -558,6 +558,12 @@ def _normalize_task_class(task: str | None) -> str:
         "quick-start",
         "quick_start",
         "quick start",
+        "run the quickstart",
+        "run-the-quickstart",
+        "run_the_quickstart",
+        "run quickstart",
+        "run-quickstart",
+        "run_quickstart",
         "cold clone",
         "cold-clone",
         "cold_clone",
@@ -679,6 +685,15 @@ def _normalize_task_class(task: str | None) -> str:
         "how_do_i_set_this_up",
         "dependency",
         "dependencies",
+        "dependency preflight",
+        "dependency-preflight",
+        "dependency_preflight",
+        "dependency preflight fail",
+        "dependency-preflight-fail",
+        "dependency_preflight_fail",
+        "why does dependency preflight fail",
+        "why-does-dependency-preflight-fail",
+        "why_does_dependency_preflight_fail",
         "what dependencies",
         "what-dependencies",
         "what_dependencies",
@@ -884,6 +899,18 @@ def _normalize_task_class(task: str | None) -> str:
         "package-smoke",
         "package_smoke",
         "make package-smoke",
+        "can i package this",
+        "can-i-package-this",
+        "can_i_package_this",
+        "package this",
+        "package-this",
+        "package_this",
+        "package it",
+        "package-it",
+        "package_it",
+        "build package",
+        "build-package",
+        "build_package",
         "fresh venv",
         "fresh-venv",
         "fresh_venv",
@@ -3546,7 +3573,7 @@ def _task_alias_resolution(
     - Writes: return values.
     """
     requested = (requested_task or DEFAULT_TASK).strip()
-    requested_key = requested.lower()
+    requested_key = requested.lower().rstrip(" ?!.")
     if not requested or requested_key == selected_task_class:
         return None
     if _normalize_task_class(requested) != selected_task_class:
