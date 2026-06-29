@@ -50,6 +50,7 @@ PUBLIC_TESTS += tests/test_organ_registry_authority_floor.py
 PUBLIC_TESTS += tests/test_artifact_budget.py
 PUBLIC_TESTS += tests/test_release_claim_portfolio.py
 PUBLIC_TESTS += tests/test_release_candidate_semantic_action.py
+PUBLIC_TESTS += tests/test_comprehension_mechanism.py
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card

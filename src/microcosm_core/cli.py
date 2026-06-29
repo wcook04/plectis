@@ -781,6 +781,7 @@ First-screen route:
   plectis comprehend --self-model [--profile whole_substrate_map] comprehend the WHOLE substrate at once (every family, real-vs-thin calibration, what not to claim; whole_substrate_map = all 82 organs)
   plectis comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
   plectis comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
+  plectis comprehend --slice mechanism  every organ's real mechanism (what it computes/verifies/rejects), one line each
   plectis comprehend --slice {authority|organs|cluster --family <f>|math|claims --organ <id>|flows --organ <id>} named comprehension packet
   plectis comprehend --improvements rank concrete Plectis improvement targets with validation commands
   plectis comprehend --mutation <organ_id|path> safe-change plan: what to inspect, the validator to run, receipts to refresh (local band)
@@ -4390,7 +4391,7 @@ def main(argv: list[str] | None = None) -> int:
     comprehend_parser.add_argument(
         "--slice",
         dest="slice_name",
-        choices=["first-contact", "authority", "organs", "cluster", "math", "claims", "flows"],
+        choices=["first-contact", "authority", "organs", "mechanism", "cluster", "math", "claims", "flows"],
         help="compile a named comprehension slice",
     )
     comprehend_parser.add_argument(
