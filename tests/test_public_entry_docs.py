@@ -1,7 +1,11 @@
 from __future__ import annotations
 
 import json
+import os
+import re
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -1822,3 +1826,98 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
     agent_text = composition.first_screen_text_card(card, reader_id="type_a_agent")
     assert "First action:" not in agent_text
     assert "First step:" in agent_text
+
+
+# ---------------------------------------------------------------------------
+# First-contact command/docs parity guard.
+#
+# Earned 2026-06-29: the public entry docs advertised
+# `comprehend --first-action ... --format text` while the public CLI rejected
+# `--format` on the comprehend subcommand -- a doc lead shipped without its
+# cli.py renderer. CI was green because nothing exercised the advertised first
+# command or cross-checked the doc flags against the CLI. These guards close
+# that class: the documented cold-entry command must run and lead answer-first,
+# the machine default must stay valid JSON, and no entry doc may advertise a
+# comprehend flag the CLI does not accept.
+# ---------------------------------------------------------------------------
+
+_COMPREHEND_GOAL = "find the formal-math proof organs"
+
+_ENTRY_DOCS_FOR_COMPREHEND_PARITY = (
+    "CLAUDE.md",
+    "CODEX.md",
+    "CURSOR.md",
+    "AGENTS.md",
+    "README.md",
+    "QUICKSTART.md",
+    "FIRST_ACTION.md",
+)
+
+
+def _run_comprehend(*args: str) -> subprocess.CompletedProcess[str]:
+    """Invoke ``python -m microcosm_core comprehend ...`` source-only (PYTHONPATH=src)."""
+    env = os.environ.copy()
+    src_ref = str(MICROCOSM_ROOT / "src")
+    env["PYTHONPATH"] = (
+        src_ref
+        if not env.get("PYTHONPATH")
+        else f"{src_ref}{os.pathsep}{env['PYTHONPATH']}"
+    )
+    return subprocess.run(
+        [sys.executable, "-m", "microcosm_core", "comprehend", *args],
+        cwd=MICROCOSM_ROOT,
+        env=env,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        timeout=60,
+    )
+
+
+def test_comprehend_first_action_format_text_runs_and_leads_with_the_answer() -> None:
+    result = _run_comprehend("--first-action", _COMPREHEND_GOAL, "--format", "text")
+    assert result.returncode == 0, (
+        "the documented cold-entry command must succeed; "
+        f"stderr={result.stderr!r} stdout={result.stdout[:400]!r}"
+    )
+    assert "unrecognized arguments" not in result.stderr, result.stderr
+    assert not result.stdout.lstrip().lower().startswith("usage:"), result.stdout[:300]
+    answer_idx = result.stdout.find("Do this first:")
+    assert answer_idx != -1, f"answer-first card missing 'Do this first:'\n{result.stdout[:600]}"
+    ceiling_idx = result.stdout.find("does NOT claim")
+    assert ceiling_idx == -1 or answer_idx < ceiling_idx, (
+        "the authority ceiling must not precede the answer (answer-first card contract)"
+    )
+
+
+def test_comprehend_first_action_machine_default_stays_valid_json() -> None:
+    result = _run_comprehend("--first-action", _COMPREHEND_GOAL)
+    assert result.returncode == 0, result.stderr
+    json.loads(result.stdout)  # the no-flag default must remain machine-readable
+
+
+def test_entry_docs_advertise_only_supported_comprehend_flags() -> None:
+    help_result = _run_comprehend("--help")
+    assert help_result.returncode == 0, help_result.stderr
+    help_text = help_result.stdout
+    offenders: list[str] = []
+    for name in _ENTRY_DOCS_FOR_COMPREHEND_PARITY:
+        path = MICROCOSM_ROOT / name
+        if not path.exists():
+            continue
+        for line in path.read_text(encoding="utf-8").splitlines():
+            match = re.search(r"\bcomprehend\b(.*)", line)
+            if not match:
+                continue
+            # Scope to the comprehend invocation only: stop at a shell/markdown
+            # separator that would start a different command/cell on the line.
+            tail = re.split(r"[|&;`]", match.group(1))[0]
+            for flag in re.findall(r"--[a-z][a-z0-9-]+", tail):
+                if flag not in help_text:
+                    offenders.append(
+                        f"{name}: advertises `{flag}` absent from `comprehend --help`"
+                    )
+    assert not offenders, (
+        "entry docs advertise comprehend flags the CLI does not accept:\n"
+        + "\n".join(offenders)
+    )
