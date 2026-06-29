@@ -126,6 +126,7 @@ For the full per-component cards, open the [System map](ORGANS.md).
 | Run the first local witness | [Quickstart](QUICKSTART.md) | The shortest path to a working local run. |
 | Understand how it works | [Architecture](ARCHITECTURE.md) | The runtime loop, the evidence loop, and the component families. |
 | Browse every component | [System map](ORGANS.md) | A generated card for each part, one line at a glance or in full. |
+| Assess how impressive the components are, or what each one actually does | `comprehend --slice mechanism` | `plectis comprehend --slice mechanism` — every organ's real mechanism (what it computes, verifies, rejects), one line each, before forming a whole-system judgement. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. A coding agent's first action is `plectis comprehend --first-action "<your goal>" --format text`. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | The verification floor and how to raise an issue safely. |
