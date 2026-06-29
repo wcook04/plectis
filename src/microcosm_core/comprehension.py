@@ -155,6 +155,13 @@ _START_HERE_ROUTES = [
     "plectis comprehend --organ <organ_id>",
     "plectis comprehend --slice organs",
 ]
+MECHANISM_SHOWCASE_ORGAN_IDS = (
+    "lean_proof_search_lab_runtime",
+    "finite_erdos_denominator_certificate_strike",
+    "agent_sabotage_scheming_monitor_replay",
+    "finance_forecast_evaluation_spine",
+    "generated_projection_drift_runtime",
+)
 
 # --- atom_value_membrane_v1: the local_semantic_excerpt band -----------------------
 # This band is the FIRST sanctioned exporter of authored docstring-atom prose, and it
@@ -1444,6 +1451,12 @@ def compile_mechanism_index(inputs: dict[str, Any]) -> dict[str, Any]:
                 }
             )
     pack["selected_nodes"] = nodes
+    node_by_organ = {str(node.get("organ_id")): node for node in nodes}
+    pack["showcase_nodes"] = [
+        node_by_organ[organ_id]
+        for organ_id in MECHANISM_SHOWCASE_ORGAN_IDS
+        if organ_id in node_by_organ
+    ]
     pack["evidence_refs"] = [
         "core/paper_module_capsules.json",
         "core/mechanism_sources.json",

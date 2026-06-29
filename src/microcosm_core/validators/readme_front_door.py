@@ -77,10 +77,73 @@ HERO_BANNED_PATTERNS: tuple[tuple[str, str], ...] = (
     (r"\b\w+_route\b", "internal-route-id"),
     (r"\baccepted_current_authority\b", "registry-status-token"),
     (r"\bevidence_class\b", "evidence-taxonomy-token"),
-    (r"\b\d+\s+(?:organs?|components?)\b", "hardcoded-component-count"),
     (r"/Users/", "raw-local-path"),
     (r"\bclick here\b", "low-scent-link-label"),
 )
+FRONT_DOOR_SIGNIFICANCE_WORD_LIMIT = 850
+FRONT_DOOR_LOCAL_ONLY_WORD_LIMIT = 180
+FRONT_DOOR_REQUIRED_PATTERNS: tuple[tuple[str, str], ...] = (
+    (
+        r"\bpublic\b.{0,80}\bexecutable\b|\bexecutable\b.{0,80}\bpublic\b",
+        "public-executable-identity",
+    ),
+    (r"\bmechanisms?\b|\bcomponents?\b", "mechanism-or-component-surface"),
+    (r"\bformal proof\b", "formal-proof-family"),
+    (r"\bagent (?:reliability and safety|safety|reliability)\b", "agent-safety-family"),
+    (r"\b(?:research and forecasting|research/forecasting|forecasting)\b", "research-forecasting-family"),
+    (r"\bprojection[- ]drift\b", "projection-drift-family"),
+    (r"\bvalidators?\b", "validator-family"),
+    (r"\bwork landing\b", "work-landing-family"),
+    (r"\bcontinuity\b", "continuity-family"),
+    (r"\bevidence class\b", "evidence-class-boundary"),
+    (r"\bauthority ceiling\b", "authority-ceiling-boundary"),
+)
+FRONT_DOOR_LOCAL_ONLY_PATTERNS: tuple[tuple[str, str], ...] = (
+    (r"\bsmall,\s+source-open tool\b", "small-tool-primary-frame"),
+    (
+        r"\brun one command\b.{0,160}\blocal record\b",
+        "run-one-command-local-record-primary-frame",
+    ),
+    (r"\blocal evidence router\b", "local-evidence-router-primary-frame"),
+)
+
+
+def _word_window(text: str, limit: int) -> str:
+    """
+    [ACTION]
+    Return the first `limit` whitespace-separated tokens as a single string.
+
+    - Teleology: front-door weighting checks need a bounded first-reader window,
+      not an exact prose snapshot.
+    - Guarantee: preserves token order and lower-level punctuation while capping
+      the scanned region by word count.
+    - Fails: never raises.
+    - Reads: call arguments only.
+    - Writes: return values.
+    """
+    return " ".join(text.split()[:limit])
+
+
+def _registry_component_count(public_root: Path) -> int | None:
+    """
+    [ACTION]
+    Return the implemented public component count from the governed registry.
+
+    - Teleology: allow an above-fold component count only when it is bound to the
+      same registry that owns the system map.
+    - Guarantee: returns the implemented_organs row count when the registry is
+      available and well-shaped; otherwise None.
+    - Fails: propagates JSON/schema IO failures from read_json_strict only when
+      the file exists but is invalid.
+    - Reads: <public_root>/core/organ_registry.json.
+    - Writes: return values.
+    """
+    registry_path = public_root / "core/organ_registry.json"
+    if not registry_path.is_file():
+        return None
+    registry = read_json_strict(registry_path)
+    rows = registry.get("implemented_organs") if isinstance(registry, dict) else None
+    return len(rows) if isinstance(rows, list) else None
 
 
 def _hero_region(text: str) -> str:
@@ -248,7 +311,44 @@ def validate_readme_front_door(
     if hero_leaks:
         blocking.append("README_HERO_ONTOLOGY_LEAK")
 
-    # --- 6. witness command present AND bound to the canonical first command ---
+    # --- 6. the first reader window leads with mechanism significance, not local-record framing ---
+    front_window = _word_window(text, FRONT_DOOR_SIGNIFICANCE_WORD_LIMIT)
+    front_lower = front_window.lower()
+    missing_significance = sorted(
+        label
+        for pattern, label in FRONT_DOOR_REQUIRED_PATTERNS
+        if not re.search(pattern, front_lower, flags=re.DOTALL)
+    )
+    registry_count = _registry_component_count(public_root)
+    count_claims = {
+        int(match.group(1))
+        for match in re.finditer(
+            r"\b(\d+)\s+(?:bounded\s+)?(?:components?|mechanisms?|organs?)\b",
+            front_lower,
+        )
+    }
+    count_claim_bound = False
+    if registry_count is not None:
+        count_claim_bound = count_claims == {registry_count}
+    local_only_window = _word_window(text, FRONT_DOOR_LOCAL_ONLY_WORD_LIMIT).lower()
+    local_only_frames = sorted(
+        label
+        for pattern, label in FRONT_DOOR_LOCAL_ONLY_PATTERNS
+        if re.search(pattern, local_only_window, flags=re.DOTALL)
+    )
+    findings["front_door_required_context_missing"] = missing_significance
+    findings["registry_component_count"] = registry_count
+    findings["front_door_component_count_claims"] = sorted(count_claims)
+    findings["registry_component_count_bound_in_front_door"] = count_claim_bound
+    findings["front_door_local_only_frames"] = local_only_frames
+    if missing_significance:
+        blocking.append("README_FRONT_DOOR_SIGNIFICANCE_MISSING")
+    if registry_count is None or not count_claim_bound:
+        blocking.append("README_FRONT_DOOR_COMPONENT_COUNT_UNBOUND")
+    if local_only_frames:
+        blocking.append("README_FRONT_DOOR_LOCAL_ONLY_FRAME")
+
+    # --- 7. witness command present AND bound to the canonical first command ---
     entry_packet_path = public_root / "atlas/entry_packet.json"
     first_command = ""
     if entry_packet_path.is_file():

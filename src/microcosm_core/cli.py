@@ -1428,6 +1428,62 @@ def _render_comprehend_card(pack: dict) -> str:
         lines.append(f"  {rmf.strip()}")
         lines.append("")
 
+    showcase_nodes = pack.get("showcase_nodes")
+    if isinstance(showcase_nodes, list) and showcase_nodes:
+        rows = [node for node in showcase_nodes if isinstance(node, dict)]
+        if rows:
+            lines.append("Mechanism showcase:")
+            for node in rows:
+                name = str(
+                    node.get("display_name")
+                    or node.get("organ_id")
+                    or node.get("kind")
+                    or "node"
+                ).strip()
+                organ_id = str(node.get("organ_id") or "").strip()
+                mechanism = str(node.get("mechanism") or "").strip()
+                suffix = f" ({organ_id})" if organ_id and organ_id != name else ""
+                if mechanism:
+                    lines.append(f"  - {name}{suffix}: {mechanism}")
+                else:
+                    lines.append(f"  - {name}{suffix}")
+            lines.append("")
+
+    selected_nodes = pack.get("selected_nodes")
+    if isinstance(selected_nodes, list) and selected_nodes:
+        mechanism_rows = [
+            node
+            for node in selected_nodes
+            if isinstance(node, dict) and node.get("kind") == "organ_mechanism"
+        ]
+        rows = mechanism_rows or [
+            node for node in selected_nodes if isinstance(node, dict)
+        ]
+        if rows:
+            lines.append("Mechanism lines:" if mechanism_rows else "Selected nodes:")
+            for node in rows:
+                name = str(
+                    node.get("display_name")
+                    or node.get("organ_id")
+                    or node.get("id")
+                    or node.get("kind")
+                    or "node"
+                ).strip()
+                organ_id = str(node.get("organ_id") or "").strip()
+                mechanism = str(
+                    node.get("mechanism")
+                    or node.get("summary")
+                    or node.get("line")
+                    or node.get("claim_ceiling")
+                    or ""
+                ).strip()
+                suffix = f" ({organ_id})" if organ_id and organ_id != name else ""
+                if mechanism:
+                    lines.append(f"  - {name}{suffix}: {mechanism}")
+                else:
+                    lines.append(f"  - {name}{suffix}")
+            lines.append("")
+
     # 2. PROOF -- validator + receipts + the honest graph counts.
     proof = pack.get("proof_path") if isinstance(pack.get("proof_path"), dict) else {}
     if proof:

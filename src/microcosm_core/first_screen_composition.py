@@ -98,8 +98,14 @@ STANDARDS_REGISTRY_REF = "core/standards_registry.json"
 EVIDENCE_CLASS_REGISTRY_REF = "core/organ_evidence_classes.json"
 WORKINGNESS_MAP_REF = "receipts/runtime_shell/workingness_failure_map.json"
 FIXTURE_MANIFESTS_REF = "core/fixture_manifests"
-SUBSTRATE_GLANCE_SAMPLE_LIMIT = 3
+SUBSTRATE_GLANCE_SAMPLE_LIMIT = 4
 SUBSTRATE_GLANCE_EXCERPT_MAX_CHARS = 92
+SUBSTRATE_GLANCE_PREFERRED_ORGAN_IDS = (
+    "lean_proof_search_lab_runtime",
+    "agent_sabotage_scheming_monitor_replay",
+    "finance_forecast_evaluation_spine",
+    "generated_projection_drift_runtime",
+)
 EVIDENCE_CLASS_DISPLAY_ORDER = (
     "verified_macro_body_import",
     "external_subprocess_witness",
@@ -1413,7 +1419,8 @@ def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
             {
                 "slot_id": "identity",
                 "viewport_copy": (
-                    "Microcosm is a local evidence router with explicit claim ceilings."
+                    "Plectis is a public executable atlas of AI-native runtime "
+                    "mechanisms with explicit evidence classes and authority ceilings."
                 ),
                 "source_packet": "text_projection",
                 "first_visible_surface": human_first_command,
@@ -1913,7 +1920,9 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
                 "beat_id": "open_map",
                 "timebox_seconds": 8,
                 "visible_surface": f"plectis hello {project_label}",
-                "reader_takeaway": "one screen names the local evidence router",
+                "reader_takeaway": (
+                    "one screen names the mechanism atlas and its authority ceiling"
+                ),
                 "proof_ref": "terminal_text_projection",
             },
             {
@@ -2347,7 +2356,13 @@ def _representative_substrate_glance(root: Path) -> dict[str, Any]:
     """
     rows, families = _organ_glance_ladder_rows(root)
     examples: list[dict[str, Any]] = []
+    selected_organs: set[str] = set()
     selected_families: set[str] = set()
+    row_by_organ = {
+        _public_text(row.get("organ_id")): row
+        for row in rows
+        if isinstance(row, dict) and _public_text(row.get("organ_id"))
+    }
 
     def append_example(row: dict[str, Any]) -> None:
         """
@@ -2374,6 +2389,8 @@ def _representative_substrate_glance(root: Path) -> dict[str, Any]:
         )
         glance_excerpt = one_line or card_excerpt
         if not organ_id or not display_name or not family or not glance_excerpt:
+            return
+        if organ_id in selected_organs:
             return
         card_ref = _public_text(row.get("card_ref") or row.get("drilldown_target"))
         capsule_ref = _public_text(row.get("capsule_id"))
@@ -2409,7 +2426,13 @@ def _representative_substrate_glance(root: Path) -> dict[str, Any]:
                 "reader_rule": "representative_example_not_inventory_or_readiness_claim",
             }
         )
+        selected_organs.add(organ_id)
         selected_families.add(family)
+
+    for organ_id in SUBSTRATE_GLANCE_PREFERRED_ORGAN_IDS:
+        row = row_by_organ.get(organ_id)
+        if isinstance(row, dict):
+            append_example(row)
 
     for row in rows:
         family = row.get("family")
@@ -2430,9 +2453,11 @@ def _representative_substrate_glance(root: Path) -> dict[str, Any]:
             "public_agent_task_routes_projection_not_evidence_strength_or_release_authority"
         ),
         "selection_rule": (
-            "family-diverse samples in organ_glance_ladder order, capped before "
-            "the first screen becomes an inventory"
+            "preferred mechanism showcase ids first, then family-diverse samples "
+            "in organ_glance_ladder order, capped before the first screen becomes "
+            "an inventory"
         ),
+        "preferred_organ_ids": list(SUBSTRATE_GLANCE_PREFERRED_ORGAN_IDS),
         "sample_limit": SUBSTRATE_GLANCE_SAMPLE_LIMIT,
         "total_organ_count": len(rows),
         "family_count": len(families),
@@ -4694,6 +4719,9 @@ def _compact_substrate_glance(payload: dict[str, Any]) -> dict[str, Any]:
         if isinstance(glance, dict)
         else None,
         "source_refs": glance.get("source_refs") if isinstance(glance, dict) else None,
+        "preferred_organ_ids": glance.get("preferred_organ_ids")
+        if isinstance(glance, dict)
+        else None,
         "sample_limit": glance.get("sample_limit") if isinstance(glance, dict) else None,
         "total_organ_count": glance.get("total_organ_count")
         if isinstance(glance, dict)
@@ -4903,25 +4931,6 @@ def _enforce_compact_stdout_budget(card: dict[str, Any]) -> dict[str, Any]:
     degradation["serialized_chars_after"] = chars_before
 
     if _compact_stdout_chars(card) > budget:
-        routes = card.get("reader_route_menu", {}).get("routes", [])
-        for row in routes:
-            if isinstance(row, dict):
-                for key in (
-                    "proof_surface",
-                    "exit_check",
-                    "not_a_claim",
-                    "text_projection_command",
-                    "source_checkout_first_action",
-                    "source_checkout_proof_surface",
-                ):
-                    row.pop(key, None)
-        if isinstance(card.get("reader_route_menu"), dict):
-            card["reader_route_menu"]["route_detail"] = (
-                "demoted_to_full_contract_for_stdout_budget"
-            )
-        applied.append("route_detail_rollup")
-
-    if _compact_stdout_chars(card) > budget:
         glance = card.get("evidence_context", {}).get(
             "representative_substrate_glance", {}
         )
@@ -4939,6 +4948,23 @@ def _enforce_compact_stdout_budget(card: dict[str, Any]) -> dict[str, Any]:
                 "demoted_to_full_contract_for_stdout_budget"
             )
         applied.append("substrate_glance_excerpt_demotion")
+
+    if _compact_stdout_chars(card) > budget:
+        routes = card.get("reader_route_menu", {}).get("routes", [])
+        for row in routes:
+            if isinstance(row, dict):
+                for key in (
+                    "proof_surface",
+                    "exit_check",
+                    "not_a_claim",
+                    "text_projection_command",
+                ):
+                    row.pop(key, None)
+        if isinstance(card.get("reader_route_menu"), dict):
+            card["reader_route_menu"]["route_detail"] = (
+                "demoted_to_full_contract_for_stdout_budget"
+            )
+        applied.append("route_detail_rollup")
 
     if _compact_stdout_chars(card) > budget:
         steps = card.get("first_run_ladder", {}).get("steps", [])
@@ -5302,6 +5328,13 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         if pre_install_command and pre_install_receipt
         else "Pre-install probe: see QUICKSTART.md"
     )
+    glance = payload.get("representative_substrate_glance", {})
+    mechanism_count = (
+        glance.get("total_organ_count")
+        if isinstance(glance, dict)
+        and isinstance(glance.get("total_organ_count"), int)
+        else "bounded"
+    )
     lines = [
         "Plectis first screen",
         (
@@ -5319,7 +5352,11 @@ def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -
         ),
         check_state_line,
         "",
-        "What it is: A local evidence router; doctrine names boundaries; exit when you can choose a drilldown without the command inventory.",
+        (
+            "What it is: A public executable atlas of "
+            f"{mechanism_count} AI-native runtime mechanisms; evidence records "
+            "show runner/source, evidence class, receipt path, and authority ceiling."
+        ),
         *_substrate_glance_lines(payload),
         "Why the counts are honest:",
         _scale_summary_line(payload),

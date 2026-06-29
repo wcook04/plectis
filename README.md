@@ -1,7 +1,7 @@
 <p align="center">
   <img
     src="assets/plectis-social-card.png"
-    alt="Plectis: run one command in a code repository and get a local record whose findings link to evidence, source, and scope."
+    alt="Plectis: a public executable atlas of AI-native runtime mechanisms with evidence classes, receipts, and authority ceilings."
     width="820"
   >
 </p>
@@ -12,20 +12,54 @@
 [X](https://x.com/cookie1234593) ·
 [LinkedIn](https://www.linkedin.com/in/will-cook-278127234/)
 
-**Run one command inside a code repository and get a local record you can read:
-what Plectis found, where each finding came from, what backs it, and the point
-where the claim stops.**
+**Plectis is a public, executable cross-section of an AI-native workflow and
+research runtime: 88 bounded components across formal proof, agent reliability
+and safety, research and forecasting, projection-drift control, validators, work
+landing, and continuity.**
 
-Plectis is a small, source-open tool. It runs entirely on your machine, makes no
-network or model calls, and never changes the files it reads. It is the public,
-runnable map of an AI-native workflow system: one person sets the direction, AI
-agents do the building and upkeep, and every agent's work is kept as evidence a
-separate check can read.
+Each component has a runner or source locus, evidence class, receipt path, and
+authority ceiling. The local CLI is how you inspect and falsify those claims: it
+runs entirely on your machine, makes no network or model calls, writes local
+evidence records only when you ask for behavior proof, and never changes the
+source files it reads.
 
 [Quickstart](QUICKSTART.md) ·
 [Architecture](ARCHITECTURE.md) ·
 [System map](ORGANS.md) ·
 [Coding agent entry](AGENTS.md)
+
+## What is actually in here
+
+The product is the executable mechanism atlas. Receipts are the accountability
+layer: they show what ran, what evidence class backs a claim, and where that
+claim stops.
+
+| Mechanism family | Public examples | What the runner or replay does |
+|---|---|---|
+| Formal proof and certificates | Lean proof-search lab; finite Erdos denominator-order certificate | Runs gated proof-search or exact rational certificate fixtures, with absence gates and no theorem-correctness overclaim. |
+| Agent reliability and safety | Sabotage/scheming monitor replay; prompt-injection flow-policy replay | Replays source-open failure specimens and validates policy boundaries without claiming safety approval. |
+| Research and forecasting | Finance forecast evaluation spine; replication and lab-safety replays | Runs statistical or scientific workflow fixtures with typed refusals such as no market authority. |
+| Projection drift and validators | Generated projection drift runtime; public-entry and body-floor validators | Recomputes owner-routed projections and blocks stale or overbroad public claims. |
+| Work landing and continuity | Mission transaction work spine; durable agent work landing replay | Records reversible work transactions, scoped commit discipline, receipt draining, and detached-run continuity. |
+
+Start with the mechanism and authority lenses before forming a whole-repo
+judgement:
+
+```bash
+plectis comprehend --slice mechanism --format text
+plectis comprehend --slice authority --format text
+plectis comprehend --organ lean_proof_search_lab_runtime --format text
+plectis tour --card .
+```
+
+From a source checkout, use the same commands through the module:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core comprehend --slice mechanism --format text
+PYTHONPATH=src python3 -m microcosm_core comprehend --slice authority --format text
+PYTHONPATH=src python3 -m microcosm_core comprehend --organ lean_proof_search_lab_runtime --format text
+PYTHONPATH=src python3 -m microcosm_core tour --card .
+```
 
 ## See it work
 
@@ -53,8 +87,9 @@ Plectis read 5283 project files and wrote a local record.  repo -> .microcosm
   The same record as a machine-readable card:  plectis tour --card .
 ```
 
-The point is not the summary. The point is the record it leaves on your disk,
-and the three things it holds for every line in it:
+The tour is not the whole product. It is the local accountability loop over the
+mechanisms: a record on your disk, and three handles for every consequential
+line in it:
 
 - **Rerunnable.** One command produced it, so you can run it again and check it
   instead of trusting this page.
@@ -101,11 +136,11 @@ the public test/runtime helpers such as pytest, requests, NumPy, and pandas.
 browser view, the offline checks, and the boundary notes, in the order a cold
 clone needs them.
 
-## What's inside
+## Browse the component map
 
-Underneath that one run, Plectis is a small runtime and a spine of **88 components
-grouped into seven areas**. One person sets the direction; AI agents do the building
-and upkeep; and every component's work is kept as evidence a separate check can read.
+Plectis currently exposes **88 components grouped into seven areas**. One person
+sets the direction; AI agents do the building and upkeep; and every component's
+work is kept as evidence a separate check can read.
 
 Each area groups related components. Open one to read a card for every component
 inside it — one line at a glance, or expanded in full:
