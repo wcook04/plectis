@@ -74,6 +74,8 @@ def test_real_readme_satisfies_front_door_contract() -> None:
     assert findings["registry_component_count_bound_in_front_door"] is True
     assert findings["front_door_required_context_missing"] == []
     assert findings["front_door_local_only_frames"] == []
+    assert findings["front_door_claim_grammar_missing"] == []
+    assert findings["front_door_family_ceilings_missing"] == []
     # The primary human witness is the text projection, not raw JSON.
     assert findings["human_text_witness_present"] is True
 
@@ -180,6 +182,32 @@ def test_blocks_local_record_primary_frame(tmp_path: Path) -> None:
     assert (
         "run-one-command-local-record-primary-frame"
         in receipt["findings"]["front_door_local_only_frames"]
+    )
+
+
+def test_blocks_missing_claim_grammar_read_order(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _mutate(
+        root,
+        "Read Plectis in this order: **mechanisms -> evidence discipline -> local\nruntime**.",
+        "Read Plectis by running the tour first.",
+    )
+    receipt = validate_readme_front_door(root)
+    assert "README_FRONT_DOOR_CLAIM_GRAMMAR_MISSING" in receipt["blocking_codes"]
+    assert (
+        "mechanism-evidence-runtime-read-order"
+        in receipt["findings"]["front_door_claim_grammar_missing"]
+    )
+
+
+def test_blocks_missing_family_specific_claim_ceiling(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    _mutate(root, "not theorem-proof authority", "not vague authority")
+    receipt = validate_readme_front_door(root)
+    assert "README_FRONT_DOOR_FAMILY_CEILING_MISSING" in receipt["blocking_codes"]
+    assert (
+        "formal-proof-family-ceiling"
+        in receipt["findings"]["front_door_family_ceilings_missing"]
     )
 
 
