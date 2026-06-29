@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -75,7 +76,8 @@ def _write_snapshot(site_dir: Path, *, component_count: int | None = None) -> No
             site_dir / name,
             {
                 "counts": payload_counts,
-                "publication_authorized": True,
+                "public_source_slice_distribution_authorized": True,
+                "release_authority_granted": False,
                 "site": site,
             },
         )
@@ -103,6 +105,17 @@ def _write_snapshot(site_dir: Path, *, component_count: int | None = None) -> No
             },
         },
     )
+
+
+def _rewrite_projection_hashes(site_dir: Path) -> None:
+    projection_path = site_dir / "projection-status.json"
+    projection = json.loads(projection_path.read_text(encoding="utf-8"))
+    hashes = {}
+    for rel in public_site_parity.HASHED_PATHS:
+        data = (site_dir / rel).read_bytes()
+        hashes[rel] = {"byte_count": len(data), "sha256": _sha(data)}
+    projection["artifact_identity"] = {"exact_byte_sha256_by_path": hashes}
+    _write_json(projection_path, projection)
 
 
 def test_public_site_parity_accepts_matching_snapshot(tmp_path: Path) -> None:
@@ -153,6 +166,101 @@ def test_public_site_parity_blocks_stale_projection_hash(tmp_path: Path) -> None
         error["code"] == "projection_hash_mismatch" and error["path"] == "llms.txt"
         for error in receipt["errors"]
     )
+
+
+def test_public_site_parity_accepts_legacy_publication_authorized_packets(
+    tmp_path: Path,
+) -> None:
+    site_dir = tmp_path / "site"
+    site_dir.mkdir()
+    _write_snapshot(site_dir)
+    for rel in public_site_parity.PACKET_PATHS:
+        path = site_dir / rel
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        payload.pop("public_source_slice_distribution_authorized", None)
+        payload.pop("release_authority_granted", None)
+        payload["publication_authorized"] = True
+        _write_json(path, payload)
+    _rewrite_projection_hashes(site_dir)
+
+    receipt = public_site_parity.check_public_site_parity(root=ROOT, site_dir=site_dir)
+
+    assert receipt["status"] == "pass"
+
+
+def test_public_site_parity_blocks_release_authority_granted(
+    tmp_path: Path,
+) -> None:
+    site_dir = tmp_path / "site"
+    site_dir.mkdir()
+    _write_snapshot(site_dir)
+    path = site_dir / "plectis-ai-review-packet.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload["release_authority_granted"] = True
+    _write_json(path, payload)
+    _rewrite_projection_hashes(site_dir)
+
+    receipt = public_site_parity.check_public_site_parity(root=ROOT, site_dir=site_dir)
+
+    assert receipt["status"] == "blocked"
+    assert any(
+        error["code"] == "packet_release_authority_mismatch"
+        for error in receipt["errors"]
+    )
+
+
+def test_read_gh_pages_fetches_default_remote_ref_when_missing(
+    tmp_path: Path,
+    monkeypatch,
+) -> None:
+    ref_exists = {"value": False}
+    calls: list[list[str]] = []
+
+    def fake_run(cmd: list[str], **kwargs: Any) -> subprocess.CompletedProcess:
+        calls.append(cmd)
+        if cmd[3] == "rev-parse":
+            return subprocess.CompletedProcess(cmd, 0 if ref_exists["value"] else 1)
+        if cmd[3:6] == ["remote", "get-url", "origin"]:
+            return subprocess.CompletedProcess(cmd, 0, stdout="https://example.invalid/repo.git\n")
+        if cmd[3] == "fetch":
+            assert cmd[-2:] == ["origin", "gh-pages:refs/remotes/origin/gh-pages"]
+            ref_exists["value"] = True
+            return subprocess.CompletedProcess(cmd, 0, stdout="", stderr="")
+        if cmd[3] == "show":
+            assert ref_exists["value"] is True
+            return subprocess.CompletedProcess(cmd, 0, stdout=b"<html>Plectis</html>")
+        raise AssertionError(f"unexpected git command: {cmd}")
+
+    monkeypatch.setattr(public_site_parity.subprocess, "run", fake_run)
+
+    snapshot = public_site_parity._read_gh_pages(
+        "origin/gh-pages",
+        ("index.html",),
+        tmp_path,
+    )
+
+    assert snapshot.files["index.html"] == b"<html>Plectis</html>"
+    assert any(call[3] == "fetch" for call in calls)
+
+
+def test_public_site_parity_formatter_handles_exception_receipt() -> None:
+    output = public_site_parity._format(
+        {
+            "schema_version": "plectis_public_site_parity_receipt_v1",
+            "status": "blocked",
+            "error_count": 1,
+            "errors": [
+                {
+                    "code": "public_site_parity_exception",
+                    "message": "cannot resolve origin/gh-pages",
+                }
+            ],
+        }
+    )
+
+    assert "Plectis public site parity: blocked" in output
+    assert "primary: unavailable" in output
+    assert "public_site_parity_exception" in output
 
 
 def test_public_site_parity_cli_exposes_source_checkout_command(
