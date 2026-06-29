@@ -28,8 +28,8 @@
     "exact_byte_hash_scope": "Generated in-memory text outputs at build time. projection-status.json cannot self-embed its own final byte digest; all other generated outputs are exact.",
     "exact_byte_sha256_by_path": {
       ".well-known/security.txt": {
-        "byte_count": 122,
-        "sha256": "sha256:aad34e86f143e7c28eda48bdba8a1870d9b054b215f6a77f033139caac6c93bc"
+        "byte_count": 269,
+        "sha256": "sha256:cbd6fe1d756159d331aa6f0f43c64611c5f86c32131de615353af743c1a86454"
       },
       "404.html": {
         "byte_count": 704,
@@ -1964,8 +1964,8 @@
         "sha256": "sha256:db69a73d65d7edde5f0857456c26f5a06c5fd3ec24b95d6dd7b70d048a5e859f"
       },
       "security.txt": {
-        "byte_count": 122,
-        "sha256": "sha256:aad34e86f143e7c28eda48bdba8a1870d9b054b215f6a77f033139caac6c93bc"
+        "byte_count": 269,
+        "sha256": "sha256:cbd6fe1d756159d331aa6f0f43c64611c5f86c32131de615353af743c1a86454"
       },
       "updates.xml": {
         "byte_count": 1508,
