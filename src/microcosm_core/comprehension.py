@@ -130,6 +130,10 @@ AUTHORITY_CEILING: dict[str, bool] = {
     "whole_system_correctness_authorized": False,
 }
 
+PUBLIC_SITE_PARITY_COMMAND = (
+    "PYTHONPATH=src python3 -m microcosm_core public-site-parity"
+)
+
 # Markers that must never appear in a presence_only pack -- their presence would mean a
 # raw docstring atom (not a public gloss) leaked into the read model.
 _ATOM_BULLET_MARKERS = (
@@ -2714,6 +2718,55 @@ def _goal_tokens(text: str) -> list[str]:
     return [t for t in re.split(r"[^a-z0-9]+", (text or "").lower()) if len(t) >= 3]
 
 
+def _public_site_parity_goal(text: str) -> bool:
+    """
+    [ACTION]
+    Detect read-only public-site packet parity verification intent.
+
+    - Teleology: keep safe deployment evidence checks out of the publication
+      authority fallback while preserving that fallback for actual publish/deploy
+      requests.
+    - Guarantee: True only when the goal combines a verification verb with the
+      public site / Pages / downloadable packet surface.
+    - Fails: never raises.
+    - Non-goal: does not authorize publishing, deploying, or release decisions.
+    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    - Reads: call arguments.
+    - Writes: return values.
+    """
+    tokens = set(_goal_tokens(text))
+    verification = tokens & {
+        "audit",
+        "check",
+        "compare",
+        "match",
+        "matches",
+        "parity",
+        "validate",
+        "verify",
+    }
+    packet_surface = tokens & {
+        "download",
+        "downloadable",
+        "downloads",
+        "packet",
+        "packets",
+        "pages",
+        "site",
+        "website",
+    }
+    public_surface = (
+        "public site" in text
+        or "github pages" in text
+        or "gh-pages" in text
+        or "gh pages" in text
+        or "live pages" in text
+        or "deployed site" in text
+        or "downloadable ai" in text
+    )
+    return bool(verification and packet_surface and public_surface)
+
+
 def _tokens_overlap(a: str, b: str) -> bool:
     """
     [ACTION]
@@ -3094,6 +3147,72 @@ def compile_first_action(
         return pack
 
     pack["found"] = True
+
+    if _public_site_parity_goal(text):
+        pack["routing"] = {
+            "basis": "public_site_parity_verification",
+            "command": "public-site-parity",
+        }
+        pack["summary"]["what_this_is"] = (
+            "First-action contract for read-only public-site packet parity: "
+            "verify the generated gh-pages/live handoff packets against this "
+            "source checkout before drawing publication conclusions."
+        )
+        pack["first_action"] = {
+            "action_kind": "run_verification_command",
+            "command": PUBLIC_SITE_PARITY_COMMAND,
+            "why": (
+                "Parses the public downloadable AI packets, checks projection "
+                "hashes, and compares component/family/paper-module counts plus "
+                "site boundary fields with source registries."
+            ),
+            "committed_receipts": [],
+        }
+        pack["owner"] = {
+            "scope": "public_generated_site",
+            "packet_id": "public_site_parity",
+        }
+        pack["proof_path"] = {
+            "validation_commands": [
+                PUBLIC_SITE_PARITY_COMMAND,
+                "make public-site-parity",
+            ],
+            "receipt_refs": [],
+            "note": (
+                "The command emits plectis_public_site_parity_receipt_v1. A pass "
+                "means branch/live public packets match this source tree's "
+                "published registries and recorded byte hashes; it is not "
+                "release authorization."
+            ),
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop at the parity receipt status and named errors; do not read "
+                "a pass as publication approval, domain correctness, or proof "
+                "correctness."
+            ),
+            "allowed_scope": (
+                "downloadable public packet parity, projection hashes, source "
+                "registry counts, and site boundary fields"
+            ),
+            "task_classes": ["public-site-parity"],
+            "source": "comprehension-layer public-site parity guard",
+        }
+        pack["do_not_claim"] = (
+            str(atlas.get("anti_claim") or "")
+            + " Passing public-site parity does not authorize release, "
+            "publication, proof correctness, domain correctness, provider calls, "
+            "or private-root equivalence."
+        ).strip()
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "read-only public-site verification; no source edits or publication actions are authorized",
+        }
+        pack["next_packet_commands"] = [
+            "plectis comprehend --slice authority",
+            "plectis comprehend --packet-atlas",
+        ]
+        return pack
 
     # RUNG 1 -- destructive/publication intent routes to the AUTHORITY packet,
     # never to a fixture or mutation command: the substrate cannot grant what the

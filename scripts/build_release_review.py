@@ -84,6 +84,7 @@ VERIFY_COMMANDS = (
     f"PYTHONPATH=src python3 scripts/release_candidate_proof.py verify {PROOF_OUT_DIR} --root .",
 )
 REVIEW_ALIAS_COMMAND = "make release-review"
+PUBLIC_SITE_PARITY_COMMAND = "make public-site-parity"
 
 NONCLAIMS = (
     "not release authorization or publication approval",
@@ -324,6 +325,17 @@ def build_contract(root: Path) -> tuple[str, str]:
         f"`{PACKET_SCHEMA_VERSION}`."
     )
     lines.append("")
+    lines.append(
+        f"`{PUBLIC_SITE_PARITY_COMMAND}` is the separate public-site parity "
+        "check, backed by `PYTHONPATH=src python3 -m microcosm_core "
+        "public-site-parity`: it reads the generated `gh-pages` surface and the "
+        "live Pages URL, parses the downloadable AI handoff packets, verifies their "
+        "recorded byte hashes, and compares their component/family/paper-module "
+        "counts and boundary fields with this source tree. It is "
+        "deployment-packet evidence, not part of the local three-context "
+        "release-candidate proof."
+    )
+    lines.append("")
 
     lines.append("## Reading a failure")
     lines.append("")
@@ -381,6 +393,7 @@ def build_contract(root: Path) -> tuple[str, str]:
             "generate": list(GENERATE_COMMANDS),
             "verify": list(VERIFY_COMMANDS),
             "review_alias": REVIEW_ALIAS_COMMAND,
+            "public_site_parity": PUBLIC_SITE_PARITY_COMMAND,
             "review_alias_behavior": "generate_fresh_then_verify_then_print_card",
             "no_rerun_verify": VERIFY_COMMANDS[0],
         },

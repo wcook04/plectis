@@ -567,6 +567,7 @@ fixture_freshness = _LazyModule("microcosm_core.validators.fixture_freshness")
 launch_compression = _LazyModule("microcosm_core.validators.launch_compression")
 observatory_legibility = _LazyModule("microcosm_core.validators.observatory_legibility")
 private_state_scan = _LazyModule("microcosm_core.validators.private_state_scan")
+public_site_parity = _LazyModule("microcosm_core.public_site_parity")
 public_entry_docs = _LazyModule("microcosm_core.validators.public_entry_docs")
 research_kernel_density = _LazyModule("microcosm_core.validators.research_kernel_density")
 secret_exclusion_scan = _LazyModule("microcosm_core.validators.secret_exclusion_scan")
@@ -787,6 +788,7 @@ First-screen route:
   plectis comprehend --mutation <organ_id|path> safe-change plan: what to inspect, the validator to run, receipts to refresh (local band)
   plectis comprehend --path <owned_file> read a file's authored atom values without opening source (local band)
   plectis comprehension-assay [--hard|--packet-route|--whole-system|--first-action] prove the packets answer / carry atoms / navigate / comprehend-the-whole / route first actions without opening source
+  plectis public-site-parity verify gh-pages/live downloadable packet parity with this source tree
   plectis agent-entry-composition --task {agent-entry|getting-started|evaluation|receipts|agent-evaluation|ai-safety|finance|formal-methods|lean|theorem-proving|interesting-parts|architecture|navigation|security|compliance|reviewer} emit Type A/human route card
   plectis status --card <project> read the compressed project/runtime status lens
   plectis status-card <project> alias for the compact status lens
@@ -3406,6 +3408,31 @@ def main(argv: list[str] | None = None) -> int:
         help="focus the terminal projection on one reader branch",
     )
     first_screen_parser.add_argument("project", nargs="?", default="<project>")
+    public_site_parity_parser = subparsers.add_parser(
+        "public-site-parity",
+        help="verify gh-pages/live downloadable packet parity",
+    )
+    public_site_parity_parser.add_argument(
+        "--root",
+        default=".",
+        help="Plectis source root",
+    )
+    public_site_parity_parser.add_argument(
+        "--gh-pages-ref",
+        default="origin/gh-pages",
+        help="git ref containing the generated public site",
+    )
+    public_site_parity_parser.add_argument(
+        "--site-dir",
+        help="local generated site directory; skips --gh-pages-ref",
+    )
+    public_site_parity_parser.add_argument(
+        "--live-url",
+        default="https://wcook04.github.io/plectis/",
+        help="deployed site URL to byte-compare against the primary source",
+    )
+    public_site_parity_parser.add_argument("--timeout", type=float, default=20.0)
+    public_site_parity_parser.add_argument("--json", action="store_true")
     agent_entry_parser = subparsers.add_parser(
         "agent-entry-composition",
         help="emit the Type A/human agent entry composition card",
@@ -4615,6 +4642,17 @@ def main(argv: list[str] | None = None) -> int:
             full=args.full,
             reader=args.reader,
         )
+    if args.command == "public-site-parity":
+        command_args = ["--root", args.root, "--timeout", str(args.timeout)]
+        if args.site_dir:
+            command_args.extend(["--site-dir", args.site_dir])
+        else:
+            command_args.extend(["--gh-pages-ref", args.gh_pages_ref])
+        if args.live_url:
+            command_args.extend(["--live-url", args.live_url])
+        if args.json:
+            command_args.append("--json")
+        return public_site_parity.main(command_args)
     if args.command == "agent-entry-composition":
         payload = agent_entry_composition.compile_paths(
             root=args.root,

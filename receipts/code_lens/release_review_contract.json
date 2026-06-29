@@ -22,6 +22,7 @@
       "PYTHONPATH=src python3 scripts/release_candidate_proof.py --root . --out .microcosm/release-candidate-proof"
     ],
     "no_rerun_verify": "make release-candidate-proof-verify",
+    "public_site_parity": "make public-site-parity",
     "review_alias": "make release-review",
     "review_alias_behavior": "generate_fresh_then_verify_then_print_card",
     "verify": [

@@ -14,6 +14,9 @@ FLIGHT_RECORDER_OUT ?= .microcosm/skeptic-flight-recorder
 FLIGHT_RECORDER_VERIFY_DIR ?= $(FLIGHT_RECORDER_OUT)
 RELEASE_CANDIDATE_PROOF_OUT ?= .microcosm/release-candidate-proof
 RELEASE_CANDIDATE_PROOF_VERIFY_DIR ?= $(RELEASE_CANDIDATE_PROOF_OUT)
+PUBLIC_SITE_PARITY_REF ?= origin/gh-pages
+PUBLIC_SITE_URL ?= https://wcook04.github.io/plectis/
+PUBLIC_SITE_PARITY_ARGS ?= --gh-pages-ref $(PUBLIC_SITE_PARITY_REF) --live-url $(PUBLIC_SITE_URL)
 PYTEST_TMP_ROOT ?= $(TMPDIR)/microcosm-substrate-test-tmp-$(PYTEST_TMP_KEY)
 PYTEST_RUN_ID ?= $(shell $(PYTHON) -c 'import os, time; print("%s-%s" % (os.getpid(), time.time_ns()))')
 PYTEST_RUN_ID := $(PYTEST_RUN_ID)
@@ -44,7 +47,8 @@ PUBLIC_TESTS ?= \
 	tests/test_first_action_demo.py \
 	tests/test_skeptic_flight_recorder.py \
 	tests/test_release_candidate_proof.py \
-	tests/test_release_review_contract.py
+	tests/test_release_review_contract.py \
+	tests/test_public_site_parity.py
 PUBLIC_TESTS += tests/test_substrate_substitution_ledger.py
 PUBLIC_TESTS += tests/test_card_calibration_gate.py
 PUBLIC_TESTS += tests/test_organ_registry_authority_floor.py
@@ -59,7 +63,7 @@ PUBLIC_TESTS += tests/test_dependency_preflight.py
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
 .PHONY: flight-recorder flight-recorder-verify
-.PHONY: release-candidate-proof release-candidate-proof-verify release-review
+.PHONY: release-candidate-proof release-candidate-proof-verify release-review public-site-parity
 .PHONY: check preflight validate artifact-budget
 
 help:
@@ -74,6 +78,7 @@ help:
 		"  make release-candidate-proof prove the first-action product in checkout, install, and export" \
 		"  make release-candidate-proof-verify verify an existing release-candidate proof packet without rerunning anything" \
 		"  make release-review       cold review: regenerate the proof, verify the fresh packet, print its reviewer card (contract: RELEASE_REVIEW.md)" \
+		"  make public-site-parity  verify gh-pages/live downloadable packet parity with this source tree" \
 		"  make package-smoke       install local package in a fresh venv and run console cards" \
 		"  make ci                  run test, smoke, and package-smoke" \
 		"  make check               fast preflight: organ evidence-class registry integrity" \
@@ -143,6 +148,9 @@ release-review:
 	@$(MAKE) release-candidate-proof
 	@$(MAKE) release-candidate-proof-verify
 	@cat $(RELEASE_CANDIDATE_PROOF_VERIFY_DIR)/release-candidate-proof-card.md
+
+public-site-parity:
+	@PYTHONPATH=src $(PYTHON) -m microcosm_core public-site-parity --root . $(PUBLIC_SITE_PARITY_ARGS)
 
 package-smoke:
 	@status=0; $(PYTHON) scripts/package_install_smoke.py --source-root . --work-dir $(PACKAGE_SMOKE_TMP) --python $(PYTHON) || status=$$?; if [ "$(PACKAGE_SMOKE_KEEP_TMP)" != "1" ]; then rm -rf "$(PACKAGE_SMOKE_TMP)"; fi; exit $$status

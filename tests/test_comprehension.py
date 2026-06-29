@@ -1468,6 +1468,26 @@ def test_first_action_refuses_destructive_intent_and_placeholder_commands(tmp_pa
     assert "<" not in vague["first_action"]["command"]
 
 
+def test_first_action_public_site_parity_goal_routes_to_verifier(tmp_path: Path) -> None:
+    """A read-only public-site parity check is not publication authority and
+    should expose the concrete verifier instead of falling through to deploy
+    refusal."""
+    _write_fixture(tmp_path)
+
+    pack = C.comprehend(
+        root=tmp_path,
+        mode="first_action",
+        target="verify the deployed public site downloadable AI packets match this source checkout",
+    )
+
+    assert pack["routing"]["basis"] == "public_site_parity_verification"
+    assert pack["first_action"]["action_kind"] == "run_verification_command"
+    assert pack["first_action"]["command"] == C.PUBLIC_SITE_PARITY_COMMAND
+    assert "release authorization" in pack["proof_path"]["note"]
+    assert C._first_action_contract_complete(pack) is True
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
 def test_first_action_assay_flags_graph_bypass_on_legacy_clone(tmp_path: Path) -> None:
     """A clone without the graph must FAIL the first-action assay (degraded), not
     quietly degrade into doc-shaped answers."""
