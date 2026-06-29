@@ -85,6 +85,7 @@ from pathlib import Path
 from typing import Any
 
 from microcosm_core import resource_root
+from microcosm_core.projections.organ_atlas import _public_scope_text
 
 READ_PACK_SCHEMA = "microcosm_comprehension_read_pack_v0"
 ASSAY_SCHEMA = "microcosm_cold_agent_comprehension_assay_v0"
@@ -315,7 +316,12 @@ def _mechanism_index(
       first clause of body; ceiling = capsule authority_ceiling -> claim_ceiling_restated.
     - Guarantee: returns {organ_id: {"line","body","ceiling"}} for every organ that
       resolves any rung; bodies are curated public prose (the registries carry no source
-      bodies, mermaid, or docstring atoms).
+      bodies, mermaid, or docstring atoms). Every projected field is routed through
+      ``_public_scope_text`` -- the same public-scope scrub the ORGANS.md / organ_atlas
+      reader surfaces apply to these registries' card/one_line/authority_ceiling -- so
+      the mechanism slice softens internal claim-boundary vocabulary (private-root,
+      raw-seed, raw operator voice, release/publication/provider dispatch) identically
+      to every other public reader surface instead of leaking the raw source phrasing.
     - Fails: never raises; absent or short fields fall through the ladder.
     - Reads: the supplied in-memory registry docs + atlas map only.
     - Non-goal: never reads runner source bodies, paper-module markdown, or docstring atoms.
@@ -359,10 +365,17 @@ def _mechanism_index(
             body = str(atlas_row.get("agent_gloss") or "")
         if not body:
             continue
+        line = one_lines.get(organ_id) or _first_clause(body, 180)
+        ceiling = ceilings.get(organ_id) or str(atlas_row.get("claim_ceiling_restated") or "")
+        # Route through the public-scope scrub so the mechanism slice matches the
+        # ORGANS.md / organ_atlas reader surfaces (organ_atlas applies the same
+        # _public_scope_text to card/one_line/authority_ceiling). The scrub only
+        # rewrites claim-boundary vocabulary; it leaves named machinery
+        # (Diebold-Mariano, ord_Q(b)=lcm(F), RMS, ...) intact.
         out[organ_id] = {
-            "line": one_lines.get(organ_id) or _first_clause(body, 180),
-            "body": body,
-            "ceiling": ceilings.get(organ_id) or str(atlas_row.get("claim_ceiling_restated") or ""),
+            "line": _public_scope_text(line),
+            "body": _public_scope_text(body),
+            "ceiling": _public_scope_text(ceiling),
         }
     return out
 
@@ -1467,6 +1480,75 @@ def _is_path_target(target: Any) -> bool:
     return bool(text) and (text.endswith(".py") or "/" in text)
 
 
+def _assessment_mechanism_goal(text: str, *, exact_organ_match: bool = False) -> bool:
+    """
+    [ACTION]
+    Return True for whole-Plectis impression goals that must read the mechanism slice.
+
+    - Teleology: prevent unrouted impression formation: a cold agent must not judge
+      the whole substrate from wrappers, counts, or one-line glosses when the
+      mechanism slice can answer "what each component actually does" directly.
+    - Guarantee: matches whole-project/component-quality/thinness questions without
+      hijacking named-system evaluation goals such as "How do I evaluate the finance
+      forecasting system?".
+    - Fails: never raises.
+    - Reads: call arguments only.
+    - Non-goal: exact organ questions remain organ-specific unless they carry an
+      explicit whole-substrate/component-set scope.
+    - Writes: return values.
+    """
+    scope_markers = (
+        "plectis",
+        "microcosm",
+        "whole substrate",
+        "whole system",
+        "component",
+        "components",
+        "organ set",
+        "all organs",
+        "every organ",
+        "each organ",
+        "all the organs",
+        "the organs",
+    )
+    set_scoped = any(marker in text for marker in scope_markers)
+    if exact_organ_match and not set_scoped:
+        return False
+    actually_do_markers = (
+        "what do the components actually do",
+        "what do the components do",
+        "what each component actually does",
+        "what each one actually does",
+        "what does each component do",
+        "what do all components do",
+        "what do all organs do",
+        "what does every organ do",
+        "what do the organs actually do",
+        "what do the organs do",
+    )
+    if any(marker in text for marker in actually_do_markers):
+        return True
+    thin_family = "thin" in text and any(
+        marker in text for marker in ("finance", "family", "families", "component", "organ")
+    )
+    if thin_family:
+        return True
+    impression_markers = (
+        "how impressive",
+        "impressive",
+        "how good",
+        "component quality",
+        "organ quality",
+        "quality of the components",
+        "quality of the organs",
+        "judge plectis",
+        "judging plectis",
+        "assess plectis",
+        "assessing plectis",
+    )
+    return set_scoped and any(marker in text for marker in impression_markers)
+
+
 def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str | None]:
     """
     [ACTION]
@@ -1540,6 +1622,8 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
         return "mutation_plan", organ or path, None
     if path:
         return "path", path, None
+    if _assessment_mechanism_goal(text, exact_organ_match=bool(organ)):
+        return "mechanism", None, "assessment_requires_mechanism_slice"
     if any(
         w in text
         for w in (
@@ -1959,6 +2043,24 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "slo_ms": 300,
         "data_status": "full",
         "next_packets": ["organ", "organ_cluster"],
+    },
+    {
+        "packet_id": "mechanism_index",
+        "packet_kind": "reference",
+        "mode": "mechanism",
+        "when_needed": (
+            "before assessing Plectis as a whole: every organ's real mechanism, "
+            "not wrapper samples or one-line glosses"
+        ),
+        "command": "plectis comprehend --slice mechanism",
+        "inputs": ["organ_atlas", "paper_module_capsules", "mechanism_sources"],
+        "export_band": "presence_only",
+        "cache_policy": "on_demand",
+        "cache_ref": None,
+        "budget": "standard",
+        "slo_ms": 300,
+        "data_status": "full",
+        "next_packets": ["organ", "authority", "claim_trace"],
     },
     {
         "packet_id": "organ_cluster",
@@ -3049,6 +3151,57 @@ def compile_first_action(
         return _first_action_path_contract(
             inputs, goal, str(_rg_target), mutation=(mode == "mutation_plan")
         )
+    if not organ_target and mode == "mechanism":
+        spec = _SPEC_BY_MODE["mechanism"]
+        pack["routing"] = {
+            "basis": "mechanism_assessment_goal",
+            "packet_id": spec["packet_id"],
+            "routing_note": _note,
+        }
+        pack["summary"]["what_this_is"] = (
+            "First-action contract for a whole-Plectis assessment: open the "
+            "mechanism slice before forming an impression from wrappers, counts, "
+            "or one-line glosses."
+        )
+        pack["first_action"] = {
+            "action_kind": "open_packet",
+            "command": _runnable_command(spec["command"]),
+            "why": spec["when_needed"],
+            "committed_receipts": [],
+        }
+        pack["owner"] = {"scope": "whole_substrate", "packet_id": spec["packet_id"]}
+        pack["proof_path"] = {
+            "validation_commands": [
+                "PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route",
+                "PYTHONPATH=src python3 -m microcosm_core comprehend --slice mechanism --format json",
+            ],
+            "receipt_refs": [],
+            "note": "the mechanism packet is the evidence surface; the packet-route assay proves the router still lands on it",
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop when the mechanism slice has answered what each organ "
+                "computes, verifies, and rejects; only then form a whole-system "
+                "quality judgement."
+            ),
+            "task_classes": [],
+            "source": "comprehension-layer mechanism-before-impression rule",
+        }
+        pack["do_not_claim"] = (
+            str(atlas.get("anti_claim") or "")
+            + " Mechanism lines are comprehension evidence, not production, release, "
+            "proof-correctness, investment-advice, or live-safety authority."
+        ).strip()
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "assessment goals open read packets only; they do not authorize edits",
+        }
+        pack["next_packet_commands"] = [
+            "plectis comprehend --self-model --profile whole_substrate_map",
+            "plectis comprehend --slice authority",
+            "plectis comprehend --packet-atlas",
+        ]
+        return pack
     # Start-shaped intent maps deterministically to the getting-started route
     # when the graph carries one; otherwise the generic matcher gets its chance.
     route = None
@@ -4582,6 +4735,8 @@ _PACKET_ROUTE_FIXTURES: list[tuple[str, str]] = [
     ("how does execution flow here", "flow"),
     ("what may I trust here?", "authority"),
     ("list all organs", "organs_index"),
+    ("what do the components actually do?", "mechanism_index"),
+    ("is finance thin?", "mechanism_index"),
     ("which packet should I use?", "packet_atlas"),
     ("what should I work on for the Microcosm release?", "mutation_plan"),
     ("what is the most productive improvement?", "mutation_plan"),
@@ -4883,6 +5038,12 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
     ("How do I evaluate the finance forecasting system?",
      {"owner_organ": "finance_forecast_evaluation_spine",
       "action_kind": "run_fixture_command"}),
+    ("is finance thin?",
+     {"action_kind": "open_packet", "command_has": "--slice mechanism",
+      "routing_basis": "mechanism_assessment_goal"}),
+    ("what do the components actually do?",
+     {"action_kind": "open_packet", "command_has": "--slice mechanism",
+      "routing_basis": "mechanism_assessment_goal"}),
     ("where is the fixture input for the audio organ?",
      {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
     ("dispatch the route bundle",
