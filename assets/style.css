@@ -1405,11 +1405,16 @@ details.comp-card[open] .comp-card__job {
 }
 .comp-card__meta > * { margin: 0; }
 .comp-card__evidence { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem; }
+.comp-card__reader-cues {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem;
+  font-size: 0.84rem; color: var(--muted);
+}
 .comp-chip {
   font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft);
   background: var(--surface-sunk); border: 1px solid var(--rule);
   border-radius: 999px; padding: 0.1rem 0.55rem;
 }
+.comp-chip--reader { background: var(--surface); border-color: var(--pm-rail-soft); }
 .comp-card__links, .comp-card__source { font-size: 0.84rem; color: var(--muted); line-height: 1.7; }
 .comp-card__source { color: var(--faint); }
 /* Meta footer rows hang their kicker as a label column so Evidence / Links to /

@@ -6,7 +6,7 @@
       "spine_relation": "spine_sequence",
       "typing_policy": "wires_to is source-declared neighbour wiring; wiring notes are human annotations, not typed relation authority."
     },
-    "long_description": "This map shows 7 public areas, 78 components, and the shared path they bind to. 52 components declare 208 direct links to neighbours. Those direct links are source-declared but not typed as stronger proof, causal, or maturity relations.",
+    "long_description": "This map shows 7 public areas, 88 components, and the shared path they bind to. 62 components declare 239 direct links to neighbours. Those direct links are source-declared but not typed as stronger proof, causal, or maturity relations.",
     "packet_path": "docs/architecture-graph-scene.json",
     "scene_manifest": {
       "available_projections": [
@@ -35,11 +35,11 @@
       "counts": {
         "bundles": 3,
         "clusters": 9,
-        "edges": 224,
+        "edges": 255,
         "focus_paths": 3,
         "inspectors": 0,
         "lanes": 0,
-        "nodes": 96,
+        "nodes": 106,
         "rows": 0
       },
       "default_focus_id": "public_overview",
@@ -48,11 +48,11 @@
       "generated_at": "1970-01-01T00:00:00+00:00",
       "generated_from_cache": false,
       "quality": {
-        "density": 2.333,
+        "density": 2.406,
         "disconnected_component_count": 7,
-        "estimated_crossing_risk": 0.433,
+        "estimated_crossing_risk": 0.441,
         "hairball_risk": "medium",
-        "max_fanin": 9,
+        "max_fanin": 18,
         "max_fanout": 23,
         "recommended_projection": "focus_context",
         "warnings": []
@@ -62,10 +62,10 @@
         "public_page": "docs/architecture.html",
         "source": "microcosm-substrate/core/organ_atlas.json"
       },
-      "revision": "gsc_198a1217343334754611",
+      "revision": "gsc_88731e31956f670d0e18",
       "scene_id": "microcosm_public_architecture",
       "schema": "graph_scene_manifest_v1",
-      "source_fingerprint": "bdaece0e350c5bf5888345ecf4cf5c87",
+      "source_fingerprint": "b3ac0910b537b058a88838e82d721a34",
       "source_ref": "microcosm-substrate/core/organ_families.json",
       "source_schema": "microcosm_public_architecture_graph_source_v1"
     },
@@ -78,9 +78,9 @@
     ],
     "summary": {
       "area_count": 7,
-      "component_count": 78,
+      "component_count": 88,
       "edge_semantics": "declared_dependency_untyped",
-      "explicit_wire_count": 208,
+      "explicit_wire_count": 239,
       "schema": "microcosm_public_architecture_graph_summary_v1",
       "source_refs": [
         "microcosm-substrate/core/organ_families.json",
@@ -89,7 +89,7 @@
         "microcosm-substrate/core/architecture_kernel.json"
       ],
       "spine_step_count": 10,
-      "wired_component_count": 52
+      "wired_component_count": 62
     }
   },
   "builder": "tools/meta/dissemination/build_microcosm_public_site.py",
@@ -122,7 +122,7 @@
       "packet_path": "assets/site-packet.js"
     }
   },
-  "component_count": 78,
+  "component_count": 88,
   "components": [
     {
       "component_id": "cold_reader_route_map",
@@ -245,6 +245,76 @@
       ]
     },
     {
+      "component_id": "navigation_fitness_benchmark",
+      "family_id": "architecture_and_navigation",
+      "family_label": "Architecture & navigation",
+      "public_label": "Navigation Fitness Benchmark",
+      "source_refs": [
+        "core/paper_module_capsules.json#paper_module.navigation_fitness_benchmark",
+        "core/organ_evidence_classes.json::organ_evidence_classes[navigation_fitness_benchmark]"
+      ]
+    },
+    {
+      "component_id": "annex_knowledge_routing",
+      "family_id": "architecture_and_navigation",
+      "family_label": "Architecture & navigation",
+      "public_label": "Reference Knowledge Routing",
+      "source_refs": [
+        "core/paper_module_capsules.json#paper_module.annex_knowledge_routing",
+        "core/organ_evidence_classes.json::organ_evidence_classes[annex_knowledge_routing]"
+      ]
+    },
+    {
+      "component_id": "certificate_kernel_execution_lab",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "public_label": "Certificate Kernel Execution Lab",
+      "source_refs": [
+        "paper_modules/certificate_kernel_execution_lab.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[certificate_kernel_execution_lab]"
+      ]
+    },
+    {
+      "component_id": "formal_math_lean_proof_witness",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "public_label": "Formal Math Lean Proof Witness",
+      "source_refs": [
+        "paper_modules/formal_math_lean_proof_witness.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[formal_math_lean_proof_witness]"
+      ]
+    },
+    {
+      "component_id": "verifier_lab_execution_spine",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "public_label": "Verifier Lab Execution Spine",
+      "source_refs": [
+        "paper_modules/verifier_lab_execution_spine.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[verifier_lab_execution_spine]"
+      ]
+    },
+    {
+      "component_id": "corpus_readiness_mathlib_absence_gate",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "public_label": "Corpus Readiness Mathlib Absence Gate",
+      "source_refs": [
+        "paper_modules/corpus_readiness_mathlib_absence.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[corpus_readiness_mathlib_absence_gate]"
+      ]
+    },
+    {
+      "component_id": "batch4_proof_authority_runtime",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "public_label": "Proof / Control / Runtime Import Bundle",
+      "source_refs": [
+        "paper_modules/batch4_proof_authority_runtime.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[batch4_proof_authority_runtime]"
+      ]
+    },
+    {
       "component_id": "proof_diagnostic_evidence_spine",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -262,16 +332,6 @@
       "source_refs": [
         "paper_modules/formal_math_readiness_gate.md",
         "core/organ_evidence_classes.json::organ_evidence_classes[formal_math_readiness_gate]"
-      ]
-    },
-    {
-      "component_id": "corpus_readiness_mathlib_absence_gate",
-      "family_id": "formal_math_and_proof",
-      "family_label": "Formal math & proof",
-      "public_label": "Corpus Readiness Mathlib Absence Gate",
-      "source_refs": [
-        "paper_modules/corpus_readiness_mathlib_absence.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[corpus_readiness_mathlib_absence_gate]"
       ]
     },
     {
@@ -365,16 +425,6 @@
       ]
     },
     {
-      "component_id": "formal_math_lean_proof_witness",
-      "family_id": "formal_math_and_proof",
-      "family_label": "Formal math & proof",
-      "public_label": "Formal Math Lean Proof Witness",
-      "source_refs": [
-        "paper_modules/formal_math_lean_proof_witness.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[formal_math_lean_proof_witness]"
-      ]
-    },
-    {
       "component_id": "verifier_lab_kernel",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
@@ -382,36 +432,6 @@
       "source_refs": [
         "paper_modules/verifier_lab_kernel.md",
         "core/organ_evidence_classes.json::organ_evidence_classes[verifier_lab_kernel]"
-      ]
-    },
-    {
-      "component_id": "verifier_lab_execution_spine",
-      "family_id": "formal_math_and_proof",
-      "family_label": "Formal math & proof",
-      "public_label": "Verifier Lab Execution Spine",
-      "source_refs": [
-        "paper_modules/verifier_lab_execution_spine.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[verifier_lab_execution_spine]"
-      ]
-    },
-    {
-      "component_id": "certificate_kernel_execution_lab",
-      "family_id": "formal_math_and_proof",
-      "family_label": "Formal math & proof",
-      "public_label": "Certificate Kernel Execution Lab",
-      "source_refs": [
-        "paper_modules/certificate_kernel_execution_lab.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[certificate_kernel_execution_lab]"
-      ]
-    },
-    {
-      "component_id": "batch4_proof_authority_runtime",
-      "family_id": "formal_math_and_proof",
-      "family_label": "Formal math & proof",
-      "public_label": "Proof / Control / Runtime Import Bundle",
-      "source_refs": [
-        "paper_modules/batch4_proof_authority_runtime.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[batch4_proof_authority_runtime]"
       ]
     },
     {
@@ -425,143 +445,23 @@
       ]
     },
     {
-      "component_id": "agent_benchmark_integrity_anti_gaming_replay",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Agent Benchmark Integrity Anti Gaming Replay",
+      "component_id": "finite_erdos_denominator_certificate_strike",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "public_label": "Finite Erdos Denominator-Order Certificate Strike",
       "source_refs": [
-        "paper_modules/agent_benchmark_integrity_anti_gaming_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[agent_benchmark_integrity_anti_gaming_replay]"
+        "core/paper_module_capsules.json#paper_module.finite_erdos_denominator_certificate_strike",
+        "core/organ_evidence_classes.json::organ_evidence_classes[finite_erdos_denominator_certificate_strike]"
       ]
     },
     {
-      "component_id": "batch10_cold_eval_honesty_capsule",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Cold Evaluation Honesty Bundle",
+      "component_id": "lean_proof_search_lab_runtime",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "public_label": "Lean Proof-Search Lab Runtime",
       "source_refs": [
-        "paper_modules/batch10_cold_eval_honesty_capsule.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[batch10_cold_eval_honesty_capsule]"
-      ]
-    },
-    {
-      "component_id": "batch8_validator_checker_capsule",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Validator Checker Bundle",
-      "source_refs": [
-        "paper_modules/batch8_validator_checker_capsule.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[batch8_validator_checker_capsule]"
-      ]
-    },
-    {
-      "component_id": "agent_monitor_redteam_falsification_replay",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Agent Monitor Redteam Falsification Replay",
-      "source_refs": [
-        "paper_modules/agent_monitor_redteam_falsification_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[agent_monitor_redteam_falsification_replay]"
-      ]
-    },
-    {
-      "component_id": "agent_sabotage_scheming_monitor_replay",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Agent Sabotage Scheming Monitor Replay",
-      "source_refs": [
-        "paper_modules/agent_sabotage_scheming_monitor_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[agent_sabotage_scheming_monitor_replay]"
-      ]
-    },
-    {
-      "component_id": "agent_memory_temporal_conflict_replay",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Agent Memory Temporal Conflict Replay",
-      "source_refs": [
-        "paper_modules/agent_memory_temporal_conflict_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[agent_memory_temporal_conflict_replay]"
-      ]
-    },
-    {
-      "component_id": "sleeper_memory_poisoning_quarantine_replay",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Sleeper Memory Poisoning Quarantine Replay",
-      "source_refs": [
-        "paper_modules/sleeper_memory_poisoning_quarantine_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[sleeper_memory_poisoning_quarantine_replay]"
-      ]
-    },
-    {
-      "component_id": "mcp_tool_authority_replay",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "MCP Tool Authority Replay",
-      "source_refs": [
-        "paper_modules/mcp_tool_authority_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[mcp_tool_authority_replay]"
-      ]
-    },
-    {
-      "component_id": "belief_state_process_reward_replay",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Belief State Process Reward Replay",
-      "source_refs": [
-        "paper_modules/belief_state_process_reward_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[belief_state_process_reward_replay]"
-      ]
-    },
-    {
-      "component_id": "agent_sandbox_policy_escape_replay",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Agent Sandbox Policy Escape Replay",
-      "source_refs": [
-        "paper_modules/agent_sandbox_policy_escape_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[agent_sandbox_policy_escape_replay]"
-      ]
-    },
-    {
-      "component_id": "indirect_prompt_injection_information_flow_policy_replay",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Indirect Prompt Injection Information Flow Policy Replay",
-      "source_refs": [
-        "paper_modules/indirect_prompt_injection_information_flow_policy_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[indirect_prompt_injection_information_flow_policy_replay]"
-      ]
-    },
-    {
-      "component_id": "agentic_vulnerability_discovery_patch_proof_replay",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Agentic Vulnerability Discovery Patch Proof Replay",
-      "source_refs": [
-        "paper_modules/agentic_vulnerability_discovery_patch_proof_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[agentic_vulnerability_discovery_patch_proof_replay]"
-      ]
-    },
-    {
-      "component_id": "agent_route_observability_runtime",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Agent Route Observability Runtime",
-      "source_refs": [
-        "paper_modules/agent_route_observability_runtime.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[agent_route_observability_runtime]"
-      ]
-    },
-    {
-      "component_id": "provider_context_recipe_budget_policy",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "public_label": "Provider Context Recipe Budget Policy",
-      "source_refs": [
-        "paper_modules/provider_context_recipe_budget.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[provider_context_recipe_budget_policy]"
+        "core/paper_module_capsules.json#paper_module.lean_proof_search_lab_runtime",
+        "core/organ_evidence_classes.json::organ_evidence_classes[lean_proof_search_lab_runtime]"
       ]
     },
     {
@@ -585,6 +485,36 @@
       ]
     },
     {
+      "component_id": "provider_context_recipe_budget_policy",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Provider Context Recipe Budget Policy",
+      "source_refs": [
+        "paper_modules/provider_context_recipe_budget.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[provider_context_recipe_budget_policy]"
+      ]
+    },
+    {
+      "component_id": "batch10_cold_eval_honesty_capsule",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Cold Evaluation Honesty Bundle",
+      "source_refs": [
+        "paper_modules/batch10_cold_eval_honesty_capsule.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[batch10_cold_eval_honesty_capsule]"
+      ]
+    },
+    {
+      "component_id": "batch8_validator_checker_capsule",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Validator Checker Bundle",
+      "source_refs": [
+        "paper_modules/batch8_validator_checker_capsule.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[batch8_validator_checker_capsule]"
+      ]
+    },
+    {
       "component_id": "batch7_secondary_runtime_capsule",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
@@ -595,53 +525,143 @@
       ]
     },
     {
-      "component_id": "research_replication_rubric_artifact_replay",
-      "family_id": "research_and_science_replays",
-      "family_label": "Research & science",
-      "public_label": "Research Replication Rubric Artifact Replay",
+      "component_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Agent Benchmark Integrity Anti Gaming Replay",
       "source_refs": [
-        "paper_modules/research_replication_rubric_artifact_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[research_replication_rubric_artifact_replay]"
+        "paper_modules/agent_benchmark_integrity_anti_gaming_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[agent_benchmark_integrity_anti_gaming_replay]"
       ]
     },
     {
-      "component_id": "spatial_world_model_counterfactual_simulation_replay",
-      "family_id": "research_and_science_replays",
-      "family_label": "Research & science",
-      "public_label": "Spatial World Model Counterfactual Simulation Replay",
+      "component_id": "agent_monitor_redteam_falsification_replay",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Monitor Evidence-Boundary Replay",
       "source_refs": [
-        "paper_modules/spatial_world_model_counterfactual_simulation_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[spatial_world_model_counterfactual_simulation_replay]"
+        "paper_modules/agent_monitor_redteam_falsification_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[agent_monitor_redteam_falsification_replay]"
       ]
     },
     {
-      "component_id": "materials_chemistry_closed_loop_lab_safety_replay",
-      "family_id": "research_and_science_replays",
-      "family_label": "Research & science",
-      "public_label": "Materials Chemistry Closed Loop Lab Safety Replay",
+      "component_id": "agent_sabotage_scheming_monitor_replay",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Sabotage-Monitor Contract Replay",
       "source_refs": [
-        "paper_modules/materials_chemistry_closed_loop_lab_safety_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[materials_chemistry_closed_loop_lab_safety_replay]"
+        "paper_modules/agent_sabotage_scheming_monitor_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[agent_sabotage_scheming_monitor_replay]"
       ]
     },
     {
-      "component_id": "mechanistic_interpretability_circuit_attribution_replay",
-      "family_id": "research_and_science_replays",
-      "family_label": "Research & science",
-      "public_label": "Mechanistic Interpretability Circuit Attribution Replay",
+      "component_id": "agent_memory_temporal_conflict_replay",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Agent Memory Temporal Conflict Replay",
       "source_refs": [
-        "paper_modules/mechanistic_interpretability_circuit_attribution_replay.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[mechanistic_interpretability_circuit_attribution_replay]"
+        "paper_modules/agent_memory_temporal_conflict_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[agent_memory_temporal_conflict_replay]"
       ]
     },
     {
-      "component_id": "prediction_oracle_reconciliation",
-      "family_id": "research_and_science_replays",
-      "family_label": "Research & science",
-      "public_label": "Prediction Oracle Reconciliation",
+      "component_id": "sleeper_memory_poisoning_quarantine_replay",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Memory-Poisoning Quarantine Policy Replay",
       "source_refs": [
-        "paper_modules/prediction_oracle_reconciliation.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[prediction_oracle_reconciliation]"
+        "paper_modules/sleeper_memory_poisoning_quarantine_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[sleeper_memory_poisoning_quarantine_replay]"
+      ]
+    },
+    {
+      "component_id": "mcp_tool_authority_replay",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "MCP Tool-Authority Policy Replay",
+      "source_refs": [
+        "paper_modules/mcp_tool_authority_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[mcp_tool_authority_replay]"
+      ]
+    },
+    {
+      "component_id": "belief_state_process_reward_replay",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Belief-State Reward Bundle Replay",
+      "source_refs": [
+        "paper_modules/belief_state_process_reward_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[belief_state_process_reward_replay]"
+      ]
+    },
+    {
+      "component_id": "agent_sandbox_policy_escape_replay",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Sandbox-Policy Replay",
+      "source_refs": [
+        "paper_modules/agent_sandbox_policy_escape_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[agent_sandbox_policy_escape_replay]"
+      ]
+    },
+    {
+      "component_id": "indirect_prompt_injection_information_flow_policy_replay",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Prompt-Injection Flow-Policy Replay",
+      "source_refs": [
+        "paper_modules/indirect_prompt_injection_information_flow_policy_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[indirect_prompt_injection_information_flow_policy_replay]"
+      ]
+    },
+    {
+      "component_id": "agentic_vulnerability_discovery_patch_proof_replay",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Vulnerability Patch-Proof Replay",
+      "source_refs": [
+        "paper_modules/agentic_vulnerability_discovery_patch_proof_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[agentic_vulnerability_discovery_patch_proof_replay]"
+      ]
+    },
+    {
+      "component_id": "agent_route_observability_runtime",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Agent Route Observability Runtime",
+      "source_refs": [
+        "paper_modules/agent_route_observability_runtime.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[agent_route_observability_runtime]"
+      ]
+    },
+    {
+      "component_id": "bridge_campaign_dag_validation",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Bridge Campaign DAG Validation",
+      "source_refs": [
+        "core/paper_module_capsules.json#paper_module.bridge_campaign_dag_validation",
+        "core/organ_evidence_classes.json::organ_evidence_classes[bridge_campaign_dag_validation]"
+      ]
+    },
+    {
+      "component_id": "metabolism_queue_reconciliation",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Metabolism Queue Reconciliation",
+      "source_refs": [
+        "core/paper_module_capsules.json#paper_module.metabolism_queue_reconciliation",
+        "core/organ_evidence_classes.json::organ_evidence_classes[metabolism_queue_reconciliation]"
+      ]
+    },
+    {
+      "component_id": "egress_self_compliance_audit",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "public_label": "Egress Self-Compliance Audit",
+      "source_refs": [
+        "core/paper_module_capsules.json#paper_module.egress_self_compliance_audit",
+        "core/organ_evidence_classes.json::organ_evidence_classes[egress_self_compliance_audit]"
       ]
     },
     {
@@ -655,6 +675,16 @@
       ]
     },
     {
+      "component_id": "batch12_prediction_market_board_capsule",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "public_label": "Prediction Market Board Bundle",
+      "source_refs": [
+        "paper_modules/batch12_prediction_market_board_capsule.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[batch12_prediction_market_board_capsule]"
+      ]
+    },
+    {
       "component_id": "batch12_market_dashboard_read_model_capsule",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
@@ -665,13 +695,63 @@
       ]
     },
     {
-      "component_id": "batch12_prediction_market_board_capsule",
+      "component_id": "mechanistic_interpretability_circuit_attribution_replay",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
-      "public_label": "Prediction Market Board Bundle",
+      "public_label": "Toy-Transformer Attribution Replay",
       "source_refs": [
-        "paper_modules/batch12_prediction_market_board_capsule.md",
-        "core/organ_evidence_classes.json::organ_evidence_classes[batch12_prediction_market_board_capsule]"
+        "paper_modules/mechanistic_interpretability_circuit_attribution_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[mechanistic_interpretability_circuit_attribution_replay]"
+      ]
+    },
+    {
+      "component_id": "spatial_world_model_counterfactual_simulation_replay",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "public_label": "Gridworld Counterfactual State Replay",
+      "source_refs": [
+        "paper_modules/spatial_world_model_counterfactual_simulation_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[spatial_world_model_counterfactual_simulation_replay]"
+      ]
+    },
+    {
+      "component_id": "research_replication_rubric_artifact_replay",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "public_label": "Research Replication Rubric Artifact Replay",
+      "source_refs": [
+        "paper_modules/research_replication_rubric_artifact_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[research_replication_rubric_artifact_replay]"
+      ]
+    },
+    {
+      "component_id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "public_label": "Materials Lab-Safety Refusal Replay",
+      "source_refs": [
+        "paper_modules/materials_chemistry_closed_loop_lab_safety_replay.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[materials_chemistry_closed_loop_lab_safety_replay]"
+      ]
+    },
+    {
+      "component_id": "prediction_oracle_reconciliation",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "public_label": "Prediction Oracle Reconciliation",
+      "source_refs": [
+        "paper_modules/prediction_oracle_reconciliation.md",
+        "core/organ_evidence_classes.json::organ_evidence_classes[prediction_oracle_reconciliation]"
+      ]
+    },
+    {
+      "component_id": "derived_fact_provider_runtime",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "public_label": "Derived Fact Provider Runtime",
+      "source_refs": [
+        "core/paper_module_capsules.json#paper_module.derived_fact_provider_runtime",
+        "core/organ_evidence_classes.json::organ_evidence_classes[derived_fact_provider_runtime]"
       ]
     },
     {
@@ -688,7 +768,7 @@
       "component_id": "world_model_projection_drift_control_room",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "public_label": "World Model Projection Drift Control Room",
+      "public_label": "Projection-Drift Contract Validator",
       "source_refs": [
         "core/paper_module_capsules.json#paper_module.world_model_projection_drift_control_room",
         "core/organ_evidence_classes.json::organ_evidence_classes[world_model_projection_drift_control_room]"
@@ -865,6 +945,16 @@
       ]
     },
     {
+      "component_id": "generated_projection_drift_runtime",
+      "family_id": "import_projection_and_drift",
+      "family_label": "Import & drift control",
+      "public_label": "Generated Projection Drift Runtime",
+      "source_refs": [
+        "core/paper_module_capsules.json#paper_module.generated_projection_drift_runtime",
+        "core/organ_evidence_classes.json::organ_evidence_classes[generated_projection_drift_runtime]"
+      ]
+    },
+    {
       "component_id": "mission_transaction_work_spine",
       "family_id": "work_landing_and_continuity",
       "family_label": "Work & continuity",
@@ -888,7 +978,7 @@
       "component_id": "bridge_phase_continuity_runtime",
       "family_id": "work_landing_and_continuity",
       "family_label": "Work & continuity",
-      "public_label": "Bridge Phase Continuity Runtime",
+      "public_label": "Bridge-Continuity Sign-off Replay",
       "source_refs": [
         "core/paper_module_capsules.json#paper_module.bridge_phase_continuity_runtime",
         "core/organ_evidence_classes.json::organ_evidence_classes[bridge_phase_continuity_runtime]"
@@ -903,29 +993,39 @@
         "paper_modules/concurrency_mission_control.md",
         "core/organ_evidence_classes.json::organ_evidence_classes[concurrency_mission_control]"
       ]
+    },
+    {
+      "component_id": "semantic_singleflight_dedup_runtime",
+      "family_id": "work_landing_and_continuity",
+      "family_label": "Work & continuity",
+      "public_label": "Semantic Singleflight Dedup Runtime",
+      "source_refs": [
+        "core/paper_module_capsules.json#paper_module.semantic_singleflight_dedup_runtime",
+        "core/organ_evidence_classes.json::organ_evidence_classes[semantic_singleflight_dedup_runtime]"
+      ]
     }
   ],
   "content_graph": {
-    "component_count": 78,
-    "coverage_deficit_count": 2,
-    "coverage_deficit_total_count": 51,
-    "diagram_asset_count": 93,
-    "evidence_profile_count": 328,
+    "component_count": 88,
+    "coverage_deficit_count": 3,
+    "coverage_deficit_total_count": 62,
+    "diagram_asset_count": 103,
+    "evidence_profile_count": 349,
     "field_omission_summary": {},
     "math_latex_asset_count": 0,
     "packet_path": "content-graph.json",
     "paper_module_availability_gap_count": 0,
-    "paper_module_count": 93,
-    "paper_module_doctrine_feed_link_count": 1350,
+    "paper_module_count": 103,
+    "paper_module_doctrine_feed_link_count": 1394,
     "paper_module_doctrine_feed_link_counts": {
-      "axiom": 374,
-      "concept": 97,
+      "axiom": 385,
+      "concept": 107,
       "mechanism": 108,
-      "organ": 78,
+      "organ": 88,
       "paper_module": 223,
-      "principle": 470
+      "principle": 483
     },
-    "relation_count": 208,
+    "relation_count": 239,
     "relation_grammar_relation_count": 37,
     "relation_grammar_verb_count": 44,
     "roster_status": {
@@ -936,20 +1036,20 @@
       "duplicate_projection_groups": [
         "paper_module_detail"
       ],
-      "duplicate_projection_row_count": 93,
+      "duplicate_projection_row_count": 103,
       "missing_card_href_count": 0,
       "missing_source_href_count": 0,
-      "object_count": 326,
+      "object_count": 346,
       "one_line_quality_counts": {
         "fail": 0,
-        "pass": 357,
-        "warn": 62
+        "pass": 371,
+        "warn": 78
       },
       "one_line_quality_flag_counts": {
-        "raw_snake_case": 8,
-        "too_long": 54
+        "raw_snake_case": 14,
+        "too_long": 68
       },
-      "projection_row_count": 419,
+      "projection_row_count": 449,
       "quality_examples": [
         {
           "flags": [
@@ -1058,23 +1158,23 @@
       },
       "schema": "roster_status_v1",
       "section_counts": {
-        "components_by_area": 78,
-        "paper_module_detail": 93,
-        "rules_and_ideas": 248
+        "components_by_area": 88,
+        "paper_module_detail": 103,
+        "rules_and_ideas": 258
       },
       "status": "needs_population"
     },
-    "rules_and_ideas_count": 248,
+    "rules_and_ideas_count": 258,
     "rules_and_ideas_group_counts": {
       "anti_principle": 17,
       "axiom": 12,
       "concept": 11,
       "mechanism": 95,
-      "paper_module": 93,
+      "paper_module": 103,
       "principle": 20
     },
     "schema": "microcosm_public_content_graph_receipt_v1",
-    "source_fingerprint": "30850b909d8aae06f4f841929476e38e",
+    "source_fingerprint": "4064a1aec260f9140555d448380226c9",
     "source_refs": [
       "microcosm-substrate/anti_principles/AP-1.json",
       "microcosm-substrate/anti_principles/AP-10.json",
@@ -1276,42 +1376,42 @@
       "source_ref": "microcosm-substrate/core/organ_families.json"
     },
     {
-      "component_count": 10,
+      "component_count": 12,
       "family_id": "architecture_and_navigation",
       "output_path": "docs/area-architecture.html",
       "public_label": "Architecture & navigation",
       "source_ref": "microcosm-substrate/core/organ_families.json"
     },
     {
-      "component_count": 18,
+      "component_count": 20,
       "family_id": "formal_math_and_proof",
       "output_path": "docs/area-formal-math.html",
       "public_label": "Formal math & proof",
       "source_ref": "microcosm-substrate/core/organ_families.json"
     },
     {
-      "component_count": 17,
+      "component_count": 20,
       "family_id": "agent_reliability_and_safety",
       "output_path": "docs/area-agent-reliability.html",
       "public_label": "Agent reliability & safety",
       "source_ref": "microcosm-substrate/core/organ_families.json"
     },
     {
-      "component_count": 8,
+      "component_count": 9,
       "family_id": "research_and_science_replays",
       "output_path": "docs/area-research.html",
       "public_label": "Research & science",
       "source_ref": "microcosm-substrate/core/organ_families.json"
     },
     {
-      "component_count": 19,
+      "component_count": 20,
       "family_id": "import_projection_and_drift",
       "output_path": "docs/area-import-drift.html",
       "public_label": "Import & drift control",
       "source_ref": "microcosm-substrate/core/organ_families.json"
     },
     {
-      "component_count": 4,
+      "component_count": 5,
       "family_id": "work_landing_and_continuity",
       "output_path": "docs/area-continuity.html",
       "public_label": "Work & continuity",
@@ -1335,7 +1435,7 @@
     "manifest_path": "legacy-route-manifest.json",
     "mode_counts": {
       "byte_compatible_alias": 16,
-      "html_redirect": 198,
+      "html_redirect": 218,
       "legacy_404": 1,
       "legacy_projection_status": 1,
       "legacy_security_txt": 2
@@ -1401,7 +1501,7 @@
         "machine_readable": false,
         "mode": "html_redirect",
         "policy": "HTML routes show the transition and may forward to the canonical route; they are not used for machine-readable assets.",
-        "route_count": 198,
+        "route_count": 218,
         "sample_paths": [
           "index.html",
           "docs/index.html",
@@ -1426,18 +1526,18 @@
         ]
       }
     ],
-    "route_count": 218,
+    "route_count": 238,
     "schema": "plectis_legacy_compatibility_summary_v0"
   },
   "page_identity": {
-    "canonical_page_object_count": 197,
+    "canonical_page_object_count": 217,
     "compatibility_route_count": 1,
     "count_semantics": {
       "canonical_page_object_count": "Page objects with route_role=canonical_page.",
       "emitted_route_count": "All emitted HTML routes, including compatibility aliases.",
       "route_alias_count": "Compatibility routes that resolve to a canonical page object."
     },
-    "emitted_route_count": 198,
+    "emitted_route_count": 218,
     "route_alias_count": 1,
     "route_aliases": [
       {
@@ -1902,6 +2002,118 @@
     },
     {
       "alternate_labels": [],
+      "canonical_object_id": "page:component-navigation-fitness-benchmark",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-navigation-fitness-benchmark.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Navigation Fitness Benchmark"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-annex-knowledge-routing",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-annex-knowledge-routing.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Reference Knowledge Routing"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-certificate-kernel-execution-lab",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-certificate-kernel-execution-lab.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Certificate Kernel Execution Lab"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-formal-math-lean-proof-witness",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-formal-math-lean-proof-witness.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Formal Math Lean Proof Witness"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-verifier-lab-execution-spine",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-verifier-lab-execution-spine.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Verifier Lab Execution Spine"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-corpus-readiness-mathlib-absence-gate",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-corpus-readiness-mathlib-absence-gate.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Corpus Readiness Mathlib Absence Gate"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch4-proof-authority-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch4-proof-authority-runtime.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Proof / Control / Runtime Import Bundle"
+    },
+    {
+      "alternate_labels": [],
       "canonical_object_id": "page:component-proof-diagnostic-evidence-spine",
       "generated": true,
       "nav_group": "Reference",
@@ -1931,22 +2143,6 @@
         "microcosm-substrate/core/organ_registry.json"
       ],
       "title": "Formal Math Readiness Gate"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-corpus-readiness-mathlib-absence-gate",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-corpus-readiness-mathlib-absence-gate.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Corpus Readiness Mathlib Absence Gate"
     },
     {
       "alternate_labels": [],
@@ -2094,22 +2290,6 @@
     },
     {
       "alternate_labels": [],
-      "canonical_object_id": "page:component-formal-math-lean-proof-witness",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-formal-math-lean-proof-witness.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Formal Math Lean Proof Witness"
-    },
-    {
-      "alternate_labels": [],
       "canonical_object_id": "page:component-verifier-lab-kernel",
       "generated": true,
       "nav_group": "Reference",
@@ -2123,54 +2303,6 @@
         "microcosm-substrate/core/organ_registry.json"
       ],
       "title": "Verifier Lab Kernel"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-verifier-lab-execution-spine",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-verifier-lab-execution-spine.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Verifier Lab Execution Spine"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-certificate-kernel-execution-lab",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-certificate-kernel-execution-lab.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Certificate Kernel Execution Lab"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-batch4-proof-authority-runtime",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-batch4-proof-authority-runtime.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Proof / Control / Runtime Import Bundle"
     },
     {
       "alternate_labels": [],
@@ -2190,10 +2322,10 @@
     },
     {
       "alternate_labels": [],
-      "canonical_object_id": "page:component-agent-benchmark-integrity-anti-gaming-replay",
+      "canonical_object_id": "page:component-finite-erdos-denominator-certificate-strike",
       "generated": true,
       "nav_group": "Reference",
-      "output_path": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+      "output_path": "docs/component-finite-erdos-denominator-certificate-strike.html",
       "public_label": "Components",
       "route_alias_for": null,
       "route_role": "canonical_page",
@@ -2202,14 +2334,14 @@
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json"
       ],
-      "title": "Agent Benchmark Integrity Anti Gaming Replay"
+      "title": "Finite Erdos Denominator-Order Certificate Strike"
     },
     {
       "alternate_labels": [],
-      "canonical_object_id": "page:component-batch10-cold-eval-honesty-capsule",
+      "canonical_object_id": "page:component-lean-proof-search-lab-runtime",
       "generated": true,
       "nav_group": "Reference",
-      "output_path": "docs/component-batch10-cold-eval-honesty-capsule.html",
+      "output_path": "docs/component-lean-proof-search-lab-runtime.html",
       "public_label": "Components",
       "route_alias_for": null,
       "route_role": "canonical_page",
@@ -2218,199 +2350,7 @@
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json"
       ],
-      "title": "Cold Evaluation Honesty Bundle"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-batch8-validator-checker-capsule",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-batch8-validator-checker-capsule.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Validator Checker Bundle"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-agent-monitor-redteam-falsification-replay",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-agent-monitor-redteam-falsification-replay.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Agent Monitor Redteam Falsification Replay"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-agent-sabotage-scheming-monitor-replay",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-agent-sabotage-scheming-monitor-replay.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Agent Sabotage Scheming Monitor Replay"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-agent-memory-temporal-conflict-replay",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-agent-memory-temporal-conflict-replay.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Agent Memory Temporal Conflict Replay"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-sleeper-memory-poisoning-quarantine-replay",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-sleeper-memory-poisoning-quarantine-replay.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Sleeper Memory Poisoning Quarantine Replay"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-mcp-tool-authority-replay",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-mcp-tool-authority-replay.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "MCP Tool Authority Replay"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-belief-state-process-reward-replay",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-belief-state-process-reward-replay.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Belief State Process Reward Replay"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-agent-sandbox-policy-escape-replay",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-agent-sandbox-policy-escape-replay.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Agent Sandbox Policy Escape Replay"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-indirect-prompt-injection-information-flow-policy-replay",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Indirect Prompt Injection Information Flow Policy Replay"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-agentic-vulnerability-discovery-patch-proof-replay",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Agentic Vulnerability Discovery Patch Proof Replay"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-agent-route-observability-runtime",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-agent-route-observability-runtime.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Agent Route Observability Runtime"
-    },
-    {
-      "alternate_labels": [],
-      "canonical_object_id": "page:component-provider-context-recipe-budget-policy",
-      "generated": true,
-      "nav_group": "Reference",
-      "output_path": "docs/component-provider-context-recipe-budget-policy.html",
-      "public_label": "Components",
-      "route_alias_for": null,
-      "route_role": "canonical_page",
-      "source_refs": [
-        "microcosm-substrate/core/organ_atlas.json",
-        "microcosm-substrate/core/organ_families.json",
-        "microcosm-substrate/core/organ_registry.json"
-      ],
-      "title": "Provider Context Recipe Budget Policy"
+      "title": "Lean Proof-Search Lab Runtime"
     },
     {
       "alternate_labels": [],
@@ -2446,6 +2386,54 @@
     },
     {
       "alternate_labels": [],
+      "canonical_object_id": "page:component-provider-context-recipe-budget-policy",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-provider-context-recipe-budget-policy.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Provider Context Recipe Budget Policy"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch10-cold-eval-honesty-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch10-cold-eval-honesty-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Cold Evaluation Honesty Bundle"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-batch8-validator-checker-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch8-validator-checker-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Validator Checker Bundle"
+    },
+    {
+      "alternate_labels": [],
       "canonical_object_id": "page:component-batch7-secondary-runtime-capsule",
       "generated": true,
       "nav_group": "Reference",
@@ -2462,10 +2450,10 @@
     },
     {
       "alternate_labels": [],
-      "canonical_object_id": "page:component-research-replication-rubric-artifact-replay",
+      "canonical_object_id": "page:component-agent-benchmark-integrity-anti-gaming-replay",
       "generated": true,
       "nav_group": "Reference",
-      "output_path": "docs/component-research-replication-rubric-artifact-replay.html",
+      "output_path": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
       "public_label": "Components",
       "route_alias_for": null,
       "route_role": "canonical_page",
@@ -2474,14 +2462,14 @@
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json"
       ],
-      "title": "Research Replication Rubric Artifact Replay"
+      "title": "Agent Benchmark Integrity Anti Gaming Replay"
     },
     {
       "alternate_labels": [],
-      "canonical_object_id": "page:component-spatial-world-model-counterfactual-simulation-replay",
+      "canonical_object_id": "page:component-agent-monitor-redteam-falsification-replay",
       "generated": true,
       "nav_group": "Reference",
-      "output_path": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+      "output_path": "docs/component-agent-monitor-redteam-falsification-replay.html",
       "public_label": "Components",
       "route_alias_for": null,
       "route_role": "canonical_page",
@@ -2490,14 +2478,14 @@
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json"
       ],
-      "title": "Spatial World Model Counterfactual Simulation Replay"
+      "title": "Monitor Evidence-Boundary Replay"
     },
     {
       "alternate_labels": [],
-      "canonical_object_id": "page:component-materials-chemistry-closed-loop-lab-safety-replay",
+      "canonical_object_id": "page:component-agent-sabotage-scheming-monitor-replay",
       "generated": true,
       "nav_group": "Reference",
-      "output_path": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "output_path": "docs/component-agent-sabotage-scheming-monitor-replay.html",
       "public_label": "Components",
       "route_alias_for": null,
       "route_role": "canonical_page",
@@ -2506,14 +2494,14 @@
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json"
       ],
-      "title": "Materials Chemistry Closed Loop Lab Safety Replay"
+      "title": "Sabotage-Monitor Contract Replay"
     },
     {
       "alternate_labels": [],
-      "canonical_object_id": "page:component-mechanistic-interpretability-circuit-attribution-replay",
+      "canonical_object_id": "page:component-agent-memory-temporal-conflict-replay",
       "generated": true,
       "nav_group": "Reference",
-      "output_path": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+      "output_path": "docs/component-agent-memory-temporal-conflict-replay.html",
       "public_label": "Components",
       "route_alias_for": null,
       "route_role": "canonical_page",
@@ -2522,14 +2510,14 @@
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json"
       ],
-      "title": "Mechanistic Interpretability Circuit Attribution Replay"
+      "title": "Agent Memory Temporal Conflict Replay"
     },
     {
       "alternate_labels": [],
-      "canonical_object_id": "page:component-prediction-oracle-reconciliation",
+      "canonical_object_id": "page:component-sleeper-memory-poisoning-quarantine-replay",
       "generated": true,
       "nav_group": "Reference",
-      "output_path": "docs/component-prediction-oracle-reconciliation.html",
+      "output_path": "docs/component-sleeper-memory-poisoning-quarantine-replay.html",
       "public_label": "Components",
       "route_alias_for": null,
       "route_role": "canonical_page",
@@ -2538,7 +2526,151 @@
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json"
       ],
-      "title": "Prediction Oracle Reconciliation"
+      "title": "Memory-Poisoning Quarantine Policy Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-mcp-tool-authority-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-mcp-tool-authority-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "MCP Tool-Authority Policy Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-belief-state-process-reward-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-belief-state-process-reward-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Belief-State Reward Bundle Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-agent-sandbox-policy-escape-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-agent-sandbox-policy-escape-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Sandbox-Policy Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-indirect-prompt-injection-information-flow-policy-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Prompt-Injection Flow-Policy Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-agentic-vulnerability-discovery-patch-proof-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Vulnerability Patch-Proof Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-agent-route-observability-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-agent-route-observability-runtime.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Agent Route Observability Runtime"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-bridge-campaign-dag-validation",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-bridge-campaign-dag-validation.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Bridge Campaign DAG Validation"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-metabolism-queue-reconciliation",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-metabolism-queue-reconciliation.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Metabolism Queue Reconciliation"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-egress-self-compliance-audit",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-egress-self-compliance-audit.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Egress Self-Compliance Audit"
     },
     {
       "alternate_labels": [],
@@ -2558,6 +2690,22 @@
     },
     {
       "alternate_labels": [],
+      "canonical_object_id": "page:component-batch12-prediction-market-board-capsule",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-batch12-prediction-market-board-capsule.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Prediction Market Board Bundle"
+    },
+    {
+      "alternate_labels": [],
       "canonical_object_id": "page:component-batch12-market-dashboard-read-model-capsule",
       "generated": true,
       "nav_group": "Reference",
@@ -2574,10 +2722,10 @@
     },
     {
       "alternate_labels": [],
-      "canonical_object_id": "page:component-batch12-prediction-market-board-capsule",
+      "canonical_object_id": "page:component-mechanistic-interpretability-circuit-attribution-replay",
       "generated": true,
       "nav_group": "Reference",
-      "output_path": "docs/component-batch12-prediction-market-board-capsule.html",
+      "output_path": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
       "public_label": "Components",
       "route_alias_for": null,
       "route_role": "canonical_page",
@@ -2586,7 +2734,87 @@
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json"
       ],
-      "title": "Prediction Market Board Bundle"
+      "title": "Toy-Transformer Attribution Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-spatial-world-model-counterfactual-simulation-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Gridworld Counterfactual State Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-research-replication-rubric-artifact-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-research-replication-rubric-artifact-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Research Replication Rubric Artifact Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-materials-chemistry-closed-loop-lab-safety-replay",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Materials Lab-Safety Refusal Replay"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-prediction-oracle-reconciliation",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-prediction-oracle-reconciliation.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Prediction Oracle Reconciliation"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-derived-fact-provider-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-derived-fact-provider-runtime.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Derived Fact Provider Runtime"
     },
     {
       "alternate_labels": [],
@@ -2618,7 +2846,7 @@
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json"
       ],
-      "title": "World Model Projection Drift Control Room"
+      "title": "Projection-Drift Contract Validator"
     },
     {
       "alternate_labels": [],
@@ -2894,6 +3122,22 @@
     },
     {
       "alternate_labels": [],
+      "canonical_object_id": "page:component-generated-projection-drift-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-generated-projection-drift-runtime.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Generated Projection Drift Runtime"
+    },
+    {
+      "alternate_labels": [],
       "canonical_object_id": "page:component-mission-transaction-work-spine",
       "generated": true,
       "nav_group": "Reference",
@@ -2938,7 +3182,7 @@
         "microcosm-substrate/core/organ_families.json",
         "microcosm-substrate/core/organ_registry.json"
       ],
-      "title": "Bridge Phase Continuity Runtime"
+      "title": "Bridge-Continuity Sign-off Replay"
     },
     {
       "alternate_labels": [],
@@ -2955,6 +3199,22 @@
         "microcosm-substrate/core/organ_registry.json"
       ],
       "title": "Concurrency Mission Control"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:component-semantic-singleflight-dedup-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/component-semantic-singleflight-dedup-runtime.html",
+      "public_label": "Components",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/organ_atlas.json",
+        "microcosm-substrate/core/organ_families.json",
+        "microcosm-substrate/core/organ_registry.json"
+      ],
+      "title": "Semantic Singleflight Dedup Runtime"
     },
     {
       "alternate_labels": [
@@ -4814,6 +5074,146 @@
     },
     {
       "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-semantic-singleflight-dedup-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-semantic-singleflight-dedup-runtime.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Semantic Singleflight Dedup Runtime"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-finite-erdos-denominator-certificate-strike",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-finite-erdos-denominator-certificate-strike.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Finite Erdos Denominator-Order Certificate Strike"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-bridge-campaign-dag-validation",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-bridge-campaign-dag-validation.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Bridge Campaign DAG Validation"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-metabolism-queue-reconciliation",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-metabolism-queue-reconciliation.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Metabolism Queue Reconciliation"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-derived-fact-provider-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-derived-fact-provider-runtime.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Derived Fact Provider Runtime"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-navigation-fitness-benchmark",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-navigation-fitness-benchmark.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Navigation Fitness Benchmark"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-annex-knowledge-routing",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-annex-knowledge-routing.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Reference Knowledge Routing"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-egress-self-compliance-audit",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-egress-self-compliance-audit.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Egress Self-Compliance Audit"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-generated-projection-drift-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-generated-projection-drift-runtime.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Generated Projection Drift Runtime"
+    },
+    {
+      "alternate_labels": [],
+      "canonical_object_id": "page:paper-module-lean-proof-search-lab-runtime",
+      "generated": true,
+      "nav_group": "Reference",
+      "output_path": "docs/paper-module-lean-proof-search-lab-runtime.html",
+      "public_label": "Paper modules",
+      "route_alias_for": null,
+      "route_role": "canonical_page",
+      "source_refs": [
+        "microcosm-substrate/core/paper_module_capsules.json"
+      ],
+      "title": "Lean Proof-Search Lab Runtime"
+    },
+    {
+      "alternate_labels": [],
       "canonical_object_id": "page:evidence",
       "generated": true,
       "nav_group": "Reference",
@@ -5003,13 +5403,13 @@
   },
   "source_hashes": {
     "codex/doctrine/system_vocabulary/term_registry.json": "sha256:0073021d3084d754db57b2bbe17cbce617127a82658028e687bad90bc8e8b081",
-    "microcosm-substrate/ARCHITECTURE.md": "sha256:2910626283674dad3a442e83da29e68294414d3104a8fefccef7bebc8572bb22",
+    "microcosm-substrate/ARCHITECTURE.md": "sha256:311f879d01e38c423ce8d6bcb6c896282413b8ae3fc35554df13ea9040d1334b",
     "microcosm-substrate/LICENSE": "sha256:5f73f0aafc768cc7c7f5da786dc7614296ee891a456faf175ab07456d3c35046",
     "microcosm-substrate/NOTICE": "sha256:5ee35efcac92a6e5009e305e2f662481e2a3b7fb6e6d95a275e519066a0b2375",
-    "microcosm-substrate/ORGANS.md": "sha256:a36b0e3fb8fbb74d3ae067319d31ad96b6aa413dfd68217b2b669fa7236d8e25",
+    "microcosm-substrate/ORGANS.md": "sha256:6f9b63bfd1bb84256788472db36fe05753aaacf593e7eb44ee9e45e0f6a86973",
     "microcosm-substrate/PROVENANCE.md": "sha256:ae9e699b9d9a31ad38139fae240591ed1269502ad54dce425ab5e5f27f044ab8",
-    "microcosm-substrate/QUICKSTART.md": "sha256:8022da5b2122880ede5ec58e1fcf72021c912c73784b750a458d101f817bdb1f",
-    "microcosm-substrate/README.md": "sha256:d7c9a55beb529ff9207c93e60e4f8ab98c4c27520c0ef84b6763f9ee570da536",
+    "microcosm-substrate/QUICKSTART.md": "sha256:8a97b1a537d589e8f046c49acda0eee0455afecfbf86d566e1258607de1e242e",
+    "microcosm-substrate/README.md": "sha256:6cd00ecf0b7ffb30fda01d13b542e288b98c2ab0118e087375d8041cf55cf3c2",
     "microcosm-substrate/SECURITY.md": "sha256:847f67bc364515269213f8a9aa1b761156a4e5183760184de2f15ab000649685",
     "microcosm-substrate/anti_principles/AP-1.json": "sha256:368b7ac65b8fa2ef415b7a0aeb47a92122f11cd99979228515836aa4500d4131",
     "microcosm-substrate/anti_principles/AP-10.json": "sha256:aa15f69c657442a025016a40e0bf5941fdfb19e37e157b9cbdd96c23fb4a0bee",
@@ -5028,7 +5428,7 @@
     "microcosm-substrate/anti_principles/AP-7.json": "sha256:b4958c38fe6f9f889a8c5ba02cff0362a69ae797b234cb61bebc6fc03f641bed",
     "microcosm-substrate/anti_principles/AP-8.json": "sha256:0fcc46ea008fb5ccb48aede94964e04c794181cd07a703ddbb0ebd781b310e54",
     "microcosm-substrate/anti_principles/AP-9.json": "sha256:0e6e78885214319cbe596dff586b05a4124e41bbb4e8d5f092212ead9aaebdf6",
-    "microcosm-substrate/atlas/agent_task_routes.json": "sha256:eeaceb99fd21baea2394edaa8df3dbf9cd7d41316e6071154ab79f245e6434a7",
+    "microcosm-substrate/atlas/agent_task_routes.json": "sha256:f5eb1282b13599aa9c74886cd5d6f722db7bf403cd926a28095a53af1eb71879",
     "microcosm-substrate/atlas/entry_packet.json": "sha256:e97a81161db031f9b12b9d41dc66481c5c3fa125beeef2f814cca09205fc5973",
     "microcosm-substrate/axioms/AX-1.json": "sha256:9802f233f1b183f675fdd85992fa7ab01714950e30567bd0dda6d6c82b6822a8",
     "microcosm-substrate/axioms/AX-10.json": "sha256:c0873ec22165c53d443c3421553379a7f0ea38da02c80c89682f4e745143d635",
@@ -5042,68 +5442,68 @@
     "microcosm-substrate/axioms/AX-7.json": "sha256:af9577e8ec3cfd491b64cb088c9d6b95701d5c3b8314eac627a31801469de96b",
     "microcosm-substrate/axioms/AX-8.json": "sha256:4a58794de3daadeceef94d2451056f39ae37ee549f87c5f6091b7ce8f71941a9",
     "microcosm-substrate/axioms/AX-9.json": "sha256:0914785fdb5bbbd264732498f22e09c5b8ffc12d196f7728b9fc95b465dcdc54",
-    "microcosm-substrate/concepts/concept.agent_reliability_and_safety_validator_bundle.json": "sha256:27dc963688c6c14fba9d3dc153a7c511ada6d4fb408c8305d68d3c90cc6afbed",
-    "microcosm-substrate/concepts/concept.architecture_and_navigation_route_contract_bundle.json": "sha256:e36579d772a8064da87dde5ae956f7034af609deb6efb4de278029bb7835e162",
+    "microcosm-substrate/concepts/concept.agent_reliability_and_safety_validator_bundle.json": "sha256:72eca13a82ad9fe44c6d71fb14aa21a6c0f1af97c3e8238c9e7b8614ac85fa49",
+    "microcosm-substrate/concepts/concept.architecture_and_navigation_route_contract_bundle.json": "sha256:da18532ccaa2761b5a79cb9ff8ba6391a0dafa3c1951023ca7b386c27f3bbcc8",
     "microcosm-substrate/concepts/concept.entry_and_reveal_route_readiness_bundle.json": "sha256:b9d274a2c03efe6459d9b30cc30218458f94fc27ab5a42f8afcbfd3bd2bf7c90",
-    "microcosm-substrate/concepts/concept.executable_doctrine_grammar_standard_bundle.json": "sha256:d9ca8c8317e43b491e351c109a14c3f475d7330c578e4006c37c4ad38b839872",
-    "microcosm-substrate/concepts/concept.first_screen_doctrine_effect_frame.json": "sha256:1a30a6def1af3ff02cb3dfb7e52a634c9ab8ec1e8fab4982fbcfaeb77fa71c5f",
+    "microcosm-substrate/concepts/concept.executable_doctrine_grammar_standard_bundle.json": "sha256:4e424335d52b98a01e7e521e97bc94fb6731cfba2aefa6b8c12763184f1efabc",
+    "microcosm-substrate/concepts/concept.first_screen_doctrine_effect_frame.json": "sha256:ef9b502fe600799e0b18d6f74eb6a3ba716ccc4e674cd43c6a58021197e40d87",
     "microcosm-substrate/concepts/concept.formal_math_and_proof_witness_bundle.json": "sha256:800e73b73f609d6c370a29ed06ad75a5f5900b62a6a8246f8aee44269cf1e0a0",
-    "microcosm-substrate/concepts/concept.import_projection_and_drift_control_bundle.json": "sha256:3df70cfb302b1fe62caaa69710ee93318299e4ed366f86d1a490d35d387996ab",
-    "microcosm-substrate/concepts/concept.research_and_science_replay_evidence_bundle.json": "sha256:60e97f41e69411abc6cbf57315ed251db2bcaa761dd1a0990c267300967fd2ad",
-    "microcosm-substrate/concepts/concept.standards_meta_diagnostics_bundle.json": "sha256:a4a9d140acadc397e09ffb12fa6a898e7dc5e7b03420c7466e044a02b5952dcc",
-    "microcosm-substrate/concepts/concept.voice_to_doctrine_self_improvement_loop_bundle.json": "sha256:e177bd7ab06d80896e1aa39c288fa16873f458a3143d591bb1089978b373fb8a",
-    "microcosm-substrate/concepts/concept.work_landing_and_continuity_control_bundle.json": "sha256:a2fec673894ac89272337a72dc629955215ef130a6036f56a662569905de4453",
+    "microcosm-substrate/concepts/concept.import_projection_and_drift_control_bundle.json": "sha256:3aee89edfb8cc0f3e4317b8be72e1b5fecec66a3652fef66a93021ec8e560996",
+    "microcosm-substrate/concepts/concept.research_and_science_replay_evidence_bundle.json": "sha256:d037da16bdb8ca4b11d35ba32abaa81377e6609e574a951fc78229609a3f19d8",
+    "microcosm-substrate/concepts/concept.standards_meta_diagnostics_bundle.json": "sha256:99f251e6e71e1db47a94c56d05112d783b92641281519918649356c6157ad02a",
+    "microcosm-substrate/concepts/concept.voice_to_doctrine_self_improvement_loop_bundle.json": "sha256:f0b6aa28d1e76a7f4d6324c0f5d3ac8ce9c9d9a6a4e5a61e74cb5c9e6f8631ba",
+    "microcosm-substrate/concepts/concept.work_landing_and_continuity_control_bundle.json": "sha256:243e5c76b87f438e8e7158789a8a4c37e3e858f1c978a2cf3030218bbb4432be",
     "microcosm-substrate/core/architecture_kernel.json": "sha256:245d48d7948b6561979c0d908d89d6781a7d340a7cfcb10c78997a385ac8aff8",
-    "microcosm-substrate/core/component_public_synopses.json": "sha256:f4146ac256829fe4ca612c4dd64293017505fca28e7413c2a7ddaf26aff418ba",
+    "microcosm-substrate/core/component_public_synopses.json": "sha256:2b67c0f8c2b3f4fe3bdc3933fe4007eae22551ceb5d31e83832c3088deafff7d",
     "microcosm-substrate/core/doctrine_enrichment.json": "sha256:581c16bd139cff52124d1ba7bb1debfba02400f06c271c652377ea31193fc515",
-    "microcosm-substrate/core/doctrine_lattice_coverage.json": "sha256:d878ecb6f4cbe7be1004b4a250cfb46ad5a1eb0b48b5cdf5928d7117ce492d71",
+    "microcosm-substrate/core/doctrine_lattice_coverage.json": "sha256:b29cdb9bfc46708a94cfde441a30a2f48011b1b13431b42a0e7f9bd67ee6b4ae",
     "microcosm-substrate/core/doctrine_lattice_relations.json": "sha256:bac00f9667cdada9b3c7efb151f7d2d14c9abee2bb85f0f7ff9287c75d3ba400",
-    "microcosm-substrate/core/mechanism_sources.json": "sha256:f494459ea6f3ef94e5d458719a5e82d5d8058aba036a653baa772afc404af4f6",
-    "microcosm-substrate/core/organ_atlas.json": "sha256:aa0d9705139c7404de4a2e8c4368ca52911dd97917e638c01deef0dc401923d1",
-    "microcosm-substrate/core/organ_families.json": "sha256:da9fdfae54a88fa3f9620d222b1fe5c74c221de30d36db24d639b51bd7bb8d08",
-    "microcosm-substrate/core/organ_registry.json": "sha256:2587fc365278101f4af777a0c9e2d28caad45d6d11b9772c6d1ada19b8340ea0",
-    "microcosm-substrate/core/paper_module_capsules.json": "sha256:a078383ec618366a197fc618c7c6e11bf6a71854dff5b6539d2772eb90d18893",
+    "microcosm-substrate/core/mechanism_sources.json": "sha256:d3966cf0af3c0a453f60b7ba98c8c19dc6bf8948da3178dfe1cf60b0174f25ef",
+    "microcosm-substrate/core/organ_atlas.json": "sha256:7436cb783d7c9d588b119f960dff6dd19d67dfb30eaba2d639b9dfdeda70a22d",
+    "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
+    "microcosm-substrate/core/organ_registry.json": "sha256:beebf3017d0a5abdafe7de9c44f13e5497f8bd53c2613a78f77fe0ca87cd8ce3",
+    "microcosm-substrate/core/paper_module_capsules.json": "sha256:272336ef5d0a5fa11badbc4e13d990f3696fbe02c912774e7131b11e1d79ee3f",
     "microcosm-substrate/mechanisms/mechanism.agent_benchmark_integrity_anti_gaming_replay.validates_public_benchmark_integrity_replay.json": "sha256:6135ad264a355eb0245e0d2f4778a2cc2a1eb5fe018fa3a7887dccb69e7e7dac",
     "microcosm-substrate/mechanisms/mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims.json": "sha256:8eeafeda3f656f1d508ef30ae334bd3f7d2be8dc61e1e9e66cabe24eb24fd70a",
     "microcosm-substrate/mechanisms/mechanism.agent_memory_temporal_conflict_replay.validates_public_memory_conflict_replay.json": "sha256:80b6e1d8344d58a88ecfaf492528f34f6db9b712d49d90acc2f2e48b527ae01b",
     "microcosm-substrate/mechanisms/mechanism.agent_monitor_redteam_falsification_replay.validates_public_monitor_verdict_receipts.json": "sha256:a2384b1804522425e1bd6e1bbf7c6d12ccc11201f9d857337ce17f99684fed00",
-    "microcosm-substrate/mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json": "sha256:e15625a6e1109552e646d41d49bbc45a9cf4b4de2e04c780c288fbf66b4cfdf0",
+    "microcosm-substrate/mechanisms/mechanism.agent_route_observability_runtime.validates_public_route_feedback.json": "sha256:7fc8b31e43b19232b7f5962aab7d1ede4e8342f57fe04208c6fb5696acd2b66c",
     "microcosm-substrate/mechanisms/mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay.json": "sha256:f4defb02097979f33dfac84237b59bbd6e31b138b3eeb08070e8d9c76e53aa1e",
     "microcosm-substrate/mechanisms/mechanism.agent_sandbox_policy_escape_replay.validates_public_sandbox_policy_trace.json": "sha256:604afbeef3496a7a3cc223a97f16a720a33bbe3c005afad2b3d8ef590a1e8613",
     "microcosm-substrate/mechanisms/mechanism.agentic_vulnerability_discovery_patch_proof_replay.validates_public_agentic_vulnerability_patch_proof_replay.json": "sha256:9b0582182e6a864f28b0bd9b42d3591ff1026f7d0654bc0c69a504917abc3967",
     "microcosm-substrate/mechanisms/mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule.json": "sha256:0532d68ed82ff46c5dc9756436c4ce14072d594a9e64441ed4ddbb6e23c38060",
     "microcosm-substrate/mechanisms/mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule.json": "sha256:044257510744fb58f1acbc010d9d47f529a665826e770951edbdc65295b83855",
-    "microcosm-substrate/mechanisms/mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule.json": "sha256:861fa2d51fb5160c343e69932ecb4763ec6266fc472548f45ba436b5ac0fd487",
-    "microcosm-substrate/mechanisms/mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule.json": "sha256:3ef0f4cdfb26ed1592d9395b955353b3bb78e97d2ac7897adace027e2736e40d",
-    "microcosm-substrate/mechanisms/mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule.json": "sha256:b97212db67672d9be420b55c375b2c5ba5906fba5cff87ecc2e5681d3c4a805d",
+    "microcosm-substrate/mechanisms/mechanism.batch10_live_source_drift_capsule.validates_public_live_source_drift_capsule.json": "sha256:0d67ff50a19ad1686eeecb5a8208c5ada57b26aa4b9daf6180227782f233d16e",
+    "microcosm-substrate/mechanisms/mechanism.batch11_saturation_engines_capsule.validates_public_saturation_engines_capsule.json": "sha256:6a1df12685e5a1df893add284179efc5b7d1bd3f64a8ab95bc9532f3ac8217b7",
+    "microcosm-substrate/mechanisms/mechanism.batch12_market_dashboard_read_model_capsule.validates_public_market_dashboard_read_model_capsule.json": "sha256:cd367c1d5f5ebd180f373db675b0f380215d25c3553641713e27d45b9daa9ad7",
     "microcosm-substrate/mechanisms/mechanism.batch12_prediction_market_board_capsule.validates_public_prediction_market_board_capsule.json": "sha256:f68e4fbd80693944b0abc42e48dbe295e11297ee1de9e6fd30a6a9f26ea9ac49",
     "microcosm-substrate/mechanisms/mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate.json": "sha256:bd8114a4fb2873d7b23815b9558547de3cf3ba921f9e1f0803998aa7e347ae77",
     "microcosm-substrate/mechanisms/mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule.json": "sha256:c8c9bcd4f016c6ec99bf59360e55a8408c69316ae671392513b2129e80dfebae",
     "microcosm-substrate/mechanisms/mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule.json": "sha256:4a185b0bb6a8256def8c0f8694d9034690355f02a5661d99d17ec87cb40b79e9",
     "microcosm-substrate/mechanisms/mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule.json": "sha256:9926387b1ca8a94e9cadd9495644bf392b786f54e6105977b81474709e4cf369",
     "microcosm-substrate/mechanisms/mechanism.batch7_demo_take_console_capsule.validates_public_demo_take_console_capsule.json": "sha256:8ff00fb871a4bf162687badc656368ebd38c3216e814293c92ab99dfe6c13fd0",
-    "microcosm-substrate/mechanisms/mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule.json": "sha256:b70db0b237ec2fb4e4bcdc22e6df6faf70be7878697cf818b910dad5dee0f3a2",
-    "microcosm-substrate/mechanisms/mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule.json": "sha256:d1efd911e81520efb2c13fa127a533e5f94b09ebace8ff06ffc8db93e02fccce",
+    "microcosm-substrate/mechanisms/mechanism.batch7_macro_engines_capsule.validates_public_macro_engines_capsule.json": "sha256:34ddce5dbf10b1c132275aa3df289c1c1f156c1ae458301a1a404fb85a0dfcb7",
+    "microcosm-substrate/mechanisms/mechanism.batch7_oracle_sibling_capsule.validates_public_oracle_sibling_capsule.json": "sha256:08add506cdc8b014024e6fb5735722149263a0d5452eb0c5b5d31aa6c6afada7",
     "microcosm-substrate/mechanisms/mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule.json": "sha256:123bbb0b873a73ec8e98b6cd8cd8d3f63a8b68ae720fd01f2f834018aac1f1f9",
     "microcosm-substrate/mechanisms/mechanism.batch8_audio_level_rms_port.validates_public_audio_level_rms_port.json": "sha256:9ce5943a304c948d27c9b202f9068d247803734cb4f5e4e215435832b1ec7608",
-    "microcosm-substrate/mechanisms/mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule.json": "sha256:9603348a31d9d339bdb6afa6a662f0ff2456c6c421a0d3c2175c0fed2eb685da",
+    "microcosm-substrate/mechanisms/mechanism.batch8_compliance_pipeline_capsule.validates_public_compliance_pipeline_capsule.json": "sha256:904f6292f7de253ffd2f3ecaaf5011635719950d33dd1e33df92d650a881a7d8",
     "microcosm-substrate/mechanisms/mechanism.batch8_policy_engines_capsule.validates_public_policy_engines_capsule.json": "sha256:7976f9a84c632de51a6954ecf8868a41f424e438ed138fa44ef1bcca098f3997",
     "microcosm-substrate/mechanisms/mechanism.batch8_structural_theses_capsule.validates_public_structural_theses_capsule.json": "sha256:4d1f867de5f61ca09598cfa5b28d7bbe4c9d2406181056601b41acff6308afba",
-    "microcosm-substrate/mechanisms/mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule.json": "sha256:73142a751dc31e75ad78abdb1f367fd575603fbca44cadc63718e4adb171489f",
+    "microcosm-substrate/mechanisms/mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule.json": "sha256:20e36bd432307762966aa95581ec77b0e045fedfdc99a39617348f058a3e5e61",
     "microcosm-substrate/mechanisms/mechanism.batch8_validator_checker_capsule.validates_public_validator_checker_capsule.json": "sha256:29c2e3a3668724e51061f4ea015989d3a97e9b8e29d37649f059aecdab2caac3",
     "microcosm-substrate/mechanisms/mechanism.batch9_macro_engines_capsule.validates_public_macro_engines_capsule.json": "sha256:1e122cea4794fa92ed0945df9445d222bf3d9caf52aaa53cdf37b3e116cfa5ec",
     "microcosm-substrate/mechanisms/mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay.json": "sha256:c53df5ea6932a243ae93282b1f583c2f02a32e07c6a0686a74691c65fb7adbf6",
     "microcosm-substrate/mechanisms/mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet.json": "sha256:198b6d5a025fa32afb28594ee3664abcad43eaf19fcdd985e37659c00a6b1b72",
-    "microcosm-substrate/mechanisms/mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity.json": "sha256:1d7c4d91a58e6fd2200445da969dd21244efb47fbd4d87bf34f2960e0a942446",
+    "microcosm-substrate/mechanisms/mechanism.bridge_phase_continuity_runtime.validates_synthetic_bridge_continuity.json": "sha256:b18b3873615082f33c6267f660802648c571afa6ad3328b948b0b09da765ed78",
     "microcosm-substrate/mechanisms/mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution.json": "sha256:90ff1b6269a04fb1e5340931be00f1e22ab8e8eb177af7ecdd5e6594cdf9f3d7",
     "microcosm-substrate/mechanisms/mechanism.cognitive_operator_registry.validates_public_operator_contract.json": "sha256:0e0f1485ff6968bfe35a7808e8ae46f07d7f5d1751385f28b5634a7e745a37bd",
     "microcosm-substrate/mechanisms/mechanism.cold_clone_probe.validates_public_source_root_bootstrap.json": "sha256:3292fcef006eee1a0b459ed17efc605df4ffbe5c0d08f8efc41e1bfae02b4249",
-    "microcosm-substrate/mechanisms/mechanism.cold_reader_route_map.validates_public_first_run_route_map.json": "sha256:12c8f70f660e71b2eafbec7037bdf2c2e5a4dc7108a962caffb3bb5e47070051",
-    "microcosm-substrate/mechanisms/mechanism.concurrency_mission_control.validates_public_concurrency_mission_control.json": "sha256:726ff50858d8ada011ffe2bb4652f636e4486df1c49a093803ac80ac82113d25",
+    "microcosm-substrate/mechanisms/mechanism.cold_reader_route_map.validates_public_first_run_route_map.json": "sha256:1939b70b7d218022768a07649695b0e0b961b32ba38062bcedc872344bba5303",
+    "microcosm-substrate/mechanisms/mechanism.concurrency_mission_control.validates_public_concurrency_mission_control.json": "sha256:5c68ba47e850d24dec64d4f27a3e80fa8aab6010a39f1731040238bd903aac3f",
     "microcosm-substrate/mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_corpus_readiness_boundary.json": "sha256:0aaaa5322f2081348ea21a150d62fef9ae7cea806a9cca54177566c9dd7e33c0",
     "microcosm-substrate/mechanisms/mechanism.corpus_readiness_mathlib_absence_gate.validates_public_mathlib_absence_boundary.json": "sha256:54575b08d976ff4c814f8a563edbf06b2083156d11aa4a580be3c4c0e34f915f",
     "microcosm-substrate/mechanisms/mechanism.doctrine_fact_claim_audit.validates_public_doctrine_fact_claim_audit.json": "sha256:5ed59d4e67eb532100d8d7367ff07988dd7b2f165654eb1eac06677879c1b88a",
-    "microcosm-substrate/mechanisms/mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract.json": "sha256:04cce1905ac1d2cee1528c8d6bcff6157a3ed95cbdcab7ee4b65bb19f9e91d57",
+    "microcosm-substrate/mechanisms/mechanism.durable_agent_work_landing_replay.validates_public_work_landing_replay_contract.json": "sha256:37e984a7a7bb2b8ea283209e9df1ca0207b4bb15f86c62b88b455974e6878ddc",
     "microcosm-substrate/mechanisms/mechanism.engine_room_annex_knowledge_router.validates_public_annex_knowledge_router.json": "sha256:9cf96ad07a0e8a0cd65a8f30b3fef2e106726215ec601305c982bf2a3b5cee74",
     "microcosm-substrate/mechanisms/mechanism.engine_room_command_run_singleflight.validates_public_command_run_singleflight.json": "sha256:649c1ec383df6d4505087103102d24ff73f7748b87c134234ab12b56e5a161b5",
     "microcosm-substrate/mechanisms/mechanism.engine_room_demo.validates_public_engine_room_demo.json": "sha256:e1f24e1a88dca57c0789971dc3741dcbbba93c07609408668324c57eded016c8",
@@ -5122,30 +5522,30 @@
     "microcosm-substrate/mechanisms/mechanism.formal_math_lean_proof_witness.validates_public_lean_witness.json": "sha256:2ed697d22cb9b854af78eecf840544df23745180782976de32bc6ad03206c37c",
     "microcosm-substrate/mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_projection.json": "sha256:1e17974d4cd8edae5660529ce16db3418fb9d0274523ed6ebc5681514a994519",
     "microcosm-substrate/mechanisms/mechanism.formal_math_premise_retrieval.validates_public_premise_retrieval_slice.json": "sha256:e1489f6a1db365e77ac96c5801ad2606d34dcbd1fb53cce31a432708e0715110",
-    "microcosm-substrate/mechanisms/mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle.json": "sha256:36cc0852afe877ed89556d2f92f3e20fd7ffcfc2eb4552b95a33e9c5f98120bf",
+    "microcosm-substrate/mechanisms/mechanism.formal_math_readiness_gate.validates_public_formal_math_readiness_bundle.json": "sha256:42beba1b9a5c50a3a40ee1ef0e2c404056384254986da63fd49231dc42896446",
     "microcosm-substrate/mechanisms/mechanism.formal_math_readiness_gate.validates_public_readiness_boundary.json": "sha256:d456ea450d649ea197ba4e7373a20f66ee7a6b733e1049162cae2cfce94d2ce0",
     "microcosm-substrate/mechanisms/mechanism.formal_math_verifier_trace_repair_loop.validates_public_verifier_trace_repair_bundle.json": "sha256:90d8c184e2a28580b012c2379d285a034f3b1ee5de0efeaf8973a9eaa09b0859",
     "microcosm-substrate/mechanisms/mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay.json": "sha256:106c36f5c2c93848413ee3fecfae892a47df073b849f71ab3c57f6e8f3eb40a2",
     "microcosm-substrate/mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_catalog.json": "sha256:9813b749b406847e1824af812bddef9703a4db2870eb9871f04b03be714fd0fd",
     "microcosm-substrate/mechanisms/mechanism.lean_std_premise_index.validates_public_lean_std_premise_index.json": "sha256:e5c93e2c59f26fb7cc6744af1fa1e5911f13f8e0d2e2740ff2c0b22daab65a67",
-    "microcosm-substrate/mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "sha256:c97bdc0fd14f10bfa87fd60eb4b9fc196ed35eda8c35a458b425e5396c64d395",
+    "microcosm-substrate/mechanisms/mechanism.macro_projection_import_protocol.validates_public_macro_projection_imports.json": "sha256:c9c03061d9dd8e9b9a5ae726da14a3d7cdb2f29ca3469b8cad036e2d2289baf1",
     "microcosm-substrate/mechanisms/mechanism.materials_chemistry_closed_loop_lab_safety_replay.validates_public_materials_lab_safety_replay.json": "sha256:fa0f465d706fe16eade4aad595ef25c815dc594ed0d19917fb0e0c89e26f8b1e",
     "microcosm-substrate/mechanisms/mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection.json": "sha256:e3f402edd6f101c10128ee0d5534991cc02ce3e08ed3894023f6623ab4181a46",
     "microcosm-substrate/mechanisms/mechanism.mcp_tool_authority_replay.validates_public_mcp_tool_authority_replay.json": "sha256:cc4fe8ed7c821bc8d46d8b09ce12efd1690c6d73ec925a542630a5de145efa16",
     "microcosm-substrate/mechanisms/mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay.json": "sha256:5d8cb4b39fe3c63b4ac4a7766a3a59d0ea70244a16a1fc9f6dc0a3137ed89c37",
     "microcosm-substrate/mechanisms/mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary.json": "sha256:1e7d8ee2bec186f738ffc613ea35879d8e0d709f3bf9352c823b3ae7c9341b25",
-    "microcosm-substrate/mechanisms/mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle.json": "sha256:eda80a8ebe61e38b07a88bf17dc7f4ef1793593decb20ccafc51dd94e99504a6",
-    "microcosm-substrate/mechanisms/mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle.json": "sha256:082ea0af67c3542fd83c3ae13308f422393e0a009075225ab9e4d58478281e7f",
+    "microcosm-substrate/mechanisms/mechanism.mission_transaction_work_spine.validates_public_mission_transaction_bundle.json": "sha256:5db9b16422f4f29b451eb0dd625b420ac17d66de3f42e3be1920ed9811ca8af5",
+    "microcosm-substrate/mechanisms/mechanism.navigation_hologram_route_plane.validates_public_route_plane_bundle.json": "sha256:792716454518b0681d7f31ace64ed0bc5da903fb4a250d98ad2b21befef39787",
     "microcosm-substrate/mechanisms/mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step.json": "sha256:2c05466c7bcdfaacd5db78ab80037bac354b671e3e477a8c0a67eb0a9464143e",
-    "microcosm-substrate/mechanisms/mechanism.pattern_binding_contract.validates_public_pattern_bindings.json": "sha256:5d8aeae1244115ce42dc0281a6d448bd427a64c25ff4d9675acd0bc5c9504260",
-    "microcosm-substrate/mechanisms/mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation.json": "sha256:8513c2715986ced1221b989df459e5d8377d473ed3ee0fd0b83cd304053fc1a0",
+    "microcosm-substrate/mechanisms/mechanism.pattern_binding_contract.validates_public_pattern_bindings.json": "sha256:fa8a05b176c8622fcf4ded89a387918fb8da9a6d1265aed8279fd83e4de8f224",
+    "microcosm-substrate/mechanisms/mechanism.prediction_oracle_reconciliation.validates_public_prediction_oracle_reconciliation.json": "sha256:382b54598707070144f0fcadde529f2947e29510f468e467b6cbf9284aea5790",
     "microcosm-substrate/mechanisms/mechanism.proof_derived_governed_mutation_authorization.validates_synthetic_governed_mutation_authorization.json": "sha256:a812cad563fcb11690263fa6530cebc37a460de8b1c2afbf86f6058c85105d07",
     "microcosm-substrate/mechanisms/mechanism.proof_diagnostic_evidence_spine.validates_ring2_diagnostic_evidence_membrane.json": "sha256:75bbe8ab382ea4983400de3de1eb86e7e2db2625ce41e8dafcea90465c31eda4",
     "microcosm-substrate/mechanisms/mechanism.provider_context_recipe_budget_policy.validates_public_context_budget_boundary.json": "sha256:a0979104a3b830ee5800fa4a84e7c37efe6f7b2197e8aed6e4fd5d9220908030",
     "microcosm-substrate/mechanisms/mechanism.public_reveal_walkthrough.validates_public_reveal_walkthrough.json": "sha256:c5e5c81f9a17baf04ee94c32a00d026a675f6a2b01c5f6dada7c4f4571f6cdcf",
     "microcosm-substrate/mechanisms/mechanism.research_replication_rubric_artifact_replay.validates_public_research_replication_replay.json": "sha256:4ec847ed80dc11f3e600a4d067b0476f950a72c5d662de26dc7008358d6429a6",
     "microcosm-substrate/mechanisms/mechanism.ring2_premise_retrieval_precision_recall_harness.validates_public_premise_retrieval_attribution.json": "sha256:fa869c1f75be7e25338ea62433adb93148c25bd6a6b16aa7e211d7e21f5ac2cc",
-    "microcosm-substrate/mechanisms/mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry.json": "sha256:35de2183475624021b84956de40d476a7ad16528e0af2443df207a846ef71386",
+    "microcosm-substrate/mechanisms/mechanism.routing_anti_patterns_registry.validates_public_routing_anti_patterns_registry.json": "sha256:2ca9098ef534e80689521b6df49125d8e9a41f5b638cda11e9536f61f30c1f5c",
     "microcosm-substrate/mechanisms/mechanism.self_ignorance_coverage_ledger.validates_public_self_ignorance_coverage_ledger.json": "sha256:2dcda90038f9669fafb592c1eda73e7c2426e7a8726db541f38cd15b23d67ece",
     "microcosm-substrate/mechanisms/mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay.json": "sha256:db72cd442f3ed2f24ab61891e1dab0a33016ef3b7f7f7f807fcbf6220a2b104c",
     "microcosm-substrate/mechanisms/mechanism.spatial_world_model_counterfactual_simulation_replay.validates_public_spatial_world_model_counterfactual_simulation_replay.json": "sha256:d88d9fda6912729b6ed21dfe168d55e63b050cff1ebffe28f6e746d00e9f5ecb",
@@ -5157,7 +5557,7 @@
     "microcosm-substrate/mechanisms/mechanism.verifier_lab_execution_spine.validates_public_verifier_transition_witness.json": "sha256:b76590154f02ade97b4b34961c0e4d463b3bee8d7f5d9f14a304ad9f506952ae",
     "microcosm-substrate/mechanisms/mechanism.verifier_lab_kernel.composes_public_formal_math_receipts.json": "sha256:851572d9924f07e7e0f56575cba6ec3651d589962a17a7d0c8528d5ad07760ab",
     "microcosm-substrate/mechanisms/mechanism.voice_to_doctrine_self_improvement_loop.validates_public_voice_to_doctrine_self_improvement_loop.json": "sha256:5c07d17e4908a21c7ef1f39e0b7d52188a11bfcc39d4798f69e0091189d779e7",
-    "microcosm-substrate/mechanisms/mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary.json": "sha256:e04bb3d2a219dcf7519e07444c45101a2da412871f01ff2c3ce1ed279f54986b",
+    "microcosm-substrate/mechanisms/mechanism.world_model_projection_drift_control_room.validates_public_projection_drift_control_boundary.json": "sha256:e908293c97ae5359d7bedff2bd3cacebc09fc23a681500124e79756da274ed61",
     "microcosm-substrate/paper_modules/agent_benchmark_integrity_anti_gaming_replay.md": "sha256:efa97612ff24d44161a6903f7cbbaf447213e8640f55cb046e6e9529bafc912c",
     "microcosm-substrate/paper_modules/agent_closeout_faithfulness_audit.md": "sha256:354f64d9bde75c8b7d0299adb2d9101243656bf83101b08a8d68bcc65cf03a3a",
     "microcosm-substrate/paper_modules/agent_memory_temporal_conflict_replay.md": "sha256:942ab43ad68e900f981d44cc3dea7aece15353d2deb95cc7e34d3a0b7e6bf2a0",
@@ -5166,6 +5566,7 @@
     "microcosm-substrate/paper_modules/agent_sabotage_scheming_monitor_replay.md": "sha256:b009850f8228e7499592eec512169773146cc6f4c6dc04d7ff619f8e9e4af902",
     "microcosm-substrate/paper_modules/agent_sandbox_policy_escape_replay.md": "sha256:e71f33b55c881597f6b54921fad130af7e5b54e06c5efc37f19a624218c48424",
     "microcosm-substrate/paper_modules/agentic_vulnerability_discovery_patch_proof_replay.md": "sha256:437e655e07d03388b4da405b405d9fe5a223cc5246400b0a1ff8fef5f4b6165e",
+    "microcosm-substrate/paper_modules/annex_knowledge_routing.md": "sha256:f50ad2a4c982a8b3d94f05f51f67e4c9aad854e5da92f9db8d0c35684482d93c",
     "microcosm-substrate/paper_modules/batch10_cold_eval_honesty_capsule.md": "sha256:f9140b533e69ffb610ee1803810f703585b017ba99d72250c9353aebbbd3c93f",
     "microcosm-substrate/paper_modules/batch10_governance_compilers_capsule.md": "sha256:cc43bd23b159358efc8f8e2f3273a076f515d4967daf90b8342cfaaa4e9ef208",
     "microcosm-substrate/paper_modules/batch10_live_source_drift_capsule.md": "sha256:fb1810c07dc72104e7fe949c21c975197793ed8fbaf53ece70128a36b22a8fcf",
@@ -5189,6 +5590,7 @@
     "microcosm-substrate/paper_modules/batch9_macro_engines_capsule.md": "sha256:ae3b24cb277e73846e7d7134e669185fed5a3807349b21c3ee26541dbce086d0",
     "microcosm-substrate/paper_modules/belief_state_process_reward_replay.md": "sha256:c86d95110fc9f78472e3bbeaf8121da8df2b694b46bb82c2a4bfee117845ef47",
     "microcosm-substrate/paper_modules/bounded_autonomy_campaign_packet.md": "sha256:1448807a7baff74979d45841525c739f8356d52184fd8278bec28e36ff3f632d",
+    "microcosm-substrate/paper_modules/bridge_campaign_dag_validation.md": "sha256:ff2fc5ef686680e533ebdc8bdc8d5a41615213357e7da644302df9dfe3623fa7",
     "microcosm-substrate/paper_modules/bridge_phase_continuity_runtime.md": "sha256:d07b807bb1e29c58bab1bbf10542096994385a707d611fbb33390ec95f4bd085",
     "microcosm-substrate/paper_modules/certificate_kernel_execution_lab.md": "sha256:e84ba4e4a701dcc31f3419bc3136c8a60e7f4076a0fafbde57a9bcab78e3587a",
     "microcosm-substrate/paper_modules/cognitive_operator_registry.md": "sha256:e32c14968f330c71622f47bf8ce853de2a10dc4903e3910ab212f6f8dbd02d52",
@@ -5197,8 +5599,10 @@
     "microcosm-substrate/paper_modules/computer_use_action_trace_replay.md": "sha256:24782aa83268600b8e04175d3a64005a4883ca07ba0185810b6c42310dcb8477",
     "microcosm-substrate/paper_modules/concurrency_mission_control.md": "sha256:a6188ab0f72beca5960fd57d29365bf975d7305ac2b46cfdde40688d9e7626cc",
     "microcosm-substrate/paper_modules/corpus_readiness_mathlib_absence.md": "sha256:fc7ca37c6ebc3076fed6c320b59d0d7f27c8669601546b1318b994fd5385695c",
+    "microcosm-substrate/paper_modules/derived_fact_provider_runtime.md": "sha256:60b6dbf4b2571864c53d7077422673ca9f5d78ddec6ecdc8fa08a1e8e6c69d46",
     "microcosm-substrate/paper_modules/doctrine_fact_claim_audit.md": "sha256:0abb840a42633fd4bd902cbc5e685e38d74f06f42a93a39beb325d92320bf976",
     "microcosm-substrate/paper_modules/durable_agent_work_landing_replay.md": "sha256:c6ae188b531eb7a1bdc3b88bc50cbb19ec84508317e81365cfb4d6686c3ddc44",
+    "microcosm-substrate/paper_modules/egress_self_compliance_audit.md": "sha256:615616aa170df1f59684c34da32fea5832e34b9eeb80d9b08ae964e12aa8d854",
     "microcosm-substrate/paper_modules/engine_room_annex_knowledge_router.md": "sha256:b8350871a5f8ce058048dcd79f9bae25851097f81cf4ac33d5cfd1d4beb0f152",
     "microcosm-substrate/paper_modules/engine_room_bridge_campaign_dag.md": "sha256:845ba819eea8c41dfe470f595c5179a99db87e4231d097cf65f2d3d2e1ea16b8",
     "microcosm-substrate/paper_modules/engine_room_command_run_singleflight.md": "sha256:15620dc98e7dfbc357e9715f6c69e881accc0c64b80163c6a2d281960237e9f1",
@@ -5212,21 +5616,26 @@
     "microcosm-substrate/paper_modules/engine_room_public_projection_leak_gate.md": "sha256:70414bc4ce08c27f40025e9781bbe42211535669ee5dba9d430d47f816e894c4",
     "microcosm-substrate/paper_modules/executable_doctrine_grammar.md": "sha256:2686e29dfd3f771e42b1f4a5747c8d2c71636796fc94bdc59b95f622aad7a1ff",
     "microcosm-substrate/paper_modules/finance_forecast_evaluation_spine.md": "sha256:fcd73c5c4da7d6c26a2cfa11e9a9ede2ab6d43f4c9962aff51573224a8a8f983",
+    "microcosm-substrate/paper_modules/finite_erdos_denominator_certificate_strike.md": "sha256:575cffdb2a463c6dc96a03fdf10e4af7b31a3311a6c42ae86573e669e94b0844",
     "microcosm-substrate/paper_modules/first_screen_composition_root.md": "sha256:95d1f3d4d435b4c0827c187b870dd8801e367d864f2ab6ba44103bd98cbfa3d4",
     "microcosm-substrate/paper_modules/formal_evidence_cell_anchor_resolver.md": "sha256:d5bbfde32d8dac56b7e583de1826559754cf1c6545f24ca12fb8df56492c879f",
     "microcosm-substrate/paper_modules/formal_math_lean_proof_witness.md": "sha256:4b43cec1878e6a58aadac642d5d8f308d1838a39c11b6444aa8f19fe38aad749",
     "microcosm-substrate/paper_modules/formal_math_premise_retrieval.md": "sha256:af2e8ee55d8cea3db7c14ba776ee62b2ac4f6e37f6d682a640b3da143fc4ab68",
     "microcosm-substrate/paper_modules/formal_math_readiness_gate.md": "sha256:20e99e65ade408a3f30b17d0a382f861438c3855f5f1ff970ed877057ec3320e",
     "microcosm-substrate/paper_modules/formal_math_verifier_trace_repair_loop.md": "sha256:e384f5ad14ef9c685d4120715e24bbcf19a08dd056031b4028f04d2ead31a754",
+    "microcosm-substrate/paper_modules/generated_projection_drift_runtime.md": "sha256:8782ecdeadfb60a4c1b5b71c5416a7dc6ec0a9b62b8c95d49d69e885f05c1298",
     "microcosm-substrate/paper_modules/indirect_prompt_injection_information_flow_policy_replay.md": "sha256:53c949c730cdec9141cfc46ac3eb3a7c8f043938122ae99b3a81d8ecb61c788b",
+    "microcosm-substrate/paper_modules/lean_proof_search_lab_runtime.md": "sha256:513c4f1fa88fde5d2fb482bdcae16316cd6d845e49a8e143b5bc3249dac9611f",
     "microcosm-substrate/paper_modules/lean_std_premise_index.md": "sha256:425b8962cded9caff264136102c7d5d3ed21e8b883d674ddd4bda88ed1fb70df",
     "microcosm-substrate/paper_modules/macro_projection_import_protocol.md": "sha256:fbd0b91da248d3e9e86d544b9fa43c15d6012fd754adb19a6f099f8d1568a90f",
     "microcosm-substrate/paper_modules/materials_chemistry_closed_loop_lab_safety_replay.md": "sha256:d7450c92ede4248509400a496ffe362b58634e45f60b8ff4e4888665fcd9ec19",
     "microcosm-substrate/paper_modules/mathematical_strategy_atlas.md": "sha256:475b3d637b140b64416c129648a926f639b4fa2c79bd40021641566043f9d624",
     "microcosm-substrate/paper_modules/mcp_tool_authority_replay.md": "sha256:ff780adb9ccdd7643aacfaf74e8ba493765094b206ab87ae43d48716bce62c31",
     "microcosm-substrate/paper_modules/mechanistic_interpretability_circuit_attribution_replay.md": "sha256:c7649b71cdacbc621220f58c6a557b06dc4b7c9df75941d3e66c9181afe4d109",
+    "microcosm-substrate/paper_modules/metabolism_queue_reconciliation.md": "sha256:b04a2417a9c143d7d0de43158ba40beda0528285c83ff6e41b223aba1e0904cb",
     "microcosm-substrate/paper_modules/microcosm_axiom_substrate.md": "sha256:bc0609fe4a8fd7af5c41bcbf80103f4bf57bbe26407e84259664cefe4efa22f1",
     "microcosm-substrate/paper_modules/mission_transaction_work_spine.md": "sha256:7a7a9ea33649655d26c060cf644d059d1455dea4023da7f12f5d6b063510bb0a",
+    "microcosm-substrate/paper_modules/navigation_fitness_benchmark.md": "sha256:2a6100150df57d936269e5c2cdfe57576bb72a4f23fb245cebd9644fd4eefec0",
     "microcosm-substrate/paper_modules/navigation_hologram_route_plane.md": "sha256:1f60110a0fd5a6b4b68f3de795c4ddfaa8427fab7841994487ba9c9c13c564ee",
     "microcosm-substrate/paper_modules/pattern_assimilation.md": "sha256:bf2dcc6de6d7e3cb11e9f8945ab32224a20dd7062b9209c60c6615e84f91717a",
     "microcosm-substrate/paper_modules/pattern_binding_contract.md": "sha256:79c1934d57b6cd679deb15936f766a568095906a9862bfbfe157d51148767b54",
@@ -5239,6 +5648,7 @@
     "microcosm-substrate/paper_modules/ring2_premise_precision_recall.md": "sha256:550c51d0e779d5dbe3b356a71d5e6262424df94f2a9d13880066f31293a8e6c8",
     "microcosm-substrate/paper_modules/routing_anti_patterns_registry.md": "sha256:9251ba7c9a28522b7fc94a3743665b1ef5f5346d4729d34996ee98c892d8a2bf",
     "microcosm-substrate/paper_modules/self_ignorance_coverage_ledger.md": "sha256:0fe39ae702719b6086d397d2fea26d099d5f4af5cee8ee9a95383c2cf8a1f451",
+    "microcosm-substrate/paper_modules/semantic_singleflight_dedup_runtime.md": "sha256:88c22f3782b485411b8e82ebaf985e61f09177b8223db8614665921df8646c32",
     "microcosm-substrate/paper_modules/sleeper_memory_poisoning_quarantine_replay.md": "sha256:4b57730ad7250a91e4ecf0c106098367ba42335700e089a037cd045227c097b2",
     "microcosm-substrate/paper_modules/spatial_world_model_counterfactual_simulation_replay.md": "sha256:b24b0a5fabf69695a562c34c2cda36b5a92f3095f7ab1d09664262c6508f1f09",
     "microcosm-substrate/paper_modules/standards_meta_diagnostics.md": "sha256:e9a15af4adb2d6dbbd5860b8bd5103d8b61862b6de8a2c2a542f2a6147d44aa1",
@@ -5251,7 +5661,7 @@
     "microcosm-substrate/paper_modules/voice_to_doctrine_self_improvement_loop.md": "sha256:4a2bbdd3d23fbd7f8741eab83279bb41384ddcbeb396949bd3067e807df1821d",
     "microcosm-substrate/paper_modules/work_landing_control_spine.md": "sha256:c50637e3c72bc9c45d4c81d7b2fe24bcf97673a90a35e4ef24576b2a0992a02e",
     "microcosm-substrate/paper_modules/world_model_projection_drift_control_room.md": "sha256:2b2d4c7d8a6b1a380828bf12672098f3959ac91338557c4566e9a4e4da74ba3b",
-    "microcosm-substrate/principles/P-1.json": "sha256:fa5fe4061170a939d2b9cc30827590933ed9abb97d660a6ac25d5634ac266f49",
+    "microcosm-substrate/principles/P-1.json": "sha256:4432cfc866c08f5d4c6e338b74336b700996fd2be1266d51a9d911350bf1eb1e",
     "microcosm-substrate/principles/P-10.json": "sha256:93535704e81cc9774cc87ea5d038ca82fa3f24a9551958b91a198aa735eab585",
     "microcosm-substrate/principles/P-11.json": "sha256:48f795ed37ac1f4584b358a8e817a3acb356c3e6403a386f118944dcd2e9ade8",
     "microcosm-substrate/principles/P-12.json": "sha256:d45a7777a5dcc0de3f267630453eed538f77ea1a8444cb4e9f2f212dc6de66ce",
@@ -5262,16 +5672,16 @@
     "microcosm-substrate/principles/P-17.json": "sha256:ea7c0d84a46b3d6f39b792df381f8a6e7a08e233f0c22cb52f68ddfa01200b3e",
     "microcosm-substrate/principles/P-18.json": "sha256:925fcf710105ea5a699e662410c42c1893bb129c21b6ff5fe423e80264415565",
     "microcosm-substrate/principles/P-19.json": "sha256:409aa66b29116398c9614900d815de774aa82439c0bcfa5ee1f17cc6fb5a0c36",
-    "microcosm-substrate/principles/P-2.json": "sha256:10c6c6dd6f6f0901bac252373ab7925c1292a9bb6b2d9866b0cc49fba92bb1ac",
+    "microcosm-substrate/principles/P-2.json": "sha256:4f8a2994a1fbb604b767aaa304451c2d2d1ff21c67ff9f7233fdbad91bc7953f",
     "microcosm-substrate/principles/P-20.json": "sha256:31afc429108f752af6fa811c178e4b66509a5f3c9be50cecd8cd7fbaf1422988",
-    "microcosm-substrate/principles/P-3.json": "sha256:f9e7168287c7db057c0d898df17e7bda617ff32f8e49373bf0a793443aa60016",
+    "microcosm-substrate/principles/P-3.json": "sha256:b913d37525991e05a60d4a5e65bc7613f1edcb6657633c733981af005cc0afbf",
     "microcosm-substrate/principles/P-4.json": "sha256:c4e8a1014c56df2d5646c8db1bfd310038c955eb59179e6bc38012bbe74ce90f",
     "microcosm-substrate/principles/P-5.json": "sha256:534e133f82c45221f381d3d9f9b3278da192936caa314c68d5adb1a96ca2a3a0",
     "microcosm-substrate/principles/P-6.json": "sha256:29b19ccdb49725e36ea91c6f02ee036102d5440e77a326b439a8b1b5c69ca509",
     "microcosm-substrate/principles/P-7.json": "sha256:bc3286bbe463a02f64d3256c839b875d3f0e974d98a2bc2ffb916c35ab5aa149",
     "microcosm-substrate/principles/P-8.json": "sha256:b36240773bfe4f799834dc68109b4eb635bc8216c10eefa3096f2db28cba00cb",
-    "microcosm-substrate/principles/P-9.json": "sha256:52899be264175c458cf51068f42141d923df6b8ce7b1ad9bf3c537cc04eb3d18",
-    "sites/microcosm/index.html": "sha256:788a4aaeec3803079bb1c5cd473389fcdaea1b7b5ac3f50bbc0b4546c7688572",
+    "microcosm-substrate/principles/P-9.json": "sha256:fdb204be762d17927c951f34f7f6ef08a86f51e408f55c1cb2e9c9743b01ff24",
+    "sites/microcosm/index.html": "sha256:cfee06392340488f90c05d4b2240a06ea05b8bd5f2a9a7cf1004deb73ab103c7",
     "tools/meta/dissemination/microcosm_public_narratives.json": "sha256:401fee9964433eb6e73eace56101417055884f5083bc1e98d9c7921c3215b512"
   },
   "source_of_truth_contract": {

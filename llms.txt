@@ -17,24 +17,24 @@ Scope: this is a local-first static/public project doorway. Use it to clone, ins
 - Public repository (source of record): https://github.com/wcook04/plectis
 - Agent entry: AGENTS.md at the repository root
 
-Objects: 814 across 16 kinds.
+Objects: 876 across 16 kinds.
 
 ## Object families (coverage)
 
 - anti_principle: 17 objects -- 17 routed, 17 searchable, 17 source-linked, 0 omitted
 - area: 7 objects -- 7 routed, 7 searchable, 0 source-linked, 0 omitted
 - axiom: 12 objects -- 12 routed, 12 searchable, 12 source-linked, 0 omitted
-- command: 78 objects -- 78 routed, 78 searchable, 78 source-linked, 0 omitted
-- component: 78 objects -- 78 routed, 78 searchable, 78 source-linked, 0 omitted
+- command: 88 objects -- 88 routed, 88 searchable, 88 source-linked, 0 omitted
+- component: 88 objects -- 88 routed, 88 searchable, 88 source-linked, 0 omitted
 - concept: 11 objects -- 11 routed, 11 searchable, 11 source-linked, 0 omitted
-- coverage_gap: 2 objects -- 2 routed, 2 searchable, 2 source-linked, 0 omitted
+- coverage_gap: 3 objects -- 3 routed, 3 searchable, 3 source-linked, 0 omitted
 - evidence_class: 5 objects -- 5 routed, 5 searchable, 0 source-linked, 0 omitted
 - graph_node: 11 objects -- 11 routed, 11 searchable, 0 source-linked, 0 omitted
 - mechanism: 95 objects -- 95 routed, 95 searchable, 95 source-linked, 0 omitted
 - page: 13 objects -- 13 routed, 13 searchable, 0 source-linked, 0 omitted
-- paper_module: 93 objects -- 93 routed, 93 searchable, 93 source-linked, 0 omitted
+- paper_module: 103 objects -- 103 routed, 103 searchable, 103 source-linked, 0 omitted
 - principle: 20 objects -- 20 routed, 20 searchable, 20 source-linked, 0 omitted
-- relation: 208 objects -- 208 routed, 208 searchable, 0 source-linked, 0 omitted
+- relation: 239 objects -- 239 routed, 239 searchable, 0 source-linked, 0 omitted
 - source_ref: 163 objects -- 163 routed, 163 searchable, 163 source-linked, 0 omitted
 - standard: 1 objects -- 0 routed, 0 searchable, 0 source-linked, 1 omitted
 
@@ -60,6 +60,7 @@ These source-linked objects are routed and searchable without promoting them bey
 
 - [Component relation fill](docs/rules-and-ideas.html#coverage-gap-component-relation-fill)
 - [Mechanism relation fill](docs/rules-and-ideas.html#coverage-gap-mechanism-relation-fill)
+- [Paper module relation fill](docs/rules-and-ideas.html#coverage-gap-paper-module-relation-fill)
 
 
 ## Reader ladder (open in order of need)

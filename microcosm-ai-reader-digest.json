@@ -248,7 +248,7 @@
   "claim_ceiling_index": {
     "entries": [
       {
-        "component_count": 78,
+        "component_count": 88,
         "component_ids_in_full_map": true,
         "description": "Use only Plectis's public files, records, and source links for this claim; the public artifact does not stand in for any other system.",
         "example_component_ids": [
@@ -260,7 +260,7 @@
         "tag": "public_evidence_only"
       },
       {
-        "component_count": 78,
+        "component_count": 88,
         "component_ids_in_full_map": true,
         "description": "Plectis is not a hosted service; you run it locally.",
         "example_component_ids": [
@@ -272,7 +272,7 @@
         "tag": "not_hosted_service"
       },
       {
-        "component_count": 78,
+        "component_count": 88,
         "component_ids_in_full_map": true,
         "description": "Runs locally without external model access.",
         "example_component_ids": [
@@ -284,7 +284,7 @@
         "tag": "no_external_model_access"
       },
       {
-        "component_count": 78,
+        "component_count": 88,
         "component_ids_in_full_map": true,
         "description": "Running it writes into a .microcosm/ folder and does not change your source files.",
         "example_component_ids": [
@@ -308,7 +308,7 @@
         "tag": "not_whole_system_correctness"
       },
       {
-        "component_count": 65,
+        "component_count": 66,
         "component_ids_in_full_map": true,
         "description": "Use it as evidence-scope metadata, not as a launch decision.",
         "example_component_ids": [
@@ -336,9 +336,9 @@
         "component_ids_in_full_map": true,
         "description": "Use its bounded witness as local evidence, not theorem or proof-system correctness.",
         "example_component_ids": [
-          "proof_diagnostic_evidence_spine",
-          "formal_math_readiness_gate",
-          "corpus_readiness_mathlib_absence_gate"
+          "certificate_kernel_execution_lab",
+          "formal_math_lean_proof_witness",
+          "verifier_lab_execution_spine"
         ],
         "global_or_local": "local",
         "tag": "not_theorem_or_proof_authority"
@@ -348,9 +348,9 @@
         "component_ids_in_full_map": true,
         "description": "Benchmark-like rows are fixture evidence, not product performance.",
         "example_component_ids": [
-          "formal_math_readiness_gate",
-          "corpus_readiness_mathlib_absence_gate",
-          "tactic_portfolio_availability_probe"
+          "certificate_kernel_execution_lab",
+          "formal_math_lean_proof_witness",
+          "verifier_lab_execution_spine"
         ],
         "global_or_local": "local",
         "tag": "not_benchmark_claim"
@@ -361,8 +361,8 @@
         "description": "Uses synthetic or declared fixture data rather than live market data.",
         "example_component_ids": [
           "batch7_secondary_runtime_capsule",
-          "prediction_oracle_reconciliation",
-          "finance_forecast_evaluation_spine"
+          "finance_forecast_evaluation_spine",
+          "batch12_market_dashboard_read_model_capsule"
         ],
         "global_or_local": "local",
         "tag": "not_live_market_data"
@@ -864,6 +864,291 @@
         "public_evidence_only",
         "not_hosted_service",
         "no_external_model_access",
+        "no_source_file_changes"
+      ],
+      "command": "microcosm navigation-fitness-benchmark run --input fixtures/first_wave/navigation_fitness_benchmark/input --out receipts/first_wave/navigation_fitness_benchmark --acceptance-out receipts/acceptance/first_wave/navigation_fitness_benchmark_fixture_acceptance.json",
+      "component_detail_href": "docs/component-navigation-fitness-benchmark.html",
+      "evidence_kind": "Bounded runtime computation",
+      "family_id": "architecture_and_navigation",
+      "family_label": "Architecture & navigation",
+      "full_record_pointer": "/visible_text_index/logical_records/components/12",
+      "id": "navigation_fitness_benchmark",
+      "label": "Navigation Fitness Benchmark",
+      "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-navigation-fitness-benchmark.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-navigation-fitness-benchmark.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "source_link_count": 2,
+      "summary_line": "Measures a navigation result against its target for recall, precision, and speed on public examples.",
+      "tags": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes"
+      ],
+      "command": "microcosm annex-knowledge-routing run --input fixtures/first_wave/annex_knowledge_routing/input --out receipts/first_wave/annex_knowledge_routing --acceptance-out receipts/acceptance/first_wave/annex_knowledge_routing_fixture_acceptance.json",
+      "component_detail_href": "docs/component-annex-knowledge-routing.html",
+      "evidence_kind": "Bounded runtime computation",
+      "family_id": "architecture_and_navigation",
+      "family_label": "Architecture & navigation",
+      "full_record_pointer": "/visible_text_index/logical_records/components/13",
+      "id": "annex_knowledge_routing",
+      "label": "Reference Knowledge Routing",
+      "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-annex-knowledge-routing.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-annex-knowledge-routing.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "source_link_count": 2,
+      "summary_line": "Runs a keyword-overlap match that ranks catalog entries, shows why each matched, and admits when none do.",
+      "tags": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_launch_authority",
+        "not_theorem_or_proof_authority",
+        "not_benchmark_claim"
+      ],
+      "command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+      "component_detail_href": "docs/component-certificate-kernel-execution-lab.html",
+      "evidence_kind": "External tool run",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "full_record_pointer": "/visible_text_index/logical_records/components/14",
+      "id": "certificate_kernel_execution_lab",
+      "label": "Certificate Kernel Execution Lab",
+      "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-certificate-kernel-execution-lab.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-certificate-kernel-execution-lab.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
+      "source_link_count": 2,
+      "summary_line": "Runs the Lean verifier over a small public proof project and reports which rows it accepted.",
+      "tags": [
+        "formal-methods",
+        "theorem-proving",
+        "lean"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_whole_system_correctness",
+        "not_launch_authority",
+        "not_public_sharing_authority",
+        "not_theorem_or_proof_authority",
+        "not_benchmark_claim"
+      ],
+      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
+      "component_detail_href": "docs/component-formal-math-lean-proof-witness.html",
+      "evidence_kind": "External tool run",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "full_record_pointer": "/visible_text_index/logical_records/components/15",
+      "id": "formal_math_lean_proof_witness",
+      "label": "Formal Math Lean Proof Witness",
+      "links_to_count": 5,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-formal-math-lean-proof-witness.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-formal-math-lean-proof-witness.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It authorizes only a witness that a tiny declared public toy proof compiled under the locally installed Lean/Lake toolchain in a temporary workspace, plus confirmation that its leakage guardrails fired. It excludes Mathlib/Aesop/Batteries-dependent or general proof or theorem-program authority, external model access, private proof import, benchmark or performance claims, whole-system correctness, or any launch, hosted deployment, or public sharing.",
+      "source_link_count": 2,
+      "summary_line": "Compiles a tiny Lean example with the real prover and records whether it built, leaking no proof text.",
+      "tags": [
+        "formal-methods",
+        "theorem-proving",
+        "lean"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_launch_authority",
+        "not_public_sharing_authority",
+        "not_theorem_or_proof_authority",
+        "not_benchmark_claim"
+      ],
+      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.verifier_lab_execution_spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out .microcosm/verifier_lab_execution_spine",
+      "component_detail_href": "docs/component-verifier-lab-execution-spine.html",
+      "evidence_kind": "External tool run",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "full_record_pointer": "/visible_text_index/logical_records/components/16",
+      "id": "verifier_lab_execution_spine",
+      "label": "Verifier Lab Execution Spine",
+      "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-verifier-lab-execution-spine.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-verifier-lab-execution-spine.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It is a tool-witness result record for bounded public Lean transition rows only: it does not establish general proof authority, count oracle/provider output as proof, export proof bodies or tactic scripts, use external model services, change source files, claim benchmark solve-rates, or include launch operations/public sharing.",
+      "source_link_count": 2,
+      "summary_line": "Runs Lean on small bounded proof attempts in a temp copy and records what passed or failed.",
+      "tags": [
+        "formal-methods",
+        "theorem-proving",
+        "lean"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_launch_authority",
+        "not_public_sharing_authority",
+        "not_theorem_or_proof_authority",
+        "not_benchmark_claim"
+      ],
+      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
+      "component_detail_href": "docs/component-corpus-readiness-mathlib-absence-gate.html",
+      "evidence_kind": "External tool run",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "full_record_pointer": "/visible_text_index/logical_records/components/17",
+      "id": "corpus_readiness_mathlib_absence_gate",
+      "label": "Corpus Readiness Mathlib Absence Gate",
+      "links_to_count": 4,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-corpus-readiness-mathlib-absence-gate.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-corpus-readiness-mathlib-absence-gate.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It only projects and gate-checks recorded corpus/toolchain readiness accounting, re-verifies recorded source digests and leakage guards, and runs a bounded Lean/Lake import probe when a toolchain is present. It does not run a full Lake build, prove formal-result correctness, claim Mathlib is available beyond the probe result, benchmark corpora, score model performance, use external model services, or include launch operations or public sharing.",
+      "source_link_count": 2,
+      "summary_line": "Runs the real Lean toolchain to confirm the math library is absent, then gates proof tasks.",
+      "tags": [
+        "formal-methods",
+        "theorem-proving",
+        "lean"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_launch_authority",
+        "not_public_sharing_authority",
+        "not_benchmark_claim"
+      ],
+      "command": "microcosm batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch4-proof-authority-runtime.html",
+      "evidence_kind": "Verified source import",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "full_record_pointer": "/visible_text_index/logical_records/components/18",
+      "id": "batch4_proof_authority_runtime",
+      "label": "Proof / Control / Runtime Import Bundle",
+      "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch4-proof-authority-runtime.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": false,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": false,
+        "source_population_required": false
+      },
+      "rank": 5,
+      "relative_href": "docs/component-batch4-proof-authority-runtime.html",
+      "runs_real_tools": false,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It validates only a public source-open bundle and bounded negative fixtures; it is not an Erdos #257 solution, not benchmark evidence, not public sharing or launch-scope decision, not live Codex/browser/runtime authority, and not whole-system equivalence.",
+      "source_link_count": 2,
+      "summary_line": "Checks fourteen proof, control, and runtime parts as one unit that rejects every overclaim.",
+      "tags": [
+        "formal-methods",
+        "theorem-proving",
+        "lean"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
         "no_source_file_changes",
         "not_whole_system_correctness",
         "not_launch_authority",
@@ -875,7 +1160,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/12",
+      "full_record_pointer": "/visible_text_index/logical_records/components/19",
       "id": "proof_diagnostic_evidence_spine",
       "label": "Proof Diagnostic Evidence Spine",
       "links_to_count": 6,
@@ -915,7 +1200,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/13",
+      "full_record_pointer": "/visible_text_index/logical_records/components/20",
       "id": "formal_math_readiness_gate",
       "label": "Formal Math Readiness Gate",
       "links_to_count": 6,
@@ -948,48 +1233,6 @@
         "no_external_model_access",
         "no_source_file_changes",
         "not_launch_authority",
-        "not_public_sharing_authority",
-        "not_theorem_or_proof_authority",
-        "not_benchmark_claim"
-      ],
-      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.corpus_readiness_mathlib_absence_gate run --input fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input --out receipts/first_wave/corpus_readiness_mathlib_absence_gate",
-      "component_detail_href": "docs/component-corpus-readiness-mathlib-absence-gate.html",
-      "evidence_kind": "External tool run",
-      "family_id": "formal_math_and_proof",
-      "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/14",
-      "id": "corpus_readiness_mathlib_absence_gate",
-      "label": "Corpus Readiness Mathlib Absence Gate",
-      "links_to_count": 4,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-corpus-readiness-mathlib-absence-gate.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": true,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": true,
-        "source_population_required": false
-      },
-      "rank": 4,
-      "relative_href": "docs/component-corpus-readiness-mathlib-absence-gate.html",
-      "runs_real_tools": true,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It only projects and gate-checks recorded corpus/toolchain readiness accounting, re-verifies recorded source digests and leakage guards, and runs a bounded Lean/Lake import probe when a toolchain is present. It does not run a full Lake build, prove formal-result correctness, claim Mathlib is available beyond the probe result, benchmark corpora, score model performance, use external model services, or include launch operations or public sharing.",
-      "source_link_count": 2,
-      "summary_line": "Runs the real Lean toolchain to confirm the math library is absent, then gates proof tasks.",
-      "tags": [
-        "formal-methods",
-        "theorem-proving",
-        "lean"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes",
-        "not_launch_authority",
         "not_theorem_or_proof_authority"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.mathematical_strategy_atlas_hypothesis_scorer run --input fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input --out receipts/first_wave/mathematical_strategy_atlas_hypothesis_scorer",
@@ -997,7 +1240,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/15",
+      "full_record_pointer": "/visible_text_index/logical_records/components/21",
       "id": "mathematical_strategy_atlas_hypothesis_scorer",
       "label": "Mathematical Strategy Atlas Hypothesis Scorer",
       "links_to_count": 0,
@@ -1037,7 +1280,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/16",
+      "full_record_pointer": "/visible_text_index/logical_records/components/22",
       "id": "tactic_portfolio_availability_probe",
       "label": "Tactic Portfolio Availability Probe",
       "links_to_count": 5,
@@ -1077,7 +1320,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/17",
+      "full_record_pointer": "/visible_text_index/logical_records/components/23",
       "id": "target_shape_tactic_routing_gate",
       "label": "Target Shape Tactic Routing Gate",
       "links_to_count": 5,
@@ -1118,7 +1361,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/18",
+      "full_record_pointer": "/visible_text_index/logical_records/components/24",
       "id": "lean_std_premise_index",
       "label": "Lean Std Premise Index",
       "links_to_count": 4,
@@ -1159,7 +1402,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/19",
+      "full_record_pointer": "/visible_text_index/logical_records/components/25",
       "id": "formal_math_premise_retrieval",
       "label": "Formal Math Premise Retrieval",
       "links_to_count": 6,
@@ -1199,7 +1442,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/20",
+      "full_record_pointer": "/visible_text_index/logical_records/components/26",
       "id": "formal_math_verifier_trace_repair_loop",
       "label": "Formal Math Verifier Trace Repair Loop",
       "links_to_count": 5,
@@ -1240,7 +1483,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/21",
+      "full_record_pointer": "/visible_text_index/logical_records/components/27",
       "id": "formal_evidence_cell_anchor_resolver",
       "label": "Formal Evidence Cell Anchor Resolver",
       "links_to_count": 3,
@@ -1280,7 +1523,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/22",
+      "full_record_pointer": "/visible_text_index/logical_records/components/28",
       "id": "undeclared_library_prior_symbol_classifier",
       "label": "Undeclared Library Prior Symbol Classifier",
       "links_to_count": 3,
@@ -1320,7 +1563,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/23",
+      "full_record_pointer": "/visible_text_index/logical_records/components/29",
       "id": "ring2_premise_retrieval_precision_recall_harness",
       "label": "Ring2 Premise Retrieval Precision Recall Harness",
       "links_to_count": 2,
@@ -1352,49 +1595,6 @@
         "not_hosted_service",
         "no_external_model_access",
         "no_source_file_changes",
-        "not_whole_system_correctness",
-        "not_launch_authority",
-        "not_public_sharing_authority",
-        "not_theorem_or_proof_authority",
-        "not_benchmark_claim"
-      ],
-      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.formal_math_lean_proof_witness run --input fixtures/first_wave/formal_math_lean_proof_witness/input --out receipts/first_wave/formal_math_lean_proof_witness",
-      "component_detail_href": "docs/component-formal-math-lean-proof-witness.html",
-      "evidence_kind": "External tool run",
-      "family_id": "formal_math_and_proof",
-      "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/24",
-      "id": "formal_math_lean_proof_witness",
-      "label": "Formal Math Lean Proof Witness",
-      "links_to_count": 5,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-formal-math-lean-proof-witness.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": true,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": true,
-        "source_population_required": false
-      },
-      "rank": 4,
-      "relative_href": "docs/component-formal-math-lean-proof-witness.html",
-      "runs_real_tools": true,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It authorizes only a witness that a tiny declared public toy proof compiled under the locally installed Lean/Lake toolchain in a temporary workspace, plus confirmation that its leakage guardrails fired. It excludes Mathlib/Aesop/Batteries-dependent or general proof or theorem-program authority, external model access, private proof import, benchmark or performance claims, whole-system correctness, or any launch, hosted deployment, or public sharing.",
-      "source_link_count": 2,
-      "summary_line": "Compiles a tiny Lean example with the real prover and records whether it built, leaking no proof text.",
-      "tags": [
-        "formal-methods",
-        "theorem-proving",
-        "lean"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes",
         "not_launch_authority",
         "not_theorem_or_proof_authority",
         "not_benchmark_claim"
@@ -1404,7 +1604,7 @@
       "evidence_kind": "Contract validator",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/25",
+      "full_record_pointer": "/visible_text_index/logical_records/components/30",
       "id": "verifier_lab_kernel",
       "label": "Verifier Lab Kernel",
       "links_to_count": 10,
@@ -1437,130 +1637,6 @@
         "no_external_model_access",
         "no_source_file_changes",
         "not_launch_authority",
-        "not_public_sharing_authority",
-        "not_theorem_or_proof_authority",
-        "not_benchmark_claim"
-      ],
-      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.verifier_lab_execution_spine run --input fixtures/first_wave/verifier_lab_execution_spine/input --out .microcosm/verifier_lab_execution_spine",
-      "component_detail_href": "docs/component-verifier-lab-execution-spine.html",
-      "evidence_kind": "External tool run",
-      "family_id": "formal_math_and_proof",
-      "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/26",
-      "id": "verifier_lab_execution_spine",
-      "label": "Verifier Lab Execution Spine",
-      "links_to_count": 2,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-verifier-lab-execution-spine.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": true,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": true,
-        "source_population_required": false
-      },
-      "rank": 4,
-      "relative_href": "docs/component-verifier-lab-execution-spine.html",
-      "runs_real_tools": true,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It is a tool-witness result record for bounded public Lean transition rows only: it does not establish general proof authority, count oracle/provider output as proof, export proof bodies or tactic scripts, use external model services, change source files, claim benchmark solve-rates, or include launch operations/public sharing.",
-      "source_link_count": 2,
-      "summary_line": "Runs Lean on small bounded proof attempts in a temp copy and records what passed or failed.",
-      "tags": [
-        "formal-methods",
-        "theorem-proving",
-        "lean"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes",
-        "not_launch_authority",
-        "not_theorem_or_proof_authority",
-        "not_benchmark_claim"
-      ],
-      "command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
-      "component_detail_href": "docs/component-certificate-kernel-execution-lab.html",
-      "evidence_kind": "External tool run",
-      "family_id": "formal_math_and_proof",
-      "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/27",
-      "id": "certificate_kernel_execution_lab",
-      "label": "Certificate Kernel Execution Lab",
-      "links_to_count": 0,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-certificate-kernel-execution-lab.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": true,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": true,
-        "source_population_required": false
-      },
-      "rank": 4,
-      "relative_href": "docs/component-certificate-kernel-execution-lab.html",
-      "runs_real_tools": true,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
-      "source_link_count": 2,
-      "summary_line": "Runs the Lean verifier over a small public proof project and reports which rows it accepted.",
-      "tags": [
-        "formal-methods",
-        "theorem-proving",
-        "lean"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes",
-        "not_launch_authority",
-        "not_public_sharing_authority",
-        "not_benchmark_claim"
-      ],
-      "command": "microcosm batch4-proof-authority-runtime run --input fixtures/first_wave/batch4_proof_authority_runtime/input --out receipts/first_wave/batch4_proof_authority_runtime --acceptance-out receipts/acceptance/first_wave/batch4_proof_authority_runtime_fixture_acceptance.json",
-      "component_detail_href": "docs/component-batch4-proof-authority-runtime.html",
-      "evidence_kind": "Verified source import",
-      "family_id": "formal_math_and_proof",
-      "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/28",
-      "id": "batch4_proof_authority_runtime",
-      "label": "Proof / Control / Runtime Import Bundle",
-      "links_to_count": 0,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-batch4-proof-authority-runtime.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": false,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": false,
-        "source_population_required": false
-      },
-      "rank": 5,
-      "relative_href": "docs/component-batch4-proof-authority-runtime.html",
-      "runs_real_tools": false,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It validates only a public source-open bundle and bounded negative fixtures; it is not an Erdos #257 solution, not benchmark evidence, not public sharing or launch-scope decision, not live Codex/browser/runtime authority, and not whole-system equivalence.",
-      "source_link_count": 2,
-      "summary_line": "Checks fourteen proof, control, and runtime parts as one unit that rejects every overclaim.",
-      "tags": [
-        "formal-methods",
-        "theorem-proving",
-        "lean"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes",
-        "not_launch_authority",
         "not_benchmark_claim"
       ],
       "command": "PYTHONPATH=src python3 -m microcosm_core.organs.proof_derived_governed_mutation_authorization run --input fixtures/first_wave/proof_derived_governed_mutation_authorization/input --out receipts/first_wave/proof_derived_governed_mutation_authorization --acceptance-out receipts/acceptance/first_wave/proof_derived_governed_mutation_authorization_fixture_acceptance.json",
@@ -1568,7 +1644,7 @@
       "evidence_kind": "Contract validator",
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
-      "full_record_pointer": "/visible_text_index/logical_records/components/29",
+      "full_record_pointer": "/visible_text_index/logical_records/components/31",
       "id": "proof_derived_governed_mutation_authorization",
       "label": "Proof Derived Governed Mutation Authorization",
       "links_to_count": 3,
@@ -1599,35 +1675,187 @@
         "public_evidence_only",
         "not_hosted_service",
         "no_external_model_access",
-        "no_source_file_changes",
-        "not_launch_authority",
-        "not_benchmark_claim"
+        "no_source_file_changes"
       ],
-      "command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
-      "component_detail_href": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
-      "evidence_kind": "Computed projection",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/30",
-      "id": "agent_benchmark_integrity_anti_gaming_replay",
-      "label": "Agent Benchmark Integrity Anti Gaming Replay",
-      "links_to_count": 2,
+      "command": "microcosm finite-erdos-denominator-certificate-strike run --input fixtures/first_wave/finite_erdos_denominator_certificate_strike/input --out receipts/first_wave/finite_erdos_denominator_certificate_strike --acceptance-out receipts/acceptance/first_wave/finite_erdos_denominator_certificate_strike_fixture_acceptance.json",
+      "component_detail_href": "docs/component-finite-erdos-denominator-certificate-strike.html",
+      "evidence_kind": "Bounded runtime computation",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "full_record_pointer": "/visible_text_index/logical_records/components/32",
+      "id": "finite_erdos_denominator_certificate_strike",
+      "label": "Finite Erdos Denominator-Order Certificate Strike",
+      "links_to_count": 3,
       "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
+      "primary_reader_href": "docs/paper-module-finite-erdos-denominator-certificate-strike.html",
       "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": false,
+        "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
         "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": false,
+        "runs_real_tools_now_from_current_public_artifact": true,
         "source_population_required": false
       },
-      "rank": 3,
-      "relative_href": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
-      "runs_real_tools": false,
+      "rank": 4,
+      "relative_href": "docs/component-finite-erdos-denominator-certificate-strike.html",
+      "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and metadata-only benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
+      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
       "source_link_count": 2,
-      "summary_line": "Validates a synthetic benchmark-integrity record and flags the contamination cases it declares.",
+      "summary_line": "Computes an exact-arithmetic denominator-order identity and catches forged ones, not the open Erdos problem.",
+      "tags": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes"
+      ],
+      "command": "microcosm lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+      "component_detail_href": "docs/component-lean-proof-search-lab-runtime.html",
+      "evidence_kind": "External tool run",
+      "family_id": "formal_math_and_proof",
+      "family_label": "Formal math & proof",
+      "full_record_pointer": "/visible_text_index/logical_records/components/33",
+      "id": "lean_proof_search_lab_runtime",
+      "label": "Lean Proof-Search Lab Runtime",
+      "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-lean-proof-search-lab-runtime.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-lean-proof-search-lab-runtime.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "source_link_count": 2,
+      "summary_line": "Finds tactic scripts the real Lean prover accepts on toy theorems, and refuses proofs that cheat.",
+      "tags": [
+        "formal-math",
+        "theorem-proving",
+        "proof-search"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes"
+      ],
+      "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "component_detail_href": "docs/component-agent-closeout-faithfulness-audit.html",
+      "evidence_kind": "External tool run",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "full_record_pointer": "/visible_text_index/logical_records/components/34",
+      "id": "agent_closeout_faithfulness_audit",
+      "label": "Agent Completion Faithfulness Audit",
+      "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-agent-closeout-faithfulness-audit.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-agent-closeout-faithfulness-audit.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+      "source_link_count": 2,
+      "summary_line": "Runs real git and pytest on a sample repo so wrap-up claims state only what the evidence proves.",
+      "tags": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes"
+      ],
+      "command": "microcosm bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet",
+      "component_detail_href": "docs/component-bounded-autonomy-campaign-packet.html",
+      "evidence_kind": "External tool run",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "full_record_pointer": "/visible_text_index/logical_records/components/35",
+      "id": "bounded_autonomy_campaign_packet",
+      "label": "Bounded Autonomy Campaign Packet",
+      "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-bounded-autonomy-campaign-packet.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-bounded-autonomy-campaign-packet.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "self-proposal campaign packet only; no self-repair or unsupervised source-file changes",
+      "source_link_count": 2,
+      "summary_line": "Drafts proposed work from coverage gaps and proves it cannot repair or rewrite the code itself.",
+      "tags": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_launch_authority",
+        "not_theorem_or_proof_authority"
+      ],
+      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
+      "component_detail_href": "docs/component-provider-context-recipe-budget-policy.html",
+      "evidence_kind": "Bounded runtime computation",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "full_record_pointer": "/visible_text_index/logical_records/components/36",
+      "id": "provider_context_recipe_budget_policy",
+      "label": "Provider Context Recipe Budget Policy",
+      "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-provider-context-recipe-budget.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-provider-context-recipe-budget-policy.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It validates context-budget projection mechanics (byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, and digest-checked source-body imports) only. It excludes provider/API calls, run Lean/Lake, expose or carry proof or oracle truth-side material, assert theorem or domain-level conclusions, or include launch operations.",
+      "source_link_count": 2,
+      "summary_line": "Runs the real context harness to measure assembled byte sizes and check each bundle fits its budget.",
       "tags": [
         "ai-safety",
         "agent-evaluation",
@@ -1649,7 +1877,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/31",
+      "full_record_pointer": "/visible_text_index/logical_records/components/37",
       "id": "batch10_cold_eval_honesty_capsule",
       "label": "Cold Evaluation Honesty Bundle",
       "links_to_count": 0,
@@ -1689,7 +1917,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/32",
+      "full_record_pointer": "/visible_text_index/logical_records/components/38",
       "id": "batch8_validator_checker_capsule",
       "label": "Validator Checker Bundle",
       "links_to_count": 2,
@@ -1721,6 +1949,88 @@
         "not_hosted_service",
         "no_external_model_access",
         "no_source_file_changes",
+        "not_whole_system_correctness",
+        "not_launch_authority",
+        "not_public_sharing_authority",
+        "not_live_market_data"
+      ],
+      "command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
+      "component_detail_href": "docs/component-batch7-secondary-runtime-capsule.html",
+      "evidence_kind": "Verified source import",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "full_record_pointer": "/visible_text_index/logical_records/components/39",
+      "id": "batch7_secondary_runtime_capsule",
+      "label": "Secondary Runtime Source Bundle",
+      "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch7-secondary-runtime-capsule.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": false,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": false,
+        "source_population_required": false
+      },
+      "rank": 5,
+      "relative_href": "docs/component-batch7-secondary-runtime-capsule.html",
+      "runs_real_tools": false,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "verified source body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, whole-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
+      "source_link_count": 2,
+      "summary_line": "Runs eight trace, graph, and market engines on test rows without fetching live markets.",
+      "tags": [
+        "source intake",
+        "provenance",
+        "drift-control"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_launch_authority",
+        "not_benchmark_claim"
+      ],
+      "command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
+      "component_detail_href": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+      "evidence_kind": "Computed projection",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "full_record_pointer": "/visible_text_index/logical_records/components/40",
+      "id": "agent_benchmark_integrity_anti_gaming_replay",
+      "label": "Agent Benchmark Integrity Anti Gaming Replay",
+      "links_to_count": 2,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-agent-benchmark-integrity-anti-gaming-replay.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": false,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": false,
+        "source_population_required": false
+      },
+      "rank": 3,
+      "relative_href": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+      "runs_real_tools": false,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and metadata-only benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
+      "source_link_count": 2,
+      "summary_line": "Validates a synthetic benchmark-integrity record and flags the contamination cases it declares.",
+      "tags": [
+        "ai-safety",
+        "agent-evaluation",
+        "red-teaming"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
         "not_launch_authority",
         "not_public_sharing_authority",
         "not_benchmark_claim"
@@ -1730,9 +2040,9 @@
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/33",
+      "full_record_pointer": "/visible_text_index/logical_records/components/41",
       "id": "agent_monitor_redteam_falsification_replay",
-      "label": "Agent Monitor Redteam Falsification Replay",
+      "label": "Monitor Evidence-Boundary Replay",
       "links_to_count": 1,
       "map_primary_click_policy": "prefer_primary_reader_href",
       "primary_reader_href": "docs/paper-module-agent-monitor-redteam-falsification-replay.html",
@@ -1771,9 +2081,9 @@
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/34",
+      "full_record_pointer": "/visible_text_index/logical_records/components/42",
       "id": "agent_sabotage_scheming_monitor_replay",
-      "label": "Agent Sabotage Scheming Monitor Replay",
+      "label": "Sabotage-Monitor Contract Replay",
       "links_to_count": 0,
       "map_primary_click_policy": "prefer_primary_reader_href",
       "primary_reader_href": "docs/paper-module-agent-sabotage-scheming-monitor-replay.html",
@@ -1810,7 +2120,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/35",
+      "full_record_pointer": "/visible_text_index/logical_records/components/43",
       "id": "agent_memory_temporal_conflict_replay",
       "label": "Agent Memory Temporal Conflict Replay",
       "links_to_count": 1,
@@ -1850,9 +2160,9 @@
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/36",
+      "full_record_pointer": "/visible_text_index/logical_records/components/44",
       "id": "sleeper_memory_poisoning_quarantine_replay",
-      "label": "Sleeper Memory Poisoning Quarantine Replay",
+      "label": "Memory-Poisoning Quarantine Policy Replay",
       "links_to_count": 0,
       "map_primary_click_policy": "prefer_primary_reader_href",
       "primary_reader_href": "docs/paper-module-sleeper-memory-poisoning-quarantine-replay.html",
@@ -1890,9 +2200,9 @@
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/37",
+      "full_record_pointer": "/visible_text_index/logical_records/components/45",
       "id": "mcp_tool_authority_replay",
-      "label": "MCP Tool Authority Replay",
+      "label": "MCP Tool-Authority Policy Replay",
       "links_to_count": 2,
       "map_primary_click_policy": "prefer_primary_reader_href",
       "primary_reader_href": "docs/paper-module-mcp-tool-authority-replay.html",
@@ -1930,9 +2240,9 @@
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/38",
+      "full_record_pointer": "/visible_text_index/logical_records/components/46",
       "id": "belief_state_process_reward_replay",
-      "label": "Belief State Process Reward Replay",
+      "label": "Belief-State Reward Bundle Replay",
       "links_to_count": 0,
       "map_primary_click_policy": "prefer_primary_reader_href",
       "primary_reader_href": "docs/paper-module-belief-state-process-reward-replay.html",
@@ -1971,9 +2281,9 @@
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/39",
+      "full_record_pointer": "/visible_text_index/logical_records/components/47",
       "id": "agent_sandbox_policy_escape_replay",
-      "label": "Agent Sandbox Policy Escape Replay",
+      "label": "Sandbox-Policy Replay",
       "links_to_count": 1,
       "map_primary_click_policy": "prefer_primary_reader_href",
       "primary_reader_href": "docs/paper-module-agent-sandbox-policy-escape-replay.html",
@@ -2011,9 +2321,9 @@
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/40",
+      "full_record_pointer": "/visible_text_index/logical_records/components/48",
       "id": "indirect_prompt_injection_information_flow_policy_replay",
-      "label": "Indirect Prompt Injection Information Flow Policy Replay",
+      "label": "Prompt-Injection Flow-Policy Replay",
       "links_to_count": 0,
       "map_primary_click_policy": "prefer_primary_reader_href",
       "primary_reader_href": "docs/paper-module-indirect-prompt-injection-information-flow-policy-replay.html",
@@ -2052,9 +2362,9 @@
       "evidence_kind": "Computed projection",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/41",
+      "full_record_pointer": "/visible_text_index/logical_records/components/49",
       "id": "agentic_vulnerability_discovery_patch_proof_replay",
-      "label": "Agentic Vulnerability Discovery Patch Proof Replay",
+      "label": "Vulnerability Patch-Proof Replay",
       "links_to_count": 0,
       "map_primary_click_policy": "prefer_primary_reader_href",
       "primary_reader_href": "docs/paper-module-agentic-vulnerability-discovery-patch-proof-replay.html",
@@ -2091,7 +2401,7 @@
       "evidence_kind": "Contract validator",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/42",
+      "full_record_pointer": "/visible_text_index/logical_records/components/50",
       "id": "agent_route_observability_runtime",
       "label": "Agent Route Observability Runtime",
       "links_to_count": 15,
@@ -2122,354 +2432,113 @@
         "public_evidence_only",
         "not_hosted_service",
         "no_external_model_access",
-        "no_source_file_changes",
-        "not_launch_authority",
-        "not_theorem_or_proof_authority"
+        "no_source_file_changes"
       ],
-      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.provider_context_recipe_budget_policy run --input fixtures/first_wave/provider_context_recipe_budget_policy/input --out receipts/first_wave/provider_context_recipe_budget_policy",
-      "component_detail_href": "docs/component-provider-context-recipe-budget-policy.html",
+      "command": "microcosm bridge-campaign-dag-validation run --input fixtures/first_wave/bridge_campaign_dag_validation/input --out receipts/first_wave/bridge_campaign_dag_validation --acceptance-out receipts/acceptance/first_wave/bridge_campaign_dag_validation_fixture_acceptance.json",
+      "component_detail_href": "docs/component-bridge-campaign-dag-validation.html",
       "evidence_kind": "Bounded runtime computation",
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/43",
-      "id": "provider_context_recipe_budget_policy",
-      "label": "Provider Context Recipe Budget Policy",
-      "links_to_count": 2,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-provider-context-recipe-budget.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": true,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": true,
-        "source_population_required": false
-      },
-      "rank": 4,
-      "relative_href": "docs/component-provider-context-recipe-budget-policy.html",
-      "runs_real_tools": true,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It validates context-budget projection mechanics (byte ceilings, ordered section fill, omitted-section manifests, deliverable routing, and digest-checked source-body imports) only. It excludes provider/API calls, run Lean/Lake, expose or carry proof or oracle truth-side material, assert theorem or domain-level conclusions, or include launch operations.",
-      "source_link_count": 2,
-      "summary_line": "Runs the real context harness to measure assembled byte sizes and check each bundle fits its budget.",
-      "tags": [
-        "ai-safety",
-        "agent-evaluation",
-        "red-teaming"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes"
-      ],
-      "command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
-      "component_detail_href": "docs/component-agent-closeout-faithfulness-audit.html",
-      "evidence_kind": "External tool run",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/44",
-      "id": "agent_closeout_faithfulness_audit",
-      "label": "Agent Completion Faithfulness Audit",
-      "links_to_count": 0,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-agent-closeout-faithfulness-audit.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": true,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": true,
-        "source_population_required": false
-      },
-      "rank": 4,
-      "relative_href": "docs/component-agent-closeout-faithfulness-audit.html",
-      "runs_real_tools": true,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
-      "source_link_count": 2,
-      "summary_line": "Runs real git and pytest on a sample repo so wrap-up claims state only what the evidence proves.",
-      "tags": [
-        "ai-safety",
-        "agent-evaluation",
-        "red-teaming"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes"
-      ],
-      "command": "microcosm bounded-autonomy-campaign-packet run --input fixtures/first_wave/bounded_autonomy_campaign_packet/input --out receipts/first_wave/bounded_autonomy_campaign_packet",
-      "component_detail_href": "docs/component-bounded-autonomy-campaign-packet.html",
-      "evidence_kind": "External tool run",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/45",
-      "id": "bounded_autonomy_campaign_packet",
-      "label": "Bounded Autonomy Campaign Packet",
-      "links_to_count": 0,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-bounded-autonomy-campaign-packet.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": true,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": true,
-        "source_population_required": false
-      },
-      "rank": 4,
-      "relative_href": "docs/component-bounded-autonomy-campaign-packet.html",
-      "runs_real_tools": true,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "self-proposal campaign packet only; no self-repair or unsupervised source-file changes",
-      "source_link_count": 2,
-      "summary_line": "Drafts proposed work from coverage gaps and proves it cannot repair or rewrite the code itself.",
-      "tags": [
-        "ai-safety",
-        "agent-evaluation",
-        "red-teaming"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes",
-        "not_whole_system_correctness",
-        "not_launch_authority",
-        "not_public_sharing_authority",
-        "not_live_market_data"
-      ],
-      "command": "microcosm batch7-secondary-runtime-capsule run --input fixtures/first_wave/batch7_secondary_runtime_capsule/input --out receipts/first_wave/batch7_secondary_runtime_capsule --acceptance-out receipts/acceptance/first_wave/batch7_secondary_runtime_capsule_fixture_acceptance.json",
-      "component_detail_href": "docs/component-batch7-secondary-runtime-capsule.html",
-      "evidence_kind": "Verified source import",
-      "family_id": "agent_reliability_and_safety",
-      "family_label": "Agent reliability & safety",
-      "full_record_pointer": "/visible_text_index/logical_records/components/46",
-      "id": "batch7_secondary_runtime_capsule",
-      "label": "Secondary Runtime Source Bundle",
-      "links_to_count": 0,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-batch7-secondary-runtime-capsule.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": false,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": false,
-        "source_population_required": false
-      },
-      "rank": 5,
-      "relative_href": "docs/component-batch7-secondary-runtime-capsule.html",
-      "runs_real_tools": false,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "verified source body import only; no browser/session export, wallet authority, live market data, investment-related actions, external model access, source-file changes, whole-system equivalence, public sharing, launch, semantic-truth, or whole-system correctness claim",
-      "source_link_count": 2,
-      "summary_line": "Runs eight trace, graph, and market engines on test rows without fetching live markets.",
-      "tags": [
-        "source intake",
-        "provenance",
-        "drift-control"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes",
-        "not_launch_authority",
-        "not_public_sharing_authority",
-        "not_benchmark_claim"
-      ],
-      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay",
-      "component_detail_href": "docs/component-research-replication-rubric-artifact-replay.html",
-      "evidence_kind": "Computed projection",
-      "family_id": "research_and_science_replays",
-      "family_label": "Research & science",
-      "full_record_pointer": "/visible_text_index/logical_records/components/47",
-      "id": "research_replication_rubric_artifact_replay",
-      "label": "Research Replication Rubric Artifact Replay",
-      "links_to_count": 5,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-research-replication-rubric-artifact-replay.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": false,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": false,
-        "source_population_required": false
-      },
-      "rank": 3,
-      "relative_href": "docs/component-research-replication-rubric-artifact-replay.html",
-      "runs_real_tools": false,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It validates the shape and presence of synthetic replay metadata and result record references only - it does not run any experiment, metric script, or rerun, excludes any claim that a paper was actually replicated, that a benchmark claims was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes public sharing or launch.",
-      "source_link_count": 2,
-      "summary_line": "Audits whether a paper-replication claim carries the full evidence trail.",
-      "tags": [
-        "research-workflows",
-        "forecasting",
-        "provider operations"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes"
-      ],
-      "command": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",
-      "component_detail_href": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
-      "evidence_kind": "Contract validator",
-      "family_id": "research_and_science_replays",
-      "family_label": "Research & science",
-      "full_record_pointer": "/visible_text_index/logical_records/components/48",
-      "id": "spatial_world_model_counterfactual_simulation_replay",
-      "label": "Spatial World Model Counterfactual Simulation Replay",
-      "links_to_count": 0,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": false,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": false,
-        "source_population_required": false
-      },
-      "rank": 4,
-      "relative_href": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
-      "runs_real_tools": false,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows. It is evidence for inspectable replay rows and limitation labels, not for real-world spatial accuracy, simulator-product validity, media-only authority, operational deployment, service distribution, or scope decisions.",
-      "source_link_count": 2,
-      "summary_line": "Replays six what-if robotics scenes to show what a spatial prediction claim is built from.",
-      "tags": [
-        "research-workflows",
-        "forecasting"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes",
-        "not_benchmark_claim"
-      ],
-      "command": "microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
-      "component_detail_href": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
-      "evidence_kind": "Computed projection",
-      "family_id": "research_and_science_replays",
-      "family_label": "Research & science",
-      "full_record_pointer": "/visible_text_index/logical_records/components/49",
-      "id": "materials_chemistry_closed_loop_lab_safety_replay",
-      "label": "Materials Chemistry Closed Loop Lab Safety Replay",
-      "links_to_count": 1,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": false,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": false,
-        "source_population_required": false
-      },
-      "rank": 3,
-      "relative_href": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
-      "runs_real_tools": false,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It documents projection and replay mechanics only and excludes wetlab protocols, hazardous synthesis steps, reagent amounts, controlled/bioactive targets, robot commands, live assay data, discovery claims, benchmark claims, external model access, or any judgment of domain/chemical correctness.",
-      "source_link_count": 2,
-      "summary_line": "Replays a self-driving lab loop as records, with safety gates and no real chemicals, robot, or lab.",
-      "tags": [
-        "research-workflows",
-        "forecasting"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes",
-        "not_launch_authority",
-        "not_public_sharing_authority",
-        "not_benchmark_claim"
-      ],
-      "command": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
-      "component_detail_href": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
-      "evidence_kind": "Contract validator",
-      "family_id": "research_and_science_replays",
-      "family_label": "Research & science",
-      "full_record_pointer": "/visible_text_index/logical_records/components/50",
-      "id": "mechanistic_interpretability_circuit_attribution_replay",
-      "label": "Mechanistic Interpretability Circuit Attribution Replay",
-      "links_to_count": 0,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": false,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": false,
-        "source_population_required": false
-      },
-      "rank": 4,
-      "relative_href": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
-      "runs_real_tools": false,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It validates only the declared public circuit-attribution runtime-result record contract. It excludes model-transparency product claims, live model access, export of private weights/raw activations/proprietary prompts/hidden chain-of-thought, external model access, benchmark claims, or public sharing/launch.",
-      "source_link_count": 2,
-      "summary_line": "Records which model features drove an answer, each tied to checkable evidence.",
-      "tags": [
-        "research-workflows",
-        "forecasting",
-        "provider operations"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes",
-        "not_launch_authority",
-        "not_live_market_data"
-      ],
-      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
-      "component_detail_href": "docs/component-prediction-oracle-reconciliation.html",
-      "evidence_kind": "Computed projection",
-      "family_id": "research_and_science_replays",
-      "family_label": "Research & science",
       "full_record_pointer": "/visible_text_index/logical_records/components/51",
-      "id": "prediction_oracle_reconciliation",
-      "label": "Prediction Oracle Reconciliation",
+      "id": "bridge_campaign_dag_validation",
+      "label": "Bridge Campaign DAG Validation",
       "links_to_count": 3,
       "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-prediction-oracle-reconciliation.html",
+      "primary_reader_href": "docs/paper-module-bridge-campaign-dag-validation.html",
       "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": false,
+        "intrinsic_populated_source_runs_real_tools": true,
         "release_mode": "populated_source_release",
         "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": false,
+        "runs_real_tools_now_from_current_public_artifact": true,
         "source_population_required": false
       },
-      "rank": 3,
-      "relative_href": "docs/component-prediction-oracle-reconciliation.html",
-      "runs_real_tools": false,
+      "rank": 4,
+      "relative_href": "docs/component-bridge-campaign-dag-validation.html",
+      "runs_real_tools": true,
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "It exercises projection mechanics on a synthetic, invented packet only. It does not establish forecasting correctness or accuracy, give trading/financial/investment-related actions, call live market data or providers, publish predictions, claim any performance or track record, import non-public data, or include launch operations.",
+      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
       "source_link_count": 2,
-      "summary_line": "Replays a forecast against the discipline a careful predictor would have to defend.",
+      "summary_line": "Runs shape checks on a fan-out work plan for unique steps, dependencies, and no cycles, not the plan itself.",
       "tags": [
-        "research-workflows",
-        "forecasting",
-        "provider operations"
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes"
+      ],
+      "command": "microcosm metabolism-queue-reconciliation run --input fixtures/first_wave/metabolism_queue_reconciliation/input --out receipts/first_wave/metabolism_queue_reconciliation --acceptance-out receipts/acceptance/first_wave/metabolism_queue_reconciliation_fixture_acceptance.json",
+      "component_detail_href": "docs/component-metabolism-queue-reconciliation.html",
+      "evidence_kind": "Bounded runtime computation",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "full_record_pointer": "/visible_text_index/logical_records/components/52",
+      "id": "metabolism_queue_reconciliation",
+      "label": "Metabolism Queue Reconciliation",
+      "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-metabolism-queue-reconciliation.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-metabolism-queue-reconciliation.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "source_link_count": 2,
+      "summary_line": "Runs a scratch-database model of a durable job queue and flags impossible states for a human to review.",
+      "tags": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes"
+      ],
+      "command": "microcosm egress-self-compliance-audit run --input fixtures/first_wave/egress_self_compliance_audit/input --out receipts/first_wave/egress_self_compliance_audit --acceptance-out receipts/acceptance/first_wave/egress_self_compliance_audit_fixture_acceptance.json",
+      "component_detail_href": "docs/component-egress-self-compliance-audit.html",
+      "evidence_kind": "Bounded runtime computation",
+      "family_id": "agent_reliability_and_safety",
+      "family_label": "Agent reliability & safety",
+      "full_record_pointer": "/visible_text_index/logical_records/components/53",
+      "id": "egress_self_compliance_audit",
+      "label": "Egress Self-Compliance Audit",
+      "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-egress-self-compliance-audit.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-egress-self-compliance-audit.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "source_link_count": 2,
+      "summary_line": "Runs phrase-membership checks on an agent's own replies for three self-policing slips, not deep meaning.",
+      "tags": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic"
       ]
     },
     {
@@ -2485,7 +2554,7 @@
       "evidence_kind": "External tool run",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
-      "full_record_pointer": "/visible_text_index/logical_records/components/52",
+      "full_record_pointer": "/visible_text_index/logical_records/components/54",
       "id": "finance_forecast_evaluation_spine",
       "label": "Finance Forecast Evaluation Spine",
       "links_to_count": 2,
@@ -2517,47 +2586,6 @@
         "not_hosted_service",
         "no_external_model_access",
         "no_source_file_changes",
-        "not_whole_system_correctness",
-        "not_launch_authority",
-        "not_live_market_data"
-      ],
-      "command": "microcosm batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule",
-      "component_detail_href": "docs/component-batch12-market-dashboard-read-model-capsule.html",
-      "evidence_kind": "Verified source import",
-      "family_id": "research_and_science_replays",
-      "family_label": "Research & science",
-      "full_record_pointer": "/visible_text_index/logical_records/components/53",
-      "id": "batch12_market_dashboard_read_model_capsule",
-      "label": "Market Dashboard Read-Model Bundle",
-      "links_to_count": 1,
-      "map_primary_click_policy": "prefer_primary_reader_href",
-      "primary_reader_href": "docs/paper-module-batch12-market-dashboard-read-model-capsule.html",
-      "public_runtime": {
-        "intrinsic_populated_source_runs_real_tools": false,
-        "release_mode": "populated_source_release",
-        "runnable_from_current_public_artifact": true,
-        "runs_real_tools_now_from_current_public_artifact": false,
-        "source_population_required": false
-      },
-      "rank": 5,
-      "relative_href": "docs/component-batch12-market-dashboard-read-model-capsule.html",
-      "runs_real_tools": false,
-      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
-      "scope_limit": "This is fixture-bound read-model, freshness, and relation-grouping evidence only; it is not live market-level conclusions, not investment-related actions, not external model access, not launch-scope decision, and not whole-system correctness.",
-      "source_link_count": 2,
-      "summary_line": "Runs a copied market-dashboard reader to catch broken links, stale feeds, and trading overclaims.",
-      "tags": [
-        "research-workflows",
-        "forecasting",
-        "finance"
-      ]
-    },
-    {
-      "claim_ceiling_tags": [
-        "public_evidence_only",
-        "not_hosted_service",
-        "no_external_model_access",
-        "no_source_file_changes",
         "not_launch_authority"
       ],
       "command": "microcosm batch12-prediction-market-board-capsule run-prediction-market-board-bundle --input examples/batch12_prediction_market_board_capsule/exported_batch12_prediction_market_board_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_prediction_market_board_capsule",
@@ -2565,7 +2593,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
-      "full_record_pointer": "/visible_text_index/logical_records/components/54",
+      "full_record_pointer": "/visible_text_index/logical_records/components/55",
       "id": "batch12_prediction_market_board_capsule",
       "label": "Prediction Market Board Bundle",
       "links_to_count": 1,
@@ -2599,6 +2627,282 @@
         "no_source_file_changes",
         "not_whole_system_correctness",
         "not_launch_authority",
+        "not_live_market_data"
+      ],
+      "command": "microcosm batch12-market-dashboard-read-model-capsule run-market-dashboard-bundle --input examples/batch12_market_dashboard_read_model_capsule/exported_batch12_market_dashboard_read_model_capsule_bundle --out receipts/runtime_shell/demo_project/organs/batch12_market_dashboard_read_model_capsule",
+      "component_detail_href": "docs/component-batch12-market-dashboard-read-model-capsule.html",
+      "evidence_kind": "Verified source import",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "full_record_pointer": "/visible_text_index/logical_records/components/56",
+      "id": "batch12_market_dashboard_read_model_capsule",
+      "label": "Market Dashboard Read-Model Bundle",
+      "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch12-market-dashboard-read-model-capsule.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": false,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": false,
+        "source_population_required": false
+      },
+      "rank": 5,
+      "relative_href": "docs/component-batch12-market-dashboard-read-model-capsule.html",
+      "runs_real_tools": false,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "This is fixture-bound read-model, freshness, and relation-grouping evidence only; it is not live market-level conclusions, not investment-related actions, not external model access, not launch-scope decision, and not whole-system correctness.",
+      "source_link_count": 2,
+      "summary_line": "Runs a copied market-dashboard reader to catch broken links, stale feeds, and trading overclaims.",
+      "tags": [
+        "research-workflows",
+        "forecasting",
+        "finance"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_launch_authority",
+        "not_public_sharing_authority",
+        "not_benchmark_claim"
+      ],
+      "command": "microcosm mechanistic-interpretability-circuit-attribution-replay run-attribution-bundle --input examples/mechanistic_interpretability_circuit_attribution_replay/exported_circuit_attribution_bundle --out receipts/runtime_shell/demo_project/organs/mechanistic_interpretability_circuit_attribution_replay",
+      "component_detail_href": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+      "evidence_kind": "Contract validator",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "full_record_pointer": "/visible_text_index/logical_records/components/57",
+      "id": "mechanistic_interpretability_circuit_attribution_replay",
+      "label": "Toy-Transformer Attribution Replay",
+      "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-mechanistic-interpretability-circuit-attribution-replay.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": false,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": false,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+      "runs_real_tools": false,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It validates only the declared public circuit-attribution runtime-result record contract. It excludes model-transparency product claims, live model access, export of private weights/raw activations/proprietary prompts/hidden chain-of-thought, external model access, benchmark claims, or public sharing/launch.",
+      "source_link_count": 2,
+      "summary_line": "Records which model features drove an answer, each tied to checkable evidence.",
+      "tags": [
+        "research-workflows",
+        "forecasting",
+        "provider operations"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes"
+      ],
+      "command": "microcosm spatial-world-model-counterfactual-simulation-replay run-simulation-bundle --input examples/spatial_world_model_counterfactual_simulation_replay/exported_spatial_world_model_simulation_bundle --out receipts/runtime_shell/demo_project/organs/spatial_world_model_counterfactual_simulation_replay",
+      "component_detail_href": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+      "evidence_kind": "Contract validator",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "full_record_pointer": "/visible_text_index/logical_records/components/58",
+      "id": "spatial_world_model_counterfactual_simulation_replay",
+      "label": "Gridworld Counterfactual State Replay",
+      "links_to_count": 0,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-spatial-world-model-counterfactual-simulation-replay.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": false,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": false,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+      "runs_real_tools": false,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It validates only the declared public contract of synthetic spatial counterfactual-replay metadata rows. It is evidence for inspectable replay rows and limitation labels, not for real-world spatial accuracy, simulator-product validity, media-only authority, operational deployment, service distribution, or scope decisions.",
+      "source_link_count": 2,
+      "summary_line": "Replays six what-if robotics scenes to show what a spatial prediction claim is built from.",
+      "tags": [
+        "research-workflows",
+        "forecasting"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_launch_authority",
+        "not_public_sharing_authority",
+        "not_benchmark_claim"
+      ],
+      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay",
+      "component_detail_href": "docs/component-research-replication-rubric-artifact-replay.html",
+      "evidence_kind": "Computed projection",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "full_record_pointer": "/visible_text_index/logical_records/components/59",
+      "id": "research_replication_rubric_artifact_replay",
+      "label": "Research Replication Rubric Artifact Replay",
+      "links_to_count": 5,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-research-replication-rubric-artifact-replay.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": false,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": false,
+        "source_population_required": false
+      },
+      "rank": 3,
+      "relative_href": "docs/component-research-replication-rubric-artifact-replay.html",
+      "runs_real_tools": false,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It validates the shape and presence of synthetic replay metadata and result record references only - it does not run any experiment, metric script, or rerun, excludes any claim that a paper was actually replicated, that a benchmark claims was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes public sharing or launch.",
+      "source_link_count": 2,
+      "summary_line": "Audits whether a paper-replication claim carries the full evidence trail.",
+      "tags": [
+        "research-workflows",
+        "forecasting",
+        "provider operations"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_benchmark_claim"
+      ],
+      "command": "microcosm materials-chemistry-closed-loop-lab-safety-replay run-lab-bundle --input examples/materials_chemistry_closed_loop_lab_safety_replay/exported_materials_lab_safety_bundle --out receipts/runtime_shell/demo_project/organs/materials_chemistry_closed_loop_lab_safety_replay",
+      "component_detail_href": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "evidence_kind": "Computed projection",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "full_record_pointer": "/visible_text_index/logical_records/components/60",
+      "id": "materials_chemistry_closed_loop_lab_safety_replay",
+      "label": "Materials Lab-Safety Refusal Replay",
+      "links_to_count": 1,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": false,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": false,
+        "source_population_required": false
+      },
+      "rank": 3,
+      "relative_href": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+      "runs_real_tools": false,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It documents projection and replay mechanics only and excludes wetlab protocols, hazardous synthesis steps, reagent amounts, controlled/bioactive targets, robot commands, live assay data, discovery claims, benchmark claims, external model access, or any judgment of domain/chemical correctness.",
+      "source_link_count": 2,
+      "summary_line": "Replays a self-driving lab loop as records, with safety gates and no real chemicals, robot, or lab.",
+      "tags": [
+        "research-workflows",
+        "forecasting"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_launch_authority",
+        "not_live_market_data"
+      ],
+      "command": "PYTHONPATH=src python3 -m microcosm_core.organs.prediction_oracle_reconciliation run --input fixtures/first_wave/prediction_oracle_reconciliation/input --out receipts/first_wave/prediction_oracle_reconciliation",
+      "component_detail_href": "docs/component-prediction-oracle-reconciliation.html",
+      "evidence_kind": "Computed projection",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "full_record_pointer": "/visible_text_index/logical_records/components/61",
+      "id": "prediction_oracle_reconciliation",
+      "label": "Prediction Oracle Reconciliation",
+      "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-prediction-oracle-reconciliation.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": false,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": false,
+        "source_population_required": false
+      },
+      "rank": 3,
+      "relative_href": "docs/component-prediction-oracle-reconciliation.html",
+      "runs_real_tools": false,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It exercises projection mechanics on a synthetic, invented packet only. It does not establish forecasting correctness or accuracy, give trading/financial/investment-related actions, call live market data or providers, publish predictions, claim any performance or track record, import non-public data, or include launch operations.",
+      "source_link_count": 2,
+      "summary_line": "Replays a forecast against the discipline a careful predictor would have to defend.",
+      "tags": [
+        "research-workflows",
+        "forecasting",
+        "provider operations"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes"
+      ],
+      "command": "microcosm derived-fact-provider-runtime run --input fixtures/first_wave/derived_fact_provider_runtime/input --out receipts/first_wave/derived_fact_provider_runtime --acceptance-out receipts/acceptance/first_wave/derived_fact_provider_runtime_fixture_acceptance.json",
+      "component_detail_href": "docs/component-derived-fact-provider-runtime.html",
+      "evidence_kind": "Bounded runtime computation",
+      "family_id": "research_and_science_replays",
+      "family_label": "Research & science",
+      "full_record_pointer": "/visible_text_index/logical_records/components/62",
+      "id": "derived_fact_provider_runtime",
+      "label": "Derived Fact Provider Runtime",
+      "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-derived-fact-provider-runtime.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-derived-fact-provider-runtime.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "source_link_count": 2,
+      "summary_line": "Fills in facts from simple recipes and records a clear error when one points at missing data.",
+      "tags": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_whole_system_correctness",
+        "not_launch_authority",
         "not_public_sharing_authority"
       ],
       "command": "microcosm macro-projection-import-protocol plan --input examples/macro_projection_import_protocol/exported_projection_import_bundle",
@@ -2606,7 +2910,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/55",
+      "full_record_pointer": "/visible_text_index/logical_records/components/63",
       "id": "macro_projection_import_protocol",
       "label": "Source Projection Import Protocol",
       "links_to_count": 23,
@@ -2646,9 +2950,9 @@
       "evidence_kind": "Contract validator",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/56",
+      "full_record_pointer": "/visible_text_index/logical_records/components/64",
       "id": "world_model_projection_drift_control_room",
-      "label": "World Model Projection Drift Control Room",
+      "label": "Projection-Drift Contract Validator",
       "links_to_count": 7,
       "map_primary_click_policy": "prefer_primary_reader_href",
       "primary_reader_href": "docs/paper-module-world-model-projection-drift-control-room.html",
@@ -2687,7 +2991,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/57",
+      "full_record_pointer": "/visible_text_index/logical_records/components/65",
       "id": "batch6_unsurfaced_primitives_capsule",
       "label": "Unsurfaced Source Primitives Bundle",
       "links_to_count": 0,
@@ -2727,7 +3031,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/58",
+      "full_record_pointer": "/visible_text_index/logical_records/components/66",
       "id": "batch5_authority_systems_capsule",
       "label": "Authority Systems Source Bundle",
       "links_to_count": 0,
@@ -2767,7 +3071,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/59",
+      "full_record_pointer": "/visible_text_index/logical_records/components/67",
       "id": "batch7_macro_engines_capsule",
       "label": "Trace, Code-Map & Scheduling Engines Bundle",
       "links_to_count": 3,
@@ -2807,7 +3111,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/60",
+      "full_record_pointer": "/visible_text_index/logical_records/components/68",
       "id": "batch7_oracle_sibling_capsule",
       "label": "Oracle Sibling Source Bundle",
       "links_to_count": 1,
@@ -2847,7 +3151,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/61",
+      "full_record_pointer": "/visible_text_index/logical_records/components/69",
       "id": "batch7_demo_take_console_capsule",
       "label": "Demo Take Console Source Bundle",
       "links_to_count": 2,
@@ -2887,7 +3191,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/62",
+      "full_record_pointer": "/visible_text_index/logical_records/components/70",
       "id": "batch8_tools_tail_primitives_capsule",
       "label": "Tools-Tail Primitives Bundle",
       "links_to_count": 0,
@@ -2927,7 +3231,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/63",
+      "full_record_pointer": "/visible_text_index/logical_records/components/71",
       "id": "batch8_policy_engines_capsule",
       "label": "Policy Engines Bundle",
       "links_to_count": 0,
@@ -2965,7 +3269,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/64",
+      "full_record_pointer": "/visible_text_index/logical_records/components/72",
       "id": "batch8_audio_level_rms_port",
       "label": "Audio Level RMS Port",
       "links_to_count": 0,
@@ -3005,7 +3309,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/65",
+      "full_record_pointer": "/visible_text_index/logical_records/components/73",
       "id": "batch8_structural_theses_capsule",
       "label": "Structural Theses Finance Bundle",
       "links_to_count": 1,
@@ -3047,7 +3351,7 @@
       "evidence_kind": "Contract validator",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/66",
+      "full_record_pointer": "/visible_text_index/logical_records/components/74",
       "id": "engine_room_demo",
       "label": "Engine Room Demo",
       "links_to_count": 2,
@@ -3087,7 +3391,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/67",
+      "full_record_pointer": "/visible_text_index/logical_records/components/75",
       "id": "batch9_macro_engines_capsule",
       "label": "Backend & Governance Engines Bundle",
       "links_to_count": 1,
@@ -3127,7 +3431,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/68",
+      "full_record_pointer": "/visible_text_index/logical_records/components/76",
       "id": "batch10_governance_compilers_capsule",
       "label": "Governance & Compiler Mechanisms Bundle",
       "links_to_count": 0,
@@ -3167,7 +3471,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/69",
+      "full_record_pointer": "/visible_text_index/logical_records/components/77",
       "id": "batch11_saturation_engines_capsule",
       "label": "Saturation Engines Bundle",
       "links_to_count": 4,
@@ -3207,7 +3511,7 @@
       "evidence_kind": "Contract validator",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/70",
+      "full_record_pointer": "/visible_text_index/logical_records/components/78",
       "id": "tool_server_pressure_inventory",
       "label": "Tool Server Pressure Inventory",
       "links_to_count": 0,
@@ -3248,7 +3552,7 @@
       "evidence_kind": "Computed projection",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/71",
+      "full_record_pointer": "/visible_text_index/logical_records/components/79",
       "id": "batch8_compliance_pipeline_capsule",
       "label": "Compliance Pipeline Bundle",
       "links_to_count": 4,
@@ -3288,7 +3592,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/72",
+      "full_record_pointer": "/visible_text_index/logical_records/components/80",
       "id": "batch10_live_source_drift_capsule",
       "label": "Live Source Drift Bundle",
       "links_to_count": 1,
@@ -3328,7 +3632,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
-      "full_record_pointer": "/visible_text_index/logical_records/components/73",
+      "full_record_pointer": "/visible_text_index/logical_records/components/81",
       "id": "batch12_release_claim_language_gate",
       "label": "Release Public Wording Gate",
       "links_to_count": 0,
@@ -3361,12 +3665,50 @@
         "no_external_model_access",
         "no_source_file_changes"
       ],
+      "command": "microcosm generated-projection-drift-runtime run --input fixtures/first_wave/generated_projection_drift_runtime/input --out receipts/first_wave/generated_projection_drift_runtime --acceptance-out receipts/acceptance/first_wave/generated_projection_drift_runtime_fixture_acceptance.json",
+      "component_detail_href": "docs/component-generated-projection-drift-runtime.html",
+      "evidence_kind": "External tool run",
+      "family_id": "import_projection_and_drift",
+      "family_label": "Import & drift control",
+      "full_record_pointer": "/visible_text_index/logical_records/components/82",
+      "id": "generated_projection_drift_runtime",
+      "label": "Generated Projection Drift Runtime",
+      "links_to_count": 3,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-generated-projection-drift-runtime.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-generated-projection-drift-runtime.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "source_link_count": 2,
+      "summary_line": "Runs each owner's own drift check on generated files and flags repairs, without changing the file.",
+      "tags": [
+        "formal-math",
+        "number-theory",
+        "exact-arithmetic"
+      ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes"
+      ],
       "command": "microcosm mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out receipts/first_wave/mission_transaction_work_spine",
       "component_detail_href": "docs/component-mission-transaction-work-spine.html",
       "evidence_kind": "Bounded runtime computation",
       "family_id": "work_landing_and_continuity",
       "family_label": "Work & continuity",
-      "full_record_pointer": "/visible_text_index/logical_records/components/74",
+      "full_record_pointer": "/visible_text_index/logical_records/components/83",
       "id": "mission_transaction_work_spine",
       "label": "Mission Transaction Work Spine",
       "links_to_count": 9,
@@ -3404,7 +3746,7 @@
       "evidence_kind": "Contract validator",
       "family_id": "work_landing_and_continuity",
       "family_label": "Work & continuity",
-      "full_record_pointer": "/visible_text_index/logical_records/components/75",
+      "full_record_pointer": "/visible_text_index/logical_records/components/84",
       "id": "durable_agent_work_landing_replay",
       "label": "Durable Agent Work Landing Replay",
       "links_to_count": 2,
@@ -3442,9 +3784,9 @@
       "evidence_kind": "Contract validator",
       "family_id": "work_landing_and_continuity",
       "family_label": "Work & continuity",
-      "full_record_pointer": "/visible_text_index/logical_records/components/76",
+      "full_record_pointer": "/visible_text_index/logical_records/components/85",
       "id": "bridge_phase_continuity_runtime",
-      "label": "Bridge Phase Continuity Runtime",
+      "label": "Bridge-Continuity Sign-off Replay",
       "links_to_count": 2,
       "map_primary_click_policy": "prefer_primary_reader_href",
       "primary_reader_href": "docs/paper-module-bridge-phase-continuity-runtime.html",
@@ -3481,7 +3823,7 @@
       "evidence_kind": "Verified source import",
       "family_id": "work_landing_and_continuity",
       "family_label": "Work & continuity",
-      "full_record_pointer": "/visible_text_index/logical_records/components/77",
+      "full_record_pointer": "/visible_text_index/logical_records/components/86",
       "id": "concurrency_mission_control",
       "label": "Concurrency Mission Control",
       "links_to_count": 2,
@@ -3506,6 +3848,45 @@
         "workflow-engineering",
         "continuity"
       ]
+    },
+    {
+      "claim_ceiling_tags": [
+        "public_evidence_only",
+        "not_hosted_service",
+        "no_external_model_access",
+        "no_source_file_changes",
+        "not_launch_authority"
+      ],
+      "command": "microcosm semantic-singleflight-dedup-runtime run --input fixtures/first_wave/semantic_singleflight_dedup_runtime/input --out receipts/first_wave/semantic_singleflight_dedup_runtime --acceptance-out receipts/acceptance/first_wave/semantic_singleflight_dedup_runtime_fixture_acceptance.json",
+      "component_detail_href": "docs/component-semantic-singleflight-dedup-runtime.html",
+      "evidence_kind": "Bounded runtime computation",
+      "family_id": "work_landing_and_continuity",
+      "family_label": "Work & continuity",
+      "full_record_pointer": "/visible_text_index/logical_records/components/87",
+      "id": "semantic_singleflight_dedup_runtime",
+      "label": "Semantic Singleflight Dedup Runtime",
+      "links_to_count": 4,
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-semantic-singleflight-dedup-runtime.html",
+      "public_runtime": {
+        "intrinsic_populated_source_runs_real_tools": true,
+        "release_mode": "populated_source_release",
+        "runnable_from_current_public_artifact": true,
+        "runs_real_tools_now_from_current_public_artifact": true,
+        "source_population_required": false
+      },
+      "rank": 4,
+      "relative_href": "docs/component-semantic-singleflight-dedup-runtime.html",
+      "runs_real_tools": true,
+      "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
+      "scope_limit": "It keys and dedups command runs by a repo-state fingerprint over bounded public fixture commands only; it does not guarantee global mutual exclusion, does not replace a lock service, cannot prove cross-host correctness, and is not a job scheduler, a daemon, or launch-scope decision.",
+      "source_link_count": 2,
+      "summary_line": "Reuses one result for duplicate command runs, keyed by repo state rather than the words alone.",
+      "tags": [
+        "agent-concurrency",
+        "operational-discipline",
+        "deduplication"
+      ]
     }
   ],
   "composition_identity": {
@@ -3513,48 +3894,48 @@
     "artifact_path": "microcosm-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.microcosm-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:d79b9a7fd7222e01ddfb12a58a44ffcec900e25fff9e991dc938e6c9c1f422f9",
+    "payload_sha256_excluding_identity": "sha256:91b51eea59d580e28727d67203d4f4e23e0394d2d612564603df6ef87a7a2768",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
-    "source_fingerprint": "30850b909d8aae06f4f841929476e38e"
+    "source_fingerprint": "4064a1aec260f9140555d448380226c9"
   },
   "counts": {
-    "component_count": 78,
-    "coverage_deficit_count": 2,
-    "coverage_deficit_total_count": 51,
-    "diagram_asset_count": 93,
+    "component_count": 88,
+    "coverage_deficit_count": 3,
+    "coverage_deficit_total_count": 62,
+    "diagram_asset_count": 103,
     "doctrine_entity_body_record_count": 155,
-    "emitted_route_count": 198,
-    "evidence_profile_count": 328,
+    "emitted_route_count": 218,
+    "evidence_profile_count": 349,
     "family_count": 7,
-    "legacy_route_count": 218,
+    "legacy_route_count": 238,
     "math_latex_asset_count": 0,
-    "page_count": 197,
+    "page_count": 217,
     "paper_module_availability_gap_count": 0,
-    "paper_module_count": 93,
-    "paper_module_doctrine_feed_link_count": 1350,
+    "paper_module_count": 103,
+    "paper_module_doctrine_feed_link_count": 1394,
     "paper_module_doctrine_feed_link_counts": {
-      "axiom": 374,
-      "concept": 97,
+      "axiom": 385,
+      "concept": 107,
       "mechanism": 108,
-      "organ": 78,
+      "organ": 88,
       "paper_module": 223,
-      "principle": 470
+      "principle": 483
     },
     "public_glossary_count": 77,
-    "relation_count": 208,
+    "relation_count": 239,
     "relation_grammar_relation_count": 37,
     "relation_grammar_verb_count": 44,
-    "roster_object_count": 326,
-    "roster_projection_row_count": 419,
+    "roster_object_count": 346,
+    "roster_projection_row_count": 449,
     "route_alias_count": 1,
-    "rules_and_ideas_count": 248,
+    "rules_and_ideas_count": 258,
     "rules_and_ideas_group_counts": {
       "anti_principle": 17,
       "axiom": 12,
       "concept": 11,
       "mechanism": 95,
-      "paper_module": 93,
+      "paper_module": 103,
       "principle": 20
     },
     "surface_sync_derived_view_count": 7
@@ -3604,7 +3985,7 @@
       ]
     },
     {
-      "component_count": 10,
+      "component_count": 12,
       "component_ids": [
         "pattern_binding_contract",
         "pattern_assimilation_step",
@@ -3615,29 +3996,35 @@
         "cognitive_operator_registry",
         "routing_anti_patterns_registry",
         "doctrine_fact_claim_audit",
-        "self_ignorance_coverage_ledger"
+        "self_ignorance_coverage_ledger",
+        "navigation_fitness_benchmark",
+        "annex_knowledge_routing"
       ],
       "evidence_mix": {
         "rank_3_or_below": 1,
-        "rank_4": 0,
+        "rank_4": 2,
         "rank_5": 9,
-        "runs_real_tools": 0
+        "runs_real_tools": 2
       },
       "family_id": "architecture_and_navigation",
       "family_label": "Architecture & navigation",
       "relative_href": "docs/area-architecture.html",
       "representative_component_ids": [
-        "pattern_binding_contract",
-        "pattern_assimilation_step",
-        "executable_doctrine_grammar"
+        "navigation_fitness_benchmark",
+        "annex_knowledge_routing",
+        "pattern_binding_contract"
       ]
     },
     {
-      "component_count": 18,
+      "component_count": 20,
       "component_ids": [
+        "certificate_kernel_execution_lab",
+        "formal_math_lean_proof_witness",
+        "verifier_lab_execution_spine",
+        "corpus_readiness_mathlib_absence_gate",
+        "batch4_proof_authority_runtime",
         "proof_diagnostic_evidence_spine",
         "formal_math_readiness_gate",
-        "corpus_readiness_mathlib_absence_gate",
         "mathematical_strategy_atlas_hypothesis_scorer",
         "tactic_portfolio_availability_probe",
         "target_shape_tactic_routing_gate",
@@ -3647,34 +4034,36 @@
         "formal_evidence_cell_anchor_resolver",
         "undeclared_library_prior_symbol_classifier",
         "ring2_premise_retrieval_precision_recall_harness",
-        "formal_math_lean_proof_witness",
         "verifier_lab_kernel",
-        "verifier_lab_execution_spine",
-        "certificate_kernel_execution_lab",
-        "batch4_proof_authority_runtime",
-        "proof_derived_governed_mutation_authorization"
+        "proof_derived_governed_mutation_authorization",
+        "finite_erdos_denominator_certificate_strike",
+        "lean_proof_search_lab_runtime"
       ],
       "evidence_mix": {
         "rank_3_or_below": 11,
-        "rank_4": 4,
+        "rank_4": 6,
         "rank_5": 3,
-        "runs_real_tools": 4
+        "runs_real_tools": 6
       },
       "family_id": "formal_math_and_proof",
       "family_label": "Formal math & proof",
       "relative_href": "docs/area-formal-math.html",
       "representative_component_ids": [
-        "corpus_readiness_mathlib_absence_gate",
+        "certificate_kernel_execution_lab",
         "formal_math_lean_proof_witness",
         "verifier_lab_execution_spine"
       ]
     },
     {
-      "component_count": 17,
+      "component_count": 20,
       "component_ids": [
-        "agent_benchmark_integrity_anti_gaming_replay",
+        "agent_closeout_faithfulness_audit",
+        "bounded_autonomy_campaign_packet",
+        "provider_context_recipe_budget_policy",
         "batch10_cold_eval_honesty_capsule",
         "batch8_validator_checker_capsule",
+        "batch7_secondary_runtime_capsule",
+        "agent_benchmark_integrity_anti_gaming_replay",
         "agent_monitor_redteam_falsification_replay",
         "agent_sabotage_scheming_monitor_replay",
         "agent_memory_temporal_conflict_replay",
@@ -3685,55 +4074,55 @@
         "indirect_prompt_injection_information_flow_policy_replay",
         "agentic_vulnerability_discovery_patch_proof_replay",
         "agent_route_observability_runtime",
-        "provider_context_recipe_budget_policy",
-        "agent_closeout_faithfulness_audit",
-        "bounded_autonomy_campaign_packet",
-        "batch7_secondary_runtime_capsule"
+        "bridge_campaign_dag_validation",
+        "metabolism_queue_reconciliation",
+        "egress_self_compliance_audit"
       ],
       "evidence_mix": {
         "rank_3_or_below": 10,
-        "rank_4": 3,
+        "rank_4": 6,
         "rank_5": 4,
-        "runs_real_tools": 3
+        "runs_real_tools": 6
       },
       "family_id": "agent_reliability_and_safety",
       "family_label": "Agent reliability & safety",
       "relative_href": "docs/area-agent-reliability.html",
       "representative_component_ids": [
-        "provider_context_recipe_budget_policy",
         "agent_closeout_faithfulness_audit",
-        "bounded_autonomy_campaign_packet"
+        "bounded_autonomy_campaign_packet",
+        "provider_context_recipe_budget_policy"
       ]
     },
     {
-      "component_count": 8,
+      "component_count": 9,
       "component_ids": [
-        "research_replication_rubric_artifact_replay",
-        "spatial_world_model_counterfactual_simulation_replay",
-        "materials_chemistry_closed_loop_lab_safety_replay",
-        "mechanistic_interpretability_circuit_attribution_replay",
-        "prediction_oracle_reconciliation",
         "finance_forecast_evaluation_spine",
+        "batch12_prediction_market_board_capsule",
         "batch12_market_dashboard_read_model_capsule",
-        "batch12_prediction_market_board_capsule"
+        "mechanistic_interpretability_circuit_attribution_replay",
+        "spatial_world_model_counterfactual_simulation_replay",
+        "research_replication_rubric_artifact_replay",
+        "materials_chemistry_closed_loop_lab_safety_replay",
+        "prediction_oracle_reconciliation",
+        "derived_fact_provider_runtime"
       ],
       "evidence_mix": {
         "rank_3_or_below": 3,
-        "rank_4": 3,
+        "rank_4": 4,
         "rank_5": 2,
-        "runs_real_tools": 1
+        "runs_real_tools": 2
       },
       "family_id": "research_and_science_replays",
       "family_label": "Research & science",
       "relative_href": "docs/area-research.html",
       "representative_component_ids": [
         "finance_forecast_evaluation_spine",
-        "batch12_market_dashboard_read_model_capsule",
+        "derived_fact_provider_runtime",
         "batch12_prediction_market_board_capsule"
       ]
     },
     {
-      "component_count": 19,
+      "component_count": 20,
       "component_ids": [
         "macro_projection_import_protocol",
         "world_model_projection_drift_control_room",
@@ -3753,51 +4142,53 @@
         "tool_server_pressure_inventory",
         "batch8_compliance_pipeline_capsule",
         "batch10_live_source_drift_capsule",
-        "batch12_release_claim_language_gate"
+        "batch12_release_claim_language_gate",
+        "generated_projection_drift_runtime"
       ],
       "evidence_mix": {
         "rank_3_or_below": 2,
-        "rank_4": 0,
+        "rank_4": 1,
         "rank_5": 17,
-        "runs_real_tools": 0
+        "runs_real_tools": 1
       },
       "family_id": "import_projection_and_drift",
       "family_label": "Import & drift control",
       "relative_href": "docs/area-import-drift.html",
       "representative_component_ids": [
+        "generated_projection_drift_runtime",
         "macro_projection_import_protocol",
-        "world_model_projection_drift_control_room",
-        "batch6_unsurfaced_primitives_capsule"
+        "world_model_projection_drift_control_room"
       ]
     },
     {
-      "component_count": 4,
+      "component_count": 5,
       "component_ids": [
         "mission_transaction_work_spine",
         "durable_agent_work_landing_replay",
         "bridge_phase_continuity_runtime",
-        "concurrency_mission_control"
+        "concurrency_mission_control",
+        "semantic_singleflight_dedup_runtime"
       ],
       "evidence_mix": {
         "rank_3_or_below": 0,
-        "rank_4": 1,
+        "rank_4": 2,
         "rank_5": 3,
-        "runs_real_tools": 1
+        "runs_real_tools": 2
       },
       "family_id": "work_landing_and_continuity",
       "family_label": "Work & continuity",
       "relative_href": "docs/area-continuity.html",
       "representative_component_ids": [
         "mission_transaction_work_spine",
-        "durable_agent_work_landing_replay",
-        "bridge_phase_continuity_runtime"
+        "semantic_singleflight_dedup_runtime",
+        "durable_agent_work_landing_replay"
       ]
     }
   ],
   "freshness_note": {
     "explanation": "generated_at is a fixed deterministic sentinel so builds are reproducible. It is not a live timestamp and must not be reported as freshness.",
     "generated_at_is_sentinel": true,
-    "source_fingerprint": "30850b909d8aae06f4f841929476e38e",
+    "source_fingerprint": "4064a1aec260f9140555d448380226c9",
     "version_handle": "source_fingerprint"
   },
   "generated_at": "1970-01-01T00:00:00+00:00",
@@ -4709,6 +5100,62 @@
       },
       {
         "generated": true,
+        "id": "page:component-navigation-fitness-benchmark",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-navigation-fitness-benchmark.html",
+        "title": "Navigation Fitness Benchmark"
+      },
+      {
+        "generated": true,
+        "id": "page:component-annex-knowledge-routing",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-annex-knowledge-routing.html",
+        "title": "Reference Knowledge Routing"
+      },
+      {
+        "generated": true,
+        "id": "page:component-certificate-kernel-execution-lab",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-certificate-kernel-execution-lab.html",
+        "title": "Certificate Kernel Execution Lab"
+      },
+      {
+        "generated": true,
+        "id": "page:component-formal-math-lean-proof-witness",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-formal-math-lean-proof-witness.html",
+        "title": "Formal Math Lean Proof Witness"
+      },
+      {
+        "generated": true,
+        "id": "page:component-verifier-lab-execution-spine",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-verifier-lab-execution-spine.html",
+        "title": "Verifier Lab Execution Spine"
+      },
+      {
+        "generated": true,
+        "id": "page:component-corpus-readiness-mathlib-absence-gate",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-corpus-readiness-mathlib-absence-gate.html",
+        "title": "Corpus Readiness Mathlib Absence Gate"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch4-proof-authority-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch4-proof-authority-runtime.html",
+        "title": "Proof / Control / Runtime Import Bundle"
+      },
+      {
+        "generated": true,
         "id": "page:component-proof-diagnostic-evidence-spine",
         "nav_group": "Reference",
         "nav_label": "Components",
@@ -4722,14 +5169,6 @@
         "nav_label": "Components",
         "relative_href": "docs/component-formal-math-readiness-gate.html",
         "title": "Formal Math Readiness Gate"
-      },
-      {
-        "generated": true,
-        "id": "page:component-corpus-readiness-mathlib-absence-gate",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-corpus-readiness-mathlib-absence-gate.html",
-        "title": "Corpus Readiness Mathlib Absence Gate"
       },
       {
         "generated": true,
@@ -4805,43 +5244,11 @@
       },
       {
         "generated": true,
-        "id": "page:component-formal-math-lean-proof-witness",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-formal-math-lean-proof-witness.html",
-        "title": "Formal Math Lean Proof Witness"
-      },
-      {
-        "generated": true,
         "id": "page:component-verifier-lab-kernel",
         "nav_group": "Reference",
         "nav_label": "Components",
         "relative_href": "docs/component-verifier-lab-kernel.html",
         "title": "Verifier Lab Kernel"
-      },
-      {
-        "generated": true,
-        "id": "page:component-verifier-lab-execution-spine",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-verifier-lab-execution-spine.html",
-        "title": "Verifier Lab Execution Spine"
-      },
-      {
-        "generated": true,
-        "id": "page:component-certificate-kernel-execution-lab",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-certificate-kernel-execution-lab.html",
-        "title": "Certificate Kernel Execution Lab"
-      },
-      {
-        "generated": true,
-        "id": "page:component-batch4-proof-authority-runtime",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-batch4-proof-authority-runtime.html",
-        "title": "Proof / Control / Runtime Import Bundle"
       },
       {
         "generated": true,
@@ -4853,115 +5260,19 @@
       },
       {
         "generated": true,
-        "id": "page:component-agent-benchmark-integrity-anti-gaming-replay",
+        "id": "page:component-finite-erdos-denominator-certificate-strike",
         "nav_group": "Reference",
         "nav_label": "Components",
-        "relative_href": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
-        "title": "Agent Benchmark Integrity Anti Gaming Replay"
+        "relative_href": "docs/component-finite-erdos-denominator-certificate-strike.html",
+        "title": "Finite Erdos Denominator-Order Certificate Strike"
       },
       {
         "generated": true,
-        "id": "page:component-batch10-cold-eval-honesty-capsule",
+        "id": "page:component-lean-proof-search-lab-runtime",
         "nav_group": "Reference",
         "nav_label": "Components",
-        "relative_href": "docs/component-batch10-cold-eval-honesty-capsule.html",
-        "title": "Cold Evaluation Honesty Bundle"
-      },
-      {
-        "generated": true,
-        "id": "page:component-batch8-validator-checker-capsule",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-batch8-validator-checker-capsule.html",
-        "title": "Validator Checker Bundle"
-      },
-      {
-        "generated": true,
-        "id": "page:component-agent-monitor-redteam-falsification-replay",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-agent-monitor-redteam-falsification-replay.html",
-        "title": "Agent Monitor Redteam Falsification Replay"
-      },
-      {
-        "generated": true,
-        "id": "page:component-agent-sabotage-scheming-monitor-replay",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-agent-sabotage-scheming-monitor-replay.html",
-        "title": "Agent Sabotage Scheming Monitor Replay"
-      },
-      {
-        "generated": true,
-        "id": "page:component-agent-memory-temporal-conflict-replay",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-agent-memory-temporal-conflict-replay.html",
-        "title": "Agent Memory Temporal Conflict Replay"
-      },
-      {
-        "generated": true,
-        "id": "page:component-sleeper-memory-poisoning-quarantine-replay",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-sleeper-memory-poisoning-quarantine-replay.html",
-        "title": "Sleeper Memory Poisoning Quarantine Replay"
-      },
-      {
-        "generated": true,
-        "id": "page:component-mcp-tool-authority-replay",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-mcp-tool-authority-replay.html",
-        "title": "MCP Tool Authority Replay"
-      },
-      {
-        "generated": true,
-        "id": "page:component-belief-state-process-reward-replay",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-belief-state-process-reward-replay.html",
-        "title": "Belief State Process Reward Replay"
-      },
-      {
-        "generated": true,
-        "id": "page:component-agent-sandbox-policy-escape-replay",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-agent-sandbox-policy-escape-replay.html",
-        "title": "Agent Sandbox Policy Escape Replay"
-      },
-      {
-        "generated": true,
-        "id": "page:component-indirect-prompt-injection-information-flow-policy-replay",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
-        "title": "Indirect Prompt Injection Information Flow Policy Replay"
-      },
-      {
-        "generated": true,
-        "id": "page:component-agentic-vulnerability-discovery-patch-proof-replay",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
-        "title": "Agentic Vulnerability Discovery Patch Proof Replay"
-      },
-      {
-        "generated": true,
-        "id": "page:component-agent-route-observability-runtime",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-agent-route-observability-runtime.html",
-        "title": "Agent Route Observability Runtime"
-      },
-      {
-        "generated": true,
-        "id": "page:component-provider-context-recipe-budget-policy",
-        "nav_group": "Reference",
-        "nav_label": "Components",
-        "relative_href": "docs/component-provider-context-recipe-budget-policy.html",
-        "title": "Provider Context Recipe Budget Policy"
+        "relative_href": "docs/component-lean-proof-search-lab-runtime.html",
+        "title": "Lean Proof-Search Lab Runtime"
       },
       {
         "generated": true,
@@ -4981,6 +5292,30 @@
       },
       {
         "generated": true,
+        "id": "page:component-provider-context-recipe-budget-policy",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-provider-context-recipe-budget-policy.html",
+        "title": "Provider Context Recipe Budget Policy"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch10-cold-eval-honesty-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch10-cold-eval-honesty-capsule.html",
+        "title": "Cold Evaluation Honesty Bundle"
+      },
+      {
+        "generated": true,
+        "id": "page:component-batch8-validator-checker-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch8-validator-checker-capsule.html",
+        "title": "Validator Checker Bundle"
+      },
+      {
+        "generated": true,
         "id": "page:component-batch7-secondary-runtime-capsule",
         "nav_group": "Reference",
         "nav_label": "Components",
@@ -4989,43 +5324,115 @@
       },
       {
         "generated": true,
-        "id": "page:component-research-replication-rubric-artifact-replay",
+        "id": "page:component-agent-benchmark-integrity-anti-gaming-replay",
         "nav_group": "Reference",
         "nav_label": "Components",
-        "relative_href": "docs/component-research-replication-rubric-artifact-replay.html",
-        "title": "Research Replication Rubric Artifact Replay"
+        "relative_href": "docs/component-agent-benchmark-integrity-anti-gaming-replay.html",
+        "title": "Agent Benchmark Integrity Anti Gaming Replay"
       },
       {
         "generated": true,
-        "id": "page:component-spatial-world-model-counterfactual-simulation-replay",
+        "id": "page:component-agent-monitor-redteam-falsification-replay",
         "nav_group": "Reference",
         "nav_label": "Components",
-        "relative_href": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
-        "title": "Spatial World Model Counterfactual Simulation Replay"
+        "relative_href": "docs/component-agent-monitor-redteam-falsification-replay.html",
+        "title": "Monitor Evidence-Boundary Replay"
       },
       {
         "generated": true,
-        "id": "page:component-materials-chemistry-closed-loop-lab-safety-replay",
+        "id": "page:component-agent-sabotage-scheming-monitor-replay",
         "nav_group": "Reference",
         "nav_label": "Components",
-        "relative_href": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
-        "title": "Materials Chemistry Closed Loop Lab Safety Replay"
+        "relative_href": "docs/component-agent-sabotage-scheming-monitor-replay.html",
+        "title": "Sabotage-Monitor Contract Replay"
       },
       {
         "generated": true,
-        "id": "page:component-mechanistic-interpretability-circuit-attribution-replay",
+        "id": "page:component-agent-memory-temporal-conflict-replay",
         "nav_group": "Reference",
         "nav_label": "Components",
-        "relative_href": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
-        "title": "Mechanistic Interpretability Circuit Attribution Replay"
+        "relative_href": "docs/component-agent-memory-temporal-conflict-replay.html",
+        "title": "Agent Memory Temporal Conflict Replay"
       },
       {
         "generated": true,
-        "id": "page:component-prediction-oracle-reconciliation",
+        "id": "page:component-sleeper-memory-poisoning-quarantine-replay",
         "nav_group": "Reference",
         "nav_label": "Components",
-        "relative_href": "docs/component-prediction-oracle-reconciliation.html",
-        "title": "Prediction Oracle Reconciliation"
+        "relative_href": "docs/component-sleeper-memory-poisoning-quarantine-replay.html",
+        "title": "Memory-Poisoning Quarantine Policy Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-mcp-tool-authority-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-mcp-tool-authority-replay.html",
+        "title": "MCP Tool-Authority Policy Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-belief-state-process-reward-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-belief-state-process-reward-replay.html",
+        "title": "Belief-State Reward Bundle Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-agent-sandbox-policy-escape-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-agent-sandbox-policy-escape-replay.html",
+        "title": "Sandbox-Policy Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-indirect-prompt-injection-information-flow-policy-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-indirect-prompt-injection-information-flow-policy-replay.html",
+        "title": "Prompt-Injection Flow-Policy Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-agentic-vulnerability-discovery-patch-proof-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-agentic-vulnerability-discovery-patch-proof-replay.html",
+        "title": "Vulnerability Patch-Proof Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-agent-route-observability-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-agent-route-observability-runtime.html",
+        "title": "Agent Route Observability Runtime"
+      },
+      {
+        "generated": true,
+        "id": "page:component-bridge-campaign-dag-validation",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-bridge-campaign-dag-validation.html",
+        "title": "Bridge Campaign DAG Validation"
+      },
+      {
+        "generated": true,
+        "id": "page:component-metabolism-queue-reconciliation",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-metabolism-queue-reconciliation.html",
+        "title": "Metabolism Queue Reconciliation"
+      },
+      {
+        "generated": true,
+        "id": "page:component-egress-self-compliance-audit",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-egress-self-compliance-audit.html",
+        "title": "Egress Self-Compliance Audit"
       },
       {
         "generated": true,
@@ -5037,6 +5444,14 @@
       },
       {
         "generated": true,
+        "id": "page:component-batch12-prediction-market-board-capsule",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-batch12-prediction-market-board-capsule.html",
+        "title": "Prediction Market Board Bundle"
+      },
+      {
+        "generated": true,
         "id": "page:component-batch12-market-dashboard-read-model-capsule",
         "nav_group": "Reference",
         "nav_label": "Components",
@@ -5045,11 +5460,51 @@
       },
       {
         "generated": true,
-        "id": "page:component-batch12-prediction-market-board-capsule",
+        "id": "page:component-mechanistic-interpretability-circuit-attribution-replay",
         "nav_group": "Reference",
         "nav_label": "Components",
-        "relative_href": "docs/component-batch12-prediction-market-board-capsule.html",
-        "title": "Prediction Market Board Bundle"
+        "relative_href": "docs/component-mechanistic-interpretability-circuit-attribution-replay.html",
+        "title": "Toy-Transformer Attribution Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-spatial-world-model-counterfactual-simulation-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-spatial-world-model-counterfactual-simulation-replay.html",
+        "title": "Gridworld Counterfactual State Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-research-replication-rubric-artifact-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-research-replication-rubric-artifact-replay.html",
+        "title": "Research Replication Rubric Artifact Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-materials-chemistry-closed-loop-lab-safety-replay",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-materials-chemistry-closed-loop-lab-safety-replay.html",
+        "title": "Materials Lab-Safety Refusal Replay"
+      },
+      {
+        "generated": true,
+        "id": "page:component-prediction-oracle-reconciliation",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-prediction-oracle-reconciliation.html",
+        "title": "Prediction Oracle Reconciliation"
+      },
+      {
+        "generated": true,
+        "id": "page:component-derived-fact-provider-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-derived-fact-provider-runtime.html",
+        "title": "Derived Fact Provider Runtime"
       },
       {
         "generated": true,
@@ -5065,7 +5520,7 @@
         "nav_group": "Reference",
         "nav_label": "Components",
         "relative_href": "docs/component-world-model-projection-drift-control-room.html",
-        "title": "World Model Projection Drift Control Room"
+        "title": "Projection-Drift Contract Validator"
       },
       {
         "generated": true,
@@ -5205,6 +5660,14 @@
       },
       {
         "generated": true,
+        "id": "page:component-generated-projection-drift-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-generated-projection-drift-runtime.html",
+        "title": "Generated Projection Drift Runtime"
+      },
+      {
+        "generated": true,
         "id": "page:component-mission-transaction-work-spine",
         "nav_group": "Reference",
         "nav_label": "Components",
@@ -5225,7 +5688,7 @@
         "nav_group": "Reference",
         "nav_label": "Components",
         "relative_href": "docs/component-bridge-phase-continuity-runtime.html",
-        "title": "Bridge Phase Continuity Runtime"
+        "title": "Bridge-Continuity Sign-off Replay"
       },
       {
         "generated": true,
@@ -5234,6 +5697,14 @@
         "nav_label": "Components",
         "relative_href": "docs/component-concurrency-mission-control.html",
         "title": "Concurrency Mission Control"
+      },
+      {
+        "generated": true,
+        "id": "page:component-semantic-singleflight-dedup-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Components",
+        "relative_href": "docs/component-semantic-singleflight-dedup-runtime.html",
+        "title": "Semantic Singleflight Dedup Runtime"
       },
       {
         "generated": true,
@@ -6019,6 +6490,86 @@
       },
       {
         "generated": true,
+        "id": "page:paper-module-semantic-singleflight-dedup-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-semantic-singleflight-dedup-runtime.html",
+        "title": "Semantic Singleflight Dedup Runtime"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-finite-erdos-denominator-certificate-strike",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-finite-erdos-denominator-certificate-strike.html",
+        "title": "Finite Erdos Denominator-Order Certificate Strike"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-bridge-campaign-dag-validation",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-bridge-campaign-dag-validation.html",
+        "title": "Bridge Campaign DAG Validation"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-metabolism-queue-reconciliation",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-metabolism-queue-reconciliation.html",
+        "title": "Metabolism Queue Reconciliation"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-derived-fact-provider-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-derived-fact-provider-runtime.html",
+        "title": "Derived Fact Provider Runtime"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-navigation-fitness-benchmark",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-navigation-fitness-benchmark.html",
+        "title": "Navigation Fitness Benchmark"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-annex-knowledge-routing",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-annex-knowledge-routing.html",
+        "title": "Reference Knowledge Routing"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-egress-self-compliance-audit",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-egress-self-compliance-audit.html",
+        "title": "Egress Self-Compliance Audit"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-generated-projection-drift-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-generated-projection-drift-runtime.html",
+        "title": "Generated Projection Drift Runtime"
+      },
+      {
+        "generated": true,
+        "id": "page:paper-module-lean-proof-search-lab-runtime",
+        "nav_group": "Reference",
+        "nav_label": "Paper modules",
+        "relative_href": "docs/paper-module-lean-proof-search-lab-runtime.html",
+        "title": "Lean Proof-Search Lab Runtime"
+      },
+      {
+        "generated": true,
         "id": "page:evidence",
         "nav_group": "Reference",
         "nav_label": "What the pass proves",
@@ -6121,10 +6672,10 @@
     "source_of_record": "https://github.com/wcook04/plectis",
     "title": "Plectis"
   },
-  "source_fingerprint": "30850b909d8aae06f4f841929476e38e",
+  "source_fingerprint": "4064a1aec260f9140555d448380226c9",
   "source_map": {
     "link_return_rule": "Use object-map.json::objects[].route or route_contract.href to cite exact public views. site-packet.js intentionally carries only a bounded sample so export controls do not load the full object map.",
-    "object_count": 814,
+    "object_count": 876,
     "object_map_path": "object-map.json",
     "object_map_script_path": "assets/object-map.js",
     "objects_embedded": false,
@@ -6208,9 +6759,9 @@
   },
   "source_ref_summary": {
     "curated_source_hashes": {
-      "microcosm-substrate/README.md": "sha256:d7c9a55beb529ff9207c93e60e4f8ab98c4c27520c0ef84b6763f9ee570da536",
-      "microcosm-substrate/core/organ_families.json": "sha256:da9fdfae54a88fa3f9620d222b1fe5c74c221de30d36db24d639b51bd7bb8d08",
-      "sites/microcosm/index.html": "sha256:788a4aaeec3803079bb1c5cd473389fcdaea1b7b5ac3f50bbc0b4546c7688572"
+      "microcosm-substrate/README.md": "sha256:6cd00ecf0b7ffb30fda01d13b542e288b98c2ab0118e087375d8041cf55cf3c2",
+      "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
+      "sites/microcosm/index.html": "sha256:cfee06392340488f90c05d4b2240a06ea05b8bd5f2a9a7cf1004deb73ab103c7"
     },
     "curated_source_refs": [
       "sites/microcosm/index.html",

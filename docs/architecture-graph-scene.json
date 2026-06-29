@@ -5,7 +5,7 @@
     "spine_relation": "spine_sequence",
     "typing_policy": "wires_to is source-declared neighbour wiring; wiring notes are human annotations, not typed relation authority."
   },
-  "long_description": "This map shows 7 public areas, 78 components, and the shared path they bind to. 52 components declare 208 direct links to neighbours. Those direct links are source-declared but not typed as stronger proof, causal, or maturity relations.",
+  "long_description": "This map shows 7 public areas, 88 components, and the shared path they bind to. 62 components declare 239 direct links to neighbours. Those direct links are source-declared but not typed as stronger proof, causal, or maturity relations.",
   "scene": {
     "available_projections": [
       {
@@ -651,6 +651,54 @@
       {
         "attention_score": 0.98,
         "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:annex_knowledge_routing:certificate_kernel_execution_lab",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:annex_knowledge_routing",
+        "target": "component:certificate_kernel_execution_lab"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:annex_knowledge_routing:verifier_lab_kernel",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:annex_knowledge_routing",
+        "target": "component:verifier_lab_kernel"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:annex_knowledge_routing:formal_math_lean_proof_witness",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:annex_knowledge_routing",
+        "target": "component:formal_math_lean_proof_witness"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
         "id": "edge:wire:batch10_live_source_drift_capsule:batch10_governance_compilers_capsule",
         "label": "declared wiring",
         "layout_constraints": {
@@ -987,6 +1035,54 @@
       {
         "attention_score": 0.98,
         "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:bridge_campaign_dag_validation:certificate_kernel_execution_lab",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:bridge_campaign_dag_validation",
+        "target": "component:certificate_kernel_execution_lab"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:bridge_campaign_dag_validation:verifier_lab_kernel",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:bridge_campaign_dag_validation",
+        "target": "component:verifier_lab_kernel"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:bridge_campaign_dag_validation:formal_math_lean_proof_witness",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:bridge_campaign_dag_validation",
+        "target": "component:formal_math_lean_proof_witness"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
         "id": "edge:wire:bridge_phase_continuity_runtime:agent_memory_temporal_conflict_replay",
         "label": "declared wiring",
         "layout_constraints": {
@@ -1243,6 +1339,54 @@
       {
         "attention_score": 0.98,
         "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:derived_fact_provider_runtime:certificate_kernel_execution_lab",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:derived_fact_provider_runtime",
+        "target": "component:certificate_kernel_execution_lab"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:derived_fact_provider_runtime:verifier_lab_kernel",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:derived_fact_provider_runtime",
+        "target": "component:verifier_lab_kernel"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:derived_fact_provider_runtime:formal_math_lean_proof_witness",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:derived_fact_provider_runtime",
+        "target": "component:formal_math_lean_proof_witness"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
         "id": "edge:wire:doctrine_fact_claim_audit:engine_room_demo",
         "label": "declared wiring",
         "layout_constraints": {
@@ -1303,6 +1447,54 @@
         "relation": "declared_dependency_untyped",
         "source": "component:durable_agent_work_landing_replay",
         "target": "component:macro_projection_import_protocol"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:egress_self_compliance_audit:certificate_kernel_execution_lab",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:egress_self_compliance_audit",
+        "target": "component:certificate_kernel_execution_lab"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:egress_self_compliance_audit:verifier_lab_kernel",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:egress_self_compliance_audit",
+        "target": "component:verifier_lab_kernel"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:egress_self_compliance_audit:formal_math_lean_proof_witness",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:egress_self_compliance_audit",
+        "target": "component:formal_math_lean_proof_witness"
       },
       {
         "attention_score": 0.98,
@@ -1383,6 +1575,54 @@
         "relation": "declared_dependency_untyped",
         "source": "component:finance_forecast_evaluation_spine",
         "target": "component:prediction_oracle_reconciliation"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:finite_erdos_denominator_certificate_strike:certificate_kernel_execution_lab",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:finite_erdos_denominator_certificate_strike",
+        "target": "component:certificate_kernel_execution_lab"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:finite_erdos_denominator_certificate_strike:verifier_lab_kernel",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:finite_erdos_denominator_certificate_strike",
+        "target": "component:verifier_lab_kernel"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:finite_erdos_denominator_certificate_strike:formal_math_lean_proof_witness",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:finite_erdos_denominator_certificate_strike",
+        "target": "component:formal_math_lean_proof_witness"
       },
       {
         "attention_score": 0.98,
@@ -1783,6 +2023,102 @@
         "relation": "declared_dependency_untyped",
         "source": "component:formal_math_verifier_trace_repair_loop",
         "target": "component:verifier_lab_execution_spine"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:generated_projection_drift_runtime:certificate_kernel_execution_lab",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:generated_projection_drift_runtime",
+        "target": "component:certificate_kernel_execution_lab"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:generated_projection_drift_runtime:verifier_lab_kernel",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:generated_projection_drift_runtime",
+        "target": "component:verifier_lab_kernel"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:generated_projection_drift_runtime:formal_math_lean_proof_witness",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:generated_projection_drift_runtime",
+        "target": "component:formal_math_lean_proof_witness"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:lean_proof_search_lab_runtime:certificate_kernel_execution_lab",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:lean_proof_search_lab_runtime",
+        "target": "component:certificate_kernel_execution_lab"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:lean_proof_search_lab_runtime:verifier_lab_kernel",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:lean_proof_search_lab_runtime",
+        "target": "component:verifier_lab_kernel"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:lean_proof_search_lab_runtime:formal_math_lean_proof_witness",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:lean_proof_search_lab_runtime",
+        "target": "component:formal_math_lean_proof_witness"
       },
       {
         "attention_score": 0.98,
@@ -2267,6 +2603,54 @@
       {
         "attention_score": 0.98,
         "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:metabolism_queue_reconciliation:certificate_kernel_execution_lab",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:metabolism_queue_reconciliation",
+        "target": "component:certificate_kernel_execution_lab"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:metabolism_queue_reconciliation:verifier_lab_kernel",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:metabolism_queue_reconciliation",
+        "target": "component:verifier_lab_kernel"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:metabolism_queue_reconciliation:formal_math_lean_proof_witness",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:metabolism_queue_reconciliation",
+        "target": "component:formal_math_lean_proof_witness"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
         "id": "edge:wire:mission_transaction_work_spine:bounded_autonomy_campaign_packet",
         "label": "declared wiring",
         "layout_constraints": {
@@ -2407,6 +2791,54 @@
         "relation": "declared_dependency_untyped",
         "source": "component:mission_transaction_work_spine",
         "target": "component:agentic_vulnerability_discovery_patch_proof_replay"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:navigation_fitness_benchmark:certificate_kernel_execution_lab",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:navigation_fitness_benchmark",
+        "target": "component:certificate_kernel_execution_lab"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:navigation_fitness_benchmark:verifier_lab_kernel",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:navigation_fitness_benchmark",
+        "target": "component:verifier_lab_kernel"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:navigation_fitness_benchmark:formal_math_lean_proof_witness",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:navigation_fitness_benchmark",
+        "target": "component:formal_math_lean_proof_witness"
       },
       {
         "attention_score": 0.98,
@@ -3131,6 +3563,70 @@
       {
         "attention_score": 0.98,
         "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:semantic_singleflight_dedup_runtime:mission_transaction_work_spine",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:semantic_singleflight_dedup_runtime",
+        "target": "component:mission_transaction_work_spine"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:semantic_singleflight_dedup_runtime:durable_agent_work_landing_replay",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:semantic_singleflight_dedup_runtime",
+        "target": "component:durable_agent_work_landing_replay"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:semantic_singleflight_dedup_runtime:concurrency_mission_control",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:semantic_singleflight_dedup_runtime",
+        "target": "component:concurrency_mission_control"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
+        "id": "edge:wire:semantic_singleflight_dedup_runtime:engine_room_demo",
+        "label": "declared wiring",
+        "layout_constraints": {
+          "bundle_id": "bundle:explicit_wiring"
+        },
+        "provenance": {
+          "source_field": "wires_to",
+          "source_ref": "microcosm-substrate/core/organ_atlas.json"
+        },
+        "relation": "declared_dependency_untyped",
+        "source": "component:semantic_singleflight_dedup_runtime",
+        "target": "component:engine_room_demo"
+      },
+      {
+        "attention_score": 0.98,
+        "bundle_id": "bundle:explicit_wiring",
         "id": "edge:wire:tactic_portfolio_availability_probe:corpus_readiness_mathlib_absence_gate",
         "label": "declared wiring",
         "layout_constraints": {
@@ -3738,6 +4234,9 @@
           "edge:wire:agent_route_observability_runtime:provider_context_recipe_budget_policy",
           "edge:wire:agent_route_observability_runtime:belief_state_process_reward_replay",
           "edge:wire:agent_sandbox_policy_escape_replay:sleeper_memory_poisoning_quarantine_replay",
+          "edge:wire:annex_knowledge_routing:certificate_kernel_execution_lab",
+          "edge:wire:annex_knowledge_routing:verifier_lab_kernel",
+          "edge:wire:annex_knowledge_routing:formal_math_lean_proof_witness",
           "edge:wire:batch10_live_source_drift_capsule:batch10_governance_compilers_capsule",
           "edge:wire:batch11_saturation_engines_capsule:macro_projection_import_protocol",
           "edge:wire:batch11_saturation_engines_capsule:batch8_compliance_pipeline_capsule",
@@ -3759,6 +4258,9 @@
           "edge:wire:batch8_validator_checker_capsule:batch10_cold_eval_honesty_capsule",
           "edge:wire:batch8_validator_checker_capsule:batch12_release_claim_language_gate",
           "edge:wire:batch9_macro_engines_capsule:batch10_governance_compilers_capsule",
+          "edge:wire:bridge_campaign_dag_validation:certificate_kernel_execution_lab",
+          "edge:wire:bridge_campaign_dag_validation:verifier_lab_kernel",
+          "edge:wire:bridge_campaign_dag_validation:formal_math_lean_proof_witness",
           "edge:wire:bridge_phase_continuity_runtime:agent_memory_temporal_conflict_replay",
           "edge:wire:bridge_phase_continuity_runtime:concurrency_mission_control",
           "edge:wire:cold_reader_route_map:navigation_hologram_route_plane",
@@ -3775,15 +4277,24 @@
           "edge:wire:corpus_readiness_mathlib_absence_gate:tactic_portfolio_availability_probe",
           "edge:wire:corpus_readiness_mathlib_absence_gate:undeclared_library_prior_symbol_classifier",
           "edge:wire:corpus_readiness_mathlib_absence_gate:formal_math_lean_proof_witness",
+          "edge:wire:derived_fact_provider_runtime:certificate_kernel_execution_lab",
+          "edge:wire:derived_fact_provider_runtime:verifier_lab_kernel",
+          "edge:wire:derived_fact_provider_runtime:formal_math_lean_proof_witness",
           "edge:wire:doctrine_fact_claim_audit:engine_room_demo",
           "edge:wire:doctrine_fact_claim_audit:self_ignorance_coverage_ledger",
           "edge:wire:durable_agent_work_landing_replay:agent_closeout_faithfulness_audit",
           "edge:wire:durable_agent_work_landing_replay:macro_projection_import_protocol",
+          "edge:wire:egress_self_compliance_audit:certificate_kernel_execution_lab",
+          "edge:wire:egress_self_compliance_audit:verifier_lab_kernel",
+          "edge:wire:egress_self_compliance_audit:formal_math_lean_proof_witness",
           "edge:wire:engine_room_demo:batch8_compliance_pipeline_capsule",
           "edge:wire:engine_room_demo:batch8_validator_checker_capsule",
           "edge:wire:executable_doctrine_grammar:doctrine_fact_claim_audit",
           "edge:wire:finance_forecast_evaluation_spine:batch12_prediction_market_board_capsule",
           "edge:wire:finance_forecast_evaluation_spine:prediction_oracle_reconciliation",
+          "edge:wire:finite_erdos_denominator_certificate_strike:certificate_kernel_execution_lab",
+          "edge:wire:finite_erdos_denominator_certificate_strike:verifier_lab_kernel",
+          "edge:wire:finite_erdos_denominator_certificate_strike:formal_math_lean_proof_witness",
           "edge:wire:formal_evidence_cell_anchor_resolver:formal_math_verifier_trace_repair_loop",
           "edge:wire:formal_evidence_cell_anchor_resolver:proof_diagnostic_evidence_spine",
           "edge:wire:formal_evidence_cell_anchor_resolver:target_shape_tactic_routing_gate",
@@ -3809,6 +4320,12 @@
           "edge:wire:formal_math_verifier_trace_repair_loop:verifier_lab_kernel",
           "edge:wire:formal_math_verifier_trace_repair_loop:target_shape_tactic_routing_gate",
           "edge:wire:formal_math_verifier_trace_repair_loop:verifier_lab_execution_spine",
+          "edge:wire:generated_projection_drift_runtime:certificate_kernel_execution_lab",
+          "edge:wire:generated_projection_drift_runtime:verifier_lab_kernel",
+          "edge:wire:generated_projection_drift_runtime:formal_math_lean_proof_witness",
+          "edge:wire:lean_proof_search_lab_runtime:certificate_kernel_execution_lab",
+          "edge:wire:lean_proof_search_lab_runtime:verifier_lab_kernel",
+          "edge:wire:lean_proof_search_lab_runtime:formal_math_lean_proof_witness",
           "edge:wire:lean_std_premise_index:formal_math_verifier_trace_repair_loop",
           "edge:wire:lean_std_premise_index:verifier_lab_kernel",
           "edge:wire:lean_std_premise_index:mathematical_strategy_atlas_hypothesis_scorer",
@@ -3839,6 +4356,9 @@
           "edge:wire:materials_chemistry_closed_loop_lab_safety_replay:spatial_world_model_counterfactual_simulation_replay",
           "edge:wire:mcp_tool_authority_replay:agent_sandbox_policy_escape_replay",
           "edge:wire:mcp_tool_authority_replay:sleeper_memory_poisoning_quarantine_replay",
+          "edge:wire:metabolism_queue_reconciliation:certificate_kernel_execution_lab",
+          "edge:wire:metabolism_queue_reconciliation:verifier_lab_kernel",
+          "edge:wire:metabolism_queue_reconciliation:formal_math_lean_proof_witness",
           "edge:wire:mission_transaction_work_spine:bounded_autonomy_campaign_packet",
           "edge:wire:mission_transaction_work_spine:concurrency_mission_control",
           "edge:wire:mission_transaction_work_spine:macro_projection_import_protocol",
@@ -3848,6 +4368,9 @@
           "edge:wire:mission_transaction_work_spine:batch8_tools_tail_primitives_capsule",
           "edge:wire:mission_transaction_work_spine:agent_benchmark_integrity_anti_gaming_replay",
           "edge:wire:mission_transaction_work_spine:agentic_vulnerability_discovery_patch_proof_replay",
+          "edge:wire:navigation_fitness_benchmark:certificate_kernel_execution_lab",
+          "edge:wire:navigation_fitness_benchmark:verifier_lab_kernel",
+          "edge:wire:navigation_fitness_benchmark:formal_math_lean_proof_witness",
           "edge:wire:navigation_hologram_route_plane:cold_reader_route_map",
           "edge:wire:navigation_hologram_route_plane:agent_route_observability_runtime",
           "edge:wire:navigation_hologram_route_plane:routing_anti_patterns_registry",
@@ -3893,6 +4416,10 @@
           "edge:wire:routing_anti_patterns_registry:navigation_hologram_route_plane",
           "edge:wire:routing_anti_patterns_registry:agent_route_observability_runtime",
           "edge:wire:routing_anti_patterns_registry:cold_reader_route_map",
+          "edge:wire:semantic_singleflight_dedup_runtime:mission_transaction_work_spine",
+          "edge:wire:semantic_singleflight_dedup_runtime:durable_agent_work_landing_replay",
+          "edge:wire:semantic_singleflight_dedup_runtime:concurrency_mission_control",
+          "edge:wire:semantic_singleflight_dedup_runtime:engine_room_demo",
           "edge:wire:tactic_portfolio_availability_probe:corpus_readiness_mathlib_absence_gate",
           "edge:wire:tactic_portfolio_availability_probe:formal_math_verifier_trace_repair_loop",
           "edge:wire:tactic_portfolio_availability_probe:target_shape_tactic_routing_gate",
@@ -3938,6 +4465,7 @@
           "component:agent_sabotage_scheming_monitor_replay",
           "component:agent_sandbox_policy_escape_replay",
           "component:agentic_vulnerability_discovery_patch_proof_replay",
+          "component:annex_knowledge_routing",
           "component:batch10_cold_eval_honesty_capsule",
           "component:batch10_governance_compilers_capsule",
           "component:batch10_live_source_drift_capsule",
@@ -3961,30 +4489,38 @@
           "component:batch9_macro_engines_capsule",
           "component:belief_state_process_reward_replay",
           "component:bounded_autonomy_campaign_packet",
+          "component:bridge_campaign_dag_validation",
           "component:bridge_phase_continuity_runtime",
           "component:certificate_kernel_execution_lab",
           "component:cognitive_operator_registry",
           "component:cold_reader_route_map",
           "component:concurrency_mission_control",
           "component:corpus_readiness_mathlib_absence_gate",
+          "component:derived_fact_provider_runtime",
           "component:doctrine_fact_claim_audit",
           "component:durable_agent_work_landing_replay",
+          "component:egress_self_compliance_audit",
           "component:engine_room_demo",
           "component:executable_doctrine_grammar",
           "component:finance_forecast_evaluation_spine",
+          "component:finite_erdos_denominator_certificate_strike",
           "component:formal_evidence_cell_anchor_resolver",
           "component:formal_math_lean_proof_witness",
           "component:formal_math_premise_retrieval",
           "component:formal_math_readiness_gate",
           "component:formal_math_verifier_trace_repair_loop",
+          "component:generated_projection_drift_runtime",
           "component:indirect_prompt_injection_information_flow_policy_replay",
+          "component:lean_proof_search_lab_runtime",
           "component:lean_std_premise_index",
           "component:macro_projection_import_protocol",
           "component:materials_chemistry_closed_loop_lab_safety_replay",
           "component:mathematical_strategy_atlas_hypothesis_scorer",
           "component:mcp_tool_authority_replay",
           "component:mechanistic_interpretability_circuit_attribution_replay",
+          "component:metabolism_queue_reconciliation",
           "component:mission_transaction_work_spine",
+          "component:navigation_fitness_benchmark",
           "component:navigation_hologram_route_plane",
           "component:pattern_assimilation_step",
           "component:pattern_binding_contract",
@@ -3997,6 +4533,7 @@
           "component:ring2_premise_retrieval_precision_recall_harness",
           "component:routing_anti_patterns_registry",
           "component:self_ignorance_coverage_ledger",
+          "component:semantic_singleflight_dedup_runtime",
           "component:sleeper_memory_poisoning_quarantine_replay",
           "component:spatial_world_model_counterfactual_simulation_replay",
           "component:standards_meta_diagnostics",
@@ -4057,11 +4594,11 @@
       "counts": {
         "bundles": 3,
         "clusters": 9,
-        "edges": 224,
+        "edges": 255,
         "focus_paths": 3,
         "inspectors": 0,
         "lanes": 0,
-        "nodes": 96,
+        "nodes": 106,
         "rows": 0
       },
       "default_focus_id": "public_overview",
@@ -4070,11 +4607,11 @@
       "generated_at": "1970-01-01T00:00:00+00:00",
       "generated_from_cache": false,
       "quality": {
-        "density": 2.333,
+        "density": 2.406,
         "disconnected_component_count": 7,
-        "estimated_crossing_risk": 0.433,
+        "estimated_crossing_risk": 0.441,
         "hairball_risk": "medium",
-        "max_fanin": 9,
+        "max_fanin": 18,
         "max_fanout": 23,
         "recommended_projection": "focus_context",
         "warnings": []
@@ -4084,10 +4621,10 @@
         "public_page": "docs/architecture.html",
         "source": "microcosm-substrate/core/organ_atlas.json"
       },
-      "revision": "gsc_198a1217343334754611",
+      "revision": "gsc_88731e31956f670d0e18",
       "scene_id": "microcosm_public_architecture",
       "schema": "graph_scene_manifest_v1",
-      "source_fingerprint": "bdaece0e350c5bf5888345ecf4cf5c87",
+      "source_fingerprint": "b3ac0910b537b058a88838e82d721a34",
       "source_ref": "microcosm-substrate/core/organ_families.json",
       "source_schema": "microcosm_public_architecture_graph_source_v1"
     },
@@ -4307,7 +4844,7 @@
           "parent_cluster_id": "cluster:areas"
         },
         "metrics": {
-          "component_count": 10
+          "component_count": 12
         },
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-architecture.html",
@@ -4325,7 +4862,7 @@
           "parent_cluster_id": "cluster:areas"
         },
         "metrics": {
-          "component_count": 18
+          "component_count": 20
         },
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-formal-math.html",
@@ -4343,7 +4880,7 @@
           "parent_cluster_id": "cluster:areas"
         },
         "metrics": {
-          "component_count": 17
+          "component_count": 20
         },
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-agent-reliability.html",
@@ -4361,7 +4898,7 @@
           "parent_cluster_id": "cluster:areas"
         },
         "metrics": {
-          "component_count": 8
+          "component_count": 9
         },
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-research.html",
@@ -4379,7 +4916,7 @@
           "parent_cluster_id": "cluster:areas"
         },
         "metrics": {
-          "component_count": 19
+          "component_count": 20
         },
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-import-drift.html",
@@ -4397,7 +4934,7 @@
           "parent_cluster_id": "cluster:areas"
         },
         "metrics": {
-          "component_count": 4
+          "component_count": 5
         },
         "parent_cluster_id": "cluster:areas",
         "resolver_ref": "docs/area-continuity.html",
@@ -4457,7 +4994,7 @@
         "attention_score": 0.98,
         "id": "component:agent_monitor_redteam_falsification_replay",
         "kind": "wired_component",
-        "label": "Agent Monitor Redteam Falsification Replay",
+        "label": "Monitor Evidence-Boundary Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:agent_reliability_and_safety"
@@ -4489,7 +5026,7 @@
         "attention_score": 0.98,
         "id": "component:agent_sabotage_scheming_monitor_replay",
         "kind": "wired_component",
-        "label": "Agent Sabotage Scheming Monitor Replay",
+        "label": "Sabotage-Monitor Contract Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:agent_reliability_and_safety"
@@ -4505,7 +5042,7 @@
         "attention_score": 0.98,
         "id": "component:agent_sandbox_policy_escape_replay",
         "kind": "wired_component",
-        "label": "Agent Sandbox Policy Escape Replay",
+        "label": "Sandbox-Policy Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:agent_reliability_and_safety"
@@ -4521,7 +5058,7 @@
         "attention_score": 0.98,
         "id": "component:agentic_vulnerability_discovery_patch_proof_replay",
         "kind": "wired_component",
-        "label": "Agentic Vulnerability Discovery Patch Proof Replay",
+        "label": "Vulnerability Patch-Proof Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:agent_reliability_and_safety"
@@ -4530,6 +5067,22 @@
           "declared_wiring_endpoint": true
         },
         "parent_cluster_id": "cluster:agent_reliability_and_safety",
+        "row_id": null,
+        "state": "active"
+      },
+      {
+        "attention_score": 0.98,
+        "id": "component:annex_knowledge_routing",
+        "kind": "wired_component",
+        "label": "Reference Knowledge Routing",
+        "lane_id": null,
+        "layout_constraints": {
+          "parent_cluster_id": "cluster:architecture_and_navigation"
+        },
+        "metrics": {
+          "declared_wiring_endpoint": true
+        },
+        "parent_cluster_id": "cluster:architecture_and_navigation",
         "row_id": null,
         "state": "active"
       },
@@ -4873,7 +5426,7 @@
         "attention_score": 0.98,
         "id": "component:belief_state_process_reward_replay",
         "kind": "wired_component",
-        "label": "Belief State Process Reward Replay",
+        "label": "Belief-State Reward Bundle Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:agent_reliability_and_safety"
@@ -4903,9 +5456,25 @@
       },
       {
         "attention_score": 0.98,
+        "id": "component:bridge_campaign_dag_validation",
+        "kind": "wired_component",
+        "label": "Bridge Campaign DAG Validation",
+        "lane_id": null,
+        "layout_constraints": {
+          "parent_cluster_id": "cluster:agent_reliability_and_safety"
+        },
+        "metrics": {
+          "declared_wiring_endpoint": true
+        },
+        "parent_cluster_id": "cluster:agent_reliability_and_safety",
+        "row_id": null,
+        "state": "active"
+      },
+      {
+        "attention_score": 0.98,
         "id": "component:bridge_phase_continuity_runtime",
         "kind": "wired_component",
-        "label": "Bridge Phase Continuity Runtime",
+        "label": "Bridge-Continuity Sign-off Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:work_landing_and_continuity"
@@ -4999,6 +5568,22 @@
       },
       {
         "attention_score": 0.98,
+        "id": "component:derived_fact_provider_runtime",
+        "kind": "wired_component",
+        "label": "Derived Fact Provider Runtime",
+        "lane_id": null,
+        "layout_constraints": {
+          "parent_cluster_id": "cluster:research_and_science_replays"
+        },
+        "metrics": {
+          "declared_wiring_endpoint": true
+        },
+        "parent_cluster_id": "cluster:research_and_science_replays",
+        "row_id": null,
+        "state": "active"
+      },
+      {
+        "attention_score": 0.98,
         "id": "component:doctrine_fact_claim_audit",
         "kind": "wired_component",
         "label": "Doctrine Fact Claim Audit",
@@ -5026,6 +5611,22 @@
           "declared_wiring_endpoint": true
         },
         "parent_cluster_id": "cluster:work_landing_and_continuity",
+        "row_id": null,
+        "state": "active"
+      },
+      {
+        "attention_score": 0.98,
+        "id": "component:egress_self_compliance_audit",
+        "kind": "wired_component",
+        "label": "Egress Self-Compliance Audit",
+        "lane_id": null,
+        "layout_constraints": {
+          "parent_cluster_id": "cluster:agent_reliability_and_safety"
+        },
+        "metrics": {
+          "declared_wiring_endpoint": true
+        },
+        "parent_cluster_id": "cluster:agent_reliability_and_safety",
         "row_id": null,
         "state": "active"
       },
@@ -5074,6 +5675,22 @@
           "declared_wiring_endpoint": true
         },
         "parent_cluster_id": "cluster:research_and_science_replays",
+        "row_id": null,
+        "state": "active"
+      },
+      {
+        "attention_score": 0.98,
+        "id": "component:finite_erdos_denominator_certificate_strike",
+        "kind": "wired_component",
+        "label": "Finite Erdos Denominator-Order Certificate Strike",
+        "lane_id": null,
+        "layout_constraints": {
+          "parent_cluster_id": "cluster:formal_math_and_proof"
+        },
+        "metrics": {
+          "declared_wiring_endpoint": true
+        },
+        "parent_cluster_id": "cluster:formal_math_and_proof",
         "row_id": null,
         "state": "active"
       },
@@ -5159,9 +5776,25 @@
       },
       {
         "attention_score": 0.98,
+        "id": "component:generated_projection_drift_runtime",
+        "kind": "wired_component",
+        "label": "Generated Projection Drift Runtime",
+        "lane_id": null,
+        "layout_constraints": {
+          "parent_cluster_id": "cluster:import_projection_and_drift"
+        },
+        "metrics": {
+          "declared_wiring_endpoint": true
+        },
+        "parent_cluster_id": "cluster:import_projection_and_drift",
+        "row_id": null,
+        "state": "active"
+      },
+      {
+        "attention_score": 0.98,
         "id": "component:indirect_prompt_injection_information_flow_policy_replay",
         "kind": "component",
-        "label": "Indirect Prompt Injection Information Flow Policy Replay",
+        "label": "Prompt-Injection Flow-Policy Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:agent_reliability_and_safety"
@@ -5170,6 +5803,22 @@
           "declared_wiring_endpoint": false
         },
         "parent_cluster_id": "cluster:agent_reliability_and_safety",
+        "row_id": null,
+        "state": "active"
+      },
+      {
+        "attention_score": 0.98,
+        "id": "component:lean_proof_search_lab_runtime",
+        "kind": "wired_component",
+        "label": "Lean Proof-Search Lab Runtime",
+        "lane_id": null,
+        "layout_constraints": {
+          "parent_cluster_id": "cluster:formal_math_and_proof"
+        },
+        "metrics": {
+          "declared_wiring_endpoint": true
+        },
+        "parent_cluster_id": "cluster:formal_math_and_proof",
         "row_id": null,
         "state": "active"
       },
@@ -5209,7 +5858,7 @@
         "attention_score": 0.98,
         "id": "component:materials_chemistry_closed_loop_lab_safety_replay",
         "kind": "wired_component",
-        "label": "Materials Chemistry Closed Loop Lab Safety Replay",
+        "label": "Materials Lab-Safety Refusal Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:research_and_science_replays"
@@ -5241,7 +5890,7 @@
         "attention_score": 0.98,
         "id": "component:mcp_tool_authority_replay",
         "kind": "wired_component",
-        "label": "MCP Tool Authority Replay",
+        "label": "MCP Tool-Authority Policy Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:agent_reliability_and_safety"
@@ -5257,7 +5906,7 @@
         "attention_score": 0.98,
         "id": "component:mechanistic_interpretability_circuit_attribution_replay",
         "kind": "wired_component",
-        "label": "Mechanistic Interpretability Circuit Attribution Replay",
+        "label": "Toy-Transformer Attribution Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:research_and_science_replays"
@@ -5266,6 +5915,22 @@
           "declared_wiring_endpoint": true
         },
         "parent_cluster_id": "cluster:research_and_science_replays",
+        "row_id": null,
+        "state": "active"
+      },
+      {
+        "attention_score": 0.98,
+        "id": "component:metabolism_queue_reconciliation",
+        "kind": "wired_component",
+        "label": "Metabolism Queue Reconciliation",
+        "lane_id": null,
+        "layout_constraints": {
+          "parent_cluster_id": "cluster:agent_reliability_and_safety"
+        },
+        "metrics": {
+          "declared_wiring_endpoint": true
+        },
+        "parent_cluster_id": "cluster:agent_reliability_and_safety",
         "row_id": null,
         "state": "active"
       },
@@ -5282,6 +5947,22 @@
           "declared_wiring_endpoint": true
         },
         "parent_cluster_id": "cluster:work_landing_and_continuity",
+        "row_id": null,
+        "state": "active"
+      },
+      {
+        "attention_score": 0.98,
+        "id": "component:navigation_fitness_benchmark",
+        "kind": "wired_component",
+        "label": "Navigation Fitness Benchmark",
+        "lane_id": null,
+        "layout_constraints": {
+          "parent_cluster_id": "cluster:architecture_and_navigation"
+        },
+        "metrics": {
+          "declared_wiring_endpoint": true
+        },
+        "parent_cluster_id": "cluster:architecture_and_navigation",
         "row_id": null,
         "state": "active"
       },
@@ -5479,9 +6160,25 @@
       },
       {
         "attention_score": 0.98,
+        "id": "component:semantic_singleflight_dedup_runtime",
+        "kind": "wired_component",
+        "label": "Semantic Singleflight Dedup Runtime",
+        "lane_id": null,
+        "layout_constraints": {
+          "parent_cluster_id": "cluster:work_landing_and_continuity"
+        },
+        "metrics": {
+          "declared_wiring_endpoint": true
+        },
+        "parent_cluster_id": "cluster:work_landing_and_continuity",
+        "row_id": null,
+        "state": "active"
+      },
+      {
+        "attention_score": 0.98,
         "id": "component:sleeper_memory_poisoning_quarantine_replay",
         "kind": "wired_component",
-        "label": "Sleeper Memory Poisoning Quarantine Replay",
+        "label": "Memory-Poisoning Quarantine Policy Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:agent_reliability_and_safety"
@@ -5497,7 +6194,7 @@
         "attention_score": 0.98,
         "id": "component:spatial_world_model_counterfactual_simulation_replay",
         "kind": "wired_component",
-        "label": "Spatial World Model Counterfactual Simulation Replay",
+        "label": "Gridworld Counterfactual State Replay",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:research_and_science_replays"
@@ -5641,7 +6338,7 @@
         "attention_score": 0.98,
         "id": "component:world_model_projection_drift_control_room",
         "kind": "wired_component",
-        "label": "World Model Projection Drift Control Room",
+        "label": "Projection-Drift Contract Validator",
         "lane_id": null,
         "layout_constraints": {
           "parent_cluster_id": "cluster:import_projection_and_drift"
@@ -5660,18 +6357,18 @@
       "bundled_edge_count": 0,
       "cluster_count": 9,
       "cross_lane_edge_count": 0,
-      "density": 2.333,
+      "density": 2.406,
       "disconnected_component_count": 7,
-      "edge_count": 224,
-      "estimated_crossing_risk": 0.433,
+      "edge_count": 255,
+      "estimated_crossing_risk": 0.441,
       "focus_path_count": 3,
       "hairball_risk": "medium",
       "inspector_payload_pressure": "medium",
       "label_budget_pressure": "medium",
       "long_edge_count": 0,
-      "max_fanin": 9,
+      "max_fanin": 18,
       "max_fanout": 23,
-      "node_count": 96,
+      "node_count": 106,
       "orphan_node_count": 3,
       "projection_candidates": [
         {
@@ -5693,8 +6390,8 @@
       ],
       "recommended_projection": "focus_context",
       "schema": "graph_scene_quality_v1",
-      "visible_edge_count": 224,
-      "visible_node_count": 96,
+      "visible_edge_count": 255,
+      "visible_node_count": 106,
       "warnings": []
     },
     "resolver_refs": {
@@ -5702,7 +6399,7 @@
       "public_page": "docs/architecture.html",
       "source": "microcosm-substrate/core/organ_atlas.json"
     },
-    "revision": "gsc_198a1217343334754611",
+    "revision": "gsc_88731e31956f670d0e18",
     "rows": [],
     "scene_id": "microcosm_public_architecture",
     "schema": "graph_scene_v1",
@@ -5713,13 +6410,13 @@
       },
       "levels": [
         {
-          "hidden_edge_count": 221,
-          "hidden_node_count": 87,
+          "hidden_edge_count": 252,
+          "hidden_node_count": 97,
           "id": "lod0_glance",
           "label": "Glance",
           "mode": "cluster_rollup",
-          "source_edge_count": 224,
-          "source_node_count": 96,
+          "source_edge_count": 255,
+          "source_node_count": 106,
           "visible_edge_count": 3,
           "visible_node_count": 9
         },
@@ -5729,10 +6426,10 @@
           "id": "lod1_domains",
           "label": "Domains",
           "mode": "domain_rows",
-          "source_edge_count": 224,
-          "source_node_count": 96,
-          "visible_edge_count": 224,
-          "visible_node_count": 96
+          "source_edge_count": 255,
+          "source_node_count": 106,
+          "visible_edge_count": 255,
+          "visible_node_count": 106
         },
         {
           "hidden_edge_count": 0,
@@ -5740,19 +6437,19 @@
           "id": "lod2_focus",
           "label": "Focus",
           "mode": "focus_context",
-          "source_edge_count": 224,
-          "source_node_count": 96,
-          "visible_edge_count": 224,
-          "visible_node_count": 96
+          "source_edge_count": 255,
+          "source_node_count": 106,
+          "visible_edge_count": 255,
+          "visible_node_count": 106
         },
         {
-          "hidden_edge_count": 84,
-          "hidden_node_count": 0,
+          "hidden_edge_count": 115,
+          "hidden_node_count": 10,
           "id": "lod3_operational",
           "label": "Operational",
           "mode": "ranked_lanes",
-          "source_edge_count": 224,
-          "source_node_count": 96,
+          "source_edge_count": 255,
+          "source_node_count": 106,
           "visible_edge_count": 140,
           "visible_node_count": 96
         },
@@ -5762,17 +6459,17 @@
           "id": "lod4_detail",
           "label": "Detail",
           "mode": "full_scene",
-          "source_edge_count": 224,
-          "source_node_count": 96,
-          "visible_edge_count": 224,
-          "visible_node_count": 96
+          "source_edge_count": 255,
+          "source_node_count": 106,
+          "visible_edge_count": 255,
+          "visible_node_count": 106
         }
       ],
       "schema": "graph_scene_semantic_zoom_v1",
-      "source_edge_count": 224,
-      "source_node_count": 96
+      "source_edge_count": 255,
+      "source_node_count": 106
     },
-    "source_fingerprint": "bdaece0e350c5bf5888345ecf4cf5c87",
+    "source_fingerprint": "b3ac0910b537b058a88838e82d721a34",
     "source_ref": "microcosm-substrate/core/organ_families.json",
     "source_schema": "microcosm_public_architecture_graph_source_v1",
     "type_registry": {
@@ -5783,7 +6480,7 @@
       },
       "edge_relations": {
         "binds_to_shared_path": 7,
-        "declared_dependency_untyped": 208,
+        "declared_dependency_untyped": 239,
         "spine_sequence": 9
       },
       "node_kinds": {
@@ -5791,16 +6488,16 @@
         "component": 3,
         "shared_spine": 1,
         "spine_step": 10,
-        "wired_component": 75
+        "wired_component": 85
       },
       "schema": "graph_scene_type_registry_v1"
     },
     "validation": {
       "counts": {
         "bundles": 3,
-        "edges": 224,
+        "edges": 255,
         "focus_paths": 3,
-        "nodes": 96
+        "nodes": 106
       },
       "errors": [],
       "ok": true,
@@ -5817,9 +6514,9 @@
   ],
   "summary": {
     "area_count": 7,
-    "component_count": 78,
+    "component_count": 88,
     "edge_semantics": "declared_dependency_untyped",
-    "explicit_wire_count": 208,
+    "explicit_wire_count": 239,
     "schema": "microcosm_public_architecture_graph_summary_v1",
     "source_refs": [
       "microcosm-substrate/core/organ_families.json",
@@ -5828,6 +6525,6 @@
       "microcosm-substrate/core/architecture_kernel.json"
     ],
     "spine_step_count": 10,
-    "wired_component_count": 52
+    "wired_component_count": 62
   }
 }
