@@ -19,19 +19,22 @@ from microcosm_core.organs.cold_reader_route_map import (
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
-MACRO_ROOT = MICROCOSM_ROOT.parent
 FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/cold_reader_route_map/input"
 BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle"
 )
 SOURCE_MODULE_MANIFEST = BUNDLE_INPUT / "source_module_manifest.json"
+# Copied non-secret macro bodies carried verbatim into the exported bundle's
+# `modules` list. The kernel command body (`comprehension_snapshot.py`) is a
+# private source: on export the firewall substitutes it with a public-safe stub
+# and records it under `release_substitution_omissions`, so it is NOT a copied
+# source module and is intentionally absent here.
 COLD_READER_SOURCE_MODULE_IDS = {
     "agent_instruction_router_body_import",
     "agent_entry_reference_body_import",
     "kernel_bootstrap_skill_body_import",
     "kernel_navigation_seed_skill_body_import",
-    "kernel_entry_packet_command_body_import",
 }
 
 
@@ -176,10 +179,12 @@ def test_cold_reader_exported_bundle_validates_runtime_shape(tmp_path: Path) -> 
     assert all(row["digest_match"] for row in result["source_module_results"])
     assert all(row["anchor_status"] == "pass" for row in result["source_module_results"])
     assert "docs/agent_instruction_router.md" in result["real_substrate_refs"]
-    assert (
-        "examples/cold_reader_route_map/exported_cold_reader_route_map_bundle/"
-        "source_modules/system/lib/kernel/commands/comprehension_snapshot.py"
-    ) in result["real_substrate_refs"]
+    # The kernel command body is a private source substituted with a public-safe
+    # stub on export (release_substitution_omissions), so it is not a copied
+    # macro body and must not surface among the real substrate refs.
+    assert not any(
+        "comprehension_snapshot.py" in ref for ref in result["real_substrate_refs"]
+    )
     verification = result["body_import_verification"]
     expected_digests = sorted(
         f"sha256:{row['source_sha256']}" for row in result["source_module_results"]
@@ -428,7 +433,7 @@ def test_cold_reader_source_module_import_reuses_anchor_text_for_line_count(
     )
 
 
-def test_cold_reader_source_manifest_matches_exact_macro_sources() -> None:
+def test_cold_reader_source_manifest_matches_exported_body_floor() -> None:
     manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
@@ -437,20 +442,46 @@ def test_cold_reader_source_manifest_matches_exact_macro_sources() -> None:
     assert set(row["module_id"] for row in manifest["modules"]) == (
         COLD_READER_SOURCE_MODULE_IDS
     )
+    assert [
+        row["module_id"] for row in manifest["release_substitution_omissions"]
+    ] == ["kernel_entry_packet_command_body_import"]
     for row in manifest["modules"]:
-        source = MACRO_ROOT / row["source_ref"]
+        source_ref = Path(row["source_ref"])
         target = MICROCOSM_ROOT / Path(row["target_ref"]).relative_to(
             "microcosm-substrate"
         )
-        assert source.is_file(), row["source_ref"]
+        assert not source_ref.is_absolute()
+        assert ".." not in source_ref.parts
         assert target.is_file(), row["target_ref"]
-        assert source.read_bytes() == target.read_bytes()
         digest = hashlib.sha256(target.read_bytes()).hexdigest()
         assert row["sha256"] == digest
+        assert row["source_sha256"] == digest
+        assert row["target_sha256"] == digest
         assert row["source_to_target_relation"] == "exact_copy"
+        assert row["body_copied"] is True
         assert row["body_in_receipt"] is False
         for anchor in row["required_anchors"]:
             assert anchor in target.read_text(encoding="utf-8")
+
+
+def test_cold_reader_bundle_manifest_counts_only_copied_source_modules() -> None:
+    bundle_manifest = json.loads(
+        (BUNDLE_INPUT / "bundle_manifest.json").read_text(encoding="utf-8")
+    )
+    source_manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
+    copied_refs = {row["target_ref"] for row in source_manifest["modules"]}
+
+    assert bundle_manifest["copied_source_module_count"] == len(
+        COLD_READER_SOURCE_MODULE_IDS
+    )
+    assert set(bundle_manifest["copied_source_module_refs"]) == copied_refs
+    assert not any(
+        "comprehension_snapshot.py" in ref
+        for ref in bundle_manifest["copied_source_module_refs"]
+    )
+    assert [
+        row["module_id"] for row in source_manifest["release_substitution_omissions"]
+    ] == ["kernel_entry_packet_command_body_import"]
 
 
 def test_cold_reader_fixture_manifest_counts_source_open_body_floor() -> None:
