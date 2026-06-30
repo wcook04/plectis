@@ -117,6 +117,24 @@ OVERCLAIM_PHRASES = (
     "fully verified",
     "certified secure",
 )
+ERDOS_TOPIC_OWNER = "finite_erdos_denominator_certificate_strike"
+ERDOS_TOPIC_TERMS = (
+    "Erdos",
+    "denominator-order",
+    "S_F(b)",
+    "ord_Q",
+    "multiplicative_order",
+    "open infinite Erdos #257",
+)
+ERDOS_TOPIC_FIELDS = (
+    "claim_ceiling_restated",
+    "wiring_note",
+)
+ERDOS_TOPIC_SPECIALTY_TERMS = (
+    "number-theory",
+    "exact-arithmetic",
+    "self-falsifying-certificate",
+)
 NEGATION_CUES = (
     "not",
     "n't",
@@ -1099,6 +1117,7 @@ def load_model(root: str | Path) -> dict[str, Any]:
     overclaim_cards: list[str] = []
     ceiling_without_negation: list[str] = []
     empty_specialty: list[str] = []
+    topic_ceiling_terms_outside_owner: list[str] = []
     unresolved_wires_to: list[str] = []
     missing_capsule_compression: list[str] = []
     missing_capsule_one_line: list[str] = []
@@ -1132,6 +1151,20 @@ def load_model(root: str | Path) -> dict[str, Any]:
         specialty = g.get("specialty")
         if not (isinstance(specialty, list) and specialty):
             empty_specialty.append(oid)
+        if oid != ERDOS_TOPIC_OWNER:
+            for field in ERDOS_TOPIC_FIELDS:
+                field_text = str(g.get(field, ""))
+                for term in ERDOS_TOPIC_TERMS:
+                    if term in field_text:
+                        topic_ceiling_terms_outside_owner.append(
+                            f"{oid}.{field}:{term}"
+                        )
+            if isinstance(specialty, list):
+                for tag in specialty:
+                    if tag in ERDOS_TOPIC_SPECIALTY_TERMS:
+                        topic_ceiling_terms_outside_owner.append(
+                            f"{oid}.specialty:{tag}"
+                        )
         # edges must resolve to accepted organs (no dangling wires_to)
         wires = g.get("wires_to")
         if isinstance(wires, list):
@@ -1176,6 +1209,8 @@ def load_model(root: str | Path) -> dict[str, Any]:
         blocking_reasons.append("ceiling_without_negation")
     if empty_specialty:
         blocking_reasons.append("empty_specialty")
+    if topic_ceiling_terms_outside_owner:
+        blocking_reasons.append("topic_ceiling_terms_outside_owner")
     if unresolved_wires_to:
         blocking_reasons.append("unresolved_wires_to")
     if missing_capsule_compression:
@@ -1348,6 +1383,9 @@ def load_model(root: str | Path) -> dict[str, Any]:
             "overclaim_cards": sorted(overclaim_cards),
             "ceiling_without_negation": sorted(ceiling_without_negation),
             "empty_specialty": sorted(empty_specialty),
+            "topic_ceiling_terms_outside_owner": sorted(
+                topic_ceiling_terms_outside_owner
+            ),
             "unresolved_wires_to": sorted(unresolved_wires_to),
             "missing_capsule_compression": sorted(missing_capsule_compression),
             "missing_capsule_one_line": sorted(missing_capsule_one_line),
@@ -2367,8 +2405,9 @@ def render_architecture_md(model: dict[str, Any]) -> str:
     out.append("Each component names runner/source, evidence class, receipt path, and ceiling.")
     out.append("No provider calls. No source changes. No release.")
     out.append("No source mutation, private-root equivalence, or proof authority.")
-    out.append("Start:     plectis hello .")
-    out.append("Prove it:  plectis tour --card .")
+    out.append("See mechanism substance: plectis comprehend --slice mechanism --format text")
+    out.append("Prove clone works:       ./bootstrap.sh && make smoke")
+    out.append("Act on a goal:           plectis comprehend --first-action \"<your goal>\" --format text")
     out.append("```")
     out.append("")
 

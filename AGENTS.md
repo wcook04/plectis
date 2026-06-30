@@ -15,7 +15,7 @@ substrate as its inspection layer. A user can bring a project folder, initialize
 route explanations, record work transactions, observe events, and inspect
 evidence only when drilldown is needed.
 
-It is small on purpose, but it is not a synthetic safety proxy. The public root
+It is bounded on purpose, but it is not a synthetic safety proxy. The public root
 should make the macro architecture legible through real, runnable substrate:
 project, catalog, pattern, standard, route, work, event, evidence, explanation,
 assimilation, imported macro bodies, and exported macro-shaped bundles.
@@ -146,15 +146,15 @@ is reasoning about the whole substrate from the one slice you happened to open.
   you answer run `plectis comprehend --self-model` — add
   `--profile whole_substrate_map` to read every organ's essence at once.
   Comprehend the whole substrate first, then speak.
-- **Mechanism-before-impression reflex.** If the question is specifically how
-  impressive Plectis is, what the components actually do, or whether any family
+- **Mechanism-before-claim reflex.** If the question is specifically about
+  component substance, what the components actually do, or whether any family
   (for example finance) is thin, run `plectis comprehend --slice mechanism`
   first (source-only clone:
   `PYTHONPATH=src python3 -m microcosm_core comprehend --slice mechanism`). It
   returns every organ's real mechanism — what it computes, verifies, and
   rejects — one line each, across the whole substrate. The proven failure is
   forming the verdict from the nearest surfaces you opened (wrappers, line
-  counts, one-line glosses) and emitting that as judgement.
+  counts, one-line glosses) and emitting that as a whole-system claim.
   `finance_forecast_evaluation_spine`,
   `finite_erdos_denominator_certificate_strike`,
   `agent_sabotage_scheming_monitor_replay`, and `batch8_audio_level_rms_port`
@@ -162,8 +162,8 @@ is reasoning about the whole substrate from the one slice you happened to open.
   not the whole catalogue, so read the mechanism slice over every organ before
   concluding. A skeptical reviewer or evals reader starts here, not at `tour`
   or `hello`.
-- **Calibration-before-claim reflex.** If you ever are about to state how good,
-  complete, ready, or impressive something is, first read its `claim_ceiling`
+- **Calibration-before-claim reflex.** If you ever are about to characterize
+  quality, completeness, readiness, or public significance, first read its `claim_ceiling`
   and the self-model's `thin_or_projection_surfaces`. Infer quality from the
   evidence; never assert it. The thinness is surfaced on purpose, not hidden —
   most organ runners are exact-copy macro bodies, and the self-model says so.

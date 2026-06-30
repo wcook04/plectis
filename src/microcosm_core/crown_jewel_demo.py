@@ -48,7 +48,7 @@ from microcosm_core.receipts import utc_now, write_json_atomic
 SCHEMA_VERSION = "microcosm_crown_jewel_demo_receipt_v1"
 RECEIPT_NAME = "crown_jewel_demo_receipt.json"
 ANTI_CLAIM = (
-    "The Crown Jewel demo runs public fixture exercises and runtime-safety "
+    "The component substance demo runs public fixture exercises and runtime-safety "
     "checks only. It does not claim production release, live market data, "
     "investment advice, provider execution, full concurrent-mutation "
     "protection, source mutation authority, or private-root equivalence."
@@ -160,7 +160,7 @@ def _run_organ(
 ) -> dict[str, Any]:
     """
     [ACTION]
-    Run one flagship organ on its public example bundle and return its receipt card.
+    Run one selected organ on its public example bundle and return its receipt card.
 
     - Teleology: the single per-organ execution seam — resolve the example input under root, invoke the organ's runner into a per-organ out dir, and card the result.
     - Guarantee: invokes `runner(MICROCOSM_ROOT/input_ref, out_dir/organs/organ_id)` and returns its `_organ_card`; the runner writes its own receipts under that out dir.
@@ -278,13 +278,13 @@ def _runtime_safety_checks(out_dir: Path) -> list[dict[str, Any]]:
 def run(out_dir: str | Path = DEFAULT_OUT, *, command: str = "microcosm crown-jewel-demo run") -> dict[str, Any]:
     """
     [ACTION]
-    Execute the full Crown Jewel demo: five organs + runtime-safety checks under one receipt.
+    Execute the full component substance demo: five organs + runtime-safety checks under one receipt.
 
-    - Teleology: the public board-emitter that runs the curated showcase end-to-end on public fixtures and writes one top-level pass/blocked receipt.
+    - Teleology: the public board-emitter that runs the selected mechanism set end-to-end on public fixtures and writes one top-level pass/blocked receipt.
     - Guarantee: runs five organ runners and the three runtime-safety probes, atomically writes crown_jewel_demo_receipt.json at out_dir, and returns the receipt payload; `status` is "pass" iff no organ failed and no non-excused runtime hard failure occurred, else "blocked".
     - Fails: any organ/runtime probe raising (missing bundle/IO) propagates; otherwise never raises — a failing organ or hard runtime check yields `status: "blocked"` with `organ_failures`/`runtime_hard_failures` populated. The work_landing_control_spine check is excluded from hard failures and recorded as a known blocker.
     - Writes: crown_jewel_demo_receipt.json plus per-organ receipts under out_dir/organs/* and runtime receipts under out_dir/runtime_safety/* and out_dir/sidecar_workspace.
-    - When-needed: demonstrating the flagship organ set + runtime safety on public fixtures, or producing the receipt the CLI/main prints.
+    - When-needed: demonstrating the selected organ set + runtime safety on public fixtures, or producing the receipt the CLI/main prints.
     - Escalates-to: SCHEMA_VERSION `microcosm_crown_jewel_demo_receipt_v1` receipt at receipt_ref; `_run_organ`/`_runtime_safety_checks` and their per-probe receipts for full fidelity.
     - Non-goal: per ANTI_CLAIM, does not claim production release, live market data, provider execution, full concurrent-mutation protection, source-mutation authority, or private-root equivalence.
     - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
@@ -367,9 +367,9 @@ def run(out_dir: str | Path = DEFAULT_OUT, *, command: str = "microcosm crown-je
 def main(argv: list[str] | None = None) -> int:
     """
     [ACTION]
-    CLI entry for the Crown Jewel demo `run` subcommand.
+    CLI entry for the component substance demo `run` subcommand.
 
-    - Teleology: single public showcase command that exercises five flagship organs plus runtime-safety checks under one receipt.
+    - Teleology: single public mechanism-set command that exercises five selected organs plus runtime-safety checks under one receipt.
     - Guarantee: on `run`, the demo executes, a receipt is printed, and exit code matches its pass/blocked status.
     - Fails: no/unknown subcommand -> argparse error -> SystemExit(2); any organ or hard runtime check fails -> status blocked -> return 1.
     - Reads: public example bundles under examples/ for each organ and runtime check.

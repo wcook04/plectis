@@ -107,8 +107,10 @@
     {
       "do_not_claim": "synthetic fixture forecast-evaluation statistics only; no investment advice, live market data, track record, or performance claim",
       "do_not_edit": {
-        "note": "runner is owned; edits still require the validator + refreshed receipts",
-        "paths": []
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/finance_forecast_evaluation_spine.py"
+        ]
       },
       "first_action": {
         "action_kind": "run_fixture_command",
@@ -135,7 +137,7 @@
         "evidence_class": "external_subprocess_witness",
         "family": "research_and_science_replays",
         "organ_id": "finance_forecast_evaluation_spine",
-        "runner_custody_basis": null,
+        "runner_custody_basis": "directory_coupling_marker",
         "task_class": "finance"
       },
       "proof_path": {
@@ -164,19 +166,21 @@
       "routing_note": null
     },
     {
-      "do_not_claim": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not prove the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+      "do_not_claim": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
       "do_not_edit": {
-        "note": "runner is owned; edits still require the validator + refreshed receipts",
-        "paths": []
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/lean_proof_search_lab_runtime.py"
+        ]
       },
       "first_action": {
         "action_kind": "run_fixture_command",
         "clean_run": {
-          "command": "PYTHONPATH=src python3 -m microcosm_core lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out .microcosm/first_action_runs/lean_proof_search_lab_runtime --acceptance-out .microcosm/first_action_runs/lean_proof_search_lab_runtime_fixture_acceptance.json",
+          "command": "PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out .microcosm/first_action_runs/lean_proof_search_lab_runtime --acceptance-out .microcosm/first_action_runs/lean_proof_search_lab_runtime_fixture_acceptance.json",
           "note": "same run with outputs redirected to the ignored .microcosm/ tree; the committed receipts stay the comparison baseline and the clone stays clean",
           "writes_outputs_under": ".microcosm/first_action_runs/lean_proof_search_lab_runtime"
         },
-        "command": "PYTHONPATH=src python3 -m microcosm_core lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
+        "command": "PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json",
         "committed_receipts": [],
         "committed_receipts_more": 0,
         "why": "Finds tactic scripts the real Lean prover accepts on toy theorems, and refuses proofs that cheat.",
@@ -190,7 +194,7 @@
         "evidence_class": "external_subprocess_witness",
         "family": "formal_math_and_proof",
         "organ_id": "lean_proof_search_lab_runtime",
-        "runner_custody_basis": null,
+        "runner_custody_basis": "directory_coupling_marker",
         "task_class": "lean-subprocess"
       },
       "proof_path": {
@@ -212,7 +216,7 @@
         "validator_command": "python -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json"
       },
       "reading_boundary": {
-        "allowed_scope": "It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not establish the open infinite Erdos #257 problem, is not an oracle, prover, or provider result, and a holding certificate is a bounded computational witness, not a machine-checked proof.",
+        "allowed_scope": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and excludes launch or public sharing.",
         "fallback_guidance": null,
         "source": "join_index nodes.route (atlas/agent_task_routes.json)",
         "stop_condition": "Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion."
@@ -226,8 +230,10 @@
     {
       "do_not_claim": "Passing receipts only show this projection satisfies the named information-flow contract over synthetic, redacted, body-free rows; they do not prove general prompt-injection robustness, benchmark performance, live account/tool/provider safety, hidden-message handling in a real system, source-mutation authority, or release authority.",
       "do_not_edit": {
-        "note": "runner is owned; edits still require the validator + refreshed receipts",
-        "paths": []
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py"
+        ]
       },
       "first_action": {
         "action_kind": "run_fixture_command",
@@ -254,7 +260,7 @@
         "evidence_class": "algorithmic_projection",
         "family": "agent_reliability_and_safety",
         "organ_id": "indirect_prompt_injection_information_flow_policy_replay",
-        "runner_custody_basis": null,
+        "runner_custody_basis": "directory_coupling_marker",
         "task_class": "agent-evaluation"
       },
       "proof_path": {
@@ -285,8 +291,10 @@
     {
       "do_not_claim": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
       "do_not_edit": {
-        "note": "runner is owned; edits still require the validator + refreshed receipts",
-        "paths": []
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/cold_reader_route_map.py"
+        ]
       },
       "first_action": {
         "action_kind": "run_fixture_command",
@@ -313,7 +321,7 @@
         "evidence_class": "semantic_validator",
         "family": "entry_and_reveal",
         "organ_id": "cold_reader_route_map",
-        "runner_custody_basis": null,
+        "runner_custody_basis": "directory_coupling_marker",
         "task_class": "getting-started"
       },
       "proof_path": {
@@ -344,8 +352,10 @@
     {
       "do_not_claim": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, provider execution, live-repo mutation, private/oracle/hidden-gold body access, product progress, or release readiness.",
       "do_not_edit": {
-        "note": "runner is owned; edits still require the validator + refreshed receipts",
-        "paths": []
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py"
+        ]
       },
       "first_action": {
         "action_kind": "run_fixture_command",
@@ -368,7 +378,7 @@
         "evidence_class": "algorithmic_projection",
         "family": "agent_reliability_and_safety",
         "organ_id": "agent_benchmark_integrity_anti_gaming_replay",
-        "runner_custody_basis": null,
+        "runner_custody_basis": "directory_coupling_marker",
         "task_class": "agent-evaluation"
       },
       "proof_path": {
@@ -399,8 +409,10 @@
     {
       "do_not_claim": "It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator intent, or prove any change is actually correct or complete.",
       "do_not_edit": {
-        "note": "runner is owned; edits still require the validator + refreshed receipts",
-        "paths": []
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/mission_transaction_work_spine.py"
+        ]
       },
       "first_action": {
         "action_kind": "run_fixture_command",
@@ -427,7 +439,7 @@
         "evidence_class": "bounded_runtime_computation",
         "family": "work_landing_and_continuity",
         "organ_id": "mission_transaction_work_spine",
-        "runner_custody_basis": null,
+        "runner_custody_basis": "directory_coupling_marker",
         "task_class": "agent-concurrency"
       },
       "proof_path": {
@@ -465,8 +477,10 @@
     {
       "do_not_claim": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
       "do_not_edit": {
-        "note": "runner is owned; edits still require the validator + refreshed receipts",
-        "paths": []
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/cold_reader_route_map.py"
+        ]
       },
       "first_action": {
         "action_kind": "run_fixture_command",
@@ -493,7 +507,7 @@
         "evidence_class": "semantic_validator",
         "family": "entry_and_reveal",
         "organ_id": "cold_reader_route_map",
-        "runner_custody_basis": null,
+        "runner_custody_basis": "directory_coupling_marker",
         "task_class": "agent-entry"
       },
       "proof_path": {
@@ -541,7 +555,7 @@
         "writes_outputs_under": null
       },
       "found": true,
-      "goal": "what should I work on for the Microcosm release?",
+      "goal": "what should I fix in this repo?",
       "out_of_scope_note": null,
       "owner": {
         "claim_paths": [
@@ -595,7 +609,7 @@
       },
       "found": true,
       "goal": "delete the agent memory",
-      "out_of_scope_note": "Destructive or publication actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.",
+      "out_of_scope_note": "Destructive, publication, hosting, provider/network, production, or private-root-equivalence actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.",
       "owner": {
         "packet_id": "authority",
         "scope": "whole_substrate"
@@ -617,7 +631,7 @@
         "allowed_scope": null,
         "fallback_guidance": null,
         "source": "comprehension-layer guidance",
-        "stop_condition": "Stop at the authority ceiling: this substrate cannot grant destructive or publication actions."
+        "stop_condition": "Stop at the authority ceiling: this substrate cannot grant destructive, publication, hosting, provider/network, production, or private-root-equivalence actions."
       },
       "routing": {
         "basis": "out_of_scope_authority_boundary"
@@ -643,7 +657,7 @@
       },
       "found": true,
       "goal": "publish the Microcosm release",
-      "out_of_scope_note": "Destructive or publication actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.",
+      "out_of_scope_note": "Destructive, publication, hosting, provider/network, production, or private-root-equivalence actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.",
       "owner": {
         "packet_id": "authority",
         "scope": "whole_substrate"
@@ -665,7 +679,7 @@
         "allowed_scope": null,
         "fallback_guidance": null,
         "source": "comprehension-layer guidance",
-        "stop_condition": "Stop at the authority ceiling: this substrate cannot grant destructive or publication actions."
+        "stop_condition": "Stop at the authority ceiling: this substrate cannot grant destructive, publication, hosting, provider/network, production, or private-root-equivalence actions."
       },
       "routing": {
         "basis": "out_of_scope_authority_boundary"
@@ -691,7 +705,7 @@
       },
       "found": true,
       "goal": "force push to origin main",
-      "out_of_scope_note": "Destructive or publication actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.",
+      "out_of_scope_note": "Destructive, publication, hosting, provider/network, production, or private-root-equivalence actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.",
       "owner": {
         "packet_id": "authority",
         "scope": "whole_substrate"
@@ -713,7 +727,7 @@
         "allowed_scope": null,
         "fallback_guidance": null,
         "source": "comprehension-layer guidance",
-        "stop_condition": "Stop at the authority ceiling: this substrate cannot grant destructive or publication actions."
+        "stop_condition": "Stop at the authority ceiling: this substrate cannot grant destructive, publication, hosting, provider/network, production, or private-root-equivalence actions."
       },
       "routing": {
         "basis": "out_of_scope_authority_boundary"
@@ -772,8 +786,10 @@
     {
       "do_not_claim": "It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-data equivalence, or whole-system correctness.",
       "do_not_edit": {
-        "note": "runner is owned; edits still require the validator + refreshed receipts",
-        "paths": []
+        "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+        "paths": [
+          "src/microcosm_core/organs/cold_reader_route_map.py"
+        ]
       },
       "first_action": {
         "action_kind": "run_fixture_command",
@@ -800,7 +816,7 @@
         "evidence_class": "semantic_validator",
         "family": "entry_and_reveal",
         "organ_id": "cold_reader_route_map",
-        "runner_custody_basis": null,
+        "runner_custody_basis": "directory_coupling_marker",
         "task_class": "agent-entry"
       },
       "proof_path": {

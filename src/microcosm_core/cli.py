@@ -1428,11 +1428,13 @@ def _render_comprehend_card(pack: dict) -> str:
         lines.append(f"  {rmf.strip()}")
         lines.append("")
 
-    showcase_nodes = pack.get("showcase_nodes")
-    if isinstance(showcase_nodes, list) and showcase_nodes:
-        rows = [node for node in showcase_nodes if isinstance(node, dict)]
+    substance_nodes = pack.get("substance_nodes")
+    if not isinstance(substance_nodes, list):
+        substance_nodes = pack.get("showcase_nodes")
+    if isinstance(substance_nodes, list) and substance_nodes:
+        rows = [node for node in substance_nodes if isinstance(node, dict)]
         if rows:
-            lines.append("Mechanism showcase:")
+            lines.append("Mechanism substance examples:")
             for node in rows:
                 name = str(
                     node.get("display_name")

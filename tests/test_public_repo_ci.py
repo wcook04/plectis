@@ -218,6 +218,18 @@ def test_pyproject_urls_point_to_standalone_public_repository() -> None:
         "Repository": "https://github.com/wcook04/plectis",
     }
     assert all("zenith" not in url for url in pyproject["project"]["urls"].values())
+
+
+def test_pyproject_description_matches_mechanism_first_identity() -> None:
+    pyproject = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
+
+    assert pyproject["project"]["description"] == (
+        "Public executable atlas of bounded AI-native runtime mechanisms with "
+        "evidence classes and authority ceilings."
+    )
+    lowered = pyproject["project"]["description"].lower()
+    for banned in ("impressive", "ambitious", "strongest public claim"):
+        assert banned not in lowered
     assert "zenith/blob/main/microcosm-substrate" not in (
         pyproject["project"]["urls"]["Documentation"]
     )

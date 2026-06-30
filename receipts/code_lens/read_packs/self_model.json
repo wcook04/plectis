@@ -12,7 +12,7 @@
     "boundary": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority."
   },
   "budget": {
-    "actual_bytes": 16723,
+    "actual_bytes": 20867,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
@@ -38,25 +38,27 @@
       "source_faithful_refactor": 27
     },
     "claim_node_count": 88,
-    "edge_count": 2208,
+    "edge_count": 2292,
     "edge_kind_counts": {
       "asserts_claim": 88,
       "emits_receipt": 366,
       "grounded_in_doctrine": 930,
+      "implemented_by_runner": 88,
       "member_of_family": 88,
       "proven_by": 88,
       "routes_to": 321,
       "validated_by": 88,
-      "wires_to": 239
+      "wires_to": 235
     },
     "organ_count": 88,
-    "route_node_count": 41,
+    "route_node_count": 65,
     "runner_custody_split": {
-      "unspecified": 88
+      "directory_coupling_marker": 87,
+      "owned": 1
     },
     "synopsis_coverage": 88
   },
-  "compile_ms": 0.41,
+  "compile_ms": 9.332,
   "context_profile": "operating_picture",
   "deferred_edges": [
     {
@@ -90,29 +92,29 @@
   },
   "major_subsystems": [
     {
-      "drilldown": "plectis comprehend --slice cluster --family formal_math_and_proof",
-      "family": "formal_math_and_proof",
-      "organ_count": 27
-    },
-    {
       "drilldown": "plectis comprehend --slice cluster --family import_projection_and_drift",
       "family": "import_projection_and_drift",
+      "organ_count": 21
+    },
+    {
+      "drilldown": "plectis comprehend --slice cluster --family formal_math_and_proof",
+      "family": "formal_math_and_proof",
       "organ_count": 20
     },
     {
       "drilldown": "plectis comprehend --slice cluster --family agent_reliability_and_safety",
       "family": "agent_reliability_and_safety",
-      "organ_count": 16
+      "organ_count": 19
     },
     {
       "drilldown": "plectis comprehend --slice cluster --family architecture_and_navigation",
       "family": "architecture_and_navigation",
-      "organ_count": 10
+      "organ_count": 12
     },
     {
       "drilldown": "plectis comprehend --slice cluster --family research_and_science_replays",
       "family": "research_and_science_replays",
-      "organ_count": 8
+      "organ_count": 9
     },
     {
       "drilldown": "plectis comprehend --slice cluster --family work_landing_and_continuity",
@@ -172,11 +174,11 @@
     "Plectis is a public executable cross-section of an AI-native workflow and research runtime: 88 bounded components across formal proof, agent reliability and safety, research and forecasting, projection-drift control, validators, work landing, and continuity.",
     "Each component has a runner or replay, source loci, evidence class, receipt path, and authority ceiling; receipts are the accountability layer, not the product.",
     "Read order: mechanisms -> evidence discipline -> local runtime. Start with --slice mechanism before judging what the system actually does.",
-    "Custody truth: 0/88 organ runners are EXACT-COPY macro bodies -- comprehend them via registry metadata + receipts, not runner source.",
+    "Custody truth: 87/88 organ runners are EXACT-COPY macro bodies -- comprehend them via registry metadata + receipts, not runner source.",
     "Every read here is source-body-free (presence_only); nothing in this packet authorizes release, source export, proof correctness, provider execution, source mutation, investment advice, private-system equivalence, or whole-system correctness.",
     "Have a concrete goal? plectis comprehend --first-action \"<goal>\" converts it into ONE graph-backed first action -- owner, runnable command, validator, receipts, stop condition, do-not-edit boundary. FIRST_ACTION.md demonstrates this across a goal battery.",
     "7 organ families. This packet IS the hub: open --slice cluster --family <f> for one family, --organ <id> for one organ, --slice math/claims/flows for proof/claim/flow.",
-    "The join index is a typed graph: 41 task-class routes (each with a first command and a stop condition), first-class claim nodes chained claim -> validator -> receipt, wires_to topology, and doctrine refs. Only proof-internal structure remains deferred."
+    "The join index is a typed graph: 65 task-class routes (each with a first command and a stop condition), first-class claim nodes chained claim -> validator -> receipt, wires_to topology, and doctrine refs. Only proof-internal structure remains deferred."
   ],
   "receipt_refs": [],
   "recommended_drilldowns": [
@@ -230,7 +232,7 @@
     "drilldown": "plectis comprehend --slice flows --organ <primary_organ_id>",
     "note": "route nodes carry a first_command, a stop_condition, and an allowed_scope where the route plane binds them; the flow and organ packets surface them per organ",
     "organs_reachable_from_routes": 88,
-    "route_node_count": 41,
+    "route_node_count": 65,
     "routes": [
       {
         "organ_count": 3,
@@ -251,13 +253,37 @@
         "task_class": "agent-evaluation"
       },
       {
+        "organ_count": 1,
+        "primary_display_name": "Bridge Campaign DAG Validation",
+        "primary_organ_id": "bridge_campaign_dag_validation",
+        "task_class": "agent-orchestration"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Egress Self-Compliance Audit",
+        "primary_organ_id": "egress_self_compliance_audit",
+        "task_class": "agent-reliability"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Metabolism Queue Reconciliation",
+        "primary_organ_id": "metabolism_queue_reconciliation",
+        "task_class": "agent-runtime"
+      },
+      {
         "organ_count": 16,
         "primary_display_name": "Agent Closeout Faithfulness Audit",
         "primary_organ_id": "agent_closeout_faithfulness_audit",
         "task_class": "ai-safety"
       },
       {
-        "organ_count": 10,
+        "organ_count": 1,
+        "primary_display_name": "Annex Knowledge Routing",
+        "primary_organ_id": "annex_knowledge_routing",
+        "task_class": "annex-catalog"
+      },
+      {
+        "organ_count": 12,
         "primary_display_name": "Pattern Binding Contract",
         "primary_organ_id": "pattern_binding_contract",
         "task_class": "architecture"
@@ -273,6 +299,24 @@
         "primary_display_name": "Authority Systems Source Capsule",
         "primary_organ_id": "batch5_authority_systems_capsule",
         "task_class": "authority-boundary"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Navigation Fitness Benchmark",
+        "primary_organ_id": "navigation_fitness_benchmark",
+        "task_class": "benchmark-recomputation"
+      },
+      {
+        "organ_count": 2,
+        "primary_display_name": "Bridge Campaign DAG Validation",
+        "primary_organ_id": "bridge_campaign_dag_validation",
+        "task_class": "bounded-fixture"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Bridge Campaign DAG Validation",
+        "primary_organ_id": "bridge_campaign_dag_validation",
+        "task_class": "campaign-dag"
       },
       {
         "organ_count": 1,
@@ -294,6 +338,12 @@
       },
       {
         "organ_count": 1,
+        "primary_display_name": "Derived Fact Provider Runtime",
+        "primary_organ_id": "derived_fact_provider_runtime",
+        "task_class": "derived-facts"
+      },
+      {
+        "organ_count": 1,
         "primary_display_name": "Demo Take Console Source Capsule",
         "primary_organ_id": "batch7_demo_take_console_capsule",
         "task_class": "desktop-capture-boundary"
@@ -311,15 +361,27 @@
         "task_class": "drift-control"
       },
       {
+        "organ_count": 1,
+        "primary_display_name": "Metabolism Queue Reconciliation",
+        "primary_organ_id": "metabolism_queue_reconciliation",
+        "task_class": "durable-queue"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Egress Self-Compliance Audit",
+        "primary_organ_id": "egress_self_compliance_audit",
+        "task_class": "egress-policy"
+      },
+      {
         "organ_count": 2,
         "primary_display_name": "Cold Reader Route Map",
         "primary_organ_id": "cold_reader_route_map",
         "task_class": "evaluation"
       },
       {
-        "organ_count": 8,
-        "primary_display_name": "Navigation Fitness Benchmark",
-        "primary_organ_id": "navigation_fitness_benchmark",
+        "organ_count": 1,
+        "primary_display_name": "Finite Erdos Denominator-Order Certificate Strike",
+        "primary_organ_id": "finite_erdos_denominator_certificate_strike",
         "task_class": "exact-arithmetic"
       },
       {
@@ -329,15 +391,21 @@
         "task_class": "finance"
       },
       {
+        "organ_count": 1,
+        "primary_display_name": "Derived Fact Provider Runtime",
+        "primary_organ_id": "derived_fact_provider_runtime",
+        "task_class": "fixture-runtime"
+      },
+      {
         "organ_count": 8,
         "primary_display_name": "Finance Forecast Evaluation Spine",
         "primary_organ_id": "finance_forecast_evaluation_spine",
         "task_class": "forecasting"
       },
       {
-        "organ_count": 9,
-        "primary_display_name": "Navigation Fitness Benchmark",
-        "primary_organ_id": "navigation_fitness_benchmark",
+        "organ_count": 2,
+        "primary_display_name": "Finite Erdos Denominator-Order Certificate Strike",
+        "primary_organ_id": "finite_erdos_denominator_certificate_strike",
         "task_class": "formal-math"
       },
       {
@@ -353,6 +421,12 @@
         "task_class": "frontend"
       },
       {
+        "organ_count": 1,
+        "primary_display_name": "Generated Projection Drift Runtime",
+        "primary_organ_id": "generated_projection_drift_runtime",
+        "task_class": "generated-surfaces"
+      },
+      {
         "organ_count": 2,
         "primary_display_name": "Cold Reader Route Map",
         "primary_organ_id": "cold_reader_route_map",
@@ -363,6 +437,12 @@
         "primary_display_name": "Cold Reader Route Map",
         "primary_organ_id": "cold_reader_route_map",
         "task_class": "interesting-parts"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Derived Fact Provider Runtime",
+        "primary_organ_id": "derived_fact_provider_runtime",
+        "task_class": "json-pointer"
       },
       {
         "organ_count": 18,
@@ -383,15 +463,15 @@
         "task_class": "market-boundary"
       },
       {
-        "organ_count": 10,
+        "organ_count": 11,
         "primary_display_name": "Pattern Binding Contract",
         "primary_organ_id": "pattern_binding_contract",
         "task_class": "navigation"
       },
       {
-        "organ_count": 8,
-        "primary_display_name": "Navigation Fitness Benchmark",
-        "primary_organ_id": "navigation_fitness_benchmark",
+        "organ_count": 1,
+        "primary_display_name": "Finite Erdos Denominator-Order Certificate Strike",
+        "primary_organ_id": "finite_erdos_denominator_certificate_strike",
         "task_class": "number-theory"
       },
       {
@@ -408,6 +488,24 @@
       },
       {
         "organ_count": 1,
+        "primary_display_name": "Generated Projection Drift Runtime",
+        "primary_organ_id": "generated_projection_drift_runtime",
+        "task_class": "owner-checks"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Egress Self-Compliance Audit",
+        "primary_organ_id": "egress_self_compliance_audit",
+        "task_class": "phrase-membership"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Generated Projection Drift Runtime",
+        "primary_organ_id": "generated_projection_drift_runtime",
+        "task_class": "projection-drift"
+      },
+      {
+        "organ_count": 1,
         "primary_display_name": "Lean Proof-Search Lab Runtime",
         "primary_organ_id": "lean_proof_search_lab_runtime",
         "task_class": "proof-search"
@@ -417,6 +515,12 @@
         "primary_display_name": "Secondary Runtime Source Capsule",
         "primary_organ_id": "batch7_secondary_runtime_capsule",
         "task_class": "provenance"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Bridge Campaign DAG Validation",
+        "primary_organ_id": "bridge_campaign_dag_validation",
+        "task_class": "provider-boundary"
       },
       {
         "organ_count": 31,
@@ -431,10 +535,28 @@
         "task_class": "red-teaming"
       },
       {
+        "organ_count": 1,
+        "primary_display_name": "Derived Fact Provider Runtime",
+        "primary_organ_id": "derived_fact_provider_runtime",
+        "task_class": "research-infrastructure"
+      },
+      {
         "organ_count": 8,
         "primary_display_name": "Finance Forecast Evaluation Spine",
         "primary_organ_id": "finance_forecast_evaluation_spine",
         "task_class": "research-workflows"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Navigation Fitness Benchmark",
+        "primary_organ_id": "navigation_fitness_benchmark",
+        "task_class": "route-packet"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Annex Knowledge Routing",
+        "primary_organ_id": "annex_knowledge_routing",
+        "task_class": "routing"
       },
       {
         "organ_count": 3,
@@ -444,14 +566,20 @@
       },
       {
         "organ_count": 1,
+        "primary_display_name": "Egress Self-Compliance Audit",
+        "primary_organ_id": "egress_self_compliance_audit",
+        "task_class": "self-compliance"
+      },
+      {
+        "organ_count": 1,
         "primary_display_name": "Lean Proof-Search Lab Runtime",
         "primary_organ_id": "lean_proof_search_lab_runtime",
         "task_class": "self-falsifying"
       },
       {
-        "organ_count": 8,
-        "primary_display_name": "Navigation Fitness Benchmark",
-        "primary_organ_id": "navigation_fitness_benchmark",
+        "organ_count": 1,
+        "primary_display_name": "Finite Erdos Denominator-Order Certificate Strike",
+        "primary_organ_id": "finite_erdos_denominator_certificate_strike",
         "task_class": "self-falsifying-certificate"
       },
       {
@@ -461,10 +589,28 @@
         "task_class": "source-import"
       },
       {
+        "organ_count": 1,
+        "primary_display_name": "Metabolism Queue Reconciliation",
+        "primary_organ_id": "metabolism_queue_reconciliation",
+        "task_class": "sqlite-reconciliation"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Generated Projection Drift Runtime",
+        "primary_organ_id": "generated_projection_drift_runtime",
+        "task_class": "subprocess-witness"
+      },
+      {
         "organ_count": 19,
         "primary_display_name": "Certificate Kernel Execution Lab",
         "primary_organ_id": "certificate_kernel_execution_lab",
         "task_class": "theorem-proving"
+      },
+      {
+        "organ_count": 1,
+        "primary_display_name": "Annex Knowledge Routing",
+        "primary_organ_id": "annex_knowledge_routing",
+        "task_class": "weighted-token-retrieval"
       },
       {
         "organ_count": 2,
@@ -504,14 +650,14 @@
     ]
   },
   "tail_recap": {
-    "core_frame": "88 organs, 7 families; 0/88 runners are exact-copy macro bodies; presence_only; authorizes nothing.",
+    "core_frame": "88 organs, 7 families; 87/88 runners are exact-copy macro bodies; presence_only; authorizes nothing.",
     "next_packet_if_lost": "plectis comprehend --packet-atlas",
     "to_comprehend_every_organ": "plectis comprehend --self-model --profile whole_substrate_map"
   },
   "target_reader": "cold Type A / cold codebase reader",
   "thin_or_projection_surfaces": {
     "copied_non_secret_macro_body_organs": 21,
-    "exact_copy_macro_runners": 0,
+    "exact_copy_macro_runners": 87,
     "how_to_probe": "For any organ run --slice claims --organ <id> to see its validator_command + receipts; an algorithmic_projection organ asserts projection mechanics only, not domain truth.",
     "note": "Where to be skeptical: these are projection / import surfaces, not deep domain capability.",
     "projection_or_import_evidence_classes": {

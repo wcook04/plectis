@@ -40,7 +40,7 @@ underclaimed and underread. If a validator result sounds like release, proof,
 security, finance, provider, mutation, or private-system authority, the project
 has been overclaimed and overread.
 
-The strongest public claim is deliberately two-sided:
+The public claim under review is deliberately two-sided:
 
 - **What is here:** a public executable cross-section of a larger AI-native
   workflow and research runtime, published as 88 bounded mechanisms with source
@@ -63,7 +63,7 @@ The strongest public claim is deliberately two-sided:
 | Projection drift and validators | Generated projection drift runtime; public-entry and body-floor validators | Recomputes owner-routed projections and blocks stale or overbroad public claims. |
 | Work landing and continuity | Mission transaction work spine; durable agent work landing replay | Records reversible work transactions, scoped commit discipline, receipt draining, and detached-run continuity. |
 
-That means the proof language can be ambitious without becoming loose. The
+That means the proof language can be specific without becoming loose. The
 formal-proof cluster is a bounded proof-adjacent lab: readiness gates, premise
 retrieval, tactic routing, verifier-trace repair, Lean subprocess witnesses, and
 exact-arithmetic certificate specimens, not theorem-proof authority. The agent
@@ -79,8 +79,15 @@ claim-language gates, not permission to export private/live material. The
 work-continuity cluster shows how agent work is landed, resumed, checked, and
 bounded, not authority to mutate a caller's source tree.
 
-Start with the mechanism and authority lenses before forming a whole-repo
-judgement:
+## Start here
+
+| You are trying to... | Run |
+|---|---|
+| See the mechanism substance | `plectis comprehend --slice mechanism --format text` |
+| Prove the clone works | `./bootstrap.sh && make smoke` |
+| Act on a concrete goal | `plectis comprehend --first-action "<your goal>" --format text` |
+
+Use the mechanism and authority lenses before making a whole-repo claim:
 
 ```bash
 plectis comprehend --slice mechanism --format text
@@ -89,7 +96,7 @@ plectis comprehend --organ lean_proof_search_lab_runtime --format text
 plectis tour --card .
 ```
 
-From a source checkout, use the same commands through the module:
+From a source checkout before installation, use the module form:
 
 ```bash
 PYTHONPATH=src python3 -m microcosm_core comprehend --slice mechanism --format text
@@ -201,7 +208,7 @@ For the full per-component cards, open the [System map](ORGANS.md).
 | Run the first local witness | [Quickstart](QUICKSTART.md) | The shortest path to a working local run. |
 | Understand how it works | [Architecture](ARCHITECTURE.md) | The runtime loop, the evidence loop, and the component families. |
 | Browse every component | [System map](ORGANS.md) | A generated card for each part, one line at a glance or in full. |
-| Assess how impressive the components are, or what each one actually does | `comprehend --slice mechanism` | `plectis comprehend --slice mechanism` — every organ's real mechanism (what it computes, verifies, rejects), one line each, before forming a whole-system judgement. |
+| Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | `plectis comprehend --slice mechanism --format text` — every organ's real mechanism, one line each, before making a whole-system claim. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. A coding agent's first action is `plectis comprehend --first-action "<your goal>" --format text`. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | The verification floor and how to raise an issue safely. |
@@ -223,7 +230,7 @@ it proves:
 - It carries **no proof authority** over whole-system correctness, formal
   results, benchmarks, or production readiness.
 
-These are not apologies. They are the boundary that lets the smaller claims be
+These are boundaries. They are what lets the smaller claims be
 exact.
 
 ## How the result stays honest

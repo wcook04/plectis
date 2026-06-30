@@ -1,11 +1,12 @@
 # Plectis Source Status
 
-Last updated: 2026-06-22
+Last updated: 2026-06-30
 
-This repository is the populated standalone public source slice for Plectis. It
-contains the public Python package, fixtures, tests, generated component
-records, documentation, license files, and local-run entrypoints that belong to
-the released public slice.
+This repository is the populated standalone public source slice for Plectis: a
+public executable atlas of 88 bounded AI-native runtime mechanisms with
+evidence classes and authority ceilings. It contains the public Python package,
+fixtures, tests, generated component records, documentation, license files, and
+local-run entrypoints that belong to the public slice.
 
 Microcosm is the former public name. It remains only where compatibility or
 technical continuity still requires it: the `microcosm_core` import path, the
@@ -44,13 +45,15 @@ Start with:
 
 ```bash
 ./bootstrap.sh
+make smoke
 PYTHONPATH=src python3 -m microcosm_core hello .
 PYTHONPATH=src python3 -m microcosm_core tour --card .
 PYTHONPATH=src python3 -m microcosm_core authority --card
-PYTHONPATH=src python3 -m microcosm_core comprehend --slice mechanism
+PYTHONPATH=src python3 -m microcosm_core comprehend --slice mechanism --format text
+PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>" --format text
 ```
 
-The last command gives a mechanism-faithful read of every organ — what each one
+The mechanism command gives a mechanism-faithful read of every organ — what each one
 computes, verifies, and rejects — before judging the set as a whole.
 
 After installation, use the Plectis console command as the public-primary entry
@@ -60,7 +63,8 @@ point:
 plectis hello .
 plectis tour --card .
 plectis authority --card
-plectis comprehend --slice mechanism
+plectis comprehend --slice mechanism --format text
+plectis comprehend --first-action "<your goal>" --format text
 ```
 
 The legacy `microcosm` command remains a compatibility alias for existing local

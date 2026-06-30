@@ -22,6 +22,7 @@ include RELEASE_DISCIPLINE.md
 include RELEASE_REVIEW.md
 include README.md
 include SECURITY.md
+include SOURCE_STATUS.md
 include bootstrap.sh
 include pyproject.toml
 

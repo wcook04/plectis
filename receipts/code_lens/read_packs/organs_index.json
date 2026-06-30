@@ -6,13 +6,13 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 36488,
+    "actual_bytes": 36492,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
     "within_budget": true
   },
-  "compile_ms": 0.176,
+  "compile_ms": 0.509,
   "evidence_refs": [],
   "export_band": "presence_only",
   "goal": "list all organs",
@@ -172,14 +172,14 @@
     {
       "display_name": "Annex Knowledge Routing",
       "evidence_class": "bounded_runtime_computation",
-      "family": "formal_math_and_proof",
+      "family": "architecture_and_navigation",
       "kind": "organ_synopsis",
       "organ_id": "annex_knowledge_routing",
       "specialty": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic",
-        "self-falsifying-certificate"
+        "architecture",
+        "routing",
+        "annex-catalog",
+        "weighted-token-retrieval"
       ],
       "synopsis": "Runs a keyword-overlap match that ranks catalog entries, shows why each matched, and admits when none do."
     },
@@ -502,14 +502,14 @@
     {
       "display_name": "Bridge Campaign DAG Validation",
       "evidence_class": "bounded_runtime_computation",
-      "family": "formal_math_and_proof",
+      "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
       "organ_id": "bridge_campaign_dag_validation",
       "specialty": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic",
-        "self-falsifying-certificate"
+        "agent-orchestration",
+        "campaign-dag",
+        "provider-boundary",
+        "bounded-fixture"
       ],
       "synopsis": "Runs shape checks on a fan-out work plan for unique steps, dependencies, and no cycles, not the plan itself."
     },
@@ -600,14 +600,14 @@
     {
       "display_name": "Derived Fact Provider Runtime",
       "evidence_class": "bounded_runtime_computation",
-      "family": "formal_math_and_proof",
+      "family": "research_and_science_replays",
       "kind": "organ_synopsis",
       "organ_id": "derived_fact_provider_runtime",
       "specialty": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic",
-        "self-falsifying-certificate"
+        "research-infrastructure",
+        "derived-facts",
+        "json-pointer",
+        "fixture-runtime"
       ],
       "synopsis": "Fills in facts from simple recipes and records a clear error when one points at missing data."
     },
@@ -639,14 +639,14 @@
     {
       "display_name": "Egress Self-Compliance Audit",
       "evidence_class": "bounded_runtime_computation",
-      "family": "formal_math_and_proof",
+      "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
       "organ_id": "egress_self_compliance_audit",
       "specialty": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic",
-        "self-falsifying-certificate"
+        "agent-reliability",
+        "egress-policy",
+        "self-compliance",
+        "phrase-membership"
       ],
       "synopsis": "Runs phrase-membership checks on an agent's own replies for three self-policing slips, not deep meaning."
     },
@@ -776,14 +776,14 @@
     {
       "display_name": "Generated Projection Drift Runtime",
       "evidence_class": "external_subprocess_witness",
-      "family": "formal_math_and_proof",
+      "family": "import_projection_and_drift",
       "kind": "organ_synopsis",
       "organ_id": "generated_projection_drift_runtime",
       "specialty": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic",
-        "self-falsifying-certificate"
+        "projection-drift",
+        "generated-surfaces",
+        "owner-checks",
+        "subprocess-witness"
       ],
       "synopsis": "Runs each owner's own drift check on generated files and flags repairs, without changing the file."
     },
@@ -896,14 +896,14 @@
     {
       "display_name": "Metabolism Queue Reconciliation",
       "evidence_class": "bounded_runtime_computation",
-      "family": "formal_math_and_proof",
+      "family": "agent_reliability_and_safety",
       "kind": "organ_synopsis",
       "organ_id": "metabolism_queue_reconciliation",
       "specialty": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic",
-        "self-falsifying-certificate"
+        "agent-runtime",
+        "durable-queue",
+        "sqlite-reconciliation",
+        "bounded-fixture"
       ],
       "synopsis": "Runs a scratch-database model of a durable job queue and flags impossible states for a human to review."
     },
@@ -924,14 +924,14 @@
     {
       "display_name": "Navigation Fitness Benchmark",
       "evidence_class": "bounded_runtime_computation",
-      "family": "formal_math_and_proof",
+      "family": "architecture_and_navigation",
       "kind": "organ_synopsis",
       "organ_id": "navigation_fitness_benchmark",
       "specialty": [
-        "formal-math",
-        "number-theory",
-        "exact-arithmetic",
-        "self-falsifying-certificate"
+        "architecture",
+        "navigation",
+        "benchmark-recomputation",
+        "route-packet"
       ],
       "synopsis": "Measures a navigation result against its target for recall, precision, and speed on public examples."
     },

@@ -165,6 +165,13 @@ def public_cross_section_claim(component_count: int | None) -> str:
 PUBLIC_SITE_PARITY_COMMAND = (
     "PYTHONPATH=src python3 -m microcosm_core public-site-parity"
 )
+DEPENDENCY_PREFLIGHT_COMMAND = (
+    "PYTHONPATH=src MICROCOSM_RECEIPT_WRITES=1 python3 -m microcosm_core "
+    "dependency-preflight "
+    "--readiness core/preflight_support/organ_fixture_validator_readiness_v1.json "
+    "--negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json "
+    "--out .microcosm/preflight/dependency_preflight.json"
+)
 
 # Markers that must never appear in a presence_only pack -- their presence would mean a
 # raw docstring atom (not a public gloss) leaked into the read model.
@@ -187,13 +194,27 @@ _START_HERE_ROUTES = [
     "plectis comprehend --organ <organ_id>",
     "plectis comprehend --slice organs",
 ]
-MECHANISM_SHOWCASE_ORGAN_IDS = (
+MECHANISM_SUBSTANCE_ORGAN_IDS = (
     "lean_proof_search_lab_runtime",
     "finite_erdos_denominator_certificate_strike",
     "agent_sabotage_scheming_monitor_replay",
     "finance_forecast_evaluation_spine",
     "generated_projection_drift_runtime",
 )
+MODULE_ONLY_ORGAN_COMMANDS = {
+    "annex-knowledge-routing": "annex_knowledge_routing",
+    "bridge-campaign-dag-validation": "bridge_campaign_dag_validation",
+    "derived-fact-provider-runtime": "derived_fact_provider_runtime",
+    "egress-self-compliance-audit": "egress_self_compliance_audit",
+    "finite-erdos-denominator-certificate-strike": (
+        "finite_erdos_denominator_certificate_strike"
+    ),
+    "generated-projection-drift-runtime": "generated_projection_drift_runtime",
+    "lean-proof-search-lab-runtime": "lean_proof_search_lab_runtime",
+    "metabolism-queue-reconciliation": "metabolism_queue_reconciliation",
+    "navigation-fitness-benchmark": "navigation_fitness_benchmark",
+    "semantic-singleflight-dedup-runtime": "semantic_singleflight_dedup_runtime",
+}
 
 # --- atom_value_membrane_v1: the local_semantic_excerpt band -----------------------
 # This band is the FIRST sanctioned exporter of authored docstring-atom prose, and it
@@ -759,9 +780,11 @@ def _runnable_command(command: Any) -> str:
       VERBATIM from a fresh clone; the registry stores bare `python -m ...`
       identities and the atlas stores `plectis ...` console-script forms that
       only exist after pip install.
-    - Guarantee: rewrites a leading "plectis " or legacy "microcosm " to
-      "PYTHONPATH=src python3 -m microcosm_core " (identical CLI per the
-      project's console-script entry), prefixes bare
+    - Guarantee: rewrites a leading "plectis " or legacy "microcosm " to a
+      source-clone runnable module command; console subcommands use
+      "PYTHONPATH=src python3 -m microcosm_core ...", while module-only organ
+      commands use "PYTHONPATH=src python3 -m microcosm_core.organs.<module> ...".
+      It also prefixes bare
       "python/python3 -m microcosm_core" with "PYTHONPATH=src" and normalizes
       "python " to "python3 "; other commands and non-strings pass through as
       str(command or "").
@@ -774,7 +797,17 @@ def _runnable_command(command: Any) -> str:
     for console_name in ("plectis", "microcosm"):
         prefix = f"{console_name} "
         if text.startswith(prefix):
-            return "PYTHONPATH=src python3 -m microcosm_core " + text[len(prefix) :]
+            remainder = text[len(prefix) :]
+            parts = remainder.split(maxsplit=1)
+            if parts:
+                module_name = MODULE_ONLY_ORGAN_COMMANDS.get(parts[0])
+                if module_name:
+                    suffix = f" {parts[1]}" if len(parts) > 1 else ""
+                    return (
+                        "PYTHONPATH=src python3 -m microcosm_core.organs."
+                        f"{module_name}{suffix}"
+                    )
+            return "PYTHONPATH=src python3 -m microcosm_core " + remainder
     if text.startswith("python -m microcosm_core"):
         return "PYTHONPATH=src python3" + text[len("python"):]
     if text.startswith("python3 -m microcosm_core"):
@@ -1504,9 +1537,9 @@ def compile_mechanism_index(inputs: dict[str, Any]) -> dict[str, Any]:
             )
     pack["selected_nodes"] = nodes
     node_by_organ = {str(node.get("organ_id")): node for node in nodes}
-    pack["showcase_nodes"] = [
+    pack["substance_nodes"] = [
         node_by_organ[organ_id]
-        for organ_id in MECHANISM_SHOWCASE_ORGAN_IDS
+        for organ_id in MECHANISM_SUBSTANCE_ORGAN_IDS
         if organ_id in node_by_organ
     ]
     pack["evidence_refs"] = [
@@ -2118,8 +2151,8 @@ PACKET_SPECS: list[dict[str, Any]] = [
         "packet_kind": "reference",
         "mode": "mechanism",
         "when_needed": (
-            "before assessing Plectis as a whole: every organ's real mechanism, "
-            "not wrapper samples or one-line glosses"
+            "before making a whole-system mechanism claim: every organ's real "
+            "mechanism, not wrapper samples or one-line glosses"
         ),
         "command": "plectis comprehend --slice mechanism",
         "inputs": ["organ_atlas", "paper_module_capsules", "mechanism_sources"],
@@ -2822,12 +2855,14 @@ def _public_site_parity_goal(text: str) -> bool:
     }
     public_surface = (
         "public site" in text
+        or "public-site-parity" in text
         or "github pages" in text
         or "gh-pages" in text
         or "gh pages" in text
         or "live pages" in text
         or "deployed site" in text
         or "downloadable ai" in text
+        or "make public-site-parity" in text
     )
     site_surface = tokens & {"pages", "site", "website"}
     source_surface = tokens & {"checkout", "repo", "repository", "source", "tree"}
@@ -2837,8 +2872,114 @@ def _public_site_parity_goal(text: str) -> bool:
         and (
             (packet_surface and public_surface)
             or (site_surface and source_surface and agreement_surface)
+            or ("public-site-parity" in text)
+            or ("make public-site-parity" in text)
         )
     )
+
+
+def _public_authority_boundary_goal(text: str) -> bool:
+    """
+    [ACTION]
+    Detect cold-reader questions whose first move is the authority boundary.
+
+    - Teleology: route network/provider/hosting/private-equivalence/release/
+      production questions to the public authority packet instead of generic
+      orientation or fixture routes.
+    - Guarantee: True only for public-boundary terms, not component mechanism
+      questions that happen to mention safe/unsafe fixtures.
+    - Fails: never raises.
+    - Reads: call arguments.
+    - Writes: return values.
+    """
+    tokens = set(_goal_tokens(text))
+    if tokens & {
+        "hosted",
+        "hosting",
+        "network",
+        "provider",
+        "providers",
+        "private",
+        "production",
+        "release",
+        "deploy",
+        "publication",
+        "published",
+        "publish",
+    }:
+        return True
+    phrases = (
+        "network call",
+        "network calls",
+        "provider call",
+        "provider calls",
+        "private-root",
+        "private root",
+        "hosted service",
+        "production ready",
+        "release ready",
+    )
+    return any(phrase in text for phrase in phrases)
+
+
+def _source_locus_goal(text: str, organ: str | None) -> bool:
+    """
+    [ACTION]
+    Detect source-locus questions for a named organ.
+
+    - Teleology: a request for source/loci/path refs should open the organ/source
+      relation read packet, not execute the organ's fixture command.
+    - Guarantee: True only when an organ is already identified and source/path/
+      loci language is present.
+    - Fails: never raises.
+    - Reads: call arguments.
+    - Writes: return values.
+    """
+    if not organ:
+        return False
+    tokens = set(_goal_tokens(text))
+    return bool(tokens & {"source", "sources", "loci", "locus", "path", "paths", "file", "files"})
+
+
+def _fixture_evidence_goal(text: str) -> bool:
+    """
+    [ACTION]
+    Detect generic fixture/evidence-boundary questions.
+
+    - Teleology: keep "fixture-bound evidence" on the authority/evidence packet
+      instead of falsely matching one fixture-heavy organ.
+    - Guarantee: True only for generic evidence-boundary wording without a named
+      organ.
+    - Fails: never raises.
+    - Reads: call arguments.
+    - Writes: return values.
+    """
+    return "fixture" in text and "evidence" in text
+
+
+def _dependency_preflight_goal(text: str) -> bool:
+    """
+    [ACTION]
+    Detect dependency-preflight diagnostic goals before generic setup routing.
+
+    - Teleology: a dependency-preflight failure needs the diagnostic preflight
+      command, not the broader getting-started quickstart packet.
+    - Guarantee: returns True for explicit dependency-preflight wording and
+      common "dependency preflight fail" variants only.
+    - Fails: never raises.
+    - Reads: call arguments.
+    - Writes: return values.
+    """
+    lowered = (text or "").lower()
+    if _public_authority_boundary_goal(lowered):
+        return False
+    phrases = (
+        "dependency preflight",
+        "dependency-preflight",
+        "preflight dependency",
+        "preflight dependencies",
+    )
+    return any(phrase in lowered for phrase in phrases)
 
 
 def _public_getting_started_goal(text: str) -> bool:
@@ -3333,10 +3474,75 @@ def compile_first_action(
         ]
         return pack
 
-    # RUNG 1 -- destructive/publication intent routes to the AUTHORITY packet,
+    if _dependency_preflight_goal(text):
+        pack["routing"] = {
+            "basis": "dependency_preflight_diagnostic",
+            "command": "dependency-preflight",
+        }
+        pack["summary"]["what_this_is"] = (
+            "First-action contract for public dependency-preflight diagnosis: run "
+            "the preflight over committed readiness and negative-case support "
+            "files before blaming an organ fixture."
+        )
+        pack["first_action"] = {
+            "action_kind": "run_verification_command",
+            "command": DEPENDENCY_PREFLIGHT_COMMAND,
+            "why": (
+                "Checks accepted public runtime-spine ordering, required fixture "
+                "inputs, negative-case coverage, and dependency blockers such as "
+                "optional numeric libraries."
+            ),
+            "committed_receipts": [],
+            "writes_outputs_under": ".microcosm/preflight/dependency_preflight.json",
+        }
+        pack["owner"] = {
+            "scope": "dependency_preflight",
+            "packet_id": "dependency_preflight",
+        }
+        pack["proof_path"] = {
+            "validation_commands": [
+                DEPENDENCY_PREFLIGHT_COMMAND,
+                "PYTHONPATH=src python3 -m pytest tests/test_dependency_preflight.py",
+            ],
+            "receipt_refs": [],
+            "note": (
+                "The receipt explains blocked dependency codes. Missing optional "
+                "environment libraries are environment preconditions, not organ "
+                "fixture failures."
+            ),
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop at blocked_dependency_codes and the named missing support "
+                "file or library; do not convert a dependency miss into a "
+                "whole-system failure claim."
+            ),
+            "allowed_scope": (
+                "public preflight support files, accepted-organ ordering, fixture "
+                "presence, negative-case coverage, and local dependency availability"
+            ),
+            "task_classes": ["dependency-preflight", "getting-started"],
+            "source": "comprehension-layer dependency preflight guard",
+        }
+        pack["do_not_claim"] = (
+            "Dependency preflight diagnoses public runtime-spine setup only. It "
+            "does not authorize release, hosted operation, private-root equivalence, "
+            "provider calls, or proof correctness."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "dependency-preflight diagnosis is read-only; install missing local dependencies or inspect the named support file",
+        }
+        pack["next_packet_commands"] = [
+            "plectis comprehend --slice authority",
+            "plectis comprehend --packet-atlas",
+        ]
+        return pack
+
+    # RUNG 1 -- destructive/publication/boundary intent routes to the AUTHORITY packet,
     # never to a fixture or mutation command: the substrate cannot grant what the
     # goal asks for, and the contract's first action is to read that boundary.
-    if any(
+    if _public_authority_boundary_goal(text) or any(
         tok.startswith(("delet", "destroy", "wipe", "publish", "deploy", "production"))
         for tok in _goal_tokens(text)
     ) or any(ph in text for ph in ("force push", "force-push", "rm -rf", "make public")):
@@ -3345,7 +3551,8 @@ def compile_first_action(
         cache_exists = bool(cache_ref) and (base / str(cache_ref)).exists()
         pack["routing"] = {"basis": "out_of_scope_authority_boundary"}
         pack["out_of_scope_note"] = (
-            "Destructive or publication actions are outside this contract's "
+            "Destructive, publication, hosting, provider/network, production, "
+            "or private-root-equivalence actions are outside this contract's "
             "authority (authority_ceiling is all false and cannot grant them). "
             "The named first action is a read-only comprehension move only."
         )
@@ -3370,7 +3577,8 @@ def compile_first_action(
         pack["reading_boundary"] = {
             "stop_condition": (
                 "Stop at the authority ceiling: this substrate cannot grant "
-                "destructive or publication actions."
+                "destructive, publication, hosting, provider/network, production, "
+                "or private-root-equivalence actions."
             ),
             "task_classes": [],
             "source": "comprehension-layer guidance",
@@ -3385,6 +3593,122 @@ def compile_first_action(
     organs = _resolve_goal_organs(goal, inputs)
     organ_target = organs["selected"]
     mode, _rg_target, _note = route_goal(goal, inputs)
+    if _source_locus_goal(text, organ_target):
+        command = (
+            "PYTHONPATH=src python3 -m microcosm_core comprehend "
+            f"--organ {organ_target} --format text"
+        )
+        pack["routing"] = {
+            "basis": "source_locus_request",
+            "organ_id": organ_target,
+        }
+        pack["summary"]["what_this_is"] = (
+            f"First-action contract for source-locus inspection of {organ_target}: "
+            "open the organ read packet first, then use organ-topology for the "
+            "source-relation graph."
+        )
+        pack["first_action"] = {
+            "action_kind": "open_packet",
+            "command": command,
+            "why": (
+                "The organ packet names the component's purpose, ceiling, receipts, "
+                "source-span escalation, and drilldowns without running the fixture."
+            ),
+            "committed_receipts": [],
+        }
+        pack["owner"] = {
+            "scope": "organ_source_loci",
+            "organ_id": organ_target,
+        }
+        pack["proof_path"] = {
+            "validation_commands": [
+                command,
+                f"PYTHONPATH=src python3 -m microcosm_core organ-topology --organ {organ_target}",
+            ],
+            "receipt_refs": _organ_receipts(inputs, organ_target),
+            "note": (
+                "The organ packet is source-body-free; organ-topology is the typed "
+                "source-relation drilldown when source refs are needed."
+            ),
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop when the organ packet and topology rows name the source loci "
+                "and validation refs; do not execute or edit source from this contract."
+            ),
+            "allowed_scope": (
+                "source loci, source-relation handles, receipts, and authority ceilings"
+            ),
+            "task_classes": [],
+            "source": "comprehension-layer source-locus guard",
+        }
+        pack["do_not_claim"] = (
+            "Source-locus packets identify refs and drilldowns only. They do not "
+            "authorize source mutation, release, publication, private-root equivalence, "
+            "or deeper source-body export."
+        )
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": (
+                "source-locus inspection is read-only; use governed mutation plans before editing"
+            ),
+        }
+        pack["next_packet_commands"] = [
+            f"plectis comprehend --slice claims --organ {organ_target}",
+            f"plectis comprehend --slice flows --organ {organ_target}",
+        ]
+        return pack
+    if not organ_target and _fixture_evidence_goal(text):
+        spec = _SPEC_BY_MODE["authority"]
+        cache_ref = spec.get("cache_ref")
+        cache_exists = bool(cache_ref) and (base / str(cache_ref)).exists()
+        pack["routing"] = {
+            "basis": "fixture_evidence_boundary",
+            "packet_id": spec["packet_id"],
+        }
+        pack["summary"]["what_this_is"] = (
+            "First-action contract for fixture-bound evidence: open the authority "
+            "packet before selecting a specific organ."
+        )
+        pack["first_action"] = {
+            "action_kind": "open_packet",
+            "command": _runnable_command(spec["command"]),
+            "why": spec["when_needed"],
+            "committed_receipts": [str(cache_ref)] if cache_exists else [],
+        }
+        pack["owner"] = {"scope": "whole_substrate", "packet_id": spec["packet_id"]}
+        pack["proof_path"] = {
+            "validation_commands": [
+                "PYTHONPATH=src python3 -m microcosm_core comprehend --slice authority --format json",
+            ],
+            "receipt_refs": [str(cache_ref)] if cache_exists else [],
+            "note": (
+                "the authority packet maps evidence classes and claim ceilings "
+                "before any organ-specific fixture run"
+            ),
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop when the authority packet distinguishes fixture evidence "
+                "from source/body/import/subprocess evidence; ask for an organ if "
+                "you need a component-specific fixture run."
+            ),
+            "allowed_scope": "evidence classes, fixture boundaries, and public authority ceilings",
+            "task_classes": [],
+            "source": "comprehension-layer fixture-evidence guard",
+        }
+        pack["do_not_claim"] = str(atlas.get("anti_claim") or "")
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": (
+                "fixture evidence questions are read-only until an organ-specific contract is selected"
+            ),
+        }
+        pack["next_packet_commands"] = [
+            "plectis comprehend --slice mechanism --format text",
+            "plectis comprehend --packet-atlas",
+        ]
+        return pack
     if not organ_target and mode in ("path", "mutation_plan") and _is_path_target(_rg_target):
         return _first_action_path_contract(
             inputs, goal, str(_rg_target), mutation=(mode == "mutation_plan")
@@ -5257,7 +5581,7 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
     ("evaluate agent benchmark gaming",
      {"owner_organ": "agent_benchmark_integrity_anti_gaming_replay",
       "action_kind": "run_fixture_command"}),
-    ("what should I work on for the Microcosm release?",
+    ("what should I fix in this repo?",
      {"action_kind": "inspect_mutation_target", "command_has": "--mutation",
       "routing_basis": "improvement_goal"}),
     ("inspect src/microcosm_core/cli.py",
@@ -5316,6 +5640,36 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
 _FIRST_ACTION_GRAPH_CLASSES = ("cross_organ_route_topology", "claim_node_ontology")
 
 
+def _is_cold_runnable_source_command(command: str) -> bool:
+    """
+    [ACTION]
+    Decide whether a first-action command starts with the public source-run form.
+
+    - Teleology: cold-runnable commands may need extra environment assignments
+      after ``PYTHONPATH=src`` (for example receipt-write opt-ins), but must
+      still execute through ``python3 -m microcosm_core...`` from the clone.
+    - Guarantee: True only for ``PYTHONPATH=src [ENV=...] python3 -m
+      microcosm_core...`` commands.
+    - Fails: never raises.
+    - Reads: call arguments.
+    - Writes: return values.
+    """
+    parts = str(command or "").split()
+    if not parts or parts[0] != "PYTHONPATH=src":
+        return False
+    index = 1
+    while index < len(parts) and re.fullmatch(
+        r"[A-Za-z_][A-Za-z0-9_]*=.*", parts[index]
+    ):
+        index += 1
+    return (
+        len(parts) > index + 2
+        and parts[index] == "python3"
+        and parts[index + 1] == "-m"
+        and parts[index + 2].startswith("microcosm_core")
+    )
+
+
 def _first_action_contract_complete(contract: dict[str, Any]) -> bool:
     """
     [ACTION]
@@ -5325,7 +5679,7 @@ def _first_action_contract_complete(contract: dict[str, Any]) -> bool:
       static doc-shaped answer without an action, proof path, or boundary must
       not count as a contract.
     - Guarantee: True iff the pack has a non-empty first_action command in the
-      cold-runnable source form (PYTHONPATH=src python3 -m microcosm_core ...)
+      cold-runnable source form (PYTHONPATH=src [ENV=...] python3 -m microcosm_core...)
       with no <placeholder>, a proof path (validator/runnable_validator/
       validation_commands) with shipped receipts, a fresh-output dir, or an
       explicit note, a reading boundary (stop_condition or labelled fallback),
@@ -5340,7 +5694,7 @@ def _first_action_contract_complete(contract: dict[str, Any]) -> bool:
     """
     action = contract.get("first_action") or {}
     command = str(action.get("command") or "")
-    if not command.startswith("PYTHONPATH=src python3 -m microcosm_core"):
+    if not _is_cold_runnable_source_command(command):
         return False
     if "<" in command:
         return False

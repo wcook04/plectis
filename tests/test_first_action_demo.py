@@ -124,6 +124,22 @@ def test_demo_commands_are_cold_runnable_verbatim() -> None:
         assert "<" not in command, contract["goal"]
 
 
+def test_demo_lean_first_action_uses_lean_ceiling_not_erdos_ceiling() -> None:
+    receipt = json.loads((_ROOT / demo_mod.RECEIPT_REL).read_text())
+    contract = next(
+        c for c in receipt["contracts"] if c["goal"] == "check the lean proof evidence"
+    )
+
+    assert contract["owner"]["organ_id"] == "lean_proof_search_lab_runtime"
+    assert "microcosm_core.organs.lean_proof_search_lab_runtime" in str(
+        contract["first_action"]["command"]
+    )
+    do_not_claim = str(contract.get("do_not_claim") or "").lower()
+    assert "lean proof-search lab" in do_not_claim
+    assert "erdos" not in do_not_claim
+    assert "denominator-order" not in do_not_claim
+
+
 def test_demo_dirty_footprint_rows_carry_no_footprint_variant() -> None:
     """Every demonstrated contract whose first command writes into committed
     receipt paths must also demonstrate the ready-to-run clean variant, so the

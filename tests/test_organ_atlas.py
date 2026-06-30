@@ -7,12 +7,14 @@ substrate; this test proves it stays complete, in sync, and non-overclaiming.
 
 from __future__ import annotations
 
+import json
 import shlex
 from pathlib import Path
 
 from microcosm_core.projections.organ_atlas import (
     OVERCLAIM_PHRASES,
     PUBLIC_SCOPE_LINE,
+    _public_scope_text,
     build,
     load_model,
 )
@@ -20,6 +22,26 @@ from microcosm_core.schemas import read_json_strict
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+SENTINEL_CLAIM_BINDING_IDS = (
+    "batch4_proof_authority_runtime",
+    "bridge_campaign_dag_validation",
+    "metabolism_queue_reconciliation",
+    "derived_fact_provider_runtime",
+    "navigation_fitness_benchmark",
+    "annex_knowledge_routing",
+    "egress_self_compliance_audit",
+    "generated_projection_drift_runtime",
+    "lean_proof_search_lab_runtime",
+)
+ERDOS_TOPIC_OWNER = "finite_erdos_denominator_certificate_strike"
+ERDOS_TOPIC_TERMS = (
+    "erdos",
+    "denominator-order",
+    "s_f(b)",
+    "ord_q",
+    "multiplicative_order",
+    "open infinite erdos #257",
+)
 
 
 def _accepted_registry_ids() -> set[str]:
@@ -29,6 +51,25 @@ def _accepted_registry_ids() -> set[str]:
         for row in registry.get("implemented_organs", [])
         if isinstance(row, dict)
         and row.get("status") == "accepted_current_authority"
+    }
+
+
+def _registry_claims() -> dict[str, str]:
+    registry = read_json_strict(MICROCOSM_ROOT / "core/organ_registry.json")
+    return {
+        str(row.get("organ_id")): str(row.get("claim_ceiling") or "")
+        for row in registry.get("implemented_organs", [])
+        if isinstance(row, dict)
+        and row.get("status") == "accepted_current_authority"
+    }
+
+
+def _atlas_rows() -> dict[str, dict]:
+    atlas = read_json_strict(MICROCOSM_ROOT / "core/organ_atlas.json")
+    return {
+        str(row.get("organ_id")): row
+        for row in atlas.get("organs", [])
+        if isinstance(row, dict)
     }
 
 
@@ -57,8 +98,80 @@ def test_atlas_model_is_complete_and_non_overclaiming() -> None:
     assert cov["empty_gloss_fields"] == []
     assert cov["overclaim_cards"] == []
     assert cov["ceiling_without_negation"] == []
+    assert cov["topic_ceiling_terms_outside_owner"] == []
     assert model["status"] == "pass"
     assert model["blocking_reasons"] == []
+
+
+def test_sentinel_claim_ceilings_bind_to_registry_source() -> None:
+    """Sentinel rows must not inherit another organ's claim ceiling."""
+    registry_claims = _registry_claims()
+    atlas_rows = _atlas_rows()
+    model = load_model(MICROCOSM_ROOT)
+    model_cards = {
+        card["organ_id"]: card
+        for family in model["families"]
+        for card in family["cards"]
+    }
+    generated_routes = json.loads(
+        (MICROCOSM_ROOT / "atlas/agent_task_routes.json").read_text(encoding="utf-8")
+    )
+    generated_organs = {
+        row["organ_id"]: row
+        for route in generated_routes.get("routes", [])
+        for row in route.get("relevant_organs", [])
+        if isinstance(row, dict) and row.get("organ_id") in SENTINEL_CLAIM_BINDING_IDS
+    }
+
+    for organ_id in SENTINEL_CLAIM_BINDING_IDS:
+        registry_claim = registry_claims[organ_id]
+        public_claim = _public_scope_text(registry_claim)
+        assert atlas_rows[organ_id]["claim_ceiling_restated"] == registry_claim
+        assert model_cards[organ_id]["claim_ceiling"] == registry_claim
+        assert model_cards[organ_id]["claim_ceiling_restated"] == registry_claim
+        assert generated_organs[organ_id]["claim_ceiling_restated"] == public_claim
+        assert generated_organs[organ_id]["authority_boundary"] == public_claim
+
+
+def test_erdos_vocabulary_is_allowlisted_to_owning_organ() -> None:
+    atlas_rows = _atlas_rows()
+    generated_routes = json.loads(
+        (MICROCOSM_ROOT / "atlas/agent_task_routes.json").read_text(encoding="utf-8")
+    )
+    offenders: list[str] = []
+    fields = ("claim_ceiling_restated", "wiring_note")
+    route_fields = ("allowed_scope", "authority_boundary", "claim_ceiling_restated")
+
+    for organ_id, row in atlas_rows.items():
+        if organ_id == ERDOS_TOPIC_OWNER:
+            continue
+        haystacks = [str(row.get(field) or "").lower() for field in fields]
+        haystacks.extend(str(tag).lower() for tag in row.get("specialty") or [])
+        for term in ERDOS_TOPIC_TERMS:
+            if any(term in text for text in haystacks):
+                offenders.append(f"core/organ_atlas.json::{organ_id} contains {term!r}")
+
+    for route in generated_routes.get("routes", []):
+        if route.get("primary_organ_id") != ERDOS_TOPIC_OWNER:
+            haystacks = [str(route.get(field) or "").lower() for field in route_fields]
+            for term in ERDOS_TOPIC_TERMS:
+                if any(term in text for text in haystacks):
+                    offenders.append(
+                        "atlas/agent_task_routes.json::"
+                        f"route[{route.get('task_class')}] contains {term!r}"
+                    )
+        for row in route.get("relevant_organs", []):
+            if not isinstance(row, dict) or row.get("organ_id") == ERDOS_TOPIC_OWNER:
+                continue
+            haystacks = [str(row.get(field) or "").lower() for field in route_fields]
+            for term in ERDOS_TOPIC_TERMS:
+                if any(term in text for text in haystacks):
+                    offenders.append(
+                        "atlas/agent_task_routes.json::"
+                        f"{row.get('organ_id')} contains {term!r}"
+                    )
+
+    assert offenders == []
 
 
 def test_first_commands_are_copyable_from_package_root() -> None:

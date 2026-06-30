@@ -128,7 +128,7 @@ def test_slice_mechanism_lists_every_organ() -> None:
     nodes = pack.get("selected_nodes") or []
     assert len(nodes) >= 80
     assert all(n.get("mechanism") for n in nodes)
-    assert [n["organ_id"] for n in pack.get("showcase_nodes", [])] == [
+    assert [n["organ_id"] for n in pack.get("substance_nodes", [])] == [
         "lean_proof_search_lab_runtime",
         "finite_erdos_denominator_certificate_strike",
         "agent_sabotage_scheming_monitor_replay",
@@ -137,13 +137,13 @@ def test_slice_mechanism_lists_every_organ() -> None:
     ]
 
 
-def test_slice_mechanism_text_renders_crown_jewel_lines() -> None:
+def test_slice_mechanism_text_renders_substance_lines() -> None:
     pack = C.comprehend(mode="mechanism", inputs=_real_inputs())
     text = cli._render_comprehend_card(pack)
 
-    assert "Mechanism showcase:" in text
+    assert "Mechanism substance examples:" in text
     assert "Mechanism lines:" in text
-    assert text.index("Mechanism showcase:") < text.index("Mechanism lines:")
+    assert text.index("Mechanism substance examples:") < text.index("Mechanism lines:")
     assert "Lean Proof-Search Lab Runtime" in text
     assert "Gated external-tool proof-search lab" in text
     assert "Finite Erdos Denominator-Order Certificate Strike" in text

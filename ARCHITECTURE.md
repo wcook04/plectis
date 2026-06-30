@@ -20,8 +20,9 @@ Mechanisms first; local records are the accountability layer.
 Each component names runner/source, evidence class, receipt path, and ceiling.
 No provider calls. No source changes. No release.
 No source mutation, private-root equivalence, or proof authority.
-Start:     plectis hello .
-Prove it:  plectis tour --card .
+See mechanism substance: plectis comprehend --slice mechanism --format text
+Prove clone works:       ./bootstrap.sh && make smoke
+Act on a goal:           plectis comprehend --first-action "<your goal>" --format text
 ```
 
 ## The words you need first
@@ -360,12 +361,12 @@ flowchart LR
   o1_7 --> o0_0
   o1_8 --> o5_11
   o1_8 --> o1_9
-  o1_10 --> o2_0
-  o1_10 --> o2_16
-  o1_10 --> o2_1
-  o1_11 --> o2_0
-  o1_11 --> o2_16
-  o1_11 --> o2_1
+  o1_10 --> o0_0
+  o1_10 --> o1_7
+  o1_10 --> o1_3
+  o1_11 --> o0_0
+  o1_11 --> o1_10
+  o1_11 --> o1_7
   o2_1 --> o2_11
   o2_1 --> o2_6
   o2_1 --> o2_5
@@ -467,15 +468,12 @@ flowchart LR
   o3_16 --> o3_13
   o3_16 --> o3_2
   o3_16 --> o3_12
-  o3_17 --> o2_0
-  o3_17 --> o2_16
-  o3_17 --> o2_1
-  o3_18 --> o2_0
-  o3_18 --> o2_16
-  o3_18 --> o2_1
-  o3_19 --> o2_0
-  o3_19 --> o2_16
-  o3_19 --> o2_1
+  o3_17 --> o3_1
+  o3_17 --> o3_2
+  o3_18 --> o6_1
+  o3_18 --> o6_0
+  o3_19 --> o3_0
+  o3_19 --> o5_18
   o4_0 --> o4_1
   o4_0 --> o4_7
   o4_1 --> o5_10
@@ -489,9 +487,8 @@ flowchart LR
   o4_7 --> o4_2
   o4_7 --> o4_1
   o4_7 --> o5_10
-  o4_8 --> o2_0
-  o4_8 --> o2_16
-  o4_8 --> o2_1
+  o4_8 --> o5_19
+  o4_8 --> o5_0
   o5_0 --> o2_6
   o5_0 --> o3_16
   o5_0 --> o6_0
@@ -541,9 +538,9 @@ flowchart LR
   o5_16 --> o1_3
   o5_16 --> o3_16
   o5_17 --> o5_13
-  o5_19 --> o2_0
-  o5_19 --> o2_16
-  o5_19 --> o2_1
+  o5_19 --> o5_0
+  o5_19 --> o5_17
+  o5_19 --> o5_18
   o6_0 --> o3_1
   o6_0 --> o6_3
   o6_0 --> o5_0
