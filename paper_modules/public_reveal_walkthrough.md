@@ -49,7 +49,7 @@ fixtures stay rejected: a release or hosting claim, a private-data equivalence
 claim, a step with no evidence ref, and marketing copy with no command behind
 it. The floor exists because a walkthrough drifts towards a hero pitch the
 moment it is allowed to. Removing the commands and the receipt refs is the
-easiest way to make a reveal look more impressive and prove less.
+easiest way to make a reveal look broader than its evidence supports.
 
 The part worth noting is the real-lane witness. The fixture run does not pass
 on its own paperwork. It is gated on the exported reveal bundle actually
@@ -102,7 +102,7 @@ The runtime shape has five bounded inputs:
 The proof shape is route-first rather than dashboard-first. A valid reveal
 shows a command, a selected route, the route explanation through work/events/
 evidence, receipt refs, evidence-class counts, and the anti-claim beside any
-impressive total. Generated cards, observatory views, and browser/video boards
+large total. Generated cards, observatory views, and browser/video boards
 are presentation layers over that accounting path.
 
 The negative-case shape is part of the floor. Release or hosting overclaims,
@@ -273,7 +273,7 @@ and the anti-claim:
 - Generated or projected rows are reveal handles; source files, validators,
   receipts, and authority ceilings remain the proof surfaces.
 
-This keeps the public reveal from becoming a dashboard of impressive totals.
+This keeps the public reveal from becoming a dashboard of unsupported totals.
 The first reveal task is to show how a reader can move from number to receipt
 to source boundary without crossing into private bodies, provider payloads,
 account/session state, or release claims.
@@ -299,7 +299,7 @@ anti-claim, and receipt refs remain on the first view.
 
 The reveal should make discipline legible as prevented failure, not as a wall
 of policy labels. Before showing totals or motion, the board should pair each
-impressive-looking artifact with the boundary that keeps it honest:
+claim-heavy artifact with the boundary that keeps it honest:
 
 | Reveal artifact | Boundary shown beside it | What the boundary prevents |
 |---|---|---|
@@ -420,7 +420,7 @@ calls, secret export, private-root equivalence, Lean/Lake execution, source
 mutation, or whole-system correctness.
 
 Generated atlas docs, generated coverage projections, generated receipts,
-copied-body presence, browser/video boards, and impressive evidence totals are
+copied-body presence, browser/video boards, and broad evidence totals are
 not source authority. The source authority remains with the standard, capsule,
 mechanism row, organ source, source-module manifest, validators, and receipt
 refs named above.

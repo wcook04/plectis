@@ -24,8 +24,10 @@ Goal: “How do I evaluate the finance forecasting system?”
 {
   "do_not_claim": "synthetic fixture forecast-evaluation statistics only; no investment advice, live market data, track record, or performance claim",
   "do_not_edit": {
-    "note": "runner is owned; edits still require the validator + refreshed receipts",
-    "paths": []
+    "note": "runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane",
+    "paths": [
+      "src/microcosm_core/organs/finance_forecast_evaluation_spine.py"
+    ]
   },
   "first_action": {
     "action_kind": "run_fixture_command",
@@ -52,7 +54,7 @@ Goal: “How do I evaluate the finance forecasting system?”
     "evidence_class": "external_subprocess_witness",
     "family": "research_and_science_replays",
     "organ_id": "finance_forecast_evaluation_spine",
-    "runner_custody_basis": null,
+    "runner_custody_basis": "directory_coupling_marker",
     "task_class": "finance"
   },
   "proof_path": {
@@ -93,13 +95,13 @@ Short command tails below; the per-section blocks and the receipt carry every co
 | explain the system to me | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
 | what's going on here? | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
 | How do I evaluate the finance forecasting system? | `task_class_route_match (finance)` | `finance_forecast_evaluation_spine` | `finance-forecast-evaluation-spine run --input fixture...` |
-| check the lean proof evidence | `task_class_route_match (lean-subprocess)` | `lean_proof_search_lab_runtime` | `lean-proof-search-lab-runtime run --input fixtures/fi...` |
+| check the lean proof evidence | `task_class_route_match (lean-subprocess)` | `lean_proof_search_lab_runtime` | `PYTHONPATH=src python3 -m microcosm_core.organs.lean_...` |
 | evaluate prompt injection defenses | `organ_token_match (indirect_prompt_injection_information_flow_policy_replay)` | `indirect_prompt_injection_information_flow_policy_replay` | `indirect-prompt-injection-information-flow-policy-rep...` |
 | where do I start with this clone? | `task_class_route_match (getting-started)` | `cold_reader_route_map` | `cold-reader-route-map run-route-map-bundle --input ex...` |
 | evaluate agent benchmark gaming | `task_class_route_match (agent-evaluation)` | `agent_benchmark_integrity_anti_gaming_replay` | `agent-benchmark-integrity-anti-gaming-replay run-benc...` |
 | is the Mission Transaction Work Spine safe to edit? | `organ_named_in_goal (mission_transaction_work_spine)` | `mission_transaction_work_spine` | `mission-transaction-work-spine run --input fixtures/f...` |
 | ignore proof_diagnostic_evidence_spine, I want cold_reader_route_map | `organ_named_in_goal (cold_reader_route_map)` | `cold_reader_route_map` | `cold-reader-route-map run-route-map-bundle --input ex...` |
-| what should I work on for the Microcosm release? | `improvement_goal` | `release_improvement` | `comprehend --mutation src/microcosm_core/comprehensio...` |
+| what should I fix in this repo? | `improvement_goal` | `release_improvement` | `comprehend --mutation src/microcosm_core/comprehensio...` |
 | delete the agent memory | `out_of_scope_authority_boundary` | `whole_substrate` | `comprehend --slice authority` |
 | publish the Microcosm release | `out_of_scope_authority_boundary` | `whole_substrate` | `comprehend --slice authority` |
 | force push to origin main | `out_of_scope_authority_boundary` | `whole_substrate` | `comprehend --slice authority` |
@@ -150,18 +152,20 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out .microcosm/first_action_runs/finance_forecast_evaluation_spine` (outputs under `.microcosm/first_action_runs/finance_forecast_evaluation_spine`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: synthetic fixture forecast-evaluation statistics only; no investment advice, live market data, track record, or performance claim
+- do not edit: `src/microcosm_core/organs/finance_forecast_evaluation_spine.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“check the lean proof evidence”**
 
 - resolved via: `task_class_route_match (lean-subprocess)` -> owner `lean_proof_search_lab_runtime`
-- run: `PYTHONPATH=src python3 -m microcosm_core lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json`
+- run: `PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json`
 - why: Finds tactic scripts the real Lean prover accepts on toy theorems, and refuses proofs that cheat.
 - prove: `PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out receipts/first_wave/lean_proof_search_lab_runtime --acceptance-out receipts/acceptance/first_wave/lean_proof_search_lab_runtime_fixture_acceptance.json`
 - fresh outputs land under: `receipts/first_wave/lean_proof_search_lab_runtime`
 - footprint: rerunning writes into committed receipt paths -- expect git drift against the prior-run evidence; the no-footprint variant below leaves the clone clean.
-- no-footprint run: `PYTHONPATH=src python3 -m microcosm_core lean-proof-search-lab-runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out .microcosm/first_action_runs/lean_proof_search_lab_runtime --acceptance-out .microcosm/first_action_runs/lean_proof_search_lab_runtime_fixture_acceptance.json` (outputs under `.microcosm/first_action_runs/lean_proof_search_lab_runtime`)
+- no-footprint run: `PYTHONPATH=src python3 -m microcosm_core.organs.lean_proof_search_lab_runtime run --input fixtures/first_wave/lean_proof_search_lab_runtime/input --out .microcosm/first_action_runs/lean_proof_search_lab_runtime --acceptance-out .microcosm/first_action_runs/lean_proof_search_lab_runtime_fixture_acceptance.json` (outputs under `.microcosm/first_action_runs/lean_proof_search_lab_runtime`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
-- do not claim: It computes the finite denominator-order certificate ord_Q(b)=lcm(F) for S_F(b)=sum 1/(b^n-1)=P/Q in exact rational arithmetic over bounded public fixtures and rejects forged certificates by recomputation; it does not...
+- do not claim: Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms...
+- do not edit: `src/microcosm_core/organs/lean_proof_search_lab_runtime.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“evaluate prompt injection defenses”**
 
@@ -175,6 +179,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core indirect-prompt-injection-information-flow-policy-replay run-prompt-injection-bundle --input examples/indirect_prompt_injection_information_flow_policy_replay/exported_prompt_injection_flow_bundle --out .microcosm/first_action_runs/indirect_prompt_injection_information_flow_policy_replay` (outputs under `.microcosm/first_action_runs/indirect_prompt_injection_information_flow_policy_replay`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: Passing receipts only show this projection satisfies the named information-flow contract over synthetic, redacted, body-free rows; they do not prove general prompt-injection robustness, benchmark performance, live acc...
+- do not edit: `src/microcosm_core/organs/indirect_prompt_injection_information_flow_policy_replay.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“where do I start with this clone?”**
 
@@ -188,6 +193,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-da...
+- do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“evaluate agent benchmark gaming”**
 
@@ -199,6 +205,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - fresh outputs land under: `.microcosm/agent_benchmark_integrity_anti_gaming_replay`
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capab...
+- do not edit: `src/microcosm_core/organs/agent_benchmark_integrity_anti_gaming_replay.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“is the Mission Transaction Work Spine safe to edit?”**
 
@@ -212,6 +219,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core mission-transaction-work-spine run --input fixtures/first_wave/mission_transaction_work_spine/input --out .microcosm/first_action_runs/mission_transaction_work_spine` (outputs under `.microcosm/first_action_runs/mission_transaction_work_spine`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It validates work-landing, claim, checkpoint-lane, and dependency metadata projections over fixed fixtures only; it does not mutate live ledgers or git, certify real closeout, authorize broad staging without operator...
+- do not edit: `src/microcosm_core/organs/mission_transaction_work_spine.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“ignore proof_diagnostic_evidence_spine, I want cold_reader_route_map”**
 
@@ -225,6 +233,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-da...
+- do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 **“dispatch the route bundle”**
 
@@ -238,12 +247,13 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 - no-footprint run: `PYTHONPATH=src python3 -m microcosm_core cold-reader-route-map run-route-map-bundle --input examples/cold_reader_route_map/exported_cold_reader_route_map_bundle --out .microcosm/first_action_runs/cold_reader_route_map --card` (outputs under `.microcosm/first_action_runs/cold_reader_route_map`)
 - stop: Stop when the first command or named result record is visible, the selected component card is opened, and the card's scope limit is named before any broader conclusion.
 - do not claim: It is projection-only metadata that validates the declared public route contract; it is not route-registry authority and authorizes no source mutation, provider calls, release/publication, financial advice, private-da...
+- do not edit: `src/microcosm_core/organs/cold_reader_route_map.py` -- runner is an exact-copy macro body: do NOT edit it in place; change the upstream source module via the refresh lane
 
 ## Change-shaped goals: inspect before editing
 
 Improvement-shaped goals never receive an edit instruction. The first action is to read the ranked target's mutation plan; custody flags govern any edit after that.
 
-**“what should I work on for the Microcosm release?”**
+**“what should I fix in this repo?”**
 
 - resolved via: `improvement_goal` -> owner `release_improvement`
 - run: `PYTHONPATH=src python3 -m microcosm_core comprehend --mutation src/microcosm_core/comprehension.py`
@@ -261,34 +271,34 @@ Destructive and publication goals route to the authority boundary. The first act
 **“delete the agent memory”**
 
 - resolved via: `out_of_scope_authority_boundary` -> owner `whole_substrate`
-- boundary: Destructive or publication actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.
+- boundary: Destructive, publication, hosting, provider/network, production, or private-root-equivalence actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.
 - run: `PYTHONPATH=src python3 -m microcosm_core comprehend --slice authority`
 - why: before acting: what is authoritative vs projection, and what does passing NOT authorize?
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/authority.json`
-- stop: Stop at the authority ceiling: this substrate cannot grant destructive or publication actions.
+- stop: Stop at the authority ceiling: this substrate cannot grant destructive, publication, hosting, provider/network, production, or private-root-equivalence actions.
 - do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 
 **“publish the Microcosm release”**
 
 - resolved via: `out_of_scope_authority_boundary` -> owner `whole_substrate`
-- boundary: Destructive or publication actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.
+- boundary: Destructive, publication, hosting, provider/network, production, or private-root-equivalence actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.
 - run: `PYTHONPATH=src python3 -m microcosm_core comprehend --slice authority`
 - why: before acting: what is authoritative vs projection, and what does passing NOT authorize?
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/authority.json`
-- stop: Stop at the authority ceiling: this substrate cannot grant destructive or publication actions.
+- stop: Stop at the authority ceiling: this substrate cannot grant destructive, publication, hosting, provider/network, production, or private-root-equivalence actions.
 - do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 
 **“force push to origin main”**
 
 - resolved via: `out_of_scope_authority_boundary` -> owner `whole_substrate`
-- boundary: Destructive or publication actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.
+- boundary: Destructive, publication, hosting, provider/network, production, or private-root-equivalence actions are outside this contract's authority (authority_ceiling is all false and cannot grant them). The named first action is a read-only comprehension move only.
 - run: `PYTHONPATH=src python3 -m microcosm_core comprehend --slice authority`
 - why: before acting: what is authoritative vs projection, and what does passing NOT authorize?
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --whole-system`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/authority.json`
-- stop: Stop at the authority ceiling: this substrate cannot grant destructive or publication actions.
+- stop: Stop at the authority ceiling: this substrate cannot grant destructive, publication, hosting, provider/network, production, or private-root-equivalence actions.
 - do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 
 ## Honest fallbacks: below the evidence bar, the contract says so

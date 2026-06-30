@@ -247,6 +247,7 @@ def test_package_data_contract_includes_first_screen_runtime_evidence() -> None:
         "RELEASE_REVIEW.md",
         "README.md",
         "SECURITY.md",
+        "SOURCE_STATUS.md",
         "bootstrap.sh",
         "pyproject.toml",
     ]

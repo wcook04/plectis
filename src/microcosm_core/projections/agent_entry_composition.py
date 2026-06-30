@@ -4472,7 +4472,7 @@ def _organ_card(
         "evidence_strength_rank": registry.get("evidence_strength_rank"),
         "first_command": first_command,
         "command_runnable_shape": _is_runnable_public_command(first_command),
-        "claim_ceiling": atlas.get("claim_ceiling_restated") or registry.get("claim_ceiling"),
+        "claim_ceiling": registry.get("claim_ceiling") or atlas.get("claim_ceiling_restated"),
         "wiring_note": atlas.get("wiring_note"),
         "agent_gloss": atlas.get("agent_gloss"),
         "evidence_refs": {

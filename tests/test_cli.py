@@ -649,7 +649,10 @@ def test_cli_comprehend_first_action_routes_lean_checks_to_runtime() -> None:
     assert result.returncode == 0, result.stderr
     payload = json.loads(result.stdout)
     assert payload["owner"]["organ_id"] == "lean_proof_search_lab_runtime"
-    assert "lean-proof-search-lab-runtime" in payload["first_action"]["command"]
+    assert (
+        "microcosm_core.organs.lean_proof_search_lab_runtime"
+        in payload["first_action"]["command"]
+    )
 
 
 def test_cli_comprehend_first_action_routes_public_site_parity() -> None:

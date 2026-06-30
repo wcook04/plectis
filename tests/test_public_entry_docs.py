@@ -1834,10 +1834,10 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
 def test_entry_surfaces_route_mechanism_preflight_before_assessment() -> None:
     """A cold agent must be routed to the mechanism lane before judging Plectis.
 
-    The proven failure class is unrouted impression formation: an agent samples the
+    The proven failure class is unrouted claim formation: an agent samples the
     nearest surfaces (wrappers, line counts, one-line glosses) and emits that as a
     whole-system verdict. The hand-authored entry surfaces must make
-    ``comprehend --slice mechanism`` the preflight for any "how impressive / what do
+    ``comprehend --slice mechanism`` the preflight for any "what do
     the components do / is finance thin" assessment. Deterministic: command-present,
     CLI-real, anti-overfit language, reviewer route, and the human route-map.
     """
@@ -1863,9 +1863,9 @@ def test_entry_surfaces_route_mechanism_preflight_before_assessment() -> None:
     assert preflight in str(cli.FIRST_SCREEN_HELP)
 
     agents = (MICROCOSM_ROOT / "AGENTS.md").read_text(encoding="utf-8")
-    assert "Mechanism-before-impression reflex" in agents
+    assert "Mechanism-before-claim reflex" in agents
     # Isolate the reflex bullet so proximity assertions cannot pass on unrelated text.
-    reflex = agents.split("Mechanism-before-impression reflex", 1)[1].split("- **", 1)[0]
+    reflex = agents.split("Mechanism-before-claim reflex", 1)[1].split("- **", 1)[0]
 
     # (3) anti-overfit language: name the failure class and the sentinels-as-tells.
     assert preflight in reflex
@@ -1888,8 +1888,35 @@ def test_entry_surfaces_route_mechanism_preflight_before_assessment() -> None:
     readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     route_rows = [ln for ln in readme.splitlines() if ln.startswith("|") and preflight in ln]
     assert any(
-        ("how impressive" in ln) or ("what each one actually does" in ln) for ln in route_rows
+        ("component computes" in ln) or ("what each one actually does" in ln) for ln in route_rows
     ), "README 'Choose a route' lacks an assessment-goal -> mechanism row"
+
+
+def test_public_entry_docs_avoid_status_seeking_copy() -> None:
+    banned_phrases = (
+        "impressive",
+        "ambitious",
+        "strongest public claim",
+        "world-class",
+        "best of many tries",
+    )
+    docs = (
+        "README.md",
+        "AGENTS.md",
+        "SOURCE_STATUS.md",
+        "QUICKSTART.md",
+        "FIRST_ACTION.md",
+        "ARCHITECTURE.md",
+        "ORGANS.md",
+        "AGENT_ROUTES.md",
+    )
+    offenders: list[str] = []
+    for name in docs:
+        text = (MICROCOSM_ROOT / name).read_text(encoding="utf-8").lower()
+        for phrase in banned_phrases:
+            if phrase in text:
+                offenders.append(f"{name}: {phrase!r}")
+    assert offenders == []
 
 
 # ---------------------------------------------------------------------------

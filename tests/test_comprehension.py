@@ -1493,7 +1493,6 @@ def test_first_action_public_readiness_prompts_route_to_getting_started(tmp_path
     generic first-contact packet."""
     for goal in (
         "run the quickstart",
-        "why does dependency preflight fail?",
         "can I package this?",
     ):
         pack = C.comprehend(root=C.default_root(), mode="first_action", target=goal)
@@ -1502,6 +1501,18 @@ def test_first_action_public_readiness_prompts_route_to_getting_started(tmp_path
         assert "first_contact" not in pack["first_action"]["command"], goal
         assert C._first_action_contract_complete(pack) is True
         assert all(v is False for v in pack["authority_ceiling"].values())
+
+    pack = C.comprehend(
+        root=C.default_root(),
+        mode="first_action",
+        target="why does dependency preflight fail?",
+    )
+    assert pack["routing"]["basis"] == "dependency_preflight_diagnostic"
+    assert pack["first_action"]["action_kind"] == "run_verification_command"
+    assert pack["first_action"]["command"] == C.DEPENDENCY_PREFLIGHT_COMMAND
+    assert "blocked_dependency_codes" in pack["reading_boundary"]["stop_condition"]
+    assert C._first_action_contract_complete(pack) is True
+    assert all(v is False for v in pack["authority_ceiling"].values())
 
 
 def test_first_action_assay_flags_graph_bypass_on_legacy_clone(tmp_path: Path) -> None:

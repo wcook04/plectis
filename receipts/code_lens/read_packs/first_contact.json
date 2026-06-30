@@ -6,13 +6,13 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 19493,
+    "actual_bytes": 19479,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
     "within_budget": true
   },
-  "compile_ms": 0.216,
+  "compile_ms": 1.861,
   "evidence_refs": [
     "core/organ_atlas.json",
     "core/component_public_synopses.json",
@@ -70,278 +70,7 @@
     {
       "families": [
         {
-          "count": 27,
-          "family": "formal_math_and_proof",
-          "organs": [
-            {
-              "display_name": "Proof Diagnostic Evidence Spine",
-              "organ_id": "proof_diagnostic_evidence_spine",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Formal Math Readiness Gate",
-              "organ_id": "formal_math_readiness_gate",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Corpus Readiness Mathlib Absence Gate",
-              "organ_id": "corpus_readiness_mathlib_absence_gate",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Mathematical Strategy Atlas Hypothesis Scorer",
-              "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            },
-            {
-              "display_name": "Tactic Portfolio Availability Probe",
-              "organ_id": "tactic_portfolio_availability_probe",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            },
-            {
-              "display_name": "Target Shape Tactic Routing Gate",
-              "organ_id": "target_shape_tactic_routing_gate",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            },
-            {
-              "display_name": "Lean Std Premise Index",
-              "organ_id": "lean_std_premise_index",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            },
-            {
-              "display_name": "Formal Math Premise Retrieval",
-              "organ_id": "formal_math_premise_retrieval",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Formal Math Verifier Trace Repair Loop",
-              "organ_id": "formal_math_verifier_trace_repair_loop",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Formal Evidence Cell Anchor Resolver",
-              "organ_id": "formal_evidence_cell_anchor_resolver",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Undeclared Library Prior Symbol Classifier",
-              "organ_id": "undeclared_library_prior_symbol_classifier",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Ring2 Premise Retrieval Precision Recall Harness",
-              "organ_id": "ring2_premise_retrieval_precision_recall_harness",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Formal Math Lean Proof Witness",
-              "organ_id": "formal_math_lean_proof_witness",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Verifier Lab Kernel",
-              "organ_id": "verifier_lab_kernel",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Verifier Lab Execution Spine",
-              "organ_id": "verifier_lab_execution_spine",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Proof Derived Governed Mutation Authorization",
-              "organ_id": "proof_derived_governed_mutation_authorization",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            },
-            {
-              "display_name": "Certificate Kernel Execution Lab",
-              "organ_id": "certificate_kernel_execution_lab",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean",
-                "provider-ops"
-              ]
-            },
-            {
-              "display_name": "Proof / Control / Runtime Import Capsule",
-              "organ_id": "batch4_proof_authority_runtime",
-              "specialty": [
-                "formal-methods",
-                "theorem-proving",
-                "lean"
-              ]
-            },
-            {
-              "display_name": "Finite Erdos Denominator-Order Certificate Strike",
-              "organ_id": "finite_erdos_denominator_certificate_strike",
-              "specialty": [
-                "formal-math",
-                "number-theory",
-                "exact-arithmetic",
-                "self-falsifying-certificate"
-              ]
-            },
-            {
-              "display_name": "Bridge Campaign DAG Validation",
-              "organ_id": "bridge_campaign_dag_validation",
-              "specialty": [
-                "formal-math",
-                "number-theory",
-                "exact-arithmetic",
-                "self-falsifying-certificate"
-              ]
-            },
-            {
-              "display_name": "Metabolism Queue Reconciliation",
-              "organ_id": "metabolism_queue_reconciliation",
-              "specialty": [
-                "formal-math",
-                "number-theory",
-                "exact-arithmetic",
-                "self-falsifying-certificate"
-              ]
-            },
-            {
-              "display_name": "Derived Fact Provider Runtime",
-              "organ_id": "derived_fact_provider_runtime",
-              "specialty": [
-                "formal-math",
-                "number-theory",
-                "exact-arithmetic",
-                "self-falsifying-certificate"
-              ]
-            },
-            {
-              "display_name": "Navigation Fitness Benchmark",
-              "organ_id": "navigation_fitness_benchmark",
-              "specialty": [
-                "formal-math",
-                "number-theory",
-                "exact-arithmetic",
-                "self-falsifying-certificate"
-              ]
-            },
-            {
-              "display_name": "Annex Knowledge Routing",
-              "organ_id": "annex_knowledge_routing",
-              "specialty": [
-                "formal-math",
-                "number-theory",
-                "exact-arithmetic",
-                "self-falsifying-certificate"
-              ]
-            },
-            {
-              "display_name": "Egress Self-Compliance Audit",
-              "organ_id": "egress_self_compliance_audit",
-              "specialty": [
-                "formal-math",
-                "number-theory",
-                "exact-arithmetic",
-                "self-falsifying-certificate"
-              ]
-            },
-            {
-              "display_name": "Generated Projection Drift Runtime",
-              "organ_id": "generated_projection_drift_runtime",
-              "specialty": [
-                "formal-math",
-                "number-theory",
-                "exact-arithmetic",
-                "self-falsifying-certificate"
-              ]
-            },
-            {
-              "display_name": "Lean Proof-Search Lab Runtime",
-              "organ_id": "lean_proof_search_lab_runtime",
-              "specialty": [
-                "formal-math",
-                "theorem-proving",
-                "proof-search",
-                "lean-subprocess",
-                "self-falsifying"
-              ]
-            }
-          ]
-        },
-        {
-          "count": 20,
+          "count": 21,
           "family": "import_projection_and_drift",
           "organs": [
             {
@@ -538,11 +267,222 @@
                 "provenance",
                 "drift-control"
               ]
+            },
+            {
+              "display_name": "Generated Projection Drift Runtime",
+              "organ_id": "generated_projection_drift_runtime",
+              "specialty": [
+                "projection-drift",
+                "generated-surfaces",
+                "owner-checks",
+                "subprocess-witness"
+              ]
             }
           ]
         },
         {
-          "count": 16,
+          "count": 20,
+          "family": "formal_math_and_proof",
+          "organs": [
+            {
+              "display_name": "Proof Diagnostic Evidence Spine",
+              "organ_id": "proof_diagnostic_evidence_spine",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Math Readiness Gate",
+              "organ_id": "formal_math_readiness_gate",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Corpus Readiness Mathlib Absence Gate",
+              "organ_id": "corpus_readiness_mathlib_absence_gate",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Mathematical Strategy Atlas Hypothesis Scorer",
+              "organ_id": "mathematical_strategy_atlas_hypothesis_scorer",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Tactic Portfolio Availability Probe",
+              "organ_id": "tactic_portfolio_availability_probe",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Target Shape Tactic Routing Gate",
+              "organ_id": "target_shape_tactic_routing_gate",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Lean Std Premise Index",
+              "organ_id": "lean_std_premise_index",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Formal Math Premise Retrieval",
+              "organ_id": "formal_math_premise_retrieval",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Math Verifier Trace Repair Loop",
+              "organ_id": "formal_math_verifier_trace_repair_loop",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Evidence Cell Anchor Resolver",
+              "organ_id": "formal_evidence_cell_anchor_resolver",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Undeclared Library Prior Symbol Classifier",
+              "organ_id": "undeclared_library_prior_symbol_classifier",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Ring2 Premise Retrieval Precision Recall Harness",
+              "organ_id": "ring2_premise_retrieval_precision_recall_harness",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Formal Math Lean Proof Witness",
+              "organ_id": "formal_math_lean_proof_witness",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Verifier Lab Kernel",
+              "organ_id": "verifier_lab_kernel",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Verifier Lab Execution Spine",
+              "organ_id": "verifier_lab_execution_spine",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Proof Derived Governed Mutation Authorization",
+              "organ_id": "proof_derived_governed_mutation_authorization",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Certificate Kernel Execution Lab",
+              "organ_id": "certificate_kernel_execution_lab",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean",
+                "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Proof / Control / Runtime Import Capsule",
+              "organ_id": "batch4_proof_authority_runtime",
+              "specialty": [
+                "formal-methods",
+                "theorem-proving",
+                "lean"
+              ]
+            },
+            {
+              "display_name": "Finite Erdos Denominator-Order Certificate Strike",
+              "organ_id": "finite_erdos_denominator_certificate_strike",
+              "specialty": [
+                "formal-math",
+                "number-theory",
+                "exact-arithmetic",
+                "self-falsifying-certificate"
+              ]
+            },
+            {
+              "display_name": "Lean Proof-Search Lab Runtime",
+              "organ_id": "lean_proof_search_lab_runtime",
+              "specialty": [
+                "formal-math",
+                "theorem-proving",
+                "proof-search",
+                "lean-subprocess",
+                "self-falsifying"
+              ]
+            }
+          ]
+        },
+        {
+          "count": 19,
           "family": "agent_reliability_and_safety",
           "organs": [
             {
@@ -698,11 +638,41 @@
                 "red-teaming",
                 "provider-ops"
               ]
+            },
+            {
+              "display_name": "Bridge Campaign DAG Validation",
+              "organ_id": "bridge_campaign_dag_validation",
+              "specialty": [
+                "agent-orchestration",
+                "campaign-dag",
+                "provider-boundary",
+                "bounded-fixture"
+              ]
+            },
+            {
+              "display_name": "Metabolism Queue Reconciliation",
+              "organ_id": "metabolism_queue_reconciliation",
+              "specialty": [
+                "agent-runtime",
+                "durable-queue",
+                "sqlite-reconciliation",
+                "bounded-fixture"
+              ]
+            },
+            {
+              "display_name": "Egress Self-Compliance Audit",
+              "organ_id": "egress_self_compliance_audit",
+              "specialty": [
+                "agent-reliability",
+                "egress-policy",
+                "self-compliance",
+                "phrase-membership"
+              ]
             }
           ]
         },
         {
-          "count": 10,
+          "count": 12,
           "family": "architecture_and_navigation",
           "organs": [
             {
@@ -800,11 +770,31 @@
                 "navigation",
                 "doctrine"
               ]
+            },
+            {
+              "display_name": "Navigation Fitness Benchmark",
+              "organ_id": "navigation_fitness_benchmark",
+              "specialty": [
+                "architecture",
+                "navigation",
+                "benchmark-recomputation",
+                "route-packet"
+              ]
+            },
+            {
+              "display_name": "Annex Knowledge Routing",
+              "organ_id": "annex_knowledge_routing",
+              "specialty": [
+                "architecture",
+                "routing",
+                "annex-catalog",
+                "weighted-token-retrieval"
+              ]
             }
           ]
         },
         {
-          "count": 8,
+          "count": 9,
           "family": "research_and_science_replays",
           "organs": [
             {
@@ -877,6 +867,16 @@
                 "forecasting",
                 "finance",
                 "provider-ops"
+              ]
+            },
+            {
+              "display_name": "Derived Fact Provider Runtime",
+              "organ_id": "derived_fact_provider_runtime",
+              "specialty": [
+                "research-infrastructure",
+                "derived-facts",
+                "json-pointer",
+                "fixture-runtime"
               ]
             }
           ]
@@ -978,11 +978,12 @@
   "specificity_risks": [
     {
       "custody_split": {
-        "unresolved": 88
+        "directory_coupling_marker": 87,
+        "owned": 1
       },
       "kind": "runner_custody",
       "note": "Most organ runners are exact-copy macro bodies (directory_coupling_marker); comprehend them via registry metadata + receipts, not by reading the runner.",
-      "runners_resolved": 0
+      "runners_resolved": 88
     }
   ],
   "summary": {

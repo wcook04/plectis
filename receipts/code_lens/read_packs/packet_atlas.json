@@ -6,13 +6,13 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 9397,
+    "actual_bytes": 9406,
     "band": "compact",
     "max_bytes": 16000,
     "target_bytes": 8000,
     "within_budget": true
   },
-  "compile_ms": 0.453,
+  "compile_ms": 9.171,
   "default_entry": "first_contact",
   "evidence_refs": [
     "src/microcosm_core/comprehension.py#PACKET_SPECS"
@@ -71,7 +71,7 @@
       "budget_band": "compact",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/packet_atlas.json",
-      "cached_bytes": 11890,
+      "cached_bytes": 11900,
       "command": "plectis comprehend --packet-atlas",
       "data_status": "full",
       "export_band": "presence_only",
@@ -115,7 +115,7 @@
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/self_model.json",
-      "cached_bytes": 20201,
+      "cached_bytes": 25462,
       "command": "plectis comprehend --self-model",
       "data_status": "full",
       "export_band": "presence_only",
@@ -138,7 +138,7 @@
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/first_contact.json",
-      "cached_bytes": 33255,
+      "cached_bytes": 33249,
       "command": "plectis comprehend --first-contact",
       "data_status": "full",
       "export_band": "presence_only",
@@ -181,7 +181,7 @@
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/organs_index.json",
-      "cached_bytes": 44890,
+      "cached_bytes": 44894,
       "command": "plectis comprehend --slice organs",
       "data_status": "full",
       "export_band": "presence_only",
@@ -214,7 +214,7 @@
       "packet_kind": "reference",
       "slo_ms": 300,
       "target_bytes": 24000,
-      "when_needed": "before assessing Plectis as a whole: every organ's real mechanism, not wrapper samples or one-line glosses"
+      "when_needed": "before making a whole-system mechanism claim: every organ's real mechanism, not wrapper samples or one-line glosses"
     },
     {
       "budget_band": "standard",

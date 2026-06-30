@@ -63,7 +63,7 @@ DEMO_GOALS: list[str] = [
     "is the Mission Transaction Work Spine safe to edit?",
     "ignore proof_diagnostic_evidence_spine, I want cold_reader_route_map",
     # Change-shaped -- inspect before editing.
-    "what should I work on for the Microcosm release?",
+    "what should I fix in this repo?",
     # Refusals -- the substrate cannot grant these; the contract says so.
     "delete the agent memory",
     "publish the Microcosm release",
