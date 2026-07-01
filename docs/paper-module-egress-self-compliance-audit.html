@@ -82,6 +82,33 @@
         <div class="pm-detail__meta">
           <p class="pm-detail__contains"><span class="comp-card__klabel">Contains</span> 5 sections · 1 diagram · 2 references</p>
         </div>
+        <aside class="pm-source-jump" id="source-drilldown" aria-label="Source module and source part">
+          <div class="pm-source-jump__head">
+            <p class="pm-source-jump__label">Source drilldown</p>
+            <p class="pm-source-jump__note">Source module and source part first; prose follows below.</p>
+          </div>
+          <div class="pm-source-jump__primary-links" aria-label="Open source on GitHub">
+            <a class="btn btn--primary pm-source-jump__primary" href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/organs/egress_self_compliance_audit.py" target="_blank" rel="external noopener noreferrer" data-link-kind="exogenous"><span>Open source 1</span><code class="pm-source-jump__primary-path">src/microcosm_core/organs/egress_self_compliance_audit.py</code></a>
+            <a class="btn btn--primary pm-source-jump__primary" href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/engine_room/egress_self_compliance_gate.py" target="_blank" rel="external noopener noreferrer" data-link-kind="exogenous"><span>Open source 2</span><code class="pm-source-jump__primary-path">src/microcosm_core/engine_room/egress_self_compliance_gate.py</code></a>
+          </div>
+          <div class="pm-source-jump__modules">
+            <div class="pm-source-jump__module">
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source module</span> <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/organs/egress_self_compliance_audit.py" data-link-kind="exogenous" rel="external noopener"><code>src/microcosm_core/organs/egress_self_compliance_audit.py</code></a></p>
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source part</span> <span class="pm-source-jump__parts"><code class="pm-source-jump__part">build_result</code><code class="pm-source-jump__part">run</code><code class="pm-source-jump__part">_evaluate_case</code><code class="pm-source-jump__part">run_egress_self_compliance_audit_bundle</code><code class="pm-source-jump__part">result_card</code></span></p>
+              <p class="pm-source-jump__role">Surfaces the egress_self_compliance_gate bundle as a first-class agent-reliability component. Adds the standard component contract over the bundle&#x27;s evaluate_text entrypoint: loads bounded JSON fixture cases, classifies positive vs negative by case_type/expected_ok, recomputes each verdict via the live bundle, asserts planted negatives are flagged red with the exact expected violating diagnostic_id (EXPECTED_NEGATIVE_CASES), aggregates a pass/fail status, projects a metadata-only result_card, and writes metadata-only result/board/validation (and optional sign-off) result records via microcosm_core.result records. Pass requires both positives clean (green), both negatives rejected with their expected marker, and the expected negative case_ids present.</p>
+            </div>
+            <div class="pm-source-jump__module">
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source module</span> <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/engine_room/egress_self_compliance_gate.py" data-link-kind="exogenous" rel="external noopener"><code>src/microcosm_core/engine_room/egress_self_compliance_gate.py</code></a></p>
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source part</span> <span class="pm-source-jump__parts"><code class="pm-source-jump__part">It is phrase-membership policy, not taint analysis, sandboxing, or prompt
+injection defense.</code><code class="pm-source-jump__part">Ask for permission only after naming a real blast-radius blocker;</code></span></p>
+              <p class="pm-source-jump__role">Phrase-membership egress self-compliance policy over one agent-output text string. Runs three detectors that each fire only when a tripwire phrase is present AND its matching legitimiser phrase is absent: permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator. Returns green when no detector reports a violation, red otherwise. The bundle is the authority for the detection logic and phrase tables; it is a source-faithful public refactor of system/lib/egress_compliance.py.</p>
+            </div>
+          </div>
+          <div class="pm-source-jump__links">
+            <a class="btn btn--ghost pm-source-jump__link" href="https://github.com/wcook04/plectis/blob/main/paper_modules/egress_self_compliance_audit.md" data-link-kind="exogenous" rel="external noopener">Design note</a>
+            <a class="btn btn--ghost pm-source-jump__link" href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-link-kind="exogenous" rel="external noopener">Source registry</a>
+          </div>
+        </aside>
 
         <h2 id="module-body">The write-up</h2>
         <div class="pm-body reader-stage__item" data-pm-fulltext data-reader-stage="paper-module-body">
@@ -114,7 +141,7 @@
         </div>
 
         <h2 id="source">Source</h2>
-        <p class="comp-card__source"><span class="comp-card__klabel">Source</span> <a href="https://github.com/wcook04/plectis/blob/main/paper_modules/egress_self_compliance_audit.md" data-link-kind="exogenous" rel="external noopener">Design note</a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-link-kind="exogenous" rel="external noopener">Source registry</a></p>
+        <p class="comp-card__source"><span class="comp-card__klabel">Source</span> <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/organs/egress_self_compliance_audit.py" data-source-kind="source_module" data-link-kind="exogenous" rel="external noopener">Source module: <code>src/microcosm_core/organs/egress_self_compliance_audit.py</code></a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/engine_room/egress_self_compliance_gate.py" data-source-kind="source_module" data-link-kind="exogenous" rel="external noopener">Source module: <code>src/microcosm_core/engine_room/egress_self_compliance_gate.py</code></a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/paper_modules/egress_self_compliance_audit.md" data-source-kind="design_note" data-link-kind="exogenous" rel="external noopener">Design note</a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-source-kind="source_registry" data-link-kind="exogenous" rel="external noopener">Source registry</a></p>
         <p class="comp-card__links"><span class="comp-card__klabel">Index</span> <a href="paper-modules.html#paper-module-egress-self-compliance-audit">Open compact index card</a></p>
         <p class="comp-card__links"><span class="comp-card__klabel">Context</span> <a href="rules-and-ideas.html#paper-module-egress-self-compliance-audit">Doctrine lattice context</a></p>
 

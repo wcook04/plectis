@@ -1720,6 +1720,52 @@ a.comp-card__reltarget:hover, a.comp-card__reltarget:focus-visible {
 .pm-detail__thesis { font-family: var(--font-serif); color: var(--ink); }
 .pm-detail__meta { margin: 0.55rem 0 0.2rem; display: flex; flex-direction: column; gap: 0.2rem; }
 .pm-detail__contains, .pm-detail__explains { margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
+.comp-card__source-route {
+  display: grid; gap: 0.2rem;
+  margin: 0.2rem 0 0.1rem; padding: 0.65rem 0.75rem;
+  background: var(--surface-sunk);
+  border: 1px solid var(--pm-rail-soft); border-radius: var(--r-md);
+}
+.comp-card__source-route-row { margin: 0; font-size: 0.82rem; color: var(--ink-soft); line-height: 1.55; }
+.pm-source-jump {
+  display: grid; gap: 0.8rem;
+  margin: 1.05rem 0 1.15rem; padding: 0.95rem 1.05rem;
+  background: var(--pm-wash);
+  border: 1px solid var(--pm-rail-soft); border-left: 3px solid var(--pm-rail);
+  border-radius: var(--r-md);
+}
+.pm-source-jump__head { display: flex; flex-wrap: wrap; gap: 0.4rem 0.85rem; align-items: baseline; }
+.pm-source-jump__label {
+  margin: 0; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: var(--tracking-kicker); text-transform: uppercase; color: var(--pm-rail);
+}
+.pm-source-jump__note { margin: 0; font-size: 0.86rem; color: var(--muted); }
+.pm-source-jump__primary-links { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: stretch; }
+.pm-source-jump__primary {
+  min-height: 2.55rem; align-items: center; justify-content: center;
+  flex-wrap: wrap; row-gap: 0.15rem;
+}
+.pm-source-jump__primary-path {
+  font-family: var(--font-mono); font-size: 0.7rem; line-height: 1.25;
+  opacity: 0.82; overflow-wrap: anywhere;
+  background: transparent; color: inherit; padding: 0; border: 0;
+}
+.pm-source-jump__modules { display: grid; gap: 0.6rem; }
+.pm-source-jump__module {
+  display: grid; gap: 0.28rem; min-width: 0;
+  padding: 0.65rem 0.75rem; background: rgba(3, 5, 3, 0.28);
+  border: 1px solid var(--rule); border-radius: var(--r-sm);
+}
+.pm-source-jump__line, .pm-source-jump__role { margin: 0; font-size: 0.84rem; color: var(--ink-soft); line-height: 1.6; }
+.pm-source-jump__role { color: var(--muted); }
+.pm-source-jump__parts { display: inline-flex; flex-wrap: wrap; gap: 0.25rem; vertical-align: middle; }
+.pm-source-jump__part {
+  padding: 0.08rem 0.32rem; border: 1px solid var(--rule); border-radius: 999px;
+  background: var(--surface); color: var(--ink);
+}
+.pm-source-jump__more { font-family: var(--font-mono); font-size: 0.72rem; color: var(--faint); }
+.pm-source-jump__links { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.pm-source-jump__link { font-size: 0.82rem; padding: 0.42rem 0.78rem; }
 
 /* Context & evidence: the covers/relations/scope backplane, demoted below the
    reading so it supports the write-up rather than preceding it. */

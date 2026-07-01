@@ -3124,8 +3124,8 @@
       "id": "batch7_oracle_sibling_capsule",
       "label": "Oracle Sibling Source Bundle",
       "links_to_count": 1,
-      "map_primary_click_policy": "component_detail_when_no_paper_module",
-      "primary_reader_href": "docs/component-batch7-oracle-sibling-capsule.html",
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch7-oracle-sibling-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -3164,8 +3164,8 @@
       "id": "batch7_demo_take_console_capsule",
       "label": "Demo Take Console Source Bundle",
       "links_to_count": 2,
-      "map_primary_click_policy": "component_detail_when_no_paper_module",
-      "primary_reader_href": "docs/component-batch7-demo-take-console-capsule.html",
+      "map_primary_click_policy": "prefer_primary_reader_href",
+      "primary_reader_href": "docs/paper-module-batch7-demo-take-console-capsule.html",
       "public_runtime": {
         "intrinsic_populated_source_runs_real_tools": false,
         "release_mode": "populated_source_release",
@@ -3904,10 +3904,10 @@
     "artifact_path": "plectis-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.plectis-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:6460d00ce177d655a5b2157a9ad76215ae2032b9927810ba749f1c4f81bf3a78",
+    "payload_sha256_excluding_identity": "sha256:148eb91e5d49f51b274931daf7cb232797f519ad609450f036dc9a99ba7fb310",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
-    "source_fingerprint": "1fab5c1f401f7bc0148a117c0e849509"
+    "source_fingerprint": "ea832840962f132bdf6f89fbb3401235"
   },
   "counts": {
     "component_count": 88,
@@ -3923,12 +3923,12 @@
     "page_count": 217,
     "paper_module_availability_gap_count": 0,
     "paper_module_count": 103,
-    "paper_module_doctrine_feed_link_count": 1394,
+    "paper_module_doctrine_feed_link_count": 1396,
     "paper_module_doctrine_feed_link_counts": {
       "axiom": 385,
       "concept": 107,
       "mechanism": 108,
-      "organ": 88,
+      "organ": 90,
       "paper_module": 223,
       "principle": 483
     },
@@ -4198,7 +4198,7 @@
   "freshness_note": {
     "explanation": "generated_at is a fixed deterministic sentinel so builds are reproducible. It is not a live timestamp and must not be reported as freshness.",
     "generated_at_is_sentinel": true,
-    "source_fingerprint": "1fab5c1f401f7bc0148a117c0e849509",
+    "source_fingerprint": "ea832840962f132bdf6f89fbb3401235",
     "version_handle": "source_fingerprint"
   },
   "generated_at": "1970-01-01T00:00:00+00:00",
@@ -6685,7 +6685,7 @@
     "source_of_record": "https://github.com/wcook04/plectis",
     "title": "Plectis"
   },
-  "source_fingerprint": "1fab5c1f401f7bc0148a117c0e849509",
+  "source_fingerprint": "ea832840962f132bdf6f89fbb3401235",
   "source_map": {
     "link_return_rule": "Use object-map.json::objects[].route or route_contract.href to cite exact public views. site-packet.js intentionally carries only a bounded sample so export controls do not load the full object map.",
     "object_count": 876,
@@ -6772,7 +6772,7 @@
   },
   "source_ref_summary": {
     "curated_source_hashes": {
-      "microcosm-substrate/README.md": "sha256:6cd00ecf0b7ffb30fda01d13b542e288b98c2ab0118e087375d8041cf55cf3c2",
+      "microcosm-substrate/README.md": "sha256:aefa00dd193f2edde72b044658407e49335fe368acbc3dc6c3d9f2e63d298df1",
       "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
       "sites/microcosm/index.html": "sha256:ee4db27ef24703d7c49d2ac0a433fd6ffaeb26a55be840e85f4928b1ad5df280"
     },

@@ -82,6 +82,32 @@
         <div class="pm-detail__meta">
           <p class="pm-detail__contains"><span class="comp-card__klabel">Contains</span> 15 sections · 1 diagram · 5 references</p>
         </div>
+        <aside class="pm-source-jump" id="source-drilldown" aria-label="Source module and source part">
+          <div class="pm-source-jump__head">
+            <p class="pm-source-jump__label">Source drilldown</p>
+            <p class="pm-source-jump__note">Source module and source part first; prose follows below.</p>
+          </div>
+          <div class="pm-source-jump__primary-links" aria-label="Open source on GitHub">
+            <a class="btn btn--primary pm-source-jump__primary" href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/first_screen_composition.py" target="_blank" rel="external noopener noreferrer" data-link-kind="exogenous"><span>Open source 1</span><code class="pm-source-jump__primary-path">src/microcosm_core/first_screen_composition.py</code></a>
+            <a class="btn btn--primary pm-source-jump__primary" href="https://github.com/wcook04/plectis/blob/main/scripts/first_screen_composition_card.py" target="_blank" rel="external noopener noreferrer" data-link-kind="exogenous"><span>Open source 2</span><code class="pm-source-jump__primary-path">scripts/first_screen_composition_card.py</code></a>
+          </div>
+          <div class="pm-source-jump__modules">
+            <div class="pm-source-jump__module">
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source module</span> <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/first_screen_composition.py" data-link-kind="exogenous" rel="external noopener"><code>src/microcosm_core/first_screen_composition.py</code></a></p>
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source part</span> <span class="pm-source-jump__parts"><code class="pm-source-jump__part">first_screen_composition_card</code><code class="pm-source-jump__part">first_screen_compact_card</code><code class="pm-source-jump__part">first_screen_text_card</code><code class="pm-source-jump__part">_standard_backed_first_screen_scan</code><code class="pm-source-jump__part">_validation_checks</code></span></p>
+              <p class="pm-source-jump__role">Runtime locus for first-screen card composition, standard-backed validation, reader routes, text projection, omission result records, and scope limits.</p>
+            </div>
+            <div class="pm-source-jump__module">
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source module</span> <a href="https://github.com/wcook04/plectis/blob/main/scripts/first_screen_composition_card.py" data-link-kind="exogenous" rel="external noopener"><code>scripts/first_screen_composition_card.py</code></a></p>
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source part</span> <span class="pm-source-jump__parts"><code class="pm-source-jump__part">build_parser</code><code class="pm-source-jump__part">main</code></span></p>
+              <p class="pm-source-jump__role">CLI projection locus for public JSON and terminal text first-screen cards.</p>
+            </div>
+          </div>
+          <div class="pm-source-jump__links">
+            <a class="btn btn--ghost pm-source-jump__link" href="https://github.com/wcook04/plectis/blob/main/paper_modules/first_screen_composition_root.md" data-link-kind="exogenous" rel="external noopener">Design note</a>
+            <a class="btn btn--ghost pm-source-jump__link" href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-link-kind="exogenous" rel="external noopener">Source registry</a>
+          </div>
+        </aside>
 
         <h2 id="module-body">The write-up</h2>
         <div class="pm-body reader-stage__item" data-pm-fulltext data-reader-stage="paper-module-body">
@@ -171,7 +197,7 @@ PYTHONPATH=src ../repo-python scripts/first_screen_composition_card.py \
         </div>
 
         <h2 id="source">Source</h2>
-        <p class="comp-card__source"><span class="comp-card__klabel">Source</span> <a href="https://github.com/wcook04/plectis/blob/main/paper_modules/first_screen_composition_root.md" data-link-kind="exogenous" rel="external noopener">Design note</a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-link-kind="exogenous" rel="external noopener">Source registry</a></p>
+        <p class="comp-card__source"><span class="comp-card__klabel">Source</span> <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/first_screen_composition.py" data-source-kind="source_module" data-link-kind="exogenous" rel="external noopener">Source module: <code>src/microcosm_core/first_screen_composition.py</code></a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/scripts/first_screen_composition_card.py" data-source-kind="source_module" data-link-kind="exogenous" rel="external noopener">Source module: <code>scripts/first_screen_composition_card.py</code></a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/paper_modules/first_screen_composition_root.md" data-source-kind="design_note" data-link-kind="exogenous" rel="external noopener">Design note</a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-source-kind="source_registry" data-link-kind="exogenous" rel="external noopener">Source registry</a></p>
         <p class="comp-card__links"><span class="comp-card__klabel">Index</span> <a href="paper-modules.html#paper-module-first-screen-composition-root">Open compact index card</a></p>
         <p class="comp-card__links"><span class="comp-card__klabel">Context</span> <a href="rules-and-ideas.html#paper-module-first-screen-composition-root">Doctrine lattice context</a></p>
 

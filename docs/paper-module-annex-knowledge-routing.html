@@ -82,6 +82,32 @@
         <div class="pm-detail__meta">
           <p class="pm-detail__contains"><span class="comp-card__klabel">Contains</span> 5 sections · 1 diagram · 2 references</p>
         </div>
+        <aside class="pm-source-jump" id="source-drilldown" aria-label="Source module and source part">
+          <div class="pm-source-jump__head">
+            <p class="pm-source-jump__label">Source drilldown</p>
+            <p class="pm-source-jump__note">Source module and source part first; prose follows below.</p>
+          </div>
+          <div class="pm-source-jump__primary-links" aria-label="Open source on GitHub">
+            <a class="btn btn--primary pm-source-jump__primary" href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/organs/annex_knowledge_routing.py" target="_blank" rel="external noopener noreferrer" data-link-kind="exogenous"><span>Open source 1</span><code class="pm-source-jump__primary-path">src/microcosm_core/organs/annex_knowledge_routing.py</code></a>
+            <a class="btn btn--primary pm-source-jump__primary" href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/engine_room/annex_knowledge_router.py" target="_blank" rel="external noopener noreferrer" data-link-kind="exogenous"><span>Open source 2</span><code class="pm-source-jump__primary-path">src/microcosm_core/engine_room/annex_knowledge_router.py</code></a>
+          </div>
+          <div class="pm-source-jump__modules">
+            <div class="pm-source-jump__module">
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source module</span> <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/organs/annex_knowledge_routing.py" data-link-kind="exogenous" rel="external noopener"><code>src/microcosm_core/organs/annex_knowledge_routing.py</code></a></p>
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source part</span> <span class="pm-source-jump__parts"><code class="pm-source-jump__part">build_result</code><code class="pm-source-jump__part">run</code><code class="pm-source-jump__part">_evaluate_case</code><code class="pm-source-jump__part">result_card</code><code class="pm-source-jump__part">run_annex_knowledge_routing_bundle</code></span></p>
+              <p class="pm-source-jump__role">Component wrapper that surfaces the bundle as a first-class component: loads bounded fixture cases, drives the REAL bundle entrypoint route_catalog per case, compares observed routing status / top slug / score / matched note id against fixture expectations, self-falsifies on two planted no_match negatives via EXPECTED_NEGATIVE_CASES, and emits metadata-only result/board/validation/sign-off result records. Mirrors the bridge_campaign_dag_validation contract exactly.</p>
+            </div>
+            <div class="pm-source-jump__module">
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source module</span> <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/engine_room/annex_knowledge_router.py" data-link-kind="exogenous" rel="external noopener"><code>src/microcosm_core/engine_room/annex_knowledge_router.py</code></a></p>
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source part</span> <span class="pm-source-jump__parts"><code class="pm-source-jump__part">Explainable tiered weighted-token retrieval over a sanitized annex catalog</code><code class="pm-source-jump__part">Rank sanitized annex rows for a problem statement</code></span></p>
+              <p class="pm-source-jump__role">source-faithful refactor of system/lib/annex_registry.py::route_annexes. Scores each reference in a sanitized catalog against a problem statement across four descending-weight evidence tiers (structured routing fields &gt; family text &gt; open-first summaries &gt; curated notes), combining exact-match / phrase-containment / token-overlap signals per tier, then ranks non-zero rows and emits a per-row match_breakdown plus matched note ids. Returns status=routed when at least one candidate scores positive, else no_match.</p>
+            </div>
+          </div>
+          <div class="pm-source-jump__links">
+            <a class="btn btn--ghost pm-source-jump__link" href="https://github.com/wcook04/plectis/blob/main/paper_modules/annex_knowledge_routing.md" data-link-kind="exogenous" rel="external noopener">Design note</a>
+            <a class="btn btn--ghost pm-source-jump__link" href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-link-kind="exogenous" rel="external noopener">Source registry</a>
+          </div>
+        </aside>
 
         <h2 id="module-body">The write-up</h2>
         <div class="pm-body reader-stage__item" data-pm-fulltext data-reader-stage="paper-module-body">
@@ -114,7 +140,7 @@
         </div>
 
         <h2 id="source">Source</h2>
-        <p class="comp-card__source"><span class="comp-card__klabel">Source</span> <a href="https://github.com/wcook04/plectis/blob/main/paper_modules/annex_knowledge_routing.md" data-link-kind="exogenous" rel="external noopener">Design note</a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-link-kind="exogenous" rel="external noopener">Source registry</a></p>
+        <p class="comp-card__source"><span class="comp-card__klabel">Source</span> <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/organs/annex_knowledge_routing.py" data-source-kind="source_module" data-link-kind="exogenous" rel="external noopener">Source module: <code>src/microcosm_core/organs/annex_knowledge_routing.py</code></a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/engine_room/annex_knowledge_router.py" data-source-kind="source_module" data-link-kind="exogenous" rel="external noopener">Source module: <code>src/microcosm_core/engine_room/annex_knowledge_router.py</code></a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/paper_modules/annex_knowledge_routing.md" data-source-kind="design_note" data-link-kind="exogenous" rel="external noopener">Design note</a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-source-kind="source_registry" data-link-kind="exogenous" rel="external noopener">Source registry</a></p>
         <p class="comp-card__links"><span class="comp-card__klabel">Index</span> <a href="paper-modules.html#paper-module-annex-knowledge-routing">Open compact index card</a></p>
         <p class="comp-card__links"><span class="comp-card__klabel">Context</span> <a href="rules-and-ideas.html#paper-module-annex-knowledge-routing">Doctrine lattice context</a></p>
 

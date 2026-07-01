@@ -82,6 +82,32 @@
         <div class="pm-detail__meta">
           <p class="pm-detail__contains"><span class="comp-card__klabel">Contains</span> 5 sections · 1 diagram · 2 references</p>
         </div>
+        <aside class="pm-source-jump" id="source-drilldown" aria-label="Source module and source part">
+          <div class="pm-source-jump__head">
+            <p class="pm-source-jump__label">Source drilldown</p>
+            <p class="pm-source-jump__note">Source module and source part first; prose follows below.</p>
+          </div>
+          <div class="pm-source-jump__primary-links" aria-label="Open source on GitHub">
+            <a class="btn btn--primary pm-source-jump__primary" href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/organs/derived_fact_provider_runtime.py" target="_blank" rel="external noopener noreferrer" data-link-kind="exogenous"><span>Open source 1</span><code class="pm-source-jump__primary-path">src/microcosm_core/organs/derived_fact_provider_runtime.py</code></a>
+            <a class="btn btn--primary pm-source-jump__primary" href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/engine_room/derived_fact_provider_engine.py" target="_blank" rel="external noopener noreferrer" data-link-kind="exogenous"><span>Open source 2</span><code class="pm-source-jump__primary-path">src/microcosm_core/engine_room/derived_fact_provider_engine.py</code></a>
+          </div>
+          <div class="pm-source-jump__modules">
+            <div class="pm-source-jump__module">
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source module</span> <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/organs/derived_fact_provider_runtime.py" data-link-kind="exogenous" rel="external noopener"><code>src/microcosm_core/organs/derived_fact_provider_runtime.py</code></a></p>
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source part</span> <span class="pm-source-jump__parts"><code class="pm-source-jump__part">build_result</code><code class="pm-source-jump__part">run</code><code class="pm-source-jump__part">_evaluate_case</code><code class="pm-source-jump__part">result_card</code><code class="pm-source-jump__part">run_derived_fact_provider_runtime_bundle</code></span></p>
+              <p class="pm-source-jump__role">The component wrapper `microcosm_core.components.derived_fact_provider_runtime` adds the standard component contract over that bundle without re-implementing it: it loads bounded JSON fixture cases, calls the bundle&#x27;s real evaluate_case on each, and classifies positives (must resolve to expected values with an ok result record) versus negatives (must be rejected by recomputation with the exact expected error_class firing on the planted-defect fact, mapped in EXPECTED_NEGATIVE_CASES). It projects a metadata-only result_card and writes metadata-only result/board/validation/sign-off result records via microcosm_core.result records, and exposes run / bundle / CLI dispatch mirroring the bridge_campaign_dag_validation template exactly.</p>
+            </div>
+            <div class="pm-source-jump__module">
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source module</span> <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/engine_room/derived_fact_provider_engine.py" data-link-kind="exogenous" rel="external noopener"><code>src/microcosm_core/engine_room/derived_fact_provider_engine.py</code></a></p>
+              <p class="pm-source-jump__line"><span class="comp-card__klabel">Source part</span> <span class="pm-source-jump__parts"><code class="pm-source-jump__part">Registry-backed derived fact provider engine over public fixture roots.</code><code class="pm-source-jump__part">provider failures become error rows with repair hints</code></span></p>
+              <p class="pm-source-jump__role">The engine-room bundle `microcosm_core.engine_room.derived_fact_provider_engine` is the executable authority: a source-faithful public refactor of system/lib/derived_fact_hologram.py + codex/doctrine/facts/fact_registry.json. It evaluates an authored fact registry against a root, resolving each row through one of three providers — json_pointer (RFC 6901, including list-index traversal), glob_count (file-count matching with optional excluded prefixes), and named callable facts (git-tracked file/python counts via a git subprocess in a tempdir) — and turns any provider failure into an error-as-data row (provider_status=error, error_class, repair hint) that degrades the result record status from ok to degraded rather than crashing the ledger.</p>
+            </div>
+          </div>
+          <div class="pm-source-jump__links">
+            <a class="btn btn--ghost pm-source-jump__link" href="https://github.com/wcook04/plectis/blob/main/paper_modules/derived_fact_provider_runtime.md" data-link-kind="exogenous" rel="external noopener">Design note</a>
+            <a class="btn btn--ghost pm-source-jump__link" href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-link-kind="exogenous" rel="external noopener">Source registry</a>
+          </div>
+        </aside>
 
         <h2 id="module-body">The write-up</h2>
         <div class="pm-body reader-stage__item" data-pm-fulltext data-reader-stage="paper-module-body">
@@ -114,7 +140,7 @@
         </div>
 
         <h2 id="source">Source</h2>
-        <p class="comp-card__source"><span class="comp-card__klabel">Source</span> <a href="https://github.com/wcook04/plectis/blob/main/paper_modules/derived_fact_provider_runtime.md" data-link-kind="exogenous" rel="external noopener">Design note</a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-link-kind="exogenous" rel="external noopener">Source registry</a></p>
+        <p class="comp-card__source"><span class="comp-card__klabel">Source</span> <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/organs/derived_fact_provider_runtime.py" data-source-kind="source_module" data-link-kind="exogenous" rel="external noopener">Source module: <code>src/microcosm_core/organs/derived_fact_provider_runtime.py</code></a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/src/microcosm_core/engine_room/derived_fact_provider_engine.py" data-source-kind="source_module" data-link-kind="exogenous" rel="external noopener">Source module: <code>src/microcosm_core/engine_room/derived_fact_provider_engine.py</code></a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/paper_modules/derived_fact_provider_runtime.md" data-source-kind="design_note" data-link-kind="exogenous" rel="external noopener">Design note</a> &middot; <a href="https://github.com/wcook04/plectis/blob/main/core/paper_module_capsules.json" data-source-kind="source_registry" data-link-kind="exogenous" rel="external noopener">Source registry</a></p>
         <p class="comp-card__links"><span class="comp-card__klabel">Index</span> <a href="paper-modules.html#paper-module-derived-fact-provider-runtime">Open compact index card</a></p>
         <p class="comp-card__links"><span class="comp-card__klabel">Context</span> <a href="rules-and-ideas.html#paper-module-derived-fact-provider-runtime">Doctrine lattice context</a></p>
 
