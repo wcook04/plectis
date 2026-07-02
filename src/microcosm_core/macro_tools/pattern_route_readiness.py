@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.macro_tools.pattern_route_readiness` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements macro tools pattern route readiness for the public Plectis package.
 
-[INTERFACE]
-- Exports: BUNDLE_RESULT_NAME, REPORT_SCHEMA, EXPECTED_AUDIT_SCHEMA, LEDGER_NAME, MANIFEST_NAME, STANDARD_NAME, AUDIT_NAME, ROUTER_NAME, ROUTE_CARDS_NAME, FIXTURE_SPECS_NAME, DECISION_MATRIX_NAME, DAG_NAME, INTERNAL_GRAPH_NAME, SOURCE_REPORT_NAME, SUPERSESSION_REPORT_NAME, ORGAN_CLUSTERS_NAME, JSON_INPUT_NAMES, ALL_INPUT_NAMES, REQUIRED_FIXTURE_CONTRACT_KEYS, REQUIRED_SELECTOR_OPENINGS, AUTHORITY_CEILING, ANTI_CLAIM, build_route_readiness_validation_report, validate_route_readiness_bundle
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `build_route_readiness_validation_report` and
+`validate_route_readiness_bundle`; constants such as `BUNDLE_RESULT_NAME`, `REPORT_SCHEMA`,
+`EXPECTED_AUDIT_SCHEMA`, `LEDGER_NAME`, and 18 more pin local fixture names; dependencies
+include `hashlib`, `json`, `collections`, `pathlib`, and 2 more. The helpers are invoked
+explicitly by CLI or fixture code; importing the module only declares the available
+machinery.
 """
 from __future__ import annotations
 
@@ -111,13 +96,9 @@ ANTI_CLAIM = (
 
 def _bundle_public_root(input_dir: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_bundle_public_root` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return bundle public root for the macro tools pattern route readiness flow.
+
+    Inputs are `input_dir`; notable helpers are `resolve`, `Path`, `is_dir`, and `is_file`.
     """
     input_path = Path(input_dir).resolve(strict=False)
     for candidate in (input_path, *input_path.parents):
@@ -132,13 +113,10 @@ def _bundle_public_root(input_dir: str | Path) -> Path:
 
 def _receipt_ref(path: Path, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_ref` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive receipt ref without touching module import state.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`,
+    `as_posix`, `index`, `Path`, and 1 more.
     """
     ref = public_relative_path(path, display_root=public_root)
     if "receipts" in path.parts:
@@ -149,13 +127,11 @@ def _receipt_ref(path: Path, public_root: Path) -> str:
 
 def _file_sha256(path: Path) -> str | None:
     """
-    [ACTION]
-    - Teleology: Implements `_file_sha256` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.macro_tools.pattern_route_readiness._file_sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     if not path.is_file():
         return None
@@ -168,13 +144,10 @@ def _file_sha256(path: Path) -> str | None:
 
 def _read_jsonl_rows(path: Path) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_read_jsonl_rows` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Read read JSONl rows for `microcosm_core.macro_tools.pattern_route_readiness`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     rows: list[dict[str, Any]] = []
     if not path.is_file():
@@ -210,39 +183,27 @@ def _read_jsonl_rows(path: Path) -> list[dict[str, Any]]:
 
 def _as_list(value: Any) -> list[Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_as_list` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return as list for the macro tools pattern route readiness flow.
+
+    Inputs are `value`.
     """
     return value if isinstance(value, list) else []
 
 
 def _as_dict(value: Any) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_as_dict` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the as dict value used by `microcosm_core.macro_tools.pattern_route_readiness`.
+
+    Inputs are `value`.
     """
     return value if isinstance(value, Mapping) else {}
 
 
 def _as_str_list(value: Any) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_as_str_list` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute as str list from `value`.
+
+    Inputs are `value`; notable helpers are `_as_list`.
     """
     return [item for item in _as_list(value) if isinstance(item, str)]
 
@@ -258,13 +219,10 @@ def _finding(
     observed: Any | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.macro_tools.pattern_route_readiness._finding`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     payload: dict[str, Any] = {
         "severity": severity,
@@ -285,13 +243,10 @@ def _finding(
 
 def _source_manifest(input_dir: Path, manifest: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_manifest` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.pattern_route_readiness._source_manifest` into the
+    payload shape expected by macro tools pattern route readiness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     by_path = {
         str(row.get("path") or ""): row
@@ -330,13 +285,10 @@ def _source_manifest(input_dir: Path, manifest: Mapping[str, Any]) -> dict[str, 
 
 def _load_json_inputs(input_dir: Path, findings: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_json_inputs` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load JSON inputs for `microcosm_core.macro_tools.pattern_route_readiness`.
+
+    Input comes from `input_dir` and `findings`; malformed or missing data follows the
+    exceptions and checks visible in the body.
     """
     payloads: dict[str, Any] = {}
     for name in JSON_INPUT_NAMES:
@@ -371,13 +323,10 @@ def _load_json_inputs(input_dir: Path, findings: list[dict[str, Any]]) -> dict[s
 
 def _fixture_pattern_ids(specs: Iterable[Mapping[str, Any]]) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_fixture_pattern_ids` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the fixture pattern IDs value used by
+    `microcosm_core.macro_tools.pattern_route_readiness`.
+
+    Inputs are `specs`; notable helpers are `update`, `_as_str_list`, and `get`.
     """
     ids: set[str] = set()
     for spec in specs:
@@ -388,13 +337,9 @@ def _fixture_pattern_ids(specs: Iterable[Mapping[str, Any]]) -> set[str]:
 
 def _router_pattern_ids(routers: Iterable[Mapping[str, Any]]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_router_pattern_ids` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return router pattern IDs for the macro tools pattern route readiness flow.
+
+    Inputs are `routers`; notable helpers are `extend`, `_as_str_list`, and `get`.
     """
     ids: list[str] = []
     for router in routers:
@@ -404,13 +349,10 @@ def _router_pattern_ids(routers: Iterable[Mapping[str, Any]]) -> list[str]:
 
 def _expected_summary(inputs: Mapping[str, Any]) -> dict[str, int]:
     """
-    [ACTION]
-    - Teleology: Implements `_expected_summary` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.pattern_route_readiness._expected_summary` into
+    the payload shape expected by macro tools pattern route readiness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     router = _as_dict(inputs.get(ROUTER_NAME))
     route_cards = _as_dict(inputs.get(ROUTE_CARDS_NAME))
@@ -445,13 +387,10 @@ def _expected_summary(inputs: Mapping[str, Any]) -> dict[str, int]:
 
 def _iter_declared_pattern_refs(inputs: Mapping[str, Any]) -> Iterable[tuple[str, str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_iter_declared_pattern_refs` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Temporarily apply iter declared pattern refs for callers using a `with` block.
+
+    The previous state is restored after the yielded block exits, including exceptional
+    exits.
     """
     router = _as_dict(inputs.get(ROUTER_NAME))
     for row in _as_list(router.get("family_routers")):
@@ -502,13 +441,10 @@ def _iter_declared_pattern_refs(inputs: Mapping[str, Any]) -> Iterable[tuple[str
 
 def _find_cycle(nodes: set[str], edges: Iterable[Mapping[str, Any]]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_find_cycle` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute find cycle from `nodes` and `edges`.
+
+    Inputs are `nodes` and `edges`; notable helpers are `get`, `add`, `append`, `pop`, and 3
+    more.
     """
     graph: dict[str, list[str]] = {node: [] for node in nodes}
     for edge in edges:
@@ -523,13 +459,9 @@ def _find_cycle(nodes: set[str], edges: Iterable[Mapping[str, Any]]) -> list[str
 
     def visit(node: str) -> list[str]:
         """
-        [ACTION]
-        - Teleology: Implements `_find_cycle.visit` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Derive visit without touching module import state.
+
+        Inputs are `node`; notable helpers are `add`, `append`, `get`, `pop`, and 3 more.
         """
         if node in visiting:
             try:
@@ -558,13 +490,11 @@ def _find_cycle(nodes: set[str], edges: Iterable[Mapping[str, Any]]) -> list[str
 
 def _overlay_name_exists(input_dir: Path, overlay_ref: str) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_overlay_name_exists` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether overlay name exists holds for the macro tools pattern route readiness
+    flow.
+
+    The result is derived from `input_dir` and `overlay_ref` with `Path` and `is_file`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     path = Path(overlay_ref)
     if (input_dir / overlay_ref).is_file():
@@ -580,13 +510,10 @@ def _validate_report(
     load_findings: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_report` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.pattern_route_readiness._validate_report` into the
+    payload shape expected by macro tools pattern route readiness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings = list(load_findings)
     source_manifest = _source_manifest(input_dir, manifest)
@@ -1033,13 +960,10 @@ def _validate_report(
 
 def build_route_readiness_validation_report(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_route_readiness_validation_report` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute build route readiness validation report from `input_dir`.
+
+    Inputs are `input_dir`; notable helpers are `Path`, `read_json_strict`,
+    `_load_json_inputs`, and `_validate_report`.
     """
     bundle_dir = Path(input_dir)
     manifest = read_json_strict(bundle_dir / MANIFEST_NAME)
@@ -1061,13 +985,12 @@ def validate_route_readiness_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_route_readiness_bundle` for `microcosm_core.macro_tools.pattern_route_readiness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Validate whether validate route readiness bundle holds for the macro tools pattern route
+    readiness flow.
+
+    The result is derived from `input_dir`, `out_dir`, and `command` with `Path`,
+    `_bundle_public_root`, `read_json_strict`, `build_route_readiness_validation_report`,
+    and 8 more; failing evidence is returned or raised exactly where the body says so.
     """
     bundle_dir = Path(input_dir)
     public_root = _bundle_public_root(bundle_dir)

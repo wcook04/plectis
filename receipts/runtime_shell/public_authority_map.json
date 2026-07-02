@@ -292,7 +292,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:459f196c9079abdebb9f66c8d130b97ed9ec62bcd6b27f869d9b20528f095c5f",
+        "body_digest": "sha256:8966214b14019d5aa8244f0a610b16d1dae03b701a275f59e453a654b29baefa",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -330,7 +330,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:fe14fc5b49bf7c682dac1bbd81cbe45f7c47771457851d8e34baba3c47122821",
+        "body_digest": "sha256:d895688672fdd779efdd4d9b834c2e02b58e1bfa71c1b4e76f6eecf85faea001",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -353,7 +353,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:e854196f8a6c1f0e1ffcc687e2d96e3461e6197326bc642d4063fb88ed829e86",
+        "body_digest": "sha256:bc8a897d69266ea6701f580c7c2a66ada5c88a793fe178bf929cb433c0ea609f",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -379,7 +379,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:3a7193bcb1550a473d975ad65c8b8712b64b09b79acf8a170dfd7e4c0e147c40",
+        "body_digest": "sha256:334c8135c8216ca217ce82702c4e2188b908043d916b8bb92f4a52de304a1941",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -402,7 +402,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:87c91ab93f95437506d4478cbc6758cf7e09934a822a1a2611bf1c8e626f3ff8",
+        "body_digest": "sha256:734cf7e5ef621cb407f73af736908b18835694af23b76ca971d5bf3da166b5f1",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -551,7 +551,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:2a785c822094abc6432e77099cebece66d3252540844452f2aa5a99cb2052e58",
+        "body_digest": "sha256:6217cfe11c4a49944a3e88110dc041afe7868cdea22da543b54860e36f3d51ce",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -574,7 +574,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:c44ab7263e31d954db2b9d796622dcb3437bacf87082f57e1e035fd5a1ebc3a7",
+        "body_digest": "sha256:e934a3fe75a9d17715776c01f07a04251d8f4213bd6f549ca289e044b218259a",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -600,7 +600,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:48713c36c3bd8b56c4407fa932db5bbf310554aa7c551588e954a266a0ae95be",
+        "body_digest": "sha256:3e222f9bca9ff9924ee6dd9bc6475d9d8cee3f2eb2f1922839dec84b973bc718",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1087,7 +1087,7 @@
         "verification_mode": "exact_source_digest_match"
       },
       {
-        "body_digest": "sha256:a92a0c2f3066f35a50cce7d86f1c1c7f1cbf99751a4c3bcaf6d19218b0ae562d",
+        "body_digest": "sha256:9d0619f288d7df76087d2fee91169ca230d4cb299c63e45d85393e0addea42f1",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",
@@ -1110,7 +1110,7 @@
         "verification_mode": "verified_light_edit_recipe"
       },
       {
-        "body_digest": "sha256:dd10536ca890c58591e8630fc17d3f9bb030d7e5b174777fd34f583da1dc4dc4",
+        "body_digest": "sha256:863c57e4585d5ed610df587b2ba3726fb9eec3226ba662c45c1436243d832ec2",
         "body_text_in_receipt": false,
         "import_accounting_source": "projection_protocol",
         "material_class": "public_macro_tool_body",

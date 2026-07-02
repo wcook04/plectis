@@ -1,13 +1,9 @@
-"""Exercise served project status endpoints without leaking local paths.
+"""
+Implements scripts served status smoke for the public Plectis package.
 
-Teleology: prove the HTTP-facing status and observatory cards stay public-safe
-when rendered through RuntimeShell, not just when produced by terminal commands.
-Guarantee: a passing receipt means both endpoints returned JSON objects, the
-observatory contract floor held, and configured private path needles were absent
-from serialized responses.
-Writes: only the caller-provided receipt path.
-Non-goal: this is not a production server, release gate, or proof-correctness
-claim.
+Callers enter through `served_status_smoke` and `main`; dependencies include `argparse`,
+`json`, `threading`, `pathlib`, and 3 more. Importing it does not authorize release work or
+hidden private-state access; those effects live behind explicit calls.
 """
 
 from __future__ import annotations
@@ -23,17 +19,11 @@ from microcosm_core.runtime_shell import RuntimeShell
 
 
 def _private_path_hits(body: str, project_path: Path, public_root: Path) -> list[str]:
-    """Return path/privacy needles that appear in a served JSON body.
+    """
+    Return private path hits for the scripts served status smoke flow.
 
-    Teleology: served cards are safe only if they avoid the concrete project
-    root, public checkout root, and known private ai_workflow/home markers.
-    Guarantee: project and public roots are resolved before matching, so the
-    check sees the same absolute spelling that RuntimeShell is likely to emit.
-    Fails: does not raise for matches; it reports every matching needle so the
-    caller can mark the smoke receipt blocked.
-    Reads: serialized served response text plus the project/public root paths.
-    Non-goal: do not redact or normalize; callers need the exact hits for the
-    smoke receipt.
+    Inputs are `body`, `project_path`, and `public_root`; notable helpers are `as_posix` and
+    `resolve`.
     """
     needles = [
         project_path.resolve(strict=False).as_posix(),
@@ -51,15 +41,11 @@ def _read_served_json(
     endpoint: str,
     timeout_seconds: float,
 ) -> dict[str, Any]:
-    """Fetch one RuntimeShell endpoint and require a JSON object response.
+    """
+    Read read served JSON for `scripts.served_status_smoke`.
 
-    Teleology: downstream contract checks address dictionary fields, so an
-    array, scalar, HTML error page, or malformed body should fail immediately at
-    the endpoint boundary.
-    Guarantee: returns a decoded dict from http://host:port/endpoint within the
-    provided timeout.
-    Fails: urlopen/json errors propagate; non-object JSON raises TypeError with
-    the endpoint label.
+    Input comes from `host`, `port`, `endpoint`, and `timeout_seconds`; malformed or missing
+    data follows the exceptions and checks visible in the body.
     """
     with urlopen(
         f"http://{host}:{port}{endpoint}",
@@ -72,18 +58,10 @@ def _read_served_json(
 
 
 def _observatory_contract_failures(card: dict[str, Any]) -> list[str]:
-    """List observatory-card fields that violate the public smoke contract.
+    """
+    Compute observatory contract failures from `card`.
 
-    Teleology: the observatory endpoint is the browsable proof surface; it must
-    publish the expected schema, pass status, required surface statuses, state
-    inspection pass, and false authority flags.
-    Guarantee: returns dotted field names for every failed contract check and
-    an empty list only when the card is acceptable for the served-status smoke.
-    Fails: does not raise on malformed cards; missing or wrong-shaped sections
-    are returned as concrete failure field names.
-    Reads: the decoded /project/observatory-card response.
-    Non-goal: do not validate the full card schema; this is the minimum public
-    safety floor exercised by the smoke.
+    Inputs are `card`; notable helpers are `get` and `append`.
     """
     failures: list[str] = []
     if card.get("schema_version") != "microcosm_project_observatory_card_v1":
@@ -131,13 +109,11 @@ def served_status_smoke(
     host: str = "127.0.0.1",
     timeout_seconds: float = 90.0,
 ) -> dict[str, Any]:
-    """Serve the runtime shell, fetch /project/status, and record a public-safe smoke receipt.
+    """
+    Produce the served status smoke value used by `scripts.served_status_smoke`.
 
-    - Teleology: end-to-end check that the served status endpoint returns a card with no private-path leakage.
-    - Guarantee: starts/stops an ephemeral server, fetches the status card, and writes a receipt to `out`.
-    - Fails: any private-path needle found in the served body -> receipt status 'blocked'.
-    - Reads: project tree served by RuntimeShell at the /project/status endpoint.
-    - Writes: `out` receipt JSON.
+    Inputs are `public_root`, `project`, `out`, `host`, and `timeout_seconds`; notable
+    helpers are `RuntimeShell`, `expanduser`, `resolve`, `serve`, and 13 more.
     """
     shell = RuntimeShell(public_root)
     project_path = project.expanduser()
@@ -260,13 +236,11 @@ def served_status_smoke(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Parse args, run the served-status smoke, and return its exit code.
+    """
+    Run `scripts.served_status_smoke` as a command-line entry point.
 
-    - Teleology: CLI entry that runs the served /project/status public-safety smoke from the shell.
-    - Guarantee: writes the smoke receipt to --out and returns 0 only when status is 'pass'.
-    - Fails: receipt status != 'pass' (private-path leak) -> returns exit code 1.
-    - Reads: --root public root and --project tree.
-    - Writes: --out receipt JSON.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(
         description="Fetch served /project/status and record a public-safe smoke receipt.",

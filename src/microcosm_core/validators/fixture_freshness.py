@@ -1,4 +1,12 @@
-"""Compares accepted-organ fixtures and receipt hashes against current source files."""
+"""
+Implements validators fixture freshness for the public Plectis package.
+
+Callers enter through `run_fixture_freshness` and `main`; constants such as `CHECKER_ID`,
+`ACCEPTANCE_SUMMARY_REL`, `EVIDENCE_CLASS_REGISTRY_REL`, `ORGAN_REGISTRY_REL`, and 8 more
+pin local fixture names; dependencies include `argparse`, `hashlib`, `json`, `os`, and 4
+more. Validator outputs stay structured so release checks can consume findings without
+scraping prose.
+"""
 from __future__ import annotations
 
 import argparse
@@ -63,17 +71,9 @@ HASH_CHUNK_SIZE = 1024 * 1024
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    Resolve the public Plectis root that anchors all public-relative refs.
+    Return public root for path for the validators fixture freshness flow.
 
-    - Teleology: protects every public-relative path/receipt resolution from anchoring at the wrong tree root (private parent or unrelated cwd).
-    - Guarantee: returns a Path that is either a parent named "microcosm-substrate" or a dir holding pyproject.toml + src/microcosm_core + core/private_state_forbidden_classes.json; else the resolved cwd.
-    - Fails: None — never raises; with no matching ancestor it returns Path.cwd().resolve(strict=False) as a best-effort fallback.
-    - Reads: filesystem ancestors (pyproject.toml, src/microcosm_core, core/private_state_forbidden_classes.json) for the marker check.
-    - Writes: None
-    - When-needed: trust when deriving the root that every downstream public-relative receipt/manifest/input path joins against.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -89,34 +89,19 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    Render a path as a public-root-relative display string for receipt fields.
+    Produce the display value used by `microcosm_core.validators.fixture_freshness`.
 
-    - Teleology: keeps receipt-emitted paths anchored to the public substrate root so receipts never leak absolute/private path segments.
-    - Guarantee: returns the public_relative_path(path, display_root=public_root) string (public-root-relative when path is under public_root).
-    - Fails: never raises here; delegates entirely to public_relative_path, whose own fallback handling governs non-relative paths.
-    - When-needed: inspect when a receipt_paths or *_receipt display value looks wrong relative to the public root.
-    - Escalates-to: public_relative_path (microcosm_core.secret_exclusion_scan).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _display_context_ref(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    Render a read-for-context path (mission DAG / receipt coverage) relative to repo or public root.
+    Compute display context ref from `path` and `public_root`.
 
-    - Teleology: produces a stable, leak-free display ref for context inputs that may live outside the public root (e.g. under repo-level state/).
-    - Guarantee: returns a relative posix string — the state/... tail when "state" is in the path, else relative to public_root or its parent repo root; falls back to public_relative_path when no anchor matches; non-absolute input is returned as its own posix string.
-    - Fails: never raises; ValueError from relative_to is caught and the next anchor (or the public_relative_path fallback) is used.
-    - When-needed: inspect when mission_dag_node_refs.path or receipt_coverage_refs.path in the freshness receipt shows an unexpected root.
-    - Escalates-to: public_relative_path (microcosm_core.secret_exclusion_scan).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`,
+    `is_absolute`, `as_posix`, `resolve`, and 3 more.
     """
     if not path.is_absolute():
         return path.as_posix()
@@ -135,16 +120,11 @@ def _display_context_ref(path: Path, *, public_root: Path) -> str:
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION]
-    Compute the SHA-256 hex digest of a single file's bytes.
+    Return the stable digest computed by
+    `microcosm_core.validators.fixture_freshness._sha256`.
 
-    - Teleology: provides the per-file fingerprint that makes manifest/fixture freshness drift detectable across runs.
-    - Guarantee: returns the lowercase hex SHA-256 of the file's full byte content, read in HASH_CHUNK_SIZE chunks.
-    - Fails: a missing/unreadable path raises OSError (FileNotFoundError/PermissionError) from path.open inside _update_hash_from_file.
-    - When-needed: inspect when an input_fingerprints or fixture_manifest_sha256_by_organ value is questioned.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     hasher = hashlib.sha256()
     _update_hash_from_file(hasher, path)
@@ -153,16 +133,10 @@ def _sha256(path: Path) -> str:
 
 def _update_hash_from_file(hasher: Any, path: Path) -> None:
     """
-    [ACTION]
-    Stream a file's bytes into an existing hash object in bounded chunks.
+    Run update hash from file for the validators fixture freshness flow.
 
-    - Teleology: bounds memory for large fixture inputs by chunked hashing instead of reading whole files into memory.
-    - Guarantee: mutates hasher in place, feeding every byte of the file in HASH_CHUNK_SIZE reads until EOF; returns None.
-    - Fails: a missing/unreadable path raises OSError (FileNotFoundError/PermissionError) from path.open.
-    - When-needed: inspect when shared by _sha256 and _sha256_directory and a digest looks wrong.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     with path.open("rb") as handle:
         for chunk in iter(lambda: handle.read(HASH_CHUNK_SIZE), b""):
@@ -171,16 +145,10 @@ def _update_hash_from_file(hasher: Any, path: Path) -> None:
 
 def _iter_directory_files(path: Path) -> Iterator[Path]:
     """
-    [ACTION]
-    Yield every regular file under a directory tree, recursively, ignoring symlinks.
+    Temporarily apply iter directory files for callers using a `with` block.
 
-    - Teleology: enumerates the file set a directory-shaped fixture input must fingerprint, so the digest covers all contents.
-    - Guarantee: yields each non-symlink regular file path under the tree; descends into non-symlink subdirectories; emits nothing for empty trees.
-    - Fails: an unreadable/missing directory raises OSError from os.scandir; symlinked dirs and files are skipped, not followed.
-    - When-needed: inspect when _sha256_directory's coverage of a directory fixture is questioned.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The previous state is restored after the yielded block exits, including exceptional
+    exits.
     """
     with os.scandir(path) as entries:
         for entry in entries:
@@ -193,16 +161,11 @@ def _iter_directory_files(path: Path) -> Iterator[Path]:
 
 def _sha256_directory(path: Path) -> str:
     """
-    [ACTION]
-    Compute a deterministic SHA-256 over an entire directory tree's relative paths + bytes.
+    Return the stable digest computed by
+    `microcosm_core.validators.fixture_freshness._sha256_directory`.
 
-    - Teleology: gives a directory-shaped fixture input a single stable fingerprint that changes if any file's name or content changes.
-    - Guarantee: returns a hex SHA-256 folding each file's relative posix path and content in sorted order with NUL separators, so the digest is order-independent and rename-sensitive.
-    - Fails: a missing/unreadable directory or member raises OSError from os.scandir / file open.
-    - When-needed: inspect when a directory entry in input_fingerprints changes unexpectedly between runs.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     hasher = hashlib.sha256()
     for child in sorted(_iter_directory_files(path)):
@@ -216,17 +179,9 @@ def _sha256_directory(path: Path) -> str:
 
 def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Strip body/forbidden-field detail from a secret-exclusion scan before it enters a receipt.
+    Return receipt safe scan for `microcosm_core.validators.fixture_freshness`.
 
-    - Teleology: prevents the receipt from re-emitting redacted-body or forbidden-field labels that could leak what was excluded, while keeping the scan's pass/block verdict.
-    - Guarantee: returns a shallow copy of the scan with "forbidden_output_fields", "body_redacted", and "redacted_output_field_labels_omitted" removed; all other keys (status/hit counts) are preserved; the input dict is not mutated.
-    - Fails: never raises; absent keys are popped with a None default.
-    - When-needed: inspect when reconciling the receipt's secret_exclusion_scan block against the raw scan_paths output.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `scan`; notable helpers are `pop`.
     """
     safe = dict(scan)
     safe.pop("forbidden_output_fields", None)
@@ -237,16 +192,11 @@ def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Extract a list of dict rows under a payload key, dropping any non-dict entries.
+    Return dictionary rows for `microcosm_core.validators.fixture_freshness._rows` from
+    `payload[key]`.
 
-    - Teleology: normalizes registry/readiness list fields to a clean dict-row list so downstream callers can assume row shape.
-    - Guarantee: returns a list containing only the dict elements of payload[key]; a missing key or non-list value yields [].
-    - Fails: never raises; non-dict and missing values are filtered/defaulted rather than rejected.
-    - When-needed: inspect when an organ/readiness row appears dropped from a derived view.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     value = payload.get(key, [])
     return [row for row in value if isinstance(row, dict)]
@@ -254,33 +204,19 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
 
 def _load_registry(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Strictly load the public organ registry JSON object.
+    Load load registry for `microcosm_core.validators.fixture_freshness`.
 
-    - Teleology: centralizes the single trusted read of core/organ_registry.json that anchors acceptance and freshness.
-    - Guarantee: returns the parsed organ_registry.json object from public_root / ORGAN_REGISTRY_REL.
-    - Fails: a missing file or invalid JSON propagates read_json_strict's error (OSError / parse error such as JSONDecodeError/ValueError).
-    - When-needed: inspect when accepted-organ derivation or manifest pinning seems to read the wrong registry.
-    - Escalates-to: read_json_strict (microcosm_core.schemas) and core/organ_registry.json.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Input comes from `public_root`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     return read_json_strict(public_root / ORGAN_REGISTRY_REL)
 
 
 def _accepted_organs(registry: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Select the registry rows whose status is accepted_current_authority.
+    Compute accepted organs from `registry`.
 
-    - Teleology: defines the authoritative accepted-organ set that all acceptance/freshness accounting iterates over.
-    - Guarantee: returns the implemented_organs rows (dicts only) whose status == "accepted_current_authority"; non-matching/non-dict rows are excluded.
-    - Fails: never raises; absence of implemented_organs yields [].
-    - When-needed: inspect when accepted_count or the accounting population looks wrong.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `registry`; notable helpers are `_rows` and `get`.
     """
     return [
         row
@@ -291,17 +227,10 @@ def _accepted_organs(registry: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _accepted_registry_profiles_by_organ(public_root: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    Index accepted organ-registry rows by organ_id.
+    Compute accepted registry profiles by organ from `public_root`.
 
-    - Teleology: lets evidence-class assembly look up each accepted organ's registry-declared truth/evidence fields by id.
-    - Guarantee: returns a dict mapping organ_id -> its accepted registry row, for every accepted organ that has a truthy organ_id.
-    - Fails: a missing/invalid registry propagates read_json_strict's error via _load_registry.
-    - When-needed: inspect when a registry-declared evidence/truth field is not overriding the class-profile default.
-    - Escalates-to: _accepted_organs / _load_registry and core/organ_registry.json.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `public_root`; notable helpers are `get`, `_accepted_organs`, and
+    `_load_registry`.
     """
     return {
         str(row.get("organ_id")): row
@@ -312,18 +241,11 @@ def _accepted_registry_profiles_by_organ(public_root: Path) -> dict[str, dict[st
 
 def _evidence_profiles_by_organ(public_root: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    Build per-organ evidence-class profiles by fusing the evidence registry with registry overrides.
+    Compute evidence profiles by organ from `public_root`.
 
-    - Teleology: produces the fail-closed truth-accounting profile (bucket, progress flag, strength rank, claim ceiling) per organ that separates real substrate from synthetic/adapter/debt evidence.
-    - Guarantee: returns a dict organ_id -> profile (organ_id, evidence_class, truth_accounting_bucket, counts_as_real_substrate_progress, evidence_strength_rank, claim_ceiling, classification_basis), with registry fields overriding class-profile defaults.
-    - Fails: raises ValueError when the evidence registry is not an object, is not fail_closed_no_default, lacks class_profiles/rows, a row is malformed, an evidence_class is unknown, a truth bucket is outside TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS, a progress flag is inconsistent, or organ rows duplicate; read errors propagate from read_json_strict.
-    - When-needed: inspect when an organ's truth bucket, progress flag, or claim ceiling in the acceptance summary is disputed.
-    - Escalates-to: core/organ_evidence_classes.json + core/organ_registry.json and read_json_strict (microcosm_core.schemas).
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `public_root`; notable helpers are `read_json_strict`, `get`,
+    `_accepted_registry_profiles_by_organ`, `ValueError`, and 2 more; invalid cases raise
+    from the explicit checks in the body.
     """
     registry = read_json_strict(public_root / EVIDENCE_CLASS_REGISTRY_REL)
     if not isinstance(registry, dict):
@@ -397,16 +319,9 @@ def _evidence_profiles_by_organ(public_root: Path) -> dict[str, dict[str, Any]]:
 
 def _synthetic_disposition_value(row: dict[str, Any]) -> str:
     """
-    [ACTION]
-    Extract the synthetic-acceptance disposition string from a row's flexible field shape.
+    Return synthetic disposition value for `microcosm_core.validators.fixture_freshness`.
 
-    - Teleology: normalizes the synthetic_acceptance_disposition field (dict or bare string) to one comparable disposition token.
-    - Guarantee: returns the dict's "disposition" value, the bare string value, or "" for any other/absent shape.
-    - Fails: never raises; non-dict/non-string values coerce to "".
-    - When-needed: inspect when a synthetic organ's disposition is mis-classified as missing/invalid.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `row`; notable helpers are `get`.
     """
     value = row.get("synthetic_acceptance_disposition")
     if isinstance(value, dict):
@@ -418,16 +333,11 @@ def _synthetic_disposition_value(row: dict[str, Any]) -> str:
 
 def _is_synthetic_acceptance_row(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    Decide whether an accepted row is a synthetic (non-real-progress) acceptance.
+    Return whether is synthetic acceptance row holds for the validators fixture freshness
+    flow.
 
-    - Teleology: marks fixture-echo/regression-negative/non-progress acceptances so they are held to the retained-regression disposition rule instead of the real-substrate one.
-    - Guarantee: returns True iff the row's evidence_class is in SYNTHETIC_EVIDENCE_CLASSES, its truth bucket is in SYNTHETIC_TRUTH_BUCKETS, or counts_as_real_substrate_progress is exactly False; else False.
-    - Fails: never raises; missing fields simply do not trip a synthetic condition.
-    - When-needed: inspect when an organ is unexpectedly treated as (or excluded from) synthetic in disposition coverage.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `row` with `get`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return (
         row.get("evidence_class") in SYNTHETIC_EVIDENCE_CLASSES
@@ -438,18 +348,10 @@ def _is_synthetic_acceptance_row(row: dict[str, Any]) -> bool:
 
 def _disposition_coverage(accepted: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    Audit that every accepted organ carries a valid, progress-consistent real-substrate disposition.
+    Serialize `microcosm_core.validators.fixture_freshness._disposition_coverage` into the
+    payload shape expected by validators fixture freshness.
 
-    - Teleology: enforces that acceptance status is paired with an explicit, allowed disposition that matches the organ's progress class (real vs retained-regression), blocking laundering of synthetic acceptances as real progress.
-    - Guarantee: returns a coverage dict (schema microcosm_real_substrate_disposition_coverage_v1) whose status is PASS only when no organ is missing a required disposition, carries a disallowed disposition, or has a progress/disposition mismatch; otherwise "blocked", with the offending organ ids listed in the missing/invalid/mismatch arrays.
-    - Fails: never raises; non-conforming organs are reported as "blocked" with violation lists rather than via exception.
-    - When-needed: inspect when the acceptance summary reports a disposition_coverage blocker.
-    - Escalates-to: organ_registry.json fields real_substrate_disposition / synthetic_acceptance_disposition and ALLOWED_REAL_SUBSTRATE_DISPOSITIONS.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     disposition_counts = Counter(
         str(row.get("real_substrate_disposition") or "missing") for row in accepted
@@ -513,18 +415,10 @@ def _acceptance_truth_accounting(
     evidence_profiles: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Aggregate accepted organs into a truth-accounting breakdown separating real progress from other evidence classes.
+    Serialize `microcosm_core.validators.fixture_freshness._acceptance_truth_accounting`
+    into the payload shape expected by validators fixture freshness.
 
-    - Teleology: makes the accepted count honest by partitioning it across truth buckets and explicitly asserting that "accepted" is neither product progress nor evidence strength.
-    - Guarantee: returns a dict (schema microcosm_acceptance_truth_accounting_v1) with per-bucket and per-class counts, real_substrate_progress_count vs non_progress_accepted_count, real/non-progress organ id lists, per-organ evidence rows, an embedded disposition_coverage, and the asserted-False flags accepted_current_authority_is_evidence_strength / accepted_count_is_product_progress.
-    - Fails: raises ValueError when any accepted organ has no entry in evidence_profiles (listing the missing ids); disposition issues are reported inside disposition_coverage, not raised.
-    - When-needed: inspect when the acceptance summary's truth_accounting bucket counts or progress split are disputed.
-    - Escalates-to: _evidence_profiles_by_organ + _disposition_coverage and core/organ_evidence_classes.json.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     accepted_ids = [str(row.get("organ_id") or "") for row in accepted]
     missing = sorted(organ_id for organ_id in accepted_ids if organ_id not in evidence_profiles)
@@ -585,16 +479,9 @@ def _acceptance_truth_accounting(
 
 def _string_list(value: Any) -> list[str]:
     """
-    [ACTION]
-    Coerce an arbitrary manifest value into a list of scalar strings.
+    Compute string list from `value`.
 
-    - Teleology: hardens parsing of manifest ref/material/id arrays so malformed entries cannot inject non-scalar values downstream.
-    - Guarantee: returns a list of str() of the str/int/float items when value is a list; any non-list input yields []; non-scalar list items are dropped.
-    - Fails: never raises; unexpected shapes are filtered/defaulted.
-    - When-needed: inspect when manifest-derived ref/material/id lists look truncated or empty.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`.
     """
     if not isinstance(value, list):
         return []
@@ -603,16 +490,9 @@ def _string_list(value: Any) -> list[str]:
 
 def _int_value(value: Any) -> int:
     """
-    [ACTION]
-    Coerce an arbitrary manifest value into a non-negative-ish int count.
+    Return int value for the validators fixture freshness flow.
 
-    - Teleology: tolerates int-or-numeric-string body counts in manifests without crashing the coverage aggregation.
-    - Guarantee: returns the int when value is an int, the parsed int when value is an all-digit string, else 0.
-    - Fails: never raises; non-int / non-digit-string input returns 0 (note: bare digit strings only — negatives and floats fall through to 0).
-    - When-needed: inspect when a body_material_count is read as 0 despite a populated manifest field.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`; notable helpers are `isdigit`.
     """
     if isinstance(value, int):
         return value
@@ -623,16 +503,9 @@ def _int_value(value: Any) -> int:
 
 def _normalize_public_ref(value: Any) -> str:
     """
-    [ACTION]
-    Normalize a source/manifest ref to be public-root-relative.
+    Compute normalize public ref from `value`.
 
-    - Teleology: protects public manifest/source refs in receipts from carrying a "microcosm-substrate/" prefix that would mis-join against an already-public root.
-    - Guarantee: returns the string with a leading "microcosm-substrate/" stripped, else the unchanged str(value or ""); a falsy value yields "".
-    - Fails: None — never raises; non-string input is coerced via str() and returned (possibly empty), never rejected.
-    - Writes: None
-    - When-needed: trust when reading a normalized ref out of a coverage row before joining it under public_root.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `value`; notable helpers are `startswith`.
     """
     text = str(value or "")
     public_root_prefix = "microcosm-substrate/"
@@ -646,18 +519,10 @@ def _source_body_import_coverage(
     accepted: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Audit accepted organs' source-body imports for present manifest refs and no in-receipt bodies.
+    Serialize `microcosm_core.validators.fixture_freshness._source_body_import_coverage`
+    into the payload shape expected by validators fixture freshness.
 
-    - Teleology: proves that any organ claiming copied source-body material backs it with present, public manifest refs and keeps the body out of the receipt (only fingerprints/refs, never source text).
-    - Guarantee: returns a dict (schema microcosm_source_body_import_coverage_v1) with per-organ rows, body/ref counts, material-class and per-disposition tallies, and status PASS only when no source_manifest_ref is missing on disk AND no organ sets body_in_receipt=True; otherwise "blocked" with the offending ids/refs listed.
-    - Fails: a present-but-invalid fixture manifest propagates read_json_strict's parse error; missing manifests/refs are recorded (missing_source_manifest_refs) and downgrade status to "blocked" rather than raising.
-    - When-needed: inspect when the acceptance summary reports a source_body_imports blocker or a body_in_receipt flag.
-    - Escalates-to: core/fixture_manifests/*.fixture_manifest.json (source_open_body_imports) and _source_module_manifest_coverage.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows: list[dict[str, Any]] = []
     missing_source_manifest_refs: list[dict[str, str]] = []
@@ -772,18 +637,10 @@ def _source_module_manifest_coverage(
     source_body_imports: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Project the source-body import coverage into a compact manifest-coverage receipt slice.
+    Serialize `microcosm_core.validators.fixture_freshness._source_module_manifest_coverage`
+    into the payload shape expected by validators fixture freshness.
 
-    - Teleology: protects the acceptance-summary claim that every source-body import has a present, public manifest ref (no body smuggled into the receipt) from silently dropping that evidence.
-    - Guarantee: returns a dict carrying schema_version "microcosm_source_module_manifest_coverage_v1" plus the input's status, organ/ref counts, missing_source_manifest_refs, and body_in_receipt[_organs] verbatim.
-    - Fails: a source_body_imports dict missing any required key (status, source_body_import_organ_count, source_manifest_ref_count, missing_source_manifest_refs, body_in_receipt, body_in_receipt_organs) raises KeyError.
-    - Reads: in-memory source_body_imports dict (produced by _source_body_import_coverage); no I/O.
-    - Writes: None
-    - When-needed: inspect when reconciling the acceptance-summary source_module_manifest_coverage block against the fuller source_body_imports section.
-    - Escalates-to: _source_body_import_coverage (the authoritative computation) and core/fixture_manifests/*.fixture_manifest.json.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "microcosm_source_module_manifest_coverage_v1",
@@ -805,16 +662,11 @@ def _acceptance_summary_blockers(
     source_body_imports: dict[str, Any],
 ) -> list[str]:
     """
-    [ACTION]
-    Collapse the two coverage sub-receipts into the acceptance summary's blocker list.
+    Produce the acceptance summary blockers value used by
+    `microcosm_core.validators.fixture_freshness`.
 
-    - Teleology: derives the acceptance summary's pass/block verdict from its sub-checks rather than from raw counts, so a blocked summary names which gate failed.
-    - Guarantee: returns a list containing "disposition_coverage" and/or "source_body_imports" for whichever sub-receipt status != PASS; an empty list means both passed.
-    - Fails: never raises; missing/absent status keys compare unequal to PASS and add the corresponding blocker.
-    - When-needed: inspect when the acceptance summary status is "blocked" and you need the failing gate name.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `disposition_coverage` and `source_body_imports`; notable helpers are `get`
+    and `append`.
     """
     blockers: list[str] = []
     if disposition_coverage.get("status") != PASS:
@@ -826,16 +678,9 @@ def _acceptance_summary_blockers(
 
 def _manifest_public_path(public_root: Path, readiness_row: dict[str, Any]) -> Path:
     """
-    [ACTION]
-    Pin a readiness row's fixture_manifest to its public fixture-manifest location.
+    Compute manifest public path from `public_root` and `readiness_row`.
 
-    - Teleology: protects manifest resolution from a readiness row pointing fixture_manifest at a macro/private path by keeping only the basename under the public dir.
-    - Guarantee: returns public_root / "core/fixture_manifests" / <basename-of-readiness fixture_manifest>; an empty/missing fixture_manifest yields the directory joined with "" (path to the fixture_manifests dir).
-    - Fails: None — never raises and does not check existence; existence is verified by callers (_manifest_input_paths / run_fixture_freshness emit MISSING_FIXTURE_MANIFEST).
-    - Reads: public_root and readiness_row["fixture_manifest"]; no filesystem read here.
-    - Writes: None
-    - When-needed: trust when mapping a per-organ readiness row to the manifest path used for hashing and input enumeration.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root` and `readiness_row`; notable helpers are `Path` and `get`.
     """
     macro_path = Path(str(readiness_row.get("fixture_manifest") or ""))
     return public_root / "core/fixture_manifests" / macro_path.name
@@ -843,17 +688,10 @@ def _manifest_public_path(public_root: Path, readiness_row: dict[str, Any]) -> P
 
 def _manifest_input_paths(manifest_path: Path) -> list[str]:
     """
-    [ACTION]
-    Extract the declared input relative-paths from a fixture manifest.
+    Return manifest input paths for the validators fixture freshness flow.
 
-    - Teleology: protects the per-organ fixture-input fingerprint set from being computed off a missing or malformed manifest (which would silently fingerprint nothing).
-    - Guarantee: returns a list[str] of paths drawn from manifest["inputs"] (dict rows' "path" field or bare string rows); returns [] when the manifest file is absent, parses to a non-dict, or has no list-shaped inputs.
-    - Fails: a present manifest with invalid JSON propagates read_json_strict's parse error (e.g. JSONDecodeError/ValueError); absence or non-dict content returns [] rather than raising.
-    - Reads: the fixture manifest JSON at manifest_path (its "inputs" rows).
-    - Writes: None
-    - When-needed: trust when enumerating which fixture inputs an organ's freshness fingerprint covers.
-    - Escalates-to: read_json_strict (microcosm_core.schemas) and core/fixture_manifests/*.fixture_manifest.json.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `manifest_path`; notable helpers are `read_json_strict`, `get`, `is_file`,
+    and `append`.
     """
     if not manifest_path.is_file():
         return []
@@ -881,18 +719,10 @@ def _write_acceptance_summary(
     secret_exclusion_scan: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Compose and atomically write the first-wave acceptance-summary receipt with its authority ceiling.
+    Write write acceptance summary for the validators fixture freshness flow.
 
-    - Teleology: emits the single public acceptance-summary receipt that records runtime-spine receipt presence while explicitly disclaiming release/provider/financial/private-equivalence authority.
-    - Guarantee: writes a first_wave_acceptance_summary_receipt_v1 payload atomically to path and returns it; status is PASS only when truth-accounting disposition coverage and source-body imports both pass; all *_authorized fields and the authority_ceiling are hard-coded to deny release/provider/financial/private-equivalence/whole-system claims.
-    - Fails: propagates ValueError/parse/OS errors from the evidence-profile build, manifest reads, or write_json_atomic; a coverage failure yields status "blocked" in the written payload, not an exception.
-    - When-needed: inspect when the on-disk receipts/first_wave/acceptance_summary.json content or its blocker/status is disputed.
-    - Escalates-to: receipts/first_wave/acceptance_summary.json and _acceptance_truth_accounting / _source_body_import_coverage.
-    - Non-goal: does not authorize release, provider calls, trading/financial advice, private-root equivalence, source-body export, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     truth_accounting = _acceptance_truth_accounting(
         accepted,
@@ -976,18 +806,11 @@ def run_fixture_freshness(
     command: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Run the public fixture-freshness check: fingerprint manifests/inputs, verify receipts, and scan for private-state leaks.
+    Return run fixture freshness for the validators fixture freshness flow.
 
-    - Teleology: the module's public entrypoint that proves per-organ fixture manifests, fixture inputs, and generated receipts are present and fingerprinted, with no private-state leak, before any wave is trusted.
-    - Guarantee: writes a fixture_runner_freshness_receipt_v1 receipt atomically to out_path and returns it; status is PASS only when stale_receipt_codes is empty (no MISSING_FIXTURE_MANIFEST/MISSING_FIXTURE_INPUT/MISSING_RECEIPT, no PRIVATE_STATE_SCAN_BLOCKED, no ACCEPTANCE_SUMMARY_BLOCKED:*); also writes the acceptance summary as a side effect; authority_ceiling denies release/provider/private-equivalence.
-    - Fails: never raises on substrate gaps — missing manifests/inputs/receipts and a blocking secret scan are recorded as stale codes and downgrade status to "blocked"; only read_json_strict parse errors / write_json_atomic OS errors propagate as exceptions.
-    - When-needed: inspect when a wave is blocked on fixture freshness, or when stale_receipt_codes / input_fingerprints need explaining.
-    - Escalates-to: receipts/first_wave (fixture_runner_freshness + acceptance_summary) and the negative-case test test_organ_registry_authority_floor.py.
-    - Non-goal: does not authorize release, hosted operations, credentialed provider calls, Lean/Lake beyond the bounded public witness, secret export, private-root equivalence, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `readiness_path`, `negative_matrix_path`, `mission_dag_path`,
+    `receipt_coverage_path`, `out_path`, and 1 more; notable helpers are `Path`,
+    `_public_root_for_path`, `read_json_strict`, `_load_registry`, and 19 more.
     """
     output_file = Path(out_path)
     public_root = _public_root_for_path(output_file)
@@ -1121,16 +944,10 @@ def run_fixture_freshness(
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    Build the CLI argument parser for the fixture-freshness command.
+    Register CLI syntax for `microcosm_core.validators.fixture_freshness._parser`.
 
-    - Teleology: defines the required input/output paths so the checker is invocable as a module from the runtime spine.
-    - Guarantee: returns an ArgumentParser requiring --readiness, --negative-matrix, --mission-dag, --receipt-coverage, and --out.
-    - Fails: never raises at build time; missing required args trigger argparse's SystemExit only later, during parse_args.
-    - When-needed: inspect when the CLI surface (flag names/requirements) of this checker is in question.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(description="Run public fixture freshness")
     parser.add_argument("--readiness", required=True)
@@ -1143,17 +960,10 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI entrypoint: run the fixture-freshness check and map its status to a process exit code.
+    Run the `microcosm_core.validators.fixture_freshness` command-line entry point.
 
-    - Teleology: adapts run_fixture_freshness into a shell/CI-usable command with a pass/fail exit contract.
-    - Guarantee: parses argv, runs run_fixture_freshness with a reconstructed command string, writes both receipts, and returns 0 when the receipt status is PASS else 1.
-    - Fails: argparse raises SystemExit on missing/invalid args; read/write errors propagate from run_fixture_freshness; substrate gaps return exit 1 (not an exception).
-    - When-needed: inspect when wiring this checker into a wave/CI gate and reasoning about its exit semantics.
-    - Escalates-to: run_fixture_freshness and receipts/first_wave/*.json.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     command = (

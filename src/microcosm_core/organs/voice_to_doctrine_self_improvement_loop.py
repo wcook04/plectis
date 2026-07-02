@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs voice to doctrine self improvement loop for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, MODULE_PATH, CARD_SCHEMA_VERSION, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, SOURCE_MODULE_MANIFEST_NAME, INPUT_NAMES, NEGATIVE_INPUT_NAMES, EXPECTED_NEGATIVE_CASES, REQUIRED_PATTERN_REFS, REQUIRED_SEQUENCE, REQUIRED_LESSON_FIELDS, FORBIDDEN_KEYS, BAKED_EXPECTED_LABEL_KEYS, DOCTRINE_NODE_KINDS, VALID_OUTCOMES, SOURCE_BODY_MATERIAL_CLASSES, AUTHORITY_CEILING, ANTI_CLAIM, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs.macro_projection_import_protocol, microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `validate_projection_protocol`, `validate_policy`,
+`validate_owner_surfaces`, `validate_lessons`, `validate_negative_cases`, `run`, and 3 more;
+constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `MODULE_PATH`, and 20 more pin
+local fixture names; dependencies include `argparse`, `hashlib`, `json`, `collections`, and
+3 more. It builds public fixture, result, card, or verdict structures while keeping private
+substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -169,13 +154,10 @@ ANTI_CLAIM = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the public root for path value used by
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -191,26 +173,21 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute display from `path` and `public_root`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path` and
+    `resolve`.
     """
     return public_relative_path(path.resolve(strict=False), display_root=public_root)
 
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the input paths value used by
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file` and
+    `append`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -225,13 +202,12 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _scan_input_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_input_paths` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan input paths holds for the organs voice to doctrine self improvement
+    loop flow.
+
+    The result is derived from `input_dir` with `is_file`, `append`,
+    `_public_root_for_path`, `read_json_strict`, and 2 more; failing evidence is returned or
+    raised exactly where the body says so.
     """
     paths = [input_dir / name for name in INPUT_NAMES]
     manifest = input_dir / "bundle_manifest.json"
@@ -255,13 +231,10 @@ def _scan_input_paths(input_dir: Path) -> list[Path]:
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -271,13 +244,12 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -289,13 +261,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -304,13 +274,11 @@ def _strings(value: object) -> list[str]:
 
 def _repo_root_for_public_root(public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_repo_root_for_public_root` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the repo root for public root value used by
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop`.
+
+    Inputs are `public_root`; notable helpers are `extend`, `resolve`, `is_file`, `is_dir`,
+    and 1 more.
     """
     search_roots = [public_root, *public_root.parents, Path.cwd().resolve(strict=False)]
     search_roots.extend(Path.cwd().resolve(strict=False).parents)
@@ -324,13 +292,9 @@ def _repo_root_for_public_root(public_root: Path) -> Path:
 
 def _source_module_refs(source_manifest: object) -> dict[str, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_refs` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute source module refs from `source_manifest`.
+
+    Inputs are `source_manifest`; notable helpers are `_rows` and `get`.
     """
     refs: dict[str, str] = {}
     for row in _rows(source_manifest, "modules"):
@@ -348,13 +312,9 @@ def _source_module_refs(source_manifest: object) -> dict[str, str]:
 
 def _split_ref(ref: str) -> tuple[str, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_split_ref` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive split ref without touching module import state.
+
+    Inputs are `ref`; notable helpers are `partition` and `strip`.
     """
     path_ref, separator, anchor = ref.partition("::")
     return path_ref.strip(), anchor.strip() if separator else ""
@@ -362,13 +322,11 @@ def _split_ref(ref: str) -> tuple[str, str]:
 
 def _path_ref_is_public_safe(path_ref: str) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_path_ref_is_public_safe` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether path ref is public safe holds for the organs voice to doctrine self
+    improvement loop flow.
+
+    The result is derived from `path_ref` with `Path`, `startswith`, and `is_absolute`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     if not path_ref or path_ref.startswith(("~", "\\")):
         return False
@@ -378,13 +336,11 @@ def _path_ref_is_public_safe(path_ref: str) -> bool:
 
 def _claim_or_anchor_resolves(path: Path, locator: str) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_claim_or_anchor_resolves` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return whether claim or anchor resolves holds for the organs voice to doctrine self
+    improvement loop flow.
+
+    The result is derived from `path` and `locator` with `read_text`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     if not locator:
         return True
@@ -397,13 +353,10 @@ def _claim_or_anchor_resolves(path: Path, locator: str) -> bool:
 
 def _candidate_ref(path: Path, *, public_root: Path, repo_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_candidate_ref` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return candidate ref for the organs voice to doctrine self improvement loop flow.
+
+    Inputs are `path`, `public_root`, and `repo_root`; notable helpers are `resolve`,
+    `as_posix`, and `relative_to`.
     """
     resolved = path.resolve(strict=False)
     for root in (public_root, repo_root / "microcosm-substrate"):
@@ -422,13 +375,11 @@ def _resolve_ref(
     source_module_refs: dict[str, str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_resolve_ref` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the resolve ref value used by
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop`.
+
+    Inputs are `ref`, `public_root`, `repo_root`, and `source_module_refs`; notable helpers
+    are `_split_ref`, `get`, `extend`, `_path_ref_is_public_safe`, and 4 more.
     """
     path_ref, locator = _split_ref(ref)
     resolution = {
@@ -492,13 +443,12 @@ def _ref_resolves(
     source_module_refs: dict[str, str],
 ) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_ref_resolves` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether ref resolves holds for the organs voice to doctrine self improvement loop
+    flow.
+
+    The result is derived from `ref`, `public_root`, `repo_root`, and `source_module_refs`
+    with `_resolve_ref`; failing evidence is returned or raised exactly where the body says
+    so.
     """
     return _resolve_ref(
         ref,
@@ -510,13 +460,9 @@ def _ref_resolves(
 
 def _lesson_ref_values(row: dict[str, Any]) -> list[tuple[str, str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_lesson_ref_values` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute lesson ref values from `row`.
+
+    Inputs are `row`; notable helpers are `get`, `_strings`, and `append`.
     """
     refs: list[tuple[str, str]] = []
     changed_surface_ref = row.get("changed_surface_ref")
@@ -545,13 +491,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.voice_to_doctrine_self_improvement_loop._finding` into
+    the payload shape expected by organs voice to doctrine self improvement loop.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -574,13 +517,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs voice to doctrine self improvement loop flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -596,13 +536,9 @@ def _record(
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return merge observed for the organs voice to doctrine self improvement loop flow.
+
+    Inputs are `results`; notable helpers are `defaultdict`, `items`, `get`, and `add`.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -614,13 +550,10 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_findings` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop._merge_findings`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     findings: list[dict[str, Any]] = []
     for result in results:
@@ -640,13 +573,10 @@ def _blocking_findings(
     findings: list[dict[str, Any]], *, include_negative: bool
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_blocking_findings` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Build a structured finding row for blocking findings.
+
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     if not include_negative:
         return findings
@@ -660,13 +590,11 @@ def _blocking_findings(
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_forbidden_key` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has forbidden key holds for the organs voice to doctrine self improvement
+    loop flow.
+
+    The result is derived from `row`; failing evidence is returned or raised exactly where
+    the body says so.
     """
     return any(key in row for key in FORBIDDEN_KEYS)
 
@@ -679,13 +607,11 @@ def _source_module_result(
     require_manifest: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_result` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop._source_module_result`
+    into the payload shape expected by organs voice to doctrine self improvement loop.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
     if not manifest_path.is_file():
@@ -1019,13 +945,11 @@ def _source_module_result(
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_projection_protocol` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop.validate_projection_protocol`
+    into the payload shape expected by organs voice to doctrine self improvement loop.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     protocol = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -1066,13 +990,11 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
 
 def validate_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_policy` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop.validate_policy` into the
+    payload shape expected by organs voice to doctrine self improvement loop.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -1111,13 +1033,11 @@ def validate_policy(payload: object) -> dict[str, Any]:
 
 def validate_owner_surfaces(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_owner_surfaces` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop.validate_owner_surfaces`
+    into the payload shape expected by organs voice to doctrine self improvement loop.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     owner_rows = _rows(payload, "owner_surfaces")
     findings: list[dict[str, Any]] = []
@@ -1165,13 +1085,11 @@ def validate_lessons(
     source_module_manifest: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_lessons` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop.validate_lessons` into
+    the payload shape expected by organs voice to doctrine self improvement loop.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     lessons = _rows(payload, "lessons")
     findings: list[dict[str, Any]] = []
@@ -1357,13 +1275,11 @@ def validate_lessons(
 
 def validate_negative_cases(payloads: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_negative_cases` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop.validate_negative_cases`
+    into the payload shape expected by organs voice to doctrine self improvement loop.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1448,13 +1364,10 @@ def validate_negative_cases(payloads: dict[str, Any]) -> dict[str, Any]:
 
 def _receipt_paths(out: Path, *, acceptance_out: Path | None, public_root: Path) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_paths` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive receipt paths without touching module import state.
+
+    Inputs are `out`, `acceptance_out`, and `public_root`; notable helpers are `append` and
+    `_display`.
     """
     paths = [
         out / RESULT_NAME,
@@ -1473,13 +1386,10 @@ def _build_board(
     command: str | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_board` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.voice_to_doctrine_self_improvement_loop._build_board`
+    into the payload shape expected by organs voice to doctrine self improvement loop.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = []
     for row in lessons_result.get("lessons", []):
@@ -1524,13 +1434,11 @@ def run(
     require_source_module_manifest: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run without touching module import state.
+
+    Inputs are `input_dir`, `out`, `command`, `acceptance_out`, `include_negative`, and 1
+    more; notable helpers are `Path`, `_public_root_for_path`, `_load_payloads`,
+    `validate_projection_protocol`, and 18 more.
     """
     input_path = Path(input_dir)
     output_dir = Path(out)
@@ -1734,13 +1642,10 @@ def run_voice_to_doctrine_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_voice_to_doctrine_bundle` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute run voice to doctrine bundle from `input_dir`, `out`, and `command`.
+
+    Inputs are `input_dir`, `out`, and `command`; notable helpers are `run`, `get`,
+    `write_json_atomic`, `Path`, and 2 more.
     """
     result = run(
         input_dir,
@@ -1768,13 +1673,10 @@ def run_voice_to_doctrine_bundle(
 
 def _scan_card(scan: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_card` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.voice_to_doctrine_self_improvement_loop._scan_card`
+    into the payload shape expected by organs voice to doctrine self improvement loop.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     scan_row = scan if isinstance(scan, dict) else {}
     return {
@@ -1791,13 +1693,11 @@ def _scan_card(scan: object) -> dict[str, Any]:
 
 def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_authority_ceiling_card` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.voice_to_doctrine_self_improvement_loop._authority_ceiling_card`
+    into the payload shape expected by organs voice to doctrine self improvement loop.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     ceiling = result.get("authority_ceiling", {})
     if not isinstance(ceiling, dict):
@@ -1829,13 +1729,10 @@ def _authority_ceiling_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Serialize `microcosm_core.organs.voice_to_doctrine_self_improvement_loop.result_card`
+    into the payload shape expected by organs voice to doctrine self improvement loop.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_mode = result.get("input_mode")
     action = "run-bundle" if input_mode == "exported_voice_to_doctrine_bundle" else "run"
@@ -1949,13 +1846,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.voice_to_doctrine_self_improvement_loop` as a command-line
+    entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command")

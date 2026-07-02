@@ -70,21 +70,10 @@ PUBLIC_SAFE_NORMALIZABLE_RELATIONS = frozenset(
 
 
 def _public_root_for_path(path: str | Path) -> Path:
-    """Find the public root used to resolve manifest source and target refs.
+    """
+    Produce the public root for path value used by `scripts.refresh_source_module_manifest`.
 
-    Teleology: anchor a manifest refresh to the nearest microcosm-substrate
-    checkout so target_ref values resolve under the public tree and macro
-    source_ref values can resolve beside it when needed.
-    Guarantee: walks from `path` or its parent toward the filesystem root,
-    returning a directory named `microcosm-substrate` or a root with the Plectis
-    pyproject/core markers; if no marker is found, returns the current working
-    directory resolved without requiring it to exist.
-    Fails: never raises for missing paths because resolution uses
-    `strict=False`; an unmarked checkout intentionally falls back to cwd rather
-    than blocking the manifest refresh.
-    Reads: marker files and directories while walking candidate parents.
-    Writes: nothing.
-    Non-goal: does not validate that a specific source_ref or target_ref exists.
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -99,17 +88,10 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 
 def _display(path: Path, *, public_root: Path) -> str:
-    """Return the stable manifest-facing display ref for a local path.
+    """
+    Compute display from `path` and `public_root`.
 
-    Teleology: keep refresh receipts readable by expressing manifest, source,
-    and target paths relative to the public microcosm root when possible.
-    Guarantee: prefers refs relative to `public_root`, then its parent, and only
-    falls back to the raw path string for paths outside that source tree.
-    Fails: never raises for paths outside the public tree; failed relative-path
-    attempts are caught and converted into the broader parent/raw-path fallback.
-    Reads: only the supplied `path` and `public_root`; no filesystem lookup.
-    Writes: nothing.
-    Non-goal: does not sanitize or validate a source_ref/target_ref.
+    Inputs are `path` and `public_root`; notable helpers are `relative_to`.
     """
     try:
         return str(path.relative_to(public_root))
@@ -121,16 +103,12 @@ def _display(path: Path, *, public_root: Path) -> str:
 
 
 def _sha256_hex(path: Path) -> str:
-    """Hash a target or source file exactly as manifest digest fields need it.
+    """
+    Return the stable digest computed by
+    `scripts.refresh_source_module_manifest._sha256_hex`.
 
-    Teleology: compute the hex SHA-256 for an on-disk source/target body without
-    loading large imported macro files into memory at once.
-    Guarantee: returns the bare hexadecimal digest for the file bytes, suitable
-    for later style-preserving conversion by `_styled_sha256`.
-    Fails: propagates normal file open/read errors so missing manifest sources
-    are handled by the caller's row findings.
-    Reads: the bytes at `path`.
-    Writes: nothing.
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -140,48 +118,33 @@ def _sha256_hex(path: Path) -> str:
 
 
 def _sha256_hex_bytes(data: bytes) -> str:
-    """Hash an in-memory source or expected-target body for manifest comparison.
+    """
+    Return the stable digest computed by
+    `scripts.refresh_source_module_manifest._sha256_hex_bytes`.
 
-    Teleology: derive the digest of the bytes that should appear in a refreshed
-    target before or after public-safe normalization.
-    Guarantee: returns the bare SHA-256 hex string for `data`, matching
-    `_sha256_hex` so source, target, and expected-target digests compare cleanly.
-    Fails: never raises for normal bytes input; invalid text encoding is handled
-    before callers pass transformed target bytes into this digest helper.
-    Reads: only the provided byte string.
-    Writes: nothing.
+    The input is `data`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return hashlib.sha256(data).hexdigest()
 
 
 def _uses_prefixed_digest_style(rows: list[dict[str, Any]], field: str) -> bool:
-    """Detect whether existing manifest rows use `sha256:` in one digest field.
+    """
+    Return a stable SHA-256 digest for `rows` and `field`.
 
-    Teleology: preserve the manifest's established digest spelling while
-    refreshing sha256/source_sha256/target_sha256 values.
-    Guarantee: returns True only when at least one row has `field` and every
-    present value in that field starts with `sha256:`.
-    Fails: never raises for missing or falsey field values; those rows are
-    ignored so sparse manifest rows do not force a digest-style decision.
-    Reads: the in-memory manifest rows only.
-    Writes: nothing.
-    Non-goal: does not validate digest length or cryptographic content.
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     values = [str(row.get(field) or "") for row in rows if row.get(field)]
     return bool(values) and all(value.startswith("sha256:") for value in values)
 
 
 def _styled_sha256(hex_digest: str, *, prefixed: bool) -> str:
-    """Render a digest in the style already used by the manifest.
+    """
+    Return a stable SHA-256 digest for `hex_digest` and `prefixed`.
 
-    Teleology: keep refreshed digest fields stable across manifests that use
-    either bare hex digests or `sha256:<hex>` digests.
-    Guarantee: prepends `sha256:` exactly when `prefixed` is true; otherwise
-    returns the hex digest unchanged, including empty target digests.
-    Fails: never raises; it treats the input as an already-computed digest
-    string and does not parse or verify it.
-    Reads: no filesystem state.
-    Writes: nothing.
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     if prefixed:
         return f"sha256:{hex_digest}"
@@ -189,16 +152,10 @@ def _styled_sha256(hex_digest: str, *, prefixed: bool) -> str:
 
 
 def _line_count(path: Path) -> int:
-    """Count UTF-8 source or target lines for refreshed manifest metadata.
+    """
+    Return line count for `scripts.refresh_source_module_manifest`.
 
-    Teleology: populate manifest `line_count` fields from the actual source or
-    target text file involved in a refresh.
-    Guarantee: returns the number of text lines seen and uses 1 for an empty
-    file so manifest rows never record a zero-line body.
-    Fails: propagates decode/open errors; callers already gate source existence
-    and UTF-8-only public-safe transforms.
-    Reads: the text at `path`.
-    Writes: nothing.
+    Inputs are `path`; notable helpers are `open`.
     """
     count = 0
     with path.open("r", encoding="utf-8") as handle:
@@ -208,34 +165,20 @@ def _line_count(path: Path) -> int:
 
 
 def _line_count_text(text: str) -> int:
-    """Count lines in transformed target text before it is written.
+    """
+    Derive line count text without touching module import state.
 
-    Teleology: compute the manifest target `line_count` for public-safe or
-    light-redacted text whose bytes may not yet exist on disk.
-    Guarantee: mirrors `_line_count`'s at-least-one policy and treats a trailing
-    newline as not adding a phantom final line.
-    Fails: never raises for string input; UTF-8 decode failures are handled
-    before callers create the transformed text passed here.
-    Reads: only the transformed text argument.
-    Writes: nothing.
+    Inputs are `text`; notable helpers are `count` and `endswith`.
     """
     return text.count("\n") + (0 if text.endswith("\n") else 1) or 1
 
 
 def _manifest_target_path(public_root: Path, row: dict[str, Any]) -> Path:
-    """Resolve a manifest row to the public-root target file it may refresh.
+    """
+    Return manifest target path for the scripts refresh source module manifest flow.
 
-    Teleology: convert `target_ref` (or legacy `path`) into the concrete target
-    body path whose digest and byte/line counts the manifest will update.
-    Guarantee: strips a leading `microcosm-substrate/`, rejects empty, absolute,
-    or parent-traversing refs by returning an invalid sentinel under
-    `public_root`, and otherwise returns `public_root / target_ref`.
-    Fails: never raises for malformed row refs; unsafe refs are represented as
-    `__invalid_source_module_target__` so refresh can report row findings.
-    Reads: only the in-memory manifest row.
-    Writes: nothing; callers decide whether to create parent directories/write
-    target bytes.
-    Non-goal: does not prove the target exists or is safe to publish.
+    Inputs are `public_root` and `row`; notable helpers are `removeprefix`, `Path`,
+    `is_absolute`, and `get`.
     """
     target_ref = str(row.get("target_ref") or row.get("path") or "")
     target_ref = target_ref.removeprefix("microcosm-substrate/")
@@ -246,18 +189,10 @@ def _manifest_target_path(public_root: Path, row: dict[str, Any]) -> Path:
 
 
 def _private_lookup_source_ref(source_ref: str) -> str:
-    """Map a public-safe macro source label back to the private lookup root.
+    """
+    Derive private lookup source ref without touching module import state.
 
-    Teleology: let refreshed manifests display `private-macro-source/...` while
-    still locating the real macro body when recomputing source/target digests.
-    Guarantee: rewrites only the configured display root; all other source_ref
-    values are returned unchanged.
-    Fails: never raises; unknown or already-public source_ref strings pass
-    through unchanged for the later source-path and boundary checks.
-    Reads: only the source_ref string.
-    Writes: nothing and does not expose the private root in refreshed rows.
-    Non-goal: does not sanitize arbitrary private paths; that belongs to the
-    public reference sanitizer.
+    Inputs are `source_ref`; notable helpers are `startswith`.
     """
     display_prefix = f"{PUBLIC_MACRO_SOURCE_DISPLAY_ROOT}/"
     if source_ref == PUBLIC_MACRO_SOURCE_DISPLAY_ROOT:
@@ -268,21 +203,11 @@ def _private_lookup_source_ref(source_ref: str) -> str:
 
 
 def _macro_source_path(public_root: Path, row: dict[str, Any]) -> Path:
-    """Resolve the manifest source_ref to the file used for refresh input bytes.
+    """
+    Return macro source path for the scripts refresh source module manifest flow.
 
-    Teleology: locate the macro source body that should be copied, redacted, or
-    public-safe-normalized before target digest comparison.
-    Guarantee: supports public-safe `private-macro-source/` labels, strips a
-    leading `microcosm-substrate/`, keeps substrate-local refs under
-    `public_root`, and sends external macro refs to `public_root.parent`; invalid
-    empty/absolute/traversing refs return an invalid source sentinel.
-    Fails: never raises for malformed source_ref values; unsafe refs become the
-    `__invalid_source_module_source__` sentinel so refresh can mark the source
-    missing instead of reading outside the allowed roots.
-    Reads: only the row's source_ref and the public-root path.
-    Writes: nothing.
-    Non-goal: does not check that the source exists; refresh row findings own
-    missing-source reporting.
+    Inputs are `public_root` and `row`; notable helpers are `_private_lookup_source_ref`,
+    `removeprefix`, `Path`, `is_absolute`, and 1 more.
     """
     source_ref = _private_lookup_source_ref(str(row.get("source_ref") or ""))
     source_ref = source_ref.removeprefix("microcosm-substrate/")
@@ -295,19 +220,10 @@ def _macro_source_path(public_root: Path, row: dict[str, Any]) -> Path:
 
 
 def _source_ref_for_refresh(row: dict[str, Any]) -> tuple[str, dict[str, str]]:
-    """Choose the source_ref that should drive a manifest refresh row.
+    """
+    Return source ref for refresh for the scripts refresh source module manifest flow.
 
-    Teleology: repair copied rows whose `source_ref` accidentally points back to
-    their target/path self-ref instead of the original macro source.
-    Guarantee: when source_ref is a stale target self-reference and
-    original_source_ref is present, returns that original source plus a manifest
-    repair receipt; otherwise returns the declared source_ref and no patch.
-    Fails: never raises for absent manifest fields; missing values coerce to
-    empty strings and simply leave the declared source_ref unchanged.
-    Reads: source_ref, original_source_ref, target_ref, and path from the row.
-    Writes: nothing; callers fold the returned repair keys into the manifest
-    only after a successful write-enabled refresh.
-    Non-goal: does not prove the repaired source exists or is public-safe.
+    Inputs are `row`; notable helpers are `get`.
     """
     source_ref = str(row.get("source_ref") or "")
     original_source_ref = str(row.get("original_source_ref") or "")
@@ -327,17 +243,11 @@ def _source_ref_for_refresh(row: dict[str, Any]) -> tuple[str, dict[str, str]]:
 
 
 def _inferred_module_id(row: dict[str, Any], *, source_ref: str) -> str:
-    """Derive a fallback module_id for a repaired source-module manifest row.
+    """
+    Compute inferred module ID from `row` and `source_ref`.
 
-    Teleology: keep stale-self-ref repair rows identifiable when the manifest
-    omitted module_id but supplied a usable source_ref/path.
-    Guarantee: slugifies the source_ref stem, falls back through row `path` to
-    `source_module`, and appends `_public_safe_body_import`.
-    Fails: never raises for empty source_ref/path values; the fallback slug is
-    `source_module_public_safe_body_import`.
-    Reads: source_ref and the row's path value.
-    Writes: nothing; the caller persists the inferred id only in write mode.
-    Non-goal: does not claim semantic identity beyond a stable refresh label.
+    Inputs are `row` and `source_ref`; notable helpers are `strip`, `Path`, `join`, `get`,
+    and 1 more.
     """
     stem = Path(source_ref or str(row.get("path") or "") or "source_module").stem
     slug = "".join(char if char.isalnum() else "_" for char in stem).strip("_")
@@ -345,19 +255,11 @@ def _inferred_module_id(row: dict[str, Any], *, source_ref: str) -> str:
 
 
 def _public_safety_transform_descriptions(transform: dict[str, Any]) -> list[str]:
-    """Summarize sanitizer replacements for manifest public-safety metadata.
+    """
+    Produce the public safety transform descriptions value used by
+    `scripts.refresh_source_module_manifest`.
 
-    Teleology: turn a sanitizer receipt into human-readable
-    `public_safety_transformations` entries on refreshed manifest rows.
-    Guarantee: preserves first-seen replacement-class order, emits concrete
-    descriptions for known private-root/browser-symbol transforms, and falls
-    back to `<class_id> public-safe transform applied` for unknown classes.
-    Fails: never raises for absent or non-dict replacement rows; non-dict rows
-    are ignored and unknown treatment classes receive the fallback description.
-    Reads: the transform receipt's `replacements` rows.
-    Writes: nothing.
-    Non-goal: does not decide whether normalization is allowed; blocker and
-    relation checks happen before this helper is called.
+    Inputs are `transform`; notable helpers are `add`, `append`, and `get`.
     """
     classes = [
         str(row.get("treatment_class") or "")
@@ -393,15 +295,12 @@ def _public_safety_transform_descriptions(transform: dict[str, Any]) -> list[str
 
 
 def _public_safe_ref_transform(ref: str) -> tuple[str, dict[str, Any]]:
-    """Run the canonical public-safety sanitizer over one source/provenance ref string.
+    """
+    Produce the public safe ref transform value used by
+    `scripts.refresh_source_module_manifest`.
 
-    - Teleology: single-ref custody normalizer that routes a source_ref through the public reference sanitizer so private roots never leak into refreshed manifest rows.
-    - Guarantee: returns (text, receipt); on a clean ref returns (ref, {}); on replacements returns (sanitized_text, public_safe_transform_receipt); on a blocker returns (ref, {"status": "blocked", "public_safe": False}) leaving the ref unchanged.
-    - Fails: never raises; sanitizer blockers surface as the {"status": "blocked", "public_safe": False} receipt, not an exception; empty ref short-circuits to (ref, {}).
-    - When-needed: inspect when deciding whether a single source/provenance ref is public-safe before folding it into a refreshed manifest row.
-    - Reads: only the in-memory `ref` argument (no filesystem read).
-    - Escalates-to: tools.meta.plectis_public_safety.public_reference_sanitizer (sanitize_public_reference_text / public_safe_transform_receipt) for the authoritative blocker/replacement rules.
-    - Non-goal: does not authorize source export, release, or assert public-safety beyond what the sanitizer's replacement/blocker rules cover.
+    Inputs are `ref`; notable helpers are `sanitize_public_reference_text` and
+    `public_safe_transform_receipt`.
     """
     if not ref:
         return ref, {}
@@ -419,16 +318,12 @@ def _bundle_manifest_source_root_transform(
     write: bool,
     public_safe_normalize: bool,
 ) -> dict[str, Any]:
-    """Normalize the sibling bundle_manifest.json `source_root` provenance to a public-safe ref.
+    """
+    Serialize
+    `scripts.refresh_source_module_manifest._bundle_manifest_source_root_transform` into the
+    payload shape expected by scripts refresh source module manifest.
 
-    - Teleology: source-ref custody helper that strips private macro/vault roots from the bundle manifest's source_root so the refresh stays public-safe.
-    - Guarantee: returns a status dict ('not_requested' | 'missing' | 'blocked' | 'unchanged' | 'transformed'); only on 'transformed' with write=True is bundle_manifest.json rewritten (source_root + source_root_public_safe_transform) via write_json_atomic.
-    - Fails: never raises; non-JSON-object bundle manifest -> {"status": "blocked", findings: ["bundle_manifest_not_json_object"]}; sanitizer blocker on source_root -> {"status": "blocked", ...}.
-    - When-needed: inspect when a public-safe refresh must rewrite or verify the bundle manifest's declared source_root provenance label.
-    - Reads: the sibling bundle_manifest.json `source_root` field.
-    - Writes: with write=True on a transform, bundle_manifest.json's source_root and source_root_public_safe_transform.
-    - Escalates-to: public_reference_sanitizer.sanitize_public_reference_text / public_safe_transform_receipt; the bundle_manifest.json is the artifact this rewrites.
-    - Non-goal: does not authorize source export, release, or treat the rewritten provenance label as authority over the real private root.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     bundle_manifest_path = Path(manifest_path).parent / "bundle_manifest.json"
     if not public_safe_normalize:
@@ -478,16 +373,11 @@ def refresh_manifest(
     write: bool,
     public_safe_normalize: bool = False,
 ) -> dict[str, Any]:
-    """Refresh declared exact-copy source-module rows: re-copy bodies, recompute digests, fold provenance.
+    """
+    Serialize `scripts.refresh_source_module_manifest.refresh_manifest` into the payload
+    shape expected by scripts refresh source module manifest.
 
-    - Teleology: source-custody engine that re-binds each manifest row's target body/sha256 to its declared macro source ref, after the source-module boundary gate passes, optionally applying public-safe normalization.
-    - Guarantee: returns a `source_module_manifest_refresh_result_v1` dict; status is 'pass' only when rows refreshed, no findings, every target_expected_digest_match true, and bundle-manifest transform not blocked; with write+pass the manifest and target bytes are persisted via write_json_atomic.
-    - Fails: non-object manifest -> raises ValueError; boundary status != 'pass', missing/non-file source, or non-public-safe-normalizable / non-exact_copy relation -> status 'blocked' with per-row findings (never raises).
-    - When-needed: inspect when a manifest row's target body or digest drifts from its macro source, or when verifying the exact-copy custody contract before release.
-    - Reads: the `--manifest` JSON, each declared macro source file body, and the sibling bundle_manifest.json source_root.
-    - Writes: with write=True, refreshed target files plus the manifest itself (digests, byte/line counts, relation, public-safe transforms).
-    - Escalates-to: microcosm_core.validators.source_module_boundary.evaluate_source_module_boundary and the public_reference_sanitizer; the manifest is the source-of-record this projection re-derives.
-    - Non-goal: does not authorize private source export, source mutation outside declared targets, public-safe equivalence beyond the sanitizer's checks, release, or provider access.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest = read_json_strict(Path(manifest_path))
     if not isinstance(manifest, dict):
@@ -768,13 +658,11 @@ def refresh_manifest(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Parse args, refresh the source-module manifest, print the result, and return its exit code.
+    """
+    Run `scripts.refresh_source_module_manifest` as a command-line entry point.
 
-    - Teleology: CLI front door for refreshing declared exact-copy source-module bodies/digests from public macro refs.
-    - Guarantee: prints the refresh result JSON; with --write applied changes only when the run reaches status 'pass'.
-    - Fails: boundary block, missing/mismatched source, or non-normalizable relation -> result status 'blocked' -> returns exit code 1.
-    - Reads: --manifest JSON and the declared macro source files.
-    - Writes: stdout always; with --write, refreshed target files and the manifest itself.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(
         description="Refresh declared exact-copy source module manifest rows."

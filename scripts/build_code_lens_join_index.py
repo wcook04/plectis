@@ -1,43 +1,12 @@
 #!/usr/bin/env python3
-"""Build the code-lens join index: a source-body-free semantic property graph.
+"""
+Implements scripts build code lens join index for the public Plectis package.
 
-The join index is the intermediate representation the Comprehension Plane queries.
-v2 joins FOUR public planes into one typed graph: what python-lens knows about
-source symbols (atom coverage, specificity_v3 bands, source class), what the organ
-registry knows about organs (runner module, governing validator command, generated
-receipts, evidence class, authority ceiling), what the organ atlas knows about
-topology (families, wires_to, doctrine refs), and what the agent task routes know
-about entry (task_class -> organ fan-out with first commands and stop conditions).
-It is a semantic/provenance/navigation graph -- NOT a static-analysis control-flow
-or data-flow graph -- and it never exports docstring prose or source bodies.
-
-- Teleology: turn the populated code-lens atoms + specificity scores + organ
-  registry + organ atlas + agent task routes into one typed node/edge graph a cold
-  agent can query by organ, claim, route, or family instead of rereading the repo.
-- Guarantee: given a python-lens --full snapshot and core/organ_registry.json
-  (plus, when present, core/organ_atlas.json and atlas/agent_task_routes.json),
-  writes a microcosm_code_lens_join_index_v2 JSON of organ/source_file/claim/route/
-  family nodes, the v0 implemented_by_runner / emits_receipt edges plus the v2
-  asserts_claim / validated_by / proven_by / member_of_family / wires_to /
-  routes_to / grounded_in_doctrine edges, a graph block whose resolved/deferred
-  edge classes are COMPUTED from what was materialized, per-organ + per-file
-  specificity rollups, and a non-authorizing ceiling; source_bodies_exported is
-  always false.
-- Fails: SystemExit(2) when a required input is missing/unparseable; SystemExit(3)
-  if the lens snapshot reports any source-body export (refuses to join a leaky run).
-- Reads: the --lens snapshot, the --registry organ registry, and (optional planes)
-  the --atlas organ atlas and --routes agent task routes.
-- Writes: the --out join index (default receipts/code_lens/code_lens_join_index_v0.json;
-  the v0 filename is a stable artifact path, the schema_version inside is v2).
-- Non-goal: does not authorize release, source-body export, static-analysis
-  correctness, or whole-system correctness; it is a navigation read-model only.
-  It also does not extract Lean proof-term structure: proof_internal_structure
-  stays a computed deferred edge class until a Lean-aware proof-graph builder
-  feeds this index.
-- When-needed: run after python-lens/specificity_v3 or any atlas/route/registry
-  refresh to rebuild the comprehension IR.
-- Escalates-to: project_substrate.py (python-lens), core/organ_registry.json,
-  core/organ_atlas.json, atlas/agent_task_routes.json.
+Callers enter through `build_join_index` and `main`; constants such as
+`COUPLING_ZONE_MARKERS`, `SCHEMA_VERSION`, `_SECRET_SHAPE_RE`, `_PRIVATE_PATH_RE`, and 5
+more pin local fixture names; dependencies include `argparse`, `json`, `re`, `pathlib`, and
+1 more. Importing it does not authorize release work or hidden private-state access; those
+effects live behind explicit calls.
 """
 from __future__ import annotations
 
@@ -81,13 +50,11 @@ _PROOF_RESIDUAL: dict[str, str] = {
 
 
 def _load_json(path: Path, label: str) -> Any:
-    """Parse a required JSON input or stop with a typed error.
+    """
+    Load load JSON for `scripts.build_code_lens_join_index`.
 
-    - Teleology: the one validated reader for the builder's two inputs.
-    - Guarantee: returns the parsed JSON value when the file exists and parses.
-    - Fails: SystemExit(2) when the path is missing or the body is not JSON.
-    - Reads: the file at ``path``.
-    - Writes: None.
+    Input comes from `path` and `label`; malformed or missing data follows the exceptions
+    and checks visible in the body.
     """
     if not path.is_file():
         raise SystemExit(f"2: {label} not found: {path}")
@@ -98,26 +65,20 @@ def _load_json(path: Path, label: str) -> Any:
 
 
 def _capsule_rows(lens: dict[str, Any]) -> list[dict[str, Any]]:
-    """Return the symbol capsule rows from a python-lens snapshot.
+    """
+    Produce the capsule rows value used by `scripts.build_code_lens_join_index`.
 
-    - Teleology: isolate the one snapshot field the join index consumes.
-    - Guarantee: returns the list at ``symbol_capsule_rows`` or [] when absent.
-    - Fails: never raises; a non-list value yields [].
-    - Reads: the in-memory snapshot only.
+    Inputs are `lens`; notable helpers are `get`.
     """
     rows = lens.get("symbol_capsule_rows")
     return rows if isinstance(rows, list) else []
 
 
 def _custody_basis(path: str) -> str:
-    """Classify a source file's custody basis from its path.
+    """
+    Produce the custody basis value used by `scripts.build_code_lens_join_index`.
 
-    - Teleology: tell a reader whether an organ's runner code is owned or an
-      exact-copy macro body (which must not be authored locally).
-    - Guarantee: returns "directory_coupling_marker" for organs/macro_tools/
-      engine_room exact-copy zones, else "owned".
-    - Fails: never raises (substring test).
-    - Reads: only the supplied path string.
+    Inputs are `path`.
     """
     return (
         "directory_coupling_marker"
@@ -127,15 +88,10 @@ def _custody_basis(path: str) -> str:
 
 
 def _file_rollups(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
-    """Aggregate capsule rows into per-source-file specificity rollups.
+    """
+    Return file rollups for the scripts build code lens join index flow.
 
-    - Teleology: compress the flat capsule list into one node per source file
-      carrying its atom coverage and specificity bands.
-    - Guarantee: returns path -> {source_class, custody_basis, symbol_count,
-      real_coverage, body_specific, generic_unique, has_non_goal}; counts only,
-      no prose.
-    - Fails: never raises; rows missing fields default to zero/empty.
-    - Reads: the in-memory capsule rows only.
+    Inputs are `rows`; notable helpers are `setdefault`, `get`, and `_custody_basis`.
     """
     files: dict[str, dict[str, Any]] = {}
     for row in rows:
@@ -168,14 +124,10 @@ def _file_rollups(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
 
 
 def _resolved_ref_strings(rows: Any) -> list[str]:
-    """Flatten an atlas ref list ({ref, resolution_status} rows or strings) to refs.
+    """
+    Compute resolved ref strings from `rows`.
 
-    - Teleology: one extractor for the atlas's doctrine ref shapes so the graph
-      builder and the comprehension plane read refs the same way.
-    - Guarantee: returns the ref strings whose resolution_status is absent or
-      "resolved"; plain strings pass through; non-list input yields [].
-    - Fails: never raises.
-    - Reads: only the supplied rows.
+    Inputs are `rows`; notable helpers are `append` and `get`.
     """
     if not isinstance(rows, list):
         return []
@@ -191,14 +143,10 @@ def _resolved_ref_strings(rows: Any) -> list[str]:
 
 
 def _screen_value(value: Any, guard: dict[str, int]) -> Any:
-    """Drop (and count) a copied string value that looks like a secret/private path.
+    """
+    Produce the screen value value used by `scripts.build_code_lens_join_index`.
 
-    - Teleology: defense-in-depth on the atlas/route pass-through -- the join index
-      never becomes the surface that republishes a leaked credential or home path.
-    - Guarantee: returns the value unchanged when clean or non-string; returns None
-      and increments guard["values_dropped"] when a secret shape or private home
-      path matches.
-    - Fails: never raises.
+    Inputs are `value` and `guard`; notable helpers are `search` and `get`.
     """
     if isinstance(value, str) and (
         _SECRET_SHAPE_RE.search(value) or _PRIVATE_PATH_RE.search(value)
@@ -211,16 +159,11 @@ def _screen_value(value: Any, guard: dict[str, int]) -> Any:
 def _claim_node(
     organ: dict[str, Any], atlas_row: dict[str, Any], guard: dict[str, int]
 ) -> dict[str, Any]:
-    """Materialize the first-class claim node for one organ.
+    """
+    Serialize `scripts.build_code_lens_join_index._claim_node` into the payload shape
+    expected by scripts build code lens join index.
 
-    - Teleology: give the claim its own graph identity (claim_node_ontology) so a
-      claim trace reads graph nodes instead of re-deriving fields per packet.
-    - Guarantee: returns {claim_id "claim::<organ_id>", organ_id, claim_ceiling,
-      claim_ceiling_restated, evidence_class, evidence_strength_rank,
-      truth_accounting_bucket, validator_command, authority_receipt}; the copied
-      atlas restatement is screened via _screen_value.
-    - Fails: never raises; absent fields become None.
-    - Reads: only the supplied registry organ + atlas row.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     organ_id = str(organ.get("organ_id") or "")
     return {
@@ -239,25 +182,20 @@ def _claim_node(
 
 
 def _route_rows(routes_doc: Any) -> list[dict[str, Any]]:
-    """Return the task-route rows from atlas/agent_task_routes.json.
+    """
+    Produce the route rows value used by `scripts.build_code_lens_join_index`.
 
-    - Teleology: isolate the one routes field the graph consumes.
-    - Guarantee: returns the dict rows under "routes"; [] when absent/malformed.
-    - Fails: never raises.
+    Inputs are `routes_doc`; notable helpers are `get`.
     """
     rows = (routes_doc or {}).get("routes") if isinstance(routes_doc, dict) else None
     return [r for r in rows if isinstance(r, dict)] if isinstance(rows, list) else []
 
 
 def _route_organ_ids(route: dict[str, Any]) -> list[tuple[str, str]]:
-    """Resolve a route row's organ fan-out to (organ_id, role) pairs.
+    """
+    Return route organ IDs for the scripts build code lens join index flow.
 
-    - Teleology: extract ONLY the ids from the route's heavy embedded organ cards
-      so the graph carries fan-out topology, never duplicated card prose.
-    - Guarantee: returns (organ_id, "primary"|"relevant") pairs, primary first,
-      de-duplicated with the primary role winning.
-    - Fails: never raises.
-    - Non-goal: never copies relevant_organs card bodies into the graph.
+    Inputs are `route`; notable helpers are `get`, `append`, and `add`.
     """
     pairs: list[tuple[str, str]] = []
     seen: set[str] = set()
@@ -275,14 +213,10 @@ def _route_organ_ids(route: dict[str, Any]) -> list[tuple[str, str]]:
 
 
 def _runner_source_ref(runner: str | None) -> str | None:
-    """Resolve an organ runner's dotted module to a repo-relative source path.
+    """
+    Return runner source ref for the scripts build code lens join index flow.
 
-    - Teleology: bridge the organ registry's dotted runner to the file the lens
-      indexes, so organs can be joined to their code.
-    - Guarantee: returns "src/<dotted/with/slashes>.py" for a microcosm_core.*
-      runner; None when the runner is empty or not a microcosm_core module.
-    - Fails: never raises (string shaping only).
-    - Reads: only the supplied runner string.
+    Inputs are `runner`; notable helpers are `startswith` and `replace`.
     """
     if not runner or not runner.startswith("microcosm_core."):
         return None
@@ -300,15 +234,11 @@ _DOCTRINE_REF_FIELDS: tuple[tuple[str, str], ...] = (
 def _graph_edges_for_organ(
     organ_id: str, atlas_row: dict[str, Any]
 ) -> list[dict[str, Any]]:
-    """Build the v2 atlas-plane edges (family / wires_to / doctrine) for one organ.
+    """
+    Compute graph edges for organ from `organ_id` and `atlas_row`.
 
-    - Teleology: turn the atlas row's topology fields into typed graph edges so
-      comprehension packets select edges instead of re-reading the atlas.
-    - Guarantee: returns member_of_family, wires_to, and grounded_in_doctrine
-      edges (ref_kind axiom/principle/concept/mechanism/paper_module); [] for an
-      empty atlas row.
-    - Fails: never raises.
-    - Reads: only the supplied atlas row.
+    Inputs are `organ_id` and `atlas_row`; notable helpers are `get`, `append`, and
+    `_resolved_ref_strings`.
     """
     edges: list[dict[str, Any]] = []
     family = atlas_row.get("family")
@@ -362,14 +292,10 @@ def _graph_edges_for_organ(
 
 
 def _claim_edges(claim: dict[str, Any]) -> list[dict[str, Any]]:
-    """Build the claim-ontology edges for one claim node.
+    """
+    Compute claim edges from `claim`.
 
-    - Teleology: chain organ -> claim -> validator/receipt as graph edges so a
-      claim trace is a selection, not a synthesis.
-    - Guarantee: returns asserts_claim always, validated_by when a validator
-      command exists, proven_by when an authority receipt exists.
-    - Fails: never raises.
-    - Reads: only the supplied claim node.
+    Inputs are `claim`; notable helpers are `get` and `append`.
     """
     organ_id = claim["organ_id"]
     claim_id = claim["claim_id"]
@@ -411,23 +337,11 @@ def build_join_index(
     atlas: dict[str, Any] | None = None,
     routes: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Assemble the join index from the lens, registry, atlas, and route planes.
+    """
+    Serialize `scripts.build_code_lens_join_index.build_join_index` into the payload shape
+    expected by scripts build code lens join index.
 
-    - Teleology: the composition root that turns code-lens + organ registry +
-      organ atlas + agent task routes into the Comprehension Plane's queryable IR.
-    - Guarantee: returns a microcosm_code_lens_join_index_v2 dict with organ /
-      source_file / claim / route / family nodes, the v0 edges plus the v2
-      claim/route/family/doctrine edges, a graph block whose resolved_edge_classes
-      and deferred_edge_classes are computed from the materialized planes, rollups,
-      and a non-authorizing ceiling; export_band is presence_only and
-      source_bodies_exported is False; absent atlas/routes planes degrade to a
-      smaller graph with the matching edge classes honestly re-deferred.
-    - Fails: SystemExit(3) if the lens snapshot reports a source-body export.
-    - Reads: the in-memory inputs only.
-    - Non-goal: does not authorize release or source-body export; navigation only.
-      Never copies route relevant_organs card bodies into the graph.
-    - Escalates-to: _file_rollups / _runner_source_ref / _claim_node /
-      _route_organ_ids / _graph_edges_for_organ for field provenance.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     boundary = lens.get("payload_boundary", {})
     if isinstance(boundary, dict) and boundary.get("source_bodies_exported"):
@@ -672,18 +586,11 @@ def build_join_index(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI: read a lens snapshot + organ registry, write the join index.
+    """
+    Run `scripts.build_code_lens_join_index` as a command-line entry point.
 
-    - Teleology: expose join-index building as a re-runnable command for the
-      Comprehension Plane refresh.
-    - Guarantee: writes the join index JSON to --out and returns 0 on success;
-      absent --atlas/--routes files degrade to a smaller graph (with the matching
-      edge classes re-deferred) instead of failing.
-    - Fails: SystemExit(2) on lens/registry load errors; SystemExit(3) on a
-      source-body leak; argparse exits non-zero on missing required arguments.
-    - Reads: --lens, --registry, and optionally --atlas, --routes.
-    - Writes: the --out join index (parent dirs created).
-    - Escalates-to: build_join_index for the graph shape.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(description="Build the code-lens join index v2.")
     parser.add_argument("--lens", required=True, type=Path, help="python-lens --full snapshot JSON")

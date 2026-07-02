@@ -1,28 +1,14 @@
 """
-[PURPOSE]
-- Teleology: Make benchmark-integrity replay evidence inspectable without trusting claimed agent-task completions at face value.
-- Mechanism: Read replay rows, resolve their evidence references, and quarantine rows that trip evaluator-edit, train/test leakage, hidden-gold access, final-answer-only grading, score-overclaim, pass@k cherry-picking, solution/body leakage, or provider-material leakage checks.
-- Non-goal: Claim a benchmark score, establish agent capability, expose private issue/oracle bodies, run providers, mutate live repositories, or authorize release.
+Implements organs agent benchmark integrity anti gaming replay for the public Plectis
+package.
 
-[INTERFACE]
-- CLI: `python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run --input <fixture> --out <receipt-dir>`.
-- Bundle CLI: `python -m microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay run-benchmark-integrity-bundle --input <bundle> --out <receipt-dir>`.
-- Exports: validation helpers, result-card projection, receipt writer, and public trace checks for the benchmark-integrity organ.
-
-[FLOW]
-- Load projection protocol, locked evaluator policy, benchmark cases, replay observations, source manifests, public trace evidence, and negative cases.
-- Validate source-module provenance and evidence references before scoring any replay row as integrity-pass.
-- Classify every replay row as `integrity_pass` or quarantine with named error codes, then emit result, board, validation, and acceptance receipts.
-
-[DEPENDENCIES]
-- Python standard library plus local `microcosm_core` schema, receipt, private-state scan, and public trace helpers.
-- Reads only public fixtures, examples, source manifests, and receipt paths supplied by the caller.
-
-[CONSTRAINTS]
-- Receipts carry evidence refs, counts, hashes, spans, findings, and claim ceilings instead of private issue bodies, oracle patches, hidden-gold bodies, provider payloads, or raw solution material.
-- A passing row means the wired evidence cleared this validator's anti-gaming floor; it does not mean the underlying agent task was completed or that any external benchmark score is authorized.
-- Atomicity: Validator reads and receipt writes remain caller-scoped; no source or provider side effects are introduced by documentation or card projection.
-- Determinism: For identical fixtures, manifests, and public roots, sorting, digests, and projected refs remain stable.
+Callers enter through `validate_source_module_imports`, `validate_projection_protocol`,
+`validate_locked_evaluator_policy`, `validate_benchmark_cases`,
+`validate_replay_observations`, `validate_public_trace`, and 4 more; constants such as
+`ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 24 more pin local fixture
+names; dependencies include `argparse`, `hashlib`, `json`, `collections`, and 3 more. It
+builds public fixture, result, card, or verdict structures while keeping private substrate
+bodies out of the payload.
 """
 
 from __future__ import annotations
@@ -202,20 +188,10 @@ ANTI_CLAIM = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION] Resolve the public Plectis root used for relative refs and private-state scans.
+    Produce the public root for path value used by
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`.
 
-    - Teleology: Resolves paths, refs, or digests for _public_root_for_path so downstream
-      receipts can cite public-root-relative evidence rather than absolute private workspace
-      coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -231,37 +207,19 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION] Render a path relative to the public root for receipt-safe display.
+    Return display for the organs agent benchmark integrity anti gaming replay flow.
 
-    - Teleology: Resolves paths, refs, or digests for _display so downstream receipts can cite
-      public-root-relative evidence rather than absolute private workspace coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _card_receipt_paths(result: dict[str, Any]) -> list[str]:
     """
-    [ACTION] Normalize command-card receipt paths through the public receipt sanitizer.
+    Return card receipt paths for the organs agent benchmark integrity anti gaming replay
+    flow.
 
-    - Teleology: Keeps fresh and cached benchmark-integrity command cards on the same
-      receipt-safe display contract, even when the underlying receipt was written under a host
-      temp directory.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns only string receipt refs after applying the shared public-receipt path
-      normalization policy; it does not change the durable receipt files or infer new evidence.
-    - Fails: Non-list or malformed receipt path values collapse to an empty list so card
-      projection cannot leak arbitrary host-local structures.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `result`; notable helpers are `get` and `normalize_public_receipt_paths`.
     """
     paths = result.get("receipt_paths")
     if not isinstance(paths, list):
@@ -275,19 +233,12 @@ def _card_receipt_paths(result: dict[str, Any]) -> list[str]:
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION] Extract dictionary rows from a payload key without trusting malformed input.
+    Return dictionary rows for
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._rows` from
+    `payload[key]`.
 
-    - Teleology: Keeps the replay-evidence accounting step _rows explicit, so gaming-pattern
-      decisions are traceable from row input to finding, reason code, and receipt field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -297,19 +248,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION] Normalize a JSON list field into non-empty string tokens.
+    Return the non-empty string members used by
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._strings`.
 
-    - Teleology: Keeps the replay-evidence accounting step _strings explicit, so gaming-pattern
-      decisions are traceable from row input to finding, reason code, and receipt field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -318,20 +261,11 @@ def _strings(value: object) -> list[str]:
 
 def _locked_evaluator_config_hashes(policy: object) -> dict[str, list[str]]:
     """
-    [ACTION] Index allowed evaluator config hashes declared by the locked evaluator policy.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._locked_evaluator_config_hashes`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Keeps the replay-evidence accounting step _locked_evaluator_config_hashes
-      explicit, so gaming-pattern decisions are traceable from row input to finding, reason
-      code, and receipt field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = policy if isinstance(policy, dict) else {}
     raw = rows.get("locked_evaluator_config_hashes", {})
@@ -349,19 +283,10 @@ def _locked_evaluator_config_hashes(policy: object) -> dict[str, list[str]]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION] List benchmark-integrity input files whose freshness can reuse prior bundle receipts.
+    Return input paths for the organs agent benchmark integrity anti gaming replay flow.
 
-    - Teleology: Resolves paths, refs, or digests for _input_paths so downstream receipts can
-      cite public-root-relative evidence rather than absolute private workspace coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file` and
+    `append`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -373,20 +298,10 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _strip_microcosm_prefix(ref: str) -> str:
     """
-    [ACTION] Normalize legacy microcosm-substrate refs to public-root relative refs.
+    Produce the strip microcosm prefix value used by
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`.
 
-    - Teleology: Resolves paths, refs, or digests for _strip_microcosm_prefix so downstream
-      receipts can cite public-root-relative evidence rather than absolute private workspace
-      coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `ref`; notable helpers are `startswith`.
     """
     prefix = "microcosm-substrate/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
@@ -394,39 +309,21 @@ def _strip_microcosm_prefix(ref: str) -> str:
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION] Hash a file body for source and validator custody receipts.
+    Return the stable digest computed by
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._sha256`.
 
-    - Teleology: Resolves paths, refs, or digests for _sha256 so downstream receipts can cite
-      public-root-relative evidence rather than absolute private workspace coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _validator_source_digests() -> dict[str, str]:
     """
-    [ACTION] Hash the organ validator and public trace builder source used by this run.
+    Return a stable SHA-256 digest for the supplied payload.
 
-    - Teleology: Resolves paths, refs, or digests for _validator_source_digests so downstream
-      receipts can cite public-root-relative evidence rather than absolute private workspace
-      coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     organ_path = Path(__file__).resolve(strict=False)
     trace_path = organ_path.parents[1] / "macro_tools" / "agent_execution_trace.py"
@@ -443,20 +340,9 @@ def _validator_source_digests() -> dict[str, str]:
 
 def _source_module_manifest_path(input_dir: Path, *, public_root: Path) -> Path:
     """
-    [ACTION] Choose the local bundle manifest when present and fall back to the public example manifest.
+    Derive source module manifest path without touching module import state.
 
-    - Teleology: Resolves paths, refs, or digests for _source_module_manifest_path so downstream
-      receipts can cite public-root-relative evidence rather than absolute private workspace
-      coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_dir` and `public_root`; notable helpers are `is_file`.
     """
     local_manifest = input_dir / "source_module_manifest.json"
     if local_manifest.is_file():
@@ -471,20 +357,10 @@ def _source_module_target_path(
     public_root: Path,
 ) -> tuple[Path, str]:
     """
-    [ACTION] Resolve one source-manifest row to its public target path and display ref.
+    Compute source module target path from `row`, `manifest_path`, and `public_root`.
 
-    - Teleology: Resolves paths, refs, or digests for _source_module_target_path so downstream
-      receipts can cite public-root-relative evidence rather than absolute private workspace
-      coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `row`, `manifest_path`, and `public_root`; notable helpers are
+    `_strip_microcosm_prefix`, `get`, and `_display`.
     """
     target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
     row_path = str(row.get("path") or "")
@@ -498,20 +374,11 @@ def _source_module_target_path(
 
 def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION] Collect public source-artifact paths declared by benchmark-integrity fixtures.
+    Produce the source artifact paths value used by
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`.
 
-    - Teleology: Resolves paths, refs, or digests for _source_artifact_paths so downstream
-      receipts can cite public-root-relative evidence rather than absolute private workspace
-      coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_dir` and `public_root`; notable helpers are
+    `_source_module_manifest_path`, `read_json_strict`, `_rows`, `is_file`, and 2 more.
     """
     manifest_path = _source_module_manifest_path(input_dir, public_root=public_root)
     if not manifest_path.is_file():
@@ -529,20 +396,10 @@ def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
 
 def _fallback_bundle_root(public_root: Path) -> Path:
     """
-    [ACTION] Locate the bundled benchmark-integrity example when caller input omits it.
+    Return fallback bundle root for the organs agent benchmark integrity anti gaming replay
+    flow.
 
-    - Teleology: Resolves paths, refs, or digests for _fallback_bundle_root so downstream
-      receipts can cite public-root-relative evidence rather than absolute private workspace
-      coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `public_root`.
     """
     return (
         public_root
@@ -558,19 +415,10 @@ def _resolve_public_ref(
     public_root: Path,
 ) -> Path | None:
     """
-    [ACTION] Resolve a public fixture or source ref without escaping the public root.
+    Compute resolve public ref from `ref`, `input_dir`, and `public_root`.
 
-    - Teleology: Resolves paths, refs, or digests for _resolve_public_ref so downstream receipts
-      can cite public-root-relative evidence rather than absolute private workspace coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `ref`, `input_dir`, and `public_root`; notable helpers are
+    `_strip_microcosm_prefix`, `startswith`, `_fallback_bundle_root`, `is_file`, and 1 more.
     """
     if not ref or ref.startswith("/") or ".." in Path(ref).parts:
         return None
@@ -584,20 +432,11 @@ def _resolve_public_ref(
 
 def _evidence_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION] Collect evidence artifact paths referenced by replay observations and negative cases.
+    Return evidence artifact paths for the organs agent benchmark integrity anti gaming
+    replay flow.
 
-    - Teleology: Resolves paths, refs, or digests for _evidence_artifact_paths so downstream
-      receipts can cite public-root-relative evidence rather than absolute private workspace
-      coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_dir` and `public_root`; notable helpers are `_rows`, `is_file`,
+    `read_json_strict`, `_resolve_public_ref`, and 4 more.
     """
     replay_path = input_dir / "replay_observations.json"
     if not replay_path.is_file():
@@ -627,19 +466,10 @@ def _evidence_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION] Collect all paths that make a cached bundle receipt stale when changed.
+    Return freshness paths for the organs agent benchmark integrity anti gaming replay flow.
 
-    - Teleology: Resolves paths, refs, or digests for _freshness_paths so downstream receipts
-      can cite public-root-relative evidence rather than absolute private workspace coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_dir` and `include_negative`; notable helpers are `Path`,
+    `_public_root_for_path`, `_input_paths`, `_source_artifact_paths`, and 1 more.
     """
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
@@ -652,19 +482,11 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION] Build the freshness basis used to decide whether a bundle validation receipt can be reused.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._freshness_basis`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Resolves paths, refs, or digests for _freshness_basis so downstream receipts
-      can cite public-root-relative evidence rather than absolute private workspace coordinates.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic display refs, path lists, or digests within the declared
-      public root and preserves body-free source custody; it performs no validation authority
-      upgrade on its own.
-    - Fails: Missing optional paths are returned as absent where the caller handles them;
-      unreadable required files, escaped refs, or digest IO failures propagate through the
-      existing call path.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -727,18 +549,11 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
 
 def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
     """
-    [ACTION] Load a prior bundle receipt only when its input, validator, and evidence digests still match.
+    Produce the fresh bundle receipt value used by
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`.
 
-    - Teleology: Loads benchmark-integrity fixture or cached evidence for _fresh_bundle_receipt
-      while keeping freshness and body-export boundaries explicit.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns parsed payloads only from declared public fixture/bundle locations or
-      None/empty structures where the existing cache path is not trustworthy; it does not infer
-      unseen evidence.
-    - Fails: Strict JSON readers still raise on corrupt committed artifacts, while cache-miss
-      and stale-cache paths return None instead of silently reusing invalid evidence.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_dir` and `out_dir`; notable helpers are `_freshness_basis`, `get`,
+    `is_file`, and `read_json_strict`.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -777,22 +592,11 @@ def validate_source_module_imports(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION] Validate copied source-module provenance, target refs, material classes, private scans, and manifest claims.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay.validate_source_module_imports`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Makes the benchmark-integrity organ's validate_source_module_imports stage
-      inspectable as an explicit validation boundary, so source indexes, CodeMap nodes, and
-      public receipts can route from the organ overview to this evidence check without private
-      context.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns a body-free validation packet with status, findings, observed
-      negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
-      oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
-      authority.
-    - Fails: Malformed fixture content is downgraded into findings and blocked status where this
-      validator owns the check; unrecoverable filesystem or JSON parse failures still propagate
-      from the strict readers it calls.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(input_dir, public_root=public_root)
     manifest_ref = _display(manifest_path, public_root=public_root)
@@ -991,18 +795,11 @@ def validate_source_module_imports(
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION] Load the projection protocol, policies, replay cases, observations, and requested negative fixtures.
+    Load load payloads for
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`.
 
-    - Teleology: Loads benchmark-integrity fixture or cached evidence for _load_payloads while
-      keeping freshness and body-export boundaries explicit.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns parsed payloads only from declared public fixture/bundle locations or
-      None/empty structures where the existing cache path is not trustworthy; it does not infer
-      unseen evidence.
-    - Fails: Strict JSON readers still raise on corrupt committed artifacts, while cache-miss
-      and stale-cache paths return None instead of silently reusing invalid evidence.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1019,19 +816,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION] Create one normalized blocked finding row for receipts and boards.
+    Serialize `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._finding`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Keeps the replay-evidence accounting step _finding explicit, so gaming-pattern
-      decisions are traceable from row input to finding, reason code, and receipt field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -1050,20 +838,10 @@ def _real_trace_artifact_findings(
     target_ref: str,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION] Validate the public real-trace artifact required by the replay source manifest.
+    Build a structured finding row for real trace artifact findings.
 
-    - Teleology: Keeps the replay-evidence accounting step _real_trace_artifact_findings
-      explicit, so gaming-pattern decisions are traceable from row input to finding, reason
-      code, and receipt field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     trace = payload if isinstance(payload, dict) else {}
     subject_id = target_ref or module_id or "real_benchmark_trace_artifact"
@@ -1259,20 +1037,11 @@ def _real_trace_artifact_findings(
 
 def _real_trace_evidence_summary(payload: object) -> dict[str, Any]:
     """
-    [ACTION] Summarize public real-trace evidence fields without carrying private bodies.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._real_trace_evidence_summary`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Keeps the replay-evidence accounting step _real_trace_evidence_summary
-      explicit, so gaming-pattern decisions are traceable from row input to finding, reason
-      code, and receipt field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     trace = payload if isinstance(payload, dict) else {}
     pytest_summary = trace.get("pytest_summary")
@@ -1326,20 +1095,11 @@ def _real_trace_evidence_summary(payload: object) -> dict[str, Any]:
 
 def _real_trace_evidence_passes(evidence: dict[str, Any]) -> bool:
     """
-    [ACTION] Decide whether parsed real-trace evidence clears the integrity floor.
+    Return whether real trace evidence passes holds for the organs agent benchmark integrity
+    anti gaming replay flow.
 
-    - Teleology: Keeps the replay-evidence accounting step _real_trace_evidence_passes explicit,
-      so gaming-pattern decisions are traceable from row input to finding, reason code, and
-      receipt field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `evidence` with `get`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return (
         evidence.get("material_class") == REAL_BENCHMARK_TRACE_MATERIAL_CLASS
@@ -1365,20 +1125,12 @@ def _replay_real_session_evidence(
     real_trace_evidence_by_ref: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION] Attach real-session evidence status to a replay row without expanding private trace material.
+    Produce the replay real session evidence value used by
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`.
 
-    - Teleology: Keeps the replay-evidence accounting step _replay_real_session_evidence
-      explicit, so gaming-pattern decisions are traceable from row input to finding, reason
-      code, and receipt field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `row`, `real_trace_ref`, `real_trace_verified`, `real_trace_artifact_status`,
+    and `real_trace_evidence_by_ref`; notable helpers are `get` and
+    `_real_trace_evidence_passes`.
     """
     evidence = real_trace_evidence_by_ref.get(real_trace_ref, {})
     evidence_passes = _real_trace_evidence_passes(evidence)
@@ -1431,20 +1183,10 @@ def _evidence_finding(
     ref: str,
 ) -> None:
     """
-    [ACTION] Append a replay evidence finding tied to a specific evidence ref.
+    Build a structured finding row for evidence finding.
 
-    - Teleology: Keeps the replay-evidence accounting step _evidence_finding explicit, so
-      gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
-      field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     findings.append(
         _finding(
@@ -1470,18 +1212,11 @@ def _load_evidence_artifact(
     findings: list[dict[str, Any]],
 ) -> tuple[dict[str, Any], bool]:
     """
-    [ACTION] Load and validate one evidence artifact referenced by a replay row.
+    Load load evidence artifact for
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`.
 
-    - Teleology: Loads benchmark-integrity fixture or cached evidence for
-      _load_evidence_artifact while keeping freshness and body-export boundaries explicit.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns parsed payloads only from declared public fixture/bundle locations or
-      None/empty structures where the existing cache path is not trustworthy; it does not infer
-      unseen evidence.
-    - Fails: Strict JSON readers still raise on corrupt committed artifacts, while cache-miss
-      and stale-cache paths return None instead of silently reusing invalid evidence.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Input comes from `row`, `ref_field`, `replay_id`, `case_id`, `evaluator_id`, and 4 more;
+    malformed or missing data follows the exceptions and checks visible in the body.
     """
     ref = str(row.get(ref_field) or "")
     expected_kind = EVIDENCE_REF_FIELDS[ref_field]
@@ -1566,20 +1301,11 @@ def _parsed_evidence_packet(
     findings: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION] Parse all evidence artifacts for a replay row into a body-free integrity packet.
+    Produce the parsed evidence packet value used by
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`.
 
-    - Teleology: Keeps the replay-evidence accounting step _parsed_evidence_packet explicit, so
-      gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
-      field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `row`, `replay_id`, `case_id`, `evaluator_id`, `evaluator_config_hash`, and 3
+    more; notable helpers are `items`, `get`, `_load_evidence_artifact`, and `values`.
     """
     artifacts: dict[str, dict[str, Any]] = {}
     valid: dict[str, bool] = {}
@@ -1651,19 +1377,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION] Append a finding and record the observed negative-case code.
+    Record record for the organs agent benchmark integrity anti gaming replay flow.
 
-    - Teleology: Keeps the replay-evidence accounting step _record explicit, so gaming-pattern
-      decisions are traceable from row input to finding, reason code, and receipt field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -1679,20 +1396,10 @@ def _record(
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION] Merge observed negative-case codes from component validator results.
+    Produce the merge observed value used by
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`.
 
-    - Teleology: Keeps the replay-evidence accounting step _merge_observed explicit, so
-      gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
-      field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `results`; notable helpers are `defaultdict`, `items`, `get`, and `add`.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -1704,20 +1411,10 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION] Merge and deterministically sort findings from component validator results.
+    Create the finding rows emitted by
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._merge_findings`.
 
-    - Teleology: Keeps the replay-evidence accounting step _merge_findings explicit, so
-      gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
-      field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     findings: list[dict[str, Any]] = []
     for result in results:
@@ -1735,20 +1432,10 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _semantic_negative_case_id(row: dict[str, Any]) -> str | None:
     """
-    [ACTION] Infer which negative-case trigger a replay row actually encodes.
+    Produce the semantic negative case ID value used by
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`.
 
-    - Teleology: Keeps the replay-evidence accounting step _semantic_negative_case_id explicit,
-      so gaming-pattern decisions are traceable from row input to finding, reason code, and
-      receipt field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `row`; notable helpers are `get`.
     """
     if row.get("evaluator_mutated") is True:
         return "evaluator_edit_attempt"
@@ -1779,22 +1466,11 @@ def _semantic_negative_case_id(row: dict[str, Any]) -> str | None:
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
     """
-    [ACTION] Validate that the projection protocol cites enough source, receipt, and regression-fixture backing.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay.validate_projection_protocol`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Makes the benchmark-integrity organ's validate_projection_protocol stage
-      inspectable as an explicit validation boundary, so source indexes, CodeMap nodes, and
-      public receipts can route from the organ overview to this evidence check without private
-      context.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns a body-free validation packet with status, findings, observed
-      negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
-      oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
-      authority.
-    - Fails: Malformed fixture content is downgraded into findings and blocked status where this
-      validator owns the check; unrecoverable filesystem or JSON parse failures still propagate
-      from the strict readers it calls.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
@@ -1832,22 +1508,11 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
 
 def validate_locked_evaluator_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION] Validate locked evaluators, required replay fields, allowed verdicts, and blocked claim ids.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay.validate_locked_evaluator_policy`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Makes the benchmark-integrity organ's validate_locked_evaluator_policy stage
-      inspectable as an explicit validation boundary, so source indexes, CodeMap nodes, and
-      public receipts can route from the organ overview to this evidence check without private
-      context.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns a body-free validation packet with status, findings, observed
-      negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
-      oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
-      authority.
-    - Fails: Malformed fixture content is downgraded into findings and blocked status where this
-      validator owns the check; unrecoverable filesystem or JSON parse failures still propagate
-      from the strict readers it calls.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy = payload if isinstance(payload, dict) else {}
     locked = set(_strings(policy.get("locked_evaluator_ids")))
@@ -1928,22 +1593,11 @@ def validate_locked_evaluator_policy(payload: object) -> dict[str, Any]:
 
 def validate_benchmark_cases(payload: object) -> dict[str, Any]:
     """
-    [ACTION] Validate benchmark case rows, trusted score refs, leakage labels, and uniqueness.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay.validate_benchmark_cases`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Makes the benchmark-integrity organ's validate_benchmark_cases stage
-      inspectable as an explicit validation boundary, so source indexes, CodeMap nodes, and
-      public receipts can route from the organ overview to this evidence check without private
-      context.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns a body-free validation packet with status, findings, observed
-      negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
-      oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
-      authority.
-    - Fails: Malformed fixture content is downgraded into findings and blocked status where this
-      validator owns the check; unrecoverable filesystem or JSON parse failures still propagate
-      from the strict readers it calls.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "benchmark_cases")
     findings: list[dict[str, Any]] = []
@@ -2016,20 +1670,11 @@ def _validate_replay_row(
     negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION] Validate one replay row against evaluator locks, case registry, evidence refs, semantic negative triggers, and overclaim guards.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._validate_replay_row`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Keeps the replay-evidence accounting step _validate_replay_row explicit, so
-      gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
-      field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     case_id = str(row.get("expected_negative_case_id") or row.get("case_id") or "replay")
     replay_case_id = str(row.get("case_id") or "")
@@ -2380,22 +2025,11 @@ def validate_replay_observations(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION] Validate all replay observations and negative cases into rows, findings, and observed coverage codes.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay.validate_replay_observations`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Makes the benchmark-integrity organ's validate_replay_observations stage
-      inspectable as an explicit validation boundary, so source indexes, CodeMap nodes, and
-      public receipts can route from the organ overview to this evidence check without private
-      context.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns a body-free validation packet with status, findings, observed
-      negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
-      oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
-      authority.
-    - Fails: Malformed fixture content is downgraded into findings and blocked status where this
-      validator owns the check; unrecoverable filesystem or JSON parse failures still propagate
-      from the strict readers it calls.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy_rows = policy if isinstance(policy, dict) else {}
     locked = set(_strings(policy_rows.get("locked_evaluator_ids")))
@@ -2537,20 +2171,10 @@ def _first_screen_integrity_rows(
     replay_rows: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION] Project replay rows into body-free first-screen integrity receipts.
+    Return first screen integrity rows for the organs agent benchmark integrity anti gaming
+    replay flow.
 
-    - Teleology: Projects benchmark-integrity results through _first_screen_integrity_rows into
-      a human/agent start-here surface that preserves evidence handles without expanding full
-      payload bodies.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic, receipt-safe summary structures whose counts and
-      blocked-claim ids are derived from the result payload; source bodies, trace bodies, and
-      private scans stay omitted.
-    - Fails: Missing optional payload sections collapse to empty counts or False boundary flags;
-      malformed required result shapes fail only when the existing projection code dereferences
-      them.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `replay_rows`; notable helpers are `_strings`, `get`, and `append`.
     """
     source_route = (
         "agent_benchmark_integrity_anti_gaming_replay.py::"
@@ -2646,25 +2270,11 @@ def validate_public_trace(
     locked_evaluator_config_hashes: dict[str, list[str]] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION] Fold recomputed public benchmark trace spans into organ-level findings.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay.validate_public_trace`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Makes the benchmark-integrity organ's validate_public_trace stage inspectable
-      as an explicit validation boundary, so source indexes, CodeMap nodes, and public receipts
-      can route from the organ overview to this evidence check without private context.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns a body-free validation packet with status, findings, observed
-      negative-case coverage, and receipt-safe refs; it does not export private issue bodies,
-      oracle patch bodies, provider payloads, hidden-gold material, or benchmark-score
-      authority.
-    - Fails: Malformed fixture content is downgraded into findings and blocked status where this
-      validator owns the check; unrecoverable filesystem or JSON parse failures still propagate
-      from the strict readers it calls.
-
-    The macro builder recomputes each replay's integrity verdict from
-    contamination, file-access, and locked-evaluator spans. Any
-    computed-vs-declared mismatch becomes an organ finding.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
 
     findings: list[dict[str, Any]] = []
@@ -2723,20 +2333,11 @@ def validate_public_trace(
 
 def _public_trace_open_body_summary(public_trace: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION] Summarize whether the imported public trace builder body is present without exporting it in receipts.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._public_trace_open_body_summary`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Keeps the replay-evidence accounting step _public_trace_open_body_summary
-      explicit, so gaming-pattern decisions are traceable from row input to finding, reason
-      code, and receipt field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     imported = public_trace.get("status") == PASS
     return {
@@ -2772,20 +2373,11 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION] Assemble the full benchmark-integrity validation result from source, policy, replay, trace, and scan components.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._build_result` into
+    the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Keeps the replay-evidence accounting step _build_result explicit, so
-      gaming-pattern decisions are traceable from row input to finding, reason code, and receipt
-      field.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns body-free evidence summaries, finding rows, or merged coverage
-      structures that preserve evaluator locks, trace refs, and negative-case semantics without
-      carrying private/provider bodies.
-    - Fails: Invalid replay semantics become findings where this helper records them; malformed
-      artifacts or caller contract violations propagate rather than being converted into
-      integrity_pass.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -2988,20 +2580,11 @@ def _build_result(
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION] Project the validation result into a compact board for human review.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._board_from_result`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Projects benchmark-integrity results through _board_from_result into a
-      human/agent start-here surface that preserves evidence handles without expanding full
-      payload bodies.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic, receipt-safe summary structures whose counts and
-      blocked-claim ids are derived from the result payload; source bodies, trace bodies, and
-      private scans stay omitted.
-    - Fails: Missing optional payload sections collapse to empty counts or False boundary flags;
-      malformed required result shapes fail only when the existing projection code dereferences
-      them.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "agent_benchmark_integrity_anti_gaming_replay_board_v1",
@@ -3081,19 +2664,11 @@ def _write_receipts(
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
     """
-    [ACTION] Write result, board, validation, and optional acceptance receipts atomically.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._write_receipts`
+    into the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Owns the _write_receipts write path that turns validated benchmark-integrity
-      evidence into durable local receipts or reusable bundle results.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Writes only governed JSON receipts/cards under the requested output path and
-      preserves the organ authority ceiling: replay integrity evidence may pass or quarantine
-      rows, but never becomes a benchmark score or release claim.
-    - Fails: Invalid inputs surface through the underlying result builder as blocked findings;
-      output-directory and atomic-write failures propagate so callers do not treat an unwritten
-      receipt as evidence.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
@@ -3213,19 +2788,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION] Run the fixture validator and write benchmark-integrity receipts.
+    Return run for `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`.
 
-    - Teleology: Owns the run write path that turns validated benchmark-integrity evidence into
-      durable local receipts or reusable bundle results.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Writes only governed JSON receipts/cards under the requested output path and
-      preserves the organ authority ceiling: replay integrity evidence may pass or quarantine
-      rows, but never becomes a benchmark score or release claim.
-    - Fails: Invalid inputs surface through the underlying result builder as blocked findings;
-      output-directory and atomic-write failures propagate so callers do not treat an unwritten
-      receipt as evidence.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `_build_result`, `_freshness_basis`, `_write_receipts`, and `Path`.
     """
     result = _build_result(
         Path(input_dir),
@@ -3253,19 +2819,11 @@ def run_benchmark_integrity_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION] Run or reuse validation for an exported benchmark-integrity bundle.
+    Return run benchmark integrity bundle for the organs agent benchmark integrity anti
+    gaming replay flow.
 
-    - Teleology: Owns the run_benchmark_integrity_bundle write path that turns validated
-      benchmark-integrity evidence into durable local receipts or reusable bundle results.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Writes only governed JSON receipts/cards under the requested output path and
-      preserves the organ authority ceiling: replay integrity evidence may pass or quarantine
-      rows, but never becomes a benchmark score or release claim.
-    - Fails: Invalid inputs surface through the underlying result builder as blocked findings;
-      output-directory and atomic-write failures propagate so callers do not treat an unwritten
-      receipt as evidence.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `mkdir`, `_build_result`, `_freshness_basis`, and 4 more.
     """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -3295,19 +2853,11 @@ def run_benchmark_integrity_bundle(
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION] Project the result into the command-card shape with omitted payload boundaries.
+    Serialize
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay.result_card` into
+    the payload shape expected by organs agent benchmark integrity anti gaming replay.
 
-    - Teleology: Projects benchmark-integrity results through result_card into a human/agent
-      start-here surface that preserves evidence handles without expanding full payload bodies.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Returns deterministic, receipt-safe summary structures whose counts and
-      blocked-claim ids are derived from the result payload; source bodies, trace bodies, and
-      private scans stay omitted.
-    - Fails: Missing optional payload sections collapse to empty counts or False boundary flags;
-      malformed required result shapes fail only when the existing projection code dereferences
-      them.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -3417,18 +2967,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION] Build the CLI parser for benchmark-integrity replay commands.
+    Register CLI syntax for
+    `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay._parser`.
 
-    - Teleology: Keeps the command-line entry surface aligned with the organ's two supported
-      operations: fixture replay validation and exported-bundle validation.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Constructs or dispatches only declared arguments and returns process status
-      from the selected operation; --card remains a projection over the written/result payload,
-      not a separate authority source.
-    - Fails: Argparse rejects invalid command shapes before execution; validation, IO, and JSON
-      failures propagate from the selected runner instead of being hidden as success.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(prog="agent_benchmark_integrity_anti_gaming_replay")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -3446,18 +2989,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION] Dispatch CLI arguments to benchmark-integrity run and bundle commands.
+    Run the `microcosm_core.organs.agent_benchmark_integrity_anti_gaming_replay`
+    command-line entry point.
 
-    - Teleology: Keeps the command-line entry surface aligned with the organ's two supported
-      operations: fixture replay validation and exported-bundle validation.
-    - Preconditions: Caller supplies the benchmark-integrity fixture or bundle shape described by this module, with public-root refs and JSON payloads already selected by the run path.
-    - Guarantee: Constructs or dispatches only declared arguments and returns process status
-      from the selected operation; --card remains a projection over the written/result payload,
-      not a separate authority source.
-    - Fails: Argparse rejects invalid command shapes before execution; validation, IO, and JSON
-      failures propagate from the selected runner instead of being hidden as success.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

@@ -1,29 +1,14 @@
 """
-[PURPOSE]
-- Teleology: Validates public, source-bounded replay packets that make agent navigation and observability evidence inspectable without private runtime state.
-- Mechanism: Runs deterministic fixture validators over exported route events, hook-shadow receipts, continuation packets, session-attribution envelopes, and synthetic computer-use traces.
-- Guarantee: A passing result means the shipped evidence is structurally navigable, source-referenced, receipt-backed, and claim-bounded; it does not certify live agent behavior or authorize outreach, release, or external action.
+Implements organs agent route observability runtime for the public Plectis package.
 
-[INTERFACE]
-- Inputs: Public fixture directories under the organ's exported bundle layout.
-- Outputs: Validation result dictionaries, receipt JSON files, and compact result cards for package-local inspection.
-- Exports: `run`, `result_card`, and specific `run_*_bundle` entrypoints for each public observability replay bundle.
-
-[FLOW]
-- Load strict JSON fixture inputs and source-module manifests.
-- Validate authority ceilings, anti-claims, source references, negative cases, route-compliance summaries, and private-state scan results.
-- Write normalized receipts through the shared receipt helpers.
-- Render compact cards that point to receipts rather than embedding private or full source bodies.
-
-[DEPENDENCIES]
-- microcosm_core.macro_tools.*: public macro-tool projections used as source authority for exported replay bundles.
-- microcosm_core.private_state_scan: release-boundary scan over copied public materials.
-- microcosm_core.receipts and microcosm_core.schemas: strict JSON loading and atomic receipt writing.
-
-[CONSTRAINTS]
-- Atomicity: Receipt writes go through `write_json_atomic`; validators do not mutate source modules, Work Ledger state, or external services.
-- Determinism: Inputs are sorted or keyed by declared fixture identifiers; result envelopes use stable schema versions and normalized public paths.
-- Non-goal: This module does not read private transcripts, inspect live accounts, control browsers, send recipient material, or claim benchmark/behavior scores.
+Callers enter through `validate_exported_route_events`,
+`validate_exported_agent_path_observations`, `validate_exported_session_diagnostics`,
+`validate_exported_hook_shadow_coverage`, `validate_exported_actor_axis_checks`,
+`validate_exported_anti_pattern_debt`, and 44 more; constants such as `ORGAN_ID`,
+`FIXTURE_ID`, `VALIDATOR_ID`, `AI_WORKFLOW_ROOT`, and 109 more pin local fixture names;
+dependencies include `argparse`, `hashlib`, `importlib`, `json`, and 6 more. It builds
+public fixture, result, card, or verdict structures while keeping private substrate bodies
+out of the payload.
 """
 from __future__ import annotations
 
@@ -972,13 +957,9 @@ VALIDATOR_ASSERTED_FEEDS_PATTERNS = [
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for the organs agent route observability runtime flow.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -994,13 +975,11 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _is_relative_to(path: Path, root: Path) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_is_relative_to` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether is relative to holds for the organs agent route observability runtime
+    flow.
+
+    The result is derived from `path` and `root` with `relative_to`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     try:
         path.relative_to(root)
@@ -1011,26 +990,21 @@ def _is_relative_to(path: Path, root: Path) -> bool:
 
 def _display_path(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display_path` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the display path value used by
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _sha256_hex(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_hex` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.agent_route_observability_runtime._sha256_hex`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -1041,26 +1015,20 @@ def _sha256_hex(path: Path) -> str:
 
 def _sha256_ref(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_ref` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.agent_route_observability_runtime._sha256_ref`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return f"sha256:{_sha256_hex(path)}"
 
 
 def _local_display_ref(path_ref: object) -> object:
     """
-    [ACTION]
-    - Teleology: Implements `_local_display_ref` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute local display ref from `path_ref`.
+
+    Inputs are `path_ref`; notable helpers are `startswith` and `removeprefix`.
     """
     if not isinstance(path_ref, str):
         return path_ref
@@ -1073,13 +1041,9 @@ def _local_display_ref(path_ref: object) -> object:
 
 def _input_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return input paths for the organs agent route observability runtime flow.
+
+    Inputs are `input_dir`; notable helpers are `is_file` and `append`.
     """
     paths = [
         input_dir / "agent_trace.jsonl",
@@ -1100,13 +1064,9 @@ def _input_paths(input_dir: Path) -> list[Path]:
 
 def _observability_bundle_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_observability_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute observability bundle paths from `input_dir`.
+
+    Inputs are `input_dir`.
     """
     names = (
         "bundle_manifest.json",
@@ -1125,13 +1085,10 @@ def _observability_bundle_paths(input_dir: Path) -> list[Path]:
 
 def _observability_bundle_scan_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_observability_bundle_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return observability bundle scan paths for the organs agent route observability runtime
+    flow.
+
+    Inputs are `input_dir`; notable helpers are `_observability_bundle_paths`.
     """
     return [
         *_observability_bundle_paths(input_dir),
@@ -1141,13 +1098,10 @@ def _observability_bundle_scan_paths(input_dir: Path) -> list[Path]:
 
 def _observability_freshness_input_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_observability_freshness_input_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute observability freshness input paths from `input_dir`.
+
+    Inputs are `input_dir`; notable helpers are `_public_root_for_path`, `is_file`,
+    `append`, and `_observability_bundle_scan_paths`.
     """
     public_root = _public_root_for_path(input_dir)
     paths = [*_observability_bundle_scan_paths(input_dir)]
@@ -1159,13 +1113,11 @@ def _observability_freshness_input_paths(input_dir: Path) -> list[Path]:
 
 def _observability_freshness_basis(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_observability_freshness_basis` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._observability_freshness_basis`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -1228,13 +1180,10 @@ def _fresh_observability_bundle_receipt(
     command: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_observability_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Compute fresh observability bundle receipt from `input_dir`, `out_dir`, and `command`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `Path`,
+    `_observability_freshness_basis`, `get`, `is_absolute`, and 6 more.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -1285,26 +1234,18 @@ def _fresh_observability_bundle_receipt(
 
 def _route_compliance_audit_bundle_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_route_compliance_audit_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute route compliance audit bundle paths from `input_dir`.
+
+    Inputs are `input_dir`.
     """
     return [input_dir / name for name in ROUTE_COMPLIANCE_AUDIT_INPUT_NAMES]
 
 
 def _route_compliance_audit_scan_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_route_compliance_audit_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute route compliance audit scan paths from `input_dir`.
+
+    Inputs are `input_dir`; notable helpers are `_route_compliance_audit_bundle_paths`.
     """
     return [
         *_route_compliance_audit_bundle_paths(input_dir),
@@ -1314,13 +1255,10 @@ def _route_compliance_audit_scan_paths(input_dir: Path) -> list[Path]:
 
 def _default_route_compliance_audit_bundle_input() -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_default_route_compliance_audit_bundle_input` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the default route compliance audit bundle input value used by
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    The returned value is consumed directly by the caller.
     """
     return (
         AI_WORKFLOW_ROOT
@@ -1335,13 +1273,9 @@ def _computer_use_action_trace_paths(
     include_negative: bool,
 ) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_computer_use_action_trace_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive computer use action trace paths without touching module import state.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file`.
     """
     names = (
         "bundle_manifest.json",
@@ -1358,13 +1292,10 @@ def _computer_use_action_trace_scan_paths(
     include_negative: bool,
 ) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_computer_use_action_trace_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute computer use action trace scan paths from `input_dir` and `include_negative`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file` and
+    `_computer_use_action_trace_paths`.
     """
     source_module_paths = [
         input_dir / name
@@ -1382,26 +1313,18 @@ def _computer_use_action_trace_scan_paths(
 
 def _session_attribution_bundle_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_session_attribution_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute session attribution bundle paths from `input_dir`.
+
+    Inputs are `input_dir`.
     """
     return [input_dir / name for name in SESSION_ATTRIBUTION_INPUT_NAMES]
 
 
 def _session_attribution_scan_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_session_attribution_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute session attribution scan paths from `input_dir`.
+
+    Inputs are `input_dir`; notable helpers are `_session_attribution_bundle_paths`.
     """
     return [
         *_session_attribution_bundle_paths(input_dir),
@@ -1411,26 +1334,20 @@ def _session_attribution_scan_paths(input_dir: Path) -> list[Path]:
 
 def _harness_configuration_audit_bundle_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_harness_configuration_audit_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return harness configuration audit bundle paths for the organs agent route observability
+    runtime flow.
+
+    Inputs are `input_dir`.
     """
     return [input_dir / name for name in HARNESS_CONFIGURATION_AUDIT_INPUT_NAMES]
 
 
 def _harness_configuration_audit_scan_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_harness_configuration_audit_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return harness configuration audit scan paths for the organs agent route observability
+    runtime flow.
+
+    Inputs are `input_dir`; notable helpers are `_harness_configuration_audit_bundle_paths`.
     """
     return [
         *_harness_configuration_audit_bundle_paths(input_dir),
@@ -1440,26 +1357,20 @@ def _harness_configuration_audit_scan_paths(input_dir: Path) -> list[Path]:
 
 def _multi_agent_fanin_bundle_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_multi_agent_fanin_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return multi agent fanin bundle paths for the organs agent route observability runtime
+    flow.
+
+    Inputs are `input_dir`.
     """
     return [input_dir / name for name in MULTI_AGENT_FANIN_INPUT_NAMES]
 
 
 def _multi_agent_fanin_scan_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_multi_agent_fanin_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return multi agent fanin scan paths for the organs agent route observability runtime
+    flow.
+
+    Inputs are `input_dir`; notable helpers are `_multi_agent_fanin_bundle_paths`.
     """
     return [
         *_multi_agent_fanin_bundle_paths(input_dir),
@@ -1469,13 +1380,10 @@ def _multi_agent_fanin_scan_paths(input_dir: Path) -> list[Path]:
 
 def _bridge_dispatch_yield_resume_bundle_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_bridge_dispatch_yield_resume_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return bridge dispatch yield resume bundle paths for the organs agent route
+    observability runtime flow.
+
+    Inputs are `input_dir`.
     """
     return [
         input_dir / name
@@ -1488,13 +1396,11 @@ def _bridge_dispatch_yield_resume_bundle_paths(input_dir: Path) -> list[Path]:
 
 def _bridge_dispatch_yield_resume_scan_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_bridge_dispatch_yield_resume_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the bridge dispatch yield resume scan paths value used by
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `input_dir`; notable helpers are
+    `_bridge_dispatch_yield_resume_bundle_paths`.
     """
     return [
         *_bridge_dispatch_yield_resume_bundle_paths(input_dir),
@@ -1504,13 +1410,10 @@ def _bridge_dispatch_yield_resume_scan_paths(input_dir: Path) -> list[Path]:
 
 def _controller_heartbeat_bundle_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_controller_heartbeat_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the controller heartbeat bundle paths value used by
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `input_dir`.
     """
     return [
         input_dir / name
@@ -1523,13 +1426,9 @@ def _controller_heartbeat_bundle_paths(input_dir: Path) -> list[Path]:
 
 def _controller_heartbeat_scan_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_controller_heartbeat_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive controller heartbeat scan paths without touching module import state.
+
+    Inputs are `input_dir`; notable helpers are `_controller_heartbeat_bundle_paths`.
     """
     return [
         *_controller_heartbeat_bundle_paths(input_dir),
@@ -1539,13 +1438,9 @@ def _controller_heartbeat_scan_paths(input_dir: Path) -> list[Path]:
 
 def _agent_trace_route_repair_bundle_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_agent_trace_route_repair_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive agent trace route repair bundle paths without touching module import state.
+
+    Inputs are `input_dir`.
     """
     return [
         input_dir / name
@@ -1558,13 +1453,10 @@ def _agent_trace_route_repair_bundle_paths(input_dir: Path) -> list[Path]:
 
 def _agent_trace_route_repair_scan_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_agent_trace_route_repair_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the agent trace route repair scan paths value used by
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `input_dir`; notable helpers are `_agent_trace_route_repair_bundle_paths`.
     """
     return [
         *_agent_trace_route_repair_bundle_paths(input_dir),
@@ -1574,13 +1466,10 @@ def _agent_trace_route_repair_scan_paths(input_dir: Path) -> list[Path]:
 
 def _agent_observability_store_bundle_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_agent_observability_store_bundle_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return agent observability store bundle paths for the organs agent route observability
+    runtime flow.
+
+    Inputs are `input_dir`.
     """
     return [
         input_dir / name
@@ -1593,13 +1482,9 @@ def _agent_observability_store_bundle_paths(input_dir: Path) -> list[Path]:
 
 def _agent_observability_store_scan_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_agent_observability_store_scan_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute agent observability store scan paths from `input_dir`.
+
+    Inputs are `input_dir`; notable helpers are `_agent_observability_store_bundle_paths`.
     """
     return [
         *_agent_observability_store_bundle_paths(input_dir),
@@ -1609,39 +1494,31 @@ def _agent_observability_store_scan_paths(input_dir: Path) -> list[Path]:
 
 def _has_computer_use_negative_inputs(input_dir: Path) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_computer_use_negative_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has computer use negative inputs holds for the organs agent route
+    observability runtime flow.
+
+    The result is derived from `input_dir` with `is_file`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     return any((input_dir / name).is_file() for name in COMPUTER_USE_NEGATIVE_INPUT_NAMES)
 
 
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_jsonl` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load JSONl for `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     return [row for row in read_jsonl_strict(path) if isinstance(row, dict)]
 
 
 def _load_inputs(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load inputs for `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     payloads = {
         "trace_rows": _load_jsonl(input_dir / "agent_trace.jsonl"),
@@ -1660,13 +1537,11 @@ def _load_inputs(input_dir: Path) -> dict[str, Any]:
 
 def _load_observability_bundle(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_observability_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load observability bundle for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1676,13 +1551,11 @@ def _load_observability_bundle(input_dir: Path) -> dict[str, Any]:
 
 def _load_route_compliance_audit_bundle(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_route_compliance_audit_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load route compliance audit bundle for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1692,13 +1565,11 @@ def _load_route_compliance_audit_bundle(input_dir: Path) -> dict[str, Any]:
 
 def _load_route_compliance_copied_trace_module(input_dir: Path) -> Any:
     """
-    [ACTION]
-    - Teleology: Implements `_load_route_compliance_copied_trace_module` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load route compliance copied trace module for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     strict_json_path = input_dir / "source_modules/system/lib/strict_json.py"
     trace_module_path = input_dir / "source_modules/system/lib/agent_execution_trace.py"
@@ -1738,13 +1609,11 @@ def _load_computer_use_action_trace_bundle(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_computer_use_action_trace_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load computer use action trace bundle for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1757,13 +1626,11 @@ def _load_computer_use_action_trace_bundle(
 
 def _load_session_attribution_bundle(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_session_attribution_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load session attribution bundle for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1773,13 +1640,11 @@ def _load_session_attribution_bundle(input_dir: Path) -> dict[str, Any]:
 
 def _load_harness_configuration_audit_bundle(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_harness_configuration_audit_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load harness configuration audit bundle for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1789,13 +1654,11 @@ def _load_harness_configuration_audit_bundle(input_dir: Path) -> dict[str, Any]:
 
 def _load_multi_agent_fanin_bundle(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_multi_agent_fanin_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load multi agent fanin bundle for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1805,13 +1668,11 @@ def _load_multi_agent_fanin_bundle(input_dir: Path) -> dict[str, Any]:
 
 def _load_bridge_dispatch_yield_resume_bundle(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_bridge_dispatch_yield_resume_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load bridge dispatch yield resume bundle for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1821,13 +1682,11 @@ def _load_bridge_dispatch_yield_resume_bundle(input_dir: Path) -> dict[str, Any]
 
 def _load_controller_heartbeat_bundle(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_controller_heartbeat_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load controller heartbeat bundle for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1837,13 +1696,11 @@ def _load_controller_heartbeat_bundle(input_dir: Path) -> dict[str, Any]:
 
 def _load_agent_trace_route_repair_bundle(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_agent_trace_route_repair_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load agent trace route repair bundle for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1853,13 +1710,11 @@ def _load_agent_trace_route_repair_bundle(input_dir: Path) -> dict[str, Any]:
 
 def _load_agent_observability_store_bundle(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_agent_observability_store_bundle` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load agent observability store bundle for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1869,13 +1724,12 @@ def _load_agent_observability_store_bundle(input_dir: Path) -> dict[str, Any]:
 
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_fixture_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan fixture inputs holds for the organs agent route observability runtime
+    flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_input_paths`; failing evidence is returned or raised exactly where
+    the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_paths(input_dir), forbidden_classes=policy, display_root=public_root)
@@ -1883,13 +1737,12 @@ def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
 
 def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_bundle_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan bundle inputs holds for the organs agent route observability runtime
+    flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_observability_bundle_scan_paths`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -1904,13 +1757,12 @@ def _scan_route_compliance_audit_inputs(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_route_compliance_audit_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan route compliance audit inputs holds for the organs agent route
+    observability runtime flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_route_compliance_audit_scan_paths`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -1927,13 +1779,12 @@ def _scan_computer_use_action_trace_inputs(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_computer_use_action_trace_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan computer use action trace inputs holds for the organs agent route
+    observability runtime flow.
+
+    The result is derived from `input_dir`, `public_root`, and `include_negative` with
+    `load_forbidden_classes`, `scan_paths`, and `_computer_use_action_trace_scan_paths`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -1948,13 +1799,12 @@ def _scan_computer_use_action_trace_inputs(
 
 def _scan_session_attribution_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_session_attribution_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan session attribution inputs holds for the organs agent route
+    observability runtime flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_session_attribution_scan_paths`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -1969,13 +1819,12 @@ def _scan_harness_configuration_audit_inputs(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_harness_configuration_audit_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan harness configuration audit inputs holds for the organs agent route
+    observability runtime flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_harness_configuration_audit_scan_paths`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -1987,13 +1836,12 @@ def _scan_harness_configuration_audit_inputs(
 
 def _scan_multi_agent_fanin_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_multi_agent_fanin_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan multi agent fanin inputs holds for the organs agent route
+    observability runtime flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_multi_agent_fanin_scan_paths`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2008,13 +1856,12 @@ def _scan_bridge_dispatch_yield_resume_inputs(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_bridge_dispatch_yield_resume_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan bridge dispatch yield resume inputs holds for the organs agent route
+    observability runtime flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_bridge_dispatch_yield_resume_scan_paths`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2029,13 +1876,12 @@ def _scan_controller_heartbeat_inputs(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_controller_heartbeat_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan controller heartbeat inputs holds for the organs agent route
+    observability runtime flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_controller_heartbeat_scan_paths`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2050,13 +1896,12 @@ def _scan_agent_trace_route_repair_inputs(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_agent_trace_route_repair_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan agent trace route repair inputs holds for the organs agent route
+    observability runtime flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_agent_trace_route_repair_scan_paths`; failing evidence is returned
+    or raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2071,13 +1916,12 @@ def _scan_agent_observability_store_inputs(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_agent_observability_store_inputs` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan agent observability store inputs holds for the organs agent route
+    observability runtime flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_agent_observability_store_scan_paths`; failing evidence is returned
+    or raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -2089,13 +1933,9 @@ def _scan_agent_observability_store_inputs(
 
 def _stable_hash(payload: object) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_stable_hash` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return stable hash for `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `payload`; notable helpers are `encode`, `hexdigest`, `dumps`, and `sha256`.
     """
     encoded = json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode(
         "utf-8"
@@ -2105,13 +1945,11 @@ def _stable_hash(payload: object) -> str:
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.agent_route_observability_runtime._rows` from `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -2123,13 +1961,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.agent_route_observability_runtime._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -2138,26 +1974,21 @@ def _strings(value: object) -> list[str]:
 
 def _file_sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_file_sha256` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.agent_route_observability_runtime._file_sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return _sha256_hex(path)
 
 
 def _source_line_count(path: Path) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_source_line_count` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Produce the source line count value used by
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `path`; notable helpers are `open`.
     """
     line_count = 0
     with path.open("r", encoding="utf-8") as handle:
@@ -2168,39 +1999,30 @@ def _source_line_count(path: Path) -> int:
 
 def _file_size_bytes(path: Path) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_file_size_bytes` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the file size bytes value used by
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `path`; notable helpers are `stat`.
     """
     return path.stat().st_size
 
 
 def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_missing` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return missing for `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `row` and `required`; notable helpers are `get`.
     """
     return [field for field in required if row.get(field) in (None, "", [])]
 
 
 def _has_computer_use_forbidden_key(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_computer_use_forbidden_key` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has computer use forbidden key holds for the organs agent route
+    observability runtime flow.
+
+    The result is derived from `row`; failing evidence is returned or raised exactly where
+    the body says so.
     """
     return any(key in row for key in COMPUTER_USE_FORBIDDEN_KEYS)
 
@@ -2214,13 +2036,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_route_observability_runtime._finding` into the
+    payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -2243,13 +2062,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs agent route observability runtime flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -2271,13 +2087,10 @@ def _bundle_finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_bundle_finding` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_route_observability_runtime._bundle_finding` into
+    the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -2290,13 +2103,11 @@ def _bundle_finding(
 
 def validate_exported_route_events(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Checks exported route events as replayable navigation evidence rather than loose telemetry.
-    - Guarantee: Returns a pass envelope only when each row has stable ids, route labels, actor-axis metadata, and receipt-compatible provenance.
-    - Fails: Non-list payload, duplicate ids, missing route fields, private transcript fields, or behavior-change overclaim -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_route_events`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "route_events")
@@ -2397,13 +2208,11 @@ def validate_exported_agent_path_observations(
     route_event_result: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Couples path observations to validated route events so an agent can move from a symptom to supporting route evidence.
-    - Guarantee: Passing rows reference known route-event ids and preserve bounded path, actor, and evidence-class fields.
-    - Fails: Unknown route event, malformed observation row, raw transcript payload, or missing evidence class -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_agent_path_observations`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "agent_path_observations")
@@ -2497,13 +2306,11 @@ def validate_exported_agent_path_observations(
 
 def validate_exported_session_diagnostics(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Verifies session diagnostic summaries without treating them as private session authority.
-    - Guarantee: Returns normalized diagnostic rows only when each row carries a public session id, diagnostic class, and bounded evidence handle.
-    - Fails: Non-list payload, hidden session state, missing diagnostic class, or provider/body leakage -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_session_diagnostics`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "session_diagnostics")
@@ -2565,13 +2372,11 @@ def validate_exported_session_diagnostics(payload: object) -> dict[str, Any]:
 
 def validate_exported_hook_shadow_coverage(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Confirms hook-shadow coverage fixtures exercise route interventions without asserting live hook behavior.
-    - Guarantee: A pass preserves required negative cases, authority ceilings, and no-live-state-read constraints.
-    - Fails: Missing expected negative case, banned route intervention without receipt, live-state read attempt, or budget overrun -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_hook_shadow_coverage`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "hook_shadow_rows")
@@ -2680,13 +2485,11 @@ def validate_exported_hook_shadow_coverage(payload: object) -> dict[str, Any]:
 
 def validate_exported_actor_axis_checks(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Ensures actor-axis rows distinguish substrate authority from model intelligence or provider class.
-    - Guarantee: Passing rows retain Type A/B authority semantics and cite evidence rather than inferred capability claims.
-    - Fails: Missing actor axis, authority mismatch, unsupported role claim, or private evidence handle -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_actor_axis_checks`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "actor_axis_checks")
@@ -2745,13 +2548,11 @@ def validate_exported_actor_axis_checks(payload: object) -> dict[str, Any]:
 
 def validate_exported_anti_pattern_debt(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Keeps anti-pattern debt rows tied to concrete retirement evidence instead of vague process prose.
-    - Guarantee: Every accepted row names a debt class, replacement route, and receipt-backed retirement or residual state.
-    - Fails: Missing debt id, absent replacement route, unsupported retirement, or private-root evidence leak -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_anti_pattern_debt`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "debt_rows")
@@ -2808,13 +2609,11 @@ def validate_exported_anti_pattern_debt(payload: object) -> dict[str, Any]:
 
 def validate_exported_process_audit_rows(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Validates process-audit rows as public navigation evidence for how route failures were detected and bounded.
-    - Guarantee: Passing rows carry stable audit ids, observed route state, corrective action labels, and receipt references.
-    - Fails: Malformed row, missing audit id, action without evidence, or private state disclosure -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_process_audit_rows`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     rows = _rows(payload, "process_audit_rows")
@@ -2868,13 +2667,11 @@ def validate_exported_process_audit_rows(payload: object) -> dict[str, Any]:
 
 def validate_exported_observability_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Checks the observability bundle's policy ceiling before any replay evidence is trusted.
-    - Guarantee: A pass preserves the declared no-live-state, no-provider-payload, and no-behavior-certification boundaries.
-    - Fails: Missing policy keys, broadened authority, raw transcript allowance, or absent anti-claim -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_observability_policy`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
@@ -2908,13 +2705,10 @@ def validate_exported_observability_policy(payload: object) -> dict[str, Any]:
 
 def _parse_bundle_time(value: object) -> datetime:
     """
-    [ACTION]
-    - Teleology: Implements `_parse_bundle_time` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Parse parse bundle time for `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Input comes from `value`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     text = str(value or "").strip()
     if text.endswith("Z"):
@@ -2928,13 +2722,10 @@ def _parse_bundle_time(value: object) -> datetime:
 
 def _walk_payload_keys(payload: object) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_walk_payload_keys` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the walk payload keys value used by
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `payload`; notable helpers are `values`, `update`, and `_walk_payload_keys`.
     """
     if isinstance(payload, dict):
         keys = {str(key) for key in payload}
@@ -2951,13 +2742,10 @@ def _walk_payload_keys(payload: object) -> set[str]:
 
 def _walk_nonempty_payload_keys(payload: object, forbidden_keys: set[str]) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_walk_nonempty_payload_keys` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return walk nonempty payload keys for the organs agent route observability runtime flow.
+
+    Inputs are `payload` and `forbidden_keys`; notable helpers are `items`, `update`, `add`,
+    and `_walk_nonempty_payload_keys`.
     """
     if isinstance(payload, dict):
         keys: set[str] = set()
@@ -2977,13 +2765,11 @@ def _walk_nonempty_payload_keys(payload: object, forbidden_keys: set[str]) -> se
 
 def validate_exported_session_attribution_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Bounds session-attribution replay to synthetic/public metadata before any attribution view is accepted.
-    - Guarantee: Passing policy blocks live logs, transcript bodies, provider payloads, account state, and source mutation claims.
-    - Fails: Missing ceiling key, unexpected true authority, absent anti-claim, or private-state permission -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_session_attribution_policy`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
@@ -3034,13 +2820,11 @@ def validate_exported_session_attribution_inputs(
     work_ledger_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Confirms attribution fixture inputs are synthetic envelopes with enough structure to rerun attribution deterministically.
-    - Guarantee: A pass returns AgentTraceStore and Work Ledger rows with stable ids, no raw body fields, and no live-session equivalence claim.
-    - Fails: Malformed input set, missing session/event ids, private payload key, or unsupported matched-status claim -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_session_attribution_inputs`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     active_sessions = _rows(ats_payload, "active_sessions")
@@ -3120,13 +2904,11 @@ def validate_session_attribution_source_manifest(
     manifest_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Proves attribution replay imports intended public source bodies rather than trusting detached fixture prose.
-    - Guarantee: Passing manifest rows resolve to expected paths, hashes, schema versions, and copied public macro-tool sources.
-    - Fails: Missing manifest row, hash drift, wrong source ref, missing copied body, or forbidden private material -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_session_attribution_source_manifest`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -3252,13 +3034,10 @@ def validate_session_attribution_source_manifest(
 
 def _public_attribution_session_rows(view: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_public_attribution_session_rows` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the public attribution session rows value used by
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `view`; notable helpers are `_rows`, `append`, `get`, and `_strings`.
     """
     rows: list[dict[str, Any]] = []
     for session in _rows(view, "sessions"):
@@ -3297,13 +3076,11 @@ def validate_exported_session_attribution_expected_summary(
     self_session: dict[str, Any] | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Compares expected attribution summary to the rerun public attribution view.
-    - Guarantee: A pass means the summary is reproducible from fixture inputs and does not overstate live-session authority.
-    - Fails: Count mismatch, missing self-session handle, schema drift, or unsupported private equivalence claim -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_session_attribution_expected_summary`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     expected = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -3357,13 +3134,11 @@ def validate_exported_session_attribution_expected_summary(
 
 def validate_exported_harness_configuration_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Keeps harness-configuration audit fixtures bounded to synthetic configuration metadata.
-    - Guarantee: Passing policy forbids live settings reads, hook/skill body export, hook installation, source mutation, and release claims.
-    - Fails: Missing authority ceiling, broadened permission, absent anti-claim, or private configuration body allowance -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_harness_configuration_policy`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
@@ -3413,13 +3188,11 @@ def validate_exported_harness_configuration_policy(payload: object) -> dict[str,
 
 def validate_exported_harness_configuration_inputs(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Checks harness configuration rows before deriving drift or coverage claims from them.
-    - Guarantee: Passing rows expose only public metadata needed to compare settings, hooks, and skill registry shapes.
-    - Fails: Non-list payload, raw hook/skill body, missing config id, or unsupported install claim -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_harness_configuration_inputs`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     snapshots = _rows(payload, "snapshots")
@@ -3529,13 +3302,11 @@ def validate_harness_configuration_audit_source_manifest(
     manifest_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Ties harness-configuration replay to copied public macro-tool sources and declared standards.
-    - Guarantee: Passing manifest rows resolve with expected hashes and no private local-settings body.
-    - Fails: Missing source row, wrong ref, hash mismatch, absent copied body, or forbidden private key -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_harness_configuration_audit_source_manifest`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -3667,13 +3438,11 @@ def validate_exported_harness_configuration_expected_summary(
     input_result: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Ensures the expected harness audit summary is derived from checked public fixture rows.
-    - Guarantee: A pass binds row counts, drift counts, and authority flags to the validated input result.
-    - Fails: Summary count mismatch, missing drift field, broadened authority, or private equivalence claim -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_harness_configuration_expected_summary`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     expected = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -3711,13 +3480,11 @@ def validate_exported_harness_configuration_expected_summary(
 
 def validate_exported_multi_agent_fanin_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Bounds fan-in replay to public continuation and worker metadata, not live subagent dispatch.
-    - Guarantee: Passing policy keeps parent authority, disjoint write-set, no-live-dispatch, and no-transcript-body constraints intact.
-    - Fails: Missing governance key, live spawn permission, transcript export, or recipient-send authority -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_multi_agent_fanin_policy`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -3807,13 +3574,11 @@ def validate_multi_agent_fanin_source_manifest(
     manifest_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Confirms fan-in replay uses intended public continuation and governance source modules.
-    - Guarantee: Passing rows resolve source refs, target refs, hashes, and copied bodies needed to inspect fan-in evidence.
-    - Fails: Missing source module, stale hash, wrong material class, absent governance source, or private body key -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_multi_agent_fanin_source_manifest`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -3957,13 +3722,11 @@ def validate_bridge_dispatch_yield_resume_source_manifest(
     manifest_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Checks bridge yield/resume replay imports source-faithful public dispatch machinery.
-    - Guarantee: A pass binds the replay to expected bridge-resume refs, hashes, schema versions, and authority ceilings.
-    - Fails: Missing bridge source, hash drift, unexpected input name, or private worker transcript material -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_bridge_dispatch_yield_resume_source_manifest`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -4107,13 +3870,11 @@ def validate_controller_heartbeat_source_manifest(
     manifest_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Validates controller-heartbeat replay against public heartbeat source bodies and policy refs.
-    - Guarantee: Passing manifest rows prove the heartbeat evidence can be inspected without live controller state.
-    - Fails: Missing heartbeat source, hash mismatch, forbidden payload key, or unsupported live-control claim -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_controller_heartbeat_source_manifest`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -4274,13 +4035,11 @@ def validate_route_compliance_audit_source_manifest(
     manifest_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Proves route-compliance audit replay is source-backed across route rules, standards, builders, and sanitized sidecars.
-    - Guarantee: Passing rows distinguish exact public macro bodies from sanitized reference projections and bind each to expected hashes.
-    - Fails: Missing exact source, wrong sanitized relation, hash drift, unexpected material class, or private projection leak -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_route_compliance_audit_source_manifest`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -4796,13 +4555,11 @@ def validate_observability_source_manifest(
     manifest_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Verifies the observability bundle's copied source modules before accepting route and trace evidence.
-    - Guarantee: Every expected doctrine, standard, and macro-tool body is present, hashed, and classed as public.
-    - Fails: Missing source module, hash drift, wrong target ref, absent copied body, or forbidden private content -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_observability_source_manifest`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -5012,13 +4769,11 @@ def validate_agent_trace_route_repair_source_manifest(
     manifest_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Ties agent-trace route-repair replay to the public route repair macro tool and declared source refs.
-    - Guarantee: Passing manifest rows resolve the source-faithful repair view, expected inputs, and anti-claim constraints.
-    - Fails: Missing source, hash mismatch, forbidden payload key, or behavior repair overclaim without trace evidence -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_agent_trace_route_repair_source_manifest`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -5231,13 +4986,11 @@ def validate_agent_observability_store_source_manifest(
     manifest_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Confirms observability-store replay uses the public store source rather than raw private trace storage.
-    - Guarantee: A pass binds store inputs and derived views to expected public source refs, hashes, and no-body-export policy.
-    - Fails: Missing source body, hash drift, unexpected payload key, or raw trace body exposure -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_agent_observability_store_source_manifest`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -5409,13 +5162,11 @@ def validate_exported_multi_agent_fanin_inputs(
     worker_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Checks fan-in fixture inputs before they are summarized as conductor evidence.
-    - Guarantee: Passing packets and worker rows carry stable ids, lane boundaries, disjoint write scopes, and no transcript bodies.
-    - Fails: Malformed packet, duplicate worker id, missing lane boundary, conflicting write scope, or raw worker body -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_multi_agent_fanin_inputs`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     contexts = _rows(continuation_payload, "continuation_contexts")
     workers = _rows(worker_payload, "worker_traces")
@@ -5582,13 +5333,11 @@ def validate_exported_multi_agent_fanin_expected_summary(
     workers: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reconciles the fan-in expected summary with validated packet and worker rows.
-    - Guarantee: A pass proves counts, lane states, and blocked/complete labels are derived from checked public inputs.
-    - Fails: Count mismatch, missing conductor authority, unsourced progress claim, or private transcript equivalence -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_exported_multi_agent_fanin_expected_summary`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     expected = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -5663,13 +5412,11 @@ def validate_exported_multi_agent_fanin_expected_summary(
 
 def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Classifies route-compliance rows as evidence of route discipline without upgrading them into behavior-change proof.
-    - Guarantee: Passing rows have stable event ids, allowed route decisions, replacement links, and expected negative-case coverage.
-    - Fails: Missing route lease, unsupported route outcome, duplicate event, or behavior-change overclaim -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_route_compliance` into
+    the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -5838,13 +5585,11 @@ def validate_route_compliance(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 def validate_route_compliance_audit_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Checks route-compliance audit policy before route rows are treated as public evidence.
-    - Guarantee: A pass preserves no-private-state, no-live-mutation, no-release, and no-behavior-certification ceilings.
-    - Fails: Missing policy, widened permission, absent anti-claim, or unsupported live route authority -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_route_compliance_audit_policy`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     policy = payload if isinstance(payload, dict) else {}
@@ -5903,13 +5648,11 @@ def validate_route_compliance_expected_summary(
     route_result: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Binds route-compliance summary counts to the rerun route result.
-    - Guarantee: Passing summary values match validated rows and expected negative-case classifications.
-    - Fails: Count mismatch, missing quarantine/pass total, stale expected code, or unsupported behavior claim -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_route_compliance_expected_summary`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     expected = payload if isinstance(payload, dict) else {}
@@ -5982,13 +5725,10 @@ def validate_route_compliance_expected_summary(
 
 def _span_from_trace_analytics_row(module: Any, row: dict[str, Any], *, session_id: str, index: int) -> Any:
     """
-    [ACTION]
-    - Teleology: Implements `_span_from_trace_analytics_row` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute span from trace analytics row from `module`, `row`, `session_id`, and `index`.
+
+    Inputs are `module`, `row`, `session_id`, and `index`; notable helpers are `setdefault`
+    and `Span`.
     """
     field_names = set(getattr(module.Span, "__dataclass_fields__", {}))
     payload = {field: row[field] for field in field_names if field in row}
@@ -6007,13 +5747,12 @@ def _span_from_trace_analytics_row(module: Any, row: dict[str, Any], *, session_
 
 def _has_nonempty_forbidden_key(payload: object, forbidden_keys: set[str]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_nonempty_forbidden_key` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has nonempty forbidden key holds for the organs agent route observability
+    runtime flow.
+
+    The result is derived from `payload` and `forbidden_keys` with `items` and
+    `_has_nonempty_forbidden_key`; failing evidence is returned or raised exactly where the
+    body says so.
     """
     if isinstance(payload, dict):
         for key, value in payload.items():
@@ -6028,13 +5767,10 @@ def _has_nonempty_forbidden_key(payload: object, forbidden_keys: set[str]) -> bo
 
 def _kernel_flags_from_command(command: str) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_kernel_flags_from_command` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Derive kernel flags from command without touching module import state.
+
+    Inputs are `command`; notable helpers are `split`, `startswith`, `replace`, and
+    `append`.
     """
     flags: list[str] = []
     for token in command.replace('"', " ").replace("'", " ").split():
@@ -6045,13 +5781,10 @@ def _kernel_flags_from_command(command: str) -> list[str]:
 
 def _target_paths_from_command(command: str) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_target_paths_from_command` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Derive target paths from command without touching module import state.
+
+    Inputs are `command`; notable helpers are `split`, `rstrip`, `replace`, `append`, and 1
+    more.
     """
     paths: list[str] = []
     for token in command.replace('"', " ").replace("'", " ").split():
@@ -6072,13 +5805,11 @@ def _span_payload_from_structurer_command(
     index: int,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_span_payload_from_structurer_command` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._span_payload_from_structurer_command`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     command = str(row.get("normalized_command") or row.get("command") or "")
     is_kernel_shape = command.startswith("./repo-python kernel.py") or command.startswith(
@@ -6126,13 +5857,11 @@ def _spans_from_agent_trace_structurer_payload(
     findings: list[dict[str, Any]],
 ) -> list[Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_spans_from_agent_trace_structurer_payload` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return spans from agent trace structurer payload for the organs agent route
+    observability runtime flow.
+
+    Inputs are `module`, `session`, `session_id`, and `findings`; notable helpers are
+    `_has_nonempty_forbidden_key`, `get`, `_rows`, `append`, and 3 more.
     """
     payload = (
         session.get("agent_trace_structurer_clip")
@@ -6187,13 +5916,11 @@ def _spans_from_agent_trace_structurer_payload(
 
 def _real_trace_route_state_claim(session_row: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_real_trace_route_state_claim` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._real_trace_route_state_claim`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     route_compliance = (
         session_row.get("route_compliance")
@@ -6236,13 +5963,11 @@ def _spans_from_real_trace_receipt(
     findings: list[dict[str, Any]],
 ) -> tuple[list[Any], dict[str, Any] | None]:
     """
-    [ACTION]
-    - Teleology: Implements `_spans_from_real_trace_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return spans from real trace receipt for the organs agent route observability runtime
+    flow.
+
+    Inputs are `module`, `receipt`, `session_id`, and `findings`; notable helpers are
+    `items`, `next`, `_real_trace_route_state_claim`, `_stable_hash`, and 11 more.
     """
     if str(receipt.get("schema_version") or "") != REAL_TRACE_RECEIPT_SCHEMA_VERSION:
         findings.append(
@@ -6463,13 +6188,11 @@ def validate_route_trace_analytics(
     payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Validates trace-analytics spans as public navigation evidence with bounded source and receipt references.
-    - Guarantee: Passing spans resolve required source artifacts, route ids, timing envelopes, and no raw transcript fields.
-    - Fails: Malformed span, missing source artifact, forbidden nonempty key, unresolved receipt, or private payload leak -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_route_trace_analytics`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     fixture = payload if isinstance(payload, dict) else {}
@@ -6739,13 +6462,10 @@ def validate_route_trace_analytics(
 
 def validate_hook_shadow(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Tests hook-shadow intervention coverage as a replayable fixture rather than proof that hooks are live.
-    - Guarantee: Passing rows cover required negative cases and keep shadow intervention receipts bounded to public metadata.
-    - Fails: Missing expected case, banned command displacement, live-state read, or unsupported hook authority -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_route_observability_runtime.validate_hook_shadow`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -6963,13 +6683,11 @@ def validate_hook_shadow(payload: object) -> dict[str, Any]:
 
 def validate_debt_retirement(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Checks route-debt retirement evidence names both the old anti-pattern and the replacement route.
-    - Guarantee: Each accepted debt row has a stable id, retired/residual state, and receipt-backed replacement.
-    - Fails: Missing debt id, absent replacement, unsupported clean claim, or private evidence handle -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_debt_retirement` into
+    the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "debt_rows")
     decisions: list[dict[str, Any]] = []
@@ -7011,13 +6729,11 @@ def validate_debt_retirement(payload: object) -> dict[str, Any]:
 
 def validate_route_lease_mode_control(rows: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Verifies route leases encode when direct action is allowed and when kernel reentry is required.
-    - Guarantee: Passing leases carry invalidation inputs, bounded budgets, permitted actions, and banned route evidence.
-    - Fails: Missing lease mode, broad kernel bloat allowance, stale invalidation field, or unsourced direct-action permission -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_route_lease_mode_control`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -7112,13 +6828,11 @@ def validate_route_lease_mode_control(rows: list[dict[str, Any]]) -> dict[str, A
 
 def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Confirms the agent-principle lens is a bounded projection over selected principles, not a new doctrine authority.
-    - Guarantee: A pass preserves selected ids, source refs, route authority, and omission receipts.
-    - Fails: Missing principle ids, source-ref drift, unbounded authority claim, or private state reference -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_agent_principle_lens`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     lens = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -7286,13 +7000,9 @@ def validate_agent_principle_lens(payload: object) -> dict[str, Any]:
 
 def _derive_egress_decision(row: dict[str, Any]) -> tuple[bool, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_derive_egress_decision` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive derive egress decision without touching module import state.
+
+    Inputs are `row`; notable helpers are `_strings` and `get`.
     """
     detector_id = str(row.get("detector_id") or "")
     labels = set(_strings(row.get("matched_phrase_labels")))
@@ -7326,13 +7036,11 @@ def _derive_egress_decision(row: dict[str, Any]) -> tuple[bool, str]:
 
 def validate_egress_mirror(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Checks the egress mirror receipt that keeps stop-hook and public-release boundaries visible.
-    - Guarantee: Passing rows prove no send/share/ACL/upload authority is granted by this replay and violations would be surfaced.
-    - Fails: Missing egress verdict, broadened permission, absent blocker, or raw private body export -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_egress_mirror` into
+    the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     mirror = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -7418,13 +7126,9 @@ def validate_egress_mirror(payload: object) -> dict[str, Any]:
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return merge observed for `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `results`; notable helpers are `defaultdict`, `items`, `get`, and `add`.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -7436,13 +7140,10 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_paths: list[str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_common_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_route_observability_runtime._common_receipt` into
+    the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     scan_key = "private_state_scan" if "private_state_scan" in result else "secret_exclusion_scan"
     return {
@@ -7472,13 +7173,9 @@ def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_path
 
 def _without_common_keys(payload: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_without_common_keys` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return without common keys for the organs agent route observability runtime flow.
+
+    Inputs are `payload`; notable helpers are `items`.
     """
     return {
         key: value
@@ -7489,13 +7186,11 @@ def _without_common_keys(payload: dict[str, Any]) -> dict[str, Any]:
 
 def _relative_receipt_paths(paths: dict[str, Path], display_root: Path) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_relative_receipt_paths` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return relative receipt paths for
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `paths` and `display_root`; notable helpers are `public_relative_path` and
+    `values`.
     """
     return [public_relative_path(path, display_root=display_root) for path in paths.values()]
 
@@ -7507,13 +7202,10 @@ def write_receipts(
     public_root: str | Path,
 ) -> dict[str, str]:
     """
-    [ACTION]
-    - Teleology: Persists validation evidence as navigable public receipts.
-    - Guarantee: Writes the expected receipt set atomically and returns normalized public-relative receipt paths.
-    - Fails: Missing result section, unwritable output directory, or receipt path outside the public root -> exception or validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write receipts for the organs agent route observability runtime flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -7600,13 +7292,11 @@ def _write_observability_bundle_receipt(
     public_root: str | Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_write_observability_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write observability bundle receipt for the organs agent route observability
+    runtime flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -7677,13 +7367,11 @@ def _write_route_compliance_audit_bundle_receipt(
     public_root: str | Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_write_route_compliance_audit_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write route compliance audit bundle receipt for the organs agent route
+    observability runtime flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -7771,13 +7459,11 @@ def _write_session_attribution_bundle_receipt(
     public_root: str | Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_write_session_attribution_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write session attribution bundle receipt for the organs agent route observability
+    runtime flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -7846,13 +7532,11 @@ def _write_harness_configuration_audit_bundle_receipt(
     public_root: str | Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_write_harness_configuration_audit_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write harness configuration audit bundle receipt for the organs agent route
+    observability runtime flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -7925,13 +7609,11 @@ def _write_multi_agent_fanin_bundle_receipt(
     public_root: str | Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_write_multi_agent_fanin_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write multi agent fanin bundle receipt for the organs agent route observability
+    runtime flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -8006,13 +7688,11 @@ def _write_bridge_dispatch_yield_resume_bundle_receipt(
     public_root: str | Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_write_bridge_dispatch_yield_resume_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write bridge dispatch yield resume bundle receipt for the organs agent route
+    observability runtime flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -8086,13 +7766,11 @@ def _write_controller_heartbeat_bundle_receipt(
     public_root: str | Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_write_controller_heartbeat_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write controller heartbeat bundle receipt for the organs agent route observability
+    runtime flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -8187,13 +7865,11 @@ def _write_agent_trace_route_repair_bundle_receipt(
     public_root: str | Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_write_agent_trace_route_repair_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write agent trace route repair bundle receipt for the organs agent route
+    observability runtime flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -8273,13 +7949,11 @@ def _write_agent_observability_store_bundle_receipt(
     public_root: str | Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_write_agent_observability_store_bundle_receipt` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write agent observability store bundle receipt for the organs agent route
+    observability runtime flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -8363,13 +8037,11 @@ def run_observability_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Runs the full observability replay bundle from public fixture inputs to receipts and result card data.
-    - Guarantee: A pass means all core observability inputs, manifests, policies, private-state scans, and receipt writes succeeded within the claim ceiling.
-    - Fails: Missing fixture, strict JSON error, source-manifest drift, private-state finding, or receipt write failure -> failed result envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run observability bundle for the organs agent route observability runtime flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `_public_root_for_path`, `_load_observability_bundle`,
+    `_scan_bundle_inputs`, and 25 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -8597,13 +8269,12 @@ def run_route_compliance_audit_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reruns the route-compliance audit bundle as an inspectable public evidence package.
-    - Guarantee: A pass binds route rows, policies, source manifests, summaries, and receipts to deterministic fixture inputs.
-    - Fails: Missing input, JSON parse failure, source drift, summary mismatch, or private-state scan failure -> failed result envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the run route compliance audit bundle value used by
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `Path`,
+    `_public_root_for_path`, `_load_route_compliance_audit_bundle`,
+    `_scan_route_compliance_audit_inputs`, and 17 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -8871,13 +8542,11 @@ def run_session_attribution_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reruns public session-attribution metadata without reading live agent session logs.
-    - Guarantee: A pass writes receipt evidence proving attribution output derives from synthetic AgentTraceStore and Work Ledger inputs.
-    - Fails: Missing fixture, source-manifest drift, raw transcript/body field, or summary mismatch -> failed result envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run session attribution bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `Path`,
+    `_public_root_for_path`, `_load_session_attribution_bundle`,
+    `_scan_session_attribution_inputs`, and 23 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -9075,13 +8744,12 @@ def run_harness_configuration_audit_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reruns the harness-configuration audit over public synthetic settings, hook, and skill-registry metadata.
-    - Guarantee: A pass writes receipt evidence for configuration-shape drift without exporting live settings or hook bodies.
-    - Fails: Missing fixture, forbidden body field, source-manifest drift, or expected-summary mismatch -> failed result envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the run harness configuration audit bundle value used by
+    `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `Path`,
+    `_public_root_for_path`, `_load_harness_configuration_audit_bundle`,
+    `_scan_harness_configuration_audit_inputs`, and 16 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -9256,13 +8924,11 @@ def run_multi_agent_fanin_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reruns multi-agent fan-in evidence as public conductor metadata, not live worker dispatch.
-    - Guarantee: A pass proves packet and worker summaries are source-backed, disjoint-scope-aware, and transcript-body-free.
-    - Fails: Missing fixture, conflicting worker scope, source drift, raw worker transcript, or summary mismatch -> failed result envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run multi agent fanin bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `Path`,
+    `_public_root_for_path`, `_load_multi_agent_fanin_bundle`,
+    `_scan_multi_agent_fanin_inputs`, and 19 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -9493,13 +9159,12 @@ def run_bridge_dispatch_yield_resume_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reruns bridge dispatch yield/resume evidence from public fixture metadata.
-    - Guarantee: A pass writes receipt evidence that resume targets, wait kinds, and source refs are bounded and reproducible.
-    - Fails: Missing fixture, malformed resume target, source-manifest drift, or private worker payload -> failed result envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute run bridge dispatch yield resume bundle from `input_dir`, `out_dir`, and
+    `command`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `Path`,
+    `_public_root_for_path`, `_load_bridge_dispatch_yield_resume_bundle`,
+    `_scan_bridge_dispatch_yield_resume_inputs`, and 15 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -9685,13 +9350,11 @@ def run_controller_heartbeat_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reruns controller-heartbeat evidence as a public metadata replay.
-    - Guarantee: A pass proves heartbeat rows, dedupe behavior, authority ceiling, and receipt references are source-backed.
-    - Fails: Missing fixture, heartbeat schema drift, source drift, or live-control overclaim -> failed result envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run controller heartbeat bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `Path`,
+    `_public_root_for_path`, `_load_controller_heartbeat_bundle`,
+    `_scan_controller_heartbeat_inputs`, and 15 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -9886,13 +9549,11 @@ def run_agent_trace_route_repair_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reruns agent-trace-to-route-repair evidence as public route correction metadata.
-    - Guarantee: A pass binds repair rows to source refs, trace evidence, policy ceilings, and receipt outputs.
-    - Fails: Missing fixture, behavior-repair overclaim, source drift, or private trace body -> failed result envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run agent trace route repair bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `Path`,
+    `_public_root_for_path`, `load_public_agent_trace_route_repair_bundle`,
+    `read_json_strict`, and 16 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -10093,13 +9754,11 @@ def run_agent_observability_store_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reruns observability-store evidence over public trace-store metadata.
-    - Guarantee: A pass proves store emissions, gap rows, summaries, and source refs are reproducible without raw trace bodies.
-    - Fails: Missing fixture, forbidden payload key, source drift, or summary mismatch -> failed result envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute run agent observability store bundle from `input_dir`, `out_dir`, and `command`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `Path`,
+    `_public_root_for_path`, `load_public_agent_observability_store_bundle`,
+    `read_json_strict`, and 16 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -10309,13 +9968,11 @@ def validate_computer_use_source_manifest(
     manifest_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Confirms computer-use replay imports the intended public trace standard and agent-execution source body.
-    - Guarantee: Passing manifest rows resolve expected refs, hashes, and copied public bodies for the synthetic computer-use fixture.
-    - Fails: Missing source, hash drift, wrong target ref, or raw screenshot/body export -> validation finding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime.validate_computer_use_source_manifest`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     manifest = manifest_payload if isinstance(manifest_payload, dict) else {}
@@ -10545,26 +10202,20 @@ def validate_computer_use_source_manifest(
 
 def _computer_use_action_ids(rows: list[dict[str, Any]]) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_computer_use_action_ids` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return computer use action IDs for the organs agent route observability runtime flow.
+
+    Inputs are `rows`; notable helpers are `get`.
     """
     return {str(row.get("action_id")) for row in rows if row.get("action_id")}
 
 
 def _validate_computer_use_projection_protocol(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_computer_use_projection_protocol` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._validate_computer_use_projection_protocol`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     protocol = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -10638,13 +10289,11 @@ def _validate_computer_use_projection_protocol(payload: object) -> dict[str, Any
 
 def _validate_computer_use_interaction_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_computer_use_interaction_policy` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._validate_computer_use_interaction_policy`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -10689,13 +10338,11 @@ def _validate_computer_use_interaction_policy(payload: object) -> dict[str, Any]
 
 def _validate_computer_use_episodes(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_computer_use_episodes` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, environment variables.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._validate_computer_use_episodes`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "episodes")
     findings: list[dict[str, Any]] = []
@@ -10752,13 +10399,11 @@ def _validate_computer_use_observations(
     episode_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_computer_use_observations` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._validate_computer_use_observations`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "observations")
     episode_ids = {row["episode_id"] for row in episode_rows}
@@ -10832,13 +10477,11 @@ def _validate_computer_use_actions(
     observation_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_computer_use_actions` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._validate_computer_use_actions`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "actions")
     episode_ids = {row["episode_id"] for row in episode_rows}
@@ -10924,13 +10567,11 @@ def _validate_computer_use_authority_verdicts(
     action_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_computer_use_authority_verdicts` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._validate_computer_use_authority_verdicts`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "authority_verdicts")
     action_by_id = {row["action_id"]: row for row in action_rows}
@@ -11018,13 +10659,11 @@ def _validate_computer_use_state_transitions(
     verdict_by_id: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_computer_use_state_transitions` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._validate_computer_use_state_transitions`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "state_transitions")
     action_by_id = {row["action_id"]: row for row in action_rows}
@@ -11119,13 +10758,11 @@ def _validate_computer_use_recovery_receipts(
     verdict_by_id: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_computer_use_recovery_receipts` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._validate_computer_use_recovery_receipts`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "recovery_receipts")
     recovery_refs = {
@@ -11197,13 +10834,11 @@ def _validate_computer_use_cold_replay(
     action_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_computer_use_cold_replay` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._validate_computer_use_cold_replay`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "cold_replay")
     action_ids = _computer_use_action_ids(action_rows)
@@ -11280,29 +10915,21 @@ def _validate_computer_use_negative_cases(
     payloads: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_computer_use_negative_cases` for `microcosm_core.organs.agent_route_observability_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_route_observability_runtime._validate_computer_use_negative_cases`
+    into the payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
 
     def record(case_id: str, code: str, message: str, subject_id: str) -> None:
         """
-        [ACTION]
-        - Teleology: Records one synthetic computer-use negative-case finding
-          under a stable fixture case id.
-        - Guarantee: Updates both finding rows and observed-code coverage so
-          expected negative-case checks remain deterministic.
-        - Fails: None; malformed caller values are preserved as finding payload
-          strings and checked by the enclosing validator.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Record record for the organs agent route observability runtime flow.
+
+        The side effect is the explicit file, receipt, parser, print, or instance-state
+        update performed in this function.
         """
         _record(
             findings,
@@ -11395,13 +11022,12 @@ def run_computer_use_action_trace_bundle(
     include_negative: bool | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reruns the synthetic computer-use action trace fixture from observation through authority verdict, replay, recovery, and receipts.
-    - Guarantee: A pass proves the trace is inspectable, source-backed, negative-case-covered, and explicitly not live browser control.
-    - Fails: Missing fixture, malformed trace row, source drift, forbidden live action, or expected negative-case mismatch -> failed result envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Compute run computer use action trace bundle from `input_dir`, `out_dir`, `command`, and
+    `include_negative`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `include_negative`; notable helpers
+    are `Path`, `_public_root_for_path`, `_load_computer_use_action_trace_bundle`,
+    `_scan_computer_use_action_trace_inputs`, and 25 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -11668,13 +11294,10 @@ def run_computer_use_action_trace_bundle(
 
 def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Provides the default organ entrypoint for the observability runtime replay.
-    - Guarantee: Delegates to the observability bundle runner and returns its claim-bounded validation envelope.
-    - Fails: Any observability-bundle validation failure or receipt write failure -> failed result envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the run value used by `microcosm_core.organs.agent_route_observability_runtime`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `Path`,
+    `_public_root_for_path`, `_load_inputs`, `_scan_fixture_inputs`, and 23 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -11821,13 +11444,10 @@ def run(input_dir: str | Path, out_dir: str | Path, command: str | None = None) 
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Compresses a full validation result into a package-local start card for humans and coding agents.
-    - Guarantee: Returns status, claim ceiling, receipt paths, omitted payload keys, and next validation handles without embedding full findings.
-    - Fails: Missing optional fields degrade to empty card fields; absent noncritical result sections do not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_route_observability_runtime.result_card` into the
+    payload shape expected by organs agent route observability runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     freshness_payload = result.get("freshness_basis")
     freshness = freshness_payload if isinstance(freshness_payload, dict) else {}
@@ -11927,13 +11547,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Exposes the organ replay as a command-line validator for local package inspection.
-    - Guarantee: Parses input/output paths, runs the selected replay mode, prints JSON, and exits nonzero on failed validation.
-    - Fails: Bad arguments, missing fixture data, strict JSON errors, or failed validation -> nonzero process exit.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.agent_route_observability_runtime` as a command-line entry
+    point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="action")

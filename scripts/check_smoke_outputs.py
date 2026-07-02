@@ -15,29 +15,19 @@ BOUNDED_BODY_FLOOR_RUNTIME_MIRROR = "runtime_status"
 
 
 class SmokeCheckError(Exception):
-    """Signal that a smoke receipt violates the public smoke floor.
+    """
+    Raised when smoke Check Error fails inside `scripts.check_smoke_outputs`.
 
-    - Teleology: carry one operator-readable reason from the receipt checker to
-      the CLI failure path.
-    - Guarantee: callers can catch this type without catching unrelated JSON,
-      filesystem, or subprocess exceptions.
-    - Fails: it never repairs receipts, regenerates smoke output, or broadens a
-      failed card into release authority.
-    - Non-goal: representing internal parser bugs or package-install failures.
+    The dedicated type lets callers catch that failure without masking the original message.
     """
 
 
 def _read_json(path: Path) -> dict[str, Any]:
-    """Read one required smoke JSON receipt as a top-level object.
+    """
+    Read read JSON for `scripts.check_smoke_outputs`.
 
-    - Teleology: turn a named `.microcosm/smoke/*.json` card into the object
-      shape used by the authority, workingness, status, and first-action checks.
-    - Guarantee: returns only a non-empty JSON object decoded with UTF-8.
-    - Fails: raises `SmokeCheckError` when the file is missing, empty, invalid
-      JSON, or a JSON scalar/list instead of an object.
-    - Reads: exactly `path`.
-    - Writes: nothing.
-    - Non-goal: validating the receipt's semantic fields.
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     if not path.is_file():
         raise SmokeCheckError(f"{path.name}: missing required smoke receipt")
@@ -56,17 +46,11 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 
 def _read_text(path: Path) -> str:
-    """Read one required text receipt and reject blank smoke output.
+    """
+    Read read text for `scripts.check_smoke_outputs`.
 
-    - Teleology: load the `hello.txt` and `version.txt` smoke anchors before
-      their exact first-screen and version-prefix assertions.
-    - Guarantee: returns stripped UTF-8 text with at least one non-whitespace
-      character.
-    - Fails: raises `SmokeCheckError` when the file is missing or empty after
-      stripping.
-    - Reads: exactly `path`.
-    - Writes: nothing.
-    - Non-goal: parsing card JSON or interpreting free-form text.
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     if not path.is_file():
         raise SmokeCheckError(f"{path.name}: missing required smoke receipt")
@@ -77,18 +61,11 @@ def _read_text(path: Path) -> str:
 
 
 def _expect_status(payload: dict[str, Any], *, name: str, status: str = "pass") -> None:
-    """Require a card-level status value, with route blockers attached.
+    """
+    Run expect status for `scripts.check_smoke_outputs`.
 
-    - Teleology: enforce that ordinary smoke cards report `status=pass` before
-      downstream checks trust their public-floor fields.
-    - Guarantee: returns `None` only when `payload["status"]` equals the
-      expected status string.
-    - Fails: raises `SmokeCheckError` with blocking surface ids, detail refs,
-      and next-command hints when the status differs.
-    - Reads: `status`, optional blocker fields, and optional `next_commands`.
-    - Writes: nothing.
-    - Non-goal: accepting bounded body-floor blocks; that belongs to
-      `_expect_status_or_bounded_body_floor`.
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     actual = payload.get("status")
     if actual != status:
@@ -99,18 +76,10 @@ def _expect_status(payload: dict[str, Any], *, name: str, status: str = "pass") 
 
 
 def _diagnostic_suffix(payload: dict[str, Any]) -> str:
-    """Render the actionable blocker tail for a failed card status.
+    """
+    Compute diagnostic suffix from `payload`.
 
-    - Teleology: keep smoke-check failures actionable without printing whole
-      public cards or source-body-like payloads.
-    - Guarantee: returns `""` when no compact diagnostic exists, otherwise a
-      suffix beginning with `"; "` that names up to five blocker ids, three
-      blocker detail rows, and three next commands.
-    - Fails: malformed blocker/detail fields are ignored rather than raised so
-      the original status failure remains the primary error.
-    - Reads: top-level blocker fields, `front_door_status`, and `next_commands`.
-    - Writes: nothing.
-    - Non-goal: proving a blocker is acceptable.
+    Inputs are `payload`; notable helpers are `get`, `join`, and `append`.
     """
     parts: list[str] = []
     blocking_surface_ids = payload.get("blocking_surface_ids")
@@ -156,17 +125,10 @@ def _diagnostic_suffix(payload: dict[str, Any]) -> str:
 
 
 def _blocking_surface_ids(payload: dict[str, Any]) -> list[str]:
-    """Collect normalized blocker ids from the card or its front-door mirror.
+    """
+    Derive blocking surface IDs without touching module import state.
 
-    - Teleology: give bounded body-floor checks a narrow blocker-id set instead
-      of trusting a broad `blocked` card status.
-    - Guarantee: returns non-empty string ids from `blocking_surface_ids`, using
-      `front_door_status.blocking_surface_ids` as the fallback mirror.
-    - Fails: malformed or absent blocker lists collapse to `[]` rather than
-      raising.
-    - Reads: `blocking_surface_ids` and `front_door_status.blocking_surface_ids`.
-    - Writes: nothing.
-    - Non-goal: checking blocker detail payloads.
+    Inputs are `payload`; notable helpers are `get`.
     """
     blocking_surface_ids = payload.get("blocking_surface_ids")
     if not blocking_surface_ids:
@@ -179,33 +141,21 @@ def _blocking_surface_ids(payload: dict[str, Any]) -> list[str]:
 
 
 def _falseish(payload: dict[str, Any], *keys: str) -> bool:
-    """Return whether every named top-level authority flag is exactly false.
+    """
+    Return whether falseish holds for the scripts check smoke outputs flow.
 
-    - Teleology: support bounded body-floor predicates that must deny release,
-      provider calls, and source mutation with literal booleans.
-    - Guarantee: returns `True` only when every requested top-level key is
-      present as `False`.
-    - Fails: missing keys, truthy values, `None`, `0`, and empty strings all
-      return `False`.
-    - Reads: the named top-level keys.
-    - Writes: nothing.
-    - Non-goal: raising a user-facing receipt error.
+    The result is derived from `payload` and `keys` with `get`; failing evidence is returned
+    or raised exactly where the body says so.
     """
     return all(payload.get(key) is False for key in keys)
 
 
 def _authority_ceiling_false(payload: dict[str, Any], *keys: str) -> bool:
-    """Return whether `authority_ceiling` denies each named capability.
+    """
+    Return whether authority ceiling false holds for the scripts check smoke outputs flow.
 
-    - Teleology: keep body-floor and authority-card acceptance tied to the
-      explicit public authority ceiling, not scattered top-level flags alone.
-    - Guarantee: returns `True` only when `authority_ceiling` is an object and
-      every requested key is literally `False`.
-    - Fails: absent ceilings, non-object ceilings, missing keys, or false-like
-      non-booleans return `False`.
-    - Reads: `authority_ceiling`.
-    - Writes: nothing.
-    - Non-goal: raising the detailed `authority_ceiling.<key>` failure message.
+    The result is derived from `payload` and `keys` with `get`; failing evidence is returned
+    or raised exactly where the body says so.
     """
     authority_ceiling = payload.get("authority_ceiling")
     if not isinstance(authority_ceiling, dict):
@@ -218,21 +168,13 @@ def _is_bounded_body_floor_status(
     *,
     name: str,
 ) -> bool:
-    """Accept only the documented compact body-import-floor block.
+    """
+    Return whether is bounded body floor status holds for the scripts check smoke outputs
+    flow.
 
-    - Teleology: let smoke stay green when the known macro body import floor is
-      safely blocked while release, provider, mutation, and correctness
-      authority remain denied.
-    - Guarantee: returns `True` only for the exact blocked shapes accepted for
-      `tour-card.json`, `status-card.json`, `authority-card.json`, or
-      `served-status-card.json`.
-    - Fails: any pass status, unknown card name, missing blocker ids, missing
-      full-status/full-defects refs, non-pass observatory surfaces, private path
-      hits, or authority leakage returns `False`.
-    - Reads: card status, blocker ids/details, safe-to-show flags, surface
-      counts, observatory fields, private path counters, and authority ceilings.
-    - Writes: nothing.
-    - Non-goal: accepting arbitrary blocked receipts.
+    The result is derived from `payload` and `name` with `get`, `_blocking_surface_ids`,
+    `_authority_ceiling_false`, and `_falseish`; failing evidence is returned or raised
+    exactly where the body says so.
     """
 
     if payload.get("status") != "blocked":
@@ -334,19 +276,13 @@ def _expect_status_or_bounded_body_floor(
     *,
     name: str,
 ) -> bool:
-    """Accept a passing card or the documented body-import-floor block.
+    """
+    Return whether expect status or bounded body floor holds for the scripts check smoke
+    outputs flow.
 
-    - Teleology: centralize the only non-pass card status that the smoke checker
-      can treat as bounded and safe.
-    - Guarantee: returns `False` for an ordinary pass receipt and `True` for an
-      accepted macro body-floor block.
-    - Fails: any other non-pass status raises through `_expect_status` with the
-      card's blocker diagnostics.
-    - Reads: card status plus the body-floor fields read by
-      `_is_bounded_body_floor_status`.
-    - Writes: nothing.
-    - Non-goal: recording which receipt was bounded; the caller appends the
-      receipt name.
+    The result is derived from `payload` and `name` with `_is_bounded_body_floor_status`,
+    `_expect_status`, and `get`; failing evidence is returned or raised exactly where the
+    body says so.
     """
     if payload.get("status") == "pass":
         return False
@@ -357,16 +293,11 @@ def _expect_status_or_bounded_body_floor(
 
 
 def _expect_object(payload: dict[str, Any], *, name: str, key: str) -> dict[str, Any]:
-    """Fetch a required nested card object without accepting scalar mirrors.
+    """
+    Return expect object for the scripts check smoke outputs flow.
 
-    - Teleology: make nested smoke-card checks fail at the missing object rather
-      than later on a vague attribute lookup.
-    - Guarantee: returns `payload[key]` only when it is a dictionary.
-    - Fails: raises `SmokeCheckError` naming the card and missing object key for
-      absent, scalar, list, or boolean values.
-    - Reads: one top-level key from the provided payload.
-    - Writes: nothing.
-    - Non-goal: validating fields inside the returned object.
+    Inputs are `payload`, `name`, and `key`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
     """
 
     actual = payload.get(key)
@@ -382,16 +313,11 @@ def _expect_false(
     key: str,
     source: str | None = None,
 ) -> None:
-    """Require a top-level public authority flag to be exactly false.
+    """
+    Run expect false for `scripts.check_smoke_outputs`.
 
-    - Teleology: enforce release, provider-call, and unsafe-body-export denials
-      on served status, authority, legibility, and stripping-guard receipts.
-    - Guarantee: returns `None` only when the named field is literally `False`.
-    - Fails: raises `SmokeCheckError` for missing fields, truthy values, `None`,
-      `0`, empty strings, or any other false-like non-boolean.
-    - Reads: one top-level key from the provided payload.
-    - Writes: nothing.
-    - Non-goal: checking nested `authority_ceiling` fields.
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     actual = payload.get(key)
     if actual is not False:
@@ -406,16 +332,11 @@ def _expect_nested_false(
     object_key: str,
     key: str,
 ) -> None:
-    """Require a nested safe-to-show or observatory flag to be exactly false.
+    """
+    Run expect nested false for `scripts.check_smoke_outputs`.
 
-    - Teleology: keep proof correctness, release, provider calls, and source
-      mutation denied inside nested `safe_to_show` and observatory mirrors.
-    - Guarantee: returns `None` only when `payload[object_key][key] is False`.
-    - Fails: raises `SmokeCheckError` when the parent object is missing or when
-      the nested value is absent, truthy, or merely false-like.
-    - Reads: `object_key` and the nested `key`.
-    - Writes: nothing.
-    - Non-goal: accepting top-level flags.
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
 
     parent = _expect_object(payload, name=name, key=object_key)
@@ -432,18 +353,11 @@ def _expect_authority_false(
     name: str,
     key: str,
 ) -> None:
-    """Require `authority_ceiling.<key>` to deny the claimed capability.
+    """
+    Run expect authority false for `scripts.check_smoke_outputs`.
 
-    - Teleology: bind proof-lab, authority, and workingness smoke passes to the
-      public ceiling that denies release, provider calls, mutation, and proof
-      authority.
-    - Guarantee: returns `None` only when `authority_ceiling` is an object and
-      the requested key is literally `False`.
-    - Fails: raises `SmokeCheckError` for a missing ceiling object or any
-      non-false value at the requested ceiling key.
-    - Reads: `authority_ceiling`.
-    - Writes: nothing.
-    - Non-goal: accepting top-level aliases for authority fields.
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     authority_ceiling = payload.get("authority_ceiling")
     if not isinstance(authority_ceiling, dict):
@@ -461,16 +375,11 @@ def _expect_nonnegative_int(
     name: str,
     key: str,
 ) -> int:
-    """Read a receipt counter that may be zero but cannot be bool or negative.
+    """
+    Produce the expect nonnegative int value used by `scripts.check_smoke_outputs`.
 
-    - Teleology: validate private-path hit counters and other public smoke
-      counts before comparing them to the floor.
-    - Guarantee: returns an `int` greater than or equal to zero.
-    - Fails: raises `SmokeCheckError` for missing, boolean, negative, float,
-      string, or null values.
-    - Reads: one top-level counter key.
-    - Writes: nothing.
-    - Non-goal: checking `surface_counts`; use `_surface_count` for that map.
+    Inputs are `payload`, `name`, and `key`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
     """
 
     actual = payload.get(key)
@@ -485,17 +394,11 @@ def _expect_positive_surface_count(
     name: str,
     key: str,
 ) -> int:
-    """Read a required positive count from `surface_counts`.
+    """
+    Compute expect positive surface count from `payload`, `name`, and `key`.
 
-    - Teleology: prove the authority card contains at least one organ authority
-      row instead of a vacuous zero-count receipt.
-    - Guarantee: returns a positive non-boolean integer from
-      `surface_counts[key]`.
-    - Fails: raises `SmokeCheckError` for a missing `surface_counts` object,
-      missing key, boolean, zero, negative, or non-integer value.
-    - Reads: `surface_counts`.
-    - Writes: nothing.
-    - Non-goal: comparing against an exact expected count.
+    Inputs are `payload`, `name`, and `key`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
     """
     surface_counts = payload.get("surface_counts")
     if not isinstance(surface_counts, dict):
@@ -515,18 +418,11 @@ def _expect_surface_count(
     key: str,
     expected: int,
 ) -> int:
-    """Require an exact `surface_counts` value for a smoke floor counter.
+    """
+    Produce the expect surface count value used by `scripts.check_smoke_outputs`.
 
-    - Teleology: enforce zero-missing workingness counters such as
-      `missing_standard_count` and `missing_failure_modes_count`.
-    - Guarantee: returns the expected integer only when the receipt value equals
-      it exactly.
-    - Fails: raises `SmokeCheckError` for a missing `surface_counts` object or
-      any value that differs from `expected`.
-    - Reads: `surface_counts`.
-    - Writes: nothing.
-    - Non-goal: rejecting booleans separately when they do not equal the
-      expected value.
+    Inputs are `payload`, `name`, `key`, and `expected`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
     """
 
     surface_counts = payload.get("surface_counts")
@@ -541,17 +437,11 @@ def _expect_surface_count(
 
 
 def _surface_count(payload: dict[str, Any], *, name: str, key: str) -> int:
-    """Read a nonnegative integer from `surface_counts`.
+    """
+    Compute surface count from `payload`, `name`, and `key`.
 
-    - Teleology: extract workingness and authority counters after proving they
-      are real numeric counts.
-    - Guarantee: returns a nonnegative non-boolean integer from
-      `surface_counts[key]`.
-    - Fails: raises `SmokeCheckError` for a missing map, missing key, boolean,
-      negative, or non-integer value.
-    - Reads: `surface_counts`.
-    - Writes: nothing.
-    - Non-goal: enforcing positivity or exact equality.
+    Inputs are `payload`, `name`, and `key`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
     """
     surface_counts = payload.get("surface_counts")
     if not isinstance(surface_counts, dict):
@@ -565,17 +455,11 @@ def _surface_count(payload: dict[str, Any], *, name: str, key: str) -> int:
 
 
 def _preview_count(payload: dict[str, Any], *, name: str, key: str) -> int:
-    """Read a nonnegative `count` from a compact preview object.
+    """
+    Compute preview count from `payload`, `name`, and `key`.
 
-    - Teleology: validate the workingness source-body import exception preview
-      count before adding it to the freshness signature.
-    - Guarantee: returns a nonnegative non-boolean integer from
-      `payload[key]["count"]`.
-    - Fails: raises `SmokeCheckError` when the preview object is missing or its
-      count is missing, boolean, negative, or non-integer.
-    - Reads: the named preview object.
-    - Writes: nothing.
-    - Non-goal: validating the preview status string.
+    Inputs are `payload`, `name`, and `key`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
     """
     preview = payload.get(key)
     if not isinstance(preview, dict):
@@ -587,18 +471,11 @@ def _preview_count(payload: dict[str, Any], *, name: str, key: str) -> int:
 
 
 def _workingness_import_signature(payload: dict[str, Any], *, name: str) -> dict[str, Any]:
-    """Extract the freshness signature for workingness source-body imports.
+    """
+    Serialize `scripts.check_smoke_outputs._workingness_import_signature` into the payload
+    shape expected by scripts check smoke outputs.
 
-    - Teleology: reduce the workingness card to the source-body import fields
-      that must match a live regeneration.
-    - Guarantee: returns a four-key dict containing exception count, exception
-      status, rows with source-body imports, and open body material count.
-    - Fails: raises `SmokeCheckError` when the preview object is missing, the
-      preview status is empty or non-string, or either surface count is invalid.
-    - Reads: `source_body_import_exception_preview` and two `surface_counts`
-      entries from the workingness card.
-    - Writes: nothing.
-    - Non-goal: validating unrelated workingness counters.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     preview = payload.get("source_body_import_exception_preview")
     if not isinstance(preview, dict):
@@ -631,18 +508,11 @@ def _workingness_import_signature(payload: dict[str, Any], *, name: str) -> dict
 
 
 def _live_workingness_card(root: Path = MICROCOSM_ROOT) -> dict[str, Any]:
-    """Regenerate the workingness card through the public module entrypoint.
+    """
+    Produce the live workingness card value used by `scripts.check_smoke_outputs`.
 
-    - Teleology: compare the stored smoke workingness receipt against the live
-      runtime without depending on an installed `plectis` console script.
-    - Guarantee: returns the JSON object emitted by
-      `python -m microcosm_core workingness --card` under the chosen root.
-    - Fails: raises `SmokeCheckError` when the subprocess exits nonzero, emits
-      invalid JSON, or emits a non-object JSON value.
-    - Reads: the selected Plectis root and its `src` package tree through the
-      subprocess.
-    - Writes: no files; captures subprocess stdout/stderr in memory.
-    - Non-goal: mutating receipts or running the whole smoke target.
+    Inputs are `root`; notable helpers are `copy`, `run`, `join`, `SmokeCheckError`, and 3
+    more; invalid cases raise from the explicit checks in the body.
     """
     env = os.environ.copy()
     src_path = str(root / "src")
@@ -679,20 +549,13 @@ def _live_workingness_card(root: Path = MICROCOSM_ROOT) -> dict[str, Any]:
 
 
 def _expect_workingness_import_signature_fresh(workingness: dict[str, Any]) -> dict[str, Any]:
-    """Prove the stored workingness import counters match a live card.
+    """
+    Return expect workingness import signature fresh for the scripts check smoke outputs
+    flow.
 
-    - Teleology: prevent `make smoke` from passing with a stale
-      `workingness-card.json` after source-body import counts or exception
-      status changed.
-    - Guarantee: returns the stored receipt signature only when it exactly
-      matches the live runtime signature.
-    - Fails: raises `SmokeCheckError` when the receipt signature is malformed,
-      the live card cannot be regenerated, or the two signatures differ.
-    - Reads: the stored workingness payload and a live regenerated workingness
-      card.
-    - Writes: nothing.
-    - Non-goal: deciding whether source-body imports are acceptable; it only
-      proves freshness.
+    Inputs are `workingness`; notable helpers are `_workingness_import_signature`,
+    `_live_workingness_card`, `SmokeCheckError`, and `dumps`; invalid cases raise from the
+    explicit checks in the body.
     """
     receipt_signature = _workingness_import_signature(
         workingness,
@@ -712,20 +575,12 @@ def _expect_workingness_import_signature_fresh(workingness: dict[str, Any]) -> d
 
 
 def _expect_proof_lab_status_cache_bound(status: dict[str, Any]) -> str:
-    """Verify the status card consumed the proof-lab smoke receipt.
+    """
+    Produce the expect proof lab status cache bound value used by
+    `scripts.check_smoke_outputs`.
 
-    - Teleology: bind `status-card.json` to the proof-lab smoke receipt so a
-      stale or missing cache cannot masquerade as a pass.
-    - Guarantee: returns the proof-lab cache status after confirming the cache
-      is not stale/missing, no fresh receipt is required, `proof_lab_cache`
-      reports `pass`, and the surface is not actionable.
-    - Fails: raises `SmokeCheckError` for missing nested objects, stale/missing
-      cache status, `fresh_receipt_required` not false, non-pass surface status,
-      or lingering actionable `proof_lab_cache`.
-    - Reads: `front_door.proof_lab`, `front_door_status.surface_statuses`, and
-      `front_door_status.actionable_surface_ids`.
-    - Writes: nothing.
-    - Non-goal: validating proof correctness.
+    Inputs are `status`; notable helpers are `_expect_object`, `get`, and `SmokeCheckError`;
+    invalid cases raise from the explicit checks in the body.
     """
     front_door = _expect_object(status, name="status-card.json", key="front_door")
     proof_lab = front_door.get("proof_lab")
@@ -778,21 +633,11 @@ def _expect_served_observatory_bound(
     *,
     bounded_body_floor: bool = False,
 ) -> None:
-    """Validate the served observatory mirror without granting release.
+    """
+    Run expect served observatory bound for `scripts.check_smoke_outputs`.
 
-    - Teleology: prove the served status card mirrors the public observatory
-      contract while keeping private paths and authority leakage at zero.
-    - Guarantee: returns `None` when schema, route/work/evidence/graph/state
-      surfaces, state inspection, private-path counter, and nested safe-to-show
-      denials all satisfy the compact card floor.
-    - Fails: raises `SmokeCheckError` for wrong schema, non-pass required
-      observatory surfaces, nonzero private path hits, or nested provider,
-      source-mutation, proof-correctness, or release authority.
-    - Reads: served observatory status fields, surface statuses, private path
-      counters, and `observatory_safe_to_show`.
-    - Writes: nothing.
-    - Non-goal: granting release; `bounded_body_floor=True` only relaxes the
-      top-level observatory status/card pass assertions.
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     name = "served-status-card.json"
     if (
@@ -879,22 +724,11 @@ def _expect_served_observatory_bound(
 
 
 def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
-    """Validate the complete smoke receipt set and return the summary payload.
+    """
+    Serialize `scripts.check_smoke_outputs.check_smoke_outputs` into the payload shape
+    expected by scripts check smoke outputs.
 
-    - Teleology: serve as the `make smoke` public-floor gate for first-screen,
-      status, authority, workingness, proof-lab, served observatory, stripping,
-      legibility, and first-action receipts.
-    - Guarantee: returns the exact summary counters printed by `print_summary`
-      only after every required receipt exists and all authority/private-path
-      floors hold.
-    - Fails: raises `SmokeCheckError` on missing or malformed receipts, wrong
-      status, unaccepted body-floor blocks, authority leakage, stale workingness
-      import signatures, nonzero private-path hits, or incomplete first-action
-      contracts.
-    - Reads: the selected smoke output directory.
-    - Writes: nothing.
-    - Non-goal: authorizing release, provider calls, source mutation, proof
-      correctness, or whole-system correctness.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     hello = _read_text(smoke_out / "hello.txt")
     if not hello.splitlines()[0].startswith("Plectis first screen"):
@@ -1106,18 +940,11 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
 
 
 def print_summary(summary: dict[str, Any]) -> None:
-    """Print the compact human pass card for validated smoke receipts.
+    """
+    Run print summary for `scripts.check_smoke_outputs`.
 
-    - Teleology: convert the validated smoke summary into the terminal card
-      expected by `make smoke` and CI logs.
-    - Guarantee: prints authority, workingness, served status, proof-lab,
-      first-action, body-floor, and version lines from already-validated fields.
-    - Fails: lets normal `KeyError` surface if a caller passes a non-summary
-      dict, because this function is not the validator.
-    - Reads: the summary returned by `check_smoke_outputs`.
-    - Writes: stdout only.
-    - Non-goal: revalidating receipt JSON or broadening the pass into release
-      approval.
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     print("Plectis smoke check: pass")
     print(f"receipts: {summary['smoke_out']}")
@@ -1153,18 +980,11 @@ def print_summary(summary: dict[str, Any]) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Run the smoke receipt CLI and convert contract failures to exit codes.
+    """
+    Run `scripts.check_smoke_outputs` as a command-line entry point.
 
-    - Teleology: provide the post-`make smoke` command that CI and operators
-      can call without reading each JSON receipt by hand.
-    - Guarantee: returns 0 after printing the validated summary, or returns 1
-      after printing a compact failure reason for `SmokeCheckError`.
-    - Fails: does not catch unexpected programming errors, parser construction
-      errors, or interpreter failures; those should remain visible as defects.
-    - Reads: `--smoke-out` receipts through `check_smoke_outputs`.
-    - Writes: stdout for pass summaries and stderr for smoke-floor failures.
-    - Non-goal: running smoke producers, regenerating receipts, or changing
-      project state.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(
         description="Validate Microcosm smoke receipts and print a compact pass summary.",

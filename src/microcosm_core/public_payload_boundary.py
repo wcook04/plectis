@@ -1,4 +1,12 @@
-"""Defines public payload omissions and term scans that keep private source bodies out of exported data."""
+"""
+Implements public payload boundary for the public Plectis package.
+
+Callers enter through `omitted_payload_schema_terms`, `omitted_payload_schema_term_hits`,
+and `public_payload_boundary`; constants such as `SOURCE_OPEN_BODY_POLICY`,
+`EXCLUDED_PUBLIC_PAYLOAD_CLASSES`, and `OMITTED_PAYLOAD_SCHEMA_TERM_PARTS` pin local fixture
+names; dependencies include `json` and `typing`. Importing it does not authorize release
+work or hidden private-state access; those effects live behind explicit calls.
+"""
 from __future__ import annotations
 
 import json
@@ -34,26 +42,19 @@ OMITTED_PAYLOAD_SCHEMA_TERM_PARTS: tuple[tuple[str, ...], ...] = (
 
 def omitted_payload_schema_terms() -> tuple[str, ...]:
     """
-    [ACTION]
-    - Teleology: Implements `omitted_payload_schema_terms` for `microcosm_core.public_payload_boundary` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return omitted payload schema terms for the public payload boundary flow.
+
+    Notable helpers are `join`.
     """
     return tuple("".join(parts) for parts in OMITTED_PAYLOAD_SCHEMA_TERM_PARTS)
 
 
 def omitted_payload_schema_term_hits(payload: Any) -> dict[str, int]:
     """
-    [ACTION]
-    - Teleology: Implements `omitted_payload_schema_term_hits` for `microcosm_core.public_payload_boundary` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return omitted payload schema term hits for the public payload boundary flow.
+
+    Inputs are `payload`; notable helpers are `dumps`, `omitted_payload_schema_terms`, and
+    `count`.
     """
     encoded = json.dumps(payload, sort_keys=True, default=str)
     return {
@@ -71,13 +72,10 @@ def public_payload_boundary(
     input_payload_schema_normalized: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `public_payload_boundary` for `microcosm_core.public_payload_boundary` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize the local value into the public payload boundary payload shape.
+
+    The returned mapping uses the key names consumed by downstream receipts, cards, or
+    tests.
     """
     return {
         "schema_version": "microcosm_public_payload_boundary_v1",

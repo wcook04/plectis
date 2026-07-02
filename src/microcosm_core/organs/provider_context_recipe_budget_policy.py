@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.provider_context_recipe_budget_policy` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs provider context recipe budget policy for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, CARD_SCHEMA_VERSION, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, SOURCE_PATTERN_IDS, SOURCE_REFS, SOURCE_MODULE_MANIFEST_NAME, REAL_SECTION_BODY_STATUS, EXPECTED_SOURCE_MODULES, EXPECTED_RECIPE_BUDGETS, EXPECTED_DELIVERABLES, FORBIDDEN_SECTION_IDS, FORBIDDEN_BODY_KEYS, EXPECTED_NEGATIVE_CASES, SECTION_MATERIAL_ALLOWED_SOURCE_REFS, SECTION_MATERIAL_SYNTHETIC_MARKERS, INPUT_NAMES, NEGATIVE_INPUT_NAMES, NEGATIVE_INPUT_STEMS, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, environment variables.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `result_card`, `run`, `run_budget_bundle`, and `main`; constants such
+as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `CARD_SCHEMA_VERSION`, and 23 more pin local
+fixture names; dependencies include `argparse`, `hashlib`, `importlib`, `json`, and 7 more.
+It builds public fixture, result, card, or verdict structures while keeping private
+substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -294,13 +278,9 @@ ANTI_CLAIM = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for the organs provider context recipe budget policy flow.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -316,26 +296,20 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return display for `microcosm_core.organs.provider_context_recipe_budget_policy`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.provider_context_recipe_budget_policy._rows` from `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -347,13 +321,10 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for `microcosm_core.organs.provider_context_recipe_budget_policy`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return {Path(name).stem: read_json_strict(input_dir / name) for name in names}
@@ -361,13 +332,10 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute input paths from `input_dir` and `include_negative`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file`, `append`,
+    and `_source_module_target_refs`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -381,13 +349,11 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.provider_context_recipe_budget_policy._sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -398,13 +364,9 @@ def _sha256(path: Path) -> str:
 
 def _line_count(path: Path) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_line_count` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return line count for the organs provider context recipe budget policy flow.
+
+    Inputs are `path`; notable helpers are `open`.
     """
     line_count = 0
     with path.open("r", encoding="utf-8") as handle:
@@ -415,13 +377,10 @@ def _line_count(path: Path) -> int:
 
 def _source_module_target_refs(input_dir: Path) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_refs` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute source module target refs from `input_dir`.
+
+    Inputs are `input_dir`; notable helpers are `read_json_strict`, `_rows`, `is_file`,
+    `get`, and 2 more.
     """
     manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
     if not manifest_path.is_file():
@@ -437,13 +396,11 @@ def _source_module_target_refs(input_dir: Path) -> list[str]:
 
 def _source_module_findings(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_findings` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.provider_context_recipe_budget_policy._source_module_findings`
+    into the payload shape expected by organs provider context recipe budget policy.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
     findings: list[dict[str, Any]] = []
@@ -614,13 +571,11 @@ def _source_module_findings(input_dir: Path) -> dict[str, Any]:
 
 def _strings(value: Any) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.provider_context_recipe_budget_policy._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -629,13 +584,10 @@ def _strings(value: Any) -> list[str]:
 
 def _byte_size(row: dict[str, Any]) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_byte_size` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the byte size value used by
+    `microcosm_core.organs.provider_context_recipe_budget_policy`.
+
+    Inputs are `row`; notable helpers are `get` and `encode`.
     """
     text = row.get("text")
     if isinstance(text, str):
@@ -652,13 +604,11 @@ def _section_accounting(
     real_section_bodies: dict[str, str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_section_accounting` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.provider_context_recipe_budget_policy._section_accounting` into
+    the payload shape expected by organs provider context recipe budget policy.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     text = row.get("text")
     if isinstance(text, str):
@@ -686,52 +636,38 @@ def _section_accounting(
 
 def _forbidden_body_keys(row: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_forbidden_body_keys` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return forbidden body keys for the organs provider context recipe budget policy flow.
+
+    Inputs are `row`.
     """
     return sorted(key for key in FORBIDDEN_BODY_KEYS if key in row)
 
 
 def _section_source_refs(row: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_section_source_refs` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the section source refs value used by
+    `microcosm_core.organs.provider_context_recipe_budget_policy`.
+
+    Inputs are `row`; notable helpers are `_strings` and `get`.
     """
     return sorted(set(_strings(row.get("source_refs"))))
 
 
 def _section_source_anchors(row: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_section_source_anchors` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return section source anchors for the organs provider context recipe budget policy flow.
+
+    Inputs are `row`; notable helpers are `_strings` and `get`.
     """
     return sorted(set(_strings(row.get("source_anchors"))))
 
 
 def _synthetic_section_material_marker(row: dict[str, Any]) -> str | None:
     """
-    [ACTION]
-    - Teleology: Implements `_synthetic_section_material_marker` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return synthetic section material marker for the organs provider context recipe budget
+    policy flow.
+
+    Inputs are `row`; notable helpers are `join`, `get`, and `lower`.
     """
     fields = (
         row.get("material_kind"),
@@ -748,13 +684,9 @@ def _synthetic_section_material_marker(row: dict[str, Any]) -> str | None:
 
 def _source_texts_by_ref(input_dir: Path) -> dict[str, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_texts_by_ref` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Derive source texts by ref without touching module import state.
+
+    Inputs are `input_dir`; notable helpers are `values`, `is_file`, and `read_text`.
     """
     texts: dict[str, str] = {}
     for expected in EXPECTED_SOURCE_MODULES.values():
@@ -767,13 +699,9 @@ def _source_texts_by_ref(input_dir: Path) -> dict[str, str]:
 
 def _json_text(value: Any) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_json_text` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive json text without touching module import state.
+
+    Inputs are `value`; notable helpers are `dumps`.
     """
     if isinstance(value, str):
         return value
@@ -783,13 +711,11 @@ def _json_text(value: Any) -> str:
 @lru_cache(maxsize=8)
 def _load_provider_context_harness(source_path: str) -> Any:
     """
-    [ACTION]
-    - Teleology: Implements `_load_provider_context_harness` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load provider context harness for
+    `microcosm_core.organs.provider_context_recipe_budget_policy`.
+
+    Input comes from `source_path`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     path = Path(source_path)
     module_name = (
@@ -808,13 +734,11 @@ def _load_provider_context_harness(source_path: str) -> Any:
 @lru_cache(maxsize=8)
 def _real_section_bodies_for_input(input_dir_name: str) -> dict[str, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_real_section_bodies_for_input` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.provider_context_recipe_budget_policy._real_section_bodies_for_input`
+    into the payload shape expected by organs provider context recipe budget policy.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_dir = Path(input_dir_name)
     graph_source = EXPECTED_SOURCE_MODULES["provider_context_graph_benchmark_body_import"]
@@ -829,13 +753,9 @@ def _real_section_bodies_for_input(input_dir_name: str) -> dict[str, str]:
 
         def pack_sections(recipe_id: str) -> dict[str, Any]:
             """
-            [ACTION]
-            - Teleology: Implements `_real_section_bodies_for_input.pack_sections` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-            - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Compute pack sections from `recipe_id`.
+
+            Inputs are `recipe_id`; notable helpers are `_provider_context_pack` and `get`.
             """
             pack, *_ = harness._provider_context_pack(
                 problem=problem,
@@ -902,13 +822,11 @@ def _real_section_bodies_for_input(input_dir_name: str) -> dict[str, str]:
 
 def _real_section_bodies(input_dir: Path) -> dict[str, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_real_section_bodies` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the real section bodies value used by
+    `microcosm_core.organs.provider_context_recipe_budget_policy`.
+
+    Inputs are `input_dir`; notable helpers are `_real_section_bodies_for_input` and
+    `resolve`.
     """
     return _real_section_bodies_for_input(str(input_dir.resolve(strict=False)))
 
@@ -922,13 +840,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.provider_context_recipe_budget_policy._finding` into
+    the payload shape expected by organs provider context recipe budget policy.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -951,13 +866,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs provider context recipe budget policy flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -978,13 +890,11 @@ def _recipe_projection(
     real_section_bodies: dict[str, str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_recipe_projection` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.provider_context_recipe_budget_policy._recipe_projection` into
+    the payload shape expected by organs provider context recipe budget policy.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     recipe_id = str(recipe.get("recipe_id") or "")
     budget = int(recipe.get("byte_budget") or 0)
@@ -1038,13 +948,10 @@ def _recipe_findings(
     observed: dict[str, set[str]] | None = None,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_recipe_findings` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Build a structured finding row for recipe findings.
+
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     findings: list[dict[str, Any]] = []
     local_observed: dict[str, set[str]] = observed if observed is not None else defaultdict(set)
@@ -1130,13 +1037,10 @@ def _section_findings(
     observed: dict[str, set[str]] | None = None,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_section_findings` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Build a structured finding row for section findings.
+
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     findings: list[dict[str, Any]] = []
     local_observed: dict[str, set[str]] = observed if observed is not None else defaultdict(set)
@@ -1235,13 +1139,11 @@ def _negative_findings(
     real_section_bodies: dict[str, str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_negative_findings` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.provider_context_recipe_budget_policy._negative_findings` into
+    the payload shape expected by organs provider context recipe budget policy.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1287,13 +1189,10 @@ def _negative_findings(
 
 def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_board` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.provider_context_recipe_budget_policy._build_board`
+    into the payload shape expected by organs provider context recipe budget policy.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "provider_context_budget_board_v1",
@@ -1344,13 +1243,11 @@ def _build_board(*, result: dict[str, Any], private_scan: dict[str, Any]) -> dic
 
 def _private_scan_card(scan: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_private_scan_card` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.provider_context_recipe_budget_policy._private_scan_card` into
+    the payload shape expected by organs provider context recipe budget policy.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "status": scan.get("status"),
@@ -1368,13 +1265,11 @@ def _private_scan_card(scan: dict[str, Any]) -> dict[str, Any]:
 
 def _context_packet_card(context_packets: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_context_packet_card` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.provider_context_recipe_budget_policy._context_packet_card` into
+    the payload shape expected by organs provider context recipe budget policy.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     budgets = [
         int(packet.get("byte_budget") or 0)
@@ -1403,13 +1298,10 @@ def _context_packet_card(context_packets: list[dict[str, Any]]) -> dict[str, Any
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.provider_context_recipe_budget_policy.result_card` into
+    the payload shape expected by organs provider context recipe budget policy.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     context_packets = [
         packet
@@ -1513,13 +1405,9 @@ def _common_receipt(
     receipt_paths: list[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_common_receipt` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return common receipt for `microcosm_core.organs.provider_context_recipe_budget_policy`.
+
+    Inputs are `result`, `schema_version`, and `receipt_paths`; notable helpers are `get`.
     """
     keys = (
         "status",
@@ -1570,13 +1458,9 @@ def _common_receipt(
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_relative_receipt_paths` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return relative receipt paths for the organs provider context recipe budget policy flow.
+
+    Inputs are `paths` and `public_root`; notable helpers are `_display` and `values`.
     """
     return [_display(path, public_root=public_root) for path in paths.values()]
 
@@ -1589,13 +1473,11 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute build result from `input_dir`, `command`, `input_mode`, and `include_negative`.
+
+    Inputs are `input_dir`, `command`, `input_mode`, and `include_negative`; notable helpers
+    are `_public_root_for_path`, `_load_payloads`, `load_forbidden_classes`, `scan_paths`,
+    and 16 more.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -1737,13 +1619,10 @@ def _write_receipts(
     bundle_mode: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write receipts for the organs provider context recipe budget policy flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     public_root = _public_root_for_path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -1800,13 +1679,11 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the run value used by
+    `microcosm_core.organs.provider_context_recipe_budget_policy`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `_build_result`, `_write_receipts`, and `Path`.
     """
     command = command or (
         "python -m microcosm_core.organs.provider_context_recipe_budget_policy "
@@ -1832,13 +1709,10 @@ def run_budget_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_budget_bundle` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute run budget bundle from `input_dir`, `out_dir`, and `command`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `_build_result`,
+    `_write_receipts`, and `Path`.
     """
     command = command or (
         "python -m microcosm_core.organs.provider_context_recipe_budget_policy "
@@ -1855,13 +1729,11 @@ def run_budget_bundle(
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.organs.provider_context_recipe_budget_policy._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(description="Validate public provider context recipe budgets")
     subparsers = parser.add_subparsers(dest="action", required=True)
@@ -1879,13 +1751,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.provider_context_recipe_budget_policy` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.provider_context_recipe_budget_policy` command-line entry
+    point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

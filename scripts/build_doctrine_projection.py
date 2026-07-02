@@ -72,15 +72,11 @@ STATUS_SURFACE_RELS = (
 
 
 def _surface_status(root: Path, rel: str) -> dict[str, Any]:
-    """Read one generated doctrine-projection surface and summarize its availability.
+    """
+    Derive surface status without touching module import state.
 
-    - Teleology: build a single compact status row (existence, size, counts, schema/id) for a projection surface without re-running the full builder.
-    - Guarantee: returns a dict with `path`, `exists`, and a `status` of "missing", "invalid_json", or "available"; for available JSON surfaces it adds schema_version, projection_status/id, and selected node/edge/coverage counts; for non-JSON it adds line_count.
-    - Fails: never raises for missing or malformed surfaces — missing -> status "missing", undecodable JSON -> status "invalid_json" with the error string; only an OSError on stat/read of an existing file would propagate.
-    - Reads: the generated surface at `root/rel` (size/mtime via stat, body via read_text/json.loads).
-    - When-needed: when an agent needs projection availability/counts but not a full --check rebuild.
-    - Escalates-to: build_doctrine_projection.py --check for full parity validation; the doctrine_lattice builder that regenerates the surface.
-    - Non-goal: does not validate parity or correctness of the surface, nor authorize treating the projection as source-of-truth.
+    Inputs are `root` and `rel`; notable helpers are `stat`, `update`, `exists`, `loads`,
+    and 3 more.
     """
     path = root / rel
     row: dict[str, Any] = {
@@ -134,15 +130,11 @@ def _surface_status(root: Path, rel: str) -> dict[str, Any]:
 
 
 def build_status_card(root: Path) -> dict[str, Any]:
-    """Aggregate per-surface status rows into the doctrine-projection status card.
+    """
+    Serialize the local value into the scripts build doctrine projection payload shape.
 
-    - Teleology: cheap read-only availability card over the five doctrine-projection surfaces, replacing ad-hoc JSON probes and a full --check when only availability/counts are wanted.
-    - Guarantee: returns a status-card dict (schema microcosm_doctrine_projection_status_card_v1) whose `status` is "available" iff every surface row is "available", else "blocked"; carries one row per STATUS_SURFACE_RELS plus the missing_or_invalid path list.
-    - Fails: never raises beyond a propagating OSError from reading an existing surface; missing/invalid surfaces are reported as a "blocked" status, not an exception.
-    - Reads: the five generated surfaces in STATUS_SURFACE_RELS (via _surface_status).
-    - When-needed: the --status-only/--card lane, when an agent needs a glanceable projection-health card.
-    - Escalates-to: build_doctrine_projection.py --check (full_validation_command) for parity validation; the doctrine_lattice builder that regenerates these surfaces.
-    - Non-goal: this is a generated read-only projection of availability; it does not authorize release or treat the surfaces as source authority.
+    The returned mapping uses the key names consumed by downstream receipts, cards, or
+    tests.
     """
     rows = [_surface_status(root, rel) for rel in STATUS_SURFACE_RELS]
     missing_or_invalid = [
@@ -167,11 +159,11 @@ def build_status_card(root: Path) -> dict[str, Any]:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build the argument parser for the doctrine-projection CLI.
+    """
+    Register CLI syntax for `scripts.build_doctrine_projection.build_parser`.
 
-    - Teleology: Single source of truth for the doctrine-projection CLI surface (per-corpus write/check flags plus aggregate/status flags) so main and any caller share one option set.
-    - Guarantee: Returns a configured ArgumentParser with --root and the full write/check/status flag family; performs no IO and no parsing.
-    - Fails: None.
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         prog="build_doctrine_projection",
@@ -302,15 +294,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry that dispatches doctrine-lattice corpus write/check/status actions.
+    """
+    Run the `scripts.build_doctrine_projection` command-line entry point.
 
-    - Teleology: Operator/CI front door over microcosm_core.doctrine_lattice; routes one selected mode (per-corpus write/check, single-instance write, aggregate surfaces, status card, or default projection) to the right lattice function.
-    - Guarantee: Prints a JSON result for the chosen mode and returns 0 iff that mode's status/parity is pass; with write flags the targeted JSON/markdown corpus + aggregate surfaces are (re)written under --root.
-    - Fails: missing/invalid source registries, corpus, or projection surfaces -> exception from the lattice functions -> uncaught traceback; or parity/validation mismatch -> nonzero exit with a "blocked"/non-pass status payload.
-    - Reads: standards/std_microcosm_*.json, core/standards_registry.json, the per-kind corpora, and existing projection surfaces (mode-dependent).
-    - Writes: axiom/principle/anti_principle/concept/mechanism/organ/paper_module/skill JSON+markdown and doctrine projection/graph/health/coverage/entry-card surfaces (only on write-family flags).
-    - When-needed: regenerating or validating any doctrine-lattice instance corpus or aggregate projection surface.
-    - Escalates-to: microcosm_core.doctrine_lattice write_*/validate_*/build_* functions; build_status_card for the --status-only/--card lane.
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = build_parser().parse_args(argv)
     root = args.root.resolve()

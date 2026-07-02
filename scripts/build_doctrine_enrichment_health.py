@@ -128,21 +128,11 @@ FRONTIER_AUDIT_SECTIONS = ("paper_module_readiness_audit",)
 
 
 def _section_model() -> dict[str, Any]:
-    """Describe the sections this projection is allowed to emit.
+    """
+    Serialize `scripts.build_doctrine_enrichment_health._section_model` into the payload
+    shape expected by scripts build doctrine enrichment health.
 
-    Teleology: keep the health artifact from being read as one undifferentiated
-    completion verdict. The model says which sections are completion floors and
-    which are frontier audits.
-    Guarantee: returns one model row for every completion-gate and
-    frontier-audit section known to this checker, with sources, result keys, and
-    bounded proof/anti-proof language.
-    Fails: no runtime failure path beyond ordinary Python execution; the values
-    are static literals and drift is caught by callers/tests that compare the
-    model to section tuples.
-    Reads: module constants only.
-    Writes: nothing.
-    Non-goal: does not promote paper-module readiness into authority or make any
-    generated paper-module row source material.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "reader_enrichment_floor": {
@@ -197,14 +187,11 @@ def _section_model() -> dict[str, Any]:
 
 
 def _corpus_ids(root: Path, kind: str) -> list[str]:
-    """List the object ids present in one doctrine-kind instance corpus.
+    """
+    Compute corpus IDs from `root` and `kind`.
 
-    - Teleology: enumerate the axiom/principle/anti-principle ids that enrichment coverage is measured against, drawn from the generated JSON instances.
-    - Guarantee: returns the sorted-by-path list of `id` values for every well-formed JSON instance under the kind's directory/glob that carries a truthy `id`.
-    - Fails: never raises for bad data — files that fail json.JSONDecodeError or lack an `id` are skipped; a missing directory yields an empty list. Only KIND_DIRS[kind] KeyError for an unknown kind would propagate.
-    - Reads: the per-kind instance JSON files under root/<subdir>/<glob> (e.g. axioms/AX-*.json).
-    - When-needed: when reconciling which corpus ids the health projection treats as the coverage denominator.
-    - Non-goal: does not validate instance contents or authorize the corpus as source authority; id enumeration only.
+    Inputs are `root` and `kind`; notable helpers are `glob`, `loads`, `get`, `append`, and
+    1 more.
     """
     subdir, glob = KIND_DIRS[kind]
     ids: list[str] = []
@@ -219,19 +206,11 @@ def _corpus_ids(root: Path, kind: str) -> list[str]:
 
 
 def _routing_records(root: Path, kind: str) -> list[dict[str, Any]]:
-    """Load governed doctrine rows that participate in the routing floor.
+    """
+    Return routing records for the scripts build doctrine enrichment health flow.
 
-    - Teleology: enumerate the non-reader-card doctrine objects whose
-      relationships should be checker-visible before the enrichment floor grows
-      to all doctrine kinds.
-    - Guarantee: returns every JSON-path candidate under the configured routing
-      kind directory/glob, sorted by path; malformed files become explicit
-      load-error records so the floor cannot pass by omission.
-    - Fails: KeyError for an unknown kind would propagate.
-    - Reads: root/<subdir>/<glob>, currently concepts/concept.*.json and
-      mechanisms/mechanism.*.json.
-    - Non-goal: does not treat the row as source authority beyond its own
-      governed JSON contract; this is a structural routing check only.
+    Inputs are `root` and `kind`; notable helpers are `glob`, `loads`, `append`, and
+    `read_text`.
     """
     subdir, glob = ROUTING_KIND_DIRS[kind]
     records: list[dict[str, Any]] = []
@@ -261,18 +240,10 @@ def _routing_records(root: Path, kind: str) -> list[dict[str, Any]]:
 
 
 def _paper_module_records(root: Path) -> list[dict[str, Any]]:
-    """Read paper-module JSON rows without letting bad files disappear.
+    """
+    Compute paper module records from `root`.
 
-    Teleology: feed the paper-module readiness audit with every generated JSON
-    instance row, including rows that are malformed enough to fail visibly.
-    Guarantee: returns valid JSON object rows as-is; invalid JSON and non-object
-    roots become synthetic load-error records instead of being skipped.
-    Fails: does not raise for JSON decode errors in candidate files; filesystem
-    errors from `Path.glob` or `read_text` may still propagate.
-    Reads: generated `paper_modules/*.json` files beneath `root`.
-    Writes: nothing.
-    Non-goal: loading these rows does not make them editable authority, support
-    evidence, proof authority, or release readiness.
+    Inputs are `root`; notable helpers are `glob`, `loads`, `append`, and `read_text`.
     """
     subdir, glob = PAPER_MODULE_DIR
     records: list[dict[str, Any]] = []
@@ -302,14 +273,11 @@ def _paper_module_records(root: Path) -> list[dict[str, Any]]:
 
 
 def _has_field(record: dict[str, Any], field: str) -> bool:
-    """Decide whether one enrichment record meaningfully populates a reader field.
+    """
+    Return whether has field holds for the scripts build doctrine enrichment health flow.
 
-    - Teleology: the per-field presence predicate that drives the coverage counts; encodes the shape each REQUIRED_FIELD must take to count as present.
-    - Guarantee: returns True iff the field carries real content per its kind — `formal` needs a non-empty latex string, `example`/`counterexample` a non-empty text string, `enforced_in` a non-empty list, and any other field a non-empty stringified value.
-    - Fails: never raises; absent/empty/wrong-typed values return False.
-    - Reads: the in-memory `record` dict only.
-    - When-needed: when explaining why a record was counted enriched/partial for a given field.
-    - Non-goal: PRESENCE only — does not judge correctness, fidelity, or render-validity of the field.
+    The result is derived from `record` and `field` with `get` and `strip`; failing evidence
+    is returned or raised exactly where the body says so.
     """
     value = record.get(field)
     if field == "formal":
@@ -324,20 +292,12 @@ def _has_field(record: dict[str, Any], field: str) -> bool:
 
 
 def _audit_concept_routing_record(record: dict[str, Any]) -> list[str]:
-    """Check whether one concept can be walked through the doctrine graph.
+    """
+    Audit whether audit concept routing record holds for the scripts build doctrine
+    enrichment health flow.
 
-    Teleology: decide whether a concept row has enough custody and relationship
-    shape to count toward the governed doctrine routing floor.
-    Guarantee: returns stable issue codes for missing refs, entry contract,
-    cluster flag, relationship edges, edge justifications, unresolved targets,
-    and absence of a resolved mechanism route.
-    Fails: never raises for malformed row structure; malformed branches become
-    issue codes, while a carried `_routing_load_error` short-circuits to that
-    load issue.
-    Reads: the in-memory concept record only.
-    Writes: nothing.
-    Non-goal: does not judge taxonomy completeness or whether the linked
-    mechanism is the best interpretation.
+    The result is derived from `record` with `strip`, `get`, `append`, and `startswith`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     issues: list[str] = []
     load_error = str(record.get("_routing_load_error") or "").strip()
@@ -407,20 +367,13 @@ def _audit_concept_routing_record(record: dict[str, Any]) -> list[str]:
 
 
 def _audit_mechanism_routing_record(root: Path, record: dict[str, Any]) -> list[str]:
-    """Check the runnable side of a mechanism routing row.
+    """
+    Audit whether audit mechanism routing record holds for the scripts build doctrine
+    enrichment health flow.
 
-    Teleology: count a mechanism as routed only when it links vocabulary to
-    actual substrate, not just to another doctrine label.
-    Guarantee: returns stable issue codes for missing refs, entry contract,
-    organ refs, payload contract fields, concept edges, and resolved code loci
-    whose files no longer exist under `root`.
-    Fails: malformed row shapes become issue codes; a carried
-    `_routing_load_error` short-circuits to that load issue.
-    Reads: the in-memory mechanism record plus `root / code_locus.path` existence
-    checks.
-    Writes: nothing.
-    Non-goal: does not require complete mechanism topology; selective relation
-    gaps are disclosed by the residual summary.
+    The result is derived from `root` and `record` with `strip`, `get`, `append`,
+    `startswith`, and 1 more; failing evidence is returned or raised exactly where the body
+    says so.
     """
     issues: list[str] = []
     load_error = str(record.get("_routing_load_error") or "").strip()
@@ -514,20 +467,11 @@ def _audit_mechanism_routing_record(root: Path, record: dict[str, Any]) -> list[
 
 
 def _source_planned_target_lookup(record: dict[str, Any]) -> dict[tuple[str, str, str], dict[str, Any]]:
-    """Index planned targets embedded in a mechanism source registry row.
+    """
+    Serialize `scripts.build_doctrine_enrichment_health._source_planned_target_lookup` into
+    the payload shape expected by scripts build doctrine enrichment health.
 
-    Teleology: let planned-edge residual rows inherit owner-route and re-entry
-    metadata from the mechanism source registry instead of inventing generic
-    repair text.
-    Guarantee: returns a lookup keyed by `(target_kind, target_id,
-    target_status)` and adds `planned_target_source_ref` when the relationship
-    block names the source registry row.
-    Fails: malformed or missing payload/source/planned-target pieces return an
-    empty or partial lookup rather than raising.
-    Reads: the in-memory mechanism record only.
-    Writes: nothing.
-    Non-goal: does not treat planned targets as admitted targets or residual
-    evidence by itself.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payload = record.get("mechanism_payload")
     if not isinstance(payload, dict):
@@ -561,19 +505,11 @@ def _source_planned_target_lookup(record: dict[str, Any]) -> dict[tuple[str, str
 
 
 def _mechanism_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
-    """Summarize mechanism gaps that should stay visible but not block the floor.
+    """
+    Serialize `scripts.build_doctrine_enrichment_health._mechanism_residual_summary` into
+    the payload shape expected by scripts build doctrine enrichment health.
 
-    Teleology: disclose mechanism frontier pressure that should remain visible
-    even when all floor-blocking routing checks pass.
-    Guarantee: returns counts and details for unpopulated selective relations
-    and `planned_*` edges, including target kind/status aggregates and
-    source-registry repair metadata when available.
-    Fails: skips records with load errors or malformed relationship/edge shapes;
-    malformed planned target metadata falls back to generic safe mutation text.
-    Reads: in-memory mechanism records only.
-    Writes: nothing.
-    Non-goal: planned edges are not target admission, support evidence, topology
-    completeness, or release authority.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     residual_rows: list[dict[str, Any]] = []
     planned_edge_rows: list[dict[str, Any]] = []
@@ -687,20 +623,13 @@ def _mechanism_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]
 
 
 def _audit_paper_module_readiness_record(root: Path, record: dict[str, Any]) -> list[str]:
-    """Check whether one paper-module instance is ready to be followed.
+    """
+    Audit whether audit paper module readiness record holds for the scripts build doctrine
+    enrichment health flow.
 
-    Teleology: test whether a generated paper-module row is followable from
-    paper module to explained subject, governing concept, and concrete code.
-    Guarantee: returns stable issue codes for missing refs, non-capsule source
-    authority, required residuals, malformed edges, unresolved routes, and
-    resolved code loci whose files do not exist under `root`.
-    Fails: malformed row shapes become issue codes; a carried
-    `_paper_module_load_error` short-circuits to that load issue.
-    Reads: the in-memory paper-module record plus `root / code_locus.path`
-    existence checks.
-    Writes: nothing.
-    Non-goal: does not join the completion gate, invent absent edges, or turn
-    paper modules into support, proof, or release authority.
+    The result is derived from `root` and `record` with `strip`, `get`, `append`,
+    `startswith`, and 1 more; failing evidence is returned or raised exactly where the body
+    says so.
     """
     issues: list[str] = []
     load_error = str(record.get("_paper_module_load_error") or "").strip()
@@ -807,19 +736,11 @@ def _audit_paper_module_readiness_record(root: Path, record: dict[str, Any]) -> 
 
 
 def _paper_module_residual_summary(records: list[dict[str, Any]]) -> dict[str, Any]:
-    """Count paper-module residuals by requirement and relationship kind.
+    """
+    Serialize `scripts.build_doctrine_enrichment_health._paper_module_residual_summary` into
+    the payload shape expected by scripts build doctrine enrichment health.
 
-    Teleology: expose the pressure map behind the paper-module readiness audit:
-    required blockers, selective frontier pressure, relation kinds, and source
-    authority mix.
-    Guarantee: returns row counts plus totals by requirement, relation id, and
-    source authority for well-formed residual lists.
-    Fails: ignores load-error rows and malformed residual entries because those
-    failures are already carried by readiness issue rows.
-    Reads: in-memory paper-module records only.
-    Writes: nothing.
-    Non-goal: residual counts are not support evidence and do not imply that
-    every missing relation has been discovered.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     residual_rows: list[dict[str, Any]] = []
     counts_by_requirement: dict[str, int] = {}
@@ -872,19 +793,11 @@ def _paper_module_residual_summary(records: list[dict[str, Any]]) -> dict[str, A
 
 
 def _build_paper_module_readiness_audit(root: Path) -> dict[str, Any]:
-    """Assemble the visibility-only paper-module readiness section.
+    """
+    Serialize `scripts.build_doctrine_enrichment_health._build_paper_module_readiness_audit`
+    into the payload shape expected by scripts build doctrine enrichment health.
 
-    Teleology: produce the paper-module section that reports followable rows,
-    legacy authority, missing routes, and residual pressure without gating the
-    top-level doctrine floor.
-    Guarantee: returns a `microcosm_paper_module_readiness_audit_v1` dict whose
-    status is complete only when every generated paper-module instance passes
-    `_audit_paper_module_readiness_record`.
-    Fails: propagates filesystem read errors from `_paper_module_records`; JSON
-    decode defects inside candidate rows become issue rows.
-    Reads: `paper_modules/*.json` beneath `root`.
-    Writes: nothing; callers decide whether to persist the projection.
-    Non-goal: does not promote paper-module readiness into the completion gate.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     records = _paper_module_records(root)
     issue_rows = [
@@ -924,21 +837,11 @@ def _build_paper_module_readiness_audit(root: Path) -> dict[str, Any]:
 
 
 def _build_routing_floor(root: Path) -> dict[str, Any]:
-    """Build the completion-gated routing floor for concepts and mechanisms.
+    """
+    Serialize `scripts.build_doctrine_enrichment_health._build_routing_floor` into the
+    payload shape expected by scripts build doctrine enrichment health.
 
-    Teleology: extend doctrine health beyond reader-card presence by checking
-    whether governed concepts and mechanisms can be navigated.
-    Guarantee: returns a `microcosm_doctrine_routing_floor_v2` dict where
-    `coverage_complete` is true only when every covered concept and mechanism
-    row passes its kind-specific audit.
-    Fails: propagates unexpected filesystem errors from row loading or code-locus
-    existence checks; malformed JSON rows become load-error records.
-    Reads: `concepts/concept.*.json`, `mechanisms/mechanism.*.json`, and code
-    locus existence under `root`.
-    Writes: nothing.
-    Non-goal: excludes paper modules and does not claim ontology completeness,
-    topology completeness, support evidence, proof correctness, or release
-    authority.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     kinds: dict[str, Any] = {}
     incomplete: list[dict[str, Any]] = []
@@ -990,15 +893,11 @@ def _build_routing_floor(root: Path) -> dict[str, Any]:
 
 
 def build_health(root: Path) -> dict[str, Any]:
-    """Build the doctrine-enrichment coverage-health projection for a root.
+    """
+    Serialize `scripts.build_doctrine_enrichment_health.build_health` into the payload shape
+    expected by scripts build doctrine enrichment health.
 
-    - Teleology: project per-kind reader-enrichment completeness (how many doctrine objects are enriched and carry each reader field) plus the folded-in formal-soundness and reader-ladder structural gates.
-    - Guarantee: returns a health dict (schema microcosm_doctrine_enrichment_health_v1) with per-kind totals/enriched/field counts/partials, an `incomplete` list, and a `status` of "complete" iff coverage is full AND formal soundness AND reader-ladder report zero unsound; else "partial".
-    - Fails: raises json.JSONDecodeError / FileNotFoundError if core/doctrine_enrichment.json is missing or malformed; sub-gate exceptions from run_soundness/run_reader_ladder propagate.
-    - Reads: core/doctrine_enrichment.json (source of record) and the axiom/principle/anti-principle instance corpora (via _corpus_ids); delegates to run_soundness and run_reader_ladder over the enrichment file.
-    - When-needed: when deciding whether reader enrichment is complete before a dissemination build or as the data behind the --check CI gate.
-    - Escalates-to: check_doctrine_formal_soundness.run and check_doctrine_reader_ladder.run for the structural sub-gates; the dissemination build's LaTeX-render test for render correctness.
-    - Non-goal: measures PRESENCE not correctness, is never support evidence, and the emitted artifact is a generated projection — not source authority and not release authorization.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     enrichment_path = root / ENRICHMENT_REL
     enrichment = json.loads(enrichment_path.read_text(encoding="utf-8"))
@@ -1124,15 +1023,11 @@ def build_health(root: Path) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry for the doctrine-enrichment coverage health projection.
+    """
+    Run `scripts.build_doctrine_enrichment_health` as a command-line entry point.
 
-    - Teleology: CLI front door that builds/writes/checks the enrichment coverage projection so agents and CI see doctrine reader-field completeness at a glance.
-    - Guarantee: Prints the health JSON; with --write rewrites core/doctrine_enrichment_health.json; with --check returns 0 iff status is "complete" (full coverage, sound formulas, sound reader ladders).
-    - Fails: missing/invalid core/doctrine_enrichment.json or corpus -> json.JSONDecodeError/FileNotFoundError -> uncaught traceback, nonzero exit.
-    - Reads: core/doctrine_enrichment.json, axioms/principles/anti_principles corpora (via build_health, run_soundness, run_reader_ladder).
-    - Writes: core/doctrine_enrichment_health.json (only with --write).
-    - When-needed: deciding whether doctrine reader enrichment is complete before a dissemination build or as a CI gate.
-    - Escalates-to: check_doctrine_formal_soundness.run, check_doctrine_reader_ladder.run for the structural sub-gates it folds in.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog="build_doctrine_enrichment_health")
     parser.add_argument("--root", type=Path, default=MICROCOSM_ROOT)

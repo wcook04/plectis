@@ -23,11 +23,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 20692,
-      "line_count": 446,
-      "sha256": "sha256:bb82851fcd17c5862b0fd97ecc3daac7bd38c6118d1a1e07d9771da3aa256bcd",
-      "target_sha256": "bb82851fcd17c5862b0fd97ecc3daac7bd38c6118d1a1e07d9771da3aa256bcd",
-      "source_sha256": "bb82851fcd17c5862b0fd97ecc3daac7bd38c6118d1a1e07d9771da3aa256bcd",
+      "byte_count": 14129,
+      "line_count": 364,
+      "sha256": "sha256:12159f12b5c76fd32667fb63c4c4b25723b451db2c0317e95a352292d47178bd",
+      "target_sha256": "12159f12b5c76fd32667fb63c4c4b25723b451db2c0317e95a352292d47178bd",
+      "source_sha256": "12159f12b5c76fd32667fb63c4c4b25723b451db2c0317e95a352292d47178bd",
       "required_anchors": [
         "ORGAN_ID = \"bridge_campaign_dag_validation\"",
         "def run"
@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 32117,
-      "line_count": 629,
-      "sha256": "sha256:f9b8ff5d3b2ac5b348ef3344bf67efb07f2531a6799190d905e6abc23da88810",
-      "target_sha256": "f9b8ff5d3b2ac5b348ef3344bf67efb07f2531a6799190d905e6abc23da88810",
-      "source_sha256": "f9b8ff5d3b2ac5b348ef3344bf67efb07f2531a6799190d905e6abc23da88810",
+      "byte_count": 18553,
+      "line_count": 537,
+      "sha256": "sha256:11ffa368ec83a7034f2d7b0064a175f6ed009e4a523ad8c240ea67f37f0f6eeb",
+      "target_sha256": "11ffa368ec83a7034f2d7b0064a175f6ed009e4a523ad8c240ea67f37f0f6eeb",
+      "source_sha256": "11ffa368ec83a7034f2d7b0064a175f6ed009e4a523ad8c240ea67f37f0f6eeb",
       "required_anchors": [
         "def validate_campaign",
         "class ValidationResult"

@@ -23,11 +23,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 22541,
-      "line_count": 467,
-      "sha256": "sha256:fc082ba55038e2073673838d08b7afd1c6057074330efbf12e1ba16be190edc6",
-      "target_sha256": "fc082ba55038e2073673838d08b7afd1c6057074330efbf12e1ba16be190edc6",
-      "source_sha256": "fc082ba55038e2073673838d08b7afd1c6057074330efbf12e1ba16be190edc6",
+      "byte_count": 15358,
+      "line_count": 381,
+      "sha256": "sha256:5660fe4b1318e79f881627186e740d71cd8660bb42c6808f04aa2c4fe4f4360f",
+      "target_sha256": "5660fe4b1318e79f881627186e740d71cd8660bb42c6808f04aa2c4fe4f4360f",
+      "source_sha256": "5660fe4b1318e79f881627186e740d71cd8660bb42c6808f04aa2c4fe4f4360f",
       "required_anchors": [
         "ORGAN_ID = \"derived_fact_provider_runtime\"",
         "def run"
@@ -50,14 +50,13 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 34273,
-      "line_count": 633,
-      "sha256": "sha256:2d55ee628bf57e76a64c2d0c303293944d8e89eb9ddb37aa04734a2520ea504b",
-      "target_sha256": "2d55ee628bf57e76a64c2d0c303293944d8e89eb9ddb37aa04734a2520ea504b",
-      "source_sha256": "2d55ee628bf57e76a64c2d0c303293944d8e89eb9ddb37aa04734a2520ea504b",
+      "byte_count": 21106,
+      "line_count": 542,
+      "sha256": "sha256:7efd57cf19f9a5a32eb74a355f0e2ee9d75f34c6b4f0a0c69601cf46209e7150",
+      "target_sha256": "7efd57cf19f9a5a32eb74a355f0e2ee9d75f34c6b4f0a0c69601cf46209e7150",
+      "source_sha256": "7efd57cf19f9a5a32eb74a355f0e2ee9d75f34c6b4f0a0c69601cf46209e7150",
       "required_anchors": [
-        "Registry-backed derived fact provider engine over public fixture roots.",
-        "provider failures become error rows with repair hints"
+        "Registry-backed derived fact provider engine over public fixture roots."
       ],
       "required_anchors_present": true,
       "validation_refs": [

@@ -1,26 +1,10 @@
-"""Build FIRST_ACTION.md -- the committed First Correct Action demonstration.
+"""
+Implements scripts build first action demo for the public Plectis package.
 
-- Teleology: make the release's product center visible WITHOUT running anything --
-  a cold reader (human or agent) browsing the clone sees the goal->contract
-  conversion demonstrated across a real goal battery: localization, change-shaped
-  goals, refusals, and honest fallbacks, every block compiled by the live
-  compiler, never hand-written.
-- Guarantee: --write renders FIRST_ACTION.md (repo root) and
-  receipts/code_lens/first_action_demo.json from compile_first_action over the
-  DEMO_GOALS battery; --check regenerates in memory and exits 1 on any byte
-  drift (the drift gate tests consume); both outputs pass the secret /
-  private-path / atom-bullet / public-entry-overclaim guards or the build
-  refuses with exit 3; missing/unloadable inputs exit 2.
-- Fails: SystemExit(2) when the substrate inputs cannot be loaded;
-  SystemExit(3) when a rendered surface trips a leak/overclaim guard;
-  SystemExit(1) from --check on drift.
-- Reads: the comprehension inputs (join index, organ atlas, synopses) under the
-  substrate root.
-- Writes: FIRST_ACTION.md and receipts/code_lens/first_action_demo.json
-  (--write only).
-- Non-goal: never exports source bodies, never asserts assay numbers in prose
-  (the reader is told to run the assay), never grants release / correctness /
-  routing-quality authority beyond what the contract fields themselves carry.
+Callers enter through `build_demo` and `main`; constants such as `DEMO_SCHEMA`, `DOC_REL`,
+`RECEIPT_REL`, `REFRESH_COMMAND`, and 7 more pin local fixture names; dependencies include
+`argparse`, `json`, `re`, `sys`, and 2 more. Importing it does not authorize release work or
+hidden private-state access; those effects live behind explicit calls.
 """
 
 from __future__ import annotations
@@ -147,16 +131,11 @@ FULL_EXAMPLE_GOAL = "How do I evaluate the finance forecasting system?"
 
 
 def _contract_surface(contract: dict) -> dict:
-    """Project a first-action contract onto its stable demonstration surface.
+    """
+    Serialize the local value into the scripts build first action demo payload shape.
 
-    - Teleology: the demo must drift only when the CONTRACT meaningfully drifts;
-      volatile fields (compile timings, byte budgets, graph tallies) are dropped
-      so unrelated substrate edits do not churn the committed artifact.
-    - Guarantee: returns a dict with goal, found, routing, first_action (command
-      verbatim, receipts capped at _RECEIPT_REF_CAP with a more_count), owner,
-      proof_path, reading_boundary, do_not_claim, do_not_edit, and the
-      out-of-scope note when present; absent fields become None/[].
-    - Fails: never raises.
+    The returned mapping uses the key names consumed by downstream receipts, cards, or
+    tests.
     """
     action = contract.get("first_action") or {}
     proof = contract.get("proof_path") or {}
@@ -230,12 +209,10 @@ def _contract_surface(contract: dict) -> dict:
 
 
 def _command_tail(command: str) -> str:
-    """Render a command's short tail for the at-a-glance table.
+    """
+    Derive command tail without touching module import state.
 
-    - Teleology: table cells must stay scannable; the verbatim cold-runnable
-      command lives in the per-goal block and the receipt, never elided there.
-    - Guarantee: strips the cold-form prefix and truncates to 56 chars.
-    - Fails: never raises.
+    Inputs are `command`; notable helpers are `startswith` and `rstrip`.
     """
     prefix = "PYTHONPATH=src python3 -m microcosm_core "
     tail = command[len(prefix):] if command.startswith(prefix) else command
@@ -243,24 +220,20 @@ def _command_tail(command: str) -> str:
 
 
 def _owner_label(surface: dict) -> str:
-    """Render the owner cell: organ id, or the whole-substrate scope label.
+    """
+    Compute owner label from `surface`.
 
-    - Teleology: every row must answer "who owns this?" in one token.
-    - Guarantee: returns owner.organ_id, else owner.scope, else "-".
-    - Fails: never raises.
+    Inputs are `surface`; notable helpers are `get`.
     """
     owner = surface.get("owner") or {}
     return str(owner.get("organ_id") or owner.get("scope") or "-")
 
 
 def _basis_label(surface: dict) -> str:
-    """Render the routing-basis cell from the contract's own routing block.
+    """
+    Return basis label for the scripts build first action demo flow.
 
-    - Teleology: the table must show HOW each goal resolved, in the compiler's
-      vocabulary, so the demonstration is auditable against the receipt.
-    - Guarantee: returns routing.basis plus the task_class/organ qualifier when
-      present.
-    - Fails: never raises.
+    Inputs are `surface`; notable helpers are `get`.
     """
     routing = surface.get("routing") or {}
     basis = str(routing.get("basis") or "-")
@@ -269,14 +242,11 @@ def _basis_label(surface: dict) -> str:
 
 
 def _goal_block(surface: dict) -> list[str]:
-    """Render one goal's compact demonstration block.
+    """
+    Compute goal block from `surface`.
 
-    - Teleology: the per-goal block is the proof-of-product: full verbatim
-      command, validator, receipts, stop condition, boundary -- the contract a
-      cold agent would actually receive.
-    - Guarantee: returns markdown lines; absent fields are omitted, never
-      invented.
-    - Fails: never raises.
+    Inputs are `surface`; notable helpers are `append`, `get`, `startswith`, `_basis_label`,
+    and 3 more.
     """
     action = surface.get("first_action") or {}
     proof = surface.get("proof_path") or {}
@@ -349,18 +319,11 @@ def _goal_block(surface: dict) -> list[str]:
 
 
 def build_demo(root: Path) -> tuple[str, str]:
-    """Compile the battery and render (markdown_body, receipt_body).
+    """
+    Produce the build demo value used by `scripts.build_first_action_demo`.
 
-    - Teleology: one deterministic build path shared by --write and --check so
-      the drift gate compares exactly what would be written.
-    - Guarantee: returns the FIRST_ACTION.md text and the JSON receipt text;
-      every contract is compiled by comprehension.compile_first_action against
-      ``root``; rendering is deterministic (no timestamps, no volatile fields).
-    - Fails: SystemExit(2) when inputs cannot be loaded (propagated ValueError
-      from a leaking join index is re-raised as-is: a leaky input must never
-      become a written artifact).
-    - Reads: the substrate inputs once.
-    - Writes: nothing.
+    Inputs are `root`; notable helpers are `next`, `append`, `join`, `load_inputs`, and 13
+    more; invalid cases raise from the explicit checks in the body.
     """
     try:
         bundle = C.load_inputs(root)
@@ -546,13 +509,10 @@ def build_demo(root: Path) -> tuple[str, str]:
 
 
 def _guard_scan(md_body: str, receipt_body: str) -> list[str]:
-    """Scan both rendered surfaces against the leak and overclaim guards.
+    """
+    Compute guard scan from `md_body` and `receipt_body`.
 
-    - Teleology: a demonstration of the product must obey the product's own
-      membrane -- no secret shapes, no private host paths, no raw atom bullets,
-      no public-entry overclaim constructions.
-    - Guarantee: returns the list of tripped guard labels (empty when clean).
-    - Fails: never raises.
+    Inputs are `md_body` and `receipt_body`; notable helpers are `search` and `append`.
     """
     tripped: list[str] = []
     joined = md_body + "\n" + receipt_body
@@ -569,13 +529,11 @@ def _guard_scan(md_body: str, receipt_body: str) -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI: --write to land the artifacts, --check to drift-gate them.
+    """
+    Run `scripts.build_first_action_demo` as a command-line entry point.
 
-    - Teleology: one entry point for the owner lane and the test gate.
-    - Guarantee: --write lands FIRST_ACTION.md + the receipt after a clean guard
-      scan; --check exits 1 naming each drifted artifact; exactly one mode is
-      required.
-    - Fails: SystemExit 1 on drift, 2 on input failure, 3 on guard refusal.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     mode = parser.add_mutually_exclusive_group(required=True)

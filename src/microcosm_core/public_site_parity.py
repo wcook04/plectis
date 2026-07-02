@@ -1,21 +1,11 @@
-"""Validate that the public site still mirrors the checked-in Plectis source.
+"""
+Implements public site parity for the public Plectis package.
 
-This module is the parity guard for the static public shell. It compares a
-generated site snapshot from `gh-pages` or a local directory, optionally checks
-the deployed URL byte-for-byte against that primary snapshot, and verifies that
-public JSON packets, HTML, and text files still match the source registry counts
-and authority fields.
-
-Teleology: keep the browsable public site from drifting away from the source
-  registries and projection-status hashes it claims to publish.
-Guarantee: produces a receipt-shaped dictionary with explicit error rows
-  instead of silently accepting missing packets, stale byte hashes, or weakened
-  publication authority fields.
-Fails: CLI execution converts unexpected parity exceptions into a blocked
-  receipt; lower-level helpers propagate filesystem, git, URL, and JSON errors
-  unless their contract explicitly returns error rows.
-Non-goal: does not build the public site, authorize release, deploy hosting,
-  or decide that the source registries themselves are correct.
+Callers enter through `SiteSnapshot`, `check_public_site_parity`, and `main`; constants such
+as `SITE_ROOT_URL`, `SOURCE_OF_RECORD`, `JSON_PACKET_PATHS`, `HTML_PATHS`, and 4 more pin
+local fixture names; dependencies include `argparse`, `hashlib`, `json`, `subprocess`, and 4
+more. Importing it does not authorize release work or hidden private-state access; those
+effects live behind explicit calls.
 """
 
 from __future__ import annotations
@@ -65,23 +55,10 @@ PACKET_PATHS = (
 
 @dataclass(frozen=True)
 class SiteSnapshot:
-    """An immutable byte snapshot of one public-site source.
+    """
+    Record object for Site Snapshot.
 
-    `label` names where the bytes came from, such as a git ref, local directory,
-    or URL base. `files` keeps the raw bytes by relative public path so JSON,
-    HTML phrase checks, byte hashes, and live-site comparison all inspect the
-    same captured content.
-
-    Teleology: carry a named byte capture through every parity check without
-      mixing git, directory, and live URL provenance.
-    Guarantee: dataclass construction stores the caller-provided `label` and
-      `files` mapping and frozen instances reject attribute reassignment.
-    Fails: construction raises the normal dataclass `TypeError` when required
-      fields are missing; frozen assignment raises `FrozenInstanceError`.
-    Reads: constructor arguments only.
-    Writes: one immutable `SiteSnapshot` instance.
-    Non-goal: does not validate that required paths exist or that file bytes
-      match projection-status; reader helpers and `_check_snapshot` do that.
+    It keeps `label` and `files` together for the public site parity flow.
     """
 
     label: str
@@ -89,34 +66,22 @@ class SiteSnapshot:
 
 
 def _read_json(path: Path) -> Any:
-    """Read a UTF-8 JSON authority file from the source checkout.
+    """
+    Read read JSON for `microcosm_core.public_site_parity`.
 
-    Teleology: keep source-count derivation on normal JSON parsing instead of
-      ad hoc text inspection.
-    Guarantee: returns the decoded JSON value exactly as `json.loads` parses
-      it.
-    Fails: propagates filesystem, encoding, and JSON parse errors to the
-      caller; no receipt wrapping happens at this layer.
-    Reads: `path`.
-    Writes: return value only.
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
 
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _source_counts(root: Path) -> dict[str, int]:
-    """Derive the source counts that public packets are expected to publish.
+    """
+    Serialize `microcosm_core.public_site_parity._source_counts` into the payload shape
+    expected by public site parity.
 
-    Teleology: make the parity check compare the site against current public
-      registries, not against stale constants inside this verifier.
-    Guarantee: counts accepted-current organs, public organ families, paper
-      module capsules, and the standards registry's declared count.
-    Fails: propagates missing or malformed registry files; callers treat that
-      as a blocked parity run.
-    Reads: `core/organ_registry.json`, `core/organ_families.json`,
-      `core/paper_module_capsules.json`, and `core/standards_registry.json`
-      under `root`.
-    Writes: return value only.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
 
     registry = _read_json(root / "core/organ_registry.json")
@@ -140,31 +105,22 @@ def _source_counts(root: Path) -> dict[str, int]:
 
 
 def _sha256(data: bytes) -> str:
-    """Return the projection-status hash spelling for a byte payload.
+    """
+    Return the stable digest computed by `microcosm_core.public_site_parity._sha256`.
 
-    Teleology: centralize the `sha256:<hex>` format used by
-      `projection-status.json` and byte comparison rows.
-    Guarantee: deterministic for identical bytes and independent of text
-      encoding.
-    Fails: never raises for a bytes argument.
-    Reads: `data`.
-    Writes: return value only.
+    The input is `data`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
 
     return "sha256:" + hashlib.sha256(data).hexdigest()
 
 
 def _git_ref_exists(root: Path, ref: str) -> bool:
-    """Check whether `ref` resolves to a commit in the local checkout.
+    """
+    Return whether git ref exists holds for the public site parity flow.
 
-    Teleology: distinguish a usable local ref from a gh-pages ref that still
-      needs a targeted fetch.
-    Guarantee: returns True only when `git rev-parse --verify --quiet` accepts
-      the ref as a commit.
-    Fails: git execution failures are represented as False by the return code;
-      no exception is raised for an unresolved ref.
-    Reads: the git repository rooted at `root`.
-    Writes: return value only.
+    The result is derived from `root` and `ref` with `run`; failing evidence is returned or
+    raised exactly where the body says so.
     """
 
     result = subprocess.run(
@@ -183,18 +139,10 @@ def _git_ref_exists(root: Path, ref: str) -> bool:
 
 
 def _remote_branch_ref(root: Path, ref: str) -> tuple[str, str, str] | None:
-    """Resolve a remote branch spelling into fetch coordinates.
+    """
+    Return remote branch ref for the public site parity flow.
 
-    Teleology: accept both `origin/gh-pages` and
-      `refs/remotes/origin/gh-pages` without duplicating parsing at the fetch
-      site.
-    Guarantee: returns `(remote, branch, target_ref)` only when the remote is
-      configured and the ref includes both remote and branch segments.
-    Fails: returns None for malformed refs or unknown remotes; git stderr is
-      intentionally not surfaced here because the caller owns the user-facing
-      failure.
-    Reads: git remote configuration under `root`.
-    Writes: return value only.
+    Inputs are `root` and `ref`; notable helpers are `startswith`, `run`, and `partition`.
     """
 
     prefix = "refs/remotes/"
@@ -218,16 +166,11 @@ def _remote_branch_ref(root: Path, ref: str) -> tuple[str, str, str] | None:
 
 
 def _ensure_gh_pages_ref(root: Path, ref: str) -> None:
-    """Make a gh-pages-style ref available before reading files from it.
+    """
+    Ensure ensure gh pages ref for the public site parity flow.
 
-    Teleology: let the verifier run from a shallow or stale checkout by
-      fetching exactly the requested remote branch when possible.
-    Guarantee: returns only after `ref` resolves locally, either because it
-      already existed or because the targeted fetch succeeded.
-    Fails: raises RuntimeError when the ref cannot be parsed, fetched, or
-      verified after fetch.
-    Reads: git refs and remote configuration under `root`.
-    Writes: the local remote-tracking ref targeted by the fetch.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
 
     remote_ref = _remote_branch_ref(root, ref)
@@ -261,17 +204,11 @@ def _ensure_gh_pages_ref(root: Path, ref: str) -> None:
 
 
 def _read_gh_pages(ref: str, paths: tuple[str, ...], root: Path) -> SiteSnapshot:
-    """Read required public-site files directly from a git ref.
+    """
+    Read read gh pages for `microcosm_core.public_site_parity`.
 
-    Teleology: validate the published branch without checking it out or
-      touching the working tree.
-    Guarantee: returns raw bytes for every requested relative path from
-      `ref`, after ensuring the ref is available.
-    Fails: raises RuntimeError when the ref is unavailable or any requested
-      path cannot be shown from that ref.
-    Reads: git objects under `root`.
-    Writes: return value only, apart from any fetch performed by
-      `_ensure_gh_pages_ref`.
+    Input comes from `ref`, `paths`, and `root`; malformed or missing data follows the
+    exceptions and checks visible in the body.
     """
 
     _ensure_gh_pages_ref(root, ref)
@@ -292,15 +229,11 @@ def _read_gh_pages(ref: str, paths: tuple[str, ...], root: Path) -> SiteSnapshot
 
 
 def _read_site_dir(site_dir: Path, paths: tuple[str, ...]) -> SiteSnapshot:
-    """Capture required public-site files from a generated directory.
+    """
+    Read read site dir for `microcosm_core.public_site_parity`.
 
-    Teleology: support local build verification with the same byte snapshot
-      shape used for git and live URL sources.
-    Guarantee: returns raw bytes for each required relative path when every
-      file exists.
-    Fails: raises RuntimeError on the first missing required file.
-    Reads: `site_dir` and its requested child files.
-    Writes: return value only.
+    Input comes from `site_dir` and `paths`; malformed or missing data follows the
+    exceptions and checks visible in the body.
     """
 
     files: dict[str, bytes] = {}
@@ -313,15 +246,11 @@ def _read_site_dir(site_dir: Path, paths: tuple[str, ...]) -> SiteSnapshot:
 
 
 def _read_site_url(base_url: str, paths: tuple[str, ...], timeout: float) -> SiteSnapshot:
-    """Fetch required public-site files from a deployed URL base.
+    """
+    Read read site URL for `microcosm_core.public_site_parity`.
 
-    Teleology: make deployment drift visible by comparing the hosted bytes
-      against the primary git or directory snapshot.
-    Guarantee: returns raw response bodies for every requested path when all
-      fetches complete below HTTP 400.
-    Fails: raises RuntimeError on URL, timeout, or HTTP error responses.
-    Reads: network responses below `base_url`.
-    Writes: return value only.
+    Input comes from `base_url`, `paths`, and `timeout`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
 
     base = base_url.rstrip("/") + "/"
@@ -339,18 +268,10 @@ def _read_site_url(base_url: str, paths: tuple[str, ...], timeout: float) -> Sit
 
 
 def _json_from_snapshot(snapshot: SiteSnapshot) -> tuple[dict[str, Any], list[dict[str, str]]]:
-    """Parse every JSON packet from a captured site snapshot.
+    """
+    Compute json from snapshot from `snapshot`.
 
-    Teleology: gather JSON parsing failures into receipt rows so a broken
-      packet blocks parity with a concrete path and message.
-    Guarantee: returns successfully parsed payloads plus one
-      `json_parse_failed` row for each packet that cannot be decoded as UTF-8
-      JSON.
-    Fails: does not raise for packet parse failures; missing snapshot paths or
-      other unexpected access failures are converted into error rows by the
-      broad parser guard.
-    Reads: `snapshot.files` for `JSON_PACKET_PATHS`.
-    Writes: return value only.
+    Inputs are `snapshot`; notable helpers are `loads`, `decode`, and `append`.
     """
 
     payloads: dict[str, Any] = {}
@@ -370,16 +291,10 @@ def _json_from_snapshot(snapshot: SiteSnapshot) -> tuple[dict[str, Any], list[di
 
 
 def _coverage_count(payload: dict[str, Any], kind: str) -> int | None:
-    """Return the object-map coverage count for one object kind.
+    """
+    Produce the coverage count value used by `microcosm_core.public_site_parity`.
 
-    Teleology: keep object-map count checks focused on the `coverage` row
-      schema instead of assuming positional layout.
-    Guarantee: returns an integer `object_count` for the first matching kind,
-      otherwise None.
-    Fails: never raises for dictionary payloads with absent coverage or
-      non-dict coverage rows.
-    Reads: `payload["coverage"]`.
-    Writes: return value only.
+    Inputs are `payload` and `kind`; notable helpers are `get`.
     """
 
     for row in payload.get("coverage", []):
@@ -390,14 +305,10 @@ def _coverage_count(payload: dict[str, Any], kind: str) -> int | None:
 
 
 def _site_field(payload: dict[str, Any], key: str) -> Any:
-    """Read one field from a packet's `site` metadata block.
+    """
+    Derive site field without touching module import state.
 
-    Teleology: make source-of-record and no-runtime-backend checks tolerant of
-      missing or malformed `site` blocks while still reporting mismatches.
-    Guarantee: returns the requested value only when `site` is a dictionary.
-    Fails: never raises for absent or non-dict `site` values.
-    Reads: `payload["site"]`.
-    Writes: return value only.
+    Inputs are `payload` and `key`; notable helpers are `get`.
     """
 
     site = payload.get("site")
@@ -407,16 +318,10 @@ def _site_field(payload: dict[str, Any], key: str) -> Any:
 
 
 def _packet_authority_errors(payload: dict[str, Any], rel: str) -> list[dict[str, Any]]:
-    """Check one AI-reader packet for publication and release boundary fields.
+    """
+    Compute packet authority errors from `payload` and `rel`.
 
-    Teleology: prevent public packets from quietly flipping from source-slice
-      distribution to release authority.
-    Guarantee: returns explicit mismatch rows when publication/distribution is
-      not true or when `release_authority_granted` is present and not false.
-    Fails: never raises for missing authority fields; absence is interpreted
-      by the compatibility rules encoded here.
-    Reads: authority fields in `payload`.
-    Writes: return value only.
+    Inputs are `payload` and `rel`; notable helpers are `append` and `get`.
     """
 
     errors: list[dict[str, Any]] = []
@@ -462,19 +367,11 @@ def _check_snapshot(
     source_counts: dict[str, int],
     compare_to: SiteSnapshot | None = None,
 ) -> dict[str, Any]:
-    """Validate one captured site snapshot against source and projection truth.
+    """
+    Serialize `microcosm_core.public_site_parity._check_snapshot` into the payload shape
+    expected by public site parity.
 
-    Teleology: collapse the public-shell parity contract into one receipt for
-      the primary snapshot or the live snapshot.
-    Guarantee: checks JSON parseability, projection-status byte hashes and
-      counts, optional byte equality with another snapshot, AI-reader packet
-      counts and authority fields, content-manifest and object-map counts, and
-      required public HTML phrases.
-    Fails: returns a `blocked` receipt with error rows for contract failures;
-      malformed JSON blocks deeper packet checks because later checks require
-      parsed payloads.
-    Reads: `snapshot.files`, `source_counts`, and optionally `compare_to`.
-    Writes: return value only.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
 
     errors: list[dict[str, Any]] = []
@@ -657,22 +554,11 @@ def check_public_site_parity(
     site_url: str | None = None,
     timeout: float = 20.0,
 ) -> dict[str, Any]:
-    """Build the public-site parity receipt for one primary site source.
+    """
+    Serialize `microcosm_core.public_site_parity.check_public_site_parity` into the payload
+    shape expected by public site parity.
 
-    Teleology: give release and deployment checks one callable that can verify
-      either a `gh-pages` ref or a local generated site directory, with optional
-      deployed-site comparison.
-    Guarantee: accepts exactly one primary source, derives current source
-      counts from `root`, validates the primary snapshot, validates the live URL
-      snapshot when supplied, and returns a receipt with aggregate errors.
-    Fails: raises ValueError when source selection is ambiguous; filesystem,
-      git, URL, and malformed-registry errors propagate to the CLI wrapper or
-      test caller.
-    Reads: source registries, the selected public-site source, and optionally
-      the deployed URL.
-    Writes: return value only, apart from any targeted gh-pages fetch needed
-      to read the selected ref.
-    Non-goal: does not build, publish, or authorize the public site.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
 
     sources = [bool(gh_pages_ref), bool(site_dir)]
@@ -703,16 +589,10 @@ def check_public_site_parity(
 
 
 def _format(receipt: dict[str, Any]) -> str:
-    """Render a parity receipt as compact terminal text.
+    """
+    Return format for the public site parity flow.
 
-    Teleology: keep the non-JSON CLI output readable while preserving the
-      exact structured error rows operators need to debug drift.
-    Guarantee: includes status, primary source, optional live source, source
-      counts, and at most the first twenty errors.
-    Fails: never raises for ordinary receipt dictionaries with missing fields;
-      absent values are printed as unavailable or omitted.
-    Reads: `receipt`.
-    Writes: return value only.
+    Inputs are `receipt`; notable helpers are `get`, `join`, `append`, and `dumps`.
     """
 
     lines = [
@@ -740,20 +620,11 @@ def _format(receipt: dict[str, Any]) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry point for the public-site parity guard.
+    """
+    Run `microcosm_core.public_site_parity` as a command-line entry point.
 
-    Teleology: expose the parity receipt to shell workflows that check
-      gh-pages, a local site directory, or an optional live deployment.
-    Guarantee: prints JSON when `--json` is present, otherwise prints the
-      compact text format; returns 0 only for a passing receipt.
-    Fails: catches unexpected validation exceptions and converts them into a
-      blocked receipt so automation receives a stable failure shape.
-    Reads: command-line arguments, source registries, selected site files, git
-      refs, and optionally live HTTP responses.
-    Writes: stdout and any targeted gh-pages fetch needed by the selected
-      primary source.
-    Non-goal: does not mutate source files, generate site artifacts, deploy
-      pages, or grant release authority.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
 
     parser = argparse.ArgumentParser(

@@ -1,30 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Validate the Batch 10 cold-eval honesty capsule as a deterministic public fixture, not as a live benchmark claim.
-- Mechanism: Load the copied `cold_eval.py` macro body, execute it inside a temporary workspace, audit scorecard shape, enforce claim ceilings, and exercise named negative fixtures.
-- Non-goal: Prove navigation truth, claim a benchmark win, dispatch providers or models, mutate source, expose private fixture refs, or authorize publication/release.
+Implements organs batch10 cold eval honesty capsule for the public Plectis package.
 
-[INTERFACE]
-- CLI: `python -m microcosm_core.organs.batch10_cold_eval_honesty_capsule run --input <fixture> --out <receipt-dir>`.
-- Bundle CLI: `python -m microcosm_core.organs.batch10_cold_eval_honesty_capsule run-batch10-cold-eval-bundle --input <bundle> --out <receipt-dir>`.
-- Exports: `run`, `run_batch10_cold_eval_bundle`, `result_card`, and negative-case evaluation helpers for the crown-jewel organ runner.
-
-[FLOW]
-- Resolve the public root and source manifest, load the exercise manifest, and run the copied cold-eval implementation in an isolated temp workspace.
-- Check scorecard asymmetry, expected-reference injection policy, private-fixture leakage, and the authority ceiling before accepting the exercise.
-- Re-run deterministic negative perturbations, combine findings, and emit the crown-jewel result, board, validation, and card surfaces.
-
-[DEPENDENCIES]
-- Required: `microcosm_core.organs._crown_jewel_common` for common organ execution, manifest validation, findings, and card projection.
-- Required: copied public `idea_microcosm/cold_eval.py` source module under the exported Batch 10 bundle.
-
-[CONSTRAINTS]
-- Atomicity: Runtime workspace mutation happens only inside temporary copies; durable writes are limited to caller-selected receipt outputs through the shared crown-jewel runner.
-- Determinism: Fixture paths, negative-case IDs, engine IDs, and result ordering are stable for identical input directories and copied source modules.
-- Forbid: Treating a pass as live-agent capability, navigation truth, hosted readiness, public release approval, or permission to expose private fixture material.
-- When-needed: Open when a recipient or agent needs the exact Batch 10 cold-eval honesty validator source named by the Beth packet.
-- Escalates-to: microcosm_core.organs._crown_jewel_common; examples/batch10_cold_eval_honesty_capsule
-- Navigation-group: microcosm_public_organs
+Callers enter through `evaluate_negative_case`, `run`, `run_batch10_cold_eval_bundle`,
+`result_card`, and `main`; constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`,
+`RESULT_NAME`, and 13 more pin local fixture names; dependencies include `argparse`,
+`importlib`, `json`, `shutil`, and 6 more. It builds public fixture, result, card, or
+verdict structures while keeping private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -135,15 +116,9 @@ SPEC = CrownJewelSpec(
 
 def _copied_cold_eval(public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Resolve the copied public `cold_eval.py` module path inside the exported Batch 10 bundle.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Derive copied cold eval without touching module import state.
+
+    Inputs are `public_root`.
     """
     return (
         public_root
@@ -155,15 +130,10 @@ def _copied_cold_eval(public_root: Path) -> Path:
 
 def _load_cold_eval(path: Path) -> Any:
     """
-    [ACTION]
-    - Teleology: Load the copied cold-eval module under an isolated import name for deterministic fixture execution.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Load load cold eval for `microcosm_core.organs.batch10_cold_eval_honesty_capsule`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     spec = importlib.util.spec_from_file_location("batch10_copied_cold_eval", path)
     if spec is None or spec.loader is None:
@@ -176,45 +146,30 @@ def _load_cold_eval(path: Path) -> Any:
 
 def _load_json(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Read one UTF-8 JSON object from disk for fixture, manifest, or receipt inspection.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Load load JSON for `microcosm_core.organs.batch10_cold_eval_honesty_capsule`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _write_json(path: Path, payload: Mapping[str, Any]) -> None:
     """
-    [ACTION]
-    - Teleology: Write a deterministic UTF-8 JSON object used by temporary negative-case workspace mutations.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Write write JSON for the organs batch10 cold eval honesty capsule flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def _walk_strings(payload: Any) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Collect nested string values from a fixture payload so private references can be detected.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Produce the walk strings value used by
+    `microcosm_core.organs.batch10_cold_eval_honesty_capsule`.
+
+    Inputs are `payload`; notable helpers are `values`, `extend`, and `_walk_strings`.
     """
     if isinstance(payload, dict):
         values: list[str] = []
@@ -231,30 +186,20 @@ def _walk_strings(payload: Any) -> list[str]:
 
 def _workspace_source(input_path: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Locate the cold-eval workspace directory under the selected fixture input.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Return workspace source for the organs batch10 cold eval honesty capsule flow.
+
+    Inputs are `input_path`.
     """
     return input_path / "cold_eval_workspace"
 
 
 def _run_original_cold_eval(input_path: Path, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Execute the copied cold-eval implementation in a temporary workspace and summarize its scorecard.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Serialize
+    `microcosm_core.organs.batch10_cold_eval_honesty_capsule._run_original_cold_eval` into
+    the payload shape expected by organs batch10 cold eval honesty capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     module = _load_cold_eval(_copied_cold_eval(public_root))
     source_workspace = _workspace_source(input_path)
@@ -300,15 +245,11 @@ def _run_original_cold_eval(input_path: Path, public_root: Path) -> dict[str, An
 
 def _scorecard_shape_audit(original: Mapping[str, Any], input_path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Audit cold-eval scorecard shape for route asymmetry, winner pattern, and private fixture refs.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Serialize
+    `microcosm_core.organs.batch10_cold_eval_honesty_capsule._scorecard_shape_audit` into
+    the payload shape expected by organs batch10 cold eval honesty capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     tasks_path = _workspace_source(input_path) / "evals/cold_agent_ab/tasks.json"
     tasks_payload = _load_json(tasks_path) if tasks_path.is_file() else {}
@@ -340,15 +281,10 @@ def _scorecard_shape_audit(original: Mapping[str, Any], input_path: Path) -> dic
 
 def _claim_ceiling_gate(original: Mapping[str, Any], input_path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Verify that the exercise manifest forbids benchmark, navigation-truth, release, and live-agent claims.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Serialize `microcosm_core.organs.batch10_cold_eval_honesty_capsule._claim_ceiling_gate`
+    into the payload shape expected by organs batch10 cold eval honesty capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest = _load_json(input_path / EXERCISE_MANIFEST_NAME)
     omitted_claims = manifest.get("forbidden_claims", [])
@@ -381,15 +317,10 @@ def _evaluate(
     source_manifest: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Run all Batch 10 honesty engines and collapse their evidence into a crown-jewel exercise result.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Serialize `microcosm_core.organs.batch10_cold_eval_honesty_capsule._evaluate` into the
+    payload shape expected by organs batch10 cold eval honesty capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     original = _run_original_cold_eval(input_path, public_root)
@@ -430,15 +361,10 @@ def _evaluate(
 
 def _mutation_target(input_path: Path, relative_path: object) -> Path:
     """
-    [ACTION]
-    - Teleology: Resolve a negative-fixture mutation target while rejecting absolute or parent-escaping paths.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Compute mutation target from `input_path` and `relative_path`.
+
+    Inputs are `input_path` and `relative_path`; notable helpers are `Path`, `is_absolute`,
+    and `ValueError`; invalid cases raise from the explicit checks in the body.
     """
     rel = Path(str(relative_path or ""))
     if not rel.parts or rel.is_absolute() or ".." in rel.parts:
@@ -448,15 +374,11 @@ def _mutation_target(input_path: Path, relative_path: object) -> Path:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Filter a list-like value down to string refs used by mutation fixtures.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Return the non-empty string members used by
+    `microcosm_core.organs.batch10_cold_eval_honesty_capsule._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if isinstance(value, list):
         return [item for item in value if isinstance(item, str)]
@@ -465,15 +387,11 @@ def _strings(value: object) -> list[str]:
 
 def _apply_negative_workspace_mutation(case_id: str, input_path: Path) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Apply one supported negative-case mutation inside a copied workspace and return mutation findings.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Compute apply negative workspace mutation from `case_id` and `input_path`.
+
+    Inputs are `case_id` and `input_path`; notable helpers are `_load_json`, `get`,
+    `finding`, `_mutation_target`, and 5 more; invalid cases raise from the explicit checks
+    in the body.
     """
     fixture_path = input_path / f"{case_id}.json"
     payload = _load_json(fixture_path)
@@ -555,15 +473,11 @@ def _run_negative_perturbation(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Run one negative perturbation through the same source-manifest and exercise validator path.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Serialize
+    `microcosm_core.organs.batch10_cold_eval_honesty_capsule._run_negative_perturbation`
+    into the payload shape expected by organs batch10 cold eval honesty capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     with tempfile.TemporaryDirectory(prefix=f"batch10_cold_eval_negative_{case_id}_") as tmp:
         perturbed = Path(tmp) / "input"
@@ -589,15 +503,11 @@ def _run_negative_perturbation(
 @lru_cache(maxsize=8)
 def _semantic_runtime_exercises(input_ref: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Cache the positive exercise and all negative perturbations for negative-case evaluation.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Serialize
+    `microcosm_core.organs.batch10_cold_eval_honesty_capsule._semantic_runtime_exercises`
+    into the payload shape expected by organs batch10 cold eval honesty capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_ref)
     public_root = public_root_for_path(input_path)
@@ -619,15 +529,9 @@ def _semantic_runtime_exercises(input_ref: str) -> dict[str, Any]:
 
 def _engine_map(exercise: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Index engine result rows by engine ID for compact negative-case predicates.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Compute engine map from `exercise`.
+
+    Inputs are `exercise`; notable helpers are `get`.
     """
     engines = exercise.get("engines") if isinstance(exercise.get("engines"), list) else []
     return {
@@ -639,15 +543,9 @@ def _engine_map(exercise: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
 
 def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Return the runtime result for one negative case or an empty mapping when absent.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Return negative exercise for the organs batch10 cold eval honesty capsule flow.
+
+    Inputs are `runtime` and `case_id`; notable helpers are `get`.
     """
     cases = (
         runtime.get("negative_exercises")
@@ -660,15 +558,12 @@ def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str,
 
 def _observed_negative_case(case_id: str, runtime: Mapping[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Decide whether a negative case was actually observed by the runtime perturbation result.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Return whether observed negative case holds for the organs batch10 cold eval honesty
+    capsule flow.
+
+    The result is derived from `case_id` and `runtime` with `_negative_exercise`,
+    `_engine_map`, and `get`; failing evidence is returned or raised exactly where the body
+    says so.
     """
     exercise = _negative_exercise(runtime, case_id)
     engines = _engine_map(exercise)
@@ -712,15 +607,11 @@ def evaluate_negative_case(
     _expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Expose the observed negative-case predicate in the common crown-jewel evaluator shape.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Serialize
+    `microcosm_core.organs.batch10_cold_eval_honesty_capsule.evaluate_negative_case` into
+    the payload shape expected by organs batch10 cold eval honesty capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     expected_code = NEGATIVE_CASE_CODES.get(case_id, "")
     observed = _observed_negative_case(
@@ -742,15 +633,10 @@ def run(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Run the Batch 10 cold-eval honesty fixture through the shared crown-jewel organ runner.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Produce the run value used by `microcosm_core.organs.batch10_cold_eval_honesty_capsule`.
+
+    Inputs are `input_dir`, `out_dir`, `acceptance_out`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -771,15 +657,11 @@ def run_batch10_cold_eval_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Run an exported Batch 10 cold-eval honesty bundle through the shared crown-jewel organ runner.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Return run batch10 cold eval bundle for the organs batch10 cold eval honesty capsule
+    flow.
+
+    Inputs are `bundle_dir`, `out_dir`, `acceptance_out`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -795,15 +677,9 @@ def run_batch10_cold_eval_bundle(
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Project a compact recipient-facing result card from the full crown-jewel validation result.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Return result card for `microcosm_core.organs.batch10_cold_eval_honesty_capsule`.
+
+    Inputs are `result`; notable helpers are `card_for_result` and `get`.
     """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
@@ -814,15 +690,11 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Parse the Batch 10 CLI, dispatch the selected run mode, and print result or card JSON.
-    - Preconditions: Caller supplies a fixture or exported bundle with the Batch 10 exercise manifest and copied cold-eval source module available under the public bundle layout.
-    - Guarantee: Returns deterministic body-free validation data for the selected fixture path and does not mutate caller source or dispatch providers.
-    - Fails: Raises or returns findings for malformed JSON, missing copied source modules, unsafe mutation paths, unsupported negative mutations, or crown-jewel runner IO failures.
-    - Reads: Fixture JSON, copied cold-eval source module, temporary workspace copies, and source manifests selected by the caller.
-    - Writes: Temporary negative-case workspaces and caller-selected receipt outputs only through the shared crown-jewel runner.
-    - Orders: Engine IDs, case IDs, findings, and card fields are sorted or fixed by constants for stable output.
-    - Couples: `microcosm_core.organs._crown_jewel_common` defines shared manifest, receipt, and card semantics.
+    Run `microcosm_core.organs.batch10_cold_eval_honesty_capsule` as a command-line entry
+    point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)

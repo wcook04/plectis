@@ -1,36 +1,12 @@
 """
-Public-safe Bridge Campaign DAG validation capsule.
+Implements engine room bridge campaign DAG for the public Plectis package.
 
-This is a source-faithful refactor of the macro bridge campaign contract layer:
-`tools/meta/bridge/bridge_campaign.py` plus the provider ceiling rule from
-`tools/meta/bridge/dispatch_validator.py`. It is deliberately a validator, not a
-dispatcher. It reads a small public campaign spec, proves the fan-in graph is
-well formed, and rejects cycles, dangling synthesis nodes, and provider
-over-parallelism.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.engine_room.bridge_campaign_dag` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: SCHEMA_VERSION, ORGAN_ID, SOURCE_REFS, SOURCE_TO_TARGET_RELATION, VALID_NODE_ROLES, VALID_INPUT_MODES, VALID_PACKET_SCHEMAS, SAFE_PARALLELISM, CAMPAIGN_ID_RE, CLAIM_CEILING, ANTI_CLAIMS, Decision, ValidationResult, validate_campaign, load_campaign, validate_campaign_file, validate_fixture_dir, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: None beyond the Python standard library and local package imports.
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `Decision`, `ValidationResult`, `validate_campaign`, `load_campaign`,
+`validate_campaign_file`, `validate_fixture_dir`, and 1 more; constants such as
+`SCHEMA_VERSION`, `ORGAN_ID`, `SOURCE_REFS`, `SOURCE_TO_TARGET_RELATION`, and 7 more pin
+local fixture names; dependencies include `argparse`, `json`, `re`, `dataclasses`, and 2
+more. The implementation is source-owned engine-room code, so receipts and tests should name
+these callables directly.
 """
 
 from __future__ import annotations
@@ -72,13 +48,10 @@ ANTI_CLAIMS = (
 @dataclass(frozen=True)
 class Decision:
     """
-    [ROLE]
-    - Teleology: Groups `Decision` data or behavior for `microcosm_core.engine_room.bridge_campaign_dag` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.engine_room.bridge_campaign_dag`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    Record object for Decision.
+
+    It keeps `rule_id`, `outcome`, `target`, and `message` together for the engine room
+    bridge campaign DAG flow.
     """
     rule_id: str
     outcome: str
@@ -89,13 +62,11 @@ class Decision:
 @dataclass
 class ValidationResult:
     """
-    [ROLE]
-    - Teleology: Groups `ValidationResult` data or behavior for `microcosm_core.engine_room.bridge_campaign_dag` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.engine_room.bridge_campaign_dag`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    Record object for Validation Result.
+
+    It keeps `ok`, `decisions`, `errors`, and `warnings` together for the engine room bridge
+    campaign DAG flow. Methods such as `add` and `to_dict` derive serialized or path-shaped
+    views from that state.
     """
     ok: bool = True
     decisions: list[Decision] = field(default_factory=list)
@@ -104,13 +75,10 @@ class ValidationResult:
 
     def add(self, rule_id: str, outcome: str, target: str | None, message: str) -> None:
         """
-        [ACTION]
-        - Teleology: Implements `ValidationResult.add` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Add add for the engine room bridge campaign DAG flow.
+
+        The side effect is the explicit file, receipt, parser, print, or instance-state
+        update performed in this function.
         """
         decision = Decision(rule_id=rule_id, outcome=outcome, target=target, message=message)
         self.decisions.append(decision)
@@ -122,13 +90,10 @@ class ValidationResult:
 
     def to_dict(self) -> dict[str, Any]:
         """
-        [ACTION]
-        - Teleology: Implements `ValidationResult.to_dict` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Serialize ValidationResult into the engine room bridge campaign DAG payload shape.
+
+        The returned mapping uses the key names consumed by downstream receipts, cards, or
+        tests.
         """
         return {
             "ok": self.ok,
@@ -140,13 +105,9 @@ class ValidationResult:
 
 def _format_decision(decision: Decision) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_format_decision` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute format decision from `decision`.
+
+    Inputs are `decision`.
     """
     scope = f" target={decision.target!r}" if decision.target else ""
     return f"[{decision.rule_id}]{scope} {decision.message}"
@@ -154,26 +115,18 @@ def _format_decision(decision: Decision) -> str:
 
 def _string(value: Any) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_string` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return string for the engine room bridge campaign DAG flow.
+
+    Inputs are `value`; notable helpers are `strip`.
     """
     return str(value or "").strip()
 
 
 def _as_list(value: Any) -> list[Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_as_list` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return as list for `microcosm_core.engine_room.bridge_campaign_dag`.
+
+    Inputs are `value`.
     """
     if isinstance(value, list):
         return value
@@ -184,39 +137,28 @@ def _as_list(value: Any) -> list[Any]:
 
 def _node_label(node: Mapping[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_node_label` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return node label for the engine room bridge campaign DAG flow.
+
+    Inputs are `node`; notable helpers are `_string` and `get`.
     """
     return _string(node.get("label"))
 
 
 def _node_role(node: Mapping[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_node_role` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive node role without touching module import state.
+
+    Inputs are `node`; notable helpers are `_string` and `get`.
     """
     return _string(node.get("role"))
 
 
 def _node_dependencies(node: Mapping[str, Any]) -> tuple[str, ...]:
     """
-    [ACTION]
-    - Teleology: Implements `_node_dependencies` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive node dependencies without touching module import state.
+
+    Inputs are `node`; notable helpers are `get`, `_string`, `_as_list`, `strip`, and 1
+    more.
     """
     raw = node.get("depends_on", [])
     if isinstance(raw, str):
@@ -226,13 +168,9 @@ def _node_dependencies(node: Mapping[str, Any]) -> tuple[str, ...]:
 
 def _nodes_by_label(nodes: Sequence[Mapping[str, Any]]) -> dict[str, Mapping[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_nodes_by_label` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive nodes by label without touching module import state.
+
+    Inputs are `nodes`; notable helpers are `_node_label`.
     """
     return {_node_label(node): node for node in nodes if _node_label(node)}
 
@@ -244,13 +182,10 @@ def _reachable_dependencies(
     seen: set[str] | None = None,
 ) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_reachable_dependencies` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute reachable dependencies from `label`, `nodes_by_label`, and `seen`.
+
+    Inputs are `label`, `nodes_by_label`, and `seen`; notable helpers are
+    `_node_dependencies`, `get`, `add`, and `_reachable_dependencies`.
     """
     seen = set() if seen is None else seen
     for dep in _node_dependencies(nodes_by_label.get(label, {})):
@@ -264,13 +199,10 @@ def _reachable_dependencies(
 
 def _cycle_labels(nodes: Sequence[Mapping[str, Any]]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_cycle_labels` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute cycle labels from `nodes`.
+
+    Inputs are `nodes`; notable helpers are `_nodes_by_label`, `add`, `_node_dependencies`,
+    `remove`, and 2 more.
     """
     nodes_by_label = _nodes_by_label(nodes)
     visiting: set[str] = set()
@@ -279,13 +211,10 @@ def _cycle_labels(nodes: Sequence[Mapping[str, Any]]) -> list[str]:
 
     def visit(label: str) -> None:
         """
-        [ACTION]
-        - Teleology: Implements `_cycle_labels.visit` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Run visit for `microcosm_core.engine_room.bridge_campaign_dag`.
+
+        The function is a named boundary around the visible side effect or orchestration
+        step in its body.
         """
         if label in visiting:
             cycles.add(label)
@@ -313,17 +242,11 @@ def validate_campaign(
     repo_root: Path | None = None,
 ) -> ValidationResult:
     """
-    [ACTION]
-    Validate one public bridge campaign spec.
+    Validate whether validate campaign holds for the engine room bridge campaign DAG flow.
 
-    The rule ids intentionally mirror the macro CR/VR rule families where this
-    capsule carries their public-safe subset.
-    - Teleology: Implements `validate_campaign` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `campaign`, `provider`, `workers`, `require_existing_plan`,
+    and `repo_root` with `ValidationResult`, `_string`, `add`, `_nodes_by_label`, and 13
+    more; failing evidence is returned or raised exactly where the body says so.
     """
 
     result = ValidationResult()
@@ -496,13 +419,10 @@ def validate_campaign(
 
 def load_campaign(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `load_campaign` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Load load campaign for `microcosm_core.engine_room.bridge_campaign_dag`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, dict):
@@ -512,13 +432,10 @@ def load_campaign(path: Path) -> dict[str, Any]:
 
 def validate_campaign_file(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_campaign_file` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.engine_room.bridge_campaign_dag.validate_campaign_file` into
+    the payload shape expected by engine room bridge campaign DAG.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payload = load_campaign(path)
     provider = _string(payload.get("provider") or "chatgpt")
@@ -539,13 +456,10 @@ def validate_campaign_file(path: Path) -> dict[str, Any]:
 
 def validate_fixture_dir(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_fixture_dir` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.engine_room.bridge_campaign_dag.validate_fixture_dir` into the
+    payload shape expected by engine room bridge campaign DAG.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = [validate_campaign_file(path) for path in sorted(input_dir.glob("*.json"))]
     return {
@@ -564,13 +478,10 @@ def validate_fixture_dir(input_dir: Path) -> dict[str, Any]:
 
 def _emit(payload: Mapping[str, Any], *, json_output: bool) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_emit` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Emit emit for the engine room bridge campaign DAG flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     if json_output:
         print(json.dumps(payload, indent=2, sort_keys=True))
@@ -581,13 +492,10 @@ def _emit(payload: Mapping[str, Any], *, json_output: bool) -> None:
 
 def main(argv: Sequence[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.engine_room.bridge_campaign_dag` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.engine_room.bridge_campaign_dag` as a command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)

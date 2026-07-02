@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.batch8_policy_engines_capsule` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs batch8 policy engines capsule for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, PROBE_MANIFEST_NAME, EXPECTED_ENGINES, EXPECTED_MODULE_IDS, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, SPEC, evaluate_negative_case, run, run_batch8_policy_engines_bundle, result_card, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate_negative_case`, `run`, `run_batch8_policy_engines_bundle`,
+`result_card`, and `main`; constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`,
+`RESULT_NAME`, and 13 more pin local fixture names; dependencies include `argparse`,
+`importlib`, `json`, `sys`, and 5 more. It builds public fixture, result, card, or verdict
+structures while keeping private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -144,13 +128,10 @@ SPEC = CrownJewelSpec(
 
 def _load_json(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_json` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch8_policy_engines_capsule._load_json` into the
+    payload shape expected by organs batch8 policy engines capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
@@ -161,13 +142,10 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 def _source_manifest_payload(input_path: Path, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_manifest_payload` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute source manifest payload from `input_path` and `public_root`.
+
+    Inputs are `input_path` and `public_root`; notable helpers are `is_file` and
+    `_load_json`.
     """
     local = input_path / "source_module_manifest.json"
     if local.is_file():
@@ -177,13 +155,10 @@ def _source_manifest_payload(input_path: Path, public_root: Path) -> dict[str, A
 
 def _source_rows(input_path: Path, public_root: Path) -> dict[str, Mapping[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_rows` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch8_policy_engines_capsule._source_rows` into the
+    payload shape expected by organs batch8 policy engines capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _source_manifest_payload(input_path, public_root).get("modules")
     if not isinstance(rows, list):
@@ -197,13 +172,9 @@ def _source_rows(input_path: Path, public_root: Path) -> dict[str, Mapping[str, 
 
 def _target_path(row: Mapping[str, Any], *, public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_target_path` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return target path for the organs batch8 policy engines capsule flow.
+
+    Inputs are `row` and `public_root`; notable helpers are `startswith` and `get`.
     """
     target_ref = str(row.get("target_ref") or "")
     if target_ref.startswith("microcosm-substrate/"):
@@ -217,13 +188,11 @@ def _target_path(row: Mapping[str, Any], *, public_root: Path) -> Path:
 @contextmanager
 def _temporary_sys_path(paths: list[Path]) -> Iterator[None]:
     """
-    [ACTION]
-    - Teleology: Implements `_temporary_sys_path` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Apply `microcosm_core.organs.batch8_policy_engines_capsule._temporary_sys_path` for the
+    lifetime of a context block.
+
+    The previous state is restored after the block exits, including exceptions raised inside
+    the block.
     """
     old_path = list(sys.path)
     for path in reversed([str(p) for p in paths if p]):
@@ -237,13 +206,9 @@ def _temporary_sys_path(paths: list[Path]) -> Iterator[None]:
 
 def _source_modules_root(target_path: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_modules_root` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source modules root for `microcosm_core.organs.batch8_policy_engines_capsule`.
+
+    Inputs are `target_path`.
     """
     for candidate in (target_path.parent, *target_path.parents):
         if candidate.name == "source_modules":
@@ -253,13 +218,10 @@ def _source_modules_root(target_path: Path) -> Path:
 
 def _load_copied_module(module_id: str, rows: Mapping[str, Mapping[str, Any]], public_root: Path):
     """
-    [ACTION]
-    - Teleology: Implements `_load_copied_module` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load copied module for `microcosm_core.organs.batch8_policy_engines_capsule`.
+
+    Input comes from `module_id`, `rows`, and `public_root`; malformed or missing data
+    follows the exceptions and checks visible in the body.
     """
     row = rows[module_id]
     target = _target_path(row, public_root=public_root)
@@ -276,13 +238,10 @@ def _load_copied_module(module_id: str, rows: Mapping[str, Mapping[str, Any]], p
 
 def _write_lab_artifact(artifacts_dir: Path, node_id: str, data: Any) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_write_lab_artifact` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write lab artifact for the organs batch8 policy engines capsule flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     artifacts_dir.mkdir(parents=True, exist_ok=True)
     (artifacts_dir / f"{node_id}.json").write_text(
@@ -293,13 +252,10 @@ def _write_lab_artifact(artifacts_dir: Path, node_id: str, data: Any) -> None:
 
 def _write_green_lab_artifacts(artifacts_dir: Path) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_write_green_lab_artifacts` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Write write green lab artifacts for the organs batch8 policy engines capsule flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     _write_lab_artifact(
         artifacts_dir,
@@ -338,13 +294,11 @@ def _exercise_lab_contract_audit(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_exercise_lab_contract_audit` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch8_policy_engines_capsule._exercise_lab_contract_audit` into
+    the payload shape expected by organs batch8 policy engines capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     market = _load_copied_module("market_fusion_readiness_fail_closed_gate", rows, public_root)
     market_module_name = "system.lib.market_fusion_readiness"
@@ -400,13 +354,10 @@ def _exercise_market_fusion(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_exercise_market_fusion` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch8_policy_engines_capsule._exercise_market_fusion`
+    into the payload shape expected by organs batch8 policy engines capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     market = _load_copied_module("market_fusion_readiness_fail_closed_gate", rows, public_root)
     known = market.preflight_candidate_situation(
@@ -456,13 +407,11 @@ def _exercise_campaign_transition(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_exercise_campaign_transition` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch8_policy_engines_capsule._exercise_campaign_transition` into
+    the payload shape expected by organs batch8 policy engines capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     campaign = _load_copied_module(
         "campaign_dispatch_status_transition_adjudicator",
@@ -502,13 +451,10 @@ def evaluate_negative_case(
     _expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch8_policy_engines_capsule.evaluate_negative_case`
+    into the payload shape expected by organs batch8 policy engines capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = public_root_for_path(input_dir)
     rows = _source_rows(input_dir, public_root)
@@ -582,13 +528,10 @@ def _capsule_evaluator(
     source_manifest: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_capsule_evaluator` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch8_policy_engines_capsule._capsule_evaluator` into
+    the payload shape expected by organs batch8 policy engines capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     probe = _load_json(input_path / PROBE_MANIFEST_NAME)
     mechanisms = [
@@ -666,13 +609,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -692,13 +632,10 @@ def run_batch8_policy_engines_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_batch8_policy_engines_bundle` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run batch8 policy engines bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -713,13 +650,9 @@ def run_batch8_policy_engines_bundle(
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return result card for `microcosm_core.organs.batch8_policy_engines_capsule`.
+
+    Inputs are `result`; notable helpers are `card_for_result` and `get`.
     """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
@@ -767,13 +700,10 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.batch8_policy_engines_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.batch8_policy_engines_capsule` as a command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)

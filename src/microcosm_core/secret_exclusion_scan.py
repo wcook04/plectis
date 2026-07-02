@@ -1,4 +1,13 @@
-"""Scans text and JSON payloads for secret-like material before public export or receipt use."""
+"""
+Implements secret exclusion scan for the public Plectis package.
+
+Callers enter through `normalize_secret_exclusion_scan`,
+`classify_public_safe_macro_import`, `scan_text`, `scan_paths`, and `scan_json_payload`;
+constants such as `BLOCKED_SECRET_EXCLUSION`, `TEXT_SUFFIXES`, `TEXT_FILENAMES`,
+`RECEIPT_BODY_FIELD_KEYS`, and 1 more pin local fixture names; dependencies include
+`pathlib`, `typing`, and `private_state_scan`. Importing it does not authorize release work
+or hidden private-state access; those effects live behind explicit calls.
+"""
 from __future__ import annotations
 
 from pathlib import Path
@@ -44,19 +53,10 @@ EXPECTED_NEGATIVE_MARKER_KEYS = frozenset(
 
 def _without_legacy_body_fields(row: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Strip raw-body keys before a row enters a receipt.
+    Produce the without legacy body fields value used by
+    `microcosm_core.secret_exclusion_scan`.
 
-    - Teleology: enforce the body-out-of-receipt contract by dropping the legacy
-      body-bearing keys from any hit/finding/scan row before it is surfaced.
-    - Guarantee: returns a new dict copy of `row` with `body_redacted`,
-      `matched_excerpt`, and `body` removed; all other keys/values pass through.
-    - Fails: never raises; a row lacking those keys returns an equivalent copy.
-    - Reads: in-memory `row` dict only; no manifest/digest/source-ref path.
-    - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness.
-    - Escalates-to: `private_state_scan.py` for the upstream hit shape these keys come from.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `row`; notable helpers are `items`.
     """
     return {
         key: value
@@ -67,21 +67,9 @@ def _without_legacy_body_fields(row: dict[str, Any]) -> dict[str, Any]:
 
 def _refresh_scan_counts(scan: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Recompute the scan verdict and counts from current hits.
+    Produce the refresh scan counts value used by `microcosm_core.secret_exclusion_scan`.
 
-    - Teleology: single chokepoint that derives the secret-exclusion verdict from
-      the live hit list so status can never drift from the hits it reports.
-    - Guarantee: sets `scan["status"]` to `BLOCKED_PUBLIC_WRITE` if any non-expected
-      hit has `forbidden_class == "target_only_not_source"`, else `BLOCKED_SECRET_EXCLUSION`
-      (alias of `BLOCKED_PRIVATE`) if any non-expected hit remains, else `PASS`; also
-      sets `hits`, `hit_count`, and `blocking_hit_count`; expected-negative hits never block.
-    - Fails: never raises; an empty/all-expected hit list yields `status == PASS`.
-    - Reads: in-memory `scan` dict only; no manifest/digest/source-ref path.
-    - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness.
-    - Escalates-to: `private_state_scan.py` status constants and the same verdict logic in its scanners.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `scan`; notable helpers are `get`.
     """
     hits = [dict(hit) for hit in scan.get("hits", []) if isinstance(hit, dict)]
     blocking_hits = [hit for hit in hits if not hit.get("expected_negative_case")]
@@ -100,28 +88,11 @@ def _refresh_scan_counts(scan: dict[str, Any]) -> dict[str, Any]:
 
 def normalize_secret_exclusion_scan(raw_scan: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Return the receipt-facing secret-exclusion shape.
+    Produce the normalize secret exclusion scan value used by
+    `microcosm_core.secret_exclusion_scan`.
 
-    Legacy scanner internals still know how to find sentinel terms, but the
-    public receipt contract is source-open by default: the scanner proves that
-    secrets/account-bound payload bodies are excluded, not that ordinary macro
-    substrate was redacted.
-
-    - Teleology: convert a legacy private-state scan into the source-open
-      secret-exclusion receipt shape consumed by public-safe import flows.
-    - Guarantee: returns a new scan dict with legacy body keys dropped, fixed
-      policy fields stamped (`scan_purpose`, `body_in_receipt=False`,
-      `real_substrate_default=True`, `omitted_output_fields`, `exclusion_policy`,
-      `synthetic_receipt_policy`), every hit body-stripped with `body_in_receipt=False`,
-      and `status`/counts re-derived via `_refresh_scan_counts`.
-    - Fails: never raises; a `raw_scan` with no hits yields `status == PASS` and zero counts.
-    - Reads: in-memory `raw_scan` dict only; no manifest/digest/source-ref path.
-    - When-needed: inspect when a public receipt's status, omitted fields, or body-exclusion claim must be explained.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond secret exclusion, release, or whole-system correctness.
-    - Escalates-to: `private_state_scan.py` scanners that produce `raw_scan`, and `_refresh_scan_counts` for the verdict.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `raw_scan`; notable helpers are `_refresh_scan_counts`, `items`,
+    `_without_legacy_body_fields`, and `get`.
     """
 
     legacy_scan_keys = {
@@ -155,20 +126,12 @@ def normalize_secret_exclusion_scan(raw_scan: dict[str, Any]) -> dict[str, Any]:
 
 def _payload_has_expected_negative_marker(payload: object) -> bool:
     """
-    [ACTION]
-    Detect whether a payload self-declares as a negative-case fixture.
+    Return whether payload has expected negative marker holds for the secret exclusion scan
+    flow.
 
-    - Teleology: let known regression/negative-case harness payloads carry
-      sentinel body fields without their hits counting as blocking violations.
-    - Guarantee: returns True iff any dict key anywhere in the nested
-      `payload` (recursing dicts and lists) is in `EXPECTED_NEGATIVE_MARKER_KEYS`,
-      else False.
-    - Fails: never raises; scalars and unmarked structures return False.
-    - Reads: in-memory `payload` object only; no manifest/digest/source-ref path.
-    - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness.
-    - Escalates-to: `EXPECTED_NEGATIVE_MARKER_KEYS` for the marker vocabulary.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `payload` with `items` and
+    `_payload_has_expected_negative_marker`; failing evidence is returned or raised exactly
+    where the body says so.
     """
     if isinstance(payload, dict):
         for key, value in payload.items():
@@ -189,22 +152,10 @@ def _receipt_payload_field_hits(
     prefix: str = "",
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Collect receipt-body-field violations from a nested payload.
+    Return receipt payload field hits for the secret exclusion scan flow.
 
-    - Teleology: find every place a receipt payload carries a raw-body field
-      (`body`, `matched_excerpt`, `source_body`, ...) that must live in source, not receipts.
-    - Guarantee: returns a list of hit dicts, one per nested key in
-      `RECEIPT_BODY_FIELD_KEYS`, each with `forbidden_class="receipt_payload_body_field"`,
-      `term_id`, dotted/indexed `field_path`, `body_in_receipt=False`, a `remediation`
-      string, and `expected_negative_case=True` only when `expected_negative` is set;
-      returns `[]` when no such field is present.
-    - Fails: never raises; scalars and clean structures yield `[]`.
-    - Reads: in-memory `payload` object only; no manifest/digest/source-ref path.
-    - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness.
-    - Escalates-to: `RECEIPT_BODY_FIELD_KEYS` for the forbidden field vocabulary.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `payload`, `path`, `expected_negative`, and `prefix`; notable helpers are
+    `items`, `extend`, `append`, and `_receipt_payload_field_hits`.
     """
     hits: list[dict[str, Any]] = []
     if isinstance(payload, dict):
@@ -256,22 +207,11 @@ def _merge_receipt_payload_boundary(
     path: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Fold receipt-payload body-field hits into a scan and re-derive verdict.
+    Compute merge receipt payload boundary from `scan`, `payload`, and `path`.
 
-    - Teleology: extend a normalized scan with the receipt-payload-field guard so
-      a receipt that smuggles raw body fields is recorded as a secret-exclusion violation.
-    - Guarantee: appends every `_receipt_payload_field_hits` hit to `scan["hits"]`,
-      sets `scan["receipt_payload_field_guard"]` with `status` (`PASS` when zero
-      blocking fields else `BLOCKED_SECRET_EXCLUSION`), `forbidden_field_count`,
-      `blocking_field_count`, and `body_in_receipt=False`, then returns the scan with
-      counts/status refreshed via `_refresh_scan_counts`.
-    - Fails: never raises; a payload with no body fields leaves the prior verdict and adds a `PASS` guard.
-    - Reads: in-memory `scan` and `payload` only; `path` is a display label, not a path read from disk.
-    - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness.
-    - Escalates-to: `_receipt_payload_field_hits` for the hits and `_refresh_scan_counts` for the verdict.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `scan`, `payload`, and `path`; notable helpers are
+    `_payload_has_expected_negative_marker`, `_receipt_payload_field_hits`, `setdefault`,
+    `extend`, and 2 more.
     """
     expected_negative = _payload_has_expected_negative_marker(payload)
     hits = _receipt_payload_field_hits(
@@ -297,23 +237,11 @@ def classify_public_safe_macro_import(
     forbidden_classes: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Classify one import row for public-safe macro import, body-stripped.
+    Produce the classify public safe macro import value used by
+    `microcosm_core.secret_exclusion_scan`.
 
-    - Teleology: public custody surface that decides whether a single import row is
-      public-safe, returning a receipt with no raw bodies.
-    - Guarantee: returns the legacy classification dict with body keys removed,
-      `body_in_receipt=False`, `real_substrate_default=True`,
-      `synthetic_receipt_policy="not_a_substitute_for_available_real_substrate"`, and a
-      `findings` list whose every entry is body-stripped with `body_in_receipt=False`;
-      preserves the legacy verdict/status fields otherwise.
-    - Fails: never raises; propagates whatever status the legacy classifier set; a clean row carries no blocking findings.
-    - Reads: the `forbidden_classes` mapping (loaded via `load_forbidden_classes`) and the in-memory `row`.
-    - When-needed: inspect when deciding/explaining whether a specific macro import row may cross the public boundary.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond secret exclusion, release, or whole-system correctness.
-    - Escalates-to: `private_state_scan.classify_public_safe_macro_import` for the underlying classification.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `row` and `forbidden_classes`; notable helpers are
+    `classify_public_safe_macro_import`, `_without_legacy_body_fields`, and `get`.
     """
     raw = _legacy.classify_public_safe_macro_import(
         row,
@@ -339,22 +267,11 @@ def scan_text(
     source_context: str = "target",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Scan an in-memory text blob for excluded secret/account-bound material.
+    Scan whether scan text holds for the secret exclusion scan flow.
 
-    - Teleology: public custody surface that proves a text body excludes secrets
-      before it is treated as public-safe, without echoing the body into the receipt.
-    - Guarantee: returns the normalized secret-exclusion scan of `text` (legacy body
-      keys dropped, policy fields stamped, hits body-stripped, status/counts derived);
-      `status` is `BLOCKED_PUBLIC_WRITE` for a `target`-context source-leak, else
-      `BLOCKED_SECRET_EXCLUSION` for remaining hits, else `PASS`.
-    - Fails: never raises; clean text returns `status == PASS`.
-    - Reads: the `forbidden_classes` mapping and the in-memory `text`; `path` is a display label.
-    - When-needed: inspect when a literal string must be cleared for public exposure.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond secret exclusion, release, or whole-system correctness.
-    - Escalates-to: `normalize_secret_exclusion_scan` and `private_state_scan.scan_text`.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `text`, `path`, `forbidden_classes`, and `source_context`
+    with `normalize_secret_exclusion_scan` and `scan_text`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     return normalize_secret_exclusion_scan(
         _legacy.scan_text(
@@ -374,23 +291,11 @@ def scan_paths(
     display_root: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Scan a set of filesystem paths for excluded secret/account-bound material.
+    Scan whether scan paths holds for the secret exclusion scan flow.
 
-    - Teleology: public custody surface that clears a batch of files for public
-      exposure, reporting only public refs/counts and never raw file bodies.
-    - Guarantee: returns the normalized secret-exclusion scan over `paths` (legacy
-      body keys dropped, hits body-stripped, paths shown relative to `display_root`
-      via the legacy public-path logic, status/counts derived); `status` is
-      `BLOCKED_PUBLIC_WRITE` for a target-only source leak, else `BLOCKED_SECRET_EXCLUSION`,
-      else `PASS`.
-    - Fails: never raises here; unreadable files surface as legacy unreadable-text results, not exceptions; clean paths return `PASS`.
-    - Reads: the `forbidden_classes` mapping and the file contents at each path in `paths`.
-    - When-needed: inspect when a file batch must be cleared before publication/import.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond secret exclusion, release, or whole-system correctness.
-    - Escalates-to: `normalize_secret_exclusion_scan` and `private_state_scan.scan_paths`.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `paths`, `forbidden_classes`, `source_context`, and
+    `display_root` with `normalize_secret_exclusion_scan` and `scan_paths`; failing evidence
+    is returned or raised exactly where the body says so.
     """
     return normalize_secret_exclusion_scan(
         _legacy.scan_paths(
@@ -410,23 +315,12 @@ def scan_json_payload(
     source_context: str = "target",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Scan a JSON receipt payload for excluded material AND raw-body fields.
+    Scan whether scan JSON payload holds for the secret exclusion scan flow.
 
-    - Teleology: public custody surface for structured receipts: proves a JSON
-      payload excludes secrets and carries no raw-body fields before it is published.
-    - Guarantee: returns the normalized secret-exclusion scan of `payload` with the
-      receipt-payload-field guard merged in (via `_merge_receipt_payload_boundary`),
-      so `status` is `BLOCKED_SECRET_EXCLUSION` if any blocking receipt-body field or
-      sentinel hit is present, `BLOCKED_PUBLIC_WRITE` for a target-only source leak,
-      else `PASS`; adds `receipt_payload_field_guard` with field counts; `body_in_receipt=False`.
-    - Fails: never raises; a clean payload returns `status == PASS` with a `PASS` field guard.
-    - Reads: the `forbidden_classes` mapping and the in-memory `payload`; `path` is a display label.
-    - When-needed: inspect when a structured JSON receipt must be cleared for public exposure.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond secret exclusion, release, or whole-system correctness.
-    - Escalates-to: `normalize_secret_exclusion_scan`, `_merge_receipt_payload_boundary`, and `private_state_scan.scan_json_payload`.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `payload`, `path`, `forbidden_classes`, and `source_context`
+    with `normalize_secret_exclusion_scan`, `_merge_receipt_payload_boundary`, and
+    `scan_json_payload`; failing evidence is returned or raised exactly where the body says
+    so.
     """
     scan = normalize_secret_exclusion_scan(
         _legacy.scan_json_payload(

@@ -1,4 +1,11 @@
-"""Provides strict JSON loaders that reject duplicate keys and non-object payloads where required."""
+"""
+Implements schemas for the public Plectis package.
+
+Callers enter through `StrictJsonError`, `DuplicateJsonKeyError`, `StrictJsonObjectError`,
+`loads_json_strict`, `read_json_strict`, and `read_jsonl_strict`; dependencies include
+`json`, `pathlib`, and `typing`. Importing it does not authorize release work or hidden
+private-state access; those effects live behind explicit calls.
+"""
 from __future__ import annotations
 
 import json
@@ -7,63 +14,45 @@ from typing import Any
 
 
 class StrictJsonError(ValueError):
-    """
-    [ROLE]
-    Raised when strict JSON parsing fails.
-    - Teleology: Groups `StrictJsonError` data or behavior for `microcosm_core.schemas` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.schemas`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
-    """
+        """
+        Raised when strict Json Error fails inside `microcosm_core.schemas`.
+
+        The dedicated type lets callers catch that failure without masking the original
+        message.
+        """
 
 
 class DuplicateJsonKeyError(StrictJsonError):
-    """
-    [ROLE]
-    Raised when a JSON object repeats a key.
-    - Teleology: Groups `DuplicateJsonKeyError` data or behavior for `microcosm_core.schemas` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.schemas`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
-    """
+        """
+        Raised when duplicate Json Key Error fails inside `microcosm_core.schemas`.
+
+        The dedicated type lets callers catch that failure without masking the original
+        message.
+        """
 
 
 class StrictJsonObjectError(StrictJsonError):
-    """
-    [ROLE]
-    Raised when a JSONL row must be an object but is not.
-    - Teleology: Groups `StrictJsonObjectError` data or behavior for `microcosm_core.schemas` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.schemas`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
-    """
+        """
+        Raised when strict Json Object Error fails inside `microcosm_core.schemas`.
+
+        The dedicated type lets callers catch that failure without masking the original
+        message.
+        """
 
 
 def _reject_duplicate_keys(source: str):
     """
-    [ACTION]
-    - Teleology: Implements `_reject_duplicate_keys` for `microcosm_core.schemas` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute reject duplicate keys from `source`.
+
+    Inputs are `source`; notable helpers are `DuplicateJsonKeyError`; invalid cases raise
+    from the explicit checks in the body.
     """
     def hook(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
         """
-        [ACTION]
-        - Teleology: Implements `_reject_duplicate_keys.hook` for `microcosm_core.schemas` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Derive hook without touching module import state.
+
+        Inputs are `pairs`; notable helpers are `DuplicateJsonKeyError`; invalid cases raise
+        from the explicit checks in the body.
         """
         seen: dict[str, Any] = {}
         for key, value in pairs:
@@ -77,13 +66,10 @@ def _reject_duplicate_keys(source: str):
 
 def loads_json_strict(text: str, source: str = "<memory>") -> Any:
     """
-    [ACTION]
-    - Teleology: Implements `loads_json_strict` for `microcosm_core.schemas` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute loads JSON strict from `text` and `source`.
+
+    Inputs are `text` and `source`; notable helpers are `loads`, `StrictJsonError`, and
+    `_reject_duplicate_keys`; invalid cases raise from the explicit checks in the body.
     """
     try:
         return json.loads(text, object_pairs_hook=_reject_duplicate_keys(source))
@@ -95,13 +81,10 @@ def loads_json_strict(text: str, source: str = "<memory>") -> Any:
 
 def read_json_strict(path: str | Path) -> Any:
     """
-    [ACTION]
-    - Teleology: Implements `read_json_strict` for `microcosm_core.schemas` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Read read JSON strict for `microcosm_core.schemas`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     source = Path(path)
     return loads_json_strict(source.read_text(encoding="utf-8"), str(source))
@@ -109,13 +92,10 @@ def read_json_strict(path: str | Path) -> Any:
 
 def read_jsonl_strict(path: str | Path) -> list[object]:
     """
-    [ACTION]
-    - Teleology: Implements `read_jsonl_strict` for `microcosm_core.schemas` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Read read JSONl strict for `microcosm_core.schemas`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     source = Path(path)
     rows: list[object] = []

@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.agent_closeout_faithfulness_audit` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs agent closeout faithfulness audit for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, MICROCOSM_ROOT, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, ANTI_CLAIM, SPEC, evaluate_negative_case, evaluate, run, run_agent_closeout_bundle, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
-- Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate_negative_case`, `evaluate`, `run`,
+`run_agent_closeout_bundle`, and `main`; constants such as `ORGAN_ID`, `FIXTURE_ID`,
+`VALIDATOR_ID`, `MICROCOSM_ROOT`, and 4 more pin local fixture names; dependencies include
+`copy`, `json`, `shutil`, `subprocess`, and 5 more. It builds public fixture, result, card,
+or verdict structures while keeping private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -101,13 +85,10 @@ SPEC = CrownJewelSpec(
 
 def _run_subprocess(args: list[str], *, cwd: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_run_subprocess` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Serialize `microcosm_core.organs.agent_closeout_faithfulness_audit._run_subprocess` into
+    the payload shape expected by organs agent closeout faithfulness audit.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     proc = subprocess.run(
         args,
@@ -128,13 +109,11 @@ def _run_subprocess(args: list[str], *, cwd: Path) -> dict[str, Any]:
 
 def _sha256_text(text: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_text` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.agent_closeout_faithfulness_audit._sha256_text`.
+
+    The input is `text`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     import hashlib
 
@@ -143,13 +122,10 @@ def _sha256_text(text: str) -> str:
 
 def _venv_python(venv_dir: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_venv_python` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the venv python value used by
+    `microcosm_core.organs.agent_closeout_faithfulness_audit`.
+
+    Inputs are `venv_dir`.
     """
     if sys.platform == "win32":
         return venv_dir / "Scripts" / "python.exe"
@@ -158,13 +134,9 @@ def _venv_python(venv_dir: Path) -> Path:
 
 def _pytest_python_candidates() -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_pytest_python_candidates` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return pytest python candidates for the organs agent closeout faithfulness audit flow.
+
+    Notable helpers are `Path`, `_venv_python`, `add`, and `append`.
     """
     candidates = [
         Path(sys.executable),
@@ -183,13 +155,10 @@ def _pytest_python_candidates() -> list[Path]:
 
 def _select_pytest_python(candidates: Iterable[Path] | None = None) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_select_pytest_python` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Return select pytest python for the organs agent closeout faithfulness audit flow.
+
+    Inputs are `candidates`; notable helpers are `Path`, `_pytest_python_candidates`,
+    `exists`, and `run`.
     """
     for candidate in candidates or _pytest_python_candidates():
         if not candidate.exists():
@@ -211,13 +180,11 @@ def _select_pytest_python(candidates: Iterable[Path] | None = None) -> Path:
 
 def _prepare_public_fixture_repo(source_dir: Path, work_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_prepare_public_fixture_repo` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Serialize
+    `microcosm_core.organs.agent_closeout_faithfulness_audit._prepare_public_fixture_repo`
+    into the payload shape expected by organs agent closeout faithfulness audit.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     repo_dir = work_dir / "public_fixture_repo"
     shutil.copytree(source_dir, repo_dir)
@@ -259,13 +226,10 @@ def _semantic_closeout_contract_findings(
     claims: dict[str, Any],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_closeout_contract_findings` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Build a structured finding row for semantic closeout contract findings.
+
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     findings: list[dict[str, Any]] = []
     ledger = load_json_object(input_dir / "fixture_ledger.json", findings, label="fixture ledger")
@@ -342,13 +306,11 @@ def evaluate_negative_case(
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_closeout_faithfulness_audit.evaluate_negative_case` into
+    the payload shape expected by organs agent closeout faithfulness audit.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     claims = load_json_object(input_dir / "closeout_claims.json", findings, label="closeout claims")
@@ -385,13 +347,10 @@ def evaluate_negative_case(
 
 def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Serialize `microcosm_core.organs.agent_closeout_faithfulness_audit.evaluate` into the
+    payload shape expected by organs agent closeout faithfulness audit.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     claims = load_json_object(input_dir / "closeout_claims.json", findings, label="closeout claims")
@@ -521,13 +480,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for the organs agent closeout faithfulness audit flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -546,13 +502,10 @@ def run_agent_closeout_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_agent_closeout_bundle` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run agent closeout bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -567,13 +520,11 @@ def run_agent_closeout_bundle(
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.agent_closeout_faithfulness_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run the `microcosm_core.organs.agent_closeout_faithfulness_audit` command-line entry
+    point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     return main_for_spec(
         SPEC,

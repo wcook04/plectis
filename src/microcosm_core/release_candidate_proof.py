@@ -1,4 +1,14 @@
-"""Runs cross-context release-candidate probes and verifies stable public output expectations."""
+"""
+Implements release candidate proof for the public Plectis package.
+
+Callers enter through `derive_context_encounter`, `semantic_action_key`,
+`derive_cross_context_agreement`, `extract_committed_expectation`,
+`derive_expectation_policy`, `build_release_candidate_proof`, and 2 more; constants such as
+`SCHEMA_VERSION`, `ENCOUNTER_SCHEMA_VERSION`, `VERIFICATION_SCHEMA_VERSION`,
+`PACKET_FILENAME`, and 16 more pin local fixture names; dependencies include `argparse`,
+`json`, `shutil`, `sys`, and 4 more. Importing it does not authorize release work or hidden
+private-state access; those effects live behind explicit calls.
+"""
 
 from __future__ import annotations
 
@@ -217,20 +227,9 @@ def _path_token_redactions(
     pairs: tuple[tuple[Path, str], ...],
 ) -> list[tuple[str, str]]:
     """
-    [ACTION]
-    Build the longest-first (needle, token) rows for transient work paths.
+    Derive path token redactions without touching module import state.
 
-    - Teleology: one path can surface in output under several textual
-      variants (as passed, fully resolved -- e.g. /var vs /private/var on
-      macOS); every variant must normalize to the SAME symbolic token or the
-      packet stays host-shaped.
-    - Guarantee: deterministic; covers str() and resolved POSIX forms of each
-      path; longest needles first so a nested work dir wins over its parent
-      work root; never emits an empty or bare-"/" needle.
-    - Fails: never raises; non-strict resolve does not require existence.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `pairs`; notable helpers are `items`, `as_posix`, and `resolve`.
     """
     rows: dict[str, str] = {}
     for path, token in pairs:
@@ -244,22 +243,9 @@ def _normalize_public_output(
     data: bytes, redactions: list[tuple[str, str]]
 ) -> tuple[bytes, list[str]]:
     """
-    [ACTION]
-    Replace transient-work-path variants with symbolic tokens in captured bytes.
+    Derive normalize public output without touching module import state.
 
-    - Teleology: the proof-boundary normalization step -- published evidence
-      may say a command worked under <work-dir>, never under which host path.
-    - Guarantee: byte-level substring replacement (no decode round-trip, so
-      arbitrary subprocess bytes survive untouched); returns the normalized
-      bytes plus the sorted tokens actually applied; empty redactions is a
-      no-op.
-    - Non-goal: does NOT touch source-root or home-directory needles -- a
-      product output that echoes the checkout path is a real leak the
-      private-path scan must keep catching.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, declared filesystem outputs, subprocess side effects requested by the caller.
+    Inputs are `data` and `redactions`; notable helpers are `encode`, `replace`, and `add`.
     """
     applied: set[str] = set()
     for needle, token in redactions:
@@ -272,14 +258,10 @@ def _normalize_public_output(
 
 def _normalize_public_text(text: str, redactions: list[tuple[str, str]]) -> str:
     """
-    [ACTION]
-    String-side twin of _normalize_public_output for argv tokens.
-    - Teleology: Implements `_normalize_public_text` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Produce the normalize public text value used by
+    `microcosm_core.release_candidate_proof`.
+
+    Inputs are `text` and `redactions`; notable helpers are `replace`.
     """
     for needle, token in redactions:
         if needle in text:
@@ -301,26 +283,12 @@ def _run_recorded(
     redactions: list[tuple[str, str]] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Run one proof command and persist a digest-bound, packet-relative receipt.
+    Compute run recorded from `command_id`, `display_argv`, `actual_argv`, `cwd`, `env`, and
+    5 more.
 
-    - Teleology: the release-candidate analogue of the recorder's command
-      executor -- same public-argv projection and digest binding, but every
-      output ref is PACKET-RELATIVE so the packet stays portable regardless of
-      which context root the command ran in.
-    - Guarantee: writes stdout/stderr under `out_dir` after applying the
-      transient-work-path `redactions` (so the digests bind the normalized
-      bytes that are actually published), returns a record with public argv
-      (projected against `cwd`, then normalized with the same redactions), a
-      sha256 of the private argv, return code, duration, packet-relative
-      stdout/stderr refs with sha256 digests and byte counts, json_detected,
-      and -- when redactions are active -- the public_output_normalization
-      token list; never serializes the private argv.
-    - Fails: propagates OSError from output writes; runner timeouts arrive as
-      return code 124 per default_runner.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Inputs are `command_id`, `display_argv`, `actual_argv`, `cwd`, `env`, and 5 more;
+    notable helpers are `CommandSpec`, `runner`, `_public_subprocess_argv`, `mkdir`, and 9
+    more.
     """
     stderr_rel = f"{stdout_rel}.stderr.txt"
     spec = CommandSpec(
@@ -385,21 +353,10 @@ def derive_context_encounter(
     demo_check_return_code: int | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Derive one context's first-action encounter block from its evidence.
+    Serialize `microcosm_core.release_candidate_proof.derive_context_encounter` into the
+    payload shape expected by release candidate proof.
 
-    - Teleology: state, per distribution context, whether the hero goal became
-      a complete first-action contract -- using the SAME completeness predicate
-      the flight recorder uses (first_action_contract_checks), so "complete"
-      cannot drift between proof surfaces.
-    - Guarantee: pure deterministic projection of payloads + return codes;
-      status "pass" only when every check holds; demo_check_return_code=None
-      (fresh_install has no committed demo to drift-check) records the check
-      as not-applicable rather than failed.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     assay = assay_payload if isinstance(assay_payload, dict) else {}
     fields = first_action_contract_fields(hero_payload)
@@ -450,24 +407,9 @@ _INVOCATION_PREFIXES = (
 
 def semantic_action_key(command: Any) -> str | None:
     """
-    [ACTION]
-    Project a command to its semantic action, independent of how it is invoked.
+    Return semantic action key for the release candidate proof flow.
 
-    - Teleology: distribution truth is about the ACTION the contexts select, not
-      the recipe syntax. A checkout legitimately invokes
-      ``PYTHONPATH=src python3 -m microcosm_core X ...``; an installed wheel
-      invokes ``plectis X ...``. Both name the same action. Stripping the
-      invocation prefix lets semantic agreement hold across a syntax difference
-      the operator explicitly sanctioned, while a genuinely different capability
-      still produces a different key.
-    - Guarantee: pure and deterministic; whitespace-normalized; returns None for a
-      non-string or blank command; an unrecognized prefix is returned whole
-      (conservative — unknown forms compare literally and cannot accidentally
-      agree across contexts).
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `command`; notable helpers are `join`, `split`, and `startswith`.
     """
     if not isinstance(command, str):
         return None
@@ -486,36 +428,18 @@ def derive_cross_context_agreement(
     encounters: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Prove the three contexts selected the SAME owner and semantic action.
+    Serialize `microcosm_core.release_candidate_proof.derive_cross_context_agreement` into
+    the payload shape expected by release candidate proof.
 
-    - Teleology: the distribution-truth core -- a contract that resolves to a
-      different product installed than in the checkout is a different product;
-      this block makes that divergence a named, mechanical failure instead of a
-      latent surprise. It compares the SEMANTIC ACTION (capability + arguments),
-      not the literal recipe, so a checkout's source-form command and an installed
-      wheel's ``plectis`` command name the same action and agree, while a
-      different capability still blocks.
-    - Guarantee: pure projection over the per-context encounter blocks;
-      status "pass" only when every expected context is present and the owner
-      organ_id, the command's semantic action, and the validator command are
-      each identical — and a non-empty string — across all of them (a missing
-      context or empty value can never satisfy agreement by vacuity).
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
 
     def identical_nonempty(values: dict[str, Any]) -> bool:
         """
-        [ACTION]
-        - Teleology: Implements `derive_cross_context_agreement.identical_nonempty` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Return whether identical nonempty holds for the release candidate proof flow.
+
+        The result is derived from `values` with `values`; failing evidence is returned or
+        raised exactly where the body says so.
         """
         distinct = set(values.values())
         return len(distinct) == 1 and all(
@@ -565,23 +489,10 @@ def extract_committed_expectation(
     receipt_payload: dict[str, Any] | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Extract the hero goal's expected encounter from the committed demo receipt.
+    Serialize `microcosm_core.release_candidate_proof.extract_committed_expectation` into
+    the payload shape expected by release candidate proof.
 
-    - Teleology: the committed demonstration (FIRST_ACTION.md's receipt) is
-      what the artifact PROMISES a reviewer; this projection turns its hero row
-      into the expectation the proof compares every context against.
-    - Guarantee: pure and deterministic; returns the fixed expectation row
-      (present flag, hero goal, expected owner organ_id, expected command,
-      expected validator command); a missing/malformed receipt degrades to an
-      absent expectation, never an exception. The validator preference order
-      (validator_command, else runnable_validator) mirrors
-      first_action_contract_fields so both sides of the comparison project the
-      same field.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     contracts = (
         receipt_payload.get("contracts") if isinstance(receipt_payload, dict) else None
@@ -618,35 +529,18 @@ def derive_expectation_policy(
     agreement: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Prove the agreed encounter is the encounter the artifact promised.
+    Serialize `microcosm_core.release_candidate_proof.derive_expectation_policy` into the
+    payload shape expected by release candidate proof.
 
-    - Teleology: cross-context agreement alone is satisfiable by three contexts
-      agreeing on the WRONG product; this block pins the observed owner,
-      command, and validator in every context to the committed demonstration,
-      so "matches what the artifact sells" is a named mechanical check instead
-      of an implicit hope.
-    - Guarantee: pure projection over the expectation row plus the agreement
-      block's per-context value maps; each *_matches check requires a
-      non-empty expected string and every expected context's observed value
-      equal to it (a missing context or empty expectation can never satisfy a
-      check by vacuity); status "pass" only when the committed demonstration
-      was present and every check holds.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
 
     def all_match(expected: Any, observed: Any) -> bool:
         """
-        [ACTION]
-        - Teleology: Implements `derive_expectation_policy.all_match` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Return whether all match holds for the release candidate proof flow.
+
+        The result is derived from `expected` and `observed` with `values`; failing evidence
+        is returned or raised exactly where the body says so.
         """
         rows = observed if isinstance(observed, dict) else {}
         return (
@@ -686,14 +580,10 @@ def derive_expectation_policy(
 
 def _read_json_evidence(out_dir: Path, relpath: str) -> dict[str, Any] | None:
     """
-    [ACTION]
-    Best-effort load one packet-relative evidence file as a JSON object.
-    - Teleology: Implements `_read_json_evidence` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Read read JSON evidence for `microcosm_core.release_candidate_proof`.
+
+    Input comes from `out_dir` and `relpath`; malformed or missing data follows the
+    exceptions and checks visible in the body.
     """
     try:
         data = (out_dir / relpath).read_bytes()
@@ -708,18 +598,10 @@ def _context_encounter_from_disk(
     out_dir: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Re-derive one context's encounter block from packet-relative evidence.
+    Return context encounter from disk for the release candidate proof flow.
 
-    Shared by generate (first derivation) and verify (re-derivation), so the
-    stored block is provably a projection of the digest-bound files plus the
-    recorded return codes.
-    - Teleology: Implements `_context_encounter_from_disk` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `context_id`, `records`, and `out_dir`; notable helpers are
+    `_read_json_evidence`, `derive_context_encounter`, `get`, and `return_code`.
     """
     by_id = {
         row["command_id"]: row
@@ -729,13 +611,9 @@ def _context_encounter_from_disk(
 
     def return_code(command_id: str) -> int | None:
         """
-        [ACTION]
-        - Teleology: Implements `_context_encounter_from_disk.return_code` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Compute return code from `command_id`.
+
+        Inputs are `command_id`; notable helpers are `get`.
         """
         value = by_id.get(command_id, {}).get("return_code")
         return value if isinstance(value, int) else None
@@ -771,14 +649,10 @@ def _context_encounter_from_disk(
 
 def _encounter_argvs(python_executable: str) -> dict[str, list[str]]:
     """
-    [ACTION]
-    The per-context encounter commands, shared by checkout and export contexts.
-    - Teleology: Implements `_encounter_argvs` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.release_candidate_proof._encounter_argvs` into the payload
+    shape expected by release candidate proof.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "hero": [
@@ -814,14 +688,12 @@ def _run_encounter_context(
     redactions: list[tuple[str, str]] | None = None,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Run hero + assay + demo-check in one context root, recording evidence.
-    - Teleology: Implements `_run_encounter_context` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Compute run encounter context from `context_id`, `context_root`, `out_dir`,
+    `python_executable`, `runner`, and 1 more.
+
+    Inputs are `context_id`, `context_root`, `out_dir`, `python_executable`, `runner`, and 1
+    more; notable helpers are `subprocess_env`, `_encounter_argvs`, `append`, and
+    `_run_recorded`.
     """
     env, _ = subprocess_env(context_root)
     argvs = _encounter_argvs(python_executable)
@@ -867,38 +739,12 @@ def build_release_candidate_proof(
     generated_at: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Run the three-context first-action encounter and write the proof packet + card.
+    Compute build release candidate proof from `root`, `out_dir`, `python_executable`,
+    `runner`, `keep_work`, and 2 more.
 
-    - Teleology: the release-candidate proof builder -- prove that a cold
-      reviewer's hero goal resolves to the SAME complete, graph-backed first
-      action in the source checkout, a fresh pip install, and the standalone
-      export, with every claim derived from digest-bound evidence.
-    - Guarantee: writes release-candidate-proof.json and the human card under
-      `out_dir`; packet status is "pass" only when all three context
-      encounters pass, cross-context agreement holds, no private path leaks
-      into any written file, and the checkout's tracked source is unchanged
-      by the run; failures are preserved as evidence with named checks.
-    - Writes: `out_dir` (evidence + packet + card) plus a transient work root
-      holding the install venv and export tree. The work root defaults to a
-      fresh temp dir, must live OUTSIDE the source root, and is removed
-      after evidence copy unless keep_work (a caller-supplied work_root keeps
-      its shell dir; only the install/export subtrees are removed). Captured
-      evidence and recorded argv refer to the work locations only by the
-      symbolic tokens <work-dir>, <export-out>, <work-root>.
-    - Non-goal: does NOT authorize release/publication/provider calls/source
-      mutation, and does not assert domain or whole-system correctness. The
-      normalization never covers the source root or home directory -- a
-      product output that echoes the checkout path must still block the scan.
-    - Fails: raises ValueError when the resolved work root sits inside the
-      source root (an in-tree work root would leak the checkout path into
-      fresh-install evidence and ask release_export to write inside the
-      source root) or when it equals/contains the packet out dir (the scan
-      would exclude the whole publishable surface and pass vacuously);
-      propagates OSError on packet writes; probe failures land in the
-      packet, not as exceptions.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
+    Inputs are `root`, `out_dir`, `python_executable`, `runner`, `keep_work`, and 2 more;
+    notable helpers are `resolve`, `expanduser`, `mkdir`, `source_snapshot`, and 35 more;
+    invalid cases raise from the explicit checks in the body.
     """
     root = root.expanduser().resolve(strict=False)
     out_dir = out_dir.expanduser()
@@ -1134,13 +980,9 @@ def build_release_candidate_proof(
         # thousands of absolute-path-bearing files (shebangs, pip RECORD)
         # into the scan and block an otherwise-passing packet.
         """
-        [ACTION]
-        - Teleology: Implements `build_release_candidate_proof.publishable_paths` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Derive publishable paths without touching module import state.
+
+        Notable helpers are `rglob`, `is_file`, and `endswith`.
         """
         return [
             path
@@ -1235,14 +1077,9 @@ def build_release_candidate_proof(
 
 def _human_card(packet: dict[str, Any]) -> str:
     """
-    [ACTION]
-    Render the proof packet into the human release-candidate card (a projection, not authority).
-    - Teleology: Implements `_human_card` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive human card without touching module import state.
+
+    Inputs are `packet`; notable helpers are `join` and `get`.
     """
     agreement = packet["cross_context_agreement"]
     expectation = packet.get("expectation_policy") or {}
@@ -1361,23 +1198,12 @@ def verify_release_candidate_proof(
     verified_at: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Verify an existing release-candidate proof packet WITHOUT rerunning anything.
+    Verify whether verify release candidate proof holds for the release candidate proof
+    flow.
 
-    - Teleology: let a reviewer trust a previously generated three-context
-      proof by re-checking digests, re-deriving every context encounter and
-      the agreement block from on-disk evidence, and re-scanning for private
-      paths -- the same no-rerun posture as the flight-recorder verifier.
-    - Guarantee: returns a receipt whose status is "packet_valid" only when
-      the packet parses, its self-digest matches, the card digest matches,
-      every referenced output re-hashes to its recorded digest, the stored
-      encounters and agreement equal their re-derivations, and no scanned
-      file carries a private needle.
-    - Fails: never raises on missing/corrupt packets (returns a blocked
-      receipt); receipt writes may raise OSError.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    The result is derived from `packet_dir`, `root`, `write_receipt`, `receipt_path`, and
+    `verified_at` with `resolve`, `expanduser`, `get`, `_packet_payload_sha256`, and 18
+    more; failing evidence is returned or raised exactly where the body says so.
     """
     root = root.expanduser().resolve(strict=False)
     packet_dir = packet_dir.expanduser()
@@ -1692,14 +1518,10 @@ def verify_release_candidate_proof(
 
 def _generate_main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI handler for `generate`: build the three-context proof and print a summary.
-    - Teleology: Implements `_generate_main` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for `microcosm_core.release_candidate_proof._generate_main`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         description=(
@@ -1774,14 +1596,10 @@ def _generate_main(argv: list[str] | None = None) -> int:
 
 def _verify_main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI handler for `verify`: re-check an existing proof packet without rerunning.
-    - Teleology: Implements `_verify_main` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for `microcosm_core.release_candidate_proof._verify_main`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         description=(
@@ -1815,14 +1633,10 @@ def _verify_main(argv: list[str] | None = None) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI entry: dispatch the release-candidate proof generate/verify subcommands.
-    - Teleology: Implements `main` for `microcosm_core.release_candidate_proof` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run the `microcosm_core.release_candidate_proof` command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = list(sys.argv[1:] if argv is None else argv)
     if args and args[0] == "verify":

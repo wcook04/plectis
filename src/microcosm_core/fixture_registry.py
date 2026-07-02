@@ -1,4 +1,13 @@
-"""Loads bundled fixture manifests used by pattern binding and first-wave validation."""
+"""
+Implements fixture registry for the public Plectis package.
+
+Callers enter through `load_pattern_binding_fixture`,
+`load_pattern_binding_substrate_bundle`, and `load_first_wave_fixture`; constants such as
+`PATTERN_BINDING_OPTIONAL_INPUTS` and `PATTERN_BINDING_SUBSTRATE_BUNDLE_REQUIRED_INPUTS` pin
+local fixture names; dependencies include `pathlib`, `typing`, and `schemas`. Importing it
+does not authorize release work or hidden private-state access; those effects live behind
+explicit calls.
+"""
 from __future__ import annotations
 
 from pathlib import Path
@@ -29,13 +38,10 @@ PATTERN_BINDING_SUBSTRATE_BUNDLE_REQUIRED_INPUTS = {
 
 def _path_is_file(path: Path) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_path_is_file` for `microcosm_core.fixture_registry` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether path is file holds for the fixture registry flow.
+
+    The result is derived from `path` with `is_file`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     try:
         return path.is_file()
@@ -45,13 +51,10 @@ def _path_is_file(path: Path) -> bool:
 
 def load_pattern_binding_fixture(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `load_pattern_binding_fixture` for `microcosm_core.fixture_registry` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load pattern binding fixture for `microcosm_core.fixture_registry`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     root = Path(input_dir)
     required = {
@@ -80,13 +83,10 @@ def load_pattern_binding_fixture(input_dir: str | Path) -> dict[str, Any]:
 
 def load_pattern_binding_substrate_bundle(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `load_pattern_binding_substrate_bundle` for `microcosm_core.fixture_registry` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load pattern binding substrate bundle for `microcosm_core.fixture_registry`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     root = Path(input_dir)
     required = {
@@ -113,13 +113,10 @@ def load_pattern_binding_substrate_bundle(input_dir: str | Path) -> dict[str, An
 
 def load_first_wave_fixture(organ_id: str, input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `load_first_wave_fixture` for `microcosm_core.fixture_registry` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load first wave fixture for `microcosm_core.fixture_registry`.
+
+    Input comes from `organ_id` and `input_dir`; malformed or missing data follows the
+    exceptions and checks visible in the body.
     """
     if organ_id != "pattern_binding_contract":
         raise ValueError(f"unsupported first-wave organ in this slice: {organ_id}")

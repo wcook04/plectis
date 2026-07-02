@@ -1,35 +1,11 @@
 """
-Public command-output sidecar reader.
+Implements macro tools command output read for the public Plectis package.
 
-This module is a source-faithful public refactor of
-`system/lib/kernel/commands/navigate.py::cmd_command_output_read`. It preserves
-the macro command's bounded read contract for `state/command_outputs/` sidecars
-while removing live kernel state, stdout emitters, and repo-global mutation
-authority.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.macro_tools.command_output_read` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: KIND, ERROR_KIND, SCHEMA_VERSION, COMMAND_OUTPUT_ROOT, SUPPORTED_BANDS, SOURCE_REF, TARGET_REF, SOURCE_SYMBOL_REFS, TARGET_SYMBOL_REFS, HASH_CHUNK_SIZE, body_import_verification, read_command_output, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: None beyond the Python standard library and local package imports.
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `body_import_verification`, `read_command_output`, and `main`;
+constants such as `KIND`, `ERROR_KIND`, `SCHEMA_VERSION`, `COMMAND_OUTPUT_ROOT`, and 6 more
+pin local fixture names; dependencies include `argparse`, `json`, `pathlib`, and `typing`.
+The helpers are invoked explicitly by CLI or fixture code; importing the module only
+declares the available machinery.
 """
 from __future__ import annotations
 
@@ -59,13 +35,10 @@ HASH_CHUNK_SIZE = 1024 * 1024
 
 def _repo_root_from_target() -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_repo_root_from_target` for `microcosm_core.macro_tools.command_output_read` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return repo root from target for `microcosm_core.macro_tools.command_output_read`.
+
+    Inputs are the caller-supplied state; notable helpers are `resolve`, `is_file`, and
+    `Path`.
     """
     for candidate in Path(__file__).resolve(strict=False).parents:
         if (candidate / SOURCE_REF).is_file():
@@ -75,13 +48,11 @@ def _repo_root_from_target() -> Path | None:
 
 def _file_sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_file_sha256` for `microcosm_core.macro_tools.command_output_read` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.macro_tools.command_output_read._file_sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     import hashlib
 
@@ -94,13 +65,10 @@ def _file_sha256(path: Path) -> str:
 
 def body_import_verification() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `body_import_verification` for `microcosm_core.macro_tools.command_output_read` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.command_output_read.body_import_verification` into
+    the payload shape expected by macro tools command output read.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     target_path = Path(__file__).resolve(strict=False)
     repo_root = _repo_root_from_target()
@@ -139,13 +107,10 @@ def body_import_verification() -> dict[str, Any]:
 
 def _error(status: str, **fields: Any) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_error` for `microcosm_core.macro_tools.command_output_read` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.command_output_read._error` into the payload shape
+    expected by macro tools command output read.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "kind": ERROR_KIND,
@@ -157,13 +122,9 @@ def _error(status: str, **fields: Any) -> dict[str, Any]:
 
 def _relative_expected_root(expected_root: Path, repo_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_relative_expected_root` for `microcosm_core.macro_tools.command_output_read` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive relative expected root without touching module import state.
+
+    Inputs are `expected_root` and `repo_root`; notable helpers are `relative_to`.
     """
     try:
         return str(expected_root.relative_to(repo_root))
@@ -178,18 +139,10 @@ def read_command_output(
     band: str = "summary",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Read a public command-output sidecar under `state/command_outputs/`.
+    Read read command output for `microcosm_core.macro_tools.command_output_read`.
 
-    The path boundary mirrors the macro kernel command: callers may pass a
-    repo-relative path or an absolute path, but the resolved target must remain
-    inside `<repo_root>/state/command_outputs/`.
-    - Teleology: Implements `read_command_output` for `microcosm_core.macro_tools.command_output_read` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Input comes from `repo_root`, `rel_path`, and `band`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     if not str(rel_path):
         return _error("missing_path")
@@ -274,13 +227,10 @@ def read_command_output(
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.macro_tools.command_output_read` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.macro_tools.command_output_read` as a command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(
         prog="python -m microcosm_core.macro_tools.command_output_read"

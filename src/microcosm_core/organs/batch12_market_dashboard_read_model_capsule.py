@@ -1,27 +1,13 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs batch12 market dashboard read model capsule for the public Plectis
+package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, SPEC, evaluate_negative_case, run, run_batch12_market_dashboard_read_model_bundle, result_card, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate_negative_case`, `run`,
+`run_batch12_market_dashboard_read_model_bundle`, `result_card`, and `main`; constants such
+as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 10 more pin local fixture
+names; dependencies include `argparse`, `copy`, `importlib`, `json`, and 8 more. It builds
+public fixture, result, card, or verdict structures while keeping private substrate bodies
+out of the payload.
 """
 from __future__ import annotations
 
@@ -125,13 +111,10 @@ SPEC = CrownJewelSpec(
 
 def _load_json(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_json` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Load load JSON for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     payload = json.loads(path.read_text(encoding="utf-8"))
     return payload if isinstance(payload, dict) else {}
@@ -140,13 +123,10 @@ def _load_json(path: Path) -> dict[str, Any]:
 @contextmanager
 def _market_dashboard_import_stubs() -> Any:
     """
-    [ACTION]
-    - Teleology: Implements `_market_dashboard_import_stubs` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Temporarily apply market dashboard import stubs for callers using a `with` block.
+
+    The previous state is restored after the yielded block exits, including exceptional
+    exits.
     """
     names = [
         "system",
@@ -181,13 +161,11 @@ def _market_dashboard_import_stubs() -> Any:
 
 def _source_target(source_manifest: Mapping[str, Any], source_ref: str) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_target` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive source target without touching module import state.
+
+    Inputs are `source_manifest` and `source_ref`; notable helpers are `Path`, `_load_json`,
+    `get`, `FileNotFoundError`, and 1 more; invalid cases raise from the explicit checks in
+    the body.
     """
     manifest = Path(str(source_manifest.get("source_manifest_path") or ""))
     if not manifest.is_file():
@@ -201,13 +179,11 @@ def _source_target(source_manifest: Mapping[str, Any], source_ref: str) -> Path:
 
 def _load_source_module(source_manifest: Mapping[str, Any]) -> Any:
     """
-    [ACTION]
-    - Teleology: Implements `_load_source_module` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load source module for
+    `microcosm_core.organs.batch12_market_dashboard_read_model_capsule`.
+
+    Input comes from `source_manifest`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     target = _source_target(source_manifest, "system/lib/market_dashboard_read_model.py")
     with _market_dashboard_import_stubs():
@@ -224,13 +200,10 @@ def _load_source_module(source_manifest: Mapping[str, Any]) -> Any:
 
 def _case_payload(input_dir: Path, case_id: str, base_payload: Mapping[str, Any]) -> tuple[dict[str, Any], bool, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_case_payload` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return case payload for the organs batch12 market dashboard read model capsule flow.
+
+    Inputs are `input_dir`, `case_id`, and `base_payload`; notable helpers are `_load_json`,
+    `deepcopy`, `items`, `split`, and 2 more.
     """
     case = _load_json(input_dir / f"{case_id}.json")
     payload = copy.deepcopy(dict(base_payload))
@@ -249,13 +222,11 @@ def _case_payload(input_dir: Path, case_id: str, base_payload: Mapping[str, Any]
 
 def _compute_validator_cases(module: Any, input_dir: Path, base_payload: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_compute_validator_cases` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch12_market_dashboard_read_model_capsule._compute_validator_cases`
+    into the payload shape expected by organs batch12 market dashboard read model capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = []
     findings = []
@@ -293,13 +264,10 @@ def _compute_validator_cases(module: Any, input_dir: Path, base_payload: Mapping
 
 def _write_readiness(root: Path, run_id: str, row: Mapping[str, Any]) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_write_readiness` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write readiness for the organs batch12 market dashboard read model capsule flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     artifacts = root / "state" / "runs" / run_id / "artifacts"
     if row.get("write_readiness") is False:
@@ -324,13 +292,11 @@ def _write_readiness(root: Path, run_id: str, row: Mapping[str, Any]) -> None:
 
 def _compute_freshness_cases(module: Any, input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_compute_freshness_cases` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch12_market_dashboard_read_model_capsule._compute_freshness_cases`
+    into the payload shape expected by organs batch12 market dashboard read model capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     fixture = _load_json(input_dir / "feed_freshness_cases.json")
     rows = []
@@ -373,13 +339,11 @@ def _compute_freshness_cases(module: Any, input_dir: Path) -> dict[str, Any]:
 
 def _compute_related_cases(module: Any, input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_compute_related_cases` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch12_market_dashboard_read_model_capsule._compute_related_cases`
+    into the payload shape expected by organs batch12 market dashboard read model capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     fixture = _load_json(input_dir / "related_situations.json")
     situations = fixture.get("situations") if isinstance(fixture.get("situations"), list) else []
@@ -417,13 +381,11 @@ def _compute_related_cases(module: Any, input_dir: Path) -> dict[str, Any]:
 
 def _semantic_negative_result(case_id: str, error_codes: tuple[str, ...]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_negative_result` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch12_market_dashboard_read_model_capsule._semantic_negative_result`
+    into the payload shape expected by organs batch12 market dashboard read model capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case_id,
@@ -435,13 +397,11 @@ def _semantic_negative_result(case_id: str, error_codes: tuple[str, ...]) -> dic
 
 def _semantic_negative_not_rejected(case_id: str, observed: Any) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_negative_not_rejected` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch12_market_dashboard_read_model_capsule._semantic_negative_not_rejected`
+    into the payload shape expected by organs batch12 market dashboard read model capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case_id,
@@ -454,13 +414,11 @@ def _semantic_negative_not_rejected(case_id: str, observed: Any) -> dict[str, An
 
 def _semantic_negative_error(case_id: str, exc: Exception) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_negative_error` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch12_market_dashboard_read_model_capsule._semantic_negative_error`
+    into the payload shape expected by organs batch12 market dashboard read model capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case_id,
@@ -474,13 +432,10 @@ def _semantic_negative_error(case_id: str, exc: Exception) -> dict[str, Any]:
 
 def _freshness_result_by_case(module: Any, input_dir: Path, case_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_result_by_case` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive freshness result by case without touching module import state.
+
+    Inputs are `module`, `input_dir`, and `case_id`; notable helpers are `_load_json`,
+    `next`, `get`, `TemporaryDirectory`, and 3 more.
     """
     fixture = _load_json(input_dir / "feed_freshness_cases.json")
     cases = fixture.get("cases") if isinstance(fixture.get("cases"), list) else []
@@ -506,13 +461,10 @@ def _freshness_result_by_case(module: Any, input_dir: Path, case_id: str) -> dic
 
 def _related_result_by_case(module: Any, input_dir: Path, case_id: str) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_related_result_by_case` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive related result by case without touching module import state.
+
+    Inputs are `module`, `input_dir`, and `case_id`; notable helpers are `_load_json`,
+    `next`, `get`, and `_related_situations`.
     """
     fixture = _load_json(input_dir / "related_situations.json")
     situations = fixture.get("situations") if isinstance(fixture.get("situations"), list) else []
@@ -532,13 +484,11 @@ def evaluate_negative_case(
     expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch12_market_dashboard_read_model_capsule.evaluate_negative_case`
+    into the payload shape expected by organs batch12 market dashboard read model capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     try:
         local_manifest_path = input_dir / "source_module_manifest.json"
@@ -628,13 +578,10 @@ def evaluate_negative_case(
 
 def _evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_evaluate` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch12_market_dashboard_read_model_capsule._evaluate`
+    into the payload shape expected by organs batch12 market dashboard read model capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     module = _load_source_module(source_manifest)
@@ -702,13 +649,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -729,13 +673,11 @@ def run_batch12_market_dashboard_read_model_bundle(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_batch12_market_dashboard_read_model_bundle` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute run batch12 market dashboard read model bundle from `input_dir`, `out_dir`,
+    `command`, and `acceptance_out`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -751,13 +693,10 @@ def run_batch12_market_dashboard_read_model_bundle(
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return result card for
+    `microcosm_core.organs.batch12_market_dashboard_read_model_capsule`.
+
+    Inputs are `result`; notable helpers are `card_for_result` and `get`.
     """
     card = card_for_result(SPEC, result)
     source = (
@@ -800,13 +739,11 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.batch12_market_dashboard_read_model_capsule` as a
+    command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)

@@ -1,27 +1,13 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.concurrency_mission_control` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs concurrency mission control for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, EXERCISE_MANIFEST_NAME, EXPECTED_ENGINES, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, GENERATED_ENTRY_SURFACES, SPEC, classify_generated_surface_claim_lens, classify_concurrency_closure_state_lens, evaluate_negative_case, run, run_concurrency_mission_control_bundle, result_card, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `classify_generated_surface_claim_lens`,
+`classify_concurrency_closure_state_lens`, `evaluate_negative_case`, `run`,
+`run_concurrency_mission_control_bundle`, `result_card`, and 1 more; constants such as
+`ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 13 more pin local fixture
+names; dependencies include `argparse`, `copy`, `importlib`, `json`, and 6 more. It builds
+public fixture, result, card, or verdict structures while keeping private substrate bodies
+out of the payload.
 """
 from __future__ import annotations
 
@@ -173,26 +159,18 @@ SPEC = CrownJewelSpec(
 
 def _bundle_root(public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_bundle_root` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return bundle root for the organs concurrency mission control flow.
+
+    Inputs are `public_root`.
     """
     return public_root / "examples/concurrency_mission_control/exported_concurrency_mission_control_bundle"
 
 
 def _copied_builder(public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_copied_builder` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive copied builder without touching module import state.
+
+    Inputs are `public_root`; notable helpers are `_bundle_root`.
     """
     return (
         _bundle_root(public_root)
@@ -203,13 +181,10 @@ def _copied_builder(public_root: Path) -> Path:
 
 def _seed_root(input_path: Path, public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_seed_root` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute seed root from `input_path` and `public_root`.
+
+    Inputs are `input_path` and `public_root`; notable helpers are `is_dir` and
+    `_bundle_root`.
     """
     local_seed = input_path / "seed_root"
     if local_seed.is_dir():
@@ -219,13 +194,10 @@ def _seed_root(input_path: Path, public_root: Path) -> Path:
 
 def _load_builder(path: Path) -> Any:
     """
-    [ACTION]
-    - Teleology: Implements `_load_builder` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load builder for `microcosm_core.organs.concurrency_mission_control`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     spec = importlib.util.spec_from_file_location("microcosm_concurrency_builder_copy", path)
     if spec is None or spec.loader is None:
@@ -238,26 +210,20 @@ def _load_builder(path: Path) -> Any:
 
 def _load_json(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_json` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Load load JSON for `microcosm_core.organs.concurrency_mission_control`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _failure_classes(board: Mapping[str, Any]) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_failure_classes` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the failure classes value used by
+    `microcosm_core.organs.concurrency_mission_control`.
+
+    Inputs are `board`; notable helpers are `get` and `add`.
     """
     classes: set[str] = set()
     cases = board.get("cases")
@@ -280,13 +246,9 @@ def _failure_classes(board: Mapping[str, Any]) -> set[str]:
 
 def _expected_counts(manifest: Mapping[str, Any]) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_expected_counts` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return expected counts for the organs concurrency mission control flow.
+
+    Inputs are `manifest`; notable helpers are `get`.
     """
     counts = manifest.get("expected_counts")
     return counts if isinstance(counts, Mapping) else {}
@@ -294,13 +256,9 @@ def _expected_counts(manifest: Mapping[str, Any]) -> Mapping[str, Any]:
 
 def _required_bridge_statuses(manifest: Mapping[str, Any]) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_required_bridge_statuses` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return required bridge statuses for the organs concurrency mission control flow.
+
+    Inputs are `manifest`; notable helpers are `get`.
     """
     statuses = manifest.get("required_bridge_statuses")
     return statuses if isinstance(statuses, Mapping) else {}
@@ -308,13 +266,10 @@ def _required_bridge_statuses(manifest: Mapping[str, Any]) -> Mapping[str, Any]:
 
 def _required_failure_classes(manifest: Mapping[str, Any]) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_required_failure_classes` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the required failure classes value used by
+    `microcosm_core.organs.concurrency_mission_control`.
+
+    Inputs are `manifest`; notable helpers are `get`.
     """
     values = manifest.get("required_failure_classes")
     return {str(value) for value in values} if isinstance(values, list) else set()
@@ -322,13 +277,9 @@ def _required_failure_classes(manifest: Mapping[str, Any]) -> set[str]:
 
 def _forbidden_claims(manifest: Mapping[str, Any]) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_forbidden_claims` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute forbidden claims from `manifest`.
+
+    Inputs are `manifest`; notable helpers are `get`.
     """
     values = manifest.get("forbidden_claims")
     return {str(value) for value in values} if isinstance(values, list) else set()
@@ -336,26 +287,19 @@ def _forbidden_claims(manifest: Mapping[str, Any]) -> set[str]:
 
 def _as_mapping(value: Any) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_as_mapping` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return as mapping for the organs concurrency mission control flow.
+
+    Inputs are `value`.
     """
     return value if isinstance(value, Mapping) else {}
 
 
 def _as_records(value: Any) -> list[Mapping[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_as_records` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the as records value used by
+    `microcosm_core.organs.concurrency_mission_control`.
+
+    Inputs are `value`.
     """
     return (
         [row for row in value if isinstance(row, Mapping)]
@@ -366,13 +310,10 @@ def _as_records(value: Any) -> list[Mapping[str, Any]]:
 
 def _as_string_set(value: Any) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_as_string_set` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the as string set value used by
+    `microcosm_core.organs.concurrency_mission_control`.
+
+    Inputs are `value`; notable helpers are `strip`.
     """
     if not isinstance(value, list):
         return set()
@@ -381,13 +322,9 @@ def _as_string_set(value: Any) -> set[str]:
 
 def _claim_path(claim: Mapping[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_claim_path` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute claim path from `claim`.
+
+    Inputs are `claim`; notable helpers are `strip` and `get`.
     """
     return str(claim.get("path") or claim.get("scope_id") or "").strip()
 
@@ -399,13 +336,11 @@ def _session_freshness(
     claim: Mapping[str, Any] | None,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_session_freshness` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the session freshness value used by
+    `microcosm_core.organs.concurrency_mission_control`.
+
+    Inputs are `session_id`, `session_cards_by_id`, and `claim`; notable helpers are `strip`
+    and `get`.
     """
     card = session_cards_by_id.get(session_id) or {}
     claim_freshness = claim.get("freshness_state") if claim else ""
@@ -428,14 +363,11 @@ def classify_generated_surface_claim_lens(
     generated_surfaces: tuple[str, ...] = GENERATED_ENTRY_SURFACES,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Classify generated-surface drift against live Work Ledger ownership.
-    - Teleology: Implements `classify_generated_surface_claim_lens` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.concurrency_mission_control.classify_generated_surface_claim_lens`
+    into the payload shape expected by organs concurrency mission control.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
 
     generated_surface_set = set(generated_surfaces)
@@ -548,13 +480,10 @@ def classify_generated_surface_claim_lens(
 
 def _first_owner_row(case: Mapping[str, Any]) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_first_owner_row` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.concurrency_mission_control._first_owner_row` into the
+    payload shape expected by organs concurrency mission control.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     claim_rows = _as_records(case.get("claim_rows"))
     session_cards = _as_records(case.get("session_cards"))
@@ -581,14 +510,11 @@ def _first_owner_row(case: Mapping[str, Any]) -> Mapping[str, Any]:
 
 def classify_concurrency_closure_state_lens(case: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Classify closure, validation, commitability, residual, and owner states.
-    - Teleology: Implements `classify_concurrency_closure_state_lens` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.concurrency_mission_control.classify_concurrency_closure_state_lens`
+    into the payload shape expected by organs concurrency mission control.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
 
     generated = classify_generated_surface_claim_lens(case)
@@ -706,13 +632,10 @@ def classify_concurrency_closure_state_lens(case: Mapping[str, Any]) -> dict[str
 
 def _run_original_builder(input_path: Path, public_root: Path, manifest: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_run_original_builder` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.concurrency_mission_control._run_original_builder` into
+    the payload shape expected by organs concurrency mission control.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     seed_root = _seed_root(input_path, public_root)
     if not seed_root.is_dir():
@@ -771,13 +694,10 @@ def _run_original_builder(input_path: Path, public_root: Path, manifest: Mapping
 
 def _failure_matrix_gate(original: Mapping[str, Any], manifest: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_failure_matrix_gate` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.concurrency_mission_control._failure_matrix_gate` into
+    the payload shape expected by organs concurrency mission control.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     expected = _expected_counts(manifest)
     required_classes = _required_failure_classes(manifest)
@@ -814,13 +734,10 @@ def _failure_matrix_gate(original: Mapping[str, Any], manifest: Mapping[str, Any
 
 def _bridge_authority_membrane(original: Mapping[str, Any], manifest: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_bridge_authority_membrane` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.concurrency_mission_control._bridge_authority_membrane`
+    into the payload shape expected by organs concurrency mission control.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     expected = _expected_counts(manifest)
     required_statuses = _required_bridge_statuses(manifest)
@@ -872,13 +789,11 @@ def _bridge_authority_membrane(original: Mapping[str, Any], manifest: Mapping[st
 
 def _work_ledger_seed_speed_gate(manifest: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_work_ledger_seed_speed_gate` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.concurrency_mission_control._work_ledger_seed_speed_gate` into
+    the payload shape expected by organs concurrency mission control.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     surface = _as_mapping(manifest.get("work_ledger_seed_speed_surface"))
     counts = _as_mapping(surface.get("counts"))
@@ -902,13 +817,10 @@ def _work_ledger_seed_speed_gate(manifest: Mapping[str, Any]) -> dict[str, Any]:
         observed: Any = None,
     ) -> None:
         """
-        [ACTION]
-        - Teleology: Implements `_work_ledger_seed_speed_gate.add_finding` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Build a structured finding row for add finding.
+
+        The row carries machine-readable codes and subject identifiers so validators can
+        report failures without parsing text.
         """
         findings.append(
             finding(
@@ -1105,13 +1017,11 @@ def _work_ledger_seed_speed_gate(manifest: Mapping[str, Any]) -> dict[str, Any]:
 
 def _generated_surface_claim_lens_gate(manifest: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_generated_surface_claim_lens_gate` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.concurrency_mission_control._generated_surface_claim_lens_gate`
+    into the payload shape expected by organs concurrency mission control.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     surface = _as_mapping(manifest.get("generated_surface_claim_lens"))
     cases = _as_records(surface.get("cases"))
@@ -1195,13 +1105,10 @@ def _generated_surface_claim_lens_gate(manifest: Mapping[str, Any]) -> dict[str,
 
 def _closure_state_lens_gate(manifest: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_closure_state_lens_gate` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.concurrency_mission_control._closure_state_lens_gate`
+    into the payload shape expected by organs concurrency mission control.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     surface = _as_mapping(manifest.get("closure_state_lens"))
     cases = _as_records(surface.get("cases"))
@@ -1289,13 +1196,10 @@ def _evaluate(
     source_manifest: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_evaluate` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.concurrency_mission_control._evaluate` into the payload
+    shape expected by organs concurrency mission control.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     manifest = _load_json(input_path / EXERCISE_MANIFEST_NAME)
@@ -1351,13 +1255,10 @@ def evaluate_negative_case(
     _expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize `microcosm_core.organs.concurrency_mission_control.evaluate_negative_case`
+    into the payload shape expected by organs concurrency mission control.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     manifest = _load_json(input_path / EXERCISE_MANIFEST_NAME)
@@ -1518,13 +1419,10 @@ def run(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for the organs concurrency mission control flow.
+
+    Inputs are `input_dir`, `out_dir`, `acceptance_out`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1545,13 +1443,10 @@ def run_concurrency_mission_control_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_concurrency_mission_control_bundle` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run concurrency mission control bundle without touching module import state.
+
+    Inputs are `bundle_dir`, `out_dir`, `acceptance_out`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1567,13 +1462,9 @@ def run_concurrency_mission_control_bundle(
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute result card from `result`.
+
+    Inputs are `result`; notable helpers are `card_for_result`, `get`, and `next`.
     """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
@@ -1617,13 +1508,10 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.concurrency_mission_control` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.concurrency_mission_control` as a command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)

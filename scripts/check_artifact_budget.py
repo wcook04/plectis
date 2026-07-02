@@ -48,30 +48,21 @@ ARTIFACT_BUDGET = {
 
 
 def _load_data_files() -> dict[str, list[str]]:
-    """Read the setuptools data-files manifest that defines shipped corpus files.
+    """
+    Load load data files for `scripts.check_artifact_budget`.
 
-    Teleology: the budget must measure the same public corpus that packaging
-    will include, rather than a parallel hand-maintained file list.
-    Guarantee: returns the destination-to-globs table from pyproject.toml.
-    Fails: FileNotFoundError, TOML decode errors, or missing manifest keys
-    propagate because a package-budget check without packaging metadata is
-    invalid.
-    Reads: pyproject.toml.
+    Input comes from the supplied source; malformed or missing data follows the exceptions
+    and checks visible in the body.
     """
     payload = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
     return payload["tool"]["setuptools"]["data-files"]
 
 
 def _category(dest: str) -> str:
-    """Map a data-files destination to the report bucket users can act on.
+    """
+    Produce the category value used by `scripts.check_artifact_budget`.
 
-    Teleology: package growth is easier to review when share/plectis/atlas and
-    share/plectis/receipts are distinct levers instead of one undifferentiated
-    corpus total.
-    Guarantee: share/plectis itself becomes root_docs; children use their first
-    path segment.
-    Fails: does not reject malformed destinations; unexpected strings become
-    their own top-level category so the report still exposes the bytes.
+    Inputs are `dest`; notable helpers are `startswith` and `split`.
     """
     prefix = "share/plectis"
     if dest == prefix:
@@ -81,15 +72,10 @@ def _category(dest: str) -> str:
 
 
 def _resolve_data_files() -> tuple[dict[Path, int], dict[str, dict[str, int]]]:
-    """Expand declared data-file globs into concrete package-corpus bytes.
+    """
+    Compute resolve data files from the caller-supplied state.
 
-    Teleology: catch real wheel-footprint changes before the backend build
-    runs, including duplicate glob coverage and category-level growth.
-    Guarantee: each concrete file is counted once globally and once in the
-    category reached by its first manifest destination.
-    Fails: filesystem stat errors propagate for matched files because the
-    budget cannot honestly pass when a declared package file cannot be read.
-    Reads: repository files matched by pyproject data-files globs.
+    Notable helpers are `items`, `_category`, `setdefault`, `_load_data_files`, and 3 more.
     """
     files: dict[Path, int] = {}
     by_category: dict[str, dict[str, int]] = {}
@@ -110,15 +96,10 @@ def _resolve_data_files() -> tuple[dict[Path, int], dict[str, dict[str, int]]]:
 
 
 def _resolve_runtime_package() -> dict[Path, int]:
-    """Measure authored runtime package files that ship beside the corpus.
+    """
+    Compute resolve runtime package from the caller-supplied state.
 
-    Teleology: the wheel budget includes both the executable Python package and
-    the larger evidence corpus, so runtime code size stays visible too.
-    Guarantee: source files under src/microcosm_core are counted, while
-    __pycache__ and .pyc artifacts are ignored.
-    Fails: returns an empty mapping if the runtime package directory is absent;
-    stat errors for discovered files still propagate.
-    Reads: src/microcosm_core.
+    Notable helpers are `rglob`, `is_dir`, `is_file`, and `stat`.
     """
     files: dict[Path, int] = {}
     if not RUNTIME_PACKAGE.is_dir():
@@ -133,14 +114,11 @@ def _resolve_runtime_package() -> dict[Path, int]:
 
 
 def measure() -> dict[str, object]:
-    """Return the complete shipped-footprint measurement used by report/check.
+    """
+    Serialize the local value into the scripts check artifact budget payload shape.
 
-    Teleology: keep report output and CI enforcement on the same measurement
-    path so they cannot drift.
-    Guarantee: returns total bytes/files, data-file bytes/files, runtime package
-    bytes/files, and a bytes-descending category rollup.
-    Fails: propagates manifest or filesystem failures from the resolver helpers.
-    Reads: pyproject data-files and src/microcosm_core.
+    The returned mapping uses the key names consumed by downstream receipts, cards, or
+    tests.
     """
     data_files, by_category = _resolve_data_files()
     package_files = _resolve_runtime_package()
@@ -169,27 +147,20 @@ def measure() -> dict[str, object]:
 
 
 def _mib(byte_count: int) -> str:
-    """Format byte counts in MiB for the human budget report.
+    """
+    Compute mib from `byte_count`.
 
-    Teleology: report and failure context should show reviewer-scale numbers,
-    not only raw bytes.
-    Guarantee: returns a string with two decimal places using binary MiB.
-    Fails: non-numeric inputs raise the normal arithmetic/formatting TypeError.
-    Non-goal: do not round-trip to bytes or enforce a budget.
+    Inputs are `byte_count`.
     """
     return f"{byte_count / (1024 * 1024):.2f} MiB"
 
 
 def _print_report(stats: dict[str, object]) -> None:
-    """Print the footprint table and remaining budget headroom.
+    """
+    Run print report for `scripts.check_artifact_budget`.
 
-    Teleology: give reviewers enough category detail to decide whether a corpus
-    increase is intentional and where to trim if it is not.
-    Guarantee: the report is derived entirely from measure() stats and the
-    version-controlled ARTIFACT_BUDGET constants.
-    Fails: KeyError or formatting errors surface if stats lacks the measure()
-    shape, because a partial report would mislead reviewers.
-    Writes: stdout only.
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     print("Plectis shipped-artifact footprint")
     print(f"  total:           {stats['total_files']} files, {_mib(stats['total_bytes'])}")
@@ -214,13 +185,11 @@ def _print_report(stats: dict[str, object]) -> None:
 
 
 def _check(stats: dict[str, object]) -> list[str]:
-    """Compare measured footprint stats against the explicit package budget.
+    """
+    Check whether check holds for the scripts check artifact budget flow.
 
-    Teleology: make package growth a reviewed source change, not an accidental
-    green build with a larger wheel.
-    Guarantee: returns every violated ceiling as a concrete failure string; an
-    unset byte budget is itself a failure.
-    Fails: total bytes, total files, or data-files bytes above budget.
+    The result is derived from `stats` with `append`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     failures: list[str] = []
     budget = ARTIFACT_BUDGET
@@ -248,16 +217,11 @@ def _check(stats: dict[str, object]) -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry for reporting or enforcing the shipped-artifact budget.
+    """
+    Run `scripts.check_artifact_budget` as a command-line entry point.
 
-    Teleology: CI can run the default check while maintainers can ask for a
-    non-failing report when deciding whether to resize the ceiling.
-    Guarantee: --json emits the raw measurement, --report never fails on
-    budget overage, and default/--check returns nonzero on budget failure.
-    Fails: returns 1 for budget failures in check mode; argument parsing and
-    measurement exceptions use the normal argparse/Python failure paths.
-    Reads: pyproject.toml, data-file corpus, and runtime package files.
-    Writes: stdout for reports/pass JSON; stderr for check failures.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()

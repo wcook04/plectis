@@ -1,27 +1,14 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.research_replication_rubric_artifact_replay` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs research replication rubric artifact replay for the public Plectis
+package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, SOURCE_MODULE_MANIFEST_REF, SOURCE_IMPORT_CLASS, SOURCE_BODY_STATUS, PUBLIC_SAFE_SOURCE_MODULE_CLASSES, AGENT_EXECUTION_TRACE_SOURCE_REF, AGENT_EXECUTION_TRACE_TARGET_FILE_REF, AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF, INPUT_NAMES, NEGATIVE_INPUT_NAMES, EXECUTION_ARTIFACT_MANIFEST_REF, EXPECTED_NEGATIVE_CASES, EXPECTED_NEGATIVE_CASE_BY_CODE, REQUIRED_REPLAY_FIELDS, REQUIRED_RUBRIC_AXES, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.macro_tools.agent_execution_trace, microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `validate_source_module_imports`,
+`validate_execution_artifact_replay`, `validate_projection_protocol`,
+`validate_replication_policy`, `validate_research_replays`, `run`, and 3 more; constants
+such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 24 more pin local
+fixture names; dependencies include `argparse`, `hashlib`, `json`, `collections`, and 3
+more. It builds public fixture, result, card, or verdict structures while keeping private
+substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -219,13 +206,10 @@ ANTI_CLAIM = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for
+    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -241,26 +225,21 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return display for the organs research replication rubric artifact replay flow.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -270,13 +249,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -285,13 +262,10 @@ def _strings(value: object) -> list[str]:
 
 def _strip_microcosm_prefix(ref: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_strip_microcosm_prefix` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the strip microcosm prefix value used by
+    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
+
+    Inputs are `ref`; notable helpers are `startswith`.
     """
     prefix = "microcosm-substrate/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
@@ -299,26 +273,22 @@ def _strip_microcosm_prefix(ref: str) -> str:
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _sha256_prefixed(value: object) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_prefixed` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._sha256_prefixed`.
+
+    The input is `value`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     text = str(value or "")
     if not text:
@@ -328,13 +298,11 @@ def _sha256_prefixed(value: object) -> str:
 
 def _canonical_payload_sha256(payload: object) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_canonical_payload_sha256` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._canonical_payload_sha256`.
+
+    The input is `payload`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode(
         "utf-8"
@@ -344,13 +312,11 @@ def _canonical_payload_sha256(payload: object) -> str:
 
 def _json_file_sha256_for_payload(payload: object) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_json_file_sha256_for_payload` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._json_file_sha256_for_payload`.
+
+    The input is `payload`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     encoded = (
         json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True) + "\n"
@@ -360,13 +326,11 @@ def _json_file_sha256_for_payload(payload: object) -> str:
 
 def _is_safe_public_ref(ref: str) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_is_safe_public_ref` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether is safe public ref holds for the organs research replication rubric
+    artifact replay flow.
+
+    The result is derived from `ref` with `Path` and `is_absolute`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     path = Path(ref)
     return bool(ref) and not path.is_absolute() and ".." not in path.parts
@@ -374,26 +338,19 @@ def _is_safe_public_ref(ref: str) -> bool:
 
 def _public_ref_path(input_dir: Path, ref: str) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_ref_path` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public ref path for the organs research replication rubric artifact replay flow.
+
+    Inputs are `input_dir` and `ref`; notable helpers are `Path`.
     """
     return input_dir / Path(ref)
 
 
 def _repo_root_for_public_refactor(public_root: Path) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_repo_root_for_public_refactor` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return repo root for public refactor for
+    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
+
+    Inputs are `public_root`; notable helpers are `is_file`.
     """
     for candidate in (public_root.parent, *public_root.parents):
         if (
@@ -412,13 +369,11 @@ def _body_import_verification(
     source_imports: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_body_import_verification` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._body_import_verification`
+    into the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     repo_root = _repo_root_for_public_refactor(public_root)
     source_path = (
@@ -464,13 +419,10 @@ def _body_import_verification(
 
 def _walk_keys(payload: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_walk_keys` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return walk keys for
+    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
+
+    Inputs are `payload`; notable helpers are `values`, `extend`, and `_walk_keys`.
     """
     if isinstance(payload, dict):
         keys = list(payload)
@@ -487,13 +439,11 @@ def _walk_keys(payload: object) -> list[str]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return input paths for
+    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file` and
+    `append`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -505,13 +455,10 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _source_module_manifest_path(input_dir: Path, *, public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source module manifest path value used by
+    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are `is_file`.
     """
     local_manifest = input_dir / "source_module_manifest.json"
     if local_manifest.is_file():
@@ -526,13 +473,10 @@ def _source_module_target_path(
     public_root: Path,
 ) -> tuple[Path, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive source module target path without touching module import state.
+
+    Inputs are `row`, `manifest_path`, and `public_root`; notable helpers are
+    `_strip_microcosm_prefix`, `get`, `_is_safe_public_ref`, and `_display`.
     """
     target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
     row_path = str(row.get("path") or "")
@@ -552,13 +496,10 @@ def _source_module_source_path(
     public_root: Path,
 ) -> tuple[Path | None, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_source_path` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive source module source path without touching module import state.
+
+    Inputs are `row` and `public_root`; notable helpers are `_strip_microcosm_prefix`,
+    `is_file`, `_is_safe_public_ref`, `resolve`, and 2 more.
     """
     source_ref = _strip_microcosm_prefix(str(row.get("source_ref") or ""))
     if not source_ref:
@@ -577,13 +518,10 @@ def _source_module_source_path(
 
 def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_artifact_paths` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute source artifact paths from `input_dir` and `public_root`.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are
+    `_source_module_manifest_path`, `read_json_strict`, `_rows`, `is_file`, and 4 more.
     """
     manifest_path = _source_module_manifest_path(input_dir, public_root=public_root)
     if not manifest_path.is_file():
@@ -608,13 +546,10 @@ def _source_artifact_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
 
 def _execution_artifact_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_execution_artifact_paths` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute execution artifact paths from `input_dir`.
+
+    Inputs are `input_dir`; notable helpers are `is_file`, `read_json_strict`, `extend`,
+    `_rows`, and 5 more.
     """
     manifest_path = input_dir / EXECUTION_ARTIFACT_MANIFEST_REF
     paths = [manifest_path]
@@ -650,13 +585,10 @@ def _execution_artifact_paths(input_dir: Path) -> list[Path]:
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_paths` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return freshness paths for the organs research replication rubric artifact replay flow.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `Path`,
+    `_public_root_for_path`, `_input_paths`, `_source_artifact_paths`, and 1 more.
     """
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
@@ -670,13 +602,11 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._freshness_basis`
+    into the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -735,13 +665,10 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
 
 def _stored_receipt_command(command: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_stored_receipt_command` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the stored receipt command value used by
+    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
+
+    Inputs are `command`; notable helpers are `normalize_public_receipt_paths` and `get`.
     """
     normalized = normalize_public_receipt_paths({"command": command})
     value = normalized.get("command") if isinstance(normalized, dict) else command
@@ -755,13 +682,10 @@ def _fresh_replication_bundle_receipt(
     command: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_replication_bundle_receipt` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive fresh replication bundle receipt without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `get`,
+    `_freshness_basis`, `is_file`, `read_json_strict`, and 1 more.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -801,13 +725,11 @@ def _fresh_replication_bundle_receipt(
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for
+    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -821,13 +743,11 @@ def validate_source_module_imports(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_source_module_imports` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.research_replication_rubric_artifact_replay.validate_source_module_imports`
+    into the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(input_dir, public_root=public_root)
     manifest_ref = _display(manifest_path, public_root=public_root)
@@ -1069,13 +989,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.research_replication_rubric_artifact_replay._finding`
+    into the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -1099,13 +1016,10 @@ def _record(
     derive_observed_case_id: bool = False,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs research replication rubric artifact replay flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     observed_case_id = (
         EXPECTED_NEGATIVE_CASE_BY_CODE.get(code, case_id)
@@ -1129,13 +1043,11 @@ def _execute_metric_script(
     input_payload: dict[str, Any],
 ) -> tuple[dict[str, Any] | None, str | None]:
     """
-    [ACTION]
-    - Teleology: Implements `_execute_metric_script` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the execute metric script value used by
+    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
+
+    Inputs are `metric_payload` and `input_payload`; notable helpers are `get` and
+    `is_integer`.
     """
     operation = str(metric_payload.get("operation") or "")
     input_field = str(metric_payload.get("input_field") or "")
@@ -1159,13 +1071,10 @@ def _execute_metric_script(
 
 def _declared_verdict_label_keys(row: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_declared_verdict_label_keys` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the declared verdict label keys value used by
+    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
+
+    Inputs are `row`.
     """
     return sorted(key for key in DECLARED_VERDICT_LABEL_KEYS if key in row)
 
@@ -1174,13 +1083,11 @@ def _replay_cited_refs(
     replay_rows: list[dict[str, Any]],
 ) -> dict[str, set[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_replay_cited_refs` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._replay_cited_refs`
+    into the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "allowed_public_input_refs": {
@@ -1207,13 +1114,11 @@ def validate_execution_artifact_replay(
     replay_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_execution_artifact_replay` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.research_replication_rubric_artifact_replay.validate_execution_artifact_replay`
+    into the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
@@ -1427,13 +1332,10 @@ def validate_execution_artifact_replay(
 
     def path_for(ref: str, *, subject_kind: str, code: str) -> Path | None:
         """
-        [ACTION]
-        - Teleology: Implements `validate_execution_artifact_replay.path_for` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Compute path for from `ref`, `subject_kind`, and `code`.
+
+        Inputs are `ref`, `subject_kind`, and `code`; notable helpers are
+        `_public_ref_path`, `_is_safe_public_ref`, `append`, `is_file`, and 1 more.
         """
         if not _is_safe_public_ref(ref):
             findings.append(
@@ -1828,13 +1730,10 @@ def validate_execution_artifact_replay(
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return merge observed for
+    `microcosm_core.organs.research_replication_rubric_artifact_replay`.
+
+    Inputs are `results`; notable helpers are `defaultdict`, `items`, `get`, and `add`.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -1846,13 +1745,10 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_findings` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._merge_findings`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     findings: list[dict[str, Any]] = []
     for result in results:
@@ -1876,13 +1772,11 @@ def validate_projection_protocol(
     source_imports: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_projection_protocol` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.research_replication_rubric_artifact_replay.validate_projection_protocol`
+    into the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
@@ -1941,13 +1835,11 @@ def validate_projection_protocol(
 
 def validate_replication_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_replication_policy` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.organs.research_replication_rubric_artifact_replay.validate_replication_policy`
+    into the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy = payload if isinstance(payload, dict) else {}
     required_fields = set(_strings(policy.get("required_replay_fields")))
@@ -2004,13 +1896,11 @@ def validate_replication_policy(payload: object) -> dict[str, Any]:
 
 def _has_required_replay_fields(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_required_replay_fields` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has required replay fields holds for the organs research replication
+    rubric artifact replay flow.
+
+    The result is derived from `row` with `get`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return all(row.get(field) for field in REQUIRED_REPLAY_FIELDS)
 
@@ -2024,13 +1914,13 @@ def _validate_replay_row(
     derive_observed_case_id: bool = False,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_replay_row` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Validate whether validate replay row holds for the organs research replication rubric
+    artifact replay flow.
+
+    The result is derived from `row`, `case_id`, `observed`, `findings`, and
+    `derive_observed_case_id` with `_has_required_replay_fields`, `_record`, `_strings`,
+    `get`, and 1 more; failing evidence is returned or raised exactly where the body says
+    so.
     """
     paper_id = str(row.get("paper_id") or row.get("case_id") or "research_replay")
     if not _has_required_replay_fields(row):
@@ -2155,13 +2045,11 @@ def validate_research_replays(
     negative_payloads: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_research_replays` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.research_replication_rubric_artifact_replay.validate_research_replays`
+    into the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "research_replays")
     positive_findings: list[dict[str, Any]] = []
@@ -2229,13 +2117,11 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._build_result` into
+    the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -2396,13 +2282,11 @@ def _build_result(
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_board_from_result` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._board_from_result`
+    into the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "research_replication_rubric_artifact_replay_board_v1",
@@ -2464,13 +2348,11 @@ def _write_receipts(
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._write_receipts` into
+    the payload shape expected by organs research replication rubric artifact replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
@@ -2560,13 +2442,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for the organs research replication rubric artifact replay flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `_build_result`, `_freshness_basis`, `_write_receipts`, and `Path`.
     """
     result = _build_result(
         Path(input_dir),
@@ -2594,13 +2473,10 @@ def run_replication_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_replication_bundle` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Derive run replication bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `mkdir`, `_build_result`, `_freshness_basis`, and 4 more.
     """
     source = Path(input_dir)
     out = Path(out_dir)
@@ -2634,13 +2510,9 @@ def run_replication_bundle(
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return result card for the organs research replication rubric artifact replay flow.
+
+    Inputs are `result`; notable helpers are `get` and `normalize_public_receipt_paths`.
     """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -2772,13 +2644,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.organs.research_replication_rubric_artifact_replay._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(prog="research_replication_rubric_artifact_replay")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -2796,13 +2666,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.research_replication_rubric_artifact_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.research_replication_rubric_artifact_replay` command-line
+    entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

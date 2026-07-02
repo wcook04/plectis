@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.batch12_release_claim_language_gate` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs batch12 release claim language gate for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, PUBLIC_FALLBACK_RISKY_PHRASES, PUBLIC_FALLBACK_NEGATIVE_CONTEXT_MARKERS, SPEC, evaluate_negative_case, run, run_batch12_release_claim_language_gate_bundle, result_card, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate_negative_case`, `run`,
+`run_batch12_release_claim_language_gate_bundle`, `result_card`, and `main`; constants such
+as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 12 more pin local fixture
+names; dependencies include `importlib`, `io`, `json`, `re`, and 7 more. It builds public
+fixture, result, card, or verdict structures while keeping private substrate bodies out of
+the payload.
 """
 from __future__ import annotations
 
@@ -179,13 +164,10 @@ SPEC = CrownJewelSpec(
 
 def _load_json(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_json` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load JSON for `microcosm_core.organs.batch12_release_claim_language_gate`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     payload = read_json_strict(path)
     return payload if isinstance(payload, dict) else {}
@@ -193,13 +175,10 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 def _blocked_exercise(findings: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_blocked_exercise` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch12_release_claim_language_gate._blocked_exercise`
+    into the payload shape expected by organs batch12 release claim language gate.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "status": "blocked",
@@ -229,13 +208,10 @@ def _blocked_exercise(findings: list[dict[str, Any]]) -> dict[str, Any]:
 
 def _load_fixture(input_dir: Path, findings: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_fixture` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch12_release_claim_language_gate._load_fixture` into
+    the payload shape expected by organs batch12 release claim language gate.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     path = input_dir / "release_gate_fixture.json"
     if not path.is_file():
@@ -274,13 +250,11 @@ def _load_fixture(input_dir: Path, findings: list[dict[str, Any]]) -> dict[str, 
 
 def _source_target(source_manifest: Mapping[str, Any], source_ref: str) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_target` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source target for the organs batch12 release claim language gate flow.
+
+    Inputs are `source_manifest` and `source_ref`; notable helpers are `Path`, `_load_json`,
+    `get`, `FileNotFoundError`, and 1 more; invalid cases raise from the explicit checks in
+    the body.
     """
     manifest = Path(str(source_manifest.get("source_manifest_path") or ""))
     if not manifest.is_file():
@@ -294,13 +268,11 @@ def _source_target(source_manifest: Mapping[str, Any], source_ref: str) -> Path:
 
 def _load_source_module(source_manifest: Mapping[str, Any]) -> Any:
     """
-    [ACTION]
-    - Teleology: Implements `_load_source_module` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch12_release_claim_language_gate._load_source_module` into the
+    payload shape expected by organs batch12 release claim language gate.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if _source_module_public_stubbed(source_manifest):
         return _PublicFallbackReleaseClaimGate
@@ -322,13 +294,11 @@ def _load_source_module(source_manifest: Mapping[str, Any]) -> Any:
 
         def safe_load(text: str) -> dict[str, Any]:
             """
-            [ACTION]
-            - Teleology: Implements `_load_source_module.safe_load` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-            - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Serialize the local value into the organs batch12 release claim language gate
+            payload shape.
+
+            The returned mapping uses the key names consumed by downstream receipts, cards,
+            or tests.
             """
             entries = []
             for line in text.splitlines():
@@ -351,13 +321,11 @@ def _load_source_module(source_manifest: Mapping[str, Any]) -> Any:
 
 def _source_module_public_stubbed(source_manifest: Mapping[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_public_stubbed` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether source module public stubbed holds for the organs batch12 release claim
+    language gate flow.
+
+    The result is derived from `source_manifest` with `Path`, `_load_json`, `get`, and
+    `is_file`; failing evidence is returned or raised exactly where the body says so.
     """
     manifest = Path(str(source_manifest.get("source_manifest_path") or ""))
     if not manifest.is_file():
@@ -384,26 +352,21 @@ def _source_module_public_stubbed(source_manifest: Mapping[str, Any]) -> bool:
 
 class _PublicFallbackReleaseClaimGate:
     """
-    [ROLE]
-    Public replacement used only when the private macro body is stubbed.
-    - Teleology: Groups `_PublicFallbackReleaseClaimGate` data or behavior for `microcosm_core.organs.batch12_release_claim_language_gate` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.organs.batch12_release_claim_language_gate`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    Stateful helper for Public Fallback Release Claim Gate in
+    `microcosm_core.organs.batch12_release_claim_language_gate`.
+
+    Methods such as `_manifest_entries`, `_classify`, `build_gate`, and `main` share the
+    instance state instead of passing a loose dictionary through the call chain.
     """
 
     @staticmethod
     def _manifest_entries(repo_root: Path) -> list[str]:
         """
-        [ACTION]
-        - Teleology: Implements `_PublicFallbackReleaseClaimGate._manifest_entries` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-        - Writes: return values.
+        Derive manifest entries on `_PublicFallbackReleaseClaimGate` without touching module
+        import state.
+
+        Inputs are `repo_root`; notable helpers are `splitlines`, `is_file`, `strip`,
+        `startswith`, and 3 more.
         """
         manifest = repo_root / "publication_manifest.yaml"
         if not manifest.is_file():
@@ -418,13 +381,10 @@ class _PublicFallbackReleaseClaimGate:
     @staticmethod
     def _classify(line: str, *, family: str) -> tuple[str, str]:
         """
-        [ACTION]
-        - Teleology: Implements `_PublicFallbackReleaseClaimGate._classify` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Return classify on `_PublicFallbackReleaseClaimGate` for the organs batch12 release
+        claim language gate flow.
+
+        Inputs are `line` and `family`; notable helpers are `lower`.
         """
         normalized = line.lower()
         if family == "private_control_plane_leak":
@@ -442,13 +402,11 @@ class _PublicFallbackReleaseClaimGate:
     @classmethod
     def build_gate(cls, repo_root: Path) -> dict[str, Any]:
         """
-        [ACTION]
-        - Teleology: Implements `_PublicFallbackReleaseClaimGate.build_gate` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-        - Writes: return values.
+        Serialize _PublicFallbackReleaseClaimGate into the organs batch12 release claim
+        language gate payload shape.
+
+        The returned mapping uses the key names consumed by downstream receipts, cards, or
+        tests.
         """
         root = Path(repo_root)
         hits: list[dict[str, Any]] = []
@@ -505,13 +463,11 @@ class _PublicFallbackReleaseClaimGate:
     @classmethod
     def main(cls, argv: list[str] | None = None) -> int:
         """
-        [ACTION]
-        - Teleology: Implements `_PublicFallbackReleaseClaimGate.main` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text.
+        Run the `microcosm_core.organs.batch12_release_claim_language_gate` command-line
+        entry point.
+
+        It parses argv, invokes the file-local builders or validators, and returns a
+        process-style status code.
         """
         args = list(argv or [])
         repo_root = Path(".")
@@ -554,13 +510,10 @@ def _fixture_doc_name(
     findings: list[dict[str, Any]],
 ) -> str | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fixture_doc_name` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return fixture doc name for the organs batch12 release claim language gate flow.
+
+    Inputs are `fixture`, `key`, `default`, and `findings`; notable helpers are `append`,
+    `get`, `finding`, `Path`, and 2 more.
     """
     name = str(fixture.get(key) or default)
     if any(ord(char) < 32 or ord(char) == 127 for char in name):
@@ -600,13 +553,10 @@ def _write_gate_fixture(
     findings: list[dict[str, Any]],
 ) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_write_gate_fixture` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write gate fixture for the organs batch12 release claim language gate flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     docs = root / "docs"
     docs.mkdir(parents=True, exist_ok=True)
@@ -655,13 +605,11 @@ def _write_gate_fixture(
 
 def _run_main_assert_clear(module: Any, root: Path) -> tuple[int, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_run_main_assert_clear` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Produce the run main assert clear value used by
+    `microcosm_core.organs.batch12_release_claim_language_gate`.
+
+    Inputs are `module` and `root`; notable helpers are `StringIO`, `strip`,
+    `redirect_stdout`, `main`, and 2 more.
     """
     out = root / "release_claim_language_gate_v0.json"
     buffer = io.StringIO()
@@ -682,13 +630,10 @@ def _run_main_assert_clear(module: Any, root: Path) -> tuple[int, dict[str, Any]
 
 def _active_phrase_ids(gate: Mapping[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_active_phrase_ids` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the active phrase IDs value used by
+    `microcosm_core.organs.batch12_release_claim_language_gate`.
+
+    Inputs are `gate`; notable helpers are `get`.
     """
     return sorted(
         {
@@ -703,13 +648,10 @@ def _active_phrase_ids(gate: Mapping[str, Any]) -> list[str]:
 
 def _gate_status(gate: Mapping[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_gate_status` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Gate whether gate status holds for the organs batch12 release claim language gate flow.
+
+    The result is derived from `gate` with `get`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return str(gate.get("status") or "")
 
@@ -724,13 +666,12 @@ def _first_screen_claim_rows(
     positive_boundary_clear: bool,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_first_screen_claim_rows` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the first screen claim rows value used by
+    `microcosm_core.organs.batch12_release_claim_language_gate`.
+
+    Inputs are `safe_gate`, `active_gate`, `publication_gate`, `control_plane_gate`,
+    `computed_cases`, and 1 more; notable helpers are `get`, `_gate_status`, and
+    `_active_phrase_ids`.
     """
     case_lookup = {
         str(row.get("case_id")): bool(row.get("computed"))
@@ -797,13 +738,10 @@ def _first_screen_claim_rows(
 
 def _evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_evaluate` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize `microcosm_core.organs.batch12_release_claim_language_gate._evaluate` into the
+    payload shape expected by organs batch12 release claim language gate.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     fixture = _load_fixture(input_dir, findings)
@@ -1010,13 +948,11 @@ def evaluate_negative_case(
     expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch12_release_claim_language_gate.evaluate_negative_case` into
+    the payload shape expected by organs batch12 release claim language gate.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     public_root = public_root_for_path(input_path)
@@ -1074,13 +1010,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for the organs batch12 release claim language gate flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1101,13 +1034,11 @@ def run_batch12_release_claim_language_gate_bundle(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_batch12_release_claim_language_gate_bundle` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run batch12 release claim language gate bundle for the organs batch12 release
+    claim language gate flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1123,26 +1054,21 @@ def run_batch12_release_claim_language_gate_bundle(
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the result card value used by
+    `microcosm_core.organs.batch12_release_claim_language_gate`.
+
+    Inputs are `result`; notable helpers are `card_for_result`.
     """
     return card_for_result(SPEC, result)
 
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.batch12_release_claim_language_gate` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run the `microcosm_core.organs.batch12_release_claim_language_gate` command-line entry
+    point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     return main_for_spec(
         SPEC,

@@ -1,33 +1,12 @@
 """
-Command-output projection helper.
+Implements macro tools command output projection for the public Plectis package.
 
-[PURPOSE]
-- Teleology: Package known kernel command-output fields into a canonical Rosetta-Stone projection envelope governed by codex/standards/std_command_output_projection.json.
-- Mechanism: Pure helper. Does not summarize. Does not synthesize bands. Validates required fields and emits structured envelopes for opt-in command projection and structured refusals for unsupported/unpopulated bands.
-- When-needed: Open when a kernel command is opting into projected output via --output-band, when --row KIND:ID --band BAND is delegating to an option-surface, or when the command-output-projection audit is being computed.
-- Escalates-to: codex/standards/std_command_output_projection.json (envelope contract); system/lib/standard_option_surface.py (option-surface adapter); system/lib/kind_atlas.py (kind atlas).
-- Navigation-group: kernel_lib
-
-Inherits from std_agent_entry_surface.json::compression_via_projection_contract (pri_121_candidate). Command outputs are runtime projections of the same Rosetta-Stone shape that governs entry-surface markdown.
-
-[INTERFACE]
-- Exports: STANDARD_REF, ROOT_CONTRACT_REF, ENVELOPE_KIND, ENVELOPE_SCHEMA_VERSION, REQUIRED_FIELDS, make_row_id, make_omission_receipt, make_validation_contract, make_currentness, command_projection, row_band_unavailable, envelope_required_fields, envelope_field_present
-- Reads: call arguments, module constants, imported helpers.
-- Writes: return values, declared filesystem outputs and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: None beyond the Python standard library and local package imports.
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `make_row_id`, `make_omission_receipt`, `make_validation_contract`,
+`make_currentness`, `command_projection`, `row_band_unavailable`, and 2 more; constants such
+as `STANDARD_REF`, `ROOT_CONTRACT_REF`, `ENVELOPE_KIND`, `ENVELOPE_SCHEMA_VERSION`, and 1
+more pin local fixture names; dependencies include `datetime` and `typing`. The helpers are
+invoked explicitly by CLI or fixture code; importing the module only declares the available
+machinery.
 """
 from __future__ import annotations
 
@@ -58,29 +37,19 @@ REQUIRED_FIELDS: tuple[str, ...] = (
 
 def _utc_now() -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_utc_now` for `microcosm_core.macro_tools.command_output_projection` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Produce the utc now value used by
+    `microcosm_core.macro_tools.command_output_projection`.
+
+    Notable helpers are `replace`, `isoformat`, and `now`.
     """
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
 
 def make_row_id(command: str, selector: str, band: str) -> str:
     """
-    [ACTION]
-    Build a row_id following std_command_output_projection row_id_shape.
+    Derive make row ID without touching module import state.
 
-    Shape: kernel:<command>:<selector>::<band>
-    - Teleology: Implements `make_row_id` for `microcosm_core.macro_tools.command_output_projection` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `command`, `selector`, and `band`; notable helpers are `lstrip` and `strip`.
     """
     cmd = str(command or "").strip().lstrip("-")
     sel = str(selector or "").strip() or "default"
@@ -95,14 +64,10 @@ def make_omission_receipt(
     drilldown: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Build a peer-level omission receipt.
-    - Teleology: Implements `make_omission_receipt` for `microcosm_core.macro_tools.command_output_projection` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.command_output_projection.make_omission_receipt`
+    into the payload shape expected by macro tools command output projection.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "omitted": [str(item) for item in omitted if str(item).strip()],
@@ -119,14 +84,10 @@ def make_validation_contract(
     standard: str = STANDARD_REF,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Build a validation_contract block.
-    - Teleology: Implements `make_validation_contract` for `microcosm_core.macro_tools.command_output_projection` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return make validation contract for the macro tools command output projection flow.
+
+    Inputs are `freshness_probe`, `schema_probe`, `failure_modes`, and `standard`; notable
+    helpers are `strip`.
     """
     contract: dict[str, Any] = {"standard": standard}
     if freshness_probe:
@@ -148,14 +109,11 @@ def make_currentness(
     action_reason: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Build a currentness block matching kind-atlas conventions.
-    - Teleology: Implements `make_currentness` for `microcosm_core.macro_tools.command_output_projection` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute make currentness from `status`, `generated_at`, `source_refs_checked`,
+    `source_mtimes`, `recommended_action`, and 1 more.
+
+    Inputs are `status`, `generated_at`, `source_refs_checked`, `source_mtimes`,
+    `recommended_action`, and 1 more; notable helpers are `strip`, `_utc_now`, and `items`.
     """
     block: dict[str, Any] = {
         "status": str(status or "live_computed"),
@@ -191,18 +149,11 @@ def command_projection(
     extra_fields: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Package command-output fields into the canonical Rosetta projection envelope.
+    Return command projection for the macro tools command output projection flow.
 
-    This helper does not summarize and does not synthesize bands. It validates that
-    the caller supplied the required envelope fields and emits a structured dict
-    governed by codex/standards/std_command_output_projection.json.
-    - Teleology: Implements `command_projection` for `microcosm_core.macro_tools.command_output_projection` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `command`, `band`, `row_id`, `selector`, `summary`, and 11 more; notable
+    helpers are `lstrip`, `strip`, `ValueError`, `make_row_id`, and 3 more; invalid cases
+    raise from the explicit checks in the body.
     """
     cmd = str(command or "").strip().lstrip("-")
     bnd = str(band or "").strip()
@@ -263,18 +214,10 @@ def row_band_unavailable(
     next_safe_commands: Sequence[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Structured refusal for --row when the requested band is unsupported or unpopulated.
+    Serialize `microcosm_core.macro_tools.command_output_projection.row_band_unavailable`
+    into the payload shape expected by macro tools command output projection.
 
-    Emitted instead of synthesizing a band the underlying adapter does not populate.
-    Honors the Phase 09.45 routing-first reversal at the v0 safety level: if the
-    option-surface adapter does not actually emit this band for this kind, refuse.
-    - Teleology: Implements `row_band_unavailable` for `microcosm_core.macro_tools.command_output_projection` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "kind": "row_band_unavailable",
@@ -297,28 +240,20 @@ def row_band_unavailable(
 
 def envelope_required_fields() -> tuple[str, ...]:
     """
-    [ACTION]
-    Return the required envelope field tuple. Used by the audit runtime.
-    - Teleology: Implements `envelope_required_fields` for `microcosm_core.macro_tools.command_output_projection` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive envelope required fields without touching module import state.
+
+    The returned value is consumed directly by the caller.
     """
     return REQUIRED_FIELDS
 
 
 def envelope_field_present(envelope: Mapping[str, Any], field: str) -> bool:
     """
-    [ACTION]
-    Best-effort check that a field is present and non-empty on a projected envelope.
-    - Teleology: Implements `envelope_field_present` for `microcosm_core.macro_tools.command_output_projection` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether envelope field present holds for the macro tools command output
+    projection flow.
+
+    The result is derived from `envelope` and `field`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     if field not in envelope:
         return False

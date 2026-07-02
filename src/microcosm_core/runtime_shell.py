@@ -1,22 +1,13 @@
 """
-Public runtime shell projections and validation command routing.
+Implements runtime shell for the public Plectis package.
 
-[PURPOSE] Expose bounded, receipt-backed runtime cards and organ validation
-commands for the public Plectis/Microcosm package.
-[INTERFACE] Imported by the `plectis` CLI and agent-facing package routes; the
-main public surface is `RuntimeShell` plus module helpers such as
-`public_root`.
-[FLOW] Resolve the public substrate root, lazily bind organ runners, project
-runtime cards from receipts/state, and return JSON-safe payloads.
-[DEPENDENCIES] Python standard library plus local `microcosm_core` public
-projection, receipt, schema, and organ modules.
-[CONSTRAINTS] Projection helpers must preserve the public payload boundary:
-no private-root equivalence, no release authorization, and no unbounded source
-body export.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `write_json_atomic`, `RuntimeStep`, `public_root`,
+`proof_lab_first_screen_boundary`, `RuntimeShell`, `build_parser`, and 1 more; constants
+such as `HASH_CHUNK_SIZE`, `_RUNTIME_RECEIPT_WRITE_STATE`,
+`RUNTIME_ORGAN_RUNNER_MODULE_REFS`, `PASS`, and 67 more pin local fixture names;
+dependencies include `argparse`, `copy`, `hashlib`, `html`, and 10 more. Importing it does
+not authorize release work or hidden private-state access; those effects live behind
+explicit calls.
 """
 from __future__ import annotations
 
@@ -58,18 +49,10 @@ _RUNTIME_RECEIPT_WRITE_STATE = threading.local()
 
 def _runtime_receipt_writes_enabled() -> bool:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Return whether runtime receipt writes enabled holds for the runtime shell flow.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a bool verdict computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from the caller-supplied state with `get` and `lower`; failing
+    evidence is returned or raised exactly where the body says so.
     """
     override = getattr(_RUNTIME_RECEIPT_WRITE_STATE, "enabled", None)
     if override is not None:
@@ -81,18 +64,10 @@ def _runtime_receipt_writes_enabled() -> bool:
 @contextmanager
 def _runtime_receipt_write_override(enabled: bool) -> Iterator[None]:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Temporarily apply runtime receipt write override for callers using a `with` block.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: yields the projected rows lazily; returns no value.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The previous state is restored after the yielded block exits, including exceptional
+    exits.
     """
     previous = getattr(_RUNTIME_RECEIPT_WRITE_STATE, "enabled", None)
     _RUNTIME_RECEIPT_WRITE_STATE.enabled = enabled
@@ -110,19 +85,10 @@ def _runtime_receipt_write_override(enabled: bool) -> Iterator[None]:
 
 def write_json_atomic(path: Path, payload: dict[str, Any]) -> None:
     """
-    Source-ref / digest custody check for the public projection.
+    Write write JSON atomic for the runtime shell flow.
 
-    [ACTION] Persist a runtime receipt only when receipt writes are enabled.
-
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-    - Fails: I-O / OSError suppressed by the helper; returns without raising.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     if _runtime_receipt_writes_enabled():
         _write_json_atomic(path, payload)
@@ -130,18 +96,11 @@ def write_json_atomic(path: Path, payload: dict[str, Any]) -> None:
 
 def _runtime_receipt_write_persists(path: Path) -> bool:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Return whether runtime receipt write persists holds for the runtime shell flow.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a bool verdict computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `path` with `_runtime_receipt_writes_enabled` and
+    `tracked_receipt_write_blocked`; failing evidence is returned or raised exactly where
+    the body says so.
     """
     return (
         _runtime_receipt_writes_enabled()
@@ -151,36 +110,19 @@ def _runtime_receipt_write_persists(path: Path) -> bool:
 
 def _tracked_receipt_refresh_requires_env(path: Path) -> bool:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Return whether tracked receipt refresh requires env holds for the runtime shell flow.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a bool verdict computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `path` with `tracked_receipt_write_blocked`; failing evidence
+    is returned or raised exactly where the body says so.
     """
     return receipt_policy.tracked_receipt_write_blocked(path)
 
 
 def _tracked_receipt_refresh_env(path: Path) -> str | None:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Compute tracked receipt refresh env from `path`.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns the resolved string, or None when it is absent.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `path`; notable helpers are `_tracked_receipt_refresh_requires_env`.
     """
     if _tracked_receipt_refresh_requires_env(path):
         return "MICROCOSM_TRACKED_RECEIPT_WRITES=1"
@@ -189,171 +131,104 @@ def _tracked_receipt_refresh_env(path: Path) -> str | None:
 
 class _LazyAttr:
     """
-    [ROLE]
-    Runtime-shell coordinator type.
+    Stateful helper for Lazy Attr in `microcosm_core.runtime_shell`.
 
-    - Teleology: Runtime-shell coordinator type holding the state its methods project.
-    - Guarantee: returns control to the caller after the documented effect.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: you need any projection this coordinator's methods expose.
-    - Escalates-to: the individual method whose lens you need, or `plectis status`.
-    - Ownership: Owned by `microcosm_core.runtime_shell`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    Methods such as `_resolve` share the instance state instead of passing a loose
+    dictionary through the call chain.
     """
     def __init__(self, module_loader: Callable[[], Any], attr_name: str) -> None:
         """
-        [ACTION]
-        Read-only projection helper.
+        Store constructor inputs for `_LazyAttr`.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-        - Fails: I-O / OSError suppressed by the helper; returns without raising.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The instance keeps `module_loader` and `attr_name` for later methods; validation
+        remains in the methods that need it.
         """
         self._module_loader = module_loader
         self._attr_name = attr_name
 
     def _resolve(self) -> Any:
         """
-        [ACTION]
-        Read-only projection helper.
+        Produce the resolve value used by `microcosm_core.runtime_shell`.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns the normalized value derived from the input.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_module_loader`.
         """
         return getattr(self._module_loader(), self._attr_name)
 
     def __call__(self, *args: Any, **kwargs: Any) -> Any:
         """
-        [ACTION]
-        Read-only projection helper.
+        Implement `__call__` for `_LazyAttr`.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns the normalized value derived from the input.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The method adapts this object to the Python protocol expected by callers while
+        leaving the real lookup or comparison in the visible method body.
         """
         return self._resolve()(*args, **kwargs)
 
     def __getattr__(self, name: str) -> Any:
         """
-        [ACTION]
-        Read-only projection helper.
+        Implement `__getattr__` for `_LazyAttr`.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns the normalized value derived from the input.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The method adapts this object to the Python protocol expected by callers while
+        leaving the real lookup or comparison in the visible method body.
         """
         return getattr(self._resolve(), name)
 
     def __fspath__(self) -> str:
         """
-        [ACTION]
-        Read-only projection helper.
+        Implement `__fspath__` for `_LazyAttr`.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns a string result built from the inspected inputs.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The method adapts this object to the Python protocol expected by callers while
+        leaving the real lookup or comparison in the visible method body.
         """
         return str(self._resolve())
 
     def __str__(self) -> str:
         """
-        [ACTION]
-        Read-only projection helper.
+        Return python protocol `__str__` on `_LazyAttr` for the runtime shell flow.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns a string result built from the inspected inputs.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_resolve`.
         """
         return str(self._resolve())
 
     def __repr__(self) -> str:
         """
-        [ACTION]
-        Read-only projection helper.
+        Produce the python protocol `__repr__` value used by `microcosm_core.runtime_shell`.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns a string result built from the inspected inputs.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `repr` and `_resolve`.
         """
         return repr(self._resolve())
 
     def __bool__(self) -> bool:
         """
-        [ACTION]
-        Read-only projection helper.
+        Implement `__bool__` for `_LazyAttr`.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns a bool verdict computed from the inspected inputs.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The method adapts this object to the Python protocol expected by callers while
+        leaving the real lookup or comparison in the visible method body.
         """
         return bool(self._resolve())
 
     def __eq__(self, other: object) -> bool:
         """
-        [ACTION]
-        Read-only projection helper.
+        Implement `__eq__` for `_LazyAttr`.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns a bool verdict computed from the inspected inputs.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The method adapts this object to the Python protocol expected by callers while
+        leaving the real lookup or comparison in the visible method body.
         """
         return self._resolve() == other
 
 
 class _LazyModule:
     """
-    [ROLE]
-    Lazy organ-runner module proxy: defers importlib import until first attribute access.
+    Stateful helper for Lazy Module in `microcosm_core.runtime_shell`.
 
-    - Teleology: Runtime-shell coordinator type holding a deferred import of an organ-runner module.
-    - Guarantee: returns a proxy whose attribute access imports and resolves the named module on demand.
-    - Fails: on first resolution, an unimportable module_name -> propagates ImportError / ModuleNotFoundError.
-    - When-needed: wiring registry-declared organ runners without importing them at module load.
-    - Escalates-to: core/organ_registry.json (the runner refs this proxy binds), or the imported module itself.
-    - Ownership: Owned by `microcosm_core.runtime_shell`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    Methods such as `module_name`, `loaded`, and `_load` share the instance state instead of
+    passing a loose dictionary through the call chain.
     """
     def __init__(self, module_name: str) -> None:
         """
-        [ACTION]
-        Read-only projection helper.
+        Initialize `_LazyModule` with `module_name`.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-        - Fails: I-O / OSError suppressed by the helper; returns without raising.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The assignments in this method define the instance state later read by
+        `microcosm_core.runtime_shell` methods.
         """
         self._module_name = module_name
         self._module: Any | None = None
@@ -361,46 +236,28 @@ class _LazyModule:
     @property
     def module_name(self) -> str:
         """
-        Read-only projection helper.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Return module name on `_LazyModule` for the runtime shell flow.
 
-
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns a string result built from the inspected inputs.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The returned value is consumed directly by the caller.
         """
         return self._module_name
 
     @property
     def loaded(self) -> bool:
         """
-        Read-only projection helper.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Return whether loaded holds for the runtime shell flow.
 
-
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns a bool verdict computed from the inspected inputs.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The result is derived from the caller-supplied state; failing evidence is returned
+        or raised exactly where the body says so.
         """
         return self._module is not None
 
     def _load(self) -> Any:
         """
-        [ACTION]
-        Memoized importlib import of the wrapped module.
+        Load load for `microcosm_core.runtime_shell`.
 
-        - Teleology: resolves and caches the deferred organ-runner module on first use.
-        - Guarantee: imports the module once and returns the cached module object thereafter.
-        - Fails: unimportable module_name -> propagates ImportError / ModuleNotFoundError.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Input comes from the supplied source; malformed or missing data follows the
+        exceptions and checks visible in the body.
         """
         if self._module is None:
             self._module = importlib.import_module(self._module_name)
@@ -408,30 +265,20 @@ class _LazyModule:
 
     def __getattr__(self, name: str) -> _LazyAttr:
         """
-        [ACTION]
-        Read-only projection helper.
+        Return a lazy attribute proxy for a not-yet-imported runtime module.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns the declared _LazyAttr result.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The returned `_LazyAttr` defers both module import and attribute lookup until the
+        caller actually uses the attribute.
         """
         return _LazyAttr(self._load, name)
 
 
 def _accepted_organ_runner_module_refs(root: Path | None = None) -> dict[str, str]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._accepted_organ_runner_module_refs` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     registry_path = (root or microcosm_root()) / "core/organ_registry.json"
     try:
@@ -461,15 +308,9 @@ def _accepted_organ_runner_module_refs(root: Path | None = None) -> dict[str, st
 
 def _lazy_organ_module_bindings(refs: dict[str, str]) -> dict[str, _LazyModule]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return lazy organ module bindings for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `refs`; notable helpers are `_LazyModule` and `items`.
     """
     return {organ_id: _LazyModule(module_ref) for organ_id, module_ref in refs.items()}
 
@@ -813,30 +654,15 @@ def _keyword_command_runner(
     runner: Callable[..., dict[str, Any]],
 ) -> Runner:
     """
-    [ACTION]
-    Routes a runtime-shell command / request.
+    Compute keyword command runner from `runner`.
 
-    - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
-    - Guarantee: returns the declared Runner result.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: routing or invoking this runtime-shell command/endpoint.
-    - Escalates-to: the selected RuntimeShell lens/runner it dispatches to, and its receipt.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `runner`; notable helpers are `runner`.
     """
     def run(input_dir: str | Path, out_dir: str | Path, command: str | None) -> dict[str, Any]:
         """
-        Read-only projection helper.
+        Return run for the runtime shell flow.
 
-        [ACTION] Invoke a keyword-style organ runner with the runtime command payload.
-
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `runner`.
         """
         return runner(input_dir, out_dir, command=command)
 
@@ -846,18 +672,10 @@ def _keyword_command_runner(
 @dataclass(frozen=True)
 class RuntimeStep:
     """
-    Runtime-shell coordinator type.
+    Record object for Runtime Step.
 
-    [ROLE] Immutable registry row describing one runnable organ validation step.
-
-    - Teleology: Runtime-shell coordinator type holding the state its methods project.
-    - Guarantee: returns control to the caller after the documented effect.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: you need any projection this coordinator's methods expose.
-    - Escalates-to: the individual method whose lens you need, or `plectis status`.
-    - Ownership: Owned by `microcosm_core.runtime_shell`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    It keeps `organ_id`, `span`, `input_mode`, `example_rel`, `runner`, and `receipt_name`
+    together for the runtime shell flow.
     """
     organ_id: str
     span: str
@@ -1877,31 +1695,19 @@ RUNTIME_STEPS = tuple(
 
 def public_root() -> Path:
     """
-    Read-only projection helper.
+    Return public root for the runtime shell flow.
 
-    [ACTION] Resolve the installed or checkout-local public Microcosm root.
-
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns the resolved Path (no filesystem write implied).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Notable helpers are `microcosm_root`.
     """
     return microcosm_root()
 
 
 def _public_relative(path: Path, root: Path) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return public relative for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path` and `root`; notable helpers are `as_posix`, `relative_to`, and
+    `resolve`.
     """
     try:
         return path.resolve(strict=False).relative_to(root.resolve(strict=False)).as_posix()
@@ -1943,18 +1749,9 @@ PUBLIC_AUTHORITY_REF_OVERRIDES = {
 
 def _organ_authority_ref_fields(root: Path, row: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Compute organ authority ref fields from `root` and `row`.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root` and `row`; notable helpers are `get` and `_path_is_file`.
     """
     source_ref = row.get("current_authority_receipt")
     source_ref = source_ref if isinstance(source_ref, str) and source_ref else None
@@ -1978,15 +1775,10 @@ def _organ_authority_ref_fields(root: Path, row: dict[str, Any]) -> dict[str, An
 
 def _read_json_if_exists(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._read_json_if_exists` into the payload shape
+    expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not _path_is_file(path):
         return {}
@@ -1996,30 +1788,20 @@ def _read_json_if_exists(path: Path) -> dict[str, Any]:
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Read read JSONl for `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     return list(_iter_jsonl_dict_rows(path))
 
 
 def _path_is_file(path: Path) -> bool:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return whether path is file holds for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a bool verdict computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `path` with `is_file`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     try:
         return path.is_file()
@@ -2029,15 +1811,10 @@ def _path_is_file(path: Path) -> bool:
 
 def _path_exists(path: Path) -> bool:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return whether path exists holds for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a bool verdict computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `path` with `exists`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     try:
         return path.exists()
@@ -2047,15 +1824,10 @@ def _path_exists(path: Path) -> bool:
 
 def _path_is_dir(path: Path) -> bool:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return whether path is dir holds for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a bool verdict computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `path` with `is_dir`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     try:
         return path.is_dir()
@@ -2065,15 +1837,9 @@ def _path_is_dir(path: Path) -> bool:
 
 def _path_mtime_ns(path: Path) -> int | None:
     """
-    [ACTION]
-    Read-only projection helper.
+    Derive path mtime ns without touching module import state.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns the resolved value, or None when it cannot be resolved.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path`; notable helpers are `stat`.
     """
     try:
         return path.stat().st_mtime_ns
@@ -2083,15 +1849,9 @@ def _path_mtime_ns(path: Path) -> int | None:
 
 def _path_size(path: Path) -> int:
     """
-    [ACTION]
-    Read-only projection helper.
+    Compute path size from `path`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns an int computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path`; notable helpers are `stat`.
     """
     try:
         return path.stat().st_size
@@ -2101,18 +1861,11 @@ def _path_size(path: Path) -> int:
 
 def _iter_jsonl_dict_rows(path: Path) -> Iterator[dict[str, Any]]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Apply `microcosm_core.runtime_shell._iter_jsonl_dict_rows` for the lifetime of a context
+    block.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    The previous state is restored after the block exits, including exceptions raised inside
+    the block.
     """
     if not _path_is_file(path):
         return
@@ -2127,36 +1880,19 @@ def _iter_jsonl_dict_rows(path: Path) -> Iterator[dict[str, Any]]:
 
 def _count_jsonl_dict_rows(path: Path) -> int:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Return count JSONl dict rows for the runtime shell flow.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns an int computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path`; notable helpers are `_iter_jsonl_dict_rows`.
     """
     return sum(1 for _row in _iter_jsonl_dict_rows(path))
 
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Return dictionary rows for `microcosm_core.runtime_shell._rows` from `payload[key]`.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     value = payload.get(key, [])
     if not isinstance(value, list):
@@ -2166,15 +1902,11 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
 
 def _project_state_ref_exists(project_path: Path, ref: str) -> bool:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return whether project state ref exists holds for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a bool verdict computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `project_path` and `ref` with `rstrip`, `endswith`,
+    `_path_is_dir`, and `_path_is_file`; failing evidence is returned or raised exactly
+    where the body says so.
     """
     state_path = project_path / ref.rstrip("/")
     return (
@@ -2186,15 +1918,9 @@ def _project_state_ref_exists(project_path: Path, ref: str) -> bool:
 
 def _missing_first_screen_state_refs(project_path: Path) -> list[str]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Compute missing first screen state refs from `project_path`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a list of the projected values (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project_path`; notable helpers are `_project_state_ref_exists`.
     """
     return [
         f"{project_substrate.STATE_DIR}/{state_ref}"
@@ -2208,15 +1934,10 @@ def _missing_first_screen_state_refs(project_path: Path) -> list[str]:
 
 def _count_files_under(root: Path, *, suffix: str | None = None) -> int:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the count files under value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns an int computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `root` and `suffix`; notable helpers are `_path_is_dir`, `pop`, `scandir`,
+    `is_file`, and 4 more.
     """
     if not _path_is_dir(root):
         return 0
@@ -2243,15 +1964,9 @@ def _count_files_under(root: Path, *, suffix: str | None = None) -> int:
 
 def _count_state_files(state_root: Path) -> int:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return count state files for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns an int computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `state_root`; notable helpers are `_count_files_under`.
     """
     return _count_files_under(state_root)
 
@@ -2265,18 +1980,10 @@ def _project_state_inspection_card(
     reader_action: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._project_state_inspection_card` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     refs = [
         ref
@@ -2323,18 +2030,9 @@ def _compact_observatory_payload(
     keep_keys: tuple[str, ...] = (),
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Derive compact observatory payload without touching module import state.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload` and `keep_keys`; notable helpers are `items` and `endswith`.
     """
     always_keep = {
         "schema_version",
@@ -2391,15 +2089,9 @@ def _compact_observatory_payload(
 
 def _first_string(value: Any) -> str | None:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return first string for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns the resolved string, or None when it is absent.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`.
     """
     if isinstance(value, str) and value:
         return value
@@ -2412,15 +2104,10 @@ def _first_string(value: Any) -> str | None:
 
 def _strings(value: Any) -> list[str]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return the non-empty string members used by `microcosm_core.runtime_shell._strings`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a list of the projected values (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -2429,15 +2116,9 @@ def _strings(value: Any) -> list[str]:
 
 def _safe_text(value: Any) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Compute safe text from `value`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`.
     """
     if value is None:
         return ""
@@ -2455,18 +2136,11 @@ def _lens_payload_boundary(
     input_payload_schema_normalized: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Return lens payload boundary for the runtime shell flow.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `root`, `lens_path`, `boundary_id`, `command`, and
+    `input_payload_schema_normalized`; notable helpers are `public_payload_boundary` and
+    `_public_relative`.
     """
     return public_payload_boundary(
         boundary_id=boundary_id,
@@ -2478,15 +2152,10 @@ def _lens_payload_boundary(
 
 def _source_open_safe_to_show(**extra: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._source_open_safe_to_show` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "source_open_body_policy": SOURCE_OPEN_BODY_POLICY,
@@ -2499,15 +2168,10 @@ def _source_open_safe_to_show(**extra: bool) -> dict[str, Any]:
 
 def _source_open_row_boundary(boundary_ref: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._source_open_row_boundary` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "payload_boundary_ref": boundary_ref,
@@ -2518,18 +2182,10 @@ def _source_open_row_boundary(boundary_ref: str) -> dict[str, Any]:
 
 def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._public_project_python_lens_payload` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_payload_schema_normalized = python_lens.get(OMITTED_PAYLOAD_BODY_FLAG) is True
     surface_ref = str(
@@ -2594,15 +2250,10 @@ def _public_project_python_lens_payload(python_lens: dict[str, Any]) -> dict[str
 
 def _observatory_work_transaction_is_closed(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return whether observatory work transaction is closed holds for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a bool verdict computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `row` with `get`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return (
         isinstance(row.get("work_id"), str)
@@ -2616,15 +2267,10 @@ def _select_observatory_work_transaction(
     route_id: Any,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return select observatory work transaction for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `work_rows` and `route_id`; notable helpers are `next`,
+    `_observatory_work_transaction_is_closed`, and `get`.
     """
     selected_route_id = route_id if isinstance(route_id, str) and route_id else ""
     candidate_rows = [
@@ -2641,18 +2287,10 @@ def _select_observatory_work_transaction(
 
 def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._project_observatory_card` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     project_summary = (
         model.get("project_summary", {})
@@ -3215,15 +2853,9 @@ def _project_observatory_card(model: dict[str, Any]) -> dict[str, Any]:
 
 def _badge_list(values: list[str]) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Compute badge list from `values`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `values`; notable helpers are `join` and `escape`.
     """
     if not values:
         return "<span class=\"muted\">none</span>"
@@ -3232,15 +2864,10 @@ def _badge_list(values: list[str]) -> str:
 
 def _receipt_evidence_contract(payload: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._receipt_evidence_contract` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     negative_case_values = (
         payload.get("negative_case_ids"),
@@ -3295,15 +2922,9 @@ def _receipt_evidence_contract(payload: dict[str, Any]) -> dict[str, Any]:
 
 def _normalize_runtime_projection_status(status: Any) -> Any:
     """
-    [ACTION]
-    Read-only projection helper.
+    Derive normalize runtime projection status without touching module import state.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns the normalized value derived from the input.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `status`.
     """
     if status == PUBLIC_REPLACEMENT_STATUS_INPUT:
         return "public_runtime_import_landed"
@@ -3312,15 +2933,10 @@ def _normalize_runtime_projection_status(status: Any) -> Any:
 
 def _normalize_projection_status_counts(counts: Any) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._normalize_projection_status_counts` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not isinstance(counts, dict):
         return {}
@@ -3338,15 +2954,10 @@ def _projection_intake_board_status(
     projection_board: dict[str, Any],
 ) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return projection intake board status for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `projection_preview` and `projection_board`; notable helpers are `_rows`,
+    `get`, and `_normalize_runtime_projection_status`.
     """
     if projection_preview.get("status") == PASS:
         return PASS
@@ -3385,15 +2996,9 @@ def _projection_intake_board_status(
 
 def _normalize_runtime_boundary_label(value: Any) -> Any:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return normalize runtime boundary label for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns the normalized value derived from the input.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`; notable helpers are `get`.
     """
     replacements = {
         PRIVATE_STATE_SCAN_POSTURE_INPUT: "secret_exclusion_posture",
@@ -3408,15 +3013,9 @@ def _normalize_runtime_boundary_label(value: Any) -> Any:
 
 def _normalize_runtime_boundary_labels(values: list[str]) -> list[str]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Compute normalize runtime boundary labels from `values`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a list of the projected values (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `values`; notable helpers are `_normalize_runtime_boundary_label`.
     """
     return [
         normalized
@@ -3427,34 +3026,19 @@ def _normalize_runtime_boundary_labels(values: list[str]) -> list[str]:
 
 def _safe_receipt_summary(path: Path, root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Derive safe receipt summary without touching module import state.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path` and `root`; notable helpers are `compact_receipt_summary`.
     """
     return runtime_evidence_index.compact_receipt_summary(path, root)
 
 
 def proof_lab_first_screen_boundary() -> dict[str, Any]:
     """
-    Read-only projection helper.
-    [ACTION] Project this runtime-shell helper under the public-boundary contract.
+    Serialize `microcosm_core.runtime_shell.proof_lab_first_screen_boundary` into the
+    payload shape expected by runtime shell.
 
-
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "authority": PROOF_LAB_FIRST_SCREEN_AUTHORITY,
@@ -3464,15 +3048,9 @@ def proof_lab_first_screen_boundary() -> dict[str, Any]:
 
 def _proof_lab_anti_claim(value: object) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Compute proof lab anti claim from `value`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`; notable helpers are `strip`.
     """
     if isinstance(value, str) and value.strip():
         return value
@@ -3481,15 +3059,10 @@ def _proof_lab_anti_claim(value: object) -> str:
 
 def _proof_lab_cache_action_hint(cache_status: object) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._proof_lab_cache_action_hint` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if cache_status == "stale_cached_receipt":
         return {
@@ -3510,30 +3083,19 @@ def _proof_lab_cache_action_hint(cache_status: object) -> dict[str, Any]:
 
 def _proof_lab_fresh_receipt_required(cache_status: object) -> bool:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return whether proof lab fresh receipt required holds for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a bool verdict computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `cache_status`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return cache_status in {"stale_cached_receipt", "missing_cached_receipt"}
 
 
 def _proof_lab_status_scope(cache_status: object) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Derive proof lab status scope without touching module import state.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `cache_status`; notable helpers are `_proof_lab_fresh_receipt_required`.
     """
     if _proof_lab_fresh_receipt_required(cache_status):
         return "route_presence_not_cache_freshness"
@@ -3542,15 +3104,11 @@ def _proof_lab_status_scope(cache_status: object) -> str:
 
 def _iter_proof_lab_input_files(root: Path) -> Iterator[Path]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Apply `microcosm_core.runtime_shell._iter_proof_lab_input_files` for the lifetime of a
+    context block.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: yields the projected rows lazily; returns no value.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The previous state is restored after the block exits, including exceptions raised inside
+    the block.
     """
     input_ref = root / PROOF_LAB_BUNDLE_REF
     if not _path_exists(input_ref):
@@ -3580,30 +3138,19 @@ def _iter_proof_lab_input_files(root: Path) -> Iterator[Path]:
 
 def _proof_lab_input_files(root: Path) -> list[Path]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Derive proof lab input files without touching module import state.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a list of the projected values (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `root`; notable helpers are `_iter_proof_lab_input_files`.
     """
     return sorted(_iter_proof_lab_input_files(root))
 
 
 def _proof_lab_cache_freshness(root: Path, receipt_path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._proof_lab_cache_freshness` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not _path_is_file(receipt_path):
         return {
@@ -3687,15 +3234,9 @@ def _proof_lab_cache_freshness(root: Path, receipt_path: Path) -> dict[str, Any]
 
 def _default_proof_lab_receipt_path() -> Path:
     """
-    [ACTION]
-    Read-only projection helper.
+    Derive default proof lab receipt path without touching module import state.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns the resolved Path (no filesystem write implied).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Notable helpers are `Path`.
     """
     return Path(PROOF_LAB_DEFAULT_OUT_REF) / Path(PROOF_LAB_RECEIPT_REF).name
 
@@ -3704,15 +3245,11 @@ def _current_default_proof_lab_receipt(
     root: Path,
 ) -> tuple[dict[str, Any], Path, dict[str, Any]] | None:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the current default proof lab receipt value used by
+    `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `root`; notable helpers are `_default_proof_lab_receipt_path`,
+    `_proof_lab_cache_freshness`, `_read_json_if_exists`, `_path_is_file`, and 1 more.
     """
     receipt_path = _default_proof_lab_receipt_path()
     if not _path_is_file(receipt_path):
@@ -3728,15 +3265,10 @@ def _current_default_proof_lab_receipt(
 
 def _stable_created_at(path: Path, payload: dict[str, Any]) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the stable created at value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path` and `payload`; notable helpers are `get`, `_read_json_if_exists`,
+    `pop`, and `utc_now`.
     """
     created_at = payload.get("created_at")
     if not isinstance(created_at, str):
@@ -3756,18 +3288,10 @@ def _stable_created_at(path: Path, payload: dict[str, Any]) -> str:
 
 def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._proof_lab_first_screen_card` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     receipt_path = root / PROOF_LAB_RECEIPT_REF
     receipt = _read_json_if_exists(receipt_path)
@@ -3911,15 +3435,10 @@ def _proof_lab_first_screen_card(root: Path) -> dict[str, Any]:
 
 def _local_first_screen_route_ref() -> dict[str, str]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._local_first_screen_route_ref` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "route_id": LOCAL_FIRST_SCREEN_ROUTE_ID,
@@ -3930,15 +3449,9 @@ def _local_first_screen_route_ref() -> dict[str, str]:
 
 def _reader_first_screen_routes() -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return reader first screen routes for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The returned value is consumed directly by the caller.
     """
     return [
         {
@@ -3991,18 +3504,10 @@ def _reader_first_screen_routes() -> list[dict[str, Any]]:
 
 def _fast_cached_project_compile_card(project_path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Read enough cached project state for first-screen cards without a rebuild.
+    Serialize `microcosm_core.runtime_shell._fast_cached_project_compile_card` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     state = project_path / project_substrate.STATE_DIR
     if not _path_is_dir(state):
@@ -4145,14 +3650,9 @@ def _compiled_command_reference_execution_case(
     compiled: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Return the compact command-root case card from compile or cached state.
-    - Teleology: Implements `_compiled_command_reference_execution_case` for `microcosm_core.runtime_shell` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive compiled command reference execution case without touching module import state.
+
+    Inputs are `compiled`; notable helpers are `get`.
     """
     reader_chain = compiled.get("reader_causal_chain")
     reader_chain = reader_chain if isinstance(reader_chain, dict) else {}
@@ -4167,13 +3667,10 @@ def _command_reference_case_state_delta_summary(
     command_reference_execution_case: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_command_reference_case_state_delta_summary` for `microcosm_core.runtime_shell` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.runtime_shell._command_reference_case_state_delta_summary`
+    into the payload shape expected by runtime shell.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     state_delta_refs = command_reference_execution_case.get("state_delta_refs")
     ref_count = (
@@ -4208,13 +3705,11 @@ def _command_reference_case_assertion_matrix_summary(
     command_reference_execution_case: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_command_reference_case_assertion_matrix_summary` for `microcosm_core.runtime_shell` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.runtime_shell._command_reference_case_assertion_matrix_summary` into the
+    payload shape expected by runtime shell.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     assertion_predicates = command_reference_execution_case.get(
         "assertion_matrix_predicates"
@@ -4253,13 +3748,11 @@ def _command_reference_case_record_classification_summary(
     command_reference_execution_case: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_command_reference_case_record_classification_summary` for `microcosm_core.runtime_shell` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.runtime_shell._command_reference_case_record_classification_summary`
+    into the payload shape expected by runtime shell.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     verification_predicates = command_reference_execution_case.get(
         "verification_predicate_status"
@@ -4290,14 +3783,10 @@ def _tour_command_causality_coverage_assay(
     cached_state_reused: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    State whether tour --card itself is a command-root occurrence witness.
-    - Teleology: Implements `_tour_command_causality_coverage_assay` for `microcosm_core.runtime_shell` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.runtime_shell._tour_command_causality_coverage_assay` into the
+    payload shape expected by runtime shell.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     case = (
         command_reference_execution_case
@@ -4561,15 +4050,10 @@ def _tour_command_causality_coverage_assay(
 
 def _project_runtime_state_cache_key(project_path: Path) -> tuple[Any, ...] | None:
     """
-    [ACTION]
-    Read-only projection helper.
+    Derive project runtime state cache key without touching module import state.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns the computed tuple of result fields, or None when unavailable.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project_path`; notable helpers are `_fast_cached_project_compile_card`,
+    `get`, and `_path_mtime_ns`.
     """
     compile_cache = _fast_cached_project_compile_card(project_path)
     if compile_cache.get("status") != PASS:
@@ -4599,18 +4083,10 @@ def _cold_reader_first_screen_card(
     evidence_refs: list[str] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._cold_reader_first_screen_card` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     compiled = compiled if isinstance(compiled, dict) else {}
     graph_summary = compiled.get("graph_summary")
@@ -4860,18 +4336,10 @@ def _cold_reader_first_screen_card(
 
 def _verifier_lab_execution_spine_card(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._verifier_lab_execution_spine_card` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     receipt = _read_json_if_exists(root / VERIFIER_EXECUTION_RECEIPT_REF)
     counters = receipt.get("authority_counters")
@@ -5000,30 +4468,18 @@ REAL_SUBSTRATE_PROGRESS_BUCKETS = frozenset(
 
 def _runtime_organ_ids() -> list[str]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the runtime organ IDs value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a list of the projected values (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The returned value is consumed directly by the caller.
     """
     return [step.organ_id for step in RUNTIME_STEPS]
 
 
 def _product_runtime_steps() -> list[RuntimeStep]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return product runtime steps for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a list of the projected values (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The returned value is consumed directly by the caller.
     """
     return [
         step
@@ -5034,15 +4490,10 @@ def _product_runtime_steps() -> list[RuntimeStep]:
 
 def _load_evidence_class_registry(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._load_evidence_class_registry` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: malformed / fail-open evidence-class registry -> raises ValueError.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     registry_path = root / EVIDENCE_CLASS_REGISTRY_REL
     payload = read_json_strict(registry_path)
@@ -5125,15 +4576,10 @@ def _load_evidence_class_registry(root: Path) -> dict[str, Any]:
 
 def _organ_evidence_profile(organ_id: str, registry: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Derive organ evidence profile without touching module import state.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: invalid / unexpected input -> raises ValueError.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `organ_id` and `registry`; notable helpers are `get` and `ValueError`;
+    invalid cases raise from the explicit checks in the body.
     """
     profiles = registry.get("organ_profiles_by_id", {})
     profile = profiles.get(organ_id) if isinstance(profiles, dict) else None
@@ -5144,18 +4590,10 @@ def _organ_evidence_profile(organ_id: str, registry: dict[str, Any]) -> dict[str
 
 def _evidence_registry_summary(registry: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._evidence_registry_summary` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     profiles = registry.get("class_profiles", {})
     organ_profiles = registry.get("organ_profiles_by_id", {})
@@ -5179,15 +4617,9 @@ def _evidence_registry_summary(registry: dict[str, Any]) -> dict[str, Any]:
 
 def _evidence_class_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the evidence class counts value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a dict of name->count tallies.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `rows`; notable helpers are `get` and `items`.
     """
     counts: dict[str, int] = {}
     for row in rows:
@@ -5199,15 +4631,10 @@ def _evidence_class_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
 
 def _authority_count_scope() -> dict[str, str]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._authority_count_scope` into the payload shape
+    expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "evidence_class_counts": (
@@ -5238,18 +4665,10 @@ def _authority_count_scope() -> dict[str, str]:
 
 def _substrate_substitution_summary(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._substrate_substitution_summary` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payload = _read_json_if_exists(root / SUBSTRATE_SUBSTITUTION_LEDGER_REF)
     summary = payload.get("summary") if isinstance(payload, dict) else {}
@@ -5276,15 +4695,10 @@ def _substrate_substitution_summary(root: Path) -> dict[str, Any]:
 
 def _truth_accounting(rows: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._truth_accounting` into the payload shape
+    expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     counts = {count_key: 0 for count_key in TRUTH_ACCOUNTING_BUCKET_COUNT_KEYS.values()}
     bucket_counts: dict[str, int] = {}
@@ -5324,18 +4738,10 @@ def _truth_accounting(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 def _sha256_file_digest(path: Path) -> str:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Return the stable digest computed by `microcosm_core.runtime_shell._sha256_file_digest`.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a "sha256:"-prefixed hex digest of the file's bytes.
-    - Fails: missing / unreadable path -> propagates OSError (path.open).
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -5348,18 +4754,9 @@ def _source_module_family_spotlights(
     families: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Compute source module family spotlights from `families`.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `families`; notable helpers are `append`, `get`, and `startswith`.
     """
     spotlights: list[dict[str, Any]] = []
     for spec in SOURCE_MODULE_FAMILY_SPOTLIGHT_PREFIXES:
@@ -5401,18 +4798,9 @@ def _source_module_family_spotlights(
 
 def _public_source_ref_display(ref: str) -> str:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Produce the public source ref display value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `ref`; notable helpers are `startswith`.
     """
     prefix = "microcosm-substrate/"
     display_ref = ref[len(prefix) :] if ref.startswith(prefix) else ref
@@ -5426,18 +4814,10 @@ def _public_source_ref_display(ref: str) -> str:
 
 def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Serialize `microcosm_core.runtime_shell._macro_body_source_import_lens` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     family_order: list[str] = []
     families: dict[str, dict[str, Any]] = {}
@@ -5445,19 +4825,10 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
 
     def manifest_ref(source_refs: list[str]) -> str:
         """
-        Source-ref / digest custody check for the public projection.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Return manifest ref for the runtime shell flow.
 
-
-        - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-        - Guarantee: returns a string result built from the inspected inputs.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Reads: the declared source-ref / digest / receipt path under the public tree.
-        - When-needed: auditing what source refs/digests this projection actually checks.
-        - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-        - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Writes: return values.
+        Inputs are `source_refs`; notable helpers are `endswith`, `Path`, and
+        `_public_source_ref_display`.
         """
         for ref in source_refs:
             ref_name = Path(ref).name
@@ -5471,16 +4842,9 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
 
     def family_id_from_ref(ref: str) -> str:
         """
-        Read-only projection helper.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Compute family ID from ref from `ref`.
 
-
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns a string result built from the inspected inputs.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `ref`; notable helpers are `Path` and `endswith`.
         """
         path = Path(ref)
         name = path.name
@@ -5600,15 +4964,9 @@ def _macro_body_source_import_lens(imports: list[dict[str, Any]]) -> dict[str, A
 
 def _strip_microcosm_prefix(ref: str) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return strip microcosm prefix for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `ref`; notable helpers are `startswith`.
     """
     prefix = "microcosm-substrate/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
@@ -5616,18 +4974,10 @@ def _strip_microcosm_prefix(ref: str) -> str:
 
 def _macro_body_target_path(root: Path, target_ref: str) -> Path:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Produce the macro body target path value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns the resolved Path (no filesystem write implied).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root` and `target_ref`; notable helpers are `_path_is_file`, `startswith`,
+    `resolve`, and `Path`.
     """
     target_path = root / target_ref if target_ref else root
     if _path_is_file(target_path):
@@ -5650,18 +5000,11 @@ def _source_module_manifest_body_rows(
     existing_target_refs: set[str],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Produce the source module manifest body rows value used by
+    `microcosm_core.runtime_shell`.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `root` and `existing_target_refs`; notable helpers are `_path_is_dir`,
+    `glob`, `_read_json_if_exists`, `_public_relative`, and 10 more.
     """
     rows: list[dict[str, Any]] = []
     examples_root = root / "examples"
@@ -5785,38 +5128,10 @@ def _child_projection_protocol_body_rows(
     parent_protocol_ref: str,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Discover child projection protocols in the same bundle and return their
-    copied_material rows so every child protocol's source bodies flow through the
-    same generic body-import floor as the parent protocol.
+    Derive child projection protocol body rows without touching module import state.
 
-    A child protocol declares ``parent_protocol_ref`` back to the parent protocol
-    and a ``source_module_manifest_ref``. The parent floor only reads a single
-    protocol file, so without this, a digest-valid child capsule (e.g. the
-    frontend cockpit source bundle) is invisible to the generic import-map and
-    runtime route. We inject each child protocol's ``source_module_manifest_ref``
-    into every row's ``source_refs`` so the source-body import lens groups the
-    rows into a family keyed by that manifest, exactly as parent-protocol rows
-    are grouped. Body text is never read or copied here — only refs and digests.
-
-    Admission is fail-closed so the generalized membrane never degrades into
-    "any sibling JSON with matching digests counts as source-open authority". A
-    child is ingested only when it (1) carries the projection-import protocol
-    schema, (2) binds to the *exact* expected parent ref (not merely a matching
-    basename), (3) is not flagged body-in-receipt, and (4) resolves a real
-    source-module manifest whose classification and body policy are fail-closed.
-    Each admitted row must additionally carry a source-open code-module class
-    from the explicit allowlist; everything else is rejected.
-
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `root`, `bundle_dir`, and `parent_protocol_ref`; notable helpers are
+    `_path_is_dir`, `Path`, `glob`, `_read_json_if_exists`, and 5 more.
     """
     if not _path_is_dir(bundle_dir):
         return []
@@ -5863,18 +5178,10 @@ def _child_projection_protocol_body_rows(
 
 def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Serialize `microcosm_core.runtime_shell._macro_projection_body_import_floor` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     protocol_path = root / MACRO_PROJECTION_PROTOCOL_REF
     protocol = _read_json_if_exists(protocol_path)
@@ -6116,18 +5423,10 @@ def _macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
 
 def _cached_macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Serialize `microcosm_core.runtime_shell._cached_macro_projection_body_import_floor` into
+    the payload shape expected by runtime shell.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     authority_path = root / PUBLIC_AUTHORITY_MAP_REF
     authority = _read_json_if_exists(authority_path)
@@ -6147,18 +5446,10 @@ def _cached_macro_projection_body_import_floor(root: Path) -> dict[str, Any]:
 
 def _macro_projection_body_import_floor_card(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Compute macro projection body import floor card from `root`.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `root`; notable helpers are `_cached_macro_projection_body_import_floor`,
+    `_macro_projection_body_import_floor`, `as_posix`, and `get`.
     """
     cached = _cached_macro_projection_body_import_floor(root)
     live = _macro_projection_body_import_floor(root)
@@ -6184,18 +5475,10 @@ def _macro_projection_body_import_floor_card(root: Path) -> dict[str, Any]:
 
 def _read_project_state_payload(project: Path, filename: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._read_project_state_payload` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     path = project / project_substrate.STATE_DIR / filename
     try:
@@ -6207,15 +5490,9 @@ def _read_project_state_payload(project: Path, filename: str) -> dict[str, Any]:
 
 def _as_str_list(value: Any) -> list[str]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Derive as str list without touching module import state.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a list of the projected values (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`.
     """
     if not isinstance(value, list):
         return []
@@ -6228,18 +5505,9 @@ def _preview_with_selected(
     limit: int,
 ) -> list[str]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Derive preview with selected without touching module import state.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a list of the projected values (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `values`, `selected`, and `limit`; notable helpers are `append`.
     """
     preview = values[:limit]
     if selected and selected in values and selected not in preview:
@@ -6255,15 +5523,10 @@ def _compact_project_route_explanation(
     selected_route_id: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Compute compact project route explanation from `project` and `selected_route_id`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project` and `selected_route_id`; notable helpers are
+    `_read_project_state_payload`, `get`, `_as_str_list`, `_load_work_items`, and 3 more.
     """
     route_id = selected_route_id or "<selected_route_id>"
     command = f"plectis explain <project> {route_id}"
@@ -6348,18 +5611,10 @@ def _compact_project_route_explanation(
 
 def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._project_status_overlay` into the payload shape
+    expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     state_dir = project / project_substrate.STATE_DIR
@@ -6521,18 +5776,9 @@ def _project_status_overlay(project_path: str | Path) -> dict[str, Any]:
 
 def _compact_project_status_overlay(project_overlay: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Compute compact project status overlay from `project_overlay`.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project_overlay`; notable helpers are `get` and `_preview_with_selected`.
     """
     route_explanation = project_overlay.get("route_explanation", {})
     if not isinstance(route_explanation, dict):
@@ -6603,15 +5849,10 @@ def _compact_project_state_write_proof(
     state_write_proof: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._compact_project_state_write_proof` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "microcosm_status_card_state_write_proof_ref_v1",
@@ -6652,18 +5893,10 @@ def _compact_project_card_body_import_floor(
     body_floor_defect_preview: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Derive compact project card body import floor without touching module import state.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `body_floor`, `source_body_imports`, and `body_floor_defect_preview`; notable
+    helpers are `get` and `update`.
     """
     compact = {
         "schema_version": "microcosm_project_status_body_import_floor_ref_v1",
@@ -6717,18 +5950,10 @@ def _compact_project_card_body_import_floor(
 
 def _tour_body_import_floor_summary(body_floor: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Produce the tour body import floor summary value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `body_floor`; notable helpers are `_compact_body_import_defects`, `get`, and
+    `update`.
     """
     source_body_imports = (
         body_floor.get("source_body_import_lens", {})
@@ -6813,36 +6038,21 @@ def _tour_body_import_floor_summary(body_floor: dict[str, Any]) -> dict[str, Any
 
 def _status_card_surface_is_nonblocking(status: Any) -> bool:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Return whether status card surface is nonblocking holds for the runtime shell flow.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a bool verdict computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The result is derived from `status`; failing evidence is returned or raised exactly
+    where the body says so.
     """
     return status in {PASS, "clear", "actionable"}
 
 
 def _status_card_surface_blocks_front_door(surface_id: str, status: Any) -> bool:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Return whether status card surface blocks front door holds for the runtime shell flow.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a bool verdict computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The result is derived from `surface_id` and `status` with
+    `_status_card_surface_is_nonblocking`; failing evidence is returned or raised exactly
+    where the body says so.
     """
     if surface_id == "route_explanation" and status in {
         "partial",
@@ -6858,15 +6068,10 @@ def _status_card_surface_blocks_front_door(surface_id: str, status: Any) -> bool
 
 def _compact_first_contact_surface_refs(first_screen: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._compact_first_contact_surface_refs` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     refs = first_screen.get("first_contact_surface_refs")
     if not isinstance(refs, dict):
@@ -6949,18 +6154,9 @@ def _compact_first_contact_surface_refs(first_screen: dict[str, Any]) -> dict[st
 
 def _source_checkout_cli_command(command: str) -> str:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Return source checkout CLI command for the runtime shell flow.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `command`; notable helpers are `startswith` and `removeprefix`.
     """
     if command.startswith("plectis "):
         return "PYTHONPATH=src python3 -m microcosm_core " + command.removeprefix(
@@ -6975,18 +6171,9 @@ def _compact_tour_card_body_floor_defects(
     limit: int = STATUS_CARD_DEFECT_PREVIEW_LIMIT,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Return compact tour card body floor defects for the runtime shell flow.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `defect_preview` and `limit`; notable helpers are `append` and `get`.
     """
     if not isinstance(defect_preview, list):
         return []
@@ -7013,18 +6200,9 @@ def _compact_body_import_defects(
     limit: int = STATUS_CARD_DEFECT_PREVIEW_LIMIT,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Return compact body import defects for the runtime shell flow.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `body_floor` and `limit`; notable helpers are `get` and `append`.
     """
     defects = body_floor.get("defects", [])
     if not isinstance(defects, list):
@@ -7080,18 +6258,11 @@ def _compact_status_card_body_floor_defects(
     limit: int = STATUS_CARD_DEFECT_PREVIEW_LIMIT,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Produce the compact status card body floor defects value used by
+    `microcosm_core.runtime_shell`.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `body_floor` and `limit`; notable helpers are `_compact_body_import_defects`,
+    `append`, and `get`.
     """
     compact: list[dict[str, Any]] = []
     for defect in _compact_body_import_defects(body_floor, limit=limit):
@@ -7113,18 +6284,10 @@ def _status_card_front_door_status(
     body_floor_defect_preview: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._status_card_front_door_status` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     front_door = (
         card.get("front_door", {})
@@ -7155,16 +6318,10 @@ def _status_card_front_door_status(
 
     def add_surface(surface_id: str, status: Any) -> None:
         """
-        Read-only projection helper.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Add add surface for `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-        - Fails: I-O / OSError suppressed by the helper; returns without raising.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The function is a named boundary around the visible side effect or orchestration
+        step in its body.
         """
         if status is not None:
             surfaces[surface_id] = status
@@ -7382,15 +6539,9 @@ def _status_card_front_door_status(
 
 def _project_command_ref(project_path: str | Path) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Derive project command ref without touching module import state.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project_path`; notable helpers are `strip`.
     """
     text = str(project_path).strip()
     return text or "<project>"
@@ -7398,15 +6549,10 @@ def _project_command_ref(project_path: str | Path) -> str:
 
 def _public_project_command_ref(project_path: str | Path, root: Path) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Derive public project command ref without touching module import state.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project_path` and `root`; notable helpers are `Path`, `_public_relative`,
+    `_project_command_ref`, and `startswith`.
     """
     path = Path(project_path)
     project_ref = _public_relative(path, root)
@@ -7417,15 +6563,10 @@ def _public_project_command_ref(project_path: str | Path, root: Path) -> str:
 
 def _replace_project_placeholder(value: Any, project_ref: str) -> Any:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the replace project placeholder value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns the normalized value derived from the input.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Inputs are `value` and `project_ref`; notable helpers are `replace`,
+    `_replace_project_placeholder`, and `items`.
     """
     if isinstance(value, str):
         return value.replace("<project>", project_ref)
@@ -7447,18 +6588,11 @@ def _runtime_status_card(
     project_overlay: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Derive runtime status card without touching module import state.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `status`, `project_path`, `project_ref`, and `project_overlay`; notable
+    helpers are `_compact_status_card_body_floor_defects`, `get`,
+    `_replace_project_placeholder`, `omitted_payload_schema_term_hits`, and 16 more.
     """
     front_door = (
         status.get("front_door", {})
@@ -8077,18 +7211,10 @@ def _workingness_gap_preview(
     limit: int = 3,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._workingness_gap_preview` into the payload shape
+    expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = workingness.get("thing_failure_map", [])
     if not isinstance(rows, list):
@@ -8167,18 +7293,11 @@ def _workingness_source_body_import_exception_preview(
     limit: int = 4,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize
+    `microcosm_core.runtime_shell._workingness_source_body_import_exception_preview` into
+    the payload shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = workingness.get("thing_failure_map", [])
     if not isinstance(rows, list):
@@ -8258,15 +7377,11 @@ def _workingness_failure_envelope_status(
     missing_failure_modes_count: Any,
 ) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Compute workingness failure envelope status from `map_generation_status`,
+    `completeness_status`, `missing_standard_count`, and `missing_failure_modes_count`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `map_generation_status`, `completeness_status`, `missing_standard_count`, and
+    `missing_failure_modes_count`.
     """
     if map_generation_status != PASS:
         return "blocked"
@@ -8287,18 +7402,10 @@ def _workingness_failure_envelope_status(
 
 def _workingness_status_summary(workingness: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._workingness_status_summary` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     surface_counts = (
         workingness.get("surface_counts", {})
@@ -8387,18 +7494,10 @@ def _workingness_command_speed_card(
     workingness: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Serialize `microcosm_core.runtime_shell._workingness_command_speed_card` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     summary = _workingness_status_summary(workingness)
     authority_ceiling = (
@@ -8469,18 +7568,10 @@ def _workingness_command_speed_card(
 
 def _source_open_body_imports_for_organ(root: Path, organ_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Source-ref / digest custody check for the public projection.
+    Serialize `microcosm_core.runtime_shell._source_open_body_imports_for_organ` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Reads: the declared source-ref / digest / receipt path under the public tree.
-    - When-needed: auditing what source refs/digests this projection actually checks.
-    - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_ref = Path("core/fixture_manifests") / f"{organ_id}.fixture_manifest.json"
     manifest = _read_json_if_exists(root / manifest_ref)
@@ -8528,15 +7619,10 @@ def _source_open_body_imports_for_organ(root: Path, organ_id: str) -> dict[str, 
 
 def _source_open_body_material_count(source_open_body_imports: object) -> int:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the source open body material count value used by
+    `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns an int computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `source_open_body_imports`; notable helpers are `get` and `_strings`.
     """
     if not isinstance(source_open_body_imports, dict):
         return 0
@@ -8548,30 +7634,19 @@ def _source_open_body_material_count(source_open_body_imports: object) -> int:
 
 def _standard_ref_for_organ(organ_id: str) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the standard ref for organ value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `organ_id`.
     """
     return f"standards/std_microcosm_{organ_id}.json"
 
 
 def _standard_contract_for_organ(root: Path, organ_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._standard_contract_for_organ` into the payload
+    shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     standard_ref = _standard_ref_for_organ(organ_id)
     standard = _read_json_if_exists(root / standard_ref)
@@ -8607,15 +7682,9 @@ def _standard_contract_for_organ(root: Path, organ_id: str) -> dict[str, Any]:
 
 def _workingness_state(row: dict[str, Any]) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the workingness state value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `row`; notable helpers are `get`.
     """
     runtime_mode = row.get("runtime_mode")
     if runtime_mode == "drilldown_only":
@@ -8629,15 +7698,9 @@ def _workingness_state(row: dict[str, Any]) -> str:
 
 def _evidence_gap_class(row: dict[str, Any]) -> str:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the evidence gap class value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a string result built from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, subprocess side effects requested by the caller.
+    Inputs are `row`; notable helpers are `get`.
     """
     if row.get("runtime_mode") == "drilldown_only":
         return "kept_out_of_product_path_until_evidence_strengthens"
@@ -8658,15 +7721,9 @@ def _future_work_targets(
     standard_contract: dict[str, Any],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Return future work targets for the runtime shell flow.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, subprocess side effects requested by the caller.
+    Inputs are `row` and `standard_contract`; notable helpers are `get` and `append`.
     """
     targets: list[dict[str, Any]] = []
     organ_id = str(row.get("organ_id") or "")
@@ -8747,15 +7804,10 @@ def _workingness_requirement_status(
     standard_contract: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Serialize `microcosm_core.runtime_shell._workingness_requirement_status` into the
+    payload shape expected by runtime shell.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a JSON-safe projection dict payload.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     generated = row.get("generated_receipts")
     generated_receipt_count = len(generated) if isinstance(generated, list) else 0
@@ -8789,30 +7841,19 @@ def _workingness_requirement_status(
 
 class RuntimeShell:
     """
-    Runtime-shell coordinator type.
+    Stateful helper for Runtime Shell in `microcosm_core.runtime_shell`.
 
-    [ROLE] Public runtime projection facade for cards, lenses, receipts, and organ routes.
-
-    - Teleology: Runtime-shell coordinator type holding the state its methods project.
-    - Guarantee: returns control to the caller after the documented effect.
-    - Fails: invalid / unexpected input -> raises ValueError.
-    - When-needed: you need any projection this coordinator's methods expose.
-    - Escalates-to: the individual method whose lens you need, or `plectis status`.
-    - Ownership: Owned by `microcosm_core.runtime_shell`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    Methods such as `_macro_projection_body_import_floor`,
+    `_macro_projection_body_import_floor_card`, `runtime_receipt_dir`, `organs`, `patterns`,
+    `routes`, and 57 more share the instance state instead of passing a loose dictionary
+    through the call chain.
     """
     def __init__(self, root: str | Path | None = None) -> None:
         """
-        [ACTION]
-        Read-only projection helper.
+        Store constructor inputs for `RuntimeShell`.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-        - Fails: I-O / OSError suppressed by the helper; returns without raising.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The instance keeps `root` for later methods; validation remains in the methods that
+        need it.
         """
         self.root = Path(root).resolve(strict=False) if root is not None else public_root()
         self._runtime_payload_cache: dict[tuple[Any, ...], dict[str, Any]] = {}
@@ -8820,18 +7861,10 @@ class RuntimeShell:
 
     def _macro_projection_body_import_floor(self) -> dict[str, Any]:
         """
-        [ACTION]
-        Source-ref / digest custody check for the public projection.
+        Compute macro projection body import floor on `RuntimeShell` from the
+        caller-supplied state.
 
-        - Teleology: Source-custody boundary: reads and compares declared source refs/digests for the public projection.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Reads: the declared source-ref / digest / receipt path under the public tree.
-        - When-needed: auditing what source refs/digests this projection actually checks.
-        - Escalates-to: the source registry/receipt path it reads, or `plectis status` for live digest verification.
-        - Non-goal: does not authorize source-body export, public-safe equivalence beyond the refs it checks, release, or whole-system correctness.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Writes: return values.
+        Notable helpers are `get`, `_macro_projection_body_import_floor`, and `deepcopy`.
         """
         cached = self._macro_body_import_floor_cache.get("live")
         if isinstance(cached, dict):
@@ -8842,18 +7875,11 @@ class RuntimeShell:
 
     def _macro_projection_body_import_floor_card(self) -> dict[str, Any]:
         """
-        [ACTION]
-        Builds a generated projection card/row payload.
+        Return macro projection body import floor card on `RuntimeShell` for the runtime
+        shell flow.
 
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        Notable helpers are `get`, `_cached_macro_projection_body_import_floor`,
+        `_macro_projection_body_import_floor`, `deepcopy`, and 1 more.
         """
         cached = self._macro_body_import_floor_cache.get("card")
         if isinstance(cached, dict):
@@ -8885,33 +7911,18 @@ class RuntimeShell:
     @property
     def runtime_receipt_dir(self) -> Path:
         """
-        Read-only projection helper.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Return runtime receipt dir on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns the resolved Path (no filesystem write implied).
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The returned value is consumed directly by the caller.
         """
         return self.root / "receipts/runtime_shell"
 
     def organs(self) -> list[dict[str, Any]]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+        Produce the organs value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_read_json_if_exists`, `get`, `_load_evidence_class_registry`,
+        `_organ_evidence_profile`, and 2 more.
         """
         registry = _read_json_if_exists(self.root / "core/organ_registry.json")
         rows = registry.get("implemented_organs", [])
@@ -8966,18 +7977,9 @@ class RuntimeShell:
 
     def patterns(self) -> list[dict[str, Any]]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+        Derive patterns on `RuntimeShell` without touching module import state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_iter_jsonl_dict_rows` and `get`.
         """
         rows = _iter_jsonl_dict_rows(
             self.root
@@ -8999,18 +8001,9 @@ class RuntimeShell:
 
     def routes(self) -> list[dict[str, Any]]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+        Compute routes on `RuntimeShell` from the caller-supplied state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_read_json_if_exists`, `get`, and `_rows`.
         """
         payload = _read_json_if_exists(
             self.root / "examples/navigation_hologram_route_plane/exported_route_plane_bundle/route_rows.json"
@@ -9029,18 +8022,9 @@ class RuntimeShell:
 
     def workitems(self) -> list[dict[str, Any]]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+        Produce the workitems value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_read_json_if_exists`, `get`, and `_rows`.
         """
         payload = _read_json_if_exists(
             self.root / "examples/mission_transaction_work_spine/exported_mission_transaction_bundle/workitems.json"
@@ -9058,69 +8042,35 @@ class RuntimeShell:
 
     def evidence(self, *, limit: int | None = None) -> list[dict[str, Any]]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+        Compute evidence on `RuntimeShell` from `limit`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a list of plain JSON-safe projection rows (possibly empty).
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `limit`; notable helpers are `get` and `evidence_index`.
         """
         return list(self.evidence_index(limit=limit).get("evidence", []))
 
     def evidence_index(self, *, limit: int | None = None) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project a reader-safe runtime inventory lens from public registries and receipts.
+        Compute evidence index on `RuntimeShell` from `limit`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `limit`; notable helpers are `list_runtime_evidence`.
         """
         return runtime_evidence_index.list_runtime_evidence(self.root, limit=limit)
 
     def evidence_count(self) -> int:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Produce the evidence count value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns an int computed from the inspected inputs.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_count_files_under`.
         """
         return _count_files_under(self.root / "receipts", suffix=".json")
 
     def workingness_map(self, *, persist_receipt: bool = False) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Return workingness map on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `persist_receipt`; notable helpers are `organs`,
+        `_substrate_substitution_summary`, `_read_json_if_exists`,
+        `_macro_projection_body_import_floor_card`, and 13 more.
         """
         organs = self.organs()
         substrate_substitution = _substrate_substitution_summary(self.root)
@@ -9423,19 +8373,9 @@ class RuntimeShell:
 
     def workingness_card(self) -> dict[str, Any]:
         """
-        Builds a generated projection card/row payload.
-        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+        Compute workingness card on `RuntimeShell` from the caller-supplied state.
 
-
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        Notable helpers are `_workingness_command_speed_card` and `workingness_map`.
         """
         return _workingness_command_speed_card(
             self.workingness_map(persist_receipt=False)
@@ -9457,18 +8397,10 @@ class RuntimeShell:
         evidence_count: int,
     ) -> dict[str, Any]:
         """
-        [ACTION]
-        Builds a generated projection card/row payload.
+        Assemble the status-card source payload from precomputed runtime sections.
 
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        Callers pass the expensive section results in, and this method binds them into
+        the card schema without recomputing project state.
         """
         return {
             "schema_version": "microcosm_runtime_status_card_source_v1",
@@ -9505,18 +8437,10 @@ class RuntimeShell:
         project_ref: str | Path | None = None,
     ) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Build the public runtime-shell navigation payload and bind its receipt ceilings.
+        Produce the status value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `project_path` and `project_ref`; notable helpers are `organs`,
+        `_truth_accounting`, `_product_runtime_steps`, `routes`, and 20 more.
         """
         organs = self.organs()
         adapter_backed_rows = [
@@ -9915,18 +8839,10 @@ class RuntimeShell:
 
     def _status_card_source_payload(self) -> dict[str, Any]:
         """
-        [ACTION]
-        Builds a generated projection card/row payload.
+        Return status card source payload on `RuntimeShell` for the runtime shell flow.
 
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        Notable helpers are `organs`, `_truth_accounting`, `_product_runtime_steps`,
+        `_proof_lab_first_screen_card`, and 10 more.
         """
         organs = self.organs()
         adapter_backed_rows = [
@@ -9963,19 +8879,10 @@ class RuntimeShell:
         project_ref: str | Path | None = None,
     ) -> dict[str, Any]:
         """
-        Builds a generated projection card/row payload.
-        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+        Compute status card on `RuntimeShell` from `project_path` and `project_ref`.
 
-
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        Inputs are `project_path` and `project_ref`; notable helpers are
+        `_runtime_status_card` and `_status_card_source_payload`.
         """
         return _runtime_status_card(
             self._status_card_source_payload(),
@@ -9985,18 +8892,10 @@ class RuntimeShell:
 
     def spine(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Build the full runtime spine payload for the public shell.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-        - Writes: return values, subprocess side effects requested by the caller.
+        The payload joins organ rows, evidence registry data, route/workitem summaries,
+        and product-step accounting into the main machine-readable status surface.
         """
         organs = self.organs()
         evidence_registry = _load_evidence_class_registry(self.root)
@@ -10761,19 +9660,10 @@ class RuntimeShell:
 
     def spine_card(self) -> dict[str, Any]:
         """
-        Builds a generated projection card/row payload.
-        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+        Build the compact status-card version of the runtime spine.
 
-
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        It keeps the same spine accounting as `spine` but returns the card-sized payload
+        consumed by public status views.
         """
         organs = self.organs()
         evidence_registry = _load_evidence_class_registry(self.root)
@@ -10940,18 +9830,11 @@ class RuntimeShell:
         persist_receipt: bool = True,
     ) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Build the public runtime-shell navigation payload and bind its receipt ceilings.
+        Return tour on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values, stdout/stderr or CLI result text.
+        Inputs are `project` and `persist_receipt`; notable helpers are `expanduser`,
+        `resolve`, `compile_project`, `_compiled_command_reference_execution_case`, and 56
+        more.
         """
         raw_project = project if project is not None else DEFAULT_PROJECT_REL
         project_path = Path(raw_project).expanduser()
@@ -11909,19 +10792,10 @@ class RuntimeShell:
         project: str | Path | None = DEFAULT_PROJECT_REL,
     ) -> dict[str, Any]:
         """
-        Builds a generated projection card/row payload.
-        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+        Return the guided runtime tour card for a project checkout.
 
-
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        The method resolves the project path, reuses cached tour payloads when possible,
+        and writes the receipt only when runtime receipt writes are enabled.
         """
         raw_project = project if project is not None else DEFAULT_PROJECT_REL
         project_path = Path(raw_project).expanduser()
@@ -12479,18 +11353,10 @@ class RuntimeShell:
 
     def trace_lens(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Compute trace lens on `RuntimeShell` from the caller-supplied state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_read_json_if_exists`, `_stable_created_at`,
+        `write_json_atomic`, `fromkeys`, and 10 more.
         """
         readiness_ref = (
             "receipts/first_wave/formal_math_readiness_gate/"
@@ -12532,16 +11398,9 @@ class RuntimeShell:
         )
         def negative_keys(payload: dict[str, Any]) -> list[str]:
             """
-            Read-only projection helper.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Derive negative keys without touching module import state.
 
-
-            - Teleology: Internal read-only helper for the runtime-shell projections.
-            - Guarantee: returns a list of the projected values (possibly empty).
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `payload`; notable helpers are `get` and `_strings`.
             """
             value = payload.get("observed_negative_cases")
             if isinstance(value, dict):
@@ -12749,18 +11608,10 @@ class RuntimeShell:
 
     def repair_loop(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Compute repair loop on `RuntimeShell` from the caller-supplied state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `trace_lens`, `_rows`, `_stable_created_at`,
+        `write_json_atomic`, and 8 more.
         """
         trace_lens = self.trace_lens()
         lens_path = self.runtime_receipt_dir / "public_verifier_repair_loop_lens.json"
@@ -12987,18 +11838,10 @@ class RuntimeShell:
 
     def evidence_cells(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Compute evidence cells on `RuntimeShell` from the caller-supplied state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `trace_lens`, `_read_json_if_exists`, `get`,
+        `_stable_created_at`, and 8 more.
         """
         witness_ref = (
             "receipts/first_wave/formal_math_lean_proof_witness/"
@@ -13204,18 +12047,11 @@ class RuntimeShell:
 
     def verifier_lab_execution_spine_lens(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Derive verifier lab execution spine lens on `RuntimeShell` without touching module
+        import state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values, stdout/stderr or CLI result text.
+        Notable helpers are `_read_json_if_exists`, `get`,
+        `_source_open_body_material_count`, `_rows`, and 12 more.
         """
         source_receipt_ref = VERIFIER_EXECUTION_RECEIPT_REF
         source_receipt_path = self.root / source_receipt_ref
@@ -13566,18 +12402,10 @@ class RuntimeShell:
 
     def proof_loop_depth(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Compute proof loop depth on `RuntimeShell` from the caller-supplied state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers, environment variables.
-        - Writes: return values.
+        Notable helpers are `corpus_lens`, `trace_lens`, `repair_loop`, `evidence_cells`,
+        and 14 more.
         """
         corpus_lens = self.corpus_lens()
         trace_lens = self.trace_lens()
@@ -13944,35 +12772,18 @@ class RuntimeShell:
 
     def proof_lab(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Run the bounded public demo route and return receipt-backed evidence only.
+        Return proof lab on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_proof_lab_first_screen_card`.
         """
         return _proof_lab_first_screen_card(self.root)
 
     def landing_replay(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Run the bounded public demo route and return receipt-backed evidence only.
+        Return landing replay on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_read_json_if_exists`, `write_json_atomic`, `get`, `utc_now`,
+        and 3 more.
         """
         attempt_ref = "receipts/first_wave/mission_transaction_work_spine/work_landing_attempt.json"
         mutation_ref = "receipts/first_wave/mission_transaction_work_spine/scoped_mutation_receipt.json"
@@ -14220,18 +13031,10 @@ class RuntimeShell:
 
     def view_quality(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Produce the view quality value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `write_json_atomic`, `utc_now`, `_public_relative`,
+        `_lens_payload_boundary`, and 2 more.
         """
         lens_path = self.runtime_receipt_dir / "public_view_quality_action_map_lens.json"
         requested_views = [
@@ -14457,18 +13260,10 @@ class RuntimeShell:
 
     def projection_drift(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Produce the projection drift value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `dumps`, `write_json_atomic`, `utc_now`, `_public_relative`, and
+        5 more.
         """
         lens_path = self.runtime_receipt_dir / "public_projection_drift_control_lens.json"
         drift_rows = [
@@ -14722,18 +13517,10 @@ class RuntimeShell:
 
     def spatial_simulation(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Produce the spatial simulation value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `run_simulation_bundle`, `write_json_atomic`,
+        `_public_relative`, `_lens_payload_boundary`, and 1 more.
         """
         example_dir = (
             self.root
@@ -14798,18 +13585,10 @@ class RuntimeShell:
 
     def circuit_attribution(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Produce the circuit attribution value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `run_attribution_bundle`, `write_json_atomic`, and
+        `_public_relative`.
         """
         example_dir = (
             self.root
@@ -14868,19 +13647,10 @@ class RuntimeShell:
 
     def circuit_attribution_card(self) -> dict[str, Any]:
         """
-        Builds a generated projection card/row payload.
-        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+        Build the circuit-attribution replay card used by the public shell.
 
-
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        The method points at the exported example bundle, writes the runtime lens
+        receipt, and returns the public-safe card payload.
         """
         example_dir = (
             self.root
@@ -14919,18 +13689,10 @@ class RuntimeShell:
 
     def route_cleanup(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Compute route cleanup on `RuntimeShell` from the caller-supplied state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `dumps`, `write_json_atomic`, `utc_now`, `_public_relative`, and
+        5 more.
         """
         lens_path = self.runtime_receipt_dir / "public_route_cleanup_contract_lens.json"
         cleanup_rows = [
@@ -15215,18 +13977,10 @@ class RuntimeShell:
 
     def projection_safety(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Compute projection safety on `RuntimeShell` from the caller-supplied state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers, environment variables.
-        - Writes: return values.
+        Notable helpers are `dumps`, `write_json_atomic`, `utc_now`, `_public_relative`, and
+        3 more.
         """
         lens_path = self.runtime_receipt_dir / "public_projection_safety_audit_lens.json"
         projection_rows = [
@@ -16650,18 +15404,10 @@ class RuntimeShell:
 
     def projection_import_map(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Derive projection import map on `RuntimeShell` without touching module import state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_macro_projection_body_import_floor_card`, `dumps`,
+        `write_json_atomic`, `get`, and 5 more.
         """
         lens_path = self.runtime_receipt_dir / "public_projection_import_map_lens.json"
         import_stages = [
@@ -17063,18 +15809,10 @@ class RuntimeShell:
 
     def import_projector(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Derive import projector on `RuntimeShell` without touching module import state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `dumps`, `write_json_atomic`, `utc_now`, `_public_relative`, and
+        4 more.
         """
         lens_path = self.runtime_receipt_dir / "public_import_projector_contract_lens.json"
         contract_stages = [
@@ -17439,18 +16177,10 @@ class RuntimeShell:
 
     def option_surface_lens(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Derive option surface lens on `RuntimeShell` without touching module import state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_read_json_if_exists`, `_rows`, `next`, `import_projector`, and
+        10 more.
         """
         lens_path = self.runtime_receipt_dir / "public_compression_profile_option_surface_lens.json"
         import_plan_ref = (
@@ -17801,18 +16531,10 @@ class RuntimeShell:
 
     def stripping_guard(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Produce the stripping guard value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `dumps`, `_stable_created_at`, `write_json_atomic`, `utc_now`,
+        and 6 more.
         """
         lens_path = self.runtime_receipt_dir / "public_stripping_guard_lens.json"
         guard_rows = [
@@ -18077,18 +16799,10 @@ class RuntimeShell:
 
     def standards_control(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Return standards control on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_read_json_if_exists`, `_rows`, `_strings`, `dumps`, and 9
+        more.
         """
         lens_path = self.runtime_receipt_dir / "public_standards_control_lens.json"
         registry_ref = "core/standards_registry.json"
@@ -18385,18 +17099,10 @@ class RuntimeShell:
 
     def hook_coverage(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Return hook coverage on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_read_json_if_exists`, `_rows`, `_strings`,
+        `_normalize_runtime_boundary_labels`, and 10 more.
         """
         route_ref = "receipts/first_wave/agent_route_observability_runtime/route_compliance_audit.json"
         hook_ref = "receipts/first_wave/agent_route_observability_runtime/hook_shadow_coverage.json"
@@ -18702,18 +17408,10 @@ class RuntimeShell:
 
     def replay_gauntlet(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Compute replay gauntlet on `RuntimeShell` from the caller-supplied state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_stable_created_at`, `write_json_atomic`, `utc_now`,
+        `_public_relative`, and 6 more.
         """
         lens_path = (
             self.runtime_receipt_dir
@@ -18724,16 +17422,9 @@ class RuntimeShell:
             command: str, input_ref: str, out_ref: str
         ) -> str:
             """
-            Read-only projection helper.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Derive cold reader bundle command without touching module import state.
 
-
-            - Teleology: Internal read-only helper for the runtime-shell projections.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `command`, `input_ref`, and `out_ref`.
             """
             return f"{command} --input {input_ref} --out {out_ref}"
 
@@ -19245,18 +17936,10 @@ class RuntimeShell:
 
     def benchmark_lab(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Derive benchmark lab on `RuntimeShell` without touching module import state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_stable_created_at`, `write_json_atomic`, `utc_now`,
+        `_public_relative`, and 5 more.
         """
         lens_path = self.runtime_receipt_dir / "public_repository_benchmark_transaction_lab_lens.json"
         selected_pattern_ids = [
@@ -19479,19 +18162,10 @@ class RuntimeShell:
 
     def legibility_scorecard(self) -> dict[str, Any]:
         """
-        Builds a generated projection card/row payload.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Derive legibility scorecard on `RuntimeShell` without touching module import state.
 
-
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        Notable helpers are `_stable_created_at`, `write_json_atomic`, `setdefault`,
+        `utc_now`, and 5 more.
         """
         lens_path = self.runtime_receipt_dir / "public_cold_reader_legibility_scorecard_lens.json"
         selected_pattern_ids = [
@@ -19814,18 +18488,10 @@ class RuntimeShell:
 
     def corpus_lens(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Compute corpus lens on `RuntimeShell` from the caller-supplied state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers, environment variables.
-        - Writes: return values.
+        Notable helpers are `_read_json_if_exists`, `get`, `_stable_created_at`,
+        `write_json_atomic`, and 8 more.
         """
         fixture_ref = "fixtures/first_wave/corpus_readiness_mathlib_absence_gate/input/corpus_readiness.json"
         example_ref = (
@@ -20040,18 +18706,10 @@ class RuntimeShell:
 
     def prediction_lens(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Return prediction lens on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_read_json_if_exists`, `get`, `write_json_atomic`, `_strings`,
+        and 7 more.
         """
         packet_ref = "examples/prediction_oracle_reconciliation/exported_prediction_oracle_bundle/reconciliation_packet.json"
         board_ref = "receipts/first_wave/prediction_oracle_reconciliation/prediction_reconciliation_board.json"
@@ -20225,18 +18883,10 @@ class RuntimeShell:
 
     def market_boundary(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Return market boundary on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `dumps`, `write_json_atomic`, `utc_now`, `_public_relative`, and
+        4 more.
         """
         lens_path = self.runtime_receipt_dir / "public_market_prediction_evidence_boundary_lens.json"
         boundary_rows = [
@@ -20553,18 +19203,10 @@ class RuntimeShell:
 
     def authority(self, *, persist_receipts: bool = True) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Build the public runtime-shell navigation payload and bind its receipt ceilings.
+        Return authority on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers, environment variables.
-        - Writes: return values, declared filesystem outputs.
+        Inputs are `persist_receipts`; notable helpers are `status`, `spine`, `intake`,
+        `reveal`, and 40 more.
         """
         status = self.status()
         spine = self.spine()
@@ -21805,19 +20447,10 @@ class RuntimeShell:
 
     def authority_card(self) -> dict[str, Any]:
         """
-        Builds a generated projection card/row payload.
-        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+        Build the public authority-map card for the runtime shell.
 
-
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        The card joins organ rows, evidence counts, truth accounting, and substrate
+        substitution summaries before writing `public_authority_map.json`.
         """
         organs = self.organs()
         evidence_registry = _load_evidence_class_registry(self.root)
@@ -22001,18 +20634,10 @@ class RuntimeShell:
 
     def intake(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Produce the intake value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `run_reveal_bundle`, `preview_import_plan`, `get`, `_rows`, and
+        9 more.
         """
         projection_input = (
             self.root / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
@@ -22265,19 +20890,10 @@ class RuntimeShell:
 
     def intake_card(self) -> dict[str, Any]:
         """
-        Builds a generated projection card/row payload.
-        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+        Build the macro-projection intake card shown by the public shell.
 
-
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        It previews the projection import bundle, runs the intake bridge, and writes the
+        runtime reveal/import bridge receipt.
         """
         projection_input = (
             self.root / "examples/macro_projection_import_protocol/exported_projection_import_bundle"
@@ -22313,18 +20929,11 @@ class RuntimeShell:
 
         def _cell_preview(cell: dict[str, Any]) -> dict[str, Any]:
             """
-            [ACTION]
-            Builds a generated projection card/row payload.
+            Serialize `microcosm_core.runtime_shell._cell_preview` into the payload shape
+            expected by runtime shell.
 
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            The mapping keys match the receipts, cards, or tests that consume this value
+            downstream.
             """
             projection_status = _normalize_runtime_projection_status(
                 cell.get("projection_status")
@@ -22435,18 +21044,10 @@ class RuntimeShell:
 
     def inspect_route(self, route_id: str) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Return the runtime route card for `route_id`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The lookup accepts either the route id or row id and returns a not-found payload
+        instead of raising when the route is absent.
         """
         for route in self.routes():
             if route["route_id"] == route_id or route.get("row_id") == route_id:
@@ -22463,18 +21064,10 @@ class RuntimeShell:
 
     def inspect_evidence(self, receipt_ref: str) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Return a public evidence card for a runtime receipt reference.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The method reads the receipt only when it exists under the project root and
+        reports malformed or missing receipts as structured status payloads.
         """
         receipt_path = self.root / receipt_ref
         if not _path_is_file(receipt_path):
@@ -22525,18 +21118,11 @@ class RuntimeShell:
         command: str | None = None,
     ) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Run the bounded public demo route and return receipt-backed evidence only.
+        Return run demo on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `project` and `command`; notable helpers are
+        `_runtime_demo_project_context`, `write_json_atomic`, `_product_runtime_steps`,
+        `runner`, and 5 more.
         """
         _, project_ref, project_id, run_root = (
             self._runtime_demo_project_context(project)
@@ -22614,15 +21200,10 @@ class RuntimeShell:
     @staticmethod
     def _runtime_demo_next_actions(project_ref: str) -> list[str]:
         """
-        [ACTION]
-        Read-only projection helper.
+        Derive runtime demo next actions on `RuntimeShell` without touching module import
+        state.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns a list of the projected values (possibly empty).
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `project_ref`.
         """
         return [
             f"plectis status --card {project_ref}",
@@ -22639,15 +21220,10 @@ class RuntimeShell:
         project: str | Path,
     ) -> tuple[Path, str, str, Path]:
         """
-        [ACTION]
-        Read-only projection helper.
+        Return runtime demo project context on `RuntimeShell` for the runtime shell flow.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns the computed tuple of result fields.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `project`; notable helpers are `Path`, `_public_relative`,
+        `_read_json_if_exists`, `is_absolute`, and 1 more.
         """
         project_path = Path(project)
         if not project_path.is_absolute():
@@ -22663,15 +21239,10 @@ class RuntimeShell:
         project: str | Path,
     ) -> dict[str, Any] | None:
         """
-        [ACTION]
-        Read-only projection helper.
+        Read a cached demo run result when it still matches the project context.
 
-        - Teleology: Internal read-only helper for the runtime-shell projections.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The method rejects missing, malformed, wrong-project, and stale event-count
+        payloads by returning `None` so callers can replay the demo.
         """
         _, _, project_id, run_root = self._runtime_demo_project_context(project)
         result_path = run_root / "demo_project_result.json"
@@ -22713,19 +21284,10 @@ class RuntimeShell:
 
     def run_demo_card(self, project: str | Path = DEFAULT_PROJECT_REL) -> dict[str, Any]:
         """
-        Builds a generated projection card/row payload.
-        [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+        Build the runtime demo card, using a fresh cache when available.
 
-
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - Writes: the in-memory card payload only (no source-of-truth file).
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
+        If no current demo result exists, the method replays the demo command and then
+        summarizes pass/fail counts for the public card.
         """
         _, project_ref, _, _ = self._runtime_demo_project_context(project)
         card_command = f"plectis run --card {project_ref}"
@@ -22785,18 +21347,10 @@ class RuntimeShell:
 
     def run_work_demo(self) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Run the bounded public demo route and return receipt-backed evidence only.
+        Return run work demo on `RuntimeShell` for the runtime shell flow.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `next`, `runner`, `_public_relative`, `write_json_atomic`, and 3
+        more.
         """
         step = next(item for item in RUNTIME_STEPS if item.organ_id == "mission_transaction_work_spine")
         input_dir = self.root / step.example_rel
@@ -22823,18 +21377,10 @@ class RuntimeShell:
 
     def reveal(self, *, persist_receipt: bool = True) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Produce the reveal value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `persist_receipt`; notable helpers are `next`, `runner`,
+        `_public_relative`, `spine`, and 3 more.
         """
         step = next(item for item in RUNTIME_STEPS if item.organ_id == "public_reveal_walkthrough")
         input_dir = self.root / step.example_rel
@@ -22877,18 +21423,10 @@ class RuntimeShell:
         precomputed_lenses: dict[str, dict[str, Any]] | None = None,
     ) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Produce the observatory intake bridge value used by `microcosm_core.runtime_shell`.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `persist_receipt` and `precomputed_lenses`; notable helpers are
+        `lens_payload`, `get`, `factory`, `fromkeys`, and 5 more.
         """
         bridge_receipt_path = (
             self.runtime_receipt_dir / "intake_bridge" / "observatory_intake_bridge.json"
@@ -22900,19 +21438,9 @@ class RuntimeShell:
             factory: Callable[[], dict[str, Any]],
         ) -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Derive lens payload without touching module import state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `lens_id` and `factory`; notable helpers are `get` and `factory`.
             """
             payload = lenses.get(lens_id)
             if isinstance(payload, dict):
@@ -23218,18 +21746,11 @@ class RuntimeShell:
         status_payload: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         """
-        Projects a read-only runtime-shell view.
-        [ACTION] Build the public runtime-shell navigation payload and bind its receipt ceilings.
+        Derive project observatory on `RuntimeShell` without touching module import state.
 
-
-        - Teleology: Public runtime-shell lens: projects one read-only view of organ/route/evidence state for a reader.
-        - Guarantee: returns a JSON-safe projection dict payload.
-        - Fails: tour_payload_mode not in {'full','card'} -> raises ValueError.
-        - When-needed: an agent needs this specific read-only view of runtime state.
-        - Escalates-to: the receipt/test it cites, or `plectis <command>` for the full (non-card) payload.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `project`, `persist_receipts`, `tour_payload_mode`, `tour_payload`, and
+        `status_payload`; notable helpers are `intake`, `reveal`, `market_boundary`,
+        `trace_lens`, and 57 more; invalid cases raise from the explicit checks in the body.
         """
         if tour_payload_mode not in {"full", "card"}:
             raise ValueError("tour_payload_mode must be 'full' or 'card'")
@@ -23868,18 +22389,10 @@ class RuntimeShell:
         model: dict[str, Any] | None = None,
     ) -> str:
         """
-        [ACTION]
-        Builds a generated projection card/row payload.
+        Produce the observatory HTML value used by `microcosm_core.runtime_shell`.
 
-        - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-        - Guarantee: returns a string result built from the inspected inputs.
-        - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-        - When-needed: auditing how this generated card/row payload is derived.
-        - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-        - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values, declared filesystem outputs.
+        Inputs are `project_path` and `model`; notable helpers are `get`, `_rows`, `next`,
+        `_safe_text`, and 43 more.
         """
         if model is None:
             model = self.project_observatory(project_path, persist_receipts=False)
@@ -24366,16 +22879,9 @@ class RuntimeShell:
 
         def row(label: str, value: Any) -> str:
             """
-            Read-only projection helper.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Produce the row value used by `microcosm_core.runtime_shell`.
 
-
-            - Teleology: Internal read-only helper for the runtime-shell projections.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `label` and `value`; notable helpers are `escape` and `_safe_text`.
             """
             return (
                 "<tr>"
@@ -24386,16 +22892,10 @@ class RuntimeShell:
 
         def public_project_ref(value: Any) -> str:
             """
-            Read-only projection helper.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Return public project ref for the runtime shell flow.
 
-
-            - Teleology: Internal read-only helper for the runtime-shell projections.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values, declared filesystem outputs.
+            Inputs are `value`; notable helpers are `_safe_text`, `resolve`, `replace`,
+            `expanduser`, and 1 more.
             """
             text = _safe_text(value)
             if not text or project_path is None:
@@ -24411,16 +22911,9 @@ class RuntimeShell:
 
         def list_text(values: Any) -> str:
             """
-            Read-only projection helper.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Derive list text without touching module import state.
 
-
-            - Teleology: Internal read-only helper for the runtime-shell projections.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `values`; notable helpers are `join`.
             """
             if not isinstance(values, list):
                 return ""
@@ -24430,16 +22923,9 @@ class RuntimeShell:
 
         def dict_text(values: Any) -> str:
             """
-            Read-only projection helper.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute dict text from `values`.
 
-
-            - Teleology: Internal read-only helper for the runtime-shell projections.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `values`; notable helpers are `join` and `items`.
             """
             if not isinstance(values, dict):
                 return ""
@@ -24449,19 +22935,10 @@ class RuntimeShell:
 
         def binding_rows(rows: list[Any], id_key: str) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Derive binding rows without touching module import state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows` and `id_key`; notable helpers are `append`, `join`, `get`,
+            `escape`, and 1 more.
             """
             if not rows:
                 return "<p class=\"muted\">No bindings yet.</p>"
@@ -24481,19 +22958,9 @@ class RuntimeShell:
 
         def first_screen_reader_route_cards() -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Derive first screen reader route cards without touching module import state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Writes: the in-memory card payload only (no source-of-truth file).
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
+            Notable helpers are `_safe_text`, `get`, `join`, `append`, and 3 more.
             """
             if not first_screen_reader_routes:
                 return "<p class=\"muted\">No reader routes in the first-screen card.</p>"
@@ -24542,19 +23009,9 @@ class RuntimeShell:
 
         def first_screen_demo_to_scale_cards() -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Return first screen demo to scale cards for the runtime shell flow.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Writes: the in-memory card payload only (no source-of-truth file).
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
+            Notable helpers are `_safe_text`, `dict_text`, `get`, `append`, and 2 more.
             """
             state_file_count = _safe_text(state_inspection.get("state_file_count"))
             state_inspection_status = _safe_text(state_inspection.get("status"))
@@ -24636,19 +23093,10 @@ class RuntimeShell:
 
         def event_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute event rows from `rows`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No events recorded yet.</td></tr>"
@@ -24668,19 +23116,10 @@ class RuntimeShell:
 
         def evidence_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Produce the evidence rows value used by `microcosm_core.runtime_shell`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"3\" class=\"muted\">No evidence refs yet.</td></tr>"
@@ -24699,19 +23138,10 @@ class RuntimeShell:
 
         def cell_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Return cell rows for the runtime shell flow.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No intake cells projected.</td></tr>"
@@ -24731,19 +23161,10 @@ class RuntimeShell:
 
         def python_lens_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Produce the python lens rows value used by `microcosm_core.runtime_shell`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"3\" class=\"muted\">No Python route rows projected.</td></tr>"
@@ -24762,19 +23183,10 @@ class RuntimeShell:
 
         def tour_card_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Produce the tour card rows value used by `microcosm_core.runtime_shell`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Writes: the in-memory card payload only (no source-of-truth file).
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No tour cards projected.</td></tr>"
@@ -24794,19 +23206,10 @@ class RuntimeShell:
 
         def view_quality_action_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Return view quality action rows for the runtime shell flow.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No view-quality action rows projected.</td></tr>"
@@ -24826,19 +23229,10 @@ class RuntimeShell:
 
         def projection_safety_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Derive projection safety rows without touching module import state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `get`, `escape`, and 1
+            more.
             """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No projection-safety rows projected.</td></tr>"
@@ -24863,19 +23257,10 @@ class RuntimeShell:
 
         def projection_drift_table_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Return projection drift table rows for the runtime shell flow.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No projection-drift rows projected.</td></tr>"
@@ -24896,19 +23281,10 @@ class RuntimeShell:
 
         def market_boundary_table_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Derive market boundary table rows without touching module import state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No market-boundary rows projected.</td></tr>"
@@ -24929,19 +23305,10 @@ class RuntimeShell:
 
         def route_cleanup_table_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute route cleanup table rows from `rows`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No route-cleanup rows projected.</td></tr>"
@@ -24962,19 +23329,10 @@ class RuntimeShell:
 
         def projection_import_map_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute projection import map rows from `rows`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No projection-import rows projected.</td></tr>"
@@ -24995,19 +23353,10 @@ class RuntimeShell:
 
         def import_projector_table_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Return import projector table rows for the runtime shell flow.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No import-projector rows projected.</td></tr>"
@@ -25028,19 +23377,10 @@ class RuntimeShell:
 
         def option_surface_table_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Return option surface table rows for the runtime shell flow.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No option-surface rows projected.</td></tr>"
@@ -25061,19 +23401,11 @@ class RuntimeShell:
 
         def stripping_guard_table_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Produce the stripping guard table rows value used by
+            `microcosm_core.runtime_shell`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No stripping guard rows projected.</td></tr>"
@@ -25094,19 +23426,11 @@ class RuntimeShell:
 
         def standards_control_table_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Produce the standards control table rows value used by
+            `microcosm_core.runtime_shell`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No standards-control rows projected.</td></tr>"
@@ -25127,19 +23451,10 @@ class RuntimeShell:
 
         def proof_loop_depth_table_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Derive proof loop depth table rows without touching module import state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No proof-loop depth rows projected.</td></tr>"
@@ -25160,19 +23475,10 @@ class RuntimeShell:
 
         def hook_intervention_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute hook intervention rows from `rows`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No hook intervention rows projected.</td></tr>"
@@ -25192,19 +23498,10 @@ class RuntimeShell:
 
         def replay_episode_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Return replay episode rows for the runtime shell flow.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No replay episodes projected.</td></tr>"
@@ -25224,19 +23521,10 @@ class RuntimeShell:
 
         def benchmark_task_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Return benchmark task rows for the runtime shell flow.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No benchmark tasks projected.</td></tr>"
@@ -25256,19 +23544,11 @@ class RuntimeShell:
 
         def legibility_checkpoint_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Produce the legibility checkpoint rows value used by
+            `microcosm_core.runtime_shell`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"4\" class=\"muted\">No legibility checkpoints projected.</td></tr>"
@@ -25288,19 +23568,10 @@ class RuntimeShell:
 
         def repair_loop_transition_rows(rows: list[Any]) -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute repair loop transition rows from `rows`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `rows`; notable helpers are `join`, `append`, `escape`, `_safe_text`,
+            and 1 more.
             """
             if not rows:
                 return "<tr><td colspan=\"5\" class=\"muted\">No repair-loop transitions projected.</td></tr>"
@@ -26292,17 +24563,10 @@ class RuntimeShell:
         max_requests: int | None = None,
     ) -> ThreadingHTTPServer:
         """
-        Build (but do not run) the Microcosm runtime-shell HTTP observatory server.
-        [ACTION] Project this runtime-shell helper under the public-boundary contract.
+        Start the threaded HTTP server for runtime-shell drilldowns.
 
-
-        - Teleology: stands up the read-only HTTP surface that serves the observatory HTML and JSON runtime/route/evidence lenses over a cached project model.
-        - Guarantee: returns a bound, warmed RuntimeShellHTTPServer on (host, port); caller drives serve_forever; honors an optional max_requests self-shutdown.
-        - Reads: project path resolved against self.root; lens/observatory payloads built lazily on first request.
-        - When-needed: launching the local runtime observatory ("serve" command).
-        - Fails: max_requests < 1 -> raises ValueError; bind failure -> OSError from server construction.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Writes: return values, declared filesystem outputs.
+        The server binds the selected project, exposes JSON/card endpoints, and can stop
+        automatically after `max_requests` for smoke tests.
         """
         from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
@@ -26331,16 +24595,11 @@ class RuntimeShell:
 
         def ensure_project_first_screen_state() -> dict[str, Any]:
             """
-            Read-only projection helper.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Serialize `microcosm_core.runtime_shell.ensure_project_first_screen_state` into
+            the payload shape expected by runtime shell.
 
-
-            - Teleology: Internal read-only helper for the runtime-shell projections.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            The mapping keys match the receipts, cards, or tests that consume this value
+            downstream.
             """
             if project_path is None:
                 return {}
@@ -26357,16 +24616,10 @@ class RuntimeShell:
 
         def cached_observatory_model() -> dict[str, Any]:
             """
-            Read-only projection helper.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Derive cached observatory model without touching module import state.
 
-
-            - Teleology: Internal read-only helper for the runtime-shell projections.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Notable helpers are `get`, `project_observatory`, and
+            `ensure_project_first_screen_state`.
             """
             model = observatory_cache.get("model")
             if isinstance(model, dict):
@@ -26405,19 +24658,9 @@ class RuntimeShell:
 
         def cached_observatory_html() -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute cached observatory HTML from the caller-supplied state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Notable helpers are `get`, `cached_observatory_model`, and `_observatory_html`.
             """
             body = observatory_cache.get("html")
             if isinstance(body, str):
@@ -26429,19 +24672,10 @@ class RuntimeShell:
 
         def cached_runtime_bridge_payload() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute cached runtime bridge payload from the caller-supplied state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Notable helpers are `get`, `observatory_intake_bridge`, and
+            `_compact_observatory_payload`.
             """
             payload = observatory_cache.get("runtime_bridge")
             if isinstance(payload, dict):
@@ -26468,19 +24702,9 @@ class RuntimeShell:
             builder: Callable[[], dict[str, Any]],
         ) -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Return cached runtime lens payload for the runtime shell flow.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `cache_key` and `builder`; notable helpers are `get` and `builder`.
             """
             payload = observatory_cache.get(cache_key)
             if isinstance(payload, dict):
@@ -26498,19 +24722,9 @@ class RuntimeShell:
             builder: Callable[[], dict[str, Any]],
         ) -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Derive cached project view payload without touching module import state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Inputs are `cache_key` and `builder`; notable helpers are `get` and `builder`.
             """
             payload = observatory_cache.get(cache_key)
             if isinstance(payload, dict):
@@ -26525,19 +24739,11 @@ class RuntimeShell:
 
         def kernel_payload() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Serialize `microcosm_core.runtime_shell.kernel_payload` into the payload shape
+            expected by runtime shell.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            The mapping keys match the receipts, cards, or tests that consume this value
+            downstream.
             """
             return {
                 **architecture_kernel.load_kernel_manifest(shell.root),
@@ -26683,16 +24889,11 @@ class RuntimeShell:
 
         def cached_project_view_path(path: str) -> dict[str, Any]:
             """
-            Read-only projection helper.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Serialize `microcosm_core.runtime_shell.cached_project_view_path` into the
+            payload shape expected by runtime shell.
 
-
-            - Teleology: Internal read-only helper for the runtime-shell projections.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            The mapping keys match the receipts, cards, or tests that consume this value
+            downstream.
             """
             cached_builder = project_view_builders.get(path)
             if cached_builder is None:
@@ -26702,19 +24903,9 @@ class RuntimeShell:
 
         def cached_spine_payload() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute cached spine payload from the caller-supplied state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Notable helpers are `get` and `spine`.
             """
             payload = observatory_cache.get("spine_payload")
             if isinstance(payload, dict):
@@ -26729,19 +24920,9 @@ class RuntimeShell:
 
         def cached_spine_card() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+            Derive cached spine card without touching module import state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Writes: the in-memory card payload only (no source-of-truth file).
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
+            Notable helpers are `get` and `spine_card`.
             """
             card = observatory_cache.get("spine_card")
             if isinstance(card, dict):
@@ -26756,19 +24937,10 @@ class RuntimeShell:
 
         def cached_authority_payload() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Produce the cached authority payload value used by
+            `microcosm_core.runtime_shell`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Notable helpers are `get`, `_read_json_if_exists`, and `authority`.
             """
             payload = observatory_cache.get("authority_payload")
             if isinstance(payload, dict):
@@ -26789,19 +24961,9 @@ class RuntimeShell:
 
         def cached_authority_card() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+            Produce the cached authority card value used by `microcosm_core.runtime_shell`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Writes: the in-memory card payload only (no source-of-truth file).
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
+            Notable helpers are `get` and `authority_card`.
             """
             card = observatory_cache.get("authority_card")
             if isinstance(card, dict):
@@ -26816,37 +24978,18 @@ class RuntimeShell:
 
         def warm_authority_payload() -> None:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Run warm authority payload for `microcosm_core.runtime_shell`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-            - Fails: I-O / OSError suppressed by the helper; returns without raising.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            The function is a named boundary around the visible side effect or orchestration
+            step in its body.
             """
             cached_authority_payload()
 
         def cached_workingness_payload() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute cached workingness payload from the caller-supplied state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Notable helpers are `get` and `workingness_map`.
             """
             payload = observatory_cache.get("workingness_payload")
             if isinstance(payload, dict):
@@ -26861,19 +25004,10 @@ class RuntimeShell:
 
         def cached_workingness_card() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+            Derive cached workingness card without touching module import state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Writes: the in-memory card payload only (no source-of-truth file).
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
+            Notable helpers are `get`, `_workingness_command_speed_card`, and
+            `workingness_map`.
             """
             card = observatory_cache.get("workingness_card")
             if isinstance(card, dict):
@@ -26892,18 +25026,9 @@ class RuntimeShell:
 
         def _cached_status_card_from_payload() -> dict[str, Any] | None:
             """
-            [ACTION]
-            Builds a generated projection card/row payload.
+            Derive cached status card from payload without touching module import state.
 
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Writes: the in-memory card payload only (no source-of-truth file).
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
+            Notable helpers are `get`.
             """
             payload = observatory_cache.get("status_payload")
             if not isinstance(payload, dict):
@@ -26916,37 +25041,18 @@ class RuntimeShell:
 
         def _served_status_card_response(card: dict[str, Any]) -> dict[str, Any]:
             """
-            [ACTION]
-            Builds a generated projection card/row payload.
+            Return served status card response for the runtime shell flow.
 
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Writes: the in-memory card payload only (no source-of-truth file).
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
+            Inputs are `card`; notable helpers are `ensure_project_first_screen_state`.
             """
             ensure_project_first_screen_state()
             return card
 
         def cached_status_payload() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Produce the cached status payload value used by `microcosm_core.runtime_shell`.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Notable helpers are `get`, `status`, and `_cached_status_card_from_payload`.
             """
             payload = observatory_cache.get("status_payload")
             if isinstance(payload, dict):
@@ -26969,19 +25075,10 @@ class RuntimeShell:
 
         def cached_status_card() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+            Derive cached status card without touching module import state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Writes: the in-memory card payload only (no source-of-truth file).
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
+            Notable helpers are `get`, `_cached_status_card_from_payload`,
+            `_served_status_card_response`, `ensure_project_first_screen_state`, and 1 more.
             """
             card = observatory_cache.get("status_card")
             if isinstance(card, dict):
@@ -27003,19 +25100,9 @@ class RuntimeShell:
 
         def cached_first_screen_full_card() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+            Compute cached first screen full card from the caller-supplied state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Writes: the in-memory card payload only (no source-of-truth file).
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
+            Notable helpers are `get` and `first_screen_composition_card`.
             """
             card = observatory_cache.get("first_screen_full_card")
             if isinstance(card, dict):
@@ -27029,19 +25116,10 @@ class RuntimeShell:
 
         def cached_first_screen_card() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project the compact runtime-shell card under the public-boundary contract.
+            Compute cached first screen card from the caller-supplied state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Writes: the in-memory card payload only (no source-of-truth file).
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
+            Notable helpers are `get`, `first_screen_compact_card`, and
+            `cached_first_screen_full_card`.
             """
             card = observatory_cache.get("first_screen_card")
             if isinstance(card, dict):
@@ -27054,16 +25132,11 @@ class RuntimeShell:
 
         def cached_landing_work_transaction(selected_route_id: Any) -> dict[str, Any]:
             """
-            Read-only projection helper.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Serialize `microcosm_core.runtime_shell.cached_landing_work_transaction` into
+            the payload shape expected by runtime shell.
 
-
-            - Teleology: Internal read-only helper for the runtime-shell projections.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            The mapping keys match the receipts, cards, or tests that consume this value
+            downstream.
             """
             if project_path is None:
                 return {}
@@ -27094,16 +25167,10 @@ class RuntimeShell:
 
         def cached_landing_model() -> dict[str, Any]:
             """
-            Read-only projection helper.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute cached landing model from the caller-supplied state.
 
-
-            - Teleology: Internal read-only helper for the runtime-shell projections.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Notable helpers are `get`, `cached_status_card`, `cached_first_screen_card`,
+            `cached_first_screen_full_card`, and 8 more.
             """
             model = observatory_cache.get("landing_model")
             if isinstance(model, dict):
@@ -27314,19 +25381,10 @@ class RuntimeShell:
 
         def cached_landing_html() -> str:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Compute cached landing HTML from the caller-supplied state.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a string result built from the inspected inputs.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values, declared filesystem outputs.
+            Notable helpers are `get`, `cached_landing_model`, `cached_first_screen_card`,
+            `cached_status_card`, and 9 more.
             """
             body = observatory_cache.get("landing_html")
             if isinstance(body, str):
@@ -27360,16 +25418,9 @@ class RuntimeShell:
 
             def landing_value(value: Any, fallback: str = "not projected") -> str:
                 """
-                Read-only projection helper.
-                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+                Compute landing value from `value` and `fallback`.
 
-
-                - Teleology: Internal read-only helper for the runtime-shell projections.
-                - Guarantee: returns a string result built from the inspected inputs.
-                - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                Inputs are `value` and `fallback`.
                 """
                 if value is None or value == "":
                     return fallback
@@ -27445,19 +25496,9 @@ class RuntimeShell:
             ]
             def scale_card_html(item: dict[str, Any]) -> str:
                 """
-                Builds a generated projection card/row payload.
-                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+                Produce the scale card HTML value used by `microcosm_core.runtime_shell`.
 
-
-                - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-                - Guarantee: returns a string result built from the inspected inputs.
-                - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-                - Writes: the in-memory card payload only (no source-of-truth file).
-                - When-needed: auditing how this generated card/row payload is derived.
-                - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-                - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
+                Inputs are `item`; notable helpers are `get` and `escape`.
                 """
                 proof_html = (
                     str(item["proof_html"])
@@ -27544,19 +25585,9 @@ class RuntimeShell:
 
         def cached_tour_payload() -> dict[str, Any]:
             """
-            Builds a generated projection card/row payload.
-            [ACTION] Project this runtime-shell helper under the public-boundary contract.
+            Return cached tour payload for the runtime shell flow.
 
-
-            - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-            - Guarantee: returns a JSON-safe projection dict payload.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: auditing how this generated card/row payload is derived.
-            - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-            - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-            - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-            - Reads: call arguments, module constants, imported helpers.
-            - Writes: return values.
+            Notable helpers are `get`, `ensure_project_first_screen_state`, and `tour`.
             """
             cached_model = observatory_cache.get("model")
             tour = cached_model.get("tour") if isinstance(cached_model, dict) else {}
@@ -27575,17 +25606,11 @@ class RuntimeShell:
 
         class RuntimeShellHTTPServer(ThreadingHTTPServer):
             """
-            [ROLE]
-            Runtime-shell coordinator type.
+            Record object for Runtime Shell H T T P Server.
 
-            - Teleology: Runtime-shell coordinator type holding the state its methods project.
-            - Guarantee: returns control to the caller after the documented effect.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: you need any projection this coordinator's methods expose.
-            - Escalates-to: the individual method whose lens you need, or `plectis status`.
-            - Ownership: Owned by `microcosm_core.runtime_shell`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-            - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-            - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+            It keeps `daemon_threads` and `block_on_close` together for the runtime shell
+            flow. Methods such as `serve_forever` derive serialized or path-shaped views
+            from that state.
             """
             daemon_threads = True
             block_on_close = False
@@ -27595,46 +25620,29 @@ class RuntimeShell:
                 poll_interval: float = RUNTIME_SHELL_SERVE_FOREVER_POLL_INTERVAL,
             ) -> None:
                 """
-                Run the request loop with the shell's tuned poll interval.
-                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+                Run serve forever on `RuntimeShellHTTPServer` for
+                `microcosm_core.runtime_shell`.
 
-
-                - Teleology: overrides the default poll cadence so shutdown (e.g. max_requests self-shutdown) is reacted to promptly.
-                - Guarantee: blocks serving requests until shutdown() is called, polling at RUNTIME_SHELL_SERVE_FOREVER_POLL_INTERVAL by default.
-                - When-needed: driving the runtime-shell server returned by RuntimeShell.serve.
-                - Fails: None beyond the underlying ThreadingHTTPServer loop.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                The function is a named boundary around the visible side effect or
+                orchestration step in its body.
                 """
                 super().serve_forever(poll_interval=poll_interval)
 
         class Handler(BaseHTTPRequestHandler):
             """
-            [ROLE]
-            Runtime-shell coordinator type.
+            Stateful helper for Handler in `microcosm_core.runtime_shell`.
 
-            - Teleology: Runtime-shell coordinator type holding the state its methods project.
-            - Guarantee: returns control to the caller after the documented effect.
-            - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-            - When-needed: you need any projection this coordinator's methods expose.
-            - Escalates-to: the individual method whose lens you need, or `plectis status`.
-            - Ownership: Owned by `microcosm_core.runtime_shell`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-            - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-            - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+            Methods such as `finish`, `_mark_request_complete`,
+            `_client_prefers_html_json_view`, `_json_drilldown_html`, `_send_json_html`,
+            `_send`, and 6 more share the instance state instead of passing a loose
+            dictionary through the call chain.
             """
             def finish(self) -> None:
                 """
-                Read-only projection helper.
-                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+                Run finish on `Handler` for `microcosm_core.runtime_shell`.
 
-
-                - Teleology: Internal read-only helper for the runtime-shell projections.
-                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-                - Fails: I-O / OSError suppressed by the helper; returns without raising.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                The function is a named boundary around the visible side effect or
+                orchestration step in its body.
                 """
                 try:
                     super().finish()
@@ -27643,15 +25651,10 @@ class RuntimeShell:
 
             def _mark_request_complete(self) -> None:
                 """
-                [ACTION]
-                Read-only projection helper.
+                Run mark request complete on `Handler` for `microcosm_core.runtime_shell`.
 
-                - Teleology: Internal read-only helper for the runtime-shell projections.
-                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-                - Fails: I-O / OSError suppressed by the helper; returns without raising.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                The function is a named boundary around the visible side effect or
+                orchestration step in its body.
                 """
                 limit = getattr(self.server, "microcosm_max_requests", None)
                 if not isinstance(limit, int):
@@ -27667,18 +25670,11 @@ class RuntimeShell:
 
             def _client_prefers_html_json_view(self) -> bool:
                 """
-                [ACTION]
-                Builds a generated projection card/row payload.
+                Return whether client prefers HTML JSON view holds for the runtime shell
+                flow.
 
-                - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-                - Guarantee: returns a bool verdict computed from the inspected inputs.
-                - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-                - When-needed: auditing how this generated card/row payload is derived.
-                - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-                - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                The result is derived from the caller-supplied state with `lower` and `get`;
+                failing evidence is returned or raised exactly where the body says so.
                 """
                 accept = (self.headers.get("Accept") or "").lower()
                 return "text/html" in accept and "application/json" not in accept
@@ -27689,18 +25685,11 @@ class RuntimeShell:
                 payload: dict[str, Any] | list[dict[str, Any]],
             ) -> str:
                 """
-                [ACTION]
-                Builds a generated projection card/row payload.
+                Derive json drilldown HTML on `Handler` without touching module import
+                state.
 
-                - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-                - Guarantee: returns a string result built from the inspected inputs.
-                - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-                - When-needed: auditing how this generated card/row payload is derived.
-                - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-                - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                Inputs are `status_code` and `payload`; notable helpers are `dumps`,
+                `urlparse`, and `escape`.
                 """
                 path = urlparse(self.path).path or "/"
                 json_text = json.dumps(
@@ -27739,18 +25728,10 @@ class RuntimeShell:
                 payload: dict[str, Any] | list[dict[str, Any]],
             ) -> None:
                 """
-                [ACTION]
-                Builds a generated projection card/row payload.
+                Run send JSON HTML on `Handler` for `microcosm_core.runtime_shell`.
 
-                - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
-                - When-needed: auditing how this generated card/row payload is derived.
-                - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-                - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                The function is a named boundary around the visible side effect or
+                orchestration step in its body.
                 """
                 body = self._json_drilldown_html(status_code, payload)
                 encoded = body.encode("utf-8")
@@ -27763,17 +25744,10 @@ class RuntimeShell:
 
             def _send(self, status_code: int, payload: dict[str, Any] | list[dict[str, Any]]) -> None:
                 """
-                [ACTION]
-                Routes a runtime-shell command / request.
+                Run send on `Handler` for `microcosm_core.runtime_shell`.
 
-                - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
-                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
-                - When-needed: routing or invoking this runtime-shell command/endpoint.
-                - Escalates-to: the selected RuntimeShell lens/runner it dispatches to, and its receipt.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                The function is a named boundary around the visible side effect or
+                orchestration step in its body.
                 """
                 if self._client_prefers_html_json_view():
                     self._send_json_html(status_code, payload)
@@ -27788,18 +25762,10 @@ class RuntimeShell:
 
             def _send_html(self, status_code: int, body: str) -> None:
                 """
-                [ACTION]
-                Builds a generated projection card/row payload.
+                Run send HTML on `Handler` for `microcosm_core.runtime_shell`.
 
-                - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
-                - When-needed: auditing how this generated card/row payload is derived.
-                - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-                - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                The function is a named boundary around the visible side effect or
+                orchestration step in its body.
                 """
                 encoded = body.encode("utf-8")
                 self.send_response(status_code)
@@ -27810,17 +25776,10 @@ class RuntimeShell:
 
             def _send_empty(self, status_code: int) -> None:
                 """
-                [ACTION]
-                Routes a runtime-shell command / request.
+                Run send empty on `Handler` for `microcosm_core.runtime_shell`.
 
-                - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
-                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
-                - When-needed: routing or invoking this runtime-shell command/endpoint.
-                - Escalates-to: the selected RuntimeShell lens/runner it dispatches to, and its receipt.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                The function is a named boundary around the visible side effect or
+                orchestration step in its body.
                 """
                 self.send_response(status_code)
                 self.send_header("Content-Length", "0")
@@ -27828,16 +25787,10 @@ class RuntimeShell:
 
             def log_message(self, format: str, *args: Any) -> None:
                 """
-                Read-only projection helper.
-                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+                Run log message on `Handler` for `microcosm_core.runtime_shell`.
 
-
-                - Teleology: Internal read-only helper for the runtime-shell projections.
-                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-                - Fails: I-O / OSError suppressed by the helper; returns without raising.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                The function is a named boundary around the visible side effect or
+                orchestration step in its body.
                 """
                 return
 
@@ -27845,15 +25798,10 @@ class RuntimeShell:
                 self,
             ) -> tuple[int | None, dict[str, Any] | None]:
                 """
-                [ACTION]
-                Read-only projection helper.
+                Compute evidence limit from query on `Handler` from the caller-supplied
+                state.
 
-                - Teleology: Internal read-only helper for the runtime-shell projections.
-                - Guarantee: returns a JSON-safe projection dict payload.
-                - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                Notable helpers are `get`, `parse_qs`, and `urlparse`.
                 """
                 values = parse_qs(urlparse(self.path).query, keep_blank_values=True).get(
                     "limit",
@@ -27882,18 +25830,10 @@ class RuntimeShell:
 
             def do_GET(self) -> None:
                 """
-                Routes a runtime-shell command / request.
-                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+                Run do G E T on `Handler` for `microcosm_core.runtime_shell`.
 
-
-                - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
-                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
-                - When-needed: routing or invoking this runtime-shell command/endpoint.
-                - Escalates-to: the selected RuntimeShell lens/runner it dispatches to, and its receipt.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                The function is a named boundary around the visible side effect or
+                orchestration step in its body.
                 """
                 path = urlparse(self.path).path
                 if path == "/favicon.ico":
@@ -27976,18 +25916,10 @@ class RuntimeShell:
 
             def do_POST(self) -> None:
                 """
-                Routes a runtime-shell command / request.
-                [ACTION] Project this runtime-shell helper under the public-boundary contract.
+                Run do P O S T on `Handler` for `microcosm_core.runtime_shell`.
 
-
-                - Teleology: Runtime-shell command/transport adapter: routes a request to the selected lens/runner.
-                - Guarantee: returns None; runs for its in-place / I-O effect, not a value.
-                - Fails: unknown path / bad query -> 4xx JSON envelope; never leaks a source body.
-                - When-needed: routing or invoking this runtime-shell command/endpoint.
-                - Escalates-to: the selected RuntimeShell lens/runner it dispatches to, and its receipt.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
+                The function is a named boundary around the visible side effect or
+                orchestration step in its body.
                 """
                 path = urlparse(self.path).path
                 if path == "/demo/run":
@@ -28019,15 +25951,9 @@ TOUR_EXIT_SOFT_BLOCKING_SURFACE_IDS = {
 
 def _tour_blocking_surface_ids(payload: dict[str, Any]) -> set[str]:
     """
-    [ACTION]
-    Read-only projection helper.
+    Derive tour blocking surface IDs without touching module import state.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns a set computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `get` and `update`.
     """
     surface_ids: set[str] = set()
     for source in (
@@ -28045,15 +25971,9 @@ def _tour_blocking_surface_ids(payload: dict[str, Any]) -> set[str]:
 
 def _tour_exit_code(payload: Any) -> int:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the tour exit code value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell tour command.
-    - Guarantee: returns an int computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `_tour_blocking_surface_ids` and `get`.
     """
     if not isinstance(payload, dict) or payload.get("status") in {None, PASS}:
         return 0
@@ -28100,15 +26020,9 @@ def _tour_exit_code(payload: Any) -> int:
 
 def _print_json(payload: Any, *, exit_code: int | None = None) -> int:
     """
-    [ACTION]
-    Read-only projection helper.
+    Compute print JSON from `payload` and `exit_code`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns an int computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Inputs are `payload` and `exit_code`; notable helpers are `dumps` and `get`.
     """
     print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
     if exit_code is not None:
@@ -28118,18 +26032,9 @@ def _print_json(payload: Any, *, exit_code: int | None = None) -> int:
 
 def _print_json_card(payload: Any) -> int:
     """
-    [ACTION]
-    Builds a generated projection card/row payload.
+    Compute print JSON card from `payload`.
 
-    - Teleology: Generated-projection builder: derives a JSON-safe card/row payload from public registries and receipts.
-    - Guarantee: returns an int computed from the inspected inputs.
-    - Fails: missing / malformed input -> empty-or-default envelope; does not raise.
-    - Writes: the in-memory card payload only (no source-of-truth file).
-    - When-needed: auditing how this generated card/row payload is derived.
-    - Escalates-to: the source registry it derives from, or the python-lens / `plectis status` rebuild that regenerates this projection.
-    - Non-goal: does not authorize release and is not source-of-truth authority; the projection derives from the registries it reads.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `payload`; notable helpers are `dumps`.
     """
     print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
     return 0
@@ -28137,15 +26042,10 @@ def _print_json_card(payload: Any) -> int:
 
 def _nonnegative_int(value: str) -> int:
     """
-    [ACTION]
-    Read-only projection helper.
+    Produce the nonnegative int value used by `microcosm_core.runtime_shell`.
 
-    - Teleology: Internal read-only helper for the runtime-shell projections.
-    - Guarantee: returns an int computed from the inspected inputs.
-    - Fails: value parses < 0 -> raises argparse.ArgumentTypeError; non-int -> ValueError.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Inputs are `value`; notable helpers are `ArgumentTypeError`; invalid cases raise from
+    the explicit checks in the body.
     """
     parsed = int(value)
     if parsed < 0:
@@ -28155,17 +26055,10 @@ def _nonnegative_int(value: str) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    Construct the microcosm-runtime CLI argument parser.
-    [ACTION] Project this runtime-shell helper under the public-boundary contract.
+    Register CLI syntax for `microcosm_core.runtime_shell.build_parser`.
 
-
-    - Teleology: single source of truth for the runtime-shell subcommand surface (lenses, run, serve, route, work, evidence).
-    - Guarantee: returns an ArgumentParser whose subparsers cover every runtime-shell command that main dispatches.
-    - When-needed: parsing runtime-shell CLI args, or introspecting the available subcommands.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(prog="microcosm-runtime")
     subparsers = parser.add_subparsers(dest="command")
@@ -28279,17 +26172,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
     """
-    CLI entry: parse runtime-shell args and dispatch to the selected RuntimeShell lens/command.
-    [ACTION] Project this runtime-shell helper under the public-boundary contract.
+    Run the `microcosm_core.runtime_shell` command-line entry point.
 
-
-    - Teleology: command-line front door to every runtime-shell lens, the demo runner, and the HTTP observatory server.
-    - Guarantee: runs the chosen subcommand on a RuntimeShell, prints its JSON, and returns its exit code; "serve" blocks until interrupt/close.
-    - Reads: argv and optional root for RuntimeShell construction.
-    - When-needed: invoking any runtime-shell command from the shell or "python -m microcosm_core.runtime_shell".
-    - Fails: no/unknown command -> prints help -> return code 2; "serve" KeyboardInterrupt -> return code 130.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values, stdout/stderr or CLI result text.
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     parser = build_parser()
     args = parser.parse_args(argv)

@@ -1,27 +1,13 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs indirect prompt injection information flow policy replay for the public
+Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, BODY_IMPORT_STATUS, BODY_IMPORT_CLASSIFICATION, PRODUCT_PATH_ROLE, SOURCE_MODULE_MANIFEST_NAME, SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS, AGENT_EXECUTION_TRACE_SOURCE_REF, AGENT_EXECUTION_TRACE_TARGET_FILE_REF, AGENT_EXECUTION_TRACE_TARGET_SYMBOL_REF, SOURCE_OPEN_BODY_SCHEMA, HASH_CHUNK_SIZE, PUBLIC_SAFE_SOURCE_BODY_CLASSES, INPUT_NAMES, NEGATIVE_INPUT_NAMES, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.macro_tools.agent_execution_trace, microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `validate_projection_protocol`, `validate_injection_policy`,
+`validate_source_documents`, `validate_information_flow_graph`, `validate_policy_verdicts`,
+`validate_sanitized_outputs`, and 6 more; constants such as `ORGAN_ID`, `FIXTURE_ID`,
+`VALIDATOR_ID`, `RESULT_NAME`, and 28 more pin local fixture names; dependencies include
+`argparse`, `hashlib`, `json`, `collections`, and 3 more. It builds public fixture, result,
+card, or verdict structures while keeping private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -248,13 +234,10 @@ ANTI_CLAIM = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -270,26 +253,22 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return display for the organs indirect prompt injection information flow policy replay
+    flow.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._rows`
+    from `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -299,13 +278,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -314,13 +291,11 @@ def _strings(value: object) -> list[str]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return input paths for the organs indirect prompt injection information flow policy
+    replay flow.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file` and
+    `append`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -332,13 +307,11 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -349,13 +322,10 @@ def _sha256(path: Path) -> str:
 
 def _repo_root_for_public_refactor(public_root: Path) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_repo_root_for_public_refactor` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return repo root for public refactor for
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay`.
+
+    Inputs are `public_root`; notable helpers are `is_file`.
     """
     for candidate in (public_root.parent, *public_root.parents):
         if (
@@ -374,13 +344,12 @@ def _body_import_verification(
     source_modules: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_body_import_verification` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._body_import_verification`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     repo_root = _repo_root_for_public_refactor(public_root)
     source_path = (
@@ -441,13 +410,10 @@ def _body_import_verification(
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module manifest path for
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay`.
+
+    Inputs are `input_dir`.
     """
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
@@ -459,13 +425,11 @@ def _source_module_target_path(
     public_root: Path,
 ) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module target path for the organs indirect prompt injection information
+    flow policy replay flow.
+
+    Inputs are `target_ref`, `input_dir`, and `public_root`; notable helpers are
+    `removeprefix` and `startswith`.
     """
     normalized = target_ref.removeprefix("microcosm-substrate/")
     if normalized.startswith("source_modules/"):
@@ -475,13 +439,11 @@ def _source_module_target_path(
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_paths` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source module paths value used by
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay`.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are
+    `_source_module_manifest_path`, `_rows`, `is_file`, `read_json_strict`, and 3 more.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -516,13 +478,10 @@ def _source_module_target_path_for_ref(
     public_root: Path,
 ) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_path_for_ref` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive source module target path for ref without touching module import state.
+
+    Inputs are `target_ref`, `input_dir`, and `public_root`; notable helpers are
+    `_source_module_target_path`.
     """
     if not target_ref:
         return None
@@ -535,13 +494,12 @@ def _source_module_target_path_for_ref(
 
 def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_paths_for_input` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan paths for input holds for the organs indirect prompt injection
+    information flow policy replay flow.
+
+    The result is derived from `input_dir` and `include_negative` with
+    `_public_root_for_path`, `_input_paths`, and `_source_module_paths`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     public_root = _public_root_for_path(input_dir)
     return [
@@ -552,13 +510,10 @@ def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Pa
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_paths` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute freshness paths from `input_dir` and `include_negative`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `Path`,
+    `_public_root_for_path`, `resolve`, and `_scan_paths_for_input`.
     """
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
@@ -571,13 +526,12 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._freshness_basis`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -641,13 +595,11 @@ def _fresh_prompt_injection_bundle_receipt(
     command: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_prompt_injection_bundle_receipt` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute fresh prompt injection bundle receipt from `input_dir`, `out_dir`, and
+    `command`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `get`,
+    `_freshness_basis`, `is_file`, `read_json_strict`, and 1 more.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -689,13 +641,11 @@ def _fresh_prompt_injection_bundle_receipt(
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -712,13 +662,12 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._finding`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -741,13 +690,11 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs indirect prompt injection information flow policy replay
+    flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -763,13 +710,10 @@ def _record(
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return merge observed for
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay`.
+
+    Inputs are `results`; notable helpers are `defaultdict`, `items`, `get`, and `add`.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -781,13 +725,10 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_findings` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._merge_findings`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     findings: list[dict[str, Any]] = []
     for result in results:
@@ -810,13 +751,12 @@ def _source_module_manifest_result(
     require_manifest: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_result` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._source_module_manifest_result`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     manifest_ref = _display(manifest_path, public_root=public_root)
@@ -1083,13 +1023,12 @@ def _source_open_body_import_summary(
     source_module_result: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._source_open_body_import_summary`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     module_ids = _strings(source_module_result.get("module_ids"))
     manifest_ref = source_module_result.get("source_module_manifest_ref")
@@ -1143,39 +1082,32 @@ def _source_open_body_import_summary(
 
 def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_missing` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return missing for
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay`.
+
+    Inputs are `row` and `required`; notable helpers are `get`.
     """
     return [field for field in required if row.get(field) in (None, "", [])]
 
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_forbidden_key` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has forbidden key holds for the organs indirect prompt injection
+    information flow policy replay flow.
+
+    The result is derived from `row`; failing evidence is returned or raised exactly where
+    the body says so.
     """
     return any(key in row for key in FORBIDDEN_KEYS)
 
 
 def _is_untrusted(label: str) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_is_untrusted` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether is untrusted holds for the organs indirect prompt injection information
+    flow policy replay flow.
+
+    The result is derived from `label` with `startswith`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     return label.startswith("untrusted_")
 
@@ -1188,13 +1120,12 @@ def validate_projection_protocol(
     source_modules: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_projection_protocol` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay.validate_projection_protocol`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
@@ -1282,13 +1213,12 @@ def validate_projection_protocol(
 
 def validate_injection_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_injection_policy` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay.validate_injection_policy`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy = payload if isinstance(payload, dict) else {}
     allowed = set(_strings(policy.get("allowed_verdicts")))
@@ -1355,13 +1285,12 @@ def validate_injection_policy(payload: object) -> dict[str, Any]:
 
 def validate_source_documents(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_source_documents` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay.validate_source_documents`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "source_documents")
     findings: list[dict[str, Any]] = []
@@ -1430,13 +1359,10 @@ def _derived_flow_taint_labels(
     source: dict[str, Any],
 ) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_derived_flow_taint_labels` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the derived flow taint labels value used by
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay`.
+
+    Inputs are `row` and `source`; notable helpers are `_strings`, `add`, and `get`.
     """
     labels = set(_strings(source.get("taint_labels")))
     proposed_action = str(row.get("proposed_action_ref") or "")
@@ -1448,13 +1374,11 @@ def _derived_flow_taint_labels(
 
 def _has_untrusted_taint(labels: list[str]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_untrusted_taint` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has untrusted taint holds for the organs indirect prompt injection
+    information flow policy replay flow.
+
+    The result is derived from `labels` with `startswith`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     return any(
         label.startswith("untrusted_")
@@ -1468,13 +1392,10 @@ def _derived_policy_verdict(
     derived_taint_labels: list[str],
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_derived_policy_verdict` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute derived policy verdict from `row` and `derived_taint_labels`.
+
+    Inputs are `row` and `derived_taint_labels`; notable helpers are `_has_untrusted_taint`
+    and `get`.
     """
     labels = set(derived_taint_labels)
     sink_kind = str(row.get("sink_kind") or "")
@@ -1506,13 +1427,10 @@ def _taint_propagation_receipt(
     source_by_id: dict[str, dict[str, Any]],
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_taint_propagation_receipt` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive taint propagation receipt without touching module import state.
+
+    Inputs are `rows` and `source_by_id`; notable helpers are `get`, `update`,
+    `_derived_policy_verdict`, `append`, and 6 more.
     """
     findings: list[dict[str, Any]] = []
     taints_by_node: dict[str, set[str]] = {
@@ -1604,13 +1522,12 @@ def _taint_propagation_receipt(
 
 def _live_tool_call_trace_promotion(public_trace: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_live_tool_call_trace_promotion` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._live_tool_call_trace_promotion`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     spans = [
         row
@@ -1686,13 +1603,12 @@ def validate_information_flow_graph(
     source_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_information_flow_graph` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay.validate_information_flow_graph`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "information_flows")
     source_by_id = {str(row["source_id"]): row for row in source_rows}
@@ -1787,13 +1703,12 @@ def validate_policy_verdicts(
     flow_rows: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_policy_verdicts` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay.validate_policy_verdicts`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "policy_verdicts")
     policy_rows = policy if isinstance(policy, dict) else {}
@@ -1856,13 +1771,12 @@ def validate_sanitized_outputs(
     verdicts_by_flow: dict[str, str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_sanitized_outputs` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay.validate_sanitized_outputs`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "sanitized_outputs")
     flow_by_id = {str(row["flow_id"]): row for row in flow_rows}
@@ -1933,13 +1847,12 @@ def validate_sanitized_outputs(
 
 def validate_cold_replay(payload: object, flow_ids: set[str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_cold_replay` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay.validate_cold_replay`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "cold_replay")
     findings: list[dict[str, Any]] = []
@@ -1993,13 +1906,12 @@ def validate_cold_replay(payload: object, flow_ids: set[str]) -> dict[str, Any]:
 
 def validate_negative_cases(negative_payloads: dict[str, object]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_negative_cases` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay.validate_negative_cases`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -2102,13 +2014,12 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._build_result`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -2303,13 +2214,12 @@ def _build_result(
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_board_from_result` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._board_from_result`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": (
@@ -2391,13 +2301,12 @@ def _write_receipts(
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._write_receipts`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
@@ -2510,13 +2419,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for the organs indirect prompt injection information flow policy replay flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `Path`, `_build_result`, `_freshness_basis`, and `_write_receipts`.
     """
     source = Path(input_dir)
     result = _build_result(
@@ -2546,13 +2452,11 @@ def run_prompt_injection_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_prompt_injection_bundle` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Produce the run prompt injection bundle value used by
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `mkdir`, `_build_result`, `_freshness_basis`, and 4 more.
     """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -2582,13 +2486,10 @@ def run_prompt_injection_bundle(
 
 def _card_receipt_paths(paths: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_card_receipt_paths` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the card receipt paths value used by
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay`.
+
+    Inputs are `paths`; notable helpers are `normalize_public_receipt_paths` and `get`.
     """
     if not isinstance(paths, list) or not all(isinstance(path, str) for path in paths):
         return []
@@ -2601,13 +2502,12 @@ def _card_receipt_paths(paths: object) -> list[str]:
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay.result_card`
+    into the payload shape expected by organs indirect prompt injection information flow
+    policy replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -2716,13 +2616,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         prog="indirect_prompt_injection_information_flow_policy_replay"
@@ -2742,13 +2640,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.indirect_prompt_injection_information_flow_policy_replay`
+    command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

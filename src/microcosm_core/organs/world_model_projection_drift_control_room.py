@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.world_model_projection_drift_control_room` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs world model projection drift control room for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, INPUT_NAMES, SOURCE_MODULE_MANIFEST_NAME, VIEW_QUALITY_GEOMETRY_PROBE_NAME, NEGATIVE_INPUT_NAMES, EXPECTED_NEGATIVE_CASES, REQUIRED_ROW_FIELDS, FACT_AUTHORITY_REQUIRED_FIELDS, ALLOWED_FACT_AUTHORITY_TREATMENTS, PRIVATE_NEEDLES, AUTHORITY_CEILING, ANTI_CLAIM, BODY_IMPORT_STATUS, SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `run`, `run_drift_control_bundle`, `result_card`, and `main`;
+constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 30 more pin
+local fixture names; dependencies include `argparse`, `hashlib`, `importlib`, `json`, and 4
+more. It builds public fixture, result, card, or verdict structures while keeping private
+substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -248,13 +232,10 @@ BODY_IMPORT_VERIFICATION = {
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for
+    `microcosm_core.organs.world_model_projection_drift_control_room`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -270,26 +251,22 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the display value used by
+    `microcosm_core.organs.world_model_projection_drift_control_room`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.world_model_projection_drift_control_room._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -299,13 +276,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.world_model_projection_drift_control_room._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -314,26 +289,21 @@ def _strings(value: object) -> list[str]:
 
 def _sha256_digest(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_digest` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.world_model_projection_drift_control_room._sha256_digest`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return f"sha256:{hashlib.sha256(path.read_bytes()).hexdigest()}"
 
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module manifest path for
+    `microcosm_core.organs.world_model_projection_drift_control_room`.
+
+    Inputs are `input_dir`.
     """
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
@@ -345,13 +315,11 @@ def _source_module_target_path(
     public_root: Path,
 ) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module target path for the organs world model projection drift control
+    room flow.
+
+    Inputs are `target_ref`, `input_dir`, and `public_root`; notable helpers are
+    `removeprefix` and `startswith`.
     """
     normalized = target_ref.removeprefix("microcosm-substrate/")
     if normalized.startswith("source_modules/"):
@@ -361,13 +329,11 @@ def _source_module_target_path(
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_paths` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source module paths value used by
+    `microcosm_core.organs.world_model_projection_drift_control_room`.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are
+    `_source_module_manifest_path`, `_rows`, `is_file`, `read_json_strict`, and 3 more.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -392,26 +358,20 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
 
 def _runtime_receipt_paths(public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_runtime_receipt_paths` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute runtime receipt paths from `public_root`.
+
+    Inputs are `public_root`.
     """
     return [public_root / ref for ref in RUNTIME_DRIFT_RECEIPT_REFS]
 
 
 def _source_artifact_paths(public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_artifact_paths` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source artifact paths for the organs world model projection drift control room
+    flow.
+
+    Inputs are `public_root`; notable helpers are `_resolve_source_artifact_path`, `values`,
+    and `get`.
     """
     refs = {
         str(evidence.get("artifact_ref") or "")
@@ -430,13 +390,11 @@ def _runtime_receipt_witness_result(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_runtime_receipt_witness_result` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._runtime_receipt_witness_result`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     receipt_row_ids: set[str] = set()
@@ -526,13 +484,11 @@ def _derive_drift_row_from_projection(
     receipt_ref: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_derive_drift_row_from_projection` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._derive_drift_row_from_projection`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     row_id = str(row.get("drift_row_id") or "")
     source_ref = str(row.get("source_ref") or "")
@@ -585,13 +541,11 @@ def _projection_recompute_result(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_projection_recompute_result` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._projection_recompute_result`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     selected_ids = _strings(projection_protocol.get("selected_pattern_ids"))
     findings: list[dict[str, Any]] = []
@@ -695,13 +649,11 @@ def _supplied_drift_rows_snapshot_result(
     projection_recompute: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_supplied_drift_rows_snapshot_result` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._supplied_drift_rows_snapshot_result`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     supplied_rows = _rows(supplied_payload, "drift_rows")
@@ -784,13 +736,11 @@ def _source_ref_evidence_result(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_ref_evidence_result` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._source_ref_evidence_result`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     evidence_rows: list[dict[str, Any]] = []
@@ -836,13 +786,10 @@ def _source_ref_evidence_result(
 
 def _source_root_for_public_root(public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_root_for_public_root` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source root for public root for the organs world model projection drift control
+    room flow.
+
+    Inputs are `public_root`.
     """
     if public_root.name == "microcosm-substrate":
         return public_root.parent
@@ -851,13 +798,10 @@ def _source_root_for_public_root(public_root: Path) -> Path:
 
 def _resolve_source_artifact_path(artifact_ref: str, *, public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_resolve_source_artifact_path` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute resolve source artifact path from `artifact_ref` and `public_root`.
+
+    Inputs are `artifact_ref` and `public_root`; notable helpers are
+    `_source_root_for_public_root` and `startswith`.
     """
     source_root = _source_root_for_public_root(public_root)
     if artifact_ref.startswith(("receipts/", "examples/", "fixtures/", "core/")):
@@ -867,13 +811,11 @@ def _resolve_source_artifact_path(artifact_ref: str, *, public_root: Path) -> Pa
 
 def _load_jsonl_rows(path: Path) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_jsonl_rows` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Load load JSONl rows for
+    `microcosm_core.organs.world_model_projection_drift_control_room`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     rows: list[dict[str, Any]] = []
     for line in path.read_text(encoding="utf-8").splitlines():
@@ -891,13 +833,11 @@ def _source_state_diff_result(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_state_diff_result` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._source_state_diff_result`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     evidence_rows: list[dict[str, Any]] = []
@@ -1128,13 +1068,11 @@ def _source_state_diff_result(
 
 def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_result` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._source_module_manifest_result`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -1248,13 +1186,11 @@ def _source_module_manifest_result(input_dir: Path, *, public_root: Path) -> dic
 
 def _view_quality_source_module_path(input_dir: Path, *, public_root: Path) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_view_quality_source_module_path` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the view quality source module path value used by
+    `microcosm_core.organs.world_model_projection_drift_control_room`.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are
+    `_source_module_manifest_path`, `_rows`, `is_file`, `read_json_strict`, and 2 more.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -1279,13 +1215,11 @@ def _view_quality_source_module_path(input_dir: Path, *, public_root: Path) -> P
 
 def _load_view_quality_source_module(path: Path) -> Any:
     """
-    [ACTION]
-    - Teleology: Implements `_load_view_quality_source_module` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load view quality source module for
+    `microcosm_core.organs.world_model_projection_drift_control_room`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     spec = importlib.util.spec_from_file_location(
         "_microcosm_world_model_projection_drift_view_quality_census",
@@ -1305,13 +1239,11 @@ def _view_quality_geometry_grade_result(
     source_module_result: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_view_quality_geometry_grade_result` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._view_quality_geometry_grade_result`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     probe_path = input_dir / VIEW_QUALITY_GEOMETRY_PROBE_NAME
     if not probe_path.is_file():
@@ -1432,13 +1364,11 @@ def _source_open_body_import_summary(
     source_module_result: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._source_open_body_import_summary`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     module_ids = _strings(source_module_result.get("module_ids"))
     material_classes = _strings(source_module_result.get("material_classes"))
@@ -1482,13 +1412,11 @@ def _source_open_body_import_summary(
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return input paths for
+    `microcosm_core.organs.world_model_projection_drift_control_room`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file` and
+    `append`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -1503,13 +1431,12 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_paths_for_input` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan paths for input holds for the organs world model projection drift
+    control room flow.
+
+    The result is derived from `input_dir` and `include_negative` with
+    `_public_root_for_path`, `extend`, `_input_paths`, `_source_module_paths`, and 3 more;
+    failing evidence is returned or raised exactly where the body says so.
     """
     paths = list(_input_paths(input_dir, include_negative=include_negative))
     public_root = _public_root_for_path(input_dir)
@@ -1521,13 +1448,10 @@ def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Pa
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_paths` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return freshness paths for the organs world model projection drift control room flow.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `Path`,
+    `_public_root_for_path`, `resolve`, and `_scan_paths_for_input`.
     """
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
@@ -1540,13 +1464,11 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._freshness_basis` into
+    the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -1610,13 +1532,11 @@ def _fresh_drift_control_bundle_receipt(
     command: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_drift_control_bundle_receipt` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the fresh drift control bundle receipt value used by
+    `microcosm_core.organs.world_model_projection_drift_control_room`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `_freshness_basis`, `get`, `is_file`, and `read_json_strict`.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -1655,13 +1575,11 @@ def _fresh_drift_control_bundle_receipt(
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for
+    `microcosm_core.organs.world_model_projection_drift_control_room`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -1678,13 +1596,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.world_model_projection_drift_control_room._finding`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -1707,13 +1622,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs world model projection drift control room flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -1735,13 +1647,10 @@ def _row_policy_findings(
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_row_policy_findings` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Build a structured finding row for row policy findings.
+
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     findings: list[dict[str, Any]] = []
     subject_id = str(row.get("drift_row_id") or case_id)
@@ -1978,13 +1887,11 @@ def _row_policy_findings(
 
 def _required_policy_ok(policy: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_required_policy_ok` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether required policy ok holds for the organs world model projection drift
+    control room flow.
+
+    The result is derived from `policy` with `get` and `items`; failing evidence is returned
+    or raised exactly where the body says so.
     """
     ceiling = policy.get("authority_ceiling")
     if not isinstance(ceiling, dict):
@@ -2001,13 +1908,11 @@ def _required_policy_ok(policy: dict[str, Any]) -> bool:
 
 def _fact_authority_mesh_summary(drift_rows: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_fact_authority_mesh_summary` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._fact_authority_mesh_summary`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     fact_rows = [
         row for row in drift_rows if isinstance(row.get("fact_authority"), dict)
@@ -2040,13 +1945,11 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._build_result` into the
+    payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     public_root = _public_root_for_path(input_dir)
@@ -2338,13 +2241,10 @@ def _build_result(
 
 def _board(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_board` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.world_model_projection_drift_control_room._board` into
+    the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     summary = result.get("drift_summary", {})
     negatives = result.get("negative_case_summary", {})
@@ -2407,13 +2307,11 @@ def _write_receipts(
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.organs.world_model_projection_drift_control_room._write_receipts` into
+    the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
@@ -2512,13 +2410,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for the organs world model projection drift control room flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `_build_result`, `_freshness_basis`, `_write_receipts`, and `Path`.
     """
     result = _build_result(
         Path(input_dir),
@@ -2546,13 +2441,10 @@ def run_drift_control_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_drift_control_bundle` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Derive run drift control bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `mkdir`, `_build_result`, `_freshness_basis`, and 5 more.
     """
     source = Path(input_dir)
     out = Path(out_dir)
@@ -2587,13 +2479,10 @@ def run_drift_control_bundle(
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.world_model_projection_drift_control_room.result_card`
+    into the payload shape expected by organs world model projection drift control room.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -2786,13 +2675,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.organs.world_model_projection_drift_control_room._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(prog="world_model_projection_drift_control_room")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -2810,13 +2697,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.world_model_projection_drift_control_room` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.world_model_projection_drift_control_room` command-line
+    entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

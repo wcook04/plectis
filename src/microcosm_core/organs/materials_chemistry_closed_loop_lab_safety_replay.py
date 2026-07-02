@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs materials chemistry closed loop lab safety replay for the public Plectis
+package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, PUBLIC_SURFACE_NAME, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, SAFETY_VERDICT_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, BODY_IMPORT_STATUS, BODY_IMPORT_CLASSIFICATION, PRODUCT_PATH_ROLE, SOURCE_MODULE_MANIFEST_NAME, SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS, SOURCE_OPEN_BODY_SCHEMA, HASH_CHUNK_SIZE, NUMERIC_REPLAY_SCORE_FIELD, NUMERIC_REPLAY_ASSAY_VALUE_FIELD, NUMERIC_REPLAY_ACTIVE_LEARNING_FIELD, NUMERIC_REPLAY_SAFETY_GATE_FIELD, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.macro_tools.lab_evolve_replay, microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `run`, `run_lab_bundle`, `result_card`, and `main`; constants such as
+`ORGAN_ID`, `PUBLIC_SURFACE_NAME`, `FIXTURE_ID`, `VALIDATOR_ID`, and 42 more pin local
+fixture names; dependencies include `argparse`, `hashlib`, `json`, `math`, and 4 more. It
+builds public fixture, result, card, or verdict structures while keeping private substrate
+bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -311,13 +296,10 @@ SURFACE_REFRAME = {
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -333,26 +315,22 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the display value used by
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -362,13 +340,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -377,13 +353,11 @@ def _strings(value: object) -> list[str]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the input paths value used by
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file` and
+    `append`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -395,13 +369,9 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _code_freshness_paths() -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_code_freshness_paths` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute code freshness paths from the caller-supplied state.
+
+    Notable helpers are `resolve` and `Path`.
     """
     core_root = Path(__file__).resolve().parents[1]
     return [
@@ -412,13 +382,11 @@ def _code_freshness_paths() -> list[Path]:
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -429,13 +397,11 @@ def _sha256(path: Path) -> str:
 
 def _stable_digest(payload: object) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_stable_digest` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._stable_digest`.
+
+    The input is `payload`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     encoded = json.dumps(
         payload,
@@ -448,13 +414,10 @@ def _stable_digest(payload: object) -> str:
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module manifest path for
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay`.
+
+    Inputs are `input_dir`.
     """
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
@@ -466,13 +429,11 @@ def _source_module_target_path(
     public_root: Path,
 ) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source module target path value used by
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay`.
+
+    Inputs are `target_ref`, `input_dir`, and `public_root`; notable helpers are
+    `removeprefix` and `startswith`.
     """
     normalized = target_ref.removeprefix("microcosm-substrate/")
     if normalized.startswith("source_modules/"):
@@ -482,13 +443,11 @@ def _source_module_target_path(
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_paths` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source module paths value used by
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay`.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are
+    `_source_module_manifest_path`, `_rows`, `is_file`, `read_json_strict`, and 3 more.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -513,13 +472,12 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
 
 def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_paths_for_input` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan paths for input holds for the organs materials chemistry closed loop
+    lab safety replay flow.
+
+    The result is derived from `input_dir` and `include_negative` with
+    `_public_root_for_path`, `_input_paths`, and `_source_module_paths`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     public_root = _public_root_for_path(input_dir)
     return [
@@ -530,13 +488,10 @@ def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Pa
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_paths` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive freshness paths without touching module import state.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `Path`,
+    `_public_root_for_path`, `_scan_paths_for_input`, and `_code_freshness_paths`.
     """
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
@@ -549,13 +504,12 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._freshness_basis`
+    into the payload shape expected by organs materials chemistry closed loop lab safety
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -619,13 +573,10 @@ def _fresh_lab_bundle_receipt(
     command: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_lab_bundle_receipt` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute fresh lab bundle receipt from `input_dir`, `out_dir`, and `command`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `_freshness_basis`, `get`, `is_file`, and `read_json_strict`.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -664,13 +615,11 @@ def _fresh_lab_bundle_receipt(
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -687,13 +636,11 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._finding` into
+    the payload shape expected by organs materials chemistry closed loop lab safety replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -716,13 +663,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs materials chemistry closed loop lab safety replay flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -748,13 +692,10 @@ def _missing_fields(
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_missing_fields` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute missing fields from `row`, `fields`, `code`, `kind`, `row_id`, and 2 more.
+
+    Inputs are `row`, `fields`, `code`, `kind`, `row_id`, and 2 more; notable helpers are
+    `_record`.
     """
     findings: list[dict[str, Any]] = []
     for field in fields:
@@ -773,13 +714,11 @@ def _missing_fields(
 
 def _has_private_body(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_private_body` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has private body holds for the organs materials chemistry closed loop lab
+    safety replay flow.
+
+    The result is derived from `row` with `dumps`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     encoded = json.dumps(row, sort_keys=True)
     return any(needle in encoded for needle in PRIVATE_NEEDLES)
@@ -787,13 +726,10 @@ def _has_private_body(row: dict[str, Any]) -> bool:
 
 def _secret_exclusion_scan(scan: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_secret_exclusion_scan` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the secret exclusion scan value used by
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay`.
+
+    Inputs are `scan`; notable helpers are `pop`.
     """
     public_scan = dict(scan)
     legacy_body_free = public_scan.pop("body_" "redacted", None)
@@ -809,13 +745,12 @@ def _source_module_manifest_result(
     require_manifest: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_result` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._source_module_manifest_result`
+    into the payload shape expected by organs materials chemistry closed loop lab safety
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     manifest_ref = _display(manifest_path, public_root=public_root)
@@ -1089,13 +1024,10 @@ def _source_module_manifest_result(
 
 def _numeric_value(row: dict[str, Any], field: str) -> float | None:
     """
-    [ACTION]
-    - Teleology: Implements `_numeric_value` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return numeric value for the organs materials chemistry closed loop lab safety replay
+    flow.
+
+    Inputs are `row` and `field`; notable helpers are `get` and `isfinite`.
     """
     value = row.get(field)
     if isinstance(value, bool) or value is None:
@@ -1109,13 +1041,10 @@ def _numeric_value(row: dict[str, Any], field: str) -> float | None:
 
 def _numeric_score_error_code(row: dict[str, Any], field: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_numeric_score_error_code` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return numeric score error code for the organs materials chemistry closed loop lab
+    safety replay flow.
+
+    Inputs are `row` and `field`; notable helpers are `get` and `isfinite`.
     """
     value = row.get(field)
     if isinstance(value, bool) or value is None:
@@ -1132,13 +1061,11 @@ def _numeric_replay_policy_settings(
     replay_policy: dict[str, Any],
 ) -> tuple[bool, str, float, list[dict[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_numeric_replay_policy_settings` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return numeric replay policy settings for the organs materials chemistry closed loop lab
+    safety replay flow.
+
+    Inputs are `replay_policy`; notable helpers are `get`, `append`, `_finding`, and
+    `isfinite`.
     """
     findings: list[dict[str, Any]] = []
     numeric_policy = replay_policy.get("numeric_replay")
@@ -1213,13 +1140,12 @@ def _numeric_replay_result(
     replay_policy: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_numeric_replay_result` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._numeric_replay_result`
+    into the payload shape expected by organs materials chemistry closed loop lab safety
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     (
         policy_declared,
@@ -1491,13 +1417,10 @@ def _numeric_replay_result(
 
 def _expected_numeric_selected_candidate(replay_policy: dict[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_expected_numeric_selected_candidate` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the expected numeric selected candidate value used by
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay`.
+
+    Inputs are `replay_policy`; notable helpers are `get`.
     """
     for field in NUMERIC_REPLAY_EXPECTED_SELECTED_FIELDS:
         value = replay_policy.get(field)
@@ -1514,13 +1437,12 @@ def _expected_numeric_selected_candidate(replay_policy: dict[str, Any]) -> str:
 
 def _numeric_replay_graph_projection(numeric_replay: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_numeric_replay_graph_projection` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._numeric_replay_graph_projection`
+    into the payload shape expected by organs materials chemistry closed loop lab safety
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "materials_lab_numeric_replay_graph_projection_v1",
@@ -1561,13 +1483,12 @@ def _numeric_replay_realness_evidence(
     decision_count: int,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_numeric_replay_realness_evidence` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._numeric_replay_realness_evidence`
+    into the payload shape expected by organs materials chemistry closed loop lab safety
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     verified_count = int(numeric_replay.get("verified_numeric_row_count") or 0)
     expected_row_count = min(candidate_count, assay_count, decision_count)
@@ -1632,13 +1553,12 @@ def _source_open_body_import_summary(
     source_module_result: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._source_open_body_import_summary`
+    into the payload shape expected by organs materials chemistry closed loop lab safety
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     module_ids = _strings(source_module_result.get("module_ids"))
     manifest_ref = source_module_result.get("source_module_manifest_ref")
@@ -1695,13 +1615,10 @@ def _candidate_findings(
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_candidate_findings` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Build a structured finding row for candidate findings.
+
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     findings: list[dict[str, Any]] = []
     subject_id = str(row.get("candidate_material_id") or case_id)
@@ -1779,13 +1696,10 @@ def _experiment_findings(
     assay_ids: set[str],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_experiment_findings` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Build a structured finding row for experiment findings.
+
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     findings: list[dict[str, Any]] = []
     subject_id = str(row.get("experiment_id") or case_id)
@@ -1904,13 +1818,10 @@ def _assay_findings(
     experiment_ids: set[str],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_assay_findings` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Build a structured finding row for assay findings.
+
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     findings: list[dict[str, Any]] = []
     subject_id = str(row.get("assay_id") or case_id)
@@ -1997,13 +1908,10 @@ def _decision_findings(
     experiment_ids: set[str],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_decision_findings` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Build a structured finding row for decision findings.
+
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     findings: list[dict[str, Any]] = []
     subject_id = str(row.get("decision_id") or case_id)
@@ -2093,13 +2001,11 @@ def _decision_findings(
 
 def _required_policy_ok(policy: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_required_policy_ok` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether required policy ok holds for the organs materials chemistry closed loop
+    lab safety replay flow.
+
+    The result is derived from `policy` with `get`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     ceiling = policy.get("authority_ceiling")
     if not isinstance(ceiling, dict):
@@ -2130,13 +2036,11 @@ def _required_policy_ok(policy: dict[str, Any]) -> bool:
 
 def _projection_protocol_ok(protocol: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_projection_protocol_ok` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether projection protocol ok holds for the organs materials chemistry closed
+    loop lab safety replay flow.
+
+    The result is derived from `protocol` with `get`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     projection = protocol.get("projection_protocol")
     if not isinstance(projection, dict):
@@ -2146,13 +2050,10 @@ def _projection_protocol_ok(protocol: dict[str, Any]) -> bool:
 
 def _negative_rows(payload: object) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_negative_rows` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return negative rows for the organs materials chemistry closed loop lab safety replay
+    flow.
+
+    Inputs are `payload`; notable helpers are `_rows`, `get`, and `append`.
     """
     if not isinstance(payload, dict):
         return [], [], [], []
@@ -2180,13 +2081,12 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._build_result`
+    into the payload shape expected by organs materials chemistry closed loop lab safety
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     public_root = _public_root_for_path(input_dir)
@@ -2747,13 +2647,11 @@ def _build_result(
 
 def _board(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_board` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._board` into
+    the payload shape expected by organs materials chemistry closed loop lab safety replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     summary = result.get("materials_lab_safety_summary", {})
     negatives = result.get("negative_case_summary", {})
@@ -2812,13 +2710,12 @@ def _write_receipts(
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._write_receipts`
+    into the payload shape expected by organs materials chemistry closed loop lab safety
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
@@ -2932,13 +2829,11 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `_build_result`, `_freshness_basis`, `_write_receipts`, and `Path`.
     """
     result = _build_result(
         Path(input_dir),
@@ -2966,13 +2861,10 @@ def run_lab_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_lab_bundle` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Derive run lab bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `mkdir`, `_build_result`, `_freshness_basis`, and 4 more.
     """
     source = Path(input_dir)
     out = Path(out_dir)
@@ -3002,13 +2894,12 @@ def run_lab_bundle(
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay.result_card`
+    into the payload shape expected by organs materials chemistry closed loop lab safety
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -3179,13 +3070,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(prog="materials_chemistry_closed_loop_lab_safety_replay")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -3203,13 +3092,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.materials_chemistry_closed_loop_lab_safety_replay`
+    command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

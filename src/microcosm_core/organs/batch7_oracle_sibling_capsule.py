@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.batch7_oracle_sibling_capsule` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs batch7 oracle sibling capsule for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, EXERCISE_MANIFEST_NAME, EXPECTED_ENGINES, EXPECTED_NEGATIVE_CASES, NEGATIVE_CASE_CODES, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, SPEC, evaluate_negative_case, run, run_batch7_oracle_sibling_bundle, result_card, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common, tools.oracle
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate_negative_case`, `run`, `run_batch7_oracle_sibling_bundle`,
+`result_card`, and `main`; constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`,
+`RESULT_NAME`, and 13 more pin local fixture names; dependencies include `argparse`, `json`,
+`re`, `subprocess`, and 6 more. It builds public fixture, result, card, or verdict
+structures while keeping private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -165,26 +149,18 @@ SPEC = CrownJewelSpec(
 
 def _repo_root(public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_repo_root` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute repo root from `public_root`.
+
+    Inputs are `public_root`.
     """
     return public_root.parent
 
 
 def _copied_source(public_root: Path, source_ref: str) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_copied_source` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return copied source for `microcosm_core.organs.batch7_oracle_sibling_capsule`.
+
+    Inputs are `public_root` and `source_ref`.
     """
     return (
         public_root
@@ -196,13 +172,10 @@ def _copied_source(public_root: Path, source_ref: str) -> Path:
 
 def _load_oracle_modules(repo_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_oracle_modules` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule._load_oracle_modules`
+    into the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     repo_ref = str(repo_root)
     if repo_ref not in sys.path:
@@ -222,13 +195,10 @@ def _load_oracle_modules(repo_root: Path) -> dict[str, Any]:
 
 def _write_json(path: Path, payload: Mapping[str, Any]) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_write_json` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write JSON for the organs batch7 oracle sibling capsule flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
@@ -244,13 +214,10 @@ def _feed(
     as_of: str = "2026-03-03T14:00:00+00:00",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_feed` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule._feed` into the payload
+    shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "metadata": {"as_of": as_of},
@@ -267,13 +234,10 @@ def _feed(
 
 def _artifact(data: Mapping[str, Any], *, artifact_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_artifact` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule._artifact` into the
+    payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "id": artifact_id,
@@ -288,13 +252,11 @@ def _exception_negative_observation(
     expected_fragment: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_exception_negative_observation` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_oracle_sibling_capsule._exception_negative_observation`
+    into the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     try:
         action()
@@ -319,13 +281,11 @@ def _exception_negative_observation(
 
 def _manifest_excludes_run_missing(input_path: Path) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_manifest_excludes_run_missing` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return whether manifest excludes run missing holds for the organs batch7 oracle sibling
+    capsule flow.
+
+    The result is derived from `input_path` with `loads`, `get`, and `read_text`; failing
+    evidence is returned or raised exactly where the body says so.
     """
     manifest_path = input_path / EXERCISE_MANIFEST_NAME
     try:
@@ -345,13 +305,10 @@ def _manifest_excludes_run_missing(input_path: Path) -> bool:
 
 def _lab_director_payload() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_lab_director_payload` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule._lab_director_payload`
+    into the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "metadata": {
@@ -391,13 +348,10 @@ def _lab_director_payload() -> dict[str, Any]:
 
 def _lab_decide_payload() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_lab_decide_payload` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule._lab_decide_payload` into
+    the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "metadata": {"as_of": "2026-03-03T14:00:00+00:00"},
@@ -419,13 +373,10 @@ def _lab_decide_payload() -> dict[str, Any]:
 
 def _seed_subject_run(subject_run: Path) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_seed_subject_run` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run seed subject run for the organs batch7 oracle sibling capsule flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     lab_director = _lab_director_payload()
     lab_director["data"]["evidence_dictionary"].append(
@@ -463,13 +414,10 @@ def _seed_subject_run(subject_run: Path) -> None:
 
 def _subject_index_engine(repo_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_subject_index_engine` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule._subject_index_engine`
+    into the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     modules = _load_oracle_modules(repo_root)
     with tempfile.TemporaryDirectory(prefix="batch7_oracle_subject_index_") as tmp:
@@ -530,13 +478,10 @@ def _subject_index_engine(repo_root: Path) -> dict[str, Any]:
 
 def _subject_snapshot_engine(repo_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_subject_snapshot_engine` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule._subject_snapshot_engine`
+    into the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     modules = _load_oracle_modules(repo_root)
     with tempfile.TemporaryDirectory(prefix="batch7_oracle_subject_snapshot_") as tmp:
@@ -582,13 +527,10 @@ def _subject_snapshot_engine(repo_root: Path) -> dict[str, Any]:
 
 def _truth_diff_macro_engine(repo_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_truth_diff_macro_engine` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule._truth_diff_macro_engine`
+    into the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     modules = _load_oracle_modules(repo_root)
     with tempfile.TemporaryDirectory(prefix="batch7_oracle_truth_diff_macro_") as tmp:
@@ -653,13 +595,10 @@ def _truth_diff_macro_engine(repo_root: Path) -> dict[str, Any]:
 
 def _quartet_repair_engine(repo_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_quartet_repair_engine` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values, declared filesystem outputs.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule._quartet_repair_engine`
+    into the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     modules = _load_oracle_modules(repo_root)
     with tempfile.TemporaryDirectory(prefix="batch7_oracle_quartet_") as tmp:
@@ -729,13 +668,11 @@ def _quartet_repair_engine(repo_root: Path) -> dict[str, Any]:
 
 def _run_original_pytest_witness(repo_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_run_original_pytest_witness` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Serialize
+    `microcosm_core.organs.batch7_oracle_sibling_capsule._run_original_pytest_witness` into
+    the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     command = [
         "./repo-python",
@@ -794,13 +731,10 @@ def _run_original_pytest_witness(repo_root: Path) -> dict[str, Any]:
 
 def _original_pytest_engine(repo_root: Path, witness: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_original_pytest_engine` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule._original_pytest_engine`
+    into the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "status": "pass" if witness.get("status") == "pass" else "blocked",
@@ -812,13 +746,10 @@ def _original_pytest_engine(repo_root: Path, witness: Mapping[str, Any]) -> dict
 
 def _missing_subject_run_dir_negative(modules: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_missing_subject_run_dir_negative` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive missing subject run dir negative without touching module import state.
+
+    Inputs are `modules`; notable helpers are `_exception_negative_observation`, `update`,
+    and `run`.
     """
     observed = _exception_negative_observation(
         lambda: modules["subject_index"].run({"runtime": {}}),
@@ -835,13 +766,10 @@ def _missing_subject_run_dir_negative(modules: Mapping[str, Any]) -> dict[str, A
 
 def _missing_artifact_id_negative(modules: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_missing_artifact_id_negative` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Derive missing artifact ID negative without touching module import state.
+
+    Inputs are `modules`; notable helpers are `update`, `TemporaryDirectory`, `mkdir`,
+    `_exception_negative_observation`, and 2 more.
     """
     with tempfile.TemporaryDirectory(prefix="batch7_oracle_missing_artifact_") as tmp:
         subject_run = Path(tmp) / "subject"
@@ -863,13 +791,11 @@ def _missing_artifact_id_negative(modules: Mapping[str, Any]) -> dict[str, Any]:
 
 def _macro_truth_run_missing_negative(modules: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_macro_truth_run_missing_negative` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return macro truth run missing negative for the organs batch7 oracle sibling capsule
+    flow.
+
+    Inputs are `modules`; notable helpers are `update`, `TemporaryDirectory`, `mkdir`,
+    `_exception_negative_observation`, and 2 more.
     """
     with tempfile.TemporaryDirectory(prefix="batch7_oracle_truth_run_missing_") as tmp:
         subject_run = Path(tmp) / "subject"
@@ -894,13 +820,11 @@ def _quartet_run_missing_excluded_negative(
     input_path: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_quartet_run_missing_excluded_negative` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.organs.batch7_oracle_sibling_capsule._quartet_run_missing_excluded_negative`
+    into the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     with tempfile.TemporaryDirectory(prefix="batch7_oracle_quartet_missing_") as tmp:
         subject_run = Path(tmp) / "subject"
@@ -946,13 +870,11 @@ def _quartet_run_missing_excluded_negative(
 
 def _original_pytest_witness_required_negative() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_original_pytest_witness_required_negative` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_oracle_sibling_capsule._original_pytest_witness_required_negative`
+    into the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     with tempfile.TemporaryDirectory(prefix="batch7_oracle_missing_witness_repo_") as tmp:
         witness = _run_original_pytest_witness(Path(tmp))
@@ -970,13 +892,11 @@ def _original_pytest_witness_required_negative() -> dict[str, Any]:
 @lru_cache(maxsize=16)
 def _semantic_runtime_exercises(input_ref: str) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_runtime_exercises` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_oracle_sibling_capsule._semantic_runtime_exercises` into
+    the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_ref)
     public_root = public_root_for_path(input_path)
@@ -998,13 +918,9 @@ def _semantic_runtime_exercises(input_ref: str) -> Mapping[str, Any]:
 
 def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_negative_exercise` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return negative exercise for `microcosm_core.organs.batch7_oracle_sibling_capsule`.
+
+    Inputs are `runtime` and `case_id`; notable helpers are `get`.
     """
     cases = (
         runtime.get("negative_exercises")
@@ -1017,13 +933,11 @@ def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str,
 
 def _observed_negative_case(case_id: str, runtime: Mapping[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_observed_negative_case` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether observed negative case holds for the organs batch7 oracle sibling capsule
+    flow.
+
+    The result is derived from `case_id` and `runtime` with `_negative_exercise` and `get`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     exercise = _negative_exercise(runtime, case_id)
     if case_id == "missing_subject_run_dir":
@@ -1061,13 +975,10 @@ def evaluate_negative_case(
     _expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule.evaluate_negative_case`
+    into the payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     expected_code = NEGATIVE_CASE_CODES.get(case_id, "")
     observed = _observed_negative_case(
@@ -1087,13 +998,10 @@ def _evaluate(
     source_manifest: Mapping[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_evaluate` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch7_oracle_sibling_capsule._evaluate` into the
+    payload shape expected by organs batch7 oracle sibling capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     del input_path
     repo_root = _repo_root(public_root)
@@ -1156,13 +1064,10 @@ def run(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for `microcosm_core.organs.batch7_oracle_sibling_capsule`.
+
+    Inputs are `input_dir`, `out_dir`, `acceptance_out`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1182,13 +1087,10 @@ def run_batch7_oracle_sibling_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_batch7_oracle_sibling_bundle` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute run batch7 oracle sibling bundle from `input_dir`, `out_dir`, and `command`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1203,13 +1105,10 @@ def run_batch7_oracle_sibling_bundle(
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Produce the result card value used by
+    `microcosm_core.organs.batch7_oracle_sibling_capsule`.
+
+    Inputs are `result`; notable helpers are `card_for_result` and `get`.
     """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
@@ -1265,13 +1164,10 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.batch7_oracle_sibling_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.batch7_oracle_sibling_capsule` as a command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)

@@ -1,39 +1,12 @@
 """
-Public-safe annex knowledge router capsule.
+Implements engine room annex knowledge router for the public Plectis package.
 
-This is a source-faithful public refactor of
-`system/lib/annex_registry.py::route_annexes`. It preserves the tiered routing
-shape: structured routing fields score highest, family text and open-first
-summaries provide weaker evidence, and curated notes add explainable supporting
-matches.
-
-The capsule routes over a sanitized in-memory catalog. It does not clone third
-party repositories, does not ship the private annex corpus, and does not claim
-BM25, TF-IDF, embeddings, semantic search, or license-review authority.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.engine_room.annex_knowledge_router` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: SCHEMA_VERSION, ORGAN_ID, SOURCE_REFS, SOURCE_TO_TARGET_RELATION, CLAIM_CEILING, ANTI_CLAIMS, ROUTE_MATCH_STOPWORDS, sort_notes_by_relevance, route_annexes, route_catalog, evaluate_case, evaluate_fixture_dir, build_parser, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: None beyond the Python standard library and local package imports.
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `sort_notes_by_relevance`, `route_annexes`, `route_catalog`,
+`evaluate_case`, `evaluate_fixture_dir`, `build_parser`, and 1 more; constants such as
+`SCHEMA_VERSION`, `ORGAN_ID`, `SOURCE_REFS`, `SOURCE_TO_TARGET_RELATION`, and 3 more pin
+local fixture names; dependencies include `argparse`, `json`, `re`, `pathlib`, and 1 more.
+The implementation is source-owned engine-room code, so receipts and tests should name these
+callables directly.
 """
 
 from __future__ import annotations
@@ -90,26 +63,18 @@ ROUTE_MATCH_STOPWORDS = {
 
 def _string(value: Any) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_string` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return string for the engine room annex knowledge router flow.
+
+    Inputs are `value`; notable helpers are `strip`.
     """
     return str(value or "").strip()
 
 
 def _normalized_query_text(value: Any) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_normalized_query_text` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return normalized query text for the engine room annex knowledge router flow.
+
+    Inputs are `value`; notable helpers are `lower`, `sub`, `replace`, `join`, and 2 more.
     """
     lowered = _string(value).lower()
     lowered = re.sub(r"[_/]+", " ", lowered)
@@ -120,13 +85,9 @@ def _normalized_query_text(value: Any) -> str:
 
 def _query_tokens(value: Any) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_query_tokens` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute query tokens from `value`.
+
+    Inputs are `value`; notable helpers are `split` and `_normalized_query_text`.
     """
     return [
         token
@@ -137,13 +98,9 @@ def _query_tokens(value: Any) -> list[str]:
 
 def _dedupe_preserving_order(values: Sequence[str]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_dedupe_preserving_order` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dedupe preserving order for the engine room annex knowledge router flow.
+
+    Inputs are `values`; notable helpers are `_string`, `add`, and `append`.
     """
     seen: set[str] = set()
     output: list[str] = []
@@ -158,13 +115,9 @@ def _dedupe_preserving_order(values: Sequence[str]) -> list[str]:
 
 def _coerce_routing_list(value: Any) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_coerce_routing_list` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return coerce routing list for the engine room annex knowledge router flow.
+
+    Inputs are `value`; notable helpers are `_dedupe_preserving_order` and `_string`.
     """
     if not isinstance(value, Sequence) or isinstance(value, (str, bytes)):
         return []
@@ -173,13 +126,10 @@ def _coerce_routing_list(value: Any) -> list[str]:
 
 def _family_routing(family: Mapping[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_family_routing` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.engine_room.annex_knowledge_router._family_routing` into the
+    payload shape expected by engine room annex knowledge router.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     routing = dict(family.get("routing") or {}) if isinstance(family.get("routing"), Mapping) else {}
     return {
@@ -192,13 +142,10 @@ def _family_routing(family: Mapping[str, Any]) -> dict[str, list[str]]:
 
 def _note_routing(note: Mapping[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_note_routing` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.engine_room.annex_knowledge_router._note_routing` into the
+    payload shape expected by engine room annex knowledge router.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     routing = dict(note.get("routing") or {}) if isinstance(note.get("routing"), Mapping) else {}
     return {
@@ -209,13 +156,9 @@ def _note_routing(note: Mapping[str, Any]) -> dict[str, list[str]]:
 
 def _relevance_value(note: Mapping[str, Any]) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_relevance_value` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return relevance value for the engine room annex knowledge router flow.
+
+    Inputs are `note`; notable helpers are `get`.
     """
     try:
         value = int(note.get("relevance"))
@@ -226,13 +169,9 @@ def _relevance_value(note: Mapping[str, Any]) -> int:
 
 def sort_notes_by_relevance(notes: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `sort_notes_by_relevance` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return sort notes by relevance for the engine room annex knowledge router flow.
+
+    Inputs are `notes`; notable helpers are `_relevance_value` and `get`.
     """
     rows = [dict(note) for note in notes]
     return sorted(rows, key=lambda note: (-_relevance_value(note), str(note.get("id") or "")))
@@ -247,13 +186,11 @@ def _route_match_score(
     token_weight: int,
 ) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_route_match_score` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute route match score from `query`, `candidate`, `exact_weight`, `phrase_weight`,
+    and `token_weight`.
+
+    Inputs are `query`, `candidate`, `exact_weight`, `phrase_weight`, and `token_weight`;
+    notable helpers are `_normalized_query_text` and `_query_tokens`.
     """
     normalized_query = _normalized_query_text(query)
     normalized_candidate = _normalized_query_text(candidate)
@@ -271,13 +208,11 @@ def _route_match_score(
 
 def _routing_summary_from_family(overview: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_routing_summary_from_family` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.engine_room.annex_knowledge_router._routing_summary_from_family` into
+    the payload shape expected by engine room annex knowledge router.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     existing = overview.get("routing_summary")
     if isinstance(existing, Mapping):
@@ -317,14 +252,11 @@ def route_annexes(
     limit: int | None = None,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Rank sanitized annex rows for a problem statement.
-    - Teleology: Implements `route_annexes` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return route annexes for the engine room annex knowledge router flow.
+
+    Inputs are `problem`, `catalog`, `domain`, `cluster`, `include_notes`, and 1 more;
+    notable helpers are `_normalized_query_text`, `get`, `_string`,
+    `_routing_summary_from_family`, and 6 more.
     """
 
     normalized_problem = _normalized_query_text(problem)
@@ -467,13 +399,10 @@ def route_catalog(
     limit: int | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `route_catalog` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.engine_room.annex_knowledge_router.route_catalog` into the
+    payload shape expected by engine room annex knowledge router.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = route_annexes(
         problem,
@@ -501,13 +430,10 @@ def route_catalog(
 
 def evaluate_case(case: Mapping[str, Any], *, path: str = "") -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_case` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.engine_room.annex_knowledge_router.evaluate_case` into the
+    payload shape expected by engine room annex knowledge router.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     catalog = case.get("catalog") if isinstance(case.get("catalog"), Mapping) else {}
     receipt = route_catalog(
@@ -548,13 +474,10 @@ def evaluate_case(case: Mapping[str, Any], *, path: str = "") -> dict[str, Any]:
 
 def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_fixture_dir` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize `microcosm_core.engine_room.annex_knowledge_router.evaluate_fixture_dir` into
+    the payload shape expected by engine room annex knowledge router.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     cases: list[dict[str, Any]] = []
     for path in sorted(input_dir.glob("*.json")):
@@ -579,13 +502,11 @@ def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `build_parser` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.engine_room.annex_knowledge_router.build_parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(description="Engine Room annex knowledge router capsule.")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -607,13 +528,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.engine_room.annex_knowledge_router` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.engine_room.annex_knowledge_router` command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command == "route":

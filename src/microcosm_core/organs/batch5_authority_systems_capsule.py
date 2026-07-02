@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.batch5_authority_systems_capsule` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs batch5 authority systems capsule for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, EXERCISE_MANIFEST_NAME, EXPECTED_MECHANISMS, EXPECTED_MODULE_IDS, EXPECTED_NEGATIVE_CASES, CASE_VERDICT_AUTHORITY, NEGATIVE_CASE_PROBE_SCHEMA, NEGATIVE_CASE_COMPUTED_PATHS, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, SPEC, evaluate_negative_case, run, run_batch5_bundle, result_card, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common, microcosm_core.receipts
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate_negative_case`, `run`, `run_batch5_bundle`, `result_card`,
+and `main`; constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and
+16 more pin local fixture names; dependencies include `argparse`, `hashlib`, `json`,
+`pathlib`, and 2 more. It builds public fixture, result, card, or verdict structures while
+keeping private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -247,13 +231,9 @@ SPEC = CrownJewelSpec(
 
 def _set(value: object) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_set` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return set for the organs batch5 authority systems capsule flow.
+
+    Inputs are `value`.
     """
     if not isinstance(value, list):
         return set()
@@ -262,13 +242,11 @@ def _set(value: object) -> set[str]:
 
 def _stable_json_digest(payload: Any) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_stable_json_digest` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.batch5_authority_systems_capsule._stable_json_digest`.
+
+    The input is `payload`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     blob = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(blob).hexdigest()
@@ -276,13 +254,10 @@ def _stable_json_digest(payload: Any) -> str:
 
 def _negative_case_payloads(input_path: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_negative_case_payloads` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Produce the negative case payloads value used by
+    `microcosm_core.organs.batch5_authority_systems_capsule`.
+
+    Inputs are `input_path`; notable helpers are `is_file`, `loads`, and `read_text`.
     """
     payloads: dict[str, dict[str, Any]] = {}
     for case_id in EXPECTED_NEGATIVE_CASES:
@@ -300,13 +275,11 @@ def _negative_case_payloads(input_path: Path) -> dict[str, dict[str, Any]]:
 
 def _receipt_validator_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_validator_exercise` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch5_authority_systems_capsule._receipt_validator_exercise`
+    into the payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     grant = payload.get("grant") if isinstance(payload.get("grant"), Mapping) else {}
     valid = (
@@ -346,13 +319,11 @@ def _receipt_validator_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
 
 def _replay_scope_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_replay_scope_exercise` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch5_authority_systems_capsule._replay_scope_exercise` into the
+    payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     consumed = _set(payload.get("consumed_context_classes"))
     changed = _set(payload.get("changed_context_classes"))
@@ -367,13 +338,11 @@ def _replay_scope_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
 
 def _proof_contract_gate_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_proof_contract_gate_exercise` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch5_authority_systems_capsule._proof_contract_gate_exercise`
+    into the payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     proof = str(payload.get("bad_proof") or "")
     failure_classes: list[str] = []
@@ -394,13 +363,11 @@ def _proof_contract_gate_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
 
 def _orphan_reaper_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_orphan_reaper_exercise` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch5_authority_systems_capsule._orphan_reaper_exercise` into
+    the payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     process = payload.get("process") if isinstance(payload.get("process"), Mapping) else {}
     live_descendant = bool(process.get("live_session_descendant"))
@@ -415,13 +382,11 @@ def _orphan_reaper_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
 
 def _fixpoint_drainer_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_fixpoint_drainer_exercise` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch5_authority_systems_capsule._fixpoint_drainer_exercise` into
+    the payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     residuals = payload.get("residual_signatures")
     if not isinstance(residuals, list):
@@ -452,13 +417,10 @@ def _fixpoint_drainer_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
 
 def _trace_tape_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_trace_tape_exercise` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch5_authority_systems_capsule._trace_tape_exercise`
+    into the payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     spans = payload.get("spans") if isinstance(payload.get("spans"), list) else []
     max_chars = int(payload.get("max_chars") or 120)
@@ -487,13 +449,11 @@ def _trace_tape_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
 
 def _blast_radius_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_blast_radius_exercise` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch5_authority_systems_capsule._blast_radius_exercise` into the
+    payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     graph = payload.get("graph") if isinstance(payload.get("graph"), Mapping) else {}
     target = str(payload.get("target") or "")
@@ -505,13 +465,10 @@ def _blast_radius_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
 
     def dependents(start: str) -> set[str]:
         """
-        [ACTION]
-        - Teleology: Implements `_blast_radius_exercise.dependents` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Produce the dependents value used by
+        `microcosm_core.organs.batch5_authority_systems_capsule`.
+
+        Inputs are `start`; notable helpers are `get`, `pop`, `add`, and `extend`.
         """
         seen: set[str] = set()
         stack = list(reverse.get(start, []))
@@ -535,13 +492,11 @@ def _blast_radius_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
 
 def _doctrine_graph_exercise(payload: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_doctrine_graph_exercise` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch5_authority_systems_capsule._doctrine_graph_exercise` into
+    the payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     nodes = payload.get("nodes") if isinstance(payload.get("nodes"), list) else []
     drift_findings: list[dict[str, str]] = []
@@ -578,13 +533,10 @@ def _probe_result(
     observed: Mapping[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_probe_result` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch5_authority_systems_capsule._probe_result` into
+    the payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case_id,
@@ -601,13 +553,10 @@ def _probe_result(
 
 def _missing_probe_result(case_id: str, reason: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_missing_probe_result` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch5_authority_systems_capsule._missing_probe_result`
+    into the payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case_id,
@@ -627,13 +576,11 @@ def _compute_negative_case_probe(
     payload: Mapping[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_compute_negative_case_probe` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the compute negative case probe value used by
+    `microcosm_core.organs.batch5_authority_systems_capsule`.
+
+    Inputs are `case_id` and `payload`; notable helpers are `_missing_probe_result`, `get`,
+    `_receipt_validator_exercise`, `_probe_result`, and 7 more.
     """
     probe_input = (
         payload.get("probe_input") if isinstance(payload.get("probe_input"), Mapping) else {}
@@ -779,13 +726,11 @@ def _semantic_negative_result(
     error_codes: tuple[str, ...],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_negative_result` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch5_authority_systems_capsule._semantic_negative_result` into
+    the payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case_id,
@@ -800,13 +745,11 @@ def _semantic_negative_not_rejected(
     observed: Mapping[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_negative_not_rejected` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch5_authority_systems_capsule._semantic_negative_not_rejected`
+    into the payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case_id,
@@ -819,13 +762,11 @@ def _semantic_negative_not_rejected(
 
 def _semantic_negative_error(case_id: str, exc: Exception) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_negative_error` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch5_authority_systems_capsule._semantic_negative_error` into
+    the payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case_id,
@@ -839,13 +780,11 @@ def _semantic_negative_error(case_id: str, exc: Exception) -> dict[str, Any]:
 
 def _source_manifest_for_input(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_manifest_for_input` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source manifest for input value used by
+    `microcosm_core.organs.batch5_authority_systems_capsule`.
+
+    Inputs are `input_dir`; notable helpers are `public_root_for_path` and
+    `validate_source_manifest`.
     """
     public_root = public_root_for_path(input_dir)
     return validate_source_manifest(input_dir, SPEC, public_root=public_root)
@@ -857,13 +796,12 @@ def evaluate_negative_case(
     expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the evaluate negative case value used by
+    `microcosm_core.organs.batch5_authority_systems_capsule`.
+
+    Inputs are `case_id`, `input_dir`, and `expected_codes`; notable helpers are
+    `_source_manifest_for_input`, `get`, `_compute_negative_case_probe`,
+    `_semantic_negative_not_rejected`, and 3 more.
     """
     try:
         source_manifest = _source_manifest_for_input(input_dir)
@@ -888,13 +826,10 @@ def _evaluate(
     source_manifest: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_evaluate` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch5_authority_systems_capsule._evaluate` into the
+    payload shape expected by organs batch5 authority systems capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest = load_json_object(
         input_path / EXERCISE_MANIFEST_NAME,
@@ -1003,13 +938,10 @@ def run(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute run from `input_dir`, `out_dir`, `acceptance_out`, and `command`.
+
+    Inputs are `input_dir`, `out_dir`, `acceptance_out`, and `command`; notable helpers are
+    `run_crown_jewel_organ` and `_write_enriched_acceptance`.
     """
     result = run_crown_jewel_organ(
         SPEC,
@@ -1032,13 +964,10 @@ def run_batch5_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_batch5_bundle` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run batch5 bundle for the organs batch5 authority systems capsule flow.
+
+    Inputs are `input_dir`, `out_dir`, `acceptance_out`, and `command`; notable helpers are
+    `run_crown_jewel_organ` and `_write_enriched_acceptance`.
     """
     result = run_crown_jewel_organ(
         SPEC,
@@ -1059,13 +988,10 @@ def _write_enriched_acceptance(
     acceptance_out: str | Path | None,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_write_enriched_acceptance` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Write write enriched acceptance for the organs batch5 authority systems capsule flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     if not acceptance_out:
         return
@@ -1144,13 +1070,9 @@ def _write_enriched_acceptance(
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return result card for the organs batch5 authority systems capsule flow.
+
+    Inputs are `result`; notable helpers are `card_for_result` and `get`.
     """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
@@ -1164,13 +1086,11 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.batch5_authority_systems_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.batch5_authority_systems_capsule` as a command-line entry
+    point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog="microcosm batch5-authority-systems")
     sub = parser.add_subparsers(dest="action", required=True)

@@ -1,4 +1,12 @@
-"""Validates public entry docs for required route language, overclaim guards, and current inventory bindings."""
+"""
+Implements validators public entry docs for the public Plectis package.
+
+Callers enter through `validate_public_entry_docs` and `main`; constants such as
+`CHECKER_ID`, `FIXTURE_ID`, `REQUIRED_DOCS`, `REQUIRED_PHRASES_BY_DOC`, and 11 more pin
+local fixture names; dependencies include `argparse`, `ast`, `re`, `pathlib`, and 2 more.
+Validator outputs stay structured so release checks can consume findings without scraping
+prose.
+"""
 from __future__ import annotations
 
 import argparse
@@ -309,30 +317,20 @@ CLI_FIRST_SCREEN_HELP_BOUNDARY_PHRASES = [
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    Render a path relative to public_root for receipt display.
+    Return display for `microcosm_core.validators.public_entry_docs`.
 
-    - Teleology: protects receipt-path display fields from leaking absolute/private host paths into the public entry-docs receipt.
-    - Guarantee: returns the public-relative display string from public_relative_path(path, display_root=public_root).
-    - Fails: None (delegates entirely to public_relative_path; this wrapper itself raises/returns no failure envelope).
-    - Reads: the path argument only (no disk read here).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Extract the dict-typed rows under payload[key].
+    Return dictionary rows for `microcosm_core.validators.public_entry_docs._rows` from
+    `payload[key]`.
 
-    - Teleology: protects every downstream registry/route scan from malformed (non-dict) rows in a loaded manifest, so a poisoned list entry cannot crash or skew counts.
-    - Guarantee: returns only the elements of payload[key] that are dicts; missing key yields [].
-    - Fails: None (defaults missing key to []; non-dict entries are filtered, not raised).
-    - Reads: in-memory payload dict only.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     rows = payload.get(key, [])
     return [row for row in rows if isinstance(row, dict)]
@@ -340,16 +338,9 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
 
 def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Strip the secret-class field names out of a scan summary before it lands in a public receipt.
+    Return receipt safe scan for `microcosm_core.validators.public_entry_docs`.
 
-    - Teleology: protects the public receipt from re-emitting the forbidden-class field names that the secret-exclusion scan carries, which would itself be a leak of the policy's matched-secret schema.
-    - Guarantee: returns a shallow copy of scan with key 'forbidden_output_fields' removed; all other scan keys/values preserved.
-    - Fails: None (pop with default None cannot raise on a missing key; no rejection path).
-    - Reads: in-memory scan dict only.
-    - Writes: None.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `scan`; notable helpers are `pop`.
     """
     safe = dict(scan)
     safe.pop("forbidden_output_fields", None)
@@ -358,33 +349,18 @@ def _receipt_safe_scan(scan: dict[str, Any]) -> dict[str, Any]:
 
 def _normalized_text(text: str) -> str:
     """
-    [ACTION]
-    Collapse all runs of whitespace in text to single spaces.
+    Produce the normalized text value used by `microcosm_core.validators.public_entry_docs`.
 
-    - Teleology: protects required/forbidden-phrase substring checks from false negatives caused by line-wrapping or irregular whitespace in the entry docs.
-    - Guarantee: returns text with every whitespace run (including newlines) collapsed to one space and leading/trailing whitespace removed.
-    - Fails: None (pure str transform; no rejection path).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `text`; notable helpers are `join` and `split`.
     """
     return " ".join(text.split())
 
 
 def _accepted_organs(public_root: Path) -> list[str]:
     """
-    [ACTION]
-    Read the accepted-authority organ ids from the public organ registry.
+    Produce the accepted organs value used by `microcosm_core.validators.public_entry_docs`.
 
-    - Teleology: protects the accepted-public-organ inventory claim by sourcing it ONLY from the registry rows whose status is accepted_current_authority, never from hand-counted prose.
-    - Guarantee: returns the organ_id strings of core/organ_registry.json::implemented_organs rows whose status == 'accepted_current_authority', in registry order.
-    - Fails: missing/invalid core/organ_registry.json -> read_json_strict raises (FileNotFoundError / JSON decode error) before any list is returned.
-    - Reads: <public_root>/core/organ_registry.json.
-    - Writes: None.
-    - When-needed: inspect when verifying the public entry docs' organ count/spine against the registry source of truth.
-    - Escalates-to: core/organ_registry.json::implemented_organs[status=accepted_current_authority].
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root`; notable helpers are `read_json_strict`, `get`, and `_rows`.
     """
     registry = read_json_strict(public_root / "core/organ_registry.json")
     return [
@@ -396,15 +372,9 @@ def _accepted_organs(public_root: Path) -> list[str]:
 
 def _duplicates(values: list[str]) -> list[str]:
     """
-    [ACTION]
-    Return the sorted set of values that appear more than once.
+    Compute duplicates from `values`.
 
-    - Teleology: protects organ-id and task-class uniqueness claims by surfacing any duplicated entry that would inflate or double-count the inventory.
-    - Guarantee: returns a sorted list of each distinct value seen two or more times in the input; clean input yields [].
-    - Fails: None (collects duplicates; never raises or rejects).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `values`; notable helpers are `add`.
     """
     seen: set[str] = set()
     duplicated: set[str] = set()
@@ -417,15 +387,9 @@ def _duplicates(values: list[str]) -> list[str]:
 
 def _organ_slug(organ_id: str) -> str:
     """
-    [ACTION]
-    Convert an organ_id to its hyphenated slug form.
+    Produce the organ slug value used by `microcosm_core.validators.public_entry_docs`.
 
-    - Teleology: protects dynamic-inventory phrase matching by letting an organ id be recognized in both underscore and hyphen (slug) spellings.
-    - Guarantee: returns organ_id with every underscore replaced by a hyphen.
-    - Fails: None (pure str transform).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `organ_id`; notable helpers are `replace`.
     """
     return organ_id.replace("_", "-")
 
@@ -435,16 +399,11 @@ def _required_phrase_is_dynamic_inventory(
     accepted_organs: list[str],
 ) -> bool:
     """
-    [ACTION]
-    Decide whether a required-phrase is a registry-derived inventory token (so absence is not a doc defect).
+    Return whether required phrase is dynamic inventory holds for the validators public
+    entry docs flow.
 
-    - Teleology: protects the required-phrase gate from false MISSING_REQUIRED_ENTRY_PHRASE blocks when a phrase is actually a dynamic organ-inventory token that the registry owns, not static entry copy.
-    - Guarantee: returns True when the backtick-stripped phrase equals an accepted organ id, an accepted organ slug, or a digit-bearing 'accepted public runtime organ' count phrase; else False.
-    - Fails: None (returns a bool; never raises or rejects).
-    - Reads: in-memory accepted_organs list only.
-    - Writes: None.
-    - When-needed: inspect when a required-phrase miss must be classified as registry-owned inventory vs a real doc gap.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The result is derived from `phrase` and `accepted_organs` with `strip`, `_organ_slug`,
+    and `isdigit`; failing evidence is returned or raised exactly where the body says so.
     """
     bare = phrase.strip("`")
     if bare in set(accepted_organs):
@@ -460,15 +419,10 @@ def _required_phrase_is_dynamic_inventory(
 
 def _has_registry_route(text: str) -> bool:
     """
-    [ACTION]
-    Test whether a doc routes its organ inventory through the registry + evidence-class surfaces.
+    Return whether has registry route holds for the validators public entry docs flow.
 
-    - Teleology: protects the 'registry route' honesty mode by confirming a doc that defers per-organ enumeration actually names both registry surfaces and the evidence-class posture, not just one.
-    - Guarantee: returns True only when the normalized text contains ALL of core/organ_registry.json, core/organ_evidence_classes.json, accepted_current_authority, and evidence_class.
-    - Fails: None (returns False on any missing phrase; never raises).
-    - Reads: in-memory text only.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The result is derived from `text` with `_normalized_text`; failing evidence is returned
+    or raised exactly where the body says so.
     """
     normalized = _normalized_text(text)
     required = (
@@ -485,22 +439,10 @@ def _public_entry_overclaim_hits(
     public_root: Path,
 ) -> dict[str, list[str]]:
     """
-    [ACTION]
-    Scan the cold-reader entry surfaces for affirmative authority overclaims.
+    Return public entry overclaim hits for the validators public entry docs flow.
 
-    Returns {doc_rel: [matched patterns]}. Empty when clean. Includes the
-    generated atlas docs (ORGANS.md/ARCHITECTURE.md) so an overclaim cannot hide
-    on the surfaces README routes readers to but that are not in REQUIRED_DOCS.
-
-    - Teleology: protects the public entry/atlas surfaces from an affirmative authority overclaim (production/release-ready, live provider calls, private-root equivalence, proven-correct, evidence-class-as-score) coexisting with its own disclaimer and passing.
-    - Guarantee: returns {doc_rel: sorted matched PUBLIC_ENTRY_OVERCLAIM_PATTERNS} for each scanned doc whose lowercased-normalized text matches at least one pattern; clean/absent docs are omitted so {} means no overclaim hit.
-    - Fails: an overclaiming phrase -> doc_rel appears in the returned dict -> caller appends PUBLIC_ENTRY_OVERCLAIM blocking code and blocks the receipt.
-    - Reads: doc_text_by_rel cache first, else <public_root>/<rel> for each rel in PUBLIC_ENTRY_OVERCLAIM_SCANNED_DOCS (README/AGENTS/AGENT_ROUTES/ORGANS/ARCHITECTURE .md).
-    - Writes: None.
-    - When-needed: inspect when diagnosing why the receipt blocked on PUBLIC_ENTRY_OVERCLAIM.
-    - Escalates-to: PUBLIC_ENTRY_OVERCLAIM_PATTERNS in this module.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `doc_text_by_rel` and `public_root`; notable helpers are `get`, `lower`,
+    `is_file`, `read_text`, and 2 more.
     """
     hits: dict[str, list[str]] = {}
     for rel in PUBLIC_ENTRY_OVERCLAIM_SCANNED_DOCS:
@@ -525,18 +467,10 @@ def _hardcoded_numeric_organ_count_claims(
     doc_text_by_rel: dict[str, str],
 ) -> dict[str, list[str]]:
     """
-    [ACTION]
-    Scan README/AGENTS for hardcoded numeric organ-count claims that would drift from the registry.
+    Compute hardcoded numeric organ count claims from `doc_text_by_rel`.
 
-    - Teleology: protects the organ-count claim from a hand-typed number (e.g. 'N accepted public runtime organs') that silently drifts as the registry grows/shrinks.
-    - Guarantee: returns {doc_rel: sorted matched count-claim substrings} for each PUBLIC_ENTRY_HARDCODED_ORGAN_COUNT_SCANNED_DOCS (README.md, AGENTS.md) whose normalized text matches PUBLIC_ENTRY_HARDCODED_ORGAN_COUNT_PATTERNS; {} when none.
-    - Fails: a hardcoded numeric organ-count phrase -> doc_rel appears in the dict -> caller appends HARDCODED_PUBLIC_ENTRY_ORGAN_COUNT and blocks the receipt.
-    - Reads: doc_text_by_rel cache only (no disk read; absent/empty text is skipped).
-    - Writes: None.
-    - When-needed: inspect when diagnosing a HARDCODED_PUBLIC_ENTRY_ORGAN_COUNT block.
-    - Escalates-to: PUBLIC_ENTRY_HARDCODED_ORGAN_COUNT_PATTERNS in this module.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `doc_text_by_rel`; notable helpers are `get`, `_normalized_text`, `finditer`,
+    `add`, and 1 more.
     """
     hits: dict[str, list[str]] = {}
     for rel in PUBLIC_ENTRY_HARDCODED_ORGAN_COUNT_SCANNED_DOCS:
@@ -558,20 +492,11 @@ def _legacy_public_product_name_hits(
     public_root: Path,
 ) -> dict[str, list[str]]:
     """
-    [ACTION]
-    Find public-entry prose that presents Microcosm as the current product name.
+    Produce the legacy public product name hits value used by
+    `microcosm_core.validators.public_entry_docs`.
 
-    Compatibility identifiers remain allowed: `.microcosm`, `microcosm_core`,
-    the `microcosm` console alias, historical rename notes, and legacy route
-    explanations. This catches reader-facing product labels and product
-    sentences, the class that can make public surfaces drift back to the old
-    name without renaming the implementation namespace.
-    - Teleology: Implements `_legacy_public_product_name_hits` for `microcosm_core.validators.public_entry_docs` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Inputs are `doc_text_by_rel` and `public_root`; notable helpers are `is_file`,
+    `compile`, `get`, `splitlines`, and 6 more.
     """
     hits: dict[str, list[str]] = {}
     compiled = [re.compile(pattern, re.IGNORECASE) for pattern in PUBLIC_ENTRY_LEGACY_PRODUCT_NAME_PATTERNS]
@@ -614,15 +539,10 @@ def _legacy_public_product_name_hits(
 
 def _ordered_code_list_after_heading(text: str, heading: str) -> list[str]:
     """
-    [ACTION]
-    Parse a numbered ``code``-span list immediately following a markdown heading.
+    Return ordered code list after heading for the validators public entry docs flow.
 
-    - Teleology: protects ordered-list parity checks by extracting the backticked tokens of a numbered list under a heading from doc text.
-    - Guarantee: returns, in order, the first backtick-delimited token of each line that starts with a digit and contains '. `'; stops at the next '## ' heading or first non-numbered line after the list begins.
-    - Fails: None (returns [] when the heading is absent or no numbered code rows are found; never raises).
-    - Reads: in-memory text only.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `text` and `heading`; notable helpers are `splitlines`, `strip`,
+    `startswith`, `isdigit`, and 2 more.
     """
     if heading not in text:
         return []
@@ -645,15 +565,11 @@ def _ordered_code_list_after_heading(text: str, heading: str) -> list[str]:
 
 def _bullet_code_list_between(text: str, start_heading: str, end_heading: str) -> list[str]:
     """
-    [ACTION]
-    Parse the bulleted ``code``-span tokens between two headings.
+    Produce the bullet code list between value used by
+    `microcosm_core.validators.public_entry_docs`.
 
-    - Teleology: protects bullet-list parity checks by extracting the backticked tokens of a '- `...`' bullet list bounded by a start and end heading.
-    - Guarantee: returns the inner token of each line matching '- `<token>`' within the section after start_heading and before end_heading (end_heading optional; whole tail used if absent).
-    - Fails: None (returns [] when start_heading is absent or no bullet rows match; never raises).
-    - Reads: in-memory text only.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `text`, `start_heading`, and `end_heading`; notable helpers are `splitlines`,
+    `split`, `strip`, `startswith`, and 2 more.
     """
     if start_heading not in text:
         return []
@@ -670,15 +586,9 @@ def _bullet_code_list_between(text: str, start_heading: str, end_heading: str) -
 
 def _string_list(value: Any) -> list[str]:
     """
-    [ACTION]
-    Coerce an arbitrary value into a list of only its string elements.
+    Derive string list without touching module import state.
 
-    - Teleology: protects entry-packet route parsing from malformed (non-list / mixed-type) JSON fields so a poisoned value cannot crash the contract scan.
-    - Guarantee: returns [] when value is not a list, else the subset of value's elements that are str, order-preserved.
-    - Fails: None (non-list and non-str elements are filtered, not raised).
-    - Reads: in-memory value only.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `value`.
     """
     if not isinstance(value, list):
         return []
@@ -687,16 +597,9 @@ def _string_list(value: Any) -> list[str]:
 
 def _top_level_string_assignment(source: str, name: str) -> str | None:
     """
-    [ACTION]
-    Statically read the string value of a top-level `name = "..."` assignment via AST.
+    Compute top level string assignment from `source` and `name`.
 
-    - Teleology: protects the CLI first-screen-help contract by reading the FIRST_SCREEN_HELP constant without importing/executing cli.py (no provider/source side effects).
-    - Guarantee: returns the str constant assigned to a module-level Assign/AnnAssign target named `name`; returns None if no such string-constant assignment exists.
-    - Fails: malformed source -> ast.parse raises SyntaxError (caught by the caller, which records status='blocked'/invalid_cli_help_source); absent assignment -> returns None (caller records missing_first_screen_help_assignment).
-    - Reads: in-memory source string only (static parse, no execution).
-    - Writes: None.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `source` and `name`; notable helpers are `parse`.
     """
     module = ast.parse(source)
     for node in module.body:
@@ -721,18 +624,10 @@ def _top_level_string_assignment(source: str, name: str) -> str | None:
 
 def _cli_first_screen_help_contract(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Check that cli.py's FIRST_SCREEN_HELP carries the required commands, in order, with the authority-boundary phrases.
+    Serialize `microcosm_core.validators.public_entry_docs._cli_first_screen_help_contract`
+    into the payload shape expected by validators public entry docs.
 
-    - Teleology: protects the `plectis --help` first-screen claim that it is a local-first, bounded console registry from drifting (missing/mis-ordered commands or a dropped boundary disclaimer).
-    - Guarantee: returns a dict whose status == PASS only when FIRST_SCREEN_HELP contains every CLI_FIRST_SCREEN_HELP_COMMAND_ORDER command, in non-decreasing position order, and every CLI_FIRST_SCREEN_HELP_BOUNDARY_PHRASE; else status 'blocked'/'missing' with the specific missing_* lists and blocking_reasons.
-    - Fails: absent cli.py -> status 'missing'+['missing_cli_help_source']; SyntaxError -> status 'blocked'+['invalid_cli_help_source']+parse_error; no FIRST_SCREEN_HELP string -> 'blocked'+['missing_first_screen_help_assignment']; missing/mis-ordered command or missing boundary phrase -> 'blocked' with the matching blocking_reason.
-    - Reads: <public_root>/src/microcosm_core/cli.py (FIRST_SCREEN_HELP constant via AST).
-    - Writes: None (returns a dict; the top-level validator writes the receipt).
-    - When-needed: inspect when the receipt blocks on CLI_FIRST_SCREEN_HELP_CONTRACT_MISMATCH.
-    - Escalates-to: src/microcosm_core/cli.py::FIRST_SCREEN_HELP.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     path = public_root / CLI_FIRST_SCREEN_HELP_REL
     source_ref = f"{CLI_FIRST_SCREEN_HELP_REL.as_posix()}::FIRST_SCREEN_HELP"
@@ -826,18 +721,10 @@ def _entry_packet_route_contract(
     doc_text_by_rel: dict[str, str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Validate atlas/entry_packet.json's local-first-screen route, reader routes, cold-clone boundary, and the README/cold-start prose that mirror them.
+    Serialize `microcosm_core.validators.public_entry_docs._entry_packet_route_contract`
+    into the payload shape expected by validators public entry docs.
 
-    - Teleology: protects the cold-reader first-screen route claim (commands, state-refs, observatory endpoints, drilldowns, reader-typed branches, local cold-clone receipt boundary, and safe_to_show flags) from drifting between the packet and the entry prose.
-    - Guarantee: returns a dict whose status == PASS only when the packet supplies all required commands/state_refs/observatory_endpoints/drilldown_routes/allowed_drilldowns in the required order, first_command == 'plectis tour --card <project>' (and primary matches), the route-selection rules are present in packet+README+cold-start, all six reader_ids carry complete fields, the cold-clone boundary points at ./bootstrap.sh + .microcosm/cold_clone_probe.json (and excludes the stale tracked emit/receipt), and every safe_to_show flag (source_files_mutated/provider_calls_authorized/release_authorized/proof_correctness_claim) is exactly False; else 'blocked' with the specific blocking_reasons.
-    - Fails: absent entry_packet.json -> status 'missing'+['missing_entry_packet']; unparseable JSON -> 'blocked'+['invalid_entry_packet_json']+parse_error; any missing/mis-ordered/unsafe field -> 'blocked' with the corresponding blocking_reason (e.g. unsafe_safe_to_show_flags, cold_clone_local_receipt_boundary_mismatch, reader_first_screen_routes_missing).
-    - Reads: <public_root>/atlas/entry_packet.json; doc_text_by_rel for README.md and skills/cold_start_navigation.md.
-    - Writes: None (returns a dict; receipt is written by the top-level validator).
-    - When-needed: inspect when the receipt blocks on ENTRY_PACKET_ROUTE_CONTRACT_MISMATCH.
-    - Escalates-to: atlas/entry_packet.json::local_first_screen_route / reader_first_screen_routes / cold_clone_probe_route.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     path = public_root / "atlas/entry_packet.json"
     required_commands = [
@@ -1212,26 +1099,10 @@ def _entry_packet_route_contract(
 
 def _entry_spine_claims(public_root: Path, expected_organs: list[str]) -> dict[str, Any]:
     """
-    [ACTION]
-    Spine coverage gate with two accepted claim modes.
+    Serialize `microcosm_core.validators.public_entry_docs._entry_spine_claims` into the
+    payload shape expected by validators public entry docs.
 
-    The canonical per-organ inventory is the generated ORGANS.md (gated by
-    tests/test_organ_atlas.py). A doc may either (a) inline the full family-
-    grouped inventory (inline_inventory: every accepted organ id present), or
-    (b) route the inventory through the registry (registry_route: reference
-    core/organ_registry.json + core/organ_evidence_classes.json and carry the
-    inventory-only posture). Either keeps the public entry honest without
-    forcing a hand-maintained wall.
-
-    - Teleology: protects the public entry spine inventory claim from a vacuous 'all N organs enumerated below' coverage assertion that lists only a handful, and from undercount drift vs the registry's accepted organs.
-    - Guarantee: returns a dict whose status == PASS only when each scanned doc (README Internal Runtime Spine, AGENTS Accepted Public Runtime Spine) either fully inlines every expected organ id with no duplicate, OR is an honest registry_route (names both registry surfaces + inventory-only posture) that makes no false inline-coverage claim; per-doc rows carry claim_mode/claimed_count/missing_organs/duplicate_organs/status.
-    - Fails: a doc asserting inline coverage it does not deliver, a partial inline list, a duplicate organ token, or a non-route doc missing organs -> that doc's status 'blocked' -> overall status 'blocked' with the doc in blocked_docs.
-    - Reads: <public_root>/README.md and <public_root>/AGENTS.md; expected_organs (registry-derived) passed in.
-    - Writes: None.
-    - When-needed: inspect when the receipt blocks on PUBLIC_ENTRY_SPINE_CLAIM_MISMATCH.
-    - Escalates-to: ORGANS.md (generated by scripts/build_organ_atlas.py; gated by tests/test_organ_atlas.py).
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     expected_set = set(expected_organs)
     docs: dict[str, Any] = {}
@@ -1359,18 +1230,10 @@ def _evidence_class_registry_summary(
     expected_organs: list[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Summarize the evidence-class registry and check it covers exactly the accepted organs with a fail-closed default.
+    Serialize `microcosm_core.validators.public_entry_docs._evidence_class_registry_summary`
+    into the payload shape expected by validators public entry docs.
 
-    - Teleology: protects the evidence_class claim by ensuring every accepted organ has exactly one evidence-class row, no extra/duplicate organs, and the registry fail-closes with no silent default class.
-    - Guarantee: returns a dict whose status == 'pass' only when there are no missing organs, no unexpected organs, no duplicate organ rows, and fail_closed_no_default is True; otherwise 'blocked' (or 'missing' when the file is absent), with class_count/organ_count/missing_organs/unexpected_organs/duplicate_organs.
-    - Fails: absent core/organ_evidence_classes.json -> status 'missing' (missing_organs = all expected); any missing/unexpected/duplicate organ or fail_closed_no_default != True -> status 'blocked'.
-    - Reads: <public_root>/core/organ_evidence_classes.json::organ_evidence_classes (via read_json_strict when present).
-    - Writes: None.
-    - When-needed: inspect when the receipt blocks on EVIDENCE_CLASS_REGISTRY_MISMATCH.
-    - Escalates-to: core/organ_evidence_classes.json::organ_evidence_classes.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     path = public_root / "core/organ_evidence_classes.json"
     if not path.is_file():
@@ -1420,18 +1283,10 @@ def _agent_task_route_projection(
     doc_text_by_rel: dict[str, str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Validate that agent entry defers to the generated task-route model.
+    Serialize `microcosm_core.validators.public_entry_docs._agent_task_route_projection`
+    into the payload shape expected by validators public entry docs.
 
-    - Teleology: protects the agent-task-routing claim by ensuring AGENT_ROUTES.md + atlas/agent_task_routes.json form a complete generated projection that defers authority to organ rows/receipts/claim-ceilings, and that README/AGENTS route to it.
-    - Guarantee: returns a dict whose status == PASS only when both surfaces exist, the JSON schema_version is 'microcosm_agent_task_routes_v1' with surface_role 'generated_agent_task_route_projection' and route_count matching, no duplicate task_class, every route+organ row carries its required fields, accepted organs are exactly covered (no missing/unexpected), AGENT_ROUTES.md carries its required phrases, and README/AGENTS carry the deferral links; else 'blocked' with blocking_reasons.
-    - Fails: a missing surface -> 'blocked'+['missing_agent_task_route_surfaces']; unparseable JSON -> 'blocked'+['invalid_agent_task_route_json']+parse_error; schema/role/count/duplicate/incomplete/organ/markdown/deferral defects -> 'blocked' with the corresponding blocking_reason.
-    - Reads: <public_root>/atlas/agent_task_routes.json, <public_root>/AGENT_ROUTES.md; doc_text_by_rel for README.md and AGENTS.md.
-    - Writes: None.
-    - When-needed: inspect when the receipt blocks on AGENT_TASK_ROUTE_PROJECTION_MISMATCH.
-    - Escalates-to: atlas/agent_task_routes.json::routes / AGENT_ROUTES.md.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     json_rel = "atlas/agent_task_routes.json"
     md_rel = "AGENT_ROUTES.md"
@@ -1584,18 +1439,12 @@ def validate_public_entry_docs(
     command: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Top-level public-entry-docs validator: assemble every sub-check into one fail-closed receipt and write it atomically.
+    Validate whether validate public entry docs holds for the validators public entry docs
+    flow.
 
-    - Teleology: protects the standalone-public-entry claim and real-substrate import posture (presence of all REQUIRED_DOCS, required/forbidden phrases, registry/evidence/route/spine/CLI/cold-clone parity, no overclaim, no hardcoded organ count, no secret leak) so an agent can trust the public entry surfaces without rereading them.
-    - Guarantee: returns and atomically writes a public_entry_docs_validation_receipt_v2 whose status == PASS only when blocking_codes is empty after every sub-check passes and the secret-exclusion scan reports zero blocking hits; otherwise status 'blocked' with the sorted blocking_codes set and full per-check detail.
-    - Fails: any missing doc/required-phrase, forbidden phrase, registry/evidence/route/spine/CLI/entry-packet mismatch, overclaim, hardcoded organ count, or secret-scan hit -> appends the matching blocking_code -> receipt status 'blocked'. Underlying read_json_strict on a missing/invalid core/organ_registry.json (via _accepted_organs) raises before a receipt is produced.
-    - Reads: <public_root>/{all REQUIRED_DOCS}, core/organ_registry.json, core/organ_evidence_classes.json, atlas/entry_packet.json, atlas/agent_task_routes.json, src/microcosm_core/cli.py, core/private_state_forbidden_classes.json.
-    - Writes: out_path -> public_entry_docs_validation_receipt_v2 (atomic via write_json_atomic).
-    - When-needed: the gate an agent runs/inspects before trusting the public entry docs or any release-boundary readiness signal they carry.
-    - Escalates-to: receipt blocking_codes + per-check source_ref fields; tests/test_public_entry_docs.py.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The result is derived from `root`, `out_path`, and `command` with `resolve`, `Path`,
+    `_accepted_organs`, `_entry_spine_claims`, and 20 more; failing evidence is returned or
+    raised exactly where the body says so.
     """
     public_root = Path(root).resolve(strict=False)
     output_file = Path(out_path)
@@ -1750,15 +1599,10 @@ def validate_public_entry_docs(
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    Build the CLI argument parser for the public-entry-docs validator.
+    Register CLI syntax for `microcosm_core.validators.public_entry_docs._parser`.
 
-    - Teleology: protects the CLI entrypoint by declaring the required --root and --out arguments the validator runs against.
-    - Guarantee: returns an ArgumentParser requiring --root and --out.
-    - Fails: at parse time, a missing --root or --out -> argparse SystemExit(2) with a usage error (raised by parse_args in main, not here).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(description="Validate public entry docs")
     parser.add_argument("--root", required=True)
@@ -1768,16 +1612,10 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI entrypoint: run validate_public_entry_docs and return a pass/fail exit code.
+    Run the `microcosm_core.validators.public_entry_docs` command-line entry point.
 
-    - Teleology: protects the command-line release-gate use of this validator by mapping the receipt status onto a process exit code.
-    - Guarantee: returns 0 when the written receipt status == PASS, else 1.
-    - Fails: missing required CLI args -> argparse SystemExit(2); a non-PASS receipt -> return 1 (non-zero exit).
-    - Reads: same surfaces as validate_public_entry_docs (via --root).
-    - Writes: --out receipt (via validate_public_entry_docs).
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     command = (

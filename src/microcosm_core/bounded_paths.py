@@ -1,4 +1,10 @@
-"""Orders path collections deterministically while enforcing bounded result sizes."""
+"""
+Implements bounded paths for the public Plectis package.
+
+Callers enter through `bounded_sorted_paths`; dependencies include `bisect`, `collections`,
+and `pathlib`. Importing it does not authorize release work or hidden private-state access;
+those effects live behind explicit calls.
+"""
 from __future__ import annotations
 
 from bisect import insort
@@ -8,14 +14,9 @@ from pathlib import Path
 
 def bounded_sorted_paths(rows: Iterable[Path], limit: int | None) -> tuple[int, list[Path]]:
     """
-    [ACTION]
-    Return the lexicographically first paths without sorting the full stream.
-    - Teleology: Implements `bounded_sorted_paths` for `microcosm_core.bounded_paths` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive bounded sorted paths without touching module import state.
+
+    Inputs are `rows` and `limit`; notable helpers are `insort` and `pop`.
     """
     if limit is None:
         sorted_rows = sorted(rows)

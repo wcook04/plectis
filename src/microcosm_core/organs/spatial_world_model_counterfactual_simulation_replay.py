@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs spatial world model counterfactual simulation replay for the public
+Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, SOURCE_MODULE_MANIFEST_NAME, PAYLOAD_BOUNDARY_ID, ROW_PAYLOAD_BOUNDARY_REF, INPUT_NAMES, NEGATIVE_INPUT_NAMES, EXPECTED_NEGATIVE_CASES, REQUIRED_REPLAY_FIELDS, PRIVATE_NEEDLES, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_MODULE_IMPORT_STATUS, BODY_DIGEST_PREFIX, SOURCE_IMPORT_CLASS, SOURCE_BODY_STATUS, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.public_payload_boundary, microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `run`, `run_simulation_bundle`, `result_card`, and `main`; constants
+such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 24 more pin local
+fixture names; dependencies include `argparse`, `hashlib`, `json`, `collections`, and 3
+more. It builds public fixture, result, card, or verdict structures while keeping private
+substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -232,13 +217,10 @@ EVENT_GRIDWORLD_ACTIONS = {
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for the organs spatial world model counterfactual simulation
+    replay flow.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -254,26 +236,22 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the display value used by
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -283,13 +261,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -298,13 +274,11 @@ def _strings(value: object) -> list[str]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return input paths for
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file` and
+    `append`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names if (input_dir / name).is_file()]
@@ -316,13 +290,10 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _target_path_for_ref(target_ref: str, *, public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_target_path_for_ref` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the target path for ref value used by
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay`.
+
+    Inputs are `target_ref` and `public_root`; notable helpers are `removeprefix`.
     """
     target = target_ref.removeprefix("microcosm-substrate/")
     return public_root / target
@@ -330,13 +301,11 @@ def _target_path_for_ref(target_ref: str, *, public_root: Path) -> Path:
 
 def _source_file_candidates(source_ref: str, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_file_candidates` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source file candidates value used by
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay`.
+
+    Inputs are `source_ref` and `public_root`; notable helpers are `Path`, `is_absolute`,
+    `split`, `cwd`, and 3 more.
     """
     rel = Path(source_ref.split("::", 1)[0])
     if rel.is_absolute() or ".." in rel.parts:
@@ -354,13 +323,10 @@ def _source_file_candidates(source_ref: str, *, public_root: Path) -> list[Path]
 
 def _first_existing_source(source_ref: str, *, public_root: Path) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_first_existing_source` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute first existing source from `source_ref` and `public_root`.
+
+    Inputs are `source_ref` and `public_root`; notable helpers are `_source_file_candidates`
+    and `is_file`.
     """
     for candidate in _source_file_candidates(source_ref, public_root=public_root):
         if candidate.is_file():
@@ -370,39 +336,33 @@ def _first_existing_source(source_ref: str, *, public_root: Path) -> Path | None
 
 def _sha256_hex(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_hex` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._sha256_hex`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _sha256_ref(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_ref` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._sha256_ref`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return f"{BODY_DIGEST_PREFIX}{_sha256_hex(path)}"
 
 
 def _json_digest(payload: object) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_json_digest` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._json_digest`.
+
+    The input is `payload`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode(
         "utf-8"
@@ -412,13 +372,10 @@ def _json_digest(payload: object) -> str:
 
 def _line_count(path: Path) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_line_count` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return line count for
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay`.
+
+    Inputs are `path`; notable helpers are `open`.
     """
     line_count = 0
     with path.open("r", encoding="utf-8") as handle:
@@ -429,13 +386,11 @@ def _line_count(path: Path) -> int:
 
 def _source_module_paths(manifest_payload: object, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_paths` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module paths for the organs spatial world model counterfactual simulation
+    replay flow.
+
+    Inputs are `manifest_payload` and `public_root`; notable helpers are `_rows`, `get`,
+    `_target_path_for_ref`, `is_file`, and 1 more.
     """
     if not isinstance(manifest_payload, dict):
         return []
@@ -451,13 +406,11 @@ def _source_module_paths(manifest_payload: object, *, public_root: Path) -> list
 
 def _freshness_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_paths` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the freshness paths value used by
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay`.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are `_input_paths`, `is_file`,
+    `extend`, `read_json_strict`, and 5 more.
     """
     paths = _input_paths(input_dir, include_negative=False)
     manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
@@ -488,13 +441,12 @@ def _freshness_basis(
     input_mode: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._freshness_basis`
+    into the payload shape expected by organs spatial world model counterfactual simulation
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = _public_root_for_path(input_dir)
     input_paths = _freshness_paths(input_dir, public_root=public_root)
@@ -533,13 +485,12 @@ def _fresh_spatial_simulation_bundle_receipt(
     command: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_spatial_simulation_bundle_receipt` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._fresh_spatial_simulation_bundle_receipt`
+    into the payload shape expected by organs spatial world model counterfactual simulation
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if freshness_basis.get("missing_input_count"):
         return None
@@ -574,13 +525,12 @@ def _source_module_manifest_result(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_result` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._source_module_manifest_result`
+    into the payload shape expected by organs spatial world model counterfactual simulation
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not isinstance(manifest_payload, dict):
         return {
@@ -721,13 +671,12 @@ def _source_open_body_import_summary(
     manifest_ref: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._source_open_body_import_summary`
+    into the payload shape expected by organs spatial world model counterfactual simulation
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     material_ids = _strings(source_module_summary.get("public_safe_body_material_ids"))
     material_classes = _strings(source_module_summary.get("material_classes"))
@@ -770,13 +719,11 @@ def _source_open_body_import_summary(
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -793,13 +740,12 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._finding`
+    into the payload shape expected by organs spatial world model counterfactual simulation
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -824,13 +770,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs spatial world model counterfactual simulation replay flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -852,13 +795,10 @@ def _replay_policy_findings(
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_replay_policy_findings` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._replay_policy_findings`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     findings: list[dict[str, Any]] = []
     subject_id = str(row.get("replay_id") or case_id)
@@ -1000,13 +940,10 @@ def _replay_policy_findings(
 
 def _int_value(value: object) -> int | None:
     """
-    [ACTION]
-    - Teleology: Implements `_int_value` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return int value for the organs spatial world model counterfactual simulation replay
+    flow.
+
+    Inputs are `value`.
     """
     if isinstance(value, bool):
         return None
@@ -1015,13 +952,12 @@ def _int_value(value: object) -> int | None:
 
 def _gridworld_initial_state(scene: dict[str, Any], *, replay_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_gridworld_initial_state` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._gridworld_initial_state`
+    into the payload shape expected by organs spatial world model counterfactual simulation
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     actor_count = _int_value(scene.get("actor_count")) or 0
     actors = []
@@ -1046,13 +982,10 @@ def _gridworld_initial_state(scene: dict[str, Any], *, replay_id: str) -> dict[s
 
 def _positive_int_field(payload: object, key: str, *, default: int = 1) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_positive_int_field` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the positive int field value used by
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay`.
+
+    Inputs are `payload`, `key`, and `default`; notable helpers are `_int_value` and `get`.
     """
     if not isinstance(payload, dict):
         return default
@@ -1067,13 +1000,10 @@ def _gridworld_actor_count_delta(
     action: dict[str, Any],
 ) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_gridworld_actor_count_delta` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive gridworld actor count delta without touching module import state.
+
+    Inputs are `state`, `replay`, and `action`; notable helpers are `_positive_int_field`,
+    `get`, `_strings`, and `_int_value`.
     """
     base_event_delta = _positive_int_field(action, "actor_count_delta", default=1)
     sensor_packet_count = len(_strings(replay.get("sensor_packet_refs")))
@@ -1098,13 +1028,11 @@ def _gridworld_spawn_cells(
     actor_count_delta: int,
 ) -> list[list[int]]:
     """
-    [ACTION]
-    - Teleology: Implements `_gridworld_spawn_cells` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute gridworld spawn cells from `state`, `replay`, `action`, `event`, and
+    `actor_count_delta`.
+
+    Inputs are `state`, `replay`, `action`, `event`, and `actor_count_delta`; notable
+    helpers are `get`, `_strings`, `removeprefix`, `_rows`, and 3 more.
     """
     seed_payload = {
         "event": event,
@@ -1153,13 +1081,12 @@ def _gridworld_step(
     replay_id: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_gridworld_step` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._gridworld_step`
+    into the payload shape expected by organs spatial world model counterfactual simulation
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     action = EVENT_GRIDWORLD_ACTIONS.get(event)
     actors = [dict(actor) for actor in _rows({"actors": state.get("actors", [])}, "actors")]
@@ -1232,13 +1159,11 @@ def _state_transition_analysis(
     transitions: list[dict[str, Any]],
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_state_transition_analysis` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return state transition analysis for the organs spatial world model counterfactual
+    simulation replay flow.
+
+    Inputs are `scene_states`, `replays`, and `transitions`; notable helpers are
+    `defaultdict`, `append`, `get`, `_int_value`, and 3 more.
     """
     findings: list[dict[str, Any]] = []
     scene_by_ref = {
@@ -1476,13 +1401,11 @@ def _state_transition_analysis(
 
 def _required_policy_ok(policy: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_required_policy_ok` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether required policy ok holds for the organs spatial world model
+    counterfactual simulation replay flow.
+
+    The result is derived from `policy` with `get` and `items`; failing evidence is returned
+    or raised exactly where the body says so.
     """
     ceiling = policy.get("authority_ceiling")
     if not isinstance(ceiling, dict):
@@ -1505,13 +1428,12 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._build_result`
+    into the payload shape expected by organs spatial world model counterfactual simulation
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     public_root = _public_root_for_path(input_dir)
@@ -1754,13 +1676,12 @@ def _build_result(
 
 def _board(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_board` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._board` into
+    the payload shape expected by organs spatial world model counterfactual simulation
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     summary = result.get("simulation_summary", {})
     negatives = result.get("negative_case_summary", {})
@@ -1826,13 +1747,12 @@ def _write_receipts(
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._write_receipts`
+    into the payload shape expected by organs spatial world model counterfactual simulation
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
@@ -1924,13 +1844,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for the organs spatial world model counterfactual simulation replay flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `_build_result`, `_freshness_basis`, `_write_receipts`, and `Path`.
     """
     result = _build_result(
         Path(input_dir),
@@ -1962,13 +1879,11 @@ def run_simulation_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_simulation_bundle` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return run simulation bundle for the organs spatial world model counterfactual
+    simulation replay flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `mkdir`, `_freshness_basis`, `_build_result`, and 5 more.
     """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -2011,13 +1926,12 @@ def run_simulation_bundle(
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Serialize
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay.result_card`
+    into the payload shape expected by organs spatial world model counterfactual simulation
+    replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     summary = result.get("simulation_summary") or {}
     negatives = result.get("negative_case_summary") or {}
@@ -2135,13 +2049,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(prog="spatial_world_model_counterfactual_simulation_replay")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -2159,13 +2071,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.spatial_world_model_counterfactual_simulation_replay`
+    command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

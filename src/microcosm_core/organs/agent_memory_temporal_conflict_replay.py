@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.agent_memory_temporal_conflict_replay` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs agent memory temporal conflict replay for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, SOURCE_MODULE_MANIFEST_NAME, SOURCE_IMPORT_CLASS, SOURCE_BODY_STATUS, INPUT_NAMES, NEGATIVE_INPUT_NAMES, HASH_CHUNK_SIZE, EXPECTED_NEGATIVE_CASES, REQUIRED_MEMORY_EVENT_FIELDS, REQUIRED_REPLAY_FIELDS, FORBIDDEN_KEYS, PUBLIC_SAFE_SOURCE_MODULE_CLASSES, SOURCE_MODULE_RELATIONS, REAL_TRACE_EVENT_FIELDS, TIMESTAMP_FIELDS, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.macro_tools.agent_execution_trace, microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `validate_source_module_imports`, `validate_projection_protocol`,
+`validate_memory_policy`, `validate_memory_episodes`, `validate_replay_observations`, `run`,
+and 3 more; constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and
+26 more pin local fixture names; dependencies include `argparse`, `hashlib`, `json`,
+`collections`, and 4 more. It builds public fixture, result, card, or verdict structures
+while keeping private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -209,13 +194,10 @@ ANTI_CLAIM = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -231,26 +213,21 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the display value used by
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._rows` from `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -260,13 +237,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -275,13 +250,9 @@ def _strings(value: object) -> list[str]:
 
 def _first_present(row: dict[str, Any], keys: tuple[str, ...]) -> object | None:
     """
-    [ACTION]
-    - Teleology: Implements `_first_present` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return first present for the organs agent memory temporal conflict replay flow.
+
+    Inputs are `row` and `keys`; notable helpers are `get`.
     """
     for key in keys:
         value = row.get(key)
@@ -292,13 +263,10 @@ def _first_present(row: dict[str, Any], keys: tuple[str, ...]) -> object | None:
 
 def _number(value: object) -> float | None:
     """
-    [ACTION]
-    - Teleology: Implements `_number` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the number value used by
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay`.
+
+    Inputs are `value`.
     """
     if isinstance(value, bool):
         return None
@@ -314,13 +282,11 @@ def _number(value: object) -> float | None:
 
 def _normalized_timestamp(value: object) -> str | None:
     """
-    [ACTION]
-    - Teleology: Implements `_normalized_timestamp` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Produce the normalized timestamp value used by
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay`.
+
+    Inputs are `value`; notable helpers are `strip`, `isoformat`, `endswith`,
+    `fromisoformat`, and 3 more.
     """
     if value in ("", None) or isinstance(value, bool):
         return None
@@ -343,13 +309,10 @@ def _normalized_timestamp(value: object) -> str | None:
 
 def _timestamp_sort_value(value: object) -> float | None:
     """
-    [ACTION]
-    - Teleology: Implements `_timestamp_sort_value` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive timestamp sort value without touching module import state.
+
+    Inputs are `value`; notable helpers are `_normalized_timestamp`, `timestamp`, and
+    `fromisoformat`.
     """
     normalized = _normalized_timestamp(value)
     if normalized is None:
@@ -362,13 +325,10 @@ def _timestamp_sort_value(value: object) -> float | None:
 
 def _explicit_source_trust_score(row: dict[str, Any]) -> tuple[float | None, bool]:
     """
-    [ACTION]
-    - Teleology: Implements `_explicit_source_trust_score` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return explicit source trust score for the organs agent memory temporal conflict replay
+    flow.
+
+    Inputs are `row`; notable helpers are `_first_present`, `_number`, and `get`.
     """
     value = _first_present(row, SOURCE_TRUST_FIELDS)
     if value is not None:
@@ -381,13 +341,10 @@ def _explicit_source_trust_score(row: dict[str, Any]) -> tuple[float | None, boo
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return input paths for the organs agent memory temporal conflict replay flow.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file` and
+    `append`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -399,13 +356,10 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _strip_microcosm_prefix(ref: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_strip_microcosm_prefix` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the strip microcosm prefix value used by
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay`.
+
+    Inputs are `ref`; notable helpers are `startswith`.
     """
     prefix = "microcosm-substrate/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
@@ -413,13 +367,11 @@ def _strip_microcosm_prefix(ref: str) -> str:
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -430,13 +382,11 @@ def _sha256(path: Path) -> str:
 
 def _source_evidence_posture(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_evidence_posture` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._source_evidence_posture`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not isinstance(payload, dict):
         return {}
@@ -451,13 +401,11 @@ def _source_module_manifest_path(
     source_evidence_posture: dict[str, Any] | None = None,
 ) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute source module manifest path from `input_dir`, `public_root`, and
+    `source_evidence_posture`.
+
+    Inputs are `input_dir`, `public_root`, and `source_evidence_posture`; notable helpers
+    are `get`, `_strip_microcosm_prefix`, and `_public_root_for_path`.
     """
     posture = source_evidence_posture or {}
     manifest_ref = str(posture.get("source_module_manifest_ref") or "")
@@ -475,13 +423,11 @@ def _source_module_target_path(
     public_root: Path,
 ) -> tuple[Path, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module target path for the organs agent memory temporal conflict replay
+    flow.
+
+    Inputs are `row`, `manifest_path`, and `public_root`; notable helpers are
+    `_strip_microcosm_prefix`, `get`, and `_display`.
     """
     target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
     row_path = str(row.get("path") or "")
@@ -500,13 +446,10 @@ def _source_artifact_paths(
     source_evidence_posture: dict[str, Any] | None = None,
 ) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_artifact_paths` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source artifact paths for the organs agent memory temporal conflict replay flow.
+
+    Inputs are `input_dir`, `public_root`, and `source_evidence_posture`; notable helpers
+    are `_source_module_manifest_path`, `read_json_strict`, `_rows`, `is_file`, and 2 more.
     """
     manifest_path = _source_module_manifest_path(
         input_dir,
@@ -530,13 +473,10 @@ def _source_artifact_paths(
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_memory_temporal_conflict_replay._freshness_basis`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -610,13 +550,11 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
 
 def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_bundle_receipt` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the fresh bundle receipt value used by
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay`.
+
+    Inputs are `input_dir` and `out_dir`; notable helpers are `_freshness_basis`, `get`,
+    `is_file`, and `read_json_strict`.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -651,13 +589,10 @@ def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | No
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for `microcosm_core.organs.agent_memory_temporal_conflict_replay`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -672,13 +607,11 @@ def validate_source_module_imports(
     source_evidence_posture: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_source_module_imports` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay.validate_source_module_imports`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(
         input_dir,
@@ -859,13 +792,11 @@ def validate_source_module_imports(
 
 def _empty_source_module_imports() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_empty_source_module_imports` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._empty_source_module_imports`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "status": PASS,
@@ -879,13 +810,11 @@ def _empty_source_module_imports() -> dict[str, Any]:
 
 def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._source_open_body_import_summary`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     modules = _rows(source_imports, "modules")
     module_ids = [str(row.get("module_id")) for row in modules if row.get("module_id")]
@@ -938,13 +867,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_memory_temporal_conflict_replay._finding` into
+    the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -967,13 +893,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs agent memory temporal conflict replay flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -989,13 +912,9 @@ def _record(
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return merge observed for `microcosm_core.organs.agent_memory_temporal_conflict_replay`.
+
+    Inputs are `results`; notable helpers are `defaultdict`, `items`, `get`, and `add`.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -1007,13 +926,10 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_findings` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._merge_findings`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     findings: list[dict[str, Any]] = []
     for result in results:
@@ -1031,13 +947,11 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _replay_reference_index(memory_rows: list[dict[str, Any]]) -> dict[str, set[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_replay_reference_index` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._replay_reference_index`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     episode_ids = {
         str(row.get("episode_id") or "")
@@ -1062,13 +976,11 @@ def _trace_spans_by_id(
     public_agent_execution_trace: dict[str, Any] | None,
 ) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_trace_spans_by_id` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._trace_spans_by_id` into
+    the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not isinstance(public_agent_execution_trace, dict):
         return {}
@@ -1084,26 +996,20 @@ def _trace_spans_by_id(
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_forbidden_key` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has forbidden key holds for the organs agent memory temporal conflict
+    replay flow.
+
+    The result is derived from `row`; failing evidence is returned or raised exactly where
+    the body says so.
     """
     return any(key in row for key in FORBIDDEN_KEYS)
 
 
 def _ref_base(ref: object) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_ref_base` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return ref base for the organs agent memory temporal conflict replay flow.
+
+    Inputs are `ref`; notable helpers are `split`.
     """
     return str(ref or "").split("::", 1)[0]
 
@@ -1115,13 +1021,11 @@ def _source_event_alignment_index(
     source_evidence_posture: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_event_alignment_index` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._source_event_alignment_index`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(
         input_dir,
@@ -1161,13 +1065,11 @@ def _source_event_alignment_index(
 
 def _source_event_ref_matches(source_event_ref: str, allowed_refs: set[str]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_source_event_ref_matches` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether source event ref matches holds for the organs agent memory temporal
+    conflict replay flow.
+
+    The result is derived from `source_event_ref` and `allowed_refs` with `startswith`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     return any(
         source_event_ref == allowed
@@ -1187,13 +1089,11 @@ def _apply_source_event_alignment(
     observed: dict[str, set[str]],
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_apply_source_event_alignment` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run apply source event alignment for the organs agent memory temporal conflict replay
+    flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     index = _source_event_alignment_index(
         input_dir,
@@ -1235,13 +1135,11 @@ def _apply_source_event_alignment(
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_projection_protocol` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay.validate_projection_protocol`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
@@ -1325,13 +1223,11 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
 
 def validate_memory_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_memory_policy` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay.validate_memory_policy`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy = payload if isinstance(payload, dict) else {}
     allowed = set(_strings(policy.get("allowed_memory_decisions")))
@@ -1394,13 +1290,11 @@ def _validate_event_row(
     negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_event_row` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._validate_event_row` into
+    the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     case_id = str(row.get("expected_negative_case_id") or row.get("event_id") or "memory")
     event_id = str(row.get("event_id") or case_id)
@@ -1644,13 +1538,9 @@ def _validate_event_row(
 
 def _episode_order(row: dict[str, Any]) -> int | None:
     """
-    [ACTION]
-    - Teleology: Implements `_episode_order` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive episode order without touching module import state.
+
+    Inputs are `row`; notable helpers are `get` and `isdigit`.
     """
     value = row.get("episode_order")
     if isinstance(value, bool):
@@ -1664,26 +1554,19 @@ def _episode_order(row: dict[str, Any]) -> int | None:
 
 def _conflict_group_ref(row: dict[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_conflict_group_ref` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return conflict group ref for the organs agent memory temporal conflict replay flow.
+
+    Inputs are `row`; notable helpers are `get`.
     """
     return str(row.get("conflict_subject_ref") or row.get("memory_subject_id") or "")
 
 
 def _event_sort_key(row: dict[str, Any]) -> tuple[int, float, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_event_sort_key` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute event sort key from `row`.
+
+    Inputs are `row`; notable helpers are `_episode_order`, `_timestamp_sort_value`, and
+    `get`.
     """
     order = _episode_order(row)
     timestamp = _timestamp_sort_value(row.get("event_timestamp"))
@@ -1700,13 +1583,11 @@ def _apply_conflict_semantic_recompute(
     observed: dict[str, set[str]],
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_apply_conflict_semantic_recompute` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run apply conflict semantic recompute for the organs agent memory temporal conflict
+    replay flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     prior_by_group: dict[str, dict[str, Any]] = {}
     for row in sorted(event_rows, key=_event_sort_key):
@@ -1851,13 +1732,11 @@ def _apply_temporal_order_checks(
     observed: dict[str, set[str]],
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_apply_temporal_order_checks` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run apply temporal order checks for the organs agent memory temporal conflict replay
+    flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     accepted_writes = [
         row
@@ -1934,13 +1813,11 @@ def _apply_public_trace_alignment(
     observed: dict[str, set[str]],
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_apply_public_trace_alignment` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run apply public trace alignment for the organs agent memory temporal conflict replay
+    flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     spans_by_id = _trace_spans_by_id(public_agent_execution_trace)
     for row in event_rows:
@@ -2031,13 +1908,11 @@ def validate_memory_episodes(
     public_agent_execution_trace: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_memory_episodes` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay.validate_memory_episodes`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy_rows = policy if isinstance(policy, dict) else {}
     allowed = set(_strings(policy_rows.get("allowed_memory_decisions")))
@@ -2203,13 +2078,11 @@ def _validate_replay_row(
     negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_replay_row` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._validate_replay_row` into
+    the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     case_id = str(row.get("expected_negative_case_id") or row.get("observation_id") or "replay")
     observation_id = str(row.get("observation_id") or case_id)
@@ -2294,13 +2167,11 @@ def validate_replay_observations(
     memory_rows: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_replay_observations` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay.validate_replay_observations`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -2374,13 +2245,10 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_memory_temporal_conflict_replay._build_result`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -2509,13 +2377,11 @@ def _build_result(
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_board_from_result` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._board_from_result` into
+    the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "agent_memory_temporal_conflict_replay_board_v1",
@@ -2567,13 +2433,10 @@ def _write_receipts(
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize `microcosm_core.organs.agent_memory_temporal_conflict_replay._write_receipts`
+    into the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
@@ -2665,13 +2528,11 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the run value used by
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `_build_result`, `_freshness_basis`, `_write_receipts`, and `Path`.
     """
     result = _build_result(
         Path(input_dir),
@@ -2699,13 +2560,11 @@ def run_memory_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_memory_bundle` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Produce the run memory bundle value used by
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `mkdir`, `_build_result`, `_freshness_basis`, and 4 more.
     """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -2735,13 +2594,10 @@ def run_memory_bundle(
 
 def _card_receipt_paths(paths: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_card_receipt_paths` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return card receipt paths for
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay`.
+
+    Inputs are `paths`; notable helpers are `normalize_public_receipt_paths` and `get`.
     """
     if not isinstance(paths, list) or not all(isinstance(path, str) for path in paths):
         return []
@@ -2754,13 +2610,10 @@ def _card_receipt_paths(paths: object) -> list[str]:
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_memory_temporal_conflict_replay.result_card` into
+    the payload shape expected by organs agent memory temporal conflict replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -2840,13 +2693,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.organs.agent_memory_temporal_conflict_replay._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(prog="agent_memory_temporal_conflict_replay")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -2864,13 +2715,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.agent_memory_temporal_conflict_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.agent_memory_temporal_conflict_replay` command-line entry
+    point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

@@ -1,4 +1,11 @@
-"""Runs selected macro-engine demonstrations and emits the gallery receipt."""
+"""
+Implements macro engines gallery for the public Plectis package.
+
+Callers enter through `run` and `main`; constants such as `SCHEMA_VERSION`, `RECEIPT_NAME`,
+`MICROCOSM_ROOT`, `REPO_ROOT`, and 5 more pin local fixture names; dependencies include
+`argparse`, `hashlib`, `json`, `tempfile`, and 3 more. Importing it does not authorize
+release work or hidden private-state access; those effects live behind explicit calls.
+"""
 from __future__ import annotations
 
 import argparse
@@ -58,32 +65,21 @@ ProbeRunner = Callable[[Path, Path], dict[str, Any]]
 
 def _read_json(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Load and parse one JSON file from disk as a dict.
+    Read read JSON for `microcosm_core.macro_engines_gallery`.
 
-    - Teleology: single decode helper for the registry/acceptance/manifest inputs this gallery reads.
-    - Guarantee: returns the parsed JSON object for an existing UTF-8 JSON file at `path`.
-    - Fails: missing file -> FileNotFoundError; malformed JSON -> json.JSONDecodeError.
-    - Reads: the JSON file at `path` (registry, acceptance, or `source_module_manifest.json`).
-    - Non-goal: does not validate schema, authorize source-body export, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Coerce `payload[key]` into a clean list of dict rows.
+    Return dictionary rows for `microcosm_core.macro_engines_gallery._rows` from
+    `payload[key]`.
 
-    - Teleology: defensive row extractor so registry/acceptance/manifest reads tolerate missing or malformed lists.
-    - Guarantee: returns only the dict elements of `payload[key]` when it is a list, else an empty list.
-    - Fails: never raises; non-list or absent key -> [].
-    - Non-goal: does not validate row contents, authorize source-body export, release, or correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     rows = payload.get(key)
     return [row for row in rows if isinstance(row, dict)] if isinstance(rows, list) else []
@@ -91,16 +87,10 @@ def _rows(payload: dict[str, Any], key: str) -> list[dict[str, Any]]:
 
 def _sha256(path: Path) -> str | None:
     """
-    [ACTION]
-    Compute the SHA-256 hex digest of a file's bytes, or None if absent.
+    Return the stable digest computed by `microcosm_core.macro_engines_gallery._sha256`.
 
-    - Teleology: digest primitive backing the source-vs-target copied-body custody check in `_manifest_card`.
-    - Guarantee: returns the lowercase hex SHA-256 of the file at `path` when it exists, else None.
-    - Fails: never raises for a missing path (returns None); unreadable existing file -> OSError.
-    - Reads: the raw bytes of the file at `path` (a manifest-declared source or target module).
-    - Non-goal: does not compare digests, authorize source-body export, public-safe equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     if not path.is_file():
         return None
@@ -109,16 +99,9 @@ def _sha256(path: Path) -> str | None:
 
 def _rel(path: Path) -> str:
     """
-    [ACTION]
-    Render a path as a MICROCOSM_ROOT-relative posix string for receipt refs.
+    Compute rel from `path`.
 
-    - Teleology: keep receipt path fields portable and root-relative instead of leaking absolute host paths.
-    - Guarantee: returns the posix path relative to MICROCOSM_ROOT, or the bare filename when `path` is outside it.
-    - Fails: never raises; non-descendant path -> path.name via the ValueError fallback.
-    - Non-goal: does not authorize disclosure of absolute host roots, source-body export, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path`; notable helpers are `as_posix`, `relative_to`, and `resolve`.
     """
     try:
         return path.resolve(strict=False).relative_to(MICROCOSM_ROOT).as_posix()
@@ -128,33 +111,19 @@ def _rel(path: Path) -> str:
 
 def _manifest_path(organ_id: str) -> Path:
     """
-    [ACTION]
-    Resolve the canonical source-module-manifest path for one organ.
+    Return manifest path for the macro engines gallery flow.
 
-    - Teleology: single naming convention for where an organ's exported-bundle manifest lives.
-    - Guarantee: returns the `examples/<organ_id>/exported_<organ_id>_bundle/source_module_manifest.json` path under MICROCOSM_ROOT.
-    - Fails: never raises; pure path construction (the file may or may not exist).
-    - Reads: nothing yet; only computes the manifest path consumed by `_manifest_card`.
-    - Non-goal: does not read or validate the manifest, authorize source-body export, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `organ_id`.
     """
     return MICROCOSM_ROOT / f"examples/{organ_id}/exported_{organ_id}_bundle/source_module_manifest.json"
 
 
 def _manifest_card(organ_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the copied-source-body digest custody card for one organ's manifest.
+    Serialize `microcosm_core.macro_engines_gallery._manifest_card` into the payload shape
+    expected by macro engines gallery.
 
-    - Teleology: prove each manifest-declared copied module matches its expected SHA-256 at both source and target.
-    - Guarantee: returns a card whose `digest_status` is "pass" only when every module's source, target, and source==target digest all match; "blocked" on any mismatch; "not_applicable" when the manifest is absent; never sets `body_in_receipt` true unless the manifest declared it.
-    - Fails: never raises for a missing manifest (returns the not_applicable card); malformed manifest JSON -> json.JSONDecodeError via `_read_json`.
-    - Reads: `examples/<organ_id>/exported_<organ_id>_bundle/source_module_manifest.json` plus each declared source (under REPO_ROOT) and target module file.
-    - Escalates-to: the per-organ exported bundle manifest and the organ's own validator/receipt for full digest detail.
-    - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness; only checks declared digests.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _manifest_path(organ_id)
     if not manifest_path.is_file():
@@ -241,17 +210,9 @@ def _manifest_card(organ_id: str) -> dict[str, Any]:
 
 def _accepted_registry_rows() -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Select the accepted macro-import organ rows in acceptance order.
+    Produce the accepted registry rows value used by `microcosm_core.macro_engines_gallery`.
 
-    - Teleology: define the gallery's membership — accepted organs whose body is a verified copied macro import.
-    - Guarantee: returns registry rows (tagged with `accepted_ordinal`) only for accepted organs that are macro-body imports (by truth-accounting bucket, evidence class, or the engine_room_demo allowance), preserving acceptance order.
-    - Fails: missing/malformed `core/organ_registry.json` or `core/acceptance/first_wave_acceptance.json` -> FileNotFoundError / json.JSONDecodeError via `_read_json`.
-    - Reads: `core/organ_registry.json` (implemented_organs) and `core/acceptance/first_wave_acceptance.json` (accepted_current_authority_organs).
-    - Escalates-to: the organ registry and first-wave acceptance JSON as the authority for which organs are accepted.
-    - Non-goal: does not re-accept organs, authorize release, or assert source equivalence beyond the registry's own classification.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Notable helpers are `_read_json`, `get`, `append`, and `_rows`.
     """
     registry = _read_json(MICROCOSM_ROOT / "core/organ_registry.json")
     acceptance = _read_json(MICROCOSM_ROOT / "core/acceptance/first_wave_acceptance.json")
@@ -283,16 +244,10 @@ def _accepted_registry_rows() -> list[dict[str, Any]]:
 
 def _gallery_card(row: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Project one accepted organ row into a public-safe gallery card.
+    Serialize `microcosm_core.macro_engines_gallery._gallery_card` into the payload shape
+    expected by macro engines gallery.
 
-    - Teleology: render each accepted macro organ as a cold-reader card carrying its claim ceiling and digest custody.
-    - Guarantee: returns a card echoing the row's evidence class, truth-accounting bucket, authority receipt, validator command, and claim ceiling, embedding the manifest digest card, with release/publication/private-root-equivalence pinned False.
-    - Fails: missing manifest is absorbed by `_manifest_card`; malformed manifest JSON -> json.JSONDecodeError.
-    - Reads: the organ's `source_module_manifest.json` (transitively, via `_manifest_card`).
-    - Non-goal: does not authorize release, publication, or private-root equivalence — those fields are hardcoded False.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     organ_id = str(row.get("organ_id") or "")
     manifest = _manifest_card(organ_id)
@@ -314,51 +269,27 @@ def _gallery_card(row: dict[str, Any]) -> dict[str, Any]:
 
 def _run_batch4(input_root: Path, out_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Run the batch4 proof-authority-runtime organ as a gallery probe.
+    Return run batch4 for the macro engines gallery flow.
 
-    - Teleology: adapt the batch4 organ to the gallery's `(input_root, out_dir) -> result` probe contract.
-    - Guarantee: delegates to `batch4_proof_authority_runtime.run` with the gallery command tag and returns its result dict.
-    - Fails: propagates whatever the underlying organ raises; status/error are carried in the returned dict's `status`/`error_codes`.
-    - When-needed: when batch4 is among the discovered accepted organs and is selected as the earlier-macro probe.
-    - Escalates-to: `microcosm_core.organs.batch4_proof_authority_runtime` and its own receipt for full probe detail.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_root` and `out_dir`; notable helpers are `run`.
     """
     return batch4_proof_authority_runtime.run(input_root, out_dir, command="microcosm macro-engines-gallery run")
 
 
 def _run_batch6(input_root: Path, out_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Run the batch6 unsurfaced-primitives-capsule organ as a gallery probe.
+    Produce the run batch6 value used by `microcosm_core.macro_engines_gallery`.
 
-    - Teleology: adapt the batch6 organ to the gallery's `(input_root, out_dir) -> result` probe contract.
-    - Guarantee: delegates to `batch6_unsurfaced_primitives_capsule.run` with the gallery command tag and returns its result dict.
-    - Fails: propagates whatever the underlying organ raises; status/error are carried in the returned dict's `status`/`error_codes`.
-    - When-needed: when batch6 is among the discovered accepted organs and is selected as the earlier-macro probe.
-    - Escalates-to: `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` and its own receipt for full probe detail.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_root` and `out_dir`; notable helpers are `run`.
     """
     return batch6_unsurfaced_primitives_capsule.run(input_root, out_dir, command="microcosm macro-engines-gallery run")
 
 
 def _run_batch7(input_root: Path, out_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Run the batch7 macro-engines-capsule bundle as a mandatory gallery probe.
+    Return run batch7 for the macro engines gallery flow.
 
-    - Teleology: adapt the batch7 capsule's bundle runner to the gallery's probe contract; batch7 is a required probe for a `pass`.
-    - Guarantee: delegates to `batch7_macro_engines_capsule.run_batch7_bundle` with the gallery command tag and returns its result dict.
-    - Fails: propagates whatever the underlying organ raises; status/error are carried in the returned dict's `status`/`error_codes`.
-    - When-needed: always selected when discovered; its `pass` status gates the gallery's overall status.
-    - Escalates-to: `microcosm_core.organs.batch7_macro_engines_capsule` and its own receipt for full probe detail.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_root` and `out_dir`; notable helpers are `run_batch7_bundle`.
     """
     return batch7_macro_engines_capsule.run_batch7_bundle(
         input_root,
@@ -369,34 +300,19 @@ def _run_batch7(input_root: Path, out_dir: Path) -> dict[str, Any]:
 
 def _run_batch9(input_root: Path, out_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Run the batch9 macro-engines-capsule organ as a mandatory gallery probe.
+    Return run batch9 for the macro engines gallery flow.
 
-    - Teleology: adapt the batch9 capsule to the gallery's probe contract; batch9 is a required probe for a `pass`.
-    - Guarantee: delegates to `batch9_macro_engines_capsule.run` with the gallery command tag and returns its result dict.
-    - Fails: propagates whatever the underlying organ raises; status/error are carried in the returned dict's `status`/`error_codes`.
-    - When-needed: always selected when discovered; its `pass` status gates the gallery's overall status.
-    - Escalates-to: `microcosm_core.organs.batch9_macro_engines_capsule` and its own receipt for full probe detail.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_root` and `out_dir`; notable helpers are `run`.
     """
     return batch9_macro_engines_capsule.run(input_root, out_dir, command="microcosm macro-engines-gallery run")
 
 
 def _run_engine_room(input_root: Path, out_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Run the engine-room-demo organ over a synthesized positive+negative fixture pair.
+    Compute run engine room from `input_root` and `out_dir`.
 
-    - Teleology: exercise the engine-room organ with one bounded positive case and one missing-target negative case so the gallery shows a real negative-detection probe.
-    - Guarantee: writes two synthetic case files into a temp dir, calls `engine_room_demo.run` with the gallery command tag, and returns its result dict; `input_root` is unused (the synthesized cases replace it).
-    - Fails: propagates whatever the underlying organ raises; the temp fixture dir is always cleaned up; status/error are carried in the returned dict's `status`/`error_codes`.
-    - Writes: ephemeral `positive_controller_audit.json` and `missing_expected_target_negative.json` in a TemporaryDirectory (deleted on exit).
-    - When-needed: when engine_room_demo is the discovered earlier-macro probe; demonstrates negative-case observation.
-    - Escalates-to: `microcosm_core.organs.engine_room_demo` and its own receipt for full probe detail.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `input_root` and `out_dir`; notable helpers are `TemporaryDirectory`, `Path`,
+    `write_text`, `run`, and 1 more.
     """
     with tempfile.TemporaryDirectory(prefix="microcosm-gallery-engine-room-") as fixture_dir:
         gallery_input = Path(fixture_dir)
@@ -462,16 +378,9 @@ PROBE_RUNNERS: dict[str, tuple[str, ProbeRunner]] = {
 
 def _select_probe_ids(cards: list[dict[str, Any]]) -> list[str]:
     """
-    [ACTION]
-    Choose which discovered organs to actually run as live probes.
+    Return select probe IDs for the macro engines gallery flow.
 
-    - Teleology: always probe batch7 and batch9, plus the first available earlier-macro organ, to keep the gallery run bounded.
-    - Guarantee: returns an ordered id list starting with batch7 then batch9, plus at most one earlier-macro organ (engine_room/batch6/batch4 by preference), filtered to ids that are both discovered and have a registered runner.
-    - Fails: never raises; returns only ids present in both `cards` and PROBE_RUNNERS.
-    - Reads: the `organ_id` field of each gallery card and the PROBE_RUNNERS registry keys.
-    - Non-goal: does not run probes or assert their pass; only selects ids for `run` to execute.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `cards`; notable helpers are `get` and `append`.
     """
     discovered = {str(card.get("organ_id")) for card in cards}
     probe_ids = ["batch7_macro_engines_capsule", "batch9_macro_engines_capsule"]
@@ -488,16 +397,10 @@ def _select_probe_ids(cards: list[dict[str, Any]]) -> list[str]:
 
 def _probe_card(organ_id: str, result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Normalize one organ's raw run result into a compact gallery probe card.
+    Serialize `microcosm_core.macro_engines_gallery._probe_card` into the payload shape
+    expected by macro engines gallery.
 
-    - Teleology: distill heterogeneous organ run results into a uniform probe summary (status, source digests, negatives, receipts).
-    - Guarantee: returns a card with the organ's status, derived source-module status/count, sorted evidence classes, observed and missing negative cases, error codes, anti-claim, and receipt-ref count; `source_module_status` is "pass" only when the result's manifest reports all digests matched and all anchors present.
-    - Fails: never raises; missing or wrong-typed result fields default to empty lists / passthrough values.
-    - Reads: only the in-memory `result` dict returned by a probe runner (no disk access).
-    - Non-goal: does not run the organ, recompute digests, authorize release, or assert whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest = result.get("source_module_manifest")
     manifest = manifest if isinstance(manifest, dict) else {}
@@ -538,18 +441,10 @@ def _probe_card(organ_id: str, result: dict[str, Any]) -> dict[str, Any]:
 
 def run(out_dir: str | Path = DEFAULT_OUT, *, command: str = "microcosm macro-engines-gallery run") -> dict[str, Any]:
     """
-    [ACTION]
-    Compose the macro-engines gallery: build cards, run probes, and write the receipt.
+    Derive run without touching module import state.
 
-    - Teleology: the gallery's organ entrypoint — assemble accepted macro organs into one cold-reader composition receipt with embedded digest custody and live probe results.
-    - Guarantee: writes a `macro_engines_gallery_receipt_v1` receipt to `<out_dir>/macro_engines_gallery_receipt.json` and returns the payload; `status` is "pass" only when there are cards, batch7 and batch9 both probed, at least 3 probes, every probe passed, and no probe has missing negative cases — otherwise "blocked"; always pins the AUTHORITY_CEILING and ANTI_CLAIM and sets `body_in_receipt` False.
-    - Fails: missing/malformed registry, acceptance, or manifest inputs -> FileNotFoundError / json.JSONDecodeError; otherwise degrades to a "blocked" payload rather than raising.
-    - Reads: accepted organ registry, first-wave acceptance, per-organ source-module manifests, and each selected organ's fixture input under MICROCOSM_ROOT.
-    - Writes: the gallery receipt at `<out_dir>/macro_engines_gallery_receipt.json` plus per-organ probe receipts under `<out_dir>/organs/<organ_id>`.
-    - When-needed: run to regenerate the gallery composition receipt or to verify accepted macro organs still probe green and digests are unbroken.
-    - Escalates-to: the per-organ validators/receipts and the organ registry / acceptance JSON as the higher-fidelity authority behind this projection.
-    - Non-goal: does not authorize release, publication, provider calls, source mutation, private-root equivalence, or whole-system correctness — those stay False in AUTHORITY_CEILING.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `out_dir` and `command`; notable helpers are `Path`, `mkdir`,
+    `_select_probe_ids`, `write_json_atomic`, and 8 more.
     """
     out_path = Path(out_dir)
     out_path.mkdir(parents=True, exist_ok=True)
@@ -619,16 +514,10 @@ def run(out_dir: str | Path = DEFAULT_OUT, *, command: str = "microcosm macro-en
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI entry: run the macro engines gallery composition and emit its receipt.
+    Run `microcosm_core.macro_engines_gallery` as a command-line entry point.
 
-    - Teleology: give the cold-reader macro-engines composition receipt a runnable `run` front door.
-    - Guarantee: prints the gallery receipt JSON and returns 0 when status is `pass`, 1 when `blocked`.
-    - Fails: missing subcommand -> argparse error (exit 2); blocked probe/digest gallery -> exit 1.
-    - Reads: accepted organ registry, acceptance, and example manifests under MICROCOSM_ROOT plus per-organ fixture inputs.
-    - Writes: the gallery receipt (and per-organ probe receipts) under `--out`.
-    - When-needed: invoked from the shell or test harness, not from library code (call `run()` directly there).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog="microcosm macro-engines-gallery")
     sub = parser.add_subparsers(dest="action", required=True)

@@ -1,50 +1,12 @@
 """
-Generated projection drift runtime organ.
+Implements organs generated projection drift runtime for the public Plectis package.
 
-This organ surfaces the public ``generated_projection_drift_gate`` engine-room
-capsule as a first-class owner-routed drift-gate organ. The capsule body stays in
-``microcosm_core.engine_room.generated_projection_drift_gate``; this file adds the
-standard organ contract: bounded fixture cases, planted negative (rejected-owner)
-cases, a ``result_card`` projection, body-free receipt writes, and CLI dispatch.
-
-The mechanism it surfaces: an *owner-routed generated projection drift gate*. A
-generated artifact (a builder output that must be reproducible from its source
-authority) is modelled as an owner row carrying its declared artifact patterns,
-source authorities, and a no-write check command. For each owner the gate
-fingerprints the source and artifact files (SHA-256 per file, then a stable
-SHA-256 over the file table), consults a prior-clean-receipt source-hash cache to
-skip an unchanged owner's check, and otherwise runs the owner's declared no-write
-check command. An owner is ``clean`` only when its check returns zero, its
-required artifacts are present, and any required fact-authority lineage validates;
-otherwise it is ``drift``. The runner exercises the gate over positive owners (a
-passing no-write check and a prior-clean source-hash cache hit) and self-falsifies:
-an owner whose generated artifact carries a planted byte and an owner whose
-declared artifact never landed are both reported as drift by recomputation, and
-the runner asserts the expected drift-reason marker fires.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.generated_projection_drift_runtime` as a documented Microcosm public source module.
-- Mechanism: Keeps executable drift-gate source in the engine-room capsule as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, SCHEMA_VERSION, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, CLAIM_CEILING, ANTI_CLAIM, SPEC, build_result, result_card, run, run_generated_projection_drift_runtime_bundle, build_parser, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, provider calls, file repair, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates the generated projection drift check to the surfaced capsule, and projection, serialization, and receipt behavior to file-local functions.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.engine_room.generated_projection_drift_gate, microcosm_core.receipts
-- Optional Runtime: Filesystem, CLI arguments, and package data only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem reads, scratch-tree writes, and CLI argument reads are the only admitted runtime variability.
+Callers enter through `build_result`, `result_card`, `run`,
+`run_generated_projection_drift_runtime_bundle`, `build_parser`, and `main`; constants such
+as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `SCHEMA_VERSION`, and 9 more pin local fixture
+names; dependencies include `argparse`, `json`, `tempfile`, `pathlib`, and 2 more. It builds
+public fixture, result, card, or verdict structures while keeping private substrate bodies
+out of the payload.
 """
 
 from __future__ import annotations
@@ -128,13 +90,10 @@ SPEC = {
 
 def _read_json(path: Path) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_read_json` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies a path to a JSON object file.
-    - Guarantee: On success returns the parsed mapping.
-    - Fails: Propagates IO and JSON errors; raises ValueError when the payload is not a JSON object.
-    - Reads: declared filesystem inputs.
-    - Writes: return values.
+    Read read JSON for `microcosm_core.organs.generated_projection_drift_runtime`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, Mapping):
@@ -144,13 +103,10 @@ def _read_json(path: Path) -> Mapping[str, Any]:
 
 def _fixture_cases(input_path: str | Path) -> list[tuple[Path, Mapping[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_fixture_cases` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path is a JSON file or a directory containing JSON case files.
-    - Guarantee: Returns the ordered list of (path, case) pairs.
-    - Fails: Raises FileNotFoundError when a directory holds no JSON cases.
-    - Reads: declared filesystem inputs.
-    - Writes: return values.
+    Return fixture cases for `microcosm_core.organs.generated_projection_drift_runtime`.
+
+    Inputs are `input_path`; notable helpers are `Path`, `is_file`, `FileNotFoundError`,
+    `_read_json`, and 1 more; invalid cases raise at their explicit checks.
     """
     path = Path(input_path)
     if path.is_file():
@@ -163,13 +119,9 @@ def _fixture_cases(input_path: str | Path) -> list[tuple[Path, Mapping[str, Any]
 
 def _owner_status_reasons(receipt: Mapping[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_owner_status_reasons` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: receipt is a check_projection_drift envelope with an owners list.
-    - Guarantee: Returns the flattened, ordered drift-reason markers across every owner row.
-    - Fails: Does not raise on well-formed input.
-    - Reads: call arguments.
-    - Writes: return values.
+    Compute owner status reasons from `receipt`.
+
+    Inputs are `receipt`; notable helpers are `get` and `append`.
     """
     reasons: list[str] = []
     for owner in receipt.get("owners", []):
@@ -181,20 +133,10 @@ def _owner_status_reasons(receipt: Mapping[str, Any]) -> list[str]:
 
 def _evaluate_case(case: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Run one bounded drift-gate exercise and report observed-versus-expected.
+    Serialize `microcosm_core.organs.generated_projection_drift_runtime._evaluate_case` into
+    the payload shape expected by organs generated projection drift runtime.
 
-    Each exercise materialises the case's declared file tree into a scratch repo,
-    then calls the surfaced capsule to fingerprint the owner, consult the
-    source-hash cache, and run the owner's no-write check command. A positive case
-    expects every owner to validate cleanly, while a negative case expects an owner
-    to be reported as drift with a specific drift-reason marker firing.
-    - Teleology: Implements `_evaluate_case` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: case carries owner rows, a file tree, and case_id, case_type, expected_ok plus an optional source_hash_cache / changed_paths / owner_ids.
-    - Guarantee: Returns a row capturing observed_ok, the observed gate status, and the firing drift-reason markers.
-    - Fails: Propagates only mapping/parse/filesystem errors raised by the capsule.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values, scratch filesystem outputs scoped to a temporary directory.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     case_id = str(case.get("case_id") or "")
     case_type = str(case.get("case_type") or "positive")
@@ -230,13 +172,10 @@ def _evaluate_case(case: Mapping[str, Any]) -> dict[str, Any]:
 
 def build_result(input_path: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_result` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path resolves to fixture cases via _fixture_cases.
-    - Guarantee: Returns the aggregated result envelope with a pass/fail status over positive and negative cases.
-    - Fails: Propagates IO/JSON/filesystem errors raised by case loading or the capsule.
-    - Reads: declared filesystem inputs, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.generated_projection_drift_runtime.build_result` into
+    the payload shape expected by organs generated projection drift runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     cases = [case for _path, case in _fixture_cases(input_path)]
     rows = [_evaluate_case(case) for case in cases]
@@ -280,13 +219,10 @@ def build_result(input_path: str | Path) -> dict[str, Any]:
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope.
-    - Guarantee: Returns a body-free status card with claim ceiling and anti-claim.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.generated_projection_drift_runtime.result_card` into
+    the payload shape expected by organs generated projection drift runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_board_v1",
@@ -302,13 +238,10 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def _validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validation_receipt` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope; receipt_paths names the written receipts.
-    - Guarantee: Returns a body-free validation receipt.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.generated_projection_drift_runtime._validation_receipt`
+    into the payload shape expected by organs generated projection drift runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_validation_receipt_v1",
@@ -324,13 +257,10 @@ def _validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, s
 
 def _acceptance_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_acceptance_receipt` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope; receipt_paths names the written receipts.
-    - Guarantee: Returns a body-free acceptance receipt marking real-substrate disposition.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.generated_projection_drift_runtime._acceptance_receipt`
+    into the payload shape expected by organs generated projection drift runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_acceptance_receipt_v1",
@@ -347,13 +277,9 @@ def _acceptance_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, s
 
 def _receipt_ref(out: Path, name: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_ref` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: out is a directory path and name is a receipt filename.
-    - Guarantee: Returns the posix path string for the receipt.
-    - Fails: Does not raise.
-    - Reads: call arguments.
-    - Writes: return values.
+    Return receipt ref for the organs generated projection drift runtime flow.
+
+    Inputs are `out` and `name`; notable helpers are `as_posix`.
     """
     return (out / name).as_posix()
 
@@ -366,13 +292,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path resolves to fixture cases; out_dir is writable.
-    - Guarantee: Computes the result, writes body-free receipts, and returns the result envelope.
-    - Fails: Propagates IO/JSON/filesystem errors raised by the body.
-    - Reads: declared filesystem inputs, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return run for the organs generated projection drift runtime flow.
+
+    Inputs are `input_path`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `build_result`, `Path`, `mkdir`, `write_json_atomic`, and 5 more.
     """
     result = build_result(input_path)
     if command:
@@ -399,26 +322,21 @@ def run_generated_projection_drift_runtime_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_generated_projection_drift_runtime_bundle` for `microcosm_core.organs.generated_projection_drift_runtime` as the runtime-spine entry point.
-    - Preconditions: input_path resolves to fixture cases; out_dir is writable.
-    - Guarantee: Delegates to run and returns its result envelope.
-    - Fails: Propagates errors raised by run.
-    - Reads: declared filesystem inputs.
-    - Writes: return values, declared filesystem outputs.
+    Return run generated projection drift runtime bundle for the organs generated projection
+    drift runtime flow.
+
+    Inputs are `input_path`, `out_dir`, and `command`; notable helpers are `run`.
     """
     return run(input_path, out_dir, command)
 
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `build_parser` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: none.
-    - Guarantee: Returns a configured ArgumentParser; performs no IO.
-    - Fails: Does not raise.
-    - Reads: module constants.
-    - Writes: return values.
+    Register CLI syntax for
+    `microcosm_core.organs.generated_projection_drift_runtime.build_parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         description="Run the generated projection drift runtime organ."
@@ -435,13 +353,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.generated_projection_drift_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: argv is a CLI argument vector or None.
-    - Guarantee: Runs the organ and returns 0 on pass, 1 on fail.
-    - Fails: Propagates argument-parsing and run errors.
-    - Reads: call arguments.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.generated_projection_drift_runtime` command-line entry
+    point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command in {"run", "run-generated-projection-drift-runtime-bundle"}:

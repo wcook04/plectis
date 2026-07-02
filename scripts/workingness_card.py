@@ -17,26 +17,20 @@ from microcosm_core.runtime_shell import RuntimeShell  # noqa: E402
 
 
 def workingness_card(root: Path = MICROCOSM_ROOT) -> dict[str, Any]:
-    """Return the runtime shell's compact workingness failure envelope.
+    """
+    Compute workingness card from `root`.
 
-    Teleology: expose the workingness card from a source-checkout script without
-    duplicating the console command or the runtime-shell card logic.
-    Guarantee: returns exactly `RuntimeShell(root).workingness_card()`.
-    Fails: propagates whatever `RuntimeShell` construction or
-    `workingness_card()` raises for an invalid root or broken substrate.
-    Reads: whatever `RuntimeShell.workingness_card` reads under `root`.
-    Writes: nothing.
-    Non-goal: does not compute or reshape workingness status locally.
+    Inputs are `root`; notable helpers are `workingness_card` and `RuntimeShell`.
     """
     return RuntimeShell(root).workingness_card()
 
 
 def build_parser() -> argparse.ArgumentParser:
-    """Build the argparse parser for the workingness-card CLI.
+    """
+    Register CLI syntax for `scripts.workingness_card.build_parser`.
 
-    - Teleology: defines the CLI surface (--root) for the standalone workingness-card script.
-    - Guarantee: returns an ArgumentParser whose parsed args carry a root Path.
-    - Fails: None (constructs and returns a parser; no I/O).
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         prog="workingness_card",
@@ -52,13 +46,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Emit the Microcosm workingness card as JSON and return its exit code.
+    """
+    Run the `scripts.workingness_card` command-line entry point.
 
-    - Teleology: standalone entrypoint to emit the workingness card without the full microcosm console.
-    - Guarantee: prints the workingness card JSON to stdout.
-    - Fails: card payload status != 'pass' -> returns exit code 1.
-    - Reads: the Microcosm root tree via RuntimeShell.workingness_card.
-    - Writes: stdout only.
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = build_parser().parse_args(argv)
     payload = workingness_card(args.root)

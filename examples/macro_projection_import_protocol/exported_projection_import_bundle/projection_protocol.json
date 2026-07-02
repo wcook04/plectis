@@ -83,7 +83,7 @@
         "bound_claim_to_public_dry_run_receipts_not_live_task_ledger_or_git_mutation"
       ],
       "body_copied": true,
-      "body_digest": "sha256:459f196c9079abdebb9f66c8d130b97ed9ec62bcd6b27f869d9b20528f095c5f",
+      "body_digest": "sha256:8966214b14019d5aa8244f0a610b16d1dae03b701a275f59e453a654b29baefa",
       "body_import_verification": {
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/work_landing.py::AUTHORITY_CEILING",
         "runtime_consumed_by": [
@@ -100,8 +100,8 @@
           "system/lib/work_landing_status.py::build_workitem_write_admission"
         ],
         "source_to_target_relation": "source_faithful_public_light_edit",
-        "target_body_digest": "sha256:459f196c9079abdebb9f66c8d130b97ed9ec62bcd6b27f869d9b20528f095c5f",
-        "target_line_count": 480,
+        "target_body_digest": "sha256:8966214b14019d5aa8244f0a610b16d1dae03b701a275f59e453a654b29baefa",
+        "target_line_count": 436,
         "target_symbol_refs": [
           "microcosm_core.macro_tools.work_landing::build_parser",
           "microcosm_core.macro_tools.work_landing::main",
@@ -114,7 +114,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 356,
+      "body_line_count": 436,
       "claim_ceiling": "standalone public work-landing command shape only; not live Task Ledger, Work Ledger, Git mutation, or private macro closeout authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -185,7 +185,7 @@
         "extend deterministic public bundle builders for sabotage, monitor-redteam, and benchmark-integrity replay traces"
       ],
       "body_copied": true,
-      "body_digest": "sha256:fe14fc5b49bf7c682dac1bbd81cbe45f7c47771457851d8e34baba3c47122821",
+      "body_digest": "sha256:d895688672fdd779efdd4d9b834c2e02b58e1bfa71c1b4e76f6eecf85faea001",
       "body_import_verification": {
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_execution_trace.py::AUTHORITY_CEILING",
         "runtime_consumed_by": [
@@ -211,8 +211,8 @@
           "codex/standards/std_agent_execution_trace.json::strict_boundary"
         ],
         "source_to_target_relation": "source_faithful_public_light_edit",
-        "target_body_digest": "sha256:fe14fc5b49bf7c682dac1bbd81cbe45f7c47771457851d8e34baba3c47122821",
-        "target_line_count": 3643,
+        "target_body_digest": "sha256:d895688672fdd779efdd4d9b834c2e02b58e1bfa71c1b4e76f6eecf85faea001",
+        "target_line_count": 3557,
         "target_ref": "src/microcosm_core/macro_tools/agent_execution_trace.py",
         "target_symbol_refs": [
           "microcosm_core.macro_tools.agent_execution_trace::PublicTraceSpan",
@@ -233,7 +233,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 3643,
+      "body_line_count": 3557,
       "claim_ceiling": "public agent-execution trace tool body import only; not live session-log parsing, browser control, provider payload access, account action, source mutation, or release authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -265,7 +265,7 @@
         "consume it through agent_route_observability_runtime exported_agent_trace_route_repair_bundle"
       ],
       "body_copied": true,
-      "body_digest": "sha256:e854196f8a6c1f0e1ffcc687e2d96e3461e6197326bc642d4063fb88ed829e86",
+      "body_digest": "sha256:bc8a897d69266ea6701f580c7c2a66ada5c88a793fe178bf929cb433c0ea609f",
       "body_import_verification": {
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_trace_route_repair.py::AUTHORITY_CEILING",
         "runtime_consumed_by": [
@@ -284,8 +284,8 @@
           "system/lib/navigation_route_intervention.py::suggestion_message"
         ],
         "source_to_target_relation": "source_faithful_public_light_edit",
-        "target_body_digest": "sha256:e854196f8a6c1f0e1ffcc687e2d96e3461e6197326bc642d4063fb88ed829e86",
-        "target_line_count": 927,
+        "target_body_digest": "sha256:bc8a897d69266ea6701f580c7c2a66ada5c88a793fe178bf929cb433c0ea609f",
+        "target_line_count": 856,
         "target_ref": "src/microcosm_core/macro_tools/agent_trace_route_repair.py",
         "target_symbol_refs": [
           "microcosm_core.macro_tools.agent_trace_route_repair::RouteRepairSuggestion",
@@ -297,7 +297,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 927,
+      "body_line_count": 856,
       "claim_ceiling": "public trace-to-route-repair macro tool body import only; not live hook install, live route repair, transcript body export, provider payload read, hidden reasoning export, browser HUD access, account/session export, credential export, recipient send, source mutation, private-root equivalence, or release authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -334,7 +334,7 @@
         "bound claim to public trace-store replay not live provider, browser, account, credential, or recipient-send authority"
       ],
       "body_copied": true,
-      "body_digest": "sha256:3a7193bcb1550a473d975ad65c8b8712b64b09b79acf8a170dfd7e4c0e147c40",
+      "body_digest": "sha256:334c8135c8216ca217ce82702c4e2188b908043d916b8bb92f4a52de304a1941",
       "body_import_verification": {
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/agent_observability_store.py::AUTHORITY_CEILING",
         "runtime_consumed_by": [
@@ -352,8 +352,8 @@
           "system/lib/agent_observability.py::_compact_event_if_oversized"
         ],
         "source_to_target_relation": "source_faithful_public_light_edit",
-        "target_body_digest": "sha256:3a7193bcb1550a473d975ad65c8b8712b64b09b79acf8a170dfd7e4c0e147c40",
-        "target_line_count": 1407,
+        "target_body_digest": "sha256:334c8135c8216ca217ce82702c4e2188b908043d916b8bb92f4a52de304a1941",
+        "target_line_count": 1274,
         "target_ref": "src/microcosm_core/macro_tools/agent_observability_store.py",
         "target_symbol_refs": [
           "microcosm_core.macro_tools.agent_observability_store::AgentEvent",
@@ -365,7 +365,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1407,
+      "body_line_count": 1274,
       "claim_ceiling": "public agent-observability trace-store body import only; not live session-log parsing, provider payload access, browser/HUD state, account/session control, credential exposure, recipient send, source mutation, or release authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -397,24 +397,24 @@
         "bound claim to metadata envelopes without raw transcript provider account credential or browser HUD state"
       ],
       "body_copied": true,
-      "body_digest": "sha256:87c91ab93f95437506d4478cbc6758cf7e09934a822a1a2611bf1c8e626f3ff8",
+      "body_digest": "sha256:734cf7e5ef621cb407f73af736908b18835694af23b76ca971d5bf3da166b5f1",
       "body_import_verification": {
         "runtime_consumed_by": [
           "microcosm-substrate/tests/test_agent_route_observability_runtime.py::test_session_attribution_imports_exact_public_macro_body",
           "python -m microcosm_core.organs.agent_route_observability_runtime validate-session-attribution-bundle --input examples/agent_route_observability_runtime/exported_session_attribution_bundle"
         ],
-        "source_body_digest": "sha256:87c91ab93f95437506d4478cbc6758cf7e09934a822a1a2611bf1c8e626f3ff8",
-        "source_line_count": 799,
+        "source_body_digest": "sha256:734cf7e5ef621cb407f73af736908b18835694af23b76ca971d5bf3da166b5f1",
+        "source_line_count": 666,
         "source_ref": "system/lib/agent_session_attribution.py",
         "source_to_target_relation": "exact_copy",
-        "target_body_digest": "sha256:87c91ab93f95437506d4478cbc6758cf7e09934a822a1a2611bf1c8e626f3ff8",
-        "target_line_count": 799,
+        "target_body_digest": "sha256:734cf7e5ef621cb407f73af736908b18835694af23b76ca971d5bf3da166b5f1",
+        "target_line_count": 666,
         "target_ref": "src/microcosm_core/macro_tools/agent_session_attribution.py",
         "verification_mode": "exact_source_digest_match",
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 799,
+      "body_line_count": 666,
       "claim_ceiling": "public session-attribution tool body import only; not live home session-log reading, raw transcript export, provider payload access, browser/HUD/cockpit state, account/session control state, Work Ledger mutation, source mutation, private-root equivalence, or release authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -885,7 +885,7 @@
         "consume it through agent_route_observability_runtime exported_multi_agent_fanin_replay_bundle"
       ],
       "body_copied": true,
-      "body_digest": "sha256:2a785c822094abc6432e77099cebece66d3252540844452f2aa5a99cb2052e58",
+      "body_digest": "sha256:6217cfe11c4a49944a3e88110dc041afe7868cdea22da543b54860e36f3d51ce",
       "body_import_verification": {
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/continuation_packet.py::AUTHORITY_CEILING",
         "runtime_consumed_by": [
@@ -903,8 +903,8 @@
           "system/lib/continuation_packet.py::default_continuation_packet_path"
         ],
         "source_to_target_relation": "source_faithful_public_light_edit",
-        "target_body_digest": "sha256:2a785c822094abc6432e77099cebece66d3252540844452f2aa5a99cb2052e58",
-        "target_line_count": 511,
+        "target_body_digest": "sha256:6217cfe11c4a49944a3e88110dc041afe7868cdea22da543b54860e36f3d51ce",
+        "target_line_count": 443,
         "target_ref": "src/microcosm_core/macro_tools/continuation_packet.py",
         "target_symbol_refs": [
           "microcosm_core.macro_tools.continuation_packet::build_public_continuation_packet",
@@ -917,7 +917,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 511,
+      "body_line_count": 443,
       "claim_ceiling": "public continuation-packet tool body import only; not live bridge dispatch, browser/HUD/cockpit state, provider payload access, account/session control state, worker transcript export, Work Ledger mutation, source mutation, private-root equivalence, recipient send, or release authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -949,7 +949,7 @@
         "bound claim to public metadata envelopes without provider payload browser HUD account credential transcript recipient-send or Work Ledger mutation authority"
       ],
       "body_copied": true,
-      "body_digest": "sha256:c44ab7263e31d954db2b9d796622dcb3437bacf87082f57e1e035fd5a1ebc3a7",
+      "body_digest": "sha256:e934a3fe75a9d17715776c01f07a04251d8f4213bd6f549ca289e044b218259a",
       "body_import_verification": {
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/bridge_resume.py::AUTHORITY_CEILING",
         "runtime_consumed_by": [
@@ -971,8 +971,8 @@
           "tools/meta/bridge/bridge_resume.py::bridge_dispatch_and_yield"
         ],
         "source_to_target_relation": "source_faithful_public_light_edit",
-        "target_body_digest": "sha256:c44ab7263e31d954db2b9d796622dcb3437bacf87082f57e1e035fd5a1ebc3a7",
-        "target_line_count": 1115,
+        "target_body_digest": "sha256:e934a3fe75a9d17715776c01f07a04251d8f4213bd6f549ca289e044b218259a",
+        "target_line_count": 1003,
         "target_ref": "src/microcosm_core/macro_tools/bridge_resume.py",
         "target_symbol_refs": [
           "microcosm_core.macro_tools.bridge_resume::ResumeTarget",
@@ -987,7 +987,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1115,
+      "body_line_count": 1003,
       "claim_ceiling": "public bridge dispatch-yield-resume macro tool body import only; not live bridge dispatch, host-app paste, provider/browser/account access, recipient send, Work Ledger mutation, source mutation, private-root equivalence, or release authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -1023,7 +1023,7 @@
         "consume it through agent_route_observability_runtime exported_controller_heartbeat_bundle"
       ],
       "body_copied": true,
-      "body_digest": "sha256:48713c36c3bd8b56c4407fa932db5bbf310554aa7c551588e954a266a0ae95be",
+      "body_digest": "sha256:3e222f9bca9ff9924ee6dd9bc6475d9d8cee3f2eb2f1922839dec84b973bc718",
       "body_import_verification": {
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/controller_heartbeat.py::AUTHORITY_CEILING",
         "runtime_consumed_by": [
@@ -1044,8 +1044,8 @@
           "system/lib/controller_heartbeat.py::ControllerHeartbeatDeduper"
         ],
         "source_to_target_relation": "source_faithful_public_light_edit",
-        "target_body_digest": "sha256:48713c36c3bd8b56c4407fa932db5bbf310554aa7c551588e954a266a0ae95be",
-        "target_line_count": 1452,
+        "target_body_digest": "sha256:3e222f9bca9ff9924ee6dd9bc6475d9d8cee3f2eb2f1922839dec84b973bc718",
+        "target_line_count": 1315,
         "target_ref": "src/microcosm_core/macro_tools/controller_heartbeat.py",
         "target_symbol_refs": [
           "microcosm_core.macro_tools.controller_heartbeat::build_controller_heartbeat",
@@ -1060,7 +1060,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 1452,
+      "body_line_count": 1315,
       "claim_ceiling": "public controller-heartbeat macro tool body import only; not live seed or mission-board read, Work Ledger runtime read or mutation, provider/browser/account access, credential export, transcript export, recipient send, source mutation, private-root equivalence, or release authority",
       "credential_exposure_risk": "low",
       "material_class": "public_macro_tool_body",
@@ -2528,7 +2528,7 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:a92a0c2f3066f35a50cce7d86f1c1c7f1cbf99751a4c3bcaf6d19218b0ae562d",
+      "body_digest": "sha256:9d0619f288d7df76087d2fee91169ca230d4cb299c63e45d85393e0addea42f1",
       "body_import_verification": {
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/command_output_projection.py::public_module_contract_docstrings",
         "runtime_consumed_by": [
@@ -2547,8 +2547,8 @@
           "system/lib/command_output_projection.py::envelope_required_fields"
         ],
         "source_to_target_relation": "source_faithful_public_light_edit",
-        "target_body_digest": "sha256:a92a0c2f3066f35a50cce7d86f1c1c7f1cbf99751a4c3bcaf6d19218b0ae562d",
-        "target_line_count": 330,
+        "target_body_digest": "sha256:9d0619f288d7df76087d2fee91169ca230d4cb299c63e45d85393e0addea42f1",
+        "target_line_count": 265,
         "target_ref": "src/microcosm_core/macro_tools/command_output_projection.py",
         "target_symbol_refs": [
           "microcosm_core.macro_tools.command_output_projection::ENVELOPE_KIND",
@@ -2560,7 +2560,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 330,
+      "body_line_count": 265,
       "claim_ceiling": "public command-output projection/source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",
@@ -2613,7 +2613,7 @@
         "whole_system_correctness_claim": false
       },
       "body_copied": true,
-      "body_digest": "sha256:dd10536ca890c58591e8630fc17d3f9bb030d7e5b174777fd34f583da1dc4dc4",
+      "body_digest": "sha256:863c57e4585d5ed610df587b2ba3726fb9eec3226ba662c45c1436243d832ec2",
       "body_import_verification": {
         "rewrite_recipe_ref": "microcosm-substrate/src/microcosm_core/macro_tools/command_output_sidecar.py::public_module_contract_docstrings",
         "runtime_consumed_by": [
@@ -2632,8 +2632,8 @@
           "system/lib/command_output_sidecar.py::_resolve_threshold"
         ],
         "source_to_target_relation": "source_faithful_public_light_edit",
-        "target_body_digest": "sha256:dd10536ca890c58591e8630fc17d3f9bb030d7e5b174777fd34f583da1dc4dc4",
-        "target_line_count": 244,
+        "target_body_digest": "sha256:863c57e4585d5ed610df587b2ba3726fb9eec3226ba662c45c1436243d832ec2",
+        "target_line_count": 178,
         "target_ref": "src/microcosm_core/macro_tools/command_output_sidecar.py",
         "target_symbol_refs": [
           "microcosm_core.macro_tools.command_output_sidecar::RECEIPT_KIND",
@@ -2645,7 +2645,7 @@
         "verification_status": "verified"
       },
       "body_in_receipt": false,
-      "body_line_count": 244,
+      "body_line_count": 178,
       "claim_ceiling": "public command-output projection/source body import only; not live macro kernel execution, provider calls, credential export, account/session state, browser/HUD live access, recipient send, shared-index mutation, live Task Ledger or Work Ledger mutation, private-root equivalence, release, publication, source mutation, or hosted authority",
       "classification": "copied_non_secret_macro_body",
       "credential_exposure_risk": "low",

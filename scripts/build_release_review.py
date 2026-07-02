@@ -1,29 +1,11 @@
-"""Build RELEASE_REVIEW.md -- the committed reviewer contract for the release candidate.
+"""
+Implements scripts build release review for the public Plectis package.
 
-- Teleology: a skeptical external reviewer must be able to answer, from the
-  artifact alone, what exact claim is being made, what artifact subjects the
-  claim binds to, what command exercises it, what must agree, what evidence is
-  digest-bound, how to read a failure, and what the verifier cannot prove --
-  without trusting prose and without becoming an insider first.
-- Guarantee: --write renders RELEASE_REVIEW.md (repo root) and
-  receipts/code_lens/release_review_contract.json from the SAME sources the
-  release-candidate proof enforces -- the committed demonstration's hero row
-  (the expectation policy), the proof module's contexts/filenames/failure
-  taxonomy/boundary constants, and SHA-256 digests of the committed artifact
-  subjects; --check regenerates in memory and exits 1 on any byte drift, so a
-  reviewer contract that stops matching what the proof actually checks goes
-  red in the gate instead of rotting into prose.
-- Fails: SystemExit(2) when the committed demonstration or an artifact subject
-  is missing/unloadable; SystemExit(3) when a rendered surface trips a
-  secret / private-path / atom-bullet / public-entry-overclaim guard;
-  SystemExit(1) from --check on drift.
-- Reads: receipts/code_lens/first_action_demo.json, FIRST_ACTION.md, and the
-  release_candidate_proof constants under the substrate root.
-- Writes: RELEASE_REVIEW.md and receipts/code_lens/release_review_contract.json
-  (--write only).
-- Non-goal: grants nothing -- the contract documents the proof's claim and its
-  refusal taxonomy; it does not authorize release, assert external
-  attestation, or widen any claim beyond the distribution-true encounter.
+Callers enter through `build_contract` and `main`; constants such as `CONTRACT_SCHEMA`,
+`DOC_REL`, `RECEIPT_REL`, `REFRESH_COMMAND`, and 11 more pin local fixture names;
+dependencies include `argparse`, `json`, `re`, `sys`, and 2 more. Importing it does not
+authorize release work or hidden private-state access; those effects live behind explicit
+calls.
 """
 
 from __future__ import annotations
@@ -113,15 +95,10 @@ ASSAY_REQUIREMENTS = (
 
 
 def _encounter_check_names() -> list[str]:
-    """The named per-context obligations, derived from the live predicate.
+    """
+    Derive encounter check names without touching module import state.
 
-    - Teleology: the contract must list exactly the checks the proof enforces;
-      deriving the names from derive_context_encounter (instead of restating
-      them) makes the doc drift-gated against the predicate itself.
-    - Guarantee: deterministic; includes the committed-demo arm (it applies to
-      the checkout and export contexts; fresh_install records it
-      not-applicable).
-    - Fails: never raises.
+    Notable helpers are `derive_context_encounter`.
     """
     sample = derive_context_encounter(
         context_id=CONTEXT_IDS[0],
@@ -135,16 +112,12 @@ def _encounter_check_names() -> list[str]:
 
 
 def build_contract(root: Path) -> tuple[str, str]:
-    """Render (markdown_body, receipt_body) from the live proof sources.
+    """
+    Return build contract for the scripts build release review flow.
 
-    - Teleology: one deterministic build path shared by --write and --check so
-      the drift gate compares exactly what would be written.
-    - Guarantee: every expectation value comes from the committed
-      demonstration's hero row via the same extractor the proof packet uses;
-      every digest is recomputed from the committed bytes; rendering carries
-      no timestamps or volatile fields.
-    - Fails: SystemExit(2) when the committed demonstration is missing, its
-      hero row is absent, or an artifact subject file does not exist.
+    Inputs are `root`; notable helpers are `extract_committed_expectation`,
+    `_encounter_check_names`, `append`, `join`, and 10 more; invalid cases raise from the
+    explicit checks in the body.
     """
     demo_path = root / COMMITTED_DEMO_RECEIPT_REL
     try:
@@ -418,13 +391,10 @@ def build_contract(root: Path) -> tuple[str, str]:
 
 
 def _guard_scan(md_body: str, receipt_body: str) -> list[str]:
-    """Scan both rendered surfaces against the leak and overclaim guards.
+    """
+    Produce the guard scan value used by `scripts.build_release_review`.
 
-    - Teleology: the reviewer contract must obey the membrane it documents --
-      no secret shapes, no private host paths, no raw atom bullets, no
-      public-entry overclaim constructions.
-    - Guarantee: returns the list of tripped guard labels (empty when clean).
-    - Fails: never raises.
+    Inputs are `md_body` and `receipt_body`; notable helpers are `search` and `append`.
     """
     tripped: list[str] = []
     joined = md_body + "\n" + receipt_body
@@ -441,13 +411,11 @@ def _guard_scan(md_body: str, receipt_body: str) -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI: --write to land the artifacts, --check to drift-gate them.
+    """
+    Run `scripts.build_release_review` as a command-line entry point.
 
-    - Teleology: one entry point for the owner lane and the test gate.
-    - Guarantee: --write lands RELEASE_REVIEW.md + the receipt after a clean
-      guard scan; --check exits 1 naming each drifted artifact; exactly one
-      mode is required.
-    - Fails: SystemExit 1 on drift, 2 on input failure, 3 on guard refusal.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     mode = parser.add_mutually_exclusive_group(required=True)

@@ -1,4 +1,13 @@
-"""Defines the bounded claim roles that a release candidate may assert."""
+"""
+Implements release claim portfolio for the public Plectis package.
+
+Callers enter through `ReleaseClaimRole`, `role`, `primary_product_role`, `gating_roles`,
+`specimen_roles`, and `as_payload`; constants such as `PORTFOLIO_SCHEMA_VERSION`,
+`COMPARISON_SEMANTIC_ACTION_IDENTITY`, `COMPARISON_SPECIMEN_BINDS_KERNEL`,
+`COMPARISON_PAIRED_HOLDOUT_BENCHMARK`, and 2 more pin local fixture names; dependencies
+include `dataclasses`, `typing`, and `microcosm_core`. Importing it does not authorize
+release work or hidden private-state access; those effects live behind explicit calls.
+"""
 
 from __future__ import annotations
 
@@ -32,14 +41,12 @@ PRIMARY_PRODUCT_CLAIM = (
 @dataclass(frozen=True)
 class ReleaseClaimRole:
     """
-    [ROLE]
-    One semantic role in the release claim portfolio.
-    - Teleology: Groups `ReleaseClaimRole` data or behavior for `microcosm_core.release_claim_portfolio` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.release_claim_portfolio`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    Record object for Release Claim Role.
+
+    It keeps `role_id`, `gates_release`, `claim_statement`, `bound_goal`,
+    `bound_owner_organ_id`, `comparison_contract`, `proof_status`, and 1 more together for
+    the release claim portfolio flow. Methods such as `as_payload` derive serialized or
+    path-shaped views from that state.
     """
 
     role_id: str
@@ -59,13 +66,10 @@ class ReleaseClaimRole:
 
     def as_payload(self) -> dict[str, Any]:
         """
-        [ACTION]
-        - Teleology: Implements `ReleaseClaimRole.as_payload` for `microcosm_core.release_claim_portfolio` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Serialize ReleaseClaimRole into the release claim portfolio payload shape.
+
+        The returned mapping uses the key names consumed by downstream receipts, cards, or
+        tests.
         """
         return {
             "role_id": self.role_id,
@@ -143,14 +147,10 @@ RELEASE_CLAIM_PORTFOLIO: tuple[ReleaseClaimRole, ...] = (
 
 def role(role_id: str) -> ReleaseClaimRole:
     """
-    [ACTION]
-    Return the role with ``role_id`` or raise KeyError.
-    - Teleology: Implements `role` for `microcosm_core.release_claim_portfolio` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return role for the release claim portfolio flow.
+
+    Inputs are `role_id`; notable helpers are `KeyError`; invalid cases raise from the
+    explicit checks in the body.
     """
     for entry in RELEASE_CLAIM_PORTFOLIO:
         if entry.role_id == role_id:
@@ -160,56 +160,37 @@ def role(role_id: str) -> ReleaseClaimRole:
 
 def primary_product_role() -> ReleaseClaimRole:
     """
-    [ACTION]
-    The single role whose claim is the product Plectis actually ships.
-    - Teleology: Implements `primary_product_role` for `microcosm_core.release_claim_portfolio` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive primary product role without touching module import state.
+
+    Notable helpers are `role`.
     """
     return role("primary_product")
 
 
 def gating_roles() -> tuple[ReleaseClaimRole, ...]:
     """
-    [ACTION]
-    Roles whose failure blocks the release proof.
-    - Teleology: Implements `gating_roles` for `microcosm_core.release_claim_portfolio` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the gating roles value used by `microcosm_core.release_claim_portfolio`.
+
+    The returned value is consumed directly by the caller.
     """
     return tuple(entry for entry in RELEASE_CLAIM_PORTFOLIO if entry.gates_release)
 
 
 def specimen_roles() -> tuple[ReleaseClaimRole, ...]:
     """
-    [ACTION]
-    Roles that demonstrate capability without gating the release.
-    - Teleology: Implements `specimen_roles` for `microcosm_core.release_claim_portfolio` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive specimen roles without touching module import state.
+
+    The returned value is consumed directly by the caller.
     """
     return tuple(entry for entry in RELEASE_CLAIM_PORTFOLIO if not entry.gates_release)
 
 
 def as_payload() -> dict[str, Any]:
     """
-    [ACTION]
-    A JSON-serializable portfolio block for embedding in the proof packet.
-    - Teleology: Implements `as_payload` for `microcosm_core.release_claim_portfolio` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize the local value into the release claim portfolio payload shape.
+
+    The returned mapping uses the key names consumed by downstream receipts, cards, or
+    tests.
     """
     return {
         "schema_version": PORTFOLIO_SCHEMA_VERSION,

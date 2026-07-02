@@ -1,4 +1,10 @@
-"""Builds the report that ties accepted organs to public import roots, fixtures, and receipts."""
+"""
+Implements import binding report for the public Plectis package.
+
+Callers enter through `build_partial_import_binding_report` and `main`; dependencies include
+`argparse`, `json`, `pathlib`, `typing`, and 1 more. Importing it does not authorize release
+work or hidden private-state access; those effects live behind explicit calls.
+"""
 from __future__ import annotations
 
 import argparse
@@ -12,16 +18,10 @@ from microcosm_core.schemas import read_json_strict
 
 def _read_json(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Read one JSON file as a dict, tolerating absence and non-object payloads.
+    Serialize `microcosm_core.import_binding_report._read_json` into the payload shape
+    expected by import binding report.
 
-    - Teleology: single tolerant reader so every acceptance/ledger/manifest/receipt lookup degrades to an empty dict instead of crashing the report.
-    - Guarantee: returns the parsed object when `path` is a file containing a JSON object; returns `{}` when the file is missing or the top-level JSON is not an object.
-    - Fails: propagates `read_json_strict` parse errors when the file exists but holds malformed JSON; never raises for a missing path.
-    - Reads: the exact `path` passed in (read-only).
-    - Non-goal: does not validate schema, authorize source-body export, public-safe equivalence, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not path.is_file():
         return {}
@@ -31,16 +31,9 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 def _module_rows(manifest: Mapping[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Extract the per-module dict rows from a source-module manifest.
+    Produce the module rows value used by `microcosm_core.import_binding_report`.
 
-    - Teleology: normalize a manifest's `modules` field into a clean list of dict rows for body/digest counting downstream.
-    - Guarantee: returns every dict element of `manifest["modules"]`; returns `[]` when `modules` is absent or not a list.
-    - Fails: never raises; non-dict entries and missing keys are silently dropped.
-    - Reads: the in-memory `manifest` mapping's `modules` key (no filesystem access).
-    - Non-goal: does not validate module-row contents, authorize source-body export, equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `manifest`; notable helpers are `get`.
     """
     rows = manifest.get("modules")
     return [row for row in rows if isinstance(row, dict)] if isinstance(rows, list) else []
@@ -48,16 +41,9 @@ def _module_rows(manifest: Mapping[str, Any]) -> list[dict[str, Any]]:
 
 def _accepted_organ_ids(root: Path) -> set[str]:
     """
-    [ACTION]
-    Collect organ ids holding current acceptance authority from the first-wave acceptance file.
+    Return accepted organ IDs for the import binding report flow.
 
-    - Teleology: derive the authoritative set of accepted organ ids that gates which example roots the report is allowed to inspect.
-    - Guarantee: returns the union of `organ_id`s under `accepted_current_authority_organs` (status `accepted_current_authority`) plus any string/dict ids under `organs`/`accepted_organs`; returns an empty set when the acceptance file is missing or holds none.
-    - Fails: never raises; rows lacking the required status or `organ_id` are skipped.
-    - Reads: `<root>/core/acceptance/first_wave_acceptance.json` (read-only).
-    - Non-goal: does not grant acceptance, mutate the acceptance file, or authorize source-body export, equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root`; notable helpers are `_read_json`, `get`, and `add`.
     """
     accepted: set[str] = set()
     acceptance = _read_json(root / "core/acceptance/first_wave_acceptance.json")
@@ -82,16 +68,10 @@ def _accepted_organ_ids(root: Path) -> set[str]:
 
 def _ledger_public_roots(root: Path, top_level: str) -> set[str]:
     """
-    [ACTION]
-    Derive accepted public path roots under `top_level` from the substrate substitution ledger.
+    Return ledger public roots for the import binding report flow.
 
-    - Teleology: extend the accepted-roots set with paths the substitution ledger marks as accepted authority, so ledger-only bindings are still inspectable.
-    - Guarantee: returns the set of `top_level/...` path roots (depth 2 for `examples`, depth 3 for `fixtures`) drawn from `source_module_manifest_refs`/`microcosm_target_refs` of dispositions whose `accepted_authority` is not `False`; returns an empty set when the ledger is missing or has no qualifying refs.
-    - Fails: never raises; rows that are not dicts, are explicitly rejected, or whose refs do not start with `top_level/` are skipped.
-    - Reads: `<root>/core/substrate_substitution_ledger.json` (read-only).
-    - Non-goal: does not mutate the ledger, refresh digests, or authorize source-body export, equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root` and `top_level`; notable helpers are `_read_json`, `get`,
+    `PurePosixPath`, `add`, and 2 more.
     """
     ledger = _read_json(root / "core/substrate_substitution_ledger.json")
     roots: set[str] = set()
@@ -117,16 +97,10 @@ def _ledger_public_roots(root: Path, top_level: str) -> set[str]:
 
 def _accepted_public_roots(root: Path, top_level: str) -> set[str]:
     """
-    [ACTION]
-    Union acceptance-derived and ledger-derived public roots under `top_level`.
+    Produce the accepted public roots value used by `microcosm_core.import_binding_report`.
 
-    - Teleology: produce the single accepted-roots allowlist that bounds which manifests the report may read.
-    - Guarantee: returns `{top_level/<organ_id>}` for every accepted organ id merged with `_ledger_public_roots(root, top_level)`; returns an empty set when neither source yields a root.
-    - Fails: never raises; inherits the tolerant read behavior of both source helpers.
-    - Reads: `<root>/core/acceptance/first_wave_acceptance.json` and `<root>/core/substrate_substitution_ledger.json` (read-only).
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond accepted-root membership, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root` and `top_level`; notable helpers are `update`, `_ledger_public_roots`,
+    and `_accepted_organ_ids`.
     """
     roots = {f"{top_level}/{organ_id}" for organ_id in _accepted_organ_ids(root)}
     roots.update(_ledger_public_roots(root, top_level))
@@ -135,32 +109,20 @@ def _accepted_public_roots(root: Path, top_level: str) -> set[str]:
 
 def _is_accepted_public_ref(ref: str, roots: set[str]) -> bool:
     """
-    [ACTION]
-    Test whether a path ref is at or beneath any accepted public root.
+    Return whether is accepted public ref holds for the import binding report flow.
 
-    - Teleology: the membership gate that keeps the report's manifest scan inside accepted-authority roots only.
-    - Guarantee: returns `True` iff `ref` equals some root in `roots` or begins with `root + "/"`; otherwise `False`.
-    - Fails: never raises; an empty `roots` set always yields `False`.
-    - Reads: only the in-memory `ref` string and `roots` set (no filesystem access).
-    - Non-goal: does not normalize or validate the path, authorize export, equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `ref` and `roots` with `startswith`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     return any(ref == root or ref.startswith(f"{root}/") for root in roots)
 
 
 def _bundle_manifests(root: Path) -> list[Path]:
     """
-    [ACTION]
-    List accepted example source-module manifests under the examples tree.
+    Compute bundle manifests from `root`.
 
-    - Teleology: enumerate exactly the `source_module_manifest.json` files inside accepted example roots that the report will analyze.
-    - Guarantee: returns a sorted list of `examples/**/source_module_manifest.json` paths whose repo-relative ref passes the accepted-roots gate; returns `[]` when no example roots are accepted.
-    - Fails: never raises; non-accepted manifests are filtered out before return.
-    - Reads: globs `<root>/examples/*/**/source_module_manifest.json`, gated by acceptance + ledger roots (read-only).
-    - Non-goal: does not read manifest bodies, authorize source-body export, equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root`; notable helpers are `_accepted_public_roots`, `glob`,
+    `_is_accepted_public_ref`, `as_posix`, and 1 more.
     """
     examples_root = root / "examples"
     accepted_roots = _accepted_public_roots(root, "examples")
@@ -175,48 +137,28 @@ def _bundle_manifests(root: Path) -> list[Path]:
 
 def _fixture_manifest_path(root: Path, organ_id: str) -> Path:
     """
-    [ACTION]
-    Compute the expected fixture-manifest path for an organ.
+    Return fixture manifest path for the import binding report flow.
 
-    - Teleology: single source of the fixture-manifest path convention so presence checks and refs stay consistent.
-    - Guarantee: returns `<root>/core/fixture_manifests/<organ_id>.fixture_manifest.json` (path object; not checked for existence here).
-    - Fails: never raises; performs pure path construction.
-    - Reads: nothing from disk.
-    - Non-goal: does not read or validate the manifest, authorize export, equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root` and `organ_id`.
     """
     return root / "core/fixture_manifests" / f"{organ_id}.fixture_manifest.json"
 
 
 def _acceptance_receipt_path(root: Path, organ_id: str) -> Path:
     """
-    [ACTION]
-    Compute the expected first-wave acceptance-receipt path for an organ.
+    Return acceptance receipt path for the import binding report flow.
 
-    - Teleology: single source of the acceptance-receipt path convention so presence checks and refs stay consistent.
-    - Guarantee: returns `<root>/receipts/acceptance/first_wave/<organ_id>_fixture_acceptance.json` (path object; not checked for existence here).
-    - Fails: never raises; performs pure path construction.
-    - Reads: nothing from disk.
-    - Non-goal: does not read or validate the receipt, authorize export, equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root` and `organ_id`.
     """
     return root / "receipts/acceptance/first_wave" / f"{organ_id}_fixture_acceptance.json"
 
 
 def _acceptance_entry(root: Path, organ_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Fetch the acceptance row for one organ from the first-wave acceptance file.
+    Serialize `microcosm_core.import_binding_report._acceptance_entry` into the payload
+    shape expected by import binding report.
 
-    - Teleology: locate the per-organ acceptance record that supplies the report's accepted body-count and manifest-status fields.
-    - Guarantee: returns the matching dict row (copied) for `organ_id` across `accepted_current_authority_organs`/`organs`/`accepted_organs`; returns `{"organ_id": organ_id}` for a bare string match and `{}` when no entry exists.
-    - Fails: never raises; non-list sections and non-matching rows are skipped.
-    - Reads: `<root>/core/acceptance/first_wave_acceptance.json` (read-only).
-    - Non-goal: does not grant acceptance, mutate the file, or authorize export, equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     acceptance = _read_json(root / "core/acceptance/first_wave_acceptance.json")
     for key in ("accepted_current_authority_organs", "organs", "accepted_organs"):
@@ -233,16 +175,9 @@ def _acceptance_entry(root: Path, organ_id: str) -> dict[str, Any]:
 
 def _first_present(*values: Any) -> Any:
     """
-    [ACTION]
-    Return the first non-None argument, preserving fallback order.
+    Return first present for the import binding report flow.
 
-    - Teleology: coalesce ordered field candidates so acceptance entry/receipt sources are tried in priority order.
-    - Guarantee: returns the first argument that is not `None`, including falsy values like `0` or `""`; returns `None` when every argument is `None`.
-    - Fails: never raises.
-    - Non-goal: does not treat `0`/`""` as absent and does not authorize export, equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `values`.
     """
     for value in values:
         if value is not None:
@@ -255,16 +190,10 @@ def _acceptance_import_fields(
     acceptance_receipt: Mapping[str, Any],
 ) -> tuple[Any, Any]:
     """
-    [ACTION]
-    Resolve the accepted body-count and source-module-manifest status from entry+receipt.
+    Derive acceptance import fields without touching module import state.
 
-    - Teleology: collapse the several acceptance-entry/receipt field spellings into the two values the gap-code logic compares against.
-    - Guarantee: returns `(body_count, manifest_status)` taken by ordered `_first_present` precedence over entry then receipt then nested `source_module_imports`/`source_open_body_imports`; either element is `None` when no source supplies it.
-    - Fails: never raises; non-Mapping nested fields are treated as empty maps.
-    - Reads: only the in-memory `acceptance_entry` and `acceptance_receipt` mappings (no filesystem access).
-    - Non-goal: does not verify digests, authorize source-body export, equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `acceptance_entry` and `acceptance_receipt`; notable helpers are
+    `_first_present` and `get`.
     """
     source_module_imports = (
         acceptance_receipt.get("source_module_imports")
@@ -297,18 +226,10 @@ def _acceptance_import_fields(
 
 def build_partial_import_binding_report(root: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the report-only gap analysis of accepted example bodies vs. acceptance/fixture binding.
+    Serialize `microcosm_core.import_binding_report.build_partial_import_binding_report`
+    into the payload shape expected by import binding report.
 
-    - Teleology: surface organs whose example module bodies are imported but not bound to fixture-manifest or acceptance authority, so the binding gap is visible without mutating anything.
-    - Guarantee: returns a `microcosm_partial_import_binding_report_v1` dict with `status` always `"pass"`, per-organ `rows` (sorted gap-first then organ id) carrying `gap_codes`/`recommended_action`, and aggregate counts (`row_count`, `gap_count`, `examples_body_present_count`, `acceptance_zero_gap_count`, `fixture_manifest_gap_count`); `rows` is empty when no example roots are accepted.
-    - Fails: never raises and never reports a non-`pass` status; gaps are encoded as `gap_codes` strings on rows, not exceptions. Malformed JSON in a read file would propagate the underlying parse error.
-    - Reads: acceptance, substitution-ledger, example `source_module_manifest.json`, fixture-manifest, and acceptance-receipt JSON under `root` (all read-only; report-only, no mutation per `authority_boundary`).
-    - When-needed: inspect when example bodies look present but acceptance/fixtures appear unbound, or before trusting that imported example substrate is bound to authority.
-    - Escalates-to: the per-organ `recommended_action` (e.g. `bind_acceptance_to_verified_example_substrate`), the fixture/acceptance receipts under `receipts/acceptance/first_wave`, and `core/acceptance/first_wave_acceptance.json` as the binding authority.
-    - Non-goal: does not bind, mutate acceptance/fixtures/registries, authorize source-body export, public-safe equivalence, or release; it is a diagnostic, not a repair.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     root_path = Path(root)
     rows: list[dict[str, Any]] = []
@@ -407,16 +328,10 @@ def build_partial_import_binding_report(root: str | Path) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI entry: build and emit the partial import-binding gap report (full report or card).
+    Run `microcosm_core.import_binding_report` as a command-line entry point.
 
-    - Teleology: surface organs whose example bodies are imported but not bound to acceptance/fixture authority.
-    - Guarantee: prints the report (or compact card with `--card`) JSON and always returns 0; optionally writes it to `--out`.
-    - Fails: None for normal runs (report status is always `pass`); a malformed `--out` parent dir would raise from the atomic write.
-    - Reads: acceptance, substitution-ledger, manifest, and receipt JSON under `--root` (read-only; report-only, no mutation).
-    - Writes: `--out` JSON file when provided.
-    - When-needed: invoked from the shell or test harness, not from library code.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog="microcosm import-binding-report")
     parser.add_argument("--root", default=".")

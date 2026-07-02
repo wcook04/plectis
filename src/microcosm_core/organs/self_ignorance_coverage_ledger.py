@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.self_ignorance_coverage_ledger` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs self ignorance coverage ledger for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, EXPECTED_NEGATIVE_CASES, EXPECTED_COVERAGE_SCOPE, EXPECTED_SYSTEM_ATLAS_CHECK_COMMAND, ALLOWED_SYSTEM_ATLAS_CHECK_STATUSES, MATERIALIZED_PREFIX_BY_KIND, MATERIALIZED_ENTITY_KIND_BY_KIND, AUTHORITY_CEILING, ANTI_CLAIM, SPEC, evaluate, evaluate_negative_case, run, run_self_ignorance_bundle, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common, system.lib.kind_atlas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate`, `evaluate_negative_case`, `run`,
+`run_self_ignorance_bundle`, and `main`; constants such as `ORGAN_ID`, `FIXTURE_ID`,
+`VALIDATOR_ID`, `EXPECTED_NEGATIVE_CASES`, and 8 more pin local fixture names; dependencies
+include `json`, `shutil`, `collections`, `datetime`, and 4 more. It builds public fixture,
+result, card, or verdict structures while keeping private substrate bodies out of the
+payload.
 """
 from __future__ import annotations
 
@@ -117,13 +102,9 @@ SPEC = CrownJewelSpec(
 
 def _int_or_none(value: object) -> int | None:
     """
-    [ACTION]
-    - Teleology: Implements `_int_or_none` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return int or none for the organs self ignorance coverage ledger flow.
+
+    Inputs are `value`.
     """
     if isinstance(value, bool):
         return None
@@ -139,13 +120,11 @@ def _int_or_none(value: object) -> int | None:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.self_ignorance_coverage_ledger._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -157,13 +136,10 @@ def _materialized_ids_by_kind_from_graph(
     selected_kind_ids: set[str],
 ) -> dict[str, set[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_materialized_ids_by_kind_from_graph` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive materialized IDs by kind from graph without touching module import state.
+
+    Inputs are `entities` and `selected_kind_ids`; notable helpers are `get`, `startswith`,
+    `add`, and `setdefault`.
     """
     ids_by_kind: dict[str, set[str]] = {kind_id: set() for kind_id in selected_kind_ids}
     for entity in entities:
@@ -188,13 +164,11 @@ def _system_atlas_graph_materialization(
     selected_kind_ids: set[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_system_atlas_graph_materialization` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.self_ignorance_coverage_ledger._system_atlas_graph_materialization`
+    into the payload shape expected by organs self ignorance coverage ledger.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     graph_path = input_dir / "system_atlas_graph.json"
     graph = load_json_object(
@@ -237,13 +211,11 @@ def _live_system_atlas_graph_materialization(
     selected_kind_ids: set[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_live_system_atlas_graph_materialization` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.self_ignorance_coverage_ledger._live_system_atlas_graph_materialization`
+    into the payload shape expected by organs self ignorance coverage ledger.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     repo_root = _repo_root_for_live_kind_atlas(public_root)
     if repo_root is None:
@@ -291,13 +263,11 @@ def _expected_entity_ids_source_backed(
     graph_materialization: dict[str, Any],
 ) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_expected_entity_ids_source_backed` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether expected entity IDs source backed holds for the organs self ignorance
+    coverage ledger flow.
+
+    The result is derived from `kind_atlas` and `graph_materialization` with `get`; failing
+    evidence is returned or raised exactly where the body says so.
     """
     return (
         kind_atlas.get("materialized_entity_id_source_ref")
@@ -309,13 +279,9 @@ def _expected_entity_ids_source_backed(
 
 def _repo_root_for_live_kind_atlas(public_root: Path) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_repo_root_for_live_kind_atlas` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return repo root for live kind atlas for the organs self ignorance coverage ledger flow.
+
+    Inputs are `public_root`; notable helpers are `is_file`.
     """
     candidate = public_root.parent
     if (candidate / "system/lib/kind_atlas.py").is_file():
@@ -325,13 +291,10 @@ def _repo_root_for_live_kind_atlas(public_root: Path) -> Path | None:
 
 def _repo_root_for_source_validation(public_root: Path) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_repo_root_for_source_validation` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute repo root for source validation from `public_root`.
+
+    Inputs are `public_root`; notable helpers are `_repo_root_for_live_kind_atlas`,
+    `resolve`, `is_file`, and `cwd`.
     """
     candidate = _repo_root_for_live_kind_atlas(public_root)
     if candidate is not None:
@@ -344,13 +307,10 @@ def _repo_root_for_source_validation(public_root: Path) -> Path | None:
 
 def _entity_source_exists(repo_root: Path, kind_id: str, entity_id: str) -> bool | None:
     """
-    [ACTION]
-    - Teleology: Implements `_entity_source_exists` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute entity source exists from `repo_root`, `kind_id`, and `entity_id`.
+
+    Inputs are `repo_root`, `kind_id`, and `entity_id`; notable helpers are `startswith`,
+    `removeprefix`, and `glob`.
     """
     if kind_id == "concepts" and entity_id.startswith("concept_"):
         concept_id = entity_id.removeprefix("concept_")
@@ -368,13 +328,11 @@ def _source_validate_expected_entity_ids(
     ids_by_kind: dict[str, set[str]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_validate_expected_entity_ids` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.self_ignorance_coverage_ledger._source_validate_expected_entity_ids`
+    into the payload shape expected by organs self ignorance coverage ledger.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     repo_root = _repo_root_for_source_validation(public_root)
     if repo_root is None:
@@ -408,13 +366,11 @@ def _live_kind_atlas_rows(
     kind_ids: list[str],
 ) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_live_kind_atlas_rows` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Produce the live kind atlas rows value used by
+    `microcosm_core.organs.self_ignorance_coverage_ledger`.
+
+    Inputs are `public_root` and `kind_ids`; notable helpers are
+    `_repo_root_for_live_kind_atlas`, `build_kind_atlas`, `get`, `replace`, and 2 more.
     """
     repo_root = _repo_root_for_live_kind_atlas(public_root)
     if repo_root is None or not kind_ids:
@@ -457,13 +413,11 @@ def _rows_with_live_kind_atlas_counts(
     public_root: Path,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows_with_live_kind_atlas_counts` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the rows with live kind atlas counts value used by
+    `microcosm_core.organs.self_ignorance_coverage_ledger`.
+
+    Inputs are `rows` and `public_root`; notable helpers are `_live_kind_atlas_rows`, `get`,
+    `append`, and `strip`.
     """
     kind_ids = [
         str(row.get("kind_id"))
@@ -495,13 +449,11 @@ def _rows_with_live_kind_atlas_counts(
 
 def _copied_build_system_atlas_evidence(source_manifest: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_copied_build_system_atlas_evidence` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.self_ignorance_coverage_ledger._copied_build_system_atlas_evidence`
+    into the payload shape expected by organs self ignorance coverage ledger.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     modules = source_manifest.get("modules") if isinstance(source_manifest, dict) else []
     for row in modules if isinstance(modules, list) else []:
@@ -539,13 +491,11 @@ def _projection_protocol_receipt(
     findings: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_projection_protocol_receipt` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.self_ignorance_coverage_ledger._projection_protocol_receipt` into
+    the payload shape expected by organs self ignorance coverage ledger.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     finding_start = len(findings)
     coverage_scope = str(protocol.get("coverage_scope") or "")
@@ -592,13 +542,10 @@ def _projection_protocol_receipt(
 
 def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.self_ignorance_coverage_ledger.evaluate` into the
+    payload shape expected by organs self ignorance coverage ledger.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     kind_atlas = load_json_object(input_dir / "kind_atlas_rows.json", findings, label="Kind Atlas rows")
@@ -964,13 +911,10 @@ def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, An
 
 def _write_json(path: Path, payload: object) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_write_json` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write JSON for the organs self ignorance coverage ledger flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     path.write_text(
         json.dumps(payload, indent=2, sort_keys=True) + "\n",
@@ -984,13 +928,10 @@ def evaluate_negative_case(
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values, declared filesystem outputs.
+    Serialize `microcosm_core.organs.self_ignorance_coverage_ledger.evaluate_negative_case`
+    into the payload shape expected by organs self ignorance coverage ledger.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     with TemporaryDirectory(prefix=f"{ORGAN_ID}-{case_id}-") as scratch:
         semantic_input = Path(scratch) / "input"
@@ -1070,13 +1011,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for `microcosm_core.organs.self_ignorance_coverage_ledger`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1095,13 +1033,10 @@ def run_self_ignorance_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_self_ignorance_bundle` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run self ignorance bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1116,13 +1051,10 @@ def run_self_ignorance_bundle(
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.self_ignorance_coverage_ledger` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run the `microcosm_core.organs.self_ignorance_coverage_ledger` command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     return main_for_spec(
         SPEC,

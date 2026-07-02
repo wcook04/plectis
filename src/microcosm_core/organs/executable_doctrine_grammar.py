@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.executable_doctrine_grammar` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs executable doctrine grammar for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, STANDARDS_REPORT_NAME, GROUP_INDEX_NAME, PAPER_REPORT_NAME, ACCEPTANCE_RECEIPT_REL, STANDARDS_BUNDLE_RESULT_NAME, METABOLISM_BUNDLE_RESULT_NAME, SOURCE_MODULE_MANIFEST_NAME, SOURCE_IMPORT_CLASS, SOURCE_BODY_STATUS, PRIVATE_MACRO_SOURCE_ROOT, PUBLIC_MACRO_SOURCE_DISPLAY_ROOT, PUBLIC_SAFE_PATH_NORMALIZED_RELATION, PUBLIC_SAFE_SOURCE_MODULE_CLASSES, SOURCE_MODULE_RELATIONS, SOURCE_MODULE_SOURCE_REF_PREFIXES, SOURCE_MODULE_SOURCE_REF_EXACT, GRAMMAR_AUTHORITY_CEILING, GRAMMAR_ANTI_CLAIM, MACRO_BODY_SENTINEL, EXPECTED_NEGATIVE_CASES, EXPECTED_RECEIPT_PATHS, METABOLISM_REQUIRED_FILES, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `validate_standard_registry`, `validate_paper_module_shape`,
+`validate_paper_modules`, `write_receipts`, `validate`, `validate_standards_bundle`, and 4
+more; constants such as `ORGAN_ID`, `FIXTURE_ID`, `STANDARDS_REPORT_NAME`,
+`GROUP_INDEX_NAME`, and 24 more pin local fixture names; dependencies include `argparse`,
+`hashlib`, `json`, `re`, and 4 more. It builds public fixture, result, card, or verdict
+structures while keeping private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -152,13 +137,9 @@ HASH_CHUNK_SIZE = 1024 * 1024
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for `microcosm_core.organs.executable_doctrine_grammar`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -174,26 +155,20 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _is_non_empty_string(value: object) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_is_non_empty_string` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether is non empty string holds for the organs executable doctrine grammar
+    flow.
+
+    The result is derived from `value` with `strip`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return isinstance(value, str) and bool(value.strip())
 
 
 def _string_list(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_string_list` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive string list without touching module import state.
+
+    Inputs are `value`; notable helpers are `strip`.
     """
     if not isinstance(value, list):
         return []
@@ -202,13 +177,9 @@ def _string_list(value: object) -> list[str]:
 
 def _json_rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_json_rows` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return json rows for the organs executable doctrine grammar flow.
+
+    Inputs are `payload` and `key`; notable helpers are `get`.
     """
     if not isinstance(payload, dict):
         return []
@@ -220,13 +191,11 @@ def _json_rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _sha256_file(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_file` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.executable_doctrine_grammar._sha256_file`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -237,13 +206,11 @@ def _sha256_file(path: Path) -> str:
 
 def _json_digest(payload: Any) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_json_digest` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.executable_doctrine_grammar._json_digest`.
+
+    The input is `payload`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     encoded = json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode(
         "utf-8"
@@ -260,13 +227,10 @@ def _finding(
     subject_kind: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.executable_doctrine_grammar._finding`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     payload: dict[str, Any] = {
         "error_code": code,
@@ -293,13 +257,10 @@ def _record(
     subject_kind: str | None = None,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs executable doctrine grammar flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -316,13 +277,10 @@ def _record(
 
 def _standard_rows(payload: object) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_standard_rows` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the standard rows value used by
+    `microcosm_core.organs.executable_doctrine_grammar`.
+
+    Inputs are `payload`; notable helpers are `get`.
     """
     if not isinstance(payload, dict):
         return []
@@ -334,13 +292,9 @@ def _standard_rows(payload: object) -> list[dict[str, Any]]:
 
 def _row_id(row: dict[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_row_id` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive row ID without touching module import state.
+
+    Inputs are `row`; notable helpers are `get`, `_is_non_empty_string`, and `strip`.
     """
     for key in ("standard_id", "row_id", "slug"):
         value = row.get(key)
@@ -351,13 +305,11 @@ def _row_id(row: dict[str, Any]) -> str:
 
 def _standard_has_governing_ref(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_standard_has_governing_ref` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether standard has governing ref holds for the organs executable doctrine
+    grammar flow.
+
+    The result is derived from `row` with `_is_non_empty_string`, `get`, and `_string_list`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     return _is_non_empty_string(row.get("governing_standard")) or bool(
         _string_list(row.get("governing_standard_refs"))
@@ -366,39 +318,32 @@ def _standard_has_governing_ref(row: dict[str, Any]) -> bool:
 
 def _standard_has_receipt_expectations(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_standard_has_receipt_expectations` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether standard has receipt expectations holds for the organs executable
+    doctrine grammar flow.
+
+    The result is derived from `row` with `_string_list` and `get`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     return bool(_string_list(row.get("receipt_expectations")))
 
 
 def _standard_has_anti_claim(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_standard_has_anti_claim` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether standard has anti claim holds for the organs executable doctrine grammar
+    flow.
+
+    The result is derived from `row` with `_is_non_empty_string` and `get`; failing evidence
+    is returned or raised exactly where the body says so.
     """
     return _is_non_empty_string(row.get("anti_claim")) or _is_non_empty_string(row.get("anti_claim_ref"))
 
 
 def validate_standard_registry(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_standard_registry` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.executable_doctrine_grammar.validate_standard_registry`
+    into the payload shape expected by organs executable doctrine grammar.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _standard_rows(payload)
     findings: list[dict[str, Any]] = []
@@ -508,13 +453,10 @@ def validate_standard_registry(payload: object) -> dict[str, Any]:
 
 def _frontmatter_value(markdown_text: str, key: str) -> str | None:
     """
-    [ACTION]
-    - Teleology: Implements `_frontmatter_value` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return frontmatter value for the organs executable doctrine grammar flow.
+
+    Inputs are `markdown_text` and `key`; notable helpers are `search`, `strip`, `escape`,
+    and `group`.
     """
     match = re.search(rf"^{re.escape(key)}:\s*(.+?)\s*$", markdown_text, flags=re.MULTILINE)
     if match:
@@ -524,39 +466,30 @@ def _frontmatter_value(markdown_text: str, key: str) -> str | None:
 
 def _has_heading(markdown_text: str, heading: str) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_heading` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has heading holds for the organs executable doctrine grammar flow.
+
+    The result is derived from `markdown_text` and `heading` with `search` and `escape`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     return bool(re.search(rf"^##\s+{re.escape(heading)}\s*$", markdown_text, flags=re.MULTILINE))
 
 
 def _module_id(path: Path, markdown_text: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_module_id` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute module ID from `path` and `markdown_text`.
+
+    Inputs are `path` and `markdown_text`; notable helpers are `_frontmatter_value`.
     """
     return _frontmatter_value(markdown_text, "module_id") or path.stem
 
 
 def validate_paper_module_shape(path: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_paper_module_shape` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.executable_doctrine_grammar.validate_paper_module_shape` into the
+    payload shape expected by organs executable doctrine grammar.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     module_path = Path(path)
     markdown_text = module_path.read_text(encoding="utf-8")
@@ -637,13 +570,10 @@ def validate_paper_module_shape(path: str | Path) -> dict[str, Any]:
 
 def validate_paper_modules(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_paper_modules` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.executable_doctrine_grammar.validate_paper_modules`
+    into the payload shape expected by organs executable doctrine grammar.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     paper_dir = Path(input_dir) / "paper_modules"
     module_paths = sorted(paper_dir.glob("*.md"))
@@ -675,13 +605,9 @@ def validate_paper_modules(input_dir: str | Path) -> dict[str, Any]:
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return merge observed for `microcosm_core.organs.executable_doctrine_grammar`.
+
+    Inputs are `results`; notable helpers are `defaultdict`, `items`, `get`, and `add`.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -693,13 +619,10 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 def _standard_group_index(accepted_rows: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_standard_group_index` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute standard group index from `accepted_rows`.
+
+    Inputs are `accepted_rows`; notable helpers are `defaultdict`, `append`, `get`,
+    `_string_list`, and 1 more.
     """
     groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for row in accepted_rows:
@@ -721,13 +644,11 @@ def _standard_group_index(accepted_rows: list[dict[str, Any]]) -> dict[str, Any]
 
 def _receipt_expectation_coverage(accepted_rows: list[dict[str, Any]]) -> dict[str, int]:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_expectation_coverage` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the receipt expectation coverage value used by
+    `microcosm_core.organs.executable_doctrine_grammar`.
+
+    Inputs are `accepted_rows`; notable helpers are `Counter`, `update`, `_string_list`,
+    `items`, and 1 more.
     """
     counts: Counter[str] = Counter()
     for row in accepted_rows:
@@ -737,13 +658,11 @@ def _receipt_expectation_coverage(accepted_rows: list[dict[str, Any]]) -> dict[s
 
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_fixture_inputs` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan fixture inputs holds for the organs executable doctrine grammar flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `glob`; failing evidence is returned or raised exactly where the body
+    says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     paths = [input_dir / "standards_registry.json", *sorted((input_dir / "paper_modules").glob("*.md"))]
@@ -752,13 +671,9 @@ def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
 
 def _receipt_safe_scan_result(scan_result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_safe_scan_result` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute receipt safe scan result from `scan_result`.
+
+    Inputs are `scan_result`; notable helpers are `pop`.
     """
     safe = dict(scan_result)
     safe.pop("forbidden_output_fields", None)
@@ -767,13 +682,10 @@ def _receipt_safe_scan_result(scan_result: dict[str, Any]) -> dict[str, Any]:
 
 def _receipt_relative_path(path: Path, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_relative_path` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive receipt relative path without touching module import state.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`,
+    `as_posix`, `index`, `Path`, and 1 more.
     """
     if "receipts" in path.parts:
         receipts_index = len(path.parts) - 1 - list(reversed(path.parts)).index("receipts")
@@ -783,26 +695,19 @@ def _receipt_relative_path(path: Path, public_root: Path) -> str:
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_relative_receipt_paths` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return relative receipt paths for the organs executable doctrine grammar flow.
+
+    Inputs are `paths` and `public_root`; notable helpers are `_receipt_relative_path` and
+    `values`.
     """
     return [_receipt_relative_path(path, public_root) for path in paths.values()]
 
 
 def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_paths: list[str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_common_receipt` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return common receipt for `microcosm_core.organs.executable_doctrine_grammar`.
+
+    Inputs are `result`, `schema_version`, and `receipt_paths`; notable helpers are `get`.
     """
     keys = (
         "status",
@@ -849,13 +754,10 @@ def write_receipts(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, str]:
     """
-    [ACTION]
-    - Teleology: Implements `write_receipts` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write receipts for the organs executable doctrine grammar flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -941,13 +843,10 @@ def _write_standards_bundle_receipt(
     public_root: str | Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_write_standards_bundle_receipt` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write standards bundle receipt for the organs executable doctrine grammar flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -981,13 +880,11 @@ def validate(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Validate whether validate holds for the organs executable doctrine grammar flow.
+
+    The result is derived from `input_dir`, `out_dir`, `command`, and `acceptance_out` with
+    `Path`, `_public_root_for_path`, `read_json_strict`, `_receipt_safe_scan_result`, and 17
+    more; failing evidence is returned or raised exactly where the body says so.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -1066,13 +963,12 @@ def validate_standards_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_standards_bundle` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Validate whether validate standards bundle holds for the organs executable doctrine
+    grammar flow.
+
+    The result is derived from `input_dir`, `out_dir`, and `command` with `Path`,
+    `_public_root_for_path`, `read_json_strict`, `_receipt_safe_scan_result`, and 16 more;
+    failing evidence is returned or raised exactly where the body says so.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -1161,13 +1057,9 @@ def validate_standards_bundle(
 
 def _strip_microcosm_prefix(ref: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_strip_microcosm_prefix` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return strip microcosm prefix for `microcosm_core.organs.executable_doctrine_grammar`.
+
+    Inputs are `ref`; notable helpers are `startswith`.
     """
     prefix = "microcosm-substrate/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
@@ -1175,13 +1067,9 @@ def _strip_microcosm_prefix(ref: str) -> str:
 
 def _public_source_ref_display(ref: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_public_source_ref_display` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive public source ref display without touching module import state.
+
+    Inputs are `ref`; notable helpers are `_strip_microcosm_prefix` and `startswith`.
     """
     display_ref = _strip_microcosm_prefix(ref)
     if display_ref == PRIVATE_MACRO_SOURCE_ROOT:
@@ -1194,13 +1082,10 @@ def _public_source_ref_display(ref: str) -> str:
 
 def _source_module_manifest_path(input_dir: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source module manifest path value used by
+    `microcosm_core.organs.executable_doctrine_grammar`.
+
+    Inputs are `input_dir`; notable helpers are `Path`.
     """
     return Path(input_dir) / SOURCE_MODULE_MANIFEST_NAME
 
@@ -1212,13 +1097,11 @@ def _source_module_target_path(
     public_root: Path,
 ) -> tuple[Path, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module target path for
+    `microcosm_core.organs.executable_doctrine_grammar`.
+
+    Inputs are `row`, `manifest_path`, and `public_root`; notable helpers are
+    `_strip_microcosm_prefix`, `get`, `exists`, and `public_relative_path`.
     """
     target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
     row_path = str(row.get("path") or "")
@@ -1236,13 +1119,11 @@ def _source_module_target_path(
 
 def _source_artifact_paths(input_dir: str | Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_artifact_paths` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Produce the source artifact paths value used by
+    `microcosm_core.organs.executable_doctrine_grammar`.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are
+    `_source_module_manifest_path`, `_json_rows`, `is_file`, `loads`, and 3 more.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -1265,13 +1146,11 @@ def _source_artifact_paths(input_dir: str | Path, *, public_root: Path) -> list[
 
 def validate_source_module_imports(input_dir: str | Path, *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_source_module_imports` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.executable_doctrine_grammar.validate_source_module_imports` into
+    the payload shape expected by organs executable doctrine grammar.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     manifest_ref = public_relative_path(manifest_path, display_root=public_root)
@@ -1436,13 +1315,11 @@ def validate_source_module_imports(input_dir: str | Path, *, public_root: Path) 
 
 def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.executable_doctrine_grammar._source_open_body_import_summary`
+    into the payload shape expected by organs executable doctrine grammar.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     modules = _json_rows(source_imports, "modules")
     module_ids = [str(row.get("module_id")) for row in modules if row.get("module_id")]
@@ -1487,13 +1364,12 @@ def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str
 
 def _scan_metabolism_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_metabolism_bundle_inputs` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan metabolism bundle inputs holds for the organs executable doctrine
+    grammar flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `extend`, `scan_paths`, `_source_artifact_paths`, and 3 more; failing evidence is
+    returned or raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     paths: list[Path] = [input_dir / filename for filename in METABOLISM_REQUIRED_FILES]
@@ -1515,13 +1391,10 @@ def _scan_metabolism_bundle_inputs(input_dir: Path, public_root: Path) -> dict[s
 
 def _file_freshness_entry(path: Path, *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_file_freshness_entry` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.executable_doctrine_grammar._file_freshness_entry` into
+    the payload shape expected by organs executable doctrine grammar.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_ref = public_relative_path(path, display_root=public_root)
     if not path.exists():
@@ -1542,13 +1415,11 @@ def _file_freshness_entry(path: Path, *, public_root: Path) -> dict[str, Any]:
 
 def _metabolism_bundle_input_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_metabolism_bundle_input_paths` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the metabolism bundle input paths value used by
+    `microcosm_core.organs.executable_doctrine_grammar`.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are `extend`, `append`,
+    `_source_artifact_paths`, `add`, and 1 more.
     """
     paths: list[Path] = [input_dir / filename for filename in METABOLISM_REQUIRED_FILES]
     paths.extend(_source_artifact_paths(input_dir, public_root=public_root))
@@ -1570,13 +1441,10 @@ def _metabolism_bundle_freshness_basis(
     public_root: Path,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_metabolism_bundle_freshness_basis` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive metabolism bundle freshness basis without touching module import state.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are `_file_freshness_entry`
+    and `_metabolism_bundle_input_paths`.
     """
     return sorted(
         (
@@ -1593,13 +1461,10 @@ def _fresh_metabolism_bundle_receipt(
     freshness_digest: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_metabolism_bundle_receipt` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive fresh metabolism bundle receipt without touching module import state.
+
+    Inputs are `out_dir` and `freshness_digest`; notable helpers are `Path`, `is_absolute`,
+    `is_file`, `read_json_strict`, and 2 more.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -1635,13 +1500,10 @@ def _metabolism_bundle_findings(
     readme_text: str,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_metabolism_bundle_findings` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Build a structured finding row for metabolism bundle findings.
+
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     findings: list[dict[str, Any]] = []
     if manifest.get("organ_id") != ORGAN_ID:
@@ -1706,13 +1568,10 @@ def _write_metabolism_bundle_receipt(
     public_root: Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_write_metabolism_bundle_receipt` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write metabolism bundle receipt for the organs executable doctrine grammar flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -1757,13 +1616,13 @@ def validate_executable_grammar_metabolism_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_executable_grammar_metabolism_bundle` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Validate whether validate executable grammar metabolism bundle holds for the organs
+    executable doctrine grammar flow.
+
+    The result is derived from `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`
+    with `Path`, `_public_root_for_path`, `_metabolism_bundle_freshness_basis`,
+    `_json_digest`, and 19 more; failing evidence is returned or raised exactly where the
+    body says so.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -1902,13 +1761,10 @@ def validate_executable_grammar_metabolism_bundle(
 
 def _scan_card(scan: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_card` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.executable_doctrine_grammar._scan_card` into the
+    payload shape expected by organs executable doctrine grammar.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not isinstance(scan, dict):
         return {
@@ -1928,13 +1784,10 @@ def _scan_card(scan: object) -> dict[str, Any]:
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.executable_doctrine_grammar.result_card` into the
+    payload shape expected by organs executable doctrine grammar.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     receipt_paths = [
         Path(str(path)).name if Path(str(path)).is_absolute() else str(path)
@@ -2023,13 +1876,10 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.executable_doctrine_grammar` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.executable_doctrine_grammar` as a command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command_name")

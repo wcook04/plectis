@@ -1,60 +1,12 @@
 """
-Lean proof-search lab runtime organ.
+Implements organs lean proof search lab runtime for the public Plectis package.
 
-This organ surfaces the public ``lean_proof_search_lab`` engine-room capsule as a
-first-class formal-math organ. The capsule body stays in
-``microcosm_core.engine_room.lean_proof_search_lab``; this file adds the standard
-organ contract: bounded fixture cases, planted negative cases, a ``result_card``
-projection, body-free receipt writes, and CLI dispatch.
-
-The mechanism it surfaces: a *symbolic Lean proof-search lab*. For a finite set
-of public toy theorems it runs an and/or candidate-tactic search, checks each
-candidate body with the installed Lean subprocess, refuses to forward any oracle
-proof body (a forward-leakage firewall over ``FORBIDDEN_FORWARD_FIELDS``), runs a
-problem-id ablation that fails any policy which only works because it memorised
-the problem id, and runs a ``#print axioms`` cleanliness gate that rejects
-``sorry``-tainted candidates. It self-falsifies: a forward oracle leak, an
-axiom-tainted candidate, and a problem-id-memorising policy are each rejected by
-recomputation.
-
-This is a *gated external-tool witness*. Lean is an optional dependency, so the
-organ has two honest states and never fakes a pass:
-
-* **Unlocked** -- the ``lean`` binary is on ``PATH``: the organ runs the real
-  Lean subprocess search and reports ``tool_present_and_verified`` (a genuine
-  pass) or ``tool_present_but_failed`` (a real failure: a positive search did not
-  close, or a planted negative was not rejected).
-* **Locked** -- Lean is absent: the organ does not run, does not claim any proof
-  was verified, and returns the terminal state ``locked`` with the unlock
-  instructions. A locked organ is not a failure and is not a pass.
-
-The runtime-spine entry point (``run_lean_proof_search_lab_runtime_bundle``)
-operates the exported bundle as a declared standalone contract and never spawns
-Lean, so the runtime spine stays fast and portable on machines without Lean.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.lean_proof_search_lab_runtime` as a documented Microcosm public source module.
-- Mechanism: Keeps the executable proof-search source in the engine-room capsule as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, SCHEMA_VERSION, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, CLAIM_CEILING, ANTI_CLAIM, UNLOCK_INSTRUCTIONS, SPEC, lean_available, build_result, result_card, run, run_lean_proof_search_lab_runtime_bundle, build_parser, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, the Lean subprocess side effects requested by the capsule, and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, provider calls, neural theorem proving, oracle-body forwarding, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Probes for the Lean binary; when present it delegates the proof search to the surfaced capsule and classifies positive (search closed clean) versus negative (oracle leak, axiom taint, or problem-id ablation rejected) cases; when absent it returns a body-free locked receipt.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.engine_room.lean_proof_search_lab, microcosm_core.receipts
-- Optional Runtime: Filesystem, CLI arguments, package data, and the optional Lean subprocess only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem reads, CLI argument reads, and the optional Lean subprocess are the only admitted runtime variability.
+Callers enter through `lean_available`, `build_result`, `result_card`, `run`,
+`run_lean_proof_search_lab_runtime_bundle`, `build_parser`, and 1 more; constants such as
+`ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `SCHEMA_VERSION`, and 17 more pin local fixture
+names; dependencies include `argparse`, `json`, `shutil`, `pathlib`, and 2 more. It builds
+public fixture, result, card, or verdict structures while keeping private substrate bodies
+out of the payload.
 """
 
 from __future__ import annotations
@@ -165,26 +117,19 @@ SPEC = {
 
 def lean_available() -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `lean_available` for `microcosm_core.organs.lean_proof_search_lab_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: None; reads only the process PATH.
-    - Guarantee: Returns True when the `lean` binary resolves on PATH, else False; never discloses the resolved absolute path.
-    - Fails: Does not raise.
-    - Reads: process environment PATH.
-    - Writes: return values.
+    Return whether lean available holds for the organs lean proof search lab runtime flow.
+
+    The result is derived from the caller-supplied state with `which`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     return shutil.which(REQUIRED_TOOL) is not None
 
 
 def _locked_result(command: str | None) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_locked_result` for `microcosm_core.organs.lean_proof_search_lab_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Called only when the Lean binary is absent.
-    - Guarantee: Returns a body-free locked envelope that claims no verification and carries the unlock instructions.
-    - Fails: Does not raise.
-    - Reads: module constants.
-    - Writes: return values.
+    Derive locked result without touching module import state.
+
+    Inputs are `command`; notable helpers are `utc_now`.
     """
     result = {
         "schema_version": SCHEMA_VERSION,
@@ -219,13 +164,10 @@ def _locked_result(command: str | None) -> dict[str, Any]:
 
 def _classify_case(case: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_classify_case` for `microcosm_core.organs.lean_proof_search_lab_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: case is a capsule evaluate_case row with expected_status, observed_status, observed_failure_kind, and expectation_met.
-    - Guarantee: Returns a distilled body-free row separating positive (search closed clean) from negative (rejected with the expected failure kind), with observed_ok recomputed from the capsule expectation.
-    - Fails: Propagates only mapping access errors.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.lean_proof_search_lab_runtime._classify_case` into the
+    payload shape expected by organs lean proof search lab runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     case_id = str(case.get("case_id") or "")
     expected_status = str(case.get("expected_status") or "pass")
@@ -255,13 +197,10 @@ def _classify_case(case: Mapping[str, Any]) -> dict[str, Any]:
 
 def build_result(input_path: str | Path, command: str | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_result` for `microcosm_core.organs.lean_proof_search_lab_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path resolves to a directory of capsule fixture cases.
-    - Guarantee: When Lean is present, runs the real proof search and returns a pass/fail envelope (tool_present_and_verified / tool_present_but_failed); when Lean is absent, returns the locked envelope without verifying anything.
-    - Fails: Propagates IO/JSON/subprocess errors raised by the surfaced capsule under live evaluation.
-    - Reads: declared filesystem inputs, module constants, imported helpers, the optional Lean subprocess.
-    - Writes: return values.
+    Return build result for the organs lean proof search lab runtime flow.
+
+    Inputs are `input_path` and `command`; notable helpers are `evaluate_fixture_dir`,
+    `issubset`, `lean_available`, `_locked_result`, and 4 more.
     """
     if not lean_available():
         return _locked_result(command)
@@ -315,13 +254,10 @@ def build_result(input_path: str | Path, command: str | None = None) -> dict[str
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.lean_proof_search_lab_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope.
-    - Guarantee: Returns a body-free status card with the tool state, claim ceiling, and anti-claim.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.lean_proof_search_lab_runtime.result_card` into the
+    payload shape expected by organs lean proof search lab runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_board_v1",
@@ -339,13 +275,10 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def _validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validation_receipt` for `microcosm_core.organs.lean_proof_search_lab_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope; receipt_paths names the written receipts.
-    - Guarantee: Returns a body-free validation receipt.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.lean_proof_search_lab_runtime._validation_receipt` into
+    the payload shape expected by organs lean proof search lab runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_validation_receipt_v1",
@@ -363,13 +296,10 @@ def _validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, s
 
 def _acceptance_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_acceptance_receipt` for `microcosm_core.organs.lean_proof_search_lab_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope; receipt_paths names the written receipts.
-    - Guarantee: Returns a body-free acceptance receipt marking real-substrate disposition.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.lean_proof_search_lab_runtime._acceptance_receipt` into
+    the payload shape expected by organs lean proof search lab runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_acceptance_receipt_v1",
@@ -388,13 +318,9 @@ def _acceptance_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, s
 
 def _receipt_ref(out: Path, name: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_ref` for `microcosm_core.organs.lean_proof_search_lab_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: out is a directory path and name is a receipt filename.
-    - Guarantee: Returns the posix path string for the receipt.
-    - Fails: Does not raise.
-    - Reads: call arguments.
-    - Writes: return values.
+    Return receipt ref for `microcosm_core.organs.lean_proof_search_lab_runtime`.
+
+    Inputs are `out` and `name`; notable helpers are `as_posix`.
     """
     return (out / name).as_posix()
 
@@ -407,13 +333,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.lean_proof_search_lab_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path resolves to fixture cases; out_dir is writable.
-    - Guarantee: Computes the result (live Lean when present, locked when absent), writes body-free receipts, and returns the result envelope.
-    - Fails: Propagates IO/JSON/subprocess errors raised by the body.
-    - Reads: declared filesystem inputs, module constants, imported helpers, the optional Lean subprocess.
-    - Writes: return values, declared filesystem outputs.
+    Return run for `microcosm_core.organs.lean_proof_search_lab_runtime`.
+
+    Inputs are `input_path`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `build_result`, `Path`, `mkdir`, `write_json_atomic`, and 5 more.
     """
     result = build_result(input_path, command=command)
     out = Path(out_dir)
@@ -438,13 +361,10 @@ def run_lean_proof_search_lab_runtime_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_lean_proof_search_lab_runtime_bundle` for `microcosm_core.organs.lean_proof_search_lab_runtime` as the runtime-spine entry point.
-    - Preconditions: input_path names the exported bundle directory; out_dir is writable.
-    - Guarantee: Validates the exported bundle as a declared standalone contract WITHOUT spawning Lean, so the runtime spine stays portable on machines without Lean; the returned receipt records that no live Lean verification was performed.
-    - Fails: Raises FileNotFoundError when a declared required bundle file is missing.
-    - Reads: declared filesystem inputs, module constants.
-    - Writes: return values, declared filesystem outputs.
+    Derive run lean proof search lab runtime bundle without touching module import state.
+
+    Inputs are `input_path`, `out_dir`, and `command`; notable helpers are `Path`, `mkdir`,
+    `write_json_atomic`, `glob`, and 1 more.
     """
     bundle = Path(input_path)
     required = ["bundle_manifest.json", "source_module_manifest.json", "docs/README.md"]
@@ -482,13 +402,11 @@ def run_lean_proof_search_lab_runtime_bundle(
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `build_parser` for `microcosm_core.organs.lean_proof_search_lab_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: none.
-    - Guarantee: Returns a configured ArgumentParser; performs no IO.
-    - Fails: Does not raise.
-    - Reads: module constants.
-    - Writes: return values.
+    Register CLI syntax for
+    `microcosm_core.organs.lean_proof_search_lab_runtime.build_parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         description="Run the Lean proof-search lab runtime organ."
@@ -505,13 +423,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.lean_proof_search_lab_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: argv is a CLI argument vector or None.
-    - Guarantee: Runs the organ and returns 0 on pass or locked, 1 on fail; locked is an honest non-failure exit.
-    - Fails: Propagates argument-parsing and run errors.
-    - Reads: call arguments.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.lean_proof_search_lab_runtime` command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command == "run":

@@ -1,4 +1,13 @@
-"""Audits the substrate-substitution ledger against accepted organs, fixtures, and source authority roles."""
+"""
+Implements validators substrate substitution ledger for the public Plectis package.
+
+Callers enter through `build_ledger`, `validate_ledger_payload`, `validate_ledger`,
+`classify_rebuild_drift`, `classify_drift_settlement`, `write_ledger`, and 2 more; constants
+such as `CHECKER_ID`, `LEDGER_REL`, `REGISTRY_REL`, `ACCEPTANCE_PLAN_REL`, and 37 more pin
+local fixture names; dependencies include `argparse`, `ast`, `hashlib`, `json`, and 3 more.
+Validator outputs stay structured so release checks can consume findings without scraping
+prose.
+"""
 from __future__ import annotations
 
 import argparse
@@ -223,17 +232,10 @@ PROVER_SMOKE_COMMANDS = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    Resolve the public-root anchor used by every ledger surface.
+    Produce the public root for path value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: protects the "validated against the real microcosm-substrate public root" claim from a wrong-root invocation that would scan an unrelated dir and false-PASS.
-    - Guarantee: returns a Path that is either an ancestor named `microcosm-substrate` / carrying the pyproject+src+forbidden-classes markers, else the resolved input path itself (never a silent CWD fallback).
-    - Fails: no marker in ancestry -> returns the resolved input path (not raised), so downstream ledger/registry reads miss and emit a clean `blocked` result rather than a false PASS.
-    - Reads: filesystem ancestry (pyproject.toml, src/microcosm_core, core/private_state_forbidden_classes.json).
-    - Writes: None.
-    - When-needed: trust as the root anchor before reading any ledger/registry/manifest path.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, and `is_file`.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -255,30 +257,21 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    Render an absolute path as a public-root-relative display ref.
+    Produce the display value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: keeps every ref the ledger emits anchored to the public root so receipts never leak an absolute filesystem path.
-    - Guarantee: returns `public_relative_path(path, display_root=public_root)` — a string relative to public_root when path is under it.
-    - Fails: never raises here; delegates entirely to private_state_scan.public_relative_path, whose return governs out-of-root behavior.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: Any, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Extract a list of dict rows under a key, tolerating malformed payloads.
+    Return dictionary rows for
+    `microcosm_core.validators.substrate_substitution_ledger._rows` from `payload[key]`.
 
-    - Teleology: the single defensive accessor every ledger/registry/manifest reader uses so shape drift degrades to empty, never to a crash.
-    - Guarantee: returns a list containing only the dict elements of `payload[key]`; returns `[]` when payload is not a dict or the key is absent/non-iterable-of-dicts.
-    - Fails: never raises; non-dict payload or missing key -> `[]`; non-dict rows are silently dropped.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -287,15 +280,10 @@ def _rows(payload: Any, key: str) -> list[dict[str, Any]]:
 
 def _read_json_if_exists(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Read a JSON file into a dict, treating absence as an empty dict.
+    Serialize `microcosm_core.validators.substrate_substitution_ledger._read_json_if_exists`
+    into the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: lets the ledger read optional surfaces (existing ledger, acceptance plan/summary, manifests) without branching on existence at every call site.
-    - Guarantee: returns the parsed dict when the file exists and parses to a dict; returns `{}` when the file is absent or parses to a non-dict.
-    - Fails: file absent -> `{}` (no raise); a present-but-malformed JSON file propagates read_json_strict's parse exception.
-    - Reads: the file at `path`.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not path.is_file():
         return {}
@@ -305,15 +293,11 @@ def _read_json_if_exists(path: Path) -> dict[str, Any]:
 
 def _sha256_file(path: Path) -> str:
     """
-    [ACTION]
-    Stream a file's bytes into a prefixed sha256 content digest.
+    Return the stable digest computed by
+    `microcosm_core.validators.substrate_substitution_ledger._sha256_file`.
 
-    - Teleology: the digest primitive backing every target/source body comparison, so "digest-fresh exact copy" claims rest on real file contents.
-    - Guarantee: returns `sha256:<hexdigest>` over the file's bytes, read in 1 MiB chunks so large bodies do not load fully into memory.
-    - Fails: raises OSError (e.g. FileNotFoundError) if `path` is not readable — callers guard with `path.is_file()` before invoking.
-    - Reads: the file at `path` (binary).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -324,15 +308,11 @@ def _sha256_file(path: Path) -> str:
 
 def _normalize_sha256(value: Any) -> str:
     """
-    [ACTION]
-    Coerce a declared digest to canonical `sha256:`-prefixed form.
+    Return the stable digest computed by
+    `microcosm_core.validators.substrate_substitution_ledger._normalize_sha256`.
 
-    - Teleology: makes manifest-declared digests comparable to computed `_sha256_file` output regardless of whether the manifest stored the prefix.
-    - Guarantee: returns `""` for falsy input; otherwise returns the string with a single leading `sha256:` ensured (added only when absent).
-    - Fails: never raises; non-string values are stringified first.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The input is `value`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     text = str(value or "")
     if not text:
@@ -342,33 +322,19 @@ def _normalize_sha256(value: Any) -> str:
 
 def _strip_public_root_prefix(ref: str) -> str:
     """
-    [ACTION]
-    Normalize a ref to public-root-relative form.
+    Return strip public root prefix for the validators substrate substitution ledger flow.
 
-    - Teleology: protects ref-equality comparisons (source-authority role, manifest path joins) from a leading `microcosm-substrate/` prefix splitting one logical ref into two.
-    - Guarantee: returns `ref` with a single leading `microcosm-substrate/` removed if present, else `ref` unchanged.
-    - Fails: None — pure string transform; never rejects, raises, or returns a failure envelope.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `ref`; notable helpers are `removeprefix`.
     """
     return ref.removeprefix("microcosm-substrate/")
 
 
 def _source_authority_role(source_ref: str, material_class: str | None = None) -> str:
     """
-    [ACTION]
-    Classify a source ref into an authority role gating real-body credit.
+    Compute source authority role from `source_ref` and `material_class`.
 
-    - Teleology: protects the "real substrate body" claim from counting fixtures/receipts/generated-projection/runtime-artifact sources as real source bodies.
-    - Guarantee: returns exactly one role string (e.g. `fixture_regression_source`, `receipt_projection_source`, `runtime_*_source`, `generated_projection*_source`, `public_substrate_source`, or `external_or_macro_reference`) by ordered prefix/suffix/membership checks on the stripped ref.
-    - Fails: no rule matches -> returns `external_or_macro_reference` (default bucket, not an exception); never raises.
-    - Reads: the source_ref string and module constant ref-sets (no filesystem).
-    - Writes: None.
-    - When-needed: inspect when deciding whether a digest row may count toward real-body support; validator escalates several roles to `real_body_*_source_counted_as_substrate` issues.
-    - Escalates-to: validate_ledger_payload non-substrate-source issue ids; AP source-authority constants.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `source_ref` and `material_class`; notable helpers are
+    `_strip_public_root_prefix`, `startswith`, `endswith`, and `Path`.
     """
     clean = _strip_public_root_prefix(str(source_ref or ""))
     if clean in CONCURRENCY_MISSION_CONTROL_RECEIPT_SOURCE_REFS:
@@ -409,17 +375,12 @@ def _source_can_count_as_real_body(
     material_class: str | None = None,
 ) -> bool:
     """
-    [ACTION]
-    Decide whether a source ref's authority role may credit a real body.
+    Return whether source can count as real body holds for the validators substrate
+    substitution ledger flow.
 
-    - Teleology: the boolean gate over `_source_authority_role` that protects the "real substrate body" claim from fixtures, projections, receipts, runtime/lean artifacts, formal-state, and concurrency-seed receipts being counted as real source bodies.
-    - Guarantee: returns True only when the resolved authority role is NOT in the non-substrate denylist (fixture_regression / generated_projection[_slice] / receipt_projection / runtime_* / formal_evidence_cell_state / concurrency_mission_control_seed_receipt); True for public_substrate_source and external_or_macro_reference.
-    - Fails: never raises; an unrecognized ref resolves to external_or_macro_reference and returns True (treated as countable by role, still gated elsewhere by digest/relation checks).
-    - Reads: the source_ref string and module constant ref-sets (no filesystem).
-    - Writes: None.
-    - When-needed: inspect when reasoning about why a digest row did or did not earn counts_as_real_body.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The result is derived from `source_ref` and `material_class` with
+    `_source_authority_role`; failing evidence is returned or raised exactly where the body
+    says so.
     """
     return _source_authority_role(source_ref, material_class) not in {
         "fixture_regression_source",
@@ -437,15 +398,10 @@ def _source_can_count_as_real_body(
 
 def _path_from_ref(public_root: Path, ref: str, *, manifest_path: Path | None = None) -> Path:
     """
-    [ACTION]
-    Resolve a target ref to a path, preferring public-root then manifest-relative.
+    Return path from ref for the validators substrate substitution ledger flow.
 
-    - Teleology: lets a manifest's target_ref resolve whether it is written public-root-relative or relative to the manifest's own directory, so digest checks find the real body.
-    - Guarantee: returns `public_root / clean` when that exists; else `manifest_path.parent / clean` when a manifest_path is given; else falls back to `public_root / clean` (which may not exist).
-    - Fails: never raises; an unresolvable ref returns a non-existent Path that the caller's `is_file()` check then treats as target_missing.
-    - Reads: filesystem existence of the public-root candidate (`.exists()`).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root`, `ref`, and `manifest_path`; notable helpers are
+    `_strip_public_root_prefix` and `exists`.
     """
     clean = _strip_public_root_prefix(str(ref))
     if clean:
@@ -459,15 +415,9 @@ def _path_from_ref(public_root: Path, ref: str, *, manifest_path: Path | None = 
 
 def _accepted_registry_rows(public_root: Path) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Read the organ registry and return only accepted-current-authority rows.
+    Derive accepted registry rows without touching module import state.
 
-    - Teleology: defines the authoritative set of organs the ledger must account for, anchoring every "accepted organ has a disposition" check to the registry.
-    - Guarantee: returns the list of `implemented_organs` dict rows whose `status == "accepted_current_authority"`; returns `[]` when the block is absent.
-    - Fails: raises if `core/organ_registry.json` is missing or malformed (read_json_strict); a present-but-shapeless registry yields `[]` via `_rows`.
-    - Reads: core/organ_registry.json under public_root.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root`; notable helpers are `read_json_strict`, `_rows`, and `get`.
     """
     registry = read_json_strict(public_root / REGISTRY_REL)
     return [
@@ -479,15 +429,11 @@ def _accepted_registry_rows(public_root: Path) -> list[dict[str, Any]]:
 
 def _fixture_manifest(public_root: Path, organ_id: str) -> tuple[Path | None, dict[str, Any]]:
     """
-    [ACTION]
-    Load an organ's fixture manifest if it exists.
+    Produce the fixture manifest value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: feeds fixture-derived refs/counts into the ledger row while keeping fixtures input-only, never body authority.
-    - Guarantee: returns `(path, payload_dict)` when the per-organ fixture manifest file exists and parses to a dict; returns `(None, {})` when the file is absent.
-    - Fails: file absent -> returns `(None, {})` (no raise); a present-but-non-dict payload is coerced to `{}` while path is still returned.
-    - Reads: core/fixture_manifests/<organ_id>.fixture_manifest.json.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root` and `organ_id`; notable helpers are `read_json_strict` and
+    `is_file`.
     """
     path = public_root / FIXTURE_MANIFESTS_REL / f"{organ_id}.fixture_manifest.json"
     if not path.is_file():
@@ -498,15 +444,10 @@ def _fixture_manifest(public_root: Path, organ_id: str) -> tuple[Path | None, di
 
 def _source_manifest_refs_from_fixture(fixture: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    Extract source_module_manifest refs declared inside a fixture's open-body imports.
+    Compute source manifest refs from fixture from `fixture`.
 
-    - Teleology: supplies the manifest-ref set that backs digest/real-body accounting, so fixture-declared manifests join the same body verification path as direct manifests.
-    - Guarantee: returns a de-duplicated, order-preserving list of public-root-stripped refs from `source_open_body_imports.source_manifest_refs`; returns `[]` when that block is missing or not a dict.
-    - Fails: malformed/absent block -> returns `[]` (no raise); falsy refs are skipped.
-    - Reads: the in-memory fixture dict only (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `fixture`; notable helpers are `get`, `extend`, `fromkeys`, and
+    `_strip_public_root_prefix`.
     """
     refs: list[str] = []
     source_open = fixture.get("source_open_body_imports")
@@ -521,15 +462,9 @@ def _source_manifest_refs_from_fixture(fixture: dict[str, Any]) -> list[str]:
 
 def _source_refs_from_fixture(fixture: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    Collect macro/source refs declared anywhere in a fixture for the macro_refs set.
+    Compute source refs from fixture from `fixture`.
 
-    - Teleology: surfaces every source/portfolio/body-material ref a fixture names so the ledger row's macro_refs list reflects the organ's claimed provenance.
-    - Guarantee: returns a de-duplicated, order-preserving list of stringified refs gathered from `source_refs`, `source_portfolio_refs`, and `source_open_body_imports.body_material_ids`; returns `[]` when none present.
-    - Fails: never raises; non-list/non-dict blocks contribute nothing; falsy refs skipped.
-    - Reads: the in-memory fixture dict only (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `fixture`; notable helpers are `get`, `extend`, and `fromkeys`.
     """
     refs: list[str] = []
     for key in ("source_refs", "source_portfolio_refs"):
@@ -544,15 +479,11 @@ def _source_refs_from_fixture(fixture: dict[str, Any]) -> list[str]:
 
 def _direct_source_module_manifest_refs(public_root: Path, organ_id: str) -> list[str]:
     """
-    [ACTION]
-    Discover on-disk source_module_manifest.json refs under an organ's examples tree.
+    Return direct source module manifest refs for the validators substrate substitution
+    ledger flow.
 
-    - Teleology: anchors real-body accounting to actual examples/<organ>/ manifests so the ledger's body support is grounded in shipped files, not fixture claims.
-    - Guarantee: returns a sorted, de-duplicated list of public-root-relative display refs for every `source_module_manifest.json` regular file under examples/<organ_id>/; returns `[]` when that directory does not exist.
-    - Fails: examples/<organ_id> not a dir -> returns `[]` (no raise).
-    - Reads: examples/<organ_id>/**/source_module_manifest.json (recursive rglob).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root` and `organ_id`; notable helpers are `is_dir`, `_display`,
+    `fromkeys`, `is_file`, and 1 more.
     """
     base = public_root / EXAMPLES_REL / organ_id
     if not base.is_dir():
@@ -567,15 +498,10 @@ def _direct_source_module_manifest_refs(public_root: Path, organ_id: str) -> lis
 
 def _manifest_path(public_root: Path, ref: str) -> Path:
     """
-    [ACTION]
-    Join a manifest ref to its absolute path under the public root.
+    Produce the manifest path value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: keeps manifest existence/digest checks anchored to the resolved public root so refs resolve under the validated tree, not the process CWD.
-    - Guarantee: returns `public_root / <ref with microcosm-substrate/ prefix stripped>`; existence is the caller's check, not asserted here.
-    - Fails: None — pure path join; never inspects the filesystem, raises, or returns a failure envelope.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `public_root` and `ref`; notable helpers are `_strip_public_root_prefix`.
     """
     clean = _strip_public_root_prefix(ref)
     return public_root / clean
@@ -587,15 +513,10 @@ def _module_row_target_path(
     module_row: dict[str, Any],
 ) -> tuple[Path, str]:
     """
-    [ACTION]
-    Resolve a module row's copied-body target to an (absolute path, display ref) pair.
+    Compute module row target path from `public_root`, `manifest_path`, and `module_row`.
 
-    - Teleology: gives digest accounting one canonical target body to hash per module row, tolerating the three manifest shapes (target_ref, target_refs list, bare path).
-    - Guarantee: returns `(target_path, display_ref)` using `target_ref` if set, else the first truthy entry of `target_refs`, else `manifest_path.parent / path`; display_ref is always public-root-relative.
-    - Fails: never raises; an absent/empty ref yields a target_path that may not exist, which downstream `is_file()` treats as target_missing.
-    - Reads: filesystem existence only via `_path_from_ref` (for target_ref/target_refs resolution).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root`, `manifest_path`, and `module_row`; notable helpers are `get`,
+    `_path_from_ref`, and `_display`.
     """
     target_ref = str(module_row.get("target_ref") or "")
     if target_ref:
@@ -619,15 +540,9 @@ def _module_row_target_path(
 
 def _manifest_module_rows(manifest: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Flatten a source_module_manifest into uniform per-body module rows.
+    Return manifest module rows for the validators substrate substitution ledger flow.
 
-    - Teleology: protects digest/real-body accounting from manifest-shape drift by folding `modules`, `copied_macro_body_artifacts`, and `source_open_body_imports` into one row schema with normalized relation/digest/body flags.
-    - Guarantee: returns a list of dicts each carrying module_id/source_ref/target_ref/source_to_target_relation/sha256/body_copied/body_in_receipt, with artifact copy_policy mapped to a relation and open-body imports zipped by index.
-    - Fails: None — emits only what the manifest provides; missing blocks contribute zero rows rather than raising; never returns a failure envelope.
-    - Reads: the in-memory manifest dict (modules, copied_macro_body_artifacts, source_open_body_imports, source_digests).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `manifest`; notable helpers are `_rows`, `get`, `append`, `zip`, and 2 more.
     """
     rows = list(_rows(manifest, "modules"))
     for artifact in _rows(manifest, "copied_macro_body_artifacts"):
@@ -688,18 +603,10 @@ def _digest_relation_rows(
     manifest_refs: list[str],
 ) -> tuple[list[dict[str, Any]], list[str], list[str], int, int, int]:
     """
-    [ACTION]
-    Verify each manifest module's source/target/digest relation and tally real bodies.
+    Return a stable SHA-256 digest for `public_root` and `manifest_refs`.
 
-    - Teleology: protects the "real substrate body, digest-fresh, provenance-backed" claim from drifted/missing targets, fixture/receipt sources, and stale pinned exact-copies being counted as real.
-    - Guarantee: returns `(digest_rows, unique_macro_refs, unique_target_refs, supporting_body_count, receipt_body_count, digest_drift_disposition_count)`; each digest row carries computed actual/expected/source sha256, target/source existence, resolved relation, `status` (PASS only when target exists, target_digest matches, and any required source match holds), and `counts_as_real_body` only when body-copied + not-in-receipt + source role countable + relation present + target exists + status PASS (or non-exact-copy with matching target digest).
-    - Fails: missing manifest file -> appends a `status:target_missing` / `missing_manifest` digest row and skips it; drifted exact_copy -> `status:blocked` with a `digest_drift_disposition` and excluded from real-body count.
-    - Reads: each manifest_ref under public_root, each module target file, and source files under repo_root (public_root.parent) for sha256.
-    - Writes: None.
-    - When-needed: inspect when auditing whether an organ's claimed real bodies are digest-verified and provenance-clean.
-    - Escalates-to: validate_ledger_payload real_body_* issue ids; per-row status/counts_as_real_body fields.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     digest_rows: list[dict[str, Any]] = []
     macro_refs: list[str] = []
@@ -823,15 +730,9 @@ def _digest_relation_rows(
 
 def _count_from_source_open_fixture(fixture: dict[str, Any]) -> int:
     """
-    [ACTION]
-    Read the fixture-declared open-body material count.
+    Derive count from source open fixture without touching module import state.
 
-    - Teleology: surfaces what a fixture CLAIMS as body count so the ledger can contrast it against the examples-manifest-verified count and demote fixture claims to non-authority.
-    - Guarantee: returns the int `source_open_body_imports.body_material_count`; returns `0` when the block or field is missing or not an int.
-    - Fails: never raises; malformed/absent input -> `0`.
-    - Reads: the in-memory fixture dict only (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `fixture`; notable helpers are `get`.
     """
     source_open = fixture.get("source_open_body_imports")
     if not isinstance(source_open, dict):
@@ -842,17 +743,9 @@ def _count_from_source_open_fixture(fixture: dict[str, Any]) -> int:
 
 def _disposition_for(row: dict[str, Any], supporting_body_count: int) -> str:
     """
-    [ACTION]
-    Classify a registry row into its substrate-substitution disposition.
+    Return disposition for for the validators substrate substitution ledger flow.
 
-    - Teleology: the core state-machine assignment that routes each accepted organ to real_substrate_capsule, retained_regression_validator, or deleted_demoted_historical_artifact, enforcing that fixtures and body-free organs cannot pose as real substrate.
-    - Guarantee: returns RETAINED_REGRESSION_VALIDATOR when evidence_class is fixture_echo_smoke or bucket is regression_negative_fixture; else REAL_SUBSTRATE_CAPSULE when supporting_body_count > 0; else DELETED_DEMOTED_HISTORICAL_ARTIFACT.
-    - Fails: never raises; missing fields stringify to "" and fall through to the body-count branch.
-    - Reads: the registry row's evidence_class/truth_accounting_bucket and the precomputed supporting_body_count (no filesystem).
-    - Writes: None.
-    - When-needed: inspect when an organ's disposition seems wrong; compare evidence_class/bucket and verified body count.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `row` and `supporting_body_count`; notable helpers are `get`.
     """
     evidence_class = str(row.get("evidence_class") or "")
     bucket = str(row.get("truth_accounting_bucket") or "")
@@ -865,15 +758,9 @@ def _disposition_for(row: dict[str, Any], supporting_body_count: int) -> str:
 
 def _body_support_class(manifest_refs: list[str], supporting_body_count: int) -> str:
     """
-    [ACTION]
-    Label the kind of body support a row has, for the real-capsule gate.
+    Return body support class for the validators substrate substitution ledger flow.
 
-    - Teleology: gives the validator a single field to assert that a real capsule's body support is manifest-verified, not merely asserted.
-    - Guarantee: returns `source_module_manifest_verified_body` only when there is at least one manifest ref AND supporting_body_count > 0; otherwise `none_verified`.
-    - Fails: never raises; empty refs or zero count -> `none_verified` (which the validator flags for real capsules).
-    - Reads: the in-memory manifest_refs list and count (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `manifest_refs` and `supporting_body_count`.
     """
     if supporting_body_count > 0 and manifest_refs:
         return "source_module_manifest_verified_body"
@@ -882,15 +769,9 @@ def _body_support_class(manifest_refs: list[str], supporting_body_count: int) ->
 
 def _fixture_role(disposition: str, fixture_path: Path | None, supporting_body_count: int) -> str:
     """
-    [ACTION]
-    Describe the non-authority role a fixture plays for an organ row.
+    Compute fixture role from `disposition`, `fixture_path`, and `supporting_body_count`.
 
-    - Teleology: encodes the doctrine that fixtures are input or regression wrappers, never body authority, so the ledger can name a fixture's role without ever crediting it as substrate.
-    - Guarantee: returns one of `retained_regression_negative_wrapper_only` (retained disposition), `regression_wrapper_around_real_substrate` (fixture + verified bodies), `fixture_input_only_not_authority` (fixture, no bodies), or `no_fixture_authority` (no fixture).
-    - Fails: never raises; precedence is disposition first, then presence-of-fixture and body count.
-    - Reads: the disposition string, fixture_path presence, and count (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `disposition`, `fixture_path`, and `supporting_body_count`.
     """
     if disposition == RETAINED_REGRESSION_VALIDATOR:
         return "retained_regression_negative_wrapper_only"
@@ -908,15 +789,10 @@ def _examples_fixtures_consistency(
     fixture_source_body_count: int,
 ) -> str:
     """
-    [ACTION]
-    Reconcile examples-manifest body count against fixture-declared body count.
+    Return examples fixtures consistency for the validators substrate substitution ledger
+    flow.
 
-    - Teleology: makes the examples-manifest the authority over fixture claims so a fixture under-/over-counting bodies cannot silently distort accounting; the validator flags `contradiction_unexplained` if it ever appears.
-    - Guarantee: returns `fixture_body_support_demoted_to_regression_not_authority` for retained fixtures; `examples_body_manifest_controls_fixture_zero_receipt` when manifests verify bodies but the fixture declared zero; else `consistent`.
-    - Fails: never raises; this function emits no `contradiction_unexplained` (that value is checked by the validator but produced elsewhere); all inputs are ints/strings.
-    - Reads: the disposition and two precomputed counts (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `disposition`, `supporting_body_count`, and `fixture_source_body_count`.
     """
     if disposition == RETAINED_REGRESSION_VALIDATOR:
         return "fixture_body_support_demoted_to_regression_not_authority"
@@ -927,15 +803,9 @@ def _examples_fixtures_consistency(
 
 def _public_commands(organ_id: str, validator_command: str) -> list[str]:
     """
-    [ACTION]
-    Assemble the public, runnable exercise commands for an organ row.
+    Return public commands for the validators substrate substitution ledger flow.
 
-    - Teleology: backs the "real capsule has a runnable public exercise command connected to its body" claim that the validator enforces against real_substrate_capsule rows.
-    - Guarantee: returns `[validator_command]` (omitting it when empty) plus the two PROVER_SMOKE_COMMANDS appended only for organ_id `verifier_lab_kernel`.
-    - Fails: None — always returns a list (possibly empty); never raises or returns a failure envelope. (Emptiness is later flagged downstream by real_capsule_missing_public_exercise_command, not here.)
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `organ_id` and `validator_command`; notable helpers are `extend`.
     """
     commands = [validator_command] if validator_command else []
     if organ_id == "verifier_lab_kernel":
@@ -945,30 +815,18 @@ def _public_commands(organ_id: str, validator_command: str) -> list[str]:
 
 def _organ_source_path(public_root: Path, organ_id: str) -> Path:
     """
-    [ACTION]
-    Map an organ id to its source module path under the public root.
+    Derive organ source path without touching module import state.
 
-    - Teleology: the single place that names where an organ's body lives, so source-compute inspection always reads the right module.
-    - Guarantee: returns `public_root / src/microcosm_core/organs / <organ_id>.py`; existence is the caller's concern.
-    - Fails: never raises; pure path join, no filesystem touch.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `public_root` and `organ_id`.
     """
     return public_root / "src/microcosm_core/organs" / f"{organ_id}.py"
 
 
 def _name_promise_terms(organ_id: str) -> list[str]:
     """
-    [ACTION]
-    Extract the compute-promise terms embedded in an organ's id.
+    Return name promise terms for the validators substrate substitution ledger flow.
 
-    - Teleology: detects when an organ's NAME promises a mechanism (interpret/prove/simulate/...), which AP-15 uses to demand runtime-compute evidence or a bound claim ceiling.
-    - Guarantee: returns the sorted subset of COMPUTE_PROMISE_TERMS appearing as `_`/`-`-delimited tokens in the organ id; returns `[]` when none match.
-    - Fails: never raises; tokenization is split-only on a stringified id.
-    - Reads: the organ_id string and the COMPUTE_PROMISE_TERMS constant (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `organ_id`; notable helpers are `split` and `replace`.
     """
     tokens = {
         token
@@ -980,15 +838,9 @@ def _name_promise_terms(organ_id: str) -> list[str]:
 
 def _call_name(node: ast.AST) -> str:
     """
-    [ACTION]
-    Resolve the callee name of an AST call target.
+    Return call name for the validators substrate substitution ledger flow.
 
-    - Teleology: lets source-compute detection recognize runtime helper calls (`_gridworld_step`, `forward`, `np.*`) regardless of plain-name vs attribute form.
-    - Guarantee: returns `node.id` for an ast.Name, `node.attr` for an ast.Attribute, else `""`.
-    - Fails: never raises; any other node type -> `""`.
-    - Reads: the AST node only.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `node`.
     """
     if isinstance(node, ast.Name):
         return node.id
@@ -999,15 +851,10 @@ def _call_name(node: ast.AST) -> str:
 
 def _target_names(node: ast.AST) -> set[str]:
     """
-    [ACTION]
-    Collect the bound names of an assignment target, flattening unpacking.
+    Produce the target names value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: lets runtime-compute detection see which variables an assignment binds (e.g. `gradient_scores`, `ablation_result`) even through tuple/list unpacking.
-    - Guarantee: returns `{node.id}` for a Name, `{node.attr}` for an Attribute, the recursive union of element names for a Tuple/List, else `set()`.
-    - Fails: never raises; unrecognized target node -> empty set.
-    - Reads: the AST node only.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `node`; notable helpers are `update` and `_target_names`.
     """
     if isinstance(node, ast.Name):
         return {node.id}
@@ -1023,15 +870,10 @@ def _target_names(node: ast.AST) -> set[str]:
 
 def _dict_key_strings(node: ast.AST) -> set[str]:
     """
-    [ACTION]
-    Collect literal string keys from a dict (or sequence of dicts) AST node.
+    Produce the dict key strings value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: detects "receipt-returning" functions and runtime result keys (`gradient_scores`, `ablation_result`, `predicted_actual_match_count`) by inspecting returned dict literals.
-    - Guarantee: returns the set of constant string keys of an ast.Dict, unioned recursively over Tuple/List elements; returns `set()` for any other node.
-    - Fails: never raises; non-string/computed keys are ignored.
-    - Reads: the AST node only.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `node`; notable helpers are `add`, `update`, and `_dict_key_strings`.
     """
     keys: set[str] = set()
     if isinstance(node, ast.Dict):
@@ -1046,15 +888,12 @@ def _dict_key_strings(node: ast.AST) -> set[str]:
 
 def _function_has_runtime_structure(function: ast.FunctionDef | ast.AsyncFunctionDef) -> bool:
     """
-    [ACTION]
-    Heuristically decide whether a function body performs real runtime compute.
+    Return whether function has runtime structure holds for the validators substrate
+    substitution ledger flow.
 
-    - Teleology: distinguishes a function that actually computes a receipt (arithmetic/control-flow/runtime calls feeding a dict return) from a cosmetic stub, backing the AP-15 mechanism-theater check.
-    - Guarantee: returns True only when the function both returns a dict literal (receipt) AND contains arithmetic (BinOp/UnaryOp/AugAssign), control flow (loops/if/comprehensions), or a known runtime/aggregation call (`_gridworld_step`, `forward`, `len`, `sum`, ...); else False.
-    - Fails: never raises; a function without a dict-returning shape returns False regardless of its arithmetic.
-    - Reads: the function AST subtree only (ast.walk).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The result is derived from `function` with `walk`, `_call_name`, and
+    `_dict_key_strings`; failing evidence is returned or raised exactly where the body says
+    so.
     """
     has_arithmetic = any(
         isinstance(node, (ast.BinOp, ast.UnaryOp, ast.AugAssign))
@@ -1102,15 +941,9 @@ def _function_has_runtime_structure(function: ast.FunctionDef | ast.AsyncFunctio
 
 def _compute_import_markers_from_ast(tree: ast.AST) -> list[str]:
     """
-    [ACTION]
-    Detect numeric-compute imports (numpy/torch/scipy) in a parsed module.
+    Derive compute import markers from ast without touching module import state.
 
-    - Teleology: surfaces hard evidence that an organ links a real compute stack, one of the two signals that an honest mechanism backs a name promise.
-    - Guarantee: returns the subset of COMPUTE_IMPORT_MARKERS (`import numpy`, `from torch`, ...) actually present, in COMPUTE_IMPORT_MARKERS order; returns `[]` when none import numpy/torch/scipy.
-    - Fails: never raises on a valid AST; only top-level package of each import is matched (e.g. `numpy.linalg` -> `import numpy`).
-    - Reads: the AST tree only (ast.walk).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `tree`; notable helpers are `walk`, `split`, and `add`.
     """
     markers: set[str] = set()
     for node in ast.walk(tree):
@@ -1128,15 +961,11 @@ def _compute_import_markers_from_ast(tree: ast.AST) -> list[str]:
 
 def _runtime_compute_markers_from_ast(tree: ast.AST) -> list[str]:
     """
-    [ACTION]
-    Detect in-body runtime-compute markers across a module's functions.
+    Return runtime compute markers from ast for the validators substrate substitution ledger
+    flow.
 
-    - Teleology: gathers the runtime-mechanism evidence (gridworld/transformer steps, `np.` use, gradient/ablation assignments, predicted-actual keys) that lets a mechanism-term name promise be honestly backed rather than theater.
-    - Guarantee: returns the subset of RUNTIME_COMPUTE_MARKERS present, in RUNTIME_COMPUTE_MARKERS order, considering only functions that pass `_function_has_runtime_structure`; returns `[]` when no such evidence exists.
-    - Fails: never raises on a valid AST; functions without runtime structure are skipped entirely.
-    - Reads: the AST tree only (ast.walk over each qualifying function).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `tree`; notable helpers are `get`, `walk`, `_function_has_runtime_structure`,
+    `add`, and 4 more.
     """
     markers: set[str] = set()
     for function in (
@@ -1189,15 +1018,11 @@ def _runtime_compute_markers_from_ast(tree: ast.AST) -> list[str]:
 
 def _source_compute_evidence(public_root: Path, organ_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Inspect an organ's source for compute import + runtime-compute evidence.
+    Serialize
+    `microcosm_core.validators.substrate_substitution_ledger._source_compute_evidence` into
+    the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: produces the per-organ evidence record that the AP-15 name-promise axis consumes to decide mechanism-theater vs runtime-backed, reading the actual organ body.
-    - Guarantee: returns a dict with `source_ref` (display ref), `source_exists`, `compute_import_markers`, and `runtime_compute_markers`; markers are empty when the source is absent, fails the cheap prefilter, or does not parse.
-    - Fails: never raises; a missing file returns source_exists False + empty markers; a SyntaxError yields empty markers with source_exists True.
-    - Reads: the organ source module under public_root (text + AST parse).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source_path = _organ_source_path(public_root, organ_id)
     if not source_path.is_file():
@@ -1239,18 +1064,10 @@ def _name_promise_axis(
     source_compute_evidence: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Compute the AP-15 mechanism-theater name-promise axis for one organ.
+    Serialize `microcosm_core.validators.substrate_substitution_ledger._name_promise_axis`
+    into the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: protects the public surface from an organ whose NAME promises a mechanism (interpret/simulate/...) while its risky evidence class has no runtime compute, by emitting a status + scheduler_target the validator enforces.
-    - Guarantee: returns a `microcosm_name_promise_axis_v1` dict whose `status` is exactly one of name_promise_mechanism_theater, name_promise_backed_by_runtime_compute, name_promise_non_runtime_obligation_in_risky_class, name_promise_not_in_risky_evidence_class, or no_compute_name_promise, with the matching scheduler_target and the evidence fields that drove it.
-    - Fails: never raises; absent source/evidence yields empty marker lists and routes to a non-theater status; this is a pure projection, not a gate.
-    - Reads: source-compute evidence (passed-in, else recomputed from the organ source under public_root).
-    - Writes: None.
-    - When-needed: inspect when an organ is flagged name_promise_mechanism_theater or its next_repair is stale.
-    - Escalates-to: AP-15::mechanism_theater_name_promise policy; validate_ledger_payload name_promise_axis_* issues.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     terms = _name_promise_terms(organ_id)
     evidence = source_compute_evidence or _source_compute_evidence(
@@ -1309,17 +1126,10 @@ def _ledger_row(
     validation_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the full substrate-disposition row for one accepted organ.
+    Serialize `microcosm_core.validators.substrate_substitution_ledger._ledger_row` into the
+    payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: composes the single authoritative ledger row (disposition, digest relation, body counts, name-promise axis, claim ceiling, next repair) that downstream validation and the public site consume per organ.
-    - Guarantee: returns a dict whose disposition comes from `_disposition_for`, whose real_body_count is the supporting count only when disposition is real_substrate_capsule (else 0), and whose digest_relation/name_promise/body_support fields are derived from on-disk manifests + organ source — never from fixture claims.
-    - Fails: never raises; a missing fixture/manifest/source degrades to empty refs and a deleted_demoted disposition rather than an error.
-    - Reads: fixture manifest, examples source-module manifests, manifest target/source bodies, and organ source compute evidence under public_root.
-    - Writes: None.
-    - When-needed: inspect to see exactly what evidence produced an organ's disposition and body credit.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     organ_id = str(registry_row.get("organ_id") or "")
     fixture_path, fixture = _fixture_manifest(public_root, organ_id)
@@ -1397,15 +1207,9 @@ def _ledger_row(
 
 def _next_repair(disposition: str, name_promise: dict[str, Any] | None = None) -> str:
     """
-    [ACTION]
-    Derive the actionable next-repair string for a row's disposition + axis.
+    Return next repair for the validators substrate substitution ledger flow.
 
-    - Teleology: gives each row a single concrete remediation, prioritizing AP-15 mechanism-theater repair over disposition-based maintenance, so the ledger doubles as a worklist.
-    - Guarantee: returns the mechanism-repair string when name_promise.status is name_promise_mechanism_theater; else a disposition-specific string for real_substrate_capsule / retained_regression_validator / (default) demoted artifact.
-    - Fails: never raises; a None or non-dict name_promise simply skips the theater branch.
-    - Reads: the disposition string and name_promise dict (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `disposition` and `name_promise`; notable helpers are `get`.
     """
     if (
         isinstance(name_promise, dict)
@@ -1421,15 +1225,11 @@ def _next_repair(disposition: str, name_promise: dict[str, Any] | None = None) -
 
 def _name_promise_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    Aggregate per-organ name-promise axes into a ledger-level summary.
+    Serialize
+    `microcosm_core.validators.substrate_substitution_ledger._name_promise_summary` into the
+    payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: gives the ledger summary one place to report mechanism-theater pressure and its repair targets, and gives the validator a recomputable summary to detect staleness.
-    - Guarantee: returns a `microcosm_name_promise_summary_v1` dict with status_counts over each row's name_promise.status, a mechanism_theater_count, and a mechanism_repair_targets list (one entry per mechanism-theater organ with its terms/scheduler_target/next_repair).
-    - Fails: never raises; rows missing name_promise contribute the `""` status bucket.
-    - Reads: the in-memory rows list (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     name_promise_counts: dict[str, int] = {}
     for row in rows:
@@ -1465,15 +1265,11 @@ def _name_promise_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
 
 def _count_reconciliation(public_root: Path, accepted_count: int) -> dict[str, Any]:
     """
-    [ACTION]
-    Reconcile registry accepted count against acceptance plan + summary.
+    Serialize
+    `microcosm_core.validators.substrate_substitution_ledger._count_reconciliation` into the
+    payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: protects the accepted-organ count from a stale acceptance summary or drifted plan silently disagreeing with the registry, demoting a divergent summary to receipt-not-authority.
-    - Guarantee: returns a dict with `status` = PASS when plan_count == accepted_count AND the summary either agrees, is an explicit (recorded) divergence, or is absent; else `blocked`. Records the three counts and a divergence_disposition.
-    - Fails: never raises; missing plan/summary files read as empty and yield plan_count 0 / summary_count None (blocking only if the plan count then mismatches).
-    - Reads: core/acceptance/first_wave_acceptance.json and receipts/first_wave/acceptance_summary.json under public_root.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     plan = _read_json_if_exists(public_root / ACCEPTANCE_PLAN_REL)
     summary = _read_json_if_exists(public_root / ACCEPTANCE_SUMMARY_REL)
@@ -1508,15 +1304,11 @@ def _build_validation_context(
     accepted_rows: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Precompute the shared accepted-ids + source-compute evidence context.
+    Serialize
+    `microcosm_core.validators.substrate_substitution_ledger._build_validation_context` into
+    the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: lets build and validation share one resolved root, one accepted-id list, and one source-compute scan per organ, so name-promise recomputation in the validator matches the builder exactly (no double-scan drift).
-    - Guarantee: returns a dict with `public_root` (resolved), `accepted_ids` (from accepted_rows or the registry), and `source_compute_evidence_by_organ` mapping each accepted id to its `_source_compute_evidence` record.
-    - Fails: raises only if the registry read fails when accepted_rows is None (via _accepted_registry_rows).
-    - Reads: organ registry (when accepted_rows omitted) and each accepted organ's source module under the resolved root.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     root = _public_root_for_path(public_root)
     rows = accepted_rows if accepted_rows is not None else _accepted_registry_rows(root)
@@ -1540,15 +1332,10 @@ def _source_compute_evidence_from_context(
     organ_id: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    Look up an organ's precomputed source-compute evidence from the context.
+    Produce the source compute evidence from context value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: lets the row builder and validator reuse the one-time source scan instead of re-reading each organ body, keeping their name-promise axes identical.
-    - Guarantee: returns the cached evidence dict for organ_id when present in `validation_context.source_compute_evidence_by_organ`; returns None when the context, the map, or the entry is missing or wrong-typed.
-    - Fails: never raises; any shape mismatch -> None (callers then recompute fresh).
-    - Reads: the in-memory validation_context only (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `validation_context` and `organ_id`; notable helpers are `get`.
     """
     if not isinstance(validation_context, dict):
         return None
@@ -1561,18 +1348,10 @@ def _source_compute_evidence_from_context(
 
 def build_ledger(public_root: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the full substrate-substitution ledger payload from disk.
+    Serialize `microcosm_core.validators.substrate_substitution_ledger.build_ledger` into
+    the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: the canonical projection that turns the organ registry + manifests + organ sources into the disposition ledger (real_substrate_capsule / retained_regression / demoted) plus its embedded validation receipt.
-    - Guarantee: returns a `microcosm_substrate_substitution_ledger_v1` dict with per-organ rows, disposition_counts, name_promise + count_reconciliation summaries, an embedded `validation`, and a `status` mirroring that validation (PASS only when zero issues); real-substrate counts come only from real_substrate_capsule rows.
-    - Fails: never raises for normal substrate; raises only if the organ registry is missing/malformed (read_json_strict). A blocked validation yields `status:blocked`, not an exception.
-    - Reads: registry, acceptance plan/summary, fixture manifests, examples source-module manifests + bodies, organ sources under the resolved public root.
-    - Writes: None — pure projection; persistence is write_ledger's job.
-    - When-needed: call to inspect or regenerate the current ledger without writing.
-    - Escalates-to: validate_ledger_payload; std organ-registry authority floor + tests/test_organ_registry_authority_floor.py.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     root = _public_root_for_path(public_root)
     accepted_rows = _accepted_registry_rows(root)
@@ -1667,15 +1446,9 @@ def build_ledger(public_root: str | Path) -> dict[str, Any]:
 
 def _rows_by_organ_id(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    Index a ledger payload's disposition rows by organ id.
+    Return rows by organ ID for the validators substrate substitution ledger flow.
 
-    - Teleology: gives the organ-slice merge an O(1) lookup of current/rebuilt rows so a targeted write can splice one organ without rebuilding the whole list.
-    - Guarantee: returns a dict mapping organ_id -> row for every disposition row carrying a truthy organ_id; later duplicates overwrite earlier ones.
-    - Fails: never raises; a malformed payload yields `{}` via `_rows`.
-    - Reads: the in-memory payload only (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `payload`; notable helpers are `get` and `_rows`.
     """
     return {
         str(row.get("organ_id")): row
@@ -1691,15 +1464,11 @@ def _ordered_ids_for_organ_slice(
     organ_ids: set[str],
 ) -> list[str]:
     """
-    [ACTION]
-    Choose the canonical row ordering for an organ-slice merge.
+    Return ordered IDs for organ slice for the validators substrate substitution ledger
+    flow.
 
-    - Teleology: keeps the merged ledger's row order stable and registry-aligned so a targeted slice write does not reshuffle unrelated rows.
-    - Guarantee: returns the registry accepted-id order when the registry exists; else the current rows' order, appended with any rebuilt id that is in the selected slice and not already present.
-    - Fails: never raises; missing registry falls back to current/rebuilt orderings.
-    - Reads: organ registry under public_root (existence-guarded).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root`, `current`, `rebuilt`, and `organ_ids`; notable helpers are
+    `_expected_accepted_ids_if_registry_exists`, `_rows_by_organ_id`, and `append`.
     """
     registry_ids = _expected_accepted_ids_if_registry_exists(public_root)
     if registry_ids:
@@ -1716,15 +1485,11 @@ def _summary_and_validation_for_rows(
     rows: list[dict[str, Any]],
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """
-    [ACTION]
-    Recompute the ledger summary + validation for an arbitrary row set.
+    Produce the summary and validation for rows value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: lets an organ-slice merge re-derive a consistent summary and full validation over the spliced rows, so a partial write is still validated as a whole ledger.
-    - Guarantee: returns `(summary, validation)` where summary carries disposition/body/receipt/drift counts and name_promise + count_reconciliation, and its `status` / fixture_authority_ban_status / validation_issue_count are reconciled to the freshly run `validate_ledger_payload` (PASS only when zero issues).
-    - Fails: never raises for normal input; raises only if the underlying registry read inside validation fails.
-    - Reads: organ registry + acceptance surfaces via _build_validation_context and _count_reconciliation under public_root.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root` and `rows`; notable helpers are `_name_promise_summary`,
+    `_build_validation_context`, `validate_ledger_payload`, `get`, and 1 more.
     """
     disposition_counts: dict[str, int] = {}
     for row in rows:
@@ -1780,16 +1545,11 @@ def _merge_organ_slice(
     organ_ids: set[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Splice rebuilt rows for selected organs into the current ledger.
+    Compute merge organ slice from `public_root`, `current`, `rebuilt`, and `organ_ids`.
 
-    - Teleology: enables a surgical, reviewable write of only the organs that changed, while still re-deriving a whole-ledger summary + validation so the spliced result stays self-consistent.
-    - Guarantee: returns a copy of `current` with organ_substrate_dispositions rebuilt only for ids in organ_ids (others retained from current), and status/summary/validation recomputed via _summary_and_validation_for_rows.
-    - Fails: raises ValueError when organ_ids is empty, or when any selected id is missing from the rebuilt ledger (`rebuilt ledger is missing organ rows: ...`) — the caller converts this to a blocked_invalid_organ_slice result.
-    - Reads: registry/acceptance surfaces via the summary/validation recompute under public_root.
-    - Writes: None — returns a new dict; persistence is the caller's.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root`, `current`, `rebuilt`, and `organ_ids`; notable helpers are
+    `_rows_by_organ_id`, `_ordered_ids_for_organ_slice`, `_summary_and_validation_for_rows`,
+    `ValueError`, and 2 more; invalid cases raise from the explicit checks in the body.
     """
     if not organ_ids:
         raise ValueError("at least one organ id is required for organ-slice write")
@@ -1819,30 +1579,21 @@ def _merge_organ_slice(
 
 def _expected_accepted_ids(public_root: Path) -> list[str]:
     """
-    [ACTION]
-    List the organ ids the registry currently accepts as authority.
+    Produce the expected accepted IDs value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: the expected-id set the validator compares against ledger rows to catch accepted-organ-without-row and row-without-accepted-organ drift.
-    - Guarantee: returns the organ_id of every accepted_current_authority registry row, in registry order.
-    - Fails: raises if the organ registry is missing/malformed (via _accepted_registry_rows).
-    - Reads: core/organ_registry.json under public_root.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root`; notable helpers are `get` and `_accepted_registry_rows`.
     """
     return [str(row.get("organ_id")) for row in _accepted_registry_rows(public_root)]
 
 
 def _expected_accepted_ids_if_registry_exists(public_root: Path) -> list[str]:
     """
-    [ACTION]
-    List accepted organ ids, tolerating a missing registry.
+    Produce the expected accepted IDs if registry exists value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: lets the missing-ledger error path and slice-ordering report an accepted count/order without raising when the registry file is absent.
-    - Guarantee: returns the accepted_current_authority organ ids when the registry exists; returns `[]` when the registry file is missing.
-    - Fails: never raises for a missing file; a present-but-malformed registry propagates read_json_strict's parse error.
-    - Reads: core/organ_registry.json under public_root (existence-guarded).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root`; notable helpers are `_read_json_if_exists`, `get`, and
+    `_rows`.
     """
     registry = _read_json_if_exists(public_root / REGISTRY_REL)
     return [
@@ -1860,15 +1611,10 @@ def _issue(
     detail: dict[str, Any] | None = None,
 ) -> None:
     """
-    [ACTION]
-    Append one structured violation to the validator's issues list.
+    Run issue for the validators substrate substitution ledger flow.
 
-    - Teleology: the single sink for every validation violation, so each blocking finding is a consistent {issue_id, organ_id?, detail?} record an agent can route on.
-    - Guarantee: appends `{"issue_id": issue_id}` to `issues`, adding `organ_id` and/or `detail` only when truthy. Returns None.
-    - Fails: never raises; mutates the passed-in list in place.
-    - Reads: nothing (no filesystem).
-    - Writes: None to disk — appends to the in-memory issues list.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     row: dict[str, Any] = {"issue_id": issue_id}
     if organ_id:
@@ -1880,16 +1626,11 @@ def _issue(
 
 def _exercise_commands_reference_body(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    Check a real capsule's exercise command actually touches its real body.
+    Return whether exercise commands reference body holds for the validators substrate
+    substitution ledger flow.
 
-    - Teleology: protects the "real capsule has a runnable command CONNECTED to its body" claim from a generic command that exercises nothing the digest counted as a real body.
-    - Guarantee: returns True when any public_exercise_command string contains the organ_id OR a token (full ref / file name / stem) of any digest row whose counts_as_real_body is True; returns False otherwise.
-    - Fails: never raises; no commands or no counted body tokens -> False (the validator then flags real_capsule_public_exercise_not_connected_to_body).
-    - Reads: the in-memory row (commands + digest_relation) only (no filesystem).
-    - Writes: None.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The result is derived from `row` with `join`, `get`, `add`, and `Path`; failing evidence
+    is returned or raised exactly where the body says so.
     """
     commands = [str(command) for command in row.get("public_exercise_commands", []) if command]
     if not commands:
@@ -1919,18 +1660,11 @@ def validate_ledger_payload(
     validation_context: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Validate a substrate-substitution ledger payload against registry + body evidence.
+    Serialize
+    `microcosm_core.validators.substrate_substitution_ledger.validate_ledger_payload` into
+    the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: the release-trust gate protecting the public "fixture-only rows are not impressive; real-substrate counts come only from verified real bodies" claim from fixtures-as-authority, stale name-promise axes, demoted-but-accepted organs, and non-substrate sources counted as real.
-    - Guarantee: returns a result dict with `status` = PASS only when zero issues, else `blocked`; carries issue_count, the full issues list, accepted_organ_count, checked_row_count, and `fixture_only_authority_banned` = (not issues). Recomputes expected name_promise axis + next_repair per organ and flags any divergence.
-    - Fails: each violation (accepted organ missing row, row without accepted organ, invalid disposition, demoted-still-accepted, fixture-echo-not-demoted, retained-fixture counts-as-progress, real-capsule missing ceiling/command/body/manifest/digest, real-body from fixture/receipt/generated/runtime/formal/concurrency source, exact-copy drift, count divergence, stale name-promise) appends an issue and forces `status:blocked` (exit 1 via main).
-    - Reads: registry-derived accepted ids (via validation_context or rebuilt), each row's digest_relation/name_promise/claim_ceiling, and summary.count_reconciliation.
-    - Writes: None — read-only; returns a receipt dict, does not mutate the ledger.
-    - When-needed: trust as the authority on whether a ledger payload is release-safe; inspect `issues` for the concrete failing organ/field.
-    - Escalates-to: std organ-registry authority floor + tests/test_organ_registry_authority_floor.py; per-issue issue_id.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     root = _public_root_for_path(public_root)
     issues: list[dict[str, Any]] = []
@@ -2366,18 +2100,10 @@ def validate_ledger_payload(
 
 def validate_ledger(public_root: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Validate the on-disk ledger file as a release-trust gate.
+    Serialize `microcosm_core.validators.substrate_substitution_ledger.validate_ledger` into
+    the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: the entrypoint (`--check`) that decides whether the persisted substrate-substitution ledger is currently release-safe, including the missing-ledger / missing-registry failure modes.
-    - Guarantee: returns a `microcosm_substrate_substitution_validation_v1` result; when the ledger file is absent it returns `status:blocked` with a `substrate_substitution_ledger_missing` issue (plus `organ_registry_missing` if the registry is also gone); otherwise delegates to validate_ledger_payload.
-    - Fails: never raises for absent files (they become blocking issues -> exit 1 via main); raises only if a present registry/ledger is malformed JSON.
-    - Reads: core/substrate_substitution_ledger.json and core/organ_registry.json under the resolved public root.
-    - Writes: None — read-only check; emits no mutation.
-    - When-needed: call to gate whether the committed ledger passes; inspect `issues` for the failing organ/field.
-    - Escalates-to: validate_ledger_payload; std organ-registry authority floor + tests/test_organ_registry_authority_floor.py.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     root = _public_root_for_path(public_root)
     ledger = _read_json_if_exists(root / LEDGER_REL)
@@ -2406,15 +2132,10 @@ def validate_ledger(public_root: str | Path) -> dict[str, Any]:
 
 def _json_pointer(path: tuple[str, ...]) -> str:
     """
-    [ACTION]
-    Render a diff path tuple as an RFC6901-escaped JSON pointer string.
+    Produce the json pointer value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: gives drift/settlement receipts a stable, human-readable address for each changed field so reviewers can locate exactly what moved.
-    - Guarantee: returns `/` for an empty path; otherwise `/`-joined parts with `~`->`~0` and `/`->`~1` escaping applied to each segment.
-    - Fails: never raises; pure string transform.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `path`; notable helpers are `replace` and `join`.
     """
     if not path:
         return "/"
@@ -2424,15 +2145,9 @@ def _json_pointer(path: tuple[str, ...]) -> str:
 
 def _json_diff_value(payload: Any, path: tuple[str, ...]) -> Any:
     """
-    [ACTION]
-    Resolve the value at a diff path inside a JSON payload.
+    Compute json diff value from `payload` and `path`.
 
-    - Teleology: lets settlement read the current/rebuilt value at each changed path so a verdict rests on the actual before/after values, not just the field name.
-    - Guarantee: walks `path` through dict keys, list `key=value` row selectors, and list integer indices; returns the located value, or the sentinel `_MISSING` when any segment cannot be resolved.
-    - Fails: never raises; out-of-range index, missing key, or unmatched row selector -> `_MISSING`.
-    - Reads: the in-memory payload only (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `payload` and `path`; notable helpers are `split` and `get`.
     """
     node = payload
     for part in path:
@@ -2465,15 +2180,11 @@ def _json_diff_value(payload: Any, path: tuple[str, ...]) -> Any:
 
 def _json_diff_value_for_json(value: Any) -> Any:
     """
-    [ACTION]
-    Make a possibly-missing diff value JSON-serializable for a receipt.
+    Serialize
+    `microcosm_core.validators.substrate_substitution_ledger._json_diff_value_for_json` into
+    the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: lets settlement receipts record "this side was absent" explicitly instead of dropping a key or emitting an unserializable sentinel.
-    - Guarantee: returns `{"missing": True}` when value is the `_MISSING` sentinel; otherwise returns the value unchanged.
-    - Fails: never raises.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if value is _MISSING:
         return {"missing": True}
@@ -2482,15 +2193,11 @@ def _json_diff_value_for_json(value: Any) -> Any:
 
 def _json_payload_sha256(value: Any) -> str:
     """
-    [ACTION]
-    Compute a stable content digest of a JSON-serializable value.
+    Return the stable digest computed by
+    `microcosm_core.validators.substrate_substitution_ledger._json_payload_sha256`.
 
-    - Teleology: gives settlement receipts a reproducible current/rebuilt/drift/path-set hash so a review's "this is the exact payload I settled" claim is verifiable.
-    - Guarantee: returns `sha256:<hex>` over `json.dumps(value, sort_keys=True, separators=(",",":"))`, so logically-equal payloads hash identically regardless of key order.
-    - Fails: raises TypeError if `value` is not JSON-serializable (json.dumps); no failure-envelope return.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The input is `value`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     body = json.dumps(value, sort_keys=True, separators=(",", ":"))
     return "sha256:" + hashlib.sha256(body.encode("utf-8")).hexdigest()
@@ -2498,15 +2205,9 @@ def _json_payload_sha256(value: Any) -> str:
 
 def _organ_id_from_diff_path(path: tuple[str, ...]) -> str:
     """
-    [ACTION]
-    Recover the organ id a diff path belongs to, if any.
+    Return organ ID from diff path for the validators substrate substitution ledger flow.
 
-    - Teleology: lets each settlement/blocker row attribute a changed field to the organ it concerns, so reviewers see which organ a drift affects.
-    - Guarantee: returns the value of the first `organ_id=<id>` row selector segment in `path`; returns `""` when the path does not pass through a keyed organ row.
-    - Fails: never raises; no organ selector -> `""`.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `path`; notable helpers are `startswith` and `split`.
     """
     for part in path:
         if part.startswith("organ_id="):
@@ -2516,15 +2217,10 @@ def _organ_id_from_diff_path(path: tuple[str, ...]) -> str:
 
 def _digest_row_for_diff_path(payload: dict[str, Any], path: tuple[str, ...]) -> dict[str, Any]:
     """
-    [ACTION]
-    Recover the enclosing digest-relation row for a JSON diff path.
+    Return a stable SHA-256 digest for `payload` and `path`.
 
-    - Teleology: lets drift settlement read the rebuilt row's provenance/digest fields so a bucket/verdict decision is grounded in real evidence, not just the changed field name.
-    - Guarantee: returns the nearest ancestor dict along `path` that carries both a relation/ref marker key and a digest key (source/target/relation set intersected with expected/actual/source sha256 set); returns `{}` when no enclosing digest row is found.
-    - Fails: path resolves to no qualifying dict -> returns `{}` (no raise); callers treat `{}` as no-evidence and route to review.
-    - Reads: the in-memory payload at sub-paths (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     for end in range(len(path), 0, -1):
         value = _json_diff_value(payload, path[:end])
@@ -2540,15 +2236,10 @@ def _digest_row_for_diff_path(payload: dict[str, Any], path: tuple[str, ...]) ->
 
 def _keyed_dict_list(rows: list[Any]) -> tuple[str, dict[str, Any]] | None:
     """
-    [ACTION]
-    Detect a stable identity key for a list of dict rows.
+    Produce the keyed dict list value used by
+    `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: lets the JSON differ align list elements by identity (so a reordered or inserted organ/module row diffs cleanly) instead of by fragile positional index.
-    - Guarantee: returns `(key, {id_value: row})` for the first of (organ_id, module_id, target_ref, source_ref) that is present, truthy, and unique across all rows; returns None when rows is empty, contains a non-dict, or no key is a total unique index.
-    - Fails: never raises; ambiguous/duplicate/empty key values -> None (caller falls back to index diffing).
-    - Reads: the in-memory rows only (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `rows`; notable helpers are `get`.
     """
     if not rows or not all(isinstance(row, dict) for row in rows):
         return None
@@ -2571,15 +2262,10 @@ def _json_diff_paths(
     path: tuple[str, ...] = (),
 ) -> list[tuple[str, ...]]:
     """
-    [ACTION]
-    Compute the set of changed paths between two JSON payloads.
+    Compute json diff paths from `current`, `rebuilt`, and `path`.
 
-    - Teleology: the structural diff that feeds drift classification and settlement, identifying every field that differs between the current and rebuilt ledger so each can be routed to a verdict.
-    - Guarantee: returns a list of path tuples (dict-key / `key=id` row-selector / index segments) for every leaf that differs; identity-keyed lists are aligned by key, others by index; type mismatch at a node yields that node's path; equal payloads yield `[]`.
-    - Fails: never raises; recursion terminates on scalars and on the keyed/index branches.
-    - Reads: the two in-memory payloads only (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `current`, `rebuilt`, and `path`; notable helpers are `type`,
+    `_keyed_dict_list`, `extend`, `append`, and 1 more.
     """
     if type(current) is not type(rebuilt):
         return [path]
@@ -2625,15 +2311,9 @@ def _json_diff_paths(
 
 def _writer_drift_axis(path: tuple[str, ...]) -> str:
     """
-    [ACTION]
-    Classify a changed path into a writer-drift axis.
+    Return writer drift axis for the validators substrate substitution ledger flow.
 
-    - Teleology: routes each diffed field to a drift axis so a scoped write can allow only its own axis and block unrelated rebuild drift, and so settlement knows which owner must review a change.
-    - Guarantee: returns exactly one axis string — name_promise, claim_ceiling, digest_relation, validation, summary, ledger_metadata, or other — by ordered substring/segment matching on the path.
-    - Fails: never raises; an unrecognized path falls through to `other`.
-    - Reads: the path tuple only (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `path`; notable helpers are `lower` and `join`.
     """
     text = "/".join(path).lower()
     if "name_promise" in path or (path and path[-1] == "next_repair"):
@@ -2675,16 +2355,11 @@ def _classify_rebuild_drift(
     write_scope: str = "full",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Classify current-vs-rebuilt drift into per-axis counts under a write scope.
+    Serialize
+    `microcosm_core.validators.substrate_substitution_ledger._classify_rebuild_drift` into
+    the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: the writer guard that decides whether a rebuild's changes fall inside the requested write scope, blocking unrelated-axis drift before any mutation.
-    - Guarantee: returns a `microcosm_substrate_substitution_writer_drift_v1` dict whose `status` is PASS (no changes), `drift_detected` (changes only on allowed axes), or `blocked_unrelated_rebuild_drift` (any change on a disallowed axis), with axis_counts, changed_axes, unrelated_axes, and bounded sample paths.
-    - Fails: raises ValueError for an unsupported write_scope (`unsupported writer drift scope: ...`); otherwise never raises.
-    - Reads: the two in-memory payloads only (no filesystem).
-    - Writes: None.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if write_scope not in WRITER_DRIFT_SCOPE_AXES:
         raise ValueError(f"unsupported writer drift scope: {write_scope}")
@@ -2730,17 +2405,10 @@ def _claim_ceiling_settlement_rows(
     paths: list[tuple[str, ...]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Settle each claim-ceiling diff into a review verdict.
+    Derive claim ceiling settlement rows without touching module import state.
 
-    - Teleology: protects the public claim-ceiling (authority-ceiling) surface from a stale-projection or conflicting rewrite being auto-applied without review.
-    - Guarantee: returns one row per claim_ceiling-axis diff path, each with verdict in {claim_ceiling_conflict (a side MISSING), claim_ceiling_unchanged (equal), claim_ceiling_safe_narrowing (safe-narrowing predicate), claim_ceiling_stale_projection (else)}, and `mutation_eligible_without_review` True ONLY for unchanged/safe_narrowing; review_required is its negation.
-    - Fails: a changed-but-not-safe ceiling -> verdict `claim_ceiling_stale_projection`, review_required True, mutation_eligible False (blocks auto-write); a MISSING side -> `claim_ceiling_conflict`, blocking.
-    - Reads: current/rebuilt ledger values at each claim_ceiling diff path; claim_ceiling_source recorded as core/organ_registry.json.
-    - Writes: None.
-    - When-needed: inspect before auto-applying any rebuilt claim ceiling.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `current`, `rebuilt`, and `paths`; notable helpers are `_json_diff_value`,
+    `append`, `_writer_drift_axis`, `_is_safe_claim_ceiling_narrowing`, and 4 more.
     """
     rows = []
     for path in paths:
@@ -2782,31 +2450,20 @@ def _claim_ceiling_settlement_rows(
 
 def _normalised_text(value: Any) -> str:
     """
-    [ACTION]
-    Normalise a value to lowercase, single-spaced comparison text.
+    Return normalised text for the validators substrate substitution ledger flow.
 
-    - Teleology: lets claim-ceiling comparison ignore case/whitespace noise so a genuine narrowing is distinguished from a cosmetic rephrase.
-    - Guarantee: returns the stringified value lowercased, stripped, with internal whitespace runs collapsed to single spaces.
-    - Fails: never raises; non-string values are stringified first.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `value`; notable helpers are `join`, `split`, `lower`, and `strip`.
     """
     return " ".join(str(value).strip().lower().split())
 
 
 def _is_safe_claim_ceiling_narrowing(current_value: Any, rebuilt_value: Any) -> bool:
     """
-    [ACTION]
-    Decide whether a claim-ceiling change is a safe, auto-applicable narrowing.
+    Return whether is safe claim ceiling narrowing holds for the validators substrate
+    substitution ledger flow.
 
-    - Teleology: protects the authority-ceiling surface by letting ONLY a strict narrowing (generic ceiling -> longer, explicitly-bounded ceiling) skip human review, never a widening or rephrase.
-    - Guarantee: returns True only when both values are str, the normalised current text is a member of GENERIC_CLAIM_CEILINGS, and the rebuilt text is strictly longer and contains both `validates only` and `does not`; returns False otherwise.
-    - Fails: non-str inputs, non-generic current, or rebuilt lacking the bounding phrases / not longer -> returns False (treated as review-required upstream); never raises.
-    - Reads: the two values and the GENERIC_CLAIM_CEILINGS constant (no filesystem).
-    - Writes: None.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The result is derived from `current_value` and `rebuilt_value` with `_normalised_text`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     if not isinstance(current_value, str) or not isinstance(rebuilt_value, str):
         return False
@@ -2825,15 +2482,10 @@ def _digest_bucket_for_path(
     rebuilt: dict[str, Any],
 ) -> str:
     """
-    [ACTION]
-    Bucket a digest-relation diff path by the kind of drift it represents.
+    Return a stable SHA-256 digest for `path` and `rebuilt`.
 
-    - Teleology: routes a digest change to a settlement bucket so body-count/relation/source-moved changes get review while pure metadata refreshes can be mechanical, protecting real-body accounting from silent reclassification.
-    - Guarantee: returns exactly one bucket string keyed off the changed field and the enclosing rebuilt digest row — relation_reclassification, body_count_disposition_change, historical_pinned_drift, exact_copy_hash_refresh, source_moved_target_stale, target_moved_source_stale, or digest_metadata_refresh.
-    - Fails: None — every path falls through to `digest_metadata_refresh` default; never raises or returns a failure envelope. (Blocking is decided later by _digest_settlement_verdict.)
-    - Reads: the rebuilt payload's enclosing digest row (relation + sha256 fields); no filesystem.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     field = path[-1] if path else ""
     rebuilt_row = _digest_row_for_diff_path(rebuilt, path)
@@ -2875,16 +2527,11 @@ def _digest_bucket_for_path(
 
 def _digest_row_has_verified_exact_copy_evidence(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    Test whether a digest row carries genuine verified-exact-copy evidence.
+    Return the stable digest computed by
+    `microcosm_core.validators.substrate_substitution_ledger._digest_row_has_verified_exact_copy_evidence`.
 
-    - Teleology: gates auto-promotion of a relation/body-count change so only a row whose digests actually match may be promoted without review, protecting real-body credit from being granted to unverified exact-copies.
-    - Guarantee: returns True only when relation is in VERIFIED_EXACT_COPY_RELATIONS, a source_ref or target_ref is present, an actual_target_sha256 is present, AND it equals either the source_sha256 or the expected_sha256; returns False otherwise.
-    - Fails: missing relation/material-ref/actual digest, or no matching source/expected digest -> returns False (no auto-promotion); never raises.
-    - Reads: the in-memory digest row fields only (no filesystem).
-    - Writes: None.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The input is `row`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     relation = str(row.get("source_to_target_relation") or "")
     expected_digest = str(row.get("expected_sha256") or "")
@@ -2911,17 +2558,11 @@ def _digest_settlement_verdict(
     rebuilt_value: Any,
 ) -> tuple[str, bool, bool, bool]:
     """
-    [ACTION]
-    Decide the settlement verdict and review/mutation flags for one digest diff.
+    Return a stable SHA-256 digest for `path`, `rebuilt`, `bucket`, `current_value`, and
+    `rebuilt_value`.
 
-    - Teleology: protects real-body accounting by requiring verified-exact-copy evidence before any promotion (status/relation/body-count) is auto-applied; everything else routes to owner review.
-    - Guarantee: returns `(verdict, review_required, mutation_eligible_without_review, aggregate_counter)`; mechanical refresh and evidence-backed promotions return review_required False / mutation_eligible True; relation/body-count/historical/source-moved changes without evidence return review_required True / mutation_eligible False; derived aggregate counters return `(... , True, False, True)` pending row proof.
-    - Fails: any unrecognized or evidence-lacking change -> a `*_requires_review` / `*_requires_refresh` verdict with review_required True, blocking auto-write; never raises.
-    - Reads: the rebuilt payload's enclosing digest row plus the field name and current/rebuilt values (no filesystem).
-    - Writes: None.
-    - When-needed: inspect to understand why a specific digest change is blocking or auto-applicable.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     field = path[-1] if path else ""
     rebuilt_row = _digest_row_for_diff_path(rebuilt, path)
@@ -2970,16 +2611,10 @@ def _digest_settlement_rows(
     paths: list[tuple[str, ...]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Build per-path digest settlement rows with bucket + verdict + blocking flags.
+    Return a stable SHA-256 digest for `current`, `rebuilt`, and `paths`.
 
-    - Teleology: produces the digest-axis evidence rows that decide whether a generated-ledger refresh may proceed, protecting real-body/digest claims from unreviewed mutation.
-    - Guarantee: returns one row per digest_relation-axis diff path, each carrying organ_id, json-pointer path, field, bucket, current/rebuilt value, settlement_verdict, review_required, mutation_eligible_without_review, aggregate_counter, and `blocking` (= review_required), derived from _digest_bucket_for_path + _digest_settlement_verdict.
-    - Fails: an evidence-lacking digest change -> a row with review_required/blocking True (caller treats as blocked_pending_drift_settlement); never raises.
-    - Reads: current/rebuilt ledger values at each digest diff path (no filesystem).
-    - Writes: None — returns rows; _promote_eligible_digest_aggregate_rows may later mutate them in place.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     rows = []
     for path in paths:
@@ -3017,16 +2652,10 @@ def _digest_settlement_rows(
 
 def _promote_eligible_digest_aggregate_rows(rows: list[dict[str, Any]]) -> None:
     """
-    [ACTION]
-    In-place promote derived aggregate-counter rows whose organ has no blocking row.
+    Return a stable SHA-256 digest for `rows`.
 
-    - Teleology: protects real-body counters from being auto-refreshed while any underlying per-row digest change for the SAME organ is still pending review.
-    - Guarantee: mutates only rows where `aggregate_counter` is truthy and whose organ_id is NOT in the blocked set; for those it sets settlement_verdict=`derived_body_count_counter_from_verified_rows`, review_required False, mutation_eligible_without_review True, blocking False. Returns None.
-    - Fails: an organ with any non-aggregate blocking-bucket row that is not mutation-eligible -> its aggregate rows stay blocked (unchanged); empty input -> early return; never raises.
-    - Reads: the rows list only (no filesystem).
-    - Writes: None to disk — mutates the passed-in row dicts in place.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     if not rows:
         return
@@ -3050,15 +2679,10 @@ def _promote_eligible_digest_aggregate_rows(rows: list[dict[str, Any]]) -> None:
 
 def _increment(mapping: dict[str, int], key: str) -> None:
     """
-    [ACTION]
-    Increment a counter for `key` in a count mapping, defaulting to zero.
+    Run increment for `microcosm_core.validators.substrate_substitution_ledger`.
 
-    - Teleology: the shared tally primitive for settlement verdict/bucket/blocked counts.
-    - Guarantee: sets `mapping[key]` to its prior value (or 0) plus 1, in place. Returns None.
-    - Fails: never raises.
-    - Writes: None to disk — mutates the passed-in mapping.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     mapping[key] = mapping.get(key, 0) + 1
 
@@ -3069,15 +2693,10 @@ def _sample_bucket(
     path: str,
 ) -> None:
     """
-    [ACTION]
-    Record a bounded sample pointer for a settlement bucket.
+    Run sample bucket for the validators substrate substitution ledger flow.
 
-    - Teleology: keeps settlement receipts small by capping how many example paths each bucket carries while still showing representative evidence.
-    - Guarantee: appends `path` to `samples_by_bucket[bucket]` only while that bucket holds fewer than SETTLEMENT_SAMPLE_LIMIT entries. Returns None.
-    - Fails: never raises; once the cap is reached the call is a no-op.
-    - Writes: None to disk — mutates the passed-in mapping.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     bucket_samples = samples_by_bucket.setdefault(bucket, [])
     if len(bucket_samples) < SETTLEMENT_SAMPLE_LIMIT:
@@ -3090,15 +2709,10 @@ def _sample_blocked_settlement_row(
     row: dict[str, Any],
 ) -> None:
     """
-    [ACTION]
-    Record a bounded copy of a blocking settlement row by bucket.
+    Run sample blocked settlement row for the validators substrate substitution ledger flow.
 
-    - Teleology: gives a blocked-pending-settlement receipt concrete (but capped) row evidence per bucket so a reviewer sees what blocked without the full row list.
-    - Guarantee: appends a shallow copy `dict(row)` to `samples_by_bucket[bucket]` only while that bucket holds fewer than SETTLEMENT_SAMPLE_LIMIT entries. Returns None.
-    - Fails: never raises; over-cap calls are no-ops; the copy avoids later in-place mutation aliasing.
-    - Writes: None to disk — mutates the passed-in mapping.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     bucket_samples = samples_by_bucket.setdefault(bucket, [])
     if len(bucket_samples) < SETTLEMENT_SAMPLE_LIMIT:
@@ -3111,15 +2725,11 @@ def _non_settlement_axis_blocker_row(
     path: tuple[str, ...],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Build a blocker row for a change on a non-settlement-owned axis.
+    Serialize
+    `microcosm_core.validators.substrate_substitution_ledger._non_settlement_axis_blocker_row`
+    into the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: ensures a change on an axis the settlement owner does not arbitrate (e.g. summary/validation/metadata) still blocks the write and is attributed to its owning projection.
-    - Guarantee: returns a row with organ_id, json-pointer path, field, axis, current/rebuilt values, a `non_settlement_axis_<axis>_requires_owner_projection` verdict, and review_required/blocking True with mutation_eligible_without_review False.
-    - Fails: never raises.
-    - Reads: current/rebuilt values at the path (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     axis = _writer_drift_axis(path)
     return {
@@ -3143,15 +2753,11 @@ def _settlement_status_basis(
     blocked_bucket_counts: dict[str, int],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Explain why a settlement receipt has the status it does.
+    Serialize
+    `microcosm_core.validators.substrate_substitution_ledger._settlement_status_basis` into
+    the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: makes the settlement decision auditable by recording the rule and the blocking-change arithmetic that produced PASS / ready / blocked, so the status is not an opaque verdict.
-    - Guarantee: returns a dict with status, a decision_rule (no_changed_paths / blocked_bucket_counts_nonempty / changed_paths_without_blocking_buckets), changed_path_count, blocking bucket/change counts split into settlement-owner vs non-settlement-axis, and the evidence_fields list.
-    - Fails: never raises; counts derive from summing the provided mapping.
-    - Reads: the passed-in counts only (no filesystem).
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     blocking_change_count = sum(blocked_bucket_counts.values())
     non_settlement_axis_blocking_change_count = sum(
@@ -3194,18 +2800,11 @@ def _settlement_receipt_from_payloads(
     write_scope: str = "full",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the no-write drift-settlement receipt comparing current vs rebuilt ledger.
+    Serialize
+    `microcosm_core.validators.substrate_substitution_ledger._settlement_receipt_from_payloads`
+    into the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: gates a generated-ledger refresh behind a review receipt so the ledger (a release-trust surface) is never auto-overwritten while any claim-ceiling/digest/non-settlement-axis change is unsettled.
-    - Guarantee: returns a receipt dict with `status` = PASS (no paths), `blocked_pending_drift_settlement` (any blocked bucket), or `ready_for_reviewed_generated_ledger_refresh`; carries content digests of current/rebuilt/drift/path-set, per-axis counts, claim/digest verdict rows, blocked-bucket samples, mutation_plan, reentry_condition, `write_performed: False`, and `authority_posture: settlement_receipt_not_source_authority`.
-    - Fails: any blocking claim-ceiling verdict, blocking digest bucket, or non-settlement axis change -> status `blocked_pending_drift_settlement`, mutation_plan `no_generated_ledger_write` (caller refuses to write).
-    - Reads: the in-memory current/rebuilt payloads only; performs no filesystem read or write itself.
-    - Writes: None — `write_performed` is always False here; the actual write is the caller's (write_ledger).
-    - When-needed: inspect before passing --write --confirm-rebuild-drift; preserve as the review evidence.
-    - Escalates-to: write_ledger gate + LEDGER_REL path; the receipt's reentry_condition.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     paths = _json_diff_paths(current, rebuilt)
     path_set = [_json_pointer(path) for path in paths]
@@ -3336,18 +2935,10 @@ def classify_rebuild_drift(
     write_scope: str = "full",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Report on-disk-vs-rebuilt ledger drift without writing (`--drift-report`).
+    Return classify rebuild drift for the validators substrate substitution ledger flow.
 
-    - Teleology: the no-write entrypoint that shows what a rebuild would change and whether it stays within the requested write scope, so an operator can review before confirming a write.
-    - Guarantee: returns the `_classify_rebuild_drift` report (status PASS / drift_detected / blocked_unrelated_rebuild_drift) annotated with ledger_path, current_status, rebuilt_status, and a reentry_condition.
-    - Fails: raises ValueError for an unsupported write_scope; raises if the registry is missing/malformed (via build_ledger). No mutation occurs.
-    - Reads: existing ledger + all build_ledger source surfaces under the resolved public root.
-    - Writes: None.
-    - When-needed: run before `--write --confirm-rebuild-drift` to inspect changed axes.
-    - Escalates-to: write_ledger; the report's reentry_condition.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root` and `write_scope`; notable helpers are `_public_root_for_path`,
+    `_read_json_if_exists`, `build_ledger`, `_classify_rebuild_drift`, and 2 more.
     """
     root = _public_root_for_path(public_root)
     current = _read_json_if_exists(root / LEDGER_REL)
@@ -3369,18 +2960,10 @@ def classify_drift_settlement(
     write_scope: str = "full",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Produce the no-write drift-settlement receipt (`--settlement-report`).
+    Derive classify drift settlement without touching module import state.
 
-    - Teleology: the entrypoint that emits the review receipt gating a generated-ledger refresh, so claim-ceiling/digest/non-settlement-axis changes are settled before any write.
-    - Guarantee: returns the `_settlement_receipt_from_payloads` receipt (status PASS / blocked_pending_drift_settlement / ready_for_reviewed_generated_ledger_refresh) annotated with current_status and rebuilt_status; `write_performed` is always False.
-    - Fails: raises ValueError for an unsupported write_scope; raises if the registry is missing/malformed (via build_ledger). No mutation occurs.
-    - Reads: existing ledger + all build_ledger source surfaces under the resolved public root.
-    - Writes: None.
-    - When-needed: run before `--write --confirm-rebuild-drift`; preserve the receipt as review evidence.
-    - Escalates-to: write_ledger; the receipt's reentry_condition.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `public_root` and `write_scope`; notable helpers are `_public_root_for_path`,
+    `_read_json_if_exists`, `build_ledger`, `_settlement_receipt_from_payloads`, and 1 more.
     """
     root = _public_root_for_path(public_root)
     current = _read_json_if_exists(root / LEDGER_REL)
@@ -3401,15 +2984,9 @@ def _blocked_write_result(
     settlement_receipt: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Construct the no-write result returned when a write is blocked.
+    Return blocked write result for the validators substrate substitution ledger flow.
 
-    - Teleology: gives every refused write a uniform, actionable result carrying why it blocked and how to re-enter, so the writer guard never mutates silently or opaquely.
-    - Guarantee: returns a `microcosm_substrate_substitution_write_result_v1` dict with the given `status`, `write_performed: False`, the writer_drift report, a status-specific reentry_condition, and the settlement_receipt when provided.
-    - Fails: never raises.
-    - Reads: the passed-in drift/receipt only (no filesystem).
-    - Writes: None — by construction this is the not-written path.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `status`, `drift`, and `settlement_receipt`; notable helpers are `as_posix`.
     """
     if status == "blocked_unrelated_rebuild_drift":
         reentry_condition = (
@@ -3444,18 +3021,10 @@ def write_ledger(
     allow_unrelated_rebuild_drift: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Rebuild and atomically persist the ledger behind three drift guards.
+    Write write ledger for the validators substrate substitution ledger flow.
 
-    - Teleology: the guarded mutating entrypoint (`--write`) — it refuses to overwrite the release-trust ledger until unrelated-axis drift, blocking settlement, and unconfirmed drift are all cleared.
-    - Guarantee: writes `core/substrate_substitution_ledger.json` (atomic) ONLY when no unrelated axes (or override), settlement is not blocked, and either there are no changed paths or confirm_rebuild_drift is set; then returns the ledger plus a write_result with write_performed True and a post-write validation. When any guard trips it returns a `_blocked_write_result` with write_performed False and writes nothing.
-    - Fails: raises ValueError for an unsupported write_scope; raises if the registry is missing/malformed (via build_ledger). A failed post-write validation surfaces as `post_write_validation_blocked` in the settlement receipt, not as an exception.
-    - Reads: existing ledger + all build_ledger source surfaces under the resolved public root.
-    - Writes: core/substrate_substitution_ledger.json (atomic) on the success path ONLY; no write on any blocked path.
-    - When-needed: call to commit a reviewed rebuild after classify_rebuild_drift / classify_drift_settlement.
-    - Escalates-to: validate_ledger (post-write); tests/test_organ_registry_authority_floor.py.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness — a written ledger is not a release sign-off.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     root = _public_root_for_path(public_root)
     ledger = build_ledger(root)
@@ -3518,18 +3087,11 @@ def write_ledger_organ_slice(
     organ_ids: list[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Rebuild and persist only the selected organ rows into the ledger.
+    Serialize
+    `microcosm_core.validators.substrate_substitution_ledger.write_ledger_organ_slice` into
+    the payload shape expected by validators substrate substitution ledger.
 
-    - Teleology: the surgical write path (`--write --organ-id ...`) that refreshes specific organs while leaving unrelated rows byte-stable, used when a full rebuild would fold in concurrent drift.
-    - Guarantee: on success writes the merged ledger (atomic) and returns it with a write_result (write_performed True, post-write validation, selected_organ_ids). On an invalid slice returns `blocked_invalid_organ_slice` (with the error) and on a failing merged validation returns `blocked_organ_slice_validation` — both with write_performed False and no write.
-    - Fails: never raises out of this function for slice errors (ValueError from _merge_organ_slice is caught and returned as blocked_invalid_organ_slice); raises only if build_ledger's registry read fails.
-    - Reads: existing ledger + all build_ledger source surfaces under the resolved public root.
-    - Writes: core/substrate_substitution_ledger.json (atomic) ONLY when the merged slice validates; no write on either blocked path.
-    - When-needed: call to land one organ's refreshed row without a whole-ledger rewrite.
-    - Escalates-to: validate_ledger (post-write); tests/test_organ_registry_authority_floor.py.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     root = _public_root_for_path(public_root)
     current = _read_json_if_exists(root / LEDGER_REL)
@@ -3582,15 +3144,11 @@ def write_ledger_organ_slice(
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    Construct the CLI argument parser for this validator.
+    Register CLI syntax for
+    `microcosm_core.validators.substrate_substitution_ledger._parser`.
 
-    - Teleology: defines the command surface (build / --check / --write / --drift-report / --settlement-report / --write-scope / --organ-id / confirmation flags) that main dispatches on.
-    - Guarantee: returns an argparse.ArgumentParser with --root (default "."), the mode flags, --write-scope constrained to the supported scopes, and an appendable --organ-id list.
-    - Fails: never raises at construction.
-    - Writes: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(description="Build or validate substrate disposition ledger")
     parser.add_argument("--root", default=".")
@@ -3619,18 +3177,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI entrypoint: dispatch to build/check/write/drift/settlement and print JSON.
+    Run the `microcosm_core.validators.substrate_substitution_ledger` command-line entry
+    point.
 
-    - Teleology: the process-exit surface that turns this validator into a CI/command gate, mapping mode flags to the right function and translating result status into an exit code.
-    - Guarantee: parses argv, runs the selected operation (settlement-report > drift-report > write[/organ-slice] > check > default build), prints the result as sorted-indent JSON, and returns 0 when result.status == PASS else 1.
-    - Fails: propagates ValueError from an unsupported write_scope and registry-missing errors from the called functions; otherwise returns a non-zero exit for any non-PASS status rather than raising.
-    - Reads: whatever the dispatched function reads under the resolved root.
-    - Writes: core/substrate_substitution_ledger.json only when a --write mode is selected and its guards pass.
-    - When-needed: this is the shell/CI entry; inspect printed JSON `status` + `issues` on a non-zero exit.
-    - Escalates-to: validate_ledger / write_ledger; tests/test_organ_registry_authority_floor.py.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     root = _public_root_for_path(args.root)

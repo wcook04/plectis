@@ -114,35 +114,21 @@ _SPACE_MACRO_RE = re.compile(r"\\[,;:!]|\\quad|\\qquad|\\ ")
 
 
 def _normalize(s: str) -> str:
-    """Prepare a symbol string for literal containment checks.
+    """
+    Produce the normalize value used by `scripts.check_doctrine_formal_soundness`.
 
-    Teleology: make dangling-symbol detection robust to TeX spacing commands and
-    human whitespace in doctrine symbol-table entries.
-    Guarantee: returns a string with supported spacing macros and all whitespace
-    removed, so `x`, `x\\,`, and `x ` compare the same.
-    Fails: never raises for falsey input because it stringifies `s or ""`; only
-    unexpected `re` engine failures would propagate.
-    Reads: the supplied string only.
-    Writes: nothing.
-    Non-goal: not a LaTeX parser and not semantic equivalence.
+    Inputs are `s`; notable helpers are `sub`.
     """
     s = _SPACE_MACRO_RE.sub("", str(s or ""))
     return re.sub(r"\s+", "", s)
 
 
 def atoms(latex: str) -> dict[str, set[str]]:
-    """Extract the reviewable vocabulary from one bounded-LaTeX formula.
+    """
+    Serialize `scripts.check_doctrine_formal_soundness.atoms` into the payload shape
+    expected by scripts check doctrine formal soundness.
 
-    Teleology: separate formula vocabulary that needs a symbol-table definition
-    from common logic/connective syntax and self-describing verdict constants.
-    Guarantee: returns sets for free Latin variables, Greek variables, named
-    content operators, verdict constants, structural connectors, and connectives.
-    Fails: malformed or unknown macros are surfaced as named atoms for review
-    instead of raising; falsey input becomes an empty scan.
-    Reads: the supplied LaTeX string only.
-    Writes: nothing.
-    Non-goal: does not execute LaTeX, prove mathematical truth, or infer
-    bindings from natural-language labels.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     s = str(latex or "")
     free: set[str] = set()
@@ -154,17 +140,11 @@ def atoms(latex: str) -> dict[str, set[str]]:
     i, n = 0, len(s)
 
     def read_group(k: int) -> tuple[str, int]:
-        """Read a brace group starting at `k` and return its body plus next index.
+        """
+        Read read group for `scripts.check_doctrine_formal_soundness`.
 
-        Teleology: consume the body of a text operator without treating nested
-        braces as separate top-level tokens.
-        Guarantee: returns `(body, next_index)` for a balanced group and the
-        remaining suffix plus `len(s)` for an unterminated group.
-        Fails: does not raise for unterminated braces; the caller sees the
-        resulting token shape.
-        Reads: the enclosing `s` string and the starting index.
-        Writes: nothing.
-        Non-goal: does not validate LaTeX grouping globally.
+        Input comes from `k`; malformed or missing data follows the exceptions and checks
+        visible in the body.
         """
         depth, start = 0, k
         while k < len(s):
@@ -178,17 +158,10 @@ def atoms(latex: str) -> dict[str, set[str]]:
         return s[start + 1:], len(s)
 
     def skip_script_arg(k: int) -> int:
-        """Skip the argument after `_` or `^` without auditing its inner letters.
+        """
+        Derive skip script arg without touching module import state.
 
-        Teleology: prevent script modifiers such as the `i` in `x_i` from being
-        counted as independent free variables.
-        Guarantee: returns the index after one braced group, macro, single
-        character, or trailing position following a script marker.
-        Fails: never raises for a missing argument; returns the current or final
-        index after the best-effort skip.
-        Reads: the enclosing `s` string and the starting index.
-        Writes: nothing.
-        Non-goal: does not parse nested math semantics inside scripts.
+        Inputs are `k`; notable helpers are `read_group`, `match`, and `group`.
         """
         while k < len(s) and s[k] == " ":
             k += 1
@@ -259,18 +232,11 @@ def atoms(latex: str) -> dict[str, set[str]]:
 
 
 def audit_record(rec: dict) -> dict:
-    """Compare one formal block's formula with its symbol table.
+    """
+    Serialize `scripts.check_doctrine_formal_soundness.audit_record` into the payload shape
+    expected by scripts check doctrine formal soundness.
 
-    Teleology: enforce reader soundness between a formal formula and its
-    declared symbol table.
-    Guarantee: returns id, kind, dangling declared symbols, undefined variables,
-    undefined operators, and a clean flag for one enrichment record.
-    Fails: malformed or missing `formal`/`symbols` structures degrade to empty
-    strings/lists rather than raising.
-    Reads: the supplied record only.
-    Writes: nothing.
-    Non-goal: a clean result does not prove the doctrine clause, validate
-    support evidence, or raise the record's authority ceiling.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     formal = rec.get("formal") or {}
     latex = str(formal.get("latex") or "")
@@ -312,18 +278,11 @@ def audit_record(rec: dict) -> dict:
 
 
 def run(path: Path) -> dict:
-    """Audit every formal enrichment record in one doctrine file.
+    """
+    Serialize `scripts.check_doctrine_formal_soundness.run` into the payload shape expected
+    by scripts check doctrine formal soundness.
 
-    Teleology: provide the reusable report body for CLI checks and the aggregate
-    doctrine-health projection.
-    Guarantee: returns source path, total audited formal records, clean/defective
-    counts, and per-record audit rows; records without `formal` are skipped.
-    Fails: propagates `FileNotFoundError` and `json.JSONDecodeError` for the
-    supplied path.
-    Reads: `core/doctrine_enrichment.json` or the supplied path.
-    Writes: nothing.
-    Non-goal: does not own field-presence coverage for records without formal
-    blocks.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     data = json.loads(path.read_text(encoding="utf-8"))
     records = data.get("records") or []
@@ -339,17 +298,10 @@ def run(path: Path) -> dict:
 
 
 def _fmt(report: dict) -> str:
-    """Render the formal-soundness report for a terminal reader.
+    """
+    Compute fmt from `report`.
 
-    Teleology: turn the machine report into concise CI/local-check text without
-    changing the audit contract.
-    Guarantee: groups each defective record by id/kind and lists dangling
-    declarations, undefined variables, and undefined operators.
-    Fails: raises `KeyError` if called with a dict that is not the report shape
-    produced by `run`.
-    Reads: the supplied report dict only.
-    Writes: nothing.
-    Non-goal: not a machine interface; JSON output remains the stable contract.
+    Inputs are `report`; notable helpers are `join` and `append`.
     """
     lines = [
         f"doctrine formal soundness: {report['clean']}/{report['total']} clean, "
@@ -372,14 +324,11 @@ def _fmt(report: dict) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry for the doctrine formal-statement soundness gate.
+    """
+    Run `scripts.check_doctrine_formal_soundness` as a command-line entry point.
 
-    - Teleology: Operator/CI front door enforcing symbol/formula agreement on every enrichment `formal` block (no dangling declared symbol, no undefined free var or named operator).
-    - Guarantee: Prints a human or --json report (or, with --explain ID, the extracted atoms for one record); with --check returns 1 if any record is defective, else 0.
-    - Fails: --explain on an unknown id -> "no record <ID>" on stderr, exit 2; missing/invalid --path -> json.JSONDecodeError/FileNotFoundError -> uncaught traceback.
-    - Reads: core/doctrine_enrichment.json (or --path).
-    - When-needed: CI-gating or debugging doctrine formal blocks; --explain to inspect one record's symbol atoms.
-    - Escalates-to: run (full audit), audit_record + atoms (per-record symbol extraction).
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     ap = argparse.ArgumentParser(description="Doctrine formal-statement soundness gate.")
     ap.add_argument("--path", default=str(REPO_DEFAULT), help="doctrine_enrichment.json")

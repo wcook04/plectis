@@ -23,11 +23,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 22365,
-      "line_count": 466,
-      "sha256": "sha256:4183907c8851f4e4bab06c5a3daacebfe921a0be5b7723dc21024b22df16718d",
-      "target_sha256": "4183907c8851f4e4bab06c5a3daacebfe921a0be5b7723dc21024b22df16718d",
-      "source_sha256": "4183907c8851f4e4bab06c5a3daacebfe921a0be5b7723dc21024b22df16718d",
+      "byte_count": 15074,
+      "line_count": 377,
+      "sha256": "sha256:7dc50690ef35c11afdd557f038eb243defb27f21642f35f94ad2d8167fae3069",
+      "target_sha256": "7dc50690ef35c11afdd557f038eb243defb27f21642f35f94ad2d8167fae3069",
+      "source_sha256": "7dc50690ef35c11afdd557f038eb243defb27f21642f35f94ad2d8167fae3069",
       "required_anchors": [
         "ORGAN_ID = \"navigation_fitness_benchmark\"",
         "def run"
@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 31342,
-      "line_count": 566,
-      "sha256": "sha256:d505a03859eeeb2db9fa8652d89341c1eb42bda2f09545277214adca685535ab",
-      "target_sha256": "d505a03859eeeb2db9fa8652d89341c1eb42bda2f09545277214adca685535ab",
-      "source_sha256": "d505a03859eeeb2db9fa8652d89341c1eb42bda2f09545277214adca685535ab",
+      "byte_count": 19802,
+      "line_count": 485,
+      "sha256": "sha256:96146d7bdf4e61e3166cc6d9ed4baad94d5aa770b44f0f42a4bccf0fc4a50ad0",
+      "target_sha256": "96146d7bdf4e61e3166cc6d9ed4baad94d5aa770b44f0f42a4bccf0fc4a50ad0",
+      "source_sha256": "96146d7bdf4e61e3166cc6d9ed4baad94d5aa770b44f0f42a4bccf0fc4a50ad0",
       "required_anchors": [
         "Curated route-packet benchmark evaluator for expected stable ids",
         "forbidden_hits = [route for route in task.forbidden_first_routes if route and route in first_contact_command]"
