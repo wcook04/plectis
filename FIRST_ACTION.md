@@ -43,7 +43,7 @@ Goal: “How do I evaluate the finance forecasting system?”
       "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json"
     ],
     "committed_receipts_more": 1,
-    "why": "Replays synthetic forecast tests through copied finance stats, recording p-values with no advice.",
+    "why": "Runs econometric forecast-evaluation tests on synthetic fixtures, recording p-values and refusals with no advice.",
     "writes_outputs_under": "receipts/first_wave/finance_forecast_evaluation_spine"
   },
   "found": true,
@@ -144,7 +144,7 @@ Each contract below resolved a freeform goal to its owning component, a runnable
 
 - resolved via: `task_class_route_match (finance)` -> owner `finance_forecast_evaluation_spine`
 - run: `PYTHONPATH=src python3 -m microcosm_core finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine`
-- why: Replays synthetic forecast tests through copied finance stats, recording p-values with no advice.
+- why: Runs econometric forecast-evaluation tests on synthetic fixtures, recording p-values and refusals with no advice.
 - prove: `PYTHONPATH=src python3 -m microcosm_core.organs.finance_forecast_evaluation_spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine --acceptance-out receipts/acceptance/first_wave/finance_forecast_evaluation_spine_fixture_acceptance.json`
 - committed evidence (prior runs): `receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_result.json`, `receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_board.json`, `receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json` (+1 more)
 - fresh outputs land under: `receipts/first_wave/finance_forecast_evaluation_spine`

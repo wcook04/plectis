@@ -60,7 +60,7 @@
     "egress_self_compliance_audit": "Runs phrase-membership checks on an agent's own replies for three self-policing slips, not deep meaning.",
     "engine_room_demo": "Runs proof, runtime, security, and routing demos through bounded public examples with stated limits.",
     "executable_doctrine_grammar": "Checks that example standards files declare their purpose, rule, records, and what they do not claim.",
-    "finance_forecast_evaluation_spine": "Replays synthetic forecast tests through copied finance stats, recording p-values with no advice.",
+    "finance_forecast_evaluation_spine": "Runs econometric forecast-evaluation tests on synthetic fixtures, recording p-values and refusals with no advice.",
     "finite_erdos_denominator_certificate_strike": "Computes an exact-arithmetic denominator-order identity and catches forged ones, not the open Erdos problem.",
     "formal_evidence_cell_anchor_resolver": "Resolves each proof-flavored math claim to named evidence and flags ones that overreach or lack backing.",
     "formal_math_lean_proof_witness": "Compiles a tiny Lean example with the real prover and records whether it built, leaking no proof text.",

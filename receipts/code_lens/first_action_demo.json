@@ -126,7 +126,7 @@
           "receipts/first_wave/finance_forecast_evaluation_spine/finance_forecast_evaluation_spine_validation_receipt.json"
         ],
         "committed_receipts_more": 1,
-        "why": "Replays synthetic forecast tests through copied finance stats, recording p-values with no advice.",
+        "why": "Runs econometric forecast-evaluation tests on synthetic fixtures, recording p-values and refusals with no advice.",
         "writes_outputs_under": "receipts/first_wave/finance_forecast_evaluation_spine"
       },
       "found": true,
