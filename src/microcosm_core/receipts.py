@@ -1,28 +1,4 @@
-"""
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.receipts` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: AUTHORITY_CEILING, PUBLIC_PATH_POLICY_ID, PUBLIC_RECEIPT_PATH_NORMALIZATION_SCHEMA, ANTI_CLAIM, FALSE_ENV_VALUES, TRUE_ENV_VALUES, PACKAGE_ROOT, TRACKED_RECEIPTS_ROOT, PRIVATE_REPO_HOME_RE, PRIVATE_HOME_RE, PRIVATE_TMP_RE, REPO_ROOT_FRAGMENT_RE, utc_now, receipt_writes_enabled, tracked_receipt_writes_enabled, is_tracked_receipt_path, tracked_receipt_write_blocked_under_pytest, tracked_receipt_write_blocked, normalize_public_receipt_paths, write_json_atomic, write_local_state_json_atomic, base_receipt, write_receipt
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, environment variables.
-- Writes: return values, declared filesystem outputs and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
-"""
+"""Normalizes receipt paths, write guards, timestamps, hashes, and receipt envelopes for public evidence."""
 from __future__ import annotations
 
 import hashlib

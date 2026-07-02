@@ -1,28 +1,4 @@
-"""
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.release_export` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: ARTIFACT_DIR_NAME, RELEASE_RECEIPT_REF, PROJECTION_FRESHNESS_RECEIPT_REF, RELEASE_AUTHORIZATION_GATE_ID, RELEASE_CANDIDATE_INVALIDATION_SCHEMA_VERSION, RELEASE_ASSURANCE_SCHEMA_VERSION, DEFAULT_INCLUDE_REFS, STANDALONE_REQUIRED_PUBLIC_REFS, LICENSE_NOTICE_REQUIRED_REFS, CLAIM_LANGUAGE_REVIEW_PATTERNS, FINANCE_PROMOTION_REVIEW_PATTERNS, PUBLICATION_REVIEW_CHECKLISTS, SKIPPED_DIR_NAMES, SOURCE_MODULE_BUILD_ARTIFACT_DIR_NAMES, SOURCE_MODULE_CONTAMINATION_ALLOWLIST, RESTRICTED_PRIVATE_SOURCE_PREFIXES, RESTRICTED_PRIVATE_SOURCE_FILENAMES, PRIVATE_BODY_NEAR_VERBATIM_RATIO, PRIVATE_BODY_NEAR_VERBATIM_MIN_BYTES, PRIVATE_BODY_BLOCKING_CONTAMINATION_CLASSES, SKIPPED_ROOT_NAMES, SKIPPED_FILE_SUFFIXES, TEXT_SUFFIXES, ROOT_FORBIDDEN_PREFIXES, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results, environment variables.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: organs, receipts, relative package imports, schemas, validators.evidence_truth_floor
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
-"""
+"""Builds standalone release-candidate exports, inventories, and release assurance receipts."""
 from __future__ import annotations
 
 import argparse
@@ -4217,6 +4193,11 @@ def _refresh_candidate_organ_atlas(target: Path) -> dict[str, Any]:
 def _candidate_doctrine_lattice_blocking_errors(
     validation: dict[str, Any],
 ) -> tuple[list[Any], list[Any]]:
+    """Split doctrine-lattice validation errors into blockers and population gaps.
+
+    Population-deficit rows can be tolerated while a candidate export is still
+    missing optional doctrine targets; every other validation error remains blocking.
+    """
     errors = list(validation.get("errors") or [])
     missing_population_targets: set[tuple[str, str]] = set()
     for error in errors:

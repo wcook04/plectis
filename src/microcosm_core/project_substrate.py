@@ -1,28 +1,4 @@
-"""
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.project_substrate` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: PASS, STATE_DIR, EVIDENCE_DIR, EVENT_STREAM, OBSERVATORY_SERVE_COMMAND, OBSERVATORY_BOUNDED_VALIDATION_REQUEST_COUNT, OBSERVATORY_BOUNDED_VALIDATION_COMMAND, OBSERVATORY_BOUNDED_VALIDATION_RULE, HASH_CHUNK_SIZE, IGNORE_DIRS, PACKAGE_MANIFESTS, SCRIPT_NAMES, README_NAMES, SOURCE_SUFFIXES, DOC_SUFFIXES, PYTHON_LENS_STATE, TRUTH_READINESS_STATE, PYTHON_LENS_SCAN_FULL, PYTHON_LENS_SCAN_FIRST_SCREEN, PYTHON_LENS_FIRST_SCREEN_PREFIX_BYTES, PYTHON_LENS_CARD_PREVIEW_LIMIT, PROJECT_OBSERVE_CARD_COMMAND, PROJECT_OBSERVE_FULL_COMMAND, COMPILE_STATE_REFS, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core, microcosm_core.bounded_paths, microcosm_core.public_payload_boundary, microcosm_core.receipts, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
-"""
+"""Implements local project substrate state, catalogs, routes, work records, events, evidence, and explanations."""
 from __future__ import annotations
 
 import argparse

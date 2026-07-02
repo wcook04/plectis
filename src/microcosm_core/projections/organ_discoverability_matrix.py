@@ -1,28 +1,4 @@
-"""
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.projections.organ_discoverability_matrix` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: SCHEMA_VERSION, VALIDATION_SCHEMA_VERSION, DEFAULT_MATRIX_NAME, DEFAULT_RECEIPT_NAME, AUTHORITY_POSTURE, SOURCE_REFS, REQUIRED_ROW_KEYS, BANNED_TRUE_AUTHORITY_KEYS, build_organ_discoverability_matrix, validate_organ_discoverability_matrix, compile_paths, main
-- Reads: call arguments, module constants, imported helpers.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.resource_root, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
-"""
+"""Builds the organ discoverability matrix linking organs to routes, standards, docs, and receipts."""
 from __future__ import annotations
 
 import argparse

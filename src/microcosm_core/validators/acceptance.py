@@ -1,28 +1,4 @@
-"""
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.validators.acceptance` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, ACCEPTANCE_REL, ASSIMILATION_REL, MACRO_RUNS_REL, ASSIMILATION_BUNDLE_RESULT_NAME, EXPORTED_ASSIMILATION_BUNDLE_RECEIPT_PATH, SOURCE_MODULE_MANIFEST_NAME, SOURCE_IMPORT_CLASS, HASH_CHUNK_SIZE, PUBLIC_SAFE_SOURCE_BODY_CLASSES, PUBLIC_RECEIPT_REF_SUFFIXES, EXPECTED_RECEIPT_PATHS, EXPECTED_NEGATIVE_CASES, PATTERN_ASSIMILATION_ANTI_CLAIM, PATTERN_ASSIMILATION_AUTHORITY_CEILING, WAVE_1_ORGAN_IDS, ADAPTER_BACKED_ORGAN_IDS, validate_source_module_manifest, validate_exported_organ_landings, validate_exported_closeout_receipt_links, validate_exported_refinement_receipts, validate_exported_nothing_to_refine_receipts, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.runtime_shell, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
-"""
+"""Validates accepted-organ fixtures, assimilation bundles, and public receipt references."""
 from __future__ import annotations
 
 import argparse

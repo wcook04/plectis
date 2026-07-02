@@ -1,43 +1,4 @@
-"""
-Axiom support-cover evaluator (the Axiom Reflexion Kernel core).
-
-Read-only evaluator for ``validator.microcosm.axiom_support_cover``. It computes
-*bounded* support for piloted axiom obligations from evidence that already exists
-on disk, derives principle support by inheritance, and emits candidate-axiom
-pressure. It mutates no law and authorizes nothing.
-
-Honesty contract (this evaluator is itself a Microcosm artifact, so AX-12 applies
-to it): it never certifies ``strong``. The ceiling lattice in
-``std_microcosm_axiom.json::axiom_payload_contract.evidence_ceiling_lattice`` names
-eight components. ``core/axiom_support_ceiling_dimensions.json`` source-registers
-all eight components today. ``freshness_state`` is deliberately order-owned but
-still computes an ``unknown_`` value until a source-owned refresh contract exists:
-not bottom, not strong, and not live freshness proof.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.validators.axiom_support_cover` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: CHECKER_ID, ROUTING_REL, PRINCIPLES_REL, EVIDENCE_CLASSES_REL, ORGAN_REGISTRY_REL, AXIOM_STANDARD_REL, CEILING_DIMENSIONS_REL, CHECKER_SCOPE_ORDER_REL, AUTHORITY_SCOPE_ORDER_REL, PROJECTION_SCOPE_ORDER_REL, DOMAIN_SCOPE_ORDER_REL, FRESHNESS_STATE_ORDER_REL, PROVENANCE_ORDER_REL, EXAMPLES_REL, RECEIPTS_FIRST_WAVE_REL, DEFAULT_CEILING_COMPONENTS, COMPUTED_ORDER_OWNED_COMPONENTS, NEGATIVE_CASE_STATUS_ORDER, ANTI_AXIOM_REJECTION_ORDER, MAPPING_RELATION_ENUM, CHECKER_SCOPE_ORDER, AUTHORITY_SCOPE_ORDER, PROJECTION_SCOPE_ORDER, FRESHNESS_STATE_ORDER, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
-"""
+"""Audits whether principles, standards, and ceilings have enough axiom support coverage."""
 
 from __future__ import annotations
 

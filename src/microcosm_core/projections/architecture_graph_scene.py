@@ -1,35 +1,4 @@
-"""
-Plectis graph-scene projection for the architecture map.
-
-The public site builder can use the private repo's ``system.lib`` helpers, but
-the standalone microcosm-substrate compatibility package cannot. This module
-exposes the same compact graph-scene fields from public Plectis source refs
-without depending on the parent ai_workflow substrate.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.projections.architecture_graph_scene` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: SCHEMA_VERSION, SOURCE_SCHEMA, SCENE_SCHEMA, MANIFEST_SCHEMA, FOCUS_EXCERPT_SCHEMA, DELTA_MANIFEST_SCHEMA, VALIDATION_SCHEMA, SEMANTIC_ZOOM_SCHEMA, TYPE_REGISTRY_SCHEMA, ADAPTER_VERSION, DETERMINISTIC_GENERATED_AT, SOURCE_REFS, AUTHORITY_POSTURE, UNTYPED_WIRE_RELATION, public_source_ref, stable_json_hash, validate_graph_scene, build_default_focus_excerpt, build_architecture_graph_scene, build_architecture_graph_scene_packet
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.resource_root, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
-"""
+"""Builds and validates the architecture graph scene used by the public visual atlas."""
 
 from __future__ import annotations
 

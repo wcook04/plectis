@@ -1,28 +1,4 @@
-"""
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.projections.concept_mechanism_read_model` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: SCHEMA, VALIDATION_SCHEMA, DEFAULT_CONSUMER_ID, SOURCE_ROUTE_REF, SOURCE_POPULATION_REF, SOURCE_ACTIVATION_REF, PROJECTION_CONSUMERS_REF, ORGAN_REGISTRY_REF, ORGAN_ATLAS_REF, ORGAN_ACCEPTANCE_REF, PRESSURE_ROW_ID, REQUIRED_PRESERVED_FIELDS, BANNED_PARALLEL_INDEX_KEYS, COMPLETED_PRODUCT_DISPOSITIONS, shlex_split, build_organ_doctrine_rows, build_concept_mechanism_projection_read_model, validate_concept_mechanism_projection_read_model, compile_paths, main
-- Reads: call arguments, module constants, imported helpers.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.resource_root, microcosm_core.schemas, microcosm_core.validators.concept_mechanism_population
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
-"""
+"""Builds the concept-to-mechanism read model from accepted organs and doctrine pressure surfaces."""
 from __future__ import annotations
 
 import argparse

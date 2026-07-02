@@ -1,28 +1,4 @@
-"""
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.projections.organ_surface_contract` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: SCHEMA_VERSION, CARD_PREVIEW_LIMIT, AUTHORITY_POSTURE, ENTRY_ROUTE_REF, CONCEPT_STANDARD_REF, MECHANISM_STANDARD_REF, ACCEPTANCE_PLAN_REF, ALLOWED_SYNTHETIC_ACCEPTANCE_DISPOSITIONS, REAL_SUBSTRATE_DISPOSITION, RETAINED_REGRESSION_VALIDATOR_DISPOSITION, SYNTHETIC_EVIDENCE_CLASSES, SYNTHETIC_TRUTH_BUCKETS, ACCEPTANCE_REGISTRY_PARITY_FIELDS, SOURCE_LANGUAGE_BY_EXTENSION, ORGAN_RELATIONSHIP_TOPOLOGY_AUTHORITY, SOURCE_MODULE_FILE_GRAPH_AUTHORITY, RELATION_TYPE_ALIASES, MISSING_SURFACE_KEYS, build_organ_surface_contract, build_card, build_organ_relationship_topology_card, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core, microcosm_core.projections.concept_mechanism_read_model, microcosm_core.receipts, microcosm_core.resource_root, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
-"""
+"""Projects each accepted organ's public surface contract, custody basis, and supporting evidence."""
 from __future__ import annotations
 
 import argparse

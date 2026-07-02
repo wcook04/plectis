@@ -1,43 +1,4 @@
-"""
-Generated organ-atlas projection.
-
-Single render path shared by:
-- ``scripts/build_organ_atlas.py`` (writes ``ORGANS.md``, ``ARCHITECTURE.md``,
-  ``AGENT_ROUTES.md``, and ``atlas/agent_task_routes.json``),
-- ``microcosm_core.validators.public_entry_docs`` (drift gate over the written files),
-- ``tests/test_organ_atlas.py`` (coverage + honesty contract).
-
-The atlas is a projection, not source authority. Organ identity, evidence
-class, scope limits, and receipts come from ``core/organ_registry.json``; the
-reader-facing grouping comes from ``core/organ_families.json``; the
-plain-language glosses come from ``core/organ_atlas.json``. Nothing here
-is a release, hosting, external-model, source-change, private-system, or
-formal-result correctness decision beyond each organ's stated public scope.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.projections.organ_atlas` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: REGISTRY_REL, FAMILIES_REL, GLOSSES_REL, EVIDENCE_CLASSES_REL, SUBSTRATE_LEDGER_REL, PAPER_MODULE_CAPSULES_REL, KERNEL_REL, ORGANS_MD_REL, ARCHITECTURE_MD_REL, AGENT_ROUTES_MD_REL, AGENT_TASK_ROUTES_JSON_REL, SOURCE_MODULE_FILE_GRAPH_REF, ORGAN_TOPOLOGY_SCHEMA, SOURCE_RELATION_PRIORITY, GENERATED_MARKER, OVERCLAIM_PHRASES, NEGATION_CUES, PUBLIC_SCOPE_LINE, CLAIM_CEILING_LINE, load_model, render_agent_task_routes_json, render_agent_routes_md, render_organs_md, render_architecture_md, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.projections.concept_mechanism_read_model, microcosm_core.projections.organ_surface_contract, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
-"""
+"""Builds the organ atlas projection from registries, capsules, families, and evidence classes."""
 
 from __future__ import annotations
 

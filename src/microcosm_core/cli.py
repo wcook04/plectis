@@ -1,28 +1,4 @@
-"""
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.cli` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: TEXT_READER_CHOICES, first_screen_composition, project_substrate, comprehension, runtime_shell, runtime_evidence_index, resource_root, crown_jewel_demo, macro_engines_gallery, engine_room_demo, finance_eval_spine, organ_surface_contract, agent_entry_composition, organ_discoverability_matrix, work_landing_control_spine, agent_closeout_faithfulness_audit, agent_benchmark_integrity_anti_gaming_replay, agent_memory_temporal_conflict_replay, agent_monitor_redteam_falsification_replay, agent_route_observability_runtime, agent_sabotage_scheming_monitor_replay, agent_sandbox_policy_escape_replay, agentic_vulnerability_discovery_patch_proof_replay, belief_state_process_reward_replay, ...
-- Reads: call arguments, module constants, imported helpers.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core, microcosm_core.receipts, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
-"""
+"""Command-line dispatcher for Plectis cards, probes, validators, exports, and comprehension packets."""
 from __future__ import annotations
 
 import argparse
@@ -1337,16 +1313,10 @@ def _print_json(payload: dict, *, exit_code: int | None = None) -> int:
 
 
 def _display_command(command: object) -> str:
-    """
-    [ACTION]
-    Normalize a stored command string to its short ``plectis ...`` display form.
+    """Return a short `plectis ...` command for display.
 
-    - Teleology: the cold-entry card shows one command spelling (``plectis X``); the
-      verbose ``PYTHONPATH=src python3 -m microcosm_core X`` source form is a single
-      footnote, not duplicated on every row.
-    - Guarantee: returns the command with any known source-only prefix rewritten to
-      ``plectis``; returns the input unchanged when no prefix matches; ``""`` for empty.
-    - Reads: call argument only. Writes: return value.
+    Known source-checkout prefixes are rewritten to the installed-command form;
+    unknown strings and empty values are returned without semantic interpretation.
     """
     text = str(command or "").strip()
     if not text:
@@ -1363,18 +1333,10 @@ def _display_command(command: object) -> str:
 
 
 def _render_comprehend_card(pack: dict) -> str:
-    """
-    [ACTION]
-    Render a comprehension pack as an answer-first cold-entry text card.
+    """Render a comprehension packet into answer-first text for cold readers.
 
-    - Teleology: a cold human/agent running the first documented command sees the
-      actual answer first, then the proof, then navigation, with the authority
-      ceiling stated once at the tail -- not a sorted-JSON firehose that opens with
-      ``authority_ceiling`` / ``budget`` / ``do_not_claim`` before the answer.
-    - Guarantee: returns a plain-text card; metadata/ceiling never precede the answer;
-      commands display as ``plectis ...`` with a single source-only footnote; absent
-      sections are skipped so the renderer degrades across comprehend modes.
-    - Reads: the pack dict only. Writes: returns a string (no stdout/files).
+    The main answer stays before proof, next-step navigation, and authority limits;
+    missing sections are skipped so the card can cover multiple packet shapes.
     """
     lines: list[str] = []
     mode = str(pack.get("mode") or pack.get("packet_id") or "comprehension")
