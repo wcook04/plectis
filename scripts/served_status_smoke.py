@@ -1,3 +1,11 @@
+"""
+Implements scripts served status smoke for the public Plectis package.
+
+Callers enter through `served_status_smoke` and `main`; dependencies include `argparse`,
+`json`, `threading`, `pathlib`, and 3 more. Importing it does not authorize release work or
+hidden private-state access; those effects live behind explicit calls.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -11,6 +19,12 @@ from microcosm_core.runtime_shell import RuntimeShell
 
 
 def _private_path_hits(body: str, project_path: Path, public_root: Path) -> list[str]:
+    """
+    Return private path hits for the scripts served status smoke flow.
+
+    Inputs are `body`, `project_path`, and `public_root`; notable helpers are `as_posix` and
+    `resolve`.
+    """
     needles = [
         project_path.resolve(strict=False).as_posix(),
         public_root.resolve(strict=False).as_posix(),
@@ -27,6 +41,12 @@ def _read_served_json(
     endpoint: str,
     timeout_seconds: float,
 ) -> dict[str, Any]:
+    """
+    Read read served JSON for `scripts.served_status_smoke`.
+
+    Input comes from `host`, `port`, `endpoint`, and `timeout_seconds`; malformed or missing
+    data follows the exceptions and checks visible in the body.
+    """
     with urlopen(
         f"http://{host}:{port}{endpoint}",
         timeout=timeout_seconds,
@@ -38,6 +58,11 @@ def _read_served_json(
 
 
 def _observatory_contract_failures(card: dict[str, Any]) -> list[str]:
+    """
+    Compute observatory contract failures from `card`.
+
+    Inputs are `card`; notable helpers are `get` and `append`.
+    """
     failures: list[str] = []
     if card.get("schema_version") != "microcosm_project_observatory_card_v1":
         failures.append("schema_version")
@@ -84,13 +109,11 @@ def served_status_smoke(
     host: str = "127.0.0.1",
     timeout_seconds: float = 90.0,
 ) -> dict[str, Any]:
-    """Serve the runtime shell, fetch /project/status, and record a public-safe smoke receipt.
+    """
+    Produce the served status smoke value used by `scripts.served_status_smoke`.
 
-    - Teleology: end-to-end check that the served status endpoint returns a card with no private-path leakage.
-    - Guarantee: starts/stops an ephemeral server, fetches the status card, and writes a receipt to `out`.
-    - Fails: any private-path needle found in the served body -> receipt status 'blocked'.
-    - Reads: project tree served by RuntimeShell at the /project/status endpoint.
-    - Writes: `out` receipt JSON.
+    Inputs are `public_root`, `project`, `out`, `host`, and `timeout_seconds`; notable
+    helpers are `RuntimeShell`, `expanduser`, `resolve`, `serve`, and 13 more.
     """
     shell = RuntimeShell(public_root)
     project_path = project.expanduser()
@@ -213,13 +236,11 @@ def served_status_smoke(
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Parse args, run the served-status smoke, and return its exit code.
+    """
+    Run `scripts.served_status_smoke` as a command-line entry point.
 
-    - Teleology: CLI entry that runs the served /project/status public-safety smoke from the shell.
-    - Guarantee: writes the smoke receipt to --out and returns 0 only when status is 'pass'.
-    - Fails: receipt status != 'pass' (private-path leak) -> returns exit code 1.
-    - Reads: --root public root and --project tree.
-    - Writes: --out receipt JSON.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(
         description="Fetch served /project/status and record a public-safe smoke receipt.",

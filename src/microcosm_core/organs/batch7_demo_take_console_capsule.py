@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.batch7_demo_take_console_capsule` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs batch7 demo take console capsule for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, EXERCISE_MANIFEST_NAME, EXPECTED_ENGINES, EXPECTED_NEGATIVE_CASES, NEGATIVE_CASE_CODES, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, SPEC, evaluate_negative_case, run, run_batch7_demo_take_bundle, result_card, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results, environment variables.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate_negative_case`, `run`, `run_batch7_demo_take_bundle`,
+`result_card`, and `main`; constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`,
+`RESULT_NAME`, and 13 more pin local fixture names; dependencies include `argparse`, `json`,
+`shutil`, `subprocess`, and 5 more. It builds public fixture, result, card, or verdict
+structures while keeping private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -179,26 +163,18 @@ SPEC = CrownJewelSpec(
 
 def _repo_root(public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_repo_root` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return repo root for the organs batch7 demo take console capsule flow.
+
+    Inputs are `public_root`.
     """
     return public_root.parent
 
 
 def _copied_source(public_root: Path, source_ref: str) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_copied_source` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return copied source for the organs batch7 demo take console capsule flow.
+
+    Inputs are `public_root` and `source_ref`.
     """
     return (
         public_root
@@ -210,26 +186,20 @@ def _copied_source(public_root: Path, source_ref: str) -> Path:
 
 def _read(public_root: Path, source_ref: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_read` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Read read for `microcosm_core.organs.batch7_demo_take_console_capsule`.
+
+    Input comes from `public_root` and `source_ref`; malformed or missing data follows the
+    exceptions and checks visible in the body.
     """
     return _copied_source(public_root, source_ref).read_text(encoding="utf-8")
 
 
 def _copy_public_bundle(public_root: Path, temp_public_root: Path) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_copy_public_bundle` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run copy public bundle for `microcosm_core.organs.batch7_demo_take_console_capsule`.
+
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     shutil.copytree(
         public_root / "examples/batch7_demo_take_console_capsule",
@@ -244,13 +214,12 @@ def _replace_copied_source_token(
     new: str,
 ) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_replace_copied_source_token` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values, declared filesystem outputs.
+    Return whether replace copied source token holds for the organs batch7 demo take console
+    capsule flow.
+
+    The result is derived from `public_root`, `source_ref`, `old`, and `new` with
+    `_copied_source`, `read_text`, `write_text`, and `replace`; failing evidence is returned
+    or raised exactly where the body says so.
     """
     source_path = _copied_source(public_root, source_ref)
     text = source_path.read_text(encoding="utf-8")
@@ -267,13 +236,10 @@ def _run_public_witness(
     timeout: int = 240,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_run_public_witness` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Serialize `microcosm_core.organs.batch7_demo_take_console_capsule._run_public_witness`
+    into the payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     try:
         completed = subprocess.run(
@@ -321,13 +287,11 @@ def _mutated_source_negative(
     observed_flag: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_mutated_source_negative` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_demo_take_console_capsule._mutated_source_negative` into
+    the payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     with tempfile.TemporaryDirectory(prefix=f"{ORGAN_ID}_{case_id}_") as tmp:
         temp_public_root = Path(tmp) / "microcosm-substrate"
@@ -356,13 +320,10 @@ def _mutated_source_negative(
 
 def _missing_helper_bridge_negative(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_missing_helper_bridge_negative` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the missing helper bridge negative value used by
+    `microcosm_core.organs.batch7_demo_take_console_capsule`.
+
+    Inputs are `public_root`; notable helpers are `_mutated_source_negative`.
     """
     return _mutated_source_negative(
         public_root,
@@ -380,13 +341,9 @@ def _missing_helper_bridge_negative(public_root: Path) -> dict[str, Any]:
 
 def _start_without_screen_negative(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_start_without_screen_negative` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive start without screen negative without touching module import state.
+
+    Inputs are `public_root`; notable helpers are `_mutated_source_negative`.
     """
     return _mutated_source_negative(
         public_root,
@@ -401,13 +358,10 @@ def _start_without_screen_negative(public_root: Path) -> dict[str, Any]:
 
 def _hotkey_wrong_modifier_negative(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_hotkey_wrong_modifier_negative` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return hotkey wrong modifier negative for the organs batch7 demo take console capsule
+    flow.
+
+    Inputs are `public_root`; notable helpers are `_mutated_source_negative`.
     """
     return _mutated_source_negative(
         public_root,
@@ -425,13 +379,10 @@ def _hotkey_wrong_modifier_negative(public_root: Path) -> dict[str, Any]:
 
 def _audio_meter_unclamped_negative(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_audio_meter_unclamped_negative` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return audio meter unclamped negative for the organs batch7 demo take console capsule
+    flow.
+
+    Inputs are `public_root`; notable helpers are `_mutated_source_negative`.
     """
     return _mutated_source_negative(
         public_root,
@@ -446,13 +397,10 @@ def _audio_meter_unclamped_negative(public_root: Path) -> dict[str, Any]:
 
 def _transcribe_missing_audio_negative(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_transcribe_missing_audio_negative` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return transcribe missing audio negative for the organs batch7 demo take console capsule
+    flow.
+
+    Inputs are `public_root`; notable helpers are `_mutated_source_negative`.
     """
     return _mutated_source_negative(
         public_root,
@@ -467,13 +415,11 @@ def _transcribe_missing_audio_negative(public_root: Path) -> dict[str, Any]:
 
 def _missing_swift_build_witness_negative() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_missing_swift_build_witness_negative` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_demo_take_console_capsule._missing_swift_build_witness_negative`
+    into the payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     with tempfile.TemporaryDirectory(prefix=f"{ORGAN_ID}_missing_swift_build_") as tmp:
         witness = _run_public_witness(
@@ -495,13 +441,11 @@ def _missing_swift_build_witness_negative() -> dict[str, Any]:
 @lru_cache(maxsize=16)
 def _semantic_runtime_exercises(input_ref: str) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_runtime_exercises` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_demo_take_console_capsule._semantic_runtime_exercises`
+    into the payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = public_root_for_path(Path(input_ref))
     return {
@@ -519,13 +463,9 @@ def _semantic_runtime_exercises(input_ref: str) -> Mapping[str, Any]:
 
 def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_negative_exercise` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return negative exercise for `microcosm_core.organs.batch7_demo_take_console_capsule`.
+
+    Inputs are `runtime` and `case_id`; notable helpers are `get`.
     """
     cases = (
         runtime.get("negative_exercises")
@@ -538,13 +478,11 @@ def _negative_exercise(runtime: Mapping[str, Any], case_id: str) -> Mapping[str,
 
 def _observed_negative_case(case_id: str, runtime: Mapping[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_observed_negative_case` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether observed negative case holds for the organs batch7 demo take console
+    capsule flow.
+
+    The result is derived from `case_id` and `runtime` with `_negative_exercise` and `get`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     exercise = _negative_exercise(runtime, case_id)
     if exercise.get("status") != "blocked" or exercise.get("mutation_applied") is False:
@@ -572,13 +510,11 @@ def evaluate_negative_case(
     _expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_demo_take_console_capsule.evaluate_negative_case` into the
+    payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     expected_code = NEGATIVE_CASE_CODES.get(case_id, "")
     observed = _observed_negative_case(
@@ -595,13 +531,11 @@ def evaluate_negative_case(
 @lru_cache(maxsize=4)
 def _cached_swiftpm_build_witness(repo_root: str) -> tuple[tuple[str, Any], ...]:
     """
-    [ACTION]
-    - Teleology: Implements `_cached_swiftpm_build_witness` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return cached swiftpm build witness for the organs batch7 demo take console capsule
+    flow.
+
+    Inputs are `repo_root`; notable helpers are `lru_cache`, `_run_public_witness`, `items`,
+    and `Path`.
     """
     witness = _run_public_witness(
         ["swift", "build", "--product", "DemoTakeConsoleApp"],
@@ -613,13 +547,11 @@ def _cached_swiftpm_build_witness(repo_root: str) -> tuple[tuple[str, Any], ...]
 
 def _swiftpm_build_witness(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_swiftpm_build_witness` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_demo_take_console_capsule._swiftpm_build_witness` into the
+    payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     witness = dict(_cached_swiftpm_build_witness(str(_repo_root(public_root))))
     return {
@@ -633,13 +565,11 @@ def _swiftpm_build_witness(public_root: Path) -> dict[str, Any]:
 
 def _recording_state_control_model(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_recording_state_control_model` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_demo_take_console_capsule._recording_state_control_model`
+    into the payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     models = _read(public_root, "apps/demo-take-console/Sources/DemoTakeConsoleApp/Models.swift")
     expected_states = (
@@ -686,13 +616,11 @@ def _recording_state_control_model(public_root: Path) -> dict[str, Any]:
 
 def _capture_helper_bridge_contract(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_capture_helper_bridge_contract` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_demo_take_console_capsule._capture_helper_bridge_contract`
+    into the payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     bridge = _read(
         public_root,
@@ -756,13 +684,11 @@ def _capture_helper_bridge_contract(public_root: Path) -> dict[str, Any]:
 
 def _recorder_store_capture_fsm(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_recorder_store_capture_fsm` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_demo_take_console_capsule._recorder_store_capture_fsm`
+    into the payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     store = _read(public_root, "apps/demo-take-console/Sources/DemoTakeConsoleApp/RecorderStore.swift")
     start_gate = all(
@@ -822,13 +748,11 @@ def _recorder_store_capture_fsm(public_root: Path) -> dict[str, Any]:
 
 def _hotkey_audio_meter_contract(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_hotkey_audio_meter_contract` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_demo_take_console_capsule._hotkey_audio_meter_contract`
+    into the payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     hotkey = _read(
         public_root,
@@ -869,13 +793,11 @@ def _hotkey_audio_meter_contract(public_root: Path) -> dict[str, Any]:
 
 def _transcribe_payload_builder(public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_transcribe_payload_builder` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch7_demo_take_console_capsule._transcribe_payload_builder`
+    into the payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     transcribe = _read(public_root, "apps/demo-take-console/Sources/DemoTakeTranscribe/main.swift")
     decode_config = all(
@@ -925,13 +847,10 @@ def _evaluate(
     source_manifest: Mapping[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_evaluate` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch7_demo_take_console_capsule._evaluate` into the
+    payload shape expected by organs batch7 demo take console capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     engines = [
         _swiftpm_build_witness(public_root),
@@ -987,13 +906,10 @@ def run(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the run value used by `microcosm_core.organs.batch7_demo_take_console_capsule`.
+
+    Inputs are `input_dir`, `out_dir`, `acceptance_out`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1013,13 +929,10 @@ def run_batch7_demo_take_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_batch7_demo_take_bundle` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run batch7 demo take bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1034,13 +947,9 @@ def run_batch7_demo_take_bundle(
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return result card for `microcosm_core.organs.batch7_demo_take_console_capsule`.
+
+    Inputs are `result`; notable helpers are `card_for_result` and `get`.
     """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
@@ -1051,13 +960,11 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.batch7_demo_take_console_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.batch7_demo_take_console_capsule` as a command-line entry
+    point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)

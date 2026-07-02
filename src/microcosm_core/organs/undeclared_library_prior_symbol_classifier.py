@@ -1,27 +1,13 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.undeclared_library_prior_symbol_classifier` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs undeclared library prior symbol classifier for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, SOURCE_REFS, RECEIPT_ANCHOR_REFS, SOURCE_TARGET_REFS, SOURCE_DIGESTS, BODY_MATERIAL_STATUS, SYMBOL_BOUNDARY_STATUS, TOOLCHAIN_BOUNDARY_STATUS, BODY_IN_RECEIPT, SOURCE_MODULE_MANIFEST_REF, SOURCE_MODULE_REFS, SOURCE_MODULE_IMPORT_CLASSES, SOURCE_MODULE_RELATIONS, SOURCE_MODULE_MATERIAL_CLASSES, SOURCE_MODULE_BODY_MATERIAL_STATUS, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `validate_projection_protocol`, `validate_premise_index`,
+`validate_classifier_policy`, `validate_source_module_manifest`,
+`validate_symbol_observations`, `run`, and 3 more; constants such as `ORGAN_ID`,
+`FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 34 more pin local fixture names;
+dependencies include `argparse`, `hashlib`, `json`, `re`, and 4 more. It builds public
+fixture, result, card, or verdict structures while keeping private substrate bodies out of
+the payload.
 """
 from __future__ import annotations
 
@@ -228,13 +214,10 @@ ANTI_CLAIM = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -250,26 +233,21 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return display for `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -281,13 +259,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -296,13 +272,11 @@ def _strings(value: object) -> list[str]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the input paths value used by
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file`,
+    `_source_module_manifest_path`, and `append`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -317,26 +291,20 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _source_module_manifest_path(input_dir: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module manifest path for the organs undeclared library prior symbol
+    classifier flow.
+
+    Inputs are `input_dir`.
     """
     return input_dir / "source_module_manifest.json"
 
 
 def _target_path_from_module(input_dir: Path, row: dict[str, Any]) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_target_path_from_module` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the target path from module value used by
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `input_dir` and `row`; notable helpers are `Path`, `is_absolute`, and `get`.
     """
     raw = str(row.get("path") or "")
     candidate = Path(raw)
@@ -345,13 +313,11 @@ def _target_path_from_module(input_dir: Path, row: dict[str, Any]) -> Path:
 
 def _source_module_scan_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_scan_paths` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module scan paths for
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `input_dir`; notable helpers are `_source_module_manifest_path`,
+    `read_json_strict`, `is_file`, `_target_path_from_module`, and 1 more.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -365,13 +331,11 @@ def _source_module_scan_paths(input_dir: Path) -> list[Path]:
 
 def _source_module_payload_by_id(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_payload_by_id` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._source_module_payload_by_id`
+    into the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -390,39 +354,32 @@ def _source_module_payload_by_id(input_dir: Path) -> dict[str, Any]:
 
 def _sha256_file(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_file` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._sha256_file`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_paths` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return freshness paths for the organs undeclared library prior symbol classifier flow.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `Path`,
+    `_public_root_for_path`, `_input_paths`, and `_source_module_scan_paths`.
     """
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
@@ -435,13 +392,11 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._freshness_basis` into
+    the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -507,13 +462,11 @@ def _fresh_symbol_classifier_bundle_receipt(
     command: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_symbol_classifier_bundle_receipt` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the fresh symbol classifier bundle receipt value used by
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `_freshness_basis`, `get`, `is_file`, and `read_json_strict`.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -552,13 +505,10 @@ def _fresh_symbol_classifier_bundle_receipt(
 
 def _line_count(path: Path) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_line_count` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Produce the line count value used by
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `path`; notable helpers are `read_bytes`, `count`, and `endswith`.
     """
     data = path.read_bytes()
     if not data:
@@ -568,13 +518,11 @@ def _line_count(path: Path) -> int:
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -591,13 +539,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.undeclared_library_prior_symbol_classifier._finding`
+    into the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -621,13 +566,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs undeclared library prior symbol classifier flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -643,26 +585,22 @@ def _record(
 
 def _has_forbidden_key(row: dict[str, Any], keys: tuple[str, ...]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_forbidden_key` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has forbidden key holds for the organs undeclared library prior symbol
+    classifier flow.
+
+    The result is derived from `row` and `keys`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return any(key in row for key in keys)
 
 
 def _private_ref_present(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_private_ref_present` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether private ref present holds for the organs undeclared library prior symbol
+    classifier flow.
+
+    The result is derived from `row` with `_has_forbidden_key`, `_strings`, `get`, and
+    `startswith`; failing evidence is returned or raised exactly where the body says so.
     """
     if _has_forbidden_key(row, PRIVATE_SOURCE_KEYS):
         return True
@@ -672,13 +610,10 @@ def _private_ref_present(row: dict[str, Any]) -> bool:
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return merge observed for
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `results`; notable helpers are `defaultdict`, `items`, `get`, and `add`.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -690,13 +625,10 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_findings` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._merge_findings`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     findings: list[dict[str, Any]] = []
     for result in results:
@@ -714,13 +646,11 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_projection_protocol` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier.validate_projection_protocol`
+    into the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
@@ -785,13 +715,9 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
 
 def _premise_maps(payload: object) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_premise_maps` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute premise maps from `payload`.
+
+    Inputs are `payload`; notable helpers are `_rows` and `get`.
     """
     by_id: dict[str, dict[str, Any]] = {}
     by_symbol: dict[str, dict[str, Any]] = {}
@@ -807,13 +733,11 @@ def _premise_maps(payload: object) -> tuple[dict[str, dict[str, Any]], dict[str,
 
 def validate_premise_index(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_premise_index` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier.validate_premise_index`
+    into the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "premises")
     findings: list[dict[str, Any]] = []
@@ -868,13 +792,11 @@ def validate_premise_index(payload: object) -> dict[str, Any]:
 
 def validate_classifier_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_classifier_policy` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier.validate_classifier_policy`
+    into the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy = payload if isinstance(payload, dict) else {}
     findings: list[dict[str, Any]] = []
@@ -912,13 +834,11 @@ def validate_source_module_manifest(
     required: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_source_module_manifest` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier.validate_source_module_manifest`
+    into the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -1179,13 +1099,9 @@ def validate_source_module_manifest(
 
 def _qualified_refs(row: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_qualified_refs` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return qualified refs for the organs undeclared library prior symbol classifier flow.
+
+    Inputs are `row`; notable helpers are `extend`, `_strings`, `get`, and `fullmatch`.
     """
     values: list[str] = []
     for key in (
@@ -1200,13 +1116,10 @@ def _qualified_refs(row: dict[str, Any]) -> list[str]:
 
 def _unqualified_refs(row: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_unqualified_refs` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the unqualified refs value used by
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `row`; notable helpers are `extend`, `_strings`, `get`, and `fullmatch`.
     """
     values: list[str] = []
     for key in (
@@ -1227,13 +1140,10 @@ def _unqualified_refs(row: dict[str, Any]) -> list[str]:
 
 def _problem_result_by_id(run_summary: object) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_problem_result_by_id` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the problem result by ID value used by
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `run_summary`; notable helpers are `_rows` and `get`.
     """
     results: dict[str, dict[str, Any]] = {}
     for row in _rows(run_summary, "problem_results"):
@@ -1248,13 +1158,9 @@ def _symbols_for_premise_ids(
     premise_by_id: dict[str, dict[str, Any]],
 ) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_symbols_for_premise_ids` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute symbols for premise IDs from `premise_ids` and `premise_by_id`.
+
+    Inputs are `premise_ids` and `premise_by_id`; notable helpers are `get`.
     """
     return sorted(
         {
@@ -1274,13 +1180,11 @@ def _source_observation_check(
     source_payloads: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_observation_check` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._source_observation_check`
+    into the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     ref = row.get("source_observation_ref")
     if not isinstance(ref, dict):
@@ -1387,13 +1291,11 @@ def _classify_row(
     negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_classify_row` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._classify_row` into
+    the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     receipt_id = str(row.get("receipt_id") or row.get("case_id") or "symbol_observation")
     case_id = str(row.get("expected_negative_case_id") or receipt_id)
@@ -1546,13 +1448,11 @@ def validate_symbol_observations(
     input_dir: Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_symbol_observations` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier.validate_symbol_observations`
+    into the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     premise_by_id, premise_by_symbol = _premise_maps(premise_index)
     source_payloads = _source_module_payload_by_id(input_dir) if input_dir else {}
@@ -1652,13 +1552,11 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._build_result` into
+    the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -1779,13 +1677,11 @@ def _build_result(
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_board_from_result` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._board_from_result`
+    into the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "undeclared_library_prior_symbol_classifier_board_v1",
@@ -1841,13 +1737,11 @@ def _write_receipts(
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._write_receipts` into
+    the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
@@ -1955,13 +1849,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `Path`, `_build_result`, `_freshness_basis`, and `_write_receipts`.
     """
     source = Path(input_dir)
     result = _build_result(
@@ -1990,13 +1881,11 @@ def run_symbol_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_symbol_bundle` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Produce the run symbol bundle value used by
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `mkdir`, `_build_result`, `_freshness_basis`, and 4 more.
     """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -2026,13 +1915,10 @@ def run_symbol_bundle(
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.undeclared_library_prior_symbol_classifier.result_card`
+    into the payload shape expected by organs undeclared library prior symbol classifier.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -2123,13 +2009,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.organs.undeclared_library_prior_symbol_classifier._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(prog="undeclared_library_prior_symbol_classifier")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -2147,13 +2031,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.undeclared_library_prior_symbol_classifier` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.undeclared_library_prior_symbol_classifier` command-line
+    entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

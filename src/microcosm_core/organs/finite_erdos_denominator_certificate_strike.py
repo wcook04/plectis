@@ -1,49 +1,13 @@
 """
-Finite Erdos denominator-order certificate strike organ.
+Implements organs finite erdos denominator certificate strike for the public Plectis
+package.
 
-This organ surfaces the public ``finite_denominator_order_certificate`` engine-
-room capsule as a first-class formal-math organ. The capsule body stays in
-``microcosm_core.engine_room.finite_denominator_order_certificate``; this file
-adds the standard organ contract: bounded fixture cases, planted negative
-(forged-certificate) cases, a ``result_card`` projection, body-free receipt
-writes, and CLI dispatch.
-
-The mechanism it surfaces: the *finite denominator-order certificate* at the
-heart of the Erdos #257 period-noncollapse strike. For a finite nonempty set F
-of positive integers and an integer base b >= 2, it computes
-
-    S_F(b) = sum_{n in F} 1 / (b^n - 1) = P / Q   (exact, lowest terms)
-
-and verifies the certificate ord_Q(b) = lcm(F): the multiplicative order of b
-modulo the reduced denominator equals the lcm of the support. The runner does
-real exact-arithmetic computation at runtime (no baked answers), demonstrates
-the certificate over positive cases (including a reducing case where a common
-prime cancels yet the certificate survives), and self-falsifies: forging the
-claimed order or denominator is caught by recomputation.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.finite_erdos_denominator_certificate_strike` as a documented Microcosm public source module.
-- Mechanism: Keeps executable certificate source in the engine-room capsule as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, SCHEMA_VERSION, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, CLAIM_CEILING, ANTI_CLAIM, SPEC, build_result, result_card, run, run_finite_erdos_denominator_certificate_strike_bundle, build_parser, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, provider calls, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates the exact-arithmetic certificate computation and forgery rejection to the surfaced capsule, and validation, projection, serialization, and receipt behavior to file-local functions.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.engine_room.finite_denominator_order_certificate, microcosm_core.receipts
-- Optional Runtime: Filesystem, CLI arguments, and package data only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem reads and CLI argument reads are the only admitted runtime variability.
+Callers enter through `build_result`, `result_card`, `run`,
+`run_finite_erdos_denominator_certificate_strike_bundle`, `build_parser`, and `main`;
+constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `SCHEMA_VERSION`, and 9 more pin
+local fixture names; dependencies include `argparse`, `json`, `pathlib`, `typing`, and 1
+more. It builds public fixture, result, card, or verdict structures while keeping private
+substrate bodies out of the payload.
 """
 
 from __future__ import annotations
@@ -124,13 +88,10 @@ SPEC = {
 
 def _read_json(path: Path) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_read_json` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies a path to a JSON object file.
-    - Guarantee: On success returns the parsed mapping.
-    - Fails: Propagates IO and JSON errors; raises ValueError when the payload is not a JSON object.
-    - Reads: declared filesystem inputs.
-    - Writes: return values.
+    Read read JSON for `microcosm_core.organs.finite_erdos_denominator_certificate_strike`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, Mapping):
@@ -140,13 +101,11 @@ def _read_json(path: Path) -> Mapping[str, Any]:
 
 def _fixture_cases(input_path: str | Path) -> list[tuple[Path, Mapping[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_fixture_cases` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path is a JSON file or a directory containing JSON case files.
-    - Guarantee: Returns the ordered list of (path, case) pairs.
-    - Fails: Raises FileNotFoundError when a directory holds no JSON cases.
-    - Reads: declared filesystem inputs.
-    - Writes: return values.
+    Produce the fixture cases value used by
+    `microcosm_core.organs.finite_erdos_denominator_certificate_strike`.
+
+    Inputs are `input_path`; notable helpers are `Path`, `is_file`, `FileNotFoundError`,
+    `_read_json`, and 1 more; invalid cases raise from the explicit checks in the body.
     """
     path = Path(input_path)
     if path.is_file():
@@ -159,19 +118,11 @@ def _fixture_cases(input_path: str | Path) -> list[tuple[Path, Mapping[str, Any]
 
 def _evaluate_case(case: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Run one bounded certificate exercise and report observed-versus-expected.
+    Serialize
+    `microcosm_core.organs.finite_erdos_denominator_certificate_strike._evaluate_case` into
+    the payload shape expected by organs finite erdos denominator certificate strike.
 
-    Each exercise does real exact-arithmetic computation over the surfaced
-    capsule: it either computes the certificate and confirms ord_Q(b)=lcm(F),
-    or it submits a forged claimed certificate and confirms the recomputation
-    rejects it.
-    - Teleology: Implements `_evaluate_case` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` while keeping the callable contract visible to source-module readers.
-    - Preconditions: case carries an exercise, a support list, a base, and (for negative cases) a forged claimed certificate.
-    - Guarantee: Returns a row capturing observed_ok, the recomputed certificate facts, and any observed error codes.
-    - Fails: Returns a row with an unknown-exercise error code rather than raising on an unrecognised exercise.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     exercise = str(case.get("exercise") or "")
     case_id = str(case.get("case_id") or exercise)
@@ -246,13 +197,11 @@ def _evaluate_case(case: Mapping[str, Any]) -> dict[str, Any]:
 
 def build_result(input_path: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_result` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path resolves to fixture cases via _fixture_cases.
-    - Guarantee: Returns the aggregated result envelope with a pass/fail status over positive and negative cases.
-    - Fails: Propagates IO/JSON/validation errors raised by case loading.
-    - Reads: declared filesystem inputs, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.finite_erdos_denominator_certificate_strike.build_result` into
+    the payload shape expected by organs finite erdos denominator certificate strike.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     cases = [case for _path, case in _fixture_cases(input_path)]
     rows = [_evaluate_case(case) for case in cases]
@@ -296,13 +245,11 @@ def build_result(input_path: str | Path) -> dict[str, Any]:
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope.
-    - Guarantee: Returns a body-free status card with claim ceiling and anti-claim.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.finite_erdos_denominator_certificate_strike.result_card` into the
+    payload shape expected by organs finite erdos denominator certificate strike.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_board_v1",
@@ -318,13 +265,11 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def _validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validation_receipt` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope; receipt_paths names the written receipts.
-    - Guarantee: Returns a body-free validation receipt.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.finite_erdos_denominator_certificate_strike._validation_receipt`
+    into the payload shape expected by organs finite erdos denominator certificate strike.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_validation_receipt_v1",
@@ -340,13 +285,11 @@ def _validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, s
 
 def _acceptance_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_acceptance_receipt` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope; receipt_paths names the written receipts.
-    - Guarantee: Returns a body-free acceptance receipt marking real-substrate disposition.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.finite_erdos_denominator_certificate_strike._acceptance_receipt`
+    into the payload shape expected by organs finite erdos denominator certificate strike.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_acceptance_receipt_v1",
@@ -363,13 +306,9 @@ def _acceptance_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, s
 
 def _receipt_ref(out: Path, name: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_ref` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` while keeping the callable contract visible to source-module readers.
-    - Preconditions: out is a directory path and name is a receipt filename.
-    - Guarantee: Returns the posix path string for the receipt.
-    - Fails: Does not raise.
-    - Reads: call arguments.
-    - Writes: return values.
+    Return receipt ref for the organs finite erdos denominator certificate strike flow.
+
+    Inputs are `out` and `name`; notable helpers are `as_posix`.
     """
     return (out / name).as_posix()
 
@@ -382,13 +321,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path resolves to fixture cases; out_dir is writable.
-    - Guarantee: Computes the result, writes body-free receipts, and returns the result envelope.
-    - Fails: Propagates IO/JSON/validation errors raised by the body.
-    - Reads: declared filesystem inputs, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return run for the organs finite erdos denominator certificate strike flow.
+
+    Inputs are `input_path`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `build_result`, `Path`, `mkdir`, `write_json_atomic`, and 5 more.
     """
     result = build_result(input_path)
     if command:
@@ -415,26 +351,21 @@ def run_finite_erdos_denominator_certificate_strike_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_finite_erdos_denominator_certificate_strike_bundle` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` as the runtime-spine entry point.
-    - Preconditions: input_path resolves to fixture cases; out_dir is writable.
-    - Guarantee: Delegates to run and returns its result envelope.
-    - Fails: Propagates errors raised by run.
-    - Reads: declared filesystem inputs.
-    - Writes: return values, declared filesystem outputs.
+    Compute run finite erdos denominator certificate strike bundle from `input_path`,
+    `out_dir`, and `command`.
+
+    Inputs are `input_path`, `out_dir`, and `command`; notable helpers are `run`.
     """
     return run(input_path, out_dir, command)
 
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `build_parser` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` while keeping the callable contract visible to source-module readers.
-    - Preconditions: none.
-    - Guarantee: Returns a configured ArgumentParser; performs no IO.
-    - Fails: Does not raise.
-    - Reads: module constants.
-    - Writes: return values.
+    Register CLI syntax for
+    `microcosm_core.organs.finite_erdos_denominator_certificate_strike.build_parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         description="Run the finite Erdos denominator-order certificate strike organ."
@@ -451,13 +382,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.finite_erdos_denominator_certificate_strike` while keeping the callable contract visible to source-module readers.
-    - Preconditions: argv is a CLI argument vector or None.
-    - Guarantee: Runs the organ and returns 0 on pass, 1 on fail.
-    - Fails: Propagates argument-parsing and run errors.
-    - Reads: call arguments.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.finite_erdos_denominator_certificate_strike` command-line
+    entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command in {"run", "run-finite-erdos-denominator-certificate-strike-bundle"}:

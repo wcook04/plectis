@@ -1,42 +1,11 @@
 """
-Axiom support-cover evaluator (the Axiom Reflexion Kernel core).
+Implements validators axiom support cover for the public Plectis package.
 
-Read-only evaluator for ``validator.microcosm.axiom_support_cover``. It computes
-*bounded* support for piloted axiom obligations from evidence that already exists
-on disk, derives principle support by inheritance, and emits candidate-axiom
-pressure. It mutates no law and authorizes nothing.
-
-Honesty contract (this evaluator is itself a Microcosm artifact, so AX-12 applies
-to it): it never certifies ``strong``. The ceiling lattice in
-``std_microcosm_axiom.json::axiom_payload_contract.evidence_ceiling_lattice`` names
-eight components. ``core/axiom_support_ceiling_dimensions.json`` source-registers
-all eight components today. ``freshness_state`` is deliberately order-owned but
-still computes an ``unknown_`` value until a source-owned refresh contract exists:
-not bottom, not strong, and not live freshness proof.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.validators.axiom_support_cover` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: CHECKER_ID, ROUTING_REL, PRINCIPLES_REL, EVIDENCE_CLASSES_REL, ORGAN_REGISTRY_REL, AXIOM_STANDARD_REL, CEILING_DIMENSIONS_REL, CHECKER_SCOPE_ORDER_REL, AUTHORITY_SCOPE_ORDER_REL, PROJECTION_SCOPE_ORDER_REL, DOMAIN_SCOPE_ORDER_REL, FRESHNESS_STATE_ORDER_REL, PROVENANCE_ORDER_REL, EXAMPLES_REL, RECEIPTS_FIRST_WAVE_REL, DEFAULT_CEILING_COMPONENTS, COMPUTED_ORDER_OWNED_COMPONENTS, NEGATIVE_CASE_STATUS_ORDER, ANTI_AXIOM_REJECTION_ORDER, MAPPING_RELATION_ENUM, CHECKER_SCOPE_ORDER, AUTHORITY_SCOPE_ORDER, PROJECTION_SCOPE_ORDER, FRESHNESS_STATE_ORDER, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate_axiom_support_cover` and `main`; constants such as
+`CHECKER_ID`, `ROUTING_REL`, `PRINCIPLES_REL`, `EVIDENCE_CLASSES_REL`, and 22 more pin local
+fixture names; dependencies include `argparse`, `hashlib`, `json`, `re`, and 3 more.
+Validator outputs stay structured so release checks can consume findings without scraping
+prose.
 """
 
 from __future__ import annotations
@@ -146,16 +115,9 @@ PROVENANCE_CLASS_ORDER = (
 
 def _default_root() -> Path:
     """
-    [ACTION]
-    Resolve the microcosm-substrate root from this module's own location.
+    Produce the default root value used by `microcosm_core.validators.axiom_support_cover`.
 
-    - Teleology: gives every entrypoint a single, import-location-derived default root so the evaluator reads the substrate it ships inside, not the caller's cwd.
-    - Guarantee: returns ``Path(__file__).resolve().parents[3]`` (the microcosm-substrate root); always returns a resolved absolute Path.
-    - Fails: never raises; if the module is relocated above depth 3 the path is wrong but no exception is produced.
-    - When-needed: when an agent needs to know which root the evaluator binds to when ``public_root`` is omitted.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Notable helpers are `resolve` and `Path`.
     """
     # src/microcosm_core/validators/axiom_support_cover.py -> microcosm-substrate root
     return Path(__file__).resolve().parents[3]
@@ -163,16 +125,9 @@ def _default_root() -> Path:
 
 def _obligation_sort_key(value: str) -> tuple[int, int, str]:
     """
-    [ACTION]
-    Total-order key for ``AX-<n>.O<m>.<slug>`` obligation refs.
+    Derive obligation sort key without touching module import state.
 
-    - Teleology: gives obligation refs a numeric (not lexicographic) ordering so receipts list obligations stably and deterministically.
-    - Guarantee: returns ``(ax_int, obl_int, slug)`` for a well-formed ``AX-<n>.O<m>.<slug>`` ref; non-matching strings sort last as ``(9999, 9999, value)``.
-    - Fails: never raises; unparseable input falls back to the sentinel tuple.
-    - When-needed: when an agent needs to know how obligation refs are sorted in support-cover output.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`; notable helpers are `match` and `group`.
     """
     match = re.match(r"^AX-(\d+)\.O(\d+)\.([A-Za-z0-9_]+)$", value)
     if match:
@@ -182,16 +137,9 @@ def _obligation_sort_key(value: str) -> tuple[int, int, str]:
 
 def _axiom_sort_key(value: str) -> tuple[int, str]:
     """
-    [ACTION]
-    Total-order key for ``AX-<n>`` axiom ids.
+    Compute axiom sort key from `value`.
 
-    - Teleology: gives axiom ids numeric ordering so frontiers and per-axiom rollups list in AX-1, AX-2, ... order rather than AX-1, AX-10, AX-2.
-    - Guarantee: returns ``(n_int, value)`` for a well-formed ``AX-<n>`` id; non-matching strings sort last as ``(9999, value)``.
-    - Fails: never raises; unparseable input falls back to the sentinel tuple.
-    - When-needed: when an agent needs to know the axiom sort order used across the receipt.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`; notable helpers are `match` and `group`.
     """
     match = re.match(r"^AX-(\d+)$", value)
     if match:
@@ -201,17 +149,11 @@ def _axiom_sort_key(value: str) -> tuple[int, str]:
 
 def _principle_obligation_groundings(root: Path) -> dict[str, list[str]]:
     """
-    [ACTION]
-    Parse ``PRINCIPLES.md`` for each P-<n>'s declared ``Obligation grounding:`` refs.
+    Serialize
+    `microcosm_core.validators.axiom_support_cover._principle_obligation_groundings` into
+    the payload shape expected by validators axiom support cover.
 
-    - Teleology: lifts the source-owned principle->obligation grounding out of PRINCIPLES.md so principle support can be derived by inheritance from its grounding obligations, never invented.
-    - Guarantee: returns a dict mapping each principle id that declares a grounding line to its sorted, deduplicated list of ``AX-<n>.O<m>.<slug>`` obligation refs (parsed from the body before ``## Anti-Claim``).
-    - Fails: never raises; missing ``PRINCIPLES.md`` returns ``{}``, and principles without a grounding line are simply omitted.
-    - Reads: ``PRINCIPLES.md`` text under ``root``.
-    - Writes: None.
-    - When-needed: when an agent must see which obligations a principle inherits support from before trusting the principle_support_index.
-    - Escalates-to: ``PRINCIPLES.md`` ``## P-<n>`` sections and their ``Obligation grounding:`` lines.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     path = root / PRINCIPLES_REL
     if not path.is_file():
@@ -238,17 +180,10 @@ def _principle_obligation_groundings(root: Path) -> dict[str, list[str]]:
 
 def _basis_digest(root: Path, rels: tuple[Path, ...]) -> str:
     """
-    [ACTION]
-    Deterministic ``sha256:`` digest over ordered (relpath, file-bytes) pairs.
+    Return a stable SHA-256 digest for `root` and `rels`.
 
-    - Teleology: protects the reproducibility/basis-attestation claim of every support-cover receipt against silent input drift across the named registry/source files.
-    - Guarantee: returns ``"sha256:" + hexdigest`` covering each rel's posix path plus its bytes (or the literal ``b"<missing>"`` sentinel when the file is unreadable), so identical inputs always yield the identical string.
-    - Fails: None (OSError on a missing/unreadable file is caught and folded in as ``<missing>``; it never raises and has no failure envelope).
-    - Reads: each ``root/rel`` file's raw bytes.
-    - Writes: None.
-    - When-needed: when an agent must confirm two receipts were derived from byte-identical basis inputs before trusting their support claims.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; a digest is reproducibility evidence, not freshness or correctness proof.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     digest = hashlib.sha256()
     for rel in rels:
@@ -262,18 +197,10 @@ def _basis_digest(root: Path, rels: tuple[Path, ...]) -> str:
 
 def _provenance_order_registry(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Load + validate the source-owned provenance-class order registry.
+    Serialize `microcosm_core.validators.axiom_support_cover._provenance_order_registry`
+    into the payload shape expected by validators axiom support cover.
 
-    - Teleology: protects the provenance-class ceiling ordering against a source order file that disagrees with the validator's hardcoded ``PROVENANCE_CLASS_ORDER``.
-    - Guarantee: on success returns a dict with payload, order_values (== ``PROVENANCE_CLASS_ORDER``), source_ref, and basis_digest; the returned order_values are guaranteed equal to the validator's provenance-class order.
-    - Fails: non-dict JSON, ``component_id != "provenance_class"``, or ``order_values`` not matching ``PROVENANCE_CLASS_ORDER`` each raise ValueError (read_json_strict also raises OSError/ValueError on missing/malformed JSON).
-    - Reads: ``core/axiom_support_provenance_order.json``.
-    - Writes: None.
-    - When-needed: when an agent must trust that the provenance-class ceiling values used downstream are the source-owned, in-sync order.
-    - Escalates-to: ``core/axiom_support_provenance_order.json`` source span and ``PROVENANCE_CLASS_ORDER`` constant.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; it validates an order registry, not provenance quality.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payload = read_json_strict(root / PROVENANCE_ORDER_REL)
     if not isinstance(payload, dict):
@@ -298,18 +225,10 @@ def _provenance_order_registry(root: Path) -> dict[str, Any]:
 
 def _checker_scope_order_registry(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Load + validate the source-owned checker-scope order registry.
+    Serialize `microcosm_core.validators.axiom_support_cover._checker_scope_order_registry`
+    into the payload shape expected by validators axiom support cover.
 
-    - Teleology: protects the checker-scope ceiling ordering against a source order file that disagrees with the validator's hardcoded ``CHECKER_SCOPE_ORDER``.
-    - Guarantee: on success returns a dict with payload, order_values (== ``CHECKER_SCOPE_ORDER``), source_ref, and basis_digest; the returned order_values are guaranteed equal to the validator's checker-scope order.
-    - Fails: non-dict JSON, ``component_id != "checker_scope"``, or ``order_values`` not matching ``CHECKER_SCOPE_ORDER`` each raise ValueError (read_json_strict also raises OSError/ValueError on missing/malformed JSON).
-    - Reads: ``core/axiom_support_checker_scope_order.json``.
-    - Writes: None.
-    - When-needed: when an agent must trust that the checker-scope ceiling values used downstream are the source-owned, in-sync order.
-    - Escalates-to: ``core/axiom_support_checker_scope_order.json`` source span and ``CHECKER_SCOPE_ORDER`` constant.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; it validates an order registry, not that any checker proves an obligation.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payload = read_json_strict(root / CHECKER_SCOPE_ORDER_REL)
     if not isinstance(payload, dict):
@@ -334,18 +253,11 @@ def _checker_scope_order_registry(root: Path) -> dict[str, Any]:
 
 def _authority_scope_order_registry(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Load + validate the source-owned authority-scope order registry.
+    Serialize
+    `microcosm_core.validators.axiom_support_cover._authority_scope_order_registry` into the
+    payload shape expected by validators axiom support cover.
 
-    - Teleology: protects the authority-ceiling lattice (read-only vs source-binding authority scope) against a source order file that disagrees with the validator's hardcoded ``AUTHORITY_SCOPE_ORDER``.
-    - Guarantee: on success returns a dict with payload, order_values (== ``AUTHORITY_SCOPE_ORDER``), source_ref, and basis_digest; the returned order_values are guaranteed equal to the validator's authority-scope order.
-    - Fails: non-dict JSON, ``component_id != "authority_scope"``, or ``order_values`` not matching ``AUTHORITY_SCOPE_ORDER`` each raise ValueError (read_json_strict also raises OSError/ValueError on missing or malformed JSON).
-    - Reads: ``core/axiom_support_authority_scope_order.json``.
-    - Writes: None.
-    - When-needed: when an agent must trust that the authority-scope ceiling values used downstream are the source-owned, in-sync order.
-    - Escalates-to: ``core/axiom_support_authority_scope_order.json`` source span and ``AUTHORITY_SCOPE_ORDER`` constant.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; it validates an order registry, not authority to mutate or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payload = read_json_strict(root / AUTHORITY_SCOPE_ORDER_REL)
     if not isinstance(payload, dict):
@@ -370,18 +282,11 @@ def _authority_scope_order_registry(root: Path) -> dict[str, Any]:
 
 def _projection_scope_order_registry(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Load + validate the source-owned projection-scope order registry.
+    Serialize
+    `microcosm_core.validators.axiom_support_cover._projection_scope_order_registry` into
+    the payload shape expected by validators axiom support cover.
 
-    - Teleology: protects the projection-scope ceiling ordering (generated-projection vs source-bound boundary) against a source order file that disagrees with the validator's hardcoded ``PROJECTION_SCOPE_ORDER``.
-    - Guarantee: on success returns a dict with payload, order_values (== ``PROJECTION_SCOPE_ORDER``), source_ref, and basis_digest; the returned order_values are guaranteed equal to the validator's projection-scope order.
-    - Fails: non-dict JSON, ``component_id != "projection_scope"``, or ``order_values`` not matching ``PROJECTION_SCOPE_ORDER`` each raise ValueError (read_json_strict also raises OSError/ValueError on missing/malformed JSON).
-    - Reads: ``core/axiom_support_projection_scope_order.json``.
-    - Writes: None.
-    - When-needed: when an agent must trust that the projection-scope ceiling values used downstream are the source-owned, in-sync order.
-    - Escalates-to: ``core/axiom_support_projection_scope_order.json`` source span and ``PROJECTION_SCOPE_ORDER`` constant.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; it validates an order registry, not that generated output is source evidence.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payload = read_json_strict(root / PROJECTION_SCOPE_ORDER_REL)
     if not isinstance(payload, dict):
@@ -406,18 +311,11 @@ def _projection_scope_order_registry(root: Path) -> dict[str, Any]:
 
 def _freshness_state_order_registry(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Load + validate the source-owned freshness-state order registry.
+    Serialize
+    `microcosm_core.validators.axiom_support_cover._freshness_state_order_registry` into the
+    payload shape expected by validators axiom support cover.
 
-    - Teleology: protects the freshness-state ceiling ordering against a source order file that disagrees with the validator's hardcoded ``FRESHNESS_STATE_ORDER``, keeping the deliberate ``unknown_live_freshness`` floor honest.
-    - Guarantee: on success returns a dict with payload, order_values (== ``FRESHNESS_STATE_ORDER``), source_ref, and basis_digest; the returned order_values are guaranteed equal to the validator's freshness-state order.
-    - Fails: non-dict JSON, ``component_id != "freshness_state"``, or ``order_values`` not matching ``FRESHNESS_STATE_ORDER`` each raise ValueError (read_json_strict also raises OSError/ValueError on missing/malformed JSON).
-    - Reads: ``core/axiom_support_freshness_state_order.json``.
-    - Writes: None.
-    - When-needed: when an agent must trust that the freshness-state ceiling values used downstream are the source-owned, in-sync order.
-    - Escalates-to: ``core/axiom_support_freshness_state_order.json`` source span and ``FRESHNESS_STATE_ORDER`` constant.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; it validates an order registry and never proves live freshness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payload = read_json_strict(root / FRESHNESS_STATE_ORDER_REL)
     if not isinstance(payload, dict):
@@ -442,18 +340,10 @@ def _freshness_state_order_registry(root: Path) -> dict[str, Any]:
 
 def _domain_scope_order_registry(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Load + validate the source-owned domain-scope order registry.
+    Serialize `microcosm_core.validators.axiom_support_cover._domain_scope_order_registry`
+    into the payload shape expected by validators axiom support cover.
 
-    - Teleology: protects the domain-scope ceiling ordering (declared-domain-only vs domain-with-bound-witness) against a source order file that disagrees with the validator's hardcoded ``DOMAIN_SCOPE_ORDER``.
-    - Guarantee: on success returns a dict with payload, order_values (== ``DOMAIN_SCOPE_ORDER``), source_ref, and basis_digest; the returned order_values are guaranteed equal to the validator's domain-scope order.
-    - Fails: non-dict JSON, ``component_id != "domain_scope"``, or ``order_values`` not matching ``DOMAIN_SCOPE_ORDER`` each raise ValueError (read_json_strict also raises OSError/ValueError on missing/malformed JSON).
-    - Reads: ``core/axiom_support_domain_scope_order.json``.
-    - Writes: None.
-    - When-needed: when an agent must trust that the domain-scope ceiling values used downstream are the source-owned, in-sync order.
-    - Escalates-to: ``core/axiom_support_domain_scope_order.json`` source span and ``DOMAIN_SCOPE_ORDER`` constant.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; declared-domain reach never becomes substrate-general proof.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payload = read_json_strict(root / DOMAIN_SCOPE_ORDER_REL)
     if not isinstance(payload, dict):
@@ -478,18 +368,10 @@ def _domain_scope_order_registry(root: Path) -> dict[str, Any]:
 
 def _ceiling_dimension_registry(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Load + validate the 8-component evidence-ceiling lattice and its sub-order owners.
+    Serialize `microcosm_core.validators.axiom_support_cover._ceiling_dimension_registry`
+    into the payload shape expected by validators axiom support cover.
 
-    - Teleology: protects the evidence-ceiling lattice claim (that every named ceiling dimension is source-registered with an allowed owner_status and matches ``std_microcosm_axiom`` evidence_ceiling_lattice) against a drifted, mis-owned, or partially-registered dimensions file.
-    - Guarantee: on success returns a dict carrying payload, component_order (== ``DEFAULT_CEILING_COMPONENTS``), components_by_id, order_owned (== ``COMPUTED_ORDER_OWNED_COMPONENTS`` set), explicitly_unowned, the six per-dimension sub-order registries (loaded only for order-owned dimensions), source_ref, and a basis_digest spanning exactly the loaded files.
-    - Fails: non-dict payload, non-list ``components``, ``component_order != DEFAULT_CEILING_COMPONENTS``, by_id keyset != component_order set, order_owned set != ``COMPUTED_ORDER_OWNED_COMPONENTS``, or any component lacking an allowed owner_status each raise ValueError; sub-registry loaders raise ValueError on their own mismatches.
-    - Reads: ``core/axiom_support_ceiling_dimensions.json`` plus each loaded sub-order file (checker_scope, provenance, authority_scope, projection_scope, freshness_state, domain_scope).
-    - Writes: None.
-    - When-needed: when an agent must trust that the full ceiling-component antichain is source-registered and in-sync before reading any per-obligation ceiling vector.
-    - Escalates-to: ``standards/std_microcosm_axiom.json::evidence_ceiling_lattice`` and ``core/axiom_support_ceiling_dimensions.json``.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; it validates registry shape, not that any axiom is actually strong.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payload = read_json_strict(root / CEILING_DIMENSIONS_REL)
     if not isinstance(payload, dict):
@@ -597,17 +479,9 @@ def _ceiling_dimension_registry(root: Path) -> dict[str, Any]:
 
 def _evidence_class_by_organ(root: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    Index each organ to its evidence class and that class's strength rank.
+    Derive evidence class by organ without touching module import state.
 
-    - Teleology: supplies the per-organ evidence-class lookup that the evidence_class ceiling component joins over, so support never outranks the witness organ's declared evidence strength.
-    - Guarantee: returns a dict mapping ``organ_id -> {"evidence_class": <class|None>, "rank": <int|None>}``, where ``rank`` is the class's ``evidence_strength_rank`` when declared as an int, else ``None``.
-    - Fails: never raises; non-dict or missing payload yields ``{}``, and organs whose class lacks an int rank carry ``rank: None``.
-    - Reads: ``core/organ_evidence_classes.json``.
-    - Writes: None.
-    - When-needed: when an agent must see how an organ's evidence class maps to a strength rank used by the evidence_class component.
-    - Escalates-to: ``core/organ_evidence_classes.json`` (``class_profiles`` and ``organ_evidence_classes``).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `root`; notable helpers are `read_json_strict`, `items`, and `get`.
     """
     classes = read_json_strict(root / EVIDENCE_CLASSES_REL)
     profiles = classes.get("class_profiles", {}) if isinstance(classes, dict) else {}
@@ -625,17 +499,10 @@ def _evidence_class_by_organ(root: Path) -> dict[str, dict[str, Any]]:
 
 def _registry_organ_ids(root: Path) -> set[str]:
     """
-    [ACTION]
-    Collect the set of implemented organ ids from the organ registry.
+    Produce the registry organ IDs value used by
+    `microcosm_core.validators.axiom_support_cover`.
 
-    - Teleology: provides the authoritative organ-id membership set used to flag any witness organ that is not a real implemented organ.
-    - Guarantee: returns a set of ``organ_id`` strings drawn from ``implemented_organs`` rows that declare an id.
-    - Fails: never raises; non-dict or missing payload yields an empty set.
-    - Reads: ``core/organ_registry.json``.
-    - Writes: None.
-    - When-needed: when an agent must check whether a binding's witness organ exists in the registry.
-    - Escalates-to: ``core/organ_registry.json`` ``implemented_organs``.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `root`; notable helpers are `read_json_strict` and `get`.
     """
     registry = read_json_strict(root / ORGAN_REGISTRY_REL)
     rows = registry.get("implemented_organs", []) if isinstance(registry, dict) else []
@@ -644,17 +511,11 @@ def _registry_organ_ids(root: Path) -> set[str]:
 
 def _binding_issues(binding: dict[str, Any], row: dict[str, Any], root: Path, organ_ids: set[str]) -> list[str]:
     """
-    [ACTION]
-    Enumerate every way an obligation binding fails to resolve on disk/in-registry.
+    Produce the binding issues value used by
+    `microcosm_core.validators.axiom_support_cover`.
 
-    - Teleology: turns an obligation binding into a list of concrete resolution failures so an unresolved binding caps support (fail-closed) instead of silently passing.
-    - Guarantee: returns a list of issue strings -- ``organ_not_in_registry:<organ>`` for witness organs absent from ``organ_ids``, ``surface_glob_unresolved:<surface>`` / ``surface_missing:<surface>`` for unresolvable witness surfaces, and ``negative_code_not_on_row:<code>`` for binding negative codes not declared on the routing row; empty list means every cited material resolves.
-    - Fails: never raises; missing files/globs surface as issue strings, not exceptions.
-    - Reads: witness-surface paths/globs under ``root`` (existence/glob checks only, no file contents).
-    - Writes: None.
-    - When-needed: when an agent must know exactly why an obligation binding is unresolved before treating it as supported.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; resolvable bindings are not strong support.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `binding`, `row`, `root`, and `organ_ids`; notable helpers are `get`,
+    `append`, `split`, `exists`, and 1 more.
     """
     issues: list[str] = []
     for organ in binding.get("witness_organs", []):
@@ -676,16 +537,10 @@ def _binding_issues(binding: dict[str, Any], row: dict[str, Any], root: Path, or
 
 def _evidence_class_component(binding: dict[str, Any], by_organ: dict[str, dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    Compute the evidence_class ceiling component as the max organ-evidence rank.
+    Serialize `microcosm_core.validators.axiom_support_cover._evidence_class_component` into
+    the payload shape expected by validators axiom support cover.
 
-    - Teleology: resolves the evidence_class ceiling dimension for one binding by joining (max) over its witness organs' evidence-strength ranks, so the dimension reflects the strongest available witness without exceeding it.
-    - Guarantee: returns ``{"value": max(ranks), "status": "computed_from_organ_evidence_class"}`` when at least one witness organ has a known rank, else ``{"value": None, "status": "unknown_no_organ_evidence_class_in_binding"}``.
-    - Fails: never raises; absence of ranked organs yields the explicit ``unknown_no_organ_evidence_class_in_binding`` envelope.
-    - Reads: only the in-memory ``binding`` and ``by_organ`` index (no disk access).
-    - Writes: None.
-    - When-needed: when an agent needs the evidence-class ceiling value for a single obligation binding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     ranks = [
         by_organ[organ]["rank"]
@@ -704,17 +559,10 @@ def _checker_scope_component(
     registry: dict[str, Any] | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Classify the checker/source-surface reach named by the obligation binding.
+    Serialize `microcosm_core.validators.axiom_support_cover._checker_scope_component` into
+    the payload shape expected by validators axiom support cover.
 
-    - Teleology: resolves the checker_scope ceiling dimension by ordering whether the binding cites bound ``.py`` checker surfaces (and whether a negative-case code is found inside them) vs only non-checker source refs vs nothing.
-    - Guarantee: returns a dict whose ``value`` is one of the registry's checker-scope order values (``checker_surface_refs_with_negative_case_reference`` / ``checker_surface_refs_bound`` / ``non_checker_source_surface_refs_only`` / ``no_checker_surface_bound``) with material_counts, when that value is in the registry order.
-    - Fails: when the computed value is not in the registry order (e.g. registry None/empty) returns ``{value: None, status: "unknown_checker_scope_not_in_source_order:<value>"}`` rather than raising; unreadable surfaces are skipped.
-    - Reads: bound ``.py`` witness surfaces under ``root`` (to search for negative-case codes).
-    - Writes: None.
-    - When-needed: when an agent needs the checker-scope ceiling value for a single obligation binding.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; finding a code in a checker surface is reach, not proof.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     surfaces = [str(surface).split("::", 1)[0] for surface in binding.get("witness_surfaces", [])]
     negative_codes = list(binding.get("negative_case_codes", []))
@@ -767,17 +615,10 @@ def _authority_scope_component(
     registry: dict[str, Any] | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Classify read-only authority boundaries without granting mutation rights.
+    Serialize `microcosm_core.validators.axiom_support_cover._authority_scope_component`
+    into the payload shape expected by validators axiom support cover.
 
-    - Teleology: protects the authority-ceiling claim of an obligation (read-only validator vs source-bound read-only authority) against any reading that lets the validator's projection authority become mutation, release, or anti-axiom-rejection authority.
-    - Guarantee: returns a dict whose ``value`` is one of the registry's authority-scope order values (``source_binding_with_read_only_validator_authority`` when any binding material exists, else ``read_only_validator_projection_authority``), with material_counts and an explicit non_laundering_boundary string.
-    - Fails: when the computed value is not in the registry's order_values (e.g. registry None/empty), returns ``{value: None, status: "unknown_authority_scope_not_in_source_order:<value>"}`` rather than raising.
-    - Reads: only the in-memory ``binding`` and ``registry`` order_values (no disk access).
-    - Writes: None.
-    - When-needed: when an agent must read the authority ceiling for a single obligation without re-deriving it from source.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; read-only validator authority never becomes source-mutation, release, or rejection authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     witness_organs = list(binding.get("witness_organs", []))
     witness_surfaces = list(binding.get("witness_surfaces", []))
@@ -818,17 +659,10 @@ def _projection_scope_component(
     registry: dict[str, Any] | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Classify source/projection boundary without making output evidence.
+    Serialize `microcosm_core.validators.axiom_support_cover._projection_scope_component`
+    into the payload shape expected by validators axiom support cover.
 
-    - Teleology: resolves the projection_scope ceiling dimension so that generated support-cover output, atlas cards, and public copy are held below source authority and never read back as source evidence.
-    - Guarantee: returns a dict whose ``value`` is ``source_binding_with_generated_projection_boundary`` when any binding material exists else ``generated_support_projection_boundary_only``, with material_counts and an explicit non_laundering_boundary string, when that value is in the registry order.
-    - Fails: when the computed value is not in the registry order (e.g. registry None/empty) returns ``{value: None, status: "unknown_projection_scope_not_in_source_order:<value>"}`` rather than raising.
-    - Reads: only the in-memory ``binding`` and ``registry`` order_values (no disk access).
-    - Writes: None.
-    - When-needed: when an agent needs the projection-scope ceiling value for a single obligation binding.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; generated projections never become source evidence.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     witness_organs = list(binding.get("witness_organs", []))
     witness_surfaces = list(binding.get("witness_surfaces", []))
@@ -868,17 +702,10 @@ def _freshness_state_component(
     registry: dict[str, Any] | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Classify reproducible basis state without claiming live freshness.
+    Serialize `microcosm_core.validators.axiom_support_cover._freshness_state_component`
+    into the payload shape expected by validators axiom support cover.
 
-    - Teleology: resolves the freshness_state ceiling dimension to its deliberate honest floor -- reproducible basis determinism exists, but no source-owned refresh contract proves live freshness.
-    - Guarantee: returns a dict with ``value == "unknown_live_freshness_no_refresh_contract"`` (status ``computed_from_deterministic_basis_without_live_refresh_contract``), basis_inputs, and a non_laundering_boundary string, when that value is in the registry order.
-    - Fails: when the value is not in the registry order (e.g. registry None/empty) returns ``{value: None, status: "unknown_freshness_state_not_in_source_order:<value>"}`` rather than raising.
-    - Reads: only the in-memory ``registry`` order_values (no disk access).
-    - Writes: None.
-    - When-needed: when an agent needs the freshness-state ceiling value, which is intentionally never higher than the unknown floor.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; basis determinism is never live-freshness proof.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     value = "unknown_live_freshness_no_refresh_contract"
     order_values = set(registry.get("order_values", ())) if registry else set()
@@ -909,17 +736,10 @@ def _domain_scope_component(
     registry: dict[str, Any] | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Classify local declared domain reach without generalizing it.
+    Serialize `microcosm_core.validators.axiom_support_cover._domain_scope_component` into
+    the payload shape expected by validators axiom support cover.
 
-    - Teleology: resolves the domain_scope ceiling dimension so local fixture/endpoint/organ coverage is held to the obligation's declared domain and never read as substrate-general proof.
-    - Guarantee: returns a dict whose ``value`` is ``declared_obligation_domain_with_bound_witness_material`` when any binding material exists else ``declared_obligation_domain_only``, with material_counts and a non_laundering_boundary string, when that value is in the registry order.
-    - Fails: when the computed value is not in the registry order (e.g. registry None/empty) returns ``{value: None, status: "unknown_domain_scope_not_in_source_order:<value>"}`` rather than raising.
-    - Reads: only the in-memory ``binding`` and ``registry`` order_values (no disk access).
-    - Writes: None.
-    - When-needed: when an agent needs the domain-scope ceiling value for a single obligation binding.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; local coverage never becomes substrate-general proof.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     witness_organs = list(binding.get("witness_organs", []))
     witness_surfaces = list(binding.get("witness_surfaces", []))
@@ -961,22 +781,10 @@ def _provenance_class_component(
     registry: dict[str, Any] | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Classify only the provenance material already bound to the obligation.
+    Serialize `microcosm_core.validators.axiom_support_cover._provenance_class_component`
+    into the payload shape expected by validators axiom support cover.
 
-    This is not provenance quality proof. It orders whether the obligation is tied
-    to source/checker refs, accepted-organ bundle/receipt material, or only a
-    declared negative-code route. Freshness, authority, domain scope, and
-    anti-axiom rejection remain separate ceiling dimensions.
-
-    - Teleology: resolves the provenance_class ceiling dimension by ordering only the provenance material actually bound to the obligation (organ receipt+bundle chain, checker surfaces, or a bare negative-code route).
-    - Guarantee: returns a dict whose ``value`` is the strongest matching provenance order value (``accepted_organ_material_chain_with_checker_surfaces`` / ``accepted_organ_material_chain`` / ``checker_surface_refs_only`` / ``declared_negative_case_only_no_positive_witness_material``) with material_counts, when that value is in the registry order.
-    - Fails: when no provenance material is present returns ``{value: None, status: "unknown_no_provenance_material_in_binding"}``; when the computed value is not in the registry order returns ``{value: None, status: "unknown_provenance_class_not_in_source_order:<value>"}``; neither raises.
-    - Reads: each witness organ's on-disk evidence chain (example bundles + receipts) under ``root`` via ``_organ_evidence_chain``.
-    - Writes: None.
-    - When-needed: when an agent needs the provenance-class ceiling value for a single obligation binding.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; provenance ordering is not provenance-quality proof.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     surfaces = list(binding.get("witness_surfaces", []))
     negatives = list(binding.get("negative_case_codes", []))
@@ -1028,21 +836,11 @@ def _provenance_class_component(
 
 def _negative_case_status_component(binding: dict[str, Any], root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Order-owned by routing negative_case_codes + the bound checker/test surfaces.
+    Serialize
+    `microcosm_core.validators.axiom_support_cover._negative_case_status_component` into the
+    payload shape expected by validators axiom support cover.
 
-    'strong' (per the routing strength_scale) requires a negative case that rejects
-    the anti-axiom; this resolves how strongly that gate is actually wired, never
-    claiming more than the bound surfaces show.
-
-    - Teleology: resolves the gating negative_case_status dimension -- the gate that makes 'strong' computable rather than rhetorical -- by checking whether a declared negative-case code is actually referenced inside a bound checker surface.
-    - Guarantee: returns ``{"value": "absent", ...}`` when no negative code is bound, ``{"value": "referenced_in_bound_checker", ...}`` when a code is found in a bound ``.py`` surface, else ``{"value": "declared_only", ...}``; value is always one of ``NEGATIVE_CASE_STATUS_ORDER``.
-    - Fails: never raises; unreadable surfaces are skipped and fall through to ``declared_only``.
-    - Reads: bound ``.py`` witness surfaces under ``root`` (searched for the negative-case codes).
-    - Writes: None.
-    - When-needed: when an agent needs to know how strongly the negative-case gate is wired for an obligation.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; a code appearing in a checker is not a verified anti-axiom rejection.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     codes = list(binding.get("negative_case_codes", []))
     if not codes:
@@ -1065,18 +863,11 @@ def _negative_case_status_component(binding: dict[str, Any], root: Path) -> dict
 
 def _organ_receipt_negative_coverage_payload(root: Path, organ: str) -> dict[str, Any] | None:
     """
-    [ACTION]
-    Return a complete, passing first-wave negative-case suite for an organ.
+    Serialize
+    `microcosm_core.validators.axiom_support_cover._organ_receipt_negative_coverage_payload`
+    into the payload shape expected by validators axiom support cover.
 
-    - Teleology: protects the anti-axiom-rejection ceiling against treating an organ's negative-case receipt as coverage unless that receipt actually records a complete and passing suite.
-    - Guarantee: returns a payload dict (organ_id, root-relative receipt_ref, expected list, observed map, status) ONLY when the receipt is a JSON object whose ``negative_case_coverage`` has an ``expected`` key, ``missing == []``, and top-level ``status == "pass"``; otherwise returns ``None``.
-    - Fails: missing/unreadable/invalid-JSON receipt -> caught (OSError, ValueError) -> returns ``None``; non-dict payload or incomplete/non-passing coverage -> returns ``None`` (no exception raised).
-    - Reads: ``receipts/first_wave/<organ>/<organ>_validation_receipt.json``.
-    - Writes: None.
-    - When-needed: when an agent needs the concrete observed/expected negative-case material for an organ before claiming receipt-level coverage exists.
-    - Escalates-to: the organ's first-wave validation receipt under ``receipts/first_wave/``.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; organ/endpoint receipt coverage is NOT a per-obligation anti-axiom rejection.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     receipt = root / RECEIPTS_FIRST_WAVE_REL / organ / f"{organ}_validation_receipt.json"
     try:
@@ -1104,34 +895,22 @@ def _organ_receipt_negative_coverage_payload(root: Path, organ: str) -> dict[str
 
 def _organ_receipt_negative_coverage(root: Path, organ: str) -> bool:
     """
-    [ACTION]
-    True iff the organ's first-wave validation receipt records a complete, passing
-    negative-case suite (negative_case_coverage with empty 'missing' and pass status).
+    Return whether organ receipt negative coverage holds for the validators axiom support
+    cover flow.
 
-    - Teleology: the boolean gate on whether an organ's receipt records complete passing negative-case coverage, used to raise the anti-axiom-rejection tier to ``organ_receipt_coverage_present`` (never to certified rejection).
-    - Guarantee: returns ``True`` iff ``_organ_receipt_negative_coverage_payload`` resolves a complete, passing suite for the organ, else ``False``.
-    - Fails: never raises; missing/unreadable/incomplete receipts yield ``False`` (delegates to the payload helper which swallows OSError/ValueError).
-    - Reads: ``receipts/first_wave/<organ>/<organ>_validation_receipt.json`` (via the payload helper).
-    - Writes: None.
-    - When-needed: when an agent needs a yes/no on whether an organ's receipt-level negative coverage exists.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; organ/endpoint coverage is not a per-obligation anti-axiom rejection.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The result is derived from `root` and `organ` with
+    `_organ_receipt_negative_coverage_payload`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return _organ_receipt_negative_coverage_payload(root, organ) is not None
 
 
 def _negative_case_coverage_records(root: Path, organs: list[str]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Collect the complete-passing negative-coverage payloads for a set of organs.
+    Return negative case coverage records for the validators axiom support cover flow.
 
-    - Teleology: gathers the concrete observed/expected receipt coverage records for the organs an obligation could draw on, so the rejection mapping reasons over real receipt material rather than assertions.
-    - Guarantee: returns a list (one entry per organ in ``sorted(set(organs))`` that has a complete passing receipt suite) of the payload dicts from ``_organ_receipt_negative_coverage_payload``; organs without such a receipt are omitted.
-    - Fails: never raises; organs with missing/incomplete receipts simply do not appear (the payload helper swallows OSError/ValueError).
-    - Reads: each organ's ``receipts/first_wave/<organ>/<organ>_validation_receipt.json`` (via the payload helper).
-    - Writes: None.
-    - When-needed: when an agent needs the deduplicated receipt-coverage material backing an obligation's rejection mapping.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `root` and `organs`; notable helpers are
+    `_organ_receipt_negative_coverage_payload` and `append`.
     """
     records = []
     for organ in sorted(set(organs)):
@@ -1143,17 +922,10 @@ def _negative_case_coverage_records(root: Path, organs: list[str]) -> list[dict[
 
 def _source_mapping_for_obligation(row: dict[str, Any], obligation_id: str) -> dict[str, Any] | None:
     """
-    [ACTION]
-    Find the source-owned anti-axiom-rejection mapping row for one obligation.
+    Produce the source mapping for obligation value used by
+    `microcosm_core.validators.axiom_support_cover`.
 
-    - Teleology: locates the routing-row-declared mapping (if any) for an obligation so source-owned mapping authority is preferred over evaluator-inferred fallback.
-    - Guarantee: returns the first ``anti_axiom_rejection_mappings`` entry whose ``obligation_ref`` equals ``obligation_id``, else ``None``.
-    - Fails: never raises; absence of a matching declared mapping returns ``None``.
-    - Reads: only the in-memory ``row`` (no disk access).
-    - Writes: None.
-    - When-needed: when an agent needs to know whether a source-owned mapping row governs an obligation's rejection relation.
-    - Escalates-to: ``core/axiom_organ_routing.json::rows[].anti_axiom_rejection_mappings[]``.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `row` and `obligation_id`; notable helpers are `get`.
     """
     for mapping in row.get("anti_axiom_rejection_mappings", []):
         if isinstance(mapping, dict) and mapping.get("obligation_ref") == obligation_id:
@@ -1167,22 +939,10 @@ def _anti_axiom_rejection_mapping(
     root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Map receipt-observed negative coverage to one obligation slice.
+    Serialize `microcosm_core.validators.axiom_support_cover._anti_axiom_rejection_mapping`
+    into the payload shape expected by validators axiom support cover.
 
-    This is deliberately conservative. It prefers source-owned mapping rows when
-    present, still recomputes receipt material from disk, and never treats a
-    non-exact/non-subsuming row as verified rejection.
-
-    - Teleology: produces the single most-conservative anti-axiom-rejection mapping for one obligation, protecting against laundering organ/endpoint receipt coverage into a per-obligation rejection claim.
-    - Guarantee: returns a mapping dict (mapping_id, axiom/obligation/anti_axiom refs, receipt_refs, observed_negative_case_refs, mapping_relation, checker_boundary, basis_env with basis_digest, mapping_verified, mapping_source, reason, anti_claims); ``mapping_verified`` is ``True`` only when a source-owned row both declares ``mapping_verified`` and a relation of ``exact_obligation_rejection`` or ``subsumes_obligation`` -- evaluator-inferred fallbacks and out-of-enum relations are forced to ``False``/``conflict_detected``.
-    - Fails: never raises; absence of a source row yields ``mapping_source == "evaluator_inferred_fallback"`` with a non-certifying relation (unmapped/partial_overlap/illustrative_only), and an out-of-enum declared relation is rewritten to ``conflict_detected`` with ``mapping_verified=False``.
-    - Reads: each candidate organ's receipts under ``receipts/first_wave/`` (via ``_negative_case_coverage_records``) plus material refs for the basis digest.
-    - Writes: None.
-    - When-needed: when an agent needs the conservative, source-preferring rejection mapping for one obligation and the exact reason it is or is not verified.
-    - Escalates-to: ``core/axiom_organ_routing.json::rows[].anti_axiom_rejection_mappings[]`` and ``standards/std_microcosm_axiom.json`` mapping_relation_enum.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; receipt coverage is never read back as per-obligation rejection without verified source authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     obligation_id = str(obligation.get("obligation_id", ""))
     binding = obligation.get("binding", {})
@@ -1322,23 +1082,10 @@ def _anti_axiom_rejection(
     root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    The anti-axiom rejection JUDGMENT, tracked separately from positive support.
+    Serialize `microcosm_core.validators.axiom_support_cover._anti_axiom_rejection` into the
+    payload shape expected by validators axiom support cover.
 
-    strength_scale defines 'strong' as computing the property AND rejecting the named
-    anti-axiom. This resolves how strongly that rejection is evidenced -- and refuses to
-    call organ-level receipt coverage a per-obligation rejection, because an organ receipt
-    can catch endpoint shapes without rejecting this obligation's specific slice (e.g.
-    AX-8.O1 general propagation). That mapping is left explicitly unverified.
-
-    - Teleology: tracks the anti-axiom rejection JUDGMENT for one obligation separately from positive support, so the bilattice meet can refuse 'strong' whenever rejection is not verified.
-    - Guarantee: returns a dict with ``tier`` (the negative-case status, promoted to ``organ_receipt_coverage_present`` when any witness organ has receipt coverage), ``mapping_relation``, ``mapping_verified``, the full ``mapping``, and a ``note`` stating rejection is not certified; ``mapping_verified`` is whatever the conservative mapping computed (only exact/subsuming source rows verify).
-    - Fails: never raises; with no negative case and no receipt coverage the tier stays at the negative-case floor and ``mapping_verified`` is ``False``.
-    - Reads: bound checker surfaces and witness organ receipts under ``root`` (via the negative-case and mapping helpers).
-    - Writes: None.
-    - When-needed: when an agent must know how strongly an obligation's anti-axiom rejection is evidenced and why it is not certified.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; no v0 tier certifies per-obligation rejection from organ/endpoint coverage.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     binding = obligation.get("binding", {})
     tier = _negative_case_status_component(binding, root)["value"]
@@ -1366,17 +1113,11 @@ def _ceiling_vector(
     dimension_registry: dict[str, Any],
 ) -> dict[str, str]:
     """
-    [ACTION]
-    Assemble the per-obligation ceiling vector across all registered components.
+    Compute ceiling vector from `binding`, `root`, `by_organ`, and `dimension_registry`.
 
-    - Teleology: protects the evidence-ceiling claim per obligation by emitting a value for EVERY component in ``component_order``, so an unowned or uncomputed dimension surfaces as an explicit unknown rather than silently dropping out.
-    - Guarantee: returns a dict keyed by exactly ``dimension_registry["component_order"]``; order-owned components carry their computed value/status (evidence_class carries its status string), and any component without an order owner is filled with ``"unknown_no_order_owner"`` (others get a per-dimension ``unknown_no_*_material`` fallback).
-    - Fails: None — every code path resolves to a string per component; it does not reject, raise, or return a failure envelope.
-    - Reads: via component helpers, witness checker/test surfaces under ``root`` named by the binding (checker_scope, negative_case_status).
-    - Writes: None.
-    - When-needed: when an agent needs the full ceiling-dimension snapshot for one obligation without recomputing each component.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; an unknown component keeps support uncomputable, never strong.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `binding`, `root`, `by_organ`, and `dimension_registry`; notable helpers are
+    `get`, `_evidence_class_component`, `_negative_case_status_component`,
+    `_checker_scope_component`, and 5 more.
     """
     order_owned = set(dimension_registry["order_owned"])
     owned: dict[str, str] = {}
@@ -1416,16 +1157,10 @@ def _ceiling_vector(
 
 def _witness_gap(gap_id: str, detail: str, claim_effect: str) -> dict[str, str]:
     """
-    [ACTION]
-    Build one structured witness-gap record (what blocks a stronger claim).
+    Serialize `microcosm_core.validators.axiom_support_cover._witness_gap` into the payload
+    shape expected by validators axiom support cover.
 
-    - Teleology: standardizes the shape of every reason a claim ceiling cannot rise, so gaps are enumerable and countable rather than free prose.
-    - Guarantee: returns ``{"gap_id", "gap_class" (the pre-``:`` prefix of gap_id), "detail", "claim_effect"}``.
-    - Fails: never raises.
-    - When-needed: when an agent needs to know the record shape used in ``witness_gaps`` lists.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "gap_id": gap_id,
@@ -1445,20 +1180,10 @@ def _claim_ceiling_for_obligation(
     layer_debt_ref: str | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Compute the obligation-local claim ceiling and witness gaps.
+    Serialize `microcosm_core.validators.axiom_support_cover._claim_ceiling_for_obligation`
+    into the payload shape expected by validators axiom support cover.
 
-    This is deliberately a read-model over evaluated evidence. It does not raise
-    support from generated output; it only explains what blocks a stronger claim.
-
-    - Teleology: protects the strong-certification ceiling of a single obligation against any path that would let resolved bindings, receipt coverage, or generated output be read as a 'strong' claim.
-    - Guarantee: returns a dict with ``strong_certified`` hardwired ``False``, a ``strongest_allowed_claim`` chosen from a fixed enum (blocked_conflict_detected / blocked_binding_unresolved / partial_capped_by_layer_debt / not_strong_rejection_mapping_unverified / resolved_strength_uncomputable), an anti_axiom_rejection_status of verified/unverified, an enumerated witness_gaps list (one per binding issue, layer-debt, missing/declared-only negative case, unowned/uncomputed ceiling component, and rejection conflict/unverified), and an authority_boundary string.
-    - Fails: None — it is a pure read-model that always returns a ceiling dict; it never raises and never returns ``strong_certified: True``.
-    - Reads: only its in-memory arguments (no disk access).
-    - Writes: None.
-    - When-needed: when an agent must know the strongest claim allowed for an obligation and exactly which witness gaps block a stronger one.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; generated support-cover output is never source evidence and never certifies strong.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     gaps: list[dict[str, str]] = []
     for issue in binding_issues:
@@ -1572,17 +1297,10 @@ def _evaluate_obligation(
     dimension_registry: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Evaluate one obligation into its full computed support record.
+    Serialize `microcosm_core.validators.axiom_support_cover._evaluate_obligation` into the
+    payload shape expected by validators axiom support cover.
 
-    - Teleology: the per-obligation spine that fuses binding resolution, evidence class, negative-case status, anti-axiom rejection, ceiling vector, and claim ceiling into one honest record (fail-closed, never over-claiming).
-    - Guarantee: returns a dict with ``computed`` set to ``layer_debt`` (declared debt), ``blocked_binding_unresolved`` (unresolved binding issues), else ``resolved_strength_uncomputable``, plus obligation_id/required/declared_status/binding_issues/evidence_class_component/negative_case_status/anti_axiom_rejection/ceiling_vector/claim_ceiling/witness_gaps/layer_debt_ref; ``computed`` is never a 'strong' value.
-    - Fails: never raises; missing binding fields default to empty and surface as binding issues or unknown components rather than exceptions.
-    - Reads: witness checker/test surfaces and organ receipts under ``root`` (via the component/rejection helpers).
-    - Writes: None.
-    - When-needed: when an agent needs the complete evaluated state of a single obligation.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; a resolved binding is explicitly not certified strong.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     binding = obligation.get("binding", {})
     issues = _binding_issues(binding, row, root, organ_ids)
@@ -1629,17 +1347,10 @@ def _evaluate_obligation(
 
 def _axiom_verdict(obligations: list[dict[str, Any]], hand_stamped: str | None) -> dict[str, Any]:
     """
-    [ACTION]
-    Fold required-obligation states into one axiom-level verdict + strong-block reasons.
+    Serialize `microcosm_core.validators.axiom_support_cover._axiom_verdict` into the
+    payload shape expected by validators axiom support cover.
 
-    - Teleology: rolls a single axiom's required obligations into a verdict and an explicit list of why 'strong' is not certifiable, so a hand-stamped 'strong' row cannot quietly stand.
-    - Guarantee: returns ``{"verdict", "hand_stamped_witness_strength", "hand_stamped_strong_not_certifiable" (True iff hand_stamped == "strong"), "strong_blocked_reasons"}``; ``verdict`` is one of blocked_conflict_detected / blocked / partial_capped_by_layer_debt / bound_resolved_strength_uncomputable / unknown, and ``strong_blocked_reasons`` enumerates each required obligation's blocking cause.
-    - Fails: never raises; it is a pure fold over the evaluated obligations.
-    - Reads: only its in-memory arguments (no disk access).
-    - Writes: None.
-    - When-needed: when an agent needs the axiom-level verdict and the precise reasons 'strong' is blocked.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; it never emits a 'strong' verdict.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     required = [item for item in obligations if item["required"]]
     if any(
@@ -1693,17 +1404,10 @@ def _axiom_verdict(obligations: list[dict[str, Any]], hand_stamped: str | None) 
 
 def _strong_gate_summary(obligations: list[dict[str, Any]], verdict: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Compute the bilattice meet of positive support and rejection mapping for an axiom.
+    Serialize `microcosm_core.validators.axiom_support_cover._strong_gate_summary` into the
+    payload shape expected by validators axiom support cover.
 
-    - Teleology: derives the axiom-node claim ceiling as the meet of positive_support_status and rejection_mapping_status, so receipt/endpoint coverage can never independently raise the allowed claim.
-    - Guarantee: returns ``{"positive_support_status", "rejection_mapping_status", "conflict_status", "strongest_allowed_claim"}`` where conflict beats layer-debt beats unverified-rejection, and ``strongest_allowed_claim`` only equals ``verdict["verdict"]`` when rejection mapping is verified and no conflict/layer-debt caps it.
-    - Fails: never raises; it is a pure derivation over the evaluated obligations and verdict.
-    - Reads: only its in-memory arguments (no disk access).
-    - Writes: None.
-    - When-needed: when an agent needs the axiom-node ceiling and which factor (support, rejection, conflict) caps it.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; the meet never certifies strong from generated coverage.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     required = [item for item in obligations if item["required"]]
     relations = [
@@ -1751,16 +1455,10 @@ def _strong_gate_summary(obligations: list[dict[str, Any]], verdict: dict[str, A
 
 def _increment(counter: dict[str, int], key: object) -> None:
     """
-    [ACTION]
-    Bump an in-place histogram counter, mapping ``None`` keys to ``"unknown"``.
+    Run increment for `microcosm_core.validators.axiom_support_cover`.
 
-    - Teleology: the single tally primitive behind the truth-calculus rollup, so absent/None categories are counted explicitly rather than dropped.
-    - Guarantee: mutates ``counter`` in place, incrementing the bucket for ``str(key)`` (or ``"unknown"`` when key is ``None``) by one; returns ``None``.
-    - Fails: never raises.
-    - When-needed: when an agent needs to understand how the summary histograms bucket their keys.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     label = str(key if key is not None else "unknown")
     counter[label] = counter.get(label, 0) + 1
@@ -1772,22 +1470,10 @@ def _truth_calculus_summary(
     anti_axiom_rejection_mappings: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Compact computed truth calculus over all piloted axiom obligations.
+    Serialize `microcosm_core.validators.axiom_support_cover._truth_calculus_summary` into
+    the payload shape expected by validators axiom support cover.
 
-    This is the operator-facing rollup for the bilattice split: positive support
-    status and anti-axiom rejection status are counted separately, and the final
-    claim ceiling is the meet of both. It intentionally reports zero verified
-    rejection mappings in v0 instead of laundering receipt coverage into proof.
-
-    - Teleology: the operator-facing aggregate that keeps positive support and anti-axiom rejection countable separately, so no rollup field can imply 'strong' the per-obligation evidence does not support.
-    - Guarantee: returns a dict (schema_version ``microcosm_axiom_truth_calculus_summary_v1``) of sorted histograms (verdicts, strongest-allowed-claim, support/rejection statuses, computed/negative-case/tier/gap/relation/source counts), axiom/obligation counts, ``verified_rejection_mapping_count``, ``support_and_rejection_are_separate: True``, the claim-ceiling-rule string, and a ``per_axiom`` list.
-    - Fails: never raises; missing fields default through ``_increment`` to ``"unknown"`` buckets.
-    - Reads: only its in-memory arguments (no disk access).
-    - Writes: None.
-    - When-needed: when an agent wants the whole-receipt rollup of support vs rejection without walking every obligation.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; zero verified rejection mappings is the expected honest state, not a defect to paper over.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     verdict_counts: dict[str, int] = {}
     strongest_allowed_claim_counts: dict[str, int] = {}
@@ -1899,17 +1585,10 @@ def _truth_calculus_summary(
 
 def _organ_evidence_chain(root: Path, organ: str) -> dict[str, list[str]]:
     """
-    [ACTION]
-    Resolve an organ's on-disk evidence chain to relative paths that exist.
+    Serialize `microcosm_core.validators.axiom_support_cover._organ_evidence_chain` into the
+    payload shape expected by validators axiom support cover.
 
-    - Teleology: the PROV/SLSA-style resolver that points at an organ's existing bundle and receipt artifacts (rather than re-proving them), feeding provenance class and support-case citation.
-    - Guarantee: returns ``{"example_bundle_refs": [...], "receipt_refs": [...]}`` containing only root-relative posix paths that actually exist (exported bundle manifests and first-wave ``*.json`` receipts), sorted.
-    - Fails: never raises; absent directories/files yield empty lists.
-    - Reads: ``examples/<organ>/exported_*_bundle/*manifest.json`` and ``receipts/first_wave/<organ>/*.json`` under ``root``.
-    - Writes: None.
-    - When-needed: when an agent needs the concrete on-disk evidence artifacts cited for an organ.
-    - Escalates-to: ``examples/<organ>/`` and ``receipts/first_wave/<organ>/``.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     bundles: list[str] = []
     for name in ("bundle_manifest.json", "source_module_manifest.json"):
@@ -1925,17 +1604,10 @@ def _organ_evidence_chain(root: Path, organ: str) -> dict[str, list[str]]:
 
 def _basis_digest_for_refs(root: Path, refs: list[str]) -> str:
     """
-    [ACTION]
-    Deterministic ``sha256:`` digest over a deduplicated, sorted set of material refs.
+    Return a stable SHA-256 digest for `root` and `refs`.
 
-    - Teleology: protects the per-case/per-mapping reproducibility (``basis_env.basis_digest``) claim against drift in the witness/receipt/surface material a support case or rejection mapping cites.
-    - Guarantee: returns ``"sha256:" + hexdigest`` computed over each ref string and the bytes of its pre-``::`` path (or ``b"<missing>"`` when unreadable), iterating ``sorted(set(refs))`` so order/duplication of inputs never changes the result.
-    - Fails: None (OSError on a missing/unreadable ref path is caught and folded in as ``<missing>``); it never raises and has no failure envelope.
-    - Reads: the bytes of each ref's ``root/<ref-before-::>`` path.
-    - Writes: None.
-    - When-needed: when an agent must confirm two support cases or rejection mappings cite byte-identical material before trusting their basis_env attestation.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, static-analysis authority, or whole-system correctness; a digest attests reproducible inputs, not freshness or claim correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     digest = hashlib.sha256()
     for ref in sorted(set(refs)):
@@ -1955,21 +1627,10 @@ def _compile_support_case(
     dimension_registry: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile one obligation binding into a citation/attestation envelope.
+    Serialize `microcosm_core.validators.axiom_support_cover._compile_support_case` into the
+    payload shape expected by validators axiom support cover.
 
-    The envelope cites only material that resolves on disk (PROV/SLSA-style: point
-    at artifacts, do not re-prove them). It populates the registry order-owned
-    ceiling components and leaves explicitly unowned components unknown.
-
-    - Teleology: compiles one obligation into a citation/attestation envelope that points at on-disk artifacts, so support is auditable provenance rather than a re-derived correctness claim.
-    - Guarantee: returns an envelope dict (case_id, axiom/obligation refs, relation_kind, materials with only on-disk-resolving bundle/receipt refs, all order-owned ceiling components, ceiling_vector, basis_env with a deterministic basis_digest+rederive command, and anti_claims) explicitly labeling itself as not certified strength.
-    - Fails: never raises; absent artifacts simply do not appear in the cited materials.
-    - Reads: each witness organ's bundle/receipt chain under ``root`` (via ``_organ_evidence_chain``) plus material bytes for the basis digest.
-    - Writes: None.
-    - When-needed: when an agent needs the citation/attestation envelope and reproducibility basis for an obligation's support.
-    - Non-goal: does not authorize release, provider calls, private-root equivalence, source-body export, or whole-system correctness; the envelope is citation, never certified strength, and cannot be read back as evidence for itself.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     binding = obligation.get("binding", {})
     organs = list(binding.get("witness_organs", []))
@@ -2057,18 +1718,10 @@ def _compile_support_case(
 
 def evaluate_axiom_support_cover(public_root: str | Path | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    Read-only public entrypoint computing the full axiom support-cover receipt.
+    Serialize `microcosm_core.validators.axiom_support_cover.evaluate_axiom_support_cover`
+    into the payload shape expected by validators axiom support cover.
 
-    - Teleology: the Axiom Reflexion Kernel's single public surface -- it computes bounded support for piloted axiom obligations from on-disk evidence, derives principle support by inheritance, emits candidate-axiom pressure, and self-attests its basis, while mutating no law and authorizing nothing.
-    - Guarantee: returns one receipt dict (schema_version ``microcosm_axiom_support_cover_v0``, status ``computed``, authority_posture ``read_only_evaluator_projection_not_source_of_record``) carrying piloted_axioms, support_frontiers, support_cases, anti_axiom_rejection_mappings, strong_gate_summary, truth_calculus_summary, ceiling_dimension_registry, principle_support_index, candidate_axiom_pressure, principle_as_witness_violations, a deterministic self_attestation basis_digest, and anti_claims; no node ever reports ``strong_certified: True``.
-    - Fails: raises ValueError/OSError only via ``read_json_strict``/``_ceiling_dimension_registry`` when a required source file (routing, ceiling dimensions, sub-order registries) is missing, malformed, or drifted out of sync; otherwise it does not raise and never returns a 'strong' certification.
-    - Reads: ``core/axiom_organ_routing.json``, the ceiling dimensions + six sub-order registries, ``core/organ_evidence_classes.json``, ``core/organ_registry.json``, ``PRINCIPLES.md``, and witness surfaces/receipts under ``root``.
-    - Writes: None (the receipt is returned, not persisted here).
-    - When-needed: when an agent needs the authoritative computed axiom support/rejection state for the substrate.
-    - Escalates-to: ``standards/std_microcosm_axiom.json``, ``core/axiom_organ_routing.json``, and the first-wave receipts under ``receipts/first_wave/``.
-    - Non-goal: does not authorize release, publication, provider calls, source mutation, private-root equivalence, source-body export, or whole-system correctness; the receipt is a projection below source authority and is never evidence for itself (AX-12).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     root = Path(public_root).resolve() if public_root is not None else _default_root()
     routing = read_json_strict(root / ROUTING_REL)
@@ -2384,18 +2037,10 @@ def evaluate_axiom_support_cover(public_root: str | Path | None = None) -> dict[
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI entrypoint: compute the support-cover receipt and print or persist it.
+    Run `microcosm_core.validators.axiom_support_cover` as a command-line entry point.
 
-    - Teleology: the command-line wrapper that runs the read-only evaluator and emits its receipt as deterministic JSON for operators and downstream tooling.
-    - Guarantee: parses ``--root``/``--out``, calls ``evaluate_axiom_support_cover``, writes the receipt (sorted-key, indented JSON) to ``--out`` when given else prints it to stdout, and returns exit code ``0``.
-    - Fails: propagates ValueError/OSError from ``evaluate_axiom_support_cover`` (missing/malformed/drifted source files) and argparse ``SystemExit`` on bad arguments; otherwise returns ``0``.
-    - Reads: the same source files as ``evaluate_axiom_support_cover``.
-    - Writes: the ``--out`` JSON path when provided (the only write path in this module); otherwise stdout only.
-    - When-needed: when an agent needs to regenerate the support-cover receipt from the shell or a pipeline.
-    - Escalates-to: ``evaluate_axiom_support_cover`` and the receipt schema ``microcosm_axiom_support_cover_v0``.
-    - Non-goal: does not authorize release, publication, provider calls, source mutation, private-root equivalence, or whole-system correctness; writing ``--out`` persists a projection, not source evidence.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", default=None, help="Path to the microcosm-substrate root.")

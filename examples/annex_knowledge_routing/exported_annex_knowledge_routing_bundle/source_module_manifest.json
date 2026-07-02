@@ -23,11 +23,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 21765,
-      "line_count": 459,
-      "sha256": "sha256:acbffb76ca37c57b6dd21f5d47a89814f722cc6929b3170c9eaf8da392233a7c",
-      "target_sha256": "acbffb76ca37c57b6dd21f5d47a89814f722cc6929b3170c9eaf8da392233a7c",
-      "source_sha256": "acbffb76ca37c57b6dd21f5d47a89814f722cc6929b3170c9eaf8da392233a7c",
+      "byte_count": 15135,
+      "line_count": 375,
+      "sha256": "sha256:f74906862db8fa57def9ea893db58ba922a1a24fb42b3fdc1712ff4a8fea1270",
+      "target_sha256": "f74906862db8fa57def9ea893db58ba922a1a24fb42b3fdc1712ff4a8fea1270",
+      "source_sha256": "f74906862db8fa57def9ea893db58ba922a1a24fb42b3fdc1712ff4a8fea1270",
       "required_anchors": [
         "ORGAN_ID = \"annex_knowledge_routing\"",
         "def run"
@@ -50,14 +50,13 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 31536,
-      "line_count": 649,
-      "sha256": "sha256:874af215e96afe36badc2ac50e204cd6a681ed92954901796918346f16c54acf",
-      "target_sha256": "874af215e96afe36badc2ac50e204cd6a681ed92954901796918346f16c54acf",
-      "source_sha256": "874af215e96afe36badc2ac50e204cd6a681ed92954901796918346f16c54acf",
+      "byte_count": 20552,
+      "line_count": 567,
+      "sha256": "sha256:9f7b35606b3c2cae9953750e6d174464b3d3102268ab2cda3509c7d5d00ea8f3",
+      "target_sha256": "9f7b35606b3c2cae9953750e6d174464b3d3102268ab2cda3509c7d5d00ea8f3",
+      "source_sha256": "9f7b35606b3c2cae9953750e6d174464b3d3102268ab2cda3509c7d5d00ea8f3",
       "required_anchors": [
-        "Explainable tiered weighted-token retrieval over a sanitized annex catalog",
-        "Rank sanitized annex rows for a problem statement"
+        "Explainable tiered weighted-token retrieval over a sanitized annex catalog"
       ],
       "required_anchors_present": true,
       "validation_refs": [

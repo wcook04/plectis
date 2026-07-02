@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.cold_reader_route_map` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs cold reader route map for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, SOURCE_MODULE_MANIFEST_NAME, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, HASH_CHUNK_SIZE, REAL_BODY_MATERIAL_STATUS, PUBLIC_SAFE_BODY_CLASSES, SOURCE_PATTERN_IDS, SOURCE_REFS, ROUTE_SOURCE_REPLAY_PUBLIC_REFS, PUBLIC_RUNTIME_REFS, INPUT_NAMES, NEGATIVE_INPUT_NAMES, NEGATIVE_INPUT_STEMS, EXPECTED_NEGATIVE_CASES, FRONT_DOOR_ROUTE_COMMANDS, FRONT_DOOR_ROUTE_IDS, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `run`, `run_route_map_bundle`, `result_card`, and `main`; constants
+such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 25 more pin local
+fixture names; dependencies include `argparse`, `hashlib`, `json`, `re`, and 4 more. It
+builds public fixture, result, card, or verdict structures while keeping private substrate
+bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -182,13 +166,9 @@ ANTI_CLAIM = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -204,26 +184,19 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return display for `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _stored_receipt_command(command: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_stored_receipt_command` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the stored receipt command value used by
+    `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `command`; notable helpers are `normalize_public_receipt_paths` and `get`.
     """
     normalized = normalize_public_receipt_paths({"command": command})
     value = normalized.get("command") if isinstance(normalized, dict) else command
@@ -232,13 +205,11 @@ def _stored_receipt_command(command: str) -> str:
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for `microcosm_core.organs.cold_reader_route_map._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -250,13 +221,9 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return input paths for `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `input_dir` and `include_negative`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return [input_dir / name for name in names]
@@ -264,13 +231,10 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for `microcosm_core.organs.cold_reader_route_map`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return {Path(name).stem: read_json_strict(input_dir / name) for name in names}
@@ -278,13 +242,11 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.cold_reader_route_map._sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -295,26 +257,18 @@ def _sha256(path: Path) -> str:
 
 def _line_count_from_text(text: str) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_line_count_from_text` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return line count from text for the organs cold reader route map flow.
+
+    Inputs are `text`; notable helpers are `count` and `endswith`.
     """
     return text.count("\n") + (0 if text.endswith("\n") else 1)
 
 
 def _line_count(path: Path) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_line_count` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Produce the line count value used by `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `path`; notable helpers are `open`.
     """
     line_count = 0
     with path.open("r", encoding="utf-8") as handle:
@@ -330,13 +284,10 @@ def _source_module_target_path(
     public_root: Path,
 ) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute source module target path from `input_dir`, `row`, and `public_root`.
+
+    Inputs are `input_dir`, `row`, and `public_root`; notable helpers are `startswith`,
+    `removeprefix`, `get`, `is_absolute`, and 1 more.
     """
     row_path = str(row.get("path") or "")
     if row_path and not Path(row_path).is_absolute() and ".." not in Path(row_path).parts:
@@ -351,13 +302,11 @@ def _source_module_target_path(
 
 def _source_module_paths(input_dir: Path, manifest_payload: object | None = None) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_paths` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module paths for the organs cold reader route map flow.
+
+    Inputs are `input_dir` and `manifest_payload`; notable helpers are
+    `_public_root_for_path`, `is_file`, `read_json_strict`, `_source_module_target_path`,
+    and 1 more.
     """
     manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
     manifest = manifest_payload if isinstance(manifest_payload, dict) else None
@@ -374,26 +323,18 @@ def _source_module_paths(input_dir: Path, manifest_payload: object | None = None
 
 def _normalized_text(value: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_normalized_text` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return normalized text for the organs cold reader route map flow.
+
+    Inputs are `value`; notable helpers are `strip`, `sub`, and `lower`.
     """
     return re.sub(r"\s+", " ", value.lower()).strip()
 
 
 def _material_terms(value: str) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_material_terms` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the material terms value used by `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `value`; notable helpers are `findall` and `lower`.
     """
     terms = re.findall(r"[a-z0-9][a-z0-9_-]*", value.lower())
     return [
@@ -405,13 +346,9 @@ def _material_terms(value: str) -> list[str]:
 
 def _slugify_heading(value: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_slugify_heading` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return slugify heading for the organs cold reader route map flow.
+
+    Inputs are `value`; notable helpers are `sub`, `lower`, and `strip`.
     """
     text = re.sub(r"[`*_~]", "", value.strip())
     text = re.sub(r"[^a-zA-Z0-9\s-]", "", text).lower()
@@ -421,13 +358,10 @@ def _slugify_heading(value: str) -> str:
 
 def _public_ref_path(public_root: Path, ref: str) -> tuple[Path | None, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_public_ref_path` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the public ref path value used by `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `public_root` and `ref`; notable helpers are `partition`, `removeprefix`,
+    `Path`, and `is_absolute`.
     """
     path_ref, _separator, anchor = ref.partition("#")
     path_ref = path_ref.removeprefix("microcosm-substrate/")
@@ -439,13 +373,10 @@ def _public_ref_path(public_root: Path, ref: str) -> tuple[Path | None, str]:
 
 def _heading_anchors(text: str) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_heading_anchors` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the heading anchors value used by `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `text`; notable helpers are `splitlines`, `strip`, `startswith`, `add`, and 2
+    more.
     """
     anchors: set[str] = set()
     for line in text.splitlines():
@@ -457,13 +388,10 @@ def _heading_anchors(text: str) -> set[str]:
 
 def _document_ref_result(ref: str, *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_document_ref_result` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.cold_reader_route_map._document_ref_result` into the
+    payload shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     path, anchor = _public_ref_path(public_root, ref)
     if path is None:
@@ -499,13 +427,10 @@ def _document_ref_result(ref: str, *, public_root: Path) -> dict[str, Any]:
 
 def _receipt_ref_result(ref: str, *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_ref_result` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.cold_reader_route_map._receipt_ref_result` into the
+    payload shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     path, _anchor = _public_ref_path(public_root, ref)
     if path is None:
@@ -561,13 +486,10 @@ def _text_record(
     seen: set[Path],
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_text_record` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Run text record for the organs cold reader route map flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     resolved = path.resolve(strict=False)
     if resolved in seen or not path.is_file():
@@ -591,13 +513,12 @@ def _source_replay_text_records(
     receipt_rows: list[dict[str, Any]],
 ) -> list[dict[str, str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_replay_text_records` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source replay text records value used by
+    `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `input_dir`, `public_root`, `source_manifest_payload`, `route_rows`, and
+    `receipt_rows`; notable helpers are `_source_module_paths`, `_text_record`,
+    `_public_ref_path`, and `get`.
     """
     records: list[dict[str, str]] = []
     seen: set[Path] = set()
@@ -626,13 +547,10 @@ def _source_replay_text_records(
 
 def _command_support(command: str, *, corpus_text: str, corpus_normalized: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_command_support` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize `microcosm_core.organs.cold_reader_route_map._command_support` into the
+    payload shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     command = command.strip()
     variants = {
@@ -672,13 +590,10 @@ def _mechanism_signal_support(
     corpus_normalized: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_mechanism_signal_support` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.cold_reader_route_map._mechanism_signal_support` into
+    the payload shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     signals = [signal for signal in row.get("shows", []) if isinstance(signal, str)]
     signal_rows = []
@@ -711,13 +626,10 @@ def _route_source_replay_result(
     source_manifest_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_route_source_replay_result` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.cold_reader_route_map._route_source_replay_result` into
+    the payload shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     text_records = _source_replay_text_records(
         input_dir,
@@ -842,13 +754,9 @@ def _route_source_replay_result(
 
 def _walk_dicts(value: object) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_walk_dicts` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return walk dicts for the organs cold reader route map flow.
+
+    Inputs are `value`; notable helpers are `append`, `values`, `extend`, and `_walk_dicts`.
     """
     rows: list[dict[str, Any]] = []
     if isinstance(value, dict):
@@ -870,13 +778,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.cold_reader_route_map._finding` into the payload shape
+    expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -899,13 +804,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs cold reader route map flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -921,13 +823,9 @@ def _record(
 
 def _route_rows(payload: object) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_route_rows` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute route rows from `payload`.
+
+    Inputs are `payload`; notable helpers are `_rows`.
     """
     rows = _rows(payload, "routes")
     if rows:
@@ -937,13 +835,9 @@ def _route_rows(payload: object) -> list[dict[str, Any]]:
 
 def _receipt_rows(payload: object) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_rows` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the receipt rows value used by `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `payload`; notable helpers are `_rows`.
     """
     rows = _rows(payload, "route_receipts")
     if rows:
@@ -953,13 +847,9 @@ def _receipt_rows(payload: object) -> list[dict[str, Any]]:
 
 def _route_id(row: dict[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_route_id` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the route ID value used by `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `row`; notable helpers are `strip` and `get`.
     """
     return str(row.get("route_id") or row.get("step_id") or "").strip()
 
@@ -971,13 +861,10 @@ def _positive_findings(
     policy: dict[str, Any],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_positive_findings` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.cold_reader_route_map._positive_findings`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1087,13 +974,10 @@ def _positive_findings(
 
 def _negative_findings(payloads: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_negative_findings` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.cold_reader_route_map._negative_findings` into the
+    payload shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1176,13 +1060,10 @@ def _source_module_import_result(
     required: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_import_result` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.cold_reader_route_map._source_module_import_result`
+    into the payload shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
     manifest = read_json_strict(manifest_path) if manifest_path.is_file() else {}
@@ -1391,13 +1272,11 @@ def _scan_inputs(
     extra_paths: list[Path] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_inputs` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan inputs holds for the organs cold reader route map flow.
+
+    The result is derived from `input_dir`, `include_negative`, `public_root`, and
+    `extra_paths` with `load_forbidden_classes`, `scan_paths`, `pop`, and `_input_paths`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     scan = scan_paths(
@@ -1411,26 +1290,19 @@ def _scan_inputs(
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_relative_receipt_paths` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return relative receipt paths for `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `paths` and `public_root`; notable helpers are `_display` and `values`.
     """
     return [_display(path, public_root=public_root) for path in paths.values()]
 
 
 def _freshness_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_input_paths` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return freshness input paths for the organs cold reader route map flow.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `_input_paths`,
+    `is_file`, `append`, `read_json_strict`, and 3 more.
     """
     paths = _input_paths(input_dir, include_negative=include_negative)
     bundle_manifest_path = input_dir / "bundle_manifest.json"
@@ -1450,13 +1322,10 @@ def _freshness_input_paths(input_dir: Path, *, include_negative: bool) -> list[P
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.cold_reader_route_map._freshness_basis` into the
+    payload shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     paths = _freshness_input_paths(input_dir, include_negative=include_negative)
     existing = [path for path in paths if path.is_file()]
@@ -1477,13 +1346,10 @@ def _fresh_exported_bundle_receipt(
     command: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_exported_bundle_receipt` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return fresh exported bundle receipt for the organs cold reader route map flow.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `_public_root_for_path`, `_freshness_basis`, `is_file`, `read_json_strict`, and 4 more.
     """
     public_root = _public_root_for_path(out_dir)
     receipt_path = out_dir / BUNDLE_RESULT_NAME
@@ -1529,13 +1395,10 @@ def _common_receipt(
     receipt_paths: list[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_common_receipt` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.cold_reader_route_map._common_receipt` into the payload
+    shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": schema_version,
@@ -1590,13 +1453,10 @@ def _build_board(
     secret_scan: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_board` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.cold_reader_route_map._build_board` into the payload
+    shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "cold_reader_route_map_board_v1",
@@ -1654,13 +1514,10 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.cold_reader_route_map._build_result` into the payload
+    shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -1839,13 +1696,10 @@ def _write_receipts(
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write receipts for the organs cold reader route map flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     public_root = _public_root_for_path(out_dir)
     paths = {
@@ -1894,13 +1748,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for the organs cold reader route map flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `Path`, `_build_result`, `_freshness_basis`, and `_write_receipts`.
     """
     target = Path(out_dir)
     result = _build_result(
@@ -1926,13 +1777,11 @@ def run_route_map_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_route_map_bundle` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Produce the run route map bundle value used by
+    `microcosm_core.organs.cold_reader_route_map`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `_public_root_for_path`, `_build_result`, `_freshness_basis`, and 5 more.
     """
     target = Path(out_dir)
     public_root = _public_root_for_path(target)
@@ -1964,13 +1813,10 @@ def run_route_map_bundle(
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Serialize `microcosm_core.organs.cold_reader_route_map.result_card` into the payload
+    shape expected by organs cold reader route map.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": CARD_SCHEMA_VERSION,
@@ -2053,13 +1899,10 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for `microcosm_core.organs.cold_reader_route_map._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(description="Validate public cold-reader route map")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -2077,13 +1920,10 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.cold_reader_route_map` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.cold_reader_route_map` command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

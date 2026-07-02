@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.macro_tools.lab_evolve_replay` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements macro tools lab evolve replay for the public Plectis package.
 
-[INTERFACE]
-- Exports: PASS, BLOCKED, SOURCE_REFS, SOURCE_SYMBOL_REFS, TARGET_REFS, TARGET_SYMBOL_REFS, GRAPH_NODES, GRAPH_EDGES, AUTHORITY_CEILING, build_materials_lab_evolve_replay, build_materials_lab_evolve_replay_from_dir, main
-- Reads: call arguments, module constants, imported helpers.
-- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `build_materials_lab_evolve_replay`,
+`build_materials_lab_evolve_replay_from_dir`, and `main`; constants such as `PASS`,
+`BLOCKED`, `SOURCE_REFS`, `SOURCE_SYMBOL_REFS`, and 5 more pin local fixture names;
+dependencies include `argparse`, `hashlib`, `json`, `collections`, and 3 more. The helpers
+are invoked explicitly by CLI or fixture code; importing the module only declares the
+available machinery.
 """
 from __future__ import annotations
 
@@ -137,13 +122,11 @@ AUTHORITY_CEILING = {
 
 def _json_sha256(payload: object) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_json_sha256` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.macro_tools.lab_evolve_replay._json_sha256`.
+
+    The input is `payload`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     stable = json.dumps(
         payload,
@@ -156,13 +139,11 @@ def _json_sha256(payload: object) -> str:
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for `microcosm_core.macro_tools.lab_evolve_replay._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -172,26 +153,19 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _by_ref(rows: list[dict[str, Any]], field: str) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_by_ref` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the by ref value used by `microcosm_core.macro_tools.lab_evolve_replay`.
+
+    Inputs are `rows` and `field`; notable helpers are `get`.
     """
     return {str(row[field]): row for row in rows if row.get(field)}
 
 
 def _source_clip(case: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_clip` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.lab_evolve_replay._source_clip` into the payload
+    shape expected by macro tools lab evolve replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case["case_id"],
@@ -209,13 +183,10 @@ def _source_clip(case: dict[str, Any]) -> dict[str, Any]:
 
 def _capsule(case: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_capsule` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.lab_evolve_replay._capsule` into the payload shape
+    expected by macro tools lab evolve replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     clip = _source_clip(case)
     return {
@@ -250,13 +221,10 @@ def _positive_case(
     decision_by_experiment: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_positive_case` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.lab_evolve_replay._positive_case` into the payload
+    shape expected by macro tools lab evolve replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     experiment_id = str(experiment.get("experiment_id") or "unknown_experiment")
     candidate_id = str(experiment.get("candidate_material_ref") or "")
@@ -304,13 +272,9 @@ def _positive_case(
 
 def _restart_point(subject_kind: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_restart_point` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive restart point without touching module import state.
+
+    Inputs are `subject_kind`; notable helpers are `get`.
     """
     return {
         "candidate_material": "candidate_material",
@@ -324,13 +288,10 @@ def _restart_point(subject_kind: str) -> str:
 
 def _boundary_case(finding: dict[str, Any], index: int) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_boundary_case` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.lab_evolve_replay._boundary_case` into the payload
+    shape expected by macro tools lab evolve replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     subject_kind = str(finding.get("subject_kind") or "unknown")
     error_code = str(finding.get("error_code") or "unknown_error")
@@ -361,13 +322,10 @@ def _boundary_case(finding: dict[str, Any], index: int) -> dict[str, Any]:
 
 def _teaching_ledger(cases: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_teaching_ledger` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.lab_evolve_replay._teaching_ledger` into the
+    payload shape expected by macro tools lab evolve replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = [
         {
@@ -413,13 +371,11 @@ def build_materials_lab_evolve_replay(
     findings: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_materials_lab_evolve_replay` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.lab_evolve_replay.build_materials_lab_evolve_replay` into
+    the payload shape expected by macro tools lab evolve replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     candidates = _rows(payloads.get("candidate_materials", {}), "candidate_materials")
     experiments = _rows(payloads.get("experiment_dag", {}), "experiments")
@@ -542,13 +498,10 @@ def build_materials_lab_evolve_replay(
 
 def _load_input_dir(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_input_dir` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load input dir for `microcosm_core.macro_tools.lab_evolve_replay`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     return {
         name: read_json_strict(input_dir / f"{name}.json")
@@ -563,26 +516,21 @@ def _load_input_dir(input_dir: Path) -> dict[str, Any]:
 
 def build_materials_lab_evolve_replay_from_dir(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_materials_lab_evolve_replay_from_dir` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return build materials lab evolve replay from dir for the macro tools lab evolve replay
+    flow.
+
+    Inputs are `input_dir`; notable helpers are `build_materials_lab_evolve_replay`,
+    `_load_input_dir`, and `Path`.
     """
     return build_materials_lab_evolve_replay(_load_input_dir(Path(input_dir)), [])
 
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for `microcosm_core.macro_tools.lab_evolve_replay._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(prog="lab_evolve_replay")
     parser.add_argument("input", help="Directory with materials replay JSON inputs.")
@@ -591,13 +539,10 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.macro_tools.lab_evolve_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.macro_tools.lab_evolve_replay` command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     payload = build_materials_lab_evolve_replay_from_dir(args.input)

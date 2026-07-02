@@ -1,3 +1,13 @@
+"""
+Implements public site parity for the public Plectis package.
+
+Callers enter through `SiteSnapshot`, `check_public_site_parity`, and `main`; constants such
+as `SITE_ROOT_URL`, `SOURCE_OF_RECORD`, `JSON_PACKET_PATHS`, `HTML_PATHS`, and 4 more pin
+local fixture names; dependencies include `argparse`, `hashlib`, `json`, `subprocess`, and 4
+more. Importing it does not authorize release work or hidden private-state access; those
+effects live behind explicit calls.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -45,15 +55,35 @@ PACKET_PATHS = (
 
 @dataclass(frozen=True)
 class SiteSnapshot:
+    """
+    Record object for Site Snapshot.
+
+    It keeps `label` and `files` together for the public site parity flow.
+    """
+
     label: str
     files: dict[str, bytes]
 
 
 def _read_json(path: Path) -> Any:
+    """
+    Read read JSON for `microcosm_core.public_site_parity`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
+    """
+
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _source_counts(root: Path) -> dict[str, int]:
+    """
+    Serialize `microcosm_core.public_site_parity._source_counts` into the payload shape
+    expected by public site parity.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    """
+
     registry = _read_json(root / "core/organ_registry.json")
     accepted = [
         row
@@ -75,10 +105,24 @@ def _source_counts(root: Path) -> dict[str, int]:
 
 
 def _sha256(data: bytes) -> str:
+    """
+    Return the stable digest computed by `microcosm_core.public_site_parity._sha256`.
+
+    The input is `data`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
+    """
+
     return "sha256:" + hashlib.sha256(data).hexdigest()
 
 
 def _git_ref_exists(root: Path, ref: str) -> bool:
+    """
+    Return whether git ref exists holds for the public site parity flow.
+
+    The result is derived from `root` and `ref` with `run`; failing evidence is returned or
+    raised exactly where the body says so.
+    """
+
     result = subprocess.run(
         [
             "git",
@@ -95,6 +139,12 @@ def _git_ref_exists(root: Path, ref: str) -> bool:
 
 
 def _remote_branch_ref(root: Path, ref: str) -> tuple[str, str, str] | None:
+    """
+    Return remote branch ref for the public site parity flow.
+
+    Inputs are `root` and `ref`; notable helpers are `startswith`, `run`, and `partition`.
+    """
+
     prefix = "refs/remotes/"
     if ref.startswith(prefix):
         remainder = ref[len(prefix) :]
@@ -116,6 +166,13 @@ def _remote_branch_ref(root: Path, ref: str) -> tuple[str, str, str] | None:
 
 
 def _ensure_gh_pages_ref(root: Path, ref: str) -> None:
+    """
+    Ensure ensure gh pages ref for the public site parity flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
+    """
+
     remote_ref = _remote_branch_ref(root, ref)
     if remote_ref is None:
         if _git_ref_exists(root, ref):
@@ -147,6 +204,13 @@ def _ensure_gh_pages_ref(root: Path, ref: str) -> None:
 
 
 def _read_gh_pages(ref: str, paths: tuple[str, ...], root: Path) -> SiteSnapshot:
+    """
+    Read read gh pages for `microcosm_core.public_site_parity`.
+
+    Input comes from `ref`, `paths`, and `root`; malformed or missing data follows the
+    exceptions and checks visible in the body.
+    """
+
     _ensure_gh_pages_ref(root, ref)
     files: dict[str, bytes] = {}
     for rel in paths:
@@ -165,6 +229,13 @@ def _read_gh_pages(ref: str, paths: tuple[str, ...], root: Path) -> SiteSnapshot
 
 
 def _read_site_dir(site_dir: Path, paths: tuple[str, ...]) -> SiteSnapshot:
+    """
+    Read read site dir for `microcosm_core.public_site_parity`.
+
+    Input comes from `site_dir` and `paths`; malformed or missing data follows the
+    exceptions and checks visible in the body.
+    """
+
     files: dict[str, bytes] = {}
     for rel in paths:
         path = site_dir / rel
@@ -175,6 +246,13 @@ def _read_site_dir(site_dir: Path, paths: tuple[str, ...]) -> SiteSnapshot:
 
 
 def _read_site_url(base_url: str, paths: tuple[str, ...], timeout: float) -> SiteSnapshot:
+    """
+    Read read site URL for `microcosm_core.public_site_parity`.
+
+    Input comes from `base_url`, `paths`, and `timeout`; malformed or missing data follows
+    the exceptions and checks visible in the body.
+    """
+
     base = base_url.rstrip("/") + "/"
     files: dict[str, bytes] = {}
     for rel in paths:
@@ -190,6 +268,12 @@ def _read_site_url(base_url: str, paths: tuple[str, ...], timeout: float) -> Sit
 
 
 def _json_from_snapshot(snapshot: SiteSnapshot) -> tuple[dict[str, Any], list[dict[str, str]]]:
+    """
+    Compute json from snapshot from `snapshot`.
+
+    Inputs are `snapshot`; notable helpers are `loads`, `decode`, and `append`.
+    """
+
     payloads: dict[str, Any] = {}
     errors: list[dict[str, str]] = []
     for rel in JSON_PACKET_PATHS:
@@ -207,6 +291,12 @@ def _json_from_snapshot(snapshot: SiteSnapshot) -> tuple[dict[str, Any], list[di
 
 
 def _coverage_count(payload: dict[str, Any], kind: str) -> int | None:
+    """
+    Produce the coverage count value used by `microcosm_core.public_site_parity`.
+
+    Inputs are `payload` and `kind`; notable helpers are `get`.
+    """
+
     for row in payload.get("coverage", []):
         if isinstance(row, dict) and row.get("kind") == kind:
             value = row.get("object_count")
@@ -215,6 +305,12 @@ def _coverage_count(payload: dict[str, Any], kind: str) -> int | None:
 
 
 def _site_field(payload: dict[str, Any], key: str) -> Any:
+    """
+    Derive site field without touching module import state.
+
+    Inputs are `payload` and `key`; notable helpers are `get`.
+    """
+
     site = payload.get("site")
     if isinstance(site, dict):
         return site.get(key)
@@ -222,6 +318,12 @@ def _site_field(payload: dict[str, Any], key: str) -> Any:
 
 
 def _packet_authority_errors(payload: dict[str, Any], rel: str) -> list[dict[str, Any]]:
+    """
+    Compute packet authority errors from `payload` and `rel`.
+
+    Inputs are `payload` and `rel`; notable helpers are `append` and `get`.
+    """
+
     errors: list[dict[str, Any]] = []
     if "public_source_slice_distribution_authorized" in payload:
         if payload.get("public_source_slice_distribution_authorized") is not True:
@@ -265,6 +367,13 @@ def _check_snapshot(
     source_counts: dict[str, int],
     compare_to: SiteSnapshot | None = None,
 ) -> dict[str, Any]:
+    """
+    Serialize `microcosm_core.public_site_parity._check_snapshot` into the payload shape
+    expected by public site parity.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    """
+
     errors: list[dict[str, Any]] = []
     payloads, json_errors = _json_from_snapshot(snapshot)
     errors.extend(json_errors)
@@ -445,6 +554,13 @@ def check_public_site_parity(
     site_url: str | None = None,
     timeout: float = 20.0,
 ) -> dict[str, Any]:
+    """
+    Serialize `microcosm_core.public_site_parity.check_public_site_parity` into the payload
+    shape expected by public site parity.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    """
+
     sources = [bool(gh_pages_ref), bool(site_dir)]
     if sum(sources) != 1:
         raise ValueError("provide exactly one of gh_pages_ref or site_dir")
@@ -473,6 +589,12 @@ def check_public_site_parity(
 
 
 def _format(receipt: dict[str, Any]) -> str:
+    """
+    Return format for the public site parity flow.
+
+    Inputs are `receipt`; notable helpers are `get`, `join`, `append`, and `dumps`.
+    """
+
     lines = [
         f"Plectis public site parity: {receipt.get('status', 'unknown')}",
         f"primary: {receipt.get('primary') or 'unavailable'}",
@@ -498,6 +620,13 @@ def _format(receipt: dict[str, Any]) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """
+    Run `microcosm_core.public_site_parity` as a command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
+    """
+
     parser = argparse.ArgumentParser(
         description=(
             "Validate that the gh-pages/deployed Plectis public packets agree "

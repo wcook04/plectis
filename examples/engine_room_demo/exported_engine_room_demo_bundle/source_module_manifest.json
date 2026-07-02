@@ -23,11 +23,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 23911,
-      "line_count": 457,
-      "sha256": "sha256:00d9ca28a69be6bae866f587b198028c1a54360cfa4195aabae26a29cc4da911",
-      "target_sha256": "00d9ca28a69be6bae866f587b198028c1a54360cfa4195aabae26a29cc4da911",
-      "source_sha256": "00d9ca28a69be6bae866f587b198028c1a54360cfa4195aabae26a29cc4da911",
+      "byte_count": 14961,
+      "line_count": 391,
+      "sha256": "sha256:a32e8b757d32a11f39e54cd752ab80b0a8efc7854d98d0fa05a6e84424d9f14c",
+      "target_sha256": "a32e8b757d32a11f39e54cd752ab80b0a8efc7854d98d0fa05a6e84424d9f14c",
+      "source_sha256": "a32e8b757d32a11f39e54cd752ab80b0a8efc7854d98d0fa05a6e84424d9f14c",
       "required_anchors": [
         "ORGAN_ID = \"engine_room_demo\"",
         "def run"
@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 26340,
-      "line_count": 503,
-      "sha256": "sha256:bd8346352f59459f601346ae450ed55e8d6f0c75525050319614ffa390c22145",
-      "target_sha256": "bd8346352f59459f601346ae450ed55e8d6f0c75525050319614ffa390c22145",
-      "source_sha256": "bd8346352f59459f601346ae450ed55e8d6f0c75525050319614ffa390c22145",
+      "byte_count": 17023,
+      "line_count": 435,
+      "sha256": "sha256:4133443b26c241c3ef604eea3fc7fd68d1e484413f910e5398b842872802c490",
+      "target_sha256": "4133443b26c241c3ef604eea3fc7fd68d1e484413f910e5398b842872802c490",
+      "source_sha256": "4133443b26c241c3ef604eea3fc7fd68d1e484413f910e5398b842872802c490",
       "required_anchors": [
         "def audit_controller_coverage",
         "def run_demo"

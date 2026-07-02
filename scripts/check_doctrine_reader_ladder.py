@@ -74,11 +74,21 @@ PLAIN_MAX_SENTENCES = 3
 
 
 def _banned_terms(text: str) -> list[str]:
+    """
+    Return banned terms for the scripts check doctrine reader ladder flow.
+
+    Inputs are `text`; notable helpers are `lower`.
+    """
     low = (text or "").lower()
     return [t for t in BANNED_VISIBLE_TERMS if t in low]
 
 
 def _banned_framings(text: str) -> list[str]:
+    """
+    Derive banned framings without touching module import state.
+
+    Inputs are `text`; notable helpers are `lower`, `search`, and `append`.
+    """
     low = (text or "").lower()
     hits = [t for t in BANNED_FRAMINGS if t in low]
     if _NOT_BUT_RE.search(text or ""):
@@ -87,10 +97,21 @@ def _banned_framings(text: str) -> list[str]:
 
 
 def _sentences(text: str) -> int:
+    """
+    Derive sentences without touching module import state.
+
+    Inputs are `text`; notable helpers are `split` and `strip`.
+    """
     return len([s for s in re.split(r"[.;]\s+|[.;]$", (text or "").strip()) if s.strip()])
 
 
 def audit_record(rec: dict) -> dict:
+    """
+    Serialize `scripts.check_doctrine_reader_ladder.audit_record` into the payload shape
+    expected by scripts check doctrine reader ladder.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    """
     rl = rec.get("reader_ladder")
     issues: list[str] = []
     if not isinstance(rl, dict):
@@ -159,6 +180,12 @@ def audit_record(rec: dict) -> dict:
 
 
 def run(path: Path) -> dict:
+    """
+    Serialize `scripts.check_doctrine_reader_ladder.run` into the payload shape expected by
+    scripts check doctrine reader ladder.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    """
     data = json.loads(path.read_text(encoding="utf-8"))
     records = data.get("records") or []
     results = [audit_record(r) for r in records]
@@ -173,6 +200,11 @@ def run(path: Path) -> dict:
 
 
 def _fmt(report: dict) -> str:
+    """
+    Derive fmt without touching module import state.
+
+    Inputs are `report`; notable helpers are `join` and `append`.
+    """
     lines = [f"doctrine reader ladder: {report['clean']}/{report['total']} clean, {report['defective']} with defects", ""]
     for r in report["results"]:
         if r["clean"]:
@@ -186,14 +218,11 @@ def _fmt(report: dict) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry for the doctrine reader-ladder accessibility gate.
+    """
+    Run `scripts.check_doctrine_reader_ladder` as a command-line entry point.
 
-    - Teleology: Operator/CI front door enforcing each enrichment object's lay layer (plain reading + bounded analogy with maps/boundary, no laundering, banned visible term, or affirmative overclaim).
-    - Guarantee: Prints a human or --json report (or, with --explain ID, one record's reader_ladder + audit); with --check returns 1 if any record is defective, else 0.
-    - Fails: --explain on an unknown id -> "no record <ID>" on stderr, exit 2; missing/invalid --path -> json.JSONDecodeError/FileNotFoundError -> uncaught traceback.
-    - Reads: core/doctrine_enrichment.json (or --path).
-    - When-needed: CI-gating or debugging the lay reader layer; --explain to inspect one record's ladder.
-    - Escalates-to: run (full audit), audit_record (per-record lay-field checks).
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     ap = argparse.ArgumentParser(description="Doctrine reader-ladder accessibility gate.")
     ap.add_argument("--path", default=str(REPO_DEFAULT))

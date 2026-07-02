@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.macro_tools.bridge_resume` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements macro tools bridge resume for the public Plectis package.
 
-[INTERFACE]
-- Exports: PASS, BLOCKED, KIND, SCHEMA_VERSION, SOURCE_REF, SOURCE_REFS, SOURCE_SYMBOL_REFS, TARGET_REF, TARGET_REFS, TARGET_SYMBOL_REFS, RESUME_MODES, EVENT_BUCKETS, TERMINAL_BUCKETS, AUTHORITY_CEILING, ANTI_CLAIM, INPUT_NAMES, FORBIDDEN_PAYLOAD_KEYS, bucket_for_event, ResumeTarget, ResumeJob, SessionSnapshot, ActivityReport, assess_session_activity, format_resume_message, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `bucket_for_event`, `ResumeTarget`, `ResumeJob`, `SessionSnapshot`,
+`ActivityReport`, `assess_session_activity`, and 5 more; constants such as `PASS`,
+`BLOCKED`, `KIND`, `SCHEMA_VERSION`, and 13 more pin local fixture names; dependencies
+include `argparse`, `dataclasses`, `hashlib`, `json`, and 5 more. The helpers are invoked
+explicitly by CLI or fixture code; importing the module only declares the available
+machinery.
 """
 from __future__ import annotations
 
@@ -147,39 +132,29 @@ FORBIDDEN_PAYLOAD_KEYS = {
 
 def _utc_now() -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_utc_now` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive utc now without touching module import state.
+
+    Notable helpers are `isoformat` and `now`.
     """
     return datetime.now(timezone.utc).isoformat()
 
 
 def _string(value: Any) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_string` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return string for `microcosm_core.macro_tools.bridge_resume`.
+
+    Inputs are `value`; notable helpers are `strip`.
     """
     return str(value or "").strip()
 
 
 def _strings(value: Any) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.macro_tools.bridge_resume._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -188,13 +163,11 @@ def _strings(value: Any) -> list[str]:
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for `microcosm_core.macro_tools.bridge_resume._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, Mapping):
         return []
@@ -206,13 +179,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _stable_digest(payload: object, *, length: int | None = None) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_stable_digest` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.macro_tools.bridge_resume._stable_digest`.
+
+    The input is `payload` and `length`; the body uses deterministic JSON encoding or
+    chunked file reads before formatting the hash.
     """
     encoded = json.dumps(
         payload,
@@ -227,26 +198,20 @@ def _stable_digest(payload: object, *, length: int | None = None) -> str:
 
 def _file_sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_file_sha256` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.macro_tools.bridge_resume._file_sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _repo_root_from_target() -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_repo_root_from_target` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return repo root from target for the macro tools bridge resume flow.
+
+    Notable helpers are `resolve`, `is_file`, and `Path`.
     """
     for candidate in Path(__file__).resolve(strict=False).parents:
         if (candidate / SOURCE_REF).is_file():
@@ -256,13 +221,10 @@ def _repo_root_from_target() -> Path | None:
 
 def _body_import_verification() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_body_import_verification` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.bridge_resume._body_import_verification` into the
+    payload shape expected by macro tools bridge resume.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     target_path = Path(__file__).resolve(strict=False)
     repo_root = _repo_root_from_target()
@@ -289,13 +251,9 @@ def _body_import_verification() -> dict[str, Any]:
 
 def _walk_keys(payload: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_walk_keys` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute walk keys from `payload`.
+
+    Inputs are `payload`; notable helpers are `values`, `extend`, `keys`, and `_walk_keys`.
     """
     if isinstance(payload, Mapping):
         keys = [str(key) for key in payload.keys()]
@@ -312,13 +270,9 @@ def _walk_keys(payload: object) -> list[str]:
 
 def bucket_for_event(event: str | None) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `bucket_for_event` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive bucket for event without touching module import state.
+
+    Inputs are `event`; notable helpers are `get`.
     """
     if not event:
         return "unknown"
@@ -328,13 +282,12 @@ def bucket_for_event(event: str | None) -> str:
 @dataclass
 class ResumeTarget:
     """
-    [ROLE]
-    - Teleology: Groups `ResumeTarget` data or behavior for `microcosm_core.macro_tools.bridge_resume` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.macro_tools.bridge_resume`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    Record object for Resume Target.
+
+    It keeps `target_id`, `target_app`, `switch_tab`, `session_id`, `session_url`,
+    `sentinel_prefix`, and `resume_mode` together for the macro tools bridge resume flow.
+    Methods such as `from_dict` and `to_public_dict` derive serialized or path-shaped views
+    from that state.
     """
     target_id: str = "public_fixture_target"
     target_app: str = "artifact_only"
@@ -347,13 +300,9 @@ class ResumeTarget:
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "ResumeTarget":
         """
-        [ACTION]
-        - Teleology: Implements `ResumeTarget.from_dict` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Compute from dict on `ResumeTarget` from `data`.
+
+        Inputs are `data`; notable helpers are `cls`, `get`, and `_string`.
         """
         return cls(
             target_id=_string(data.get("target_id")) or "public_fixture_target",
@@ -367,13 +316,10 @@ class ResumeTarget:
 
     def to_public_dict(self) -> dict[str, Any]:
         """
-        [ACTION]
-        - Teleology: Implements `ResumeTarget.to_public_dict` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Serialize ResumeTarget into the macro tools bridge resume payload shape.
+
+        The returned mapping uses the key names consumed by downstream receipts, cards, or
+        tests.
         """
         return {
             "target_id": self.target_id,
@@ -391,13 +337,12 @@ class ResumeTarget:
 @dataclass
 class ResumeJob:
     """
-    [ROLE]
-    - Teleology: Groups `ResumeJob` data or behavior for `microcosm_core.macro_tools.bridge_resume` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.macro_tools.bridge_resume`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    Record object for Resume Job.
+
+    It keeps `job_id`, `plan_id`, `group_label`, `target_id`, `status`, `summary_lines`,
+    `artifact_paths`, and 3 more together for the macro tools bridge resume flow. Methods
+    such as `new_id`, `from_dict`, and `to_public_dict` derive serialized or path-shaped
+    views from that state.
     """
     job_id: str
     plan_id: str | None = None
@@ -413,13 +358,9 @@ class ResumeJob:
     @staticmethod
     def new_id(prefix: str = "public_bridge") -> str:
         """
-        [ACTION]
-        - Teleology: Implements `ResumeJob.new_id` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Compute new ID on `ResumeJob` from `prefix`.
+
+        Inputs are `prefix`; notable helpers are `strftime`, `now`, and `uuid4`.
         """
         ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
         return f"{prefix}_{ts}_{uuid.uuid4().hex[:8]}"
@@ -427,13 +368,10 @@ class ResumeJob:
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "ResumeJob":
         """
-        [ACTION]
-        - Teleology: Implements `ResumeJob.from_dict` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Produce the from dict value used by `microcosm_core.macro_tools.bridge_resume`.
+
+        Inputs are `data`; notable helpers are `cls`, `_strings`, `_string`, `new_id`, and 1
+        more.
         """
         return cls(
             job_id=_string(data.get("job_id")) or cls.new_id(),
@@ -450,13 +388,9 @@ class ResumeJob:
 
     def to_public_dict(self) -> dict[str, Any]:
         """
-        [ACTION]
-        - Teleology: Implements `ResumeJob.to_public_dict` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Produce the to public dict value used by `microcosm_core.macro_tools.bridge_resume`.
+
+        Notable helpers are `asdict`.
         """
         payload = dataclasses.asdict(self)
         payload["body_in_receipt"] = False
@@ -466,13 +400,11 @@ class ResumeJob:
 @dataclass(frozen=True)
 class SessionSnapshot:
     """
-    [ROLE]
-    - Teleology: Groups `SessionSnapshot` data or behavior for `microcosm_core.macro_tools.bridge_resume` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.macro_tools.bridge_resume`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    Record object for Session Snapshot.
+
+    It keeps `session_id`, `jsonl_path_ref`, `jsonl_byte_size`, `jsonl_mtime_ns`, and
+    `captured_at` together for the macro tools bridge resume flow. Methods such as
+    `from_dict` and `to_public_dict` derive serialized or path-shaped views from that state.
     """
     session_id: str | None
     jsonl_path_ref: str
@@ -483,13 +415,9 @@ class SessionSnapshot:
     @classmethod
     def from_dict(cls, data: Mapping[str, Any]) -> "SessionSnapshot":
         """
-        [ACTION]
-        - Teleology: Implements `SessionSnapshot.from_dict` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Return from dict on `SessionSnapshot` for the macro tools bridge resume flow.
+
+        Inputs are `data`; notable helpers are `cls`, `_string`, `_utc_now`, and `get`.
         """
         return cls(
             session_id=_string(data.get("session_id")) or None,
@@ -501,13 +429,10 @@ class SessionSnapshot:
 
     def to_public_dict(self) -> dict[str, Any]:
         """
-        [ACTION]
-        - Teleology: Implements `SessionSnapshot.to_public_dict` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Serialize SessionSnapshot into the macro tools bridge resume payload shape.
+
+        The returned mapping uses the key names consumed by downstream receipts, cards, or
+        tests.
         """
         return {
             "session_id": self.session_id,
@@ -522,13 +447,12 @@ class SessionSnapshot:
 @dataclass(frozen=True)
 class ActivityReport:
     """
-    [ROLE]
-    - Teleology: Groups `ActivityReport` data or behavior for `microcosm_core.macro_tools.bridge_resume` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.macro_tools.bridge_resume`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    Record object for Activity Report.
+
+    It keeps `has_delta`, `delta_bytes`, `delta_contains_sentinel`,
+    `delta_contains_foreign_user`, `safe_to_inject`, and `reason` together for the macro
+    tools bridge resume flow. Methods such as `to_public_dict` derive serialized or
+    path-shaped views from that state.
     """
     has_delta: bool
     delta_bytes: int
@@ -539,13 +463,10 @@ class ActivityReport:
 
     def to_public_dict(self) -> dict[str, Any]:
         """
-        [ACTION]
-        - Teleology: Implements `ActivityReport.to_public_dict` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Serialize ActivityReport into the macro tools bridge resume payload shape.
+
+        The returned mapping uses the key names consumed by downstream receipts, cards, or
+        tests.
         """
         return {
             "has_delta": self.has_delta,
@@ -560,13 +481,9 @@ class ActivityReport:
 
 def _extract_user_text_from_public_row(row: Mapping[str, Any]) -> str | None:
     """
-    [ACTION]
-    - Teleology: Implements `_extract_user_text_from_public_row` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive extract user text from public row without touching module import state.
+
+    Inputs are `row`; notable helpers are `get`, `_string`, `join`, and `append`.
     """
     if _string(row.get("type")) != "user":
         return None
@@ -590,13 +507,11 @@ def assess_session_activity(
     delta_bytes: int | None = None,
 ) -> ActivityReport:
     """
-    [ACTION]
-    - Teleology: Implements `assess_session_activity` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute assess session activity from `snapshot`, `sentinel`, `delta_rows`, and
+    `delta_bytes`.
+
+    Inputs are `snapshot`, `sentinel`, `delta_rows`, and `delta_bytes`; notable helpers are
+    `ActivityReport` and `_extract_user_text_from_public_row`.
     """
     contains_sentinel = False
     contains_foreign_user = False
@@ -663,13 +578,10 @@ def format_resume_message(
     include_continue: bool = True,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `format_resume_message` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute format resume message from `job`, `max_summary_lines`, and `include_continue`.
+
+    Inputs are `job`, `max_summary_lines`, and `include_continue`; notable helpers are
+    `_string`, `append`, `join`, `get`, and 1 more.
     """
     lines: list[str] = []
     preamble = _string(job.extras.get("dispatch_loop_preamble"))
@@ -707,23 +619,18 @@ def format_resume_message(
 
 class PublicBridgeResumeManager:
     """
-    [ROLE]
-    - Teleology: Groups `PublicBridgeResumeManager` data or behavior for `microcosm_core.macro_tools.bridge_resume` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.macro_tools.bridge_resume`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    Stateful helper for Public Bridge Resume Manager in
+    `microcosm_core.macro_tools.bridge_resume`.
+
+    Methods such as `append_ledger`, `emit_trigger`, and `job_states` share the instance
+    state instead of passing a loose dictionary through the call chain.
     """
     def __init__(self, target: ResumeTarget) -> None:
         """
-        [ACTION]
-        - Teleology: Implements `PublicBridgeResumeManager.__init__` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Store constructor inputs for `PublicBridgeResumeManager`.
+
+        The instance keeps `target` for later methods; validation remains in the methods
+        that need it.
         """
         self.target = target
         self.ledger_rows: list[dict[str, Any]] = []
@@ -731,13 +638,10 @@ class PublicBridgeResumeManager:
 
     def append_ledger(self, event: str, job_id: str, **details: Any) -> None:
         """
-        [ACTION]
-        - Teleology: Implements `PublicBridgeResumeManager.append_ledger` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Append append ledger for the macro tools bridge resume flow.
+
+        The side effect is the explicit file, receipt, parser, print, or instance-state
+        update performed in this function.
         """
         self.ledger_rows.append(
             {
@@ -758,13 +662,10 @@ class PublicBridgeResumeManager:
         snapshot: SessionSnapshot | None = None,
     ) -> dict[str, Any] | None:
         """
-        [ACTION]
-        - Teleology: Implements `PublicBridgeResumeManager.emit_trigger` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Emit emit trigger for the macro tools bridge resume flow.
+
+        The side effect is the explicit file, receipt, parser, print, or instance-state
+        update performed in this function.
         """
         if not allow_dup and job.job_id in self._emitted:
             self.append_ledger("skipped_dup", job.job_id, reason="already_in_ledger")
@@ -802,13 +703,10 @@ class PublicBridgeResumeManager:
 
     def job_states(self) -> dict[str, dict[str, Any]]:
         """
-        [ACTION]
-        - Teleology: Implements `PublicBridgeResumeManager.job_states` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Produce the job states value used by `microcosm_core.macro_tools.bridge_resume`.
+
+        Notable helpers are `_string`, `setdefault`, `bucket_for_event`, `append`, and 1
+        more.
         """
         states: dict[str, dict[str, Any]] = {}
         for row in self.ledger_rows:
@@ -834,13 +732,10 @@ class PublicBridgeResumeManager:
 
 def _validate_policy(policy: Mapping[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_policy` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Validate whether validate policy holds for the macro tools bridge resume flow.
+
+    The result is derived from `policy` with `items`, `get`, and `append`; failing evidence
+    is returned or raised exactly where the body says so.
     """
     findings: list[dict[str, Any]] = []
     for key, expected in {
@@ -876,13 +771,11 @@ def build_public_bridge_dispatch_yield_resume_view(
     payloads: Mapping[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_bridge_dispatch_yield_resume_view` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.bridge_resume.build_public_bridge_dispatch_yield_resume_view`
+    into the payload shape expected by macro tools bridge resume.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest = payloads.get("bundle_manifest")
     manifest = manifest if isinstance(manifest, Mapping) else {}
@@ -1071,13 +964,11 @@ def build_public_bridge_dispatch_yield_resume_view(
 
 def load_public_bridge_dispatch_yield_resume_bundle(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `load_public_bridge_dispatch_yield_resume_bundle` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load public bridge dispatch yield resume bundle for
+    `microcosm_core.macro_tools.bridge_resume`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     root = Path(input_dir)
     return {
@@ -1088,13 +979,10 @@ def load_public_bridge_dispatch_yield_resume_bundle(input_dir: str | Path) -> di
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.macro_tools.bridge_resume` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text.
+    Run `microcosm_core.macro_tools.bridge_resume` as a command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog="python -m microcosm_core.macro_tools.bridge_resume")
     parser.add_argument("action", choices=["validate-public-bundle"])

@@ -1,77 +1,13 @@
 #!/usr/bin/env python3
-"""[PURPOSE]
-- Teleology: Compile source-body-free Plectis comprehension packets that let a
-  cold agent move from a goal or package overview to bounded module, organ,
-  claim, evidence, and validation surfaces without opening private context.
-- Mechanism: Joins the public code-lens join index, organ atlas, and public
-  synopses into presence-only read packs with explicit authority ceilings.
-- Guarantee: Every public packet declares the active membrane band, refuses
-  source-body export authority, and preserves validation/escalation routes.
+"""
+Implements comprehension for the public Plectis package.
 
-[INTERFACE]
-- Inputs: Public Plectis data under `core/` and `receipts/code_lens/`, plus
-  caller-supplied goals, modes, organ ids, owned paths, or preloaded inputs.
-- Outputs: Dict packets such as `microcosm_comprehension_read_pack_v0`,
-  assay receipts, and optional cached JSON files from `build_cached_read_packs`.
-- Exports: `comprehend`, the compile_* packet builders, assay runners, schema
-  constants, and membrane/authority-ceiling declarations.
-
-[FLOW]
-- Resolve the Plectis resource root, load public metadata, guard the membrane,
-  compile the requested packet, stamp packet identity/latency, and expose assay
-  runners that prove first-contact routing without reading source bodies.
-- Local semantic excerpts are only produced for owned source paths and remain
-  separate from committed presence-only cache outputs.
-
-[DEPENDENCIES]
-- `microcosm_core.resource_root` locates the source checkout or installed public
-  data root.
-- Public data files: `core/organ_atlas.json`,
-  `core/component_public_synopses.json`, and
-  `receipts/code_lens/code_lens_join_index_v0.json`.
-
-[CONSTRAINTS]
-- Atomicity: Read-pack compilers are pure dict builders; only
-  `build_cached_read_packs` writes files, and only to the selected cache dir.
-- Determinism: Packet builders use stable sorting and bounded lists where the
-  public route contract requires reproducible output.
-- Forbid: Presence-only packets must not contain source bodies, raw private
-  paths, release authorization, static-analysis authority, or whole-system
-  correctness claims.
-
-Microcosm Comprehension Plane: a source-body-free, goal-directed read-pack compiler.
-
-A cold agent that clones this repo should not be met with "read the source." It
-should be met with ``plectis comprehend``: a route that compiles bounded read
-packs from already-public substrate facts so the agent can answer "what is this?",
-"what does this organ do?", and "what may I trust?" without rereading code.
-
-The compiler joins three public-safe, source-body-free inputs:
-  - the code-lens join index (organ governance + runner custody + specificity rollups),
-  - core/organ_atlas.json (adversarially-verified glosses, families, refs, first commands),
-  - core/component_public_synopses.json (one-line, public-site-linted organ synopses).
-
-It never reads source bodies or raw docstring atoms. The atom_value_membrane_v0
-makes that boundary explicit:
-
-  presence_only          -- ACTIVE. public-safe: names, glosses, counts, refs, ceilings.
-  local_semantic_excerpt -- DORMANT. bounded owned-source excerpts behind explicit local auth.
-  source_span_escalation -- ON-DEMAND. exact path+symbol pointers; open source only to mutate/prove.
-
-- Teleology: turn the populated code-lens IR plus the public organ atlas into a
-  first-contact comprehension runtime so the queryable graph becomes the default
-  entry move, not a dormant artifact.
-- Guarantee: every compiled pack is schema microcosm_comprehension_read_pack_v0,
-  carries export_band="presence_only" and a non-authorizing authority ceiling, and
-  contains no source bodies or "- Teleology:"-style raw atom bullets.
-- Fails: refuses (ValueError) to compile from a join index whose payload reports
-  source_bodies_exported; degrades to atlas-only packs when the join index is absent.
-- Reads: receipts/code_lens/code_lens_join_index_v0.json, core/organ_atlas.json,
-  core/component_public_synopses.json under the resolved substrate root.
-- Writes: nothing by default; build_cached_read_packs writes prebuilt receipts.
-- Non-goal: does not authorize release, source-body export, static-analysis
-  correctness, or whole-system correctness; it is a navigation read model only.
-- Escalates-to: scripts/build_code_lens_join_index.py to (re)build the IR it reads.
+Callers enter through `public_cross_section_claim`, `default_root`, `load_inputs`,
+`compile_first_contact`, `compile_organ`, `compile_authority`, and 21 more; constants such
+as `READ_PACK_SCHEMA`, `ASSAY_SCHEMA`, `PACKET_ATLAS_SCHEMA`, `PACKET_ROUTE_ASSAY_SCHEMA`,
+and 38 more pin local fixture names; dependencies include `ast`, `hashlib`, `json`,
+`posixpath`, and 5 more. Importing it does not authorize release work or hidden
+private-state access; those effects live behind explicit calls.
 """
 from __future__ import annotations
 
@@ -143,17 +79,9 @@ PUBLIC_CEILING_DO_NOT_CLAIM = (
 
 def public_cross_section_claim(component_count: int | None) -> str:
     """
-    [ACTION]
-    Return the public front-door identity sentence for the current component count.
+    Derive public cross section claim without touching module import state.
 
-    - Teleology: keep generated comprehension and first-action surfaces aligned
-      with the README's mechanism-first claim instead of drifting back to local
-      record or first-action mechanics.
-    - Guarantee: returns one bounded public claim and never grants release,
-      proof-correctness, provider, source-mutation, or private-system authority.
-    - Fails: never raises.
-    - Reads: call arguments only.
-    - Writes: return values.
+    Inputs are `component_count`.
     """
     count = int(component_count or 0)
     count_phrase = f"{count} bounded components" if count else "bounded components"
@@ -239,33 +167,19 @@ _PRIVATE_PATH_RE = re.compile(r"/Users/[A-Za-z0-9._-]+|/home/[A-Za-z0-9._-]+")
 
 def default_root() -> Path:
     """
-    [ACTION]
-    Resolve the substrate root that holds core/ and receipts/.
+    Return default root for the comprehension flow.
 
-    - Teleology: let comprehend find its public inputs regardless of the caller's
-      cwd, including from an installed package where the public data lives under
-      share/plectis rather than a source checkout.
-    - Guarantee: returns resource_root.microcosm_root() -- the source checkout
-      when it carries the public manifest triple, else the installed share root.
-    - Fails: never raises; pure path resolution.
-    - Reads: the public manifest probe files via resource_root.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Notable helpers are `microcosm_root`.
     """
     return resource_root.microcosm_root()
 
 
 def _load_json(path: Path) -> Any:
     """
-    [ACTION]
-    Parse a JSON file, returning None when it is absent or unreadable.
+    Load load JSON for `microcosm_core.comprehension`.
 
-    - Teleology: one tolerant reader so a missing join index degrades instead of crashing.
-    - Guarantee: returns the parsed value, or None when the path is missing/unparseable.
-    - Fails: never raises; OSError/ValueError are swallowed into None.
-    - Reads: the file at ``path``.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     try:
         return json.loads(path.read_text())
@@ -275,20 +189,10 @@ def _load_json(path: Path) -> Any:
 
 def load_inputs(root: Path | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    Load the three public inputs the compiler joins, tolerating absent ones.
+    Serialize `microcosm_core.comprehension.load_inputs` into the payload shape expected by
+    comprehension.
 
-    - Teleology: assemble the source-body-free input bundle for every compile call.
-    - Guarantee: returns {root, join_index, atlas, synopses, atlas_by_organ,
-      join_by_organ, synopsis_by_organ, mechanism_by_organ, join_index_present}; missing
-      files become None and an empty index rather than an error.
-    - Fails: ValueError only when the join index payload reports source_bodies_exported.
-    - Reads: receipts/code_lens/code_lens_join_index_v0.json, core/organ_atlas.json,
-      core/component_public_synopses.json, core/paper_module_capsules.json,
-      core/mechanism_sources.json under ``root``.
-    - Non-goal: never opens source files or docstring atoms.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     base = root or default_root()
     join_index = _load_json(base / "receipts/code_lens/code_lens_join_index_v0.json")
@@ -318,16 +222,10 @@ def load_inputs(root: Path | None = None) -> dict[str, Any]:
 
 def _membrane_guard(join_index: Any) -> None:
     """
-    [ACTION]
-    Refuse to compile from a join index that leaked source bodies.
+    Run membrane guard for `microcosm_core.comprehension`.
 
-    - Teleology: enforce the presence_only membrane at the input boundary, mirroring
-      the join-index builder's own leak refusal.
-    - Guarantee: returns None when the snapshot is clean or absent.
-    - Fails: ValueError when join_index.source_bodies_exported is truthy.
-    - Reads: only the in-memory snapshot.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     if isinstance(join_index, dict) and join_index.get("source_bodies_exported"):
         raise ValueError(
@@ -337,17 +235,10 @@ def _membrane_guard(join_index: Any) -> None:
 
 def _first_clause(text: str, limit: int) -> str:
     """
-    [ACTION]
-    Compress a mechanism body to a one-line clause at a sentence/word boundary.
+    Compute first clause from `text` and `limit`.
 
-    - Teleology: derive a budget-safe mechanism line when a curated one_line is absent,
-      without truncating mid-word into nonsense.
-    - Guarantee: returns ``text`` collapsed to single spaces when within ``limit``; else
-      the longest prefix that ends on a sentence (preferred) or word boundary past 80
-      chars, with a trailing ellipsis on a hard word cut.
-    - Fails: never raises.
-    - Reads: call arguments only.
-    - Writes: return values.
+    Inputs are `text` and `limit`; notable helpers are `join`, `rfind`, `split`, and
+    `rstrip`.
     """
     flat = " ".join(text.split())
     if len(flat) <= limit:
@@ -366,30 +257,10 @@ def _mechanism_index(
     atlas_by: dict[str, Any],
 ) -> dict[str, dict[str, str]]:
     """
-    [ACTION]
-    Resolve every organ's faithful mechanism shard from the public capsule + mechanism
-    registries, so first-contact surfaces carry what an organ actually computes/verifies
-    instead of the lossy one-line atlas gloss.
+    Derive mechanism index without touching module import state.
 
-    - Teleology: kill projection-induced under-reading -- the comprehend-all and per-organ
-      surfaces must name an organ's real machinery (Diebold-Mariano / Hansen SPA for the
-      finance organ; ord_Q(b)=lcm(F) for the Erdos certificate organ), not a generic gloss.
-    - Mechanism: a deterministic precedence join keyed on organ_id, NOT a text miner.
-      body = paper_module_capsules compression.card (>=120 chars) -> joined
-      mechanism_sources statements -> atlas agent_gloss; line = capsule one_line ->
-      first clause of body; ceiling = capsule authority_ceiling -> claim_ceiling_restated.
-    - Guarantee: returns {organ_id: {"line","body","ceiling"}} for every organ that
-      resolves any rung; bodies are curated public prose (the registries carry no source
-      bodies, mermaid, or docstring atoms). Every projected field is routed through
-      ``_public_scope_text`` -- the same public-scope scrub the ORGANS.md / organ_atlas
-      reader surfaces apply to these registries' card/one_line/authority_ceiling -- so
-      the mechanism slice softens internal claim-boundary vocabulary (private-root,
-      raw-seed, raw operator voice, release/publication/provider dispatch) identically
-      to every other public reader surface instead of leaking the raw source phrasing.
-    - Fails: never raises; absent or short fields fall through the ladder.
-    - Reads: the supplied in-memory registry docs + atlas map only.
-    - Non-goal: never reads runner source bodies, paper-module markdown, or docstring atoms.
-    - Writes: return values.
+    Inputs are `capsules_doc`, `mechanism_doc`, and `atlas_by`; notable helpers are `get`,
+    `append`, `_first_clause`, `_public_scope_text`, and 2 more.
     """
     cards: dict[str, str] = {}
     one_lines: dict[str, str] = {}
@@ -446,16 +317,10 @@ def _mechanism_index(
 
 def _pack_skeleton(mode: str, goal: str | None) -> dict[str, Any]:
     """
-    [ACTION]
-    Return the common read-pack envelope every mode fills in.
+    Serialize `microcosm_core.comprehension._pack_skeleton` into the payload shape expected
+    by comprehension.
 
-    - Teleology: guarantee one schema, membrane, and ceiling across all read packs.
-    - Guarantee: returns a dict with schema_version, mode, goal, export_band,
-      membrane, authority_ceiling, and empty selected_nodes/edges/refs/escalation lists.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": READ_PACK_SCHEMA,
@@ -491,16 +356,10 @@ def _pack_skeleton(mode: str, goal: str | None) -> dict[str, Any]:
 
 def _family_roster(atlas_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Group atlas organ rows into a family roster with counts and members.
+    Derive family roster without touching module import state.
 
-    - Teleology: give a cold agent the "what organs exist" map in one glance.
-    - Guarantee: returns a list of {family, count, organs:[{organ_id, display_name,
-      specialty}]} sorted by descending count then family name.
-    - Fails: never raises; rows missing a family fall under "unspecified".
-    - Reads: the in-memory atlas rows only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `atlas_rows`; notable helpers are `sort`, `append`, `items`, `get`, and 1
+    more.
     """
     families: dict[str, list[dict[str, Any]]] = {}
     for row in atlas_rows:
@@ -522,16 +381,9 @@ def _family_roster(atlas_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def _evidence_distribution(join_organs: list[dict[str, Any]]) -> dict[str, int]:
     """
-    [ACTION]
-    Count organs per evidence_class from join-index organ nodes.
+    Return evidence distribution for the comprehension flow.
 
-    - Teleology: surface how much of the substrate is validator vs projection vs
-      macro-import, the core authority question.
-    - Guarantee: returns evidence_class -> count, using "unspecified" for None.
-    - Fails: never raises.
-    - Reads: the in-memory organ nodes only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `join_organs`; notable helpers are `get` and `items`.
     """
     dist: dict[str, int] = {}
     for node in join_organs:
@@ -542,19 +394,10 @@ def _evidence_distribution(join_organs: list[dict[str, Any]]) -> dict[str, int]:
 
 def compile_first_contact(inputs: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the substrate-orientation read pack for a cold clone.
+    Derive compile first contact without touching module import state.
 
-    - Teleology: answer "what is this substrate and where do I start?" from public
-      metadata so the agent never has to grep the repo first.
-    - Guarantee: returns a tutorial-mode pack whose summary states the organ/family
-      counts and authority boundary, whose selected_nodes carry the family roster and
-      evidence distribution, and whose what_not_to_trust is the atlas anti_claim.
-    - Fails: never raises; absent atlas yields a degraded but valid pack.
-    - Reads: the in-memory inputs bundle only.
-    - Non-goal: emits no source bodies and no per-symbol docstrings.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs`; notable helpers are `_family_roster`, `_pack_skeleton`, `strip`,
+    `get`, and 5 more.
     """
     atlas = inputs.get("atlas") or {}
     atlas_rows = list(inputs.get("atlas_by_organ", {}).values())
@@ -595,17 +438,10 @@ def compile_first_contact(inputs: dict[str, Any]) -> dict[str, Any]:
 
 def _substrate_specificity_note(join_organs: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    Summarize substrate-wide runner custody, the headline comprehension truth.
+    Serialize `microcosm_core.comprehension._substrate_specificity_note` into the payload
+    shape expected by comprehension.
 
-    - Teleology: tell a cold agent up front that most organ runners are exact-copy
-      macro bodies, so organ comprehension must come from registry metadata.
-    - Guarantee: returns {custody_split, runners_resolved, note} counted from the
-      organ nodes' runner_custody_basis.
-    - Fails: never raises.
-    - Reads: the in-memory organ nodes only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     split: dict[str, int] = {}
     resolved = 0
@@ -627,17 +463,9 @@ def _substrate_specificity_note(join_organs: list[dict[str, Any]]) -> dict[str, 
 
 def _resolved_refs(rows: Any, ref_key: str = "ref") -> list[str]:
     """
-    [ACTION]
-    Extract resolved reference strings from an atlas ref list.
+    Produce the resolved refs value used by `microcosm_core.comprehension`.
 
-    - Teleology: turn the atlas's {ref, resolution_status} rows into a flat ref list
-      for the read pack's inspect-next surface.
-    - Guarantee: returns the ref strings whose resolution_status is "resolved"; plain
-      string rows pass through; non-list input yields [].
-    - Fails: never raises.
-    - Reads: only the supplied rows.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `rows` and `ref_key`; notable helpers are `append` and `get`.
     """
     if not isinstance(rows, list):
         return []
@@ -655,15 +483,9 @@ def _resolved_refs(rows: Any, ref_key: str = "ref") -> list[str]:
 
 def _organ_edges(join_index: Any, organ_id: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Select the join-index edges originating from one organ.
+    Derive organ edges without touching module import state.
 
-    - Teleology: give the organ pack its implemented_by_runner / emits_receipt edges.
-    - Guarantee: returns the edge dicts whose ``from`` equals organ_id; [] when none.
-    - Fails: never raises.
-    - Reads: the in-memory join index only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `join_index` and `organ_id`; notable helpers are `get`.
     """
     edges = (join_index or {}).get("edges") or []
     return [e for e in edges if isinstance(e, dict) and e.get("from") == organ_id]
@@ -671,19 +493,9 @@ def _organ_edges(join_index: Any, organ_id: str) -> list[dict[str, Any]]:
 
 def _edges_touching(join_index: Any, organ_id: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Select every join-index edge that touches one organ's graph neighborhood.
+    Produce the edges touching value used by `microcosm_core.comprehension`.
 
-    - Teleology: the v2 selection behind organ/claim/flow packets -- outgoing edges
-      (runner, receipts, claim, family, wires, doctrine), the organ's claim-node
-      edges, and inbound routes_to / wires_to edges, so a packet shows the organ's
-      place in the topology instead of only what it emits.
-    - Guarantee: returns the de-duplicated edge dicts whose ``from`` is the organ or
-      its claim node, or whose ``to`` is the organ; [] when the join index is absent.
-    - Fails: never raises.
-    - Reads: the in-memory join index only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `join_index` and `organ_id`; notable helpers are `get` and `append`.
     """
     edges = (join_index or {}).get("edges") or []
     claim_id = f"claim::{organ_id}"
@@ -698,19 +510,10 @@ def _edges_touching(join_index: Any, organ_id: str) -> list[dict[str, Any]]:
 
 def _routes_serving(inputs: dict[str, Any], organ_id: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Find the task-class routes whose fan-out lands on one organ.
+    Return routes serving for the comprehension flow.
 
-    - Teleology: answer "which entry points reach this organ, and with what stop
-      condition?" from the join index's route plane.
-    - Guarantee: returns [{task_class, role, first_command, stop_condition,
-      allowed_scope}] sorted primary-first then by task_class; allowed_scope is the
-      route's own scope sentence (the per-route stopping information) when the
-      route node carries one; [] when the route plane is absent.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs` and `organ_id`; notable helpers are `_graph_state`, `sort`, `get`,
+    and `append`.
     """
     state = _graph_state(inputs)
     route_by = {str(r.get("task_class")): r for r in state["route_nodes"]}
@@ -736,20 +539,10 @@ def _routes_serving(inputs: dict[str, Any], organ_id: str) -> list[dict[str, Any
 
 def _reading_boundary(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the organ's where-to-stop-reading block from the route plane.
+    Derive reading boundary without touching module import state.
 
-    - Teleology: a cold agent needs a stopping rule, not just more material; this
-      surfaces the strongest route-bound stop condition for the organ.
-    - Guarantee: returns {stop_condition, allowed_scope, task_classes, source};
-      allowed_scope is the primary-most route's own scope sentence (the route-
-      specific stopping information); when no route lands on the organ,
-      stop_condition is None and a fallback_guidance string (labelled as
-      comprehension-layer guidance, not route data) is supplied.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs` and `organ_id`; notable helpers are `_routes_serving`, `next`, and
+    `get`.
     """
     routes = _routes_serving(inputs, organ_id)
     boundary: dict[str, Any] = {
@@ -773,25 +566,9 @@ def _reading_boundary(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
 
 def _runnable_command(command: Any) -> str:
     """
-    [ACTION]
-    Render a command in its cold-runnable form for a fresh source clone.
+    Derive runnable command without touching module import state.
 
-    - Teleology: a packet that says "run this" must hand over a command that works
-      VERBATIM from a fresh clone; the registry stores bare `python -m ...`
-      identities and the atlas stores `plectis ...` console-script forms that
-      only exist after pip install.
-    - Guarantee: rewrites a leading "plectis " or legacy "microcosm " to a
-      source-clone runnable module command; console subcommands use
-      "PYTHONPATH=src python3 -m microcosm_core ...", while module-only organ
-      commands use "PYTHONPATH=src python3 -m microcosm_core.organs.<module> ...".
-      It also prefixes bare
-      "python/python3 -m microcosm_core" with "PYTHONPATH=src" and normalizes
-      "python " to "python3 "; other commands and non-strings pass through as
-      str(command or "").
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `command`; notable helpers are `startswith`, `split`, and `get`.
     """
     text = str(command or "")
     for console_name in ("plectis", "microcosm"):
@@ -820,23 +597,10 @@ _NEGATION_MARKERS = ("ignore ", "not ", "except ", "skip ", "without ", "don't w
 
 def _resolve_goal_organs(goal: str, inputs: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Resolve organ mentions in a goal: normalized, negation-aware, earliest-first.
+    Serialize `microcosm_core.comprehension._resolve_goal_organs` into the payload shape
+    expected by comprehension.
 
-    - Teleology: "is the Mission Transaction Work Spine safe to edit?" and
-      "ignore X, I want Y" must both land on the organ the agent MEANT --
-      display names count, negated mentions are excluded, and when several
-      organs are named the earliest positive mention wins (never dict order).
-    - Guarantee: returns {selected, also_named, excluded}; mentions are found by
-      matching each organ's normalized id AND display name (hyphens/underscores
-      -> spaces) inside the normalized goal; a mention whose preceding ~24 chars
-      contain a negation marker (ignore/not/except/skip/without) is excluded;
-      among positives the earliest (then longest) mention is selected and the
-      rest are recorded in also_named.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     text = re.sub(r"[-_]", " ", (goal or "").lower())
     mentions: list[tuple[int, int, str]] = []  # (position, -length, organ_id)
@@ -874,18 +638,10 @@ def _resolve_goal_organs(goal: str, inputs: dict[str, Any]) -> dict[str, Any]:
 
 def _match_organ_tokens(goal: str, inputs: dict[str, Any]) -> str | None:
     """
-    [ACTION]
-    Fuzzy subject-matter rung: match goal tokens against organ names.
+    Return match organ tokens for the comprehension flow.
 
-    - Teleology: "evaluate prompt injection defenses" names no route or exact
-      organ id, but the substrate HAS an owning organ -- token overlap against
-      organ_id + display_name finds it before the generic orientation fallback.
-    - Guarantee: returns the best organ_id when >= 2 distinct goal tokens match
-      its id/display tokens (score = matched count, ties by organ_id); else None.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `goal` and `inputs`; notable helpers are `_goal_tokens`, `items`, `get`, and
+    `_tokens_overlap`.
     """
     tokens = _goal_tokens(goal)
     if not tokens:
@@ -905,17 +661,10 @@ def _match_organ_tokens(goal: str, inputs: dict[str, Any]) -> str | None:
 
 def _organ_token_match_count(goal_tokens: list[str], organ: dict[str, Any]) -> int:
     """
-    [ACTION]
-    Count distinct goal tokens that match an organ's name surface.
+    Produce the organ token match count value used by `microcosm_core.comprehension`.
 
-    - Teleology: when a route row groups many relevant organs, a goal such as
-      "benchmark gaming" must keep the specific organ it names instead of being
-      collapsed to the route's broad primary organ.
-    - Guarantee: returns the count of distinct goal tokens matching organ_id or
-      display_name tokens; only those stable name surfaces participate.
-    - Fails: never raises.
-    - Reads: call arguments only.
-    - Writes: return values.
+    Inputs are `goal_tokens` and `organ`; notable helpers are `_goal_tokens`, `get`, and
+    `_tokens_overlap`.
     """
     name_tokens = set(
         _goal_tokens(str(organ.get("organ_id") or ""))
@@ -936,21 +685,10 @@ def _route_with_specific_relevant_organ(
     route: dict[str, Any], goal_tokens: list[str], inputs: dict[str, Any]
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Preserve a strongly matched relevant organ inside a matched task route.
+    Compute route with specific relevant organ from `route`, `goal_tokens`, and `inputs`.
 
-    - Teleology: task routes are coarse groups, but the first-action contract is
-      one concrete command. If the user's goal names a non-primary organ inside
-      the matched route with at least two direct name-token hits, use that organ's
-      runnable command and proof surfaces.
-    - Guarantee: returns the original route unless a non-primary relevant organ
-      from the route row or its join-index routes_to edges has a strictly
-      stronger direct name match than the route primary; in that case returns a
-      shallow route copy with primary_* and first_command fields rebound to the
-      specific organ while preserving the task_class basis.
-    - Fails: never raises.
-    - Reads: call arguments only.
-    - Writes: return values.
+    Inputs are `route`, `goal_tokens`, and `inputs`; notable helpers are `next`,
+    `_organ_token_match_count`, `get`, and `append`.
     """
     primary_id = str(route.get("primary_organ_id") or "")
     relevant = [o for o in (route.get("relevant_organs") or []) if isinstance(o, dict)]
@@ -1015,21 +753,10 @@ def _receipt_evidence(
     inputs: dict[str, Any], root: Path | None, organ_id: str
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Split an organ's receipt refs into shipped evidence vs provenance pointers.
+    Serialize `microcosm_core.comprehension._receipt_evidence` into the payload shape
+    expected by comprehension.
 
-    - Teleology: a contract must never tell a cold agent to expect a receipt the
-      clone does not ship -- macrocosm adoption receipts (state/... paths) exist
-      only upstream, and listing them as expected outputs makes a correct run
-      look like a failure.
-    - Guarantee: returns {committed_receipts (exist under root, authority first),
-      provenance_receipts ([{path, exists_in_clone: False, note}]), all_refs};
-      ordering is authority receipt first then emits_receipt edge targets,
-      deduplicated.
-    - Fails: never raises; a missing root existence-checks against the default root.
-    - Reads: the in-memory inputs bundle + path existence under root.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     base = root or default_root()
     ordered = _organ_receipts(inputs, organ_id)
@@ -1058,21 +785,10 @@ _WRITE_FLAG_RE = re.compile(r"^--(?:[a-z0-9][a-z0-9-]*-)?out(?:=(?P<inline>.+))?
 
 def _write_targets(command: str) -> list[tuple[str, str]]:
     """
-    [ACTION]
-    List every (flag, target) write destination a command names.
+    Write write targets for the comprehension flow.
 
-    - Teleology: footprint honesty must see EVERY write flag (--out,
-      --acceptance-out, --out=DIR), not only the first --out, or a clean_run
-      could claim a clean clone while a second flag still writes into
-      committed paths.
-    - Guarantee: returns (flag, target) pairs in argv order for every token
-      matching --out / --<word>-out, accepting both the space and = forms;
-      duplicate flags are all kept (argparse last-wins is the caller's
-      concern).
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     parts = str(command or "").split()
     targets: list[tuple[str, str]] = []
@@ -1090,18 +806,10 @@ def _write_targets(command: str) -> list[tuple[str, str]]:
 
 def _is_ignored_out_dir(path: str) -> bool:
     """
-    [ACTION]
-    Decide whether a write target stays outside the committed tree.
+    Return whether is ignored out dir holds for the comprehension flow.
 
-    - Teleology: the clean/dirty classification behind footprint honesty must
-      be separator-aware and normalized, so `.microcosm/../receipts/x` or a
-      hypothetical `.microcosm_extra/` cannot pass as clean.
-    - Guarantee: True only for `<placeholder>` targets and normalized paths
-      that are exactly .microcosm//tmp or sit under them.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `path` with `startswith` and `normpath`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     raw = str(path or "")
     if raw.startswith("<"):
@@ -1117,19 +825,9 @@ def _is_ignored_out_dir(path: str) -> bool:
 
 def _writes_outputs_under(command: str) -> str | None:
     """
-    [ACTION]
-    Extract the --out directory a first command writes fresh outputs under.
+    Compute writes outputs under from `command`.
 
-    - Teleology: distinguish "receipts this run will write" from committed
-      prior-run evidence, so expected outputs are never conflated with shipped
-      receipts.
-    - Guarantee: returns the LAST --out target in the command (argparse
-      last-wins), accepting both `--out DIR` and `--out=DIR`; None when the
-      command names no --out flag.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Inputs are `command`; notable helpers are `_write_targets`.
     """
     out_dir: str | None = None
     for flag, target in _write_targets(command):
@@ -1143,21 +841,10 @@ _CLEAN_RUN_OUT_ROOT = ".microcosm/first_action_runs"
 
 def _clean_run_variant(command: str) -> dict[str, Any] | None:
     """
-    [ACTION]
-    Build the no-footprint variant of a first command that writes into the tree.
+    Serialize `microcosm_core.comprehension._clean_run_variant` into the payload shape
+    expected by comprehension.
 
-    - Teleology: the literal first action must not silently dirty a cold clone;
-      when a first command's write flags land in committed receipt paths, the
-      contract must carry a ready-to-run variant whose outputs land under the
-      ignored .microcosm/ scratch tree instead.
-    - Guarantee: returns {command, writes_outputs_under, note} with EVERY
-      non-ignored write-flag target (--out / --<word>-out, space or = form)
-      redirected to .microcosm/first_action_runs/<leaf>; returns None when the
-      command names no write flag or every target is already ignored.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     targets = _write_targets(command)
     if not targets or all(_is_ignored_out_dir(t) for _f, t in targets):
@@ -1193,17 +880,9 @@ def _clean_run_variant(command: str) -> dict[str, Any] | None:
 
 def _positive_why(inputs: dict[str, Any], organ_id: str, fallback: str = "") -> str:
     """
-    [ACTION]
-    Pick the POSITIVE purpose sentence for an organ (never a ceiling restatement).
+    Produce the positive why value used by `microcosm_core.comprehension`.
 
-    - Teleology: a first-action why must say what the action does FOR the goal;
-      scope limits and ceilings belong in the boundary fields, not here.
-    - Guarantee: returns the public synopsis, else the human gloss, else the
-      agent gloss, else the supplied fallback.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `inputs`, `organ_id`, and `fallback`; notable helpers are `get`.
     """
     atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id) or {}
     return str(
@@ -1216,22 +895,10 @@ def _positive_why(inputs: dict[str, Any], organ_id: str, fallback: str = "") -> 
 
 def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the per-organ comprehension read pack.
+    Compute compile organ from `inputs` and `organ_id`.
 
-    - Teleology: answer "what does this organ do, how do I run it, and what may I
-      trust about it?" from the join index + atlas + synopsis, never the runner source.
-    - Guarantee: returns an explanation-mode pack whose summary draws what_this_is from
-      the synopsis + human_gloss, what_to_inspect_next from first_command + wires_to +
-      resolved mechanism/concept refs, and what_not_to_trust from claim_ceiling_restated;
-      selected_edges are every join edge touching the organ (runner/receipt/claim/
-      family/wires/doctrine/inbound routes); reading_boundary carries the route-bound
-      stop condition; source_span_escalation carries code_loci.
-    - Fails: returns a not_found pack (mode reference) when the organ id is unknown.
-    - Reads: the in-memory inputs bundle only.
-    - Non-goal: never reads or returns runner source bodies or docstring atoms.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs` and `organ_id`; notable helpers are `get`, `_pack_skeleton`,
+    `strip`, `_resolved_refs`, and 7 more.
     """
     atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id)
     join_node = inputs.get("join_by_organ", {}).get(organ_id)
@@ -1297,16 +964,10 @@ def compile_organ(inputs: dict[str, Any], organ_id: str) -> dict[str, Any]:
 
 def _organ_concept_refs(atlas_row: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    Collect an organ's resolved concept / paper-module / axiom / principle refs.
+    Return organ concept refs for the comprehension flow.
 
-    - Teleology: give the organ pack its doctrine evidence handles for drilldown.
-    - Guarantee: returns a flat, de-duplicated list of resolved ref strings plus the
-      paper_module_ref when present.
-    - Fails: never raises.
-    - Reads: only the supplied atlas row.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `atlas_row`; notable helpers are `get`, `extend`, `append`, `_resolved_refs`,
+    and 1 more.
     """
     refs: list[str] = []
     for key in ("concept_refs", "axiom_refs", "principle_refs"):
@@ -1320,17 +981,10 @@ def _organ_concept_refs(atlas_row: dict[str, Any]) -> list[str]:
 
 def _organ_specificity_risk(join_node: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Restate an organ's runner specificity + custody as a trust-risk note.
+    Serialize `microcosm_core.comprehension._organ_specificity_risk` into the payload shape
+    expected by comprehension.
 
-    - Teleology: tell the agent whether the organ's runner atoms are body-specific or
-      whether the runner is an exact-copy macro body to be read only via metadata.
-    - Guarantee: returns {runner_custody_basis, runner_specificity, note}; the note
-      flags directory_coupling_marker runners as comprehend-via-metadata.
-    - Fails: never raises.
-    - Reads: only the supplied join node.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     basis = join_node.get("runner_custody_basis")
     note = (
@@ -1350,17 +1004,9 @@ def _organ_source_spans(
     atlas_row: dict[str, Any], join_node: dict[str, Any]
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Build the organ's source-span escalation pointers from atlas code_loci.
+    Produce the organ source spans value used by `microcosm_core.comprehension`.
 
-    - Teleology: hand the agent exact path+symbol pointers to open ONLY when it must
-      mutate or prove, keeping the default pack source-body-free.
-    - Guarantee: returns a list of {path, symbols} from code_loci plus the resolved
-      runner_source_ref; symbol lists are truncated to 12 names; no bodies included.
-    - Fails: never raises.
-    - Reads: only the supplied atlas row and join node.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `atlas_row` and `join_node`; notable helpers are `get` and `append`.
     """
     spans: list[dict[str, Any]] = []
     loci = atlas_row.get("code_loci") or []
@@ -1382,19 +1028,10 @@ def _organ_source_spans(
 
 def compile_authority(inputs: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the authority/trust-boundary read pack.
+    Derive compile authority without touching module import state.
 
-    - Teleology: answer "what is authoritative vs projection, and what does passing
-      NOT authorize?" -- the question a careful agent must resolve before acting.
-    - Guarantee: returns a reference-mode pack carrying the evidence_class distribution,
-      the per-organ claim ceilings, the global authority ceiling, the membrane bands,
-      and the atlas authority_boundary + anti_claim.
-    - Fails: never raises; absent inputs yield a degraded but valid pack.
-    - Reads: the in-memory inputs bundle only.
-    - Non-goal: never claims any release/source-export/whole-system authorization.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs`; notable helpers are `get`, `_pack_skeleton`, `strip`, `values`, and
+    2 more.
     """
     atlas = inputs.get("atlas") or {}
     join_organs = list(inputs.get("join_by_organ", {}).values())
@@ -1450,17 +1087,9 @@ def compile_authority(inputs: dict[str, Any]) -> dict[str, Any]:
 
 def compile_organs_index(inputs: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the organ roster read pack: one synopsis line per organ.
+    Derive compile organs index without touching module import state.
 
-    - Teleology: give the agent the whole-category-at-a-glance roster so it can pick an
-      organ to comprehend without scanning the registry.
-    - Guarantee: returns a reference-mode pack whose selected_nodes list every organ's
-      {organ_id, display_name, specialty, family, synopsis, evidence_class}.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs`; notable helpers are `get` and `_pack_skeleton`.
     """
     atlas_by = inputs.get("atlas_by_organ", {})
     join_by = inputs.get("join_by_organ", {})
@@ -1488,20 +1117,10 @@ def compile_organs_index(inputs: dict[str, Any]) -> dict[str, Any]:
 
 def compile_mechanism_index(inputs: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the all-organ mechanism roster: one mechanism line per organ, grouped by family.
+    Derive compile mechanism index without touching module import state.
 
-    - Teleology: force a cold agent to read what EVERY organ actually computes/verifies/
-      rejects before forming an impression -- the antidote to under-reading a rich organ
-      (finance, Erdos, sabotage) from its lossy one-line gloss.
-    - Guarantee: returns a reference-mode pack whose selected_nodes list every organ's
-      {organ_id, family, display_name, mechanism, claim_ceiling}; mechanism is the curated
-      capsule one_line (or its registry fallback), never a source body.
-    - Fails: never raises; an organ without a resolved shard emits an empty mechanism.
-    - Reads: the in-memory inputs bundle only.
-    - Non-goal: never reads runner source bodies or docstring atoms.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs`; notable helpers are `get`, `_family_roster`, `_pack_skeleton`,
+    `values`, and 1 more.
     """
     atlas_by = inputs.get("atlas_by_organ", {})
     mech_by = inputs.get("mechanism_by_organ", {})
@@ -1552,14 +1171,9 @@ def compile_mechanism_index(inputs: dict[str, Any]) -> dict[str, Any]:
 
 def _goal_path_token(token: str) -> str | None:
     """
-    [ACTION]
-    Return a normalized path-like token from a freeform goal, if present.
-    - Teleology: Implements `_goal_path_token` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive goal path token without touching module import state.
+
+    Inputs are `token`; notable helpers are `strip` and `endswith`.
     """
     candidate = token.strip("`'\".,;:!?()[]{}")
     if candidate.endswith(".py") or "/" in candidate:
@@ -1569,14 +1183,10 @@ def _goal_path_token(token: str) -> str | None:
 
 def _is_path_target(target: Any) -> bool:
     """
-    [ACTION]
-    Return True when ``target`` is a source/path ref rather than an organ id.
-    - Teleology: Implements `_is_path_target` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether is path target holds for the comprehension flow.
+
+    The result is derived from `target` with `endswith`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     text = str(target or "")
     return bool(text) and (text.endswith(".py") or "/" in text)
@@ -1584,20 +1194,10 @@ def _is_path_target(target: Any) -> bool:
 
 def _assessment_mechanism_goal(text: str, *, exact_organ_match: bool = False) -> bool:
     """
-    [ACTION]
-    Return True for whole-Plectis impression goals that must read the mechanism slice.
+    Return whether assessment mechanism goal holds for the comprehension flow.
 
-    - Teleology: prevent unrouted impression formation: a cold agent must not judge
-      the whole substrate from wrappers, counts, or one-line glosses when the
-      mechanism slice can answer "what each component actually does" directly.
-    - Guarantee: matches whole-project/component-quality/thinness questions without
-      hijacking named-system evaluation goals such as "How do I evaluate the finance
-      forecasting system?".
-    - Fails: never raises.
-    - Reads: call arguments only.
-    - Non-goal: exact organ questions remain organ-specific unless they carry an
-      explicit whole-substrate/component-set scope.
-    - Writes: return values.
+    The result is derived from `text` and `exact_organ_match`; failing evidence is returned
+    or raised exactly where the body says so.
     """
     scope_markers = (
         "plectis",
@@ -1653,19 +1253,10 @@ def _assessment_mechanism_goal(text: str, *, exact_organ_match: bool = False) ->
 
 def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str | None]:
     """
-    [ACTION]
-    Route a freeform goal string to a comprehension packet mode + target.
+    Return route goal for the comprehension flow.
 
-    - Teleology: let a cold agent ask in words and still land on the right bounded
-      packet -- the information-scent router behind --goal and the packet-route assay.
-    - Guarantee: returns (mode, target, note); mode is a known packet mode; target is an
-      organ id (organ/claim_trace/flow/mutation), a family (organ_cluster), or a path
-      (path/mutation) when the goal names one; note is reserved for honest deferrals.
-    - Fails: never raises; an empty/unknown goal routes to first-contact.
-    - Reads: the in-memory inputs (organ id + family sets) only.
-    - Non-goal: explicit CLI flags always override this fuzzy router.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values, declared filesystem outputs.
+    Inputs are `goal` and `inputs`; notable helpers are `lower`, `next`, `search`,
+    `_assessment_mechanism_goal`, and 5 more.
     """
     raw_text = goal or ""
     text = raw_text.lower()
@@ -1758,20 +1349,10 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
 
 def _atom_value(docstring: str, atom: str, vocab: tuple[str, ...]) -> str:
     """
-    [ACTION]
-    Extract ONE atom's bounded prose value from a docstring (local-band exporter).
+    Return atom value for the comprehension flow.
 
-    - Teleology: the sanctioned local exporter of a single authored atom's value, so
-      a cold agent can read a symbol's Guarantee/Fails/Non-goal without opening source.
-    - Guarantee: returns the stripped text following the first ``<atom>:`` line marker,
-      joined across continuation lines up to the next atom marker or a blank line, then
-      truncated to MAX_ATOM_CHARS with an ellipsis; "" when the atom is absent.
-    - Fails: never raises (pure string scan).
-    - Reads: only the supplied docstring.
-    - Non-goal: never returns the whole docstring, the summary line, or source body;
-      one bounded atom value only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `docstring`, `atom`, and `vocab`; notable helpers are `splitlines`, `strip`,
+    `append`, `startswith`, and 3 more.
     """
     stop_markers = tuple(f"{a}:" for a in vocab)
     collected: list[str] = []
@@ -1794,16 +1375,10 @@ def _atom_value(docstring: str, atom: str, vocab: tuple[str, ...]) -> str:
 
 def _excerpt_fingerprint(symbol_name: str, atom_values: dict[str, str]) -> str:
     """
-    [ACTION]
-    Return a 12-hex provenance fingerprint over a symbol's emitted atom values.
+    Return excerpt fingerprint for the comprehension flow.
 
-    - Teleology: stamp each excerpt row so it is a drilldown hint tied to its source,
-      not free-floating authority.
-    - Guarantee: returns the first 12 hex chars of a sha256 over name + sorted values.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Inputs are `symbol_name` and `atom_values`; notable helpers are `dumps`, `hexdigest`,
+    `sha256`, and `encode`.
     """
     blob = symbol_name + "|" + json.dumps(atom_values, sort_keys=True, ensure_ascii=True)
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:12]
@@ -1811,27 +1386,10 @@ def _excerpt_fingerprint(symbol_name: str, atom_values: dict[str, str]) -> str:
 
 def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Extract bounded, custody-gated atom-value excerpts from ONE owned source file.
+    Derive extract atom excerpts without touching module import state.
 
-    - Teleology: activate the local_semantic_excerpt band -- turn a file's authored
-      docstring atoms into a bounded local read model so the comprehend route is
-      powered by real code semantics, not just atlas metadata.
-    - Guarantee: returns a microcosm_atom_value_excerpt_v1 dict; emits symbol rows
-      (name, source_span_ref, fingerprint, bounded atom_values) ONLY when the path is
-      under src/microcosm_core/ AND the manifest custody oracle reports it owned
-      (_custody_basis is None); secret-shaped or private-home-path atom values are
-      dropped and counted, never emitted; emitted symbol rows are capped at
-      MAX_EXCERPT_SYMBOLS and total row bytes are capped at MAX_EXCERPT_PACK_BYTES.
-    - Fails: returns eligible=False with a reason for non-owned/custody-bound/unreadable
-      paths; never raises.
-    - Reads: the manifest custody oracle + the owned source file's docstrings only.
-    - Writes: nothing.
-    - Non-goal: never exports source bodies, the summary line, custody-bound runners,
-      example/fixture/generated source, or anything into the public presence_only cache.
-    - Escalates-to: project_substrate._load_manifest_custody_paths / _custody_basis as
-      the authoritative custody signal.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `root` and `rel_path`; notable helpers are `lstrip`,
+    `_load_manifest_custody_paths`, `_custody_basis`, `walk`, and 12 more.
     """
     from . import project_substrate as ps
 
@@ -1916,19 +1474,10 @@ def extract_atom_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
 
 def compile_path_excerpts(root: Path | None, rel_path: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile a local_semantic_excerpt read pack for one owned source file.
+    Compute compile path excerpts from `root` and `rel_path`.
 
-    - Teleology: the "read the code's self-description without opening the code"
-      primitive -- surface an owned file's authored atoms as a bounded local read pack.
-    - Guarantee: returns an explanation-mode pack with export_band=local_semantic_excerpt
-      carrying semantic_excerpts (bounded atom values), a source-span escalation row, and
-      an excerpt_guard; a non-eligible path yields found=False with the custody reason.
-    - Fails: never raises.
-    - Reads: extract_atom_excerpts for the file.
-    - Non-goal: not a public-cache surface; this pack is local-only and never presence_only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root` and `rel_path`; notable helpers are `extract_atom_excerpts`,
+    `_pack_skeleton`, `default_root`, and `get`.
     """
     base = root or default_root()
     excerpts = extract_atom_excerpts(base, rel_path)
@@ -1985,19 +1534,10 @@ def _attach_organ_excerpts(
     pack: dict[str, Any], root: Path | None, organ_id: str, inputs: dict[str, Any]
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Enrich an organ pack with owned-source atom excerpts from its code_loci.
+    Compute attach organ excerpts from `pack`, `root`, `organ_id`, and `inputs`.
 
-    - Teleology: let an organ pack carry the authored atoms of its OWNED governing
-      code, while honestly noting that custody-bound runners stay behind the membrane.
-    - Guarantee: flips export_band to local_semantic_excerpt and adds semantic_excerpts
-      (owned code_loci paths with atom values) plus excerpt_custody_notes (the loci that
-      are custody-bound / non-owned and therefore not excerpted).
-    - Fails: never raises; an organ with no owned loci yields empty excerpts + notes.
-    - Reads: extract_atom_excerpts per code_loci path.
-    - Non-goal: never excerpts a custody-bound or non-owned locus.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `pack`, `root`, `organ_id`, and `inputs`; notable helpers are `get`,
+    `extract_atom_excerpts`, and `append`.
     """
     atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id) or {}
     loci = atlas_row.get("code_loci") or []
@@ -2280,48 +1820,27 @@ _SPEC_BY_ID: dict[str, dict[str, Any]] = {s["packet_id"]: s for s in PACKET_SPEC
 
 def packet_spec_for_mode(mode: str) -> dict[str, Any] | None:
     """
-    [ACTION]
-    Return the packet spec whose dispatch mode is ``mode`` (or None).
+    Produce the packet spec for mode value used by `microcosm_core.comprehension`.
 
-    - Teleology: let comprehend stamp a compiled pack with its packet identity/budget.
-    - Guarantee: returns the spec dict for a known dispatch mode, else None.
-    - Fails: never raises.
-    - Reads: the in-memory _SPEC_BY_MODE map only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `mode`; notable helpers are `get`.
     """
     return _SPEC_BY_MODE.get(mode)
 
 
 def _budget_for(spec: dict[str, Any]) -> dict[str, int]:
     """
-    [ACTION]
-    Resolve a spec's named budget band to {target_bytes, max_bytes}.
+    Compute budget for from `spec`.
 
-    - Teleology: turn the spec's symbolic budget band into concrete byte bounds.
-    - Guarantee: returns the PACKET_BUDGETS entry, defaulting to the standard band.
-    - Fails: never raises.
-    - Reads: PACKET_BUDGETS only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `spec`; notable helpers are `get`.
     """
     return PACKET_BUDGETS.get(str(spec.get("budget")), PACKET_BUDGETS["standard"])
 
 
 def _stamp_packet_identity(pack: dict[str, Any], spec: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Stamp a compiled pack with its packet identity, byte-budget verdict, and scent.
+    Return stamp packet IDentity for the comprehension flow.
 
-    - Teleology: make every compiled pack self-describe as an atlas packet -- its id,
-      kind, measured bytes vs budget, and the next_packets a reader should follow.
-    - Guarantee: adds packet_id, packet_kind, next_packets, and a budget block with
-      band/target/max/actual bytes and within_budget; returns the same pack.
-    - Fails: never raises.
-    - Reads: the spec and the pack's own serialized size.
-    - Writes: mutates the pack in place.
-    - Non-goal: never alters the pack's export_band or authority ceiling.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `pack` and `spec`; notable helpers are `_budget_for`, `dumps`, and `get`.
     """
     budget = _budget_for(spec)
     actual = len(json.dumps(pack, ensure_ascii=True))
@@ -2340,16 +1859,9 @@ def _stamp_packet_identity(pack: dict[str, Any], spec: dict[str, Any]) -> dict[s
 
 def _shared_refs(rows: list[dict[str, Any]], key: str) -> list[str]:
     """
-    [ACTION]
-    Collect the distinct resolved refs of ``key`` across organ rows, by frequency.
+    Return shared refs for the comprehension flow.
 
-    - Teleology: surface the doctrine a family/cluster shares so its pack shows a spine.
-    - Guarantee: returns resolved ref strings sorted by descending occurrence then name;
-      handles list-valued fields (mechanism_refs) and scalar fields (paper_module_ref).
-    - Fails: never raises.
-    - Reads: only the supplied rows.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `rows` and `key`; notable helpers are `get`, `_resolved_refs`, and `items`.
     """
     counts: dict[str, int] = {}
     for row in rows:
@@ -2367,21 +1879,10 @@ def _shared_refs(rows: list[dict[str, Any]], key: str) -> list[str]:
 
 def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the navigable packet menu -- the cold-agent first move.
+    Derive compile packet atlas without touching module import state.
 
-    - Teleology: answer "which packet answers my question?" by projecting the packet
-      registry into a presence_only menu with byte budgets, cache state, and scent links.
-    - Guarantee: returns a PACKET_ATLAS_SCHEMA pack whose selected_nodes list every
-      PACKET_SPEC's {packet_id, packet_kind, when_needed, command, export_band,
-      cache_policy, budget band+bytes, slo_ms, data_status, next_packets}; carries
-      default_entry, the per-packet SLO table, and the (closed) SQLite gate; a cached
-      packet reports its real on-disk byte size.
-    - Fails: never raises; a missing cache file simply omits cached_bytes.
-    - Reads: PACKET_SPECS and any prebuilt cache files under the resolved root.
-    - Non-goal: never compiles or inlines the packets themselves (it is the index).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs`; notable helpers are `_pack_skeleton`, `get`, `default_root`,
+    `_budget_for`, and 4 more.
     """
     root = inputs.get("root") or default_root()
     pack = _pack_skeleton("reference", "which comprehension packet should I use?")
@@ -2449,20 +1950,10 @@ def compile_packet_atlas(inputs: dict[str, Any]) -> dict[str, Any]:
 
 def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the family/subsystem read pack -- the whole-family-at-once middle doll.
+    Derive compile organ cluster without touching module import state.
 
-    - Teleology: answer "what is this subsystem and which organs compose it?" so an
-      agent can grasp a family before drilling into one organ.
-    - Guarantee: returns an explanation pack for the named family with member organs
-      (id, display_name, specialty, evidence_class, synopsis), the shared mechanism/
-      concept/paper refs, and the evidence-class distribution; returns a chooser pack
-      (found False) listing all families when family is blank or unknown.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only.
-    - Non-goal: never reads runner source or docstring atoms.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs` and `family`; notable helpers are `get`, `_family_roster`,
+    `_pack_skeleton`, `append`, and 4 more.
     """
     atlas_by = inputs.get("atlas_by_organ", {})
     join_by = inputs.get("join_by_organ", {})
@@ -2538,20 +2029,10 @@ def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]
 
 def compile_math(inputs: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the formal-math / proof surfaces read pack.
+    Compute compile math from `inputs`.
 
-    - Teleology: answer "where is the mathematics/proof and what does it claim?" by
-      gathering the formal_math_and_proof organs with their proof evidence and ceilings.
-    - Guarantee: returns an explanation pack listing each proof-family organ's
-      {organ_id, display_name, claim_ceiling, validator_command, paper_module_ref,
-      evidence_class, receipt_count}, the shared proof mechanisms, and a deferred_edges
-      block naming the proof-internal structure (theorem->lemma) still behind v1.
-    - Fails: never raises; degrades to an empty member list if the family is absent.
-    - Reads: the in-memory inputs bundle only.
-    - Non-goal: never runs Lean, opens proof bodies, or asserts domain correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs`; notable helpers are `get`, `_pack_skeleton`, `_deferred_edges_for`,
+    `_shared_refs`, and 1 more.
     """
     family = "formal_math_and_proof"
     atlas_by = inputs.get("atlas_by_organ", {})
@@ -2595,23 +2076,10 @@ def compile_math(inputs: dict[str, Any]) -> dict[str, Any]:
 
 def compile_claim_trace(inputs: dict[str, Any], target: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the claim-justification trace for one organ: claim -> validator -> receipt.
+    Return compile claim trace for the comprehension flow.
 
-    - Teleology: answer "how is this organ's public claim justified, and what bounds it?"
-      by chaining its claim ceiling to the validator command and the receipts it emits.
-    - Guarantee: returns a proof_trace pack for ``target`` whose claim node is the
-      join index's FIRST-CLASS claim node when the graph carries one (asserts_claim /
-      validated_by / proven_by edges selected, graph_backed names the resolved class),
-      degrading to a synthesized claim row -- with claim_node_ontology honestly
-      re-deferred -- when the join index predates the v2 graph; always carries the
-      validator_command, authority_receipt, emits_receipt edges, and evidence_class.
-    - Fails: returns a chooser pack (found False) listing organs by ceiling when target
-      is blank/unknown.
-    - Reads: the in-memory inputs bundle only.
-    - Non-goal: never opens validator source or receipt bodies; pointers only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs` and `target`; notable helpers are `get`, `_pack_skeleton`,
+    `_graph_state`, `next`, and 6 more.
     """
     atlas_by = inputs.get("atlas_by_organ", {})
     join_by = inputs.get("join_by_organ", {})
@@ -2700,22 +2168,10 @@ def compile_claim_trace(inputs: dict[str, Any], target: str) -> dict[str, Any]:
 
 def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the execution-flow trace for one organ: validator -> runner -> receipt.
+    Produce the compile flow value used by `microcosm_core.comprehension`.
 
-    - Teleology: answer "how does this organ run and what does it leave behind?" by
-      ordering its validator command, runner module, and emitted receipts.
-    - Guarantee: returns a proof_trace pack for ``target`` whose selected_nodes are the
-      ordered flow stages (validator -> runner/custody -> receipts) PLUS, when the
-      join index carries the v2 route plane, a route_context row (the task-class
-      routes landing on the organ, with stop conditions) and a wired_neighbors row
-      (wires_to topology in both directions); deferred_edges re-defers
-      cross_organ_route_topology honestly when the route plane is absent.
-    - Fails: returns a chooser pack (found False) when target is blank/unknown.
-    - Reads: the in-memory inputs bundle only.
-    - Non-goal: never opens runner source; it orders pointers, not bodies.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs` and `target`; notable helpers are `get`, `_pack_skeleton`,
+    `_routes_serving`, `_reading_boundary`, and 6 more.
     """
     atlas_by = inputs.get("atlas_by_organ", {})
     join_by = inputs.get("join_by_organ", {})
@@ -2802,35 +2258,19 @@ def compile_flow(inputs: dict[str, Any], target: str) -> dict[str, Any]:
 
 def _goal_tokens(text: str) -> list[str]:
     """
-    [ACTION]
-    Tokenize a freeform goal for route matching (lowercase, len >= 3).
+    Derive goal tokens without touching module import state.
 
-    - Teleology: one tokenizer shared by the route matcher so scoring is
-      deterministic and testable.
-    - Guarantee: returns lowercase alphanumeric tokens of length >= 3 in order.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `text`; notable helpers are `split` and `lower`.
     """
     return [t for t in re.split(r"[^a-z0-9]+", (text or "").lower()) if len(t) >= 3]
 
 
 def _public_site_parity_goal(text: str) -> bool:
     """
-    [ACTION]
-    Detect read-only public-site packet parity verification intent.
+    Return whether public site parity goal holds for the comprehension flow.
 
-    - Teleology: keep safe deployment evidence checks out of the publication
-      authority fallback while preserving that fallback for actual publish/deploy
-      requests.
-    - Guarantee: True only when the goal combines a verification verb with the
-      public site / Pages / downloadable packet surface.
-    - Fails: never raises.
-    - Non-goal: does not authorize publishing, deploying, or release decisions.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments.
-    - Writes: return values.
+    The result is derived from `text` with `_goal_tokens`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     tokens = set(_goal_tokens(text))
     verification = tokens & {
@@ -2880,17 +2320,10 @@ def _public_site_parity_goal(text: str) -> bool:
 
 def _public_authority_boundary_goal(text: str) -> bool:
     """
-    [ACTION]
-    Detect cold-reader questions whose first move is the authority boundary.
+    Return whether public authority boundary goal holds for the comprehension flow.
 
-    - Teleology: route network/provider/hosting/private-equivalence/release/
-      production questions to the public authority packet instead of generic
-      orientation or fixture routes.
-    - Guarantee: True only for public-boundary terms, not component mechanism
-      questions that happen to mention safe/unsafe fixtures.
-    - Fails: never raises.
-    - Reads: call arguments.
-    - Writes: return values.
+    The result is derived from `text` with `_goal_tokens`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     tokens = set(_goal_tokens(text))
     if tokens & {
@@ -2924,16 +2357,10 @@ def _public_authority_boundary_goal(text: str) -> bool:
 
 def _source_locus_goal(text: str, organ: str | None) -> bool:
     """
-    [ACTION]
-    Detect source-locus questions for a named organ.
+    Return whether source locus goal holds for the comprehension flow.
 
-    - Teleology: a request for source/loci/path refs should open the organ/source
-      relation read packet, not execute the organ's fixture command.
-    - Guarantee: True only when an organ is already identified and source/path/
-      loci language is present.
-    - Fails: never raises.
-    - Reads: call arguments.
-    - Writes: return values.
+    The result is derived from `text` and `organ` with `_goal_tokens`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     if not organ:
         return False
@@ -2943,32 +2370,20 @@ def _source_locus_goal(text: str, organ: str | None) -> bool:
 
 def _fixture_evidence_goal(text: str) -> bool:
     """
-    [ACTION]
-    Detect generic fixture/evidence-boundary questions.
+    Return whether fixture evidence goal holds for the comprehension flow.
 
-    - Teleology: keep "fixture-bound evidence" on the authority/evidence packet
-      instead of falsely matching one fixture-heavy organ.
-    - Guarantee: True only for generic evidence-boundary wording without a named
-      organ.
-    - Fails: never raises.
-    - Reads: call arguments.
-    - Writes: return values.
+    The result is derived from `text`; failing evidence is returned or raised exactly where
+    the body says so.
     """
     return "fixture" in text and "evidence" in text
 
 
 def _dependency_preflight_goal(text: str) -> bool:
     """
-    [ACTION]
-    Detect dependency-preflight diagnostic goals before generic setup routing.
+    Return whether dependency preflight goal holds for the comprehension flow.
 
-    - Teleology: a dependency-preflight failure needs the diagnostic preflight
-      command, not the broader getting-started quickstart packet.
-    - Guarantee: returns True for explicit dependency-preflight wording and
-      common "dependency preflight fail" variants only.
-    - Fails: never raises.
-    - Reads: call arguments.
-    - Writes: return values.
+    The result is derived from `text` with `lower` and `_public_authority_boundary_goal`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     lowered = (text or "").lower()
     if _public_authority_boundary_goal(lowered):
@@ -2984,18 +2399,10 @@ def _dependency_preflight_goal(text: str) -> bool:
 
 def _public_getting_started_goal(text: str) -> bool:
     """
-    [ACTION]
-    Detect concrete public clone/install/package/dependency-start intents.
+    Return whether public getting started goal holds for the comprehension flow.
 
-    - Teleology: keep cold-reader setup questions on the getting-started route
-      instead of a generic first-contact packet when the graph has that route.
-    - Guarantee: True only for public-readiness setup terms such as quickstart,
-      dependency preflight, editable install, package smoke, or bootstrap.
-    - Fails: never raises.
-    - Non-goal: does not execute the command or authorize release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments.
-    - Writes: return values.
+    The result is derived from `text` with `lower` and `_goal_tokens`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     lowered = (text or "").lower()
     tokens = set(_goal_tokens(lowered))
@@ -3029,18 +2436,10 @@ def _public_getting_started_goal(text: str) -> bool:
 
 def _tokens_overlap(a: str, b: str) -> bool:
     """
-    [ACTION]
-    Loose token match: equality, >=4-char prefix, or >=6-char common prefix.
+    Return whether tokens overlap holds for the comprehension flow.
 
-    - Teleology: let "start" reach "started" AND "evaluate" reach "evaluation"
-      without a stemmer dependency.
-    - Guarantee: True iff tokens are equal, one is a >=4-char prefix of the other,
-      or the two share a common prefix of length >= 6 (which bridges
-      evaluate/evaluation while keeping short common words apart).
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `a` and `b` with `zip` and `startswith`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     if a == b:
         return True
@@ -3063,31 +2462,10 @@ _ACTION_VERB_RE = re.compile(
 
 def _match_task_route(goal: str, inputs: dict[str, Any]) -> dict[str, Any] | None:
     """
-    [ACTION]
-    Match a freeform goal to the best task-class route node in the graph.
+    Compute match task route from `goal` and `inputs`.
 
-    - Teleology: the goal->route half of the first-action compiler -- the route
-      plane already encodes 'which organ owns this kind of task', so a goal that
-      names a task class (lean, security, finance, getting started...) should land
-      on that route's first command, not on a generic orientation packet.
-    - Guarantee: returns the best-scoring route node dict, scored by token overlap
-      with task_class (weight 3), primary_display_name (2), primary_organ_id (2),
-      and first_command (1). EVIDENCE BAR: a route fires when >= 2 DISTINCT goal
-      tokens matched strong route fields, when exactly one strong token equals the
-      full task_class name (len >= 5) AND the goal carries an action verb
-      (run/check/validate/...), or when >= 2 tokens match the first command and
-      the goal carries an action verb. That lets "dispatch the route bundle"
-      reach the graph-owned route-map command while "does this work?" or "the
-      security guard at my office building" fall to orientation fallback instead
-      of a confident wrong fixture. When the matched route contains a relevant
-      non-primary organ that the goal names more specifically, the returned route
-      is rebound to that organ's first command while preserving the task-class
-      route basis. Returns None below the bar or when the route plane is absent;
-      ties break by score then task_class name for determinism.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `goal` and `inputs`; notable helpers are `_goal_tokens`, `search`,
+    `_graph_state`, `lower`, and 6 more.
     """
     tokens = _goal_tokens(goal)
     if not tokens:
@@ -3134,18 +2512,10 @@ def _match_task_route(goal: str, inputs: dict[str, Any]) -> dict[str, Any] | Non
 
 def _custody_do_not_edit(join_node: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the do-not-edit boundary for an organ's runner custody.
+    Serialize `microcosm_core.comprehension._custody_do_not_edit` into the payload shape
+    expected by comprehension.
 
-    - Teleology: a first-action contract must say what the agent may NOT touch
-      before it says what to run.
-    - Guarantee: returns {paths, note}; a custody-bound runner lists its
-      runner_source_ref and an exact-copy warning, an owned runner returns an
-      empty list with the validator-required note.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if join_node.get("runner_custody_basis") == "directory_coupling_marker":
         paths = [p for p in [join_node.get("runner_source_ref")] if p]
@@ -3164,16 +2534,10 @@ def _custody_do_not_edit(join_node: dict[str, Any]) -> dict[str, Any]:
 
 def _organ_receipts(inputs: dict[str, Any], organ_id: str) -> list[str]:
     """
-    [ACTION]
-    Collect an organ's receipt refs (authority receipt first, deduplicated).
+    Derive organ receipts without touching module import state.
 
-    - Teleology: the expected-receipts half of a first-action proof path.
-    - Guarantee: returns the authority receipt (when present) followed by the
-      organ's emits_receipt edge targets, without duplicates.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `inputs` and `organ_id`; notable helpers are `get`, `insert`, and
+    `_edges_touching`.
     """
     join_node = inputs.get("join_by_organ", {}).get(organ_id) or {}
     receipts = [
@@ -3191,17 +2555,10 @@ def _first_action_owner(
     inputs: dict[str, Any], organ_id: str, task_class: str | None
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the owner block for a first-action contract.
+    Serialize `microcosm_core.comprehension._first_action_owner` into the payload shape
+    expected by comprehension.
 
-    - Teleology: name WHO owns the first action -- organ, display name, family,
-      custody -- so the agent can localize before it runs anything.
-    - Guarantee: returns {organ_id, display_name, family, runner_custody_basis,
-      evidence_class, task_class}; absent fields become None.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     atlas_row = inputs.get("atlas_by_organ", {}).get(organ_id) or {}
     join_node = inputs.get("join_by_organ", {}).get(organ_id) or {}
@@ -3219,14 +2576,10 @@ def _first_action_path_contract(
     inputs: dict[str, Any], goal: str, path: str, *, mutation: bool
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Build a first-action contract that preserves a named path target.
-    - Teleology: Implements `_first_action_path_contract` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the first action path contract value used by `microcosm_core.comprehension`.
+
+    Inputs are `inputs`, `goal`, `path`, and `mutation`; notable helpers are
+    `_runnable_command`, `_pack_skeleton`, `_graph_backed_block`, and `_deferred_edges_for`.
     """
     mode = "mutation_plan" if mutation else "path"
     command_flag = "--mutation" if mutation else "--path"
@@ -3340,29 +2693,10 @@ def compile_first_action(
     inputs: dict[str, Any], root: Path | None, goal: str
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the First Correct Action contract for a freeform cold-agent goal.
+    Produce the compile first action value used by `microcosm_core.comprehension`.
 
-    - Teleology: convert a cold agent from "what is this?" to its FIRST CORRECT
-      ACTION -- one graph-backed contract naming the action, the owner, the
-      validator/receipt proof path, the stop condition, the authority ceiling,
-      and the do-not-edit boundary -- instead of handing the agent a map pile.
-    - Guarantee: returns a how_to pack with first_action {action_kind, command
-      (cold-runnable), why, expected_receipts}, owner, proof_path, reading_boundary,
-      do_not_claim, do_not_edit, if_this_is_wrong, routing (how the goal was
-      resolved), graph_backed, and computed deferred_edges. Resolution order:
-      organ named in the goal -> organ contract; improvement/patch-shaped goal ->
-      inspect-the-ranked-target contract; task-class route match -> route-first-
-      command contract; otherwise -> the routed packet as an open_packet contract.
-      A blank goal returns a chooser (found False) listing the task classes.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only (plus filesystem existence via the
-      improvement ranker).
-    - Non-goal: never instructs an edit, never exports source bodies, never
-      grants release/correctness authority; the contract is navigation + proof
-      pointers only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs`, `root`, and `goal`; notable helpers are `get`, `_graph_state`,
+    `lower`, `_pack_skeleton`, and 32 more.
     """
     base = root or default_root()
     atlas = inputs.get("atlas") or {}
@@ -4037,19 +3371,10 @@ def _release_improvement_targets(
     inputs: dict[str, Any], root: Path | None
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Return ranked concrete edit targets for release-comprehension work.
+    Return release improvement targets for the comprehension flow.
 
-    - Teleology: make a vague "what should I work on?" prompt actionable for a cold
-      agent by pointing at the real files and tests that change clone comprehension.
-    - Guarantee: returns ranked target rows with path, reason, validation commands,
-      and expected reader-visible effect; rows are derived from packet/deferred-edge
-      state and fixed public front-door surfaces, never from source bodies.
-    - Fails: never raises; path existence is advisory metadata only.
-    - Reads: only in-memory inputs plus filesystem existence checks.
-    - Non-goal: does not claim release authority or mutate anything.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs` and `root`; notable helpers are `get`, `default_root`, `values`,
+    `_count_by`, and 6 more.
     """
     base = root or default_root()
     join_organs = list(inputs.get("join_by_organ", {}).values())
@@ -4145,28 +3470,20 @@ def _release_improvement_targets(
 
 def _claim_paths_for_improvement_target(target: Any) -> list[str]:
     """
-    [ACTION]
-    Return the explicit owned paths a ranked improvement row asks an agent to claim.
-    - Teleology: Implements `_claim_paths_for_improvement_target` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the claim paths for improvement target value used by
+    `microcosm_core.comprehension`.
+
+    Inputs are `target`; notable helpers are `strip` and `split`.
     """
     return [part.strip() for part in str(target).split(" / ") if part.strip()]
 
 
 def _mutation_plan_command_for_improvement_target(target: Any) -> str | None:
     """
-    [ACTION]
-    Return the local mutation-plan command when the target is a single owned path.
-    - Teleology: Implements `_mutation_plan_command_for_improvement_target` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return mutation plan command for improvement target for the comprehension flow.
+
+    Inputs are `target`; notable helpers are `_claim_paths_for_improvement_target` and
+    `endswith`.
     """
     paths = _claim_paths_for_improvement_target(target)
     if len(paths) != 1:
@@ -4179,14 +3496,10 @@ def _mutation_plan_command_for_improvement_target(target: Any) -> str | None:
 
 def _improvement_next_action(row: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the machine-readable next action for the top improvement row.
-    - Teleology: Implements `_improvement_next_action` for `microcosm_core.comprehension` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.comprehension._improvement_next_action` into the payload shape
+    expected by comprehension.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     command = row.get("next_command") or (
         "PYTHONPATH=src python3 -m microcosm_core comprehend --improvements"
@@ -4210,17 +3523,10 @@ def _improvement_row_for_target(
     inputs: dict[str, Any], root: Path | None, target: str
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    Return the ranked improvement row that owns ``target``, if any.
+    Produce the improvement row for target value used by `microcosm_core.comprehension`.
 
-    - Teleology: keep a path-specific mutation plan connected to the ranked
-      cold-clone improvement packet that sent the agent there.
-    - Guarantee: exact-matches target against each ranked row's claim paths and
-      target path string; returns a copy so callers can annotate safely.
-    - Fails: never raises; returns None when the target is not an improvement row.
-    - Reads: in-memory inputs plus the same existence checks as improvement ranking.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs`, `root`, and `target`; notable helpers are
+    `_release_improvement_targets` and `get`.
     """
     for row in _release_improvement_targets(inputs, root):
         claim_paths = [str(p) for p in row.get("claim_paths") or []]
@@ -4232,20 +3538,10 @@ def _improvement_row_for_target(
 
 def _join_index_improvement_row(inputs: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the rank-3 join-index improvement row from the graph's ACTUAL state.
+    Serialize `microcosm_core.comprehension._join_index_improvement_row` into the payload
+    shape expected by comprehension.
 
-    - Teleology: keep the ranked improvement list honest across its own lifecycle --
-      while route/claim topology is deferred the row says build it; once the v2
-      graph resolves those classes the row advances to the genuinely-remaining
-      proof-graph extraction instead of re-recommending finished work.
-    - Guarantee: returns a rank-3 target row whose target is always
-      scripts/build_code_lens_join_index.py (the owning builder) and whose
-      title/why/expected change reflect the computed deferred set.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     deferred = {
         d["edge_class"] for d in _deferred_edges_for(inputs, _CANONICAL_EDGE_CLASSES)
@@ -4291,20 +3587,10 @@ def compile_mutation_plan(
     inputs: dict[str, Any], root: Path | None, target: str
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the safe-mutation plan for an organ or owned path (local band).
+    Produce the compile mutation plan value used by `microcosm_core.comprehension`.
 
-    - Teleology: answer "I want to change this safely -- what do I inspect, test, and
-      refresh, and what must I not touch?" before editing.
-    - Guarantee: returns a how_to pack (export_band local_semantic_excerpt) with the
-      code_loci to open, owned atom excerpts for owned loci, the validator_command to
-      run after editing, the receipts to refresh, and custody/authority warnings;
-      resolves ``target`` as a source path (has / or .py) or an organ id.
-    - Fails: returns a chooser pack (found False) when target is blank/unknown.
-    - Reads: the inputs bundle plus extract_atom_excerpts on owned loci.
-    - Writes: nothing.
-    - Non-goal: never excerpts a custody-bound runner; never authorizes the change.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `inputs`, `root`, and `target`; notable helpers are `get`, `_pack_skeleton`,
+    `_attach_organ_excerpts`, `_organ_edges`, and 8 more.
     """
     base = root or default_root()
     atlas_by = inputs.get("atlas_by_organ", {})
@@ -4512,22 +3798,10 @@ _EDGE_CLASS_RESIDUALS: dict[str, dict[str, str]] = {
 
 def _graph_state(inputs: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Read the join index's graph contract, re-deriving resolution structurally.
+    Serialize `microcosm_core.comprehension._graph_state` into the payload shape expected by
+    comprehension.
 
-    - Teleology: one accessor for "what topology does this clone's join index
-      actually carry?" so packets derive deferral from graph truth, not prose.
-    - Guarantee: returns {resolved: set[str], graph: dict, route_nodes, claim_nodes,
-      family_nodes}; claim_node_ontology / cross_organ_route_topology count as
-      resolved ONLY when the nodes AND their typed edges are actually present --
-      the declared resolved_edge_classes label is never trusted for them (a
-      corrupted index that declares resolution over empty planes re-defers);
-      classes without a structural signature (proof_internal_structure) follow the
-      declared label. An absent/old join index yields empty resolved + empty lists.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     join_index = inputs.get("join_index") or {}
     graph = join_index.get("graph") if isinstance(join_index, dict) else None
@@ -4562,22 +3836,10 @@ def _deferred_edges_for(
     inputs: dict[str, Any], classes: tuple[str, ...]
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Compute the deferred-edge rows a packet must surface, from graph truth.
+    Derive deferred edges for without touching module import state.
 
-    - Teleology: keep deferred_edges honest in BOTH directions -- a packet neither
-      hides a genuinely-missing edge class nor keeps apologizing for one the join
-      index now materializes.
-    - Guarantee: returns the precise residual rows (missing_source_class, owner_path,
-      re_entry_command or blocked_on) for each requested class NOT structurally
-      resolved; when the join index's graph block carries its own residual row for
-      the class, that row is the source of truth (merged with the packet-only
-      next_packet scent), so builder and packets never drift apart; [] when all
-      requested classes are resolved.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs` and `classes`; notable helpers are `_graph_state`, `get`, `append`,
+    `update`, and 1 more.
     """
     state = _graph_state(inputs)
     builder_rows = {
@@ -4601,20 +3863,9 @@ def _graph_backed_block(
     inputs: dict[str, Any], classes: tuple[str, ...]
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Describe which requested edge classes this packet answers from the graph.
+    Return graph backed block for the comprehension flow.
 
-    - Teleology: the positive counterpart of _deferred_edges_for -- name what is
-      now graph-backed so a reader can trust (and audit) the edges it follows.
-    - Guarantee: returns {edge_classes_resolved, edge_kind_counts, source}; the
-      resolved list contains only the requested classes the join index resolves;
-      the source pointer names the #graph fragment (plus the inner schema_version,
-      pre-answering the v0-filename/v2-schema scent) only when that fragment
-      actually exists, and otherwise says the index predates the graph block.
-    - Fails: never raises.
-    - Reads: the in-memory inputs bundle only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs` and `classes`; notable helpers are `_graph_state` and `get`.
     """
     state = _graph_state(inputs)
     block: dict[str, Any] = {
@@ -4635,17 +3886,9 @@ def _graph_backed_block(
 
 def _count_by(rows: list[dict[str, Any]], key: str) -> dict[str, int]:
     """
-    [ACTION]
-    Count rows by a string field, returned high-to-low (shared distribution helper).
+    Return count by for the comprehension flow.
 
-    - Teleology: the one counter behind the self-model's calibration rollup so evidence
-      class / truth-accounting / strength distributions all read the same way.
-    - Guarantee: returns {value: count} sorted by descending count then value; a missing
-      field becomes "unspecified".
-    - Fails: never raises.
-    - Reads: only the supplied rows.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `rows` and `key`; notable helpers are `get` and `items`.
     """
     counts: dict[str, int] = {}
     for row in rows:
@@ -4662,21 +3905,10 @@ def _whole_substrate_rows(
     mechanism_by: dict[str, Any],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Build the per-organ essence roster grouped by family (the comprehend-all payload).
+    Return whole substrate rows for the comprehension flow.
 
-    - Teleology: let a cold agent read EVERY organ's essence + mechanism + calibration in
-      one pass -- the literal "comprehend all organs at once" body. The mechanism line is
-      what stops the reader under-reading a rich organ from its short gloss.
-    - Guarantee: returns a list of {family, organ_count, organs:[{organ_id, essence,
-      mechanism, evidence_class, evidence_strength_rank, truth_accounting_bucket,
-      claim_ceiling, first_command}]}; essence draws from the public synopsis then human
-      gloss; mechanism draws from the curated capsule/mechanism registries.
-    - Fails: never raises.
-    - Reads: only the supplied in-memory maps.
-    - Non-goal: never reads runner source or docstring atoms.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `families`, `atlas_by`, `join_by`, `synopsis_by`, and `mechanism_by`; notable
+    helpers are `append` and `get`.
     """
     out: list[dict[str, Any]] = []
     for entry in families:
@@ -4704,18 +3936,10 @@ def _public_reader_block(
     health: dict[str, Any], atlas: dict[str, Any]
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the public-safe, calibrated reader block (NOT a marketing summary).
+    Serialize `microcosm_core.comprehension._public_reader_block` into the payload shape
+    expected by comprehension.
 
-    - Teleology: let a skeptical external reader see what the system demonstrates, what it
-      explicitly does NOT, and where the known thinness is -- quality inferred from honesty.
-    - Guarantee: returns {what_it_demonstrates, what_it_does_not_demonstrate,
-      known_thinness, recommended_demo_path}; no house jargon, no release/correctness claim.
-    - Fails: never raises.
-    - Reads: only the supplied health rollup + atlas.
-    - Non-goal: never asserts impressiveness, release, or domain correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     macro_runners = (health.get("runner_custody_split") or {}).get("directory_coupling_marker", 0)
     return {
@@ -4741,23 +3965,10 @@ def _public_reader_block(
 
 def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture") -> dict[str, Any]:
     """
-    [ACTION]
-    Compile the whole-Plectis self-model: the entire substrate in one budgeted packet.
+    Produce the compile self model value used by `microcosm_core.comprehension`.
 
-    - Teleology: let a cold agent comprehend the WHOLE substrate at once -- every family,
-      what is real vs thin, what must not be claimed, and where to drill down -- instead of
-      judging Plectis from whichever slice it opened.
-    - Guarantee: returns a SELF_MODEL_SCHEMA pack with a front anchor (read_me_first), a
-      section index, major_subsystems (families), code_lens_health (evidence/truth-
-      accounting/strength/custody rollups), authority_membrane, thin_or_projection_surfaces
-      (skepticism made navigable), deferred_edges, recommended_drilldowns (the hub routing
-      to the specialized packets), and a tail_recap; profile whole_substrate_map adds the
-      per-organ essence roster, public_reader adds the calibrated external-reader block.
-    - Fails: never raises; an unknown profile falls back to operating_picture.
-    - Reads: the in-memory inputs bundle only (atlas + join index + synopses).
-    - Non-goal: never exports source bodies, asserts impressiveness, or grants release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `inputs` and `profile`; notable helpers are `get`, `_family_roster`,
+    `_graph_state`, `_pack_skeleton`, and 9 more.
     """
     profile = profile if profile in _SELF_MODEL_PROFILES else "operating_picture"
     atlas_by = inputs.get("atlas_by_organ", {})
@@ -4967,21 +4178,11 @@ def comprehend(
     inputs: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Compile one comprehension packet and stamp its identity, budget, and latency.
+    Derive comprehend without touching module import state.
 
-    - Teleology: the single dispatch a CLI or test calls to get a goal-shaped packet --
-      first-contact, the packet atlas, an organ/cluster/math/claim_trace/flow read, or a
-      local_semantic_excerpt path/mutation_plan packet.
-    - Guarantee: returns the compiled pack with packet_id/packet_kind/next_packets and a
-      budget verdict (when the mode is a registered packet) plus a compile_ms float;
-      ``target`` (falling back to organ_id) carries the organ/family/path argument; a
-      goal string overrides mode/target via route_goal.
-    - Fails: ValueError on an unknown mode or a source-body-leaking join index.
-    - Reads: the substrate inputs (loaded here unless ``inputs`` is supplied).
-    - Writes: nothing.
-    - Non-goal: never writes excerpts into the committed presence_only cache.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `root`, `mode`, `organ_id`, `target`, `goal`, and 3 more; notable helpers are
+    `perf_counter`, `packet_spec_for_mode`, `round`, `default_root`, and 10 more; invalid
+    cases raise from the explicit checks in the body.
     """
     start = time.perf_counter()
     base_root = root or default_root()
@@ -5016,21 +4217,10 @@ def build_cached_read_packs(
     root: Path | None = None, out_dir: Path | None = None
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Materialize the prebuilt first-contact / authority / organs read packs.
+    Compute build cached read packs from `root` and `out_dir`.
 
-    - Teleology: Level-1 cache -- commit the presence_only entry packs (including the
-      packet atlas) so a cold clone can read them without running the compiler.
-    - Guarantee: writes first_contact.json, authority.json, organs_index.json, and
-      packet_atlas.json under receipts/code_lens/read_packs/ and returns a manifest of
-      {name, path, bytes} per pack; packet_atlas is built last so it reports the other
-      caches' real on-disk sizes.
-    - Fails: OSError if the output directory cannot be created/written.
-    - Reads: the substrate inputs once.
-    - Writes: the four prebuilt presence_only read-pack receipts.
-    - Non-goal: never prebuilds local_semantic_excerpt packs (path/mutation_plan stay
-      on-demand and local-only) or per-organ packs (82 of them stay on-demand).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `root` and `out_dir`; notable helpers are `mkdir`, `load_inputs`,
+    `default_root`, `comprehend`, and 4 more.
     """
     base = root or default_root()
     target = out_dir or (base / "receipts/code_lens/read_packs")
@@ -5062,15 +4252,9 @@ def build_cached_read_packs(
 # appear in the rendered pack. No row requires opening source.
 def _assay_rows(sample_organ: str | None) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Return the fixed assay question set, parameterized by a sample organ.
+    Produce the assay rows value used by `microcosm_core.comprehension`.
 
-    - Teleology: define the cold-agent questions whose answers must live in read packs.
-    - Guarantee: returns a list of {q, mode, organ, must_key, evidence_token} rows.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `sample_organ`.
     """
     return [
         {"q": "What is Microcosm?", "mode": "first-contact", "organ": None,
@@ -5098,15 +4282,9 @@ def _assay_rows(sample_organ: str | None) -> list[dict[str, Any]]:
 
 def _dig(pack: dict[str, Any], dotted: str) -> Any:
     """
-    [ACTION]
-    Resolve a dotted key path into a pack, returning None when absent.
+    Return dig for the comprehension flow.
 
-    - Teleology: let assay rows assert on nested pack fields by path.
-    - Guarantee: returns the nested value or None; never raises on a missing key.
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `pack` and `dotted`; notable helpers are `split` and `get`.
     """
     cur: Any = pack
     for part in dotted.split("."):
@@ -5119,16 +4297,10 @@ def _dig(pack: dict[str, Any], dotted: str) -> Any:
 
 def _pack_leaks_source_body(pack: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    Detect whether a pack leaked a raw docstring atom bullet.
+    Return whether pack leaks source body holds for the comprehension flow.
 
-    - Teleology: enforce the presence_only membrane on compiled output, not just input.
-    - Guarantee: returns True iff the serialized pack contains a "- Teleology:"-style
-      raw atom bullet marker.
-    - Fails: never raises.
-    - Reads: only the in-memory pack.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `pack` with `dumps`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     body = json.dumps(pack, ensure_ascii=True)
     return any(marker in body for marker in _ATOM_BULLET_MARKERS)
@@ -5138,19 +4310,10 @@ def run_comprehension_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Run the cold-agent comprehension assay over the compiled read packs.
+    Serialize `microcosm_core.comprehension.run_comprehension_assay` into the payload shape
+    expected by comprehension.
 
-    - Teleology: prove the read packs actually let a cold agent answer substrate /
-      authority / organ questions without opening source -- the activation evidence.
-    - Guarantee: returns an ASSAY_SCHEMA dict with answerable_without_source_pct,
-      wrong_authority_claims, source_body_leaks, source_reads_avoided, max_pack_bytes,
-      max_compile_ms, and a per-question result list; all metrics are computed, not asserted.
-    - Fails: never raises on content; ValueError only on a leaking join index (via load).
-    - Reads: the substrate inputs once.
-    - Writes: nothing.
-    - Non-goal: does not call any LLM; "answerable" means the answer material is present.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     bundle = inputs if inputs is not None else load_inputs(root)
     join_by = bundle.get("join_by_organ", {})
@@ -5211,38 +4374,20 @@ def run_comprehension_assay(
 
 def _symbols_expose_atom(symbols: list[dict[str, Any]], atom: str) -> bool:
     """
-    [ACTION]
-    True when at least one excerpt symbol exposes a value for the named atom.
+    Return whether symbols expose atom holds for the comprehension flow.
 
-    - Teleology: the hard-assay predicate proving the local band actually carries a
-      given authored atom's value, not merely that a symbol exists.
-    - Guarantee: returns True iff some row's atom_values contains ``atom``.
-    - Fails: never raises.
-    - Reads: only the supplied excerpt rows.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `symbols` and `atom` with `get`; failing evidence is returned
+    or raised exactly where the body says so.
     """
     return any(atom in (s.get("atom_values") or {}) for s in symbols)
 
 
 def run_hard_comprehension_assay(root: Path | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    Run the hard assay that requires real authored atom-value content.
+    Serialize `microcosm_core.comprehension.run_hard_comprehension_assay` into the payload
+    shape expected by comprehension.
 
-    - Teleology: prove the local_semantic_excerpt band carries actual code semantics
-      (Teleology/Guarantee/Fails/Non-goal values) AND that its guards hold -- the v0
-      assay only proved presence_only orientation; this proves the rail carries fuel.
-    - Guarantee: returns a HARD_ASSAY_SCHEMA dict with answerable_with_atom_values_pct
-      over questions that each require an emitted atom value, plus excerpt_leak_count
-      (secret/private shapes found in the emitted excerpts -- must be 0) and
-      custody_violation_count (custody-bound files that wrongly produced excerpts --
-      must be 0); all metrics are computed, not asserted.
-    - Fails: never raises on content; ValueError only on a leaking join index (via load).
-    - Reads: the owned comprehension module's atoms + one custody-bound runner.
-    - Writes: nothing.
-    - Non-goal: does not call any LLM; "answerable" means the atom value is present.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     base = root or default_root()
     owned_target = "src/microcosm_core/comprehension.py"
@@ -5318,17 +4463,10 @@ _PACKET_ROUTE_FIXTURES: list[tuple[str, str]] = [
 
 def _assay_sample_target(mode: str, inputs: dict[str, Any]) -> str | None:
     """
-    [ACTION]
-    Pick a representative target so each parameterized packet can compile in the assay.
+    Compute assay sample target from `mode` and `inputs`.
 
-    - Teleology: let the route assay actually compile organ/cluster/claim/flow/mutation
-      packets, not only the parameterless ones.
-    - Guarantee: returns a family name for organ_cluster, an owned path for path/
-      mutation_plan, a sample organ id for organ/claim_trace/flow, else None.
-    - Fails: never raises; returns None when no sample is available.
-    - Reads: the in-memory inputs bundle only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `mode` and `inputs`; notable helpers are `_family_roster`, `next`, `values`,
+    `iter`, and 1 more.
     """
     if mode == "organ_cluster":
         roster = _family_roster(list(inputs.get("atlas_by_organ", {}).values()))
@@ -5348,22 +4486,10 @@ def run_packet_route_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Assay the packet atlas as a navigable product, not just an answer surface.
+    Serialize `microcosm_core.comprehension.run_packet_route_assay` into the payload shape
+    expected by comprehension.
 
-    - Teleology: prove the atlas NAVIGATES -- goals route to the right packet, every
-      advertised packet compiles in-band/in-budget/leak-free, scent links resolve, and
-      the committed cache carries no excerpts -- so the menu can be trusted as the entry.
-    - Guarantee: returns a PACKET_ROUTE_ASSAY_SCHEMA dict with packet_route_accuracy_pct,
-      wrong_packet_count, authority_overclaim_count, public_excerpt_leak_count (packet +
-      cache), budget_violations, slo_violations, next_packet_link_coverage_pct,
-      first_contact_has_scent, packet_bytes_by_kind, the (closed) sqlite_gate, and per-
-      route / per-packet / per-cache result rows; all metrics are computed, not asserted.
-    - Fails: never raises on content; ValueError only on a leaking join index (via load).
-    - Reads: the substrate inputs once and any prebuilt cache files.
-    - Writes: nothing.
-    - Non-goal: does not call any LLM; routing is the deterministic route_goal mapping.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     bundle = inputs if inputs is not None else load_inputs(root)
     base = bundle.get("root") or default_root()
@@ -5487,22 +4613,10 @@ def run_whole_system_comprehension_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Assay whether the self-model lets a cold reader comprehend the WHOLE substrate.
+    Serialize `microcosm_core.comprehension.run_whole_system_comprehension_assay` into the
+    payload shape expected by comprehension.
 
-    - Teleology: prove the self-model causes calibrated whole-system understanding -- a
-      cold reader can answer global questions, map every organ, see the thinness and the
-      caveats, and pick the right drilldown -- WITHOUT raw repo archaeology. This is the
-      show-don't-tell replacement for any "is it impressive?" question.
-    - Guarantee: returns a WHOLE_SYSTEM_ASSAY_SCHEMA dict with whole_system_answerability_pct,
-      every_organ_mapped (whole_substrate_map covers all atlas organs), overclaim_count,
-      source_body_leaks, thinness_surfaced, deferred_surfaced, front_anchor_present,
-      tail_recap_present, packet_bytes, and per-question rows; all metrics computed.
-    - Fails: never raises on content; ValueError only on a leaking join index (via load).
-    - Reads: the substrate inputs once.
-    - Writes: nothing.
-    - Non-goal: does not call any LLM and does not score "impressiveness".
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     bundle = inputs if inputs is not None else load_inputs(root)
     base = bundle.get("root") or default_root()
@@ -5642,17 +4756,10 @@ _FIRST_ACTION_GRAPH_CLASSES = ("cross_organ_route_topology", "claim_node_ontolog
 
 def _is_cold_runnable_source_command(command: str) -> bool:
     """
-    [ACTION]
-    Decide whether a first-action command starts with the public source-run form.
+    Return whether is cold runnable source command holds for the comprehension flow.
 
-    - Teleology: cold-runnable commands may need extra environment assignments
-      after ``PYTHONPATH=src`` (for example receipt-write opt-ins), but must
-      still execute through ``python3 -m microcosm_core...`` from the clone.
-    - Guarantee: True only for ``PYTHONPATH=src [ENV=...] python3 -m
-      microcosm_core...`` commands.
-    - Fails: never raises.
-    - Reads: call arguments.
-    - Writes: return values.
+    The result is derived from `command` with `split`, `fullmatch`, and `startswith`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     parts = str(command or "").split()
     if not parts or parts[0] != "PYTHONPATH=src":
@@ -5672,25 +4779,11 @@ def _is_cold_runnable_source_command(command: str) -> bool:
 
 def _first_action_contract_complete(contract: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    Decide whether a first-action contract carries every required surface.
+    Return whether first action contract complete holds for the comprehension flow.
 
-    - Teleology: the completeness predicate behind the first-action assay -- a
-      static doc-shaped answer without an action, proof path, or boundary must
-      not count as a contract.
-    - Guarantee: True iff the pack has a non-empty first_action command in the
-      cold-runnable source form (PYTHONPATH=src [ENV=...] python3 -m microcosm_core...)
-      with no <placeholder>, a proof path (validator/runnable_validator/
-      validation_commands) with shipped receipts, a fresh-output dir, or an
-      explicit note, a reading boundary (stop_condition or labelled fallback),
-      a non-empty do_not_claim, and a do_not_edit block; when the action's
-      fresh outputs land outside .microcosm//tmp, a clean_run variant whose
-      --out really redirects under .microcosm/ is also required (footprint
-      honesty).
-    - Fails: never raises.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `contract` with `get`, `_is_cold_runnable_source_command`,
+    `_write_targets`, `startswith`, and 2 more; failing evidence is returned or raised
+    exactly where the body says so.
     """
     action = contract.get("first_action") or {}
     command = str(action.get("command") or "")
@@ -5747,26 +4840,10 @@ def run_first_action_assay(
     root: Path | None = None, inputs: dict[str, Any] | None = None
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Assay whether the graph converts cold-agent goals into first correct actions.
+    Serialize `microcosm_core.comprehension.run_first_action_assay` into the payload shape
+    expected by comprehension.
 
-    - Teleology: prove the leap from self-comprehension to AGENT TRANSFER -- a
-      freeform goal must yield one graph-backed contract (action, owner, proof,
-      stop condition, ceiling, no-edit boundary), and a clone whose join index
-      lacks the graph must FAIL this assay rather than degrade into doc answers.
-    - Guarantee: returns a FIRST_ACTION_ASSAY_SCHEMA dict with
-      first_action_selection_pct (owner/action/command expectations met),
-      contract_completeness_pct, graph_backed_pct (contracts whose resolved
-      classes cover route+claim topology -- the graph-bypass detector),
-      boundary_pct, authority_overclaim_count, source_body_leaks, degraded
-      (route/claim topology unresolved on this clone), and per-scenario rows;
-      all metrics computed, never asserted.
-    - Fails: never raises on content; ValueError only on a leaking join index.
-    - Reads: the substrate inputs once.
-    - Writes: nothing.
-    - Non-goal: does not call any LLM; "selection" is the deterministic contract
-      compiler's output measured against fixture expectations.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     bundle = inputs if inputs is not None else load_inputs(root)
     base = bundle.get("root") or default_root()

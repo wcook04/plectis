@@ -114,20 +114,21 @@ _SPACE_MACRO_RE = re.compile(r"\\[,;:!]|\\quad|\\qquad|\\ ")
 
 
 def _normalize(s: str) -> str:
-    """Collapse spacing so symbol/formula substring matching is robust."""
+    """
+    Produce the normalize value used by `scripts.check_doctrine_formal_soundness`.
+
+    Inputs are `s`; notable helpers are `sub`.
+    """
     s = _SPACE_MACRO_RE.sub("", str(s or ""))
     return re.sub(r"\s+", "", s)
 
 
 def atoms(latex: str) -> dict[str, set[str]]:
-    """Walk a bounded-LaTeX string and bucket the symbols it references.
+    """
+    Serialize `scripts.check_doctrine_formal_soundness.atoms` into the payload shape
+    expected by scripts check doctrine formal soundness.
 
-    Returns sets: free_vars (single Latin letters in math italic), greek
-    (greek-letter macros used as variables), named_ops (content operators, as
-    the full \\mathrm{name} token), verdicts (\\mathsf{...} etc.), structural
-    (\\mathrm{else}-style connectors), and connectives (everything common).
-    Subscript / superscript *arguments* are treated as modifiers of the base
-    symbol, not as independent free variables.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     s = str(latex or "")
     free: set[str] = set()
@@ -139,6 +140,12 @@ def atoms(latex: str) -> dict[str, set[str]]:
     i, n = 0, len(s)
 
     def read_group(k: int) -> tuple[str, int]:
+        """
+        Read read group for `scripts.check_doctrine_formal_soundness`.
+
+        Input comes from `k`; malformed or missing data follows the exceptions and checks
+        visible in the body.
+        """
         depth, start = 0, k
         while k < len(s):
             if s[k] == "{":
@@ -151,8 +158,11 @@ def atoms(latex: str) -> dict[str, set[str]]:
         return s[start + 1:], len(s)
 
     def skip_script_arg(k: int) -> int:
-        # consume the argument of a _ or ^ so its inner letters are not counted
-        # as free variables (they modify the preceding base symbol).
+        """
+        Derive skip script arg without touching module import state.
+
+        Inputs are `k`; notable helpers are `read_group`, `match`, and `group`.
+        """
         while k < len(s) and s[k] == " ":
             k += 1
         if k < len(s) and s[k] == "{":
@@ -222,7 +232,12 @@ def atoms(latex: str) -> dict[str, set[str]]:
 
 
 def audit_record(rec: dict) -> dict:
-    """Return {dangling, undefined_vars, undefined_ops, clean} for one record."""
+    """
+    Serialize `scripts.check_doctrine_formal_soundness.audit_record` into the payload shape
+    expected by scripts check doctrine formal soundness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    """
     formal = rec.get("formal") or {}
     latex = str(formal.get("latex") or "")
     symbols = formal.get("symbols") or []
@@ -263,6 +278,12 @@ def audit_record(rec: dict) -> dict:
 
 
 def run(path: Path) -> dict:
+    """
+    Serialize `scripts.check_doctrine_formal_soundness.run` into the payload shape expected
+    by scripts check doctrine formal soundness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    """
     data = json.loads(path.read_text(encoding="utf-8"))
     records = data.get("records") or []
     results = [audit_record(r) for r in records if r.get("formal")]
@@ -277,6 +298,11 @@ def run(path: Path) -> dict:
 
 
 def _fmt(report: dict) -> str:
+    """
+    Compute fmt from `report`.
+
+    Inputs are `report`; notable helpers are `join` and `append`.
+    """
     lines = [
         f"doctrine formal soundness: {report['clean']}/{report['total']} clean, "
         f"{report['defective']} with defects",
@@ -298,14 +324,11 @@ def _fmt(report: dict) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry for the doctrine formal-statement soundness gate.
+    """
+    Run `scripts.check_doctrine_formal_soundness` as a command-line entry point.
 
-    - Teleology: Operator/CI front door enforcing symbol/formula agreement on every enrichment `formal` block (no dangling declared symbol, no undefined free var or named operator).
-    - Guarantee: Prints a human or --json report (or, with --explain ID, the extracted atoms for one record); with --check returns 1 if any record is defective, else 0.
-    - Fails: --explain on an unknown id -> "no record <ID>" on stderr, exit 2; missing/invalid --path -> json.JSONDecodeError/FileNotFoundError -> uncaught traceback.
-    - Reads: core/doctrine_enrichment.json (or --path).
-    - When-needed: CI-gating or debugging doctrine formal blocks; --explain to inspect one record's symbol atoms.
-    - Escalates-to: run (full audit), audit_record + atoms (per-record symbol extraction).
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     ap = argparse.ArgumentParser(description="Doctrine formal-statement soundness gate.")
     ap.add_argument("--path", default=str(REPO_DEFAULT), help="doctrine_enrichment.json")

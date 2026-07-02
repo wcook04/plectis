@@ -23,11 +23,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 27424,
-      "line_count": 544,
-      "sha256": "sha256:b997ef42ca8bc652708cd42fc6b6bdfca139bf53c1856b7cc2b530eda33a3b02",
-      "target_sha256": "b997ef42ca8bc652708cd42fc6b6bdfca139bf53c1856b7cc2b530eda33a3b02",
-      "source_sha256": "b997ef42ca8bc652708cd42fc6b6bdfca139bf53c1856b7cc2b530eda33a3b02",
+      "byte_count": 17295,
+      "line_count": 468,
+      "sha256": "sha256:2ab437d651edc9efe4c724920bd5d89890f960ff8d73f079cb5799dbb7510fe8",
+      "target_sha256": "2ab437d651edc9efe4c724920bd5d89890f960ff8d73f079cb5799dbb7510fe8",
+      "source_sha256": "2ab437d651edc9efe4c724920bd5d89890f960ff8d73f079cb5799dbb7510fe8",
       "required_anchors": [
         "ORGAN_ID = \"semantic_singleflight_dedup_runtime\"",
         "def run"
@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 50817,
-      "line_count": 1008,
-      "sha256": "sha256:6ef1a3550daad03e10c800ed23adaa8eb4360da1027889545a72137c2c6a36de",
-      "target_sha256": "6ef1a3550daad03e10c800ed23adaa8eb4360da1027889545a72137c2c6a36de",
-      "source_sha256": "6ef1a3550daad03e10c800ed23adaa8eb4360da1027889545a72137c2c6a36de",
+      "byte_count": 30893,
+      "line_count": 883,
+      "sha256": "sha256:62ea302be751d4579d81e38f238d252312e74b968dc17411660003102aea7f4d",
+      "target_sha256": "62ea302be751d4579d81e38f238d252312e74b968dc17411660003102aea7f4d",
+      "source_sha256": "62ea302be751d4579d81e38f238d252312e74b968dc17411660003102aea7f4d",
       "required_anchors": [
         "def build_command_key",
         "def run_command_singleflight"

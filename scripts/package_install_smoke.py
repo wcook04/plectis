@@ -1,3 +1,12 @@
+"""
+Implements scripts package install smoke for the public Plectis package.
+
+Callers enter through `run_package_smoke` and `main`; constants such as `PRIVATE_MARKERS`,
+`WORK_DIR_TOKEN`, and `SOURCE_STAGE_EXCLUDES` pin local fixture names; dependencies include
+`argparse`, `contextlib`, `json`, `os`, and 5 more. Importing it does not authorize release
+work or hidden private-state access; those effects live behind explicit calls.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -42,12 +51,11 @@ SOURCE_STAGE_EXCLUDES = (
 
 
 def _normalize_work_refs(text: str, work_dir: Path) -> str:
-    """Replace every textual variant of the smoke's work dir with WORK_DIR_TOKEN.
+    """
+    Compute normalize work refs from `text` and `work_dir`.
 
-    Covers the path as given and fully resolved (e.g. /var vs /private/var on
-    macOS) so a host whose temp root lives under a private marker (/home/...)
-    cannot fail the marker assert on its own plumbing, while real product
-    leaks remain visible.
+    Inputs are `text` and `work_dir`; notable helpers are `as_posix`, `replace`, and
+    `resolve`.
     """
     for variant in sorted(
         {str(work_dir), work_dir.resolve().as_posix()}, key=len, reverse=True
@@ -58,7 +66,12 @@ def _normalize_work_refs(text: str, work_dir: Path) -> str:
 
 
 def _stage_source_tree(source_root: Path, work_dir: Path) -> Path:
-    """Copy install inputs to work_dir so pip build residue stays out of source."""
+    """
+    Derive stage source tree without touching module import state.
+
+    Inputs are `source_root` and `work_dir`; notable helpers are `exists`, `copytree`,
+    `rmtree`, and `ignore_patterns`.
+    """
     staged_source = work_dir / "source"
     if staged_source.exists():
         shutil.rmtree(staged_source)
@@ -72,14 +85,11 @@ def _stage_source_tree(source_root: Path, work_dir: Path) -> Path:
 
 @contextlib.contextmanager
 def _source_build_lock(source_root: Path):
-    """Serialize wheel builds across concurrent smokes and proof runs.
+    """
+    Temporarily apply source build lock for callers using a `with` block.
 
-    pip may write shared intermediates under <build-root>/build; two
-    concurrent builds race, and a crashed one leaves residue that fails every
-    later build ([Errno 17] on the staged dist-info). The lock lives at
-    .microcosm/package_build.lock under the build root. POSIX flock only; on
-    Windows, or when the lock file cannot be opened, it degrades to a no-op
-    rather than blocking the smoke.
+    The previous state is restored after the yielded block exits, including exceptional
+    exits.
     """
     handle = None
     if os.name != "nt":
@@ -102,19 +112,22 @@ def _source_build_lock(source_root: Path):
 
 
 def _clear_stale_wheel_staging(source_root: Path) -> None:
-    """Remove crashed-build residue under build/bdist.* before installing.
+    """
+    Run clear stale wheel staging for `scripts.package_install_smoke`.
 
-    A killed wheel build leaves build/bdist.*/wheel/<name>.dist-info behind,
-    and setuptools then fails every later build with [Errno 17] File exists.
-    Only the bdist staging trees are cleared -- the build/lib incremental
-    cache is kept. Call while holding the source build lock so a live
-    concurrent build is never swept.
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     for staged in (source_root / "build").glob("bdist.*"):
         shutil.rmtree(staged, ignore_errors=True)
 
 
 def _bin_dir(venv_dir: Path) -> Path:
+    """
+    Produce the bin dir value used by `scripts.package_install_smoke`.
+
+    Inputs are `venv_dir`.
+    """
     if os.name == "nt":
         return venv_dir / "Scripts"
     return venv_dir / "bin"
@@ -127,6 +140,13 @@ def _run(
     env: dict[str, str] | None = None,
     stdout_path: Path | None = None,
 ) -> subprocess.CompletedProcess[str]:
+    """
+    Return run for the scripts package install smoke flow.
+
+    Inputs are `argv`, `cwd`, `env`, and `stdout_path`; notable helpers are `run`, `mkdir`,
+    `write_text`, `write`, and 3 more; invalid cases raise from the explicit checks in the
+    body.
+    """
     result = subprocess.run(
         argv,
         cwd=cwd,
@@ -155,6 +175,12 @@ def _run(
 
 
 def _json_payload(path: Path, *, label: str) -> dict[str, Any]:
+    """
+    Produce the json payload value used by `scripts.package_install_smoke`.
+
+    Inputs are `path` and `label`; notable helpers are `loads`, `SystemExit`, and
+    `read_text`; invalid cases raise from the explicit checks in the body.
+    """
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
@@ -165,6 +191,12 @@ def _json_payload(path: Path, *, label: str) -> dict[str, Any]:
 
 
 def _assert_no_private_markers(path: Path, *, label: str) -> None:
+    """
+    Run assert no private markers for `scripts.package_install_smoke`.
+
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
+    """
     text = path.read_text(encoding="utf-8")
     hits = [marker for marker in PRIVATE_MARKERS if marker in text]
     if hits:
@@ -172,11 +204,23 @@ def _assert_no_private_markers(path: Path, *, label: str) -> None:
 
 
 def _assert_status_pass(payload: dict[str, Any], *, label: str) -> None:
+    """
+    Run assert status pass for `scripts.package_install_smoke`.
+
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
+    """
     if payload.get("status") != "pass":
         raise SystemExit(f"{label} status is not pass: {payload.get('status')!r}")
 
 
 def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
+    """
+    Run run package smoke for the scripts package install smoke flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
+    """
     source_root = source_root.resolve()
     work_dir = work_dir.resolve()
     if not (source_root / "pyproject.toml").is_file():
@@ -336,13 +380,11 @@ def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """Parse args and run the installed-console package smoke against a fresh venv.
+    """
+    Run `scripts.package_install_smoke` as a command-line entry point.
 
-    - Teleology: CLI entry that proves Microcosm installs from source and its installed console card commands stay public-safe.
-    - Guarantee: on return the fresh venv was built, the package installed, and all card checks passed without private-path leaks.
-    - Fails: install/check failure or private-marker leak -> run_package_smoke raises SystemExit with a nonzero/diagnostic exit.
-    - Reads: --source-root pyproject tree; --python interpreter.
-    - Writes: --work-dir staged source copy, venv, pip/tmp/pycache scratch, installed package, and captured card output files.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(
         description=(

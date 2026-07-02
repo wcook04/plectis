@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs batch6 unsurfaced primitives capsule for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, PROBE_MANIFEST_NAME, EXPECTED_MECHANISMS, EXPECTED_MODULE_IDS, EXPECTED_NEGATIVE_CASES, NEGATIVE_CASE_MECHANISMS, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, SPEC, evaluate_negative_case, run, run_batch6_bundle, result_card, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate_negative_case`, `run`, `run_batch6_bundle`, `result_card`,
+and `main`; constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and
+14 more pin local fixture names; dependencies include `argparse`, `importlib`, `json`,
+`sys`, and 6 more. It builds public fixture, result, card, or verdict structures while
+keeping private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -349,13 +333,10 @@ SPEC = CrownJewelSpec(
 
 def _finding(code: str, message: str, *, subject_id: str | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.batch6_unsurfaced_primitives_capsule._finding`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     payload = {"error_code": code, "message": message, "body_in_receipt": False}
     if subject_id:
@@ -365,13 +346,10 @@ def _finding(code: str, message: str, *, subject_id: str | None = None) -> dict[
 
 def _load_manifest(input_path: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_manifest` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Load load manifest for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule`.
+
+    Input comes from `input_path`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     path = input_path / PROBE_MANIFEST_NAME
     try:
@@ -385,13 +363,11 @@ def _load_manifest(input_path: Path) -> tuple[dict[str, Any], list[dict[str, Any
 
 def _original_source_manifest(source_manifest: Mapping[str, Any], *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_original_source_manifest` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch6_unsurfaced_primitives_capsule._original_source_manifest`
+    into the payload shape expected by organs batch6 unsurfaced primitives capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_ref = str(source_manifest.get("manifest_ref") or "")
     if not manifest_ref:
@@ -408,13 +384,10 @@ def _original_source_manifest(source_manifest: Mapping[str, Any], *, public_root
 
 def _module_rows(source_manifest: Mapping[str, Any], *, public_root: Path) -> dict[str, Mapping[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_module_rows` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch6_unsurfaced_primitives_capsule._module_rows` into
+    the payload shape expected by organs batch6 unsurfaced primitives capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     original = _original_source_manifest(source_manifest, public_root=public_root)
     rows = original.get("modules")
@@ -429,13 +402,9 @@ def _module_rows(source_manifest: Mapping[str, Any], *, public_root: Path) -> di
 
 def _target_path(row: Mapping[str, Any], *, public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_target_path` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive target path without touching module import state.
+
+    Inputs are `row` and `public_root`; notable helpers are `startswith` and `get`.
     """
     target_ref = str(row.get("target_ref") or "")
     if target_ref.startswith("microcosm-substrate/"):
@@ -448,13 +417,10 @@ def _target_path(row: Mapping[str, Any], *, public_root: Path) -> Path:
 
 def _target_text(row: Mapping[str, Any], *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_target_text` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Derive target text without touching module import state.
+
+    Inputs are `row` and `public_root`; notable helpers are `_target_path`, `read_text`, and
+    `is_file`.
     """
     path = _target_path(row, public_root=public_root)
     if not path.is_file():
@@ -464,13 +430,9 @@ def _target_text(row: Mapping[str, Any], *, public_root: Path) -> str:
 
 def _source_modules_root(target_path: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_modules_root` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source modules root for the organs batch6 unsurfaced primitives capsule flow.
+
+    Inputs are `target_path`.
     """
     for candidate in (target_path.parent, *target_path.parents):
         if candidate.name == "source_modules":
@@ -481,13 +443,11 @@ def _source_modules_root(target_path: Path) -> Path:
 @contextmanager
 def _temporary_sys_path(paths: list[Path]) -> Iterator[None]:
     """
-    [ACTION]
-    - Teleology: Implements `_temporary_sys_path` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Apply `microcosm_core.organs.batch6_unsurfaced_primitives_capsule._temporary_sys_path`
+    for the lifetime of a context block.
+
+    The previous state is restored after the block exits, including exceptions raised inside
+    the block.
     """
     old_path = list(sys.path)
     for path in reversed([str(p) for p in paths if p]):
@@ -502,13 +462,12 @@ def _temporary_sys_path(paths: list[Path]) -> Iterator[None]:
 @contextmanager
 def _temporary_import_namespaces(prefixes: tuple[str, ...]) -> Iterator[None]:
     """
-    [ACTION]
-    - Teleology: Implements `_temporary_import_namespaces` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Apply
+    `microcosm_core.organs.batch6_unsurfaced_primitives_capsule._temporary_import_namespaces`
+    for the lifetime of a context block.
+
+    The previous state is restored after the block exits, including exceptions raised inside
+    the block.
     """
     saved = {
         name: module
@@ -528,13 +487,9 @@ def _temporary_import_namespaces(prefixes: tuple[str, ...]) -> Iterator[None]:
 
 def _source_module_import_paths(target_path: Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_import_paths` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute source module import paths from `target_path` and `public_root`.
+
+    Inputs are `target_path` and `public_root`; notable helpers are `_source_modules_root`.
     """
     source_modules = _source_modules_root(target_path)
     return [
@@ -552,13 +507,11 @@ def _load_copied_module(
     public_root: Path,
 ):
     """
-    [ACTION]
-    - Teleology: Implements `_load_copied_module` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load copied module for
+    `microcosm_core.organs.batch6_unsurfaced_primitives_capsule`.
+
+    Input comes from `module_id`, `modules`, and `public_root`; malformed or missing data
+    follows the exceptions and checks visible in the body.
     """
     row = modules[module_id]
     target = _target_path(row, public_root=public_root)
@@ -582,13 +535,12 @@ def _import_copied_package_module(
     public_root: Path,
 ):
     """
-    [ACTION]
-    - Teleology: Implements `_import_copied_package_module` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the import copied package module value used by
+    `microcosm_core.organs.batch6_unsurfaced_primitives_capsule`.
+
+    Inputs are `module_name`, `module_id`, `modules`, and `public_root`; notable helpers are
+    `_target_path`, `_temporary_sys_path`, `_source_module_import_paths`,
+    `_temporary_import_namespaces`, and 1 more.
     """
     target = _target_path(modules[module_id], public_root=public_root)
     with _temporary_sys_path(_source_module_import_paths(target, public_root=public_root)):
@@ -603,13 +555,10 @@ def _mechanism_status(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_mechanism_status` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch6_unsurfaced_primitives_capsule._mechanism_status`
+    into the payload shape expected by organs batch6 unsurfaced primitives capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     mechanism_id = str(mechanism.get("mechanism_id") or "")
     module_ids = [
@@ -642,13 +591,9 @@ def _mechanism_status(
 
 def _utc(value: str) -> datetime:
     """
-    [ACTION]
-    - Teleology: Implements `_utc` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return utc for the organs batch6 unsurfaced primitives capsule flow.
+
+    Inputs are `value`; notable helpers are `astimezone`, `fromisoformat`, and `replace`.
     """
     return datetime.fromisoformat(value.replace("Z", "+00:00")).astimezone(timezone.utc)
 
@@ -659,13 +604,11 @@ def _run_source_exercise(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_run_source_exercise` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch6_unsurfaced_primitives_capsule._run_source_exercise` into
+    the payload shape expected by organs batch6 unsurfaced primitives capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     try:
         if exercise_id == "raw_seed_keyphrase_engine":
@@ -1144,13 +1087,11 @@ def _run_source_exercise(
 @lru_cache(maxsize=8)
 def _semantic_runtime_exercises(input_ref: str) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_runtime_exercises` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch6_unsurfaced_primitives_capsule._semantic_runtime_exercises`
+    into the payload shape expected by organs batch6 unsurfaced primitives capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_ref)
     public_root = public_root_for_path(input_path)
@@ -1169,13 +1110,11 @@ def _observed_negative_case(
     runtime_exercises: Mapping[str, Mapping[str, Any]],
 ) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_observed_negative_case` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether observed negative case holds for the organs batch6 unsurfaced primitives
+    capsule flow.
+
+    The result is derived from `case_id` and `runtime_exercises` with `get`; failing
+    evidence is returned or raised exactly where the body says so.
     """
     row_spec = NEGATIVE_CASE_MECHANISMS.get(case_id)
     if row_spec is None:
@@ -1229,13 +1168,11 @@ def evaluate_negative_case(
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch6_unsurfaced_primitives_capsule.evaluate_negative_case` into
+    the payload shape expected by organs batch6 unsurfaced primitives capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     row_spec = NEGATIVE_CASE_MECHANISMS.get(case_id)
     if row_spec is None:
@@ -1253,13 +1190,10 @@ def evaluate_negative_case(
 
 def _evaluate(input_path: Path, public_root: Path, source_manifest: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_evaluate` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch6_unsurfaced_primitives_capsule._evaluate` into
+    the payload shape expected by organs batch6 unsurfaced primitives capsule.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     probe, findings = _load_manifest(input_path)
     modules = _module_rows(source_manifest, public_root=public_root)
@@ -1349,13 +1283,10 @@ def run(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for the organs batch6 unsurfaced primitives capsule flow.
+
+    Inputs are `input_dir`, `out_dir`, `acceptance_out`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1376,13 +1307,10 @@ def run_batch6_bundle(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_batch6_bundle` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run batch6 bundle without touching module import state.
+
+    Inputs are `bundle_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1398,13 +1326,10 @@ def run_batch6_bundle(
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the result card value used by
+    `microcosm_core.organs.batch6_unsurfaced_primitives_capsule`.
+
+    Inputs are `result`; notable helpers are `card_for_result` and `get`.
     """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
@@ -1425,13 +1350,11 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.batch6_unsurfaced_primitives_capsule` as a command-line entry
+    point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)

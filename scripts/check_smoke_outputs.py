@@ -15,10 +15,20 @@ BOUNDED_BODY_FLOOR_RUNTIME_MIRROR = "runtime_status"
 
 
 class SmokeCheckError(Exception):
-    """Raised when a smoke receipt is missing or contradicts the public floor."""
+    """
+    Raised when smoke Check Error fails inside `scripts.check_smoke_outputs`.
+
+    The dedicated type lets callers catch that failure without masking the original message.
+    """
 
 
 def _read_json(path: Path) -> dict[str, Any]:
+    """
+    Read read JSON for `scripts.check_smoke_outputs`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
+    """
     if not path.is_file():
         raise SmokeCheckError(f"{path.name}: missing required smoke receipt")
     if path.stat().st_size == 0:
@@ -36,6 +46,12 @@ def _read_json(path: Path) -> dict[str, Any]:
 
 
 def _read_text(path: Path) -> str:
+    """
+    Read read text for `scripts.check_smoke_outputs`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
+    """
     if not path.is_file():
         raise SmokeCheckError(f"{path.name}: missing required smoke receipt")
     text = path.read_text(encoding="utf-8").strip()
@@ -45,6 +61,12 @@ def _read_text(path: Path) -> str:
 
 
 def _expect_status(payload: dict[str, Any], *, name: str, status: str = "pass") -> None:
+    """
+    Run expect status for `scripts.check_smoke_outputs`.
+
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
+    """
     actual = payload.get("status")
     if actual != status:
         raise SmokeCheckError(
@@ -54,6 +76,11 @@ def _expect_status(payload: dict[str, Any], *, name: str, status: str = "pass") 
 
 
 def _diagnostic_suffix(payload: dict[str, Any]) -> str:
+    """
+    Compute diagnostic suffix from `payload`.
+
+    Inputs are `payload`; notable helpers are `get`, `join`, and `append`.
+    """
     parts: list[str] = []
     blocking_surface_ids = payload.get("blocking_surface_ids")
     blocking_surface_details = payload.get("blocking_surface_details")
@@ -98,6 +125,11 @@ def _diagnostic_suffix(payload: dict[str, Any]) -> str:
 
 
 def _blocking_surface_ids(payload: dict[str, Any]) -> list[str]:
+    """
+    Derive blocking surface IDs without touching module import state.
+
+    Inputs are `payload`; notable helpers are `get`.
+    """
     blocking_surface_ids = payload.get("blocking_surface_ids")
     if not blocking_surface_ids:
         front_door_status = payload.get("front_door_status")
@@ -109,10 +141,22 @@ def _blocking_surface_ids(payload: dict[str, Any]) -> list[str]:
 
 
 def _falseish(payload: dict[str, Any], *keys: str) -> bool:
+    """
+    Return whether falseish holds for the scripts check smoke outputs flow.
+
+    The result is derived from `payload` and `keys` with `get`; failing evidence is returned
+    or raised exactly where the body says so.
+    """
     return all(payload.get(key) is False for key in keys)
 
 
 def _authority_ceiling_false(payload: dict[str, Any], *keys: str) -> bool:
+    """
+    Return whether authority ceiling false holds for the scripts check smoke outputs flow.
+
+    The result is derived from `payload` and `keys` with `get`; failing evidence is returned
+    or raised exactly where the body says so.
+    """
     authority_ceiling = payload.get("authority_ceiling")
     if not isinstance(authority_ceiling, dict):
         return False
@@ -124,7 +168,14 @@ def _is_bounded_body_floor_status(
     *,
     name: str,
 ) -> bool:
-    """Accept only the documented compact body-import-floor block."""
+    """
+    Return whether is bounded body floor status holds for the scripts check smoke outputs
+    flow.
+
+    The result is derived from `payload` and `name` with `get`, `_blocking_surface_ids`,
+    `_authority_ceiling_false`, and `_falseish`; failing evidence is returned or raised
+    exactly where the body says so.
+    """
 
     if payload.get("status") != "blocked":
         return False
@@ -225,6 +276,14 @@ def _expect_status_or_bounded_body_floor(
     *,
     name: str,
 ) -> bool:
+    """
+    Return whether expect status or bounded body floor holds for the scripts check smoke
+    outputs flow.
+
+    The result is derived from `payload` and `name` with `_is_bounded_body_floor_status`,
+    `_expect_status`, and `get`; failing evidence is returned or raised exactly where the
+    body says so.
+    """
     if payload.get("status") == "pass":
         return False
     if _is_bounded_body_floor_status(payload, name=name):
@@ -234,6 +293,13 @@ def _expect_status_or_bounded_body_floor(
 
 
 def _expect_object(payload: dict[str, Any], *, name: str, key: str) -> dict[str, Any]:
+    """
+    Return expect object for the scripts check smoke outputs flow.
+
+    Inputs are `payload`, `name`, and `key`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
+    """
+
     actual = payload.get(key)
     if not isinstance(actual, dict):
         raise SmokeCheckError(f"{name}: missing {key} object")
@@ -247,6 +313,12 @@ def _expect_false(
     key: str,
     source: str | None = None,
 ) -> None:
+    """
+    Run expect false for `scripts.check_smoke_outputs`.
+
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
+    """
     actual = payload.get(key)
     if actual is not False:
         label = f"{source}.{key}" if source else key
@@ -260,6 +332,13 @@ def _expect_nested_false(
     object_key: str,
     key: str,
 ) -> None:
+    """
+    Run expect nested false for `scripts.check_smoke_outputs`.
+
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
+    """
+
     parent = _expect_object(payload, name=name, key=object_key)
     actual = parent.get(key)
     if actual is not False:
@@ -274,6 +353,12 @@ def _expect_authority_false(
     name: str,
     key: str,
 ) -> None:
+    """
+    Run expect authority false for `scripts.check_smoke_outputs`.
+
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
+    """
     authority_ceiling = payload.get("authority_ceiling")
     if not isinstance(authority_ceiling, dict):
         raise SmokeCheckError(f"{name}: missing authority_ceiling object")
@@ -290,6 +375,13 @@ def _expect_nonnegative_int(
     name: str,
     key: str,
 ) -> int:
+    """
+    Produce the expect nonnegative int value used by `scripts.check_smoke_outputs`.
+
+    Inputs are `payload`, `name`, and `key`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
+    """
+
     actual = payload.get(key)
     if not isinstance(actual, int) or isinstance(actual, bool) or actual < 0:
         raise SmokeCheckError(f"{name}: expected nonnegative integer {key}, got {actual!r}")
@@ -302,6 +394,12 @@ def _expect_positive_surface_count(
     name: str,
     key: str,
 ) -> int:
+    """
+    Compute expect positive surface count from `payload`, `name`, and `key`.
+
+    Inputs are `payload`, `name`, and `key`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
+    """
     surface_counts = payload.get("surface_counts")
     if not isinstance(surface_counts, dict):
         raise SmokeCheckError(f"{name}: missing surface_counts object")
@@ -320,6 +418,13 @@ def _expect_surface_count(
     key: str,
     expected: int,
 ) -> int:
+    """
+    Produce the expect surface count value used by `scripts.check_smoke_outputs`.
+
+    Inputs are `payload`, `name`, `key`, and `expected`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
+    """
+
     surface_counts = payload.get("surface_counts")
     if not isinstance(surface_counts, dict):
         raise SmokeCheckError(f"{name}: missing surface_counts object")
@@ -332,6 +437,12 @@ def _expect_surface_count(
 
 
 def _surface_count(payload: dict[str, Any], *, name: str, key: str) -> int:
+    """
+    Compute surface count from `payload`, `name`, and `key`.
+
+    Inputs are `payload`, `name`, and `key`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
+    """
     surface_counts = payload.get("surface_counts")
     if not isinstance(surface_counts, dict):
         raise SmokeCheckError(f"{name}: missing surface_counts object")
@@ -344,6 +455,12 @@ def _surface_count(payload: dict[str, Any], *, name: str, key: str) -> int:
 
 
 def _preview_count(payload: dict[str, Any], *, name: str, key: str) -> int:
+    """
+    Compute preview count from `payload`, `name`, and `key`.
+
+    Inputs are `payload`, `name`, and `key`; notable helpers are `get` and
+    `SmokeCheckError`; invalid cases raise from the explicit checks in the body.
+    """
     preview = payload.get(key)
     if not isinstance(preview, dict):
         raise SmokeCheckError(f"{name}: missing {key} object")
@@ -354,6 +471,12 @@ def _preview_count(payload: dict[str, Any], *, name: str, key: str) -> int:
 
 
 def _workingness_import_signature(payload: dict[str, Any], *, name: str) -> dict[str, Any]:
+    """
+    Serialize `scripts.check_smoke_outputs._workingness_import_signature` into the payload
+    shape expected by scripts check smoke outputs.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    """
     preview = payload.get("source_body_import_exception_preview")
     if not isinstance(preview, dict):
         raise SmokeCheckError(
@@ -385,6 +508,12 @@ def _workingness_import_signature(payload: dict[str, Any], *, name: str) -> dict
 
 
 def _live_workingness_card(root: Path = MICROCOSM_ROOT) -> dict[str, Any]:
+    """
+    Produce the live workingness card value used by `scripts.check_smoke_outputs`.
+
+    Inputs are `root`; notable helpers are `copy`, `run`, `join`, `SmokeCheckError`, and 3
+    more; invalid cases raise from the explicit checks in the body.
+    """
     env = os.environ.copy()
     src_path = str(root / "src")
     env["PYTHONPATH"] = (
@@ -420,6 +549,14 @@ def _live_workingness_card(root: Path = MICROCOSM_ROOT) -> dict[str, Any]:
 
 
 def _expect_workingness_import_signature_fresh(workingness: dict[str, Any]) -> dict[str, Any]:
+    """
+    Return expect workingness import signature fresh for the scripts check smoke outputs
+    flow.
+
+    Inputs are `workingness`; notable helpers are `_workingness_import_signature`,
+    `_live_workingness_card`, `SmokeCheckError`, and `dumps`; invalid cases raise from the
+    explicit checks in the body.
+    """
     receipt_signature = _workingness_import_signature(
         workingness,
         name="workingness-card.json",
@@ -438,6 +575,13 @@ def _expect_workingness_import_signature_fresh(workingness: dict[str, Any]) -> d
 
 
 def _expect_proof_lab_status_cache_bound(status: dict[str, Any]) -> str:
+    """
+    Produce the expect proof lab status cache bound value used by
+    `scripts.check_smoke_outputs`.
+
+    Inputs are `status`; notable helpers are `_expect_object`, `get`, and `SmokeCheckError`;
+    invalid cases raise from the explicit checks in the body.
+    """
     front_door = _expect_object(status, name="status-card.json", key="front_door")
     proof_lab = front_door.get("proof_lab")
     if not isinstance(proof_lab, dict):
@@ -489,6 +633,12 @@ def _expect_served_observatory_bound(
     *,
     bounded_body_floor: bool = False,
 ) -> None:
+    """
+    Run expect served observatory bound for `scripts.check_smoke_outputs`.
+
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
+    """
     name = "served-status-card.json"
     if (
         served_status.get("observatory_contract_status") != "pass"
@@ -574,6 +724,12 @@ def _expect_served_observatory_bound(
 
 
 def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
+    """
+    Serialize `scripts.check_smoke_outputs.check_smoke_outputs` into the payload shape
+    expected by scripts check smoke outputs.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
+    """
     hello = _read_text(smoke_out / "hello.txt")
     if not hello.splitlines()[0].startswith("Plectis first screen"):
         raise SmokeCheckError("hello.txt: first line must start with Plectis first screen")
@@ -784,6 +940,12 @@ def check_smoke_outputs(smoke_out: Path) -> dict[str, Any]:
 
 
 def print_summary(summary: dict[str, Any]) -> None:
+    """
+    Run print summary for `scripts.check_smoke_outputs`.
+
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
+    """
     print("Plectis smoke check: pass")
     print(f"receipts: {summary['smoke_out']}")
     bounded_receipts = summary.get("bounded_body_floor_receipts") or []
@@ -818,14 +980,11 @@ def print_summary(summary: dict[str, Any]) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    """CLI entry that validates Microcosm smoke receipts against the public floor.
+    """
+    Run `scripts.check_smoke_outputs` as a command-line entry point.
 
-    - Teleology: Post-`make smoke` gate confirming the smoke receipts exist and assert the public floor (release/provider not authorized, zero private-path hits, required surface counts).
-    - Guarantee: On all checks passing, prints a compact pass summary and returns 0; on any failure prints "fail" + reason to stderr and returns 1.
-    - Fails: missing/empty/invalid receipt, wrong status, or a violated floor (e.g. release_authorized not false, private path hits) -> SmokeCheckError -> caught, exit 1.
-    - Reads: .microcosm/smoke/*.json and *.txt receipts under --smoke-out (via check_smoke_outputs).
-    - When-needed: CI/operator validation that a smoke run produced safe, complete receipts before trusting the build.
-    - Escalates-to: check_smoke_outputs (the receipt-by-receipt assertions).
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(
         description="Validate Microcosm smoke receipts and print a compact pass summary.",

@@ -1,54 +1,12 @@
 """
-Navigation fitness benchmark organ.
+Implements organs navigation fitness benchmark for the public Plectis package.
 
-This organ surfaces the public ``navigation_fitness_benchmark`` engine-room
-capsule as a first-class navigation-quality organ. The capsule body stays in
-``microcosm_core.engine_room.navigation_fitness_benchmark``; this file adds the
-standard organ contract: bounded fixture cases, planted negative (rejected by
-recomputation) cases, a ``result_card`` projection, body-free receipt writes,
-and CLI dispatch.
-
-The mechanism it surfaces: a *route-packet fitness benchmark*. Each cold-task
-case carries a navigation task (expected stable ids, forbidden first routes, a
-latency budget, scent terms) and a route packet (the artifacts a router
-actually selected, the first-contact command, and the observed wall time). The
-capsule recomputes recall and precision against the expected ids, checks the
-first route against the forbidden list, scores scent-term coverage, derives a
-latency verdict against the budget, and collects sufficiency and latency debt
-candidates. Each fixture case also carries a planted expectation; the capsule
-re-derives the benchmark and reports whether the recomputation matches that
-expectation (``expectation_met``).
-
-The runner exercises the capsule over positive cases (a packet whose recomputed
-benchmark matches its declared expectation) and self-falsifies: two cases plant
-a route defect together with a deliberately wrong expectation that the defective
-route is fine. The capsule's recomputation contradicts the planted claim, so it
-rejects the case, and the runner asserts that the expected reject marker (the
-recomputed sufficiency failure kind for the planted defect) is present.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.navigation_fitness_benchmark` as a documented Microcosm public source module.
-- Mechanism: Keeps executable benchmark source in the engine-room capsule as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, SCHEMA_VERSION, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, CLAIM_CEILING, ANTI_CLAIM, SPEC, build_result, result_card, run, run_navigation_fitness_benchmark_bundle, build_parser, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, live-kernel runs, embedding evaluation, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates the route-packet benchmark recomputation to the surfaced capsule, and projection, serialization, and receipt behavior to file-local functions.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.engine_room.navigation_fitness_benchmark, microcosm_core.receipts
-- Optional Runtime: Filesystem, CLI arguments, and package data only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem reads and CLI argument reads are the only admitted runtime variability.
+Callers enter through `build_result`, `result_card`, `run`,
+`run_navigation_fitness_benchmark_bundle`, `build_parser`, and `main`; constants such as
+`ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `SCHEMA_VERSION`, and 9 more pin local fixture
+names; dependencies include `argparse`, `json`, `pathlib`, `typing`, and 1 more. It builds
+public fixture, result, card, or verdict structures while keeping private substrate bodies
+out of the payload.
 """
 
 from __future__ import annotations
@@ -131,13 +89,10 @@ SPEC = {
 
 def _read_json(path: Path) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_read_json` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies a path to a JSON object file.
-    - Guarantee: On success returns the parsed mapping.
-    - Fails: Propagates IO and JSON errors; raises ValueError when the payload is not a JSON object.
-    - Reads: declared filesystem inputs.
-    - Writes: return values.
+    Read read JSON for `microcosm_core.organs.navigation_fitness_benchmark`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, Mapping):
@@ -147,13 +102,10 @@ def _read_json(path: Path) -> Mapping[str, Any]:
 
 def _fixture_cases(input_path: str | Path) -> list[tuple[Path, Mapping[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_fixture_cases` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path is a JSON file or a directory containing JSON case files.
-    - Guarantee: Returns the ordered list of (path, case) pairs.
-    - Fails: Raises FileNotFoundError when a directory holds no JSON cases.
-    - Reads: declared filesystem inputs.
-    - Writes: return values.
+    Return fixture cases for `microcosm_core.organs.navigation_fitness_benchmark`.
+
+    Inputs are `input_path`; notable helpers are `Path`, `is_file`, `FileNotFoundError`,
+    `_read_json`, and 1 more; invalid cases raise at their explicit checks.
     """
     path = Path(input_path)
     if path.is_file():
@@ -166,13 +118,10 @@ def _fixture_cases(input_path: str | Path) -> list[tuple[Path, Mapping[str, Any]
 
 def _observed_failure_kinds(receipt: Mapping[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_observed_failure_kinds` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: receipt is the capsule benchmark receipt with a task_results list.
-    - Guarantee: Returns the ordered, de-duplicated sufficiency failure kinds the recomputation emitted, with latency-budget failures appended as "latency_fail".
-    - Fails: Does not raise on well-formed input.
-    - Reads: call arguments.
-    - Writes: return values.
+    Produce the observed failure kinds value used by
+    `microcosm_core.organs.navigation_fitness_benchmark`.
+
+    Inputs are `receipt`; notable helpers are `get` and `append`.
     """
     kinds: list[str] = []
     for row in receipt.get("task_results", []):
@@ -188,21 +137,10 @@ def _observed_failure_kinds(receipt: Mapping[str, Any]) -> list[str]:
 
 def _evaluate_case(case: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Run one bounded route-packet benchmark exercise and report observed-versus-expected.
+    Serialize `microcosm_core.organs.navigation_fitness_benchmark._evaluate_case` into the
+    payload shape expected by organs navigation fitness benchmark.
 
-    Each exercise hands one fixture case to the surfaced capsule, which recomputes
-    the navigation benchmark and reports whether the recomputation matches the
-    case's planted expectation. A positive case expects the expectation to be met
-    (the capsule accepts the case cleanly); a negative case plants a route defect
-    plus a deliberately wrong expectation, so the recomputation contradicts the
-    claim and the case is rejected with a specific failure marker firing.
-    - Teleology: Implements `_evaluate_case` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: case carries a navigation benchmark fixture plus case_id, case_type, expected_ok, and the capsule's expected_status / expected_summary / expected_task_statuses payload.
-    - Guarantee: Returns a row capturing observed_ok, the recomputation verdict, and the observed sufficiency failure markers.
-    - Fails: Propagates only mapping/parse errors raised by the capsule.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     case_id = str(case.get("case_id") or "")
     case_type = str(case.get("case_type") or "positive")
@@ -238,13 +176,10 @@ def _evaluate_case(case: Mapping[str, Any]) -> dict[str, Any]:
 
 def build_result(input_path: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_result` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path resolves to fixture cases via _fixture_cases.
-    - Guarantee: Returns the aggregated result envelope with a pass/fail status over positive and negative cases.
-    - Fails: Propagates IO/JSON/validation errors raised by case loading.
-    - Reads: declared filesystem inputs, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.navigation_fitness_benchmark.build_result` into the
+    payload shape expected by organs navigation fitness benchmark.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     cases = [case for _path, case in _fixture_cases(input_path)]
     rows = [_evaluate_case(case) for case in cases]
@@ -288,13 +223,10 @@ def build_result(input_path: str | Path) -> dict[str, Any]:
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope.
-    - Guarantee: Returns a body-free status card with claim ceiling and anti-claim.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.navigation_fitness_benchmark.result_card` into the
+    payload shape expected by organs navigation fitness benchmark.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_board_v1",
@@ -310,13 +242,10 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def _validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validation_receipt` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope; receipt_paths names the written receipts.
-    - Guarantee: Returns a body-free validation receipt.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.navigation_fitness_benchmark._validation_receipt` into
+    the payload shape expected by organs navigation fitness benchmark.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_validation_receipt_v1",
@@ -332,13 +261,10 @@ def _validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, s
 
 def _acceptance_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_acceptance_receipt` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope; receipt_paths names the written receipts.
-    - Guarantee: Returns a body-free acceptance receipt marking real-substrate disposition.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.navigation_fitness_benchmark._acceptance_receipt` into
+    the payload shape expected by organs navigation fitness benchmark.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_acceptance_receipt_v1",
@@ -355,13 +281,9 @@ def _acceptance_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, s
 
 def _receipt_ref(out: Path, name: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_ref` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: out is a directory path and name is a receipt filename.
-    - Guarantee: Returns the posix path string for the receipt.
-    - Fails: Does not raise.
-    - Reads: call arguments.
-    - Writes: return values.
+    Return receipt ref for the organs navigation fitness benchmark flow.
+
+    Inputs are `out` and `name`; notable helpers are `as_posix`.
     """
     return (out / name).as_posix()
 
@@ -374,13 +296,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path resolves to fixture cases; out_dir is writable.
-    - Guarantee: Computes the result, writes body-free receipts, and returns the result envelope.
-    - Fails: Propagates IO/JSON/validation errors raised by the body.
-    - Reads: declared filesystem inputs, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return run for `microcosm_core.organs.navigation_fitness_benchmark`.
+
+    Inputs are `input_path`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `build_result`, `Path`, `mkdir`, `write_json_atomic`, and 5 more.
     """
     result = build_result(input_path)
     if command:
@@ -407,26 +326,21 @@ def run_navigation_fitness_benchmark_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_navigation_fitness_benchmark_bundle` for `microcosm_core.organs.navigation_fitness_benchmark` as the runtime-spine entry point.
-    - Preconditions: input_path resolves to fixture cases; out_dir is writable.
-    - Guarantee: Delegates to run and returns its result envelope.
-    - Fails: Propagates errors raised by run.
-    - Reads: declared filesystem inputs.
-    - Writes: return values, declared filesystem outputs.
+    Return run navigation fitness benchmark bundle for the organs navigation fitness
+    benchmark flow.
+
+    Inputs are `input_path`, `out_dir`, and `command`; notable helpers are `run`.
     """
     return run(input_path, out_dir, command)
 
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `build_parser` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: none.
-    - Guarantee: Returns a configured ArgumentParser; performs no IO.
-    - Fails: Does not raise.
-    - Reads: module constants.
-    - Writes: return values.
+    Register CLI syntax for
+    `microcosm_core.organs.navigation_fitness_benchmark.build_parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         description="Run the navigation fitness benchmark organ."
@@ -443,13 +357,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.navigation_fitness_benchmark` while keeping the callable contract visible to source-module readers.
-    - Preconditions: argv is a CLI argument vector or None.
-    - Guarantee: Runs the organ and returns 0 on pass, 1 on fail.
-    - Fails: Propagates argument-parsing and run errors.
-    - Reads: call arguments.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.navigation_fitness_benchmark` command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command in {"run", "run-navigation-fitness-benchmark-bundle"}:

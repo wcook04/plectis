@@ -1,27 +1,13 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.macro_tools.work_landing` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements macro tools work landing for the public Plectis package.
 
-[INTERFACE]
-- Exports: PASS, BLOCKED, SOURCE_REF, SOURCE_SYMBOL_REFS, TARGET_SYMBOL_REFS, ORDERED_CONTROLLER_ACTION_IDS, CONTROLLER_ACTION_PREREQUISITES, CONTROLLER_ACTION_ORDER_GUARDS, AUTHORITY_CEILING, build_public_work_landing_status, build_public_work_landing_reconcile_plan, build_public_work_landing_attempt_binding, build_public_workitem_write_admission, build_parser, main
-- Reads: call arguments, module constants, imported helpers.
-- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: None beyond the Python standard library and local package imports.
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `build_public_work_landing_status`,
+`build_public_work_landing_reconcile_plan`, `build_public_work_landing_attempt_binding`,
+`build_public_workitem_write_admission`, `build_parser`, and `main`; constants such as
+`PASS`, `BLOCKED`, `SOURCE_REF`, `SOURCE_SYMBOL_REFS`, and 5 more pin local fixture names;
+dependencies include `argparse`, `hashlib`, `json`, `pathlib`, and 1 more. The helpers are
+invoked explicitly by CLI or fixture code; importing the module only declares the available
+machinery.
 """
 from __future__ import annotations
 
@@ -103,13 +89,11 @@ AUTHORITY_CEILING = {
 
 def _strings(values: list[str] | None) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.macro_tools.work_landing` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.macro_tools.work_landing._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     out: list[str] = []
     for value in values or []:
@@ -121,13 +105,11 @@ def _strings(values: list[str] | None) -> list[str]:
 
 def _stable_digest(payload: object) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_stable_digest` for `microcosm_core.macro_tools.work_landing` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.macro_tools.work_landing._stable_digest`.
+
+    The input is `payload`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest()[:16]
@@ -135,13 +117,9 @@ def _stable_digest(payload: object) -> str:
 
 def _controller_action_rows() -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_controller_action_rows` for `microcosm_core.macro_tools.work_landing` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute controller action rows from the caller-supplied state.
+
+    Notable helpers are `get` and `append`.
     """
     rows: list[dict[str, Any]] = []
     for sequence, action_id in enumerate(ORDERED_CONTROLLER_ACTION_IDS, start=1):
@@ -170,13 +148,10 @@ def _base_payload(
     require_exclusive: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_base_payload` for `microcosm_core.macro_tools.work_landing` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize the local value into the macro tools work landing payload shape.
+
+    The returned mapping uses the key names consumed by downstream receipts, cards, or
+    tests.
     """
     missing: list[str] = []
     if not subject_ids:
@@ -217,13 +192,10 @@ def build_public_work_landing_status(
     require_exclusive: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_work_landing_status` for `microcosm_core.macro_tools.work_landing` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive build public work landing status without touching module import state.
+
+    Inputs are `subject_ids`, `owned_paths`, `session_id`, and `require_exclusive`; notable
+    helpers are `_base_payload` and `update`.
     """
     payload = _base_payload(
         schema="public_work_landing_status_v0",
@@ -258,13 +230,10 @@ def build_public_work_landing_reconcile_plan(
     commit_hash: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_work_landing_reconcile_plan` for `microcosm_core.macro_tools.work_landing` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return build public work landing reconcile plan for the macro tools work landing flow.
+
+    Inputs are `subject_ids`, `owned_paths`, `session_id`, `require_exclusive`, `apply`, and
+    2 more; notable helpers are `_base_payload`, `_controller_action_rows`, and `update`.
     """
     payload = _base_payload(
         schema="public_work_landing_reconcile_plan_v0",
@@ -306,13 +275,11 @@ def build_public_work_landing_attempt_binding(
     lease_minutes: float = 120.0,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_work_landing_attempt_binding` for `microcosm_core.macro_tools.work_landing` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive build public work landing attempt binding without touching module import state.
+
+    Inputs are `subject_ids`, `owned_paths`, `session_id`, `require_exclusive`,
+    `created_by`, and 1 more; notable helpers are `_base_payload`, `_stable_digest`, and
+    `update`.
     """
     payload = _base_payload(
         schema="public_work_landing_attempt_binding_v0",
@@ -353,13 +320,11 @@ def build_public_workitem_write_admission(
     explicit_subject_override: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_workitem_write_admission` for `microcosm_core.macro_tools.work_landing` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute build public workitem write admission from `subject_ids`, `owned_paths`,
+    `session_id`, `require_exclusive`, and `explicit_subject_override`.
+
+    Inputs are `subject_ids`, `owned_paths`, `session_id`, `require_exclusive`, and
+    `explicit_subject_override`; notable helpers are `_base_payload` and `update`.
     """
     payload = _base_payload(
         schema="public_workitem_write_admission_v0",
@@ -384,13 +349,10 @@ def build_public_workitem_write_admission(
 
 def _add_common(subparser: argparse.ArgumentParser) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_add_common` for `microcosm_core.macro_tools.work_landing` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Configure argparse for add common.
+
+    The function mutates `subparser` by registering the flags, subcommands, or defaults used
+    by this command surface.
     """
     subparser.add_argument("--subject-id", action="append", required=True)
     subparser.add_argument("--owned-path", action="append", default=[])
@@ -400,13 +362,10 @@ def _add_common(subparser: argparse.ArgumentParser) -> None:
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `build_parser` for `microcosm_core.macro_tools.work_landing` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for `microcosm_core.macro_tools.work_landing.build_parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo-root", default=".")
@@ -435,13 +394,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.macro_tools.work_landing` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.macro_tools.work_landing` command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = build_parser().parse_args(argv)
     subject_ids = _strings(args.subject_id)

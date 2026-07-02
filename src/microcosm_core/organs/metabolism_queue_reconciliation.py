@@ -1,49 +1,12 @@
 """
-Metabolism queue reconciliation organ.
+Implements organs metabolism queue reconciliation for the public Plectis package.
 
-This organ surfaces the public ``metabolism_runtime`` engine-room capsule as a
-first-class durable-queue-and-reconciliation organ. The capsule body stays in
-``microcosm_core.engine_room.metabolism_runtime``; this file adds the standard
-organ contract: bounded fixture cases, planted negative (rejected-state) cases,
-a ``result_card`` projection, body-free receipt writes, and CLI dispatch.
-
-The mechanism it surfaces: a *synthetic durable job queue with cold-start
-reconciliation*. The capsule stands up a temp/in-memory SQLite store, enqueues
-jobs under an active-idempotency uniqueness guard, leases a job to a worker,
-recovers a lease that has expired, projects active blackboard claims after a
-contradiction event, and reconciles the queue/run/log triple against a small
-taxonomy of inconsistency rules that require operator review rather than
-auto-repair. The runner exercises the capsule over positive shapes (lease
-recovery moving an expired claim to ``recoverable`` with a healthy reconcile,
-and a claim-event projection where a contradiction invalidates the assertion)
-and self-falsifies: a store where a job is marked ``running`` with no run row,
-and a store where a run is finalized while its job is still ``running``, are
-both rejected by the capsule's reconciler, and the runner asserts the expected
-reconciliation rule id fires for each planted defect.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.metabolism_queue_reconciliation` as a documented Microcosm public source module.
-- Mechanism: Keeps executable runtime/reconciliation source in the engine-room capsule as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, SCHEMA_VERSION, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, CLAIM_CEILING, ANTI_CLAIM, SPEC, build_result, result_card, run, run_metabolism_queue_reconciliation_bundle, build_parser, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, provider calls, agent dispatch, live-database export, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates queue, lease, blackboard, and reconciliation computation to the surfaced capsule, and projection, serialization, and receipt behavior to file-local functions.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.engine_room.metabolism_runtime, microcosm_core.receipts
-- Optional Runtime: Filesystem, CLI arguments, and package data only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem reads, the per-run temp scratch store, and CLI argument reads are the only admitted runtime variability.
+Callers enter through `build_result`, `result_card`, `run`,
+`run_metabolism_queue_reconciliation_bundle`, `build_parser`, and `main`; constants such as
+`ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `SCHEMA_VERSION`, and 9 more pin local fixture
+names; dependencies include `argparse`, `json`, `tempfile`, `pathlib`, and 2 more. It builds
+public fixture, result, card, or verdict structures while keeping private substrate bodies
+out of the payload.
 """
 
 from __future__ import annotations
@@ -126,13 +89,10 @@ SPEC = {
 
 def _read_json(path: Path) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_read_json` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies a path to a JSON object file.
-    - Guarantee: On success returns the parsed mapping.
-    - Fails: Propagates IO and JSON errors; raises ValueError when the payload is not a JSON object.
-    - Reads: declared filesystem inputs.
-    - Writes: return values.
+    Read read JSON for `microcosm_core.organs.metabolism_queue_reconciliation`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     payload = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(payload, Mapping):
@@ -142,13 +102,10 @@ def _read_json(path: Path) -> Mapping[str, Any]:
 
 def _fixture_cases(input_path: str | Path) -> list[tuple[Path, Mapping[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_fixture_cases` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path is a JSON file or a directory containing JSON case files.
-    - Guarantee: Returns the ordered list of (path, case) pairs.
-    - Fails: Raises FileNotFoundError when a directory holds no JSON cases.
-    - Reads: declared filesystem inputs.
-    - Writes: return values.
+    Return fixture cases for the organs metabolism queue reconciliation flow.
+
+    Inputs are `input_path`; notable helpers are `Path`, `is_file`, `FileNotFoundError`,
+    `_read_json`, and 1 more; invalid cases raise from the explicit checks in the body.
     """
     path = Path(input_path)
     if path.is_file():
@@ -161,13 +118,9 @@ def _fixture_cases(input_path: str | Path) -> list[tuple[Path, Mapping[str, Any]
 
 def _fired_reconciliation_rules(receipt: Mapping[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_fired_reconciliation_rules` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: receipt is a capsule evaluate_case result whose inner receipt may carry a reconciliation payload with rule_counts.
-    - Guarantee: Returns the ordered list of reconciliation rule ids the capsule reported firing, or an empty list when none are present.
-    - Fails: Does not raise on well-formed input.
-    - Reads: call arguments.
-    - Writes: return values.
+    Compute fired reconciliation rules from `receipt`.
+
+    Inputs are `receipt`; notable helpers are `get` and `items`.
     """
     inner = receipt.get("receipt")
     reconciliation = inner.get("reconciliation") if isinstance(inner, Mapping) else None
@@ -181,20 +134,10 @@ def _fired_reconciliation_rules(receipt: Mapping[str, Any]) -> list[str]:
 
 def _evaluate_case(case: Mapping[str, Any], *, scratch: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Run one bounded queue/reconciliation exercise and report observed-versus-expected.
+    Serialize `microcosm_core.organs.metabolism_queue_reconciliation._evaluate_case` into
+    the payload shape expected by organs metabolism queue reconciliation.
 
-    Each exercise runs one synthetic-store scenario against the surfaced capsule:
-    a positive case expects the capsule to compute the queue/blackboard scenario
-    cleanly (capsule case status ``pass`` with no reconciliation defect), while a
-    negative case expects the capsule's reconciler to reject a planted store
-    inconsistency by firing a specific reconciliation rule id.
-    - Teleology: Implements `_evaluate_case` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: case carries case_id, case_type, expected_ok, and the case_kind the capsule dispatches on; scratch is a writable temp root.
-    - Guarantee: Returns a row capturing observed_ok, the capsule status, and the firing reconciliation rule ids.
-    - Fails: Propagates ValueError for unknown capsule case kinds and any runner/JSON errors raised by the capsule.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, a per-case scratch directory created by the capsule.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     case_id = str(case.get("case_id") or "")
     case_type = str(case.get("case_type") or "positive")
@@ -236,13 +179,10 @@ def _evaluate_case(case: Mapping[str, Any], *, scratch: Path) -> dict[str, Any]:
 
 def build_result(input_path: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_result` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path resolves to fixture cases via _fixture_cases.
-    - Guarantee: Returns the aggregated result envelope with a pass/fail status over positive and negative cases.
-    - Fails: Propagates IO/JSON/runtime errors raised by case loading or capsule evaluation.
-    - Reads: declared filesystem inputs, module constants, imported helpers.
-    - Writes: return values, a transient temp scratch tree removed before return.
+    Serialize `microcosm_core.organs.metabolism_queue_reconciliation.build_result` into the
+    payload shape expected by organs metabolism queue reconciliation.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     cases = [case for _path, case in _fixture_cases(input_path)]
     with tempfile.TemporaryDirectory(prefix=f"{ORGAN_ID}_") as tmp:
@@ -288,13 +228,10 @@ def build_result(input_path: str | Path) -> dict[str, Any]:
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope.
-    - Guarantee: Returns a body-free status card with claim ceiling and anti-claim.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.metabolism_queue_reconciliation.result_card` into the
+    payload shape expected by organs metabolism queue reconciliation.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_board_v1",
@@ -310,13 +247,10 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def _validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validation_receipt` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope; receipt_paths names the written receipts.
-    - Guarantee: Returns a body-free validation receipt.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.metabolism_queue_reconciliation._validation_receipt`
+    into the payload shape expected by organs metabolism queue reconciliation.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_validation_receipt_v1",
@@ -332,13 +266,10 @@ def _validation_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, s
 
 def _acceptance_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_acceptance_receipt` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: result is a build_result envelope; receipt_paths names the written receipts.
-    - Guarantee: Returns a body-free acceptance receipt marking real-substrate disposition.
-    - Fails: Propagates mapping access errors only.
-    - Reads: call arguments, module constants.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.metabolism_queue_reconciliation._acceptance_receipt`
+    into the payload shape expected by organs metabolism queue reconciliation.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": f"{ORGAN_ID}_acceptance_receipt_v1",
@@ -355,13 +286,9 @@ def _acceptance_receipt(result: Mapping[str, Any], receipt_paths: Mapping[str, s
 
 def _receipt_ref(out: Path, name: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_ref` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: out is a directory path and name is a receipt filename.
-    - Guarantee: Returns the posix path string for the receipt.
-    - Fails: Does not raise.
-    - Reads: call arguments.
-    - Writes: return values.
+    Compute receipt ref from `out` and `name`.
+
+    Inputs are `out` and `name`; notable helpers are `as_posix`.
     """
     return (out / name).as_posix()
 
@@ -374,13 +301,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: input_path resolves to fixture cases; out_dir is writable.
-    - Guarantee: Computes the result, writes body-free receipts, and returns the result envelope.
-    - Fails: Propagates IO/JSON/runtime errors raised by the body.
-    - Reads: declared filesystem inputs, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return run for `microcosm_core.organs.metabolism_queue_reconciliation`.
+
+    Inputs are `input_path`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `build_result`, `Path`, `mkdir`, `write_json_atomic`, and 5 more.
     """
     result = build_result(input_path)
     if command:
@@ -407,26 +331,21 @@ def run_metabolism_queue_reconciliation_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_metabolism_queue_reconciliation_bundle` for `microcosm_core.organs.metabolism_queue_reconciliation` as the runtime-spine entry point.
-    - Preconditions: input_path resolves to fixture cases; out_dir is writable.
-    - Guarantee: Delegates to run and returns its result envelope.
-    - Fails: Propagates errors raised by run.
-    - Reads: declared filesystem inputs.
-    - Writes: return values, declared filesystem outputs.
+    Compute run metabolism queue reconciliation bundle from `input_path`, `out_dir`, and
+    `command`.
+
+    Inputs are `input_path`, `out_dir`, and `command`; notable helpers are `run`.
     """
     return run(input_path, out_dir, command)
 
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `build_parser` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: none.
-    - Guarantee: Returns a configured ArgumentParser; performs no IO.
-    - Fails: Does not raise.
-    - Reads: module constants.
-    - Writes: return values.
+    Register CLI syntax for
+    `microcosm_core.organs.metabolism_queue_reconciliation.build_parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         description="Run the metabolism queue reconciliation organ."
@@ -443,13 +362,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.metabolism_queue_reconciliation` while keeping the callable contract visible to source-module readers.
-    - Preconditions: argv is a CLI argument vector or None.
-    - Guarantee: Runs the organ and returns 0 on pass, 1 on fail.
-    - Fails: Propagates argument-parsing and run errors.
-    - Reads: call arguments.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.metabolism_queue_reconciliation` command-line entry
+    point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = build_parser().parse_args(list(argv) if argv is not None else None)
     if args.command in {"run", "run-metabolism-queue-reconciliation-bundle"}:

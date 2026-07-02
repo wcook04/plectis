@@ -132,9 +132,9 @@
         "## Why this skill exists"
       ],
       "required_anchors_present": true,
-      "sha256_match": false,
+      "sha256_match": true,
       "source_ref": "codex/doctrine/skills/task_ledger/task_ledger.md",
-      "source_sha256": "e938cf6020b84e6fe12e0b04f0ef1143aef5043eac8052de0f768c31b0e6ae39",
+      "source_sha256": "651abf54df9e0992b96d23b1c5147651dc260f01cb8927abf293bc7f3c6199d0",
       "source_to_target_relation": "source_faithful_public_light_edit",
       "target_ref": "examples/voice_to_doctrine_self_improvement_loop/exported_voice_to_doctrine_bundle/source_modules/ai_workflow/codex/doctrine/skills/task_ledger/task_ledger.md",
       "target_sha256": "651abf54df9e0992b96d23b1c5147651dc260f01cb8927abf293bc7f3c6199d0",

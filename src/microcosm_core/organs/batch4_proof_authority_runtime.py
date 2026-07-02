@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.batch4_proof_authority_runtime` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs batch4 proof authority runtime for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, BUNDLE_INPUT_MODE, PROBE_MANIFEST_NAME, LEAN_LAKE_PROBE_TIMEOUT_SECONDS, LEAN_LAKE_DEPENDENCY_UNAVAILABLE_MARKERS, LEAN_LAKE_BOUNDARY_CLAIM, EXPECTED_MECHANISMS, EXPECTED_MODULE_IDS, EXPECTED_NEGATIVE_CASES, NEGATIVE_CASE_RUNTIME_PROBES, NEGATIVE_CASE_OVERCLAIM_SHAPES, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_REQUIRED_ANCHORS, SPEC, evaluate_negative_case, run, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
-- Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate_negative_case`, `run`, `run_batch4_bundle`, `result_card`,
+and `main`; constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and
+19 more pin local fixture names; dependencies include `argparse`, `hashlib`, `json`, `re`,
+and 5 more. It builds public fixture, result, card, or verdict structures while keeping
+private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -407,13 +391,10 @@ SPEC = CrownJewelSpec(
 
 def _finding(code: str, message: str, *, subject_id: str | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.batch4_proof_authority_runtime._finding`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     payload = {"error_code": code, "message": message, "body_in_receipt": False}
     if subject_id:
@@ -423,13 +404,10 @@ def _finding(code: str, message: str, *, subject_id: str | None = None) -> dict[
 
 def _load_manifest(input_path: Path) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_manifest` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Load load manifest for `microcosm_core.organs.batch4_proof_authority_runtime`.
+
+    Input comes from `input_path`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     path = input_path / PROBE_MANIFEST_NAME
     try:
@@ -443,13 +421,11 @@ def _load_manifest(input_path: Path) -> tuple[dict[str, Any], list[dict[str, Any
 
 def _original_source_manifest(source_manifest: Mapping[str, Any], *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_original_source_manifest` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._original_source_manifest` into
+    the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_ref = str(source_manifest.get("manifest_ref") or "")
     if not manifest_ref:
@@ -466,13 +442,10 @@ def _original_source_manifest(source_manifest: Mapping[str, Any], *, public_root
 
 def _module_rows(source_manifest: Mapping[str, Any], *, public_root: Path) -> dict[str, Mapping[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_module_rows` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return module rows for the organs batch4 proof authority runtime flow.
+
+    Inputs are `source_manifest` and `public_root`; notable helpers are
+    `_original_source_manifest` and `get`.
     """
     original = _original_source_manifest(source_manifest, public_root=public_root)
     original_rows = original.get("modules")
@@ -498,13 +471,10 @@ def _module_rows(source_manifest: Mapping[str, Any], *, public_root: Path) -> di
 
 def _target_text(row: Mapping[str, Any], *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_target_text` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Compute target text from `row` and `public_root`.
+
+    Inputs are `row` and `public_root`; notable helpers are `startswith`, `read_text`,
+    `is_file`, and `get`.
     """
     target_ref = str(row.get("target_ref") or "")
     if target_ref.startswith("microcosm-substrate/"):
@@ -522,13 +492,10 @@ def _mechanism_status(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_mechanism_status` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch4_proof_authority_runtime._mechanism_status` into
+    the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     mechanism_id = str(mechanism.get("mechanism_id") or "")
     module_ids = [
@@ -561,13 +528,10 @@ def _mechanism_status(
 
 def _erdos_static_scan(text: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_erdos_static_scan` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch4_proof_authority_runtime._erdos_static_scan` into
+    the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     banned = sorted(set(re.findall(r"\b(?:sorry|admit|axiom)\b", text)))
     declarations = re.findall(r"^\s*(?:theorem|lemma|def)\s+([A-Za-z0-9_'.]+)", text, re.M)
@@ -585,13 +549,10 @@ def _erdos_static_scan(text: str) -> dict[str, Any]:
 
 def _line_count(text: str) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_line_count` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the line count value used by
+    `microcosm_core.organs.batch4_proof_authority_runtime`.
+
+    Inputs are `text`; notable helpers are `splitlines`.
     """
     return 0 if not text else len(text.splitlines())
 
@@ -603,13 +564,10 @@ def _run_command(
     timeout_seconds: int = LEAN_LAKE_PROBE_TIMEOUT_SECONDS,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_run_command` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Serialize `microcosm_core.organs.batch4_proof_authority_runtime._run_command` into the
+    payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     try:
         completed = subprocess.run(
@@ -663,13 +621,9 @@ def _run_command(
 
 def _source_lake_project_for_row(row: Mapping[str, Any], *, public_root: Path) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_source_lake_project_for_row` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive source lake project for row without touching module import state.
+
+    Inputs are `row` and `public_root`; notable helpers are `get` and `is_file`.
     """
     source_ref = str(row.get("source_ref") or "")
     if not source_ref:
@@ -683,13 +637,9 @@ def _source_lake_project_for_row(row: Mapping[str, Any], *, public_root: Path) -
 
 def _public_ref(path: Path, *, base: Path) -> str | None:
     """
-    [ACTION]
-    - Teleology: Implements `_public_ref` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute public ref from `path` and `base`.
+
+    Inputs are `path` and `base`; notable helpers are `as_posix` and `relative_to`.
     """
     try:
         return path.relative_to(base).as_posix()
@@ -699,13 +649,11 @@ def _public_ref(path: Path, *, base: Path) -> str | None:
 
 def _lean_lake_compile_boundary(status: Any, error_class: Any) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_lean_lake_compile_boundary` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._lean_lake_compile_boundary` into
+    the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if status == "pass":
         boundary_status = "live_compile_pass"
@@ -741,13 +689,11 @@ def _lean_lake_compile_boundary(status: Any, error_class: Any) -> dict[str, Any]
 
 def _lean_lake_probe(row: Mapping[str, Any], *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_lean_lake_probe` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Produce the lean lake probe value used by
+    `microcosm_core.organs.batch4_proof_authority_runtime`.
+
+    Inputs are `row` and `public_root`; notable helpers are `startswith`,
+    `_source_lake_project_for_row`, `file_sha256`, `_run_command`, and 7 more.
     """
     target_ref = str(row.get("target_ref") or "")
     if target_ref.startswith("microcosm-substrate/"):
@@ -880,13 +826,11 @@ def _lean_lake_probe(row: Mapping[str, Any], *, public_root: Path) -> dict[str, 
 
 def _copied_proof_source_pressure(row: Mapping[str, Any], text: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_copied_proof_source_pressure` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._copied_proof_source_pressure`
+    into the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     required_anchors = [
         anchor
@@ -918,13 +862,11 @@ def _copied_proof_source_pressure(row: Mapping[str, Any], text: str) -> dict[str
 
 def _synthetic_runtime_exercises(modules: Mapping[str, Mapping[str, Any]], public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_synthetic_runtime_exercises` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._synthetic_runtime_exercises` into
+    the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     erdos_row = modules["erdos257_certificate_kernel"]
     erdos_text = _target_text(erdos_row, public_root=public_root)
@@ -1010,13 +952,10 @@ def _synthetic_runtime_exercises(modules: Mapping[str, Mapping[str, Any]], publi
 
 def _evaluate(input_path: Path, public_root: Path, source_manifest: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_evaluate` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch4_proof_authority_runtime._evaluate` into the
+    payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     probe, findings = _load_manifest(input_path)
     modules = _module_rows(source_manifest, public_root=public_root)
@@ -1146,13 +1085,11 @@ def _semantic_negative_result(
     realness_rung: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_negative_result` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._semantic_negative_result` into
+    the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case_id,
@@ -1184,13 +1121,11 @@ def _semantic_negative_result(
 
 def _semantic_negative_not_rejected(case_id: str, observed: Any) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_negative_not_rejected` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._semantic_negative_not_rejected`
+    into the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case_id,
@@ -1216,13 +1151,11 @@ def _semantic_negative_not_rejected(case_id: str, observed: Any) -> dict[str, An
 
 def _semantic_negative_error(case_id: str, exc: Exception) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_negative_error` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._semantic_negative_error` into the
+    payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "case_id": case_id,
@@ -1236,13 +1169,10 @@ def _semantic_negative_error(case_id: str, exc: Exception) -> dict[str, Any]:
 
 def _verdict_signature(case_id: str, evidence: Mapping[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_verdict_signature` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute verdict signature from `case_id` and `evidence`.
+
+    Inputs are `case_id` and `evidence`; notable helpers are `encode`, `hexdigest`, `dumps`,
+    and `sha256`.
     """
     payload = {
         "case_id": case_id,
@@ -1260,13 +1190,10 @@ def _verdict_signature(case_id: str, evidence: Mapping[str, Any]) -> str:
 
 def _realness_rank(computed: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_realness_rank` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.batch4_proof_authority_runtime._realness_rank` into the
+    payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if computed:
         return {
@@ -1283,13 +1210,10 @@ def _realness_rank(computed: bool) -> dict[str, Any]:
 
 def _source_manifest_for_input(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_manifest_for_input` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source manifest for input for the organs batch4 proof authority runtime flow.
+
+    Inputs are `input_dir`; notable helpers are `public_root_for_path` and
+    `validate_source_manifest`.
     """
     public_root = public_root_for_path(input_dir)
     return validate_source_manifest(input_dir, SPEC, public_root=public_root)
@@ -1300,13 +1224,11 @@ def _mechanism_by_negative_case(
     case_id: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_mechanism_by_negative_case` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._mechanism_by_negative_case` into
+    the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     mechanisms = (
         exercise.get("mechanisms")
@@ -1324,13 +1246,9 @@ def _runtime_case_observed(
     case_id: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_runtime_case_observed` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute runtime case observed from `exercise` and `case_id`.
+
+    Inputs are `exercise` and `case_id`; notable helpers are `values` and `get`.
     """
     runtime = (
         exercise.get("runtime_exercises")
@@ -1501,13 +1419,11 @@ def _overclaim_shape_observed(
     case_id: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_overclaim_shape_observed` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._overclaim_shape_observed` into
+    the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     expected = NEGATIVE_CASE_OVERCLAIM_SHAPES.get(case_id, {})
     claim_ceiling = str(mechanism.get("claim_ceiling") or "")
@@ -1557,13 +1473,11 @@ def _overclaim_shape_observed(
 
 def _load_negative_case_payload(input_dir: Path, case_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_negative_case_payload` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._load_negative_case_payload` into
+    the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     path = input_dir / f"{case_id}.json"
     try:
@@ -1581,13 +1495,11 @@ def _fixture_runtime_probe_status(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_fixture_runtime_probe_status` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._fixture_runtime_probe_status`
+    into the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     expected = NEGATIVE_CASE_RUNTIME_PROBES.get(case_id, {})
     probe = payload.get("runtime_probe") if isinstance(payload.get("runtime_probe"), Mapping) else {}
@@ -1640,13 +1552,11 @@ def _computed_negative_case_verdict(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_computed_negative_case_verdict` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.batch4_proof_authority_runtime._computed_negative_case_verdict`
+    into the payload shape expected by organs batch4 proof authority runtime.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     mechanism = _mechanism_by_negative_case(exercise, case_id)
     runtime_case = _runtime_case_observed(exercise, case_id)
@@ -1687,13 +1597,11 @@ def _semantic_negative_case_proofs(
     public_root: Path,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_negative_case_proofs` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute semantic negative case proofs from `exercise`, `input_path`, `modules`, and
+    `public_root`.
+
+    Inputs are `exercise`, `input_path`, `modules`, and `public_root`; notable helpers are
+    `_computed_negative_case_verdict`, `append`, `_load_negative_case_payload`, and `get`.
     """
     rows: list[dict[str, Any]] = []
     for case_id in sorted(EXPECTED_NEGATIVE_CASES):
@@ -1740,13 +1648,12 @@ def evaluate_negative_case(
     expected_codes: tuple[str, ...],
 ) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the evaluate negative case value used by
+    `microcosm_core.organs.batch4_proof_authority_runtime`.
+
+    Inputs are `case_id`, `input_dir`, and `expected_codes`; notable helpers are
+    `public_root_for_path`, `_source_manifest_for_input`, `_module_rows`,
+    `_load_negative_case_payload`, and 6 more.
     """
     try:
         public_root = public_root_for_path(input_dir)
@@ -1803,13 +1710,10 @@ def run(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for `microcosm_core.organs.batch4_proof_authority_runtime`.
+
+    Inputs are `input_dir`, `out_dir`, `acceptance_out`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1830,13 +1734,10 @@ def run_batch4_bundle(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_batch4_bundle` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute run batch4 bundle from `bundle_dir`, `out_dir`, `command`, and `acceptance_out`.
+
+    Inputs are `bundle_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -1852,13 +1753,9 @@ def run_batch4_bundle(
 
 def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return result card for `microcosm_core.organs.batch4_proof_authority_runtime`.
+
+    Inputs are `result`; notable helpers are `card_for_result` and `get`.
     """
     card = card_for_result(SPEC, result)
     exercise = result.get("exercise") if isinstance(result.get("exercise"), Mapping) else {}
@@ -1878,13 +1775,11 @@ def result_card(result: Mapping[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.batch4_proof_authority_runtime` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.batch4_proof_authority_runtime` as a command-line entry
+    point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog=f"microcosm {ORGAN_ID}")
     sub = parser.add_subparsers(dest="action", required=True)

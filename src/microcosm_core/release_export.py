@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.release_export` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements release export for the public Plectis package.
 
-[INTERFACE]
-- Exports: ARTIFACT_DIR_NAME, RELEASE_RECEIPT_REF, PROJECTION_FRESHNESS_RECEIPT_REF, RELEASE_AUTHORIZATION_GATE_ID, RELEASE_CANDIDATE_INVALIDATION_SCHEMA_VERSION, RELEASE_ASSURANCE_SCHEMA_VERSION, DEFAULT_INCLUDE_REFS, STANDALONE_REQUIRED_PUBLIC_REFS, LICENSE_NOTICE_REQUIRED_REFS, CLAIM_LANGUAGE_REVIEW_PATTERNS, FINANCE_PROMOTION_REVIEW_PATTERNS, PUBLICATION_REVIEW_CHECKLISTS, SKIPPED_DIR_NAMES, SOURCE_MODULE_BUILD_ARTIFACT_DIR_NAMES, SOURCE_MODULE_CONTAMINATION_ALLOWLIST, RESTRICTED_PRIVATE_SOURCE_PREFIXES, RESTRICTED_PRIVATE_SOURCE_FILENAMES, PRIVATE_BODY_NEAR_VERBATIM_RATIO, PRIVATE_BODY_NEAR_VERBATIM_MIN_BYTES, PRIVATE_BODY_BLOCKING_CONTAMINATION_CLASSES, SKIPPED_ROOT_NAMES, SKIPPED_FILE_SUFFIXES, TEXT_SUFFIXES, ROOT_FORBIDDEN_PREFIXES, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results, environment variables.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: organs, receipts, relative package imports, schemas, validators.evidence_truth_floor
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `scan_source_modules_contamination`, `assess_candidate_invalidation`,
+`build_release_export`, `release_export_summary`, and `main`; constants such as
+`ARTIFACT_DIR_NAME`, `RELEASE_RECEIPT_REF`, `PROJECTION_FRESHNESS_RECEIPT_REF`,
+`RELEASE_AUTHORIZATION_GATE_ID`, and 38 more pin local fixture names; dependencies include
+`argparse`, `hashlib`, `json`, `os`, and 13 more. Importing it does not authorize release
+work or hidden private-state access; those effects live behind explicit calls.
 """
 from __future__ import annotations
 
@@ -445,26 +430,20 @@ DOCTRINE_LATTICE_POPULATION_DEFICIT_KINDS = frozenset(
 
 def _sha256_bytes(data: bytes) -> str:
     """
-    [ACTION]
-    - Teleology: canonical in-memory digest helper so artifact-payload hashing is reproducible.
-    - Guarantee: returns the lowercase hex SHA-256 of the given bytes.
-    - Fails: never raises for bytes input; propagates TypeError only if a non-bytes-like object is passed.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by `microcosm_core.release_export._sha256_bytes`.
+
+    The input is `data`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return hashlib.sha256(data).hexdigest()
 
 
 def _sha256_file(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: streaming file digest so per-file inventory sha256 does not load whole files into memory.
-    - Guarantee: returns the lowercase hex SHA-256 of the file at path, read in 1 MiB chunks.
-    - Fails: missing/unreadable path -> OSError from path.open.
-    - Reads: the bytes of the file at the given path.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Return the stable digest computed by `microcosm_core.release_export._sha256_file`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -475,13 +454,10 @@ def _sha256_file(path: Path) -> str:
 
 def _is_relative_to(path: Path, possible_parent: Path) -> bool:
     """
-    [ACTION]
-    - Teleology: containment test used to keep exports out of the source root and detect escaping symlinks.
-    - Guarantee: returns True iff path is relative_to possible_parent, else False; never raises on a non-relative path.
-    - Fails: never raises; ValueError from relative_to is caught and folded to False.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether is relative to holds for the release export flow.
+
+    The result is derived from `path` and `possible_parent` with `relative_to`; failing
+    evidence is returned or raised exactly where the body says so.
     """
     try:
         path.relative_to(possible_parent)
@@ -492,13 +468,9 @@ def _is_relative_to(path: Path, possible_parent: Path) -> bool:
 
 def _public_role(rel: str) -> str:
     """
-    [ACTION]
-    - Teleology: assign each exported public path a coarse role label for the inventory receipt.
-    - Guarantee: returns a stable role string (e.g. public_entry_document, runtime_source, receipt_evidence) for the given posix rel path; unknown tops fall back to public_artifact_member.
-    - Fails: never raises; always returns one of the fixed role strings.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute public role from `rel`.
+
+    Inputs are `rel`; notable helpers are `endswith` and `split`.
     """
     top = rel.split("/", 1)[0]
     if top == ".github":
@@ -557,14 +529,9 @@ def _public_role(rel: str) -> str:
 
 def _skip_reason(rel: Path, *, is_dir: bool) -> str | None:
     """
-    [ACTION]
-    - Teleology: single source of truth for why a tree entry is excluded from the export (caches, residue, bytecode, OS metadata).
-    - Guarantee: returns a reason string when the rel path matches a skip rule, else None; pure path classification with no I/O.
-    - Fails: never raises; returns None for paths that are not skip candidates.
-    - Non-goal: does not authorize source-body export, public-safe equivalence, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive skip reason without touching module import state.
+
+    Inputs are `rel` and `is_dir`; notable helpers are `endswith`.
     """
     parts = rel.parts
     if not parts:
@@ -584,13 +551,9 @@ def _skip_reason(rel: Path, *, is_dir: bool) -> str | None:
 
 def _source_residue_rows(root: Path) -> list[dict[str, str]]:
     """
-    [ACTION]
-    - Teleology: pre-seed the exclusion ledger with local/nested-release residue roots that must never be exported.
-    - Guarantee: returns excluded-row dicts (status=excluded, reason=root_local_or_nested_release_residue) for each SKIPPED_ROOT_NAMES entry that exists under root.
-    - Fails: never raises; returns [] when no residue roots exist.
-    - Reads: existence of SKIPPED_ROOT_NAMES entries directly under root.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Derive source residue rows without touching module import state.
+
+    Inputs are `root`; notable helpers are `exists` and `append`.
     """
     rows: list[dict[str, str]] = []
     for name in sorted(SKIPPED_ROOT_NAMES):
@@ -608,16 +571,10 @@ def _source_residue_rows(root: Path) -> list[dict[str, str]]:
 
 def _iter_allowed_files(root: Path) -> tuple[list[Path], list[dict[str, str]], list[str]]:
     """
-    [ACTION]
-    - Teleology: walk the source root under the public allowlist, deciding per-entry keep/exclude so only public-safe material reaches the artifact.
-    - Guarantee: returns (kept files, excluded rows, missing include refs); symlinks, skip-rule matches, and receipt private-path content are excluded with a reason, not copied.
-    - Fails: never raises for normal trees; OS errors from os.walk on an unreadable subtree propagate.
-    - Reads: DEFAULT_INCLUDE_REFS under root plus per-file content for receipt private-path exclusion.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond its skip/exclusion checks, release, or whole-system correctness.
-    - When-needed: tracing why a file is included or excluded from the generated export.
-    - Escalates-to: _skip_reason / _source_receipt_private_path_exclusion and build_release_export inventory_receipt.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Produce the iter allowed files value used by `microcosm_core.release_export`.
+
+    Inputs are `root`; notable helpers are `_source_residue_rows`, `is_symlink`, `is_file`,
+    `walk`, and 7 more.
     """
     files: list[Path] = []
     excluded: list[dict[str, str]] = _source_residue_rows(root)
@@ -722,14 +679,10 @@ def _source_module_private_body_substitution_text(
     match_row: dict[str, Any],
 ) -> str:
     """
-    [ACTION]
-    Return a public-safe replacement for a withheld private source module.
-    - Teleology: Implements `_source_module_private_body_substitution_text` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source module private body substitution text value used by
+    `microcosm_core.release_export`.
+
+    Inputs are `rel` and `match_row`; notable helpers are `endswith`, `get`, and `dumps`.
     """
     matched_ref = str(match_row.get("matched_private_ref") or "")
     contamination_class = str(match_row.get("contamination_class") or "")
@@ -780,13 +733,10 @@ def _copy_allowed_files(
     private_body_substitutions: dict[str, dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: materialize the kept files into the artifact tree and build the per-file inventory, redacting concrete home paths in source_modules and substituting withheld private-body source modules.
-    - Guarantee: each allowed file is copied to target/<rel>; text files under a source_modules path get concrete /Users/<name> rewritten to /Users/example, except the synthetic fixture home /Users/operator, which is copied verbatim so exact-copy body digest pins survive the export boundary; private-body source module matches get public-safe stubs; returns sorted inventory, sorted home-redaction rows, and sorted private-body substitution rows.
-    - Fails: unwritable destination or unreadable source -> OSError; binary/large files are copied verbatim without redaction.
-    - Reads: the source files in `files`; Writes: redacted-or-verbatim copies under target.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond home-path redaction, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Produce the copy allowed files value used by `microcosm_core.release_export`.
+
+    Inputs are `files`, `root`, `target`, and `private_body_substitutions`; notable helpers
+    are `as_posix`, `mkdir`, `get`, `stat`, and 11 more.
     """
     inventory: list[dict[str, Any]] = []
     home_redaction_rows: list[dict[str, Any]] = []
@@ -854,13 +804,9 @@ def _copy_allowed_files(
 
 def _artifact_payload_hash(inventory: list[dict[str, Any]]) -> str:
     """
-    [ACTION]
-    - Teleology: bind the whole inventory to one digest so the candidate artifact is hash-identifiable.
-    - Guarantee: returns the SHA-256 of the JSON-serialized inventory (ascii, sorted keys); identical inventories yield identical hashes.
-    - Fails: non-JSON-serializable inventory contents -> TypeError from json.dumps.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return artifact payload hash for the release export flow.
+
+    Inputs are `inventory`; notable helpers are `encode`, `_sha256_bytes`, and `dumps`.
     """
     serialized = json.dumps(inventory, ensure_ascii=True, sort_keys=True).encode("utf-8")
     return _sha256_bytes(serialized)
@@ -868,14 +814,10 @@ def _artifact_payload_hash(inventory: list[dict[str, Any]]) -> str:
 
 def _artifact_inventory_for_paths(target: Path, paths: list[str]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Rebuild inventory rows after export-time metadata rewrites.
-    - Teleology: Implements `_artifact_inventory_for_paths` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the artifact inventory for paths value used by `microcosm_core.release_export`.
+
+    Inputs are `target` and `paths`; notable helpers are `stat`, `append`, `is_file`,
+    `_public_role`, and 1 more.
     """
     inventory: list[dict[str, Any]] = []
     for rel in paths:
@@ -896,14 +838,10 @@ def _artifact_inventory_for_paths(target: Path, paths: list[str]) -> list[dict[s
 
 def _digest_field_like(existing: object, digest: str) -> str:
     """
-    [ACTION]
-    Preserve sha256: prefix style when rewriting digest metadata.
-    - Teleology: Implements `_digest_field_like` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return a stable SHA-256 digest for `existing` and `digest`.
+
+    The body uses deterministic encoding or chunked file reads so receipts can compare the
+    value across runs.
     """
     return f"sha256:{digest}" if str(existing or "").startswith("sha256:") else digest
 
@@ -915,14 +853,10 @@ def _resolve_public_artifact_ref(
     target: Path,
 ) -> str | None:
     """
-    [ACTION]
-    Resolve a manifest/protocol target ref to a target-relative artifact path.
-    - Teleology: Implements `_resolve_public_artifact_ref` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Compute resolve public artifact ref from `ref`, `json_path`, and `target`.
+
+    Inputs are `ref`, `json_path`, and `target`; notable helpers are `replace`,
+    `removeprefix`, `Path`, `extend`, and 6 more.
     """
     if not isinstance(ref, str) or not ref.strip():
         return None
@@ -952,13 +886,10 @@ def _resolve_public_artifact_ref(
 
 def _stub_stats(target: Path, rel: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_stub_stats` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._stub_stats` into the payload shape expected by
+    release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     body = (target / rel).read_bytes()
     return {
@@ -976,14 +907,11 @@ def _rewrite_private_body_stub_row(
     substitution: dict[str, Any],
 ) -> bool:
     """
-    [ACTION]
-    Rewrite a copied-material row to bind it to the exported public stub.
-    - Teleology: Implements `_rewrite_private_body_stub_row` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether rewrite private body stub row holds for the release export flow.
+
+    The result is derived from `row`, `target_rel`, `stats`, and `substitution` with
+    `set_field`, `get`, `set_verification`, and `_digest_field_like`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     digest = str(stats["sha256"])
     line_count = int(stats["line_count"])
@@ -992,13 +920,10 @@ def _rewrite_private_body_stub_row(
 
     def set_field(name: str, value: Any) -> None:
         """
-        [ACTION]
-        - Teleology: Implements `_rewrite_private_body_stub_row.set_field` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Run set field for `microcosm_core.release_export`.
+
+        The function is a named boundary around the visible side effect or orchestration
+        step in its body.
         """
         nonlocal changed
         if row.get(name) != value:
@@ -1036,13 +961,10 @@ def _rewrite_private_body_stub_row(
 
     def set_verification(name: str, value: Any) -> None:
         """
-        [ACTION]
-        - Teleology: Implements `_rewrite_private_body_stub_row.set_verification` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Run set verification for `microcosm_core.release_export`.
+
+        The function is a named boundary around the visible side effect or orchestration
+        step in its body.
         """
         nonlocal changed
         if verification.get(name) != value:
@@ -1069,14 +991,11 @@ def _rewrite_private_body_stub_metadata(
     substitutions: dict[str, dict[str, Any]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Rewrite exported manifests/protocols so stubbed bodies are self-consistent.
-    - Teleology: Implements `_rewrite_private_body_stub_metadata` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the rewrite private body stub metadata value used by
+    `microcosm_core.release_export`.
+
+    Inputs are `target` and `substitutions`; notable helpers are `rglob`, `_stub_stats`,
+    `endswith`, `read_json_strict`, and 7 more.
     """
     if not substitutions:
         return []
@@ -1178,13 +1097,10 @@ def _rewrite_private_body_stub_metadata(
 
 def _inventory_covers_ref(inventory_paths: set[str], ref: str) -> bool:
     """
-    [ACTION]
-    - Teleology: decide whether a required public ref is present in the exported inventory (file or directory prefix).
-    - Guarantee: returns True iff the normalized ref equals an inventory path or is a directory prefix of one.
-    - Fails: never raises; returns False when no inventory path covers the ref.
-    - Reads: the set of exported inventory paths.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Return whether inventory covers ref holds for the release export flow.
+
+    The result is derived from `inventory_paths` and `ref` with `rstrip` and `startswith`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     normalized = ref.rstrip("/")
     return normalized in inventory_paths or any(
@@ -1194,13 +1110,10 @@ def _inventory_covers_ref(inventory_paths: set[str], ref: str) -> bool:
 
 def _read_text_if_small(path: Path, *, max_bytes: int = 2_000_000) -> str | None:
     """
-    [ACTION]
-    - Teleology: bounded text reader so content scans skip binaries and oversized files.
-    - Guarantee: returns decoded UTF-8 text for files with a TEXT_SUFFIXES suffix and size <= max_bytes, else None.
-    - Fails: never raises on decode failure (UnicodeDecodeError -> None); OSError from stat on a vanished path propagates.
-    - Reads: the text of the candidate path when small and text-suffixed.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Read read text if small for `microcosm_core.release_export`.
+
+    Input comes from `path` and `max_bytes`; malformed or missing data follows the
+    exceptions and checks visible in the body.
     """
     if path.suffix not in TEXT_SUFFIXES:
         return None
@@ -1214,14 +1127,10 @@ def _read_text_if_small(path: Path, *, max_bytes: int = 2_000_000) -> str | None
 
 def _default_private_root_for_public_root(public_root: Path) -> Path | None:
     """
-    [ACTION]
-    Return the sibling macro root when a local public tree sits inside it.
-    - Teleology: Implements `_default_private_root_for_public_root` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the default private root for public root value used by
+    `microcosm_core.release_export`.
+
+    Inputs are `public_root`; notable helpers are `resolve`, `is_dir`, and `is_file`.
     """
     for candidate in (public_root.parent, public_root.parent.parent):
         try:
@@ -1238,14 +1147,10 @@ def _default_private_root_for_public_root(public_root: Path) -> Path | None:
 
 def _restricted_private_source_match(source_modules_tail: str) -> str:
     """
-    [ACTION]
-    Return the restricted private source prefix matched by a source_modules tail.
-    - Teleology: Implements `_restricted_private_source_match` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Derive restricted private source match without touching module import state.
+
+    Inputs are `source_modules_tail`; notable helpers are `lstrip`, `startswith`, `append`,
+    `next`, and 2 more.
     """
     normalized = source_modules_tail.replace("\\", "/").lstrip("/")
     candidates = [normalized]
@@ -1272,13 +1177,10 @@ def _private_body_source_candidates(
     source_modules_tail: str,
 ) -> list[tuple[str, Path]]:
     """
-    [ACTION]
-    - Teleology: Implements `_private_body_source_candidates` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Compute private body source candidates from `private_root` and `source_modules_tail`.
+
+    Inputs are `private_root` and `source_modules_tail`; notable helpers are `lstrip`,
+    `startswith`, `removeprefix`, `append`, and 1 more.
     """
     normalized = source_modules_tail.replace("\\", "/").lstrip("/")
     candidates = [(normalized, private_root / normalized)]
@@ -1290,13 +1192,9 @@ def _private_body_source_candidates(
 
 def _normalized_private_body_text(text: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_normalized_private_body_text` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the normalized private body text value used by `microcosm_core.release_export`.
+
+    Inputs are `text`; notable helpers are `join`, `strip`, and `splitlines`.
     """
     return "\n".join(line.strip() for line in text.splitlines() if line.strip())
 
@@ -1310,13 +1208,10 @@ def _private_body_match_row(
     owning_bundle: str,
 ) -> dict[str, str] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_private_body_match_row` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._private_body_match_row` into the payload shape
+    expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if private_root is None:
         return None
@@ -1387,14 +1282,10 @@ def _private_body_match_row(
 
 def _restricted_source_module_substitution_rows(public_root: Path) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Return body-free rows for restricted source_modules tails that must become stubs.
-    - Teleology: Implements `_restricted_source_module_substitution_rows` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive restricted source module substitution rows without touching module import state.
+
+    Inputs are `public_root`; notable helpers are `as_posix`, `rglob`, `is_dir`,
+    `_restricted_private_source_match`, and 3 more.
     """
     skipped_source_module_ancestors = SKIPPED_DIR_NAMES | SKIPPED_ROOT_NAMES | {
         "__pycache__",
@@ -1443,15 +1334,10 @@ def _restricted_source_module_substitution_rows(public_root: Path) -> list[dict[
 
 def _iter_artifact_paths(target: Path) -> Iterator[Path]:
     """
-    [ACTION]
-    Yield artifact paths deterministically without materializing the tree.
+    Temporarily apply iter artifact paths for callers using a `with` block.
 
-    - Teleology: deterministic recursive walk of the artifact so residue/secret/symlink scans see a stable order without materializing a list.
-    - Guarantee: yields every path under target in sorted-name, parent-before-child order; symlinked dirs are not descended (follow_symlinks=False).
-    - Fails: never raises; an unreadable directory yields nothing for that subtree (OSError swallowed).
-    - Reads: directory entries under target.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The previous state is restored after the yielded block exits, including exceptional
+    exits.
     """
 
     try:
@@ -1472,13 +1358,10 @@ def _iter_artifact_paths(target: Path) -> Iterator[Path]:
 
 def _iter_artifact_files(target: Path) -> Iterator[Path]:
     """
-    [ACTION]
-    - Teleology: file-only view of the artifact walk for content scans.
-    - Guarantee: yields only non-symlink regular files under target, in _iter_artifact_paths order.
-    - Fails: never raises; non-files and symlinks are skipped.
-    - Reads: the artifact tree under target.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Temporarily apply iter artifact files for callers using a `with` block.
+
+    The previous state is restored after the yielded block exits, including exceptional
+    exits.
     """
     for path in _iter_artifact_paths(target):
         if path.is_symlink():
@@ -1489,14 +1372,11 @@ def _iter_artifact_files(target: Path) -> Iterator[Path]:
 
 def _source_receipt_private_path_exclusion(path: Path, root: Path) -> str | None:
     """
-    [ACTION]
-    - Teleology: source-custody guard that keeps receipts carrying the absolute source root or non-synthetic host temp paths out of the export.
-    - Guarantee: returns receipt_absolute_source_root_excluded or receipt_host_temp_path_excluded when a receipts/* text file leaks those needles, else None.
-    - Fails: never raises; non-receipt paths, binaries, and clean receipts return None.
-    - Reads: the text body of the candidate receipts/* file and the source root posix string.
-    - Non-goal: does not authorize source-body export, public-safe equivalence beyond this needle check, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Produce the source receipt private path exclusion value used by
+    `microcosm_core.release_export`.
+
+    Inputs are `path` and `root`; notable helpers are `relative_to`, `_read_text_if_small`,
+    and `as_posix`.
     """
     rel = path.relative_to(root)
     if not rel.parts or rel.parts[0] != "receipts":
@@ -1513,14 +1393,10 @@ def _source_receipt_private_path_exclusion(path: Path, root: Path) -> str | None
 
 def _strong_private_path_hits(target: Path, *, source_root: Path) -> list[dict[str, str]]:
     """
-    [ACTION]
-    - Teleology: post-copy private-path leak detector over the materialized artifact (source root, source parent, operator home, host temp).
-    - Guarantee: returns hit rows (path + public-redacted needle + kind) for every artifact text file containing a private needle; needle values in the receipt are already redacted placeholders.
-    - Fails: never raises; binaries and clean files contribute no hits.
-    - Reads: every artifact text file plus source_root, its parent, and Path.home() posix strings.
-    - Non-goal: does not authorize release; absence of hits is a bounded scan, not a complete privacy audit.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Produce the strong private path hits value used by `microcosm_core.release_export`.
+
+    Inputs are `target` and `source_root`; notable helpers are `as_posix`,
+    `_iter_artifact_files`, `append`, `_read_text_if_small`, and 2 more.
     """
     hits: list[dict[str, str]] = []
     private_needles: list[tuple[str, str, str]] = []
@@ -1554,14 +1430,10 @@ def _strong_private_path_hits(target: Path, *, source_root: Path) -> list[dict[s
 
 def _strong_secret_hits(target: Path) -> list[dict[str, str]]:
     """
-    [ACTION]
-    - Teleology: bounded strong-secret pattern scan (private keys, inline api/secret assignments) over the artifact.
-    - Guarantee: returns rows (path + matched pattern, body_in_receipt=False) for every artifact text file matching a STRONG_SECRET_PATTERNS regex.
-    - Fails: never raises; raw secret bodies are never placed in the returned rows.
-    - Reads: every artifact text file.
-    - Non-goal: does not authorize release and is not a complete secret audit; it is a bounded pattern pass.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Return strong secret hits for the release export flow.
+
+    Inputs are `target`; notable helpers are `_iter_artifact_files`, `as_posix`,
+    `_read_text_if_small`, `search`, and 2 more.
     """
     hits: list[dict[str, str]] = []
     for path in _iter_artifact_files(target):
@@ -1597,14 +1469,11 @@ def scan_source_modules_contamination(
     compare_private_bodies: bool = True,
 ) -> list[dict[str, str]]:
     """
-    [ACTION]
-    - Teleology: population contamination gate over every public-bound source_modules payload — committed compiler output (SwiftPM/Xcode .build trees), real host-private paths, and byte-identical/near-verbatim restricted private control-plane bodies are release blockers the bounded import membrane cannot see, because the import trusts exact-copy declarations.
-    - Guarantee: returns one row (path, contamination_class, owning_bundle, remediation) per offending file: build_artifact_directory for any path under SOURCE_MODULE_BUILD_ARTIFACT_DIR_NAMES, host_private_path for text files carrying a real /Users/<name> or /home/<name> (synthetic /Users/operator is the house fixture convention and is allowed) or a non-synthetic host temp needle, private_body_exact_match for restricted source_modules tails byte-identical to the private macro root, or private_body_near_verbatim for restricted tails with text similarity >= PRIVATE_BODY_NEAR_VERBATIM_RATIO; empty list means the scanned payloads are clean.
-    - Fails: never raises; unreadable/binary files contribute no content rows; SOURCE_MODULE_CONTAMINATION_ALLOWLIST prefixes are skipped with their declared reason.
-    - Reads: every source_modules subtree under the public root plus per-file text (bounded by _read_text_if_small); when a sibling private macro root is available, reads same-tail restricted private files for digest/similarity comparison.
-    - Non-goal: does not authorize release or population; a clean scan is a bounded gate result, not a complete privacy audit.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Scan whether scan source modules contamination holds for the release export flow.
+
+    The result is derived from `public_root`, `private_root`, and `compare_private_bodies`
+    with `is_dir`, `run`, `as_posix`, `_default_private_root_for_public_root`, and 13 more;
+    failing evidence is returned or raised exactly where the body says so.
     """
     rows: list[dict[str, str]] = []
     if not public_root.is_dir():
@@ -1746,13 +1615,10 @@ def scan_source_modules_contamination(
 
 def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
     """
-    [ACTION]
-    - Teleology: prove the materialized artifact carries no forbidden private-root, generated-state, nested-self-export, cache, bytecode, or compiler build-product residue.
-    - Guarantee: returns a violation row (path + reason) for every artifact path matching a residue rule; empty list means no residue found.
-    - Fails: never raises; pure path classification over the artifact walk.
-    - Reads: the artifact tree under target.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Return artifact residue violations for the release export flow.
+
+    Inputs are `target`; notable helpers are `_iter_artifact_paths`, `relative_to`,
+    `as_posix`, `append`, and 2 more.
     """
     violations: list[dict[str, str]] = []
     for path in _iter_artifact_paths(target):
@@ -1784,15 +1650,11 @@ def _artifact_residue_violations(target: Path) -> list[dict[str, str]]:
 
 def _cleanup_release_validation_residue(target: Path) -> list[dict[str, str]]:
     """
-    [ACTION]
-    Remove byproducts created by release validators after pre-validation residue
-    has already been captured.
-    - Teleology: Implements `_cleanup_release_validation_residue` for `microcosm_core.release_export` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Produce the cleanup release validation residue value used by
+    `microcosm_core.release_export`.
+
+    Inputs are `target`; notable helpers are `extend`, `is_dir`, `append`, `exists`, and 6
+    more.
     """
     cleanup_rows: list[dict[str, str]] = []
     residue_paths = [target / ".microcosm", target / ".pytest_cache"]
@@ -1836,13 +1698,10 @@ def _cleanup_release_validation_residue(target: Path) -> list[dict[str, str]]:
 
 def _artifact_symlink_refs(target: Path) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: enumerate symlinks in the artifact and whether each resolves inside the artifact, for the standalone-severance gate.
-    - Guarantee: returns one row per symlink (path + target_within_artifact bool + body_in_receipt=False); any symlink at all is later treated as a severance blocker.
-    - Fails: target.resolve(strict=True) on a missing artifact root -> FileNotFoundError; per-link resolve errors fold target_within_artifact to False.
-    - Reads: symlink entries under target and their resolved targets.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Derive artifact symlink refs without touching module import state.
+
+    Inputs are `target`; notable helpers are `resolve`, `_iter_artifact_paths`, `as_posix`,
+    `append`, and 3 more.
     """
     rows: list[dict[str, Any]] = []
     target_root = target.resolve(strict=True)
@@ -1877,15 +1736,10 @@ def _standalone_severance_receipt(
     projection_freshness_receipt: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: source-custody receipt proving the generated tree is a self-contained public folder (required refs present, no residue/symlink/private/secret leak, gates pass).
-    - Guarantee: returns a microcosm_standalone_severance_receipt_v1 dict with status pass iff blocking_codes is empty; claim_level is install-verified only when install smoke passed.
-    - Fails: never raises; defects surface as blocking_codes and status=blocked, not exceptions.
-    - Reads: inventory, exclusion/authority/runnable/install/projection receipts, and the artifact symlink set.
-    - Non-goal: per its own anti_claim, proves only bounded standalone shape; not publication authority or private-macro equivalence.
-    - Escalates-to: build_release_export receipt['standalone_severance_receipt'] and the standalone test guards.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._standalone_severance_receipt` into the payload
+    shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     inventory_paths = {str(row["path"]) for row in inventory}
     required_missing = [
@@ -1996,13 +1850,9 @@ def _standalone_severance_receipt(
 
 def _flatten_data_file_refs(pyproject: dict[str, Any]) -> set[str]:
     """
-    [ACTION]
-    - Teleology: collect declared setuptools data-file refs so LICENSE/NOTICE/PROVENANCE packaging coverage can be checked.
-    - Guarantee: returns the set of string data-file patterns declared under tool.setuptools.data-files; missing/malformed tables yield an empty set.
-    - Fails: never raises; non-dict/non-list shapes are skipped defensively.
-    - Reads: the parsed pyproject tool.setuptools.data-files mapping.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Compute flatten data file refs from `pyproject`.
+
+    Inputs are `pyproject`; notable helpers are `values`, `get`, and `add`.
     """
     tool = pyproject.get("tool") if isinstance(pyproject.get("tool"), dict) else {}
     setuptools = tool.get("setuptools") if isinstance(tool.get("setuptools"), dict) else {}
@@ -2023,13 +1873,10 @@ def _flatten_data_file_refs(pyproject: dict[str, Any]) -> set[str]:
 
 def _pyproject_payload(target: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: tolerant loader for the exported pyproject so materials/license checks have its metadata.
-    - Guarantee: returns the parsed pyproject.toml dict, or {} when the file is absent or fails to parse.
-    - Fails: never raises; OSError and TOMLDecodeError are caught and folded to {}.
-    - Reads: target/pyproject.toml.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._pyproject_payload` into the payload shape
+    expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     path = target / "pyproject.toml"
     if not path.is_file():
@@ -2047,15 +1894,10 @@ def _materials_ledger(
     artifact: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: source-custody/materials receipt binding LICENSE-NOTICE-PROVENANCE chain, license expression, dependency summary, and SBOM status.
-    - Guarantee: returns a microcosm_public_materials_ledger_v1 dict; license_notice status passes only when required refs are present, license is Apache-2.0, and LICENSE/NOTICE/PROVENANCE are export-or-data covered.
-    - Fails: never raises; missing material or wrong license -> status=blocked; SBOM is reported not_generated, never claimed complete.
-    - Reads: inventory paths and target/pyproject.toml metadata.
-    - Non-goal: does not authorize release or claim a complete dependency SBOM / transitive license review.
-    - Escalates-to: _pyproject_payload / _flatten_data_file_refs and the publication package-registry checklist.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._materials_ledger` into the payload shape
+    expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     inventory_paths = {str(row["path"]) for row in inventory}
     required_missing = [
@@ -2149,14 +1991,10 @@ def _materials_ledger(
 
 def _artifact_publication_history_receipt(target: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: source-custody guard that the artifact carries no private git history (.git/.gitmodules) and must seed a fresh public repo.
-    - Guarantee: returns a microcosm_publication_history_receipt_v1 dict; status passes iff no git metadata refs are found in the artifact.
-    - Fails: never raises; any .git/.gitmodules ref -> status=blocked with source_private_history_exported True (first 20 refs sampled).
-    - Reads: the artifact path tree for git-metadata refs.
-    - Non-goal: does not authorize publication; it only names the fresh-public-repo rule.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._artifact_publication_history_receipt` into the
+    payload shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     git_metadata_refs: list[str] = []
     for path in _iter_artifact_paths(target):
@@ -2189,13 +2027,9 @@ def _artifact_publication_history_receipt(target: Path) -> dict[str, Any]:
 
 def _hit_boundary_context(text: str, *, start: int, end: int) -> str:
     """
-    [ACTION]
-    - Teleology: classify a review-pattern match as a suspect positive claim or an explicit boundary/anti-claim context, to suppress false positives.
-    - Guarantee: returns boundary_or_anti_claim_context when a negation/boundary marker precedes or surrounds the match, else suspect_positive_claim.
-    - Fails: never raises; pure substring window classification.
-    - Reads: the surrounding text window of the matched span.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Produce the hit boundary context value used by `microcosm_core.release_export`.
+
+    Inputs are `text`, `start`, and `end`; notable helpers are `lower`.
     """
     before = text[max(0, start - 120) : start].lower()
     window = text[max(0, start - 120) : min(len(text), end + 120)].lower()
@@ -2226,14 +2060,10 @@ def _scan_review_patterns(
     scan_id: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: scan the artifact for claim-language or finance-promotion patterns and split hits into release-candidate vs authorization blocking.
-    - Guarantee: returns a scan dict (given schema/scan_id) with status pass iff release_candidate_blocking_hit_count is zero; boundary-context hits are reported but non-blocking, bodies excluded.
-    - Fails: never raises; matches in anti-claim context do not block; hits list is capped at 50 with an overflow count.
-    - Reads: every artifact text file against the supplied pattern rows.
-    - Non-goal: does not authorize release; per its anti_claim, boundary-context hits neither authorize nor block by themselves.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._scan_review_patterns` into the payload shape
+    expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     hits: list[dict[str, Any]] = []
     for path in _iter_artifact_files(target):
@@ -2311,14 +2141,10 @@ def _privacy_review_receipt(
     authority_receipt: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: fold the exclusion receipt into a bounded artifact privacy review for the release-assurance bundle.
-    - Guarantee: returns a microcosm_privacy_release_review_receipt_v1 dict; status passes iff no private-path hits, no strong-secret hits, and bounded secret scan passed.
-    - Fails: never raises; any of those conditions -> status=blocked with the matching PRIVACY_* code.
-    - Reads: exclusion_receipt private-path/secret hit lists and authority_receipt flags.
-    - Non-goal: bounded artifact scan only; not a complete personal-data audit of any private workspace.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._privacy_review_receipt` into the payload shape
+    expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     bounded_secret = exclusion_receipt.get("bounded_secret_exclusion_scan") or {}
     private_path_hits = list(exclusion_receipt.get("private_path_hits") or [])
@@ -2354,14 +2180,10 @@ def _privacy_review_receipt(
 
 def _operator_publication_checklists() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: surface the operator-review publication checklists (github/package/site) as not-yet-run gates.
-    - Guarantee: returns a microcosm_operator_publication_checklists_v1 dict with release_authorized/publish_authorized False and every checklist marked not_run_operator_review_required.
-    - Fails: never raises; constant projection of PUBLICATION_REVIEW_CHECKLISTS.
-    - Non-goal: checklist presence does not mean any publication surface was reviewed or launched.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._operator_publication_checklists` into the
+    payload shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "microcosm_operator_publication_checklists_v1",
@@ -2386,15 +2208,10 @@ def _operator_publication_checklists() -> dict[str, Any]:
 
 def _release_substance_selector(target: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: make the evidence truth floor a release-candidate substance gate for the assurance bundle.
-    - Guarantee: returns a microcosm_release_substance_selector_v1 dict echoing the truth-floor status/counts and embedding the full truth-floor receipt.
-    - Fails: never raises here; status mirrors audit_evidence_truth_floor(target) and is blocked when that floor is blocked.
-    - Reads: audit_evidence_truth_floor over the artifact.
-    - Non-goal: does not promote fixture evidence, authorize publication, or replace owner review of candidate rows.
-    - Escalates-to: validators/evidence_truth_floor.py (audit_evidence_truth_floor) and its source/registry refs.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._release_substance_selector` into the payload
+    shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     truth_floor = audit_evidence_truth_floor(target)
     return {
@@ -2428,15 +2245,10 @@ def _release_assurance_receipt(
     authority_receipt: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Release Assurance v2 aggregator binding materials, publication-history, claim/finance scans, privacy, and the substance selector into one candidate verdict.
-    - Guarantee: returns a RELEASE_ASSURANCE_SCHEMA_VERSION dict; status/release_candidate_status pass iff no candidate blocking code; release/publish/hosted authorized are hard False with operator_review_required.
-    - Fails: never raises; sub-receipt failures surface as release_candidate_blocking_codes; review work surfaces as release_authorization_blocking_codes.
-    - Reads: inventory, artifact, exclusion and authority receipts plus the artifact tree.
-    - Non-goal: validates the candidate and names review work; does not publish, authorize release, or prove complete legal/privacy/security review.
-    - Escalates-to: build_release_export receipt['release_assurance_v2'] and the operator publication gate.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._release_assurance_receipt` into the payload
+    shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     materials = _materials_ledger(target, inventory=inventory, artifact=artifact)
     publication_history = _artifact_publication_history_receipt(target)
@@ -2529,13 +2341,10 @@ def _release_assurance_receipt(
 
 def _expected_sentinel_fixture_path(path_ref: object) -> bool:
     """
-    [ACTION]
-    - Teleology: whitelist the known sentinel/fixture paths that legitimately contain forbidden-term examples.
-    - Guarantee: returns True for the forbidden-classes policy file, any tests/* path, forbidden-terms fixtures, and the pattern-binding reference capsule.
-    - Fails: never raises; any other path returns False.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether expected sentinel fixture path holds for the release export flow.
+
+    The result is derived from `path_ref` with `startswith` and `endswith`; failing evidence
+    is returned or raised exactly where the body says so.
     """
     path = str(path_ref)
     return (
@@ -2548,13 +2357,10 @@ def _expected_sentinel_fixture_path(path_ref: object) -> bool:
 
 def _expected_bounded_secret_scan_hit(hit: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: decide whether a bounded-secret-scan hit is an expected sentinel/target-only case rather than a real leak.
-    - Guarantee: returns True when the hit is forbidden_class target_only_not_source or lands on an expected sentinel fixture path.
-    - Fails: never raises; unexpected hits return False and become blocking.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether expected bounded secret scan hit holds for the release export flow.
+
+    The result is derived from `hit` with `_expected_sentinel_fixture_path` and `get`;
+    failing evidence is returned or raised exactly where the body says so.
     """
     if hit.get("forbidden_class") == "target_only_not_source":
         return True
@@ -2563,14 +2369,10 @@ def _expected_bounded_secret_scan_hit(hit: dict[str, Any]) -> bool:
 
 def _secret_scan(target: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: run the bounded forbidden-class secret-exclusion scan over the artifact, separating expected sentinels from real leaks.
-    - Guarantee: returns the scan dict with status pass iff there are no unexpected hits; otherwise status=blocked with unexpected hit count/paths.
-    - Fails: missing core/private_state_forbidden_classes.json -> status=blocked MISSING_SECRET_EXCLUSION_POLICY; never raises for present policy.
-    - Reads: target/core/private_state_forbidden_classes.json and every artifact file.
-    - Non-goal: bounded policy-driven scan only; does not authorize release or claim a complete secret audit.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._secret_scan` into the payload shape expected
+    by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy_path = target / "core/private_state_forbidden_classes.json"
     if not policy_path.is_file():
@@ -2634,13 +2436,10 @@ def _projection_finding_diagnostics(
     temp_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: summarize projection-bundle negative-case findings with private paths redacted, for the freshness receipt.
-    - Guarantee: returns redacted error-code counts, subject-id sample, and a capped finding sample; artifact/temp/host-temp paths are rewritten to placeholders.
-    - Fails: never raises; non-list findings are treated as empty; samples are bounded by the module limits.
-    - Reads: the in-memory findings list (no file I/O).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values, declared filesystem outputs.
+    Serialize `microcosm_core.release_export._projection_finding_diagnostics` into the
+    payload shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not isinstance(findings, list):
         findings = []
@@ -2648,13 +2447,9 @@ def _projection_finding_diagnostics(
 
     def _safe_string(value: object) -> str:
         """
-        [ACTION]
-        - Teleology: redact artifact/temp/host-temp absolute paths out of one projection-finding string.
-        - Guarantee: returns the string with target, temp_root, and host-temp roots rewritten to placeholders; empty/None -> empty string.
-        - Fails: never raises; non-string values are coerced via str().
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values, declared filesystem outputs.
+        Return safe string for the release export flow.
+
+        Inputs are `value`; notable helpers are `replace` and `as_posix`.
         """
         text = str(value or "")
         if not text:
@@ -2715,13 +2510,10 @@ def _projection_finding_diagnostics(
 
 def _invalid_projection_freshness_receipt() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: canonical blocked receipt when the projection-freshness receipt JSON is unreadable/invalid.
-    - Guarantee: returns a blocked dict with source_status invalid_json, INVALID_PROJECTION_FRESHNESS_RECEIPT codes, runtime check not_run, release_authorized False.
-    - Fails: never raises; constant blocked envelope.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._invalid_projection_freshness_receipt` into the
+    payload shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     invalid_code = "INVALID_PROJECTION_FRESHNESS_RECEIPT"
     return {
@@ -2745,15 +2537,10 @@ def _projection_freshness(
     substituted_source_module_paths: set[str] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: source-custody freshness gate proving the exported macro-projection bundle receipt is present, valid, and re-runs to a passing shape.
-    - Guarantee: returns a dict with status pass iff the receipt status is pass, no non-waived error codes, and the runtime re-run is pass/not_run; release_authorized is always False.
-    - Fails: missing receipt -> blocked MISSING_PROJECTION_FRESHNESS_RECEIPT; unreadable/non-dict JSON -> _invalid_projection_freshness_receipt; never raises.
-    - Reads: target/<PROJECTION_FRESHNESS_RECEIPT_REF> and the exported_projection_import_bundle (re-run in a temp dir).
-    - Non-goal: does not authorize release or assert macro-system equivalence beyond projection-shape freshness.
-    - Escalates-to: organs/macro_projection_import_protocol.run_projection_bundle and the freshness receipt ref.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._projection_freshness` into the payload shape
+    expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     receipt_path = target / PROJECTION_FRESHNESS_RECEIPT_REF
     if not receipt_path.is_file():
@@ -2878,13 +2665,10 @@ def _projection_freshness(
 
 def _redact_local(text: str, *, target: Path, source_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: strip local artifact and source-root absolute paths from captured command output.
-    - Guarantee: returns text with target -> <release-artifact> and source_root -> <source-root> substituted.
-    - Fails: never raises; non-matching text is returned unchanged.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return redact local for the release export flow.
+
+    Inputs are `text`, `target`, and `source_root`; notable helpers are `replace` and
+    `as_posix`.
     """
     redacted = text.replace(target.as_posix(), "<release-artifact>")
     redacted = redacted.replace(source_root.as_posix(), "<source-root>")
@@ -2893,13 +2677,9 @@ def _redact_local(text: str, *, target: Path, source_root: Path) -> str:
 
 def _display_argv(argv: list[str | Path]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: stringify a display argv so receipts never embed Path objects.
-    - Guarantee: returns a list of str for each argv element.
-    - Fails: never raises for str/Path elements.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the display argv value used by `microcosm_core.release_export`.
+
+    Inputs are `argv`.
     """
     return [str(part) for part in argv]
 
@@ -2918,18 +2698,9 @@ def _card_emission_planes(
     completed: subprocess.CompletedProcess[str],
 ) -> tuple[str, str | None]:
     """
-    [ACTION]
-    - Teleology: split an observational `--card` result into an emission plane (did the
-      command emit a valid machine card?) and a subject plane (what the card reported),
-      so a non-green subject cannot masquerade as a failed package run.
-    - Guarantee: returns (emission_status, subject_status); emission_status is "pass" iff
-      stdout parses as a JSON object carrying a non-empty string "status"; empty,
-      unparseable, non-object, or status-less stdout yields ("blocked", None) regardless
-      of the process exit code.
-    - Fails: never raises; JSON/decode errors fold to ("blocked", None).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Return card emission planes for the release export flow.
+
+    Inputs are `completed`; notable helpers are `get` and `loads`.
     """
     try:
         payload = json.loads(completed.stdout)
@@ -2954,19 +2725,11 @@ def _command_receipt_row(
     assertion: str = _EXIT_ZERO_ASSERTION,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: capture one smoke/install subprocess result as a privacy-redacted receipt row.
-    - Guarantee: returns a row with redacted stdout/stderr byte counts and private-path-hit
-      flags (raw bodies excluded, body_in_receipt False). For exit_zero commands status is
-      pass iff return_code is 0. For card_emission commands status is pass iff a valid
-      machine card was emitted (emission plane), independent of the inspected subject's
-      health, which is recorded separately as subject_status; a crash emitting no parseable
-      card still blocks.
-    - Fails: never raises; a failed exit_zero command or a non-emitting card command yields
-      status=blocked rather than an exception.
-    - Reads: the CompletedProcess stdout/stderr (redacted against target and source_root).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Produce the command receipt row value used by `microcosm_core.release_export`.
+
+    Inputs are `command_id`, `completed`, `display_argv`, `cwd`, `target`, and 2 more;
+    notable helpers are `_redact_local`, `_display_argv`, `_card_emission_planes`, and
+    `encode`.
     """
     stdout = _redact_local(completed.stdout, target=target, source_root=source_root)
     stderr = _redact_local(completed.stderr, target=target, source_root=source_root)
@@ -2998,13 +2761,9 @@ def _command_receipt_row(
 
 def _receipt_status_from_rows(rows: list[dict[str, Any]]) -> str:
     """
-    [ACTION]
-    - Teleology: roll command rows up to a single pass/blocked status, treating any private-path hit as blocking.
-    - Guarantee: returns pass iff every row has status pass and no stdout/stderr private-path hit, else blocked.
-    - Fails: never raises; expects rows shaped by _command_receipt_row.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Derive receipt status from rows without touching module import state.
+
+    Inputs are `rows`.
     """
     blocked = [
         row
@@ -3018,13 +2777,9 @@ def _receipt_status_from_rows(rows: list[dict[str, Any]]) -> str:
 
 def _git_output(root: Path, args: list[str]) -> str | None:
     """
-    [ACTION]
-    - Teleology: best-effort git stdout reader for source-identity and commit-diff queries.
-    - Guarantee: returns stripped stdout on a zero-exit git command, else None.
-    - Fails: never raises; OSError/SubprocessError/timeout and non-zero exit all fold to None.
-    - Reads: git output for the given args under root.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Derive git output without touching module import state.
+
+    Inputs are `root` and `args`; notable helpers are `strip` and `run`.
     """
     try:
         completed = subprocess.run(
@@ -3043,13 +2798,10 @@ def _git_output(root: Path, args: list[str]) -> str | None:
 
 def _git_success(root: Path, args: list[str]) -> bool:
     """
-    [ACTION]
-    - Teleology: boolean git predicate (e.g. ancestor check) for the invalidation assessment.
-    - Guarantee: returns True iff the git command exits zero, else False.
-    - Fails: never raises; subprocess errors/timeout fold to False.
-    - Reads: git exit status for the given args under root.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values, subprocess side effects requested by the caller.
+    Return whether git success holds for the release export flow.
+
+    The result is derived from `root` and `args` with `run`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     try:
         completed = subprocess.run(
@@ -3066,14 +2818,10 @@ def _git_success(root: Path, args: list[str]) -> bool:
 
 def _source_identity(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: source-custody fingerprint binding the candidate to a git HEAD and reporting worktree dirtiness.
-    - Guarantee: returns status available with git_head, source_root_ref, clean-vs-worktree-delta kind, and a bounded dirty-path sample; status unavailable when not a git tree.
-    - Fails: never raises; missing HEAD/toplevel -> status unavailable with null head and empty samples.
-    - Reads: git rev-parse HEAD/--show-toplevel and git status --short for root.
-    - Non-goal: does not authorize release; clean HEAD is a gate input, not authorization.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._source_identity` into the payload shape
+    expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     head = _git_output(root, ["rev-parse", "HEAD"])
     git_root_text = _git_output(root, ["rev-parse", "--show-toplevel"])
@@ -3122,13 +2870,10 @@ def _source_identity(root: Path) -> dict[str, Any]:
 
 def _release_material_path_cone(source_root_ref: str | None) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: define which path prefixes are release material vs status-projection-only, for invalidation classification.
-    - Guarantee: returns a microcosm_release_material_path_cone_v1 dict with release-material, macro-assimilation, and status-projection-only prefixes plus the materiality rules.
-    - Fails: never raises; a null source_root_ref falls back to the artifact dir name.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._release_material_path_cone` into the payload
+    shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source_root = (source_root_ref or ARTIFACT_DIR_NAME).strip("/")
     release_material_prefixes = [f"{source_root}/"] if source_root else []
@@ -3154,13 +2899,10 @@ def _release_material_path_cone(source_root_ref: str | None) -> dict[str, Any]:
 
 def _path_has_prefix(path: str, prefixes: list[str] | tuple[str, ...]) -> bool:
     """
-    [ACTION]
-    - Teleology: prefix-membership test used to classify changed paths against the materiality cone.
-    - Guarantee: returns True iff the normalized path equals or is prefixed by any supplied prefix.
-    - Fails: never raises; empty prefixes yield False.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether path has prefix holds for the release export flow.
+
+    The result is derived from `path` and `prefixes` with `strip`, `startswith`, and
+    `rstrip`; failing evidence is returned or raised exactly where the body says so.
     """
     normalized = path.strip("/")
     return any(
@@ -3171,13 +2913,11 @@ def _path_has_prefix(path: str, prefixes: list[str] | tuple[str, ...]) -> bool:
 
 def _classify_release_candidate_path(path: str, *, source_root_ref: str | None) -> str:
     """
-    [ACTION]
-    - Teleology: classify one changed path into a materiality class for candidate invalidation.
-    - Guarantee: returns macro_assimilation_material_change / release_material_change / release_status_projection_only_change / unrelated_macro_mainline_change by first-match precedence.
-    - Fails: never raises; unmatched paths classify as unrelated_macro_mainline_change.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the classify release candidate path value used by
+    `microcosm_core.release_export`.
+
+    Inputs are `path` and `source_root_ref`; notable helpers are
+    `_release_material_path_cone` and `_path_has_prefix`.
     """
     cone = _release_material_path_cone(source_root_ref)
     if _path_has_prefix(path, cone["macro_assimilation_material_prefixes"]):
@@ -3196,13 +2936,10 @@ def _git_commits_after(
     compare_ref: str,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: list commits (with changed paths) between the frozen candidate head and a compare ref.
-    - Guarantee: returns ordered commit dicts (commit/subject/sorted changed_paths) from git log frozen..compare; empty list when git output is unavailable.
-    - Fails: never raises; null git output -> [].
-    - Reads: git log --name-only between frozen_head and compare_ref under root.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Compute git commits after from `root`, `frozen_head`, and `compare_ref`.
+
+    Inputs are `root`, `frozen_head`, and `compare_ref`; notable helpers are `_git_output`,
+    `splitlines`, `startswith`, `strip`, and 2 more.
     """
     raw = _git_output(
         root,
@@ -3250,15 +2987,10 @@ def assess_candidate_invalidation(
     compare_ref: str = "HEAD",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: public re-validation entrypoint deciding whether commits after a frozen release candidate invalidate it.
-    - Guarantee: returns a RELEASE_CANDIDATE_INVALIDATION_SCHEMA_VERSION dict; candidate_validity_result is stale_requires_rehearsal on material change, gate_eligible when gate-ready and non-material, else historical_only.
-    - Fails: source_root resolve(strict=True) on a missing path -> FileNotFoundError; missing frozen/compare head or non-ancestor -> assessment_status unavailable/not_ancestor with historical_only, never raises.
-    - Reads: the candidate packet identity plus git rev-parse/merge-base/log under source_root.
-    - When-needed: checking whether a previously generated release candidate is still promotable.
-    - Escalates-to: _git_commits_after / _classify_release_candidate_path and the release_candidate_packet it was derived from.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export.assess_candidate_invalidation` into the payload
+    shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source_root_path = Path(source_root).expanduser().resolve(strict=True)
     identity = release_candidate_packet.get("candidate_identity") or {}
@@ -3422,13 +3154,9 @@ def _release_candidate_warning_rows(
     source_identity: dict[str, Any],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: assemble the external-warning rows (governance-backlog + dirty-source) that feed the authorization gate.
-    - Guarantee: returns the base EXTERNAL_WARNING_CLASSIFICATION_ROWS plus a source_tree_dirty_at_export authorization-blocking row when dirty_source_path_count > 0.
-    - Fails: never raises; non-positive/absent dirty count adds no extra row.
-    - Reads: source_identity dirty_source_path_count.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Return release candidate warning rows for the release export flow.
+
+    Inputs are `source_identity`; notable helpers are `get` and `append`.
     """
     rows = [dict(row) for row in EXTERNAL_WARNING_CLASSIFICATION_ROWS]
     dirty_count = source_identity.get("dirty_source_path_count")
@@ -3458,14 +3186,10 @@ def _release_authorization_gate(
     source_identity_status: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: describe the (never auto-invoked) explicit release-authorization gate and its additional required inputs.
-    - Guarantee: returns a gate dict with invoked False and release_authorized_after_gate False, listing requirements and any additional inputs (source identity, clean/authorized dirty source).
-    - Fails: never raises; constant projection conditioned on the two integer/str inputs.
-    - Non-goal: does not authorize release; it only names what an explicit operator gate would require.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._release_authorization_gate` into the payload
+    shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     additional_inputs: list[str] = []
     if source_identity_status != "available":
@@ -3493,14 +3217,10 @@ def _release_authorization_gate_decision(
     candidate_packet: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: dry-run decision (deny/defer/ready) over a candidate packet for whether operator release authorization is eligible.
-    - Guarantee: returns a microcosm_release_authorization_gate_decision_v1 dict with dry_run True and release_authorization_allowed_now False; decision is deny on hard codes, defer on source-identity codes, else ready_pending_operator_authorization.
-    - Fails: never raises; all defects surface as blocking_codes/required_actions, never exceptions.
-    - Reads: candidate packet validation_summary, authority_state, warning classification, and source identity.
-    - Non-goal: never promotes release; only the explicit operator gate receipt can authorize.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._release_authorization_gate_decision` into the
+    payload shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     validation = candidate_packet.get("validation_summary") or {}
     authority = candidate_packet.get("authority_state") or {}
@@ -3652,15 +3372,12 @@ def _release_candidate_packet(
     blocking_codes: list[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: assemble the full validated-candidate packet (identity, validation summary, authority, warnings, gate decision, invalidation) under the no-authorization ceiling.
-    - Guarantee: returns a microcosm_release_candidate_packet_v1 dict; status blocked on blocking_codes/release-blocking warnings else pass[_with_external_warnings]; embeds the dry-run gate decision and invalidation assessment.
-    - Fails: never raises here; source identity comes from git and degrades to unavailable rather than raising.
-    - Reads: source identity via git plus the supplied artifact and sub-receipts.
-    - Non-goal: describes a candidate boundary; does not authorize publication (only the explicit gate can).
-    - Escalates-to: _release_authorization_gate_decision and assess_candidate_invalidation.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Produce the release candidate packet value used by `microcosm_core.release_export`.
+
+    Inputs are `source_root`, `command`, `artifact`, `exclusion_receipt`,
+    `authority_receipt`, and 7 more; notable helpers are `_source_identity`,
+    `_release_candidate_warning_rows`, `_release_authorization_gate`,
+    `_release_authorization_gate_decision`, and 2 more.
     """
     source = _source_identity(source_root)
     warning_rows = _release_candidate_warning_rows(source)
@@ -3839,15 +3556,10 @@ def _release_candidate_packet(
 
 def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: prove the exported package runs hello/first-screen from outside the source root via -m microcosm_core.
-    - Guarantee: returns a status (pass iff all command rows pass with no private-path leak) plus per-command redacted rows, asserting release-artifact PYTHONPATH (not source tree) was used.
-    - Fails: a smoke command exceeding timeout_seconds -> subprocess.TimeoutExpired; non-zero exits yield status=blocked rather than raising.
-    - Reads: runs python -m microcosm_core against a temp scratch project using target/src on PYTHONPATH.
-    - When-needed: confirming the generated artifact is runnable as a standalone module.
-    - Escalates-to: build_release_export runnable_receipt and the runnable-smoke blocking code.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values, declared filesystem outputs, subprocess side effects requested by the caller.
+    Serialize `microcosm_core.release_export._run_smoke` into the payload shape expected by
+    release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     commands = [
         ("hello", ["hello", "<smoke-project>"]),
@@ -3905,13 +3617,9 @@ def _run_smoke(target: Path, *, source_root: Path, timeout_seconds: int = 30) ->
 
 def _venv_bin_path(venv: Path, name: str) -> Path:
     """
-    [ACTION]
-    - Teleology: resolve the console-script path inside an install prefix across OSes.
-    - Guarantee: returns <venv>/(bin|Scripts)/<name>[.exe] for the current platform.
-    - Fails: never raises; pure path construction, existence not checked here.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return venv bin path for the release export flow.
+
+    Inputs are `venv` and `name`.
     """
     bin_dir = venv / ("Scripts" if os.name == "nt" else "bin")
     suffix = ".exe" if os.name == "nt" else ""
@@ -3920,13 +3628,10 @@ def _venv_bin_path(venv: Path, name: str) -> Path:
 
 def _install_smoke_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: roll install-smoke command rows into a summary asserting installed-package (not source-tree) execution.
-    - Guarantee: returns a status (pass iff every row passes with no private-path leak) plus mode/flags marking installed-prefix and isolated-artifact-copy usage.
-    - Fails: never raises; failing rows yield status=blocked.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.release_export._install_smoke_summary` into the payload shape
+    expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "status": _receipt_status_from_rows(rows),
@@ -3954,15 +3659,10 @@ def _run_install_smoke(
     timeout_seconds: int = 120,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: pip-install the isolated artifact copy into a temp prefix and run console-script commands to prove a real install path works.
-    - Guarantee: returns an install-smoke summary (status pass iff install plus all console commands pass with no leak); a failed install or missing prefix short-circuits to a blocked summary.
-    - Fails: install or a command exceeding timeout_seconds -> subprocess.TimeoutExpired; non-zero exits/missing console script yield status=blocked, not exceptions.
-    - Reads: copies target into a temp dir; runs pip install --prefix and the installed `microcosm` console script.
-    - When-needed: confirming wheel/console-script install support before claiming installed-mode.
-    - Escalates-to: build_release_export install_smoke_receipt and wheel_install_supported authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Return run install smoke for the release export flow.
+
+    Inputs are `target`, `source_root`, and `timeout_seconds`; notable helpers are
+    `_install_smoke_summary`, `TemporaryDirectory`, `Path`, `copytree`, and 13 more.
     """
     rows: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory(prefix="microcosm-release-install-smoke-") as tmp:
@@ -4110,12 +3810,10 @@ def _run_install_smoke(
 
 def _prepare_target(root: Path, out: Path, *, force: bool) -> Path:
     """
-    [ACTION]
-    - Teleology: create the artifact target directory while refusing to write inside or over the source root.
-    - Guarantee: returns target=<out>/plectis, freshly created; with force it replaces an existing target.
-    - Fails: output inside source root or target == source root -> ValueError; existing target without force -> FileExistsError; missing root -> FileNotFoundError from resolve(strict=True).
-    - Reads: resolves root and out; Writes: creates (and with force removes) the target directory.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Produce the prepare target value used by `microcosm_core.release_export`.
+
+    Inputs are `root`, `out`, and `force`; notable helpers are `resolve`, `_is_relative_to`,
+    `exists`, `mkdir`, and 4 more; invalid cases raise from the explicit checks in the body.
     """
     source_root = root.resolve(strict=True)
     output_root = out.expanduser().resolve(strict=False)
@@ -4134,13 +3832,10 @@ def _prepare_target(root: Path, out: Path, *, force: bool) -> Path:
 
 def _refresh_candidate_organ_atlas(target: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: regenerate organ-atlas entry surfaces inside the pruned standalone candidate so exported docs/routes reflect public artifact topology instead of private-root topology.
-    - Guarantee: returns a compact receipt; pass means the candidate render succeeded; skipped means a synthetic fixture lacks the full organ-atlas contract; blocked means a real candidate render failed.
-    - Fails: catches render exceptions into a blocked receipt; never raises to callers.
-    - Reads: candidate organ-atlas source refs under target.
-    - Writes: ORGANS.md, ARCHITECTURE.md, AGENT_ROUTES.md, and atlas/agent_task_routes.json under target when the full organ-atlas contract is present.
-    - Non-goal: does not authorize release, publication, hosted launch, private-root equivalence, or correctness beyond candidate projection freshness.
+    Serialize `microcosm_core.release_export._refresh_candidate_organ_atlas` into the
+    payload shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     missing_refs = [
         ref for ref in ORGAN_ATLAS_REFRESH_REQUIRED_REFS if not (target / ref).exists()
@@ -4217,6 +3912,11 @@ def _refresh_candidate_organ_atlas(target: Path) -> dict[str, Any]:
 def _candidate_doctrine_lattice_blocking_errors(
     validation: dict[str, Any],
 ) -> tuple[list[Any], list[Any]]:
+    """
+    Derive candidate doctrine lattice blocking errors without touching module import state.
+
+    Inputs are `validation`; notable helpers are `get`, `add`, and `append`.
+    """
     errors = list(validation.get("errors") or [])
     missing_population_targets: set[tuple[str, str]] = set()
     for error in errors:
@@ -4261,13 +3961,10 @@ def _candidate_doctrine_lattice_blocking_errors(
 
 def _refresh_candidate_doctrine_lattice(target: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: regenerate doctrine-lattice aggregate surfaces inside the pruned standalone candidate after public-root projection rewrites.
-    - Guarantee: returns pass when projection, coverage, and entry-card writes are reproducible from candidate source; skipped for synthetic fixtures missing the lattice contract; blocked on real render/validation errors.
-    - Fails: catches render exceptions into a blocked receipt; never raises to callers.
-    - Reads: candidate doctrine-lattice source refs under target.
-    - Writes: atlas/doctrine_lattice_projection.json, atlas/doctrine_lattice_graph.mmd, atlas/doctrine_lattice_health.json, core/doctrine_lattice_coverage.json, and atlas/doctrine_lattice_entry_card.json.
-    - Non-goal: does not authorize doctrine correctness, release, publication, or private-root equivalence.
+    Serialize `microcosm_core.release_export._refresh_candidate_doctrine_lattice` into the
+    payload shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     missing_refs = [
         ref
@@ -4383,11 +4080,10 @@ def _refresh_candidate_doctrine_lattice(target: Path) -> dict[str, Any]:
 
 def _refresh_candidate_projections(target: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: run all candidate-local projection rewrites that must happen after export pruning and before inventory/hash capture.
-    - Guarantee: returns a single release-export projection-refresh receipt whose status is blocked if any child refresh blocks, pass if at least one child refresh passes, otherwise skipped.
-    - Fails: child refresh functions contain exceptions as receipts; this combiner never raises.
-    - Reads/Writes: delegates to child projection refreshers.
+    Serialize `microcosm_core.release_export._refresh_candidate_projections` into the
+    payload shape expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     organ_atlas = _refresh_candidate_organ_atlas(target)
     doctrine_lattice = _refresh_candidate_doctrine_lattice(target)
@@ -4425,15 +4121,11 @@ def build_release_export(
     command: str = "release-export",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: top-level release-export builder: materialize the public artifact, run every gate, and write the bounded release receipt.
-    - Guarantee: returns the microcosm_release_export_receipt_v1 dict (status pass iff blocking_codes empty) and writes it to target/<RELEASE_RECEIPT_REF>; every authority flag (release/publish/hosted/provider/source-mutation/equivalence) is hard False.
-    - Fails: out inside/equal source root -> ValueError; existing target without force -> FileExistsError; smoke timeouts propagate; gate failures surface as blocking_codes + status=blocked, not exceptions.
-    - Reads: the allowlisted source tree under root; Writes: the <out>/plectis artifact and its release receipt.
-    - When-needed: generating a public release artifact and its evidence receipt.
-    - Non-goal: does not authorize release, publication, hosted launch, private-root equivalence, or claim a complete secret audit.
-    - Escalates-to: RELEASE_RECEIPT_REF on disk, release_export_summary, and the standalone/assurance/candidate sub-receipts.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Compute build release export from `root`, `out`, `force`, `run_smoke`, and `command`.
+
+    Inputs are `root`, `out`, `force`, `run_smoke`, and `command`; notable helpers are
+    `resolve`, `_prepare_target`, `_iter_allowed_files`,
+    `_default_private_root_for_public_root`, and 29 more.
     """
     source_root = Path(root).expanduser().resolve(strict=True)
     target = _prepare_target(source_root, Path(out), force=force)
@@ -4755,15 +4447,10 @@ def build_release_export(
 
 def release_export_summary(receipt: dict[str, Any], target: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: project the full release receipt into a compact stdout summary for the CLI --summary path.
-    - Guarantee: returns a microcosm_release_export_summary_v1 dict echoing status, candidate/authorization blocking codes, artifact identity, validation/authority/gate slices; the full receipt on disk stays authoritative.
-    - Fails: never raises; missing nested keys degrade to None via defensive `or {}` lookups.
-    - Reads: the in-memory release receipt and the target path.
-    - Non-goal: compact projection only; does not authorize release, publication, hosting, provider calls, or private-root equivalence.
-    - Escalates-to: the full receipt at release_receipt_path (RELEASE_RECEIPT_REF).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Serialize `microcosm_core.release_export.release_export_summary` into the payload shape
+    expected by release export.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     artifact = receipt.get("artifact") or {}
     authority = receipt.get("authority_receipt") or {}
@@ -4848,16 +4535,10 @@ def release_export_summary(receipt: dict[str, Any], target: str | Path) -> dict[
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI entry: generate a public Plectis export, or assess an existing release receipt.
+    Run `microcosm_core.release_export` as a command-line entry point.
 
-    - Teleology: command-line front door to the release-export pipeline and its candidate-invalidation check.
-    - Guarantee: with --out, writes the standalone plectis/ export and prints the release receipt (or summary); with --assess-candidate, prints a re-validation assessment instead.
-    - Reads: --root source tree, and --assess-candidate receipt JSON / --compare-ref git ref.
-    - Writes: --out/<microcosm-substrate> export directory and bounded receipts via build_release_export.
-    - When-needed: producing or re-validating a public release artifact.
-    - Fails: --out and --assess-candidate both absent -> parser.error; export status != "pass" or assessment not gate_eligible -> return code 1.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(
         prog="python -m microcosm_core.release_export",

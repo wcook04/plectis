@@ -23,11 +23,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 25737,
-      "line_count": 535,
-      "sha256": "sha256:ded630822624db707ebee35d7f908850f04c2f7c188c3e47dd234584619d5056",
-      "target_sha256": "ded630822624db707ebee35d7f908850f04c2f7c188c3e47dd234584619d5056",
-      "source_sha256": "ded630822624db707ebee35d7f908850f04c2f7c188c3e47dd234584619d5056",
+      "byte_count": 18225,
+      "line_count": 450,
+      "sha256": "sha256:ff0bb4caf155d51abc9f37fb6e491c1bac83b2407bd8cea993b6e49cf42c1d49",
+      "target_sha256": "ff0bb4caf155d51abc9f37fb6e491c1bac83b2407bd8cea993b6e49cf42c1d49",
+      "source_sha256": "ff0bb4caf155d51abc9f37fb6e491c1bac83b2407bd8cea993b6e49cf42c1d49",
       "required_anchors": [
         "ORGAN_ID = \"lean_proof_search_lab_runtime\"",
         "def run"
@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 60719,
-      "line_count": 1156,
-      "sha256": "sha256:3d2d1f0f5178f941eb4d15f6ca6848138756be6aadf84e1038f886d8094bb9d4",
-      "target_sha256": "3d2d1f0f5178f941eb4d15f6ca6848138756be6aadf84e1038f886d8094bb9d4",
-      "source_sha256": "3d2d1f0f5178f941eb4d15f6ca6848138756be6aadf84e1038f886d8094bb9d4",
+      "byte_count": 41364,
+      "line_count": 1038,
+      "sha256": "sha256:d5cac744c1563cb207a4e5b5d63bdba3612fe663e54b0c96e08e4dd5d16b0b1e",
+      "target_sha256": "d5cac744c1563cb207a4e5b5d63bdba3612fe663e54b0c96e08e4dd5d16b0b1e",
+      "source_sha256": "d5cac744c1563cb207a4e5b5d63bdba3612fe663e54b0c96e08e4dd5d16b0b1e",
       "required_anchors": [
         "def evaluate_fixture_dir",
         "def check_candidate_with_lean"

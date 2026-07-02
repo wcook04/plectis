@@ -1,7 +1,7 @@
 <p align="center">
   <img
     src="assets/plectis-social-card.png"
-    alt="Plectis: a public executable atlas of AI-native runtime mechanisms with evidence classes, receipts, and authority ceilings."
+    alt="Plectis: public tests for claims made by an AI-built system. 88 components, each with a claim, a small input, a local check, and a receipt."
     width="820"
   >
 </p>
@@ -12,10 +12,12 @@
 [X](https://x.com/cookie1234593) ·
 [LinkedIn](https://www.linkedin.com/in/will-cook-278127234/)
 
-**Plectis is a public, executable cross-section of an AI-native workflow and
-research runtime: 88 bounded components across formal proof, agent reliability
-and safety, research and forecasting, projection-drift control, validators, work
-landing, and continuity.**
+**Plectis is a set of public tests for claims made by an AI-built system: 88
+components across formal proof, agent reliability and safety, research and
+forecasting, projection-drift control, validators, work landing, and continuity.
+Each component makes one claim, takes a small frozen input, runs a local check,
+and writes a receipt you can read. Run a check, then compare the receipt with
+the claim.**
 
 Each component has a runner, source loci, evidence class, receipt path, and
 authority ceiling. The local CLI is how you inspect and falsify those claims: it

@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.macro_tools.mission_transaction_preflight` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements macro tools mission transaction preflight for the public Plectis package.
 
-[INTERFACE]
-- Exports: SOURCE_REF, KERNEL_SOURCE_REF, SOURCE_SYMBOL_REFS, TARGET_REF, TARGET_SYMBOL_REFS, AUTHORITY_CEILING, ANTI_CLAIM, SOURCE_FAITHFUL_DECISION_RULES, classify_checkpoint_lane_cases, build_public_mission_transaction_preflight, main
-- Reads: call arguments, module constants, imported helpers.
-- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `classify_checkpoint_lane_cases`,
+`build_public_mission_transaction_preflight`, and `main`; constants such as `SOURCE_REF`,
+`KERNEL_SOURCE_REF`, `SOURCE_SYMBOL_REFS`, `TARGET_REF`, and 4 more pin local fixture names;
+dependencies include `argparse`, `json`, `pathlib`, `typing`, and 1 more. The helpers are
+invoked explicitly by CLI or fixture code; importing the module only declares the available
+machinery.
 """
 from __future__ import annotations
 
@@ -84,13 +69,11 @@ SOURCE_FAITHFUL_DECISION_RULES = [
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.macro_tools.mission_transaction_preflight._rows` from `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -102,13 +85,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.macro_tools.mission_transaction_preflight._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -117,13 +98,10 @@ def _strings(value: object) -> list[str]:
 
 def _claim_rows(payload: object) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_claim_rows` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the claim rows value used by
+    `microcosm_core.macro_tools.mission_transaction_preflight`.
+
+    Inputs are `payload`; notable helpers are `_rows`.
     """
     rows = _rows(payload, "claims")
     if rows:
@@ -135,13 +113,11 @@ def _claim_rows(payload: object) -> list[dict[str, Any]]:
 
 def _claim_is_active_or_public_projection(claim: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_claim_is_active_or_public_projection` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether claim is active or public projection holds for the macro tools mission
+    transaction preflight flow.
+
+    The result is derived from `claim` with `get`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     status = str(claim.get("status") or "active")
     return status not in {"expired", "released", "closed", "superseded"}
@@ -149,13 +125,10 @@ def _claim_is_active_or_public_projection(claim: dict[str, Any]) -> bool:
 
 def _path_conflicts(claims: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_path_conflicts` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.mission_transaction_preflight._path_conflicts`
+    into the payload shape expected by macro tools mission transaction preflight.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     path_owner: dict[str, str] = {}
     conflict_claim_ids: list[str] = []
@@ -202,13 +175,11 @@ def _expected_parent_mismatches(
     repo_state: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_expected_parent_mismatches` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.mission_transaction_preflight._expected_parent_mismatches`
+    into the payload shape expected by macro tools mission transaction preflight.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     parent_by_claim: dict[str, Any] = {}
     if isinstance(repo_state, dict) and isinstance(repo_state.get("current_parent_by_claim"), dict):
@@ -250,13 +221,10 @@ def _expected_parent_mismatches(
 
 def _recommended_checkpoint_lane(case: dict[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_recommended_checkpoint_lane` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return recommended checkpoint lane for the macro tools mission transaction preflight
+    flow.
+
+    Inputs are `case`; notable helpers are `get`.
     """
     if case.get("suspected_secret") is True:
         return "hard_stop"
@@ -273,13 +241,11 @@ def classify_checkpoint_lane_cases(
     extra_cases: list[object] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `classify_checkpoint_lane_cases` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.mission_transaction_preflight.classify_checkpoint_lane_cases`
+    into the payload shape expected by macro tools mission transaction preflight.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     cases = list(_rows(checkpoint_lane_policy, "lane_cases"))
     for item in extra_cases or []:
@@ -381,13 +347,10 @@ def _landing_decision(
     owned_paths: list[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_landing_decision` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.mission_transaction_preflight._landing_decision`
+    into the payload shape expected by macro tools mission transaction preflight.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     blockers = []
     if path_result["conflict_claim_ids"]:
@@ -432,13 +395,11 @@ def build_public_mission_transaction_preflight(
     require_exclusive: bool = True,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_mission_transaction_preflight` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.mission_transaction_preflight.build_public_mission_transaction_preflight`
+    into the payload shape expected by macro tools mission transaction preflight.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     claims = _claim_rows(claims_payload)
     path_result = _path_conflicts(claims) if require_exclusive else {
@@ -487,13 +448,10 @@ def build_public_mission_transaction_preflight(
 
 def _load_extra_case(path: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_extra_case` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load extra case for `microcosm_core.macro_tools.mission_transaction_preflight`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     payload = read_json_strict(path)
     if not isinstance(payload, dict):
@@ -503,13 +461,11 @@ def _load_extra_case(path: str) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.macro_tools.mission_transaction_preflight` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.macro_tools.mission_transaction_preflight` as a command-line entry
+    point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser()
     parser.add_argument("--claims", required=True)

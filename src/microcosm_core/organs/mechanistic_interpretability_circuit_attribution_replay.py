@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs mechanistic interpretability circuit attribution replay for the public
+Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, SOURCE_MODULE_MANIFEST_NAME, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, INPUT_NAMES, NEGATIVE_INPUT_NAMES, HASH_CHUNK_SIZE, EXPECTED_NEGATIVE_CASES, REQUIRED_REPLAY_FIELDS, PRIVATE_NEEDLES, AUTHORITY_CEILING, ANTI_CLAIM, BODY_IMPORT_STATUS, SOURCE_MODULE_IMPORT_STATUS, BODY_DIGEST_PREFIX, SOURCE_IMPORT_CLASS, SOURCE_BODY_STATUS, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `run`, `run_attribution_bundle`, `result_card`, and `main`; constants
+such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 27 more pin local
+fixture names; dependencies include `argparse`, `hashlib`, `json`, `math`, and 4 more. It
+builds public fixture, result, card, or verdict structures while keeping private substrate
+bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -247,13 +232,10 @@ BODY_IMPORT_VERIFICATION = {
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the public root for path value used by
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -269,26 +251,20 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return display for the organs mechanistic interpretability circuit attribution replay
+    flow.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _display_command(command: str, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display_command` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Derive display command without touching module import state.
+
+    Inputs are `command` and `public_root`; notable helpers are `resolve`, `replace`,
+    `normalize_public_receipt_paths`, and `get`.
     """
     repo_root = public_root.parent.resolve(strict=False)
     repo_root_normalized = command.replace(str(repo_root), "<repo-root>")
@@ -299,13 +275,12 @@ def _display_command(command: str, *, public_root: Path) -> str:
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._rows`
+    from `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -315,13 +290,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -330,13 +303,11 @@ def _strings(value: object) -> list[str]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return input paths for
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file` and
+    `append`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -348,26 +319,19 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _target_path_for_ref(target_ref: str, *, public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_target_path_for_ref` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute target path for ref from `target_ref` and `public_root`.
+
+    Inputs are `target_ref` and `public_root`; notable helpers are `removeprefix`.
     """
     return public_root / target_ref.removeprefix("microcosm-substrate/")
 
 
 def _source_file_candidates(source_ref: str, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_file_candidates` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute source file candidates from `source_ref` and `public_root`.
+
+    Inputs are `source_ref` and `public_root`; notable helpers are `Path`, `is_absolute`,
+    `split`, `cwd`, and 3 more.
     """
     rel = Path(source_ref.split("::", 1)[0])
     if rel.is_absolute() or ".." in rel.parts:
@@ -385,13 +349,11 @@ def _source_file_candidates(source_ref: str, *, public_root: Path) -> list[Path]
 
 def _first_existing_source(source_ref: str, *, public_root: Path) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_first_existing_source` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the first existing source value used by
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay`.
+
+    Inputs are `source_ref` and `public_root`; notable helpers are `_source_file_candidates`
+    and `is_file`.
     """
     for candidate in _source_file_candidates(source_ref, public_root=public_root):
         if candidate.is_file():
@@ -401,13 +363,11 @@ def _first_existing_source(source_ref: str, *, public_root: Path) -> Path | None
 
 def _sha256_hex(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_hex` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._sha256_hex`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -418,26 +378,21 @@ def _sha256_hex(path: Path) -> str:
 
 def _sha256_ref(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_ref` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._sha256_ref`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return f"{BODY_DIGEST_PREFIX}{_sha256_hex(path)}"
 
 
 def _line_count(path: Path) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_line_count` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Produce the line count value used by
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay`.
+
+    Inputs are `path`; notable helpers are `open`.
     """
     line_count = 0
     with path.open("r", encoding="utf-8") as handle:
@@ -448,13 +403,11 @@ def _line_count(path: Path) -> int:
 
 def _source_module_paths(manifest_payload: object, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_paths` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module paths for the organs mechanistic interpretability circuit
+    attribution replay flow.
+
+    Inputs are `manifest_payload` and `public_root`; notable helpers are `_rows`, `get`,
+    `_target_path_for_ref`, `is_file`, and 1 more.
     """
     if not isinstance(manifest_payload, dict):
         return []
@@ -470,13 +423,10 @@ def _source_module_paths(manifest_payload: object, *, public_root: Path) -> list
 
 def _freshness_input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_input_paths` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute freshness input paths from `input_dir` and `include_negative`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are
+    `_public_root_for_path`, `is_file`, `read_json_strict`, `extend`, and 3 more.
     """
     public_root = _public_root_for_path(input_dir)
     paths = [*_input_paths(input_dir, include_negative=include_negative)]
@@ -492,13 +442,12 @@ def _freshness_input_paths(input_dir: Path, *, include_negative: bool) -> list[P
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._freshness_basis`
+    into the payload shape expected by organs mechanistic interpretability circuit
+    attribution replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -564,13 +513,10 @@ def _fresh_bundle_receipt(
     command: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_bundle_receipt` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute fresh bundle receipt from `input_dir`, `out_dir`, and `command`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `_public_root_for_path`, `get`, `_freshness_basis`, `is_file`, and 2 more.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -633,13 +579,12 @@ def _source_module_manifest_result(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_result` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._source_module_manifest_result`
+    into the payload shape expected by organs mechanistic interpretability circuit
+    attribution replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not isinstance(manifest_payload, dict):
         return {
@@ -782,13 +727,12 @@ def _source_open_body_import_summary(
     manifest_ref: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._source_open_body_import_summary`
+    into the payload shape expected by organs mechanistic interpretability circuit
+    attribution replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     material_ids = _strings(source_module_summary.get("public_safe_body_material_ids"))
     material_classes = _strings(source_module_summary.get("material_classes"))
@@ -833,13 +777,11 @@ def _source_open_body_import_summary(
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -856,13 +798,12 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._finding`
+    into the payload shape expected by organs mechanistic interpretability circuit
+    attribution replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -885,13 +826,11 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs mechanistic interpretability circuit attribution replay
+    flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -913,13 +852,10 @@ def _replay_policy_findings(
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_replay_policy_findings` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._replay_policy_findings`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     findings: list[dict[str, Any]] = []
     subject_id = str(row.get("replay_id") or case_id)
@@ -1100,13 +1036,9 @@ def _replay_policy_findings(
 
 def _edge_weight(row: dict[str, Any]) -> float:
     """
-    [ACTION]
-    - Teleology: Implements `_edge_weight` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive edge weight without touching module import state.
+
+    Inputs are `row`; notable helpers are `get`.
     """
     weight = row.get("weight")
     return float(weight) if isinstance(weight, (int, float)) else 0.0
@@ -1118,13 +1050,11 @@ def _graph_analysis_for_replay(
     case_id: str,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_graph_analysis_for_replay` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return graph analysis for replay for the organs mechanistic interpretability circuit
+    attribution replay flow.
+
+    Inputs are `row` and `case_id`; notable helpers are `_rows`, `defaultdict`, `_strings`,
+    `append`, and 5 more.
     """
     replay_id = str(row.get("replay_id") or case_id)
     nodes = _rows(row, "graph_nodes")
@@ -1217,13 +1147,11 @@ def _graph_analysis_for_replay(
 
 def _constant_delta_sequence(values: list[float]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_constant_delta_sequence` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether constant delta sequence holds for the organs mechanistic interpretability
+    circuit attribution replay flow.
+
+    The result is derived from `values` with `round`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     if len(values) < 4:
         return False
@@ -1235,13 +1163,10 @@ def _weight_sequence_analysis(
     replays: list[dict[str, Any]],
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_weight_sequence_analysis` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive weight sequence analysis without touching module import state.
+
+    Inputs are `replays`; notable helpers are `defaultdict`, `items`,
+    `_constant_delta_sequence`, `append`, and 3 more.
     """
     findings: list[dict[str, Any]] = []
     edge_columns: dict[int, list[float]] = defaultdict(list)
@@ -1284,26 +1209,19 @@ def _weight_sequence_analysis(
 
 def _round_vector(values: list[float]) -> list[float]:
     """
-    [ACTION]
-    - Teleology: Implements `_round_vector` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the round vector value used by
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay`.
+
+    Inputs are `values`; notable helpers are `round`.
     """
     return [round(float(value), 6) for value in values]
 
 
 def _mean_vectors(rows: list[list[float]]) -> list[float]:
     """
-    [ACTION]
-    - Teleology: Implements `_mean_vectors` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute mean vectors from `rows`.
+
+    Inputs are `rows`.
     """
     width = len(rows[0])
     return [sum(row[index] for row in rows) / len(rows) for index in range(width)]
@@ -1313,13 +1231,9 @@ def _vector_matrix_product(
     vector: list[float], matrix: list[list[float]]
 ) -> list[float]:
     """
-    [ACTION]
-    - Teleology: Implements `_vector_matrix_product` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive vector matrix product without touching module import state.
+
+    Inputs are `vector` and `matrix`.
     """
     width = len(matrix[0])
     return [
@@ -1338,13 +1252,12 @@ def _toy_transformer_forward(
     layer2: list[list[float]],
 ) -> dict[str, list[float] | list[list[float]]]:
     """
-    [ACTION]
-    - Teleology: Implements `_toy_transformer_forward` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._toy_transformer_forward`
+    into the payload shape expected by organs mechanistic interpretability circuit
+    attribution replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     token_embeddings = [embeddings[token_id] for token_id in token_ids]
     context = _mean_vectors(token_embeddings)
@@ -1384,13 +1297,10 @@ DEFAULT_TOY_TRANSFORMER_RUNTIME = {
 
 def _float_matrix(value: object) -> list[list[float]] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_float_matrix` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the float matrix value used by
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay`.
+
+    Inputs are `value`; notable helpers are `append`.
     """
     if not isinstance(value, list) or not value:
         return None
@@ -1414,13 +1324,9 @@ def _float_matrix(value: object) -> list[list[float]] | None:
 
 def _toy_runtime_payload(payload: object | None) -> tuple[dict[str, Any], str]:
     """
-    [ACTION]
-    - Teleology: Implements `_toy_runtime_payload` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive toy runtime payload without touching module import state.
+
+    Inputs are `payload`; notable helpers are `get`.
     """
     if isinstance(payload, dict) and isinstance(payload.get("toy_transformer_runtime"), dict):
         return dict(payload["toy_transformer_runtime"]), (
@@ -1431,13 +1337,12 @@ def _toy_runtime_payload(payload: object | None) -> tuple[dict[str, Any], str]:
 
 def _toy_transformer_attribution_runtime(payload: object | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_toy_transformer_attribution_runtime` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._toy_transformer_attribution_runtime`
+    into the payload shape expected by organs mechanistic interpretability circuit
+    attribution replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     spec, spec_source = _toy_runtime_payload(payload)
     failure_codes: list[str] = []
@@ -1602,13 +1507,11 @@ def _toy_transformer_attribution_runtime(payload: object | None = None) -> dict[
 
 def _required_policy_ok(policy: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_required_policy_ok` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether required policy ok holds for the organs mechanistic interpretability
+    circuit attribution replay flow.
+
+    The result is derived from `policy` with `get` and `items`; failing evidence is returned
+    or raised exactly where the body says so.
     """
     ceiling = policy.get("authority_ceiling")
     if not isinstance(ceiling, dict):
@@ -1636,13 +1539,12 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._build_result`
+    into the payload shape expected by organs mechanistic interpretability circuit
+    attribution replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payloads = _load_payloads(input_dir, include_negative=include_negative)
     public_root = _public_root_for_path(input_dir)
@@ -1978,13 +1880,12 @@ def _build_result(
 
 def _board(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_board` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._board`
+    into the payload shape expected by organs mechanistic interpretability circuit
+    attribution replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     summary = result.get("attribution_summary", {})
     negatives = result.get("negative_case_summary", {})
@@ -2084,13 +1985,12 @@ def _write_receipts(
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._write_receipts`
+    into the payload shape expected by organs mechanistic interpretability circuit
+    attribution replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
@@ -2194,13 +2094,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for the organs mechanistic interpretability circuit attribution replay flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `_build_result`, `_freshness_basis`, `_write_receipts`, and `Path`.
     """
     result = _build_result(
         Path(input_dir),
@@ -2228,13 +2125,11 @@ def run_attribution_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_attribution_bundle` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Compute run attribution bundle from `input_dir`, `out_dir`, `command`, and
+    `reuse_fresh_receipt`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `mkdir`, `_build_result`, `_freshness_basis`, and 5 more.
     """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -2264,13 +2159,12 @@ def run_attribution_bundle(
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay.result_card`
+    into the payload shape expected by organs mechanistic interpretability circuit
+    attribution replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     summary = result.get("attribution_summary")
     attribution_summary = summary if isinstance(summary, dict) else {}
@@ -2401,13 +2295,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         prog="mechanistic_interpretability_circuit_attribution_replay"
@@ -2427,13 +2319,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.mechanistic_interpretability_circuit_attribution_replay`
+    command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

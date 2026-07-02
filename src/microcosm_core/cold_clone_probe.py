@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.cold_clone_probe` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements cold clone probe for the public Plectis package.
 
-[INTERFACE]
-- Exports: REQUIRED_INPUTS, PATTERN_RECEIPTS, SUPPORTED_SUITES, DEFAULT_EMIT_REF, run_probe, main
-- Reads: call arguments, module constants, imported helpers.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs.pattern_binding_contract, microcosm_core.receipts, microcosm_core.schemas, microcosm_core.validators.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `run_probe` and `main`; constants such as `REQUIRED_INPUTS`,
+`PATTERN_RECEIPTS`, `SUPPORTED_SUITES`, and `DEFAULT_EMIT_REF` pin local fixture names;
+dependencies include `argparse`, `json`, `shutil`, `shlex`, and 3 more. Importing it does
+not authorize release work or hidden private-state access; those effects live behind
+explicit calls.
 """
 from __future__ import annotations
 
@@ -59,15 +43,10 @@ DEFAULT_EMIT_REF = ".microcosm/cold_clone_probe.json"
 
 def _path_exists(path: Path) -> bool:
     """
-    [ACTION]
-    OSError-tolerant existence probe for a filesystem path.
+    Return whether path exists holds for the cold clone probe flow.
 
-    - Teleology: let receipt-mirroring loops test for a path without aborting on permission/IO errors on a fresh clone.
-    - Guarantee: returns True iff `path.exists()` succeeds and is truthy; returns False on any OSError.
-    - Fails: never raises; OSError is swallowed and reported as False.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `path` with `exists`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     try:
         return path.exists()
@@ -77,15 +56,10 @@ def _path_exists(path: Path) -> bool:
 
 def _path_is_file(path: Path) -> bool:
     """
-    [ACTION]
-    OSError-tolerant regular-file probe for a filesystem path.
+    Return whether path is file holds for the cold clone probe flow.
 
-    - Teleology: gate fixture/receipt presence checks on a fresh clone without crashing on IO errors.
-    - Guarantee: returns True iff `path.is_file()` succeeds and is truthy; returns False on any OSError.
-    - Fails: never raises; OSError is swallowed and reported as False.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `path` with `is_file`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     try:
         return path.is_file()
@@ -95,16 +69,10 @@ def _path_is_file(path: Path) -> bool:
 
 def _mirror_missing_pattern_receipts(root_path: Path, source_dir: Path) -> None:
     """
-    [ACTION]
-    Copy freshly-generated pattern-binding receipts into their canonical clone-root slots.
+    Run mirror missing pattern receipts for the cold clone probe flow.
 
-    - Teleology: after the pattern-binding validator runs into a scratch dir, materialize its receipts at the stable PATTERN_RECEIPTS paths the probe expects.
-    - Guarantee: for each canonical receipt ref that is absent under `root_path` but present in `source_dir`, copies the file into place (creating parents); the validation-result receipt is rewritten with `receipt_paths` set to PATTERN_RECEIPTS.
-    - Fails: never returns a value; existing destinations and source files absent from `source_dir` are skipped. Filesystem/IO or JSON-decode errors (read_json_strict, copyfile, write_text) propagate to the caller.
-    - Reads: source receipt files under `source_dir`; the mirrored validation-result JSON (via read_json_strict).
-    - Writes: missing receipt files under `root_path` at PATTERN_RECEIPTS; rewrites pattern_binding_validation_result.json with the canonical receipt_paths list.
-    - When-needed: when reconciling why a probe reports MISSING_PATTERN_BINDING_RECEIPT despite a passing validator run.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     for receipt_ref in PATTERN_RECEIPTS:
         destination = root_path / receipt_ref
@@ -127,15 +95,9 @@ def _mirror_missing_pattern_receipts(root_path: Path, source_dir: Path) -> None:
 
 def _bootstrap_command(suite: str, emit_ref: str) -> str:
     """
-    [ACTION]
-    Render the shell-safe bootstrap invocation recorded in the probe receipt.
+    Compute bootstrap command from `suite` and `emit_ref`.
 
-    - Teleology: give the receipt a reproducible, copy-pasteable command that reproduces this probe run.
-    - Guarantee: returns the `./bootstrap.sh --suite <suite> --emit <emit_ref>` string with both arguments shell-quoted via shlex.quote.
-    - Fails: never raises; pure string formatting over its inputs.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `suite` and `emit_ref`; notable helpers are `quote`.
     """
     return f"./bootstrap.sh --suite {shlex.quote(suite)} --emit {shlex.quote(emit_ref)}"
 
@@ -146,18 +108,10 @@ def run_probe(
     emit_ref: str | Path = DEFAULT_EMIT_REF,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Run the cold-clone bootstrap probe over a checkout root and return its receipt.
+    Derive run probe without touching module import state.
 
-    - Teleology: prove a fresh checkout can bootstrap the named first-wave suite with no private state leaking, gating the public-clone story; the core organ behind the CLI.
-    - Guarantee: returns a receipt dict whose `status` is "pass" only when the suite is supported, all REQUIRED_INPUTS fixtures exist, the secret-exclusion scan passes, pattern-binding validates, and all PATTERN_RECEIPTS are present; on pass it carries the secret-exclusion scan, observed first-wave receipts, and receipt_paths.
-    - Fails: never raises (the one risky call, validate_secret_exclusion_scan, is caught); instead returns a non-pass receipt — status "blocked_invalid_input" (UNKNOWN_COLD_CLONE_SUITE), "blocked_dependency_missing" (MISSING_FIXTURE_INPUT or MISSING_PATTERN_BINDING_RECEIPT), "blocked_command_unavailable" (COMMAND_UNAVAILABLE), or "blocked_secret_exclusion" (SECRET_EXCLUSION_SCAN_BLOCKED).
-    - Reads: REQUIRED_INPUTS fixtures under `root`/fixtures/first_wave/; the secret-exclusion scan; pattern-binding input fixtures and receipts.
-    - Writes: pattern-binding receipts into a scratch dir under `root`/.microcosm/ and mirrors missing canonical receipts (via _mirror_missing_pattern_receipts); does not itself write the `--emit` file (the CLI does).
-    - When-needed: when verifying a cold clone bootstraps cleanly and privately before release.
-    - Escalates-to: validate_secret_exclusion_scan, validate_pattern_binding, and the emitted receipt itself as the higher-fidelity evidence surface.
-    - Non-goal: does not authorize release, public-safe equivalence beyond the secret-exclusion + pattern-binding checks, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `root`, `suite`, and `emit_ref`; notable helpers are `Path`, `base_receipt`,
+    `update`, `validate_pattern_binding`, and 5 more.
     """
     root_path = Path(root)
     emit_ref_text = str(emit_ref)
@@ -254,17 +208,10 @@ def run_probe(
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI entry that runs the cold-clone probe and emits its receipt.
+    Run `microcosm_core.cold_clone_probe` as a command-line entry point.
 
-    - Teleology: proves a fresh checkout can bootstrap the first-wave suite with no private state, gating the public clone story.
-    - Guarantee: on return, a probe receipt for the chosen suite is written to the `--emit` path and exit code matches its status.
-    - Fails: invalid/missing `--emit` -> argparse error -> SystemExit(2); probe blocked (bad suite, missing fixtures, secret leak, missing receipts) -> return 1.
-    - Reads: cwd fixtures under fixtures/first_wave/, secret-exclusion scan, pattern-binding receipts.
-    - Writes: receipt JSON at the `--emit` path; mirrored pattern-binding receipts under the checkout root.
-    - When-needed: verifying a cold clone bootstraps cleanly before release.
-    - Escalates-to: run_probe, validate_secret_exclusion_scan, validate_pattern_binding.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
 
     parser = argparse.ArgumentParser()

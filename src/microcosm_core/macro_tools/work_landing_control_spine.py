@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.macro_tools.work_landing_control_spine` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements macro tools work landing control spine for the public Plectis package.
 
-[INTERFACE]
-- Exports: BUNDLE_RESULT_NAME, REPORT_SCHEMA, MANIFEST_NAME, SOURCE_MANIFEST_NAME, CONTRACT_NAME, SOURCE_MODULE_ROOT, SOURCE_IMPORT_CLASS, SOURCE_OPEN_BODY_POLICY, REQUIRED_SOURCE_REFS, REQUIRED_INPUTS, REQUIRED_CLASSIFICATIONS, ALLOWED_MATERIAL_CLASSES, FALSE_AUTHORITY_FLAGS, ANTI_CLAIM, validate_work_landing_control_bundle, build_parser, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `validate_work_landing_control_bundle`, `build_parser`, and `main`;
+constants such as `BUNDLE_RESULT_NAME`, `REPORT_SCHEMA`, `MANIFEST_NAME`,
+`SOURCE_MANIFEST_NAME`, and 10 more pin local fixture names; dependencies include
+`argparse`, `hashlib`, `json`, `pathlib`, and 2 more. The helpers are invoked explicitly by
+CLI or fixture code; importing the module only declares the available machinery.
 """
 from __future__ import annotations
 
@@ -125,13 +109,10 @@ ANTI_CLAIM = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the public root for path value used by
+    `microcosm_core.macro_tools.work_landing_control_spine`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -147,26 +128,19 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return display for `microcosm_core.macro_tools.work_landing_control_spine`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _policy_path(public_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_policy_path` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the policy path value used by
+    `microcosm_core.macro_tools.work_landing_control_spine`.
+
+    Inputs are `public_root`; notable helpers are `is_file`, `resolve`, and `Path`.
     """
     candidate = public_root / "core/private_state_forbidden_classes.json"
     if candidate.is_file():
@@ -180,13 +154,11 @@ def _policy_path(public_root: Path) -> Path:
 
 def _file_sha256(path: Path) -> str | None:
     """
-    [ACTION]
-    - Teleology: Implements `_file_sha256` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.macro_tools.work_landing_control_spine._file_sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     if not path.is_file():
         return None
@@ -199,13 +171,9 @@ def _file_sha256(path: Path) -> str | None:
 
 def _line_count(path: Path) -> int | None:
     """
-    [ACTION]
-    - Teleology: Implements `_line_count` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return line count for the macro tools work landing control spine flow.
+
+    Inputs are `path`; notable helpers are `is_file` and `open`.
     """
     if not path.is_file():
         return None
@@ -218,39 +186,29 @@ def _line_count(path: Path) -> int | None:
 
 def _as_list(value: Any) -> list[Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_as_list` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return as list for `microcosm_core.macro_tools.work_landing_control_spine`.
+
+    Inputs are `value`.
     """
     return value if isinstance(value, list) else []
 
 
 def _as_dict(value: Any) -> Mapping[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_as_dict` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return as dict for `microcosm_core.macro_tools.work_landing_control_spine`.
+
+    Inputs are `value`.
     """
     return value if isinstance(value, Mapping) else {}
 
 
 def _strings(value: Any) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.macro_tools.work_landing_control_spine._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     return [str(item) for item in _as_list(value) if isinstance(item, str) and item]
 
@@ -264,13 +222,10 @@ def _finding(
     observed: Any | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.macro_tools.work_landing_control_spine._finding`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     payload: dict[str, Any] = {
         "error_code": code,
@@ -290,13 +245,10 @@ def _load_json_input(
     path: Path, findings: list[dict[str, Any]], *, label: str
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_json_input` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.work_landing_control_spine._load_json_input` into
+    the payload shape expected by macro tools work landing control spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not path.is_file():
         findings.append(_finding("MISSING_INPUT", f"Missing {label}.", source=path.name))
@@ -326,13 +278,9 @@ def _load_json_input(
 
 def _declared_files(manifest: Mapping[str, Any]) -> dict[str, Mapping[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_declared_files` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return declared files for `microcosm_core.macro_tools.work_landing_control_spine`.
+
+    Inputs are `manifest`; notable helpers are `_as_list` and `get`.
     """
     return {
         str(row.get("path") or ""): row
@@ -348,13 +296,11 @@ def _source_manifest_summary(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_manifest_summary` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.work_landing_control_spine._source_manifest_summary` into
+    the payload shape expected by macro tools work landing control spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     declared = _declared_files(manifest)
     rows: list[dict[str, Any]] = []
@@ -430,13 +376,10 @@ def _source_manifest_summary(
 
 def _anchor_summary(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_anchor_summary` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.work_landing_control_spine._anchor_summary` into
+    the payload shape expected by macro tools work landing control spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows: list[dict[str, Any]] = []
     missing_anchor_count = 0
@@ -465,13 +408,10 @@ def _anchor_summary(input_dir: Path) -> dict[str, Any]:
 
 def _contract_summary(contract: Mapping[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_contract_summary` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.work_landing_control_spine._contract_summary` into
+    the payload shape expected by macro tools work landing control spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     ceiling = _as_dict(contract.get("authority_ceiling"))
     false_flag_rows = [
@@ -501,13 +441,10 @@ def _contract_summary(contract: Mapping[str, Any]) -> dict[str, Any]:
 
 def _material_class_counts(source_manifest: Mapping[str, Any]) -> dict[str, int]:
     """
-    [ACTION]
-    - Teleology: Implements `_material_class_counts` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the material class counts value used by
+    `microcosm_core.macro_tools.work_landing_control_spine`.
+
+    Inputs are `source_manifest`; notable helpers are `_as_list`, `get`, and `items`.
     """
     counts: dict[str, int] = {}
     rows = _as_list(source_manifest.get("files")) or _as_list(source_manifest.get("modules"))
@@ -532,13 +469,12 @@ def validate_work_landing_control_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_work_landing_control_bundle` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text.
+    Validate whether validate work landing control bundle holds for the macro tools work
+    landing control spine flow.
+
+    The result is derived from `input_dir`, `out_dir`, and `command` with `Path`,
+    `_public_root_for_path`, `_load_json_input`, `_source_manifest_summary`, and 14 more;
+    failing evidence is returned or raised exactly where the body says so.
     """
     input_path = Path(input_dir)
     target = Path(out_dir)
@@ -740,13 +676,11 @@ def validate_work_landing_control_bundle(
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `build_parser` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.macro_tools.work_landing_control_spine.build_parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="action", required=True)
@@ -758,13 +692,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.macro_tools.work_landing_control_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run the `microcosm_core.macro_tools.work_landing_control_spine` command-line entry
+    point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = build_parser().parse_args(argv)
     result = validate_work_landing_control_bundle(

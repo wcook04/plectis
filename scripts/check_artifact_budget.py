@@ -48,12 +48,22 @@ ARTIFACT_BUDGET = {
 
 
 def _load_data_files() -> dict[str, list[str]]:
+    """
+    Load load data files for `scripts.check_artifact_budget`.
+
+    Input comes from the supplied source; malformed or missing data follows the exceptions
+    and checks visible in the body.
+    """
     payload = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
     return payload["tool"]["setuptools"]["data-files"]
 
 
 def _category(dest: str) -> str:
-    """Top-level shipped category for a data-files destination directory."""
+    """
+    Produce the category value used by `scripts.check_artifact_budget`.
+
+    Inputs are `dest`; notable helpers are `startswith` and `split`.
+    """
     prefix = "share/plectis"
     if dest == prefix:
         return "root_docs"
@@ -62,7 +72,11 @@ def _category(dest: str) -> str:
 
 
 def _resolve_data_files() -> tuple[dict[Path, int], dict[str, dict[str, int]]]:
-    """Resolve every data-files glob to concrete files, with per-category rollup."""
+    """
+    Compute resolve data files from the caller-supplied state.
+
+    Notable helpers are `items`, `_category`, `setdefault`, `_load_data_files`, and 3 more.
+    """
     files: dict[Path, int] = {}
     by_category: dict[str, dict[str, int]] = {}
     for dest, patterns in _load_data_files().items():
@@ -82,6 +96,11 @@ def _resolve_data_files() -> tuple[dict[Path, int], dict[str, dict[str, int]]]:
 
 
 def _resolve_runtime_package() -> dict[Path, int]:
+    """
+    Compute resolve runtime package from the caller-supplied state.
+
+    Notable helpers are `rglob`, `is_dir`, `is_file`, and `stat`.
+    """
     files: dict[Path, int] = {}
     if not RUNTIME_PACKAGE.is_dir():
         return files
@@ -95,6 +114,12 @@ def _resolve_runtime_package() -> dict[Path, int]:
 
 
 def measure() -> dict[str, object]:
+    """
+    Serialize the local value into the scripts check artifact budget payload shape.
+
+    The returned mapping uses the key names consumed by downstream receipts, cards, or
+    tests.
+    """
     data_files, by_category = _resolve_data_files()
     package_files = _resolve_runtime_package()
 
@@ -122,10 +147,21 @@ def measure() -> dict[str, object]:
 
 
 def _mib(byte_count: int) -> str:
+    """
+    Compute mib from `byte_count`.
+
+    Inputs are `byte_count`.
+    """
     return f"{byte_count / (1024 * 1024):.2f} MiB"
 
 
 def _print_report(stats: dict[str, object]) -> None:
+    """
+    Run print report for `scripts.check_artifact_budget`.
+
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
+    """
     print("Plectis shipped-artifact footprint")
     print(f"  total:           {stats['total_files']} files, {_mib(stats['total_bytes'])}")
     print(
@@ -149,6 +185,12 @@ def _print_report(stats: dict[str, object]) -> None:
 
 
 def _check(stats: dict[str, object]) -> list[str]:
+    """
+    Check whether check holds for the scripts check artifact budget flow.
+
+    The result is derived from `stats` with `append`; failing evidence is returned or raised
+    exactly where the body says so.
+    """
     failures: list[str] = []
     budget = ARTIFACT_BUDGET
     if not budget["max_total_bytes"]:
@@ -175,6 +217,12 @@ def _check(stats: dict[str, object]) -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    """
+    Run `scripts.check_artifact_budget` as a command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
+    """
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument(

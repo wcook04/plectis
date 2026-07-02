@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.doctrine_fact_claim_audit` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs doctrine fact claim audit for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, CONCRETE_UNBOUND_NUMERIC_CLAIM_CODE, AX10_VOLATILE_NUMERIC_UNBOUND_CODE, EXPECTED_NEGATIVE_CASES, AUTHORITY_CEILING, BLOCKED_FACT_CLAIM_IDS, ANTI_CLAIM, SPEC, evaluate, evaluate_negative_case, run, run_doctrine_fact_bundle, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.organs._crown_jewel_common
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `evaluate`, `evaluate_negative_case`, `run`,
+`run_doctrine_fact_bundle`, and `main`; constants such as `ORGAN_ID`, `FIXTURE_ID`,
+`VALIDATOR_ID`, `CONCRETE_UNBOUND_NUMERIC_CLAIM_CODE`, and 6 more pin local fixture names;
+dependencies include `copy`, `importlib`, `json`, `sys`, and 4 more. It builds public
+fixture, result, card, or verdict structures while keeping private substrate bodies out of
+the payload.
 """
 from __future__ import annotations
 
@@ -121,13 +106,10 @@ SPEC = CrownJewelSpec(
 
 def _manifest_base(source_manifest: dict[str, Any], input_dir: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_manifest_base` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the manifest base value used by
+    `microcosm_core.organs.doctrine_fact_claim_audit`.
+
+    Inputs are `source_manifest` and `input_dir`; notable helpers are `get` and `Path`.
     """
     manifest_path = source_manifest.get("source_manifest_path")
     if isinstance(manifest_path, str) and manifest_path:
@@ -137,13 +119,10 @@ def _manifest_base(source_manifest: dict[str, Any], input_dir: Path) -> Path:
 
 def _resolve_code_locus(locus: dict[str, Any], *, manifest_base: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_resolve_code_locus` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return resolve code locus for the organs doctrine fact claim audit flow.
+
+    Inputs are `locus` and `manifest_base`; notable helpers are `Path`, `is_absolute`, and
+    `get`.
     """
     path = Path(str(locus.get("path") or ""))
     if path.is_absolute():
@@ -158,13 +137,10 @@ def _load_derived_fact_module(
     findings: list[dict[str, Any]],
 ) -> Any | None:
     """
-    [ACTION]
-    - Teleology: Implements `_load_derived_fact_module` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load derived fact module for `microcosm_core.organs.doctrine_fact_claim_audit`.
+
+    Input comes from `source_manifest`, `input_dir`, and `findings`; malformed or missing
+    data follows the exceptions and checks visible in the body.
     """
     manifest_base = _manifest_base(source_manifest, input_dir)
     module_path = manifest_base / "source_modules/system/lib/derived_fact_hologram.py"
@@ -212,13 +188,10 @@ def _fact_assertions_for_sections(
     sections: list[str],
 ) -> list[Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_fact_assertions_for_sections` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the fact assertions for sections value used by
+    `microcosm_core.organs.doctrine_fact_claim_audit`.
+
+    Inputs are `module`, `case_id`, and `sections`; notable helpers are `assertion_type`.
     """
     assertion_type = getattr(module, "FactAssertion")
     return [
@@ -239,13 +212,11 @@ def _fact_assertions_for_sections(
 
 def _strings(value: Any) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.doctrine_fact_claim_audit._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     return [str(item) for item in value if isinstance(item, str)] if isinstance(value, list) else []
 
@@ -257,13 +228,10 @@ def _evaluate_numeric_claims(
     findings: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_evaluate_numeric_claims` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.doctrine_fact_claim_audit._evaluate_numeric_claims`
+    into the payload shape expected by organs doctrine fact claim audit.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     payload = load_json_object(input_dir / "numeric_claims.json", findings, label="numeric claims")
     module = _load_derived_fact_module(
@@ -412,13 +380,10 @@ def _first_screen_fact_claim_rows(
     numeric_claims: dict[str, Any],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_first_screen_fact_claim_rows` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive first screen fact claim rows without touching module import state.
+
+    Inputs are `fact_rows`, `expected_count`, `code_locus_count`, `verified_locus_count`,
+    `dag_edges`, and 2 more; notable helpers are `get`.
     """
     source_route = "doctrine_fact_claim_audit.py::evaluate/_evaluate_numeric_claims"
     ceiling = AUTHORITY_CEILING["authority_ceiling"]
@@ -542,13 +507,10 @@ def _first_screen_fact_claim_rows(
 
 def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.doctrine_fact_claim_audit.evaluate` into the payload
+    shape expected by organs doctrine fact claim audit.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     assertions = load_json_object(input_dir / "fact_assertions.json", findings, label="fact assertions")
@@ -655,26 +617,20 @@ def evaluate(input_dir: Path, _public_root: Path, source_manifest: dict[str, Any
 
 def _write_json(path: Path, payload: dict[str, Any]) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_write_json` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write JSON for the organs doctrine fact claim audit flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
 
 def _semantic_case_payloads(input_dir: Path, findings: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_semantic_case_payloads` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute semantic case payloads from `input_dir` and `findings`.
+
+    Inputs are `input_dir` and `findings`; notable helpers are `deepcopy` and
+    `load_json_object`.
     """
     payloads = {
         name: load_json_object(input_dir / name, findings, label=name)
@@ -689,13 +645,10 @@ def evaluate_negative_case(
     _expected_codes: tuple[str, ...],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `evaluate_negative_case` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.doctrine_fact_claim_audit.evaluate_negative_case` into
+    the payload shape expected by organs doctrine fact claim audit.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     source_input = Path(input_dir)
@@ -768,13 +721,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the run value used by `microcosm_core.organs.doctrine_fact_claim_audit`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -793,13 +743,11 @@ def run_doctrine_fact_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_doctrine_fact_bundle` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the run doctrine fact bundle value used by
+    `microcosm_core.organs.doctrine_fact_claim_audit`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `run_crown_jewel_organ`.
     """
     return run_crown_jewel_organ(
         SPEC,
@@ -814,13 +762,10 @@ def run_doctrine_fact_bundle(
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.doctrine_fact_claim_audit` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run the `microcosm_core.organs.doctrine_fact_claim_audit` command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     return main_for_spec(
         SPEC,

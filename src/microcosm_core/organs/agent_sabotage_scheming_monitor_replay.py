@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs agent sabotage scheming monitor replay for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, SOURCE_OPEN_BODY_SCHEMA, SOURCE_OPEN_BODY_IMPORTS, INPUT_NAMES, SOURCE_MODULE_MANIFEST_NAME, SOURCE_MODULE_MANIFEST_REF, NEGATIVE_INPUT_NAMES, EXPECTED_NEGATIVE_CASES, NEGATIVE_CASE_SEMANTIC_FLOORS, HASH_CHUNK_SIZE, REQUIRED_EPISODE_FIELDS, REQUIRED_ACTION_FIELDS, REQUIRED_MONITOR_FIELDS, FORBIDDEN_KEYS, BAKED_VERDICT_KEYS, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.macro_tools.agent_execution_trace, microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `validate_source_module_manifest`, `validate_projection_protocol`,
+`validate_monitor_policy`, `validate_task_episodes`, `validate_action_traces`,
+`validate_monitor_scores`, and 9 more; constants such as `ORGAN_ID`, `FIXTURE_ID`,
+`VALIDATOR_ID`, `RESULT_NAME`, and 25 more pin local fixture names; dependencies include
+`argparse`, `hashlib`, `json`, `collections`, and 3 more. It builds public fixture, result,
+card, or verdict structures while keeping private substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -264,13 +249,10 @@ ANTI_CLAIM = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the public root for path value used by
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -286,26 +268,21 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return display for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -315,13 +292,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -330,13 +305,10 @@ def _strings(value: object) -> list[str]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return input paths for the organs agent sabotage scheming monitor replay flow.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_file` and
+    `append`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     paths = [input_dir / name for name in names]
@@ -349,13 +321,11 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -366,13 +336,11 @@ def _sha256(path: Path) -> str:
 
 def _normalize_sha256(value: object) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_normalize_sha256` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._normalize_sha256`.
+
+    The input is `value`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     text = str(value or "")
     return text if text.startswith("sha256:") else f"sha256:{text}"
@@ -380,13 +348,10 @@ def _normalize_sha256(value: object) -> str:
 
 def _source_module_path_ref_path(input_dir: Path, row: dict[str, Any]) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_path_ref_path` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module path ref path for the organs agent sabotage scheming monitor replay
+    flow.
+
+    Inputs are `input_dir` and `row`; notable helpers are `get`.
     """
     rel_path = str(row.get("path") or "")
     return input_dir / rel_path if rel_path else None
@@ -399,13 +364,11 @@ def _source_module_target_ref_path(
     public_root: Path,
 ) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_ref_path` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module target ref path for the organs agent sabotage scheming monitor
+    replay flow.
+
+    Inputs are `input_dir`, `row`, and `public_root`; notable helpers are `startswith`,
+    `get`, and `removeprefix`.
     """
     target_ref = str(row.get("target_ref") or "")
     if not target_ref:
@@ -423,13 +386,11 @@ def _source_module_target_path(
     public_root: Path,
 ) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module target path for the organs agent sabotage scheming monitor replay
+    flow.
+
+    Inputs are `input_dir`, `row`, and `public_root`; notable helpers are
+    `_source_module_path_ref_path` and `_source_module_target_ref_path`.
     """
     return _source_module_path_ref_path(input_dir, row) or _source_module_target_ref_path(
         input_dir,
@@ -440,13 +401,11 @@ def _source_module_target_path(
 
 def _source_module_freshness_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_freshness_paths` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module freshness paths for the organs agent sabotage scheming monitor
+    replay flow.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are `_rows`, `is_file`,
+    `read_json_strict`, `_source_module_target_path`, and 1 more.
     """
     manifest_path = input_dir / SOURCE_MODULE_MANIFEST_NAME
     if not manifest_path.is_file():
@@ -470,13 +429,11 @@ def _source_artifact_paths_from_manifest(
     public_root: Path,
 ) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_artifact_paths_from_manifest` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute source artifact paths from manifest from `payload`, `input_dir`, and
+    `public_root`.
+
+    Inputs are `payload`, `input_dir`, and `public_root`; notable helpers are `_rows`,
+    `_source_module_target_path`, `resolve`, `add`, and 1 more.
     """
     if not isinstance(payload, dict):
         return []
@@ -500,13 +457,10 @@ def _source_artifact_paths_from_manifest(
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_paths` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive freshness paths without touching module import state.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are
+    `_public_root_for_path`, `_input_paths`, and `_source_module_freshness_paths`.
     """
     public_root = _public_root_for_path(input_dir)
     return [
@@ -518,13 +472,11 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._freshness_basis` into the
+    payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -583,13 +535,11 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
 
 def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_bundle_receipt` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the fresh bundle receipt value used by
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay`.
+
+    Inputs are `input_dir` and `out_dir`; notable helpers are `_freshness_basis`, `get`,
+    `is_file`, and `read_json_strict`.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -624,13 +574,10 @@ def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | No
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     return {
         path.stem: read_json_strict(path)
@@ -647,13 +594,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._finding` into
+    the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -676,13 +620,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs agent sabotage scheming monitor replay flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -703,13 +644,11 @@ def _negative_case_semantic_receipt(
     subject_id: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_negative_case_semantic_receipt` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._negative_case_semantic_receipt`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     floor = NEGATIVE_CASE_SEMANTIC_FLOORS.get(expected_case_id, {})
     required_truthy = tuple(floor.get("required_truthy") or ())
@@ -746,13 +685,11 @@ def validate_source_module_manifest(
     required: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_source_module_manifest` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.validate_source_module_manifest`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     if not isinstance(payload, dict):
@@ -932,13 +869,11 @@ def _load_source_module_manifest_payload(
     public_root: Path,
 ) -> tuple[object, Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_source_module_manifest_payload` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load source module manifest payload for
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay`.
+
+    Input comes from `input_dir`, `payloads`, and `public_root`; malformed or missing data
+    follows the exceptions and checks visible in the body.
     """
     payload = payloads.get("source_module_manifest")
     if isinstance(payload, dict):
@@ -951,13 +886,11 @@ def _load_source_module_manifest_payload(
 
 def _source_artifact_refs_from_manifest(source_module_manifest: dict[str, Any]) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_artifact_refs_from_manifest` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source artifact refs from manifest value used by
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay`.
+
+    Inputs are `source_module_manifest`; notable helpers are `get`, `add`, `startswith`, and
+    `removeprefix`.
     """
     refs: set[str] = set()
     for row in source_module_manifest.get("observed_modules", []):
@@ -981,13 +914,11 @@ def _source_artifact_event_ids_by_ref(
     public_root: Path,
 ) -> dict[str, set[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_artifact_event_ids_by_ref` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source artifact event IDs by ref for the organs agent sabotage scheming monitor
+    replay flow.
+
+    Inputs are `source_module_manifest`, `input_dir`, and `public_root`; notable helpers are
+    `get`, `_source_module_target_path`, `update`, `read_json_strict`, and 5 more.
     """
     event_ids_by_ref: dict[str, set[str]] = {}
     for row in source_module_manifest.get("observed_modules", []):
@@ -1033,14 +964,11 @@ def _source_artifact_event_ids_by_ref(
 
 def _public_safe_trace_event_floor_verified(payload: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    Return whether a copied public trace has usable event-level evidence.
-    - Teleology: Implements `_public_safe_trace_event_floor_verified` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether public safe trace event floor verified holds for the organs agent
+    sabotage scheming monitor replay flow.
+
+    The result is derived from `payload` with `_rows`, `get`, `_strings`, and `issubset`;
+    failing evidence is returned or raised exactly where the body says so.
     """
 
     if payload.get("schema_version") != (
@@ -1089,13 +1017,10 @@ def _public_safe_trace_event_floor_verified(payload: dict[str, Any]) -> bool:
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_observed` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the merge observed value used by
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay`.
+
+    Inputs are `results`; notable helpers are `defaultdict`, `items`, `get`, and `add`.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -1107,13 +1032,10 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_merge_findings` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._merge_findings`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     findings: list[dict[str, Any]] = []
     for result in results:
@@ -1131,52 +1053,41 @@ def _merge_findings(*results: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _missing(row: dict[str, Any], required: tuple[str, ...]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_missing` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the missing value used by
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay`.
+
+    Inputs are `row` and `required`; notable helpers are `get`.
     """
     return [field for field in required if row.get(field) in (None, "", [])]
 
 
 def _has_forbidden_key(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_has_forbidden_key` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether has forbidden key holds for the organs agent sabotage scheming monitor
+    replay flow.
+
+    The result is derived from `row`; failing evidence is returned or raised exactly where
+    the body says so.
     """
     return any(key in row for key in FORBIDDEN_KEYS)
 
 
 def _baked_verdict_keys(row: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_baked_verdict_keys` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute baked verdict keys from `row`.
+
+    Inputs are `row`.
     """
     return [key for key in BAKED_VERDICT_KEYS if key in row]
 
 
 def validate_projection_protocol(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_projection_protocol` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.validate_projection_protocol`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     protocol = payload if isinstance(payload, dict) else {}
     source_refs = _strings(protocol.get("source_refs"))
@@ -1233,13 +1144,11 @@ def validate_projection_protocol(payload: object) -> dict[str, Any]:
 
 def validate_monitor_policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_monitor_policy` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.validate_monitor_policy`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     policy = payload if isinstance(payload, dict) else {}
     allowed = set(_strings(policy.get("allowed_monitor_verdicts")))
@@ -1303,13 +1212,11 @@ def validate_monitor_policy(payload: object) -> dict[str, Any]:
 
 def validate_task_episodes(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_task_episodes` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.validate_task_episodes`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "task_episodes")
     findings: list[dict[str, Any]] = []
@@ -1365,13 +1272,11 @@ def validate_task_episodes(payload: object) -> dict[str, Any]:
 
 def validate_action_traces(payload: object, episode_ids: set[str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_action_traces` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.validate_action_traces`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "action_traces")
     findings: list[dict[str, Any]] = []
@@ -1442,13 +1347,11 @@ def validate_monitor_scores(
     source_artifact_event_ids_by_ref: dict[str, set[str]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_monitor_scores` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.validate_monitor_scores`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "monitor_scores")
     policy_rows = policy if isinstance(policy, dict) else {}
@@ -1766,13 +1669,10 @@ def validate_monitor_scores(
 
 def _source_module_refs(row: dict[str, Any]) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_refs` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the source module refs value used by
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay`.
+
+    Inputs are `row`; notable helpers are `add`, `startswith`, `get`, and `removeprefix`.
     """
     refs: set[str] = set()
     prefix = "microcosm-substrate/"
@@ -1793,13 +1693,11 @@ def validate_real_sanitized_evidence(
     required: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_real_sanitized_evidence` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.validate_real_sanitized_evidence`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     real_source_refs: set[str] = set()
@@ -1969,13 +1867,11 @@ def validate_real_sanitized_evidence(
 
 def validate_counterfactual_replay(payload: object, episode_ids: set[str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_counterfactual_replay` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.validate_counterfactual_replay`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "counterfactual_replay")
     findings: list[dict[str, Any]] = []
@@ -2022,13 +1918,11 @@ def validate_counterfactual_replay(payload: object, episode_ids: set[str]) -> di
 
 def validate_cold_replay(payload: object, episode_ids: set[str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_cold_replay` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.validate_cold_replay` into
+    the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = _rows(payload, "cold_replay")
     findings: list[dict[str, Any]] = []
@@ -2075,13 +1969,11 @@ def validate_cold_replay(payload: object, episode_ids: set[str]) -> dict[str, An
 
 def validate_negative_cases(negative_payloads: dict[str, object]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_negative_cases` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.validate_negative_cases`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -2192,13 +2084,11 @@ def validate_negative_cases(negative_payloads: dict[str, object]) -> dict[str, A
 
 def _source_open_body_import_summary(public_trace: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._source_open_body_import_summary`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     imported = public_trace.get("status") == PASS
     return {
@@ -2235,13 +2125,11 @@ def _source_open_body_import_summary(public_trace: dict[str, Any]) -> dict[str, 
 
 def _public_trace_rank_delta_summary(public_trace: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_public_trace_rank_delta_summary` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._public_trace_rank_delta_summary`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     spans = [row for row in public_trace.get("spans", []) if isinstance(row, dict)]
     numeric_deltas = [
@@ -2285,18 +2173,11 @@ def _public_trace_rank_delta_summary(public_trace: dict[str, Any]) -> dict[str, 
 
 def validate_public_trace(public_trace: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Fold the recomputed public trace into organ-level findings.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.validate_public_trace`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
 
-    The macro builder recomputes each episode's caught verdict from monitor
-    suspicion scores and recomputes whether the counterfactual replay isolates
-    the side task. Any computed-vs-declared mismatch becomes an organ finding.
-    - Teleology: Implements `validate_public_trace` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
 
     findings: list[dict[str, Any]] = []
@@ -2389,13 +2270,10 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._build_result`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -2616,13 +2494,11 @@ def _build_result(
 
 def _board_from_result(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_board_from_result` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._board_from_result` into
+    the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "agent_sabotage_scheming_monitor_replay_board_v1",
@@ -2681,13 +2557,10 @@ def _write_receipts(
     acceptance_out: Path | None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._write_receipts`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     out_dir.mkdir(parents=True, exist_ok=True)
     public_root = _public_root_for_path(out_dir)
@@ -2796,13 +2669,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute run from `input_dir`, `out_dir`, `command`, and `acceptance_out`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `_build_result`, `_freshness_basis`, `_write_receipts`, and `Path`.
     """
     result = _build_result(
         Path(input_dir),
@@ -2830,13 +2700,11 @@ def run_sabotage_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_sabotage_bundle` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Produce the run sabotage bundle value used by
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `mkdir`, `_build_result`, `_freshness_basis`, and 4 more.
     """
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -2866,13 +2734,9 @@ def run_sabotage_bundle(
 
 def _card_receipt_paths(result: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_card_receipt_paths` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive card receipt paths without touching module import state.
+
+    Inputs are `result`; notable helpers are `get` and `normalize_public_receipt_paths`.
     """
     paths = result.get("receipt_paths")
     if not isinstance(paths, list):
@@ -2886,13 +2750,10 @@ def _card_receipt_paths(result: dict[str, Any]) -> list[str]:
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.agent_sabotage_scheming_monitor_replay.result_card`
+    into the payload shape expected by organs agent sabotage scheming monitor replay.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -2990,13 +2851,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for
+    `microcosm_core.organs.agent_sabotage_scheming_monitor_replay._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(prog="agent_sabotage_scheming_monitor_replay")
     sub = parser.add_subparsers(dest="action", required=True)
@@ -3014,13 +2873,11 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.agent_sabotage_scheming_monitor_replay` command-line
+    entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

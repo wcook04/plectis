@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.validators.research_claim_assurance` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements validators research claim assurance for the public Plectis package.
 
-[INTERFACE]
-- Exports: CHECKER_ID, SCHEMA_VERSION, STD_MICROCOSM_REL, CONTRACT_KEY, EXPECTED_VERDICTS, EXPECTED_OUTCOMES, DEFAULT_OUTCOME_BY_VERDICT, REQUIRED_ROW_FIELDS, OVERCLAIM_PATTERNS, NEGATIVE_FLOOR_MARKERS, CEILING_DENIAL_MARKERS, audit_research_claim_assurance, main
-- Reads: call arguments, module constants, imported helpers.
-- Writes: return values, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `audit_research_claim_assurance` and `main`; constants such as
+`CHECKER_ID`, `SCHEMA_VERSION`, `STD_MICROCOSM_REL`, `CONTRACT_KEY`, and 7 more pin local
+fixture names; dependencies include `argparse`, `json`, `re`, `pathlib`, and 2 more.
+Validator outputs stay structured so release checks can consume findings without scraping
+prose.
 """
 from __future__ import annotations
 
@@ -104,17 +88,10 @@ CEILING_DENIAL_MARKERS = ("not_", "_not_", "not ", "false", "_only", " only")
 
 def _repo_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    Resolve the ai_workflow repo root anchoring all relative witness refs.
+    Derive repo root for path without touching module import state.
 
-    - Teleology: every standard/source/test ref in the contract is repo-root-relative; this fixes that root from any path inside the tree.
-    - Guarantee: returns a directory that contains both `codex/standards/std_microcosm.json` and `microcosm-substrate/`, walking upward from the given path.
-    - Fails: never raises; falls back to the resolved input dir (or `Path.cwd()`) when no anchor directory is found.
-    - When-needed: inspect when witness paths resolve under the wrong root or the audit silently anchors to cwd.
-    - Escalates-to: `STD_MICROCOSM_REL` constant and `audit_research_claim_assurance` callers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `expanduser`, `is_file`, and
+    2 more.
     """
     resolved = Path(path).expanduser().resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -128,16 +105,10 @@ def _repo_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, repo_root: Path) -> str:
     """
-    [ACTION]
-    Render a path as a repo-root-relative posix string for stable display.
+    Produce the display value used by `microcosm_core.validators.research_claim_assurance`.
 
-    - Teleology: receipts and messages should cite portable relative loci, not host-absolute paths.
-    - Guarantee: returns the path relative to `repo_root` as posix when it is under the root; otherwise returns the path's own posix form.
-    - Fails: never raises; the ValueError from a non-subpath is caught and the absolute posix path is returned instead.
-    - When-needed: inspect when a receipt shows an absolute or non-portable path.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path` and `repo_root`; notable helpers are `as_posix`, `relative_to`, and
+    `resolve`.
     """
     try:
         return path.resolve(strict=False).relative_to(
@@ -149,16 +120,9 @@ def _display(path: Path, repo_root: Path) -> str:
 
 def _as_rows(value: Any) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Coerce an untyped JSON value into a clean list of dict rows.
+    Compute as rows from `value`.
 
-    - Teleology: contract `rows` come from on-disk JSON of unknown shape; downstream code assumes a list of dicts.
-    - Guarantee: returns a list containing only the dict members of `value`; non-list input yields `[]`.
-    - Fails: never raises; a non-list or list-of-non-dicts degrades to an empty list, not an error.
-    - When-needed: inspect when expected cluster rows silently vanish from the receipt.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`.
     """
     if not isinstance(value, list):
         return []
@@ -167,16 +131,9 @@ def _as_rows(value: Any) -> list[dict[str, Any]]:
 
 def _as_string_list(value: Any) -> list[str]:
     """
-    [ACTION]
-    Coerce a scalar-or-list JSON value into a list of non-empty trimmed strings.
+    Derive as string list without touching module import state.
 
-    - Teleology: contract fields (witnesses, loci, refs) may be a single string or a list; normalize both to a string list.
-    - Guarantee: returns trimmed, non-empty string items; a list is filtered/stripped, a truthy scalar becomes a one-element list, falsy yields `[]`.
-    - Fails: never raises; empty/None/whitespace input degrades to an empty list.
-    - When-needed: inspect when a present field reads as empty during witness or floor checks.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`; notable helpers are `strip`.
     """
     if isinstance(value, list):
         return [str(item).strip() for item in value if str(item).strip()]
@@ -187,16 +144,10 @@ def _as_string_list(value: Any) -> list[str]:
 
 def _resolve_ref(repo_root: Path, ref: str) -> Path:
     """
-    [ACTION]
-    Resolve a contract ref to an absolute path under the repo root.
+    Produce the resolve ref value used by
+    `microcosm_core.validators.research_claim_assurance`.
 
-    - Teleology: witness existence checks need an absolute path whether the ref is repo-relative or already absolute.
-    - Guarantee: returns the ref unchanged when absolute; otherwise returns `repo_root / ref`.
-    - Fails: never raises; does not touch disk, so a non-existent target still returns a Path (existence is checked by callers via `.is_file()`).
-    - When-needed: inspect when a witness path is reported missing but the file exists under a different root.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `repo_root` and `ref`; notable helpers are `Path` and `is_absolute`.
     """
     candidate = Path(ref)
     return candidate if candidate.is_absolute() else repo_root / candidate
@@ -212,16 +163,10 @@ def _issue(
     refs: list[str] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Construct one normalized assurance-issue record with verdict and outcome.
+    Serialize `microcosm_core.validators.research_claim_assurance._issue` into the payload
+    shape expected by validators research claim assurance.
 
-    - Teleology: the single factory for every violation this validator emits, so issue shape stays uniform across all checks.
-    - Guarantee: returns a dict carrying cluster_id, verdict, outcome, code, detail, refs; an omitted `outcome` is filled from `DEFAULT_OUTCOME_BY_VERDICT`, defaulting to `staged_but_unvalidated`.
-    - Fails: never raises; does not validate that `verdict`/`outcome` are members of the EXPECTED_* tuples — callers supply known values.
-    - When-needed: inspect when an issue's outcome or refs look wrong in the receipt's `issues` list.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     resolved_outcome = outcome or DEFAULT_OUTCOME_BY_VERDICT.get(
         verdict, "staged_but_unvalidated"
@@ -238,17 +183,11 @@ def _issue(
 
 def _negative_floor_looks_real(value: Any) -> bool:
     """
-    [ACTION]
-    Heuristic: does a negative-floor field actually name failure/refusal cases.
+    Return whether negative floor looks real holds for the validators research claim
+    assurance flow.
 
-    - Teleology: enforces that a row/standard's negative floor is substantive, not empty boilerplate, by requiring denial vocabulary.
-    - Guarantee: returns True only when the joined text is non-empty AND contains at least one `NEGATIVE_FLOOR_MARKERS` token (fail/reject/block/refusal/...).
-    - Fails: never raises; empty or marker-free input returns False, which callers turn into a `missing_negative_floor` issue.
-    - When-needed: inspect when a populated negative floor is still flagged missing — likely lacks a marker word.
-    - Escalates-to: `NEGATIVE_FLOOR_MARKERS` constant.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `value` with `lower`, `join`, and `_as_string_list`; failing
+    evidence is returned or raised exactly where the body says so.
     """
     text = " ".join(_as_string_list(value)).lower()
     return bool(text) and any(marker in text for marker in NEGATIVE_FLOOR_MARKERS)
@@ -256,18 +195,11 @@ def _negative_floor_looks_real(value: Any) -> bool:
 
 def _authority_ceiling_looks_real(value: Any) -> bool:
     """
-    [ACTION]
-    Heuristic: does an authority-ceiling field actually deny some authority.
+    Return whether authority ceiling looks real holds for the validators research claim
+    assurance flow.
 
-    - Teleology: enforces that the ceiling encodes a real denial (a `False` capability flag or denial vocabulary), not a permissive blank.
-    - Guarantee: returns True when a dict carries any boolean `False` value, OR when the serialized/scalar text contains a `CEILING_DENIAL_MARKERS` token (not_/false/only/...).
-    - Fails: never raises; permissive or marker-free input returns False, which callers turn into a `missing_authority_ceiling` issue.
-    - When-needed: inspect when a present ceiling is flagged missing — likely all-True flags or lacks a denial marker.
-    - Escalates-to: `CEILING_DENIAL_MARKERS` constant.
-    - Non-goal: a True result does not authorize release or whole-system correctness; it only confirms the ceiling field is denial-bearing.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `value` with `lower`, `values`, and `dumps`; failing evidence
+    is returned or raised exactly where the body says so.
     """
     if isinstance(value, dict):
         bool_values = [
@@ -283,34 +215,21 @@ def _authority_ceiling_looks_real(value: Any) -> bool:
 
 def _contains_overclaim(text: str) -> bool:
     """
-    [ACTION]
-    Detect banned overclaim phrases in a positive-claim string.
+    Return whether contains overclaim holds for the validators research claim assurance
+    flow.
 
-    - Teleology: blocks public-facing claims from asserting forbidden capability (production/release-ready, proof correctness, investment advice, private-root equivalence, ...).
-    - Guarantee: returns True iff any `OVERCLAIM_PATTERNS` regex matches `text` (case-insensitive).
-    - Fails: never raises; non-matching or empty text returns False.
-    - When-needed: inspect when a claim is flagged `overclaim` or when a borderline phrase should be added to the ban list.
-    - Escalates-to: `OVERCLAIM_PATTERNS` constant.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `text` with `search`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return any(pattern.search(text) for pattern in OVERCLAIM_PATTERNS)
 
 
 def _load_json_object(path: Path) -> dict[str, Any] | None:
     """
-    [ACTION]
-    Strictly load a JSON file, returning None unless it parses to an object.
+    Load load JSON object for `microcosm_core.validators.research_claim_assurance`.
 
-    - Teleology: standards and contracts must be JSON objects; this is the guarded loader the row/standard checks depend on.
-    - Guarantee: returns the parsed dict when the file exists and decodes to an object; returns None when the file is absent or parses to a non-dict.
-    - Fails: a malformed JSON body propagates the underlying `read_json_strict` decode error (this loader does not swallow parse errors); a missing file or non-object returns None.
-    - When-needed: inspect when a standard reads as "missing" though the file is present — it may be valid JSON of the wrong top-level type.
-    - Escalates-to: `microcosm_core.schemas.read_json_strict`.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     if not path.is_file():
         return None
@@ -325,18 +244,10 @@ def _standard_issues(
     cluster_positive_claim: str,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Audit one organ standard for its research-bet contract and ceiling discipline.
+    Derive standard issues without touching module import state.
 
-    - Teleology: confirms the cited Microcosm-side standard backs the cluster's claim — research_bet_contract routed through mech_036, real witnesses, negative floor, denied authority, anti-claim, validator contract, and no overclaim.
-    - Guarantee: returns a list of `_issue` records (empty when the standard satisfies every check); checks include STANDARD_FILE_MISSING, RESEARCH_BET_CONTRACT_MISSING, GOVERNING_MECHANISM_STALE, REQUIRED_WITNESSES_MISSING, NEGATIVE_FLOOR_MISSING, DENIED_AUTHORITY_MISSING, POSITIVE_CLAIM_OVERCLAIM, POSITIVE_CLAIM_DIVERGES, AUTHORITY_CEILING_MISSING, ANTI_CLAIM_MISSING, VALIDATOR_CONTRACT_MISSING.
-    - Fails: does not raise on data defects (they become issue records); a malformed standard JSON propagates the `read_json_strict` decode error via `_load_json_object`.
-    - When-needed: inspect when a row is `missing_witness`/`overclaim`/`missing_authority_ceiling` and the cause traces to the organ standard rather than the row.
-    - Escalates-to: `codex/standards/std_microcosm.json` rows' `standard` ref and the cited per-organ standard file.
-    - Non-goal: passing does not authorize release or prove the organ correct; it only checks the standard's claim-accounting fields exist and are denial-bearing.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `repo_root`, `cluster_id`, `standard_ref`, and `cluster_positive_claim`;
+    notable helpers are `_resolve_ref`, `_load_json_object`, `get`, `append`, and 8 more.
     """
     standard_path = _resolve_ref(repo_root, standard_ref)
     standard = _load_json_object(standard_path)
@@ -485,18 +396,10 @@ def _row_issues(
     validation_probe_present: bool,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Audit one cluster contract row's claim accounting and witness resolution.
+    Compute row issues from `repo_root`, `row`, and `validation_probe_present`.
 
-    - Teleology: the per-row gate of the assurance matrix — required fields present, no overclaim, real negative floor and authority ceiling, every paper/standard/source/test witness resolves on disk, a focused test is cited, and validation is not blocked.
-    - Guarantee: returns a list of `_issue` records (empty when the row is fully clean); emits codes including ROW_REQUIRED_FIELDS_MISSING, ROW_POSITIVE_CLAIM_OVERCLAIM, ROW_NEGATIVE_FLOOR_MISSING, ROW_AUTHORITY_CEILING_MISSING, ROW_WITNESS_PATH_MISSING, ROW_FOCUSED_TEST_WITNESS_MISSING, CLUSTER_VALIDATION_PROBE_MISSING, ROW_OWNER_CLAIM_BLOCKS_VALIDATION, plus any from `_standard_issues`.
-    - Fails: does not raise on a defective row (defects become issue records); a malformed cited standard JSON propagates the decode error via `_standard_issues`.
-    - When-needed: inspect when a specific cluster's verdict is non-`allowed` and you need the exact failing field or unresolved witness.
-    - Escalates-to: the `research_mechanism_cluster_contract.rows` entry in `codex/standards/std_microcosm.json` and `_standard_issues`.
-    - Non-goal: passing does not authorize release or rerun the organ's own validator; it audits the row's claim-accounting and path witnesses only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `repo_root`, `row`, and `validation_probe_present`; notable helpers are
+    `_contains_overclaim`, `_as_string_list`, `lower`, `append`, and 9 more.
     """
     cluster_id = str(row.get("cluster_id") or "<missing_cluster_id>")
     issues: list[dict[str, Any]] = []
@@ -653,17 +556,10 @@ def _row_issues(
 
 def _verdict_for(issues: list[dict[str, Any]]) -> str:
     """
-    [ACTION]
-    Collapse a row's issue list into a single highest-priority verdict.
+    Produce the verdict for value used by
+    `microcosm_core.validators.research_claim_assurance`.
 
-    - Teleology: a row carries many issues but reports one verdict; this picks the most severe by `EXPECTED_VERDICTS` order.
-    - Guarantee: returns `"allowed"` for an empty list; otherwise returns the issue verdict ranked earliest in `EXPECTED_VERDICTS` (unknown verdicts sort last), defaulting a missing verdict field to `missing_witness`.
-    - Fails: never raises; tolerates issues with absent/unknown verdict fields.
-    - When-needed: inspect when a row's rolled-up verdict seems milder/harsher than its underlying issues.
-    - Escalates-to: `EXPECTED_VERDICTS` constant.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `issues`; notable helpers are `get`.
     """
     if not issues:
         return "allowed"
@@ -676,18 +572,11 @@ def _verdict_for(issues: list[dict[str, Any]]) -> str:
 
 def audit_research_claim_assurance(repo_root: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Module entrypoint: audit the whole research-claim-assurance cluster matrix.
+    Serialize
+    `microcosm_core.validators.research_claim_assurance.audit_research_claim_assurance` into
+    the payload shape expected by validators research claim assurance.
 
-    - Teleology: the public claim-assurance oracle — reads `research_mechanism_cluster_contract` from std_microcosm.json and rolls every cluster row's claim accounting and witnesses into one stable receipt.
-    - Guarantee: returns a receipt dict with `status` `"pass"` (zero issues) or `"blocked"`, plus schema_version/checker_id, per-row receipts, verdict/outcome/code counts, the sorted issue list, and the `authority_boundary`/`anti_claim` strings.
-    - Fails: raises ValueError when std_microcosm.json is missing/non-object or lacks `research_mechanism_cluster_contract`; a malformed standard JSON propagates the `read_json_strict` decode error. All row/standard data defects are reported as issues, not exceptions.
-    - When-needed: inspect for the authoritative pass/blocked verdict on the research claim matrix, or to enumerate every outstanding assurance issue.
-    - Escalates-to: `codex/standards/std_microcosm.json::research_mechanism_cluster_contract` and `microcosm-substrate/tests/` focused tests for this checker.
-    - Non-goal: a `pass` does NOT authorize release, rerun each organ's validator, prove mathematical correctness, give investment advice, or mutate source — see the receipt's `anti_claim`.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     root = _repo_root_for_path(repo_root)
     standard = _load_json_object(root / STD_MICROCOSM_REL)
@@ -775,17 +664,10 @@ def audit_research_claim_assurance(repo_root: str | Path) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    CLI wrapper: run the assurance audit, optionally write a receipt, set exit code.
+    Run `microcosm_core.validators.research_claim_assurance` as a command-line entry point.
 
-    - Teleology: the command-line entry exposing `audit_research_claim_assurance` to scripts and CI with `--repo-root`, `--out`, `--json` flags.
-    - Guarantee: runs the audit; writes the receipt atomically to `--out` when given; prints JSON when `--json` or no `--out`; returns 0 iff `status == "pass"`, else 1.
-    - Fails: propagates ValueError from the audit (missing standard or contract) and argparse SystemExit on bad arguments; does not catch them.
-    - When-needed: inspect when wiring this checker into a CI gate or reproducing a receipt from the shell.
-    - Escalates-to: `audit_research_claim_assurance` and `microcosm_core.receipts.write_json_atomic`.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(description="Audit Microcosm research claim assurance.")
     parser.add_argument(

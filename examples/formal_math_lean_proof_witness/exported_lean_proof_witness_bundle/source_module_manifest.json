@@ -36,11 +36,11 @@
         "\"bounded_public_lean_lake_witness_only\""
       ],
       "sha256": "sha256:7a75134a3df3f8eb446293d8ecac07cc0153ee4cc46fc48ecb74881323f5abb8",
-      "sha256_match": false,
+      "sha256_match": true,
       "source_import_class": "copied_non_secret_formal_math_witness_body",
       "source_ref": "microcosm-substrate/fixtures/first_wave/formal_math_lean_proof_witness/input/witness_manifest.json",
       "source_role": "Public witness manifest with source pattern ids, projection receipt refs, public replacement refs, positive witness metadata, omitted private prover run boundary, and authority ceiling",
-      "source_sha256": "a6ffa51d1da3ac2d6144e82435a38303af6762bfaf19317eff9fa3286915bddc",
+      "source_sha256": "7a75134a3df3f8eb446293d8ecac07cc0153ee4cc46fc48ecb74881323f5abb8",
       "source_to_target_relation": "public_replacement_source_body",
       "target_ref": "microcosm-substrate/examples/formal_math_lean_proof_witness/exported_lean_proof_witness_bundle/witness_manifest.json",
       "target_sha256": "7a75134a3df3f8eb446293d8ecac07cc0153ee4cc46fc48ecb74881323f5abb8"

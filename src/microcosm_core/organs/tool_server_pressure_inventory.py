@@ -1,56 +1,12 @@
 """
-Public organ: lease-aware tool-server / helper-process pressure inventory.
+Implements organs tool server pressure inventory for the public Plectis package.
 
-Source-faithful public refactor of the read-only surface of the macro
-`tools/meta/control/orphan_reaper.py`. The macro mechanism walks the live OS
-process table, classifies tool-server helper processes (MCP servers, dev
-servers, keepalives) by kind, reconstructs each process's owner chain up to 8
-levels to tell a launchd-detached ORPHAN (ppid==1) apart from a live agent
-session descendant, and emits a typed pressure inventory plus an owner-release
-request for over-budget *active* owners.
-
-This public organ keeps the classifier + owner-chain + safety predicate and
-DROPS everything that cannot cross the public boundary:
-
-- NO process signalling. There is no `os.kill`, no `SIGTERM`/`SIGKILL`, no
-  launchd job. The organ is a read-only validator; the central public claim is
-  that an active-owner descendant is NEVER a kill candidate.
-- NO live `ps`. Input is injected synthetic `ps_text` from public fixtures.
-- NO absolute paths or live command previews. Rows carry a `command_hash`
-  only; the private path regexes of the macro become injected synthetic policy
-  (`pressure_policy.json`) and owner taxonomy (`owner_classes.json`).
-
-Redaction is a first-class acceptance condition: `_redaction_findings` rejects
-any fixture/row that smuggles an absolute path, a `command_preview`-style live
-command body, or a process-signal claim through the public surface.
-
-Authority ceiling: projection/validation only. It does not signal processes,
-mutate host state, authorize release, call providers, or claim whole-system
-correctness.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.tool_server_pressure_inventory` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, BUNDLE_RESULT_NAME, INVENTORY_SCHEMA, RELIEF_RECEIPT_SCHEMA, HELPER_OWNER_RELEASE_REQUEST_SCHEMA, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, SOURCE_PATTERN_IDS, SOURCE_REFS, PUBLIC_RUNTIME_REFS, INPUT_NAMES, SOURCE_MODULE_MANIFEST_NAME, SOURCE_IMPORT_CLASS, SOURCE_MODULE_IMPORT_STATUS, SOURCE_OPEN_BODY_SCHEMA, PUBLIC_SAFE_SOURCE_BODY_CLASSES, ACCEPTED_SOURCE_RELATIONS, NEGATIVE_INPUT_NAMES, NEGATIVE_INPUT_STEMS, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `build_tool_server_pressure_inventory`,
+`build_pressure_hygiene_relief_receipt`, `run`, `run_pressure_bundle`, `result_card`, and
+`main`; constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 33
+more pin local fixture names; dependencies include `argparse`, `hashlib`, `json`, `re`, and
+4 more. It builds public fixture, result, card, or verdict structures while keeping private
+substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -232,13 +188,9 @@ ANTI_CLAIM = (
 # --------------------------------------------------------------------------- #
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -254,26 +206,20 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return display for `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for `microcosm_core.organs.tool_server_pressure_inventory._rows`
+    from `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -285,13 +231,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.tool_server_pressure_inventory._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -300,13 +244,11 @@ def _strings(value: object) -> list[str]:
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.tool_server_pressure_inventory._sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -317,26 +259,18 @@ def _sha256(path: Path) -> str:
 
 def _command_hash(cmd: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_command_hash` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive command hash without touching module import state.
+
+    Inputs are `cmd`; notable helpers are `hexdigest`, `sha256`, and `encode`.
     """
     return hashlib.sha256(cmd.encode("utf-8")).hexdigest()[:16]
 
 
 def _walk_dicts(value: object) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_walk_dicts` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return walk dicts for `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Inputs are `value`; notable helpers are `append`, `values`, `extend`, and `_walk_dicts`.
     """
     rows: list[dict[str, Any]] = []
     if isinstance(value, dict):
@@ -358,13 +292,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.tool_server_pressure_inventory._finding` into the
+    payload shape expected by organs tool server pressure inventory.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -387,13 +318,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs tool server pressure inventory flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -412,13 +340,10 @@ def _record(
 # --------------------------------------------------------------------------- #
 def _parse_etime_to_seconds(etime: str) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_parse_etime_to_seconds` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Parse parse etime to seconds for `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Input comes from `etime`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     parts = etime.strip().split("-")
     days = 0
@@ -439,13 +364,10 @@ def _parse_etime_to_seconds(etime: str) -> int:
 
 def _parse_int(value: str) -> int | None:
     """
-    [ACTION]
-    - Teleology: Implements `_parse_int` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Parse parse int for `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Input comes from `value`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     try:
         return int(value)
@@ -455,13 +377,10 @@ def _parse_int(value: str) -> int | None:
 
 def _parse_float(value: str) -> float | None:
     """
-    [ACTION]
-    - Teleology: Implements `_parse_float` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Parse parse float for `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Input comes from `value`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     try:
         return float(value)
@@ -471,13 +390,10 @@ def _parse_float(value: str) -> float | None:
 
 def _parse_process_rows(ps_text: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_parse_process_rows` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Parse parse process rows for `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Input comes from `ps_text`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     processes: list[dict[str, Any]] = []
     for line in ps_text.splitlines():
@@ -511,26 +427,19 @@ def _parse_process_rows(ps_text: str) -> list[dict[str, Any]]:
 
 def _kind_specs(policy: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_kind_specs` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the kind specs value used by
+    `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Inputs are `policy`; notable helpers are `_rows`.
     """
     return _rows(policy, "kinds")
 
 
 def _process_kind(cmd: str, kind_specs: list[dict[str, Any]]) -> str | None:
     """
-    [ACTION]
-    - Teleology: Implements `_process_kind` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return process kind for the organs tool server pressure inventory flow.
+
+    Inputs are `cmd` and `kind_specs`; notable helpers are `_strings` and `get`.
     """
     for spec in kind_specs:
         tokens = _strings(spec.get("match_substrings"))
@@ -541,13 +450,10 @@ def _process_kind(cmd: str, kind_specs: list[dict[str, Any]]) -> str | None:
 
 def _owner_hint_from_command(cmd: str, owner_classes: dict[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_owner_hint_from_command` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the owner hint from command value used by
+    `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Inputs are `cmd` and `owner_classes`; notable helpers are `_rows` and `get`.
     """
     for hint in _rows(owner_classes, "owner_hints"):
         token = str(hint.get("substring") or "")
@@ -565,13 +471,10 @@ def _owner_status_for_process(
     keep_status_by_kind: dict[str, str],
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_owner_status_for_process` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return owner status for process for the organs tool server pressure inventory flow.
+
+    Inputs are `kind`, `ppid`, `process_table`, `owner_classes`, and `keep_status_by_kind`;
+    notable helpers are `add`, `get`, and `_owner_hint_from_command`.
     """
     if kind in keep_status_by_kind:
         return keep_status_by_kind[kind]
@@ -610,13 +513,10 @@ def _inventory_owner_and_decision(
     active_owner_status_values: frozenset[str],
 ) -> tuple[str, str, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_inventory_owner_and_decision` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute inventory owner and decision from `kind`, `ppid`, `age_s`, `allowlist_matched`,
+    `owner_status`, and 3 more.
+
+    Inputs are `kind`, `ppid`, `age_s`, `allowlist_matched`, `owner_status`, and 3 more.
     """
     if kind in keep_kinds:
         return owner_status, KEEP_DECISION, "runtime_not_helper_cleanup"
@@ -643,13 +543,9 @@ def _inventory_owner_and_decision(
 
 def _owner_release_target(owner_status: str, owner_classes: dict[str, Any]) -> str | None:
     """
-    [ACTION]
-    - Teleology: Implements `_owner_release_target` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive owner release target without touching module import state.
+
+    Inputs are `owner_status` and `owner_classes`; notable helpers are `get`.
     """
     targets = owner_classes.get("owner_release_targets")
     if isinstance(targets, dict) and owner_status in targets:
@@ -661,13 +557,11 @@ def _owner_release_request_for_group(
     group: dict[str, Any], owner_classes: dict[str, Any]
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_owner_release_request_for_group` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.tool_server_pressure_inventory._owner_release_request_for_group`
+    into the payload shape expected by organs tool server pressure inventory.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     owner_status = str(group.get("owner_status") or "unknown").strip() or "unknown"
     return {
@@ -702,13 +596,10 @@ def _active_owner_pressure_groups(
     active_owner_status_values: frozenset[str],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_active_owner_pressure_groups` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return active owner pressure groups for the organs tool server pressure inventory flow.
+
+    Inputs are `rows`, `budget_by_kind`, `owner_classes`, and `active_owner_status_values`;
+    notable helpers are `values`, `get`, `setdefault`, `update`, and 3 more.
     """
     buckets: dict[tuple[str, str], dict[str, Any]] = {}
     for row in rows:
@@ -771,18 +662,11 @@ def build_tool_server_pressure_inventory(
     owner_classes: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Classify a synthetic process table into a typed pressure inventory.
+    Serialize
+    `microcosm_core.organs.tool_server_pressure_inventory.build_tool_server_pressure_inventory`
+    into the payload shape expected by organs tool server pressure inventory.
 
-    Pure projection over injected text; never reads a live process table and
-    never signals a process. Rows carry a `command_hash`, never a command
-    preview.
-    - Teleology: Implements `build_tool_server_pressure_inventory` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     kind_specs = _kind_specs(policy)
     min_age_seconds = int(policy.get("min_age_seconds") or DEFAULT_MIN_AGE_SECONDS)
@@ -899,13 +783,11 @@ def build_pressure_hygiene_relief_receipt(
     owner_classes: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_pressure_hygiene_relief_receipt` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.tool_server_pressure_inventory.build_pressure_hygiene_relief_receipt`
+    into the payload shape expected by organs tool server pressure inventory.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     inventory = build_tool_server_pressure_inventory(
         ps_text, policy=policy, owner_classes=owner_classes
@@ -960,13 +842,10 @@ def build_pressure_hygiene_relief_receipt(
 # --------------------------------------------------------------------------- #
 def _redaction_findings(payload: object, *, case_id: str, subject_id: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_redaction_findings` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Build a structured finding row for redaction findings.
+
+    The row carries machine-readable codes and subject identifiers so validators can report
+    failures without parsing text.
     """
     findings: list[dict[str, Any]] = []
     for row in _walk_dicts(payload):
@@ -1012,14 +891,12 @@ def _audit_inventory_claim(
     active_owner_status_values: frozenset[str],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Audit a PROVIDED pressure inventory against the safety contract.
-    - Teleology: Implements `_audit_inventory_claim` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Audit whether audit inventory claim holds for the organs tool server pressure inventory
+    flow.
+
+    The result is derived from `claimed`, `case_id`, `min_age_seconds`, and
+    `active_owner_status_values` with `extend`, `_rows`, `_redaction_findings`, `get`, and 3
+    more; failing evidence is returned or raised exactly where the body says so.
     """
     findings: list[dict[str, Any]] = []
     findings.extend(
@@ -1116,13 +993,10 @@ def _positive_findings(
     owner_classes: dict[str, Any],
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_positive_findings` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Create the finding rows emitted by
+    `microcosm_core.organs.tool_server_pressure_inventory._positive_findings`.
+
+    Each row keeps the machine-readable code and subject reference beside the human message.
     """
     findings: list[dict[str, Any]] = []
     ps_text = str(process_table_payload.get("ps_text") or "")
@@ -1180,13 +1054,10 @@ def _positive_findings(
 
 def _negative_findings(payloads: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_negative_findings` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.tool_server_pressure_inventory._negative_findings` into
+    the payload shape expected by organs tool server pressure inventory.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1221,13 +1092,10 @@ def _negative_findings(payloads: dict[str, Any]) -> dict[str, Any]:
 # --------------------------------------------------------------------------- #
 def _source_module_manifest_path(input_dir: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module manifest path for
+    `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Inputs are `input_dir`.
     """
     return input_dir / SOURCE_MODULE_MANIFEST_NAME
 
@@ -1236,13 +1104,11 @@ def _source_module_target_path(
     target_ref: str, *, input_dir: Path, public_root: Path
 ) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module target path for
+    `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Inputs are `target_ref`, `input_dir`, and `public_root`; notable helpers are
+    `removeprefix` and `startswith`.
     """
     normalized = target_ref.removeprefix("microcosm-substrate/")
     if normalized.startswith("source_modules/"):
@@ -1254,13 +1120,11 @@ def _source_module_manifest_result(
     input_dir: Path, *, public_root: Path, require_manifest: bool
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_result` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.tool_server_pressure_inventory._source_module_manifest_result`
+    into the payload shape expected by organs tool server pressure inventory.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -1452,13 +1316,11 @@ def _source_module_manifest_result(
 
 def _source_open_body_import_summary(source_module_result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.tool_server_pressure_inventory._source_open_body_import_summary`
+    into the payload shape expected by organs tool server pressure inventory.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     module_ids = _strings(source_module_result.get("module_ids"))
     manifest_ref = source_module_result.get("source_module_manifest_ref")
@@ -1501,13 +1363,10 @@ def _source_open_body_import_summary(source_module_result: dict[str, Any]) -> di
 # --------------------------------------------------------------------------- #
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the input paths value used by
+    `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Inputs are `input_dir` and `include_negative`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return [input_dir / name for name in names]
@@ -1515,13 +1374,10 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_paths` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module paths for `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are
+    `_source_module_manifest_path`, `_rows`, `is_file`, `read_json_strict`, and 3 more.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -1544,13 +1400,12 @@ def _source_module_paths(input_dir: Path, *, public_root: Path) -> list[Path]:
 
 def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_scan_paths_for_input` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Scan whether scan paths for input holds for the organs tool server pressure inventory
+    flow.
+
+    The result is derived from `input_dir` and `include_negative` with
+    `_public_root_for_path`, `is_file`, `_input_paths`, and `_source_module_paths`; failing
+    evidence is returned or raised exactly where the body says so.
     """
     public_root = _public_root_for_path(input_dir)
     extra = [input_dir / "bundle_manifest.json"] if (input_dir / "bundle_manifest.json").is_file() else []
@@ -1563,13 +1418,10 @@ def _scan_paths_for_input(input_dir: Path, *, include_negative: bool) -> list[Pa
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.tool_server_pressure_inventory._freshness_basis` into
+    the payload shape expected by organs tool server pressure inventory.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -1621,13 +1473,10 @@ def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, An
 
 def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_bundle_receipt` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return fresh bundle receipt for the organs tool server pressure inventory flow.
+
+    Inputs are `input_dir` and `out_dir`; notable helpers are `_freshness_basis`, `get`,
+    `is_file`, and `read_json_strict`.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -1652,13 +1501,10 @@ def _fresh_bundle_receipt(input_dir: Path, out_dir: Path) -> dict[str, Any] | No
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     payloads: dict[str, Any] = {}
@@ -1672,13 +1518,10 @@ def _build_result(
     input_dir: Path, *, command: str, input_mode: str, include_negative: bool
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.tool_server_pressure_inventory._build_result` into the
+    payload shape expected by organs tool server pressure inventory.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -1773,13 +1616,10 @@ def _build_result(
 
 def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_board` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.tool_server_pressure_inventory._build_board` into the
+    payload shape expected by organs tool server pressure inventory.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "tool_server_pressure_inventory_board_v1",
@@ -1815,13 +1655,9 @@ def _common_receipt(
     result: dict[str, Any], *, schema_version: str, receipt_paths: list[str]
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_common_receipt` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return common receipt for `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Inputs are `result`, `schema_version`, and `receipt_paths`; notable helpers are `get`.
     """
     keys = (
         "status",
@@ -1871,13 +1707,10 @@ def _write_receipts(
     result: dict[str, Any], out_dir: Path, *, acceptance_out: Path | None
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write receipts for the organs tool server pressure inventory flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     public_root = _public_root_for_path(out_dir)
     paths = {
@@ -1928,13 +1761,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for `microcosm_core.organs.tool_server_pressure_inventory`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `_build_result`, `_freshness_basis`, `_write_receipts`, and `Path`.
     """
     result = _build_result(
         Path(input_dir),
@@ -1959,13 +1789,10 @@ def run_pressure_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_pressure_bundle` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return run pressure bundle for the organs tool server pressure inventory flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `_public_root_for_path`, `_build_result`, `_freshness_basis`, and 5 more.
     """
     source = Path(input_dir)
     target = Path(out_dir)
@@ -1997,13 +1824,10 @@ def run_pressure_bundle(
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.tool_server_pressure_inventory.result_card` into the
+    payload shape expected by organs tool server pressure inventory.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     basis = result.get("freshness_basis") if isinstance(result.get("freshness_basis"), dict) else {}
     sob = result.get("source_open_body_imports") if isinstance(result.get("source_open_body_imports"), dict) else {}
@@ -2048,13 +1872,10 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def _parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `_parser` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for `microcosm_core.organs.tool_server_pressure_inventory._parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(
         description="Validate public tool-server / helper-process pressure inventory"
@@ -2074,13 +1895,10 @@ def _parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.tool_server_pressure_inventory` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.organs.tool_server_pressure_inventory` command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = _parser().parse_args(argv)
     card_suffix = " --card" if args.card else ""

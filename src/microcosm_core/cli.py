@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.cli` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements cli for the public Plectis package.
 
-[INTERFACE]
-- Exports: TEXT_READER_CHOICES, first_screen_composition, project_substrate, comprehension, runtime_shell, runtime_evidence_index, resource_root, crown_jewel_demo, macro_engines_gallery, engine_room_demo, finance_eval_spine, organ_surface_contract, agent_entry_composition, organ_discoverability_matrix, work_landing_control_spine, agent_closeout_faithfulness_audit, agent_benchmark_integrity_anti_gaming_replay, agent_memory_temporal_conflict_replay, agent_monitor_redteam_falsification_replay, agent_route_observability_runtime, agent_sabotage_scheming_monitor_replay, agent_sandbox_policy_escape_replay, agentic_vulnerability_discovery_patch_proof_replay, belief_state_process_reward_replay, ...
-- Reads: call arguments, module constants, imported helpers.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core, microcosm_core.receipts, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `main`; constants such as `TEXT_READER_CHOICES`, `MICROCOSM_ROOT`,
+`DEFAULT_PROJECT_REL`, `PROOF_LAB_BUNDLE_REF`, and 27 more pin local fixture names;
+dependencies include `argparse`, `errno`, `importlib`, `json`, and 6 more. Importing it does
+not authorize release work or hidden private-state access; those effects live behind
+explicit calls.
 """
 from __future__ import annotations
 
@@ -40,28 +24,18 @@ from microcosm_core import __version__
 
 class _LazyModule:
     """
-    [ROLE]
-    Deferred-import proxy that loads a target module only on first attribute access.
+    Stateful helper for Lazy Module in `microcosm_core.cli`.
 
-    - Teleology: keeps CLI startup fast by deferring heavy organ/validator imports until their command runs.
-    - Guarantee: attribute access resolves against the real module, imported at most once and memoized.
-    - Fails: target module import error -> propagates ImportError on first access.
-    - Ownership: Owned by `microcosm_core.cli`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    Methods such as `loaded` and `_load` share the instance state instead of passing a loose
+    dictionary through the call chain.
     """
 
     def __init__(self, module_name: str) -> None:
         """
-        [ACTION]
-        Record the target module name without importing it.
+        Initialize `_LazyModule` with `module_name`.
 
-        - Teleology: capture the import target so the real module loads lazily on first use.
-        - Guarantee: stores `_module_name` and a None `_module` slot; no import performed.
-        - Fails: None.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The assignments in this method define the instance state later read by
+        `microcosm_core.cli` methods.
         """
         object.__setattr__(self, "_module_name", module_name)
         object.__setattr__(self, "_module", None)
@@ -69,29 +43,19 @@ class _LazyModule:
     @property
     def loaded(self) -> bool:
         """
-        [ACTION]
-        Report whether the target module has been imported yet.
+        Return whether loaded holds for the cli flow.
 
-        - Teleology: lets callers/tests probe lazy-load state without triggering an import.
-        - Guarantee: returns True iff `_load` has already imported the module.
-        - Fails: None.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The result is derived from the caller-supplied state; failing evidence is returned
+        or raised exactly where the body says so.
         """
         return object.__getattribute__(self, "_module") is not None
 
     def _load(self):
         """
-        [ACTION]
-        Import and memoize the target module, returning the live module object.
+        Import and cache the target module for `_LazyModule`.
 
-        - Teleology: the single import chokepoint that realizes the deferred module.
-        - Guarantee: returns the imported module; subsequent calls return the cached instance.
-        - Fails: module name not importable -> raises ImportError/ModuleNotFoundError.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The module name was captured at construction time, so repeated attribute access
+        reuses the same imported module object.
         """
         module = object.__getattribute__(self, "_module")
         if module is None:
@@ -101,29 +65,19 @@ class _LazyModule:
 
     def __getattr__(self, name: str):
         """
-        [ACTION]
-        Proxy attribute reads to the lazily loaded module.
+        Forward missing CLI attributes to the cached backing module.
 
-        - Teleology: makes the proxy transparent so `module.symbol` works after first access.
-        - Guarantee: returns the named attribute of the loaded module.
-        - Fails: name absent on the module -> raises AttributeError (after load).
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The import happens lazily through `_load`, then normal `getattr` resolves the
+        requested command symbol.
         """
         return getattr(self._load(), name)
 
     def __setattr__(self, name: str, value) -> None:
         """
-        [ACTION]
-        Route private assignments to the proxy and public ones to the loaded module.
+        Run python protocol `__setattr__` on `_LazyModule` for `microcosm_core.cli`.
 
-        - Teleology: keep proxy bookkeeping (`_`-prefixed) separate from forwarded module state.
-        - Guarantee: `_`-prefixed names set on the proxy; other names set on the loaded module.
-        - Fails: setting a public name triggers a load that may raise ImportError.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The function is a named boundary around the visible side effect or orchestration
+        step in its body.
         """
         if name.startswith("_"):
             object.__setattr__(self, name, value)
@@ -133,43 +87,28 @@ class _LazyModule:
 
 class _LazyPath:
     """
-    [ROLE]
-    Deferred-resolution Path proxy that computes its path only on first use.
+    Stateful helper for Lazy Path in `microcosm_core.cli`.
 
-    - Teleology: lets module-level path constants defer resource-root resolution until a command needs them.
-    - Guarantee: behaves like a Path (fspath, truediv, str, eq, hash) backed by a once-resolved value.
-    - Fails: path_loader raises -> propagates on first resolution.
-    - Ownership: Owned by `microcosm_core.cli`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
+    Methods such as `_load` share the instance state instead of passing a loose dictionary
+    through the call chain.
     """
 
     def __init__(self, path_loader) -> None:
         """
-        [ACTION]
-        Store the path-producing callable without invoking it.
+        Store constructor inputs for `_LazyPath`.
 
-        - Teleology: capture how to compute the path so resolution can be deferred to first use.
-        - Guarantee: stores `_path_loader` and a None `_path` slot; loader not called.
-        - Fails: None.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The instance keeps `path_loader` for later methods; validation remains in the
+        methods that need it.
         """
         object.__setattr__(self, "_path_loader", path_loader)
         object.__setattr__(self, "_path", None)
 
     def _load(self) -> Path:
         """
-        [ACTION]
-        Invoke the loader once and memoize the resolved Path.
+        Resolve and cache the path produced by `_LazyPath`.
 
-        - Teleology: the single chokepoint that realizes the deferred path.
-        - Guarantee: returns a Path; the loader runs at most once and the result is cached.
-        - Fails: path_loader raises -> propagates.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The loader is called once, wrapped as a `Path`, and reused for later filesystem
+        protocol calls.
         """
         path = object.__getattribute__(self, "_path")
         if path is None:
@@ -179,85 +118,53 @@ class _LazyPath:
 
     def __fspath__(self) -> str:
         """
-        [ACTION]
-        Return the os.PathLike string for the resolved path.
+        Implement `__fspath__` for `_LazyPath`.
 
-        - Teleology: lets the proxy be passed to filesystem APIs that accept os.PathLike.
-        - Guarantee: returns str(resolved path).
-        - Fails: path_loader raises on first resolution -> propagates.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The method adapts this object to the Python protocol expected by callers while
+        leaving the real lookup or comparison in the visible method body.
         """
         return str(self._load())
 
     def __truediv__(self, other):
         """
-        [ACTION]
-        Join a child segment onto the resolved path.
+        Produce the python protocol `__truediv__` value used by `microcosm_core.cli`.
 
-        - Teleology: supports `MICROCOSM_ROOT / "..."` path composition on the proxy.
-        - Guarantee: returns a Path equal to resolved_path / other.
-        - Fails: path_loader raises on first resolution -> propagates.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Inputs are `other`; notable helpers are `_load`.
         """
         return self._load() / other
 
     def __getattr__(self, name: str):
         """
-        [ACTION]
-        Proxy attribute reads to the resolved Path.
+        Implement `__getattr__` for `_LazyPath`.
 
-        - Teleology: makes the proxy transparent for Path attributes/methods.
-        - Guarantee: returns the named attribute of the resolved Path.
-        - Fails: name absent on Path -> raises AttributeError (after resolution).
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The method adapts this object to the Python protocol expected by callers while
+        leaving the real lookup or comparison in the visible method body.
         """
         return getattr(self._load(), name)
 
     def __str__(self) -> str:
         """
-        [ACTION]
-        Return the resolved path as a string.
+        Compute python protocol `__str__` on `_LazyPath` from the caller-supplied state.
 
-        - Teleology: render the proxy in string contexts/logging.
-        - Guarantee: returns str(resolved path).
-        - Fails: path_loader raises on first resolution -> propagates.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `_load`.
         """
         return str(self._load())
 
     def __repr__(self) -> str:
         """
-        [ACTION]
-        Return the repr of the resolved path.
+        Derive python protocol `__repr__` on `_LazyPath` without touching module import
+        state.
 
-        - Teleology: render the proxy in debug/repr contexts.
-        - Guarantee: returns repr(resolved path).
-        - Fails: path_loader raises on first resolution -> propagates.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `repr` and `_load`.
         """
         return repr(self._load())
 
     def __eq__(self, other: object) -> bool:
         """
-        [ACTION]
-        Compare the resolved path against another path-like value.
+        Implement `__eq__` for `_LazyPath`.
 
-        - Teleology: lets proxy values participate in path equality checks.
-        - Guarantee: returns True iff resolved path equals Path(other).
-        - Fails: other not Path-coercible -> returns False (TypeError swallowed).
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        The method adapts this object to the Python protocol expected by callers while
+        leaving the real lookup or comparison in the visible method body.
         """
         try:
             return self._load() == Path(other)  # type: ignore[arg-type]
@@ -266,15 +173,9 @@ class _LazyPath:
 
     def __hash__(self) -> int:
         """
-        [ACTION]
-        Return the hash of the resolved path.
+        Produce the python protocol `__hash__` value used by `microcosm_core.cli`.
 
-        - Teleology: keeps the proxy hashable/usable in sets and dict keys consistent with __eq__.
-        - Guarantee: returns hash(resolved path).
-        - Fails: path_loader raises on first resolution -> propagates.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Notable helpers are `hash` and `_load`.
         """
         return hash(self._load())
 
@@ -302,15 +203,10 @@ TEXT_READER_CHOICES = (
 
 def _nonnegative_int(value: str) -> int:
     """
-    [ACTION]
-    argparse type that parses a string into a non-negative int.
+    Produce the nonnegative int value used by `microcosm_core.cli`.
 
-    - Teleology: validates `--limit`-style options that must not be negative.
-    - Guarantee: returns the parsed int when >= 0.
-    - Fails: value < 0 -> raises argparse.ArgumentTypeError; non-int -> ValueError from int().
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Inputs are `value`; notable helpers are `ArgumentTypeError`; invalid cases raise from
+    the explicit checks in the body.
     """
     parsed = int(value)
     if parsed < 0:
@@ -579,15 +475,10 @@ transaction_evidence_stability = _LazyModule(
 
 def _read_json_strict(path: Path):
     """
-    [ACTION]
-    Read and strictly parse a JSON file via the schemas helper.
+    Read read JSON strict for `microcosm_core.cli`.
 
-    - Teleology: lazy-import wrapper so the CLI reads receipts without importing schemas at module load.
-    - Guarantee: returns the strictly-parsed JSON value at `path`.
-    - Fails: missing/invalid JSON -> raises whatever read_json_strict raises.
-    - Reads: `path` JSON file.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     from microcosm_core.schemas import read_json_strict
 
@@ -596,15 +487,10 @@ def _read_json_strict(path: Path):
 
 def _write_json_atomic(path: Path, payload: dict) -> None:
     """
-    [ACTION]
-    Atomically write a JSON payload via the receipts helper.
+    Write write JSON atomic for the cli flow.
 
-    - Teleology: lazy-import wrapper for atomic receipt writes from the CLI.
-    - Guarantee: `path` contains the serialized payload after an atomic replace.
-    - Fails: unwritable path -> raises whatever write_json_atomic raises.
-    - Writes: `path` JSON file.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     from microcosm_core.receipts import write_json_atomic
 
@@ -613,30 +499,19 @@ def _write_json_atomic(path: Path, payload: dict) -> None:
 
 def _public_root_for_project(project: str | None) -> Path | None:
     """
-    [ACTION]
-    Resolve the public Plectis root that owns a given project arg.
+    Derive public root for project without touching module import state.
 
-    - Teleology: maps a project path to its enclosing public root for runtime-shell rooting.
-    - Guarantee: returns the resolved public root Path or None when unresolved.
-    - Fails: None (delegates to resource_root.project_public_root).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project`; notable helpers are `project_public_root`.
     """
     return resource_root.project_public_root(project)
 
 
 def _runtime_project_arg(project: str | None) -> str | None:
     """
-    [ACTION]
-    Normalize a project arg into an absolute, cwd-anchored path string.
+    Return runtime project arg for the cli flow.
 
-    - Teleology: gives runtime commands a stable absolute project ref regardless of cwd-relative input.
-    - Guarantee: returns an absolute resolved path string, or None when project is None.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project`; notable helpers are `expanduser`, `is_absolute`, `resolve`,
+    `Path`, and 1 more.
     """
     if project is None:
         return None
@@ -649,30 +524,19 @@ def _runtime_project_arg(project: str | None) -> str | None:
 
 def _runtime_root_for_project_arg(project: str | None) -> Path | None:
     """
-    [ACTION]
-    Resolve the public root for a project arg (thin alias of _public_root_for_project).
+    Return runtime root for project arg for the cli flow.
 
-    - Teleology: name the public-root lookup at the runtime-command call site.
-    - Guarantee: returns the resolved public root Path or None.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project`; notable helpers are `_public_root_for_project`.
     """
     return _public_root_for_project(project)
 
 
 def _cli_project_command_ref(project: str | None) -> str | None:
     """
-    [ACTION]
-    Render a public-safe `<project>` token for emitted command strings.
+    Produce the cli project command ref value used by `microcosm_core.cli`.
 
-    - Teleology: keeps host-private/absolute/.. project paths out of public command echoes.
-    - Guarantee: returns a repo-relative-style ref, or the `<project>` placeholder when the path is private/absolute/.. or empty.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project`; notable helpers are `strip`, `Path`, `startswith`, and
+    `is_absolute`.
     """
     if project is None:
         return None
@@ -687,15 +551,10 @@ def _cli_project_command_ref(project: str | None) -> str | None:
 
 def _replace_project_placeholder(value, project_ref: str):
     """
-    [ACTION]
-    Recursively substitute the `<project>` placeholder in strings/lists/dicts.
+    Return replace project placeholder for the cli flow.
 
-    - Teleology: render command/ref templates with the caller's concrete project ref.
-    - Guarantee: returns a structure with every `<project>` occurrence replaced by project_ref; non-containers pass through unchanged.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Inputs are `value` and `project_ref`; notable helpers are `replace`,
+    `_replace_project_placeholder`, and `items`.
     """
     if isinstance(value, str):
         return value.replace("<project>", project_ref)
@@ -711,15 +570,9 @@ def _replace_project_placeholder(value, project_ref: str):
 
 def _status_card_project_ref(payload: dict) -> str:
     """
-    [ACTION]
-    Pick the project ref from a status payload, falling back to `<project>`.
+    Return status card project ref for the cli flow.
 
-    - Teleology: find the project label to render into status-card command/endpoint strings.
-    - Guarantee: returns payload.project_ref, else front_door.project_ref, else the `<project>` placeholder.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `get`.
     """
     front_door = payload.get("front_door")
     front_door_project_ref = (
@@ -814,15 +667,9 @@ Receipts are evidence drilldowns after the behavior route is visible.
 
 def _display_program_name(argv0: str | None) -> str:
     """
-    [ACTION]
-    Select the public program name to render in first-screen CLI help.
+    Return display program name for the cli flow.
 
-    - Teleology: keep `plectis` as the canonical first-screen name while preserving the supported `microcosm` compatibility alias when invoked directly.
-    - Guarantee: returns `plectis` or `microcosm`; unknown/module invocations default to `plectis`.
-    - Fails: None.
-    - Preconditions: Caller supplies argv0 or None; no filesystem path needs to exist.
-    - Reads: call arguments and module constants.
-    - Writes: return values.
+    Inputs are `argv0`; notable helpers are `Path`.
     """
     if argv0:
         program = Path(argv0).name
@@ -833,15 +680,9 @@ def _display_program_name(argv0: str | None) -> str:
 
 def _first_screen_help(program: str) -> str:
     """
-    [ACTION]
-    Render first-screen help examples for the selected public program name.
+    Derive first screen help without touching module import state.
 
-    - Teleology: make the root command registry consistent with whichever supported console alias is being displayed.
-    - Guarantee: returns the static first-screen help with command examples rewritten from the canonical compatibility alias to `program`.
-    - Fails: None.
-    - Preconditions: Caller passes a non-empty display program string.
-    - Reads: call arguments and `FIRST_SCREEN_HELP`.
-    - Writes: return values.
+    Inputs are `program`; notable helpers are `replace`.
     """
     return FIRST_SCREEN_HELP.replace("plectis", program)
 
@@ -1150,15 +991,10 @@ progress, or authorize release.
 
 def _add_root_out(parser: argparse.ArgumentParser) -> None:
     """
-    [ACTION]
-    Add the shared required `--root`/`--out` options to a validator subparser.
+    Configure argparse for add root out.
 
-    - Teleology: factor the common root-in/out-out arg pair shared by validator commands.
-    - Guarantee: parser gains required `--root` and `--out` string options.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The function mutates `parser` by registering the flags, subcommands, or defaults used by
+    this command surface.
     """
     parser.add_argument("--root", required=True)
     parser.add_argument("--out", required=True)
@@ -1166,15 +1002,10 @@ def _add_root_out(parser: argparse.ArgumentParser) -> None:
 
 def _add_input_out(parser: argparse.ArgumentParser) -> None:
     """
-    [ACTION]
-    Add the shared required `--input`/`--out` options to a bundle subparser.
+    Configure argparse for add input out.
 
-    - Teleology: factor the common input-in/out-out arg pair shared by organ bundle commands.
-    - Guarantee: parser gains required `--input` and `--out` string options.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The function mutates `parser` by registering the flags, subcommands, or defaults used by
+    this command surface.
     """
     parser.add_argument("--input", required=True)
     parser.add_argument("--out", required=True)
@@ -1182,15 +1013,10 @@ def _add_input_out(parser: argparse.ArgumentParser) -> None:
 
 def _add_input_out_acceptance(parser: argparse.ArgumentParser) -> None:
     """
-    [ACTION]
-    Add `--input`/`--out` plus an optional `--acceptance-out` to a bundle subparser.
+    Configure argparse for add input out acceptance.
 
-    - Teleology: factor the input/out + acceptance-receipt arg shape shared by acceptance-aware organs.
-    - Guarantee: parser gains required `--input`/`--out` and optional `--acceptance-out`.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The function mutates `parser` by registering the flags, subcommands, or defaults used by
+    this command surface.
     """
     _add_input_out(parser)
     parser.add_argument("--acceptance-out")
@@ -1198,15 +1024,9 @@ def _add_input_out_acceptance(parser: argparse.ArgumentParser) -> None:
 
 def _organ_command_args(args: argparse.Namespace) -> list[str]:
     """
-    [ACTION]
-    Build the delegated organ argv from parsed action/input/out (+ acceptance) args.
+    Produce the organ command args value used by `microcosm_core.cli`.
 
-    - Teleology: translate top-level CLI args into the argv list a delegated organ.main expects.
-    - Guarantee: returns [action, --input, input, --out, out] plus --acceptance-out when present/truthy.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Inputs are `args`; notable helpers are `extend`.
     """
     organ_args = [args.action, "--input", args.input, "--out", args.out]
     acceptance_out = getattr(args, "acceptance_out", None)
@@ -1217,15 +1037,10 @@ def _organ_command_args(args: argparse.Namespace) -> list[str]:
 
 def _add_preflight(parser: argparse.ArgumentParser) -> None:
     """
-    [ACTION]
-    Add the required `--readiness`/`--negative-matrix`/`--out` preflight options.
+    Configure argparse for add preflight.
 
-    - Teleology: factor the preflight arg shape shared by dependency/fixture-freshness commands.
-    - Guarantee: parser gains required `--readiness`, `--negative-matrix`, and `--out` options.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The function mutates `parser` by registering the flags, subcommands, or defaults used by
+    this command surface.
     """
     parser.add_argument("--readiness", required=True)
     parser.add_argument("--negative-matrix", required=True)
@@ -1234,15 +1049,10 @@ def _add_preflight(parser: argparse.ArgumentParser) -> None:
 
 def _add_public_lens_parsers(subparsers) -> None:
     """
-    [ACTION]
-    Register every public-lens subcommand with shared `--card`/optional project args.
+    Configure argparse for add public lens parsers.
 
-    - Teleology: bulk-register the read-only public lens commands from PUBLIC_LENS_COMMAND_HELP.
-    - Guarantee: each public-lens command gains a subparser with `--card` and an optional `project` arg (plus epilog where defined).
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The function mutates `subparsers` by registering the flags, subcommands, or defaults
+    used by this command surface.
     """
     compact_card_help = {
         "spine": "emit the compact first-screen spine lens",
@@ -1297,15 +1107,10 @@ ROOT_HELP_BUNDLE_COMMANDS: frozenset[str] = frozenset(
 
 def _add_bundle_parser(subparsers, command: str) -> argparse.ArgumentParser:
     """
-    [ACTION]
-    Create a bundle subparser wired with help/description/epilog for one command.
+    Configure argparse for add bundle parser.
 
-    - Teleology: standardize organ bundle subparser creation with consistent help/epilog metadata.
-    - Guarantee: returns the added subparser carrying the command's help/description and epilog when defined.
-    - Fails: command not in PUBLIC_BUNDLE_COMMAND_HELP -> raises KeyError.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    The function mutates `subparsers` and `command` by registering the flags, subcommands,
+    or defaults used by this command surface.
     """
     help_text = PUBLIC_BUNDLE_COMMAND_HELP[command]
     kwargs = {"description": help_text}
@@ -1320,15 +1125,9 @@ def _add_bundle_parser(subparsers, command: str) -> argparse.ArgumentParser:
 
 def _print_json(payload: dict, *, exit_code: int | None = None) -> int:
     """
-    [ACTION]
-    Print a payload as sorted ASCII JSON and return a status-derived exit code.
+    Produce the print JSON value used by `microcosm_core.cli`.
 
-    - Teleology: the shared JSON emit + exit-code chokepoint for CLI commands.
-    - Guarantee: writes the indented JSON to stdout and returns exit_code if given, else 0 when status=='pass' otherwise 1.
-    - Fails: None.
-    - Writes: stdout.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `payload` and `exit_code`; notable helpers are `dumps` and `get`.
     """
     print(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True))
     if exit_code is not None:
@@ -1338,15 +1137,9 @@ def _print_json(payload: dict, *, exit_code: int | None = None) -> int:
 
 def _display_command(command: object) -> str:
     """
-    [ACTION]
-    Normalize a stored command string to its short ``plectis ...`` display form.
+    Produce the display command value used by `microcosm_core.cli`.
 
-    - Teleology: the cold-entry card shows one command spelling (``plectis X``); the
-      verbose ``PYTHONPATH=src python3 -m microcosm_core X`` source form is a single
-      footnote, not duplicated on every row.
-    - Guarantee: returns the command with any known source-only prefix rewritten to
-      ``plectis``; returns the input unchanged when no prefix matches; ``""`` for empty.
-    - Reads: call argument only. Writes: return value.
+    Inputs are `command`; notable helpers are `strip` and `startswith`.
     """
     text = str(command or "").strip()
     if not text:
@@ -1364,17 +1157,10 @@ def _display_command(command: object) -> str:
 
 def _render_comprehend_card(pack: dict) -> str:
     """
-    [ACTION]
-    Render a comprehension pack as an answer-first cold-entry text card.
+    Derive render comprehend card without touching module import state.
 
-    - Teleology: a cold human/agent running the first documented command sees the
-      actual answer first, then the proof, then navigation, with the authority
-      ceiling stated once at the tail -- not a sorted-JSON firehose that opens with
-      ``authority_ceiling`` / ``budget`` / ``do_not_claim`` before the answer.
-    - Guarantee: returns a plain-text card; metadata/ceiling never precede the answer;
-      commands display as ``plectis ...`` with a single source-only footnote; absent
-      sections are skipped so the renderer degrades across comprehend modes.
-    - Reads: the pack dict only. Writes: returns a string (no stdout/files).
+    Inputs are `pack`; notable helpers are `get`, `strip`, `append`, `_display_command`, and
+    4 more.
     """
     lines: list[str] = []
     mode = str(pack.get("mode") or pack.get("packet_id") or "comprehension")
@@ -1542,15 +1328,9 @@ def _render_comprehend_card(pack: dict) -> str:
 
 def _status_card_exit_code(payload: dict) -> int:
     """
-    [ACTION]
-    Map a status-card payload to an exit code, tolerating actionable missing-state.
+    Derive status card exit code without touching module import state.
 
-    - Teleology: treat a project whose only block is recoverable missing `.microcosm` state as exit 0.
-    - Guarantee: returns 0 when status is pass, or when the sole blocking surfaces are project_state/state_write_proof with an actionable `plectis tour --card` recovery; else 1.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `get`, `issubset`, and `startswith`.
     """
     if payload.get("status") == "pass":
         return 0
@@ -1582,15 +1362,9 @@ def _status_card_exit_code(payload: dict) -> int:
 
 def _proof_lab_card_exit_code(payload: dict) -> int:
     """
-    [ACTION]
-    Map a proof-lab card payload to an exit code, tolerating actionable stale cache.
+    Return proof lab card exit code for the cli flow.
 
-    - Teleology: let a stale-but-recoverable cached receipt still exit 0 when an action hint is present.
-    - Guarantee: returns 0 when status is pass, or when status is stale_cached_receipt with an actionable cache_action; else 1.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `get`.
     """
     if payload.get("status") == "pass":
         return 0
@@ -1606,15 +1380,10 @@ def _proof_lab_card_exit_code(payload: dict) -> int:
 
 def _project_evidence_state_boundary(project_arg: str) -> dict | None:
     """
-    [ACTION]
-    Return an evidence-boundary card when a project is missing or lacks `.microcosm` state.
+    Serialize `microcosm_core.cli._project_evidence_state_boundary` into the payload shape
+    expected by cli.
 
-    - Teleology: stop evidence drilldown early with a reader-action card when prerequisites are absent.
-    - Guarantee: returns a missing_project/missing_state boundary dict, or None when the project and `.microcosm` dir both exist.
-    - Fails: None.
-    - Reads: the project path and its `.microcosm` directory on disk.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     project = Path(project_arg).expanduser()
     if not _path_exists(project):
@@ -1657,15 +1426,10 @@ def _project_evidence_state_boundary(project_arg: str) -> dict | None:
 
 def _proof_lab_first_screen_boundary() -> dict:
     """
-    [ACTION]
-    Return the proof-lab first-screen authority/anti-claims boundary block.
+    Serialize `microcosm_core.cli._proof_lab_first_screen_boundary` into the payload shape
+    expected by cli.
 
-    - Teleology: stamp every proof-lab card with its explicit non-authority ceiling.
-    - Guarantee: returns a dict with the authority string and a copy of the anti-claims map.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "authority": PROOF_LAB_FIRST_SCREEN_AUTHORITY,
@@ -1675,15 +1439,10 @@ def _proof_lab_first_screen_boundary() -> dict:
 
 def _proof_lab_cache_action_hint(cache_status: object) -> dict:
     """
-    [ACTION]
-    Produce an actionable hint for refreshing a stale/missing proof-lab receipt cache.
+    Serialize `microcosm_core.cli._proof_lab_cache_action_hint` into the payload shape
+    expected by cli.
 
-    - Teleology: tell the reader the exact command to rebuild a stale/missing tmp receipt.
-    - Guarantee: returns an actionable/missing hint with the rebuild command for stale/missing cache, else a not_needed hint.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if cache_status == "stale_cached_receipt":
         return {
@@ -1704,30 +1463,19 @@ def _proof_lab_cache_action_hint(cache_status: object) -> dict:
 
 def _proof_lab_fresh_receipt_required(cache_status: object) -> bool:
     """
-    [ACTION]
-    Report whether the proof-lab cache state demands a fresh receipt rebuild.
+    Return whether proof lab fresh receipt required holds for the cli flow.
 
-    - Teleology: single predicate for stale/missing proof-lab cache detection.
-    - Guarantee: returns True iff cache_status is stale_cached_receipt or missing_cached_receipt.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `cache_status`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return cache_status in {"stale_cached_receipt", "missing_cached_receipt"}
 
 
 def _proof_lab_status_scope(cache_status: object) -> str:
     """
-    [ACTION]
-    Describe what a proof-lab status currently attests given its cache freshness.
+    Return proof lab status scope for the cli flow.
 
-    - Teleology: keep the card honest about whether status covers cache freshness or only route presence.
-    - Guarantee: returns 'route_presence_not_cache_freshness' when a fresh receipt is required, else 'route_presence_and_cache_freshness'.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `cache_status`; notable helpers are `_proof_lab_fresh_receipt_required`.
     """
     if _proof_lab_fresh_receipt_required(cache_status):
         return "route_presence_not_cache_freshness"
@@ -1736,15 +1484,10 @@ def _proof_lab_status_scope(cache_status: object) -> str:
 
 def _emit_hello(project: str, reader: str) -> int:
     """
-    [ACTION]
-    Print the cold-entry first-screen text card for a reader and return its exit code.
+    Emit emit hello for the cli flow.
 
-    - Teleology: render the `plectis hello` reader-branched first-screen card.
-    - Guarantee: writes the reader-focused text card to stdout and returns 0 when the card status is 'pass', else 1.
-    - Fails: None.
-    - Writes: stdout.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     payload = first_screen_composition.first_screen_composition_card(
         project_label=project
@@ -1761,15 +1504,10 @@ def _emit_hello(project: str, reader: str) -> int:
 
 def _emit_first_screen(project: str, *, output_format: str, full: bool, reader: str) -> int:
     """
-    [ACTION]
-    Emit the first-screen card as text or (compact/full) JSON and return its exit code.
+    Emit emit first screen for the cli flow.
 
-    - Teleology: render the `plectis first-screen` card in the requested format/depth.
-    - Guarantee: prints the text or JSON card (full vs compact) and returns 0 when status=='pass', else 1.
-    - Fails: None.
-    - Writes: stdout.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     payload = first_screen_composition.first_screen_composition_card(
         project_label=project
@@ -1790,28 +1528,16 @@ def _emit_first_screen(project: str, *, output_format: str, full: bool, reader: 
 
 def _tour_text_card(card: dict[str, object]) -> str:
     """
-    [ACTION]
-    Render the compact tour card as a short, human-readable witness.
+    Return tour text card for the cli flow.
 
-    - Teleology: give a cold human (and the README "See it work" block) a plain
-      summary of what one local run produced, instead of the machine JSON card.
-    - Guarantee: returns a newline-terminated text block read only from flat
-      fields of the compact tour card; opens no source and mutates no state.
-    - Fails: None - missing fields degrade to a dash.
-    - Writes: nothing (returns the rendered string).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    Inputs are `card`; notable helpers are `_get`, `get`, and `join`.
     """
 
     def _get(source: object, key: str) -> object:
         """
-        [ACTION]
-        - Teleology: Implements `_tour_text_card._get` for `microcosm_core.cli` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Derive get without touching module import state.
+
+        Inputs are `source` and `key`; notable helpers are `get`.
         """
         return source.get(key) if isinstance(source, dict) else None
 
@@ -1884,15 +1610,10 @@ def _tour_text_card(card: dict[str, object]) -> str:
 
 def _first_screen_fast_path(argv: list[str] | None) -> int | None:
     """
-    [ACTION]
-    Handle `hello`/`first-screen` before the full parser builds, for fast cold entry.
+    Configure argparse for first screen fast path.
 
-    - Teleology: serve the cold-entry first-screen commands without paying the cost of the giant subparser/import graph.
-    - Guarantee: returns the command exit code when argv[0] is 'hello' or 'first-screen', else None to fall through to full dispatch.
-    - Fails: bad flags for these commands -> argparse raises SystemExit.
-    - Writes: stdout (only when it handles the command).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
+    The function mutates `argv` by registering the flags, subcommands, or defaults used by
+    this command surface.
     """
     raw_argv = list(sys.argv[1:] if argv is None else argv)
     if not raw_argv:
@@ -1965,15 +1686,10 @@ def _first_screen_fast_path(argv: list[str] | None) -> int | None:
 
 def _public_ref(path_ref: str) -> str:
     """
-    [ACTION]
-    Render a path as a repo-relative ref when it lives under the Microcosm root.
+    Compute public ref from `path_ref`.
 
-    - Teleology: keep emitted refs repo-relative (and host-private-root free) where possible.
-    - Guarantee: returns the posix path relative to MICROCOSM_ROOT, or the original ref when it is outside the root.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path_ref`; notable helpers are `Path`, `as_posix`, `relative_to`, and
+    `resolve`.
     """
     path = Path(path_ref)
     try:
@@ -1985,15 +1701,10 @@ def _public_ref(path_ref: str) -> str:
 
 def _display_local_ref(path_ref: str, *, placeholder: str) -> str:
     """
-    [ACTION]
-    Map a local path to a public-safe display ref, normalizing tmp and masking private roots.
+    Derive display local ref without touching module import state.
 
-    - Teleology: prevent host-private absolute paths from leaking into emitted command/ref strings.
-    - Guarantee: returns the repo-relative ref, a relative ref unchanged, a /tmp-normalized ref, or the supplied placeholder for other absolute paths.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path_ref` and `placeholder`; notable helpers are `_public_ref`, `Path`,
+    `as_posix`, `startswith`, and 2 more.
     """
     public_ref = _public_ref(path_ref)
     if public_ref != path_ref:
@@ -2015,45 +1726,28 @@ def _display_local_ref(path_ref: str, *, placeholder: str) -> str:
 
 def _proof_lab_input_ref(input_path: str) -> str:
     """
-    [ACTION]
-    Render a proof-lab input path as a public-safe display ref.
+    Compute proof lab input ref from `input_path`.
 
-    - Teleology: keep proof-lab input paths public-safe in emitted commands.
-    - Guarantee: returns the display ref with the proof-lab input placeholder for masked private paths.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_path`; notable helpers are `_display_local_ref`.
     """
     return _display_local_ref(input_path, placeholder=PROOF_LAB_INPUT_PLACEHOLDER)
 
 
 def _proof_lab_output_ref(out_dir: str) -> str:
     """
-    [ACTION]
-    Render a proof-lab output dir as a public-safe display ref.
+    Produce the proof lab output ref value used by `microcosm_core.cli`.
 
-    - Teleology: keep proof-lab output paths public-safe in emitted commands.
-    - Guarantee: returns the display ref with the proof-lab out placeholder for masked private paths.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `out_dir`; notable helpers are `_display_local_ref`.
     """
     return _display_local_ref(out_dir, placeholder=PROOF_LAB_OUT_PLACEHOLDER)
 
 
 def _proof_lab_command(input_path: str, out_dir: str) -> str:
     """
-    [ACTION]
-    Build the public-safe `plectis proof-lab` command for given input/out paths.
+    Compute proof lab command from `input_path` and `out_dir`.
 
-    - Teleology: emit a reproducible proof-lab command without leaking private input/out paths.
-    - Guarantee: returns the command string, omitting `--input` when the input is the default bundle.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_path` and `out_dir`; notable helpers are `_proof_lab_input_ref`,
+    `_proof_lab_output_ref`, and `_public_ref`.
     """
     display_input = _proof_lab_input_ref(input_path)
     display_out = _proof_lab_output_ref(out_dir)
@@ -2064,15 +1758,10 @@ def _proof_lab_command(input_path: str, out_dir: str) -> str:
 
 def _proof_lab_card_command(input_path: str, out_dir: str) -> str:
     """
-    [ACTION]
-    Build the public-safe `plectis proof-lab --card` command for given input/out paths.
+    Compute proof lab card command from `input_path` and `out_dir`.
 
-    - Teleology: emit a reproducible cached-card proof-lab command without leaking private paths.
-    - Guarantee: returns the `--card` command string, omitting `--input` when the input is the default bundle.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `input_path` and `out_dir`; notable helpers are `_proof_lab_input_ref`,
+    `_proof_lab_output_ref`, and `_public_ref`.
     """
     display_input = _proof_lab_input_ref(input_path)
     display_out = _proof_lab_output_ref(out_dir)
@@ -2083,15 +1772,10 @@ def _proof_lab_card_command(input_path: str, out_dir: str) -> str:
 
 def _path_is_file(path: Path) -> bool:
     """
-    [ACTION]
-    Test whether a path is a regular file, swallowing OS errors.
+    Return whether path is file holds for the cli flow.
 
-    - Teleology: OSError-safe is_file check for untrusted/inaccessible paths.
-    - Guarantee: returns path.is_file(), or False when the stat raises OSError.
-    - Fails: None (OSError swallowed to False).
-    - Reads: the path's filesystem entry.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `path` with `is_file`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     try:
         return path.is_file()
@@ -2101,15 +1785,10 @@ def _path_is_file(path: Path) -> bool:
 
 def _path_is_dir(path: Path) -> bool:
     """
-    [ACTION]
-    Test whether a path is a directory, swallowing OS errors.
+    Return whether path is dir holds for the cli flow.
 
-    - Teleology: OSError-safe is_dir check for untrusted/inaccessible paths.
-    - Guarantee: returns path.is_dir(), or False when the stat raises OSError.
-    - Fails: None (OSError swallowed to False).
-    - Reads: the path's filesystem entry.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `path` with `is_dir`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     try:
         return path.is_dir()
@@ -2119,15 +1798,10 @@ def _path_is_dir(path: Path) -> bool:
 
 def _path_exists(path: Path) -> bool:
     """
-    [ACTION]
-    Test whether a path exists, swallowing OS errors.
+    Return whether path exists holds for the cli flow.
 
-    - Teleology: OSError-safe existence check for untrusted/inaccessible paths.
-    - Guarantee: returns path.exists(), or False when the stat raises OSError.
-    - Fails: None (OSError swallowed to False).
-    - Reads: the path's filesystem entry.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `path` with `exists`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     try:
         return path.exists()
@@ -2137,15 +1811,9 @@ def _path_exists(path: Path) -> bool:
 
 def _path_mtime_ns(path: Path) -> int | None:
     """
-    [ACTION]
-    Return a path's mtime in nanoseconds, or None on OS error.
+    Return path mtime ns for the cli flow.
 
-    - Teleology: OSError-safe mtime probe for cache-freshness comparisons.
-    - Guarantee: returns st_mtime_ns, or None when stat raises OSError.
-    - Fails: None (OSError swallowed to None).
-    - Reads: the path's stat.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `path`; notable helpers are `stat`.
     """
     try:
         return path.stat().st_mtime_ns
@@ -2155,15 +1823,9 @@ def _path_mtime_ns(path: Path) -> int | None:
 
 def _path_size(path: Path) -> int:
     """
-    [ACTION]
-    Return a path's byte size, or 0 on OS error.
+    Derive path size without touching module import state.
 
-    - Teleology: OSError-safe size probe for receipt byte-count fields.
-    - Guarantee: returns st_size, or 0 when stat raises OSError.
-    - Fails: None (OSError swallowed to 0).
-    - Reads: the path's stat.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `path`; notable helpers are `stat`.
     """
     try:
         return path.stat().st_size
@@ -2173,15 +1835,11 @@ def _path_size(path: Path) -> int:
 
 def _iter_proof_lab_input_files(input_path: str) -> Iterator[Path]:
     """
-    [ACTION]
-    Yield every regular file under a proof-lab input path, OS-error tolerant.
+    Apply `microcosm_core.cli._iter_proof_lab_input_files` for the lifetime of a context
+    block.
 
-    - Teleology: enumerate the input bundle's files for cache-freshness mtime comparison.
-    - Guarantee: yields the file itself when input is a file, else each contained regular file via deterministic directory walk.
-    - Fails: None (missing path yields nothing; per-entry OSErrors skipped).
-    - Reads: the input path tree on disk.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The previous state is restored after the block exits, including exceptions raised inside
+    the block.
     """
     input_ref = Path(input_path)
     if not _path_exists(input_ref):
@@ -2211,30 +1869,19 @@ def _iter_proof_lab_input_files(input_path: str) -> Iterator[Path]:
 
 def _proof_lab_input_files(input_path: str) -> list[Path]:
     """
-    [ACTION]
-    Return the sorted list of regular files under a proof-lab input path.
+    Return proof lab input files for the cli flow.
 
-    - Teleology: stable, sorted snapshot of input files for freshness/tracking.
-    - Guarantee: returns the deduplicated-by-walk file paths sorted ascending.
-    - Fails: None.
-    - Reads: the input path tree on disk.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `input_path`; notable helpers are `_iter_proof_lab_input_files`.
     """
     return sorted(_iter_proof_lab_input_files(input_path))
 
 
 def _proof_lab_cache_freshness(input_path: str, receipt_path: Path) -> dict:
     """
-    [ACTION]
-    Compare input mtimes against a cached receipt to classify cache freshness.
+    Serialize `microcosm_core.cli._proof_lab_cache_freshness` into the payload shape
+    expected by cli.
 
-    - Teleology: decide whether a cached proof-lab receipt is current vs stale vs missing.
-    - Guarantee: returns a freshness dict with status (current/stale/missing_cached_receipt), tracked/stale counts, and mtimes; packaged public data reads as current.
-    - Fails: None (per-file stat OSErrors skipped).
-    - Reads: the receipt path mtime and the input file tree mtimes.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_ref = Path(input_path)
     receipt_mtime_ns = _path_mtime_ns(receipt_path)
@@ -2312,15 +1959,10 @@ def _proof_lab_cache_freshness(input_path: str, receipt_path: Path) -> dict:
 
 def _proof_lab_cached_result(input_path: str, out_dir: str) -> dict:
     """
-    [ACTION]
-    Read a cached proof-lab receipt (or canonical fallback) and annotate cache freshness.
+    Serialize `microcosm_core.cli._proof_lab_cached_result` into the payload shape expected
+    by cli.
 
-    - Teleology: serve `proof-lab --card` from an existing receipt without rerunning the kernel.
-    - Guarantee: returns the receipt payload with cache_status/freshness fields, or a missing/canonical-fallback result when no out-dir receipt exists.
-    - Fails: receipt file present but not a JSON object -> raises ValueError.
-    - Reads: the out-dir receipt and (fallback) the canonical receipt.
-    - Writes: out-dir receipt only via the canonical-fallback path.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     receipt_path = Path(out_dir) / verifier_lab_kernel.BUNDLE_RESULT_NAME
     if not _path_is_file(receipt_path):
@@ -2386,15 +2028,9 @@ def _proof_lab_cached_result(input_path: str, out_dir: str) -> dict:
 
 def _canonical_proof_lab_receipt_path() -> Path:
     """
-    [ACTION]
-    Return the repo path of the bundled canonical proof-lab receipt.
+    Produce the canonical proof lab receipt path value used by `microcosm_core.cli`.
 
-    - Teleology: locate the packaged public proof-lab receipt used as a fallback.
-    - Guarantee: returns MICROCOSM_ROOT / PROOF_LAB_RECEIPT_REF.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The returned value is consumed directly by the caller.
     """
     return MICROCOSM_ROOT / PROOF_LAB_RECEIPT_REF
 
@@ -2408,15 +2044,10 @@ def _proof_lab_canonical_receipt_result(
     tool_versions: dict | None = None,
 ) -> dict | None:
     """
-    [ACTION]
-    Materialize the bundled canonical proof-lab receipt into out-dir as a fallback result.
+    Serialize `microcosm_core.cli._proof_lab_canonical_receipt_result` into the payload
+    shape expected by cli.
 
-    - Teleology: provide a public-receipt fallback when Lean/Lake is unavailable or no live receipt exists.
-    - Guarantee: writes the annotated canonical receipt into out-dir and returns it with cache_status/freshness, or None when no canonical receipt is bundled.
-    - Fails: canonical receipt present but not a JSON object -> raises ValueError.
-    - Reads: the canonical receipt file.
-    - Writes: out-dir bundle-result receipt JSON.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     canonical_path = _canonical_proof_lab_receipt_path()
     if not _path_is_file(canonical_path):
@@ -2467,15 +2098,10 @@ def _proof_lab_canonical_receipt_result(
 
 def _proof_lab_toolchain_ready(tool_versions: dict) -> bool:
     """
-    [ACTION]
-    Report whether both Lean and Lake are available for a live proof rebuild.
+    Return whether proof lab toolchain ready holds for the cli flow.
 
-    - Teleology: gate live proof-lab execution on a present local toolchain.
-    - Guarantee: returns True iff tool_versions reports both lean_available and lake_available as True.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `tool_versions` with `get`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     return (
         tool_versions.get("lean_available") is True
@@ -2485,15 +2111,10 @@ def _proof_lab_toolchain_ready(tool_versions: dict) -> bool:
 
 def _receipt_ref_for_out(receipt_path: object, out_dir: str) -> str | None:
     """
-    [ACTION]
-    Render a single receipt path as a public-safe ref under the display out-dir.
+    Return receipt ref for out for the cli flow.
 
-    - Teleology: present receipt locations relative to the public-safe out-dir, not host-absolute paths.
-    - Guarantee: returns the receipt filename joined onto the display out-ref, or None when the path has no name.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `receipt_path` and `out_dir`; notable helpers are `_proof_lab_output_ref`,
+    `rstrip`, `startswith`, and `Path`.
     """
     name = Path(str(receipt_path)).name
     if not name:
@@ -2509,15 +2130,10 @@ def _receipt_ref_for_out(receipt_path: object, out_dir: str) -> str | None:
 
 def _receipt_refs_for_out(result: dict, out_dir: str) -> list[str]:
     """
-    [ACTION]
-    Render all of a result's receipt paths as public-safe out-dir refs.
+    Derive receipt refs for out without touching module import state.
 
-    - Teleology: surface every produced receipt as a public-safe ref for evidence drilldown.
-    - Guarantee: returns the list of public-safe receipt refs derived from result.receipt_paths.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `result` and `out_dir`; notable helpers are `get`, `_receipt_ref_for_out`,
+    and `append`.
     """
     refs: list[str] = []
     for receipt_path in result.get("receipt_paths") or []:
@@ -2529,15 +2145,9 @@ def _receipt_refs_for_out(result: dict, out_dir: str) -> list[str]:
 
 def _evidence_inspect_command(receipt_ref: str) -> str:
     """
-    [ACTION]
-    Build a shell-safe `plectis evidence inspect` command for a receipt ref.
+    Return evidence inspect command for the cli flow.
 
-    - Teleology: emit a copy-pasteable inspect command for a receipt.
-    - Guarantee: returns the command, shell-quoting concrete refs but leaving `<...>` placeholders unquoted.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `receipt_ref`; notable helpers are `quote`.
     """
     if "<" in receipt_ref and ">" in receipt_ref:
         return f"plectis evidence inspect {receipt_ref}"
@@ -2546,15 +2156,10 @@ def _evidence_inspect_command(receipt_ref: str) -> str:
 
 def _cached_receipt_ref_for_card(result: dict, out_dir: str) -> object:
     """
-    [ACTION]
-    Render the cached-receipt ref of a result as a public-safe card field.
+    Compute cached receipt ref for card from `result` and `out_dir`.
 
-    - Teleology: keep the card's cached_receipt_ref repo-relative or placeholdered, never host-absolute.
-    - Guarantee: returns a repo-relative ref, the original relative ref, or an out-dir/placeholder ref for absolute paths.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `result` and `out_dir`; notable helpers are `get`, `_public_ref`,
+    `is_absolute`, `_receipt_ref_for_out`, and 1 more.
     """
     receipt_ref = result.get("cached_receipt_ref")
     if not isinstance(receipt_ref, str) or not receipt_ref:
@@ -2575,15 +2180,10 @@ def _proof_lab_first_screen_card(
     command: str,
 ) -> dict:
     """
-    [ACTION]
-    Project a proof-lab result into the public first-screen proof-lab card.
+    Serialize `microcosm_core.cli._proof_lab_first_screen_card` into the payload shape
+    expected by cli.
 
-    - Teleology: compress route/receipt/metric/boundary data into the bounded, public-safe proof-lab card.
-    - Guarantee: returns the proof-lab first-screen card with command, route/receipt refs, component metrics, cache fields, anti-claim boundary, and next commands.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     metrics = result.get("proof_lab_component_metrics") or {}
     status = result.get("status")
@@ -2686,15 +2286,10 @@ def _proof_lab_first_screen_card(
 
 def _status_card_proof_lab_front_door_ref(payload: dict) -> dict | None:
     """
-    [ACTION]
-    Build the status-card front-door proof-lab ref, overlaying a fresher default card.
+    Serialize `microcosm_core.cli._status_card_proof_lab_front_door_ref` into the payload
+    shape expected by cli.
 
-    - Teleology: give the status card a compact proof-lab front-door pointer with current cache state.
-    - Guarantee: returns a proof-lab ref dict (status/endpoint/route/receipt/cache fields), or None when payload has no proof_lab dict.
-    - Fails: None.
-    - Reads: a fresher default proof-lab card from disk via the overlay helper.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     proof_lab = payload.get("proof_lab")
     if not isinstance(proof_lab, dict):
@@ -2734,15 +2329,9 @@ def _overlay_current_proof_lab_cache_status(
     current_default_card: dict,
 ) -> dict:
     """
-    [ACTION]
-    Overlay a fresher default proof-lab card's status/cache fields onto a proof_lab dict.
+    Derive overlay current proof lab cache status without touching module import state.
 
-    - Teleology: refresh a status payload's proof-lab block with the latest default-out cache state.
-    - Guarantee: mutates and returns proof_lab with selected status/cache keys (and current_receipt_ref) copied from the default card.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `proof_lab` and `current_default_card`; notable helpers are `get`.
     """
     for key in (
         "status",
@@ -2769,15 +2358,11 @@ def _overlay_current_proof_lab_cache_status(
 
 def _status_card_current_default_proof_lab_card(proof_lab: dict) -> dict | None:
     """
-    [ACTION]
-    Build a fresh default-out proof-lab card when the status block is stale-cached.
+    Produce the status card current default proof lab card value used by
+    `microcosm_core.cli`.
 
-    - Teleology: recover a current proof-lab card from the default tmp out-dir to refresh a stale status block.
-    - Guarantee: returns the freshly projected default proof-lab card, or None when not stale, no default receipt exists, or the default cache is itself stale/missing.
-    - Fails: None.
-    - Reads: the default proof-lab out-dir receipt on disk.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `proof_lab`; notable helpers are `_proof_lab_cached_result`,
+    `_proof_lab_first_screen_card`, `get`, `Path`, and 2 more.
     """
     if proof_lab.get("cache_status") != "stale_cached_receipt":
         return None
@@ -2803,15 +2388,10 @@ def _status_card_current_default_proof_lab_card(proof_lab: dict) -> dict | None:
 
 def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
     """
-    [ACTION]
-    Build the status-card front-door observatory ref with bounded/interactive commands.
+    Serialize `microcosm_core.cli._status_card_observatory_front_door_ref` into the payload
+    shape expected by cli.
 
-    - Teleology: give the status card a compact observatory pointer plus route-proof state.
-    - Guarantee: returns an observatory ref dict (status/commands/endpoints/route-proof) with project placeholders substituted, or None when payload has no front_door dict.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     front_door = payload.get("front_door")
     if not isinstance(front_door, dict):
@@ -2881,30 +2461,21 @@ def _status_card_observatory_front_door_ref(payload: dict) -> dict | None:
 
 def _status_card_surface_is_nonblocking(status: object) -> bool:
     """
-    [ACTION]
-    Classify a front-door surface status as non-blocking.
+    Return whether status card surface is nonblocking holds for the cli flow.
 
-    - Teleology: shared predicate for deciding which surface statuses block the status card.
-    - Guarantee: returns True iff status is one of pass/clear/actionable.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `status`; failing evidence is returned or raised exactly
+    where the body says so.
     """
     return status in {"pass", "clear", "actionable"}
 
 
 def _attach_status_card_front_door_refs(payload: dict) -> dict:
     """
-    [ACTION]
-    Attach proof-lab/observatory refs and recompute front-door blocking status.
+    Produce the attach status card front door refs value used by `microcosm_core.cli`.
 
-    - Teleology: enrich a status payload's front door with derived refs and a recomputed blocking/actionable summary.
-    - Guarantee: returns payload with front_door proof_lab/observatory refs set and front_door_status surface/blocking/actionable lists and status recomputed; unchanged when there is no front_door dict.
-    - Fails: None.
-    - Reads: default-out proof-lab receipt indirectly via the proof-lab ref builder.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `get`,
+    `_status_card_proof_lab_front_door_ref`, `_status_card_observatory_front_door_ref`,
+    `items`, and 1 more.
     """
     front_door = payload.get("front_door")
     if not isinstance(front_door, dict):
@@ -2952,15 +2523,9 @@ def _attach_status_card_front_door_refs(payload: dict) -> dict:
 
 def _pick(source: object, keys: list[str]) -> dict:
     """
-    [ACTION]
-    Select a whitelisted subset of keys from a dict.
+    Serialize `microcosm_core.cli._pick` into the payload shape expected by cli.
 
-    - Teleology: shared allowlist projection used to compact status-card sub-objects for the CLI.
-    - Guarantee: returns a dict of the present keys, or {} when source is not a dict.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not isinstance(source, dict):
         return {}
@@ -2969,15 +2534,10 @@ def _pick(source: object, keys: list[str]) -> dict:
 
 def _compact_blocking_surface_details_for_cli(details: object) -> dict:
     """
-    [ACTION]
-    Compact verbose blocking-surface details (esp. macro body-import) for CLI output.
+    Serialize `microcosm_core.cli._compact_blocking_surface_details_for_cli` into the
+    payload shape expected by cli.
 
-    - Teleology: keep the status card terse by trimming the macro body-import floor's defect detail.
-    - Guarantee: returns the details with macro_body_import_floor reduced to counts plus a single trimmed defect preview row; other surfaces pass through.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not isinstance(details, dict):
         return {}
@@ -3021,15 +2581,10 @@ def _compact_blocking_surface_details_for_cli(details: object) -> dict:
 
 def _compact_project_status_card_for_cli(payload: dict) -> dict:
     """
-    [ACTION]
-    Trim a full project status payload down to the compact CLI status card.
+    Return compact project status card for CLI for the cli flow.
 
-    - Teleology: project the verbose status payload into the bounded fields a terminal reader needs.
-    - Guarantee: returns payload with front_door, workingness, body-floor, observatory, and proof-lab sub-objects allowlist-trimmed; unchanged when there is no front_door dict.
-    - Fails: None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `get`, `_pick`, and
+    `_compact_blocking_surface_details_for_cli`.
     """
     front_door = payload.get("front_door")
     if not isinstance(front_door, dict):
@@ -3249,16 +2804,10 @@ def _compact_project_status_card_for_cli(payload: dict) -> dict:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    Parse argv, dispatch the selected `microcosm` command, and return its exit code.
+    Run `microcosm_core.cli` as a command-line entry point.
 
-    - Teleology: the single console entrypoint that routes every public local-first command to its handler or delegated organ/validator.
-    - Guarantee: prints the command output and returns its exit code; unknown/no command prints help and returns 2; `--version` prints and returns 0.
-    - Fails: argparse errors -> SystemExit; delegated handlers may raise (e.g. ValueError on malformed receipts).
-    - Reads: project trees, receipts, and bundle inputs depending on the command.
-    - Writes: stdout always; `.microcosm` state and receipt/out files for state-building/bundle commands.
-    - Escalates-to: delegated organ/validator `.main` entrypoints and the first-screen fast path.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     raw_argv = list(sys.argv[1:] if argv is None else argv)
     display_program = _display_program_name(sys.argv[0] if argv is None else None)

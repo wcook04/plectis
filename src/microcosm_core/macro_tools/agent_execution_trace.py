@@ -1,27 +1,13 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.macro_tools.agent_execution_trace` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements macro tools agent execution trace for the public Plectis package.
 
-[INTERFACE]
-- Exports: PASS, BLOCKED, SOURCE_REFS, SOURCE_SYMBOL_REFS, TARGET_REFS, TARGET_SYMBOL_REFS, AUTHORITY_CEILING, PublicTraceSpan, build_public_computer_use_trace, build_public_sandbox_policy_trace, build_public_prompt_injection_trace, build_public_research_replication_trace, build_public_memory_conflict_trace, build_public_mcp_tool_authority_trace, build_public_belief_state_process_reward_trace, build_public_agentic_vulnerability_patch_proof_trace, build_public_sabotage_scheming_monitor_trace, build_public_monitor_redteam_falsification_trace, build_public_benchmark_integrity_anti_gaming_trace, build_parser, main
-- Reads: call arguments, module constants, imported helpers, environment variables.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `PublicTraceSpan`, `build_public_computer_use_trace`,
+`build_public_sandbox_policy_trace`, `build_public_prompt_injection_trace`,
+`build_public_research_replication_trace`, `build_public_memory_conflict_trace`, and 8 more;
+constants such as `PASS`, `BLOCKED`, `SOURCE_REFS`, `SOURCE_SYMBOL_REFS`, and 3 more pin
+local fixture names; dependencies include `argparse`, `hashlib`, `json`, `collections`, and
+4 more. The helpers are invoked explicitly by CLI or fixture code; importing the module only
+declares the available machinery.
 """
 from __future__ import annotations
 
@@ -84,13 +70,12 @@ AUTHORITY_CEILING = {
 @dataclass(frozen=True)
 class PublicTraceSpan:
     """
-    [ROLE]
-    - Teleology: Groups `PublicTraceSpan` data or behavior for `microcosm_core.macro_tools.agent_execution_trace` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.macro_tools.agent_execution_trace`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    Record object for Public Trace Span.
+
+    It keeps `span_id`, `session_id`, `action_kind`, `sequence_index`, `episode_id`,
+    `observation_ref`, `authority_verdict_id`, and 7 more together for the macro tools agent
+    execution trace flow. Methods such as `as_dict` derive serialized or path-shaped views
+    from that state.
     """
     span_id: str
     session_id: str
@@ -109,13 +94,10 @@ class PublicTraceSpan:
 
     def as_dict(self) -> dict[str, Any]:
         """
-        [ACTION]
-        - Teleology: Implements `PublicTraceSpan.as_dict` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Serialize PublicTraceSpan into the macro tools agent execution trace payload shape.
+
+        The returned mapping uses the key names consumed by downstream receipts, cards, or
+        tests.
         """
         payload: dict[str, Any] = {
             "span_id": self.span_id,
@@ -142,26 +124,21 @@ class PublicTraceSpan:
 
 def _read_json(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_read_json` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Read read JSON for `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     return cast(dict[str, Any], read_json_strict(path))
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for `microcosm_core.macro_tools.agent_execution_trace._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -173,13 +150,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings_local(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings_local` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.macro_tools.agent_execution_trace._strings_local`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -188,13 +163,11 @@ def _strings_local(value: object) -> list[str]:
 
 def _stable_digest(payload: object) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_stable_digest` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.macro_tools.agent_execution_trace._stable_digest`.
+
+    The input is `payload`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     encoded = json.dumps(
         payload,
@@ -207,13 +180,10 @@ def _stable_digest(payload: object) -> str:
 
 def _display_path(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display_path` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the display path value used by
+    `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Inputs are `path`; notable helpers are `index`, `join`, and `resolve`.
     """
     parts = list(path.resolve(strict=False).parts)
     if "microcosm-substrate" in parts:
@@ -224,13 +194,10 @@ def _display_path(path: Path) -> str:
 
 def _finding(code: str, message: str, *, subject_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.macro_tools.agent_execution_trace._finding` into the payload
+    shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -243,13 +210,10 @@ def _finding(code: str, message: str, *, subject_id: str) -> dict[str, Any]:
 
 def _load_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_bundle` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load bundle for `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     names = (
         "bundle_manifest",
@@ -267,13 +231,10 @@ def _load_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
 
 def _load_sandbox_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_sandbox_bundle` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load sandbox bundle for `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     names = (
         "bundle_manifest",
@@ -302,13 +263,11 @@ def _load_sandbox_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
 
 def _load_prompt_injection_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_prompt_injection_bundle` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load prompt injection bundle for
+    `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     names = (
         "bundle_manifest",
@@ -341,13 +300,11 @@ def _load_prompt_injection_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
 
 def _load_research_replication_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_research_replication_bundle` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load research replication bundle for
+    `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     names = (
         "bundle_manifest",
@@ -373,13 +330,10 @@ def _load_research_replication_bundle(input_dir: Path) -> dict[str, dict[str, An
 
 def _load_memory_conflict_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_memory_conflict_bundle` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load memory conflict bundle for `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     names = (
         "bundle_manifest",
@@ -405,13 +359,11 @@ def _load_memory_conflict_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
 
 def _load_mcp_tool_authority_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_mcp_tool_authority_bundle` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load MCP tool authority bundle for
+    `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     names = (
         "bundle_manifest",
@@ -441,13 +393,11 @@ def _load_mcp_tool_authority_bundle(input_dir: Path) -> dict[str, dict[str, Any]
 
 def _load_belief_state_process_reward_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_belief_state_process_reward_bundle` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load belief state process reward bundle for
+    `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     names = (
         "bundle_manifest",
@@ -477,13 +427,11 @@ def _load_belief_state_process_reward_bundle(input_dir: Path) -> dict[str, dict[
 
 def _load_agentic_vulnerability_patch_proof_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_agentic_vulnerability_patch_proof_bundle` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load agentic vulnerability patch proof bundle for
+    `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     names = (
         "bundle_manifest",
@@ -517,13 +465,11 @@ def _load_agentic_vulnerability_patch_proof_bundle(input_dir: Path) -> dict[str,
 
 def _load_sabotage_scheming_monitor_bundle(input_dir: Path) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_sabotage_scheming_monitor_bundle` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load sabotage scheming monitor bundle for
+    `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     names = (
         "bundle_manifest",
@@ -554,13 +500,11 @@ def _load_monitor_redteam_falsification_bundle(
     input_dir: Path,
 ) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_monitor_redteam_falsification_bundle` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load monitor redteam falsification bundle for
+    `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     names = (
         "bundle_manifest",
@@ -589,13 +533,11 @@ def _load_benchmark_integrity_anti_gaming_bundle(
     input_dir: Path,
 ) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_benchmark_integrity_anti_gaming_bundle` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load benchmark integrity anti gaming bundle for
+    `microcosm_core.macro_tools.agent_execution_trace`.
+
+    Input comes from `input_dir`; malformed or missing data follows the exceptions and
+    checks visible in the body.
     """
     names = (
         "bundle_manifest",
@@ -622,13 +564,11 @@ def _load_benchmark_integrity_anti_gaming_bundle(
 
 def build_public_computer_use_trace(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_computer_use_trace` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.macro_tools.agent_execution_trace.build_public_computer_use_trace` into
+    the payload shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -823,13 +763,11 @@ def build_public_computer_use_trace(input_dir: str | Path) -> dict[str, Any]:
 
 def build_public_sandbox_policy_trace(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_sandbox_policy_trace` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, environment variables.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.macro_tools.agent_execution_trace.build_public_sandbox_policy_trace`
+    into the payload shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -1043,13 +981,11 @@ def build_public_sandbox_policy_trace(input_dir: str | Path) -> dict[str, Any]:
 
 def build_public_prompt_injection_trace(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_prompt_injection_trace` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Serialize
+    `microcosm_core.macro_tools.agent_execution_trace.build_public_prompt_injection_trace`
+    into the payload shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -1341,13 +1277,11 @@ def build_public_prompt_injection_trace(input_dir: str | Path) -> dict[str, Any]
 
 def build_public_research_replication_trace(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_research_replication_trace` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.agent_execution_trace.build_public_research_replication_trace`
+    into the payload shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -1544,13 +1478,11 @@ def build_public_research_replication_trace(input_dir: str | Path) -> dict[str, 
 
 def build_public_memory_conflict_trace(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_memory_conflict_trace` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.agent_execution_trace.build_public_memory_conflict_trace`
+    into the payload shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -1850,13 +1782,11 @@ def build_public_memory_conflict_trace(input_dir: str | Path) -> dict[str, Any]:
 
 def build_public_mcp_tool_authority_trace(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_mcp_tool_authority_trace` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.agent_execution_trace.build_public_mcp_tool_authority_trace`
+    into the payload shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -2165,13 +2095,11 @@ def build_public_mcp_tool_authority_trace(input_dir: str | Path) -> dict[str, An
 
 def build_public_belief_state_process_reward_trace(input_dir: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_belief_state_process_reward_trace` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.agent_execution_trace.build_public_belief_state_process_reward_trace`
+    into the payload shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -2483,13 +2411,11 @@ def build_public_agentic_vulnerability_patch_proof_trace(
     input_dir: str | Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_agentic_vulnerability_patch_proof_trace` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.agent_execution_trace.build_public_agentic_vulnerability_patch_proof_trace`
+    into the payload shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -2737,13 +2663,11 @@ def build_public_sabotage_scheming_monitor_trace(
     input_dir: str | Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_sabotage_scheming_monitor_trace` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.agent_execution_trace.build_public_sabotage_scheming_monitor_trace`
+    into the payload shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -3064,13 +2988,11 @@ def build_public_monitor_redteam_falsification_trace(
     input_dir: str | Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_monitor_redteam_falsification_trace` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.agent_execution_trace.build_public_monitor_redteam_falsification_trace`
+    into the payload shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -3288,13 +3210,11 @@ def build_public_benchmark_integrity_anti_gaming_trace(
     input_dir: str | Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `build_public_benchmark_integrity_anti_gaming_trace` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.macro_tools.agent_execution_trace.build_public_benchmark_integrity_anti_gaming_trace`
+    into the payload shape expected by macro tools agent execution trace.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -3524,13 +3444,10 @@ def build_public_benchmark_integrity_anti_gaming_trace(
 
 def build_parser() -> argparse.ArgumentParser:
     """
-    [ACTION]
-    - Teleology: Implements `build_parser` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Register CLI syntax for `microcosm_core.macro_tools.agent_execution_trace.build_parser`.
+
+    The function mutates the provided argparse object with this module's flags, subcommands,
+    or defaults.
     """
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -3572,13 +3489,10 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.macro_tools.agent_execution_trace` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run the `microcosm_core.macro_tools.agent_execution_trace` command-line entry point.
+
+    It parses argv, invokes the file-local builders or validators, and returns a
+    process-style status code.
     """
     args = build_parser().parse_args(argv)
     if args.command == "computer-use":

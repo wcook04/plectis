@@ -1,27 +1,11 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.architecture_kernel` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements architecture kernel for the public Plectis package.
 
-[INTERFACE]
-- Exports: PASS, STATE_DIR, EVIDENCE_DIR, EVENT_STREAM, EXPLANATION_DIR, TRUTH_READINESS_STATE, REFERENCE_CASE_ASSERTION_PREDICATES, public_root, state_dir, project_relative, read_json_if_exists, read_jsonl, command_state_snapshot, build_reference_execution_case, reference_state_delta_refs, verify_reference_execution_case, load_kernel_manifest, pattern_surface_contract, load_standard_pressure_surface, standard_pressure_contract, standard_pressure_rows, standard_pressure_refs_for_route, work_contracts_for_route, build_state_index, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `public_root`, `state_dir`, `project_relative`, `read_json_if_exists`,
+`read_jsonl`, `command_state_snapshot`, and 14 more; constants such as `PASS`, `STATE_DIR`,
+`EVIDENCE_DIR`, `EVENT_STREAM`, and 8 more pin local fixture names; dependencies include
+`collections`, `hashlib`, `json`, `os`, and 3 more. Importing it does not authorize release
+work or hidden private-state access; those effects live behind explicit calls.
 """
 from __future__ import annotations
 
@@ -363,51 +347,28 @@ _DEFAULT_KERNEL = {
 
 def public_root() -> Path:
     """
-    [ACTION]
-    Resolve the public Plectis substrate root for source-ref reads.
+    Return public root for the architecture kernel flow.
 
-    - Teleology: anchors every source-custody read (kernel manifest, standard-pressure surface) to the package's own public root, never an ambient cwd.
-    - Guarantee: returns the absolute `parents[2]` of this module file; stable regardless of caller cwd.
-    - Fails: never raises; returns a Path that may not exist if the package tree is relocated.
-    - When-needed: inspect when a manifest/surface read resolves against an unexpected directory.
-    - Reads: derives from `__file__` only; reads no manifest itself.
-    - Non-goal: does not authorize source-body export, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Notable helpers are `resolve` and `Path`.
     """
     return Path(__file__).resolve().parents[2]
 
 
 def state_dir(project: str | Path) -> Path:
     """
-    [ACTION]
-    Compute the project-local `.microcosm` state directory path.
+    Return state dir for the architecture kernel flow.
 
-    - Teleology: single source of the project-local state root so every builder writes under one bounded `.microcosm` boundary.
-    - Guarantee: returns `<resolved project>/.microcosm` (STATE_DIR); user-expanded, non-strict resolve so a not-yet-created project still yields a path.
-    - Fails: never raises; returns a path that may not exist on disk.
-    - When-needed: inspect when generated artifacts land outside the expected project-local directory.
-    - Reads: no file read; pure path computation from `project`.
-    - Non-goal: does not create the directory, read parent/private state, or authorize source mutation.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `project`; notable helpers are `resolve`, `expanduser`, and `Path`.
     """
     return Path(project).expanduser().resolve(strict=False) / STATE_DIR
 
 
 def project_relative(project: Path, path: Path) -> str:
     """
-    [ACTION]
-    Render a path relative to the project root for project-local refs.
+    Derive project relative without touching module import state.
 
-    - Teleology: keep emitted source-refs project-relative so generated state never leaks absolute private host paths.
-    - Guarantee: returns the POSIX path of `path` relative to `project`; on a non-subpath returns the bare `path.name` instead.
-    - Fails: never raises; ValueError on non-relative paths is caught and degraded to `path.name`.
-    - When-needed: inspect when a generated ref shows an absolute path or an unexpected basename.
-    - Reads: filesystem-resolves both paths (non-strict); reads no file contents.
-    - Non-goal: does not authorize export of out-of-tree paths or public-safe equivalence.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `project` and `path`; notable helpers are `as_posix`, `relative_to`, and
+    `resolve`.
     """
     try:
         return path.resolve(strict=False).relative_to(project.resolve(strict=False)).as_posix()
@@ -417,17 +378,10 @@ def project_relative(project: Path, path: Path) -> str:
 
 def _path_is_file(path: Path) -> bool:
     """
-    [ACTION]
-    Test whether a path is a regular file, swallowing OS errors.
+    Return whether path is file holds for the architecture kernel flow.
 
-    - Teleology: OSError-safe existence probe so state reads degrade to empty rather than crashing on permission/FS faults.
-    - Guarantee: returns True only when `path.is_file()` is True; any OSError is treated as False.
-    - Fails: never raises; OSError -> returns False.
-    - When-needed: inspect when an existing state file is reported as absent under FS/permission trouble.
-    - Non-goal: does not distinguish missing-vs-unreadable; not an authority on file content validity.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `path` with `is_file`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     try:
         return path.is_file()
@@ -437,17 +391,10 @@ def _path_is_file(path: Path) -> bool:
 
 def _path_is_dir(path: Path) -> bool:
     """
-    [ACTION]
-    Test whether a path is a directory, swallowing OS errors.
+    Return whether path is dir holds for the architecture kernel flow.
 
-    - Teleology: OSError-safe directory probe so evidence/explanation directory scans degrade to empty rather than crash.
-    - Guarantee: returns True only when `path.is_dir()` is True; any OSError is treated as False.
-    - Fails: never raises; OSError -> returns False.
-    - When-needed: inspect when an existing evidence/explanation directory is reported as absent under FS/permission trouble.
-    - Non-goal: does not list or validate directory contents.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `path` with `is_dir`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     try:
         return path.is_dir()
@@ -457,18 +404,10 @@ def _path_is_dir(path: Path) -> bool:
 
 def read_json_if_exists(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Read a JSON object from a path, returning {} when absent or non-object.
+    Serialize `microcosm_core.architecture_kernel.read_json_if_exists` into the payload
+    shape expected by architecture kernel.
 
-    - Teleology: tolerant manifest/state reader so a missing project-local artifact yields an empty dict instead of an error, letting builders fall back to defaults.
-    - Guarantee: returns the parsed dict when `path` is a readable file whose JSON root is an object; returns {} when the file is missing or the root is not a dict.
-    - Fails: surfaces JSON/decoding errors from `read_json_strict` on a present-but-malformed file (does not swallow parse errors); missing file -> {} (no raise).
-    - When-needed: inspect when a builder unexpectedly uses defaults despite a state file appearing to exist.
-    - Reads: `path` (any project-local or source JSON object file).
-    - Escalates-to: `microcosm_core.schemas.read_json_strict` for the strict-parse contract.
-    - Non-goal: does not validate schema, authorize source-body export, or treat the read as release authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not _path_is_file(path):
         return {}
@@ -478,34 +417,21 @@ def read_json_if_exists(path: Path) -> dict[str, Any]:
 
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Read a JSONL file into a list of object rows.
+    Read read JSONl for `microcosm_core.architecture_kernel`.
 
-    - Teleology: materialize the project-local event stream (`.microcosm/events.jsonl`) into dict rows for downstream evidence/explanation reads.
-    - Guarantee: returns the list of dict rows from the file; non-dict lines and blank lines are skipped; missing file -> [].
-    - Fails: surfaces `json.loads` errors on a present-but-malformed line (does not swallow parse errors); missing file -> [] (no raise).
-    - When-needed: inspect when the event stream appears empty or a malformed line breaks observability.
-    - Reads: `path` (typically `.microcosm/events.jsonl`).
-    - Non-goal: does not validate event schema or treat the stream as live telemetry authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Input comes from `path`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     return list(_iter_jsonl_dict_rows(path))
 
 
 def _iter_jsonl_dict_rows(path: Path) -> Iterator[dict[str, Any]]:
     """
-    [ACTION]
-    Stream object rows from a JSONL file without buffering the whole file.
+    Apply `microcosm_core.architecture_kernel._iter_jsonl_dict_rows` for the lifetime of a
+    context block.
 
-    - Teleology: streaming primitive behind `read_jsonl` and event-ref reads so large event streams are scanned line-by-line.
-    - Guarantee: yields each non-blank line parsed as JSON when its root is a dict; non-dict roots are skipped; missing file yields nothing.
-    - Fails: surfaces `json.loads` errors on a malformed line; missing file -> empty iterator (no raise).
-    - When-needed: inspect when event-stream iteration stops early or raises on a corrupt line.
-    - Reads: `path` line-by-line, UTF-8.
-    - Non-goal: does not validate row schema or close-out completeness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The previous state is restored after the block exits, including exceptions raised inside
+    the block.
     """
     if not _path_is_file(path):
         return
@@ -520,17 +446,10 @@ def _iter_jsonl_dict_rows(path: Path) -> Iterator[dict[str, Any]]:
 
 def _read_explanation_event_refs(path: Path, *, limit: int = 12) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Collect the last N route/work event refs for a route explanation.
+    Read read explanation event refs for `microcosm_core.architecture_kernel`.
 
-    - Teleology: feed the causal-chain proof of `explain_route` with the most recent explanation-relevant events without inlining full event bodies.
-    - Guarantee: returns up to `limit` most-recent rows whose `span` is in {project.route, project.explain, work.create, work.run}, each reduced to {event_id, span, status}; `limit <= 0` -> [].
-    - Fails: surfaces `json.loads` errors from the underlying stream on a malformed line; missing file -> [] (no raise).
-    - When-needed: inspect when an explanation shows too few or stale event refs.
-    - Reads: `path` (the event stream).
-    - Non-goal: does not prove correctness or act as live telemetry authority; refs are drilldown pointers only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Input comes from `path` and `limit`; malformed or missing data follows the exceptions
+    and checks visible in the body.
     """
     if limit <= 0:
         return []
@@ -554,27 +473,10 @@ def _exercised_primitives_from_event_refs(
     manifest: dict[str, Any],
 ) -> tuple[list[str], list[str]]:
     """
-    [ACTION]
-    Occurrence: which primitives this run actually exercised, from event spans.
+    Compute exercised primitives from event refs from `causal_event_refs` and `manifest`.
 
-    - Teleology: the explanation must distinguish what a run EXERCISED (occurrence)
-      from the declared kernel catalog (declaration). A primitive is exercised iff
-      one of its non-glob ``event_span`` tokens exactly matches a span present in
-      this run's ``causal_event_refs``. This is the honest occurrence field; the
-      top-level ``kernel_primitives`` list is a declared catalog, not run-derived,
-      so the two need not — and generally do not — match.
-    - Guarantee: returns ``(exercised_event_spans, exercised_primitives)``, both
-      sorted and de-duplicated; ``exercised_primitives`` is a subset of the
-      manifest's declared primitive_ids; glob spans (e.g. ``project.* / work.*``)
-      never mark a primitive exercised because they would match everything.
-    - Fails: never raises; non-dict rows and odd manifest entries are skipped; an
-      empty ref list yields ``([], [])``.
-    - When-needed: inspect when an explanation claims a primitive ran whose span is
-      absent from this run's event refs (the occurrence-vs-declaration trap).
-    - Non-goal: does not assert correctness or that every declared primitive ran.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `causal_event_refs` and `manifest`; notable helpers are `get`, `strip`,
+    `add`, and `split`.
     """
     spans = sorted(
         {
@@ -604,30 +506,10 @@ def _execution_instance(
     manifest: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Single-execution partition of a route explanation, correlated by work_id.
+    Serialize `microcosm_core.architecture_kernel._execution_instance` into the payload
+    shape expected by architecture kernel.
 
-    - Teleology: a route accumulates many work transactions over time, so the
-      causal_chain_proof's top-level event/evidence refs are the route NEIGHBOURHOOD
-      (every run), not one invocation. This partition scopes the witness to the
-      SELECTED work transaction's OWN ``event_refs``/``evidence_refs`` — which the
-      runtime correlates to it by ``work_id`` at emission — so events or evidence from
-      other runs of the same route cannot enter it. This is correlation closure built
-      from existing fields, not an inferred run boundary.
-    - Guarantee: returns the selected work's correlated refs plus exercised spans /
-      primitives derived only from THIS execution's events; selection_basis records
-      that the work is chosen by the representative first-closed heuristic, NOT causal
-      invocation binding; correlation_status / single_execution_scoped report VERIFIED
-      correlation, so a missing/empty selected_work yields empty refs, ``[]`` exercised
-      sets, correlation_status ``no_selected_work``, and single_execution_scoped False.
-    - Fails: never raises; non-list ref fields are treated as empty.
-    - When-needed: inspect when a route explanation appears to mix events or evidence
-      from more than one run.
-    - Non-goal: does not assert the execution is terminal/complete (see
-      causal_chain status) nor that it is eligible as the public reference witness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     work = selected_work if isinstance(selected_work, dict) else {}
     raw_event_refs = work.get("event_refs")
@@ -673,24 +555,10 @@ def _execution_instance(
 
 def command_state_snapshot(project_path: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Snapshot the project-local execution state at command boundaries.
+    Serialize `microcosm_core.architecture_kernel.command_state_snapshot` into the payload
+    shape expected by architecture kernel.
 
-    - Teleology: the command-causality assay needs a before/after boundary so
-      ambient history cannot masquerade as execution output just because it is
-      nearby in the same route.
-    - Guarantee: returns stable ids/refs for work rows, event rows, and evidence
-      receipts under `.microcosm`; no source files are read and no state is
-      mutated.
-    - Fails: malformed JSON/JSONL surfaces errors; missing state surfaces empty
-      lists.
-    - When-needed: take a before snapshot, run one command, then build a
-      reference execution case with this snapshot as `before_state`.
-    - Non-goal: does not prove correctness or define causality by itself; it is
-      only the boundary input to a relation-based assay.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)
@@ -729,14 +597,10 @@ def _snapshot_delta(
     after_state: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Compute set deltas between command-state snapshots.
-    - Teleology: Implements `_snapshot_delta` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.architecture_kernel._snapshot_delta` into the payload shape
+    expected by architecture kernel.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not isinstance(before_state, dict):
         return {
@@ -748,13 +612,9 @@ def _snapshot_delta(
 
     def _new_values(key: str) -> list[str]:
         """
-        [ACTION]
-        - Teleology: Implements `_snapshot_delta._new_values` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Derive new values without touching module import state.
+
+        Inputs are `key`; notable helpers are `get`.
         """
         before = {
             str(item)
@@ -778,14 +638,11 @@ def _snapshot_delta(
 
 def _evidence_ref_exists(project: Path, evidence_ref: str) -> bool:
     """
-    [ACTION]
-    Return whether a project-local evidence ref resolves under `.microcosm`.
-    - Teleology: Implements `_evidence_ref_exists` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether evidence ref exists holds for the architecture kernel flow.
+
+    The result is derived from `project` and `evidence_ref` with `removeprefix`,
+    `_path_is_file`, and `state_dir`; failing evidence is returned or raised exactly where
+    the body says so.
     """
     prefix = f"{STATE_DIR}/"
     rel = evidence_ref.removeprefix(prefix)
@@ -794,14 +651,9 @@ def _evidence_ref_exists(project: Path, evidence_ref: str) -> bool:
 
 def _work_state_history(work: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    Extract ordered state names from a work row.
-    - Teleology: Implements `_work_state_history` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the work state history value used by `microcosm_core.architecture_kernel`.
+
+    Inputs are `work`; notable helpers are `get`.
     """
     history = work.get("state_history")
     if not isinstance(history, list):
@@ -815,14 +667,11 @@ def _work_state_history(work: dict[str, Any]) -> list[str]:
 
 def _semantic_digest(payload: dict[str, Any]) -> str:
     """
-    [ACTION]
-    Stable digest over a canonical semantic payload.
-    - Teleology: Implements `_semantic_digest` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.architecture_kernel._semantic_digest`.
+
+    The input is `payload`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     body = json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(body.encode("utf-8")).hexdigest()
@@ -837,25 +686,10 @@ def build_reference_execution_case(
     before_state: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Build a command-root execution case from returned handles and local state.
+    Serialize `microcosm_core.architecture_kernel.build_reference_execution_case` into the
+    payload shape expected by architecture kernel.
 
-    - Teleology: answer "what exactly did THIS command cause?" without relying on
-      first-closed/last-closed heuristics, route neighbourhood aggregation, or an
-      opaque trace id. The root is the command-returned `work_id`; events and
-      evidence enter only through preserved work/event/evidence relations.
-    - Guarantee: returns a typed occurrence graph, record classifications,
-      topology-preserving aliases, semantic digest, independent predicate statuses,
-      and ambient-history exclusions. A selected older same-route work row cannot
-      enter the occurrence witness unless it is the returned `work_id`.
-    - Fails: never raises for missing work ids; missing refs become failed
-      predicates in the returned case.
-    - Reads: `.microcosm/work_items.json`, `.microcosm/events.jsonl`,
-      `.microcosm/evidence/`, and the route explanation if present.
-    - Non-goal: does not make the route explanation or architecture page eligible
-      as the public witness; projection fidelity is reported separately.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)
@@ -1328,14 +1162,9 @@ def build_reference_execution_case(
 
 def _dict_rows(value: Any) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Return dict rows from a list-like payload and ignore malformed values.
-    - Teleology: Implements `_dict_rows` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute dict rows from `value`.
+
+    Inputs are `value`.
     """
     if not isinstance(value, list):
         return []
@@ -1344,13 +1173,9 @@ def _dict_rows(value: Any) -> list[dict[str, Any]]:
 
 def _event_number_from_id(event_id: object) -> int | None:
     """
-    [ACTION]
-    - Teleology: Implements `_event_number_from_id` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute event number from ID from `event_id`.
+
+    Inputs are `event_id`; notable helpers are `startswith` and `rsplit`.
     """
     token = str(event_id or "")
     if not token.startswith("evt_"):
@@ -1363,28 +1188,18 @@ def _event_number_from_id(event_id: object) -> int | None:
 
 def _truth_row_authority_ref(row: dict[str, Any]) -> str:
     """
-    [ACTION]
-    Return the authority/source ref used to classify a truth row.
-    - Teleology: Implements `_truth_row_authority_ref` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the truth row authority ref value used by `microcosm_core.architecture_kernel`.
+
+    Inputs are `row`; notable helpers are `get`.
     """
     return str(row.get("source_ref") or row.get("authority_ref") or "")
 
 
 def _truth_row_identity(row: dict[str, Any]) -> str:
     """
-    [ACTION]
-    Build a stable comparison key for rendered truth rows.
-    - Teleology: Implements `_truth_row_identity` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the truth row IDentity value used by `microcosm_core.architecture_kernel`.
+
+    Inputs are `row`; notable helpers are `get` and `_truth_row_authority_ref`.
     """
     claim_id = row.get("claim_id")
     if isinstance(claim_id, str) and claim_id:
@@ -1400,14 +1215,9 @@ def _truth_row_identity(row: dict[str, Any]) -> str:
 
 def reference_state_delta_refs(state_delta: Any) -> list[str]:
     """
-    [ACTION]
-    Return rendered state refs implied by a reference case state_delta.
-    - Teleology: Implements `reference_state_delta_refs` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute reference state delta refs from `state_delta`.
+
+    Inputs are `state_delta`; notable helpers are `_dedupe_strings` and `get`.
     """
     delta = state_delta if isinstance(state_delta, dict) else {}
     work_ids = _dedupe_strings(
@@ -1444,14 +1254,10 @@ def _expected_reference_semantic_graph(
     returned_evidence_ref: str = "",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Reconstruct a reference-case graph directly from raw project state.
-    - Teleology: Implements `_expected_reference_semantic_graph` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.architecture_kernel._expected_reference_semantic_graph` into
+    the payload shape expected by architecture kernel.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     work_id = str(work.get("work_id") or "")
     work_alias = "work_1" if work_id else None
@@ -1533,22 +1339,10 @@ def verify_reference_execution_case(
     rendered_witness: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Independently verify a command-root reference execution case.
+    Serialize `microcosm_core.architecture_kernel.verify_reference_execution_case` into the
+    payload shape expected by architecture kernel.
 
-    - Teleology: triangulate the case from raw work/event/evidence state so the
-      producer's confidence, renderer fields, and ambient route history cannot
-      self-certify a public witness.
-    - Guarantee: rereads work rows, event stream, evidence refs, route
-      explanation, assertion rows, and optional rendered witness card; returns a
-      pass/fail receipt with independent predicate details.
-    - Fails: never raises for missing case fields; malformed project JSON/JSONL
-      still surfaces via the strict readers.
-    - Reads: `.microcosm/work_items.json`, `.microcosm/events.jsonl`,
-      `.microcosm/evidence/`, and `.microcosm/explanations/<route>.json`.
-    - Non-goal: does not rebuild the case or mutate project state.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)
@@ -1646,13 +1440,11 @@ def verify_reference_execution_case(
 
     def _row_visible_when_case_was_created(row: Mapping[str, Any]) -> bool:
         """
-        [ACTION]
-        - Teleology: Implements `verify_reference_execution_case._row_visible_when_case_was_created` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Return whether row visible when case was created holds for the architecture kernel
+        flow.
+
+        The result is derived from `row` with `get`; failing evidence is returned or raised
+        exactly where the body says so.
         """
         created_at = str(row.get("created_at") or "")
         return not case_created_at or not created_at or created_at <= case_created_at
@@ -1662,13 +1454,12 @@ def verify_reference_execution_case(
         row: Mapping[str, Any],
     ) -> bool:
         """
-        [ACTION]
-        - Teleology: Implements `verify_reference_execution_case._event_visible_when_case_was_created` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Return whether event visible when case was created holds for the architecture kernel
+        flow.
+
+        The result is derived from `event_id` and `row` with `_event_number_from_id` and
+        `_row_visible_when_case_was_created`; failing evidence is returned or raised exactly
+        where the body says so.
         """
         event_number = _event_number_from_id(event_id)
         if max_selected_event_number is not None and event_number is not None:
@@ -1677,13 +1468,12 @@ def verify_reference_execution_case(
 
     def _work_visible_when_case_was_created(row: Mapping[str, Any]) -> bool:
         """
-        [ACTION]
-        - Teleology: Implements `verify_reference_execution_case._work_visible_when_case_was_created` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Return whether work visible when case was created holds for the architecture kernel
+        flow.
+
+        The result is derived from `row` with `_row_visible_when_case_was_created`, `get`,
+        `_dict_rows`, and `_event_number_from_id`; failing evidence is returned or raised
+        exactly where the body says so.
         """
         row_work_id = str(row.get("work_id") or "")
         if row_work_id == work_id:
@@ -1813,13 +1603,9 @@ def verify_reference_execution_case(
 
     def _classification_row_key(row: Mapping[str, Any]) -> tuple[Any, ...]:
         """
-        [ACTION]
-        - Teleology: Implements `verify_reference_execution_case._classification_row_key` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Return classification row key for the architecture kernel flow.
+
+        Inputs are `row`; notable helpers are `get`.
         """
         return (
             str(row.get("source_ref") or ""),
@@ -1832,13 +1618,11 @@ def verify_reference_execution_case(
 
     def _classification_key_payload(key: tuple[Any, ...]) -> dict[str, Any]:
         """
-        [ACTION]
-        - Teleology: Implements `verify_reference_execution_case._classification_key_payload` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Serialize `microcosm_core.architecture_kernel._classification_key_payload` into the
+        payload shape expected by architecture kernel.
+
+        The mapping keys match the receipts, cards, or tests that consume this value
+        downstream.
         """
         return {
             "source_ref": key[0],
@@ -1851,13 +1635,9 @@ def verify_reference_execution_case(
 
     def _key_counts(rows: list[dict[str, Any]]) -> dict[tuple[Any, ...], int]:
         """
-        [ACTION]
-        - Teleology: Implements `verify_reference_execution_case._key_counts` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Compute key counts from `rows`.
+
+        Inputs are `rows`; notable helpers are `_classification_row_key` and `get`.
         """
         counts: dict[tuple[Any, ...], int] = {}
         for row in rows:
@@ -1954,13 +1734,10 @@ def verify_reference_execution_case(
 
     def _classification_counts(rows: list[dict[str, Any]]) -> dict[str, int]:
         """
-        [ACTION]
-        - Teleology: Implements `verify_reference_execution_case._classification_counts` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Produce the classification counts value used by
+        `microcosm_core.architecture_kernel`.
+
+        Inputs are `rows`; notable helpers are `get`.
         """
         counts: dict[str, int] = {}
         for row in rows:
@@ -2869,13 +2646,10 @@ def verify_reference_execution_case(
         scope_ref_field: str,
     ) -> None:
         """
-        [ACTION]
-        - Teleology: Implements `verify_reference_execution_case._check_rendered_state_delta_summary` for `microcosm_core.architecture_kernel` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Check check rendered state delta summary for the architecture kernel flow.
+
+        The side effect is the explicit file, receipt, parser, print, or instance-state
+        update performed in this function.
         """
         expected_fields = {
             count_field: expected_state_delta_ref_count,
@@ -3573,17 +3347,9 @@ def verify_reference_execution_case(
 
 def _dedupe_strings(items: list[Any]) -> list[str]:
     """
-    [ACTION]
-    Stringify and de-duplicate a list, preserving first-seen order.
+    Compute dedupe strings from `items`.
 
-    - Teleology: keep evidence-ref lists in explanations stable and free of repeats so drilldown pointers stay clean.
-    - Guarantee: returns the order-preserving unique non-empty string forms of `items`; falsy/empty values are dropped.
-    - Fails: never raises; non-string items are coerced via `str(item or "")`.
-    - When-needed: inspect when an explanation's evidence_refs contain duplicate or empty entries.
-    - Non-goal: does not verify that the referenced files exist.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `items`; notable helpers are `add` and `append`.
     """
     seen: set[str] = set()
     out: list[str] = []
@@ -3598,17 +3364,9 @@ def _dedupe_strings(items: list[Any]) -> list[str]:
 
 def _dedupe_event_refs(items: list[Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    De-duplicate event-ref dicts by event_id, preserving first-seen order.
+    Return dedupe event refs for the architecture kernel flow.
 
-    - Teleology: merge event refs from the stream and from work rows into one repeat-free causal-event list for the explanation proof.
-    - Guarantee: returns order-preserving unique {event_id, span, status} dicts keyed by a non-empty `event_id`; non-dict items and blank ids are dropped.
-    - Fails: never raises; malformed items are skipped.
-    - When-needed: inspect when causal_event_refs double-count an event or drop expected ids.
-    - Non-goal: does not validate that referenced events exist in the stream.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `items`; notable helpers are `add`, `append`, and `get`.
     """
     seen: set[str] = set()
     out: list[dict[str, Any]] = []
@@ -3631,17 +3389,10 @@ def _dedupe_event_refs(items: list[Any]) -> list[dict[str, Any]]:
 
 def _public_work_transaction_is_closed(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    Decide whether a work row is a closed, source-safe public transaction.
+    Return whether public work transaction is closed holds for the architecture kernel flow.
 
-    - Teleology: the no-source-mutation closedness predicate that lets the explanation pick a trustworthy representative work transaction.
-    - Guarantee: returns True only when `work_id` is a str AND `status` is in {closed, pass} AND `source_files_mutated` is not True.
-    - Fails: never raises; missing/odd fields simply yield False.
-    - When-needed: inspect when a route explanation selects an unexpected work item as its representative.
-    - Reads: the in-memory `row` only; reads no file.
-    - Non-goal: does not verify the transaction's evidence on disk or authorize source mutation.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `row` with `get`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return (
         isinstance(row.get("work_id"), str)
@@ -3652,17 +3403,10 @@ def _public_work_transaction_is_closed(row: dict[str, Any]) -> bool:
 
 def _select_public_work_transaction(work_items: list[dict[str, Any]]) -> dict[str, Any]:
     """
-    [ACTION]
-    Pick the representative work transaction for an explanation.
+    Derive select public work transaction without touching module import state.
 
-    - Teleology: choose one work row to summarize in the causal-chain proof, preferring a closed source-safe transaction.
-    - Guarantee: returns the first row passing `_public_work_transaction_is_closed`; else the last row; `{}` when `work_items` is empty.
-    - Fails: never raises; empty input -> {}.
-    - When-needed: inspect when selected_work_id/selected_work_status looks wrong in an explanation.
-    - Non-goal: does not validate the selected transaction's on-disk evidence or correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `work_items`; notable helpers are `next` and
+    `_public_work_transaction_is_closed`.
     """
     return next(
         (row for row in work_items if _public_work_transaction_is_closed(row)),
@@ -3672,18 +3416,10 @@ def _select_public_work_transaction(work_items: list[dict[str, Any]]) -> dict[st
 
 def load_kernel_manifest(root: str | Path | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    Load the architecture-kernel manifest, falling back to the baked default.
+    Load load kernel manifest for `microcosm_core.architecture_kernel`.
 
-    - Teleology: source-custody reader for the kernel contract (primitives, posture, anti-claim) that every architecture projection is built from.
-    - Guarantee: returns the on-disk `core/architecture_kernel.json` object when present; otherwise a copy of the in-module `_DEFAULT_KERNEL`; always stamps `primitive_count` from the dict primitives.
-    - Fails: surfaces strict-parse errors on a present-but-malformed manifest; absent file -> default copy (no raise).
-    - When-needed: inspect when `primitive_count`, posture, or anti-claim in a projection disagrees with the source manifest.
-    - Reads: `<root or public_root()>/core/architecture_kernel.json`.
-    - Escalates-to: the source file `core/architecture_kernel.json` and `_DEFAULT_KERNEL` for the canonical contract.
-    - Non-goal: does not authorize source mutation, release, or treat the manifest as production-readiness proof.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Input comes from `root`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     root_path = Path(root).resolve(strict=False) if root is not None else public_root()
     manifest = read_json_if_exists(root_path / "core/architecture_kernel.json")
@@ -3697,17 +3433,9 @@ def load_kernel_manifest(root: str | Path | None = None) -> dict[str, Any]:
 
 def pattern_surface_contract(root: str | Path | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    Return the public pattern-surface contract (state/evidence/binding refs).
+    Return pattern surface contract for the architecture kernel flow.
 
-    - Teleology: expose the public pattern surface (state_ref, evidence_ref, binding_standard_refs, assimilation policy) that routes resolve pattern_refs against.
-    - Guarantee: returns a copy of the manifest's `pattern_surface` dict when present and non-empty; otherwise a copy of `_PATTERN_SURFACE_CONTRACT`.
-    - Fails: surfaces strict-parse errors from the underlying manifest read; otherwise no raise.
-    - When-needed: inspect when pattern bindings resolve against an unexpected state/evidence ref.
-    - Reads: the kernel manifest via `load_kernel_manifest(root)`.
-    - Non-goal: does not promote doctrine, authorize source-body export, or include private source bodies (`private_source_bodies_included` is False).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root`; notable helpers are `get` and `load_kernel_manifest`.
     """
     surface = load_kernel_manifest(root).get("pattern_surface")
     if isinstance(surface, dict) and surface:
@@ -3717,18 +3445,10 @@ def pattern_surface_contract(root: str | Path | None = None) -> dict[str, Any]:
 
 def load_standard_pressure_surface(root: str | Path | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    Load the public standard-pressure surface, falling back to the default.
+    Load load standard pressure surface for `microcosm_core.architecture_kernel`.
 
-    - Teleology: source-custody reader for the public-safe standard-pressure rows (constraints over local state) consumed by graph/explanation builders.
-    - Guarantee: returns the on-disk `core/public_standard_pressure.json` object when present; otherwise a copy of `_DEFAULT_STANDARD_PRESSURE_SURFACE`.
-    - Fails: surfaces strict-parse errors on a present-but-malformed surface; absent file -> default copy (no raise).
-    - When-needed: inspect when standard-pressure rows in a projection disagree with the source surface.
-    - Reads: `<root or public_root()>/core/public_standard_pressure.json` (`_STANDARD_PRESSURE_REF`).
-    - Escalates-to: the source file `core/public_standard_pressure.json` and `_DEFAULT_STANDARD_PRESSURE_SURFACE`.
-    - Non-goal: does not promote global doctrine, authorize source mutation, or prove release readiness (rows are public-safe projections, not doctrine authority).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Input comes from `root`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     root_path = Path(root).resolve(strict=False) if root is not None else public_root()
     payload = read_json_if_exists(root_path / _STANDARD_PRESSURE_REF)
@@ -3739,34 +3459,20 @@ def load_standard_pressure_surface(root: str | Path | None = None) -> dict[str, 
 
 def standard_pressure_contract(root: str | Path | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    Project the standard-pressure surface into its compact contract header.
+    Compute standard pressure contract from `root`.
 
-    - Teleology: give consumers the surface identity (surface_id, state_ref, source_ref, posture, row_count) without the full row bodies.
-    - Guarantee: returns the contract dict derived from the loaded surface, with `row_count` counting dict rows and `private_source_bodies_included` normalized to a bool.
-    - Fails: surfaces strict-parse errors from the underlying surface load; otherwise no raise.
-    - When-needed: inspect when a projection's standard_pressure header (counts/refs) looks wrong.
-    - Reads: the standard-pressure surface via `load_standard_pressure_surface(root)`.
-    - Non-goal: does not include the rows themselves, promote doctrine, or authorize release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root`; notable helpers are `_standard_pressure_contract_from_surface` and
+    `load_standard_pressure_surface`.
     """
     return _standard_pressure_contract_from_surface(load_standard_pressure_surface(root))
 
 
 def _standard_pressure_contract_from_surface(surface: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the compact standard-pressure contract header from a surface dict.
+    Serialize `microcosm_core.architecture_kernel._standard_pressure_contract_from_surface`
+    into the payload shape expected by architecture kernel.
 
-    - Teleology: pure projection from an already-loaded surface to its identity header, so callers holding the surface avoid a re-read.
-    - Guarantee: returns {surface_id, state_ref, source_ref, authority_posture, private_source_bodies_included (bool), row_count}; missing keys fall back to defaults and `row_count` counts dict rows (0 when `rows` is not a list).
-    - Fails: never raises; absent/odd fields degrade to documented defaults.
-    - When-needed: inspect when a header derived from an in-hand surface disagrees with the surface contents.
-    - Non-goal: does not include row bodies, promote doctrine, or authorize release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = surface.get("rows", [])
     row_count = len([row for row in rows if isinstance(row, dict)]) if isinstance(rows, list) else 0
@@ -3785,34 +3491,19 @@ def _standard_pressure_contract_from_surface(surface: dict[str, Any]) -> dict[st
 
 def standard_pressure_rows(root: str | Path | None = None) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Return the public standard-pressure rows from the loaded surface.
+    Produce the standard pressure rows value used by `microcosm_core.architecture_kernel`.
 
-    - Teleology: expose the row bodies (standard_id, claim, route_refs, authority_boundary) that constrain routes and seed graph nodes/edges.
-    - Guarantee: returns the list of dict rows from the loaded surface; non-dict entries and a non-list `rows` field yield [].
-    - Fails: surfaces strict-parse errors from the underlying surface load; otherwise no raise.
-    - When-needed: inspect when route constraints or graph standard-pressure nodes are missing rows.
-    - Reads: the standard-pressure surface via `load_standard_pressure_surface(root)`.
-    - Non-goal: does not promote rows to global doctrine or authorize release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root`; notable helpers are `_standard_pressure_rows_from_surface` and
+    `load_standard_pressure_surface`.
     """
     return _standard_pressure_rows_from_surface(load_standard_pressure_surface(root))
 
 
 def _standard_pressure_rows_from_surface(surface: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Extract the dict rows from an already-loaded standard-pressure surface.
+    Derive standard pressure rows from surface without touching module import state.
 
-    - Teleology: pure row extractor so callers holding a surface reuse it without a re-read.
-    - Guarantee: returns the dict-only entries of `surface["rows"]`; non-dict entries and a non-list `rows` field yield [].
-    - Fails: never raises.
-    - When-needed: inspect when rows derived from an in-hand surface look filtered or empty.
-    - Non-goal: does not validate row schema or authorize doctrine promotion.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `surface`; notable helpers are `get`.
     """
     rows = surface.get("rows", [])
     return [row for row in rows if isinstance(row, dict)] if isinstance(rows, list) else []
@@ -3820,17 +3511,9 @@ def _standard_pressure_rows_from_surface(surface: dict[str, Any]) -> list[dict[s
 
 def _route_pattern_refs(route: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    Resolve the pattern ids a route depends on, with a per-route fallback.
+    Produce the route pattern refs value used by `microcosm_core.architecture_kernel`.
 
-    - Teleology: source the pattern_refs a route resolves against, falling back to the built-in `_PATTERN_BY_ROUTE` map when the route omits them.
-    - Guarantee: returns the route's own `pattern_refs` as non-empty strings when it is a list; else the single fallback for the `route_id` (or [] when none).
-    - Fails: never raises; missing/odd fields degrade to the fallback or [].
-    - When-needed: inspect when a route's pattern bindings resolve to unexpected ids.
-    - Reads: the in-memory `route` and the module `_PATTERN_BY_ROUTE` map.
-    - Non-goal: does not verify the pattern ids exist in `.microcosm/patterns.json`.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `route`; notable helpers are `get`.
     """
     refs = route.get("pattern_refs", [])
     if isinstance(refs, list):
@@ -3841,17 +3524,10 @@ def _route_pattern_refs(route: dict[str, Any]) -> list[str]:
 
 def _pattern_rows_by_id(pattern_payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    Index pattern rows by pattern_id for O(1) binding lookup.
+    Serialize `microcosm_core.architecture_kernel._pattern_rows_by_id` into the payload
+    shape expected by architecture kernel.
 
-    - Teleology: turn the `.microcosm/patterns.json` row list into an id-keyed map so pattern bindings resolve quickly.
-    - Guarantee: returns {pattern_id -> row} for every dict row carrying a truthy `pattern_id`; non-list `patterns` -> {}.
-    - Fails: never raises; rows without an id are dropped.
-    - When-needed: inspect when a pattern binding reports resolved=False despite the pattern appearing in state.
-    - Reads: the in-memory `pattern_payload` (already-read patterns state).
-    - Non-goal: does not read the patterns file itself or validate pattern schema.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows = pattern_payload.get("patterns", [])
     if not isinstance(rows, list):
@@ -3865,17 +3541,10 @@ def _pattern_rows_by_id(pattern_payload: dict[str, Any]) -> dict[str, dict[str, 
 
 def _pattern_bindings(pattern_payload: dict[str, Any], pattern_refs: list[str]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Resolve route pattern_refs into binding rows against the pattern surface.
+    Produce the pattern bindings value used by `microcosm_core.architecture_kernel`.
 
-    - Teleology: produce the per-ref binding rows (with resolved flag, state/evidence refs, governing standard refs) that the explanation reports.
-    - Guarantee: returns one binding per id in `pattern_refs`, each carrying `resolved` (True iff the id is present in `pattern_payload`), the resolved `pattern` row or None, surface `state_ref::id`, `evidence_ref`, `standard_refs`, and a public authority_boundary.
-    - Fails: surfaces strict-parse errors only via the `pattern_surface_contract()` manifest read; otherwise no raise.
-    - When-needed: inspect when an explanation's pattern_bindings show unexpected resolved flags or refs.
-    - Reads: in-memory `pattern_payload`; pattern surface via `pattern_surface_contract()`.
-    - Non-goal: does not promote patterns to doctrine or authorize source mutation; bindings are public observations only.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `pattern_payload` and `pattern_refs`; notable helpers are
+    `_pattern_rows_by_id`, `pattern_surface_contract`, `get`, and `append`.
     """
     rows_by_id = _pattern_rows_by_id(pattern_payload)
     surface = pattern_surface_contract()
@@ -3902,17 +3571,10 @@ def standard_pressure_refs_for_route(
     route: dict[str, Any], *, rows: list[dict[str, Any]] | None = None
 ) -> list[str]:
     """
-    [ACTION]
-    Select which standard-pressure ids constrain a given route.
+    Return standard pressure refs for route for the architecture kernel flow.
 
-    - Teleology: decide the standard_ids that apply to a route, honoring an explicit per-route override before the surface's wildcard/route matching.
-    - Guarantee: returns the route's own `standard_pressure_refs` (as strings) when non-empty; else the standard_ids of rows whose `route_refs` is ["*"] or contains the route id.
-    - Fails: surfaces strict-parse errors only when `rows` is None and it must load the surface; otherwise no raise.
-    - When-needed: inspect when a route is constrained by too many or too few standards.
-    - Reads: in-memory `route`; standard rows via `standard_pressure_rows()` when `rows` is not supplied.
-    - Non-goal: does not validate the standard_ids resolve to rows or authorize doctrine promotion.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `route` and `rows`; notable helpers are `get`, `standard_pressure_rows`, and
+    `append`.
     """
     route_id = str(route.get("route_id") or route.get("row_id") or "")
     refs = route.get("standard_pressure_refs", [])
@@ -3936,17 +3598,12 @@ def _standard_pressure_bindings(
     contract: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Resolve a route's standard-pressure refs into binding rows.
+    Produce the standard pressure bindings value used by
+    `microcosm_core.architecture_kernel`.
 
-    - Teleology: produce the per-standard binding rows (resolved flag, row, state/source refs) the explanation reports as constraints.
-    - Guarantee: returns one binding per id from `standard_pressure_refs_for_route`, each with `resolved` (True iff the id is present in `rows`), the `standard` row or None, `state_ref` `<contract state_ref>::id`, the contract `source_ref`, and a public authority_boundary.
-    - Fails: surfaces strict-parse errors only when it must load rows/contract (args None); otherwise no raise.
-    - When-needed: inspect when an explanation's standard_bindings show wrong resolved flags or refs.
-    - Reads: in-memory `route`; standard rows via `standard_pressure_rows()` and header via `standard_pressure_contract()` when not supplied.
-    - Non-goal: does not promote standards to global doctrine or authorize source mutation.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `route`, `rows`, and `contract`; notable helpers are
+    `standard_pressure_refs_for_route`, `standard_pressure_rows`,
+    `standard_pressure_contract`, `get`, and 1 more.
     """
     source_rows = rows if rows is not None else standard_pressure_rows()
     rows_by_id = {
@@ -3973,17 +3630,10 @@ def _standard_pressure_bindings(
 
 def work_contracts_for_route(route: dict[str, Any], work_id: str | None = None) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the satisfaction/integration/residual contract shape for a route.
+    Serialize `microcosm_core.architecture_kernel.work_contracts_for_route` into the payload
+    shape expected by architecture kernel.
 
-    - Teleology: define what a reversible project-local work run must satisfy, where its state may land, and what side effects are forbidden — the contract a work transaction is judged against.
-    - Guarantee: returns a dict with `satisfaction_contract` (must_satisfy/done_when, standard refs), `integration_contract` (project-local state_targets under `.microcosm`, forbidden side effects incl. source mutation/provider calls/release), and `residual_policy`; uses `work_id` or the `<work_id>` placeholder in state targets.
-    - Fails: never raises; missing route id degrades to the literal "route".
-    - When-needed: inspect when an explanation's work_transaction_shape contract looks wrong for a route.
-    - Reads: the in-memory `route` only; reads no file.
-    - Non-goal: does not execute work, mutate source, or authorize the forbidden side effects it names; it is a contract description, not an enforcer.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     route_id = str(route.get("route_id") or route.get("row_id") or "route")
     work_ref = work_id or "<work_id>"
@@ -4047,17 +3697,10 @@ def work_contracts_for_route(route: dict[str, Any], work_id: str | None = None) 
 
 def _base(project: Path, schema_version: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the shared header stamped onto every generated state payload.
+    Serialize `microcosm_core.architecture_kernel._base` into the payload shape expected by
+    architecture kernel.
 
-    - Teleology: guarantee every generated artifact carries a consistent provenance/authority header (schema, timestamp, project id, and the release/provider/source-mutation = False ceiling).
-    - Guarantee: returns a fresh dict with `schema_version`, a `created_at` UTC stamp, `project_id` (resolved name or "project"), `project_ref`="." , `state_ref`=STATE_DIR, `status`=pass, and `release_authorized`/`provider_calls_authorized`/`source_files_mutated` all False.
-    - Fails: never raises; an unnameable project falls back to "project".
-    - When-needed: inspect when a generated payload's header (timestamp, ids, authorization flags) looks wrong.
-    - Reads: resolves `project` for its name; reads no file content; `created_at` from `receipts.utc_now`.
-    - Non-goal: does not flip any authorization flag True — generated output is never source-of-truth or release authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": schema_version,
@@ -4074,17 +3717,10 @@ def _base(project: Path, schema_version: str) -> dict[str, Any]:
 
 def _iter_json_children(path: Path) -> Iterator[Path]:
     """
-    [ACTION]
-    Recursively yield every `.json` file under a directory, error-tolerantly.
+    Temporarily apply iter JSON children for callers using a `with` block.
 
-    - Teleology: enumerate evidence/explanation directory contents for the state-index counts without failing on a single bad entry.
-    - Guarantee: yields each regular (non-symlink) `*.json` file under `path`, recursing into non-symlink subdirectories; entries that raise OSError are skipped.
-    - Fails: never raises; missing/unreadable directory or entry -> that branch is silently skipped.
-    - When-needed: inspect when evidence/explanation item_counts undercount on-disk files.
-    - Reads: directory entries under `path` (no file contents).
-    - Non-goal: does not follow symlinks, read file bodies, or validate JSON.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The previous state is restored after the yielded block exits, including exceptional
+    exits.
     """
     if not _path_is_dir(path):
         return
@@ -4106,17 +3742,9 @@ def _iter_json_children(path: Path) -> Iterator[Path]:
 
 def _count_json_children(path: Path) -> int:
     """
-    [ACTION]
-    Count `.json` files under a directory tree.
+    Derive count JSON children without touching module import state.
 
-    - Teleology: supply the evidence/explanation `item_count` for the state index.
-    - Guarantee: returns the number of `.json` files yielded by `_iter_json_children(path)`; missing/empty dir -> 0.
-    - Fails: never raises (delegates to the error-tolerant iterator).
-    - When-needed: inspect when a directory's reported item_count looks wrong.
-    - Non-goal: does not read or validate the counted files.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `path`; notable helpers are `_iter_json_children`.
     """
     return sum(1 for _ in _iter_json_children(path))
 
@@ -4128,18 +3756,10 @@ def build_state_index(
     standard_pressure: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Generate and write the project-local `.microcosm/state_index.json`.
+    Produce the build state index value used by `microcosm_core.architecture_kernel`.
 
-    - Teleology: project an at-a-glance index of every project-local substrate asset (existence + json counts for evidence/explanation) under the source-mutation/release = False ceiling.
-    - Guarantee: writes `<project>/.microcosm/state_index.json` and returns the same payload (base header + `asset_count`, `assets` rows with exists/refs and item_count for directory kinds, embedded pattern + standard-pressure surfaces, and an explicit authority_ceiling); GENERATED output.
-    - Fails: surfaces strict-parse errors from any read state file and OSError from `write_json_atomic` if the state dir is unwritable; otherwise no raise (absent assets are reported `exists: false`).
-    - When-needed: inspect when the state-index undercounts assets or shows stale existence flags.
-    - Reads: project-local `.microcosm/*` asset existence; pattern/standard surfaces (args or loaders).
-    - Writes: `<project>/.microcosm/state_index.json`.
-    - Escalates-to: rebuild via `write_project_architecture` (its caller); source surfaces `core/architecture_kernel.json` + `core/public_standard_pressure.json`.
-    - Non-goal: does not authorize release or treat the generated index as source-of-truth authority (`authority`: project_local_projection).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `project_path`, `pattern_surface`, and `standard_pressure`; notable helpers
+    are `resolve`, `state_dir`, `write_json_atomic`, `pattern_surface_contract`, and 8 more.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)
@@ -4211,18 +3831,11 @@ def build_graph(
     standard_pressure_surface: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Generate and write the project-local `.microcosm/graph.json` lineage graph.
+    Return build graph for the architecture kernel flow.
 
-    - Teleology: project the asset/lineage graph (primitive + surface + pattern/route/work/standard nodes and their relation edges) so navigation/graph views can render project-local lineage.
-    - Guarantee: writes `<project>/.microcosm/graph.json` and returns the same payload (base header + node_count/edge_count, nodes, edges, embedded pattern + standard-pressure surfaces, graph_ref); nodes/edges are derived from on-disk routes/work/patterns plus the surfaces; GENERATED output.
-    - Fails: surfaces strict-parse errors from any read state file and OSError from `write_json_atomic` if the state dir is unwritable; missing state files degrade to empty node/edge sets (no raise).
-    - When-needed: inspect when the lineage graph is missing nodes/edges or shows stale counts.
-    - Reads: `.microcosm/routes.json`, `.microcosm/work_items.json`, `.microcosm/patterns.json`; pattern/standard surfaces (args or loaders).
-    - Writes: `<project>/.microcosm/graph.json`.
-    - Escalates-to: rebuild via `write_project_architecture`; source surfaces `core/architecture_kernel.json` + `core/public_standard_pressure.json`.
-    - Non-goal: does not authorize release or treat the generated graph as owner/source authority (it is a projection interface).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    Inputs are `project_path`, `pattern_surface`, and `standard_pressure_surface`; notable
+    helpers are `resolve`, `state_dir`, `get`, `_standard_pressure_contract_from_surface`,
+    and 11 more.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)
@@ -4390,18 +4003,10 @@ def build_graph(
 
 def write_project_architecture(project_path: str | Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Generate the project's architecture projection and downstream graph+index.
+    Write write project architecture for the architecture kernel flow.
 
-    - Teleology: the top-level architecture-projection entrypoint — materialize `.microcosm/architecture.json` from the kernel manifest + public surfaces, then regenerate the graph and state index so all three stay consistent.
-    - Guarantee: creates `.microcosm/`, `.microcosm/evidence/`, `.microcosm/explanations/`; writes `<project>/.microcosm/architecture.json` (base header + kernel manifest, primitive_ids, local_state_assets, pattern + standard-pressure surfaces, lineage, research-prototype posture with release_authorized False); then calls `build_graph` and `build_state_index`; returns the architecture payload; GENERATED output.
-    - Fails: surfaces strict-parse errors from manifest/surface reads and OSError from directory creation or `write_json_atomic` if the project path is unwritable; otherwise no raise.
-    - When-needed: run/inspect when a project's architecture projection (or its graph/index) is stale or missing after state changes.
-    - Reads: kernel manifest via `load_kernel_manifest`; pattern/standard surfaces via their loaders; downstream reads of `.microcosm/*` state.
-    - Writes: `<project>/.microcosm/architecture.json` (plus graph.json and state_index.json via callees).
-    - Escalates-to: source surfaces `core/architecture_kernel.json` + `core/public_standard_pressure.json`; re-run this function to refresh.
-    - Non-goal: does not authorize release/publication/provider calls/source mutation, and does not claim production-infrastructure or whole-system correctness (posture flags are False).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)
@@ -4474,18 +4079,10 @@ def write_project_architecture(project_path: str | Path) -> dict[str, Any]:
 
 def explain_route(project_path: str | Path, route_id: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Generate and write a project-local route explanation with a causal-chain proof.
+    Serialize `microcosm_core.architecture_kernel.explain_route` into the payload shape
+    expected by architecture kernel.
 
-    - Teleology: connect one route to its grounded refs, resolved pattern/standard bindings, primitives, work-transaction shape, events, and evidence — the self-comprehension artifact for a route.
-    - Guarantee: when the route id resolves, writes `<project>/.microcosm/explanations/<route_id>.json` and returns the explanation (bindings, work shape, causal_chain_proof whose `status` is pass only if every pattern+standard binding resolved and work/event/evidence refs are non-empty, else partial); the proof_scope is project-local lineage, not correctness authority; GENERATED output.
-    - Fails: returns `{... "status": "not_found", "reason": "route_not_found"}` (NO write, no raise) when `route_id` matches no route; surfaces strict-parse errors from read state files and OSError from `write_json_atomic` on a resolvable route with an unwritable explanations dir.
-    - When-needed: inspect when a route's explanation, causal chain, or selected work transaction looks wrong or stale.
-    - Reads: `.microcosm/routes.json`, `.microcosm/patterns.json`, `.microcosm/work_items.json`, `.microcosm/events.jsonl`; pattern/standard surfaces via loaders.
-    - Writes: `<project>/.microcosm/explanations/<route_id>.json` (only when the route resolves).
-    - Escalates-to: reader drilldowns `.microcosm/routes.json`, `.microcosm/work_items.json`, `.microcosm/events.jsonl`, `.microcosm/evidence/`; re-run to refresh.
-    - Non-goal: does not prove correctness, authorize source mutation/release/provider calls, assert private-data equivalence, or promote global doctrine (anti_claim is emitted in the payload).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     project = Path(project_path).expanduser().resolve(strict=False)
     state = state_dir(project)

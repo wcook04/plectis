@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.first_screen_composition` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements first screen composition for the public Plectis package.
 
-[INTERFACE]
-- Exports: MICROCOSM_ROOT, STANDARD_REF, READER_ROUTE_IDS, REQUIRED_ROUTE_IDS, READER_LABELS, READER_ROUTE_ALIASES, INTERESTING_PARTS_ALIASES, READER_ROUTE_ALIAS_HINT, DENIED_AUTHORITY_KEYS, STANDARD_SURFACE_ALIASES, TEXT_CARD_MAX_LINES, COMPACT_JSON_CARD_MAX_CHARS, TEXT_READER_CHOICES, ORGAN_REGISTRY_REF, ORGAN_ATLAS_REF, AGENT_TASK_ROUTES_REF, ORGAN_GLANCE_LADDER_REF, STANDARDS_REGISTRY_REF, EVIDENCE_CLASS_REGISTRY_REF, WORKINGNESS_MAP_REF, FIXTURE_MANIFESTS_REF, SUBSTRATE_GLANCE_SAMPLE_LIMIT, SUBSTRATE_GLANCE_EXCERPT_MAX_CHARS, EVIDENCE_CLASS_DISPLAY_ORDER, ...
-- Reads: call arguments, module constants, imported helpers, declared subprocess results.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: resource_root, schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `normalize_reader_route_id`, `first_screen_composition_card`,
+`first_screen_compact_card`, and `first_screen_text_card`; constants such as
+`MICROCOSM_ROOT`, `STANDARD_REF`, `READER_ROUTE_IDS`, `REQUIRED_ROUTE_IDS`, and 24 more pin
+local fixture names; dependencies include `json`, `copy`, `functools`, `pathlib`, and 3
+more. Importing it does not authorize release work or hidden private-state access; those
+effects live behind explicit calls.
 """
 from __future__ import annotations
 
@@ -134,32 +119,19 @@ BOUNDED_OBSERVATORY_REQUEST_COUNT = 7
 
 def _observatory_serve_command(project_label: str) -> str:
     """
-    [ACTION]
-    Build the localhost observatory serve command string for the project label.
+    Produce the observatory serve command value used by
+    `microcosm_core.first_screen_composition`.
 
-    - Teleology: keep the browser read-model serve command copyable from a single string builder.
-    - Guarantee: returns a `plectis serve <label> --host 127.0.0.1 --port 8765` string bound to localhost only.
-    - Fails: never raises; always returns a localhost-pinned string, never a hosted/public bind.
-    - Non-goal: does not start a server, authorize hosting, or imply release readiness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project_label`.
     """
     return f"plectis serve {project_label} --host 127.0.0.1 --port 8765"
 
 
 def _bounded_observatory_serve_command(project_label: str) -> str:
     """
-    [ACTION]
-    Build the request-bounded observatory serve command for smoke validation.
+    Derive bounded observatory serve command without touching module import state.
 
-    - Teleology: give first-screen route smokes a serve command that self-terminates after a fixed request count.
-    - Guarantee: returns the localhost serve command suffixed with `--max-requests 7` (BOUNDED_OBSERVATORY_REQUEST_COUNT).
-    - Fails: never raises; always returns a bounded localhost command string.
-    - Non-goal: does not run the server, authorize hosting, or guarantee the smoke passes.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project_label`; notable helpers are `_observatory_serve_command`.
     """
     return (
         f"{_observatory_serve_command(project_label)} "
@@ -169,15 +141,9 @@ def _bounded_observatory_serve_command(project_label: str) -> str:
 
 def _json_cache_key(path: Path) -> tuple[str, int, int]:
     """
-    [ACTION]
-    Derive a content-sensitive cache key (resolved path, mtime_ns, size) for a JSON file.
+    Derive json cache key without touching module import state.
 
-    - Teleology: let the lru_cache invalidate a parsed JSON object when the on-disk file changes.
-    - Guarantee: returns (resolved posix path, st_mtime_ns, st_size); the tuple changes whenever the file is rewritten.
-    - Fails: raises OSError (FileNotFoundError) when `path` does not exist, since it stats the file.
-    - Reads: the filesystem stat of `path` (no body parse here).
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `path`; notable helpers are `stat`, `as_posix`, and `resolve`.
     """
     stat = path.stat()
     return path.resolve().as_posix(), stat.st_mtime_ns, stat.st_size
@@ -186,16 +152,10 @@ def _json_cache_key(path: Path) -> tuple[str, int, int]:
 @lru_cache(maxsize=128)
 def _load_json_object(path_ref: str, mtime_ns: int, size: int) -> Any:
     """
-    [ACTION]
-    Strict-parse a JSON file at path_ref, memoized on (path, mtime_ns, size).
+    Load load JSON object for `microcosm_core.first_screen_composition`.
 
-    - Teleology: source-custody read path that parses public JSON once per file revision.
-    - Guarantee: returns the strict-parsed JSON value for path_ref; identical (path, mtime, size) reuses the cached parse.
-    - Fails: raises StrictJsonError on malformed/duplicate-key JSON and OSError when the file is unreadable.
-    - Reads: the JSON file at `path_ref` via read_json_strict.
-    - Non-goal: does not validate schema, authorize source-body export, or assert public-safe equivalence.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Input comes from `path_ref`, `mtime_ns`, and `size`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     del mtime_ns, size
     return read_json_strict(Path(path_ref))
@@ -203,17 +163,10 @@ def _load_json_object(path_ref: str, mtime_ns: int, size: int) -> Any:
 
 def _load_standard(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Load the first-screen composition root standard JSON object from `root`.
+    Load load standard for `microcosm_core.first_screen_composition`.
 
-    - Teleology: source-custody loader for the governing standard the card is validated against.
-    - Guarantee: returns the parsed standard dict at root/STANDARD_REF (standards/std_microcosm_first_screen_composition_root.json).
-    - Fails: raises TypeError when the file is not a JSON object; propagates StrictJsonError/OSError from the loader when missing or malformed.
-    - Reads: `standards/std_microcosm_first_screen_composition_root.json` under `root`.
-    - Escalates-to: STANDARD_REF as the authority the card mirrors; first_screen_composition_card consumes this.
-    - Non-goal: does not authorize release or treat the standard as whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Input comes from `root`; malformed or missing data follows the exceptions and checks
+    visible in the body.
     """
     payload = _load_json_object(*_json_cache_key(root / STANDARD_REF))
     if not isinstance(payload, dict):
@@ -223,15 +176,9 @@ def _load_standard(root: Path) -> dict[str, Any]:
 
 def _string_set(rows: Any) -> set[str]:
     """
-    [ACTION]
-    Coerce an arbitrary value into a set of its string elements.
+    Derive string set without touching module import state.
 
-    - Teleology: normalize standard-declared list fields into comparable string sets for parity checks.
-    - Guarantee: returns a set of the str items in `rows`; non-list input yields an empty set.
-    - Fails: never raises; non-string and non-list inputs are silently dropped.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `rows`.
     """
     if not isinstance(rows, list):
         return set()
@@ -240,15 +187,9 @@ def _string_set(rows: Any) -> set[str]:
 
 def _reader_route_ids(rows: Any) -> set[str]:
     """
-    [ACTION]
-    Extract the set of reader_route_id values present in a list of row dicts.
+    Return reader route IDs for the first screen composition flow.
 
-    - Teleology: pull the reader-route id set from any reader surface for route-parity comparison.
-    - Guarantee: returns the set of truthy `reader_route_id` strings across dict rows; non-list input yields an empty set.
-    - Fails: never raises; rows without a reader_route_id key are skipped.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `rows`; notable helpers are `get`.
     """
     if not isinstance(rows, list):
         return set()
@@ -261,32 +202,19 @@ def _reader_route_ids(rows: Any) -> set[str]:
 
 def normalize_reader_route_id(reader_id: str) -> str:
     """
-    [ACTION]
-    Resolve a reader-route alias (e.g. cold-cloner, reviewer) to its canonical reader_route_id.
+    Produce the normalize reader route ID value used by
+    `microcosm_core.first_screen_composition`.
 
-    - Teleology: public alias normalizer so CLI/text callers can pass human-friendly reader names.
-    - Guarantee: returns the canonical id from READER_ROUTE_ALIASES when `reader_id` is an alias, else returns `reader_id` unchanged.
-    - Fails: never raises; unknown ids pass through verbatim (validity is enforced separately by callers like first_screen_text_card).
-    - When-needed: when mapping a user-supplied reader token to the six canonical READER_ROUTE_IDS.
-    - Escalates-to: READER_ROUTE_ALIASES / READER_ROUTE_IDS constants in this module.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `reader_id`; notable helpers are `get`.
     """
     return READER_ROUTE_ALIASES.get(reader_id, reader_id)
 
 
 def _ordered_reader_route_ids(route_ids: set[str]) -> list[str]:
     """
-    [ACTION]
-    Order a reader-route id set: canonical ids first, then extras sorted.
+    Return ordered reader route IDs for the first screen composition flow.
 
-    - Teleology: produce a stable, deterministic reader-id ordering for parity receipts.
-    - Guarantee: returns canonical READER_ROUTE_IDS present in `route_ids` (in canonical order) followed by sorted unknown extras.
-    - Fails: never raises; an empty set yields an empty list.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `route_ids`.
     """
     known_ids = [route_id for route_id in READER_ROUTE_IDS if route_id in route_ids]
     return known_ids + sorted(route_ids - REQUIRED_ROUTE_IDS)
@@ -294,15 +222,9 @@ def _ordered_reader_route_ids(route_ids: set[str]) -> list[str]:
 
 def _surface_list(payload: dict[str, Any], surface_id: str, list_key: str) -> list[Any]:
     """
-    [ACTION]
-    Safely read payload[surface_id][list_key] as a list.
+    Derive surface list without touching module import state.
 
-    - Teleology: defensive accessor for nested list fields of a composition payload.
-    - Guarantee: returns the list at payload[surface_id][list_key], or an empty list when any level is missing or non-list.
-    - Fails: never raises on missing keys or wrong types; returns `[]` instead.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`, `surface_id`, and `list_key`; notable helpers are `get`.
     """
     surface = payload.get(surface_id, {})
     if not isinstance(surface, dict):
@@ -317,15 +239,10 @@ def _standard_surface_present(
     validation_check_ids: set[str],
 ) -> bool:
     """
-    [ACTION]
-    Decide whether a standard-required surface is present in payload or as a validation check.
+    Return whether standard surface present holds for the first screen composition flow.
 
-    - Teleology: tolerate surface renames so receipt-contract parity survives alias drift.
-    - Guarantee: returns True when surface_id or any of its STANDARD_SURFACE_ALIASES appears as a payload key or a validation-check id.
-    - Fails: never raises; an unknown surface with no alias hit returns False.
-    - Reads: STANDARD_SURFACE_ALIASES for the alias expansion.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The result is derived from `surface_id`, `payload`, and `validation_check_ids` with
+    `get`; failing evidence is returned or raised exactly where the body says so.
     """
     aliases = {surface_id, *STANDARD_SURFACE_ALIASES.get(surface_id, ())}
     return any(alias in payload for alias in aliases) or any(
@@ -339,18 +256,10 @@ def _standard_backed_first_screen_scan(
     validation_check_ids: set[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Scan the composition payload against the loaded standard and emit a pass/blocked contract receipt.
+    Serialize `microcosm_core.first_screen_composition._standard_backed_first_screen_scan`
+    into the payload shape expected by first screen composition.
 
-    - Teleology: prove the generated card mirrors the standard's required fields, validator id, reader-route parity, and denied-authority flags.
-    - Guarantee: returns a `microcosm_standard_backed_first_screen_scan_v1` dict whose `status` is "pass" only when every `checks` entry is True; reports per-surface route_parity, reader_command_parity, denied_authority_flags, and a `missing` breakdown.
-    - Fails: never raises; mismatches surface as `status="blocked"` with the failing check flagged False, never an exception.
-    - When-needed: when verifying the card has not drifted from std_microcosm_first_screen_composition_root.json.
-    - Escalates-to: STANDARD_REF and the validator_contract.validator_id it cross-checks; the receipt asserts scanner-contract-only authority, not release or reader success.
-    - Non-goal: does not authorize release, reader success, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     validator_contract = standard.get("validator_contract", {})
     receipt_contract = standard.get("receipt_contract", {})
@@ -521,16 +430,10 @@ def _standard_backed_first_screen_scan(
 
 def _load_public_json(root: Path, ref: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Tolerantly load a public registry/receipt JSON object under `root`, defaulting to empty.
+    Serialize `microcosm_core.first_screen_composition._load_public_json` into the payload
+    shape expected by first screen composition.
 
-    - Teleology: source-custody read for optional public inputs (organ/standards/workingness/fixture manifests) that may be absent.
-    - Guarantee: returns the parsed dict at root/ref, or `{}` when the file is missing, unreadable, malformed, or not a JSON object.
-    - Fails: never raises; StrictJsonError and OSError are swallowed and degrade to `{}`.
-    - Reads: the public JSON file at `ref` relative to `root`.
-    - Non-goal: does not authorize source-body export, public-safe equivalence, or release; missing inputs silently narrow the card, never error it.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     try:
         payload = _load_json_object(*_json_cache_key(root / ref))
@@ -543,15 +446,9 @@ def _load_public_json(root: Path, ref: str) -> dict[str, Any]:
 
 def _collection_count(value: Any) -> int | None:
     """
-    [ACTION]
-    Return len(value) when value is a collection, else None.
+    Return collection count for the first screen composition flow.
 
-    - Teleology: derive a count from a registry collection field without trusting a scalar count field.
-    - Guarantee: returns the length for dict/list/tuple input; returns None for any other type.
-    - Fails: never raises; non-collections yield None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`.
     """
     if isinstance(value, (dict, list, tuple)):
         return len(value)
@@ -560,15 +457,9 @@ def _collection_count(value: Any) -> int | None:
 
 def _non_negative_int(value: Any) -> int | None:
     """
-    [ACTION]
-    Return value when it is a non-negative, non-bool int, else None.
+    Derive non negative int without touching module import state.
 
-    - Teleology: accept only honest count scalars from registries, rejecting bools and negatives.
-    - Guarantee: returns the int when `value` is an int >= 0 and not a bool; returns None otherwise.
-    - Fails: never raises; True/False and negative or non-int values yield None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`.
     """
     if isinstance(value, bool):
         return None
@@ -579,15 +470,9 @@ def _non_negative_int(value: Any) -> int | None:
 
 def _first_count(*candidates: int | None) -> int | None:
     """
-    [ACTION]
-    Return the first non-None candidate count in priority order.
+    Produce the first count value used by `microcosm_core.first_screen_composition`.
 
-    - Teleology: pick the highest-fidelity available count (e.g. fixture manifest before stale workingness fallback).
-    - Guarantee: returns the first argument that is not None; returns None only when every candidate is None.
-    - Fails: never raises; all-None input yields None.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `candidates`.
     """
     for candidate in candidates:
         if candidate is not None:
@@ -597,15 +482,11 @@ def _first_count(*candidates: int | None) -> int | None:
 
 def _strings(value: Any) -> list[str]:
     """
-    [ACTION]
-    Coerce a value into a list of its non-empty string elements.
+    Return the non-empty string members used by
+    `microcosm_core.first_screen_composition._strings`.
 
-    - Teleology: normalize id-list fields (e.g. body_material_ids) into clean string lists.
-    - Guarantee: returns the truthy str items of `value` in order; non-list input yields an empty list.
-    - Fails: never raises; non-string and empty-string items are dropped.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -614,16 +495,9 @@ def _strings(value: Any) -> list[str]:
 
 def _public_text(value: Any) -> str:
     """
-    [ACTION]
-    Flatten any value to single-spaced ASCII-only text.
+    Produce the public text value used by `microcosm_core.first_screen_composition`.
 
-    - Teleology: public-safe text guard that collapses whitespace and drops non-ASCII before a value reaches a reader card.
-    - Guarantee: returns whitespace-collapsed, ASCII-only text; None/empty becomes "".
-    - Fails: never raises; non-ASCII characters are silently discarded.
-    - Non-goal: not a private-data redactor; it sanitizes shape, it does not authorize export of restricted content.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value`; notable helpers are `join`, `decode`, `split`, and `encode`.
     """
     text = " ".join(str(value or "").split())
     return text.encode("ascii", "ignore").decode("ascii")
@@ -631,15 +505,10 @@ def _public_text(value: Any) -> str:
 
 def _public_excerpt(value: Any, max_chars: int) -> str:
     """
-    [ACTION]
-    Produce an ASCII, word-bounded excerpt of value capped at max_chars.
+    Derive public excerpt without touching module import state.
 
-    - Teleology: keep glance/one-line excerpts inside the first-screen budget without mid-word truncation.
-    - Guarantee: returns _public_text(value) when within max_chars; otherwise a word-bounded prefix ending in "..." no longer than the cap.
-    - Fails: never raises; over-long input is truncated, not rejected.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `value` and `max_chars`; notable helpers are `_public_text`, `rstrip`, and
+    `rsplit`.
     """
     text = _public_text(value)
     if len(text) <= max_chars:
@@ -650,15 +519,10 @@ def _public_excerpt(value: Any, max_chars: int) -> str:
 
 def _positive_count(row: Any) -> bool:
     """
-    [ACTION]
-    Report whether a scale-count row carries a strictly positive integer count.
+    Return whether positive count holds for the first screen composition flow.
 
-    - Teleology: gate display logic on rows whose `count` is a real positive int.
-    - Guarantee: returns True only when `row` is a dict with a non-bool int `count` > 0; False otherwise.
-    - Fails: never raises; missing/bool/non-positive counts return False.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The result is derived from `row` with `get`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return (
         isinstance(row, dict)
@@ -670,33 +534,19 @@ def _positive_count(row: Any) -> bool:
 
 def _source_checkout_command(command: str, project_label: str) -> str:
     """
-    [ACTION]
-    Build a no-install `PYTHONPATH=src python3 -m microcosm_core <command> <label>` invocation.
+    Return source checkout command for the first screen composition flow.
 
-    - Teleology: keep the source-checkout (no pip install) entry path copyable for cold cloners.
-    - Guarantee: returns the PYTHONPATH-prefixed module invocation string for the given subcommand and project label.
-    - Fails: never raises; pure string formatting.
-    - Non-goal: does not run anything or imply a package install / release path.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `command` and `project_label`.
     """
     return f"PYTHONPATH=src python3 -m microcosm_core {command} {project_label}"
 
 
 def _source_checkout_commands(project_label: str) -> dict[str, str]:
     """
-    [ACTION]
-    Build the source-checkout fallback command set (hello, tour, status, first-screen, contracts).
+    Serialize `microcosm_core.first_screen_composition._source_checkout_commands` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: projection of the no-install entry commands so the card never assumes a pip install.
-    - Guarantee: returns a `microcosm_source_checkout_commands_v1` dict mapping each entry surface to its PYTHONPATH module invocation, with an explicit fallback-not-install authority field.
-    - Fails: never raises; deterministic string construction from `project_label`.
-    - Escalates-to: _source_checkout_command builds each row; consumed by first_screen_composition_card and the text card.
-    - Non-goal: does not install, run, or claim package-install or release readiness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "microcosm_source_checkout_commands_v1",
@@ -727,17 +577,9 @@ def _source_checkout_commands(project_label: str) -> dict[str, str]:
 
 def _reader_routes(project_label: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Build the six reader-route rows (first question, next commands, evidence focus) for the card.
+    Derive reader routes without touching module import state.
 
-    - Teleology: generated reader-typed entry rows so each audience gets a first question and inspection order.
-    - Guarantee: returns a list of six route dicts (one per READER_ROUTE_ID) each declaring branch_authority = "selects_next_inspection_surface_only".
-    - Fails: never raises; pure deterministic construction from `project_label`.
-    - Escalates-to: REQUIRED_ROUTE_IDS parity is enforced by _standard_backed_first_screen_scan / _validation_checks.
-    - Non-goal: does not authorize reader success, release, or reader-specific claim ceilings.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project_label`.
     """
     return [
         {
@@ -836,17 +678,10 @@ def _reader_routes(project_label: str) -> list[dict[str, Any]]:
 
 def _reader_landing_packets(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the reader-landing packets that turn each route into one action/proof/success/next.
+    Serialize `microcosm_core.first_screen_composition._reader_landing_packets` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated per-reader "one screen" packets (first action, proof surface, success criterion, next drilldown).
-    - Guarantee: returns a `microcosm_reader_landing_packets_v1` dict with one packet per reader route, each carrying an inspection-order-only authority field.
-    - Fails: never raises; deterministic construction from `project_label`.
-    - Escalates-to: consumed by _reader_packet_map and the text card; parity checked by _validation_checks.
-    - Non-goal: does not authorize reader success, safety approval, hiring assessment, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "microcosm_reader_landing_packets_v1",
@@ -1013,17 +848,10 @@ def _reader_landing_packets(project_label: str) -> dict[str, Any]:
 
 def _reader_route_menu(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the copyable reader-route menu (terminal + text-projection commands per reader).
+    Serialize `microcosm_core.first_screen_composition._reader_route_menu` into the payload
+    shape expected by first screen composition.
 
-    - Teleology: generated menu so reader-typed first screens are copyable without separate entry artifacts.
-    - Guarantee: returns a `microcosm_reader_route_menu_v1` dict whose `routes` carry the exact `plectis hello --reader <id>` and `plectis first-screen --format text --reader <id>` commands the standard scan expects, plus a `safe_to_show` block with all export/release flags False.
-    - Fails: never raises; deterministic construction from `project_label`.
-    - Escalates-to: command parity is asserted by _standard_backed_first_screen_scan.reader_command_parity.
-    - Non-goal: does not create a new entry artifact, claim reader success, or claim release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "microcosm_reader_route_menu_v1",
@@ -1228,17 +1056,10 @@ def _reader_route_menu(project_label: str) -> dict[str, Any]:
 
 def _behavior_proof_packet(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the behavior-proof packet naming the shared first command and its success fields.
+    Serialize `microcosm_core.first_screen_composition._behavior_proof_packet` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated packet that turns the shared first run into inspectable success conditions.
-    - Guarantee: returns a `microcosm_behavior_proof_packet_v1` dict with command, `writes_state: True`, `.microcosm` state_dir, the proof_fields to read (front_door_status.status, selected_route_id, state_inspection, source_files_mutated=False), and a local-receipt-not-release authority.
-    - Fails: never raises; deterministic from `project_label`.
-    - Escalates-to: the actual `plectis tour --card` run that writes .microcosm/ and front_door_status.
-    - Non-goal: does not authorize release, proof correctness, or safety evaluation.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     shared_first_command = f"plectis tour --card {project_label}"
     return {
@@ -1279,16 +1100,10 @@ def _behavior_proof_packet(project_label: str) -> dict[str, Any]:
 
 def _pre_install_probe_packet() -> dict[str, Any]:
     """
-    [ACTION]
-    Build the bounded cold-clone pre-install probe packet (bootstrap command + receipt ref).
+    Serialize `microcosm_core.first_screen_composition._pre_install_probe_packet` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated handle for the `./bootstrap.sh` probe that runs before install and writes ignored local state.
-    - Guarantee: returns a `microcosm_pre_install_probe_v1` dict with command, dry-run command, receipt_ref (.microcosm/cold_clone_probe.json), and a safe_to_show block with release/provider/source-mutation all False.
-    - Fails: never raises; returns a constant packet.
-    - Non-goal: does not run bootstrap, authorize provider calls, source mutation, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "microcosm_pre_install_probe_v1",
@@ -1308,17 +1123,10 @@ def _pre_install_probe_packet() -> dict[str, Any]:
 
 def _first_run_ladder(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the first-run ladder (map -> behavior proof -> status -> reader branch) packet.
+    Serialize `microcosm_core.first_screen_composition._first_run_ladder` into the payload
+    shape expected by first screen composition.
 
-    - Teleology: generated copyable run order so the first screen precedes the long quickstart inventory.
-    - Guarantee: returns a `microcosm_first_run_ladder_v1` dict whose `steps` carry per-step command, source_checkout_command, writes_microcosm_state flag, expected_surface, success_read, and a step-scoped authority; embeds the pre-install probe.
-    - Fails: never raises; deterministic from `project_label`.
-    - Escalates-to: each step's `microcosm` command and the behavior_proof_packet it points at.
-    - Non-goal: does not run the ladder or claim quickstart-inventory completeness or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     human_first_command = f"plectis hello {project_label}"
     shared_first_command = f"plectis tour --card {project_label}"
@@ -1377,17 +1185,10 @@ def _first_run_ladder(project_label: str) -> dict[str, Any]:
 
 def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the ordered first-viewport slot manifest shared by CLI/README/browser/JSON/video.
+    Serialize `microcosm_core.first_screen_composition._first_viewport_manifest` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated single-screen composition contract that fixes slot order before the long inventory.
-    - Guarantee: returns a `microcosm_first_viewport_manifest_v1` dict with ordered `slots`, a `problem_shape_slot_map`, consumer_surfaces, and a `safe_to_show` block with export/release flags False; every slot repeats must_preserve and must_not_claim.
-    - Fails: never raises; deterministic from `project_label`.
-    - Escalates-to: the per-slot source_packet builders (first_run_ladder, reader_route_menu, evidence_count_frame, discipline_comparison_strip).
-    - Non-goal: does not render, create a new claim, or claim renderer/release authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     human_first_command = f"plectis hello {project_label}"
     shared_first_command = f"plectis tour --card {project_label}"
@@ -1542,16 +1343,10 @@ def _first_viewport_manifest(project_label: str) -> dict[str, Any]:
 
 def _local_state_receipt_trail(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the local-state receipt trail naming each .microcosm artifact the first run writes.
+    Serialize `microcosm_core.first_screen_composition._local_state_receipt_trail` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated trail showing what the shared first run writes without expanding raw state.
-    - Guarantee: returns a `microcosm_local_state_receipt_trail_v1` dict listing catalog/routes/events/evidence/graph state_refs under `.microcosm`, each with a `not_authority_for` boundary.
-    - Fails: never raises; deterministic from `project_label`.
-    - Non-goal: does not authorize private-root equivalence, release, or proof correctness; refs are behavior evidence, not source mutation.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     shared_first_command = f"plectis tour --card {project_label}"
     return {
@@ -1602,16 +1397,10 @@ def _local_state_receipt_trail(project_label: str) -> dict[str, Any]:
 
 def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the compact first-contact surface map (route/work/events/evidence/graph/observatory/proof/status).
+    Serialize `microcosm_core.first_screen_composition._first_contact_surface_refs` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated handle map compressing the route-work-event-evidence-graph chain plus observatory/proof handles for cold readers.
-    - Guarantee: returns a `microcosm_first_contact_surface_refs_v1` dict with required_surface_ids and a `surfaces` map of commands/state_refs, plus a safe_to_show block where body_text_exported, source_files_mutated, provider_calls_authorized, and release_authorized are all False.
-    - Fails: never raises; deterministic from `project_label`.
-    - Non-goal: does not export source bodies, authorize provider/source mutation, or claim release or proof correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     shared_first_command = f"plectis tour --card {project_label}"
     status_card_command = f"plectis status --card {project_label}"
@@ -1723,16 +1512,10 @@ def _first_contact_surface_refs(project_label: str) -> dict[str, Any]:
 
 def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the overclaim tripwire matrix mapping common cold-reader overclaims to valid bounded reads.
+    Serialize `microcosm_core.first_screen_composition._overclaim_tripwire_matrix` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated translation table so frequent overclaims (release-ready, organ-count, low-import, private-root, hosted) resolve to a defensible read plus a check surface.
-    - Guarantee: returns a `microcosm_overclaim_tripwire_matrix_v1` dict whose `rows` each pair an overclaim with a valid_read, check_surface, and reader_rule.
-    - Fails: never raises; deterministic from `project_label`.
-    - Non-goal: not a marketing or release surface; it bounds claims, it does not make them.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     shared_first_command = f"plectis tour --card {project_label}"
     return {
@@ -1797,16 +1580,10 @@ def _overclaim_tripwire_matrix(project_label: str) -> dict[str, Any]:
 
 def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the per-reader exit criteria (when the first screen has done its job) packet.
+    Serialize `microcosm_core.first_screen_composition._reader_exit_criteria` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated stop rules telling each reader when they can choose a drilldown without the command inventory.
-    - Guarantee: returns a `microcosm_reader_exit_criteria_v1` dict with one criterion per reader route, each declaring exit_when, next_if_not_met, and a not_a_claim.
-    - Fails: never raises; deterministic from `project_label`.
-    - Non-goal: does not authorize reader success or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "microcosm_reader_exit_criteria_v1",
@@ -1881,17 +1658,10 @@ def _reader_exit_criteria(project_label: str) -> dict[str, Any]:
 
 def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the 60-second cold-entry video storyboard packet bound to the same first-screen commands.
+    Serialize `microcosm_core.first_screen_composition._video_storyboard_packet` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated presentation plan so a video/screenshot board projects the first-screen beats without inventing new claims.
-    - Guarantee: returns a `microcosm_video_storyboard_packet_v1` dict with timeboxed `beats`, allowed_artifact_forms, a `safe_to_show` block (private/provider/live-session/release flags False), and an explicit anti_claim.
-    - Fails: never raises; deterministic from `project_label`.
-    - Escalates-to: first_screen_composition_card as the named source_projection every beat points back to.
-    - Non-goal: not a release artifact, benchmark, hosted demo, or private-root equivalence claim.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     shared_first_command = f"plectis tour --card {project_label}"
     status_card_command = f"plectis status --card {project_label}"
@@ -1983,17 +1753,10 @@ def _video_storyboard_packet(project_label: str) -> dict[str, Any]:
 
 def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the artifact-fit matrix binding every cold-entry form to one source card.
+    Serialize `microcosm_core.first_screen_composition._artifact_fit_matrix` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated matrix asserting terminal/README/browser/JSON/video forms are projections over one first-screen contract.
-    - Guarantee: returns a `microcosm_first_screen_artifact_fit_matrix_v1` dict naming source_of_truth = first_screen_composition_card, with per-surface rows (must_preserve/must_not_claim) and a safe_to_show block where export/new-release-artifact flags are False.
-    - Fails: never raises; deterministic from `project_label`.
-    - Escalates-to: the named source_projection per row (first_screen_text_card, first_screen_compact_card, readme_entry_contract, observatory_landing_frame).
-    - Non-goal: does not create a new release artifact or reader-specific claim ceiling.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     human_first_command = f"plectis hello {project_label}"
     shared_first_command = f"plectis tour --card {project_label}"
@@ -2125,16 +1888,10 @@ def _artifact_fit_matrix(project_label: str) -> dict[str, Any]:
 
 def _cold_entry_problem_map(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the cold-entry problem map binding each problem shape to an existing first-screen packet.
+    Serialize `microcosm_core.first_screen_composition._cold_entry_problem_map` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated map explaining why each first-screen packet exists, without creating a second entry artifact.
-    - Guarantee: returns a `microcosm_cold_entry_problem_map_v1` dict whose `rows` resolve each problem_shape_id to a primary_packet, first_surface, proof_surface, and not_claim, plus a safe_to_show block with export/release flags False.
-    - Fails: never raises; deterministic from `project_label`.
-    - Non-goal: does not create a new entry artifact or claim strategy/release authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     human_first_command = f"plectis hello {project_label}"
     shared_first_command = f"plectis tour --card {project_label}"
@@ -2243,17 +2000,10 @@ def _cold_entry_problem_map(project_label: str) -> dict[str, Any]:
 
 def _evidence_count_frame() -> dict[str, Any]:
     """
-    [ACTION]
-    Build the evidence-count interpretation frame (counts are accounting, not scores).
+    Serialize `microcosm_core.first_screen_composition._evidence_count_frame` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated frame fixing how a reader must interpret evidence-class counts.
-    - Guarantee: returns a constant dict declaring interpretation="accounting_not_maturity_score", forbidden_reads (maturity/readiness/completeness/progress), and authoritative_count_sources with their roles.
-    - Fails: never raises; returns a constant frame.
-    - Escalates-to: EVIDENCE_CLASS_REGISTRY_REF (legend_ref) and the fixture-manifest/workingness count sources it names.
-    - Non-goal: does not score maturity, readiness, or progress.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "interpretation": "accounting_not_maturity_score",
@@ -2298,16 +2048,10 @@ def _evidence_count_frame() -> dict[str, Any]:
 
 def _organ_glance_ladder_rows(root: Path) -> tuple[list[dict[str, Any]], set[str]]:
     """
-    [ACTION]
-    Flatten the public organ_glance_ladder into organ rows plus the set of family ids.
+    Compute organ glance ladder rows from `root`.
 
-    - Teleology: source-custody reader that projects the public agent-task-routes glance ladder into a flat row list for the substrate glance.
-    - Guarantee: returns (rows, families) where rows are family-stamped organ dicts and families is the set of family ids; a missing or malformed ladder yields ([], set()).
-    - Fails: never raises; absent file or wrong types degrade to empty results.
-    - Reads: `atlas/agent_task_routes.json::organ_glance_ladder` under `root`.
-    - Non-goal: does not authorize source-body export, evidence-strength, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root`; notable helpers are `_load_public_json`, `get`, `_public_text`,
+    `add`, and 1 more.
     """
     routes = _load_public_json(root, AGENT_TASK_ROUTES_REF)
     ladder = routes.get("organ_glance_ladder", []) if isinstance(routes, dict) else []
@@ -2343,16 +2087,10 @@ def _organ_glance_ladder_rows(root: Path) -> tuple[list[dict[str, Any]], set[str
 
 def _representative_substrate_glance(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Build a family-diverse, capped sample of real public organs for the first screen.
+    Serialize `microcosm_core.first_screen_composition._representative_substrate_glance`
+    into the payload shape expected by first screen composition.
 
-    - Teleology: generated projection showing actual public organ substance before any drilldown, capped before it becomes an inventory.
-    - Guarantee: returns a `microcosm_representative_substrate_glance_v1` dict with up to SUBSTRATE_GLANCE_SAMPLE_LIMIT family-diverse `examples`, total_organ_count/family_count, source_refs, and a safe_to_show block with export/release/whole-system flags False.
-    - Fails: never raises; an empty or missing ladder yields zero examples, not an error.
-    - Reads: `atlas/agent_task_routes.json::organ_glance_ladder` (via _organ_glance_ladder_rows) under `root`.
-    - Non-goal: does not claim inventory completeness, evidence strength, readiness, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     rows, families = _organ_glance_ladder_rows(root)
     examples: list[dict[str, Any]] = []
@@ -2366,13 +2104,10 @@ def _representative_substrate_glance(root: Path) -> dict[str, Any]:
 
     def append_example(row: dict[str, Any]) -> None:
         """
-        [ACTION]
-        - Teleology: Implements `_representative_substrate_glance.append_example` for `microcosm_core.first_screen_composition` while keeping the callable contract visible to source-module readers.
-        - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-        - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-        - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-        - Reads: call arguments, module constants, imported helpers.
-        - Writes: return values.
+        Append append example for the first screen composition flow.
+
+        The side effect is the explicit file, receipt, parser, print, or instance-state
+        update performed in this function.
         """
         if len(examples) >= SUBSTRATE_GLANCE_SAMPLE_LIMIT:
             return
@@ -2477,16 +2212,9 @@ def _representative_substrate_glance(root: Path) -> dict[str, Any]:
 
 def _implemented_organ_ids(organ_registry: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    Extract the list of organ_id strings from an organ registry's implemented_organs.
+    Compute implemented organ IDs from `organ_registry`.
 
-    - Teleology: source-custody accessor giving the implemented-organ id list that drives fixture-manifest counting.
-    - Guarantee: returns the str organ_ids from registry["implemented_organs"]; a missing or non-list field yields an empty list.
-    - Fails: never raises; rows without a string organ_id are skipped.
-    - Reads: the in-memory `implemented_organs` rows of the passed organ registry dict.
-    - Non-goal: does not assert the organs work, are released, or are whole-system correct.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `organ_registry`; notable helpers are `get`.
     """
     rows = organ_registry.get("implemented_organs")
     if not isinstance(rows, list):
@@ -2503,17 +2231,11 @@ def _source_open_body_import_count_from_fixture_manifests(
     organ_ids: list[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Sum source-open body-material counts across per-organ fixture manifests.
+    Serialize
+    `microcosm_core.first_screen_composition._source_open_body_import_count_from_fixture_manifests`
+    into the payload shape expected by first screen composition.
 
-    - Teleology: source-custody digest that derives the verified source-open body-import count from fixture manifests before any stale workingness fallback.
-    - Guarantee: returns a dict with material_count, rows_with_imports, manifest_count, and source_field/source_ref/fallback_ref; counts are None when no manifest was found, else the summed positive `source_open_body_imports.body_material_count` (falling back to `body_copied_material_count`/id length).
-    - Fails: never raises; missing or malformed manifests are skipped (manifest_count reflects how many were read).
-    - Reads: `core/fixture_manifests/<organ_id>.fixture_manifest.json` under `root`.
-    - Escalates-to: WORKINGNESS_MAP_REF as the declared fallback_ref when manifests are absent.
-    - Non-goal: counts a declared copy boundary only; does not authorize source-body export, public-safe equivalence, or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     material_count = 0
     rows_with_imports = 0
@@ -2562,16 +2284,10 @@ def _source_open_body_import_count_from_fixture_manifests(
 
 def _evidence_class_legend(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the evidence-class claim-boundary legend from the evidence-class registry.
+    Serialize `microcosm_core.first_screen_composition._evidence_class_legend` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated public legend naming, per evidence class, what a count can and cannot claim.
-    - Guarantee: returns a `microcosm_evidence_class_legend_v1` dict with per-class claim_ceiling/evaluator_basis/strength fields in EVIDENCE_CLASS_DISPLAY_ORDER, a missing_profiles list for absent classes, and the registry's authority_boundary/anti_claim.
-    - Fails: never raises; a missing registry yields empty classes and lists every display-order id under missing_profiles.
-    - Reads: `core/organ_evidence_classes.json` under `root`.
-    - Non-goal: it is a claim-boundary legend, not a benchmark, release gate, or maturity score.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     registry = _load_public_json(root, EVIDENCE_CLASS_REGISTRY_REF)
     class_profiles = registry.get("class_profiles", {})
@@ -2626,16 +2342,10 @@ def _evidence_class_legend(root: Path) -> dict[str, Any]:
 
 def _scale_frame(root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the public scale-count frame from organ/standards registries, workingness map, and fixture manifests.
+    Serialize `microcosm_core.first_screen_composition._scale_frame` into the payload shape
+    expected by first screen composition.
 
-    - Teleology: generated breadth frame presenting public counts as receipt-backed handles, not scores.
-    - Guarantee: returns a dict whose `public_scale_counts` carry per-count `count` (or None), `source_ref`, and `read_as` boundary, preferring fixture-manifest source-open counts over the workingness fallback; includes scale_handles and a count_reader_rule.
-    - Fails: never raises; absent registries yield None counts via tolerant loads, not an error.
-    - Reads: `core/organ_registry.json`, `core/standards_registry.json`, `receipts/runtime_shell/workingness_failure_map.json`, and fixture manifests under `root`.
-    - Non-goal: counts are pointers into owner receipts; they do not claim maturity, readiness, completeness, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     organ_registry = _load_public_json(root, ORGAN_REGISTRY_REF)
     standards_registry = _load_public_json(root, STANDARDS_REGISTRY_REF)
@@ -2759,16 +2469,10 @@ def _scale_frame(root: Path) -> dict[str, Any]:
 
 def _comparison_frame() -> dict[str, Any]:
     """
-    [ACTION]
-    Build the entry-discipline comparison frame (failure modes vs Microcosm discipline).
+    Serialize `microcosm_core.first_screen_composition._comparison_frame` into the payload
+    shape expected by first screen composition.
 
-    - Teleology: generated prose frame making rigor visible without claim inflation.
-    - Guarantee: returns a constant dict listing common_entry_failure_modes, microcosm_entry_discipline, and a reader_effect.
-    - Fails: never raises; returns a constant frame.
-    - Non-goal: makes no superiority, benchmark, or release claim.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "purpose": "make_rigor_visible_without_claim_inflation",
@@ -2793,16 +2497,10 @@ def _comparison_frame() -> dict[str, Any]:
 
 def _discipline_comparison_strip(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the discipline comparison strip rendering Microcosm rigor as inspectable boundaries.
+    Serialize `microcosm_core.first_screen_composition._discipline_comparison_strip` into
+    the payload shape expected by first screen composition.
 
-    - Teleology: generated strip showing what Microcosm does differently from a typical cold-entry surface as boundaries, not superiority claims.
-    - Guarantee: returns a `microcosm_discipline_comparison_strip_v1` dict whose `rows` pair an ordinary_entry_pattern with the Microcosm boundary per comparison_id.
-    - Fails: never raises; deterministic from `project_label`.
-    - Non-goal: not a benchmark, superiority, or maturity claim.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     shared_first_command = f"plectis tour --card {project_label}"
     return {
@@ -2884,16 +2582,10 @@ def _discipline_comparison_strip(project_label: str) -> dict[str, Any]:
 
 def _doctrine_effect_frame() -> dict[str, Any]:
     """
-    [ACTION]
-    Build the doctrine-effect frame translating doctrine handles into mistakes-prevented.
+    Serialize `microcosm_core.first_screen_composition._doctrine_effect_frame` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated frame showing doctrine as mistake prevention, not ceremony, each tied to a first-screen surface.
-    - Guarantee: returns a `microcosm_doctrine_effect_frame_v1` dict whose `effect_rows` map each doctrine_handle (CONSTITUTION/AXIOMS/PRINCIPLES/CONCEPTS/MECHANISMS/ANTI_PRINCIPLES) to what it prevents, its visible_effect, and first_screen_surface.
-    - Fails: never raises; returns a constant frame.
-    - Non-goal: an interpretation frame only, not the doctrine source; governance prose is not a credential.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "microcosm_doctrine_effect_frame_v1",
@@ -2979,16 +2671,10 @@ def _doctrine_effect_frame() -> dict[str, Any]:
 
 def _readme_entry_contract(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the README entry-order contract placing the first-screen card before the inventory.
+    Serialize `microcosm_core.first_screen_composition._readme_entry_contract` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated documentation-order contract making the package-backed first-screen card the README entry surface.
-    - Guarantee: returns a `microcosm_readme_entry_contract_v1` dict with required_markdown_order rows (surface/command must_precede pairs) and a consumer_rule preserving drilldowns after the first screen.
-    - Fails: never raises; deterministic from `project_label`.
-    - Non-goal: a documentation-order contract, not a runtime proof or release authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     human_first_command = f"plectis hello {project_label}"
     shared_first_command = f"plectis tour --card {project_label}"
@@ -3048,17 +2734,10 @@ def _readme_entry_contract(project_label: str) -> dict[str, Any]:
 
 def _entry_surface_contract(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the entry-surface contract naming the package/text/script projection surfaces.
+    Serialize `microcosm_core.first_screen_composition._entry_surface_contract` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated contract telling README/CLI/observatory consumers which package functions to reuse and what to preserve.
-    - Guarantee: returns a dict naming shared_behavior_surface, package_surface (first_screen_composition_card), text_projection_surface, script_surface, a consumer_rule listing the packets to preserve, and a format_contract.
-    - Fails: never raises; deterministic from `project_label`.
-    - Escalates-to: first_screen_composition_card and first_screen_text_card as the named package surfaces.
-    - Non-goal: a reuse contract, not a runtime proof or release authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "shared_behavior_surface": f"plectis tour --card {project_label}",
@@ -3091,16 +2770,10 @@ def _entry_surface_contract(project_label: str) -> dict[str, Any]:
 
 def _runnable_structural_join(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the runnable-to-structural join prose binding the local run to the larger substrate.
+    Serialize `microcosm_core.first_screen_composition._runnable_structural_join` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated prose joining the folder-local first run to the broader public structure it exercises.
-    - Guarantee: returns a dict with local_behavior, structural_context, and a join_rule requiring the first run to name the larger structure without copying deeper bodies.
-    - Fails: never raises; deterministic from `project_label`.
-    - Non-goal: does not claim private-root equivalence or release.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "local_behavior": (
@@ -3117,17 +2790,10 @@ def _runnable_structural_join(project_label: str) -> dict[str, Any]:
 
 def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the observatory landing frame reusing the first-screen card as the browser landing.
+    Serialize `microcosm_core.first_screen_composition._observatory_landing_frame` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated frame making the hello first-screen card the localhost browser landing, not a separate cold-entry artifact.
-    - Guarantee: returns a `microcosm_observatory_landing_frame_v1` dict with serve/bounded-validation commands, localhost endpoints, required_visible_handles, drilldown_order, and an authority_boundary denying release/hosting/provider/source-mutation/private-equivalence.
-    - Fails: never raises; deterministic from `project_label`.
-    - Escalates-to: first_screen_text_card as the named source_projection the browser landing reuses.
-    - Non-goal: a localhost read-model boundary; it authorizes no hosting, release, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     human_first_command = f"plectis hello {project_label}"
     shared_first_command = f"plectis tour --card {project_label}"
@@ -3219,17 +2885,10 @@ def _observatory_landing_frame(project_label: str) -> dict[str, Any]:
 
 def _drilldowns(project_label: str) -> list[dict[str, str]]:
     """
-    [ACTION]
-    Build the ordered list of post-first-screen drilldown handles (commands/endpoints/refs).
+    Derive drilldowns without touching module import state.
 
-    - Teleology: generated drilldown index pointing past the first screen to observatory, status, authority, workingness, and standard refs.
-    - Guarantee: returns a list of drilldown dicts each carrying a drilldown_id plus a command, endpoint, or ref.
-    - Fails: never raises; deterministic from `project_label`.
-    - Escalates-to: STANDARD_REF and the observatory/authority/workingness commands it lists.
-    - Non-goal: handles for further inspection; not release or proof authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `project_label`; notable helpers are `_observatory_serve_command` and
+    `_bounded_observatory_serve_command`.
     """
     return [
         {
@@ -3287,18 +2946,10 @@ def _drilldowns(project_label: str) -> list[dict[str, str]]:
 
 def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
     """
-    [ACTION]
-    Compute the boolean self-consistency checks over an assembled composition payload.
+    Serialize `microcosm_core.first_screen_composition._validation_checks` into the payload
+    shape expected by first screen composition.
 
-    - Teleology: validation entrypoint proving the card's internal surfaces (reader parity, command parity, anti-claims, safe_to_show flags, boundaries) are coherent.
-    - Guarantee: returns an ordered `dict[str, bool]` of named checks; each value is True only when that surface satisfies its contract (e.g. reader_route_ids match REQUIRED_ROUTE_IDS, denied-authority flags are False).
-    - Fails: never raises; missing or malformed surfaces yield a False check, never an exception.
-    - When-needed: when diagnosing why first_screen_composition_card.validation.status is "blocked".
-    - Escalates-to: first_screen_composition_card folds this into validation.checks alongside the standard-backed scan.
-    - Non-goal: internal-consistency only; does not authorize release, reader success, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     route_ids = {
         str(route.get("reader_route_id"))
@@ -4419,16 +4070,10 @@ def _validation_checks(payload: dict[str, Any]) -> dict[str, bool]:
 
 def _state_write_boundary(project_label: str) -> dict[str, Any]:
     """
-    [ACTION]
-    Build the state-write boundary declaring the card itself writes no .microcosm state.
+    Serialize `microcosm_core.first_screen_composition._state_write_boundary` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated boundary separating this composition card (no writes) from the shared first command (which writes state).
-    - Guarantee: returns a `microcosm_first_screen_state_write_boundary_v1` dict asserting this_card_writes_microcosm_state=False, shared_first_command_writes_state=True, and a safe_to_show block with source-mutation/provider/release/proof flags False.
-    - Fails: never raises; deterministic from `project_label`.
-    - Non-goal: does not mutate source, authorize provider calls, release, or proof correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     shared_first_command = f"plectis tour --card {project_label}"
     return {
@@ -4459,18 +4104,11 @@ def first_screen_composition_card(
     project_label: str = "<project>",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Assemble the full first-screen composition card and validate it against the standard.
+    Produce the first screen composition card value used by
+    `microcosm_core.first_screen_composition`.
 
-    - Teleology: the module's primary builder/projection entrypoint; composes every reader/proof/scale/doctrine packet into one public first-screen contract derived from the standard.
-    - Guarantee: returns a `microcosm_first_screen_composition_card_v1` dict mirroring the standard's authority_ceiling/anti_claim/omission_receipt/public_private_boundary and carrying `validation.status` ("pass" only when all internal checks and the standard-backed scan pass) plus a top-level `status`.
-    - Fails: raises TypeError/StrictJsonError/OSError only if the governing standard JSON is missing or malformed (via _load_standard); a coherent-but-noncompliant payload returns status="blocked", not an exception.
-    - When-needed: when producing the canonical machine first-screen card or checking standard compliance.
-    - Reads: `standards/std_microcosm_first_screen_composition_root.json` plus public organ/standards/workingness/fixture-manifest inputs under `root`.
-    - Escalates-to: STANDARD_REF as source authority; first_screen_compact_card / first_screen_text_card project this output; the validator_id names the governing validator contract.
-    - Non-goal: GENERATED projection — does not authorize release, hosting, provider calls, source mutation, private-root equivalence, or whole-system correctness, and is not itself source-of-truth.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values.
+    Inputs are `root` and `project_label`; notable helpers are `Path`, `_load_standard`,
+    `_source_checkout_commands`, `_pre_install_probe_packet`, and 30 more.
     """
     root = Path(root)
     standard = _load_standard(root)
@@ -4558,16 +4196,9 @@ def first_screen_composition_card(
 
 def _compact_reader_routes(payload: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Project the reader-route-menu rows into compact reader-route rows for the compact card.
+    Compute compact reader routes from `payload`.
 
-    - Teleology: generated slimming of menu rows to the fields the compact public card carries.
-    - Guarantee: returns a list of compact route dicts (id/label/commands/first_action/proof/exit/not_a_claim), adding source-checkout fields only when present; non-dict rows are skipped.
-    - Fails: never raises; a missing/empty menu yields an empty list.
-    - Non-goal: a projection of existing rows; adds no new claim or authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `get` and `append`.
     """
     route_menu = payload.get("reader_route_menu", {})
     routes = route_menu.get("routes", []) if isinstance(route_menu, dict) else []
@@ -4599,16 +4230,10 @@ def _compact_reader_routes(payload: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _compact_first_run_steps(payload: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    Project the first-run-ladder steps into compact step rows for the compact card.
+    Produce the compact first run steps value used by
+    `microcosm_core.first_screen_composition`.
 
-    - Teleology: generated slimming of ladder steps to the keys the compact card shows.
-    - Guarantee: returns a list of step dicts limited to step_id/command/source_checkout_command/expected_surface/writes_microcosm_state/authority where present; non-dict rows are skipped.
-    - Fails: never raises; a missing/empty ladder yields an empty list.
-    - Non-goal: a projection; adds no new step or claim.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `get` and `append`.
     """
     ladder = payload.get("first_run_ladder", {})
     steps = ladder.get("steps", []) if isinstance(ladder, dict) else []
@@ -4635,16 +4260,9 @@ def _compact_first_run_steps(payload: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _compact_scale_counts(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    Project the scale frame into the three headline counts (organs/standards/source-open) for the compact card.
+    Return compact scale counts for the first screen composition flow.
 
-    - Teleology: generated reduction of public_scale_counts to the count + read_as the compact card surfaces.
-    - Guarantee: returns a dict keyed by implemented_organs/public_standards/source_open_materials, each {count, read_as}; absent rows are omitted.
-    - Fails: never raises; a missing scale frame yields an empty dict.
-    - Non-goal: a projection; counts stay accounting handles, not scores or authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `get`.
     """
     scale_frame = payload.get("scale_frame", {})
     counts = (
@@ -4670,16 +4288,10 @@ def _compact_scale_counts(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 def _compact_validation(payload: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Project the full validation block into a compact pass/fail summary for the compact card.
+    Serialize `microcosm_core.first_screen_composition._compact_validation` into the payload
+    shape expected by first screen composition.
 
-    - Teleology: generated reduction of validation.checks to a status + counts + failed-check list.
-    - Guarantee: returns a dict with source_status, validator_id, checks_passed_count, check_count, and failed_checks (every check whose value is not True).
-    - Fails: never raises; a missing validation block yields zero counts and an empty failed list.
-    - Non-goal: a projection of computed checks; runs no new validation and grants no release authority.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     validation = payload.get("validation", {})
     checks = validation.get("checks", {}) if isinstance(validation, dict) else {}
@@ -4699,16 +4311,10 @@ def _compact_validation(payload: dict[str, Any]) -> dict[str, Any]:
 
 def _compact_substrate_glance(payload: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Project the representative substrate glance into a compact glance for the compact card.
+    Serialize `microcosm_core.first_screen_composition._compact_substrate_glance` into the
+    payload shape expected by first screen composition.
 
-    - Teleology: generated reduction of the glance to source refs, counts, and slim example rows.
-    - Guarantee: returns a dict with source_refs/sample_limit/total_organ_count, example_display_names, families, and slim example dicts (id/name/family/excerpt fields).
-    - Fails: never raises; a missing glance yields None-valued fields and empty example lists.
-    - Non-goal: a projection; examples remain handles, not inventory or readiness claims.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     glance = payload.get("representative_substrate_glance", {})
     examples = glance.get("examples", []) if isinstance(glance, dict) else []
@@ -4745,18 +4351,11 @@ def _compact_substrate_glance(payload: dict[str, Any]) -> dict[str, Any]:
 
 def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Project a full composition card into the stdout-budgeted compact public card.
+    Produce the first screen compact card value used by
+    `microcosm_core.first_screen_composition`.
 
-    - Teleology: public projection giving consumers a summary-first card under a char budget while preserving full-contract drilldowns.
-    - Guarantee: returns a `microcosm_first_screen_compact_card_v1` dict carrying the source status, compact reader-route/first-run/evidence/validation projections, the authority_ceiling/anti_claim/public_private_boundary, and an omission_receipt naming the omitted full-contract keys and the full-contract command.
-    - Fails: never raises; missing payload sections degrade to None/empty compact fields, not an exception.
-    - When-needed: when emitting `plectis first-screen --card` output.
-    - Escalates-to: the full card via output_policy.full_contract_command (`plectis first-screen --full`).
-    - Non-goal: a GENERATED compact projection of an existing card; authorizes no release and is not source-of-truth.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Inputs are `payload`; notable helpers are `get`, `_enforce_compact_stdout_budget`,
+    `_compact_validation`, `_compact_reader_routes`, and 4 more.
     """
     project_label = str(payload.get("project_label") or "<project>")
     route_menu = payload.get("reader_route_menu", {})
@@ -4847,30 +4446,19 @@ def first_screen_compact_card(payload: dict[str, Any]) -> dict[str, Any]:
 
 def _compact_stdout_chars(card: dict[str, Any]) -> int:
     """
-    [ACTION]
-    Measure the card exactly as `_print_json` will emit it (sorted, indented ASCII).
+    Return compact stdout chars for the first screen composition flow.
 
-    - Teleology: the budget enforcement must count the same bytes the cold reader's
-      terminal receives, not a denser serialization that under-reports.
-    - Guarantee: returns the stdout character count including the trailing newline.
-    - Fails: never raises for JSON-serializable cards.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Inputs are `card`; notable helpers are `dumps`.
     """
     return len(json.dumps(card, ensure_ascii=True, indent=2, sort_keys=True)) + 1
 
 
 def _substitute_label(node: Any, label: str) -> None:
     """
-    [ACTION]
-    In-place replace the literal project label with <project> in string values.
-    - Teleology: Implements `_substitute_label` for `microcosm_core.first_screen_composition` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Run substitute label for the first screen composition flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     if isinstance(node, dict):
         for key, value in node.items():
@@ -4888,25 +4476,11 @@ def _substitute_label(node: Any, label: str) -> None:
 
 def _enforce_compact_stdout_budget(card: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    Enforce COMPACT_JSON_CARD_MAX_CHARS on the compact card with typed omissions.
+    Produce the enforce compact stdout budget value used by
+    `microcosm_core.first_screen_composition`.
 
-    - Teleology: the compact card DECLARES a stdout budget; long project labels
-      (absolute artifact paths repeated in every command string) inflate the same
-      card past its own declaration, so the budget must be enforced, not advertised.
-    - Guarantee: applies a fixed degradation ladder (route detail rollup, then
-      substrate-glance excerpt demotion, then first-run step detail rollup) only
-      until the serialized card fits the budget, and always stamps
-      `omission_receipt.budget_degradation` with the applied steps and before/after
-      counts; with no degradation needed the receipt records an empty ladder.
-    - Fails: never raises; if every step is applied and the card still exceeds the
-      budget, the receipt records `over_budget_after_full_ladder` = True rather
-      than silently passing.
-    - Non-goal: does not change command strings, claims, or authority fields; every
-      demoted detail remains in the full contract behind `--full`.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Inputs are `card`; notable helpers are `get`, `_compact_stdout_chars`, `append`,
+    `_substitute_label`, and 1 more.
     """
     budget = COMPACT_JSON_CARD_MAX_CHARS
     applied: list[str] = []
@@ -5006,15 +4580,9 @@ def _enforce_compact_stdout_budget(card: dict[str, Any]) -> dict[str, Any]:
 
 def _reader_route_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    Index the payload's reader_routes by reader_route_id.
+    Compute reader route map from `payload`.
 
-    - Teleology: generated lookup so the text card can fetch a route row by id.
-    - Guarantee: returns a dict mapping each reader_route_id to its route dict; non-dict rows are skipped.
-    - Fails: never raises; a missing reader_routes list yields an empty dict.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `get`.
     """
     return {
         str(route.get("reader_route_id")): route
@@ -5025,15 +4593,10 @@ def _reader_route_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 def _reader_packet_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    Index the payload's reader_landing_packets by reader_route_id.
+    Serialize `microcosm_core.first_screen_composition._reader_packet_map` into the payload
+    shape expected by first screen composition.
 
-    - Teleology: generated lookup so the text card can fetch a landing packet by id.
-    - Guarantee: returns a dict mapping each reader_route_id to its packet dict; non-dict packets are skipped.
-    - Fails: never raises; a missing/malformed reader_landing_packets yields an empty dict.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     landing_packets = payload.get("reader_landing_packets", {})
     if not isinstance(landing_packets, dict):
@@ -5047,15 +4610,10 @@ def _reader_packet_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
 
 def _reader_menu_map(payload: dict[str, Any]) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    Index the payload's reader_route_menu routes by reader_route_id.
+    Serialize `microcosm_core.first_screen_composition._reader_menu_map` into the payload
+    shape expected by first screen composition.
 
-    - Teleology: generated lookup so the text card can fetch a menu row (terminal/text commands) by id.
-    - Guarantee: returns a dict mapping each reader_route_id to its menu row dict; non-dict rows are skipped.
-    - Fails: never raises; a missing/malformed reader_route_menu yields an empty dict.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     route_menu = payload.get("reader_route_menu", {})
     if not isinstance(route_menu, dict):
@@ -5075,15 +4633,10 @@ def _reader_branch_lines(
     display_reader_id: str | None = None,
 ) -> list[str]:
     """
-    [ACTION]
-    Render the reader-branch text lines for one reader id (or all readers).
+    Produce the reader branch lines value used by `microcosm_core.first_screen_composition`.
 
-    - Teleology: generated text-card section turning the route/packet/menu maps into reader-branch lines.
-    - Guarantee: for reader_id="all" returns one summary line plus a per-reader command/proof line for every READER_ROUTE_ID; for a specific id returns that reader's command, question, first action, proof, and success lines, rewriting the alias label when display_reader_id differs.
-    - Fails: raises KeyError if the requested reader_id (or a canonical id under "all") is absent from the supplied maps; callers pass maps built from the same payload.
-    - Reads: READER_LABELS, READER_ROUTE_IDS, and INTERESTING_PARTS_ALIASES for labels/aliases.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Writes: return values, declared filesystem outputs.
+    Inputs are `route_by_id`, `packet_by_id`, `menu_by_id`, `reader_id`, and
+    `display_reader_id`; notable helpers are `get`, `replace`, and `append`.
     """
     if reader_id == "all":
         return [
@@ -5157,16 +4710,9 @@ def _reader_branch_lines(
 
 def _scale_summary_line(payload: dict[str, Any]) -> str:
     """
-    [ACTION]
-    Render the one-line public-handles summary (organ/standard/source-open counts) for the text card.
+    Return scale summary line for the first screen composition flow.
 
-    - Teleology: generated single line compressing the headline scale counts into the text card.
-    - Guarantee: returns a "Public handles: ..." line citing implemented_organs, public_standards, and source_open_materials counts.
-    - Fails: raises KeyError when scale_frame.public_scale_counts or those count rows are absent (direct subscripting); callers pass a fully assembled card payload.
-    - Non-goal: counts are accounting handles, not maturity or readiness scores.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`.
     """
     counts = payload["scale_frame"]["public_scale_counts"]
     organs = counts["implemented_organs"]["count"]
@@ -5181,16 +4727,9 @@ def _scale_summary_line(payload: dict[str, Any]) -> str:
 
 def _evidence_class_summary_line(payload: dict[str, Any]) -> str:
     """
-    [ACTION]
-    Render the one-line evidence-class summary for the text card.
+    Derive evidence class summary line without touching module import state.
 
-    - Teleology: generated single line naming the evidence classes (or pointing at the registry when incomplete).
-    - Guarantee: returns the full evidence-class line when all EVIDENCE_CLASS_DISPLAY_ORDER ids are present in the legend, else a line pointing at core/organ_evidence_classes.json.
-    - Fails: never raises; a missing legend falls back to the registry-pointer line.
-    - Non-goal: names claim ceilings, not maturity or release scores.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, subprocess side effects requested by the caller.
+    Inputs are `payload`; notable helpers are `issubset` and `get`.
     """
     class_ids = {
         str(row.get("evidence_class"))
@@ -5207,16 +4746,9 @@ def _evidence_class_summary_line(payload: dict[str, Any]) -> str:
 
 def _substrate_glance_lines(payload: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    Render the substrate-glance text lines (real organ examples) for the text card.
+    Return substrate glance lines for the first screen composition flow.
 
-    - Teleology: generated lines showing a few real public organs plus their source ref in the text card.
-    - Guarantee: returns excerpted "Substrate glance: ..." lines with a source line when examples exist; falls back to a single ORGAN_ATLAS_REF pointer line when none do.
-    - Fails: never raises; absent examples degrade to the atlas-pointer line.
-    - Non-goal: examples are handles from the public glance ladder, not readiness or inventory claims.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload`; notable helpers are `get`, `_public_excerpt`, and `join`.
     """
     glance = payload.get("representative_substrate_glance", {})
     examples = glance.get("examples", []) if isinstance(glance, dict) else []
@@ -5242,18 +4774,11 @@ def _substrate_glance_lines(payload: dict[str, Any]) -> list[str]:
 
 def first_screen_text_card(payload: dict[str, Any], *, reader_id: str = "all") -> str:
     """
-    [ACTION]
-    Project a composition card into the terminal-sized text first screen for a reader.
+    Compute first screen text card from `payload` and `reader_id`.
 
-    - Teleology: public text projection rendering the same card as a budget-bounded terminal screen, optionally focused on one reader.
-    - Guarantee: returns a newline-terminated text card (<= TEXT_CARD_MAX_LINES lines) over the same authority ceiling; `reader_id="all"` shows every reader branch, an alias focuses one.
-    - Fails: raises ValueError when `reader_id` is not in TEXT_READER_CHOICES or when the assembled card would exceed the line budget.
-    - When-needed: when emitting `plectis first-screen --format text` or the browser/observatory text landing.
-    - Escalates-to: first_screen_composition_card as the source card this projects; normalize_reader_route_id resolves the alias.
-    - Non-goal: a GENERATED text projection; authorizes no release, hosting, provider calls, or whole-system correctness.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `payload` and `reader_id`; notable helpers are `normalize_reader_route_id`,
+    `_reader_route_map`, `_reader_packet_map`, `_reader_menu_map`, and 8 more; invalid cases
+    raise from the explicit checks in the body.
     """
     if reader_id not in TEXT_READER_CHOICES:
         raise ValueError(f"unknown first-screen reader route: {reader_id}")

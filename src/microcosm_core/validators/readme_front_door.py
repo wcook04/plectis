@@ -1,53 +1,11 @@
 """
-README human-front-door binding validator (the binding plane).
+Implements validators readme front door for the public Plectis package.
 
-This validator is the missing third plane of the public entry assurance model:
-
-  - Truth plane: machine contracts (entry_packet.json, cli.py, the registries)
-    where exactness belongs, enforced by validators/public_entry_docs.py.
-  - Human-experience plane: README.md, curated prose judged by structural
-    first-screen legibility and cold-reader comprehension, NOT by exact strings.
-  - Binding plane (this module): check the rendered README against the truth
-    plane WITHOUT dictating editorial wording. The witness command must resolve
-    to the canonical first command; links must resolve to real destinations;
-    the approved banner must exist; the hero must not leak internal ontology;
-    and the prose must not overclaim beyond its evidence.
-
-It deliberately queries SEMANTIC STRUCTURE (heading tree, hero region, fenced
-code blocks, links, the banner, the human-text witness) and BINDINGS (witness ->
-entry packet, links -> files), never a hand-written snapshot of the README's prose.
-That is what lets the human front door evolve freely while its truth stays
-bound. Reuses the overclaim patterns from public_entry_docs so the no-overclaim
-guard has one owner.
-
-Authority ceiling: this is a first-screen legibility + projection-binding read
-model. It does not prove reader comprehension, authorize release or publication,
-claim private-root equivalence, call providers, mutate source, prove
-correctness, or certify production readiness.
-
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.validators.readme_front_door` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
-
-[INTERFACE]
-- Exports: CHECKER_ID, HERO_BANNED_PATTERNS, validate_readme_front_door, main
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas, microcosm_core.validators.public_entry_docs
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `validate_readme_front_door` and `main`; constants such as
+`CHECKER_ID`, `HERO_BANNED_PATTERNS`, `FRONT_DOOR_SIGNIFICANCE_WORD_LIMIT`,
+`FRONT_DOOR_LOCAL_ONLY_WORD_LIMIT`, and 5 more pin local fixture names; dependencies include
+`argparse`, `re`, `pathlib`, `typing`, and 1 more. Validator outputs stay structured so
+release checks can consume findings without scraping prose.
 """
 
 from __future__ import annotations
@@ -158,33 +116,18 @@ FRONT_DOOR_FAMILY_CEILING_PATTERNS: tuple[tuple[str, str], ...] = (
 
 def _word_window(text: str, limit: int) -> str:
     """
-    [ACTION]
-    Return the first `limit` whitespace-separated tokens as a single string.
+    Return word window for the validators readme front door flow.
 
-    - Teleology: front-door weighting checks need a bounded first-reader window,
-      not an exact prose snapshot.
-    - Guarantee: preserves token order and lower-level punctuation while capping
-      the scanned region by word count.
-    - Fails: never raises.
-    - Reads: call arguments only.
-    - Writes: return values.
+    Inputs are `text` and `limit`; notable helpers are `join` and `split`.
     """
     return " ".join(text.split()[:limit])
 
 
 def _registry_component_count(public_root: Path) -> int | None:
     """
-    [ACTION]
-    Return the implemented public component count from the governed registry.
+    Derive registry component count without touching module import state.
 
-    - Teleology: allow an above-fold component count only when it is bound to the
-      same registry that owns the system map.
-    - Guarantee: returns the implemented_organs row count when the registry is
-      available and well-shaped; otherwise None.
-    - Fails: propagates JSON/schema IO failures from read_json_strict only when
-      the file exists but is invalid.
-    - Reads: <public_root>/core/organ_registry.json.
-    - Writes: return values.
+    Inputs are `public_root`; notable helpers are `read_json_strict`, `is_file`, and `get`.
     """
     registry_path = public_root / "core/organ_registry.json"
     if not registry_path.is_file():
@@ -196,17 +139,9 @@ def _registry_component_count(public_root: Path) -> int | None:
 
 def _hero_region(text: str) -> str:
     """
-    [ACTION]
-    Return everything before the first level-2 (``## ``) heading.
+    Produce the hero region value used by `microcosm_core.validators.readme_front_door`.
 
-    - Teleology: the first-impression region a cold reader meets before any
-      section break: banner, H1, promise, and link rail.
-    - Guarantee: returns text up to the first line beginning ``## ``; whole text
-      when there is none.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Inputs are `text`; notable helpers are `split`.
     """
     marker = "\n## "
     return text.split(marker, 1)[0] if marker in text else text
@@ -214,13 +149,10 @@ def _hero_region(text: str) -> str:
 
 def _headings(text: str) -> list[tuple[int, str]]:
     """
-    [ACTION]
-    - Teleology: Implements `_headings` for `microcosm_core.validators.readme_front_door` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the headings value used by `microcosm_core.validators.readme_front_door`.
+
+    Inputs are `text`; notable helpers are `splitlines`, `match`, `append`, `strip`, and 1
+    more.
     """
     out: list[tuple[int, str]] = []
     for line in text.splitlines():
@@ -232,13 +164,9 @@ def _headings(text: str) -> list[tuple[int, str]]:
 
 def _anchor_slug(heading: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_anchor_slug` for `microcosm_core.validators.readme_front_door` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return anchor slug for the validators readme front door flow.
+
+    Inputs are `heading`; notable helpers are `lower`, `sub`, and `strip`.
     """
     slug = heading.strip().lower()
     slug = re.sub(r"[^\w\s-]", "", slug)
@@ -249,13 +177,9 @@ def _anchor_slug(heading: str) -> str:
 def _markdown_links(text: str) -> list[tuple[str, str]]:
     # [label](dest) but not images ![alt](src)
     """
-    [ACTION]
-    - Teleology: Implements `_markdown_links` for `microcosm_core.validators.readme_front_door` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive markdown links without touching module import state.
+
+    Inputs are `text`; notable helpers are `group` and `finditer`.
     """
     return [
         (m.group(1), m.group(2))
@@ -265,13 +189,9 @@ def _markdown_links(text: str) -> list[tuple[str, str]]:
 
 def _fenced_blocks(text: str) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_fenced_blocks` for `microcosm_core.validators.readme_front_door` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return fenced blocks for the validators readme front door flow.
+
+    Inputs are `text`; notable helpers are `findall`.
     """
     return re.findall(r"```[^\n]*\n(.*?)```", text, flags=re.DOTALL)
 
@@ -283,20 +203,12 @@ def validate_readme_front_door(
     command: str = "pytest",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    Validate README.md as a human front door bound to the truth plane.
+    Validate whether validate readme front door holds for the validators readme front door
+    flow.
 
-    - Reads: <public_root>/README.md, <public_root>/atlas/entry_packet.json, and
-      the banner / link destinations referenced by the README.
-    - Returns: a receipt dict with status pass/blocked, per-check findings, and
-      a blocking_codes list. Writes the receipt to ``out`` when provided.
-    - Fails closed: any structural gap, broken binding, hero ontology leak, or
-      overclaim sets status='blocked' with a specific code.
-    - Teleology: Implements `validate_readme_front_door` for `microcosm_core.validators.readme_front_door` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Writes: return values, declared filesystem outputs.
+    The result is derived from `public_root`, `out`, and `command` with `_hero_region`,
+    `join`, `search`, `_markdown_links`, and 20 more; failing evidence is returned or raised
+    exactly where the body says so.
     """
     readme_path = public_root / "README.md"
     text = readme_path.read_text(encoding="utf-8") if readme_path.is_file() else ""
@@ -494,13 +406,10 @@ def validate_readme_front_door(
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.validators.readme_front_door` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.validators.readme_front_door` as a command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(description="Validate the README human front door.")
     parser.add_argument("--root", default=".", help="public root containing README.md")
