@@ -2581,7 +2581,7 @@
       "runs_real_tools_meaning": "current_public_component_command_invokes_external_machinery",
       "scope_limit": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
       "source_link_count": 2,
-      "summary_line": "Replays synthetic forecast tests through copied finance stats, recording p-values with no advice.",
+      "summary_line": "Runs econometric forecast-evaluation tests on synthetic fixtures, recording p-values and refusals with no advice.",
       "tags": [
         "research-workflows",
         "forecasting",
@@ -3904,10 +3904,10 @@
     "artifact_path": "plectis-ai-reader-digest.json",
     "exact_byte_sha256_recorded_in": "projection-status.json::artifact_identity.exact_byte_sha256_by_path.plectis-ai-reader-digest.json",
     "payload_hash_scope": "canonical JSON of this packet object before composition_identity is inserted; exact emitted file bytes are recorded in projection-status.json",
-    "payload_sha256_excluding_identity": "sha256:148eb91e5d49f51b274931daf7cb232797f519ad609450f036dc9a99ba7fb310",
+    "payload_sha256_excluding_identity": "sha256:67d49db2d4f6c5fa2f05ff7fda5d70059f2d25f81f472d8923035e1d797e6f59",
     "schema": "microcosm_public_packet_composition_identity_v0",
     "schema_id": "microcosm_public_ai_reader_digest_v0",
-    "source_fingerprint": "ea832840962f132bdf6f89fbb3401235"
+    "source_fingerprint": "d1cc34bf62302fb157bdf974cc436ab4"
   },
   "counts": {
     "component_count": 88,
@@ -4198,7 +4198,7 @@
   "freshness_note": {
     "explanation": "generated_at is a fixed deterministic sentinel so builds are reproducible. It is not a live timestamp and must not be reported as freshness.",
     "generated_at_is_sentinel": true,
-    "source_fingerprint": "ea832840962f132bdf6f89fbb3401235",
+    "source_fingerprint": "d1cc34bf62302fb157bdf974cc436ab4",
     "version_handle": "source_fingerprint"
   },
   "generated_at": "1970-01-01T00:00:00+00:00",
@@ -6685,7 +6685,7 @@
     "source_of_record": "https://github.com/wcook04/plectis",
     "title": "Plectis"
   },
-  "source_fingerprint": "ea832840962f132bdf6f89fbb3401235",
+  "source_fingerprint": "d1cc34bf62302fb157bdf974cc436ab4",
   "source_map": {
     "link_return_rule": "Use object-map.json::objects[].route or route_contract.href to cite exact public views. site-packet.js intentionally carries only a bounded sample so export controls do not load the full object map.",
     "object_count": 876,
@@ -6772,7 +6772,7 @@
   },
   "source_ref_summary": {
     "curated_source_hashes": {
-      "microcosm-substrate/README.md": "sha256:aefa00dd193f2edde72b044658407e49335fe368acbc3dc6c3d9f2e63d298df1",
+      "microcosm-substrate/README.md": "sha256:9600057172cff9933b7eabe3de3ebdce4eddc6b41143651fc54f80f25c2d522b",
       "microcosm-substrate/core/organ_families.json": "sha256:75969ee456c5d1ea7711dac5d9283eaefa5aac078686888e6cfc27e02c416a7f",
       "sites/microcosm/index.html": "sha256:ee4db27ef24703d7c49d2ac0a433fd6ffaeb26a55be840e85f4928b1ad5df280"
     },
