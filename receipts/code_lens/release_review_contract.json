@@ -1,14 +1,14 @@
 {
   "artifact_subjects": [
     {
-      "bytes": 38019,
+      "bytes": 38051,
       "ref": "FIRST_ACTION.md",
-      "sha256": "0154593720514d48971b7d08f52d29c16189f515e03d2ddf9304b6d3d92ffd86"
+      "sha256": "d73f5e5275092a89ad2ce19b5d98e1783eb8f415ce8c48a2451af9e247955e96"
     },
     {
-      "bytes": 57994,
+      "bytes": 58010,
       "ref": "receipts/code_lens/first_action_demo.json",
-      "sha256": "33e81342e4f392cbf861f08e10f775d2dd472795224524e3f44469cafc69f2b9"
+      "sha256": "019482416e49e0a76b33bad1255d1b82730cb5aee3547858c377db250199ad20"
     }
   ],
   "assay_requirements": [

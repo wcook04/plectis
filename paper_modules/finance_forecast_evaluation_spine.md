@@ -1,10 +1,10 @@
 # Finance forecast evaluation spine
 
-`finance_forecast_evaluation_spine` is a Crown Jewel import organ with real runnable substrate and a strict public authority ceiling. It consumes synthetic public fixtures, copied non-secret macro source bodies, and source manifests that verify sha256 digests, line counts, required anchors, secret-exclusion status, and receipt body omission.
+`finance_forecast_evaluation_spine` is a Crown Jewel import organ with real runnable substrate and a strict public authority ceiling. It is the public econometric forecast-evaluation witness for Plectis: it consumes synthetic public fixtures, copied non-secret macro source bodies, and source manifests that verify sha256 digests, line counts, required anchors, secret-exclusion status, and receipt body omission.
 
 ## Purpose
 
-Comparing two forecasting models is harder than it looks. A lower average loss does not establish that one model genuinely predicts better, because losses are autocorrelated, samples are short, and a careless split can let a model peek at the answer. This organ exists to carry the statistical machinery that economists use to answer that question carefully, and to do so without ever claiming the machinery has been pointed at a real market.
+Comparing two forecasting models is harder than it looks. A lower average loss does not establish that one model genuinely predicts better, because losses are autocorrelated, samples are short, and a careless split can let a model peek at the answer. This organ exists to carry the econometric machinery that economists use to answer that question carefully, and to do so without ever claiming the machinery has been pointed at a real market.
 
 The single question it answers is narrow: given two paired loss series over a synthetic fixture, can the difference in predictive accuracy be called significant under an admissible test, or must the test refuse? It computes the Diebold-Mariano loss-differential statistic with a Bartlett HAC long-run variance, the Harvey-Leybourne-Newbold small-sample correction, Hansen's test for superior predictive ability with recentering, a model confidence set, and a Politis-Romano stationary bootstrap.
 
@@ -29,6 +29,8 @@ python -m microcosm_core.organs.finance_forecast_evaluation_spine run-finance-fo
 Negative cases covered by the fixture manifest: finance_hln_dependency_refusal, finance_leakage_lookahead_split, finance_no_advice_overclaim.
 
 Source provenance is anchored by `examples/finance_forecast_evaluation_spine/exported_finance_eval_bundle/source_module_manifest.json` and receipts carry refs, digests, counts, verdicts, and anti-claims only.
+
+Coverage vocabulary has to be read by receipt generation. The current exported source manifest carries 13 copied non-secret finance modules. The older first-wave exported-bundle validation receipt records a narrower 9-import coverage envelope plus deferred public-safe statistical modules; it remains useful as lineage evidence, but it must not be repeated as the current manifest count.
 
 ## Shape
 
@@ -157,10 +159,19 @@ statistics and typed refusals." It does not become investment advice, live-marke
 data, a track record, performance proof, optimizer authorization, or release
 authority.
 
+If a reader sees `copied_macro_source_count: 9` in
+`receipts/first_wave/finance_forecast_evaluation_spine/exported_finance_eval_bundle_validation_result.json`,
+read that as the first-wave exported-bundle coverage vocabulary. It says nine
+public-safe bodies were imported in that older envelope while the statistical
+modules were explicitly deferred. The current source-manifest evidence is the
+13-module exported bundle; public copy should use the 13-module language only
+when it is pointing at `source_module_manifest.json` or a fresh validation
+receipt for that bundle.
+
 ## Forecast-Evaluation Discipline
 
-This organ is evidence that the Microcosm can carry professional forecast
-evaluation logic without pretending to carry market authority. The admissible
+This organ is evidence that the Microcosm can carry professional econometric
+forecast-evaluation logic without pretending to carry market authority. The admissible
 statistics include Diebold-Mariano loss-differential testing, the
 Harvey-Leybourne-Newbold small-sample correction, Hansen's SPA test, a
 Politis-Romano stationary bootstrap, Bartlett HAC long-run variance, and

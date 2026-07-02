@@ -24,8 +24,8 @@ You are reviewing whichever distribution of this repository you hold — a sourc
 
 | Committed subject | SHA-256 | Bytes |
 |---|---|---|
-| `FIRST_ACTION.md` | `0154593720514d48971b7d08f52d29c16189f515e03d2ddf9304b6d3d92ffd86` | 38019 |
-| `receipts/code_lens/first_action_demo.json` | `33e81342e4f392cbf861f08e10f775d2dd472795224524e3f44469cafc69f2b9` | 57994 |
+| `FIRST_ACTION.md` | `d73f5e5275092a89ad2ce19b5d98e1783eb8f415ce8c48a2451af9e247955e96` | 38051 |
+| `receipts/code_lens/first_action_demo.json` | `019482416e49e0a76b33bad1255d1b82730cb5aee3547858c377db250199ad20` | 58010 |
 
 If these digests no longer match the files in your tree, this contract is stale for your tree — refresh it with `PYTHONPATH=src python3 scripts/build_release_review.py --write` and review the diff. The proof does not embed a commit hash: the artifact may arrive as an export without git history, so identity is carried by these subject digests plus the per-file digests inside the proof packet. No public release artifact has been published or attested yet (`external_signature_status: absent_public_release_not_yet_attested`).
 

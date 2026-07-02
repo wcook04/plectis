@@ -14,13 +14,14 @@
   },
   "research_bet_contract": {
     "governing_mechanism": "mech_036",
-    "positive_claim": "Synthetic market-shaped fixtures exercise forecast-evaluation statistics and typed refusals without making market, advice, performance, or track-record claims.",
+    "positive_claim": "Synthetic market-shaped fixtures exercise econometric forecast-evaluation statistics and typed refusals without making market, advice, performance, or track-record claims.",
     "required_witnesses": [
       "Diebold-Mariano and Harvey-Leybourne-Newbold statistic/refusal rows",
       "Hansen SPA recentering evidence",
       "stationary bootstrap and Bartlett HAC variance rows",
       "purged/embargoed cross-validation rows",
-      "typed refusal rows for inadmissible cases"
+      "typed refusal rows for inadmissible cases",
+      "source-manifest lineage distinguishing the current 13-module exported bundle from the older 9-import validation envelope"
     ],
     "negative_floor": [
       "finance_hln_dependency_refusal",
@@ -64,7 +65,8 @@
     "secret_exclusion_scan_required": true,
     "source_module_manifest_required_for_exported_bundle": true,
     "status_field": "status",
-    "synthetic_receipt_standin_allowed": false
+    "synthetic_receipt_standin_allowed": false,
+    "coverage_vocabulary_rule": "Public copy may describe the current exported source manifest as 13 copied non-secret finance modules. A first-wave exported-bundle receipt with copied_macro_source_count=9 is lineage for the older coverage envelope, not the current manifest count."
   },
   "receipt_expectations": [
     "finance_forecast_evaluation_spine_result.json",
@@ -123,7 +125,7 @@
       "finance_no_advice_overclaim"
     ],
     "ontology": "A public Microcosm organ for finance forecast evaluation spine.",
-    "teleology": "Runs public synthetic forecast-evaluation fixtures through copied finance statistics modules and records p-value/refusal behavior without live market data or advice claims.",
+    "teleology": "Runs public synthetic econometric forecast-evaluation fixtures through copied finance statistics modules and records p-value/refusal behavior without live market data or advice claims.",
     "contract_version": "public_microcosm_standard_v2",
     "contract_projection_basis": {
       "source_schema_version": "public_microcosm_standard_v2",
