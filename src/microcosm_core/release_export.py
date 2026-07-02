@@ -4193,10 +4193,20 @@ def _refresh_candidate_organ_atlas(target: Path) -> dict[str, Any]:
 def _candidate_doctrine_lattice_blocking_errors(
     validation: dict[str, Any],
 ) -> tuple[list[Any], list[Any]]:
-    """Split doctrine-lattice validation errors into blockers and population gaps.
+    """Classify candidate doctrine-lattice validation errors for export gating.
 
-    Population-deficit rows can be tolerated while a candidate export is still
-    missing optional doctrine targets; every other validation error remains blocking.
+    - Teleology: let standalone export refresh tolerate known population gaps while
+      still blocking on validation errors that would make the lattice misleading.
+    - Guarantee: returns `(blocking_errors, non_blocking_population_errors)`;
+      direct population-deficit codes and unresolved edges caused by those missing
+      targets are non-blocking, while all other error rows remain blocking.
+    - Fails: does not raise for non-dict error entries or missing fields; those rows
+      are treated as blocking because they cannot be matched to a tolerated deficit.
+    - Reads: `validation["errors"]` and doctrine-lattice population-deficit
+      constants.
+    - Writes: two new error lists only.
+    - Non-goal: does not mutate validation payloads, repair the lattice, or decide
+      release authorization.
     """
     errors = list(validation.get("errors") or [])
     missing_population_targets: set[tuple[str, str]] = set()

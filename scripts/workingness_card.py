@@ -17,6 +17,17 @@ from microcosm_core.runtime_shell import RuntimeShell  # noqa: E402
 
 
 def workingness_card(root: Path = MICROCOSM_ROOT) -> dict[str, Any]:
+    """Return the runtime shell's compact workingness failure envelope.
+
+    Teleology: expose the workingness card from a source-checkout script without
+    duplicating the console command or the runtime-shell card logic.
+    Guarantee: returns exactly `RuntimeShell(root).workingness_card()`.
+    Fails: propagates whatever `RuntimeShell` construction or
+    `workingness_card()` raises for an invalid root or broken substrate.
+    Reads: whatever `RuntimeShell.workingness_card` reads under `root`.
+    Writes: nothing.
+    Non-goal: does not compute or reshape workingness status locally.
+    """
     return RuntimeShell(root).workingness_card()
 
 

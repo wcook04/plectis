@@ -1,3 +1,15 @@
+"""Install Plectis into an isolated venv and prove the public console works.
+
+Teleology: catch packaging mistakes that source-form smoke tests cannot see:
+missing data files, checkout imports shadowing the wheel, private path leakage
+in captured cards, and first-action contracts that only work from the dev tree.
+Guarantee: all captured product output is normalized before leak checks, and a
+passing run exercised the installed console from the fresh virtualenv.
+Writes: only the caller-provided work directory and the build lock under the
+staged source tree.
+Non-goal: this is not a release authorization or a broad CI substitute.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -42,12 +54,17 @@ SOURCE_STAGE_EXCLUDES = (
 
 
 def _normalize_work_refs(text: str, work_dir: Path) -> str:
-    """Replace every textual variant of the smoke's work dir with WORK_DIR_TOKEN.
+    """Hide the smoke's own scratch root before public-leak assertions run.
 
-    Covers the path as given and fully resolved (e.g. /var vs /private/var on
-    macOS) so a host whose temp root lives under a private marker (/home/...)
-    cannot fail the marker assert on its own plumbing, while real product
-    leaks remain visible.
+    Teleology: captured console output can legitimately mention the temporary
+    project path passed to a command, while any other host/private path remains
+    a product leak.
+    Guarantee: both the lexical path and the resolved path are replaced,
+    covering macOS /var versus /private/var spellings.
+    Fails: does not raise by itself; unresolved or odd path spellings simply
+    remain in the returned text for _assert_no_private_markers to catch.
+    Non-goal: do not redact arbitrary private markers; leave those for
+    _assert_no_private_markers to catch.
     """
     for variant in sorted(
         {str(work_dir), work_dir.resolve().as_posix()}, key=len, reverse=True
@@ -58,7 +75,17 @@ def _normalize_work_refs(text: str, work_dir: Path) -> str:
 
 
 def _stage_source_tree(source_root: Path, work_dir: Path) -> Path:
-    """Copy install inputs to work_dir so pip build residue stays out of source."""
+    """Copy the package source into scratch space for the install proof.
+
+    Teleology: keep pip's build products, egg-info churn, and temp files out of
+    the checkout while still installing the same source content.
+    Guarantee: the returned directory is a fresh copy beneath work_dir, with
+    repository/cache/build artifacts excluded.
+    Fails: shutil errors propagate if the source cannot be copied or an old
+    staged tree cannot be removed.
+    Writes: removes any prior work_dir/source tree and creates a new staged
+    tree.
+    """
     staged_source = work_dir / "source"
     if staged_source.exists():
         shutil.rmtree(staged_source)
@@ -72,14 +99,15 @@ def _stage_source_tree(source_root: Path, work_dir: Path) -> Path:
 
 @contextlib.contextmanager
 def _source_build_lock(source_root: Path):
-    """Serialize wheel builds across concurrent smokes and proof runs.
+    """Best-effort serialization for local wheel builds that share a root.
 
-    pip may write shared intermediates under <build-root>/build; two
-    concurrent builds race, and a crashed one leaves residue that fails every
-    later build ([Errno 17] on the staged dist-info). The lock lives at
-    .microcosm/package_build.lock under the build root. POSIX flock only; on
-    Windows, or when the lock file cannot be opened, it degrades to a no-op
-    rather than blocking the smoke.
+    Teleology: pip/setuptools write shared build intermediates under the build
+    root, so concurrent package smokes can corrupt or trip over each other.
+    Guarantee: on POSIX, entrants hold an exclusive flock on
+    .microcosm/package_build.lock while cleaning and installing.
+    Fails: if the lock cannot be opened, the smoke continues without locking;
+    validation still owns correctness.
+    Non-goal: do not implement a cross-platform lock manager for Windows.
     """
     handle = None
     if os.name != "nt":
@@ -102,19 +130,31 @@ def _source_build_lock(source_root: Path):
 
 
 def _clear_stale_wheel_staging(source_root: Path) -> None:
-    """Remove crashed-build residue under build/bdist.* before installing.
+    """Sweep only stale wheel-staging trees before pip installs the package.
 
-    A killed wheel build leaves build/bdist.*/wheel/<name>.dist-info behind,
-    and setuptools then fails every later build with [Errno 17] File exists.
-    Only the bdist staging trees are cleared -- the build/lib incremental
-    cache is kept. Call while holding the source build lock so a live
-    concurrent build is never swept.
+    Teleology: a killed build can leave build/bdist.*/wheel/*.dist-info behind,
+    turning every later install into a File exists failure.
+    Guarantee: only build/bdist.* trees are removed; build/lib caches and source
+    files remain untouched.
+    Fails: removal errors are ignored because stale staging is best-effort
+    cleanup and the following pip install remains the authority.
+    Writes: deletes bdist staging directories, intended to run while the source
+    build lock is held.
     """
     for staged in (source_root / "build").glob("bdist.*"):
         shutil.rmtree(staged, ignore_errors=True)
 
 
 def _bin_dir(venv_dir: Path) -> Path:
+    """Return the script directory for the venv on the current platform.
+
+    Teleology: callers need the installed python and plectis entry-point paths
+    without duplicating the Windows/POSIX branch.
+    Guarantee: Windows resolves to Scripts and POSIX resolves to bin, matching
+    where python and plectis console entry points are expected after install.
+    Fails: does not validate that the venv exists; missing files fail later when
+    subprocesses are invoked.
+    """
     if os.name == "nt":
         return venv_dir / "Scripts"
     return venv_dir / "bin"
@@ -127,6 +167,17 @@ def _run(
     env: dict[str, str] | None = None,
     stdout_path: Path | None = None,
 ) -> subprocess.CompletedProcess[str]:
+    """Run one smoke subprocess and surface enough output to debug failures.
+
+    Teleology: package-install failures are usually about the exact command,
+    stdout card, or stderr build trace; hiding those makes the smoke useless.
+    Guarantee: stdout is optionally captured to disk on both pass and fail, and
+    nonzero exits terminate the smoke with the same return code.
+    Fails: raises SystemExit(result.returncode) after echoing command, stdout,
+    and stderr for any nonzero subprocess exit.
+    Reads: command argv, optional cwd/env.
+    Writes: stdout_path when provided, plus stderr diagnostics on failure.
+    """
     result = subprocess.run(
         argv,
         cwd=cwd,
@@ -155,6 +206,15 @@ def _run(
 
 
 def _json_payload(path: Path, *, label: str) -> dict[str, Any]:
+    """Load a captured card and require the JSON object shape the smoke checks.
+
+    Teleology: later assertions address named card fields, so arrays, strings,
+    or malformed JSON should fail at the receipt boundary with the card label.
+    Guarantee: returns a dict parsed from the captured UTF-8 file.
+    Fails: raises SystemExit with a concrete label for invalid JSON or a
+    non-object payload.
+    Reads: the captured output file.
+    """
     try:
         payload = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
@@ -165,6 +225,14 @@ def _json_payload(path: Path, *, label: str) -> dict[str, Any]:
 
 
 def _assert_no_private_markers(path: Path, *, label: str) -> None:
+    """Block captured public evidence that exposes host-private path markers.
+
+    Teleology: package smokes often become release or README evidence; they
+    must not leak a developer home path or private ai_workflow source path.
+    Guarantee: the marker list is applied after work-dir normalization, so the
+    smoke's own scratch root is tolerated but product leaks still fail.
+    Fails: exits with the matching marker list and card label.
+    """
     text = path.read_text(encoding="utf-8")
     hits = [marker for marker in PRIVATE_MARKERS if marker in text]
     if hits:
@@ -172,11 +240,34 @@ def _assert_no_private_markers(path: Path, *, label: str) -> None:
 
 
 def _assert_status_pass(payload: dict[str, Any], *, label: str) -> None:
+    """Require JSON card-style outputs to publish status='pass'.
+
+    Teleology: a syntactically valid card can still describe a blocked public
+    surface; this assertion keeps install proof tied to the card contract.
+    Guarantee: returns only when payload["status"] is exactly "pass".
+    Fails: exits with the observed status value and the check label.
+    """
     if payload.get("status") != "pass":
         raise SystemExit(f"{label} status is not pass: {payload.get('status')!r}")
 
 
 def run_package_smoke(source_root: Path, work_dir: Path, python: str) -> None:
+    """Build an isolated install proof from source and verify the console cards.
+
+    Teleology: prove the package a user installs carries the runtime package,
+    data-file graph corpus, and goal-shaped first-action behavior, not just a
+    checkout import made green by PYTHONPATH.
+    Guarantee: creates a fresh venv, installs from a staged source copy with
+    no inherited PYTHONPATH, executes the installed plectis command set, checks
+    public-safety/card contracts, and prints only public-safe summary output on
+    pass.
+    Fails: missing pyproject, pip/install failure, checkout-shadowed import,
+    private-marker leak, malformed card, or failed first-action boundary exits
+    the smoke.
+    Reads: source_root, pyproject/package files, and installed command output.
+    Writes: work_dir, staged source, venv, scratch/cache dirs, and captured
+    output files.
+    """
     source_root = source_root.resolve()
     work_dir = work_dir.resolve()
     if not (source_root / "pyproject.toml").is_file():

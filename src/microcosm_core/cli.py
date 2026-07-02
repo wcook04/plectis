@@ -1313,10 +1313,19 @@ def _print_json(payload: dict, *, exit_code: int | None = None) -> int:
 
 
 def _display_command(command: object) -> str:
-    """Return a short `plectis ...` command for display.
+    """Normalize source-form CLI commands for public card display.
 
-    Known source-checkout prefixes are rewritten to the installed-command form;
-    unknown strings and empty values are returned without semantic interpretation.
+    - Teleology: keep reader-facing cards on the short `plectis ...` spelling while
+      still accepting source-checkout commands stored by fixtures and read models.
+    - Guarantee: returns an empty string for empty input, rewrites known
+      `python -m microcosm_core` prefixes to `plectis`, and leaves unknown command
+      strings unchanged.
+    - Fails: does not raise for non-string inputs because it stringifies the value
+      before matching prefixes.
+    - Reads: the command argument only.
+    - Writes: a normalized display string.
+    - Non-goal: does not validate command safety, parse shell syntax, or execute the
+      command.
     """
     text = str(command or "").strip()
     if not text:
@@ -1333,10 +1342,19 @@ def _display_command(command: object) -> str:
 
 
 def _render_comprehend_card(pack: dict) -> str:
-    """Render a comprehension packet into answer-first text for cold readers.
+    """Render a comprehension packet into answer-first plain text.
 
-    The main answer stays before proof, next-step navigation, and authority limits;
-    missing sections are skipped so the card can cover multiple packet shapes.
+    - Teleology: make `plectis comprehend` output readable on first contact by
+      putting the answer before proof, follow-up navigation, and authority ceilings.
+    - Guarantee: returns a newline-joined text card, skips absent optional sections,
+      and displays commands through `_display_command` so source-form invocations do
+      not dominate the card.
+    - Fails: does not raise for missing packet keys; unsupported packet shapes fall
+      back to generic labels and omit unavailable sections.
+    - Reads: the packet dictionary.
+    - Writes: a rendered text string.
+    - Non-goal: does not mutate the packet, validate packet schema, or write to
+      stdout.
     """
     lines: list[str] = []
     mode = str(pack.get("mode") or pack.get("packet_id") or "comprehension")

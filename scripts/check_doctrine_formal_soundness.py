@@ -114,20 +114,35 @@ _SPACE_MACRO_RE = re.compile(r"\\[,;:!]|\\quad|\\qquad|\\ ")
 
 
 def _normalize(s: str) -> str:
-    """Collapse spacing so symbol/formula substring matching is robust."""
+    """Prepare a symbol string for literal containment checks.
+
+    Teleology: make dangling-symbol detection robust to TeX spacing commands and
+    human whitespace in doctrine symbol-table entries.
+    Guarantee: returns a string with supported spacing macros and all whitespace
+    removed, so `x`, `x\\,`, and `x ` compare the same.
+    Fails: never raises for falsey input because it stringifies `s or ""`; only
+    unexpected `re` engine failures would propagate.
+    Reads: the supplied string only.
+    Writes: nothing.
+    Non-goal: not a LaTeX parser and not semantic equivalence.
+    """
     s = _SPACE_MACRO_RE.sub("", str(s or ""))
     return re.sub(r"\s+", "", s)
 
 
 def atoms(latex: str) -> dict[str, set[str]]:
-    """Walk a bounded-LaTeX string and bucket the symbols it references.
+    """Extract the reviewable vocabulary from one bounded-LaTeX formula.
 
-    Returns sets: free_vars (single Latin letters in math italic), greek
-    (greek-letter macros used as variables), named_ops (content operators, as
-    the full \\mathrm{name} token), verdicts (\\mathsf{...} etc.), structural
-    (\\mathrm{else}-style connectors), and connectives (everything common).
-    Subscript / superscript *arguments* are treated as modifiers of the base
-    symbol, not as independent free variables.
+    Teleology: separate formula vocabulary that needs a symbol-table definition
+    from common logic/connective syntax and self-describing verdict constants.
+    Guarantee: returns sets for free Latin variables, Greek variables, named
+    content operators, verdict constants, structural connectors, and connectives.
+    Fails: malformed or unknown macros are surfaced as named atoms for review
+    instead of raising; falsey input becomes an empty scan.
+    Reads: the supplied LaTeX string only.
+    Writes: nothing.
+    Non-goal: does not execute LaTeX, prove mathematical truth, or infer
+    bindings from natural-language labels.
     """
     s = str(latex or "")
     free: set[str] = set()
@@ -139,6 +154,18 @@ def atoms(latex: str) -> dict[str, set[str]]:
     i, n = 0, len(s)
 
     def read_group(k: int) -> tuple[str, int]:
+        """Read a brace group starting at `k` and return its body plus next index.
+
+        Teleology: consume the body of a text operator without treating nested
+        braces as separate top-level tokens.
+        Guarantee: returns `(body, next_index)` for a balanced group and the
+        remaining suffix plus `len(s)` for an unterminated group.
+        Fails: does not raise for unterminated braces; the caller sees the
+        resulting token shape.
+        Reads: the enclosing `s` string and the starting index.
+        Writes: nothing.
+        Non-goal: does not validate LaTeX grouping globally.
+        """
         depth, start = 0, k
         while k < len(s):
             if s[k] == "{":
@@ -151,8 +178,18 @@ def atoms(latex: str) -> dict[str, set[str]]:
         return s[start + 1:], len(s)
 
     def skip_script_arg(k: int) -> int:
-        # consume the argument of a _ or ^ so its inner letters are not counted
-        # as free variables (they modify the preceding base symbol).
+        """Skip the argument after `_` or `^` without auditing its inner letters.
+
+        Teleology: prevent script modifiers such as the `i` in `x_i` from being
+        counted as independent free variables.
+        Guarantee: returns the index after one braced group, macro, single
+        character, or trailing position following a script marker.
+        Fails: never raises for a missing argument; returns the current or final
+        index after the best-effort skip.
+        Reads: the enclosing `s` string and the starting index.
+        Writes: nothing.
+        Non-goal: does not parse nested math semantics inside scripts.
+        """
         while k < len(s) and s[k] == " ":
             k += 1
         if k < len(s) and s[k] == "{":
@@ -222,7 +259,19 @@ def atoms(latex: str) -> dict[str, set[str]]:
 
 
 def audit_record(rec: dict) -> dict:
-    """Return {dangling, undefined_vars, undefined_ops, clean} for one record."""
+    """Compare one formal block's formula with its symbol table.
+
+    Teleology: enforce reader soundness between a formal formula and its
+    declared symbol table.
+    Guarantee: returns id, kind, dangling declared symbols, undefined variables,
+    undefined operators, and a clean flag for one enrichment record.
+    Fails: malformed or missing `formal`/`symbols` structures degrade to empty
+    strings/lists rather than raising.
+    Reads: the supplied record only.
+    Writes: nothing.
+    Non-goal: a clean result does not prove the doctrine clause, validate
+    support evidence, or raise the record's authority ceiling.
+    """
     formal = rec.get("formal") or {}
     latex = str(formal.get("latex") or "")
     symbols = formal.get("symbols") or []
@@ -263,6 +312,19 @@ def audit_record(rec: dict) -> dict:
 
 
 def run(path: Path) -> dict:
+    """Audit every formal enrichment record in one doctrine file.
+
+    Teleology: provide the reusable report body for CLI checks and the aggregate
+    doctrine-health projection.
+    Guarantee: returns source path, total audited formal records, clean/defective
+    counts, and per-record audit rows; records without `formal` are skipped.
+    Fails: propagates `FileNotFoundError` and `json.JSONDecodeError` for the
+    supplied path.
+    Reads: `core/doctrine_enrichment.json` or the supplied path.
+    Writes: nothing.
+    Non-goal: does not own field-presence coverage for records without formal
+    blocks.
+    """
     data = json.loads(path.read_text(encoding="utf-8"))
     records = data.get("records") or []
     results = [audit_record(r) for r in records if r.get("formal")]
@@ -277,6 +339,18 @@ def run(path: Path) -> dict:
 
 
 def _fmt(report: dict) -> str:
+    """Render the formal-soundness report for a terminal reader.
+
+    Teleology: turn the machine report into concise CI/local-check text without
+    changing the audit contract.
+    Guarantee: groups each defective record by id/kind and lists dangling
+    declarations, undefined variables, and undefined operators.
+    Fails: raises `KeyError` if called with a dict that is not the report shape
+    produced by `run`.
+    Reads: the supplied report dict only.
+    Writes: nothing.
+    Non-goal: not a machine interface; JSON output remains the stable contract.
+    """
     lines = [
         f"doctrine formal soundness: {report['clean']}/{report['total']} clean, "
         f"{report['defective']} with defects",

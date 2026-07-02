@@ -74,11 +74,34 @@ PLAIN_MAX_SENTENCES = 3
 
 
 def _banned_terms(text: str) -> list[str]:
+    """Return public-site vocabulary that leaked into a lay field.
+
+    Teleology: keep lay doctrine fields from exposing internal runtime language
+    that belongs to source or tooling surfaces.
+    Guarantee: returns every configured banned visible term found by lowercase
+    substring membership in the supplied text.
+    Fails: never raises for falsey input because it normalizes `text or ""`.
+    Reads: the supplied text and `BANNED_VISIBLE_TERMS`.
+    Writes: nothing.
+    Non-goal: does not do word-boundary or grammatical analysis.
+    """
     low = (text or "").lower()
     return [t for t in BANNED_VISIBLE_TERMS if t in low]
 
 
 def _banned_framings(text: str) -> list[str]:
+    """Return voice framings that make the lay layer sound inflated.
+
+    Teleology: catch grandiose or formulaic lay-language patterns before they
+    become public doctrine prose.
+    Guarantee: returns configured banned framing substrings plus the explicit
+    `"not-X-but-Y framing"` marker when that regex shape appears.
+    Fails: never raises for falsey input because membership checks use
+    `text or ""`.
+    Reads: the supplied text, `BANNED_FRAMINGS`, and `_NOT_BUT_RE`.
+    Writes: nothing.
+    Non-goal: does not judge style quality beyond these banned patterns.
+    """
     low = (text or "").lower()
     hits = [t for t in BANNED_FRAMINGS if t in low]
     if _NOT_BUT_RE.search(text or ""):
@@ -87,10 +110,36 @@ def _banned_framings(text: str) -> list[str]:
 
 
 def _sentences(text: str) -> int:
+    """Count plain-field sentences with the same small grammar the gate enforces.
+
+    Teleology: enforce the plain-reading sentence budget with a stable local
+    rule instead of natural-language judgment.
+    Guarantee: counts non-empty chunks split by period/semicolon delimiters used
+    by the reader-ladder gate.
+    Fails: never raises for falsey input because it normalizes `text or ""`.
+    Reads: the supplied text only.
+    Writes: nothing.
+    Non-goal: not a grammar parser and not a readability score.
+    """
     return len([s for s in re.split(r"[.;]\s+|[.;]$", (text or "").strip()) if s.strip()])
 
 
 def audit_record(rec: dict) -> dict:
+    """Audit one record's lay reader ladder for clarity and boundary discipline.
+
+    Teleology: protect the lay end of a doctrine card from missing explanation,
+    metaphor laundering, internal vocabulary leakage, math leakage, and
+    affirmative overclaim.
+    Guarantee: returns id, kind, issue list, and clean flag after checking
+    required ladder fields, analogy maps/boundary, banned terms/framing, math
+    leakage, and proof/guarantee claims in affirmative fields.
+    Fails: malformed or absent `reader_ladder` returns a single explicit issue;
+    malformed map entries become issue strings instead of exceptions.
+    Reads: the supplied record only.
+    Writes: nothing.
+    Non-goal: does not judge whether the analogy is elegant or whether the
+    doctrine is supported.
+    """
     rl = rec.get("reader_ladder")
     issues: list[str] = []
     if not isinstance(rl, dict):
@@ -159,6 +208,18 @@ def audit_record(rec: dict) -> dict:
 
 
 def run(path: Path) -> dict:
+    """Run the reader-ladder gate over every enrichment record.
+
+    Teleology: provide the reusable report body for CLI checks and the aggregate
+    doctrine-health projection's reader-ladder section.
+    Guarantee: audits every enrichment record and returns source path, total,
+    clean/defective counts, and per-record results.
+    Fails: propagates `FileNotFoundError` and `json.JSONDecodeError` for the
+    supplied path.
+    Reads: `core/doctrine_enrichment.json` or the supplied path.
+    Writes: nothing.
+    Non-goal: does not measure analogy quality or support evidence.
+    """
     data = json.loads(path.read_text(encoding="utf-8"))
     records = data.get("records") or []
     results = [audit_record(r) for r in records]
@@ -173,6 +234,17 @@ def run(path: Path) -> dict:
 
 
 def _fmt(report: dict) -> str:
+    """Render reader-ladder defects for terminal review.
+
+    Teleology: turn the reader-ladder machine report into concise local/CI text.
+    Guarantee: groups each defective record by id/kind and preserves the exact
+    issue strings produced by `audit_record`.
+    Fails: raises `KeyError` if called with a dict that is not the report shape
+    produced by `run`.
+    Reads: the supplied report dict only.
+    Writes: nothing.
+    Non-goal: not a machine interface; JSON output remains the stable contract.
+    """
     lines = [f"doctrine reader ladder: {report['clean']}/{report['total']} clean, {report['defective']} with defects", ""]
     for r in report["results"]:
         if r["clean"]:
