@@ -3844,12 +3844,12 @@ def compile_mutation_plan(
     if not target or (target not in atlas_by and target not in join_by):
         targets = _release_improvement_targets(inputs, base)
         next_action = _improvement_next_action(targets[0])
-        pack = _pack_skeleton("how_to", "choose the highest-leverage Microcosm improvement")
+        pack = _pack_skeleton("how_to", "choose the highest-leverage Plectis improvement")
         pack["found"] = True
         pack["target"] = None
         pack["export_band"] = "local_semantic_excerpt"
         pack["summary"]["what_this_is"] = (
-            "Ranked concrete edit targets for improving Microcosm cold-clone "
+            "Ranked concrete edit targets for improving Plectis cold-clone "
             "comprehension. Start at rank 1 unless you already have a narrower failing "
             "surface."
         )

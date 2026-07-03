@@ -604,6 +604,10 @@ def test_cli_comprehend_improvements_returns_ranked_targets() -> None:
     assert payload["found"] is True
     assert payload["selected_nodes"][0]["target"] == "src/microcosm_core/comprehension.py"
     assert "validation_commands" in payload["selected_nodes"][0]
+    assert payload["summary"]["what_this_is"].startswith(
+        "Ranked concrete edit targets for improving Plectis cold-clone comprehension."
+    )
+    assert "Microcosm cold-clone comprehension" not in payload["summary"]["what_this_is"]
     assert all(v is False for v in payload["authority_ceiling"].values())
 
 
@@ -688,6 +692,8 @@ def test_cli_comprehend_packet_atlas_text_names_packets() -> None:
 def test_cli_comprehend_improvements_text_names_ranked_targets() -> None:
     result = _run_microcosm_cli("comprehend", "--improvements", "--format", "text")
     assert result.returncode == 0, result.stderr
+    assert "improving Plectis cold-clone comprehension" in result.stdout
+    assert "Microcosm cold-clone comprehension" not in result.stdout
     assert "  - 1. Cold-clone comprehension router and read packs:" in result.stdout
     assert "Highest reader-visible leverage" in result.stdout
     assert "  - node\n" not in result.stdout
