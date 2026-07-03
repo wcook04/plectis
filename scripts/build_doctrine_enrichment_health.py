@@ -43,11 +43,21 @@ MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 ENRICHMENT_REL = "core/doctrine_enrichment.json"
 HEALTH_REL = "core/doctrine_enrichment_health.json"
 KIND_DIRS = {
-    "axiom": ("axioms", "AX-*.json"),
-    "principle": ("principles", "P-*.json"),
-    "anti_principle": ("anti_principles", "AP-*.json"),
+    "axiom": ("receipts/doctrine_records/axioms", "AX-*.receipt.json"),
+    "principle": ("receipts/doctrine_records/principles", "P-*.receipt.json"),
+    "anti_principle": (
+        "receipts/doctrine_records/anti_principles",
+        "AP-*.receipt.json",
+    ),
 }
-ROUTING_KIND_DIRS = {
+CONCEPT_ENTRY_PACKET_REL = "atlas/entry_packet.json"
+MECHANISM_SOURCES_REL = "core/mechanism_sources.json"
+CONCEPT_MECHANISM_POPULATION_RECEIPT_REL = (
+    "receipts/concept_mechanism_population/"
+    "concept_mechanism_records_population_receipt_20260605T1735Z.json"
+)
+ROUTING_KINDS = ("concept", "mechanism")
+LEGACY_ROUTING_KIND_DIRS = {
     "concept": ("concepts", "concept.*.json"),
     "mechanism": ("mechanisms", "mechanism.*.json"),
 }
@@ -139,7 +149,12 @@ def _section_model() -> dict[str, Any]:
             "gate_role": "completion_floor",
             "counts_toward_completion_gate": True,
             "result_keys": ["kinds", "incomplete", "coverage_complete", "reader_enrichment_complete"],
-            "sources_of_record": [ENRICHMENT_REL, "axioms/AX-*.json", "principles/P-*.json", "anti_principles/AP-*.json"],
+            "sources_of_record": [
+                ENRICHMENT_REL,
+                "receipts/doctrine_records/axioms/AX-*.receipt.json",
+                "receipts/doctrine_records/principles/P-*.receipt.json",
+                "receipts/doctrine_records/anti_principles/AP-*.receipt.json",
+            ],
             "proves": "Reader-field presence and structure for the 49 doctrine cards.",
             "does_not_prove": "Correctness, support evidence, proof authority, or release readiness.",
         },
@@ -163,7 +178,10 @@ def _section_model() -> dict[str, Any]:
             "gate_role": "completion_floor",
             "counts_toward_completion_gate": True,
             "result_keys": ["routing_floor"],
-            "sources_of_record": ["concepts/concept.*.json", "mechanisms/mechanism.*.json"],
+            "sources_of_record": [
+                f"{CONCEPT_ENTRY_PACKET_REL}::concept_mechanism_entry_route.population_specimens",
+                f"{MECHANISM_SOURCES_REL}::mechanisms",
+            ],
             "proves": "Checker-readable walkability of governed concept and mechanism routes.",
             "does_not_prove": "Ontology completeness, topology completeness, runtime correctness, support evidence, or release readiness.",
         },
@@ -200,19 +218,27 @@ def _corpus_ids(root: Path, kind: str) -> list[str]:
             row = json.loads(path.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             continue
-        if isinstance(row, dict) and row.get("id"):
-            ids.append(str(row["id"]))
+        if isinstance(row, dict) and row.get("record_id"):
+            ids.append(str(row["record_id"]))
     return ids
 
 
-def _routing_records(root: Path, kind: str) -> list[dict[str, Any]]:
+def _legacy_routing_records(root: Path, kind: str) -> list[dict[str, Any]]:
     """
-    Return routing records for the scripts build doctrine enrichment health flow.
+    Return legacy directory routing records for local fixtures and migrations.
 
-    Inputs are `root` and `kind`; notable helpers are `glob`, `loads`, `append`, and
-    `read_text`.
+    - Teleology: preserve malformed-json and migration coverage for temporary
+      concept/mechanism directory fixtures after the public root moved to
+      entry-packet and mechanism-source owners.
+    - Mechanism: glob the legacy per-kind directory, parse each JSON object,
+      and synthesize load-error records for malformed or non-object files.
+    - Guarantee: returns checker-shaped records without mutating the checkout.
+    - Fails: JSON decode errors become explicit `_routing_load_error` rows;
+      missing directories produce an empty list.
+    - Non-goal: does not revive legacy directories as current source
+      authority or prove concept/mechanism completeness.
     """
-    subdir, glob = ROUTING_KIND_DIRS[kind]
+    subdir, glob = LEGACY_ROUTING_KIND_DIRS[kind]
     records: list[dict[str, Any]] = []
     for path in sorted((root / subdir).glob(glob)):
         try:
@@ -237,6 +263,405 @@ def _routing_records(root: Path, kind: str) -> list[dict[str, Any]]:
                 }
             )
     return records
+
+def _entry_packet_specimens(root: Path) -> list[dict[str, Any]]:
+    """
+    Read concept population specimens from the current entry packet source.
+
+    - Teleology: make the doctrine routing floor follow the same concept entry
+      surface that cold agents are told to use.
+    - Mechanism: read `atlas/entry_packet.json`, descend to
+      `concept_mechanism_entry_route.population_specimens`, and keep only
+      object rows.
+    - Guarantee: missing entry packets return an empty list so isolated legacy
+      fixture tests can still run without fabricated authority.
+    - Fails: malformed JSON or read errors propagate from `json.loads` and
+      `read_text`.
+    - Non-goal: does not treat the generated health projection or absent
+      `concepts/` files as concept source authority.
+    """
+    path = root / CONCEPT_ENTRY_PACKET_REL
+    if not path.exists():
+        return []
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    route = payload.get("concept_mechanism_entry_route")
+    if not isinstance(route, dict):
+        return []
+    specimens = route.get("population_specimens")
+    if not isinstance(specimens, list):
+        return []
+    return [row for row in specimens if isinstance(row, dict)]
+
+
+def _mechanism_source_rows(root: Path) -> list[dict[str, Any]]:
+    """
+    Read governed mechanism rows from `core/mechanism_sources.json`.
+
+    - Teleology: align mechanism routing health with the current mechanism
+      registry owner instead of absent generated instance files.
+    - Mechanism: read `core/mechanism_sources.json`, extract the `mechanisms`
+      list, and retain object rows.
+    - Guarantee: missing source files return an empty list so legacy fixture
+      fallbacks remain possible.
+    - Fails: malformed JSON or filesystem read errors propagate to the caller.
+    - Non-goal: does not claim runtime correctness, topology completeness, or
+      release authority from registry presence.
+    """
+    path = root / MECHANISM_SOURCES_REL
+    if not path.exists():
+        return []
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    rows = payload.get("mechanisms")
+    if not isinstance(rows, list):
+        return []
+    return [row for row in rows if isinstance(row, dict)]
+
+
+def _concept_ids(root: Path) -> set[str]:
+    """
+    Return concept IDs declared by the entry-packet population specimens.
+
+    - Teleology: give relationship checks a bounded resolution set for concept
+      targets without consulting generated health output.
+    - Mechanism: prefix each entry-packet specimen id with `concept.` and
+      collect the resulting IDs.
+    - Guarantee: returns only IDs derived from the current entry packet.
+    - Fails: propagates entry-packet read/parse failures from
+      `_entry_packet_specimens`.
+    - Non-goal: does not prove the concept corpus is complete.
+    """
+    ids: set[str] = set()
+    for specimen in _entry_packet_specimens(root):
+        specimen_id = str(specimen.get("specimen_id") or "").strip()
+        if specimen_id:
+            ids.add(f"concept.{specimen_id}")
+    return ids
+
+
+def _mechanism_ids(root: Path) -> set[str]:
+    """
+    Return mechanism IDs declared by `core/mechanism_sources.json`.
+
+    - Teleology: let concept routing edges distinguish resolved mechanisms
+      from residual pressure using the mechanism source owner.
+    - Mechanism: collect nonempty `id` values from mechanism source rows.
+    - Guarantee: returns a set with no duplicate IDs.
+    - Fails: propagates mechanism-source read/parse failures from
+      `_mechanism_source_rows`.
+    - Non-goal: does not validate the mechanism rows beyond ID presence.
+    """
+    return {
+        str(row["id"])
+        for row in _mechanism_source_rows(root)
+        if str(row.get("id") or "").strip()
+    }
+
+
+def _accepted_organ_ids(root: Path) -> set[str]:
+    """
+    Return accepted public organ IDs from atlas and registry sources.
+
+    - Teleology: classify mechanism `runs_in` hosts as resolved only when the
+      host exists in a public organ owner surface.
+    - Mechanism: read `core/organ_atlas.json::organs` and
+      `core/organ_registry.json::implemented_organs`, collecting `organ_id`.
+    - Guarantee: returns the union of both organ surfaces without writing
+      state.
+    - Fails: malformed present JSON propagates; absent files are skipped.
+    - Non-goal: does not claim accepted organs are product progress, runtime
+      correctness, or release readiness.
+    """
+    ids: set[str] = set()
+    atlas_path = root / "core/organ_atlas.json"
+    if atlas_path.exists():
+        payload = json.loads(atlas_path.read_text(encoding="utf-8"))
+        for row in payload.get("organs") or []:
+            if isinstance(row, dict) and row.get("organ_id"):
+                ids.add(str(row["organ_id"]))
+    registry_path = root / "core/organ_registry.json"
+    if registry_path.exists():
+        payload = json.loads(registry_path.read_text(encoding="utf-8"))
+        for row in payload.get("implemented_organs") or []:
+            if isinstance(row, dict) and row.get("organ_id"):
+                ids.add(str(row["organ_id"]))
+    return ids
+
+
+def _concept_routing_records(root: Path) -> list[dict[str, Any]]:
+    """
+    Build concept routing records from entry-packet population specimens.
+
+    - Teleology: audit the concept floor the way a cold agent reaches it:
+      through specimen-backed entry-packet rows, not absent JSON instances.
+    - Mechanism: convert each population specimen into a checker-shaped
+      concept row with source refs, validators, anti-claims, cluster flag, and
+      mechanism edges.
+    - Guarantee: resolved mechanism edges are judged against
+      `core/mechanism_sources.json`; missing entry packets fall back to the
+      legacy fixture loader.
+    - Fails: malformed owner JSON propagates; unresolved mechanism references
+      remain audit issues instead of being silently accepted.
+    - Non-goal: does not make specimens proof of ontology completeness,
+      support evidence, or release readiness.
+    """
+    specimens = _entry_packet_specimens(root)
+    if not specimens:
+        return _legacy_routing_records(root, "concept")
+    mechanism_ids = _mechanism_ids(root)
+    records: list[dict[str, Any]] = []
+    for index, specimen in enumerate(specimens):
+        specimen_id = str(specimen.get("specimen_id") or "").strip()
+        concept_id = f"concept.{specimen_id}" if specimen_id else f"concept.missing_id.{index}"
+        source_ref = (
+            f"{CONCEPT_ENTRY_PACKET_REL}::"
+            f"concept_mechanism_entry_route.population_specimens[{index}:{specimen_id or '<missing>'}]"
+        )
+        edges: list[dict[str, Any]] = []
+        for edge_index, mechanism_id in enumerate(specimen.get("mechanism_ids") or []):
+            target_id = str(mechanism_id)
+            edges.append(
+                {
+                    "relation_id": "concept.instantiated_by.mechanism",
+                    "relation_verb": "instantiated_by",
+                    "reverse_verb": "instantiates",
+                    "target_id": target_id,
+                    "target_kind": "mechanism",
+                    "target_status": (
+                        "resolved_json_instance"
+                        if target_id in mechanism_ids
+                        else "residual_pressure"
+                    ),
+                    "justification": {
+                        "source_ref": f"{source_ref}.mechanism_ids[{edge_index}]",
+                        "summary": "Entry-packet population specimen names this mechanism.",
+                    },
+                }
+            )
+        records.append(
+            {
+                "id": concept_id,
+                "kind": "concept",
+                "authority_boundary": (
+                    "entry_packet_population_specimen_not_concept_completeness_"
+                    "support_evidence_or_release_authority"
+                ),
+                "source_refs": [source_ref, *(specimen.get("source_refs") or [])],
+                "validator_refs": specimen.get("validator_refs") or [CONCEPT_ENTRY_PACKET_REL],
+                "receipt_refs": [CONCEPT_MECHANISM_POPULATION_RECEIPT_REL],
+                "anti_claims": specimen.get("anti_claims") or [
+                    "Entry-packet concept specimen is not doctrine completeness or release authority."
+                ],
+                "entry_surface_contract": {
+                    "required": True,
+                    "source_ref": "AGENTS.md::Concept And Mechanism Entry",
+                },
+                "cluster_flag": {
+                    "concept_id": concept_id,
+                    "specimen_id": specimen_id,
+                    "source_ref": source_ref,
+                },
+                "relationships": {
+                    "source_authority": "entry_packet_population_specimen",
+                    "source_ref": source_ref,
+                    "unpopulated_selective_relations": [],
+                    "edges": edges,
+                },
+            }
+        )
+    return records
+
+
+def _mechanism_routing_records(root: Path) -> list[dict[str, Any]]:
+    """
+    Build mechanism routing records from `core/mechanism_sources.json`.
+
+    - Teleology: make mechanism routing health inspect the live mechanism
+      source owner while preserving planned-target and residual pressure.
+    - Mechanism: derive checker rows from each mechanism source row, including
+      concept edges, organ host edges, upstream mechanism edges, code loci,
+      receipt refs, payload contracts, and planned targets.
+    - Guarantee: required routes fail closed when concept/code-locus evidence
+      is missing; planned organ targets stay visible as non-blocking frontier
+      pressure.
+    - Fails: malformed owner JSON propagates; nonexistent resolved code loci
+      are reported by `_audit_mechanism_routing_record`.
+    - Non-goal: does not prove runtime behavior, topology completeness,
+      support evidence, or release readiness.
+    """
+    rows = _mechanism_source_rows(root)
+    if not rows:
+        return _legacy_routing_records(root, "mechanism")
+    concept_ids = _concept_ids(root)
+    mechanism_ids = {str(row.get("id")) for row in rows if row.get("id")}
+    organ_ids = _accepted_organ_ids(root)
+    records: list[dict[str, Any]] = []
+    for index, row in enumerate(rows):
+        mechanism_id = str(row.get("id") or "").strip()
+        source_ref = f"{MECHANISM_SOURCES_REL}::mechanisms[{index}:{mechanism_id or '<missing>'}]"
+        resolution_evidence = row.get("resolution_evidence")
+        validator_refs: list[str] = []
+        if isinstance(resolution_evidence, dict):
+            validator_refs = [
+                str(value)
+                for key, value in resolution_evidence.items()
+                if ("command" in str(key) or "regression" in str(key)) and value
+            ]
+        if not validator_refs:
+            validator_refs = [MECHANISM_SOURCES_REL]
+
+        edges: list[dict[str, Any]] = []
+        for edge_index, concept_id in enumerate(row.get("concept_refs") or []):
+            target_id = str(concept_id)
+            edges.append(
+                {
+                    "relation_id": "mechanism.grounded_by.concept",
+                    "relation_verb": "grounded_by",
+                    "reverse_verb": "grounds",
+                    "target_id": target_id,
+                    "target_kind": "concept",
+                    "target_status": (
+                        "resolved_json_instance"
+                        if target_id in concept_ids
+                        else "residual_pressure"
+                    ),
+                    "justification": {
+                        "source_ref": f"{source_ref}.concept_refs[{edge_index}]",
+                        "summary": "Mechanism source row names this concept.",
+                    },
+                }
+            )
+        planned_targets = [
+            target
+            for target in row.get("planned_targets") or []
+            if isinstance(target, dict)
+        ]
+        planned_by_id = {
+            (str(target.get("target_kind") or ""), str(target.get("target_id") or "")): target
+            for target in planned_targets
+        }
+        for edge_index, organ_id in enumerate(row.get("runs_in") or []):
+            target_id = str(organ_id)
+            planned_target = planned_by_id.get(("organ", target_id), {})
+            edges.append(
+                {
+                    "relation_id": "mechanism.runs_in.organ",
+                    "relation_verb": "runs_in",
+                    "reverse_verb": "runs",
+                    "target_id": target_id,
+                    "target_kind": "organ",
+                    "target_status": str(
+                        planned_target.get("target_status")
+                        or (
+                            "resolved_json_instance"
+                            if target_id in organ_ids
+                            else "residual_pressure"
+                        )
+                    ),
+                    "residual_pressure_ref": planned_target.get("residual_pressure_ref"),
+                    "justification": {
+                        "source_ref": f"{source_ref}.runs_in[{edge_index}]",
+                        "summary": "Mechanism registry row names this organ as the runtime host.",
+                    },
+                }
+            )
+        for edge_index, upstream_id in enumerate(row.get("upstream_of") or []):
+            target_id = str(upstream_id)
+            edges.append(
+                {
+                    "relation_id": "mechanism.upstream_of.mechanism",
+                    "relation_verb": "upstream_of",
+                    "reverse_verb": "downstream_of",
+                    "target_id": target_id,
+                    "target_kind": "mechanism",
+                    "target_status": (
+                        "resolved_json_instance"
+                        if target_id in mechanism_ids
+                        else "residual_pressure"
+                    ),
+                    "justification": {
+                        "source_ref": f"{source_ref}.upstream_of[{edge_index}]",
+                        "summary": "Mechanism source row names this downstream mechanism.",
+                    },
+                }
+            )
+
+        residuals: list[dict[str, Any]] = []
+        if not row.get("upstream_of"):
+            residuals.append(
+                {
+                    "relation_id": "mechanism.upstream_of.mechanism",
+                    "requirement": "selective",
+                    "status": "residual_pressure",
+                    "source_ref": source_ref,
+                    "reason": "Mechanism source row does not name sibling/upstream mechanism relations.",
+                }
+            )
+        records.append(
+            {
+                "id": mechanism_id,
+                "kind": "mechanism",
+                "authority_boundary": (
+                    "mechanism_source_record_not_runtime_correctness_"
+                    "support_evidence_or_release_authority"
+                ),
+                "source_refs": [source_ref, *(row.get("input_refs") or [])],
+                "validator_refs": validator_refs,
+                "receipt_refs": row.get("receipt_refs") or [CONCEPT_MECHANISM_POPULATION_RECEIPT_REL],
+                "anti_claims": [
+                    "Mechanism source rows do not prove runtime correctness, topology completeness, or release readiness."
+                ],
+                "entry_surface_contract": {
+                    "required": True,
+                    "source_ref": "AGENTS.md::Concept And Mechanism Entry",
+                },
+                "organ_refs": row.get("runs_in") or [],
+                "code_loci": row.get("code_loci") or [],
+                "mechanism_payload": {
+                    "contract_version": "mechanism_source_record_v1",
+                    "guardrails": row.get("guardrails") or [],
+                    "migration_contract": {
+                        "source_of_record": MECHANISM_SOURCES_REL,
+                        "source_ref": source_ref,
+                    },
+                    "projection_contract": {
+                        "projection_hooks": row.get("projection_hooks") or [],
+                    },
+                    "resolution_evidence": resolution_evidence or {},
+                    "support_contract": {
+                        "receipt_refs": row.get("receipt_refs") or [],
+                        "input_refs": row.get("input_refs") or [],
+                    },
+                    "source_registry_row": row,
+                },
+                "relationships": {
+                    "source_authority": "mechanism_source_record",
+                    "source_registry_row_ref": source_ref,
+                    "unpopulated_selective_relations": residuals,
+                    "edges": edges,
+                },
+            }
+        )
+    return records
+
+
+def _routing_records(root: Path, kind: str) -> list[dict[str, Any]]:
+    """
+    Return governed routing records for concept or mechanism health audits.
+
+    - Teleology: dispatch the doctrine routing floor to the current owner for
+      each governed kind.
+    - Mechanism: use entry-packet specimens for concepts, mechanism sources
+      for mechanisms, and an empty list for unknown kinds.
+    - Guarantee: does not write state or read generated health output.
+    - Fails: propagates owner read/parse failures from the selected loader.
+    - Non-goal: does not invent a new routing source or broaden the completion
+      gate beyond concept/mechanism routing.
+    """
+    if kind == "concept":
+        return _concept_routing_records(root)
+    if kind == "mechanism":
+        return _mechanism_routing_records(root)
+    return []
 
 
 def _paper_module_records(root: Path) -> list[dict[str, Any]]:
@@ -845,7 +1270,7 @@ def _build_routing_floor(root: Path) -> dict[str, Any]:
     """
     kinds: dict[str, Any] = {}
     incomplete: list[dict[str, Any]] = []
-    for kind in ROUTING_KIND_DIRS:
+    for kind in ROUTING_KINDS:
         records = _routing_records(root, kind)
         if kind == "concept":
             issue_rows = [
@@ -881,10 +1306,10 @@ def _build_routing_floor(root: Path) -> dict[str, Any]:
         "status": "complete" if complete else "partial",
         "coverage_complete": complete,
         "source_of_record": {
-            "concept": "concepts/concept.*.json",
-            "mechanism": "mechanisms/mechanism.*.json",
+            "concept": f"{CONCEPT_ENTRY_PACKET_REL}::concept_mechanism_entry_route.population_specimens",
+            "mechanism": f"{MECHANISM_SOURCES_REL}::mechanisms",
         },
-        "covered_kinds": sorted(ROUTING_KIND_DIRS),
+        "covered_kinds": sorted(ROUTING_KINDS),
         "total_objects": total,
         "routed_objects": routed,
         "kinds": kinds,
@@ -1026,8 +1451,24 @@ def main(argv: list[str] | None = None) -> int:
     """
     Run `scripts.build_doctrine_enrichment_health` as a command-line entry point.
 
-    The command parses argv, calls this module's builders or validators, and returns the
-    status code used by the process wrapper.
+    - Teleology: expose the doctrine enrichment health projection as a CLI
+      check/write surface for the public Plectis doctrine floor.
+    - Mechanism: parse `--root`, `--write`, and `--check`; resolve the root;
+      call `build_health`; optionally write `core/doctrine_enrichment_health.json`;
+      print the projection for read/check runs; and return the completion
+      status as a process code.
+    - Guarantee: with complete source corpora, emits a .json
+      `microcosm_doctrine_enrichment_health_v1` projection and returns 0 for
+      `--check` only when the governed floor status is complete.
+    - Fails: missing or malformed source JSON raises OSError/ValueError from
+      the underlying reads; `--check` returns 1 when the generated health
+      status is partial.
+    - Reads: doctrine enrichment, axiom/principle/anti-principle receipt rows,
+      concept/mechanism rows, paper-module rows, and the selected `--root`.
+    - Writes: only `core/doctrine_enrichment_health.json`, and only when
+      `--write` is passed.
+    - Non-goal: does not prove doctrine correctness, support evidence,
+      release readiness, proof authority, or private-root equivalence.
     """
     parser = argparse.ArgumentParser(prog="build_doctrine_enrichment_health")
     parser.add_argument("--root", type=Path, default=MICROCOSM_ROOT)

@@ -20,7 +20,7 @@
   "frontier_audit_sections": [
     "paper_module_readiness_audit"
   ],
-  "governed_floor_complete": false,
+  "governed_floor_complete": true,
   "governed_floor_total_objects": 155,
   "incomplete": [],
   "kinds": {
@@ -81,7 +81,7 @@
     "incomplete_ids": [],
     "issue_rows": [],
     "readiness_complete": true,
-    "ready_objects": 93,
+    "ready_objects": 103,
     "required_gap_ids": [],
     "required_residual_relation_count": 0,
     "required_structures": [
@@ -99,15 +99,80 @@
       "selective residual relations counted as frontier pressure"
     ],
     "residual_policy": "Required paper-module residuals block readiness. Selective residuals are disclosed as frontier pressure, not counted as support evidence or topology completeness.",
-    "residual_relation_count": 0,
-    "residual_relation_counts_by_relation_id": {},
-    "residual_relation_counts_by_requirement": {},
-    "residual_relation_row_count": 0,
-    "residual_relation_rows": [],
+    "residual_relation_count": 10,
+    "residual_relation_counts_by_relation_id": {
+      "paper_module.depends_on.paper_module": 10
+    },
+    "residual_relation_counts_by_requirement": {
+      "selective": 10
+    },
+    "residual_relation_row_count": 10,
+    "residual_relation_rows": [
+      {
+        "count": 1,
+        "id": "paper_module.annex_knowledge_routing",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.bridge_campaign_dag_validation",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.derived_fact_provider_runtime",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.egress_self_compliance_audit",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.finite_erdos_denominator_certificate_strike",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.generated_projection_drift_runtime",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.lean_proof_search_lab_runtime",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.metabolism_queue_reconciliation",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.navigation_fitness_benchmark",
+        "required_count": 0,
+        "selective_count": 1
+      },
+      {
+        "count": 1,
+        "id": "paper_module.semantic_singleflight_dedup_runtime",
+        "required_count": 0,
+        "selective_count": 1
+      }
+    ],
     "schema_version": "microcosm_paper_module_readiness_audit_v1",
-    "selective_residual_relation_count": 0,
+    "selective_residual_relation_count": 10,
     "source_authority_counts": {
-      "json_capsule": 93
+      "json_capsule": 103
     },
     "source_of_record": {
       "instance_owner": "microcosm_core.doctrine_lattice",
@@ -118,7 +183,7 @@
       ]
     },
     "status": "complete",
-    "total_objects": 93
+    "total_objects": 103
   },
   "plane": "microcosm_substrate_public_read_model",
   "plane_note": "Public read model over microcosm-substrate sources only. External orchestration or control planes that operate on this repository are not represented in this projection and are never sources of record for it.",
@@ -136,92 +201,16 @@
   "render_validation_note": "LaTeX render correctness is enforced by tools/meta/dissemination/tests/test_build_microcosm_public_site.py (zero raw-LaTeX fallbacks), not by this coverage projection.",
   "routing_floor": {
     "authority_boundary": "Concept and mechanism routing floor over governed JSON rows. Structure and route presence only; not concept completeness, topology completeness, support evidence, release authority, or proof correctness.",
-    "coverage_complete": false,
+    "coverage_complete": true,
     "covered_kinds": [
       "concept",
       "mechanism"
     ],
-    "incomplete": [
-      {
-        "id": "concept.agent_reliability_and_safety_validator_bundle",
-        "issues": [
-          "edge_8_target_unresolved"
-        ]
-      },
-      {
-        "id": "concept.architecture_and_navigation_route_contract_bundle",
-        "issues": [
-          "edge_7_target_unresolved"
-        ]
-      },
-      {
-        "id": "concept.import_projection_and_drift_control_bundle",
-        "issues": [
-          "edge_5_target_unresolved",
-          "edge_18_target_unresolved",
-          "edge_29_target_unresolved",
-          "edge_31_target_unresolved"
-        ]
-      },
-      {
-        "id": "concept.research_and_science_replay_evidence_bundle",
-        "issues": [
-          "edge_4_target_unresolved"
-        ]
-      },
-      {
-        "id": "concept.work_landing_and_continuity_control_bundle",
-        "issues": [
-          "edge_4_target_unresolved",
-          "edge_6_target_unresolved"
-        ]
-      }
-    ],
+    "incomplete": [],
     "kinds": {
       "concept": {
-        "incomplete_ids": [
-          "concept.agent_reliability_and_safety_validator_bundle",
-          "concept.architecture_and_navigation_route_contract_bundle",
-          "concept.import_projection_and_drift_control_bundle",
-          "concept.research_and_science_replay_evidence_bundle",
-          "concept.work_landing_and_continuity_control_bundle"
-        ],
-        "issue_rows": [
-          {
-            "id": "concept.agent_reliability_and_safety_validator_bundle",
-            "issues": [
-              "edge_8_target_unresolved"
-            ]
-          },
-          {
-            "id": "concept.architecture_and_navigation_route_contract_bundle",
-            "issues": [
-              "edge_7_target_unresolved"
-            ]
-          },
-          {
-            "id": "concept.import_projection_and_drift_control_bundle",
-            "issues": [
-              "edge_5_target_unresolved",
-              "edge_18_target_unresolved",
-              "edge_29_target_unresolved",
-              "edge_31_target_unresolved"
-            ]
-          },
-          {
-            "id": "concept.research_and_science_replay_evidence_bundle",
-            "issues": [
-              "edge_4_target_unresolved"
-            ]
-          },
-          {
-            "id": "concept.work_landing_and_continuity_control_bundle",
-            "issues": [
-              "edge_4_target_unresolved",
-              "edge_6_target_unresolved"
-            ]
-          }
-        ],
+        "incomplete_ids": [],
+        "issue_rows": [],
         "required_structures": [
           "source_refs",
           "valid_json_object",
@@ -234,22 +223,18 @@
           "resolved_mechanism_route",
           "empty_unpopulated_selective_relations"
         ],
-        "routed": 6,
+        "routed": 11,
         "total": 11
       },
       "mechanism": {
         "incomplete_ids": [],
         "issue_rows": [],
-        "known_residual_selective_relation_count": 25,
-        "known_residual_selective_relation_row_count": 25,
+        "known_residual_selective_relation_count": 26,
+        "known_residual_selective_relation_row_count": 26,
         "known_residual_selective_relation_rows": [
           {
             "count": 1,
-            "id": "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay"
+            "id": "mechanism.cognitive_operator_registry.validates_public_operator_contract"
           },
           {
             "count": 1,
@@ -257,31 +242,15 @@
           },
           {
             "count": 1,
-            "id": "mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule"
+            "id": "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution"
           },
           {
             "count": 1,
-            "id": "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule"
+            "id": "mechanism.agent_closeout_faithfulness_audit.validates_closeout_evidence_claims"
           },
           {
             "count": 1,
-            "id": "mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule"
+            "id": "mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection"
           },
           {
             "count": 1,
@@ -293,39 +262,19 @@
           },
           {
             "count": 1,
-            "id": "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay"
+            "id": "mechanism.batch7_secondary_runtime_capsule.validates_public_secondary_runtime_capsule"
           },
           {
             "count": 1,
-            "id": "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet"
+            "id": "mechanism.batch10_cold_eval_honesty_capsule.validates_public_cold_eval_honesty_capsule"
           },
           {
             "count": 1,
-            "id": "mechanism.certificate_kernel_execution_lab.validates_public_certificate_kernel_execution"
+            "id": "mechanism.batch10_governance_compilers_capsule.validates_public_governance_compilers_capsule"
           },
           {
             "count": 1,
-            "id": "mechanism.cognitive_operator_registry.validates_public_operator_contract"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.cold_clone_probe.validates_public_source_root_bootstrap"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.mathematical_strategy_atlas_hypothesis_scorer.validates_public_strategy_hypothesis_projection"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay"
-          },
-          {
-            "count": 1,
-            "id": "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step"
+            "id": "mechanism.agent_sabotage_scheming_monitor_replay.validates_public_sabotage_scheming_monitor_replay"
           },
           {
             "count": 1,
@@ -333,7 +282,7 @@
           },
           {
             "count": 1,
-            "id": "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
+            "id": "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory"
           },
           {
             "count": 1,
@@ -341,7 +290,51 @@
           },
           {
             "count": 1,
-            "id": "mechanism.tool_server_pressure_inventory.validates_public_tool_server_pressure_inventory"
+            "id": "mechanism.batch12_release_claim_language_gate.validates_public_release_claim_language_gate"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.bounded_autonomy_campaign_packet.validates_public_bounded_autonomy_campaign_packet"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.pattern_assimilation_step.validates_public_pattern_assimilation_step"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.belief_state_process_reward_replay.validates_public_belief_state_process_reward_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.indirect_prompt_injection_information_flow_policy_replay.validates_public_indirect_prompt_injection_information_flow_policy_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.mechanistic_interpretability_circuit_attribution_replay.validates_public_mechanistic_interpretability_circuit_attribution_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.sleeper_memory_poisoning_quarantine_replay.validates_public_sleeper_memory_poisoning_quarantine_replay"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch6_unsurfaced_primitives_capsule.validates_public_unsurfaced_primitives_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch4_proof_authority_runtime.validates_public_proof_authority_runtime_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch5_authority_systems_capsule.validates_public_authority_systems_capsule"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.cold_clone_probe.validates_public_source_root_bootstrap"
+          },
+          {
+            "count": 1,
+            "id": "mechanism.batch8_tools_tail_primitives_capsule.validates_public_tools_tail_primitives_capsule"
           }
         ],
         "planned_edge_count": 1,
@@ -362,7 +355,7 @@
             "reentry_condition": "Controller or organ-owner lane admits the organ into core/organ_atlas.json or remaps this mechanism to a resolved public organ host; do not synthesize reverse success while planned.",
             "relation_id": "mechanism.runs_in.organ",
             "residual_pressure_ref": "cap_quick_doctrine_lattice_full_population_vision_e1fa6d8fd00f",
-            "source_ref": "core/mechanism_sources.json::mechanisms[85:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary].runs_in",
+            "source_ref": "core/mechanism_sources.json::mechanisms[85:mechanism.microcosm_axiom_substrate.validates_public_axiom_support_boundary].runs_in[0]",
             "summary": "Mechanism registry row names this organ as the runtime host.",
             "target_id": "microcosm_axiom_substrate",
             "target_kind": "organ",
@@ -395,13 +388,13 @@
         "total": 95
       }
     },
-    "routed_objects": 101,
+    "routed_objects": 106,
     "schema_version": "microcosm_doctrine_routing_floor_v2",
     "source_of_record": {
-      "concept": "concepts/concept.*.json",
-      "mechanism": "mechanisms/mechanism.*.json"
+      "concept": "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+      "mechanism": "core/mechanism_sources.json::mechanisms"
     },
-    "status": "partial",
+    "status": "complete",
     "total_objects": 106
   },
   "schema_version": "microcosm_doctrine_enrichment_health_v1",
@@ -415,8 +408,8 @@
         "routing_floor"
       ],
       "sources_of_record": [
-        "concepts/concept.*.json",
-        "mechanisms/mechanism.*.json"
+        "atlas/entry_packet.json::concept_mechanism_entry_route.population_specimens",
+        "core/mechanism_sources.json::mechanisms"
       ]
     },
     "formal_soundness": {
@@ -458,9 +451,9 @@
       ],
       "sources_of_record": [
         "core/doctrine_enrichment.json",
-        "axioms/AX-*.json",
-        "principles/P-*.json",
-        "anti_principles/AP-*.json"
+        "receipts/doctrine_records/axioms/AX-*.receipt.json",
+        "receipts/doctrine_records/principles/P-*.receipt.json",
+        "receipts/doctrine_records/anti_principles/AP-*.receipt.json"
       ]
     },
     "reader_ladder": {
@@ -478,6 +471,6 @@
   },
   "source_of_record": "core/doctrine_enrichment.json",
   "standard_ref": "standards/std_microcosm_doctrine_enrichment.json",
-  "status": "partial",
+  "status": "complete",
   "total_objects": 49
 }
