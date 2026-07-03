@@ -379,6 +379,13 @@ def test_cli_help_routes_cold_readers_before_drilldown_commands(
         in output
     )
     assert (
+        "plectis comprehend --self-model [--profile whole_substrate_map] comprehend "
+        "the WHOLE substrate at once"
+        in output
+    )
+    assert "whole_substrate_map = every organ in the current registry" in output
+    assert re.search(r"whole_substrate_map = all \d+ organs", output) is None
+    assert (
         "plectis public-site-parity verify gh-pages/live downloadable packet parity "
         "with this source tree"
     ) in output
