@@ -48,7 +48,17 @@ jobs:
             llms.txt \
             robots.txt \
             security.txt \
-            sitemap.xml; do
+            sitemap.xml \
+            plectis-ai-review-packet.json \
+            plectis-ai-reader-digest.json \
+            plectis-ai-reader-complete.json \
+            plectis-site-map.json \
+            microcosm-ai-review-packet.json \
+            microcosm-ai-reader-digest.json \
+            microcosm-ai-reader-complete.json \
+            microcosm-site-map.json \
+            content-graph.json \
+            object-map.json; do
             cp "site/$file" "_site/$file"
           done
 
@@ -56,6 +66,26 @@ jobs:
 
           cp -R site/assets/. _site/assets/
           rm -f _site/assets/ai-review-packet.js _site/assets/site-packet.js
+
+      - name: Assert advertised downloads exist
+        run: |
+          set -eu
+          for file in \
+            plectis-ai-review-packet.json \
+            plectis-ai-reader-digest.json \
+            plectis-ai-reader-complete.json \
+            plectis-site-map.json \
+            microcosm-ai-review-packet.json \
+            microcosm-ai-reader-digest.json \
+            microcosm-ai-reader-complete.json \
+            microcosm-site-map.json \
+            content-graph.json \
+            object-map.json \
+            assets/ai-reader-digest-packet.js \
+            assets/search-index.js \
+            assets/object-map.js; do
+            test -s "_site/$file"
+          done
 
       - name: Upload static site
         uses: actions/upload-pages-artifact@v5
