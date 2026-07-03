@@ -162,8 +162,20 @@ def build_parser() -> argparse.ArgumentParser:
     """
     Register CLI syntax for `scripts.build_doctrine_projection.build_parser`.
 
-    The function mutates the provided argparse object with this module's flags, subcommands,
-    or defaults.
+    - Teleology: expose the doctrine-lattice builder as a bounded CLI with
+      separate read-only status, check-only, corpus-write, aggregate-write, and
+      full-write lanes.
+    - Mechanism: create an `argparse.ArgumentParser`, register `--root`, the
+      broad `--write`/`--check` controls, the read-only `--status-only`/`--card`
+      aliases, and the per-corpus write/check switches consumed by `main`.
+    - Guarantee: parser construction is side-effect free; no source,
+      generated, receipt, or status surface is read or written here.
+    - Fails: invalid CLI combinations are deferred to `main` and argparse's
+      normal parse errors.
+    - Writes: nothing.
+    - Non-goal: does not authorize release, source mutation outside explicit
+      writer flags, source-authority flips, private-root equivalence, or proof
+      correctness.
     """
     parser = argparse.ArgumentParser(
         prog="build_doctrine_projection",
@@ -297,8 +309,25 @@ def main(argv: list[str] | None = None) -> int:
     """
     Run the `scripts.build_doctrine_projection` command-line entry point.
 
-    It parses argv, invokes the file-local builders or validators, and returns a
-    process-style status code.
+    - Teleology: route doctrine-lattice maintenance through one explicit
+      command surface so agents can choose read-only status, validation,
+      targeted corpus refresh, aggregate projection refresh, or full rebuild
+      without guessing owner files.
+    - Mechanism: parse argv with `build_parser`, resolve `--root`, dispatch
+      first-match flags to the corresponding validator or writer, print a JSON
+      result, and return 0 only when that lane reports pass/available status.
+    - Guarantee: `--status-only` and `--card` are read-only; write lanes call
+      the owning `microcosm_core.doctrine_lattice` writers and list their
+      declared outputs in the returned JSON.
+    - Fails: source-read, JSON-parse, validation, or writer failures propagate
+      as exceptions or nonzero status according to the selected lane.
+    - Reads: doctrine lattice sources under the selected root plus existing
+      generated surfaces for read/check lanes.
+    - Writes: only the selected corpus or aggregate/full doctrine-lattice
+      projection surfaces when an explicit write flag is present.
+    - Non-goal: does not prove doctrine correctness, support truth,
+      publication readiness, release authority, private-root equivalence, or
+      Lean/proof validity.
     """
     args = build_parser().parse_args(argv)
     root = args.root.resolve()
