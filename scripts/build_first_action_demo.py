@@ -543,8 +543,23 @@ def main(argv: list[str] | None = None) -> int:
     """
     Run `scripts.build_first_action_demo` as a command-line entry point.
 
-    The command parses argv, calls this module's builders or validators, and returns the
-    status code used by the process wrapper.
+    - Teleology: keep `FIRST_ACTION.md` and its receipt synchronized with the
+      live first-action compiler so cold agents see generated routing
+      contracts, not hand-maintained examples.
+    - Mechanism: parse mutually exclusive `--write`/`--check`, resolve the
+      substrate root, build markdown plus receipt JSON, run the guard scan, and
+      either compare committed artifacts or write them through this owner.
+    - Guarantee: `--check` is read-only and returns 1 with drifted paths when
+      committed artifacts differ from compiler output; `--write` refreshes only
+      `FIRST_ACTION.md` and `receipts/code_lens/first_action_demo.json`.
+    - Fails: missing comprehension inputs, guard-scan hits, or filesystem
+      errors surface as nonzero exits or raised `SystemExit`.
+    - Reads: comprehension inputs, public-entry overclaim patterns, and the
+      existing committed demo artifacts for `--check`.
+    - Writes: only the demo markdown and receipt paths when `--write` is
+      passed.
+    - Non-goal: does not authorize edits, release, source-body export,
+      provider calls, private-root equivalence, or whole-system correctness.
     """
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     mode = parser.add_mutually_exclusive_group(required=True)
