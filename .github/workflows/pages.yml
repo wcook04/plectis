@@ -52,18 +52,7 @@ jobs:
             cp "site/$file" "_site/$file"
           done
 
-          for file in \
-            docs/index.html \
-            docs/quickstart.html \
-            docs/components.html \
-            docs/glossary.html \
-            docs/coding-agents.html \
-            docs/architecture.html \
-            docs/evidence.html \
-            docs/tour.html \
-            docs/field-guide.html; do
-            cp "site/$file" "_site/$file"
-          done
+          cp -R site/docs/. _site/docs/
 
           for file in \
             assets/style.css \
