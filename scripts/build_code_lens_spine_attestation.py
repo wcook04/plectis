@@ -130,8 +130,25 @@ def main(argv: list[str] | None = None) -> int:
     """
     Run `scripts.build_code_lens_spine_attestation` as a command-line entry point.
 
-    The command parses argv, calls this module's builders or validators, and returns the
-    status code used by the process wrapper.
+    - Teleology: build the receipt that compares before/after `python-lens
+      --full` snapshots for a code-lens self-description wave.
+    - Mechanism: parse snapshot, Git head, touched-path, proof-command, and
+      output arguments; load both snapshots with `_load_snapshot`; read the
+      newline-delimited touched-path file; call `build_attestation`; and write
+      sorted JSON to `--out`.
+    - Guarantee: writes a .json
+      `microcosm_code_lens_spine_attestation_v1` receipt that records queue
+      deltas, coverage ratios, touched paths, proof commands, specificity_v3,
+      and a non-authorizing authority ceiling.
+    - Fails: missing snapshots or touched-path files raise OSError; malformed
+      snapshot JSON raises ValueError through `_load_snapshot`; snapshots that
+      report source-body export exit before receipt construction.
+    - Reads: `--before`, `--after`, `--head-before`, `--head-after`,
+      `--touched-paths`, and repeated `--proof-command`.
+    - Writes: only the requested `--out` attestation receipt path.
+    - Non-goal: does not inspect source bodies, mutate Git, prove docstring
+      quality, authorize release/publication, or claim whole-system
+      correctness from coverage deltas.
     """
     parser = argparse.ArgumentParser(description="Build the code-lens release-spine attestation receipt.")
     parser.add_argument("--before", required=True, type=Path, help="python-lens --full snapshot before the wave")
