@@ -54,13 +54,8 @@ jobs:
 
           cp -R site/docs/. _site/docs/
 
-          for file in \
-            assets/style.css \
-            assets/docs.js \
-            assets/fragment-open.js \
-            assets/plectis-social-card.png; do
-            cp "site/$file" "_site/$file"
-          done
+          cp -R site/assets/. _site/assets/
+          rm -f _site/assets/ai-review-packet.js _site/assets/site-packet.js
 
       - name: Upload static site
         uses: actions/upload-pages-artifact@v5
