@@ -1252,6 +1252,7 @@ def _render_comprehend_card(pack: dict) -> str:
             for node in rows:
                 name = str(
                     node.get("display_name")
+                    or node.get("packet_id")
                     or node.get("organ_id")
                     or node.get("id")
                     or node.get("kind")
@@ -1262,6 +1263,7 @@ def _render_comprehend_card(pack: dict) -> str:
                     node.get("mechanism")
                     or node.get("summary")
                     or node.get("line")
+                    or node.get("when_needed")
                     or node.get("claim_ceiling")
                     or ""
                 ).strip()

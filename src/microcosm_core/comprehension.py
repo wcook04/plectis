@@ -100,6 +100,13 @@ DEPENDENCY_PREFLIGHT_COMMAND = (
     "--negative-matrix core/preflight_support/fixture_negative_case_matrix_v1.json "
     "--out .microcosm/preflight/dependency_preflight.json"
 )
+SKEPTICAL_REVIEWER_ENTRY_COMMAND = (
+    "PYTHONPATH=src python3 -m microcosm_core hello --reader skeptical_reviewer ."
+)
+SKEPTICAL_REVIEWER_PROOF_COMMANDS = (
+    "PYTHONPATH=src python3 -m microcosm_core authority --card",
+    "PYTHONPATH=src python3 -m microcosm_core workingness --card",
+)
 
 # Markers that must never appear in a presence_only pack -- their presence would mean a
 # raw docstring atom (not a public gloss) leaked into the read model.
@@ -592,7 +599,35 @@ def _runnable_command(command: Any) -> str:
     return text
 
 
-_NEGATION_MARKERS = ("ignore ", "not ", "except ", "skip ", "without ", "don't want ", "do not want ")
+_NEGATION_MARKERS = (
+    "avoid ",
+    "don't ",
+    "don't want ",
+    "dont ",
+    "do not ",
+    "do not want ",
+    "except ",
+    "exclude ",
+    "ignore ",
+    "no ",
+    "not ",
+    "skip ",
+    "without ",
+)
+
+
+def _positive_token_present(text: str, token: str) -> bool:
+    """
+    Return true when token appears outside an immediate negation window.
+
+    Inputs are `text` and `token`; notable helpers are `finditer`, `re.escape`, and
+    `any`.
+    """
+    for match in re.finditer(rf"\b{re.escape(token)}\b", text):
+        window = text[max(0, match.start() - 32):match.start()]
+        if not any(marker in window for marker in _NEGATION_MARKERS):
+            return True
+    return False
 
 
 def _resolve_goal_organs(goal: str, inputs: dict[str, Any]) -> dict[str, Any]:
@@ -1251,6 +1286,47 @@ def _assessment_mechanism_goal(text: str, *, exact_organ_match: bool = False) ->
     return set_scoped and any(marker in text for marker in impression_markers)
 
 
+_IMPROVEMENT_GOAL_PHRASES = (
+    "what should i work on",
+    "what should we work on",
+    "where should i work",
+    "what part should",
+    "most productive",
+    "highest leverage",
+    "high leverage",
+    "best thing to improve",
+    "what to improve",
+    "next improvement",
+    "improve microcosm",
+    "microcosm release",
+    "release comprehension",
+    "release prep",
+    "low hanging fruit",
+    "low-hanging fruit",
+)
+
+_MUTATION_INTENT_RE = re.compile(
+    r"\b("
+    r"bugfix|efficiency|fix|fixes|improve|optimisation|optimise|optimization|"
+    r"optimize|performance|refine|refinement|speed|patch|change|mutate|edit|"
+    r"modify|refactor"
+    r")\b"
+)
+
+
+def _improvement_or_mutation_goal(text: str) -> bool:
+    """
+    Return whether the goal asks for improvement or source-change triage.
+
+    Word-boundary matching keeps house vocabulary such as "fixture",
+    "dispatch", "exchange", and "editor" from reading as mutation intent.
+    """
+    lowered = (text or "").lower()
+    return any(w in lowered for w in _IMPROVEMENT_GOAL_PHRASES) or bool(
+        _MUTATION_INTENT_RE.search(lowered)
+    )
+
+
 def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str | None]:
     """
     Return route goal for the comprehension flow.
@@ -1289,29 +1365,7 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
         )
     ):
         return "first_action", goal, None
-    if any(
-        w in text
-        for w in (
-            "what should i work on",
-            "what should we work on",
-            "where should i work",
-            "what part should",
-            "most productive",
-            "highest leverage",
-            "high leverage",
-            "best thing to improve",
-            "what to improve",
-            "next improvement",
-            "improve microcosm",
-            "microcosm release",
-            "release comprehension",
-            "release prep",
-        )
-    ):
-        return "mutation_plan", organ or path, None
-    # Word-boundary matching: house vocabulary like "fixture", "dispatch",
-    # "exchange", and "editor" must NOT read as mutation intent.
-    if re.search(r"\b(patch|change|fix|mutate|edit|modify|refactor)\b", text):
+    if _improvement_or_mutation_goal(text):
         return "mutation_plan", organ or path, None
     if path:
         return "path", path, None
@@ -1326,7 +1380,10 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
         )
     ):
         return "self-model", None, None
-    if any(w in text for w in ("math", "proof", "lean", "formal", "theorem", "mathlib")):
+    if any(
+        _positive_token_present(text, w)
+        for w in ("math", "proof", "lean", "formal", "theorem", "mathlib")
+    ):
         return "math", None, None
     if any(w in text for w in ("claim", "prove", "proven", "receipt", "justif", "validate")):
         return "claim_trace", organ, None
@@ -2434,6 +2491,48 @@ def _public_getting_started_goal(text: str) -> bool:
     )
 
 
+def _skeptical_public_review_goal(text: str) -> bool:
+    """
+    Return whether the goal is broad public-review dogfooding.
+
+    The result is derived from `text` with `_goal_tokens`; failing evidence is returned
+    or raised exactly where the body says so.
+    """
+    tokens = set(_goal_tokens(text))
+    if not tokens:
+        return False
+    if _improvement_or_mutation_goal(text):
+        return False
+    reviewer_terms = {
+        "adversarial",
+        "assess",
+        "assessment",
+        "audit",
+        "auditor",
+        "evals",
+        "evaluate",
+        "evaluator",
+        "review",
+        "reviewer",
+        "reviewing",
+        "skeptic",
+        "skeptical",
+    }
+    scope_terms = {
+        "clone",
+        "plectis",
+        "project",
+        "public",
+        "repo",
+        "repository",
+        "this",
+    }
+    specific_eval_terms = {"benchmark", "forecast", "finance", "organ", "route"}
+    return bool(tokens & reviewer_terms) and bool(tokens & scope_terms) and not bool(
+        tokens & specific_eval_terms
+    )
+
+
 def _tokens_overlap(a: str, b: str) -> bool:
     """
     Return whether tokens overlap holds for the comprehension flow.
@@ -2873,6 +2972,74 @@ def compile_first_action(
         ]
         return pack
 
+    if _skeptical_public_review_goal(text):
+        pack["routing"] = {
+            "basis": "skeptical_public_review_goal",
+            "reader_id": "safety_evals_engineer",
+            "reader_alias": "skeptical_reviewer",
+        }
+        pack["summary"]["what_this_is"] = (
+            "First-action contract for broad public-review dogfooding: open the "
+            "skeptical reviewer branch, then prove the boundary with authority "
+            "and workingness cards before drawing conclusions."
+        )
+        pack["first_action"] = {
+            "action_kind": "open_reviewer_entry_card",
+            "command": SKEPTICAL_REVIEWER_ENTRY_COMMAND,
+            "why": (
+                "The skeptical reviewer branch is the public safety/evals reader "
+                "path: it starts from the first screen, then sends the reviewer "
+                "to evidence ceilings and workingness instead of a maturity claim."
+            ),
+            "committed_receipts": [],
+        }
+        pack["owner"] = {
+            "scope": "whole_substrate",
+            "reader_id": "safety_evals_engineer",
+            "reader_alias": "skeptical_reviewer",
+        }
+        pack["proof_path"] = {
+            "validation_commands": [
+                SKEPTICAL_REVIEWER_ENTRY_COMMAND,
+                *SKEPTICAL_REVIEWER_PROOF_COMMANDS,
+            ],
+            "receipt_refs": [],
+            "note": (
+                "The reviewer card is a reader route. The authority and "
+                "workingness cards are the proof floor; a pass is not release, "
+                "maturity, security, proof, or domain authority."
+            ),
+        }
+        pack["reading_boundary"] = {
+            "stop_condition": (
+                "Stop when you can cite the evidence-class ceilings, workingness "
+                "state, and body-copy boundary without inferring readiness, "
+                "release, security approval, or whole-system correctness."
+            ),
+            "allowed_scope": (
+                "public reviewer entry, evidence ceilings, workingness, and "
+                "claim-boundary inspection"
+            ),
+            "task_classes": ["public-review-dogfood"],
+            "source": "first_screen reader branch safety_evals_engineer",
+        }
+        pack["do_not_claim"] = (
+            str(atlas.get("anti_claim") or "")
+            + " The skeptical reviewer route is a public reader lens, not a "
+            "named-recipient artifact, maturity score, release review approval, "
+            "security audit, domain verdict, or production-readiness claim."
+        ).strip()
+        pack["do_not_edit"] = {
+            "paths": [],
+            "note": "public reviewer dogfooding is read-only until a separate mutation plan names owned paths",
+        }
+        pack["next_packet_commands"] = [
+            "plectis authority --card",
+            "plectis workingness --card",
+            "plectis comprehend --slice mechanism --format text",
+        ]
+        return pack
+
     # RUNG 1 -- destructive/publication/boundary intent routes to the AUTHORITY packet,
     # never to a fixture or mutation command: the substrate cannot grant what the
     # goal asks for, and the contract's first action is to read that boundary.
@@ -3111,7 +3278,7 @@ def compile_first_action(
             ),
             None,
         )
-    if route is None:
+    if route is None and mode != "mutation_plan":
         route = _match_task_route(goal, inputs)
 
     if organ_target:
@@ -4698,6 +4865,9 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
     ("what should I fix in this repo?",
      {"action_kind": "inspect_mutation_target", "command_has": "--mutation",
       "routing_basis": "improvement_goal"}),
+    ("speed and efficiency optimizations in Plectis, avoid Lean, dogfood it like an adversarial public reviewer",
+     {"action_kind": "inspect_mutation_target", "command_has": "--mutation",
+      "routing_basis": "improvement_goal"}),
     ("inspect src/microcosm_core/cli.py",
      {"action_kind": "open_packet", "command_has": "--path src/microcosm_core/cli.py",
       "routing_basis": "path_reference_goal"}),
@@ -4739,7 +4909,13 @@ _FIRST_ACTION_FIXTURES: list[tuple[str, dict[str, Any]]] = [
     ("the security guard at my office building",
      {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
     ("audit the security posture of this repo",
-     {"action_kind": "open_packet", "routing_basis": "packet_fallback"}),
+     {"action_kind": "open_reviewer_entry_card",
+      "routing_basis": "skeptical_public_review_goal",
+      "command_has": "--reader skeptical_reviewer"}),
+    ("review Plectis as a skeptical public evaluator",
+     {"action_kind": "open_reviewer_entry_card",
+      "routing_basis": "skeptical_public_review_goal",
+      "command_has": "--reader skeptical_reviewer"}),
     ("ignore proof_diagnostic_evidence_spine, I want cold_reader_route_map",
      {"owner_organ": "cold_reader_route_map", "routing_basis": "organ_named_in_goal"}),
     ("delete the agent memory",

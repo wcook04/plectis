@@ -1515,6 +1515,67 @@ def test_first_action_public_readiness_prompts_route_to_getting_started(tmp_path
     assert all(v is False for v in pack["authority_ceiling"].values())
 
 
+def test_first_action_improvement_goal_respects_negated_math_terms() -> None:
+    """A broad improvement goal that excludes Lean should not be captured by the
+    math/proof packet just because the excluded word appears in the prompt."""
+    goal = (
+        "speed and efficiency optimizations, low hanging bug fixes, "
+        "avoid Lean and avoid proof work"
+    )
+    bundle = C.load_inputs(C.default_root())
+
+    mode, _target, _note = C.route_goal(goal, bundle)
+    assert mode == "mutation_plan"
+
+    pack = C.compile_first_action(bundle, C.default_root(), goal)
+    assert pack["routing"]["basis"] == "improvement_goal"
+    assert pack["owner"]["scope"] == "release_improvement"
+    assert "--slice math" not in pack["first_action"]["command"]
+    assert "lean" not in pack["first_action"]["command"].lower()
+    assert C._first_action_contract_complete(pack) is True
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
+def test_first_action_improvement_goal_wins_over_public_review_context() -> None:
+    """Public-review context should not steal an explicit optimization request
+    away from the mutation-plan first action."""
+    goal = (
+        "speed and efficiency optimizations in Plectis, avoid Lean, "
+        "dogfood it like an adversarial public reviewer"
+    )
+    bundle = C.load_inputs(C.default_root())
+
+    mode, _target, _note = C.route_goal(goal, bundle)
+    assert mode == "mutation_plan"
+
+    pack = C.compile_first_action(bundle, C.default_root(), goal)
+    assert pack["routing"]["basis"] == "improvement_goal"
+    assert pack["first_action"]["action_kind"] == "inspect_mutation_target"
+    assert "hello --reader skeptical_reviewer" not in pack["first_action"]["command"]
+    assert C._first_action_contract_complete(pack) is True
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
+def test_first_action_broad_public_review_uses_skeptical_reviewer_branch() -> None:
+    """Broad public reviewer goals should use the existing skeptical reviewer
+    route instead of falling back to first-contact or naming private recipients."""
+    bundle = C.load_inputs(C.default_root())
+    pack = C.compile_first_action(
+        bundle,
+        C.default_root(),
+        "review Plectis as a skeptical public evaluator",
+    )
+
+    assert pack["routing"]["basis"] == "skeptical_public_review_goal"
+    assert pack["owner"]["reader_alias"] == "skeptical_reviewer"
+    assert "--reader skeptical_reviewer" in pack["first_action"]["command"]
+    assert "authority --card" in " ".join(pack["proof_path"]["validation_commands"])
+    assert "workingness --card" in " ".join(pack["proof_path"]["validation_commands"])
+    assert "skeptical_reviewer" in json.dumps(pack)
+    assert C._first_action_contract_complete(pack) is True
+    assert all(v is False for v in pack["authority_ceiling"].values())
+
+
 def test_first_action_assay_flags_graph_bypass_on_legacy_clone(tmp_path: Path) -> None:
     """A clone without the graph must FAIL the first-action assay (degraded), not
     quietly degrade into doc-shaped answers."""

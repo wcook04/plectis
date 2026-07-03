@@ -100,6 +100,17 @@ SECTIONS: list[dict[str, object]] = [
         ),
     },
     {
+        "section_id": "public_review",
+        "title": "Public review: broad reviews open the skeptical reader card",
+        "bases": ("skeptical_public_review_goal",),
+        "note": (
+            "Broad repo-review or security-posture goals open the generic "
+            "skeptical reviewer entry card and its proof commands. They do "
+            "not infer private recipients, publication approval, or a named "
+            "audit target."
+        ),
+    },
+    {
         "section_id": "refusals",
         "title": "Refusals: actions the substrate cannot grant",
         "bases": ("out_of_scope_authority_boundary",),

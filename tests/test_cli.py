@@ -670,6 +670,56 @@ def test_cli_comprehend_first_action_routes_public_site_parity() -> None:
     assert "release authorization" in payload["proof_path"]["note"]
 
 
+def test_cli_comprehend_packet_atlas_text_names_packets() -> None:
+    result = _run_microcosm_cli("comprehend", "--packet-atlas", "--format", "text")
+    assert result.returncode == 0, result.stderr
+    assert "  - packet_atlas:" in result.stdout
+    assert "  - first_action:" in result.stdout
+    assert "  - packet\n" not in result.stdout
+
+
+def test_cli_first_action_optimization_text_avoids_negated_lean_route() -> None:
+    result = _run_microcosm_cli(
+        "comprehend",
+        "--first-action",
+        "speed and efficiency optimizations, low hanging bug fixes, avoid Lean",
+        "--format",
+        "text",
+    )
+    assert result.returncode == 0, result.stderr
+    assert "comprehend --mutation" in result.stdout
+    assert "comprehend --slice math" not in result.stdout
+
+
+def test_cli_first_action_optimization_text_wins_over_public_review_context() -> None:
+    result = _run_microcosm_cli(
+        "comprehend",
+        "--first-action",
+        (
+            "speed and efficiency optimizations in Plectis, avoid Lean, "
+            "dogfood it like an adversarial public reviewer"
+        ),
+        "--format",
+        "text",
+    )
+    assert result.returncode == 0, result.stderr
+    assert "comprehend --mutation" in result.stdout
+    assert "hello --reader skeptical_reviewer" not in result.stdout
+
+
+def test_cli_first_action_public_reviewer_text_uses_skeptical_branch() -> None:
+    result = _run_microcosm_cli(
+        "comprehend",
+        "--first-action",
+        "review Plectis as a skeptical public evaluator",
+        "--format",
+        "text",
+    )
+    assert result.returncode == 0, result.stderr
+    assert "hello --reader skeptical_reviewer" in result.stdout
+    assert "first-contact" not in result.stdout
+
+
 def test_cli_comprehension_assay_first_action_is_green() -> None:
     result = _run_microcosm_cli("comprehension-assay", "--first-action")
     assert result.returncode == 0, result.stderr

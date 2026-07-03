@@ -108,7 +108,7 @@ Short command tails below; the per-section blocks and the receipt carry every co
 | where is the fixture input for the audio organ? | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
 | dispatch the route bundle | `task_class_route_match (agent-entry)` | `cold_reader_route_map` | `cold-reader-route-map run-route-map-bundle --input ex...` |
 | how does the exchange rate organ work? | `packet_fallback` | `whole_substrate` | `comprehend --packet-atlas` |
-| audit the security posture of this repo | `packet_fallback` | `whole_substrate` | `comprehend --first-contact` |
+| audit the security posture of this repo | `skeptical_public_review_goal` | `whole_substrate` | `hello --reader skeptical_reviewer .` |
 
 ## Orientation: no-task questions get the orientation packet
 
@@ -264,6 +264,21 @@ Improvement-shaped goals never receive an edit instruction. The first action is 
 - stop: Stop planning when the mutation plan names the owned paths, the validator, and the receipts to refresh; any edit beyond that point is governed by the mutation plan's custody flags, not by this contract.
 - do not claim: Improvement ranking is a work plan, not release approval or a claim that the substrate is complete.
 
+## Public review: broad reviews open the skeptical reader card
+
+Broad repo-review or security-posture goals open the generic skeptical reviewer entry card and its proof commands. They do not infer private recipients, publication approval, or a named audit target.
+
+**“audit the security posture of this repo”**
+
+- resolved via: `skeptical_public_review_goal` -> owner `whole_substrate`
+- run: `PYTHONPATH=src python3 -m microcosm_core hello --reader skeptical_reviewer .`
+- why: The skeptical reviewer branch is the public safety/evals reader path: it starts from the first screen, then sends the reviewer to evidence ceilings and workingness instead of a maturity claim.
+- prove: `PYTHONPATH=src python3 -m microcosm_core hello --reader skeptical_reviewer .`
+- prove: `PYTHONPATH=src python3 -m microcosm_core authority --card`
+- prove: `PYTHONPATH=src python3 -m microcosm_core workingness --card`
+- stop: Stop when you can cite the evidence-class ceilings, workingness state, and body-copy boundary without inferring readiness, release, security approval, or whole-system correctness.
+- do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
+
 ## Refusals: actions the substrate cannot grant
 
 Destructive and publication goals route to the authority boundary. The first action is to read that boundary -- never a fixture or mutation command.
@@ -324,17 +339,6 @@ These goals contain house vocabulary ('fixture', 'dispatch', 'exchange') that na
 - why: cold clone, first move: which packet answers my question?
 - prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route`
 - committed evidence (prior runs): `receipts/code_lens/read_packs/packet_atlas.json`
-- stop: Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas.
-- do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
-
-**“audit the security posture of this repo”**
-
-- resolved via: `packet_fallback` -> owner `whole_substrate`
-- routing note: No task-class route or organ matched this goal; opening the first_contact packet is the safe default first action.
-- run: `PYTHONPATH=src python3 -m microcosm_core comprehend --first-contact`
-- why: new clone: what is this substrate and where do I start?
-- prove: `PYTHONPATH=src python3 -m microcosm_core comprehension-assay --packet-route`
-- committed evidence (prior runs): `receipts/code_lens/read_packs/first_contact.json`
 - stop: Stop when the packet answers your question and you have chosen one next_packet; if it does not, open --packet-atlas.
 - do not claim: Human/agent glosses, first commands, family labels, and standalone/wired notes are navigation and comprehension metadata only. They do not encode evidence strength (see core/organ_evidence_classes.json), score-based p...
 

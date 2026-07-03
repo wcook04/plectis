@@ -2440,9 +2440,7 @@ def test_project_observatory_bounds_project_evidence_preview(
 
     assert call_order == ["tour", "status"]
     assert status_calls == [(project.resolve(strict=False), expected_project_ref)]
-    assert model["status_card_ref"] == (
-        f"microcosm status --card {expected_project_ref}"
-    )
+    assert model["status_card_ref"] == f"plectis status --card {expected_project_ref}"
     assert model["runtime_status"]["status_card"]["project_ref"] == expected_project_ref
     assert model["project_summary"]["project_ref"] == expected_project_ref
     assert observed_limits == [
