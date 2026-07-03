@@ -589,8 +589,25 @@ def main(argv: list[str] | None = None) -> int:
     """
     Run `scripts.build_code_lens_join_index` as a command-line entry point.
 
-    The command parses argv, calls this module's builders or validators, and returns the
-    status code used by the process wrapper.
+    - Teleology: turn a `python-lens --full` snapshot plus organ registry,
+      atlas, and route planes into the presence-only join index consumed by
+      Plectis comprehension and first-action packets.
+    - Mechanism: parse explicit input/output paths, load JSON inputs through
+      `_load_json`, let `build_join_index` screen copied route/claim strings,
+      write sorted JSON to `--out`, and print the graph rollup.
+    - Guarantee: writes a .json `microcosm_code_lens_join_index_v2` payload
+      with source bodies omitted and returns 0 after reporting organ, claim,
+      route, and edge counts.
+    - Fails: missing or malformed JSON raises OSError/ValueError through
+      `_load_json`; non-object lens or registry payloads exit 2; a lens that
+      exports source bodies exits through `build_join_index` before any output
+      is written.
+    - Reads: `--lens`, `--registry`, optional `--atlas`, and optional
+      `--routes`.
+    - Writes: only the requested `--out` join-index JSON path.
+    - Non-goal: does not execute Python from the snapshot, export docstring or
+      source prose, build Lean proof-internal edges, authorize release, or
+      claim static-analysis or whole-system correctness authority.
     """
     parser = argparse.ArgumentParser(description="Build the code-lens join index v2.")
     parser.add_argument("--lens", required=True, type=Path, help="python-lens --full snapshot JSON")
