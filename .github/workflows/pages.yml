@@ -33,10 +33,50 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
 
+      - name: Prepare slim static site
+        run: |
+          set -eu
+          mkdir -p _site/assets _site/docs
+
+          for file in \
+            index.html \
+            plectis.html \
+            404.html \
+            SOURCE_CONTRACT.md \
+            _headers \
+            _redirects \
+            llms.txt \
+            robots.txt \
+            security.txt \
+            sitemap.xml; do
+            cp "site/$file" "_site/$file"
+          done
+
+          for file in \
+            docs/index.html \
+            docs/quickstart.html \
+            docs/components.html \
+            docs/glossary.html \
+            docs/coding-agents.html \
+            docs/architecture.html \
+            docs/evidence.html \
+            docs/tour.html \
+            docs/field-guide.html; do
+            cp "site/$file" "_site/$file"
+          done
+
+          for file in \
+            assets/style.css \
+            assets/docs.js \
+            assets/fragment-open.js \
+            assets/plectis-social-card.png; do
+            cp "site/$file" "_site/$file"
+          done
+
       - name: Upload static site
         uses: actions/upload-pages-artifact@v5
         with:
-          path: site
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment
