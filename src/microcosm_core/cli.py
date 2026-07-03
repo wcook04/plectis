@@ -1252,17 +1252,27 @@ def _render_comprehend_card(pack: dict) -> str:
             for node in rows:
                 name = str(
                     node.get("display_name")
+                    or node.get("title")
                     or node.get("packet_id")
                     or node.get("organ_id")
+                    or node.get("target")
+                    or node.get("path")
+                    or node.get("task_class")
                     or node.get("id")
                     or node.get("kind")
                     or "node"
                 ).strip()
+                rank = node.get("rank")
+                if rank is not None and name:
+                    name = f"{rank}. {name}"
                 organ_id = str(node.get("organ_id") or "").strip()
                 mechanism = str(
                     node.get("mechanism")
                     or node.get("summary")
                     or node.get("line")
+                    or node.get("why")
+                    or node.get("expected_reader_visible_change")
+                    or node.get("next_command")
                     or node.get("when_needed")
                     or node.get("claim_ceiling")
                     or ""

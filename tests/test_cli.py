@@ -678,6 +678,14 @@ def test_cli_comprehend_packet_atlas_text_names_packets() -> None:
     assert "  - packet\n" not in result.stdout
 
 
+def test_cli_comprehend_improvements_text_names_ranked_targets() -> None:
+    result = _run_microcosm_cli("comprehend", "--improvements", "--format", "text")
+    assert result.returncode == 0, result.stderr
+    assert "  - 1. Cold-clone comprehension router and read packs:" in result.stdout
+    assert "Highest reader-visible leverage" in result.stdout
+    assert "  - node\n" not in result.stdout
+
+
 def test_cli_first_action_optimization_text_avoids_negated_lean_route() -> None:
     result = _run_microcosm_cli(
         "comprehend",
