@@ -211,6 +211,7 @@ For the full per-component cards, open the [System map](ORGANS.md).
 | Understand how it works | [Architecture](ARCHITECTURE.md) | The runtime loop, the evidence loop, and the component families. |
 | Browse every component | [System map](ORGANS.md) | A generated card for each part, one line at a glance or in full. |
 | Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | `plectis comprehend --slice mechanism --format text` — every organ's real mechanism, one line each, before making a whole-system claim. |
+| Verify a specific claim before trusting it | `comprehend --first-action` | `plectis comprehend --first-action "<claim to verify>" --format text` — routes any goal, including a sceptic's verification question, to the exact organ, its authority ceiling, and the command that tests it. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. A coding agent's first action is `plectis comprehend --first-action "<your goal>" --format text`. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | The verification floor and how to raise an issue safely. |
