@@ -1227,6 +1227,29 @@ def _is_path_target(target: Any) -> bool:
     return bool(text) and (text.endswith(".py") or "/" in text)
 
 
+def _path_target_exists(base: Path, target: Any) -> bool:
+    """
+    Return whether a goal-derived path target resolves to a real file or
+    directory (under base, or as an absolute path).
+
+    A first-action path contract must only be emitted for a path that actually
+    exists. A natural-language goal fragment that merely contains "/" -- for
+    example "sabotage/scheming" inside "...the agent sabotage/scheming
+    monitor..." -- is not a path, so it must fall through to goal/organ routing
+    instead of a dead-end `comprehend --path <phrase>` reroute.
+    """
+    text = str(target or "").strip()
+    if not text:
+        return False
+    candidate = Path(text)
+    try:
+        if candidate.is_absolute():
+            return candidate.exists()
+        return (base / candidate).exists()
+    except OSError:
+        return False
+
+
 def _assessment_mechanism_goal(text: str, *, exact_organ_match: bool = False) -> bool:
     """
     Return whether assessment mechanism goal holds for the comprehension flow.
@@ -3210,7 +3233,12 @@ def compile_first_action(
             "plectis comprehend --packet-atlas",
         ]
         return pack
-    if not organ_target and mode in ("path", "mutation_plan") and _is_path_target(_rg_target):
+    if (
+        not organ_target
+        and mode in ("path", "mutation_plan")
+        and _is_path_target(_rg_target)
+        and _path_target_exists(base, _rg_target)
+    ):
         return _first_action_path_contract(
             inputs, goal, str(_rg_target), mutation=(mode == "mutation_plan")
         )
