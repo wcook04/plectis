@@ -524,6 +524,13 @@ def _check_snapshot(
         "plectis-ai-review-packet.json",
         "llms.txt",
     )
+    lean_repo_url = "https://github.com/wcook04/plectis-lean-erdos249-257"
+    front_door_html_phrases = (
+        lean_repo_url,
+        "Epic Fail: 257 249",
+        "Six example claims to try to break.",
+        "standalone public repository",
+    )
     for rel in HTML_PATHS:
         text = snapshot.files[rel].decode("utf-8", errors="replace")
         for phrase in required_html_phrases:
@@ -533,6 +540,86 @@ def _check_snapshot(
                         "code": "html_required_phrase_missing",
                         "path": rel,
                         "phrase": phrase,
+                    }
+                )
+        # Full landing pages carry the claim carousel. Minimal parity fixtures
+        # do not; only enforce the front-door route contract when the carousel
+        # is present so unit fixtures stay small.
+        if 'data-claim-carousel' in text or "example claims to try to break" in text:
+            for phrase in front_door_html_phrases:
+                if phrase not in text:
+                    errors.append(
+                        {
+                            "code": "html_front_door_phrase_missing",
+                            "path": rel,
+                            "phrase": phrase,
+                        }
+                    )
+            if "Five example claims to try to break." in text:
+                errors.append(
+                    {
+                        "code": "html_stale_five_example_claims",
+                        "path": rel,
+                        "phrase": "Five example claims to try to break.",
+                    }
+                )
+            card_count = text.count('<article class="claim-card')
+            if card_count != 6:
+                errors.append(
+                    {
+                        "code": "html_claim_card_count_mismatch",
+                        "path": rel,
+                        "expected": 6,
+                        "actual": card_count,
+                    }
+                )
+            first_card_start = text.find('<article class="claim-card')
+            if first_card_start >= 0:
+                first_card = text[first_card_start : first_card_start + 2500]
+                if "Epic Fail: 257 249" not in first_card:
+                    errors.append(
+                        {
+                            "code": "html_first_claim_card_headline_missing",
+                            "path": rel,
+                            "phrase": "Epic Fail: 257 249",
+                        }
+                    )
+                if lean_repo_url not in first_card:
+                    errors.append(
+                        {
+                            "code": "html_first_claim_card_lean_url_missing",
+                            "path": rel,
+                            "phrase": lean_repo_url,
+                        }
+                    )
+
+    for rel in (
+        "plectis-ai-review-packet.json",
+        "microcosm-ai-review-packet.json",
+        "plectis-ai-reader-complete.json",
+        "microcosm-ai-reader-complete.json",
+    ):
+        raw = snapshot.files.get(rel)
+        if raw is None:
+            continue
+        text = raw.decode("utf-8", errors="replace")
+        if "example claims to try to break" not in text and "Epic Fail" not in text:
+            continue
+        if "Five example claims to try to break." in text:
+            errors.append(
+                {
+                    "code": "packet_stale_five_example_claims",
+                    "path": rel,
+                    "phrase": "Five example claims to try to break.",
+                }
+            )
+        if "Epic Fail: 257 249" in text or "Six example claims" in text:
+            if lean_repo_url not in text:
+                errors.append(
+                    {
+                        "code": "packet_lean_url_missing",
+                        "path": rel,
+                        "phrase": lean_repo_url,
                     }
                 )
 
