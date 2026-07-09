@@ -12,6 +12,16 @@
 [X](https://x.com/cookie1234593) ·
 [LinkedIn](https://www.linkedin.com/in/will-cook-278127234/)
 
+### Quick navigation
+
+| | |
+|:--|:--|
+| **[Erdős #249/#257 Lean formalisation](https://github.com/wcook04/plectis-lean-erdos249-257)** | Epic fail at solving both open problems: a Lean formalisation that proves support cases, finite exclusions, and reductions, while stating that neither open problem is settled. |
+| **[Plectis website](https://wcook04.github.io/plectis/)** | Browseable wrapper over the Plectis map: component cards, docs, evidence classes, and scope limits. |
+| **[Formal math docs](https://wcook04.github.io/plectis/docs/area-formal-math.html)** | The formal-math & proof area: Lean pipeline components, certificates, and scope limits. |
+| **[Architecture docs](https://wcook04.github.io/plectis/docs/architecture.html)** | How the 88 components fit together on one shared path. |
+| **[Tour](https://wcook04.github.io/plectis/docs/tour.html)** | A plain walkthrough of what Plectis is, what a component is, and where claims stop. |
+
 **Plectis is a set of public tests for claims made by an AI-built system: 88
 components across formal proof, agent reliability and safety, research and
 forecasting, projection-drift control, validators, work landing, and continuity.
@@ -189,7 +199,7 @@ sets the direction; AI agents do the building and upkeep; and every component's
 work is kept as evidence a separate check can read.
 
 Each area groups related components. Open one to read a card for every component
-inside it — one line at a glance, or expanded in full:
+inside it: one line at a glance, or expanded in full:
 
 | Area | Components | What it is |
 |---|---|---|
@@ -210,7 +220,8 @@ For the full per-component cards, open the [System map](ORGANS.md).
 | Run the first local witness | [Quickstart](QUICKSTART.md) | The shortest path to a working local run. |
 | Understand how it works | [Architecture](ARCHITECTURE.md) | The runtime loop, the evidence loop, and the component families. |
 | Browse every component | [System map](ORGANS.md) | A generated card for each part, one line at a glance or in full. |
-| Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | `plectis comprehend --slice mechanism --format text` — every organ's real mechanism, one line each, before making a whole-system claim. |
+| Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | `plectis comprehend --slice mechanism --format text`: every organ's real mechanism, one line each, before making a whole-system claim. |
+| Verify a specific claim before trusting it | `comprehend --first-action` | `plectis comprehend --first-action "<claim to verify>" --format text`: routes any goal, including a sceptic's verification question, to the exact organ, its authority ceiling, and the command that tests it. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. A coding agent's first action is `plectis comprehend --first-action "<your goal>" --format text`. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | The verification floor and how to raise an issue safely. |

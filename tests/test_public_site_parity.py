@@ -188,6 +188,68 @@ def test_public_site_parity_accepts_legacy_publication_authorized_packets(
     assert receipt["status"] == "pass"
 
 
+def test_public_site_parity_blocks_stale_five_example_claims_on_landing(
+    tmp_path: Path,
+) -> None:
+    site_dir = tmp_path / "site"
+    site_dir.mkdir()
+    _write_snapshot(site_dir)
+    stale = (
+        '<span data-mc-fact="component_count">'
+        f'{_source_counts()["component_count"]}</span> '
+        f'{public_site_parity.SOURCE_OF_RECORD} no hosted service '
+        "plectis-ai-reader-digest.json plectis-ai-review-packet.json llms.txt "
+        '<div data-claim-carousel>'
+        "<h2>Five example claims to try to break.</h2>"
+        '<article class="claim-card"><h3>Old card</h3></article>'
+        "</div>"
+    )
+    (site_dir / "index.html").write_text(stale, encoding="utf-8")
+    (site_dir / "plectis.html").write_text(stale, encoding="utf-8")
+    _rewrite_projection_hashes(site_dir)
+
+    receipt = public_site_parity.check_public_site_parity(root=ROOT, site_dir=site_dir)
+
+    assert receipt["status"] == "blocked"
+    codes = {error["code"] for error in receipt["errors"]}
+    assert "html_stale_five_example_claims" in codes
+    assert "html_front_door_phrase_missing" in codes
+
+
+def test_public_site_parity_accepts_six_card_front_door_landing(
+    tmp_path: Path,
+) -> None:
+    site_dir = tmp_path / "site"
+    site_dir.mkdir()
+    _write_snapshot(site_dir)
+    lean = "https://github.com/wcook04/plectis-lean-erdos249-257"
+    cards = "".join(
+        f'<article class="claim-card{" claim-card--featured" if i == 0 else ""}">'
+        f'<h3>{"Epic Fail: 257 249" if i == 0 else f"Card {i}"}</h3>'
+        f'{"<a href=" + repr(lean) + ">Lean</a>" if i == 0 else ""}'
+        "</article>"
+        for i in range(6)
+    )
+    landing = (
+        '<span data-mc-fact="component_count">'
+        f'{_source_counts()["component_count"]}</span> '
+        f'{public_site_parity.SOURCE_OF_RECORD} no hosted service '
+        "plectis-ai-reader-digest.json plectis-ai-review-packet.json llms.txt "
+        '<div data-claim-carousel>'
+        "<h2>Six example claims to try to break.</h2>"
+        "<p>standalone public repository</p>"
+        f"{cards}"
+        "</div>"
+    )
+    (site_dir / "index.html").write_text(landing, encoding="utf-8")
+    (site_dir / "plectis.html").write_text(landing, encoding="utf-8")
+    _rewrite_projection_hashes(site_dir)
+
+    receipt = public_site_parity.check_public_site_parity(root=ROOT, site_dir=site_dir)
+
+    assert receipt["status"] == "pass", receipt["errors"]
+
+
 def test_public_site_parity_blocks_release_authority_granted(
     tmp_path: Path,
 ) -> None:
