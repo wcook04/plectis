@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 20552,
-      "line_count": 567,
-      "sha256": "sha256:9f7b35606b3c2cae9953750e6d174464b3d3102268ab2cda3509c7d5d00ea8f3",
-      "target_sha256": "9f7b35606b3c2cae9953750e6d174464b3d3102268ab2cda3509c7d5d00ea8f3",
-      "source_sha256": "9f7b35606b3c2cae9953750e6d174464b3d3102268ab2cda3509c7d5d00ea8f3",
+      "byte_count": 20703,
+      "line_count": 569,
+      "sha256": "sha256:906236af071ae16d2a7c6c796921cc15b0064ec0298652894075535b251323ce",
+      "target_sha256": "906236af071ae16d2a7c6c796921cc15b0064ec0298652894075535b251323ce",
+      "source_sha256": "906236af071ae16d2a7c6c796921cc15b0064ec0298652894075535b251323ce",
       "required_anchors": [
         "Explainable tiered weighted-token retrieval over a sanitized annex catalog"
       ],

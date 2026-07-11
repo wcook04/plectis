@@ -162,7 +162,25 @@ def projection_pattern_matches_path(pattern: str, path: str) -> bool:
     if not normalized_pattern or not normalized_path:
         return False
     if _has_glob_token(normalized_pattern):
-        return fnmatchcase(normalized_path, normalized_pattern)
+        if fnmatchcase(normalized_path, normalized_pattern):
+            return True
+        # fnmatchcase and Path.glob disagree on `**` (glob matches zero
+        # directories, fnmatch requires at least one) and glob patterns get
+        # no directory-prefix scoping, so selection could miss an owner whose
+        # fingerprint provably covers the changed path. Fall back to the
+        # pattern's static directory prefix — over-selecting is the safe
+        # direction for a drift gate.
+        glob_start = min(
+            idx for idx in (
+                normalized_pattern.find(token) for token in "*?["
+            ) if idx != -1
+        )
+        prefix = normalized_pattern[:glob_start].rstrip("/")
+        return bool(prefix) and (
+            normalized_path == prefix
+            or normalized_path.startswith(f"{prefix}/")
+            or prefix.startswith(f"{normalized_path}/")
+        )
     return (
         normalized_path == normalized_pattern
         or normalized_path.startswith(f"{normalized_pattern}/")
@@ -403,6 +421,8 @@ def _source_hash_cache_hit(
     """
     if int(fingerprint.get("artifact_missing_count") or 0):
         return None
+    if int(fingerprint.get("source_missing_count") or 0):
+        return None
     owners = source_hash_cache.get("owners") if isinstance(source_hash_cache, Mapping) else None
     row = owners.get(owner.owner_id) if isinstance(owners, Mapping) else None
     if not isinstance(row, Mapping):
@@ -636,6 +656,11 @@ def _check_owner(
         drift_reasons.append("check_command_failed")
     if int(fingerprint.get("artifact_missing_count") or 0):
         drift_reasons.append("artifact_missing")
+    if int(fingerprint.get("source_missing_count") or 0):
+        # A source-faithfulness claim whose declared source authorities are
+        # absent is unverifiable, not clean, even when the check command
+        # exits 0 (typo'd pattern, moved or deleted source).
+        drift_reasons.append("source_authority_missing")
     if lineage_receipt["status"] == "missing_required":
         drift_reasons.append("fact_authority_lineage_missing_required")
     elif lineage_receipt["status"] == "invalid":

@@ -389,7 +389,14 @@ def validate_campaign(
     if len(synthesis_nodes) == 1 and not cycles:
         synth_label = _node_label(synthesis_nodes[0])
         reachable = _reachable_dependencies(synth_label, nodes_by_label)
-        reaches_probe = any(_node_role(nodes_by_label[label]) == "probe" for label in reachable)
+        # Dangling depends_on labels land in `reachable` but have no node row;
+        # they must degrade into the CR010 reject, not a KeyError that aborts
+        # the whole validation (and any fixture matrix run) with a traceback.
+        reaches_probe = any(
+            _node_role(nodes_by_label[label]) == "probe"
+            for label in reachable
+            if label in nodes_by_label
+        )
         result.add(
             "CR014",
             "ok" if reaches_probe else "reject",

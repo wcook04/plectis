@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 18553,
-      "line_count": 537,
-      "sha256": "sha256:11ffa368ec83a7034f2d7b0064a175f6ed009e4a523ad8c240ea67f37f0f6eeb",
-      "target_sha256": "11ffa368ec83a7034f2d7b0064a175f6ed009e4a523ad8c240ea67f37f0f6eeb",
-      "source_sha256": "11ffa368ec83a7034f2d7b0064a175f6ed009e4a523ad8c240ea67f37f0f6eeb",
+      "byte_count": 18861,
+      "line_count": 544,
+      "sha256": "sha256:e9cd1d04e829f68cd2d5e4c67508f9b8a29ca57513428963df850fc6eb976592",
+      "target_sha256": "e9cd1d04e829f68cd2d5e4c67508f9b8a29ca57513428963df850fc6eb976592",
+      "source_sha256": "e9cd1d04e829f68cd2d5e4c67508f9b8a29ca57513428963df850fc6eb976592",
       "required_anchors": [
         "def validate_campaign",
         "class ValidationResult"

@@ -167,6 +167,25 @@ def _problem_from_mapping(row: Mapping[str, Any]) -> LeanProblem:
     )
 
 
+def _scrub_forbidden_forward_fields(value: Any) -> Any:
+    """
+    Recursively drop forbidden forward fields at every depth.
+
+    The scrubber must walk exactly the shapes `_forbidden_field_paths` walks:
+    a nested `metadata.repair_plan.oracle_needed_premise_ids` that the
+    detector flags must never survive into the forward manifest.
+    """
+    if isinstance(value, Mapping):
+        return {
+            str(key): _scrub_forbidden_forward_fields(nested)
+            for key, nested in value.items()
+            if str(key) not in FORBIDDEN_FORWARD_FIELDS
+        }
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return [_scrub_forbidden_forward_fields(nested) for nested in value]
+    return value
+
+
 def _public_problem(row: Mapping[str, Any]) -> dict[str, Any]:
     """
     Produce the public problem value used by
@@ -175,7 +194,11 @@ def _public_problem(row: Mapping[str, Any]) -> dict[str, Any]:
     Inputs are `row`; notable helpers are `setdefault`, `infer_target_shape`, `items`,
     `_string`, and 1 more.
     """
-    public = {key: value for key, value in row.items() if key not in FORBIDDEN_FORWARD_FIELDS}
+    public = {
+        str(key): _scrub_forbidden_forward_fields(value)
+        for key, value in row.items()
+        if str(key) not in FORBIDDEN_FORWARD_FIELDS
+    }
     public.setdefault("target_shape", infer_target_shape(_string(row.get("theorem_signature"))))
     return public
 

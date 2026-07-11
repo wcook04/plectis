@@ -266,7 +266,9 @@ def route_annexes(
     cluster_norm = _normalized_query_text(cluster or "")
     results: list[dict[str, Any]] = []
 
-    for overview in catalog.get("annexes", []):
+    # `or []` (not a .get default): a catalog carrying `"annexes": null` must
+    # produce a no_match receipt, not a TypeError that aborts the run.
+    for overview in catalog.get("annexes") or []:
         if not isinstance(overview, Mapping):
             continue
         slug = _string(overview.get("slug"))

@@ -5,9 +5,12 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from microcosm_core.engine_room.derived_fact_provider_engine import (
     ANTI_CLAIMS,
     CLAIM_CEILING,
+    _write_case_files,
     evaluate_fixture_dir,
     evaluate_registry,
     resolve_json_pointer,
@@ -26,6 +29,20 @@ def _write(path: Path, content: str) -> None:
 def test_json_pointer_supports_lists_and_escaping() -> None:
     payload = {"items": [{"a/b": {"value": 7}}]}
     assert resolve_json_pointer(payload, "/items/0/a~1b/value") == 7
+
+
+def test_case_files_cannot_escape_case_root(tmp_path: Path) -> None:
+    # An absolute or ..-prefixed key in a case's files mapping must not write
+    # outside the per-case scratch directory onto the host filesystem.
+    outside = tmp_path / "outside.json"
+    root = tmp_path / "case"
+    root.mkdir()
+    with pytest.raises(ValueError, match="escapes fixture root"):
+        _write_case_files(root, {str(outside): {"x": 1}})
+    assert not outside.exists()
+    with pytest.raises(ValueError, match="escapes fixture root"):
+        _write_case_files(root, {"../escape.json": {"x": 1}})
+    assert not (tmp_path / "escape.json").exists()
 
 
 def test_registry_evaluates_json_pointer_and_glob_count(tmp_path: Path) -> None:

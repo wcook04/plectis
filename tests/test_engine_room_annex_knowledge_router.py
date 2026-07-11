@@ -100,6 +100,14 @@ def test_empty_problem_routes_nowhere() -> None:
     assert receipt["rows"] == []
 
 
+def test_null_annexes_catalog_is_no_match_not_a_crash() -> None:
+    # A catalog carrying `"annexes": null` (arbitrary user JSON) must produce
+    # a no_match receipt, not a TypeError that aborts a fixture matrix run.
+    receipt = route_catalog({"annexes": None}, problem="rate limit backoff")
+    assert receipt["status"] == "no_match"
+    assert receipt["rows"] == []
+
+
 def test_fixture_matrix_matches_router_expectations() -> None:
     receipt = evaluate_fixture_dir(INPUT_DIR)
     assert receipt["status"] == "pass"

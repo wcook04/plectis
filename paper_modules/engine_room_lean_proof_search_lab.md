@@ -64,7 +64,10 @@ rejects `sorry`-tainted outputs through a `#print axioms` gate.
 - Statement-only hammer rows compile tactic candidates without crediting
   adapter candidates or oracle repair bodies.
 - The forward manifest rejects `candidate_body`, oracle, repair, and provider
-  text fields before any solver result can count.
+  text fields before any solver result can count, and the manifest scrubber
+  prunes those fields at every nesting depth — exactly the shapes the firewall
+  detector walks — so a flagged nested payload can never ride into the emitted
+  "forward-safe" manifest.
 - A problem-id ablation renames ids and theorem names, then verifies the blind
   policy keeps the same action signature and success behavior.
 - A `#print axioms` gate rejects `sorry`-tainted candidates even when Lean

@@ -918,6 +918,30 @@ def run_crown_jewel_organ(
     )
     findings.extend(negative_cases.get("findings", []))
 
+    # The overall verdict below is derived from findings alone, so a section
+    # that reports a non-pass status while contributing zero findings would
+    # otherwise be silently absorbed into an overall PASS. Evaluators are
+    # organ-authored and only follow the status-from-findings discipline by
+    # convention; reconcile here so the false-green is structurally unreachable.
+    for section_label, section in (
+        ("source_module_manifest", source_manifest),
+        ("exercise", exercise),
+        ("negative_cases", negative_cases),
+    ):
+        section_status = str(section.get("status") or "")
+        if section_status and section_status != PASS and not section.get("findings"):
+            findings.append(
+                finding(
+                    "CROWN_JEWEL_SECTION_STATUS_WITHOUT_FINDINGS",
+                    f"Section '{section_label}' reported status "
+                    f"'{section_status}' without any findings; the overall "
+                    "verdict must not pass on unwitnessed section state.",
+                    subject_id=section_label,
+                    expected=PASS,
+                    observed=section_status,
+                )
+            )
+
     forbidden_classes = load_forbidden_classes(
         public_root / "core/private_state_forbidden_classes.json"
     )

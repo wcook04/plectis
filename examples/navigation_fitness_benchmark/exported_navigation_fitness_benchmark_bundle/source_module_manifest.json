@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 19802,
-      "line_count": 485,
-      "sha256": "sha256:96146d7bdf4e61e3166cc6d9ed4baad94d5aa770b44f0f42a4bccf0fc4a50ad0",
-      "target_sha256": "96146d7bdf4e61e3166cc6d9ed4baad94d5aa770b44f0f42a4bccf0fc4a50ad0",
-      "source_sha256": "96146d7bdf4e61e3166cc6d9ed4baad94d5aa770b44f0f42a4bccf0fc4a50ad0",
+      "byte_count": 20324,
+      "line_count": 497,
+      "sha256": "sha256:bd1d5b1bd4718266056bedb4db101cfdcbe25a8bb587e7e0e41e771da1dda644",
+      "target_sha256": "bd1d5b1bd4718266056bedb4db101cfdcbe25a8bb587e7e0e41e771da1dda644",
+      "source_sha256": "bd1d5b1bd4718266056bedb4db101cfdcbe25a8bb587e7e0e41e771da1dda644",
       "required_anchors": [
         "Curated route-packet benchmark evaluator for expected stable ids",
         "forbidden_hits = [route for route in task.forbidden_first_routes if route and route in first_contact_command]"

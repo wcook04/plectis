@@ -209,7 +209,19 @@ def evaluate_task(task: NavigationFitnessTask, packet: Mapping[str, Any]) -> dic
     error = packet.get("error")
     scent_status, missing_scent_terms = _scent_status(task, packet)
     recall = 1.0 if not expected else len(found) / len(expected)
-    precision = 1.0 if not selected else len(found) / max(1, len(selected))
+    # Precision counts relevant SELECTED artifacts over selected artifacts.
+    # Counting matched expected PATTERNS mixes units: an exact id plus a
+    # wildcard covering the same artifact reports 2.0, and one wildcard
+    # covering two relevant selections reports 0.5 instead of 1.0.
+    matched_selected = [
+        candidate
+        for candidate in selected
+        if any(
+            candidate.startswith(item[:-1]) if item.endswith("*") else candidate == item
+            for item in expected
+        )
+    ]
+    precision = 1.0 if not selected else len(matched_selected) / len(selected)
 
     if timed_out:
         sufficiency_status = "fail"

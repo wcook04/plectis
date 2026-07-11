@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -133,9 +134,19 @@ def _matches(text: str, phrases: Sequence[str]) -> tuple[str, ...]:
     """
     Derive matches without touching module import state.
 
-    Inputs are `text` and `phrases`.
+    Membership is edge-aware: a phrase whose first or last character is
+    alphanumeric must not fire inside a longer word ("passed" inside
+    "bypassed" would legitimize a genuine violation), while prefix/suffix
+    style phrases ("cap_", "ran:") keep substring behavior at their
+    non-alphanumeric edge.
     """
-    return tuple(phrase for phrase in phrases if phrase in text)
+    matched: list[str] = []
+    for phrase in phrases:
+        leading = r"(?<![a-z0-9])" if phrase[:1].isalnum() else ""
+        trailing = r"(?![a-z0-9])" if phrase[-1:].isalnum() else ""
+        if re.search(f"{leading}{re.escape(phrase)}{trailing}", text):
+            matched.append(phrase)
+    return tuple(matched)
 
 
 def detect_permission_gate_without_blocker(text: Any) -> DetectorResult | None:

@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 11067,
-      "line_count": 330,
-      "sha256": "sha256:8aab00a13664141842277a16819b9c8969cc0d7b258297cbaf48ef7b89ad85f5",
-      "target_sha256": "8aab00a13664141842277a16819b9c8969cc0d7b258297cbaf48ef7b89ad85f5",
-      "source_sha256": "8aab00a13664141842277a16819b9c8969cc0d7b258297cbaf48ef7b89ad85f5",
+      "byte_count": 11607,
+      "line_count": 341,
+      "sha256": "sha256:8ea3f502246c831fd686809ad606eb008ea8ea1cbe76797765c5916d35ce5003",
+      "target_sha256": "8ea3f502246c831fd686809ad606eb008ea8ea1cbe76797765c5916d35ce5003",
+      "source_sha256": "8ea3f502246c831fd686809ad606eb008ea8ea1cbe76797765c5916d35ce5003",
       "required_anchors": [
         "Ask for permission only after naming a real blast-radius blocker; "
       ],

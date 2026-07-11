@@ -83,9 +83,15 @@ require_gitleaks, gitleaks_binary)` in
 resolves the supplied projection root and rejects a missing or non-directory
 root. It then normalizes policy-exception paths against
 `DEFAULT_POLICY_EXCEPTION_PATHS`, walks the rendered tree in stable path order,
-skips declared cache/build directories and bytecode suffixes, and treats symlink
-escapes as hard blockers while recording only the relative path and a hash of
-the escaped target.
+and classifies symlinks before the skip filter — an escaping symlink named
+after a skip token (`dist`, `node_modules`, `*.pyc`) is exactly the vector the
+check exists to record — treating escapes as hard blockers while recording only
+the relative path and a hash of the escaped target. Only then does it skip
+declared cache/build directories and bytecode suffixes. Files are decoded
+permissively (`errors="replace"`), so a stray non-UTF-8 byte cannot turn a
+planted secret into a silently clean file, and a file the scanner cannot read
+at all is reported in `unreadable_files` and turns the verdict red: an
+unattested file is never green.
 
 For each non-skipped path, `_scan_path` checks private-history, raw-voice,
 Obsidian, and browser/provider transport path shapes. For each readable file,

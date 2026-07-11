@@ -114,6 +114,28 @@ def test_finance_forecast_evaluation_spine_rejects_lookahead_split(
     assert "FINANCE_LOOKAHEAD_SPLIT_FORBIDDEN" in result["error_codes"]
 
 
+def test_finance_forecast_evaluation_spine_rejects_timestamped_lookahead_split(
+    tmp_path: Path,
+) -> None:
+    # Timestamped ISO rows are legal admission data; a lookahead violation
+    # carried on a timestamped row must not slip past the guard as unparseable.
+    fixture = _copy_public_fixture(tmp_path)
+    paired_path = fixture / "paired_loss_series.json"
+    paired = json.loads(paired_path.read_text(encoding="utf-8"))
+    event_start = paired["rows"][0]["event_start"]
+    paired["rows"][0]["subject_as_of"] = f"{event_start}T00:00:00Z"
+    paired["rows"][0]["event_start"] = f"{event_start}T00:00:00Z"
+    paired_path.write_text(json.dumps(paired, sort_keys=True), encoding="utf-8")
+
+    result = run(
+        fixture,
+        tmp_path / "microcosm-substrate/receipts/first_wave/finance_forecast_evaluation_spine",
+    )
+
+    assert result["status"] == "blocked"
+    assert "FINANCE_LOOKAHEAD_SPLIT_FORBIDDEN" in result["error_codes"]
+
+
 def test_finance_forecast_negative_cases_are_semantic_not_declared_labels(
     tmp_path: Path,
 ) -> None:

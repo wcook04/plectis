@@ -132,7 +132,9 @@ def _write_json(path: Path, payload: Mapping[str, Any]) -> None:
     performed in this function.
     """
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_name(f".{path.name}.tmp")
+    # Per-writer tmp name: a fixed shared tmp lets two processes install each
+    # other's payloads (or crash on a vanished tmp) when racing on one path.
+    tmp = path.with_name(f".{path.name}.{os.getpid()}.{time.time_ns()}.tmp")
     tmp.write_text(json.dumps(dict(payload), indent=2, sort_keys=True) + "\n", encoding="utf-8")
     tmp.replace(path)
 
@@ -282,7 +284,12 @@ def _git_scope_paths(*, cwd: Path, git_root: Path, scope_paths: Sequence[str]) -
         try:
             repo_scope.append(resolved.relative_to(git_root).as_posix())
         except ValueError:
-            repo_scope.append(raw)
+            # Outside-root scope paths keep their absolute form: joining the
+            # cwd-relative raw string onto git_root fingerprints the wrong
+            # path, and handing it to git as a root-relative pathspec fails
+            # the whole status/diff call, collapsing the dirty fingerprint
+            # into constants for every scoped file of the run.
+            repo_scope.append(resolved.as_posix())
     return repo_scope
 
 
@@ -306,9 +313,12 @@ def build_command_key(
     git_root = _discover_git_root(cwd)
     if git_root:
         repo_scope = _git_scope_paths(cwd=cwd, git_root=git_root, scope_paths=scope)
-        pathspec = ["--", *repo_scope] if repo_scope else []
+        # Absolute entries are outside the repo: git rejects them as
+        # pathspecs, and their content is already covered by scope_content.
+        pathspec_scope = [entry for entry in repo_scope if not Path(entry).is_absolute()]
+        pathspec = ["--", *pathspec_scope] if pathspec_scope else []
         head = _git_bytes(git_root, ["rev-parse", "HEAD"]).decode("utf-8", "replace").strip()
-        if repo_scope:
+        if pathspec_scope:
             status = _git_bytes(
                 git_root,
                 ["status", "--porcelain=v1", "--untracked-files=all", *pathspec],
@@ -466,7 +476,15 @@ def _run_leader(
         stderr=subprocess.PIPE,
         text=True,
     )
-    metadata = {**metadata, "pid": proc.pid}
+    # Liveness identity is the coordinating parent, not the child: the child
+    # is dead and reaped the moment communicate() returns, while "completed"
+    # lands only after the output files are written — probing the child pid
+    # makes every run pass through a running+dead-pid state that followers
+    # misread as a crashed leader (stale_or_timeout) and that lets a new
+    # caller usurp the key and re-execute. The parent stays alive until the
+    # completed record is written, so genuine leader-crash detection keeps
+    # working.
+    metadata = {**metadata, "pid": os.getpid(), "child_pid": proc.pid}
     _write_json(paths["active"], metadata)
     _write_json(paths["run"], metadata)
     _append_event(
@@ -788,7 +806,9 @@ def evaluate_fixture_dir(input_dir: Path) -> dict[str, Any]:
     return {
         "schema_version": SCHEMA_VERSION,
         "organ_id": ORGAN_ID,
-        "status": "pass" if passed == len(results) else "fail",
+        # An empty, wrong, or missing fixture directory is zero evidence, not
+        # a vacuous pass (mirrors bridge_campaign_dag's guarded aggregation).
+        "status": "pass" if results and passed == len(results) else "fail",
         "case_count": len(results),
         "passed_case_count": passed,
         "cases": results,

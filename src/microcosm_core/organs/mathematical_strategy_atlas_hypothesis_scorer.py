@@ -1399,7 +1399,14 @@ def _verify_declared_case_outcomes(
                 derived_case.get("candidate_scores")
             )
         elif field in {"score", "retrieval_bonus"}:
-            declared_value = _int_or_none(case.get(field))
+            declared_raw = case.get(field)
+            if isinstance(declared_raw, int) and not isinstance(declared_raw, bool):
+                declared_value = declared_raw
+            else:
+                # Lossy coercion (int(14.9) == 14, True == 1) must not
+                # certify a declared value that does not equal the
+                # recomputed integer.
+                declared_value = {"non_integer_declared_value": repr(declared_raw)}
             derived_value = _int_or_none(derived_case.get(field))
         else:
             declared_value = str(case.get(field) or "")
@@ -1532,7 +1539,11 @@ def _score_case(
     retrieval_terms = _string_values(selected, "retrieval_term_additions")
     if not retrieval_terms:
         retrieval_terms = _strategy_retrieval_terms(selected)
-    expected = str(case.get("expected_strategy_id") or selected_strategy_id)
+    declared_expected = case.get("expected_strategy_id")
+    # An undeclared expectation stays None in the receipt row: defaulting it
+    # to the selected id fabricates an expectation no fixture declared and
+    # makes the expectation auto-met.
+    expected = str(declared_expected) if declared_expected else None
     expected_classifier = (
         str(case.get("expected_classifier") or "")
         if "expected_classifier" in case
@@ -1584,7 +1595,7 @@ def _score_case(
         True if expected_score is None else selected_score == expected_score
     )
     result["expectation_met"] = (
-        selected_strategy_id == expected
+        (expected is None or selected_strategy_id == expected)
         and result["classifier_expectation_met"]
         and result["score_expectation_met"]
     )
@@ -1838,8 +1849,38 @@ def validate_strategy_selection(
                 subject_kind="scoring_model",
             )
 
+    known_strategy_ids = set(strategy_order) | set(atlas_by_id)
+    unknown_candidate_ids: set[str] = set()
     for row in scored_cases:
         case_id = str(row.get("case_id") or "strategy_case")
+        if row.get("pre_oracle") is False:
+            # The post-oracle check must gate the MAIN scoring lane, not only
+            # the dedicated negative payload: a main case scored post-oracle
+            # would otherwise pass while the board stamps
+            # strategy_selected_pre_oracle.
+            _record(
+                findings,
+                observed,
+                "MATH_STRATEGY_POST_ORACLE_SELECTION_FORBIDDEN",
+                "Hypothesis cases must select strategies pre-oracle.",
+                case_id=case_id,
+                subject_id=f"{case_id}:pre_oracle",
+                subject_kind="hypothesis_case",
+            )
+        for candidate in row.get("candidate_strategy_ids", []):
+            if candidate not in known_strategy_ids:
+                # Foreign ids must be a typed miss, not a silent skip that
+                # leaves the id in the receipt under known_strategy_ids_only.
+                unknown_candidate_ids.add(str(candidate))
+                _record(
+                    findings,
+                    observed,
+                    "MATH_STRATEGY_UNKNOWN_ID",
+                    "Hypothesis-case candidate ids must come from the public strategy enum.",
+                    case_id=case_id,
+                    subject_id=f"{case_id}:{candidate}",
+                    subject_kind="hypothesis_case",
+                )
         if row.get("declared_selection_label_only") is True:
             _record_declared_selection_label_only(
                 findings,
@@ -1879,6 +1920,20 @@ def validate_strategy_selection(
         and row.get("declared_outcome_verification_pass") is True
         for row in scored_cases
     )
+    if not scored_cases:
+        # Zero scored cases is zero regression evidence: the aggregate gates
+        # below are all() over an empty set, so without this finding (and the
+        # count floor in the status conjunction) an empty hypothesis_cases
+        # payload would stamp a vacuous pass.
+        _record(
+            findings,
+            observed,
+            "MATH_STRATEGY_NO_HYPOTHESIS_CASES",
+            "Hypothesis scoring requires at least one scored case.",
+            case_id="hypothesis_cases",
+            subject_id="hypothesis_cases",
+            subject_kind="hypothesis_case",
+        )
 
     return {
         "strategy_ids": strategy_order,
@@ -1895,6 +1950,11 @@ def validate_strategy_selection(
             if row["classifier"] == "STRATEGY_SELECTION_MISS"
         ),
         "all_expectations_met": all(row["expectation_met"] for row in scored_cases),
+        "pre_oracle_lane_pass": all(
+            row.get("pre_oracle") is not False for row in scored_cases
+        ),
+        "known_candidate_ids_pass": not unknown_candidate_ids,
+        "unknown_candidate_strategy_ids": sorted(unknown_candidate_ids),
         "input_strategy_card_validation_pass": input_strategy_cards[
             "input_strategy_card_validation_pass"
         ],
@@ -2061,6 +2121,9 @@ def _build_result(
         and scoring["all_expectations_met"]
         and scoring["input_strategy_card_validation_pass"]
         and scoring["declared_outcome_verification_pass"]
+        and scoring["pre_oracle_lane_pass"]
+        and scoring["known_candidate_ids_pass"]
+        and scoring["hypothesis_case_count"] > 0
         and source_imports["source_modules_pass"]
         and source_artifacts["source_artifact_consistency_pass"]
         else "blocked"

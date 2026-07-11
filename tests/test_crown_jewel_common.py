@@ -9,6 +9,7 @@ from microcosm_core.organs._crown_jewel_common import (
     SOURCE_IMPORT_CLASS,
     CrownJewelSpec,
     file_line_count,
+    run_crown_jewel_organ,
     validate_negative_cases,
     validate_source_manifest,
 )
@@ -173,3 +174,52 @@ def test_validate_negative_cases_without_semantic_evaluator_rejects_label_only_f
         "CROWN_JEWEL_NEGATIVE_CASE_SEMANTIC_EVALUATOR_MISSING",
         "CROWN_JEWEL_NEGATIVE_CASE_CODE_MISSING",
     }.issubset({row["error_code"] for row in result["findings"]})
+
+
+def test_run_crown_jewel_organ_blocks_section_status_without_findings(
+    tmp_path: Path,
+) -> None:
+    # The overall verdict is derived from findings alone; an evaluator that
+    # reports a non-pass status while contributing zero findings must not be
+    # absorbed into an overall PASS.
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    bundle = public_root / "examples/test"
+    _write_json(
+        bundle / "source_module_manifest.json",
+        {"source_import_class": SOURCE_IMPORT_CLASS, "modules": []},
+    )
+
+    def honest_evaluator(
+        input_path: Path, root: Path, source_manifest: dict
+    ) -> dict:
+        del input_path, root, source_manifest
+        return {"status": "pass", "findings": [], "body_in_receipt": False}
+
+    baseline = run_crown_jewel_organ(
+        _spec(),
+        bundle,
+        public_root / "receipts/out_pass",
+        evaluator=honest_evaluator,
+    )
+    assert baseline["status"] == "pass"
+
+    def blocked_without_findings_evaluator(
+        input_path: Path, root: Path, source_manifest: dict
+    ) -> dict:
+        del input_path, root, source_manifest
+        return {"status": "blocked", "findings": [], "body_in_receipt": False}
+
+    result = run_crown_jewel_organ(
+        _spec(),
+        bundle,
+        public_root / "receipts/out_blocked",
+        evaluator=blocked_without_findings_evaluator,
+    )
+    assert result["status"] == "blocked"
+    assert "CROWN_JEWEL_SECTION_STATUS_WITHOUT_FINDINGS" in result["error_codes"]
+    assert any(
+        row["error_code"] == "CROWN_JEWEL_SECTION_STATUS_WITHOUT_FINDINGS"
+        and row.get("subject_id") == "exercise"
+        for row in result["findings"]
+    )
