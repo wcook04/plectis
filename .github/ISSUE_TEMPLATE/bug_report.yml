@@ -1,0 +1,40 @@
+name: Bug report
+description: A command failed, a receipt disagrees with its claim, or behaviour differs from the docs.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you run, and what went wrong?
+      placeholder: plectis tour --format text . printed X, but the record says Y.
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command and output
+      description: Paste the command and the relevant output or receipt path. Do not paste secrets or private material.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: false
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Output of `plectis --version`, or the commit hash of your clone.
+    validations:
+      required: false
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS and Python version (e.g. macOS 15, Python 3.12).
+    validations:
+      required: false

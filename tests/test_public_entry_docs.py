@@ -77,75 +77,73 @@ def _copy_public_entry_tree(tmp_path: Path) -> Path:
 
 
 def test_quickstart_gives_cold_clone_command_path_and_boundaries() -> None:
+    # Stranger-first migration (2026-07-11): QUICKSTART became the shortest
+    # trustworthy install-and-run path (its own shape contract lives in
+    # tests/test_quickstart_docs.py), and the full review manual moved to
+    # docs/maintainers/validation.md. This test now guards that split: the
+    # quickstart keeps the cold-clone essentials, and the manual truths that
+    # left the quickstart survive verbatim on the maintainer runbook.
     quickstart_path = MICROCOSM_ROOT / "QUICKSTART.md"
     readme = (MICROCOSM_ROOT / "README.md").read_text(encoding="utf-8")
     quickstart = quickstart_path.read_text(encoding="utf-8")
+    runbook = (MICROCOSM_ROOT / "docs/maintainers/validation.md").read_text(
+        encoding="utf-8"
+    )
+    normalized_runbook = " ".join(runbook.split())
 
     assert quickstart_path.is_file()
-    assert "[QUICKSTART.md](QUICKSTART.md)" in readme
+    assert "](QUICKSTART.md)" in readme
     for phrase in (
-        "python3 -m pip install -e '.[test]'",
-        "PYTHONPATH=src python3 -m microcosm_core hello .",
-        "make smoke",
-        ".microcosm/smoke/",
-        "Plectis smoke check: pass",
-        "authority: pass",
-        "workingness: clear",
-        "served status: pass",
+        "python3 -m pip install .",
+        "./bootstrap.sh",
+        ".microcosm/cold_clone_probe.json",
+        "plectis tour --format text .",
+        "plectis tour --card .",
         "plectis hello .",
+        "plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7",
+        "make check",
+        "make ci",
+        "no source mutation",
+        "plectis evidence list . --limit 25",
+    ):
+        assert phrase in quickstart, phrase
+
+    for phrase in (
         "plectis hello --reader cold_cloner .",
         "plectis hello --reader reviewer .",
         "plectis hello --reader skeptical_reviewer .",
         "plectis hello --reader agent .",
         "plectis hello --reader domain_specialist .",
         "`cold_cloner` / `cold-cloner` maps to the public GitHub visitor branch",
-        "`skeptical_reviewer` / `skeptical-reviewer` / `reviewer` maps to the safety/evals branch",
-        "and `agent` / `type-a-agent` maps to the",
-        "repo-reading agent branch",
-        "`domain_specialist` / `domain-specialist` is the specialty",
-        "ORGANS.md#find-your-specialty",
-        "not an expert-review or\ndomain-correctness claim",
-        "plectis tour --card .",
+        "`reviewer` to the safety/evals branch",
+        "`agent` / `type-a-agent` to the repo-reading agent branch",
+        "generated organ specialty index",
+        "plectis first-screen --card .",
         "plectis status --card .",
         "plectis authority --card",
         "plectis workingness --card",
         "plectis legibility-scorecard",
-        "If you are staying source-only",
-        "PYTHONPATH=src python3 -m microcosm_core tour --card .",
-        "PYTHONPATH=src python3 -m microcosm_core status --card .",
-        "PYTHONPATH=src python3 -m microcosm_core authority --card",
-        "PYTHONPATH=src python3 -m microcosm_core workingness --card",
-        "PYTHONPATH=src python3 -m microcosm_core legibility-scorecard",
-        "plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7",
+        "Plectis smoke check: pass",
+        "authority: pass",
+        "workingness: clear",
+        "served status: pass",
+        ".microcosm/smoke/",
+        "without dumping the full cards into CI logs",
+        "python3 -m plectis",
+        "python3 -m microcosm_core` remains the compatibility spelling",
+        "pip install -e '.[test]'",
         "/project/observatory-card",
         "/workingness-card",
-        "Open `/workingness` only when you need the full per-organ failure-envelope map.",
-        "make check",
-        "Plectis preflight: organ evidence-class registry loads\ncleanly.",
-        "make ci",
-        "For a cold clone, treat `make ci` as the public green floor.",
-        "`make validate`\nadds the doctrine-lattice drift check",
-        "maintainer pre-commit gate",
-        "not a broader release, proof-correctness, or production claim",
-        "make package-smoke",
-        "package-install smoke",
+        "open `/workingness` only when you need the full per-organ failure-envelope map",
+        "plectis evidence inspect . .microcosm/evidence/routes.json",
+        "--limit 0",
         "make standalone-export EXPORT_OUT=/tmp/plectis-export",
         "receipts/release/release_export_receipt.json",
         "cd /tmp/plectis-export/plectis",
-        "validate the exported artifact as its own clone",
         "release_authorized=false",
-        "provider calls",
-        "source mutation",
-        "private-root equivalence",
-        "Receipts are drilldown evidence",
-        "plectis evidence list . --limit 25",
-        "plectis evidence inspect . .microcosm/evidence/routes.json",
-        "plectis evidence inspect --project . .microcosm/evidence/routes.json",
-        "PYTHONPATH=src python3 -m microcosm_core evidence list . --limit 25",
-        "PYTHONPATH=src python3 -m microcosm_core evidence inspect . .microcosm/evidence/routes.json",
-        "--limit 0",
+        "It does not authorize release",
     ):
-        assert phrase in quickstart
+        assert " ".join(phrase.split()) in normalized_runbook, phrase
 
 
 def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
@@ -160,41 +158,66 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
     security = security_path.read_text(encoding="utf-8")
     contributing = contributing_path.read_text(encoding="utf-8")
     agents = agents_path.read_text(encoding="utf-8")
-    normalized_contributing = " ".join(contributing.split())
+    security_runbook = (
+        MICROCOSM_ROOT / "docs/maintainers/security-runbook.md"
+    ).read_text(encoding="utf-8")
+    validation_runbook = (
+        MICROCOSM_ROOT / "docs/maintainers/validation.md"
+    ).read_text(encoding="utf-8")
     normalized_agents = " ".join(agents.split())
+    normalized_security = " ".join(security.split())
+    normalized_security_runbook = " ".join(security_runbook.split())
+    normalized_validation_runbook = " ".join(validation_runbook.split())
 
+    # SECURITY.md is the concise reporting contract; its verification depth
+    # moved to docs/maintainers/security-runbook.md (2026-07-11). The truths
+    # must hold across the pair.
     for phrase in (
         "not a production security product",
+        "Do not paste the suspected secret",
+        "docs/maintainers/security-runbook.md",
+    ):
+        assert phrase in normalized_security, phrase
+    for phrase in (
         "./bootstrap.sh",
         "./bootstrap.sh --dry-run",
         "ignored `.microcosm/cold_clone_probe.json` evidence",
-        "plectis authority --card",
-        "plectis stripping-guard",
-        "make install",
+        "/tmp/plectis-security-venv/bin/plectis authority --card",
+        "/tmp/plectis-security-venv/bin/plectis stripping-guard",
         "VENV=/tmp/plectis-security-venv make install",
         "/tmp/plectis-security-venv/bin/python -m pip install -e '.[test]'",
         "PYTHONPATH=src /tmp/plectis-security-venv/bin/python -m pytest tests/test_secret_exclusion_scan.py",
-        "PYTHONPATH=src python3 -m microcosm_core authority --card",
-        "PYTHONPATH=src python3 -m microcosm_core stripping-guard",
         "tests/test_secret_exclusion_scan.py",
-        "Do not paste the suspected secret",
     ):
-        assert phrase in security
-    assert "python3 -m pytest tests/test_secret_exclusion_scan.py" not in security
-    assert security.index("./bootstrap.sh") < security.index("make install")
+        assert " ".join(phrase.split()) in normalized_security_runbook, phrase
+    assert security_runbook.index("./bootstrap.sh") < security_runbook.index(
+        "make install"
+    )
 
+    # CONTRIBUTING.md is the concise community contract; the full review
+    # manual moved to docs/maintainers/validation.md. Boundary and routing
+    # truths stay on the front door, lane detail on the runbook.
     for phrase in (
         "make install",
         "./bootstrap.sh",
         "./bootstrap.sh --dry-run",
-        "make smoke",
-        "make package-smoke",
+        "make test",
         "make ci",
+        "release_authorized=false",
+        "real non-secret macro bodies",
+        "fake progress",
+        "tests/test_public_entry_docs.py",
+        "ignored `.microcosm/cold_clone_probe.json` evidence",
+        "docs/maintainers/validation.md",
+    ):
+        assert phrase in contributing, phrase
+    assert contributing.index("./bootstrap.sh") < contributing.index("make test")
+    for phrase in (
+        "make smoke",
         ".microcosm/smoke/",
         "make standalone-export EXPORT_OUT=/tmp/plectis-export",
         "receipts/release/release_export_receipt.json",
         "cd /tmp/plectis-export/plectis",
-        "validate it from inside the exported artifact",
         "release_authorized=false",
         "plectis hello .",
         "plectis tour --card .",
@@ -202,15 +225,9 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "plectis authority --card",
         "plectis workingness --card",
         "plectis legibility-scorecard",
-        "PYTHONPATH=src python3 -m microcosm_core hello .",
-        "real non-secret macro bodies",
-        "fake progress",
-        "tests/test_public_entry_docs.py",
-        "ignored `.microcosm/cold_clone_probe.json` evidence",
+        "without dumping the full cards into CI logs",
     ):
-        assert phrase in contributing
-    assert "without dumping the full cards into CI logs" in normalized_contributing
-    assert contributing.index("./bootstrap.sh") < contributing.index("make smoke")
+        assert " ".join(phrase.split()) in normalized_validation_runbook, phrase
 
     for forbidden in (
         "--emit receipts/cold_clone_probe.json",
@@ -911,10 +928,11 @@ def test_public_entry_readme_no_longer_claims_first_slice_only() -> None:
     expected_organs = _accepted_organs_from_registry()
 
     # --- README: constitutional truth (projection-free) ---
-    # A single H1 and a banner; the banner may precede the H1 (it does), so
-    # this is a presence check, not startswith.
+    # A single H1. The hero banner became optional in the stranger-first
+    # migration (2026-07-11): the social card is a GitHub social-preview
+    # asset, and banner discipline (alt text, resolving file) is owned by
+    # validators/readme_front_door.py whenever a banner is present.
     assert "# Plectis" in text
-    assert "<img" in text and "alt=" in text
     # Rename / compatibility lineage fact stays available to the human reader.
     assert "Microcosm became Plectis" in text
     assert (
@@ -1782,7 +1800,9 @@ def test_entry_surfaces_converge_on_first_action_product() -> None:
     # move before its first numbered orientation step, and each provider
     # adapter carries it on the first screenful.
     quickstart = (MICROCOSM_ROOT / "QUICKSTART.md").read_text(encoding="utf-8")
-    assert quickstart.index(product_command) < quickstart.index("## 0.")
+    # The goal-shaped move is taught inside the orientation path (before the
+    # browser and verification steps), not buried at the end.
+    assert quickstart.index(product_command) < quickstart.index("## 4.")
     # The task-route selector teaches the goal conversion in its preamble,
     # before the per-task-class table starts.
     agent_routes = (MICROCOSM_ROOT / "AGENT_ROUTES.md").read_text(encoding="utf-8")

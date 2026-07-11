@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use or discuss Plectis, please cite it using this metadata."
+type: software
+title: "Plectis"
+abstract: "A local Python toolkit and executable reference corpus for testing the claims of an AI-built system: bounded components with typed evidence classes, local receipts, and explicit authority ceilings."
+authors:
+  - family-names: "Cook"
+    given-names: "William"
+    email: "williamwkcook@gmail.com"
+version: "0.2.0"
+date-released: "2026-07-11"
+license: "Apache-2.0"
+repository-code: "https://github.com/wcook04/plectis"
+url: "https://wcook04.github.io/plectis/"
+keywords:
+  - "developer-tools"
+  - "ai-agents"
+  - "evidence"
+  - "reproducibility"
+  - "research-software"

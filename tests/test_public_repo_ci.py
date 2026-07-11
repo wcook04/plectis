@@ -210,9 +210,7 @@ def test_pyproject_urls_point_to_standalone_public_repository() -> None:
 
     assert pyproject["project"]["urls"] == {
         "Homepage": "https://github.com/wcook04/plectis",
-        "Documentation": (
-            "https://github.com/wcook04/plectis/blob/main/README.md"
-        ),
+        "Documentation": "https://wcook04.github.io/plectis/",
         "Source": "https://github.com/wcook04/plectis",
         "Issues": "https://github.com/wcook04/plectis/issues",
         "Repository": "https://github.com/wcook04/plectis",
@@ -224,8 +222,9 @@ def test_pyproject_description_matches_mechanism_first_identity() -> None:
     pyproject = tomllib.loads(PYPROJECT.read_text(encoding="utf-8"))
 
     assert pyproject["project"]["description"] == (
-        "Public executable atlas of bounded AI-native runtime mechanisms with "
-        "evidence classes and authority ceilings."
+        "A local toolkit and executable reference corpus for testing the "
+        "claims of an AI-built system: bounded components with typed "
+        "evidence, local receipts, and explicit authority limits."
     )
     lowered = pyproject["project"]["description"].lower()
     for banned in ("impressive", "ambitious", "strongest public claim"):

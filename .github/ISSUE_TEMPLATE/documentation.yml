@@ -1,0 +1,23 @@
+name: Documentation problem
+description: A page is wrong, unclear, out of date, or a link or anchor is broken.
+labels: ["documentation"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Where
+      description: File, section, or URL (e.g. README.md "Install", or a website page).
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong or unclear
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested wording (optional)
+    validations:
+      required: false

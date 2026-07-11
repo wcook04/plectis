@@ -6,94 +6,51 @@ from pathlib import Path
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_quickstart_names_source_only_browser_serve_path() -> None:
+def test_quickstart_is_a_short_install_first_path() -> None:
     quickstart = (MICROCOSM_ROOT / "QUICKSTART.md").read_text(encoding="utf-8")
-    compact_smoke = quickstart.split(
-        "If you are staying source-only, use the exact same hand smoke through the",
-        maxsplit=1,
-    )[0]
-    source_only_smoke = quickstart.split(
-        "If you are staying source-only, use the exact same hand smoke through the",
-        maxsplit=1,
-    )[1].split("Read those as a first-screen contract", maxsplit=1)[0]
 
-    assert "[README Component Map](README.md#choose-a-route)" in quickstart
-    assert "runtime package, command cards, public" in quickstart
-    assert "doctrine, evidence fixtures, source capsules, and validation shell" in (
-        quickstart
+    # Short by contract: a quickstart that regrows into an operator manual has
+    # failed its one job. The deep lanes live in CONTRIBUTING.md and
+    # docs/maintainers/.
+    assert len(quickstart.splitlines()) <= 110
+
+    # Install-first ordering, with the pre-install probe available but not
+    # blocking the first screen.
+    assert quickstart.index("## 1. Install") < quickstart.index("## 2. First result")
+    assert quickstart.index("## 2. First result") < quickstart.index(
+        "## 5. Verify the public floor"
     )
+    assert "python3 -m pip install ." in quickstart
     assert "./bootstrap.sh" in quickstart
     assert "./bootstrap.sh --dry-run" in quickstart
     assert ".microcosm/cold_clone_probe.json" in quickstart
     assert "--emit receipts/cold_clone_probe.json" not in quickstart
-    assert (
-        quickstart.index("## 0. Run The Bounded Cold-Clone Probe")
-        < quickstart.index("## 1. Install The Local Command")
-    )
+
+    # The public commands use the plectis name only; the source form routes
+    # through the plectis module facade, never the internal package name.
+    assert "plectis tour --format text ." in quickstart
+    assert "plectis tour --card ." in quickstart
+    assert "plectis hello ." in quickstart
+    assert "PYTHONPATH=src python3 -m plectis" in quickstart
+    assert "-m microcosm_core" not in quickstart
+
+    # The bounded browser surface keeps its request ceiling by default.
     assert (
         "plectis serve . --host 127.0.0.1 --port 8765 --max-requests 7"
         in quickstart
     )
-    assert (
-        "PYTHONPATH=src python3 -m microcosm_core serve . --host 127.0.0.1 "
-        "--port 8765 --max-requests 7"
-    ) in quickstart
-    assert "If you are staying source-only" in quickstart
-    assert "- `/workingness-card`" in quickstart
-    assert "compact Demo To Scale bridge" in quickstart
-    assert "runtime bridge summary" in quickstart
-    assert "projection status counts" in quickstart
-    assert "open/closed intake-cell counts" in quickstart
-    assert quickstart.index("- `/project/observatory-card`") < quickstart.index(
-        "Treat `/project/observatory-card` as the compact Demo To Scale bridge"
-    ) < quickstart.index("/project/observatory` only")
-    assert (
-        "Open `/workingness` only when you need the full per-organ "
-        "failure-envelope map."
-    ) in quickstart
-    assert "validates those receipts" in quickstart
-    assert "Plectis smoke check: pass" in quickstart
-    assert "authority: pass" in quickstart
-    assert "workingness: clear" in quickstart
-    assert "served status: pass" in quickstart
-    assert "make flight-recorder FLIGHT_RECORDER_OUT=/tmp/microcosm-flight-recorder" in (
-        quickstart
-    )
-    assert (
-        "make flight-recorder-verify FLIGHT_RECORDER_VERIFY_DIR=/tmp/microcosm-flight-recorder"
-        in quickstart
-    )
-    assert "blocked/non-zero command evidence" in quickstart
-    assert "not a launch, standards, external-model" in quickstart
-    assert quickstart.index("- `/workingness-card`") < quickstart.index(
-        "Open `/workingness` only"
-    )
-    assert "plectis first-screen --card ." in compact_smoke
-    assert (
-        compact_smoke.index("plectis hello .")
-        < compact_smoke.index("plectis first-screen --card .")
-        < compact_smoke.index("plectis tour --card .")
-    )
-    assert (
-        "PYTHONPATH=src python3 -m microcosm_core first-screen --card ."
-        in source_only_smoke
-    )
-    assert (
-        source_only_smoke.index("PYTHONPATH=src python3 -m microcosm_core hello .")
-        < source_only_smoke.index(
-            "PYTHONPATH=src python3 -m microcosm_core first-screen --card ."
-        )
-        < source_only_smoke.index(
-            "PYTHONPATH=src python3 -m microcosm_core tour --card ."
-        )
-    )
-    assert "validate the exported artifact as its own clone" in quickstart
-    assert "cd /tmp/plectis-export/plectis" in quickstart
-    assert (
-        "This checks standalone install, tests, and smoke from the exported root"
-        in quickstart
-    )
-    assert "not authorize release" in quickstart
+    assert "Omit `--max-requests` only when" in quickstart
+
+    # Routing back into the deeper map.
+    assert "[README Component Map](README.md#choose-a-route)" in quickstart
+    assert "[CONTRIBUTING.md](CONTRIBUTING.md)" in quickstart
+    assert "make check" in quickstart
+    assert "make ci" in quickstart
+
+    # Boundary language survives the shortening.
+    assert "no network or model calls" in quickstart
+    assert "no source mutation" in quickstart
+    assert "plectis evidence list . --limit 25" in quickstart
 
 
 def test_quickstart_cross_doc_anchors_resolve_in_generated_organs() -> None:
