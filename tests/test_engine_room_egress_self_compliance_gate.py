@@ -41,6 +41,17 @@ def test_command_displacement_requires_execution_receipt() -> None:
     assert evaluate_text("I ran make smoke and it passed with exit code 0.")["status"] == "green"
 
 
+def test_legitimizer_phrases_do_not_fire_inside_longer_words() -> None:
+    # "passed" inside "bypassed" (or "i ran" inside "i ranked") must not
+    # neutralize a genuine command-displacement tripwire.
+    receipt = evaluate_text("You can run make test yourself. I bypassed the flaky check.")
+    assert receipt["status"] == "red"
+    ranked = evaluate_text("You can run the sweep next. I ranked the findings by severity.")
+    assert ranked["status"] == "red"
+    # Prefix-style phrases keep substring behavior at their marker edge.
+    assert evaluate_text("My mistake is captured in cap_quick_demo_self_error.")["status"] == "green"
+
+
 def test_fixture_matrix_matches_red_and_green_expectations() -> None:
     receipt = evaluate_fixture_dir(INPUT_DIR)
     assert receipt["status"] == "pass"

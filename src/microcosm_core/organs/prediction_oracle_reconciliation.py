@@ -1007,7 +1007,7 @@ def _numeric_grading_inputs(
         realized_direction = str(row.get("realized_direction") or "").lower()
         degraded = (
             realized_direction == DEGRADED_DIRECTION
-            or row.get("feed_health") == "degraded"
+            or str(row.get("feed_health") or "").lower() == "degraded"
         )
         if degraded:
             degraded_gate_count += 1
@@ -1193,9 +1193,17 @@ def _numeric_reconciliation_rows(
         input_dir=input_dir,
         public_root=public_root,
     )
+    # Collision-aware: two predictions on one target must not be silently
+    # re-attributed last-wins; an ambiguous target keeps the null
+    # prediction_id ("") the same way an unmatched target does.
+    prediction_ids_by_target: dict[str, list[str]] = {}
+    for prediction_id, prediction in prediction_by_id.items():
+        target_key = str(prediction.get("target_id") or "").upper().strip()
+        prediction_ids_by_target.setdefault(target_key, []).append(prediction_id)
     prediction_by_target = {
-        str(prediction.get("target_id") or "").upper().strip(): prediction_id
-        for prediction_id, prediction in prediction_by_id.items()
+        target_key: ids[0]
+        for target_key, ids in prediction_ids_by_target.items()
+        if len(ids) == 1
     }
     rows: list[dict[str, Any]] = []
     for row in source_rows:
@@ -1343,7 +1351,7 @@ def _validate_cp1(
                 subject_id=branch_id,
                 subject_kind="cp1_branch",
             )
-        if lane in {"equity", "market", "finance"} and branch.get(
+        if str(lane or "").lower() in {"equity", "market", "finance"} and branch.get(
             "equity_lane_confirmation"
         ) is not True:
             _record(
@@ -1383,6 +1391,19 @@ def _validate_cp2(
     prediction_by_id: dict[str, dict[str, Any]] = {}
     for prediction in predictions:
         prediction_id = str(prediction.get("prediction_id") or "cp2_prediction")
+        if prediction_id in prediction_by_id:
+            # Silent last-wins collapse would validate every earlier row's
+            # oracle grading against the wrong prediction and leave
+            # prediction_count disagreeing with the reconciliation rows.
+            _record(
+                findings,
+                observed,
+                "PREDICTION_CP2_DUPLICATE_PREDICTION_ID",
+                "CP2 prediction ids must be unique.",
+                case_id=case_id,
+                subject_id=prediction_id,
+                subject_kind="cp2_prediction",
+            )
         prediction_by_id[prediction_id] = prediction
         target_id = str(prediction.get("target_id") or "")
         if target_id not in universe:
@@ -1457,7 +1478,10 @@ def _validate_oracle_diff(
         target_id = str(row.get("target_id") or "")
         predicted = str(row.get("predicted_direction") or "")
         realized = str(row.get("realized_direction") or "")
-        degraded = realized == DEGRADED_DIRECTION or row.get("feed_health") == "degraded"
+        degraded = (
+            realized == DEGRADED_DIRECTION
+            or str(row.get("feed_health") or "").lower() == "degraded"
+        )
         if prediction is None:
             findings.append(
                 _finding(
@@ -1849,7 +1873,15 @@ def _build_result(
     ]
     observed = _merge_observed(packet, *negative_results)
     expected = EXPECTED_NEGATIVE_CASES if include_negative else {}
-    missing = sorted(case_id for case_id in expected if case_id not in observed)
+    # A negative case is observed only when its EXPECTED codes fired, not
+    # when any detector happened to record under the case key: key presence
+    # alone would let a regressed detector ride a cross-firing sibling into
+    # a false "all negative cases observed" attestation.
+    missing = sorted(
+        case_id
+        for case_id, expected_codes in expected.items()
+        if not set(expected_codes) <= set(observed.get(case_id, []))
+    )
     bundle_manifest = (
         read_json_strict(input_dir / "bundle_manifest.json")
         if (input_dir / "bundle_manifest.json").is_file()

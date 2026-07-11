@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security report (private)
+    url: https://github.com/wcook04/plectis/security/advisories/new
+    about: Report vulnerabilities or boundary failures privately. Do not open a public issue with vulnerability details.
+  - name: Website and component map
+    url: https://wcook04.github.io/plectis/
+    about: Browse the component cards, docs, and scope limits before filing.

@@ -102,7 +102,9 @@ At runtime, `run` delegates to `run_crown_jewel_organ` with `evaluate` and
 `evaluate_negative_case`. `evaluate` loads the synthetic loss matrix, paired
 loss series, and boundary policy, then calls `_evaluate_payloads`. That function
 first enforces the policy and lookahead-split guards; if either boundary fails,
-it returns a blocked receipt before any statistics subprocess can run. Only
+it returns a blocked receipt before any statistics subprocess can run. The
+split guard parses both date-only and timestamped ISO rows, so a lookahead
+violation carried on a timestamped row cannot slip past as unparseable. Only
 after those guards pass does it run the copied statistics modules or, for the
 exported bundle path, use `_standalone_exported_statistics_contract` so the
 standalone public bundle does not depend on a live macro-root subprocess.

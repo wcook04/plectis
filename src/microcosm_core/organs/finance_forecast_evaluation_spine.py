@@ -14,7 +14,7 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
-from datetime import date
+from datetime import date, datetime
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -381,8 +381,16 @@ def _parse_iso_date(value: object) -> date | None:
     """
     if not isinstance(value, str):
         return None
+    text = value.strip()
     try:
-        return date.fromisoformat(value)
+        return date.fromisoformat(text)
+    except ValueError:
+        pass
+    # Timestamped ISO rows are legal admission data (the sibling pipeline
+    # modules Z-normalise full timestamps); a timestamped lookahead violation
+    # must not slip past the split guard as unparseable.
+    try:
+        return datetime.fromisoformat(text.replace("Z", "+00:00")).date()
     except ValueError:
         return None
 

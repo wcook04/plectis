@@ -374,8 +374,15 @@ def _write_case_files(root: Path, files: Mapping[str, Any]) -> None:
     The side effect is the explicit file, receipt, parser, print, or instance-state update
     performed in this function.
     """
+    root_resolved = root.resolve()
     for rel_path, content in files.items():
-        path = root / _string(rel_path)
+        rel = _string(rel_path)
+        path = (root / rel).resolve()
+        # An absolute or ..-prefixed key would escape the per-case scratch
+        # directory (Path.__truediv__ discards root for absolute operands)
+        # and silently mutate the host filesystem.
+        if not path.is_relative_to(root_resolved):
+            raise ValueError(f"case file escapes fixture root: {rel}")
         path.parent.mkdir(parents=True, exist_ok=True)
         if isinstance(content, (dict, list)):
             path.write_text(json.dumps(content, indent=2, sort_keys=True) + "\n", encoding="utf-8")

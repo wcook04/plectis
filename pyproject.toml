@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "plectis"
-version = "0.1.0"
-description = "Public executable atlas of bounded AI-native runtime mechanisms with evidence classes and authority ceilings."
+version = "0.2.0"
+description = "A local toolkit and executable reference corpus for testing the claims of an AI-built system: bounded components with typed evidence, local receipts, and explicit authority limits."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
-keywords = ["agent-runtime", "developer-tools", "plectis", "microcosm-compatibility", "observability", "substrate"]
+keywords = ["agent-runtime", "developer-tools", "plectis", "microcosm-compatibility", "evidence", "reproducibility"]
 authors = [
   { name = "William Cook", email = "williamwkcook@gmail.com" }
 ]
@@ -27,7 +27,7 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/wcook04/plectis"
-Documentation = "https://github.com/wcook04/plectis/blob/main/README.md"
+Documentation = "https://wcook04.github.io/plectis/"
 Source = "https://github.com/wcook04/plectis"
 Issues = "https://github.com/wcook04/plectis/issues"
 Repository = "https://github.com/wcook04/plectis"

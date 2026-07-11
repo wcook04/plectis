@@ -49,6 +49,19 @@ def test_dangling_synthesis_is_rejected() -> None:
     assert {"CR011", "CR014"} & _rule_ids(result)
 
 
+def test_dangling_dependency_label_rejects_without_crash() -> None:
+    # A depends_on label with no node row must degrade into a reject verdict,
+    # not a KeyError that aborts validate_campaign (and any fixture matrix
+    # run) with a traceback.
+    campaign = _load("valid_campaign.json")
+    for node in campaign["nodes"]:
+        if node["label"] == "engine_room_synthesis":
+            node["depends_on"] = ["ghost_label"]
+    result = validate_campaign(campaign, provider="chatgpt", workers=3)
+    assert result.ok is False
+    assert "CR010" in _rule_ids(result)
+
+
 def test_fixture_matrix_matches_positive_and_negative_expectations() -> None:
     receipt = validate_fixture_dir(INPUT_DIR)
     assert receipt["status"] == "pass"

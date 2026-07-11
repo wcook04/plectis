@@ -5,6 +5,8 @@ include AGENT_ROUTES.md
 include ANTI_PRINCIPLES.md
 include ARCHITECTURE.md
 include AXIOMS.md
+include CHANGELOG.md
+include CITATION.cff
 include CLAUDE.md
 include CONSTITUTION.md
 include CONTRIBUTING.md
@@ -30,6 +32,7 @@ graft .github/workflows
 graft assets
 graft atlas
 graft core
+graft docs
 graft examples
 graft fixtures
 graft paper_modules

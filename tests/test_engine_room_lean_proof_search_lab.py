@@ -109,6 +109,13 @@ def test_oracle_firewall_rejects_nested_payload_fields() -> None:
         "metadata.provider_text",
         "metadata.repair.oracle_needed_premise_ids",
     ]
+    # The emitted forward manifest must be scrubbed at every depth, not just
+    # the top level: what the detector flags, the scrubber must remove.
+    manifest = receipt["receipt"]["forward_problem_manifest"]
+    assert lean_lab._forbidden_field_paths(manifest["problems"]) == ()
+    problems_text = json.dumps(manifest["problems"])
+    assert "provider payload" not in problems_text
+    assert "private" not in problems_text
 
 
 def test_problem_id_memorized_policy_fails_ablation() -> None:

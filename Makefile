@@ -59,12 +59,13 @@ PUBLIC_TESTS += tests/test_comprehension_mechanism.py
 PUBLIC_TESTS += tests/test_cold_reader_route_map.py
 PUBLIC_TESTS += tests/test_cold_clone_probe.py
 PUBLIC_TESTS += tests/test_dependency_preflight.py
+PUBLIC_TESTS += tests/test_public_repo_profile.py
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
 .PHONY: flight-recorder flight-recorder-verify
 .PHONY: release-candidate-proof release-candidate-proof-verify release-review public-site-parity
-.PHONY: check preflight validate artifact-budget
+.PHONY: check preflight validate artifact-budget public-profile
 
 help:
 	@printf '%s\n' \
@@ -169,6 +170,9 @@ artifact-budget:
 
 standalone-export: install
 	PYTHONPATH=src $(VENV_PYTHON) -m microcosm_core.release_export --root . --out $(EXPORT_OUT) --force --summary
+
+public-profile:
+	@$(PYTHON) scripts/public_repo_profile.py --root . --mode python_research_tool
 
 doctrine-lattice-check:
 	PYTHONPATH=src $(PYTHON) -m microcosm_core doctrine-lattice check --root .

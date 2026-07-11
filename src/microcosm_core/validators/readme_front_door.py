@@ -2,10 +2,16 @@
 Implements validators readme front door for the public Plectis package.
 
 Callers enter through `validate_readme_front_door` and `main`; constants such as
-`CHECKER_ID`, `HERO_BANNED_PATTERNS`, `FRONT_DOOR_SIGNIFICANCE_WORD_LIMIT`,
-`FRONT_DOOR_LOCAL_ONLY_WORD_LIMIT`, and 5 more pin local fixture names; dependencies include
-`argparse`, `re`, `pathlib`, `typing`, and 1 more. Validator outputs stay structured so
-release checks can consume findings without scraping prose.
+`CHECKER_ID`, `HERO_BANNED_PATTERNS`, `FRONT_DOOR_LOCAL_ONLY_WORD_LIMIT`, and the
+FRONT_DOOR_* pattern tables pin the contract; dependencies include `argparse`, `re`,
+`pathlib`, `typing`, and 1 more. Validator outputs stay structured so release checks
+can consume findings without scraping prose.
+
+Contract shape (stranger-first migration, 2026-07-11): the HERO (everything
+before the first H2) must be plain English with an install-and-run block and no
+internal ontology; the truth pins (seven families, evidence-class and
+authority-ceiling grammar, per-family ceilings, bound component count) are
+whole-document requirements so boundary language is reordered, never lost.
 """
 
 from __future__ import annotations
@@ -38,9 +44,9 @@ HERO_BANNED_PATTERNS: tuple[tuple[str, str], ...] = (
     (r"/Users/", "raw-local-path"),
     (r"\bclick here\b", "low-scent-link-label"),
 )
-FRONT_DOOR_SIGNIFICANCE_WORD_LIMIT = 850
+# Only the local-only-frame guard stays windowed to the first screen; the
+# significance and claim-grammar pins scan the whole document (see check 6).
 FRONT_DOOR_LOCAL_ONLY_WORD_LIMIT = 180
-FRONT_DOOR_CLAIM_GRAMMAR_WORD_LIMIT = 1500
 FRONT_DOOR_REQUIRED_PATTERNS: tuple[tuple[str, str], ...] = (
     (
         r"\bpublic\b.{0,80}\bexecutable\b|\bexecutable\b.{0,80}\bpublic\b",
@@ -223,7 +229,11 @@ def validate_readme_front_door(
     if h1s != ["Plectis"]:
         blocking.append("README_H1_NOT_PLECTIS")
 
-    # --- 2. approved banner with useful alt, resolving to a real file ---
+    # --- 2. banner is OPTIONAL (stranger-first migration, 2026-07-11): the
+    # hero leads with plain words and an install block, and the big
+    # prose-claim card lives in assets/ for the GitHub social preview instead
+    # of the first screen. When a banner IS present it must still carry a
+    # useful alt and resolve to a real file.
     banner = re.search(
         r"<img\b[^>]*?\bsrc\s*=\s*\"([^\"]+)\"[^>]*?>", hero, flags=re.DOTALL
     )
@@ -235,9 +245,7 @@ def validate_readme_front_door(
         alt = alt_m.group(1).strip() if alt_m else ""
     findings["banner_src"] = banner_src
     findings["banner_alt_present"] = bool(alt)
-    if not banner_src:
-        blocking.append("README_BANNER_MISSING")
-    else:
+    if banner_src:
         if not alt:
             blocking.append("README_BANNER_ALT_MISSING")
         if not banner_src.startswith("http"):
@@ -246,6 +254,15 @@ def validate_readme_front_door(
         # em-dash in alt is a hard ban (operator voice); use a colon.
         if alt and "—" in alt:
             blocking.append("README_BANNER_ALT_EM_DASH")
+
+    # --- 2b. the hero closes with an install-and-run block: a stranger's
+    # first screen must show how to get the tool before any taxonomy.
+    hero_blocks = _fenced_blocks(hero)
+    findings["hero_install_block_present"] = any(
+        "pip install" in block for block in hero_blocks
+    )
+    if not findings["hero_install_block_present"]:
+        blocking.append("README_INSTALL_COMMAND_MISSING")
 
     # --- 3. recognition promise (a bold span) in the hero ---
     findings["hero_promise_present"] = bool(re.search(r"\*\*.+?\*\*", hero, re.DOTALL))
@@ -271,9 +288,16 @@ def validate_readme_front_door(
     if hero_leaks:
         blocking.append("README_HERO_ONTOLOGY_LEAK")
 
-    # --- 6. the first reader window leads with mechanism significance, not local-record framing ---
-    front_window = _word_window(text, FRONT_DOOR_SIGNIFICANCE_WORD_LIMIT)
-    front_lower = front_window.lower()
+    # --- 6. truth pins hold over the WHOLE document; only the first-screen
+    # frame is windowed. Stranger-first migration (2026-07-11): the hero and
+    # first sections sell the product in plain English (identity, install,
+    # witness); the seven-family taxonomy, the evidence-class/authority-ceiling
+    # grammar, and the per-family ceilings remain REQUIRED but may live where a
+    # reader meets them naturally (the component-map and scope sections).
+    # Assurance conserved, projection freed: every pattern that used to be
+    # forced into the first 850/1500 words must still exist somewhere in the
+    # document, so no boundary language is lost, only reordered.
+    front_lower = normalized.lower()
     missing_significance = sorted(
         label
         for pattern, label in FRONT_DOOR_REQUIRED_PATTERNS
@@ -296,18 +320,15 @@ def validate_readme_front_door(
         for pattern, label in FRONT_DOOR_LOCAL_ONLY_PATTERNS
         if re.search(pattern, local_only_window, flags=re.DOTALL)
     )
-    claim_grammar_window = _word_window(
-        text, FRONT_DOOR_CLAIM_GRAMMAR_WORD_LIMIT
-    ).lower()
     missing_claim_grammar = sorted(
         label
         for pattern, label in FRONT_DOOR_CLAIM_GRAMMAR_PATTERNS
-        if not re.search(pattern, claim_grammar_window, flags=re.DOTALL)
+        if not re.search(pattern, front_lower, flags=re.DOTALL)
     )
     missing_family_ceilings = sorted(
         label
         for pattern, label in FRONT_DOOR_FAMILY_CEILING_PATTERNS
-        if not re.search(pattern, claim_grammar_window, flags=re.DOTALL)
+        if not re.search(pattern, front_lower, flags=re.DOTALL)
     )
     findings["front_door_required_context_missing"] = missing_significance
     findings["registry_component_count"] = registry_count

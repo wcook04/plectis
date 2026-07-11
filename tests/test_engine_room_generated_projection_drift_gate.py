@@ -76,6 +76,26 @@ def test_missing_artifact_drifts_even_when_check_passes(tmp_path: Path) -> None:
     assert "artifact_missing" in receipt["owners"][0]["status_reasons"]
 
 
+def test_missing_source_authority_drifts_even_when_check_passes(tmp_path: Path) -> None:
+    # A source-faithfulness claim whose declared source is absent must not
+    # report clean just because the check command exits 0.
+    _write(tmp_path / "expected/report.md", "present\n")
+    _write(tmp_path / "generated/report.md", "present\n")
+    receipt = check_projection_drift(tmp_path, [_owner(command=("builtin:pass",))])
+    assert receipt["status"] == "drift"
+    assert "source_authority_missing" in receipt["owners"][0]["status_reasons"]
+
+
+def test_glob_pattern_selection_agrees_with_fingerprint_matcher() -> None:
+    # Path.glob fingerprints `state/x.json` under `state/**/*.json` (`**`
+    # matches zero directories); changed-path selection must not disagree.
+    assert projection_pattern_matches_path("state/**/*.json", "state/x.json") is True
+    # A changed directory prefix selects glob-pattern owners the same way it
+    # already selects non-glob dir patterns.
+    assert projection_pattern_matches_path("docs/generated/*.md", "docs") is True
+    assert projection_pattern_matches_path("docs/generated/*.md", "unrelated") is False
+
+
 def test_required_fact_authority_lineage_drifts_when_incomplete(tmp_path: Path) -> None:
     _write(tmp_path / "source/spec.json", '{"title":"lineage"}\n')
     _write(tmp_path / "expected/report.md", "lineage\n")

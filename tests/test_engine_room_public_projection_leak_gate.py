@@ -1,9 +1,12 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 from microcosm_core.engine_room.public_projection_leak_gate import (
     ANTI_CLAIMS,
@@ -177,6 +180,52 @@ def test_symlink_escape_fixture_is_red_and_target_hash_only(tmp_path: Path) -> N
     assert "target_sha256" in result["receipt"]["symlink_escapes"][0]
     assert "operator-shadow" not in json.dumps(result["receipt"]["symlink_escapes"])
     assert "external fixture-only target" not in json.dumps(result["receipt"]["symlink_escapes"])
+
+
+def test_non_utf8_file_with_planted_secret_is_still_red(tmp_path: Path) -> None:
+    key_shape = "-".join(["sk", "engine", "room", "abcdefghijklmnopqrstuvwxyz123456"])
+    target = tmp_path / "config.txt"
+    target.write_bytes(f"credential={key_shape}\n".encode("utf-8") + b"\xff\xfe stray bytes")
+    receipt = scan_projection(tmp_path)
+    assert receipt["status"] == "red"
+    assert receipt["blocking_hits"][0]["pattern"] == "openai_key_shape"
+    assert receipt["unreadable_file_count"] == 0
+
+
+def test_bare_home_path_on_interior_line_is_red(tmp_path: Path) -> None:
+    private_home = "/" + "/".join(["Users", "localoperator"])
+    _write(tmp_path / "docs" / "config.md", f"HOME={private_home}\nnext line\n")
+    receipt = scan_projection(tmp_path)
+    assert receipt["status"] == "red"
+    assert receipt["blocking_hits"][0]["pattern"] == "private_home_path"
+
+
+def test_symlink_escape_named_after_skip_token_is_recorded(tmp_path: Path) -> None:
+    outside = tmp_path / "outside-target.txt"
+    outside.write_text("external fixture-only target\n", encoding="utf-8")
+    root = tmp_path / "proj"
+    _write(root / "README.md", "Public projection with a skip-named symlink.\n")
+    (root / "dist").symlink_to(outside)
+    receipt = scan_projection(root)
+    assert receipt["status"] == "red"
+    assert receipt["symlink_escape_count"] == 1
+    assert receipt["symlink_escapes"][0]["path"] == "dist"
+
+
+def test_unreadable_file_fails_closed(tmp_path: Path) -> None:
+    if os.geteuid() == 0:
+        pytest.skip("permission-based unreadable file cannot be simulated as root")
+    _write(tmp_path / "README.md", "clean\n")
+    blocked = tmp_path / "blocked.txt"
+    blocked.write_text("clean\n", encoding="utf-8")
+    blocked.chmod(0)
+    try:
+        receipt = scan_projection(tmp_path)
+    finally:
+        blocked.chmod(0o644)
+    assert receipt["status"] == "red"
+    assert receipt["unreadable_file_count"] == 1
+    assert receipt["unreadable_files"] == ["blocked.txt"]
 
 
 def test_module_cli_emits_json_receipt() -> None:

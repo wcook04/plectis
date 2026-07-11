@@ -38,7 +38,11 @@ phrase is innocent only when accompanied by the evidence that makes it
 honest.
 
 This is deliberately phrase membership over the output text, not analysis of
-what the agent actually did. The gate cannot tell whether a named blocker is
+what the agent actually did. Membership is edge-aware at alphanumeric
+boundaries — "passed" does not fire inside "bypassed", "i ran" does not fire
+inside "i ranked" — so a legitimiser cannot be manufactured by a longer word,
+while prefix-style markers such as `cap_` keep substring behaviour at their
+marker edge. The gate cannot tell whether a named blocker is
 real or whether a capture id resolves; it only checks that the legitimising
 language is present. That keeps the check small, fast, and inspectable, and it
 is why the page is careful to say what the gate is not: it is not taint

@@ -233,6 +233,75 @@ def test_mathematical_strategy_atlas_scorer_covers_negative_cases(
             assert code in result["error_codes"]
 
 
+def _perturbed_fixture_input(tmp_path: Path) -> tuple[Path, Path]:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    input_dir = (
+        public_root
+        / "fixtures/first_wave/mathematical_strategy_atlas_hypothesis_scorer/input"
+    )
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+    return public_root, input_dir
+
+
+def test_mathematical_strategy_atlas_blocks_post_oracle_main_lane_case(
+    tmp_path: Path,
+) -> None:
+    # The post-oracle gate must cover the MAIN scoring lane, not only the
+    # dedicated negative payload: a main case marked pre_oracle=false must
+    # not pass under a board stamping strategy_selected_pre_oracle.
+    public_root, input_dir = _perturbed_fixture_input(tmp_path)
+    cases_path = input_dir / "hypothesis_cases.json"
+    cases = json.loads(cases_path.read_text(encoding="utf-8"))
+    cases["cases"][0]["pre_oracle"] = False
+    cases_path.write_text(
+        json.dumps(cases, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+
+    result = run(input_dir, public_root / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert "MATH_STRATEGY_POST_ORACLE_SELECTION_FORBIDDEN" in result["error_codes"]
+
+
+def test_mathematical_strategy_atlas_blocks_unknown_main_lane_candidate_id(
+    tmp_path: Path,
+) -> None:
+    # A candidate id outside the public strategy enum must be a typed miss,
+    # not a silent skip that leaves the id in a passing receipt.
+    public_root, input_dir = _perturbed_fixture_input(tmp_path)
+    cases_path = input_dir / "hypothesis_cases.json"
+    cases = json.loads(cases_path.read_text(encoding="utf-8"))
+    cases["cases"][0]["candidate_strategy_ids"].append("private_strategy_xyz")
+    cases_path.write_text(
+        json.dumps(cases, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+
+    result = run(input_dir, public_root / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert "MATH_STRATEGY_UNKNOWN_ID" in result["error_codes"]
+
+
+def test_mathematical_strategy_atlas_blocks_empty_hypothesis_cases(
+    tmp_path: Path,
+) -> None:
+    # Zero scored cases is zero regression evidence; every aggregate gate is
+    # all() over an empty set, so the count floor must block the vacuous pass.
+    public_root, input_dir = _perturbed_fixture_input(tmp_path)
+    cases_path = input_dir / "hypothesis_cases.json"
+    cases = json.loads(cases_path.read_text(encoding="utf-8"))
+    cases["cases"] = []
+    cases_path.write_text(
+        json.dumps(cases, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+
+    result = run(input_dir, public_root / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert "MATH_STRATEGY_NO_HYPOTHESIS_CASES" in result["error_codes"]
+
+
 def test_mathematical_strategy_atlas_recomputes_when_problem_features_change_and_rejects_stale_declared_verdict(
     tmp_path: Path,
 ) -> None:

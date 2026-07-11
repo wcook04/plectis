@@ -60,7 +60,7 @@ CONTENT_PATTERNS: tuple[tuple[str, str, re.Pattern[str]], ...] = (
     ("credentials", "github_token_shape", re.compile(r"gh[pousr]_[A-Za-z0-9_]{20,}")),
     ("credentials", "slack_token_shape", re.compile(r"xox[baprs]-[A-Za-z0-9-]{20,}")),
     ("credentials", "aws_access_key_shape", re.compile(r"AKIA[0-9A-Z]{16}")),
-    ("private_path", "private_home_path", re.compile(r"/(?:Users|home)/[A-Za-z0-9._-]+(?:/|$)")),
+    ("private_path", "private_home_path", re.compile(r"/(?:Users|home)/[A-Za-z0-9._-]+(?:/|$)", re.MULTILINE)),
     ("private_path", "private_chrome_profile", re.compile(r"Application Support/Google/Chrome")),
     ("private_path", "private_obsidian_path", re.compile(r"\.obsidian/|private Obsidian vault", re.IGNORECASE)),
     (
@@ -155,10 +155,10 @@ def _scan_file(path: Path, *, rel_path: Path, policy_exception_paths: set[Path])
     `read_text`, `finditer`, `append`, `_hit`, and 3 more; failing evidence is returned or
     raised exactly where the body says so.
     """
-    try:
-        text = path.read_text(encoding="utf-8")
-    except (OSError, UnicodeDecodeError):
-        return []
+    # Decode permissively: a stray non-UTF-8 byte must not turn a planted
+    # secret into a silently "clean" file. OSError propagates to the caller,
+    # which records the file as unreadable instead of attested-clean.
+    text = path.read_text(encoding="utf-8", errors="replace")
     hits: list[dict[str, Any]] = []
     for category, name, pattern in CONTENT_PATTERNS:
         for match in pattern.finditer(text):
@@ -286,15 +286,17 @@ def _overall_status(
     blocking_hits: Sequence[Mapping[str, Any]],
     symlink_escapes: Sequence[Mapping[str, Any]],
     gitleaks_receipt: Mapping[str, Any],
+    unreadable_files: Sequence[str] = (),
 ) -> str:
     """
     Produce the overall status value used by
     `microcosm_core.engine_room.public_projection_leak_gate`.
 
-    Inputs are `blocking_hits`, `symlink_escapes`, and `gitleaks_receipt`; notable helpers
-    are `get`.
+    Inputs are `blocking_hits`, `symlink_escapes`, `gitleaks_receipt`, and
+    `unreadable_files`; notable helpers are `get`. An unreadable file cannot be
+    attested clean, so it is red, not silently green.
     """
-    if blocking_hits or symlink_escapes:
+    if blocking_hits or symlink_escapes or unreadable_files:
         return "red"
     if gitleaks_receipt.get("status") in {"red", "error", "unavailable_fail_closed"}:
         return "red"
@@ -325,12 +327,14 @@ def scan_projection(
     file_count = 0
     skipped_file_count = 0
 
+    unreadable_files: list[str] = []
+
     for path in sorted(output_root.rglob("*")):
         rel = path.relative_to(output_root)
-        if any(part in SCAN_SKIP_DIR_NAMES for part in rel.parts) or rel.suffix in SCAN_SKIP_SUFFIXES:
-            if path.is_file():
-                skipped_file_count += 1
-            continue
+        # Symlinks are classified before the skip filter: an escaping symlink
+        # named after a skip token (`dist`, `node_modules`, `*.pyc`, ...) is
+        # exactly the vector this check exists to record, and a follow-symlinks
+        # publisher would ship its target regardless of the skip list.
         if path.is_symlink():
             target = path.resolve()
             try:
@@ -338,10 +342,17 @@ def scan_projection(
             except ValueError:
                 symlink_escapes.append({"path": rel.as_posix(), "target_sha256": _match_hash(str(target))})
             continue
+        if any(part in SCAN_SKIP_DIR_NAMES for part in rel.parts) or rel.suffix in SCAN_SKIP_SUFFIXES:
+            if path.is_file():
+                skipped_file_count += 1
+            continue
         hits.extend(_scan_path(rel, policy_exception_paths=allowed))
         if path.is_file():
             file_count += 1
-            hits.extend(_scan_file(path, rel_path=rel, policy_exception_paths=allowed))
+            try:
+                hits.extend(_scan_file(path, rel_path=rel, policy_exception_paths=allowed))
+            except OSError:
+                unreadable_files.append(rel.as_posix())
 
     blocking_hits = [hit for hit in hits if not hit["policy_exception"]]
     policy_exceptions = [hit for hit in hits if hit["policy_exception"]]
@@ -356,6 +367,7 @@ def scan_projection(
         blocking_hits=blocking_hits,
         symlink_escapes=symlink_escapes,
         gitleaks_receipt=gitleaks_receipt,
+        unreadable_files=unreadable_files,
     )
     return {
         "schema_version": SCHEMA_VERSION,
@@ -370,6 +382,8 @@ def scan_projection(
         ],
         "file_count": file_count,
         "skipped_file_count": skipped_file_count,
+        "unreadable_file_count": len(unreadable_files),
+        "unreadable_files": unreadable_files,
         "skipped_dir_names": sorted(SCAN_SKIP_DIR_NAMES),
         "hit_count": len(hits),
         "blocking_hit_count": len(blocking_hits),

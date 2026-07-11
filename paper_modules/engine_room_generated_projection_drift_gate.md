@@ -22,10 +22,13 @@ the right owner and record the evidence honestly.
 
 Two properties keep that honest. The skip cache is deliberately strict: a prior
 clean receipt is reused only when the source hash, the artifact hash, the check
-command, and artifact presence all still match, so any drift in any of those
-falls back to actually running the check. And a missing artifact counts as drift
-on its own, even when the owner's check command would pass, so an absent
-generated file cannot be laundered by a green command. The result is a freshness
+command, and both artifact and source presence all still match, so any drift in
+any of those falls back to actually running the check. And a missing artifact
+counts as drift on its own, even when the owner's check command would pass, so
+an absent generated file cannot be laundered by a green command — and the same
+holds on the other side of the claim: a missing declared source authority is
+`source_authority_missing` drift, because a source-faithfulness claim whose
+source is absent is unverifiable, not clean. The result is a freshness
 signal for declared owners, not a claim that every generated surface in the wider
 system is semantically correct.
 

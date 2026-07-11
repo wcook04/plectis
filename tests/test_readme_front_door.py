@@ -29,6 +29,7 @@ _LINKED_SIBLINGS = (
     "LICENSE",
     "NOTICE",
     "PROVENANCE.md",
+    "CITATION.cff",
 )
 
 
@@ -36,7 +37,6 @@ def _front_door_tree(tmp_path: Path) -> Path:
     """Build a minimal public root that resolves every front-door binding."""
     root = tmp_path / "microcosm-substrate"
     (root / "atlas").mkdir(parents=True)
-    (root / "assets").mkdir(parents=True)
     (root / "core").mkdir(parents=True)
     shutil.copy2(MICROCOSM_ROOT / "README.md", root / "README.md")
     shutil.copy2(
@@ -45,10 +45,6 @@ def _front_door_tree(tmp_path: Path) -> Path:
     shutil.copy2(
         MICROCOSM_ROOT / "core/organ_registry.json",
         root / "core/organ_registry.json",
-    )
-    shutil.copy2(
-        MICROCOSM_ROOT / "assets/plectis-social-card.png",
-        root / "assets/plectis-social-card.png",
     )
     for rel in _LINKED_SIBLINGS:
         (root / rel).write_text("placeholder\n", encoding="utf-8")
@@ -70,6 +66,7 @@ def test_real_readme_satisfies_front_door_contract() -> None:
     assert findings["h1"] == "Plectis"
     assert findings["witness_command_bound"] is True
     assert findings["hero_banned_terms"] == []
+    assert findings["hero_install_block_present"] is True
     assert findings["registry_component_count"] >= 80
     assert findings["registry_component_count_bound_in_front_door"] is True
     assert findings["front_door_required_context_missing"] == []
@@ -101,6 +98,20 @@ def test_blocks_stale_witness_command(tmp_path: Path) -> None:
     assert "README_WITNESS_COMMAND_UNBOUND" in receipt["blocking_codes"]
 
 
+def test_blocks_missing_install_command(tmp_path: Path) -> None:
+    root = _front_door_tree(tmp_path)
+    readme = root / "README.md"
+    # Strip every install line: the hero must show how to get the tool.
+    readme.write_text(
+        readme.read_text(encoding="utf-8").replace(
+            "python3 -m pip install .", "python3 -m frobnicate ."
+        ),
+        encoding="utf-8",
+    )
+    receipt = validate_readme_front_door(root)
+    assert "README_INSTALL_COMMAND_MISSING" in receipt["blocking_codes"]
+
+
 def test_blocks_injected_overclaim(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     readme = root / "README.md"
@@ -126,34 +137,27 @@ def test_blocks_former_name_in_hero(tmp_path: Path) -> None:
     # inject the compatibility state dir into the hero promise
     _mutate(
         root,
-        "public, executable cross-section",
-        "public, executable .microcosm/ cross-section",
+        "public, runnable tests for the claims",
+        "public, runnable .microcosm/ tests for the claims",
     )
     receipt = validate_readme_front_door(root)
     assert "README_HERO_ONTOLOGY_LEAK" in receipt["blocking_codes"]
     assert "compatibility-state-dir" in receipt["findings"]["hero_banned_terms"]
 
 
-def test_blocks_missing_banner(tmp_path: Path) -> None:
-    root = _front_door_tree(tmp_path)
-    readme = root / "README.md"
-    text = readme.read_text(encoding="utf-8")
-    # drop the <p align=center>...<img...></p> banner block
-    head, _, rest = text.partition("# Plectis")
-    readme.write_text("# Plectis" + rest, encoding="utf-8")
-    receipt = validate_readme_front_door(root)
-    assert "README_BANNER_MISSING" in receipt["blocking_codes"]
-
-
-def test_blocks_em_dash_in_banner_alt(tmp_path: Path) -> None:
+def test_banner_is_optional_but_gated_when_present(tmp_path: Path) -> None:
+    # The real README carries no hero banner (the social card is a GitHub
+    # social-preview asset, not first-screen content). A banner that IS added
+    # back must still satisfy the alt-text discipline.
     root = _front_door_tree(tmp_path)
     _mutate(
         root,
-        "a public executable atlas",
-        "a public executable atlas —",
+        "# Plectis",
+        '<p align="center"><img src="assets/gone.png" alt="Plectis — atlas"></p>\n\n# Plectis',
     )
     receipt = validate_readme_front_door(root)
     assert "README_BANNER_ALT_EM_DASH" in receipt["blocking_codes"]
+    assert "README_BANNER_FILE_UNRESOLVED" in receipt["blocking_codes"]
 
 
 def test_blocks_json_only_witness(tmp_path: Path) -> None:
@@ -174,13 +178,13 @@ def test_blocks_local_record_primary_frame(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     _mutate(
         root,
-        "Plectis is a public, executable cross-section of an AI-native workflow and\nresearch runtime",
-        "Run one command inside a code repository and get a local record",
+        "**Plectis is a set of public, runnable tests for the claims of an AI-built\nsystem.",
+        "**Plectis is a local evidence router.",
     )
     receipt = validate_readme_front_door(root)
     assert "README_FRONT_DOOR_LOCAL_ONLY_FRAME" in receipt["blocking_codes"]
     assert (
-        "run-one-command-local-record-primary-frame"
+        "local-evidence-router-primary-frame"
         in receipt["findings"]["front_door_local_only_frames"]
     )
 
@@ -213,6 +217,6 @@ def test_blocks_missing_family_specific_claim_ceiling(tmp_path: Path) -> None:
 
 def test_blocks_stale_front_door_component_count(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
-    _mutate(root, "88 bounded components", "87 bounded components")
+    _mutate(root, "88 components", "87 components")
     receipt = validate_readme_front_door(root)
     assert "README_FRONT_DOOR_COMPONENT_COUNT_UNBOUND" in receipt["blocking_codes"]

@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 7231,
-      "line_count": 189,
-      "sha256": "sha256:b3368536316f537ed03210efa9ffd48b82d16d2a4ad699d6eefa8d709c161de7",
-      "target_sha256": "b3368536316f537ed03210efa9ffd48b82d16d2a4ad699d6eefa8d709c161de7",
-      "source_sha256": "b3368536316f537ed03210efa9ffd48b82d16d2a4ad699d6eefa8d709c161de7",
+      "byte_count": 8546,
+      "line_count": 215,
+      "sha256": "sha256:d81bbbf9ff0c2c528a82538791a07aec988ac91f1a64cb4f0b384600f6315230",
+      "target_sha256": "d81bbbf9ff0c2c528a82538791a07aec988ac91f1a64cb4f0b384600f6315230",
+      "source_sha256": "d81bbbf9ff0c2c528a82538791a07aec988ac91f1a64cb4f0b384600f6315230",
       "required_anchors": [
         "def compute_finite_denominator_order_certificate",
         "def verify_finite_denominator_order_certificate"

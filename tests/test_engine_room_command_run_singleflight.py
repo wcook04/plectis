@@ -11,6 +11,7 @@ from microcosm_core.engine_room.command_run_singleflight import (
     CLAIM_CEILING,
     _metadata,
     _paths,
+    _read_json,
     _short_hash,
     _write_json,
     build_command_key,
@@ -141,6 +142,30 @@ def test_active_run_timeout_refuses_duplicate_without_rerun(tmp_path: Path) -> N
     assert receipt.exit_code == 124
     assert "active run did not complete before timeout" in receipt.stderr
     assert not counter.exists()
+
+
+def test_leader_record_carries_live_parent_pid(tmp_path: Path) -> None:
+    # The liveness pid must identify the coordinating parent (alive until the
+    # completed record lands), not the already-reaped child: followers and
+    # takeover checks probe this pid to distinguish a crashed leader from one
+    # still writing its results.
+    state = tmp_path / "state"
+    receipt = run_command_singleflight(
+        [sys.executable, "-c", "print('ok')"],
+        state_root=state,
+        cwd=tmp_path,
+    )
+    record = _read_json(_paths(state, receipt.key_hash, receipt.run_id)["run"])
+    assert record is not None
+    assert record["pid"] == os.getpid()
+    assert record["child_pid"] != os.getpid()
+    assert record["status"] == "completed"
+
+
+def test_empty_fixture_dir_is_fail_not_vacuous_pass(tmp_path: Path) -> None:
+    receipt = evaluate_fixture_dir(tmp_path)
+    assert receipt["status"] == "fail"
+    assert receipt["case_count"] == 0
 
 
 def test_missing_command_is_rejected(tmp_path: Path) -> None:

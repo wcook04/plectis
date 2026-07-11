@@ -53,6 +53,37 @@ def test_expected_artifacts_drive_recall_and_precision() -> None:
     assert result["precision_at_packet"] == round(2 / 3, 4)
 
 
+def test_wildcard_precision_counts_selected_artifacts_not_patterns() -> None:
+    # An exact id plus a wildcard covering the same artifact must not push
+    # precision above 1.0, and one wildcard covering two relevant selections
+    # must not halve it: precision is relevant-selected over selected.
+    overlapping = evaluate_task(
+        _task(
+            expected_artifacts=(
+                "paper_modules:navigation_hologram_theory",
+                "paper_modules:*",
+            )
+        ),
+        {
+            "first_contact_command": "./repo-python kernel.py --context-pack",
+            "wall_ms": 10,
+            "selected_artifacts": ["paper_modules:navigation_hologram_theory"],
+            "summary": "navigation theory",
+        },
+    )
+    assert overlapping["precision_at_packet"] == 1.0
+    covered = evaluate_task(
+        _task(expected_artifacts=("skills:*",), scent_terms=()),
+        {
+            "first_contact_command": "./repo-python kernel.py --context-pack",
+            "wall_ms": 10,
+            "selected_artifacts": ["skills:navigation_metabolism", "skills:checkpoint"],
+            "summary": "",
+        },
+    )
+    assert covered["precision_at_packet"] == 1.0
+
+
 def test_forbidden_first_route_is_sufficiency_debt() -> None:
     result = evaluate_task(
         _task(),

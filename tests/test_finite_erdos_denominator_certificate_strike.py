@@ -131,6 +131,41 @@ def test_degenerate_inputs_are_rejected() -> None:
     assert ERROR_CODES["bad_base"] in bad_base["error_codes"]
 
 
+def test_certificate_with_no_claimed_fields_is_rejected() -> None:
+    # A certificate that claims nothing must not verify as valid: valid=True
+    # would read as "claims verified" to any consumer of the engine API.
+    verdict = verify_finite_denominator_order_certificate([2, 3], 2, {})
+    assert verdict["valid"] is False
+    assert ERROR_CODES["no_claim"] in verdict["error_codes"]
+    unrecognized = verify_finite_denominator_order_certificate([2, 3], 2, {"Order": 6})
+    assert unrecognized["valid"] is False
+    assert ERROR_CODES["no_claim"] in unrecognized["error_codes"]
+
+
+def test_non_integer_claims_are_typed_mismatches_not_matches() -> None:
+    truncating = verify_finite_denominator_order_certificate(
+        [1, 2], 2, {"numerator": 4.5, "denominator": 3, "order": 2}
+    )
+    assert truncating["valid"] is False
+    assert ERROR_CODES["numerator"] in truncating["error_codes"]
+    non_numeric = verify_finite_denominator_order_certificate(
+        [1, 2], 2, {"numerator": 4, "denominator": 3, "order": "two"}
+    )
+    assert non_numeric["valid"] is False
+    assert ERROR_CODES["order"] in non_numeric["error_codes"]
+
+
+def test_unit_denominator_rejection_is_typed() -> None:
+    # support=[1], base=2 gives S=1/1: the identity ord_1(2)=lcm({1})=1 is
+    # true but the certificate deliberately requires Q>1; the rejection must
+    # carry a typed code instead of an empty code list.
+    verdict = verify_finite_denominator_order_certificate(
+        [1], 2, {"numerator": 1, "denominator": 1, "order": 1}
+    )
+    assert verdict["valid"] is False
+    assert ERROR_CODES["unit_denominator"] in verdict["error_codes"]
+
+
 def test_claim_ceiling_is_negated_and_anti_claim_is_present() -> None:
     low = CLAIM_CEILING.lower()
     assert any(cue in low for cue in ("not ", "does not ", "never", "without", "no "))

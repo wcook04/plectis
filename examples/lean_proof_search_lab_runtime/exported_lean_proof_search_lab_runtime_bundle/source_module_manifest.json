@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 41364,
-      "line_count": 1038,
-      "sha256": "sha256:d5cac744c1563cb207a4e5b5d63bdba3612fe663e54b0c96e08e4dd5d16b0b1e",
-      "target_sha256": "d5cac744c1563cb207a4e5b5d63bdba3612fe663e54b0c96e08e4dd5d16b0b1e",
-      "source_sha256": "d5cac744c1563cb207a4e5b5d63bdba3612fe663e54b0c96e08e4dd5d16b0b1e",
+      "byte_count": 42183,
+      "line_count": 1061,
+      "sha256": "sha256:f9b121013f41ee61df7d75b0e643a4b30c6f2d58720aba38c311bf088ed96a47",
+      "target_sha256": "f9b121013f41ee61df7d75b0e643a4b30c6f2d58720aba38c311bf088ed96a47",
+      "source_sha256": "f9b121013f41ee61df7d75b0e643a4b30c6f2d58720aba38c311bf088ed96a47",
       "required_anchors": [
         "def evaluate_fixture_dir",
         "def check_candidate_with_lean"

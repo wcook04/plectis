@@ -50,11 +50,11 @@
       "source_to_target_relation": "public_package_body_exercised_directly",
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 21106,
-      "line_count": 542,
-      "sha256": "sha256:7efd57cf19f9a5a32eb74a355f0e2ee9d75f34c6b4f0a0c69601cf46209e7150",
-      "target_sha256": "7efd57cf19f9a5a32eb74a355f0e2ee9d75f34c6b4f0a0c69601cf46209e7150",
-      "source_sha256": "7efd57cf19f9a5a32eb74a355f0e2ee9d75f34c6b4f0a0c69601cf46209e7150",
+      "byte_count": 21494,
+      "line_count": 549,
+      "sha256": "sha256:c40478cc44e9269a3aba38fbc86d4cdd38e00a0ab04608a3579c7ba72a877b1c",
+      "target_sha256": "c40478cc44e9269a3aba38fbc86d4cdd38e00a0ab04608a3579c7ba72a877b1c",
+      "source_sha256": "c40478cc44e9269a3aba38fbc86d4cdd38e00a0ab04608a3579c7ba72a877b1c",
       "required_anchors": [
         "Registry-backed derived fact provider engine over public fixture roots."
       ],

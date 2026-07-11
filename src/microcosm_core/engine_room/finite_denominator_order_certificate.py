@@ -45,7 +45,24 @@ ERROR_CODES = {
     "order": "ERDOS_CERT_ORDER_MISMATCH",
     "numerator": "ERDOS_CERT_NUMERATOR_MISMATCH",
     "not_coprime": "ERDOS_CERT_BASE_NOT_COPRIME_TO_Q",
+    "no_claim": "ERDOS_CERT_NO_CLAIMED_FIELDS",
+    "unit_denominator": "ERDOS_CERT_UNIT_DENOMINATOR_DEGENERATE",
 }
+
+
+def _claim_mismatches(claimed_value: Any, truth_value: Any) -> bool:
+    """
+    Return whether a claimed certificate field fails strict comparison.
+
+    Claims must be exact integers: a float that truncates to the truth
+    (12.7 vs 12) or a bool is a mismatch, not a match, and a non-numeric
+    claim is a typed mismatch rather than a crash.
+    """
+    return not (
+        isinstance(claimed_value, int)
+        and not isinstance(claimed_value, bool)
+        and claimed_value == truth_value
+    )
 
 
 def multiplicative_order(base: int, modulus: int) -> int | None:
@@ -168,14 +185,23 @@ def verify_finite_denominator_order_certificate(
         claimed_numerator = claimed.get("numerator", claimed.get("P"))
         claimed_denominator = claimed.get("denominator", claimed.get("Q"))
         claimed_order = claimed.get("order")
-        if claimed_numerator is not None and int(claimed_numerator) != truth["numerator"]:
+        if claimed_numerator is None and claimed_denominator is None and claimed_order is None:
+            # A certificate that claims nothing verifies nothing: valid=True
+            # here would read as "claims verified" to any consumer.
+            error_codes.append(ERROR_CODES["no_claim"])
+        if claimed_numerator is not None and _claim_mismatches(claimed_numerator, truth["numerator"]):
             error_codes.append(ERROR_CODES["numerator"])
-        if claimed_denominator is not None and int(claimed_denominator) != truth["denominator"]:
+        if claimed_denominator is not None and _claim_mismatches(claimed_denominator, truth["denominator"]):
             error_codes.append(ERROR_CODES["denominator"])
-        if claimed_order is not None and int(claimed_order) != truth["order"]:
+        if claimed_order is not None and _claim_mismatches(claimed_order, truth["order"]):
             error_codes.append(ERROR_CODES["order"])
         if not truth["coprime_base_denominator"]:
             error_codes.append(ERROR_CODES["not_coprime"])
+        if not truth.get("holds") and truth.get("denominator") == 1:
+            # The only reachable holds=False case with otherwise-consistent
+            # arithmetic is the unit denominator (support=[1] style inputs);
+            # rejections stay typed instead of emitting an empty code list.
+            error_codes.append(ERROR_CODES["unit_denominator"])
 
     valid = not error_codes and bool(truth.get("holds"))
     return {

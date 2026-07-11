@@ -87,7 +87,12 @@ subprocess.
 
 The leader path `_run_leader` starts the subprocess once, writes active/run
 metadata, captures stdout and stderr, persists the final exit code, updates the
-latest-by-key receipt, and appends leader lifecycle events. The follower path
+latest-by-key receipt, and appends leader lifecycle events. The liveness pid in
+the active record is the coordinating parent process (the child appears as
+`child_pid`): the child is already reaped the moment its output is captured,
+while the completed record lands only after the output files are written, so
+probing the parent is what lets followers and takeover checks distinguish a
+crashed leader from one still writing its results. The follower path
 `_wait_for_active` polls the active receipt until it is completed, then replays
 the same stdout, stderr, exit code, and `run_id`; if the active run is stale or
 does not finish before the wait window, the follower returns `stale_or_timeout`

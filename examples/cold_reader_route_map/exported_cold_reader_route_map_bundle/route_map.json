@@ -9,7 +9,7 @@
       "title": "Run the compressed first-screen tour",
       "command": "plectis tour <project>",
       "docs_refs": [
-        "README.md#run-it",
+        "README.md#install",
         "AGENTS.md#rules"
       ],
       "shows": [
@@ -27,7 +27,7 @@
       "title": "Inspect the compressed status lens",
       "command": "plectis status --card <project>",
       "docs_refs": [
-        "README.md#run-it",
+        "README.md#install",
         "paper_modules/cold_reader_route_map.md"
       ],
       "shows": [
@@ -45,7 +45,7 @@
       "title": "Run the bounded proof-lab route",
       "command": "plectis proof-lab --out /tmp/microcosm-proof-lab",
       "docs_refs": [
-        "README.md#run-it",
+        "README.md#install",
         "AGENTS.md#rules"
       ],
       "shows": [
@@ -62,7 +62,7 @@
       "title": "Compile a repo into local substrate state",
       "command": "plectis compile <project>",
       "docs_refs": [
-        "README.md#run-it",
+        "README.md#install",
         "AGENTS.md#rules"
       ],
       "shows": [
@@ -130,7 +130,7 @@
       "title": "Open projection intake without private macro context",
       "command": "plectis intake",
       "docs_refs": [
-        "README.md#run-it",
+        "README.md#install",
         "paper_modules/macro_projection_import_protocol.md"
       ],
       "shows": [
@@ -146,7 +146,7 @@
       "title": "Open the ten-minute public reveal board",
       "command": "plectis reveal",
       "docs_refs": [
-        "README.md#run-it",
+        "README.md#install",
         "paper_modules/public_reveal_walkthrough.md"
       ],
       "shows": [
@@ -163,7 +163,7 @@
       "title": "Validate the route map itself",
       "command": "plectis cold-reader-route-map run-route-map-bundle",
       "docs_refs": [
-        "README.md#run-it",
+        "README.md#install",
         "paper_modules/cold_reader_route_map.md"
       ],
       "shows": [

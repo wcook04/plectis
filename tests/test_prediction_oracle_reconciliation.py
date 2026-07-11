@@ -60,6 +60,65 @@ def _walk_keys(payload: Any) -> list[str]:
     return []
 
 
+def _copy_fixture_input(tmp_path: Path) -> Path:
+    input_dir = tmp_path / "input"
+    shutil.copytree(FIXTURE_INPUT, input_dir)
+    return input_dir
+
+
+def test_duplicate_cp2_prediction_ids_are_a_typed_finding(tmp_path: Path) -> None:
+    # Silent last-wins collapse of a repeated prediction id would grade
+    # earlier rows against the wrong prediction and leave prediction_count
+    # disagreeing with the reconciliation rows in a passing receipt.
+    input_dir = _copy_fixture_input(tmp_path)
+    packet_path = input_dir / "reconciliation_packet.json"
+    packet = json.loads(packet_path.read_text(encoding="utf-8"))
+    packet["cp2_predictions"].append(dict(packet["cp2_predictions"][0]))
+    packet_path.write_text(json.dumps(packet, indent=2) + "\n", encoding="utf-8")
+
+    result = run(input_dir, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "blocked"
+    assert "PREDICTION_CP2_DUPLICATE_PREDICTION_ID" in result["error_codes"]
+
+
+def test_uppercase_degraded_feed_health_is_still_gated(tmp_path: Path) -> None:
+    # Feed-health comparison is normalized: a "Degraded" row must be gated
+    # out of numeric truth grading exactly like a lowercase one, not scored
+    # as healthy. The fixture row is degraded via BOTH realized_direction and
+    # feed_health; flip realized_direction to a normal value so feed_health
+    # alone carries the gate.
+    input_dir = _copy_fixture_input(tmp_path)
+    packet_path = input_dir / "reconciliation_packet.json"
+    packet = json.loads(packet_path.read_text(encoding="utf-8"))
+    flipped = False
+    for row in _walk_rows(packet):
+        if row.get("feed_health") == "degraded":
+            row["feed_health"] = "Degraded"
+            row["realized_direction"] = str(row.get("predicted_direction") or "flat")
+            flipped = True
+    assert flipped
+    packet_path.write_text(json.dumps(packet, indent=2) + "\n", encoding="utf-8")
+
+    result = run(input_dir, tmp_path / "receipts", command="pytest")
+
+    assert result["status"] == "pass"
+    assert result["numeric_reconciliation_summary"]["degraded_feed_gate_count"] == 1
+    assert result["oracle_diff_graded_count"] == 2
+
+
+def _walk_rows(payload: Any) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    if isinstance(payload, dict):
+        rows.append(payload)
+        for value in payload.values():
+            rows.extend(_walk_rows(value))
+    elif isinstance(payload, list):
+        for item in payload:
+            rows.extend(_walk_rows(item))
+    return rows
+
+
 def test_prediction_oracle_reconciliation_observes_required_negative_cases(
     tmp_path: Path,
 ) -> None:
