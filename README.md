@@ -1,8 +1,8 @@
 # Plectis
 
 [Website](https://wcook04.github.io/plectis/) ·
+[Interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) ·
 [Quickstart](QUICKSTART.md) ·
-[System map](ORGANS.md) ·
 [Contributing](CONTRIBUTING.md)
 
 **Plectis is a set of public, runnable tests for the claims of an AI-built
@@ -115,8 +115,8 @@ security, finance, provider, mutation, or private-system authority, it has
 been overclaimed and overread.
 
 The full picture, with the runtime loop and the component families on one
-shared path, is in [Architecture](ARCHITECTURE.md) and as an interactive map
-on the [website](https://wcook04.github.io/plectis/).
+shared path, is in [Architecture](ARCHITECTURE.md) and as an
+[interactive map on the website](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map).
 
 ## Browse the component map
 
@@ -133,9 +133,12 @@ component inside it: one line at a glance, or expanded in full.
 | [Import, Projection & Drift](ORGANS.md#import-projection--drift) | 20 | The membrane that brings non-secret substrate into the public tree and keeps generated projections honest instead of letting them drift. |
 | [Work, Landing & Continuity](ORGANS.md#work-landing--continuity) | 5 | How reversible work transactions are recorded, how dirty-tree landing decisions are made, and how detached runs resume. |
 
-For the full per-component cards, open the [System map](ORGANS.md). One person
-sets the direction; AI agents do the building and upkeep; and every
-component's work is kept as evidence a separate check can read.
+For the full per-component cards, open the [System map](ORGANS.md), or click
+through the same corpus as an
+[interactive component browser](https://wcook04.github.io/plectis/docs/components.html)
+on the website. One person sets the direction; AI agents do the building and
+upkeep; and every component's work is kept as evidence a separate check can
+read.
 
 ## Choose a route
 
@@ -147,6 +150,7 @@ component's work is kept as evidence a separate check can read.
 | Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | `plectis comprehend --slice mechanism --format text`: every component's real mechanism, one line each. |
 | Verify a specific claim before trusting it | `comprehend --first-action` | `plectis comprehend --first-action "<claim to verify>" --format text`: the owning component, its authority ceiling, and the command that tests it. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
+| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Exposition PDF](https://github.com/wcook04/plectis-lean-erdos249-257/blob/v0.6.0/erdos249-257-exposition.pdf) | A standalone Lean 4 formalisation of two open Erdős problems (#249, #257), and the paper behind it. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | How to raise an issue safely, and the verification floor for changes. |
 
@@ -234,10 +238,26 @@ developed by William Cook as an independent, AI-native solo project; see
 [PROVENANCE.md](PROVENANCE.md) for authorship, third-party, and
 no-affiliation boundaries.
 
-## Related projects
+## Companion project: two open Erdős problems in Lean 4
 
-[plectis-lean-erdos249-257](https://github.com/wcook04/plectis-lean-erdos249-257)
-is a Lean 4 formalisation of partial results, finite exclusions, and scope
-boundaries for two open Erdős problems (#249 and #257), released as a citable
-scholarly artefact. Both problems remain open; the repository is explicit
-about exactly what is and is not proved.
+The **Formal Math & Proof** area above includes an Erdős #249/#257 example.
+This is the full, standalone Lean development behind it:
+
+[**plectis-lean-erdos249-257**](https://github.com/wcook04/plectis-lean-erdos249-257)
+is a Lean 4 formalisation built around two open Erdős irrationality problems,
+**#249 and #257**. Every partial result, certificate reduction, and finite
+exclusion it states is machine-checked by a pinned Lean kernel, and the exact
+propositions that remain open are named rather than glossed. It does not solve
+Erdős #249 or the universal form of #257, and it is precise throughout about
+the line between what is proved and what is not. That same
+evidence-and-ceiling discipline, applied to real mathematics rather than
+software, is why it is worth a look.
+
+- [**Read the exposition PDF**](https://github.com/wcook04/plectis-lean-erdos249-257/blob/v0.6.0/erdos249-257-exposition.pdf):
+  the mathematics in ordinary notation, and the canonical human-readable
+  account.
+- [**Browse the Lean source**](https://github.com/wcook04/plectis-lean-erdos249-257):
+  540 Lean modules and 5,850 theorem-like declarations, checked by the pinned
+  kernel; start from `docs/ORIENTATION.md`.
+- [**Release v0.6.0**](https://github.com/wcook04/plectis-lean-erdos249-257/releases/tag/v0.6.0):
+  the tagged, citable scholarly artefact and citation anchor.
