@@ -256,8 +256,10 @@ software, is why it is worth a look.
 - [**Read the exposition PDF**](https://github.com/wcook04/plectis-lean-erdos249-257/blob/v0.6.0/erdos249-257-exposition.pdf):
   the mathematics in ordinary notation, and the canonical human-readable
   account.
-- [**Browse the Lean source**](https://github.com/wcook04/plectis-lean-erdos249-257):
-  540 Lean modules and 5,850 theorem-like declarations, checked by the pinned
-  kernel; start from `docs/ORIENTATION.md`.
+- [**Browse the Lean source**](https://github.com/wcook04/plectis-lean-erdos249-257/tree/1c9df5777700dcd85686ed45fb3afc41a3eae44a):
+  the recorded public source snapshot contains 633 Lean modules and 11,467
+  theorem-like declarations, checked by the pinned kernel; start from
+  `docs/ORIENTATION.md`. These are scale and navigation counts, not separate
+  mathematical claims; `v0.6.0` remains the tagged citation anchor.
 - [**Release v0.6.0**](https://github.com/wcook04/plectis-lean-erdos249-257/releases/tag/v0.6.0):
   the tagged, citable scholarly artefact and citation anchor.
