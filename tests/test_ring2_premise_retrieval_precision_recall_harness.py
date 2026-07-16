@@ -440,18 +440,14 @@ def test_ring2_precision_recall_source_artifacts_are_digest_verified(
             row["source_ref"]: row for row in result["source_artifact_imports"]
         }
         for source_ref in SOURCE_ARTIFACT_REFS:
-            source = MICROCOSM_ROOT.parent / source_ref
             target = input_root / "source_artifacts" / source_ref
             assert target.is_file()
-            source_digest = hashlib.sha256(source.read_bytes()).hexdigest()
             target_digest = hashlib.sha256(target.read_bytes()).hexdigest()
             row = imports_by_ref[source_ref]
             assert row["digest_match"] is True
-            assert row["source_sha256"] == f"sha256:{source_digest}"
             assert row["target_sha256"] == f"sha256:{target_digest}"
             if row["source_to_target_relation"] == "exact_copy":
-                assert source_digest == target_digest
-                assert source.read_bytes() == target.read_bytes()
+                assert row["source_sha256"] == row["target_sha256"]
             else:
                 assert row["source_to_target_relation"] == (
                     "verified_public_safe_private_path_rewrite"
@@ -462,22 +458,15 @@ def test_ring2_precision_recall_source_artifacts_are_digest_verified(
                 _assert_no_private_home_path(target_text)
 
 
-def test_ring2_precision_recall_control_plane_source_module_is_exact_copy() -> None:
-    source = MICROCOSM_ROOT.parent / "tools/meta/factory/run_prover_graph_benchmark.py"
+def test_ring2_precision_recall_control_plane_source_module_is_declared_omission() -> None:
     manifest = json.loads((EXPORTED_BUNDLE_INPUT / "source_module_manifest.json").read_text())
-    row = manifest["modules"][0]
+    assert manifest["modules"] == []
+    assert manifest["module_count"] == 0
+    row = manifest["release_substitution_omissions"][0]
 
     assert row["module_id"] == "ring2_precision_recall_prover_graph_benchmark_runner_body_import"
-    assert row["material_class"] == "public_macro_tool_body"
     assert row["source_ref"] == "tools/meta/factory/run_prover_graph_benchmark.py"
-    assert row["target_ref"] == (
-        "microcosm-substrate/examples/ring2_premise_retrieval_precision_recall_harness/"
-        "exported_ring2_precision_recall_bundle/source_modules/tools/meta/factory/"
-        "run_prover_graph_benchmark.py"
-    )
-    assert row["source_to_target_relation"] == "exact_copy"
-    assert source.read_bytes() == CONTROL_PLANE_SOURCE_MODULE.read_bytes()
-    digest = "sha256:" + hashlib.sha256(source.read_bytes()).hexdigest()
-    assert row["source_sha256"] == digest
-    assert row["target_sha256"] == digest
-    assert row["sha256"] == digest
+    assert row["release_substitution"]["substitution"] == "public_safe_stub"
+    stub_text = CONTROL_PLANE_SOURCE_MODULE.read_text(encoding="utf-8")
+    assert "PUBLIC_MICROCOSM_STUB = True" in stub_text
+    assert row["source_ref"] in stub_text

@@ -229,6 +229,7 @@ def test_certificate_kernel_execution_lab_batches_positive_transition_checks(
     project_dir.mkdir()
     monkeypatch.setattr(certificate_lab, "_TRANSITION_EXECUTION_CACHE", {})
     calls: list[list[str]] = []
+    timeouts: list[tuple[str, int]] = []
 
     def fake_run_command(
         argv: list[str],
@@ -237,6 +238,7 @@ def test_certificate_kernel_execution_lab_batches_positive_transition_checks(
         timeout_seconds: int = 30,
     ) -> dict[str, Any]:
         calls.append(argv)
+        timeouts.append((argv[-1], timeout_seconds))
         return {
             "argv": argv,
             "cwd_name": cwd.name,
@@ -293,6 +295,15 @@ def test_certificate_kernel_execution_lab_batches_positive_transition_checks(
             "missing_certificate_row_residual.lean",
         ]
     )
+    assert sorted(timeouts) == sorted(
+        [
+            (
+                certificate_lab.LEAN_TRANSITION_BATCH_NAME,
+                certificate_lab.LEAN_TRANSITION_BATCH_TIMEOUT_SECONDS,
+            ),
+            ("missing_certificate_row_residual.lean", 30),
+        ]
+    )
     batch_source = (
         project_dir / certificate_lab.LEAN_TRANSITION_BATCH_NAME
     ).read_text(encoding="utf-8")
@@ -305,6 +316,131 @@ def test_certificate_kernel_execution_lab_batches_positive_transition_checks(
     ]
     assert [receipt.accepted for receipt in receipts] == [True, True, False]
     assert receipts[2].verifier_failure_class == "PREMISE_RETRIEVAL_MISS"
+
+
+def test_certificate_kernel_execution_lab_serializes_positive_batch_fallback(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    project_dir = tmp_path / "lake_project"
+    project_dir.mkdir()
+    monkeypatch.setattr(certificate_lab, "_TRANSITION_EXECUTION_CACHE", {})
+    executor_count = 0
+    calls: list[str] = []
+
+    class ImmediateFuture:
+        def __init__(self, value: Any) -> None:
+            self.value = value
+
+        def result(self) -> Any:
+            return self.value
+
+    class SynchronousExecutor:
+        def __init__(self, *, max_workers: int) -> None:
+            nonlocal executor_count
+            executor_count += 1
+            assert max_workers >= 1
+
+        def __enter__(self) -> SynchronousExecutor:
+            return self
+
+        def __exit__(self, *_args: Any) -> None:
+            return None
+
+        def submit(self, function: Any, *args: Any, **kwargs: Any) -> ImmediateFuture:
+            return ImmediateFuture(function(*args, **kwargs))
+
+    def fake_run_command(
+        argv: list[str],
+        *,
+        cwd: Path,
+        timeout_seconds: int = 30,
+    ) -> dict[str, Any]:
+        source_name = argv[-1]
+        calls.append(source_name)
+        return_code = 1 if source_name == certificate_lab.LEAN_TRANSITION_BATCH_NAME else 0
+        return {
+            "argv": argv,
+            "cwd_name": cwd.name,
+            "return_code": return_code,
+            "stdout_line_count": 0,
+            "stderr_line_count": 0,
+            "timed_out": source_name == certificate_lab.LEAN_TRANSITION_BATCH_NAME,
+            "stdout_stderr_in_receipt": False,
+        }
+
+    monkeypatch.setattr(certificate_lab, "ThreadPoolExecutor", SynchronousExecutor)
+    monkeypatch.setattr(certificate_lab, "_run_command", fake_run_command)
+    rows = [
+        {
+            "transition_id": transition_id,
+            "problem_id": transition_id,
+            "target_shape": "nat_sum",
+            "action_class": "direct_certificate_check",
+            "candidate_kind": "public_certificate",
+            "allowed_certificate_refs": ["cert_2_3_5"],
+        }
+        for transition_id in ("positive_one", "positive_two", "positive_three")
+    ]
+
+    receipts = certificate_lab._execute_transitions(
+        rows,
+        project_dir=project_dir,
+        findings=[],
+        observed={},
+    )
+
+    assert executor_count == 0
+    assert calls == [
+        certificate_lab.LEAN_TRANSITION_BATCH_NAME,
+        "positive_one.lean",
+        "positive_two.lean",
+        "positive_three.lean",
+    ]
+    assert all(receipt.accepted for receipt in receipts)
+
+
+def test_certificate_kernel_execution_lab_types_timeout_as_resource_failure(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    project_dir = tmp_path / "lake_project"
+    project_dir.mkdir()
+
+    def fake_run_command(
+        argv: list[str],
+        *,
+        cwd: Path,
+        timeout_seconds: int = 30,
+    ) -> dict[str, Any]:
+        return {
+            "argv": argv,
+            "cwd_name": cwd.name,
+            "return_code": 124,
+            "stdout_line_count": 0,
+            "stderr_line_count": 0,
+            "timed_out": True,
+            "stdout_stderr_in_receipt": False,
+        }
+
+    monkeypatch.setattr(certificate_lab, "_run_command", fake_run_command)
+    receipt = certificate_lab._execute_transition(
+        {
+            "transition_id": "timed_positive",
+            "problem_id": "timed_positive",
+            "target_shape": "nat_sum",
+            "action_class": "direct_certificate_check",
+            "candidate_kind": "public_certificate",
+            "allowed_certificate_refs": ["cert_2_3_5"],
+        },
+        project_dir=project_dir,
+        findings=[],
+        observed={},
+    )
+
+    assert receipt.accepted is False
+    assert receipt.timed_out is True
+    assert receipt.verifier_failure_class == "RESOURCE_TIMEOUT"
 
 
 def test_certificate_kernel_execution_lab_runs_lean_cp2_evolve_and_analyzer(
@@ -368,8 +504,33 @@ def test_certificate_kernel_execution_lab_runs_lean_cp2_evolve_and_analyzer(
     assert len(claim_separation["provider_suggested"]) == 2
     assert len(claim_separation["oracle_compared"]) == 2
     assert len(claim_separation["cp2_translated"]) == 2
-    assert len(claim_separation["retrieval_miss"]) == 2
-    assert len(claim_separation["proof_synthesis_fail"]) == 1
+    residual_ids_by_class = {
+        failure_class: {
+            row["transition_id"]
+            for row in result["transition_trace"]
+            if row["accepted"] is False
+            and row["verifier_failure_class"] == failure_class
+        }
+        for failure_class in (
+            "PREMISE_RETRIEVAL_MISS",
+            "PROOF_SYNTHESIS_FAIL",
+            "RESOURCE_TIMEOUT",
+        )
+    }
+    assert {
+        row["transition_id"] for row in claim_separation["retrieval_miss"]
+    } == residual_ids_by_class["PREMISE_RETRIEVAL_MISS"]
+    assert {
+        row["transition_id"] for row in claim_separation["proof_synthesis_fail"]
+    } == residual_ids_by_class["PROOF_SYNTHESIS_FAIL"]
+    assert {
+        row["transition_id"] for row in claim_separation["resource_timeout"]
+    } == residual_ids_by_class["RESOURCE_TIMEOUT"]
+    assert set().union(*residual_ids_by_class.values()) == {
+        "missing_certificate_row_residual",
+        "bad_generated_certificate_rejected",
+        "missing_order_certificate_row_residual",
+    }
     assert len(claim_separation["evolve_accepted"]) == 2
 
 

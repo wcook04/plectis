@@ -17,21 +17,24 @@ import sys
 from pathlib import Path
 from typing import Any
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
+SRC_ROOT = REPO_ROOT / "src"
+if str(SRC_ROOT) not in sys.path:
+    sys.path.insert(0, str(SRC_ROOT))
 
-from microcosm_core.receipts import write_json_atomic
-from microcosm_core.schemas import read_json_strict
-from microcosm_core.validators.source_module_boundary import (
-    evaluate_source_module_boundary,
-)
-from tools.meta.plectis_public_safety.public_reference_sanitizer import (
+from microcosm_core.public_reference_sanitizer import (
     MACRO_ROOT_NAME,
     PUBLIC_SAFE_PATH_NORMALIZED_MODE,
     PUBLIC_SAFE_PATH_NORMALIZED_RELATION,
     public_safe_transform_receipt,
     sanitize_public_reference_text,
+)
+from microcosm_core.receipts import write_json_atomic
+from microcosm_core.schemas import read_json_strict
+from microcosm_core.validators.source_module_boundary import (
+    evaluate_source_module_boundary,
 )
 
 
@@ -383,8 +386,20 @@ def refresh_manifest(
     if not isinstance(manifest, dict):
         raise ValueError("source module manifest must be a JSON object")
     public_root = _public_root_for_path(manifest_path)
+    declared_omissions = [
+        row
+        for row in manifest.get("release_substitution_omissions", [])
+        if isinstance(row, dict)
+    ]
+    boundary_manifest = dict(manifest)
+    # Release substitutions are explicit non-import records. Revalidating their
+    # private source refs as if they were copied module claims makes the safe
+    # exact-copy rows in the same manifest impossible to refresh. The omitted
+    # rows remain untouched in the written manifest; the boundary still checks
+    # every declared module and all of its source/target refs.
+    boundary_manifest.pop("release_substitution_omissions", None)
     boundary = evaluate_source_module_boundary(
-        [(str(Path(manifest_path)), manifest)],
+        [(str(Path(manifest_path)), boundary_manifest)],
     )
     if boundary["status"] != PASS:
         return {
@@ -638,6 +653,9 @@ def refresh_manifest(
             "status": boundary["status"],
             "safe_ref_count": boundary["safe_ref_count"],
             "blocked_ref_count": boundary["blocked_ref_count"],
+            "declared_release_substitution_omission_count": len(
+                declared_omissions
+            ),
         },
         "write_applied": write,
         "requested_module_ids": sorted(module_ids),

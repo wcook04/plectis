@@ -18,7 +18,6 @@ import shutil
 import subprocess
 import tempfile
 from collections.abc import Iterator, Sequence
-from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
 from dataclasses import asdict, dataclass
 from functools import lru_cache
@@ -31,7 +30,11 @@ from microcosm_core.secret_exclusion_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalized_public_receipt_string,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -42,7 +45,7 @@ VALIDATOR_ID = "validator.microcosm.organs.verifier_lab_execution_spine"
 PACKET_NAME = "execution_spine_packet.json"
 LAKE_PROJECT_DIR = "lake_project"
 LAKEFILE_NAME = "lakefile.lean"
-LEAN_TRANSITION_MAX_WORKERS = 4
+LEAN_TRANSITION_BATCH_TIMEOUT_SECONDS = 120
 RESULT_NAME = "verifier_lab_execution_spine_result.json"
 BOARD_NAME = "verifier_lab_execution_spine_board.json"
 VALIDATION_RECEIPT_NAME = "verifier_lab_execution_spine_validation_receipt.json"
@@ -873,7 +876,10 @@ def _fresh_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_verifier_lab_execution_spine_bundle":
         return None
-    if payload.get("command") != command:
+    if payload.get("command") not in {
+        command,
+        normalized_public_receipt_string(command),
+    }:
         return None
     receipt_paths = payload.get("receipt_paths")
     if not isinstance(receipt_paths, list) or not receipt_paths:
@@ -1397,9 +1403,13 @@ def _execute_transition(
         allowed_premise_refs=tuple(_strings(row.get("allowed_premise_refs"))),
         lean_return_code=int(lean_run["return_code"]),
         accepted=accepted,
-        verifier_failure_class="NONE"
-        if accepted
-        else str(row.get("expected_failure_class") or "PROOF_SYNTHESIS_FAIL"),
+        verifier_failure_class=(
+            "NONE"
+            if accepted
+            else "RESOURCE_TIMEOUT"
+            if lean_run["timed_out"] is True
+            else str(row.get("expected_failure_class") or "PROOF_SYNTHESIS_FAIL")
+        ),
         stdout_stderr_in_receipt=False,
         oracle_visible=False,
         provider_visible=False,
@@ -1558,7 +1568,11 @@ def _execute_positive_transition_batch(
         return []
     source_path = project_dir / "PositiveTransitionBatch.lean"
     source_path.write_text(_positive_transition_batch_source(rows), encoding="utf-8")
-    lean_run = _run_command(["lake", "env", "lean", source_path.name], cwd=project_dir)
+    lean_run = _run_command(
+        ["lake", "env", "lean", source_path.name],
+        cwd=project_dir,
+        timeout_seconds=LEAN_TRANSITION_BATCH_TIMEOUT_SECONDS,
+    )
     if lean_run["return_code"] != 0:
         return None
     return [_accepted_transition_receipt(row) for row in rows]
@@ -1628,43 +1642,18 @@ def _execute_transitions(
         else:
             individual_rows.extend(positive_rows)
 
-        if len(individual_rows) <= 1:
-            for index, row in individual_rows:
-                executed_by_index[index] = _execute_transition(
-                    row,
-                    project_dir=project_dir,
-                    findings=findings,
-                    observed=observed,
-                )
-        else:
-            max_workers = min(LEAN_TRANSITION_MAX_WORKERS, len(individual_rows))
-
-            def run(row: dict[str, Any]) -> TransitionReceipt:
-                """
-                Return run for `microcosm_core.organs.verifier_lab_execution_spine`.
-
-                Inputs are `row`; notable helpers are `_execute_transition`.
-                """
-                return _execute_transition(
-                    row,
-                    project_dir=project_dir,
-                    findings=findings,
-                    observed=observed,
-                )
-
-            with ThreadPoolExecutor(max_workers=max_workers) as executor:
-                individual_receipts = list(
-                    executor.map(
-                        run,
-                        (row for _, row in individual_rows),
-                    )
-                )
-            for (index, _row), receipt in zip(
-                individual_rows,
-                individual_receipts,
-                strict=True,
-            ):
-                executed_by_index[index] = receipt
+        # A failed positive batch is already evidence of a constrained Lean
+        # execution boundary. Retrying its members concurrently can compound
+        # the pressure and misclassify valid transitions as proof failures.
+        # Serialize the bounded diagnostic fallback so timeout receipts remain
+        # attributable to one exact transition.
+        for index, row in individual_rows:
+            executed_by_index[index] = _execute_transition(
+                row,
+                project_dir=project_dir,
+                findings=findings,
+                observed=observed,
+            )
         executed = [executed_by_index[index] for index, _row in executable]
         _TRANSITION_EXECUTION_CACHE[cache_key] = deepcopy(executed)
     if executed:
@@ -2080,7 +2069,12 @@ def _build_result(
             "proof_synthesis_fail": [
                 asdict(row)
                 for row in residuals
-                if row.verifier_failure_class != "PREMISE_RETRIEVAL_MISS"
+                if row.verifier_failure_class == "PROOF_SYNTHESIS_FAIL"
+            ],
+            "resource_timeout": [
+                asdict(row)
+                for row in residuals
+                if row.verifier_failure_class == "RESOURCE_TIMEOUT"
             ],
             "evolve_candidate": evolve_mutations,
             "evolve_accepted": evolve_accepted,

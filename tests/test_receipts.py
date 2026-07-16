@@ -6,10 +6,25 @@ from pathlib import Path
 import pytest
 
 from microcosm_core import receipts
-from microcosm_core.receipts import write_json_atomic, write_local_state_json_atomic
+from microcosm_core.receipts import (
+    normalized_public_receipt_string,
+    write_json_atomic,
+    write_local_state_json_atomic,
+)
 
 
 MICROCOSM_ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_normalized_public_receipt_string_matches_persisted_command_shape() -> None:
+    command = (
+        "python -m microcosm_core demo "
+        "--input /Users/private-user/public-checkout/input.json"
+    )
+
+    assert normalized_public_receipt_string(command) == (
+        "python -m microcosm_core demo --input <private-home-path>"
+    )
 
 
 def test_receipt_writer_honors_runtime_read_only_gate(tmp_path, monkeypatch) -> None:

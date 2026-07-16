@@ -1,30 +1,14 @@
 """
-[PURPOSE]
-- Teleology: Validate the proof diagnostic evidence spine as body-free diagnostic evidence rather than formal proof authority.
-- Mechanism: Recompute source and receipt anchors, enforce source digests, reject provider/proof-body authority upgrades, scan public inputs for forbidden private material, and emit receipt/card projections.
-- Non-goal: Run Lean, prove theorem correctness, claim runtime correctness, publish proof/provider bodies, mutate source, call providers, or authorize downstream release.
+Implements organs proof diagnostic evidence spine for the public Plectis package.
 
-[INTERFACE]
-- CLI: `python -m microcosm_core.organs.proof_diagnostic_evidence_spine run --input <fixture> --out <receipt-dir>`.
-- Bundle CLI: `python -m microcosm_core.organs.proof_diagnostic_evidence_spine run-evidence-bundle --input <bundle> --out <receipt-dir>`.
-- Exports: validators for copied macro-body artifacts, source-body floors, evidence receipts, provider payload policy, diagnostic rows, authority ceilings, stale source coupling, receipt writing, and result-card projection.
-
-[FLOW]
-- Load fixture or exported-bundle JSON inputs and scan them against the public secret-exclusion policy.
-- Resolve public source/receipt refs, recompute digests and semantic anchors, and classify accepted evidence versus expected negative controls.
-- Merge findings, enforce claim ceilings, write proof receipts/provider policy/diagnostic board/validation receipts, and project a first-screen card without proof bodies.
-
-[DEPENDENCIES]
-- Required: `microcosm_core.secret_exclusion_scan` for private-material scans, `microcosm_core.receipts` for base/atomic receipt writes, and `microcosm_core.schemas` for strict JSON loading.
-- Required: exported Ring2 diagnostic artifacts, receipt anchor refs, and source-body floor manifests listed in this module's constants.
-
-[CONSTRAINTS]
-- Atomicity: Receipt writes are caller-scoped and atomic through `write_json_atomic`; input artifacts and source refs are read-only.
-- Determinism: Sorting, digest computation, and rejection-code aggregation are stable for identical public roots and input payloads.
-- Forbid: Upgrading diagnostic receipt refs, provider advisory payloads, or diagnostic boards into proof authority, source authority, runtime correctness, or release approval.
-- When-needed: Open when a recipient or agent needs the exact proof diagnostic evidence-spine validator source named by the Beth packet.
-- Escalates-to: microcosm_core.secret_exclusion_scan; microcosm_core.receipts; examples/proof_diagnostic_evidence_spine
-- Navigation-group: microcosm_public_organs
+Callers enter through `validate_copied_macro_body_artifacts`,
+`validate_source_body_floor_artifacts`, `validate_evidence_receipts`,
+`validate_provider_payload_policy`, `validate_diagnostic_rows`,
+`validate_required_receipt_fields`, and 8 more; constants such as `ORGAN_ID`, `FIXTURE_ID`,
+`VALIDATOR_ID`, `PROOF_RECEIPTS_NAME`, and 29 more pin local fixture names; dependencies
+include `argparse`, `hashlib`, `json`, `collections`, and 3 more. It builds public fixture,
+result, card, or verdict structures while keeping private substrate bodies out of the
+payload.
 """
 from __future__ import annotations
 
@@ -449,15 +433,9 @@ VALIDATOR_ASSERTED_FEEDS_PATTERNS = [
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Resolve the public Plectis root used to interpret evidence refs and secret-scan display paths.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return public root for path for `microcosm_core.organs.proof_diagnostic_evidence_spine`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -473,15 +451,10 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _input_file_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: List the fixture JSON inputs that must be scanned and loaded for the base proof-spine run.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Produce the input file paths value used by
+    `microcosm_core.organs.proof_diagnostic_evidence_spine`.
+
+    Inputs are `input_dir`.
     """
     names = (
         "checks.json",
@@ -498,15 +471,10 @@ def _input_file_paths(input_dir: Path) -> list[Path]:
 
 def _bundle_input_file_paths(input_dir: Path, *, public_root: Path | None = None) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: List exported-bundle JSON and source-body inputs, optionally expanding refs through the public root.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Compute bundle input file paths from `input_dir` and `public_root`.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are `extend`, `append`, and
+    `_resolve_public_ref`.
     """
     names = (
         "bundle_manifest.json",
@@ -533,15 +501,12 @@ def _bundle_input_file_paths(input_dir: Path, *, public_root: Path | None = None
 
 def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Run the secret-exclusion scan over base fixture inputs using the public forbidden-class policy.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Scan whether scan fixture inputs holds for the organs proof diagnostic evidence spine
+    flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_input_file_paths`; failing evidence is returned or raised exactly
+    where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(_input_file_paths(input_dir), forbidden_classes=policy, display_root=public_root)
@@ -549,15 +514,12 @@ def _scan_fixture_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
 
 def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Run the secret-exclusion scan over exported-bundle inputs and copied source-body floors.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Scan whether scan bundle inputs holds for the organs proof diagnostic evidence spine
+    flow.
+
+    The result is derived from `input_dir` and `public_root` with `load_forbidden_classes`,
+    `scan_paths`, and `_bundle_input_file_paths`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     policy = load_forbidden_classes(public_root / "core/private_state_forbidden_classes.json")
     return scan_paths(
@@ -569,15 +531,10 @@ def _scan_bundle_inputs(input_dir: Path, public_root: Path) -> dict[str, Any]:
 
 def _load_input_payloads(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Load the base proof-spine fixture payloads with strict JSON parsing.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize `microcosm_core.organs.proof_diagnostic_evidence_spine._load_input_payloads`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "checks": read_json_strict(input_dir / "checks.json"),
@@ -599,15 +556,11 @@ def _load_input_payloads(input_dir: Path) -> dict[str, Any]:
 
 def _load_evidence_bundle_payloads(input_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Load the exported evidence-bundle payloads with strict JSON parsing.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine._load_evidence_bundle_payloads`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "bundle_manifest": read_json_strict(input_dir / "bundle_manifest.json"),
@@ -622,15 +575,11 @@ def _load_evidence_bundle_payloads(input_dir: Path) -> dict[str, Any]:
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Extract typed dictionary rows from a payload list key while ignoring malformed entries.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return dictionary rows for `microcosm_core.organs.proof_diagnostic_evidence_spine._rows`
+    from `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -642,15 +591,10 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _forbidden_body_key_paths(payload: object, *, prefix: str = "") -> list[str]:
     """
-    [ACTION]
-    - Teleology: Find nested keys that would expose proof/provider bodies in a public receipt payload.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Compute forbidden body key paths from `payload` and `prefix`.
+
+    Inputs are `payload` and `prefix`; notable helpers are `items`, `extend`, `append`, and
+    `_forbidden_body_key_paths`.
     """
     paths: list[str] = []
     if isinstance(payload, dict):
@@ -675,15 +619,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Construct a body-free finding row for one proof-spine negative case or validation gap.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize `microcosm_core.organs.proof_diagnostic_evidence_spine._finding` into the
+    payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -706,15 +645,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Append a finding and register its observed negative-case code in the accumulator.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Record record for the organs proof diagnostic evidence spine flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -730,15 +664,9 @@ def _record(
 
 def _stable_hash(payload: object) -> str:
     """
-    [ACTION]
-    - Teleology: Hash a JSON-stable payload for receipt evidence identifiers and recompute checks.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return stable hash for the organs proof diagnostic evidence spine flow.
+
+    Inputs are `payload`; notable helpers are `encode`, `hexdigest`, `dumps`, and `sha256`.
     """
     encoded = json.dumps(payload, ensure_ascii=True, sort_keys=True, separators=(",", ":")).encode(
         "utf-8"
@@ -748,30 +676,21 @@ def _stable_hash(payload: object) -> str:
 
 def _json_digest(payload: object) -> str:
     """
-    [ACTION]
-    - Teleology: Return the stable JSON digest used for freshness and evidence-basis comparisons.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return the stable digest computed by
+    `microcosm_core.organs.proof_diagnostic_evidence_spine._json_digest`.
+
+    The input is `payload`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return _stable_hash(payload)
 
 
 def _file_freshness_entry(path: Path, *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Summarize existence, size, and mtime for one input path under public-relative display.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize `microcosm_core.organs.proof_diagnostic_evidence_spine._file_freshness_entry`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_ref = public_relative_path(path, display_root=public_root)
     if not path.exists():
@@ -796,15 +715,11 @@ def _evidence_bundle_freshness_basis(
     public_root: Path,
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Build the sorted freshness basis for exported evidence-bundle receipt reuse.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return evidence bundle freshness basis for the organs proof diagnostic evidence spine
+    flow.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are `_bundle_input_file_paths`
+    and `_file_freshness_entry`.
     """
     paths = _bundle_input_file_paths(input_dir, public_root=public_root)
     return sorted(
@@ -819,15 +734,11 @@ def _fresh_evidence_bundle_receipt(
     freshness_digest: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Reuse a current exported-bundle receipt only when schema, organ, mode, and freshness digest match.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return fresh evidence bundle receipt for the organs proof diagnostic evidence spine
+    flow.
+
+    Inputs are `out_dir` and `freshness_digest`; notable helpers are `Path`, `is_file`,
+    `read_json_strict`, and `get`.
     """
     receipt_path = Path(out_dir) / EVIDENCE_BUNDLE_RESULT_NAME
     if not receipt_path.is_file():
@@ -854,15 +765,11 @@ def _fresh_evidence_bundle_receipt(
 
 def _sha256_file(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Stream a file into a sha256 digest used by source and receipt anchor checks.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return the stable digest computed by
+    `microcosm_core.organs.proof_diagnostic_evidence_spine._sha256_file`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256()
     with path.open("rb") as handle:
@@ -873,15 +780,11 @@ def _sha256_file(path: Path) -> str:
 
 def _safe_relative_ref(ref: str) -> bool:
     """
-    [ACTION]
-    - Teleology: Reject empty, absolute, or parent-escaping refs before public-root resolution.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return whether safe relative ref holds for the organs proof diagnostic evidence spine
+    flow.
+
+    The result is derived from `ref` with `Path` and `is_absolute`; failing evidence is
+    returned or raised exactly where the body says so.
     """
     path = Path(ref)
     return bool(ref) and not path.is_absolute() and ".." not in path.parts
@@ -889,15 +792,9 @@ def _safe_relative_ref(ref: str) -> bool:
 
 def _split_anchor_ref(ref: str) -> tuple[str, str]:
     """
-    [ACTION]
-    - Teleology: Split a public ref into file and optional JSON anchor marker components.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Derive split anchor ref without touching module import state.
+
+    Inputs are `ref`; notable helpers are `partition`.
     """
     file_ref, marker, anchor = ref.partition("::")
     return file_ref, anchor if marker else ""
@@ -905,15 +802,10 @@ def _split_anchor_ref(ref: str) -> tuple[str, str]:
 
 def _resolve_public_ref(public_root: Path, ref: str) -> Path | None:
     """
-    [ACTION]
-    - Teleology: Resolve a safe public ref against the public root or its parent without accepting private paths.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Derive resolve public ref without touching module import state.
+
+    Inputs are `public_root` and `ref`; notable helpers are `_split_anchor_ref`,
+    `_safe_relative_ref`, and `is_file`.
     """
     file_ref, _anchor = _split_anchor_ref(ref)
     if not _safe_relative_ref(file_ref):
@@ -928,15 +820,12 @@ def _resolve_public_ref(public_root: Path, ref: str) -> Path | None:
 
 def _json_contains_anchor(payload: object, anchor: str) -> bool:
     """
-    [ACTION]
-    - Teleology: Search a JSON payload for an anchor marker by key or scalar value.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return whether json contains anchor holds for the organs proof diagnostic evidence spine
+    flow.
+
+    The result is derived from `payload` and `anchor` with `items` and
+    `_json_contains_anchor`; failing evidence is returned or raised exactly where the body
+    says so.
     """
     if not anchor:
         return True
@@ -952,15 +841,11 @@ def _json_contains_anchor(payload: object, anchor: str) -> bool:
 
 def _json_contains_value(payload: object, expected: str) -> bool:
     """
-    [ACTION]
-    - Teleology: Search a JSON payload for an exact scalar value used to prove receipt backing.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return whether json contains value holds for the organs proof diagnostic evidence spine
+    flow.
+
+    The result is derived from `payload` and `expected` with `_json_contains_value` and
+    `values`; failing evidence is returned or raised exactly where the body says so.
     """
     if isinstance(payload, dict):
         return any(_json_contains_value(value, expected) for value in payload.values())
@@ -971,15 +856,10 @@ def _json_contains_value(payload: object, expected: str) -> bool:
 
 def _read_json_anchor_ref(public_root: Path, ref: str) -> tuple[Path | None, object | None, bool]:
     """
-    [ACTION]
-    - Teleology: Resolve and load a JSON anchor ref, returning whether the requested anchor is present.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Read read JSON anchor ref for `microcosm_core.organs.proof_diagnostic_evidence_spine`.
+
+    Input comes from `public_root` and `ref`; malformed or missing data follows the
+    exceptions and checks visible in the body.
     """
     _file_ref, anchor = _split_anchor_ref(ref)
     path = _resolve_public_ref(public_root, ref)
@@ -994,15 +874,9 @@ def _read_json_anchor_ref(public_root: Path, ref: str) -> tuple[Path | None, obj
 
 def _source_anchor_semantics(path: Path) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Classify semantic markers present in public Ring2 source artifacts.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Derive source anchor semantics without touching module import state.
+
+    Inputs are `path`; notable helpers are `read_json_strict`, `get`, and `add`.
     """
     try:
         payload = read_json_strict(path)
@@ -1027,15 +901,9 @@ def _source_anchor_semantics(path: Path) -> set[str]:
 
 def _receipt_anchor_semantics(payload: object) -> set[str]:
     """
-    [ACTION]
-    - Teleology: Classify semantic markers present in proof and diagnostic receipt payloads.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Derive receipt anchor semantics without touching module import state.
+
+    Inputs are `payload`; notable helpers are `add` and `get`.
     """
     if not isinstance(payload, dict):
         return set()
@@ -1068,15 +936,10 @@ def _check_semantic_floor(
     receipt_semantics: set[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Compute missing source and receipt semantics required by one evidence check.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize `microcosm_core.organs.proof_diagnostic_evidence_spine._check_semantic_floor`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     required_sources: set[str] = set()
     required_receipts: set[str] = set()
@@ -1106,15 +969,11 @@ def _check_semantic_floor(
 
 def _classify_evidence_check(row: dict[str, Any], *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Recompute one proof evidence row's refs, digests, receipt backing, and semantic floor.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine._classify_evidence_check` into
+    the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source_refs = [
         str(item) for item in row.get("source_refs", []) if isinstance(item, str)
@@ -1320,15 +1179,11 @@ def validate_copied_macro_body_artifacts(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Validate copied Ring2 macro-body artifacts declared by an exported bundle manifest.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine.validate_copied_macro_body_artifacts`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     declared = []
     if isinstance(bundle_manifest, dict):
@@ -1461,15 +1316,11 @@ def validate_source_body_floor_artifacts(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Validate source-body floor modules and exact-copy counts/digests for the exported bundle.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine.validate_source_body_floor_artifacts`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = input_dir / "source_body_floor" / "source_module_manifest.json"
     manifest_payload: dict[str, Any] = {}
@@ -1631,15 +1482,11 @@ def validate_source_body_floor_artifacts(
 
 def validate_evidence_receipts(checks_payload: object, *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Validate all proof receipt rows into accepted and rejected diagnostic evidence records.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine.validate_evidence_receipts` into
+    the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     proof_rows: list[dict[str, Any]] = []
@@ -1798,15 +1645,11 @@ def validate_evidence_receipts(checks_payload: object, *, public_root: Path) -> 
 
 def _classify_provider_anchor_refs(row: dict[str, Any], *, public_root: Path | None) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Recompute provider advisory premise refs and source digests without granting authority.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine._classify_provider_anchor_refs`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     premise_refs = [str(item) for item in row.get("premise_refs", []) if isinstance(item, str)]
     source_digest_refs = [
@@ -1867,15 +1710,11 @@ def validate_provider_payload_policy(
     public_root: Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reject provider payloads that include proof bodies or unsupported advisory anchors.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine.validate_provider_payload_policy`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -1983,15 +1822,11 @@ def validate_provider_payload_policy(
 
 def validate_diagnostic_rows(payload: object, *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Validate diagnostic board rows against source and receipt anchors plus authority limits.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine.validate_diagnostic_rows` into
+    the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     diagnostic_rows: list[dict[str, Any]] = []
@@ -2089,15 +1924,11 @@ def validate_diagnostic_rows(payload: object, *, public_root: Path) -> dict[str,
 
 def validate_required_receipt_fields(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Check that proof receipts preserve required validator and anti-claim fields.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine.validate_required_receipt_fields`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -2140,15 +1971,11 @@ def validate_required_receipt_fields(payload: object) -> dict[str, Any]:
 
 def validate_authority_ceiling(payload: object, *, kind: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Reject diagnostic-board or runtime-overclaim payloads that attempt authority upgrades.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine.validate_authority_ceiling` into
+    the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -2194,15 +2021,11 @@ def validate_authority_ceiling(payload: object, *, kind: str) -> dict[str, Any]:
 
 def validate_stale_source_coupling(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Classify stale source fingerprints as diagnostic evidence rather than proof authority.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine.validate_stale_source_coupling`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -2257,15 +2080,9 @@ def validate_stale_source_coupling(payload: object) -> dict[str, Any]:
 
 def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
     """
-    [ACTION]
-    - Teleology: Merge observed negative-case code maps from independent validation results.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return merge observed for `microcosm_core.organs.proof_diagnostic_evidence_spine`.
+
+    Inputs are `results`; notable helpers are `defaultdict`, `items`, `get`, and `add`.
     """
     merged: dict[str, set[str]] = defaultdict(set)
     for result in results:
@@ -2277,30 +2094,19 @@ def _merge_observed(*results: dict[str, Any]) -> dict[str, list[str]]:
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Render receipt paths as public-root-relative strings for emitted receipts.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Compute relative receipt paths from `paths` and `public_root`.
+
+    Inputs are `paths` and `public_root`; notable helpers are `public_relative_path` and
+    `values`.
     """
     return [public_relative_path(path, display_root=public_root) for path in paths.values()]
 
 
 def _authority_rejection_count(result: dict[str, Any]) -> int:
     """
-    [ACTION]
-    - Teleology: Count provider, board-authority, and runtime-correctness rejections in a result.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Compute authority rejection count from `result`.
+
+    Inputs are `result`.
     """
     return (
         len(result["provider_policy_rejection_ids"])
@@ -2311,15 +2117,9 @@ def _authority_rejection_count(result: dict[str, Any]) -> int:
 
 def _first_screen_proof_rows(proof_receipts: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Project proof rows into a first-screen body-free inspection summary.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Compute first screen proof rows from `proof_receipts`.
+
+    Inputs are `proof_receipts`; notable helpers are `get`, `append`, and `join`.
     """
     rows: list[dict[str, Any]] = []
     for row in proof_receipts:
@@ -2424,15 +2224,11 @@ def _first_screen_proof_rows(proof_receipts: list[dict[str, Any]]) -> list[dict[
 
 def _omission_reversal_inputs(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Summarize what public replacements and digests would be needed to reverse omitted bodies.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize
+    `microcosm_core.organs.proof_diagnostic_evidence_spine._omission_reversal_inputs` into
+    the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "status": PASS,
@@ -2447,15 +2243,10 @@ def _omission_reversal_inputs(result: dict[str, Any]) -> dict[str, Any]:
 
 def build_diagnostic_board(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Build the compact diagnostic-board projection from a full proof-spine result.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize `microcosm_core.organs.proof_diagnostic_evidence_spine.build_diagnostic_board`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "proof_diagnostic_evidence_spine_diagnostic_board_v1",
@@ -2481,15 +2272,9 @@ def build_diagnostic_board(result: dict[str, Any]) -> dict[str, Any]:
 
 def _common_receipt(result: dict[str, Any], *, schema_version: str, receipt_paths: list[str]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Build the shared receipt envelope used by proof, provider, board, validation, and bundle outputs.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return common receipt for `microcosm_core.organs.proof_diagnostic_evidence_spine`.
+
+    Inputs are `result`, `schema_version`, and `receipt_paths`; notable helpers are `get`.
     """
     keys = (
         "status",
@@ -2566,15 +2351,10 @@ def write_receipts(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, str]:
     """
-    [ACTION]
-    - Teleology: Write all base proof-spine receipt artifacts and return their public-relative paths.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Write write receipts for the organs proof diagnostic evidence spine flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -2752,15 +2532,10 @@ def _write_evidence_bundle_receipt(
     public_root: str | Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Write the exported evidence-bundle validation receipt and return its display path.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Write write evidence bundle receipt for the organs proof diagnostic evidence spine flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -2809,15 +2584,11 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Run the base proof diagnostic evidence-spine fixture and emit all receipt artifacts.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Return run for the organs proof diagnostic evidence spine flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `Path`, `_public_root_for_path`, `_load_input_payloads`, `_scan_fixture_inputs`, and 18
+    more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -2974,15 +2745,11 @@ def run_evidence_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Run the exported evidence bundle path with freshness reuse and source-body floor validation.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Derive run evidence bundle without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `_public_root_for_path`, `_evidence_bundle_freshness_basis`, `_json_digest`,
+    and 17 more.
     """
     input_path = Path(input_dir)
     if not input_path.is_absolute():
@@ -3151,15 +2918,10 @@ def run_evidence_bundle(
 
 def _first_screen_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Summarize proof-row counts, accepted/rejected IDs, and authority ceilings for result cards.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize `microcosm_core.organs.proof_diagnostic_evidence_spine._first_screen_card`
+    into the payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     proof_rows = result.get("first_screen_proof_rows", [])
     if not isinstance(proof_rows, list):
@@ -3206,15 +2968,10 @@ def _first_screen_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Project a compact result card for fixture or exported-bundle proof-spine runs.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Serialize `microcosm_core.organs.proof_diagnostic_evidence_spine.result_card` into the
+    payload shape expected by organs proof diagnostic evidence spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     receipt_paths = [
         Path(str(path)).name if Path(str(path)).is_absolute() else str(path)
@@ -3357,15 +3114,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Parse proof-spine CLI commands, dispatch the selected run mode, and optionally print a card.
-    - Preconditions: Caller supplies a base proof-spine fixture or exported evidence bundle rooted under the public Plectis layout with referenced JSON artifacts present when the validator requires them.
-    - Guarantee: Returns deterministic body-free proof diagnostic validation data and never upgrades receipts, providers, or boards into proof or release authority.
-    - Fails: Raises or returns findings for malformed JSON, missing public refs, digest mismatches, forbidden body keys, private-material scan failures, or receipt write errors.
-    - Reads: Fixture JSON, exported bundle manifests, public Ring2 artifacts, receipt anchors, source-body floor modules, and forbidden-class policy files.
-    - Writes: Caller-selected receipt files via `write_json_atomic`; source artifacts and inputs remain read-only.
-    - Orders: Evidence rows, findings, paths, digests, and card lists are sorted or hashed deterministically for stable receipts.
-    - Couples: `microcosm_core.secret_exclusion_scan`, `microcosm_core.receipts`, and `microcosm_core.schemas` define scan, write, and strict-load semantics.
+    Run `microcosm_core.organs.proof_diagnostic_evidence_spine` as a command-line entry
+    point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command_name")

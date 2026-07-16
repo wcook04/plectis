@@ -46,6 +46,7 @@ LAKE_PROJECT_DIR = "lake_project"
 LAKEFILE_NAME = "lakefile.lean"
 LAKE_TARGET = "MicrocosmCertificateLab"
 LEAN_TRANSITION_MAX_WORKERS = 4
+LEAN_TRANSITION_BATCH_TIMEOUT_SECONDS = 120
 RESULT_NAME = "certificate_kernel_execution_lab_result.json"
 BOARD_NAME = "certificate_kernel_execution_lab_board.json"
 VALIDATION_RECEIPT_NAME = "certificate_kernel_execution_lab_validation_receipt.json"
@@ -1608,7 +1609,11 @@ def _execute_positive_transition_batch(
     """
     source_path = project_dir / LEAN_TRANSITION_BATCH_NAME
     source_path.write_text(_lean_source_for_transition_batch(rows), encoding="utf-8")
-    lean_run = _run_command(["lake", "env", "lean", source_path.name], cwd=project_dir)
+    lean_run = _run_command(
+        ["lake", "env", "lean", source_path.name],
+        cwd=project_dir,
+        timeout_seconds=LEAN_TRANSITION_BATCH_TIMEOUT_SECONDS,
+    )
     if lean_run["return_code"] != 0:
         return None
     return [_accepted_transition_receipt(row) for row in rows]
@@ -1728,9 +1733,13 @@ def _execute_transition(
         allowed_certificate_refs=tuple(_strings(row.get("allowed_certificate_refs"))),
         lean_return_code=int(lean_run["return_code"]),
         accepted=accepted,
-        verifier_failure_class="NONE"
-        if accepted
-        else str(row.get("expected_failure_class") or "PROOF_SYNTHESIS_FAIL"),
+        verifier_failure_class=(
+            "NONE"
+            if accepted
+            else "RESOURCE_TIMEOUT"
+            if lean_run["timed_out"] is True
+            else str(row.get("expected_failure_class") or "PROOF_SYNTHESIS_FAIL")
+        ),
         stdout_stderr_in_receipt=False,
         oracle_visible=False,
         provider_visible=False,
@@ -1868,24 +1877,14 @@ def _execute_transitions(
                 ):
                     executed_by_index[index] = receipt
 
-        if len(pending_individual) <= 1:
-            for index, row in pending_individual:
-                executed_by_index[index] = run(row)
-        else:
-            max_workers = min(LEAN_TRANSITION_MAX_WORKERS, len(pending_individual))
-            with ThreadPoolExecutor(max_workers=max_workers) as executor:
-                individual_receipts = list(
-                    executor.map(
-                        run,
-                        (row for _, row in pending_individual),
-                    )
-                )
-            for (index, _row), receipt in zip(
-                pending_individual,
-                individual_receipts,
-                strict=True,
-            ):
-                executed_by_index[index] = receipt
+        # A failed positive batch commonly means the bounded Lean process was
+        # already under resource pressure. Retrying every positive transition
+        # concurrently compounds that pressure and can turn a valid
+        # certificate into a timeout-shaped proof failure. Keep the fallback
+        # bounded and deterministic by retrying those isolated checks in
+        # source order.
+        for index, row in pending_individual:
+            executed_by_index[index] = run(row)
         executed = [executed_by_index[index] for index, _row in executable]
         _TRANSITION_EXECUTION_CACHE[cache_key] = deepcopy(executed)
     if executed:
@@ -2459,7 +2458,12 @@ def _build_result(
             "proof_synthesis_fail": [
                 asdict(row)
                 for row in residuals
-                if row.verifier_failure_class != "PREMISE_RETRIEVAL_MISS"
+                if row.verifier_failure_class == "PROOF_SYNTHESIS_FAIL"
+            ],
+            "resource_timeout": [
+                asdict(row)
+                for row in residuals
+                if row.verifier_failure_class == "RESOURCE_TIMEOUT"
             ],
             "evolve_candidate": evolve_mutations,
             "evolve_accepted": evolve_accepted,

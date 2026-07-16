@@ -257,6 +257,7 @@ def test_verifier_lab_execution_spine_batches_expected_positive_transitions(
     project_dir = tmp_path / "lake_project"
     project_dir.mkdir()
     calls: list[tuple[str, ...]] = []
+    timeouts: list[tuple[str, int]] = []
 
     def fake_run_command(
         argv: list[str],
@@ -265,6 +266,7 @@ def test_verifier_lab_execution_spine_batches_expected_positive_transitions(
         timeout_seconds: int = 30,
     ) -> dict[str, Any]:
         calls.append(tuple(argv))
+        timeouts.append((argv[-1], timeout_seconds))
         return {
             "argv": argv,
             "cwd_name": cwd.name,
@@ -294,10 +296,57 @@ def test_verifier_lab_execution_spine_batches_expected_positive_transitions(
         True,
     ]
     assert calls[0] == ("lake", "env", "lean", "PositiveTransitionBatch.lean")
+    assert (
+        "PositiveTransitionBatch.lean",
+        spine.LEAN_TRANSITION_BATCH_TIMEOUT_SECONDS,
+    ) in timeouts
     assert set(calls[1:]) == {
         ("lake", "env", "lean", "baseline_add_comm_missing_premise.lean"),
         ("lake", "env", "lean", "residual_unsolved_unknown_premise.lean"),
     }
+
+
+def test_verifier_lab_execution_spine_types_timeout_as_resource_failure(
+    tmp_path: Path,
+    monkeypatch: Any,
+) -> None:
+    project_dir = tmp_path / "lake_project"
+    project_dir.mkdir()
+
+    def fake_run_command(
+        argv: list[str],
+        *,
+        cwd: Path,
+        timeout_seconds: int = 30,
+    ) -> dict[str, Any]:
+        return {
+            "argv": argv,
+            "cwd_name": cwd.name,
+            "return_code": 124,
+            "stdout_line_count": 0,
+            "stderr_line_count": 0,
+            "timed_out": True,
+            "stdout_stderr_in_receipt": False,
+        }
+
+    monkeypatch.setattr(spine, "_run_command", fake_run_command)
+    receipt = spine._execute_transition(
+        {
+            "transition_id": "timed_positive",
+            "problem_id": "timed_positive",
+            "target_shape": "proposition",
+            "action_class": "rfl",
+            "candidate_kind": "public_candidate",
+            "allowed_premise_refs": [],
+        },
+        project_dir=project_dir,
+        findings=[],
+        observed={},
+    )
+
+    assert receipt.accepted is False
+    assert receipt.timed_out is True
+    assert receipt.verifier_failure_class == "RESOURCE_TIMEOUT"
 
 
 def test_verifier_lab_execution_spine_runs_lean_cp2_and_evolve(
@@ -325,7 +374,32 @@ def test_verifier_lab_execution_spine_runs_lean_cp2_and_evolve(
     assert len(claim_separation["provider_suggested"]) == 1
     assert len(claim_separation["oracle_compared"]) == 1
     assert len(claim_separation["cp2_translated"]) == 1
-    assert len(claim_separation["retrieval_miss"]) == 1
+    residual_ids_by_class = {
+        failure_class: {
+            row["transition_id"]
+            for row in result["transition_trace"]
+            if row["accepted"] is False
+            and row["verifier_failure_class"] == failure_class
+        }
+        for failure_class in (
+            "PREMISE_RETRIEVAL_MISS",
+            "PROOF_SYNTHESIS_FAIL",
+            "RESOURCE_TIMEOUT",
+        )
+    }
+    assert {
+        row["transition_id"] for row in claim_separation["retrieval_miss"]
+    } == residual_ids_by_class["PREMISE_RETRIEVAL_MISS"]
+    assert {
+        row["transition_id"] for row in claim_separation["proof_synthesis_fail"]
+    } == residual_ids_by_class["PROOF_SYNTHESIS_FAIL"]
+    assert {
+        row["transition_id"] for row in claim_separation["resource_timeout"]
+    } == residual_ids_by_class["RESOURCE_TIMEOUT"]
+    assert set().union(*residual_ids_by_class.values()) == {
+        "baseline_add_comm_missing_premise",
+        "residual_unsolved_unknown_premise",
+    }
     assert len(claim_separation["evolve_accepted"]) == 1
     assert all(row["proof_body_exported"] is False for row in result["transition_trace"])
     assert all(row["stdout_stderr_in_receipt"] is False for row in result["transition_trace"])

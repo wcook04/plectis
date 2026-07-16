@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs ring2 premise retrieval precision recall harness for the public Plectis
+package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, CARD_OMITTED_FULL_PAYLOAD_KEYS, SOURCE_PATTERN_IDS, RUN_ID, RUN_VARIANT_ID, RUN_SUMMARY_SOURCE_REF, AGGREGATE_REPORT_SOURCE_REF, GRAPH_COMPARISON_SOURCE_REF, PROBLEM_SOURCE_MANIFEST_REF, SOURCE_REFS, SOURCE_DIGESTS, PUBLIC_SAFE_SOURCE_DIGESTS, SOURCE_MATERIAL_IDS, BODY_MATERIAL_STATUS, SOURCE_ARTIFACT_STATUS, SOURCE_OPEN_BODY_MATERIAL_STATUS, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.private_state_scan, microcosm_core.receipts, microcosm_core.schemas
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `run`, `run_precision_recall_bundle`, `result_card`, and `main`;
+constants such as `ORGAN_ID`, `FIXTURE_ID`, `VALIDATOR_ID`, `RESULT_NAME`, and 30 more pin
+local fixture names; dependencies include `argparse`, `hashlib`, `json`, `collections`, and
+3 more. It builds public fixture, result, card, or verdict structures while keeping private
+substrate bodies out of the payload.
 """
 from __future__ import annotations
 
@@ -38,7 +23,11 @@ from microcosm_core.private_state_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalized_public_receipt_string,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -225,13 +214,10 @@ ANTI_CLAIM = (
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return public root for path for
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -247,26 +233,22 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the display value used by
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness._rows` from
+    `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -278,13 +260,11 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -293,26 +273,20 @@ def _strings(value: object) -> list[str]:
 
 def _source_artifact_rel_path(source_ref: str) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_artifact_rel_path` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source artifact rel path for the organs ring2 premise retrieval precision recall
+    harness flow.
+
+    Inputs are `source_ref`; notable helpers are `Path`.
     """
     return Path("source_artifacts") / source_ref
 
 
 def _source_artifact_paths(input_dir: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_artifact_paths` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source artifact paths for
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness`.
+
+    Inputs are `input_dir`; notable helpers are `_source_artifact_rel_path`.
     """
     return [
         input_dir / _source_artifact_rel_path(source_ref)
@@ -322,13 +296,11 @@ def _source_artifact_paths(input_dir: Path) -> list[Path]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the input paths value used by
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are
+    `_source_artifact_paths`.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return [input_dir / name for name in names] + _source_artifact_paths(input_dir)
@@ -336,13 +308,11 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _sha256(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness._sha256`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     digest = hashlib.sha256(path.read_bytes()).hexdigest()
     return f"sha256:{digest}"
@@ -350,13 +320,10 @@ def _sha256(path: Path) -> str:
 
 def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_paths` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute freshness paths from `input_dir` and `include_negative`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `Path`,
+    `_public_root_for_path`, `is_file`, `append`, and 1 more.
     """
     source = Path(input_dir)
     public_root = _public_root_for_path(source)
@@ -370,13 +337,12 @@ def _freshness_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _freshness_basis(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_freshness_basis` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness._freshness_basis`
+    into the payload shape expected by organs ring2 premise retrieval precision recall
+    harness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     source = Path(input_dir)
     if not source.is_absolute():
@@ -440,13 +406,11 @@ def _fresh_precision_recall_bundle_receipt(
     command: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_precision_recall_bundle_receipt` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute fresh precision recall bundle receipt from `input_dir`, `out_dir`, and
+    `command`.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are
+    `_freshness_basis`, `get`, `is_file`, and `read_json_strict`.
     """
     path = out_dir / BUNDLE_RESULT_NAME
     if not path.is_file():
@@ -467,7 +431,10 @@ def _fresh_precision_recall_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_ring2_precision_recall_bundle":
         return None
-    if payload.get("command") != command:
+    if payload.get("command") not in {
+        command,
+        normalized_public_receipt_string(command),
+    }:
         return None
     basis = _freshness_basis(input_dir, include_negative=False)
     existing_basis = payload.get("freshness_basis")
@@ -485,13 +452,10 @@ def _fresh_precision_recall_bundle_receipt(
 
 def _line_count(path: Path) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_line_count` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Produce the line count value used by
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness`.
+
+    Inputs are `path`; notable helpers are `open`.
     """
     line_count = 0
     with path.open("r", encoding="utf-8") as handle:
@@ -502,13 +466,11 @@ def _line_count(path: Path) -> int:
 
 def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_payloads` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Load load payloads for
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness`.
+
+    Input comes from `input_dir` and `include_negative`; malformed or missing data follows
+    the exceptions and checks visible in the body.
     """
     names = (*INPUT_NAMES, *(NEGATIVE_INPUT_NAMES if include_negative else ()))
     return {Path(name).stem: read_json_strict(input_dir / name) for name in names}
@@ -516,13 +478,9 @@ def _load_payloads(input_dir: Path, *, include_negative: bool) -> dict[str, Any]
 
 def _walk_dicts(value: object) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_walk_dicts` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return walk dicts for the organs ring2 premise retrieval precision recall harness flow.
+
+    Inputs are `value`; notable helpers are `append`, `values`, `extend`, and `_walk_dicts`.
     """
     rows: list[dict[str, Any]] = []
     if isinstance(value, dict):
@@ -537,13 +495,10 @@ def _walk_dicts(value: object) -> list[dict[str, Any]]:
 
 def _forbidden_keys(row: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_forbidden_keys` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the forbidden keys value used by
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness`.
+
+    Inputs are `row`.
     """
     return sorted(key for key in FORBIDDEN_BODY_KEYS if key in row)
 
@@ -557,13 +512,11 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness._finding` into
+    the payload shape expected by organs ring2 premise retrieval precision recall harness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -586,13 +539,10 @@ def _record(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs ring2 premise retrieval precision recall harness flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -615,13 +565,11 @@ def _inspect_forbidden_bodies(
     subject_kind: str,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_inspect_forbidden_bodies` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run inspect forbidden bodies for
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness`.
+
+    The function is a named boundary around the visible side effect or orchestration step in
+    its body.
     """
     for row in _walk_dicts(payload):
         forbidden = _forbidden_keys(row)
@@ -645,13 +593,12 @@ def _inspect_forbidden_bodies(
 
 def _negative_findings(payloads: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_negative_findings` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness._negative_findings`
+    into the payload shape expected by organs ring2 premise retrieval precision recall
+    harness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     findings: list[dict[str, Any]] = []
     observed: dict[str, set[str]] = defaultdict(set)
@@ -723,13 +670,9 @@ def _negative_findings(payloads: dict[str, Any]) -> dict[str, Any]:
 
 def _labels_by_problem(payload: object) -> dict[str, dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_labels_by_problem` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute labels by problem from `payload`.
+
+    Inputs are `payload`; notable helpers are `_rows` and `get`.
     """
     labels: dict[str, dict[str, Any]] = {}
     for row in _rows(payload, "problems"):
@@ -741,39 +684,27 @@ def _labels_by_problem(payload: object) -> dict[str, dict[str, Any]]:
 
 def _policy(payload: object) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_policy` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return policy for the organs ring2 premise retrieval precision recall harness flow.
+
+    Inputs are `payload`.
     """
     return payload if isinstance(payload, dict) else {}
 
 
 def _rankings(payload: object) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rankings` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return rankings for the organs ring2 premise retrieval precision recall harness flow.
+
+    Inputs are `payload`; notable helpers are `_rows`.
     """
     return _rows(payload, "rankings")
 
 
 def _copied_material(payloads: dict[str, Any]) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_copied_material` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute copied material from `payloads`.
+
+    Inputs are `payloads`; notable helpers are `get`, `extend`, and `_rows`.
     """
     runs_payload = payloads.get("retrieval_runs")
     copied: list[dict[str, Any]] = []
@@ -786,13 +717,10 @@ def _copied_material(payloads: dict[str, Any]) -> list[dict[str, Any]]:
 
 def _source_refs_from_payload(payloads: dict[str, Any]) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_refs_from_payload` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute source refs from payload from `payloads`.
+
+    Inputs are `payloads`; notable helpers are `get`, `update`, `_rows`, `_strings`, and 1
+    more.
     """
     runs_payload = payloads.get("retrieval_runs")
     refs: set[str] = set(SOURCE_REFS)
@@ -813,13 +741,12 @@ def _source_refs_from_payload(payloads: dict[str, Any]) -> list[str]:
 
 def _validate_run_material(payloads: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_run_material` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness._validate_run_material`
+    into the payload shape expected by organs ring2 premise retrieval precision recall
+    harness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     copied = _copied_material(payloads)
     findings: list[dict[str, Any]] = []
@@ -866,13 +793,12 @@ def _validate_run_material(payloads: dict[str, Any]) -> dict[str, Any]:
 
 def _validate_source_artifacts(input_dir: Path, *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_source_artifacts` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness._validate_source_artifacts`
+    into the payload shape expected by organs ring2 premise retrieval precision recall
+    harness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     imports: list[dict[str, Any]] = []
     findings: list[dict[str, Any]] = []
@@ -962,13 +888,12 @@ def _source_open_body_import_summary(
     source_artifact_imports: list[dict[str, Any]],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness._source_open_body_import_summary`
+    into the payload shape expected by organs ring2 premise retrieval precision recall
+    harness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     verified_rows = [
         row for row in source_artifact_imports if row["exists"] and row["digest_match"]
@@ -1021,13 +946,11 @@ def _evaluate(
     policy_payload: object,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_evaluate` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness._evaluate` into
+    the payload shape expected by organs ring2 premise retrieval precision recall harness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     labels = _labels_by_problem(labels_payload)
     policy = _policy(policy_payload)
@@ -1209,13 +1132,12 @@ def _evaluate(
 
 def _build_board(*, result: dict[str, Any], secret_scan: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_board` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness._build_board`
+    into the payload shape expected by organs ring2 premise retrieval precision recall
+    harness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "schema_version": "ring2_precision_recall_board_v1",
@@ -1268,13 +1190,10 @@ def _common_receipt(
     receipt_paths: list[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_common_receipt` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return common receipt for
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness`.
+
+    Inputs are `result`, `schema_version`, and `receipt_paths`; notable helpers are `get`.
     """
     keys = (
         "status",
@@ -1331,13 +1250,10 @@ def _common_receipt(
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_relative_receipt_paths` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return relative receipt paths for the organs ring2 premise retrieval precision recall
+    harness flow.
+
+    Inputs are `paths` and `public_root`; notable helpers are `_display` and `values`.
     """
     return [_display(path, public_root=public_root) for path in paths.values()]
 
@@ -1350,13 +1266,12 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the build result value used by
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness`.
+
+    Inputs are `input_dir`, `command`, `input_mode`, and `include_negative`; notable helpers
+    are `_public_root_for_path`, `_load_payloads`, `load_forbidden_classes`, `scan_paths`,
+    and 15 more.
     """
     public_root = _public_root_for_path(input_dir)
     payloads = _load_payloads(input_dir, include_negative=include_negative)
@@ -1484,25 +1399,28 @@ def _write_receipts(
     bundle_mode: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_write_receipts` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Write write receipts for the organs ring2 premise retrieval precision recall harness
+    flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     public_root = _public_root_for_path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     if bundle_mode:
         bundle_path = out_dir / BUNDLE_RESULT_NAME
+        receipt_paths = [
+            normalized_public_receipt_string(
+                _display(bundle_path, public_root=public_root)
+            )
+        ]
         receipt = _common_receipt(
             result,
             schema_version="exported_ring2_precision_recall_bundle_validation_result_v1",
-            receipt_paths=[_display(bundle_path, public_root=public_root)],
+            receipt_paths=receipt_paths,
         )
         write_json_atomic(bundle_path, receipt)
-        result["receipt_paths"] = receipt["receipt_paths"]
+        result["receipt_paths"] = receipt_paths
         return result
 
     paths = {
@@ -1515,7 +1433,10 @@ def _write_receipts(
         if acceptance_out is not None
         else public_root / ACCEPTANCE_RECEIPT_REL
     )
-    receipt_paths = _relative_receipt_paths(paths, public_root)
+    receipt_paths = [
+        normalized_public_receipt_string(path)
+        for path in _relative_receipt_paths(paths, public_root)
+    ]
     result_payload = dict(result)
     result_payload.pop("ring2_precision_recall_board", None)
     result_payload["receipt_paths"] = receipt_paths
@@ -1529,14 +1450,23 @@ def _write_receipts(
     acceptance_payload = _common_receipt(
         result,
         schema_version="ring2_precision_recall_fixture_acceptance_v1",
-        receipt_paths=[_display(acceptance_path, public_root=public_root)],
+        receipt_paths=[
+            normalized_public_receipt_string(
+                _display(acceptance_path, public_root=public_root)
+            )
+        ],
     )
     write_json_atomic(paths["result"], result_payload)
     write_json_atomic(paths["board"], board_payload)
     write_json_atomic(paths["validation"], validation_payload)
     acceptance_path.parent.mkdir(parents=True, exist_ok=True)
     write_json_atomic(acceptance_path, acceptance_payload)
-    result["receipt_paths"] = [*receipt_paths, _display(acceptance_path, public_root=public_root)]
+    result["receipt_paths"] = [
+        *receipt_paths,
+        normalized_public_receipt_string(
+            _display(acceptance_path, public_root=public_root)
+        ),
+    ]
     return result
 
 
@@ -1548,13 +1478,10 @@ def run(
     command: str = "run",
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive run without touching module import state.
+
+    Inputs are `input_dir`, `out_dir`, `acceptance_out`, and `command`; notable helpers are
+    `_build_result`, `_freshness_basis`, `_write_receipts`, and `Path`.
     """
     result = _build_result(
         Path(input_dir),
@@ -1580,13 +1507,11 @@ def run_precision_recall_bundle(
     reuse_fresh_receipt: bool = False,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_precision_recall_bundle` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return run precision recall bundle for the organs ring2 premise retrieval precision
+    recall harness flow.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `reuse_fresh_receipt`; notable helpers
+    are `Path`, `mkdir`, `_build_result`, `_freshness_basis`, and 2 more.
     """
     source = Path(input_dir)
     out = Path(out_dir)
@@ -1617,13 +1542,12 @@ def run_precision_recall_bundle(
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness.result_card`
+    into the payload shape expected by organs ring2 premise retrieval precision recall
+    harness.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     freshness_basis = result.get("freshness_basis")
     freshness = freshness_basis if isinstance(freshness_basis, dict) else {}
@@ -1716,13 +1640,11 @@ def result_card(result: dict[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.ring2_premise_retrieval_precision_recall_harness` as a
+    command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog=f"microcosm organ {ORGAN_ID}")
     parser.add_argument("action", choices=["run", "run-precision-recall-bundle"])
