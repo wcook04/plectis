@@ -253,6 +253,11 @@ the line between what is proved and what is not. That same
 evidence-and-ceiling discipline, applied to real mathematics rather than
 software, is why it is worth a look.
 
+The public Plectis checkout applies the same floor to every Lean fixture it
+ships: `make check` rejects proof placeholders, project-defined axioms, native
+evaluation, unsafe/partial declarations, and unbounded kernel limits before
+the broader test suite runs.
+
 - [**Read the exposition PDF**](https://github.com/wcook04/plectis-lean-erdos249-257/blob/v0.6.0/erdos249-257-exposition.pdf):
   the mathematics in ordinary notation, and the canonical human-readable
   account.

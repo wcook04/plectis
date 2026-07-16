@@ -177,10 +177,14 @@ is reasoning about the whole substrate from the one slice you happened to open.
   `plectis comprehend --packet-atlas` is the menu.
 
 Before the full test floor, run `make check` for the fastest public preflight.
-It should print `Plectis preflight: organ evidence-class registry loads
-cleanly.` Before publishing, handing off, or treating the standalone clone as
-verified, run `make ci`. It is the public GitHub Actions entry and expands to
-editable install, public tests, source-form smoke, and package-install smoke
+It validates the organ evidence-class registry and scans every shipped Lean
+file for proof placeholders, project-defined axioms, native evaluation,
+unsafe/partial declarations, and unbounded kernel limits.
+It should print both `Lean proof-trust check: pass` and `Plectis preflight:
+organ evidence-class registry loads cleanly.` Before publishing, handing off,
+or treating the standalone clone as verified, run `make ci`. It is the public
+GitHub Actions entry and expands to that proof-trust preflight, editable
+install, public tests, source-form smoke, and package-install smoke
 verification.
 
 Do not launch multiple raw `pytest` processes against this root in parallel

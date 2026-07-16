@@ -17,20 +17,20 @@ def bad_order_cert_4_2_mod5 : BoundedOrderCertificate :=
   { base := 4, period := 2, modulus := 5, witness := 3 }
 
 theorem cert_2_3_5_valid : validateNatSumCertificate cert_2_3_5 = true := by
-  native_decide
+  decide
 
 theorem cert_4_7_11_valid : validateNatSumCertificate cert_4_7_11 = true := by
-  native_decide
+  decide
 
 theorem cert_8_13_21_valid : validateNatSumCertificate cert_8_13_21 = true := by
-  native_decide
+  decide
 
 theorem order_cert_2_3_mod5_valid :
     validateBoundedOrderCertificate order_cert_2_3_mod5 = true := by
-  native_decide
+  decide
 
 theorem order_cert_3_4_mod5_valid :
     validateBoundedOrderCertificate order_cert_3_4_mod5 = true := by
-  native_decide
+  decide
 
 end MicrocosmCertificateLab

@@ -398,23 +398,22 @@ def test_certificate_kernel_execution_lab_bundle_is_public_structured(
     assert result["source_module_manifest_ref"].endswith(
         "exported_certificate_kernel_execution_lab_bundle/source_module_manifest.json"
     )
-    assert result["source_module_count"] == 9
-    assert result["verified_source_module_count"] == 9
-    assert result["body_copied_material_count"] == 9
+    assert result["source_module_count"] == 6
+    assert result["verified_source_module_count"] == 6
+    assert result["body_copied_material_count"] == 6
     source_open = result["source_open_body_imports"]
     assert source_open["status"] == "pass"
     assert source_open["body_material_status"] == (
         "copied_non_secret_certificate_kernel_macro_body_landed"
     )
-    assert source_open["body_material_count"] == 9
+    assert source_open["body_material_count"] == 6
     assert source_open["body_text_exported_in_receipts"] is False
     assert source_open["body_text_exported_in_workingness"] is False
     assert "public_macro_proof_body" in source_open["material_classes"]
     assert "public_macro_tool_body" in source_open["material_classes"]
-    assert "public_macro_receipt_body" in source_open["material_classes"]
     source_modules = result["source_module_imports"]
     assert source_modules["status"] == "pass"
-    assert source_modules["verified_module_count"] == 9
+    assert source_modules["verified_module_count"] == 6
     assert source_modules["findings"] == []
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
     assert all(
@@ -479,6 +478,7 @@ def test_certificate_kernel_execution_lab_bundle_rejects_source_module_digest_mi
 
     manifest_path = bundle / "source_module_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    mutated_module_id = manifest["modules"][0]["module_id"]
     manifest["modules"][0]["sha256"] = "0" * 64
     manifest["modules"][0]["source_sha256"] = "0" * 64
     manifest["modules"][0]["target_sha256"] = "0" * 64
@@ -498,9 +498,9 @@ def test_certificate_kernel_execution_lab_bundle_rejects_source_module_digest_mi
     assert result["lake_project_build"]["skipped"] is True
     assert result["lake_project_build"]["skip_reason"] == "source_module_manifest_blocked"
     assert result["source_module_manifest_status"] == "blocked"
-    assert result["source_module_count"] == 9
+    assert result["source_module_count"] == 6
     assert result["body_copied_material_count"] == 0
-    assert result["verified_source_module_count"] == 8
+    assert result["verified_source_module_count"] == 5
     assert result["source_open_body_imports"]["status"] == "blocked"
     assert result["source_open_body_imports"]["body_material_count"] == 0
     assert "CERTIFICATE_KERNEL_SOURCE_MODULE_SHA256_MISMATCH" in result["error_codes"]
@@ -510,9 +510,7 @@ def test_certificate_kernel_execution_lab_bundle_rejects_source_module_digest_mi
         if row["error_code"] == "CERTIFICATE_KERNEL_SOURCE_MODULE_SHA256_MISMATCH"
     ]
     assert len(digest_findings) == 1
-    assert digest_findings[0]["negative_case_id"] == (
-        "period_noncollapse_strike_runner_body_import"
-    )
+    assert digest_findings[0]["negative_case_id"] == mutated_module_id
     assert digest_findings[0]["subject_kind"] == "source_module_target"
 
 
@@ -530,6 +528,7 @@ def test_certificate_kernel_execution_lab_bundle_rejects_partial_target_digest_m
 
     manifest_path = bundle / "source_module_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    mutated_module_id = manifest["modules"][0]["module_id"]
     manifest["modules"][0]["target_sha256"] = "0" * 64
     manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n",
@@ -547,8 +546,8 @@ def test_certificate_kernel_execution_lab_bundle_rejects_partial_target_digest_m
     assert result["lake_project_build"]["skipped"] is True
     assert result["lake_project_build"]["skip_reason"] == "source_module_manifest_blocked"
     assert result["source_module_manifest_status"] == "blocked"
-    assert result["source_module_count"] == 9
-    assert result["verified_source_module_count"] == 8
+    assert result["source_module_count"] == 6
+    assert result["verified_source_module_count"] == 5
     assert result["source_open_body_imports"]["status"] == "blocked"
     assert "CERTIFICATE_KERNEL_SOURCE_MODULE_SHA256_MISMATCH" in result["error_codes"]
     digest_findings = [
@@ -557,9 +556,7 @@ def test_certificate_kernel_execution_lab_bundle_rejects_partial_target_digest_m
         if row["error_code"] == "CERTIFICATE_KERNEL_SOURCE_MODULE_SHA256_MISMATCH"
     ]
     assert len(digest_findings) == 1
-    assert digest_findings[0]["negative_case_id"] == (
-        "period_noncollapse_strike_runner_body_import"
-    )
+    assert digest_findings[0]["negative_case_id"] == mutated_module_id
     assert digest_findings[0]["subject_kind"] == "source_module_target"
 
 
@@ -567,7 +564,7 @@ def test_certificate_kernel_source_modules_are_exact_macro_body_imports() -> Non
     manifest = json.loads(SOURCE_MODULE_MANIFEST.read_text(encoding="utf-8"))
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
-    assert manifest["module_count"] == 9
+    assert manifest["module_count"] == 6
     assert manifest["body_in_receipt"] is False
     assert manifest["body_text_in_receipt"] is False
     assert manifest["blocked_source_refs"] == []
@@ -576,7 +573,6 @@ def test_certificate_kernel_source_modules_are_exact_macro_body_imports() -> Non
     assert len(modules) == manifest["module_count"]
     assert {row["material_class"] for row in modules} == {
         "public_macro_proof_body",
-        "public_macro_receipt_body",
         "public_macro_tool_body",
     }
     for row in modules:
@@ -629,10 +625,10 @@ def test_certificate_kernel_execution_lab_bundle_card_reads_cached_receipt(
                     "exported_certificate_kernel_execution_lab_bundle/"
                     "source_module_manifest.json"
                 ),
-                "body_copied_material_count": 9,
+                "body_copied_material_count": 6,
                 "source_open_body_imports": {
                     "status": "pass",
-                    "body_material_count": 9,
+                    "body_material_count": 6,
                     "body_text_exported_in_receipts": False,
                 },
                 "authority_counters": {
@@ -694,8 +690,8 @@ def test_certificate_kernel_execution_lab_bundle_card_reads_cached_receipt(
     assert payload["runtime_summary"]["lake_return_code"] == 0
     assert payload["body_floor"]["source_module_manifest_status"] == "pass"
     assert payload["body_floor"]["source_open_body_import_status"] == "pass"
-    assert payload["body_floor"]["source_open_body_import_count"] == 9
-    assert payload["body_floor"]["body_copied_material_count"] == 9
+    assert payload["body_floor"]["source_open_body_import_count"] == 6
+    assert payload["body_floor"]["body_copied_material_count"] == 6
     assert payload["body_floor"]["body_text_exported_in_receipts"] is False
     assert payload["output_economy"]["full_transition_trace_exported"] is False
     assert payload["output_economy"]["claim_separation_rows_exported"] is False

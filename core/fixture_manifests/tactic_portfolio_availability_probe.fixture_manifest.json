@@ -29,10 +29,6 @@
       "role": "copied non-secret Lean source body for the grind availability probe"
     },
     {
-      "path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
-      "role": "copied non-secret Lean source body for the native_decide availability probe"
-    },
-    {
       "path": "fixtures/first_wave/tactic_portfolio_availability_probe/input/source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean",
       "role": "copied non-secret Lean source body for the omega availability probe"
     },
@@ -91,21 +87,21 @@
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
   ],
   "source_digests": {
-    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
-    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d"
   },
   "body_material_status": "copied_non_secret_macro_tactic_probe_body_with_provenance",
-  "source_artifact_count": 10,
+  "source_artifact_count": 9,
   "probe_source_body_status": "copied_non_secret_lean_probe_source_bodies_with_digest_verification",
   "tactic_availability_status": "real_lean_std_tactic_affordance_probe_rows",
   "authority_ceiling": "real_tactic_affordance_probe_not_proof_authority",
   "anti_claim": "This fixture validates copied real tactic availability probe rows for a scoped public environment; it does not prove goals, run providers, claim benchmark performance, or authorize release.",
-  "body_copied_material_count": 13,
+  "body_copied_material_count": 12,
   "source_open_body_imports": {
     "status": "pass",
     "body_material_status": "copied_non_secret_PROVER_smoke_run_tactic_affordance_probe_bodies_with_digest_provenance",
-    "body_material_count": 13,
+    "body_material_count": 12,
     "body_material_ids": [
       "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_tactic_portfolio_availability_json_body_import",
@@ -113,7 +109,6 @@
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_aesop_lean_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_decide_lean_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_grind_lean_body_import",
-      "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_omega_lean_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_rfl_lean_body_import",
       "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_simp_lean_body_import",
@@ -137,7 +132,6 @@
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-      "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/omega.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
       "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -152,7 +146,6 @@
       "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
       "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/decide.lean",
       "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-      "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
       "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean",
       "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
       "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp.lean",

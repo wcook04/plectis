@@ -1481,19 +1481,19 @@ def _lean_body_for_transition(row: dict[str, Any]) -> str:
     elif outcome == "fail_bad_certificate":
         body = (
             "example : validateNatSumCertificate bad_cert_2_3_6 = true := by\n"
-            "  native_decide\n"
+            "  decide\n"
         )
     elif outcome == "fail_bad_order_certificate":
         body = (
             "example : validateBoundedOrderCertificate "
             "bad_order_cert_4_2_mod5 = true := by\n"
-            "  native_decide\n"
+            "  decide\n"
         )
     elif action == "direct_order_certificate_check" and "order_cert_2_3_mod5" in refs:
         body = (
             "example : validateBoundedOrderCertificate "
             "order_cert_2_3_mod5 = true := by\n"
-            "  native_decide\n"
+            "  decide\n"
         )
     elif action == "add_certificate_row" and "order_cert_3_4_mod5" in refs:
         body = (
@@ -1505,7 +1505,7 @@ def _lean_body_for_transition(row: dict[str, Any]) -> str:
         body = (
             "example : validateBoundedOrderCertificate "
             "order_cert_3_4_mod5 = true := by\n"
-            "  native_decide\n"
+            "  decide\n"
         )
     elif action == "generated_certificate_theorem" and "cert_4_7_11" in refs:
         body = (
@@ -1520,12 +1520,12 @@ def _lean_body_for_transition(row: dict[str, Any]) -> str:
     elif action in {"direct_certificate_check", "select_certificate_row"} and "cert_8_13_21" in refs:
         body = (
             "example : validateNatSumCertificate cert_8_13_21 = true := by\n"
-            "  native_decide\n"
+            "  decide\n"
         )
     elif action in {"direct_certificate_check", "select_certificate_row"} and "cert_2_3_5" in refs:
         body = (
             "example : validateNatSumCertificate cert_2_3_5 = true := by\n"
-            "  native_decide\n"
+            "  decide\n"
         )
     else:
         body = "example : True := by\n  exact unknown_certificate_action\n"
