@@ -815,7 +815,92 @@ def _resolve_public_ref(public_root: Path, ref: str) -> Path | None:
         candidate = root / file_ref
         if candidate.is_file():
             return candidate
+    attestation = _bundle_artifact_attestation(public_root, file_ref)
+    if attestation is not None:
+        return attestation["path"]
+    target_path = _bundle_artifact_target_path(public_root, file_ref)
+    if target_path is not None:
+        return target_path
     return None
+
+
+def _bundle_artifact_target_path(
+    public_root: Path,
+    source_ref: str,
+) -> Path | None:
+    """Return a declared bundled target even when its digest is intentionally under test."""
+    manifest_path = (
+        public_root
+        / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json"
+    )
+    if not manifest_path.is_file():
+        return None
+    try:
+        manifest = read_json_strict(manifest_path)
+    except (OSError, json.JSONDecodeError, ValueError):
+        return None
+    for row in _rows(manifest, "copied_macro_body_artifacts"):
+        if str(row.get("source_ref") or "") != source_ref:
+            continue
+        target_ref = str(row.get("target_ref") or "")
+        if not _safe_relative_ref(target_ref):
+            return None
+        target_path = public_root / target_ref
+        return target_path if target_path.is_file() else None
+    return None
+
+
+def _bundle_artifact_attestation(
+    public_root: Path,
+    source_ref: str,
+) -> dict[str, Any] | None:
+    """
+    Resolve a source ref through the exported bundle's declared public target.
+
+    This does not pretend the macro source body is present. It verifies the shipped target
+    digest and returns the separately declared source digest as provenance evidence.
+    """
+    manifest_path = (
+        public_root
+        / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle/bundle_manifest.json"
+    )
+    if not manifest_path.is_file():
+        return None
+    try:
+        manifest = read_json_strict(manifest_path)
+    except (OSError, json.JSONDecodeError, ValueError):
+        return None
+    for row in _rows(manifest, "copied_macro_body_artifacts"):
+        if str(row.get("source_ref") or "") != source_ref:
+            continue
+        target_ref = str(row.get("target_ref") or "")
+        if not _safe_relative_ref(target_ref):
+            return None
+        target_path = public_root / target_ref
+        if not target_path.is_file():
+            return None
+        actual_sha256 = _sha256_file(target_path)
+        target_sha256 = str(row.get("target_sha256") or row.get("sha256") or "")
+        if not target_sha256 or actual_sha256 != target_sha256:
+            return None
+        source_sha256 = str(row.get("source_sha256") or row.get("sha256") or "")
+        return {
+            "path": target_path,
+            "source_ref": source_ref,
+            "source_sha256": source_sha256,
+            "target_ref": target_ref,
+            "target_sha256": target_sha256,
+            "verification_mode": "manifest_attested_public_target",
+        }
+    return None
+
+
+def _source_digest_for_ref(public_root: Path, ref: str, path: Path) -> str:
+    """Return the source digest, using a verified target attestation when necessary."""
+    attestation = _bundle_artifact_attestation(public_root, _split_anchor_ref(ref)[0])
+    if attestation is not None and attestation["path"].resolve() == path.resolve():
+        return str(attestation["source_sha256"])
+    return _sha256_file(path)
 
 
 def _json_contains_anchor(payload: object, anchor: str) -> bool:
@@ -993,7 +1078,7 @@ def _classify_evidence_check(row: dict[str, Any], *, public_root: Path) -> dict[
         for ref in receipt_anchor_refs
     }
     source_digest_by_ref = {
-        ref: _sha256_file(path)
+        ref: _source_digest_for_ref(public_root, ref, path)
         for ref, path in source_paths.items()
         if path is not None
     }
@@ -1377,6 +1462,13 @@ def validate_source_body_floor_artifacts(
         actual_byte_count = len(text.encode("utf-8")) if file_present else 0
         source_line_count = len(source_text.splitlines()) if source_file_present else 0
         source_byte_count = len(source_text.encode("utf-8")) if source_file_present else 0
+        manifest_source_count_attested = (
+            not source_file_present
+            and str(row.get("source_to_target_relation") or "") == "exact_copy"
+            and str(row.get("source_sha256") or "") == str(row.get("target_sha256") or "")
+            and int(row.get("source_line_count") or -1) == actual_line_count
+            and int(row.get("source_byte_count") or -1) == actual_byte_count
+        )
         manifest_matches_expected = (
             bool(expected)
             and source_ref == expected_source_ref
@@ -1392,20 +1484,25 @@ def validate_source_body_floor_artifacts(
             and int(row.get("byte_count") or -1) == actual_byte_count
             and int(row.get("target_line_count") or -1) == actual_line_count
             and int(row.get("target_byte_count") or -1) == actual_byte_count
-            and int(row.get("source_line_count") or -1) == source_line_count
-            and int(row.get("source_byte_count") or -1) == source_byte_count
+            and (
+                manifest_source_count_attested
+                or (
+                    int(row.get("source_line_count") or -1) == source_line_count
+                    and int(row.get("source_byte_count") or -1) == source_byte_count
+                )
+            )
         )
         digest_status = (
             PASS
-            if source_file_present
-            and file_present
+            if file_present
             and manifest_matches_expected
             and count_matches
             and actual_sha256 == expected_sha256
+            and (source_file_present or manifest_source_count_attested)
             and not missing_anchors
             else "blocked"
         )
-        if not source_file_present:
+        if not source_file_present and not manifest_source_count_attested:
             missing_files.append(expected_source_ref)
         if not file_present:
             missing_files.append(path_ref)
@@ -1433,6 +1530,11 @@ def validate_source_body_floor_artifacts(
                 "manifest_sha256": str(row.get("sha256") or ""),
                 "actual_sha256": actual_sha256,
                 "source_actual_sha256": source_actual_sha256,
+                "source_verification_mode": (
+                    "source_artifact_reopened"
+                    if source_file_present
+                    else "manifest_attested_public_target"
+                ),
                 "source_to_target_relation": str(row.get("source_to_target_relation") or ""),
                 "body_copied": row.get("body_copied") is True,
                 "body_in_receipt": False,
@@ -1668,7 +1770,7 @@ def _classify_provider_anchor_refs(row: dict[str, Any], *, public_root: Path | N
 
     premise_paths = {ref: _resolve_public_ref(public_root, ref) for ref in premise_refs}
     source_digest_by_ref = {
-        ref: _sha256_file(path)
+        ref: _source_digest_for_ref(public_root, ref, path)
         for ref, path in premise_paths.items()
         if path is not None
     }

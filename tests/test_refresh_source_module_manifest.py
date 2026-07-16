@@ -73,6 +73,53 @@ def test_refresh_source_module_manifest_cli_is_standalone_runnable() -> None:
     assert "ModuleNotFoundError" not in completed.stderr
 
 
+def test_refresh_manifest_updates_declared_source_and_target_sizes(
+    tmp_path: Path,
+) -> None:
+    refresh_module = _load_refresh_module()
+    public_root = tmp_path / "microcosm-substrate"
+    source_ref = "src/microcosm_core/organs/demo.py"
+    target_ref = (
+        "microcosm-substrate/examples/demo/source_modules/microcosm_core/organs/demo.py"
+    )
+    source_path = public_root / source_ref
+    target_path = public_root / target_ref.removeprefix("microcosm-substrate/")
+    source_path.parent.mkdir(parents=True, exist_ok=True)
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    source_path.write_text("VALUE = 1\nVALUE += 2\n", encoding="utf-8")
+    target_path.write_text("stale\n", encoding="utf-8")
+    manifest_path = _write_manifest(
+        public_root,
+        module_id="demo_source_body_import",
+        source_ref=source_ref,
+        target_ref=target_ref,
+    )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = manifest["modules"][0]
+    row.update(
+        {
+            "source_line_count": 1,
+            "source_byte_count": 6,
+            "target_line_count": 1,
+            "target_byte_count": 6,
+        }
+    )
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    result = refresh_module.refresh_manifest(
+        manifest_path,
+        module_ids=set(),
+        write=True,
+    )
+    refreshed = json.loads(manifest_path.read_text(encoding="utf-8"))["modules"][0]
+
+    assert result["status"] == "pass"
+    assert refreshed["source_line_count"] == 2
+    assert refreshed["target_line_count"] == 2
+    assert refreshed["source_byte_count"] == source_path.stat().st_size
+    assert refreshed["target_byte_count"] == target_path.stat().st_size
+
+
 def test_refresh_manifest_resolves_substrate_local_src_refs(tmp_path: Path) -> None:
     refresh_module = _load_refresh_module()
     public_root = tmp_path / "microcosm-substrate"

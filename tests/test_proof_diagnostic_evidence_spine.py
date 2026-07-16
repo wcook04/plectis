@@ -111,6 +111,10 @@ def _copy_public_fixture_tree(public_root: Path) -> None:
         MICROCOSM_ROOT / "fixtures/first_wave/proof_diagnostic_evidence_spine",
         public_root / "fixtures/first_wave/proof_diagnostic_evidence_spine",
     )
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/proof_diagnostic_evidence_spine",
+        public_root / "examples/proof_diagnostic_evidence_spine",
+    )
     checks_payload = json.loads((PROOF_FIXTURE_INPUT / "checks.json").read_text(encoding="utf-8"))
     provider_payload = json.loads(
         (PROOF_FIXTURE_INPUT / "provider_advisory_payloads.json").read_text(encoding="utf-8")
@@ -653,6 +657,37 @@ def test_proof_diagnostic_evidence_spine_accepts_exported_evidence_bundle(
     assert '"proof_body"' not in text
     assert '"provider_output_body"' not in text
     assert "provider output body" not in text
+
+
+def test_proof_diagnostic_evidence_bundle_is_cold_clone_self_contained(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/proof_diagnostic_evidence_spine",
+        public_root / "examples/proof_diagnostic_evidence_spine",
+    )
+    for receipt_ref in (
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json",
+    ):
+        source = MICROCOSM_ROOT / receipt_ref
+        target = public_root / receipt_ref
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
+    bundle = (
+        public_root
+        / "examples/proof_diagnostic_evidence_spine/exported_evidence_bundle"
+    )
+
+    result = run_evidence_bundle(bundle, public_root / "receipts/export", command="pytest")
+
+    assert result["status"] == "pass"
+    assert {
+        row["source_verification_mode"]
+        for row in result["source_body_floor_artifacts"]
+    } == {"manifest_attested_public_target"}
 
 
 def test_proof_diagnostic_evidence_spine_rejects_nested_provider_payload_laundering(

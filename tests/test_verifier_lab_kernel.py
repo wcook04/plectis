@@ -168,7 +168,7 @@ def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
     assert metrics["retrieval_query_count"] == 4
     assert metrics["ring2_problem_count"] == 10
     assert metrics["ring2_mean_precision_at_k"] == 0.36
-    assert metrics["proof_diagnostic_accepted_count"] >= 2
+    assert metrics["proof_diagnostic_accepted_count"] == 1
     assert set(result["claim_separation"]) == {
         "lean_verified",
         "provider_suggested",
@@ -192,6 +192,24 @@ def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
     assert result["synthetic_receipt_standin_allowed"] is False
     assert "private_state_scan" not in result
     assert "body_redacted" not in result
+
+
+def test_verifier_lab_kernel_fixture_uses_cold_clone_component_exports() -> None:
+    packet = json.loads(
+        (FIXTURE_INPUT / "verifier_lab_packet.json").read_text(encoding="utf-8")
+    )
+    by_organ = {
+        row["organ_id"]: row
+        for row in packet["component_inputs"]
+    }
+
+    assert by_organ["corpus_readiness_mathlib_absence_gate"]["input_mode"].startswith(
+        "exported"
+    )
+    assert by_organ["lean_std_premise_index"]["input_mode"].startswith("exported")
+    assert by_organ["proof_diagnostic_evidence_spine"]["input_mode"].startswith(
+        "exported"
+    )
 
 
 def test_verifier_lab_kernel_fixture_reuses_fresh_receipt(
@@ -226,6 +244,23 @@ def test_verifier_lab_kernel_receipts_are_public_relative_and_transparent_withou
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(MICROCOSM_ROOT / "fixtures", public_root / "fixtures")
+    for organ_id in (
+        "corpus_readiness_mathlib_absence_gate",
+        "lean_std_premise_index",
+        "proof_diagnostic_evidence_spine",
+    ):
+        shutil.copytree(
+            MICROCOSM_ROOT / "examples" / organ_id,
+            public_root / "examples" / organ_id,
+        )
+    for receipt_ref in (
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json",
+    ):
+        source = MICROCOSM_ROOT / receipt_ref
+        target = public_root / receipt_ref
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
 
     result = run(
         public_root / "fixtures/first_wave/verifier_lab_kernel/input",

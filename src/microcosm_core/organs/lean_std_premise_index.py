@@ -401,6 +401,7 @@ def _resolve_source_artifact_path(
     *,
     input_dir: Path,
     public_root: Path,
+    allow_manifest_target: bool = False,
 ) -> Path | None:
     """
     Return resolve source artifact path for the organs lean std premise index flow.
@@ -415,7 +416,82 @@ def _resolve_source_artifact_path(
     ):
         if candidate.is_file():
             return candidate
+    if not allow_manifest_target:
+        return None
+    for manifest_path in (
+        input_dir / SOURCE_MODULE_MANIFEST_NAME,
+        public_root
+        / "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle"
+        / SOURCE_MODULE_MANIFEST_NAME,
+    ):
+        if not manifest_path.is_file():
+            continue
+        try:
+            manifest = read_json_strict(manifest_path)
+        except (OSError, json.JSONDecodeError, ValueError):
+            manifest = {}
+        for row in _manifest_rows(manifest):
+            if str(row.get("source_ref") or "") != ref:
+                continue
+            target = _resolve_target_path(
+                row,
+                input_dir=input_dir,
+                public_root=public_root,
+            )
+            if target is not None and target.is_file():
+                return target
     return None
+
+
+def _source_artifact_verification_basis(
+    ref: str,
+    path: Path,
+    *,
+    input_dir: Path,
+) -> dict[str, str]:
+    """
+    Describe whether a source artifact was reopened or verified through its shipped target.
+
+    Exported bundles may intentionally omit the macro source body while shipping a
+    normalized public target plus a manifest that binds both source and target digests.
+    """
+    public_root = _public_root_for_path(input_dir)
+    for manifest_path in (
+        input_dir / SOURCE_MODULE_MANIFEST_NAME,
+        public_root
+        / "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle"
+        / SOURCE_MODULE_MANIFEST_NAME,
+    ):
+        if not manifest_path.is_file():
+            continue
+        try:
+            manifest = read_json_strict(manifest_path)
+        except (OSError, json.JSONDecodeError, ValueError):
+            manifest = {}
+        resolved = path.resolve(strict=False)
+        for row in _manifest_rows(manifest):
+            if str(row.get("source_ref") or "") != ref:
+                continue
+            for target_ref in _target_refs(row):
+                for candidate in _candidate_target_paths(
+                    target_ref,
+                    input_dir=input_dir,
+                    public_root=public_root,
+                ):
+                    if candidate.resolve(strict=False) != resolved:
+                        continue
+                    return {
+                        "mode": "manifest_attested_public_target",
+                        "expected_sha256": _strip_sha256_prefix(
+                            row.get("target_sha256") or row.get("sha256")
+                        ),
+                        "source_sha256": str(row.get("source_sha256") or ""),
+                    }
+    return {
+        "mode": "source_artifact_reopened",
+        "expected_sha256": "",
+        "source_sha256": "",
+    }
 
 
 def _normalize_source_ref(source_ref: object, *, source_root: object) -> str:
@@ -521,6 +597,7 @@ def _validate_source_artifact(
         source_ref,
         input_dir=input_dir,
         public_root=public_root,
+        allow_manifest_target=True,
     )
     if source_path is None:
         findings.append(
@@ -541,11 +618,21 @@ def _validate_source_artifact(
         }
 
     digest = _sha256_hex(source_path)
-    if not source_sha256 or digest != source_sha256:
+    verification_basis = _source_artifact_verification_basis(
+        source_ref,
+        source_path,
+        input_dir=input_dir,
+    )
+    expected_digest = (
+        verification_basis["expected_sha256"]
+        if verification_basis["mode"] == "manifest_attested_public_target"
+        else source_sha256
+    )
+    if not expected_digest or digest != expected_digest:
         findings.append(
             _finding(
                 "LEAN_STD_INDEX_SOURCE_ARTIFACT_DIGEST_MISMATCH",
-                "Declared Lean/Std premise-index source digest does not match the opened source artifact.",
+                "Declared Lean/Std premise-index digest does not match the opened source artifact or manifest-attested public target.",
                 case_id="source_artifact",
                 subject_id=source_ref,
                 subject_kind="source_artifact",
@@ -607,6 +694,11 @@ def _validate_source_artifact(
         "source_artifact_ref": source_ref,
         "source_artifact_sha256": f"sha256:{digest}",
         "source_artifact_premise_count": len(source_rows),
+        "source_artifact_verification_mode": verification_basis["mode"],
+        "declared_source_artifact_sha256": (
+            verification_basis["source_sha256"]
+            or (f"sha256:{source_sha256}" if source_sha256 else None)
+        ),
     }
 
 
@@ -716,6 +808,17 @@ def _source_module_manifest_result(
             if source_ref
             else None
         )
+        source_reopened = source_path is not None and source_path.is_file()
+        manifest_attested_target = (
+            not source_reopened
+            and row.get("body_copied") is True
+            and bool(row.get("source_sha256"))
+            and str(row.get("source_to_target_relation") or "")
+            in {
+                "source_faithful_normalized_copy",
+                "exact_public_safe_macro_copy",
+            }
+        )
         if not source_ref:
             findings.append(
                 _finding(
@@ -726,11 +829,11 @@ def _source_module_manifest_result(
                     subject_kind="source_module",
                 )
             )
-        elif source_path is None or not source_path.is_file():
+        elif not source_reopened and not manifest_attested_target:
             findings.append(
                 _finding(
                     "LEAN_STD_INDEX_SOURCE_MODULE_SOURCE_MISSING",
-                    "Declared source module import source_ref could not be opened.",
+                    "Declared source module import source_ref could not be opened and lacked a complete shipped-target attestation.",
                     case_id="source_module_manifest",
                     subject_id=module_id,
                     subject_kind="source_module",
@@ -750,13 +853,13 @@ def _source_module_manifest_result(
             )
         lines = _line_count(target)
         bytes_count = target.stat().st_size
-        source_digest = _sha256_hex(source_path) if source_path is not None and source_path.is_file() else None
-        source_lines = _line_count(source_path) if source_path is not None and source_path.is_file() else None
+        source_digest = _sha256_hex(source_path) if source_reopened else None
+        source_lines = _line_count(source_path) if source_reopened else None
         source_bytes_count = (
-            source_path.stat().st_size if source_path is not None and source_path.is_file() else None
+            source_path.stat().st_size if source_reopened else None
         )
         expected_source_digest = _strip_sha256_prefix(row.get("source_sha256"))
-        if expected_source_digest and source_digest != expected_source_digest:
+        if source_reopened and expected_source_digest and source_digest != expected_source_digest:
             findings.append(
                 _finding(
                     "LEAN_STD_INDEX_SOURCE_MODULE_SOURCE_DIGEST_MISMATCH",
@@ -790,7 +893,7 @@ def _source_module_manifest_result(
                     subject_kind="source_module",
                 )
             )
-        if isinstance(expected_source_lines, int) and source_lines != expected_source_lines:
+        if source_reopened and isinstance(expected_source_lines, int) and source_lines != expected_source_lines:
             findings.append(
                 _finding(
                     "LEAN_STD_INDEX_SOURCE_MODULE_SOURCE_LINE_COUNT_MISMATCH",
@@ -800,7 +903,7 @@ def _source_module_manifest_result(
                     subject_kind="source_module",
                 )
             )
-        if isinstance(expected_source_bytes, int) and source_bytes_count != expected_source_bytes:
+        if source_reopened and isinstance(expected_source_bytes, int) and source_bytes_count != expected_source_bytes:
             findings.append(
                 _finding(
                     "LEAN_STD_INDEX_SOURCE_MODULE_SOURCE_BYTE_COUNT_MISMATCH",
@@ -836,6 +939,11 @@ def _source_module_manifest_result(
                 "body_copied": row.get("body_copied") is True,
                 "body_in_receipt": row.get("body_in_receipt") is True,
                 "source_to_target_relation": row.get("source_to_target_relation"),
+                "source_verification_mode": (
+                    "source_artifact_reopened"
+                    if source_reopened
+                    else "manifest_attested_public_target"
+                ),
             }
         )
     return {
@@ -1415,6 +1523,12 @@ def _build_result(
         "source_artifact_status": source_artifact.get("status"),
         "source_artifact_ref": source_artifact.get("source_artifact_ref"),
         "source_artifact_sha256": source_artifact.get("source_artifact_sha256"),
+        "source_artifact_verification_mode": source_artifact.get(
+            "source_artifact_verification_mode"
+        ),
+        "declared_source_artifact_sha256": source_artifact.get(
+            "declared_source_artifact_sha256"
+        ),
         "source_artifact_premise_count": source_artifact.get(
             "source_artifact_premise_count",
             0,
@@ -1489,6 +1603,12 @@ def _common_receipt(
         "source_artifact_status": result.get("source_artifact_status"),
         "source_artifact_ref": result.get("source_artifact_ref"),
         "source_artifact_sha256": result.get("source_artifact_sha256"),
+        "source_artifact_verification_mode": result.get(
+            "source_artifact_verification_mode"
+        ),
+        "declared_source_artifact_sha256": result.get(
+            "declared_source_artifact_sha256"
+        ),
         "source_artifact_premise_count": result.get("source_artifact_premise_count"),
         "source_module_manifest_ref": result.get("source_module_manifest_ref"),
         "source_module_count": result.get("source_module_count"),

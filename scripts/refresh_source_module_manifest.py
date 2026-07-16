@@ -584,6 +584,14 @@ def refresh_manifest(
         if write:
             row["byte_count"] = len(expected_target_bytes)
             row["line_count"] = target_line_count
+            if "source_byte_count" in row:
+                row["source_byte_count"] = len(source_bytes)
+            if "source_line_count" in row:
+                row["source_line_count"] = source_line_count
+            if "target_byte_count" in row:
+                row["target_byte_count"] = len(expected_target_bytes)
+            if "target_line_count" in row:
+                row["target_line_count"] = target_line_count
             row["sha256"] = _styled_sha256(
                 expected_target_digest_hex,
                 prefixed=digest_style["sha256"],
