@@ -68,11 +68,13 @@
 \maketitle
 
 \begin{abstract}
-Plectis is a public software repository built out of a larger private system
+Plectis is a public software repository, an organised and copyable project
+folder, built out of a larger private system
 that cannot be published. I treat it as a case study in a general problem:
 what may a stranger reasonably conclude from a curated set of small,
 runnable public fragments of work they cannot see? Each of the
-\componentcount{} public components joins a claim to a fixed input, a
+\componentcount{} public components, the repository's registered and
+separately testable parts, joins a claim to a fixed input, a
 command, stored output records, an explicit pass rule, and a stated limit;
 the count is an inventory, not a score. The public repository lets a reader
 test claims about these published files and their outputs. It cannot, by
@@ -141,8 +143,10 @@ Not established here & Whether the public selection represents the private whole
 
 Reading this paper requires no programming. Reproducing its runs requires a
 terminal (the text window in which commands are typed), Git (the standard
-program for copying and versioning repositories), Python 3.11 or later, the
-\code{pip} installer, and basic command-line use. So that the
+program for copying and versioning repositories), the Python programming
+language (version 3.11 or later), the
+\code{pip} installer (the standard tool for fetching and installing Python
+software), and basic command-line use. So that the
 body of the paper can stay with the argument, the exact commands,
 environment details, and installation notes are collected in the appendix,
 which is a dated record of one verification pass at the commit named there.
@@ -209,7 +213,9 @@ exposed to a stranger.
 \caption{What every registered component must connect, at commit
 \code{\snapshotshort}. The top row is words; the middle rows are mechanism;
 a pass from the validator is offered as evidence for the claim and must be
-read under the limit. Every solid element is supplied by the project. The
+read under the limit. Every element, words and mechanism alike, is
+supplied by the project; dashed outlines mark prose rather than something
+that runs. The
 blue row names what a stranger can do to each part without asking anyone.}
 \label{fig:contract}
 \end{figure}
@@ -256,8 +262,8 @@ I make no claim about those settings; the point is only that the contract
 is a shape for exposing claims to strangers, and this repository is one
 implementation of it.
 
-It is also worth saying what the property being built is not, because it
-has familiar neighbours. It is not reproducibility, though it uses it: a
+The property being built has familiar neighbours and is none of them. It
+is not reproducibility, though it uses it: a
 run can repeat perfectly with no stated claim attached, and a claim can be
 answerable while still awaiting a decent test. It is not transparency: the
 design begins from the fact that most of the system stays hidden, and
@@ -278,7 +284,8 @@ here is that every part of the evidence can be seen at once.
 
 The reported origin is this. The private system contains a small macOS
 recording application, and one of that application's functions reduces a
-buffer of audio samples to a level between zero and one. The public
+short stretch of audio samples held in memory to a level between zero and
+one. The public
 component re-expresses that calculation in Python. The component's code and
 its stored receipts name the private file it claims to re-express
 (\component{AudioLevelMonitor.swift}); a stranger cannot open that file, so
@@ -288,7 +295,8 @@ everything else.
 The declared calculation is the standard one called root-mean-square (the
 \code{rms} in the component's name): square each sample, average the
 squares, take the square root, then multiply by eight and cap the result at
-one. Sixteen-bit integer samples are first divided by 32{,}767 to bring
+one. Sixteen-bit integer samples are first divided by 32{,}767, the
+largest value a sixteen-bit integer can hold, to bring
 them onto the same scale. An empty input must produce zero. An unrecognised
 format name must be refused rather than guessed at.
 
@@ -353,7 +361,7 @@ positions differ in kind, not only in degree:
 \midrule
 The project itself: implementation, cases, expectations, and rule from one hand. & Repeatability under the project's own test; the four readings above all stay open. \\
 \addlinespace
-The reader's own derivation from stated premises, as in the first row above. & Bounded correctness of that one calculation on that one case. \\
+The reader's own derivation from stated premises, as in the worked example's decimal-samples row. & Bounded correctness of that one calculation on that one case. \\
 \addlinespace
 An established external tool or reference. & Whatever the reference itself warrants, on the cases run, within the reference's own limits. \\
 \addlinespace
@@ -366,7 +374,7 @@ The world: an outcome observed apart from any program. & A bearing on usefulness
 
 Every component in the collection currently sits in the first position,
 except where a reader promotes a case to the second by recomputing it, as
-the first row invites. The staged programme of
+the worked example's decimal-samples row invites. The staged programme of
 Section~\ref{sec:stronger} is, among other things, a plan for moving
 selected components down this table.
 
@@ -476,6 +484,8 @@ drawn from stays on the left.
     \draw[black!35, fill=gray!25] (\x-0.14,\y-0.14) rectangle (\x+0.14,\y+0.14);
 \foreach \sx/\sy in {1.80/0.55,2.85/1.35,0.75/2.15,4.95/1.35}
   \draw[black!75, fill=gray!70] (\sx-0.14,\sy-0.14) rectangle (\sx+0.14,\sy+0.14);
+\node[font=\small, text=black!45] at (5.42,1.35) {$\cdots$};
+\node[font=\small, text=black!45] at (2.85,0.10) {$\cdots$};
 % boundary
 \draw[black!70, dashed, line width=0.8pt] (7.15,-1.15) -- (7.15,4.15);
 \node[font=\scriptsize, text=black!70, above] at (7.15,4.2) {the publication boundary};
@@ -491,8 +501,10 @@ drawn from stays on the left.
 \node[gnote, text width=5.6cm] at (2.9,-0.95) {outside public evidence: how many candidates there were, what was excluded and why, whether these resemble ordinary private work};
 \node[gnote, text width=4.6cm] at (10.95,-0.95) {inside public evidence: files, commands, records, and tests of the published fragments};
 \end{tikzpicture}
-\caption{The selection problem. Each square is a private mechanism; the
-darker ones were given public form. The count of squares on the left, the
+\caption{The selection problem. Each square stands for a private
+mechanism; the darker ones were given public form, and the grid trails off
+because its true extent is exactly what the public side cannot know. The
+count of squares on the left, the
 rule that picked the darker ones, and the resemblance between the two sides
 are all invisible from the right, so the collection is exact evidence about
 the published fragments and, by itself, evidence about nothing else.}
@@ -536,7 +548,8 @@ The five distinctions share one structure. What a stranger observes sits
 inside the published frame: a run completed, a record matched, chosen cases
 passed, a scan finished. The conclusion the observation invites lies
 outside the frame, and reaching it needs a premise the observation does not
-contain: that the public object descends from the private one; that the
+contain, one premise per distinction: that the public object descends from
+the private one; that the
 expectation is what the answer should have been; that the rule tests what
 the words say; that the chosen cases stand for the unchosen; that the risks
 searched for are the risks there are. The component contract does not
@@ -561,9 +574,12 @@ deliberately left uncrossed, where an unnamed one is crossed by default.
 \draw[softflow] (obs.east) -- node[gaplabel, pos=0.55]{reach: cases I did not choose} (g4.west);
 \draw[softflow] (obs.east) -- node[gaplabel, pos=0.55]{coverage: search beyond\\the declared patterns} (g5.west);
 \end{tikzpicture}
-\caption{Five conclusions a matching run invites and does not license, in
-the order of this section's distinctions. Each dashed arrow needs a further
-premise that the observation itself cannot supply. The contract's
+\caption{Five conclusions a matching run invites and does not license.
+Each dashed arrow needs a further premise that the observation itself
+cannot supply, and the tags follow the order of this section's
+distinctions: origin for provenance, standard for correctness, meaning for
+the validator's rule against the stated claim, reach for selection, and
+coverage for risk. The contract's
 contribution is not to cross these gaps but to make them nameable, one
 component at a time.}
 \label{fig:gaps}
@@ -629,7 +645,8 @@ paths, evidence route, and limit.
 Two cautions govern any reading of these tables. The first is arithmetic:
 components are not independent witnesses. Entries share code, fixture
 style, validator authorship, and my judgement; several entries can descend
-from one private mechanism, and where they do, they pass and fail together.
+from one private mechanism, and where they do, their verdicts tend to move
+together.
 \componentcount{} entries are \componentcount{} registered claims, not
 \componentcount{} separate confirmations of anything. The same discount
 applies across the routes: the four routes are four different ceilings on
@@ -641,7 +658,7 @@ records raises the cost of accident, not the number of witnesses.
 The second caution is association. Group names such as computer-checked
 mathematics and AI reliability and safety tests borrow gravity from serious
 fields, and the borrowing happens in a reader whether or not any sentence
-asserts it. The deflationary test is to restate each group as the weakest
+asserts it. The corrective is to restate each group as the weakest
 property its validators actually check, which is often that a fixed case
 replays or that a record matches a declared shape, and then see how much of
 the impression survives. The names are for finding components, not for
@@ -652,13 +669,14 @@ weighing them.
 
 Every distinction in Section~\ref{sec:distinctions} ends at the same door,
 and it is better opened than pointed at. At the commit this paper
-describes, I hold every consequential choice on both sides of every test:
-which private mechanisms were candidates; which were selected; how finely
-each was divided into components, and so what the count counts; which of
-the four routes each took; which inputs were frozen; what the expected
-values are; what each validator checks; where each refusal boundary sits;
-which group each entry is filed under; which failures this paper explains,
-and in what tone; which single component the worked example honours; and
+describes, I hold every consequential choice on both sides of every test.
+I chose which private mechanisms were candidates, which were selected, and
+how finely each was divided into components, and so what the count counts.
+I chose which of the four routes each took, which inputs were frozen, what
+the expected values are, what each validator checks, and where each
+refusal boundary sits. And I chose which group each entry is filed under,
+which failures this paper explains and in what tone, which single
+component the worked example honours, and
 where the publication boundary lies. Somebody had to make each of these
 choices, and the privacy constraint meant it was me. None of that is
 misconduct.
@@ -860,8 +878,8 @@ In a clean clone at this commit, the tour read 5{,}018 project files, found
 five possible reading orders for them, selected the one that starts from the
 README (\component{readme_onboarding_route}), wrote 21 files under a new
 \code{.microcosm/} directory beside the project, and reported the examined
-source files unchanged. Its output names three handles carried by every
-recorded observation: the evidence behind it, the event record it came from,
+source files unchanged. Its output shows that every recorded observation
+carries three things: the evidence behind it, the event record it came from,
 and the limit on what it authorises. The \code{.microcosm/}
 directory can be deleted and generated again. The repository's README shows
 the same command reporting a different file count from a different day.
@@ -875,10 +893,16 @@ python3 -m pip install .
 plectis tour --format text .
 \end{Verbatim}
 
-The installed package declares no third-party runtime dependencies. The
-build step requires a sufficiently recent \code{setuptools}, which a cold
-machine may download when \code{pip} builds the package. After
-installation, the core component runs make no network or AI-model calls.
+The installed package needs nothing beyond Python itself to run: it
+declares no third-party runtime dependencies. The
+build step requires a sufficiently recent \code{setuptools} (a standard
+Python packaging tool), which a machine
+building a Python package for the first time may download when \code{pip}
+builds this one. The core
+components are designed to make no network or AI-model calls when they
+run; no registered check enforces that absence, so the sentence
+has the status of an inspectable design claim, and a doubting reader
+should search the shipped source rather than trust it.
 Before anything is installed, \code{./bootstrap.sh} checks a fresh clone and
 reports whether the shipped inputs and declared limits are intact.
 
