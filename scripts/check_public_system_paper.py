@@ -55,8 +55,10 @@ FORBIDDEN_OVERCLAIMS = (
 
 # Sentences the paper's argument stands on.  The first block defines terms a
 # cold reader needs; the second block carries the evidential distinctions
-# (provenance, repeatability, selection, risk) that keep the paper's claims
-# bounded.  Removing one is a claim-strength change, so it fails this check.
+# (provenance, repeatability, validator-vs-claim, selection, risk) that keep
+# the paper's claims bounded; the third block carries the author's-hand and
+# record-aging cautions.  Removing one is a claim-strength change, so it
+# fails this check.
 REQUIRED_COLD_READER_ANCHORS = (
     r"A \emph{repository} is",
     r"A \emph{component} in",
@@ -78,6 +80,22 @@ REQUIRED_COLD_READER_ANCHORS = (
     "did not find the patterns it was designed to find",
     "who controls the consequential choices",
     "One successful run supports one bounded conclusion",
+    # Distinction: a validator's rule versus the stated claim.
+    "narrower than the claim as worded",
+    # Refusal boundaries: predeclared versus drawn after the fact.
+    "before or after an awkward case",
+    # Correlated records are not corroboration.
+    "not independent witnesses",
+    "one witness, recorded several times",
+    "four different ceilings",
+    # The shared structure of the five distinctions.
+    "a named gap can be argued about",
+    # The author's-hand cautions: arrangement can outrun assertion, and the
+    # format itself tilts the picture.
+    "cautious sentence by sentence",
+    "tilts towards what publishes well",
+    # Record aging: repairs add facts, they do not replace them.
+    "does not subtract the first",
 )
 
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"
