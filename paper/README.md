@@ -4,8 +4,10 @@
 # Plectis paper
 
 `plectis-public-system.tex` is the source for the short public-system paper.
-It explains Plectis from first principles through one real local run, then
-introduces the component corpus, evidence model, and authority boundary.
+It explains Plectis from first principles as what it is: the public slice of
+a private AI-built system, published as source code and runnable fixtures.
+It covers what is in the slice, one real run, how the slice was cut from the
+private repository, and what a passing check does and does not show.
 
 Build it without changing the repository's generated surfaces:
 
