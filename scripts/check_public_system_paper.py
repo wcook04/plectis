@@ -96,6 +96,12 @@ REQUIRED_COLD_READER_ANCHORS = (
     "tilts towards what publishes well",
     # Record aging: repairs add facts, they do not replace them.
     "does not subtract the first",
+    # Local wins do not answer systemic objections.
+    "successful execution of any number of selected items",
+    # A confidential provenance review transfers trust, it does not remove it.
+    "transfer trust rather than remove it",
+    # Negative evaluations have the same standing as passes.
+    "Disappointment is in scope",
 )
 
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"

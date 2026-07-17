@@ -68,13 +68,13 @@
 \maketitle
 
 \begin{abstract}
-Plectis is a public software repository, an organised and copyable project
-folder, built out of a larger private system
+Plectis is a public software repository (an organised, copyable project
+folder) built out of a larger private system
 that cannot be published. I treat it as a case study in a general problem:
 what may a stranger reasonably conclude from a curated set of small,
 runnable public fragments of work they cannot see? Each of the
-\componentcount{} public components, the repository's registered and
-separately testable parts, joins a claim to a fixed input, a
+\componentcount{} public components (the repository's registered,
+separately testable parts) joins a claim to a fixed input, a
 command, stored output records, an explicit pass rule, and a stated limit;
 the count is an inventory, not a score. The public repository lets a reader
 test claims about these published files and their outputs. It cannot, by
@@ -97,7 +97,7 @@ I have a larger private software system that I cannot responsibly publish:
 it contains personal records, credentials, live browser and account
 information, my working notes, and unfinished tools. I would still like
 some of its claims to be answerable to strangers, rather than resting
-entirely on my say-so. Answerable has a definite meaning here: starting
+entirely on my say-so. \emph{Answerable} has a definite meaning here: starting
 from public material alone, a stranger can make something happen that bears
 on the claim, can inspect the rule by which the outcome is judged, and can
 aim any objection at a particular public object rather than at my account
@@ -134,7 +134,7 @@ The boundary of the evidence can be stated before any command is run:
 \toprule
 \textbf{Status} & \textbf{What belongs in it} \\
 \midrule
-Publicly checkable & The contents of a named public commit, its registered commands, the files those commands write, and whether its public tests pass. \\
+Publicly checkable & The contents of a named public commit, its registered commands, the files those commands write, and the results of its public tests. \\
 Reported here & The private system's history, the role of AI agents in producing it, and the private origin of published material. \\
 Not established here & Whether the public selection represents the private whole, whether the mechanisms generalise beyond their fixed cases, whether self-supplied success criteria are independently correct or even aimed at the stated claims, and whether the private system works reliably at all. \\
 \bottomrule
@@ -163,9 +163,9 @@ describe files and commands; they do not grade the importance of what any
 component does. (Inside the repository a component is called an
 \emph{organ}, and the code package is named \code{microcosm\_core}: the
 project was previously called Microcosm, and several file and command names
-keep the old name. The generated page \code{ORGANS.md}, which gives a plain
-description and a first command for every component, is named after the
-first.)
+keep the old name. The generated page \code{ORGANS.md}, named for the old
+term, gives a plain
+description and a first command for every component.)
 
 At commit \code{\snapshotshort} the registry, the machine-readable list of
 components, contains \componentcount{} entries. Every entry is required to
@@ -321,7 +321,7 @@ At commit \code{\snapshotshort}, the run produced:
 \textbf{Case} & \textbf{Input} & \textbf{Expected} & \textbf{Observed} & \textbf{Result} \\
 \midrule
 Decimal samples & 0.0,\ 0.05,\ $-0.05$,\ 0.1 & 0.489897949 & 0.489897949 & pass \\
-16-bit integer samples & 0,\ 1638,\ $-1638$,\ 3277 & 0.489892970 & 0.489892970 & pass \\
+Sixteen-bit integer samples & 0,\ 1638,\ $-1638$,\ 3277 & 0.489892970 & 0.489892970 & pass \\
 Values above the cap & 1.0,\ $-1.0$,\ 0.5 & 1.000000000 & 1.000000000 & pass \\
 Empty input & (none) & 0 & 0 & pass \\
 Unknown format & \code{pcm24} & refusal & refusal & pass \\
@@ -332,7 +332,7 @@ Unknown format & \code{pcm24} & refusal & refusal & pass \\
 Because the inputs and the rule are both printed above, the first row can be
 checked without the repository or a computer: the squares of the four
 samples average to 0.00375, whose square root is $0.061237\ldots$, and eight
-times that is $0.489897\ldots$ A reader with a calculator can recompute this
+times that is $0.489897\ldots$. A reader with a calculator can recompute this
 expected value from the stated formula alone. For this one case the reader
 can act as their own \emph{oracle}, the general name for whatever determines
 what an answer should have been, independently of the program under test.
@@ -511,8 +511,9 @@ the published fragments and, by itself, evidence about nothing else.}
 \label{fig:boundary}
 \end{figure}
 
-The registry's count should be read in that light. \componentcount{}
-entries defines the published population exactly, which is what a later
+The registry's count should be read in that light. A registry of
+\componentcount{} entries defines the published population exactly, which
+is what a later
 evaluation would need in order to sample from it and report failure rates
 against a fixed denominator. The count is an inventory, not a score, and
 even the unit of counting is a choice I control, since one mechanism could
@@ -633,7 +634,8 @@ Contract checker & \validatorcount & Whether a public input satisfies a declared
 \end{tabular}
 \end{center}
 
-Copied source preserves the most text and demonstrates the least behaviour.
+The copied-source route preserves the most text and demonstrates the least
+behaviour.
 A reimplementation demonstrates behaviour while surrendering textual
 identity; the worked example is one of the \refactorcount{} in that route.
 An external-tool run borrows the tool's authority along with the tool's
@@ -642,8 +644,8 @@ to require. A reader who wants to know which trade a given component made
 can read its registry entry, which names its operation, command, receipt
 paths, evidence route, and limit.
 
-Two cautions govern any reading of these tables. The first is arithmetic:
-components are not independent witnesses. Entries share code, fixture
+Two cautions govern any reading of these tables. The first caution is
+arithmetic: components are not independent witnesses. Entries share code, fixture
 style, validator authorship, and my judgement; several entries can descend
 from one private mechanism, and where they do, their verdicts tend to move
 together.
@@ -696,8 +698,18 @@ arrangement, so declaring the risk does not discharge it; nothing in the
 text can establish that the text is not doing what this paragraph
 describes.
 
+A quieter displacement deserves its own sentence. Components make
+disagreement small, and smallness cuts both ways: a reader can win an
+argument about one input or one rule while the question that brought them
+here, whether the selection is fair, whether the whole is sound, what any
+of it is for, goes unaddressed. An objection about selection is not
+answered by the successful execution of any number of selected items. The
+registry's job is to host the small arguments, not to stand in for the
+large ones.
+
 Three defences need no cooperation from me. Read any component at the
-weakest property its validator checks, as the previous section proposes.
+weakest property its validator checks, as
+Section~\ref{sec:collection} proposes.
 Treat every count as an inventory, and every agreement among my records as
 one witness. And weigh what the format leaves out: a mechanism survives
 selection when it can be made bounded, deterministic, and runnable in
@@ -708,7 +720,8 @@ published picture tilts towards what publishes well before any question of
 honesty arises.
 
 The fourth defence is structural rather than textual, and it is the subject
-of the next section: evidence about an object like this becomes stronger as
+of Section~\ref{sec:stronger}: evidence about an object like this becomes
+stronger as
 the consequential choices stop being mine.
 
 \section{What stronger evidence would look like}
@@ -753,7 +766,7 @@ leaves the later classes untouched.
 \node[gnote, text width=2.2cm] at (6.20,-0.35) {cannot reach the private pool};
 \node[gnote, text width=2.2cm] at (8.95,0.20)  {bounded cases only, not generality};
 \node[gnote, text width=2.2cm] at (11.70,0.75) {usefulness only where compared};
-\node[gnote, text width=2.2cm] at (14.45,1.30) {may reasonably never happen};
+\node[gnote, text width=2.2cm] at (14.45,1.30) {moves trust to the reviewer};
 \end{tikzpicture}
 \caption{Stronger evidence as a transfer of control. Above each stage, in
 blue, the choice that leaves my hands; below it, in grey, what that stage
@@ -793,7 +806,10 @@ Usefulness is comparative, and nothing in this paper compares.
 
 \emph{A provenance review} is the only stage that could bear on the origin
 story: a trusted person examining selected private material against the
-public collection under confidentiality. The privacy cost may reasonably
+public collection under confidentiality. Even completed, this stage would
+transfer trust rather than remove it: public readers would be relying on
+the reviewer's access, competence, and report instead of on mine, and the
+review itself could not be published. The privacy cost may reasonably
 never be paid. If it is not, the origin story remains testimony, and this
 paper is written so that its argument does not depend on it.
 
@@ -811,7 +827,11 @@ a revision, carrying its date and its cause, rather than the project
 appearing always to have meant the narrower thing. A test rewritten after
 its outcome is known is a better test but a different one: passing it
 answers the earlier finding, and only cases fixed before their outcomes
-were known count as fresh confirmation. An outside evaluator's report,
+were known count as fresh confirmation. Disappointment is in scope: an
+evaluation that concludes a component is trivial, or no better than a
+short ordinary script, is the machinery working, and its conclusion
+belongs on the record with the same standing as a pass. An outside
+evaluator's report,
 where one comes to exist, should remain a separate document under the
 evaluator's control, cited rather than absorbed. Where the repository's
 future conduct falls short of this paragraph, the shortfall is itself a
@@ -869,7 +889,7 @@ cd plectis
 PYTHONPATH=src python3 -m plectis tour --format text .
 \end{Verbatim}
 
-The final full stop in the tour command means ``the current folder.'' To
+The final full stop in the tour command means ``the current folder''. To
 reproduce the exact state this appendix describes, run
 \code{git checkout \snapshotshort} after \code{cd plectis}; without it the
 commands run against the newest version instead.
@@ -900,9 +920,9 @@ Python packaging tool), which a machine
 building a Python package for the first time may download when \code{pip}
 builds this one. The core
 components are designed to make no network or AI-model calls when they
-run; no registered check enforces that absence, so the sentence
-has the status of an inspectable design claim, and a doubting reader
-should search the shipped source rather than trust it.
+run. No registered check enforces that absence: it is a design claim open
+to inspection, not a tested property, and a doubting reader should search
+the shipped source rather than trust this sentence.
 Before anything is installed, \code{./bootstrap.sh} checks a fresh clone and
 reports whether the shipped inputs and declared limits are intact.
 
