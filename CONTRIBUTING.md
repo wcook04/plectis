@@ -31,7 +31,9 @@ reporting, not noise. Open a GitHub issue at
 Keep the original failing output rather than substituting a component or
 input that happens to pass. Reports that dispute a pass rule or an expected
 value are as welcome as reports of failing runs: the success criteria are
-part of what is published for challenge.
+part of what is published for challenge, and so is the unit of counting:
+report it if two components look like one mechanism, or if a boundary
+excludes the difficult part of a task.
 
 ## Development setup
 

@@ -198,8 +198,8 @@ exposed to a stranger.
 \node[act] (a1) at (0,-3.45) {perturb it};
 \node[act] (a2) at (3.45,-3.45) {read it;\\rerun it};
 \node[act] (a3) at (6.55,-3.45) {regenerate\\them};
-\node[act] (a4) at (9.55,-3.45) {generate a fresh receipt\\and compare; dispute the rule};
-\node[act] (a5) at (13.0,-3.45) {hold every\\conclusion to the limit};
+\node[act] (a4) at (9.55,-3.45) {generate a fresh receipt\\and compare;\\dispute the rule};
+\node[act] (a5) at (13.0,-3.45) {hold every\\conclusion\\to the limit};
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a1) -- (fix);
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a2) -- (code);
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a3) -- (out);
@@ -352,9 +352,13 @@ positions differ in kind, not only in degree:
 \textbf{Where the oracle lives} & \textbf{What a matching result then supports} \\
 \midrule
 The project itself: implementation, cases, expectations, and rule from one hand. & Repeatability under the project's own test; the four readings above all stay open. \\
+\addlinespace
 The reader's own derivation from stated premises, as in the first row above. & Bounded correctness of that one calculation on that one case. \\
+\addlinespace
 An established external tool or reference. & Whatever the reference itself warrants, on the cases run, within the reference's own limits. \\
+\addlinespace
 An evaluator who chooses inputs and expected results after a version is frozen. & Correctness on the evaluated cases, with my control over the answer removed. \\
+\addlinespace
 The world: an outcome observed apart from any program. & A bearing on usefulness or empirical adequacy, where such an outcome exists at all. \\
 \bottomrule
 \end{tabular}
