@@ -34,14 +34,12 @@
 \newcommand{\validatorcount}{18}
 
 \hypersetup{
-  pdftitle={Plectis: Bounded Public Evidence from a Private AI-Built System},
+  pdftitle={Plectis: What a Stranger Can Check},
   pdfauthor={Will Cook},
-  pdfsubject={What a stranger can check in the public Plectis repository, what the author can only report, and what remains unestablished},
+  pdfsubject={Bounded public evidence from a private AI-built system: what a stranger can check, what the author can only report, and what remains unestablished},
 }
-\title{Plectis: Bounded Public Evidence\\
-from a Private AI-Built System\\
-\large What a stranger can check, what I can only report,\\
-and what remains unestablished}
+\title{Plectis: What a Stranger Can Check\\
+\large Bounded public evidence from a private AI-built system}
 \author{Will Cook}
 \date{July 2026}
 
@@ -50,41 +48,41 @@ and what remains unestablished}
 
 \begin{abstract}
 Plectis is a public software repository built out of a larger private system
-that cannot be published. I treat it here as a case study in a general
-problem: what may a stranger reasonably conclude from a curated set of small,
-runnable public fragments taken, or adapted, from a private body of work they
-cannot see? Each of the \componentcount{} public components joins a claim to
-a fixed input, a command, stored output records, an explicit pass rule, and a
-stated limit. The count is an inventory, not a score. The public repository lets
-a reader test claims about these published files and their outputs. It cannot, by itself, establish the
-private system's history, the representativeness of the selection, or the
-correctness of success criteria the project supplies for itself. I developed
-the private system over about ten months by directing AI coding agents; that
-account is reported, not proved, and the paper's argument does not depend on
-it. The paper defines the object in ordinary terms, examines one component
-from input to limit, sets out four distinctions that govern what runs can and
-cannot show, and states what stronger evidence would require. A dated record
-of a verification pass at a named commit is given in an appendix.
+that cannot be published. I treat it as a case study in a general problem:
+what may a stranger reasonably conclude from a curated set of small,
+runnable public fragments of work they cannot see? Each of the
+\componentcount{} public components joins a claim to a fixed input, a
+command, stored output records, an explicit pass rule, and a stated limit;
+the count is an inventory, not a score. The public repository lets a reader
+test claims about these published files and their outputs. It cannot, by
+itself, establish the private system's history, the representativeness of
+the selection, or the correctness of success criteria the project supplies
+for itself. I developed the private system over about ten months by
+directing AI coding agents; that account is reported, not proved, and the
+argument does not depend on it. The paper examines one run from input to
+limit, sets out the four distinctions that govern what runs can and cannot
+show, and states what stronger evidence would require, with a dated
+reproduction record in an appendix. One successful run supports one bounded
+conclusion; the paper is about which conclusions those are.
 \end{abstract}
 
 \section{The problem}
 
-Plectis is a public software repository, stored at \repo. A
-\emph{repository} is an organised project folder, usually kept with its
-revision history; to \emph{clone} a repository is to copy that folder and
-history to another computer. Everything this paper says a stranger can check
-is in that repository.
+I have a larger private software system that I cannot responsibly publish:
+it contains personal records, credentials, live browser and account
+information, my working notes, and unfinished tools. I would still like
+some of its claims to be answerable to strangers, rather than resting
+entirely on my say-so. That difficulty is not specific to me, and this
+paper examines what such answerability can amount to: what may a stranger
+reasonably conclude from a curated set of runnable public fragments of a
+system they cannot see?
 
-The repository exists because of a difficulty that is not specific to me. I
-have a larger private software system that I cannot responsibly publish: it
-contains personal records, credentials, live browser and account information,
-my working notes, and unfinished tools. I would still like some of its claims
-to be answerable to strangers, rather than resting entirely on my say-so.
-The question this paper examines is what such answerability can amount to:
-what may a stranger reasonably conclude from a curated set of runnable public
-fragments taken, or adapted, from a system they cannot see? Plectis is my
-working answer. This paper describes that answer and measures how far it
-reaches.
+Plectis is my working answer: a public software repository, stored at
+\repo. A \emph{repository} is an organised project folder, usually kept
+with its revision history; to \emph{clone} a repository is to copy that
+folder and history to another computer. Everything this paper says a
+stranger can check is in that repository, and the paper's task is to
+describe the answer and measure how far it reaches.
 
 I am 22 and study economics. Over about ten months I built the private
 system by directing AI coding agents: I set its objectives, rules, and
@@ -190,7 +188,8 @@ them onto the same scale. An empty input must produce zero. An unrecognised
 format name must be refused rather than guessed at.
 
 The component's public command runs it against its fixture and writes fresh
-output outside the repository:
+output outside the repository (the backslashes split one long command across
+lines):
 
 \begin{Verbatim}[fontsize=\small]
 PYTHONPATH=src python3 -m \
@@ -490,7 +489,8 @@ cd plectis
 PYTHONPATH=src python3 -m plectis tour --format text .
 \end{Verbatim}
 
-To reproduce the exact state this appendix describes, run
+The final full stop in the tour command means ``the current folder.'' To
+reproduce the exact state this appendix describes, run
 \code{git checkout \snapshotshort} after \code{cd plectis}; without it the
 commands run against the newest version instead.
 
