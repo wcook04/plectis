@@ -36,3 +36,19 @@ def test_public_system_paper_check_rejects_provenance_overclaim(tmp_path: Path) 
 
     assert any("verify it is non-secret" in failure for failure in failures)
     assert any("without trusting anyone" in failure for failure in failures)
+
+
+def test_public_system_paper_check_rejects_distinction_anchor_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "The count is an inventory, not a score", "The count is large"
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("The count is an inventory" in failure for failure in failures)

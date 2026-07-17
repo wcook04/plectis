@@ -17,8 +17,8 @@
 
 % These values are checked against the public registries by
 % scripts/check_public_system_paper.py.  Do not update them from memory.
-\newcommand{\snapshotcommit}{07ef8b940982a20424aaea5cdc95f9d4dc90e7bd}
-\newcommand{\snapshotshort}{07ef8b940982}
+\newcommand{\snapshotcommit}{57ffb7f5830cc446a2cbd8083d5d80bcab2af563}
+\newcommand{\snapshotshort}{57ffb7f5830c}
 \newcommand{\componentcount}{88}
 \newcommand{\familycount}{7}
 \newcommand{\entrycount}{2}
@@ -34,13 +34,14 @@
 \newcommand{\validatorcount}{18}
 
 \hypersetup{
-  pdftitle={Plectis: Runnable Public Components from a Private AI-Built System},
+  pdftitle={Plectis: Bounded Public Evidence from a Private AI-Built System},
   pdfauthor={Will Cook},
-  pdfsubject={What the public Plectis repository contains, how to run it, and what its checks establish},
+  pdfsubject={What a stranger can check in the public Plectis repository, what the author can only report, and what remains unestablished},
 }
-\title{Plectis: Runnable Public Components\\
+\title{Plectis: Bounded Public Evidence\\
 from a Private AI-Built System\\
-\large What readers can run, and what those runs establish}
+\large What a stranger can check, what I can only report,\\
+and what remains unestablished}
 \author{Will Cook}
 \date{July 2026}
 
@@ -48,53 +49,57 @@ from a Private AI-Built System\\
 \maketitle
 
 \begin{abstract}
-Plectis is a public software repository containing \componentcount{} small
-components in \familycount{} groups. Each component names an operation, a
-fixed sample input, a command that exercises it, stored output records, and a
-limit on what the result establishes. I developed the larger private system
-over about ten months by directing AI coding agents. Some Plectis components
-contain source bodies copied from that private repository; others are public
-refactors, local computations, external-tool checks, or validators. The public
-repository lets a reader test claims about these published files and their
-outputs. It does not by itself establish the history, representativeness, or
-general behaviour of the private system. This note defines the object in
-ordinary terms, shows one component from input to result, reports a clean-clone
-run at a named commit, and states the limits of the evidence.
+Plectis is a public software repository built out of a larger private system
+that cannot be published. I treat it here as a case study in a general
+problem: what may a stranger reasonably conclude from a curated set of small,
+runnable public fragments taken, or adapted, from a private body of work they
+cannot see? Each of the \componentcount{} public components joins a claim to
+a fixed input, a command, stored output records, an explicit pass rule, and a
+stated limit. The count is an inventory, not a score. The public repository lets
+a reader test claims about these published files and their outputs. It cannot, by itself, establish the
+private system's history, the representativeness of the selection, or the
+correctness of success criteria the project supplies for itself. I developed
+the private system over about ten months by directing AI coding agents; that
+account is reported, not proved, and the paper's argument does not depend on
+it. The paper defines the object in ordinary terms, examines one component
+from input to limit, sets out four distinctions that govern what runs can and
+cannot show, and states what stronger evidence would require. A dated record
+of a verification pass at a named commit is given in an appendix.
 \end{abstract}
 
-\section{What Plectis is}
+\section{The problem}
 
-Plectis is stored at \repo. A \emph{repository} is an organised project
-folder, usually kept with its revision history. To \emph{clone} a repository
-is to copy that folder and history to another computer. A \emph{component} in
-Plectis is one registered, testable part of the project. Its \emph{fixture} is
-a fixed sample input, and its \emph{receipt} is a saved, machine-readable
-record of a reference run. These terms describe files and commands; they do
-not grade the importance of the result. A \emph{validator} is the program
-that applies a component's pass and refusal rules. A \emph{commit} is a named,
-saved version of the repository.
+Plectis is a public software repository, stored at \repo. A
+\emph{repository} is an organised project folder, usually kept with its
+revision history; to \emph{clone} a repository is to copy that folder and
+history to another computer. Everything this paper says a stranger can check
+is in that repository.
 
-The argument of this paper does not require programming knowledge. Reproducing
-the runs does require a terminal, Git, Python 3.11 or later, \code{pip}, and
-basic command-line use. A terminal is the text window in which the commands
-below are entered. The final full stop in a command such as
-\code{plectis tour .} means ``the current folder.''
+The repository exists because of a difficulty that is not specific to me. I
+have a larger private software system that I cannot responsibly publish: it
+contains personal records, credentials, live browser and account information,
+my working notes, and unfinished tools. I would still like some of its claims
+to be answerable to strangers, rather than resting entirely on my say-so.
+The question this paper examines is what such answerability can amount to:
+what may a stranger reasonably conclude from a curated set of runnable public
+fragments taken, or adapted, from a system they cannot see? Plectis is my
+working answer. This paper describes that answer and measures how far it
+reaches.
 
-I am 22 and study economics. Over about ten months I built the private system
-alone in the sense relevant here: I set its objectives, rules, and review
-criteria, while AI coding agents were the principal implementers, writing,
-running, testing, and revising the software under my direction. This is what
-\emph{AI-built} means in this paper. Plectis can expose the resulting public
-files and runs, but it cannot independently prove that account of how the
-private work was produced.
+I am 22 and study economics. Over about ten months I built the private
+system by directing AI coding agents: I set its objectives, rules, and
+review criteria, while the agents were the principal implementers, writing,
+running, testing, and revising the software under my direction. No other
+person worked on it. That is all \emph{AI-built} means in this paper. It is testimony about
+origin, stated once and not relied on afterwards: Plectis can expose the
+resulting public files and runs, but it cannot independently prove that
+account of how the private work was produced. What the account does explain
+is why the publication problem arose, and why every published choice
+described below is my responsibility rather than the agents'. The artefact
+does not prove the story, and the evidence below would be exactly as strong,
+and exactly as limited, if every line had been written by hand.
 
-The private repository remains private because it contains personal records,
-credentials, live browser and account information, operator notes, and
-unfinished tools. Plectis is a separately runnable public collection made
-from material that could be published or represented with fixed public data.
-It is not a reconstruction of the private working environment.
-
-The evidence boundary can be stated before any command is run:
+The boundary of the evidence can be stated before any command is run:
 
 \begin{center}
 \small
@@ -103,74 +108,89 @@ The evidence boundary can be stated before any command is run:
 \textbf{Status} & \textbf{What belongs in it} \\
 \midrule
 Publicly checkable & The contents of a named public commit, its registered commands, the files those commands write, and whether its public tests pass. \\
-Reported here & The private repository's history, the role of AI agents in producing it, and the private origin of copied material. \\
-Not established here & Whether the public selection represents the private whole, whether the mechanisms generalise, whether their success criteria are independently correct, or whether the private system works reliably as a whole. \\
+Reported here & The private system's history, the role of AI agents in producing it, and the private origin of published material. \\
+Not established here & Whether the public selection represents the private whole, whether the mechanisms generalise beyond their fixed cases, whether self-supplied success criteria are independently correct, and whether the private system works reliably at all. \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\section{What the public repository contains}
+Reading this paper requires no programming. Reproducing its runs requires a
+terminal (the text window in which commands are typed), Git (the standard
+program for copying and versioning repositories), Python 3.11 or later, the
+\code{pip} installer, and basic command-line use. So that the
+body of the paper can stay with the argument, the exact commands,
+environment details, and installation notes are collected in the appendix,
+which is a dated record of one verification pass at the commit named there.
 
-At commit \code{\snapshotshort}, the component registry contains
-\componentcount{} unique entries in \familycount{} groups:
+\section{The component contract}
 
-\begin{center}
-\small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.38\linewidth}r>{\raggedright\arraybackslash}p{0.47\linewidth}}
-\toprule
-\textbf{Group} & \textbf{Count} & \textbf{What its components do} \\
-\midrule
-Getting started & \entrycount & Show a new reader where to begin and guide a first inspection. \\
-Project mapping & \mappingcount & Map files and written rules, find relevant material, and direct a question to an appropriate part of the project. \\
-Computer-checked mathematics & \mathcount & Prepare, repair, or check bounded steps used in formal mathematical work. \\
-AI reliability and safety tests & \safetycount & Replay cases involving hostile instructions, software boundaries, stored information, tool use, and benchmark rules. \\
-Research-method tests & \researchcount & Exercise fixed cases involving replication, conflicting forecasts, interpretability, simulation, and laboratory safety. \\
-Public-copy maintenance & \publiccopycount & Check copied source, generated pages, publication boundaries, and disagreement between records and derived files. \\
-Work recovery & \recoverycount & Record unfinished changes and test how work can resume after interruption. \\
-\bottomrule
-\end{tabular}
-\end{center}
+A \emph{component} in Plectis is one registered, testable part of the
+project. Its \emph{fixture} is a fixed sample input, and its \emph{receipt}
+is a saved, machine-readable record of a reference run. A \emph{validator}
+is the program that applies a component's pass and refusal rules. A
+\emph{commit} is a named, saved version of the repository. These terms
+describe files and commands; they do not grade the importance of what any
+component does. (Inside the repository a component is called an
+\emph{organ}, and the code package is named \code{microcosm\_core}: the
+project was previously called Microcosm, and several file and command names
+keep the old name. The generated page \code{ORGANS.md}, which gives a plain
+description and a first command for every component, is named after the
+first.)
 
-The count is an inventory, not a score. The registry also records how each
-component is supported. The following four categories cover all
-\componentcount{} entries:
+At commit \code{\snapshotshort} the registry, the machine-readable list of
+components, contains \componentcount{} entries. Every entry is required to
+connect the same things: a claim stated in prose; a fixture; a command; the
+output files the command writes; a stored receipt from a reference run; an
+explicit rule for what counts as a pass and what must be refused; and a
+stated limit on what a pass establishes.
 
-\begin{center}
-\small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.30\linewidth}r>{\raggedright\arraybackslash}p{0.53\linewidth}}
-\toprule
-\textbf{Evidence route} & \textbf{Count} & \textbf{Meaning} \\
-\midrule
-Verified copied source & \copiedsourcecount & The public component carries copied non-secret source bodies and checks them against its public import record. \\
-Public reimplementation & \refactorcount & The public code reimplements a bounded part of a private mechanism against fixed cases. \\
-Direct or external-tool run & \runtimecount & The component performs a local computation or invokes a named external tool and records the bounded result. \\
-Contract checker & \validatorcount & The component recomputes whether a public input satisfies a declared structural or behavioural contract. \\
-\bottomrule
-\end{tabular}
-\end{center}
+An assertion about private software can only be believed or doubted as
+testimony. A component converts
+the assertion into a procedure, and a procedure can fail in front of a
+stranger. The conversion does not make the claim true. What it changes is
+the form disagreement can take: a reader who doubts a component's claim can
+point at a particular input, a particular line of the validator, or a
+particular number in the output, instead of arguing with my description of
+software they cannot see.
 
-Each registry entry names the operation it exercises, the command, its stored
-receipt paths, the type of evidence, and the limit of the claim. The input path
-is part of the command. A separate generated page, \code{ORGANS.md}, gives a
-plain description and first command for every component. The validator code
-still determines what counts as a pass, so a careful review must inspect that
-criterion rather than infer correctness from the word ``pass.''
+A component may also end in a declared refusal rather than an answer. The
+worked example below refuses an input format it does not support. Components
+that depend on an external tool, such as the Lean proof checker (a program
+that verifies mathematical proofs), must record a bounded refusal when the
+tool is absent, rather than reporting success.
+\emph{Runnable} therefore means that the operation and its declared failure
+boundary are present in public form; it does not mean that every optional
+dependency exists on every machine. A refusal is informative only when it is
+declared in advance and distinguishable from a breakdown: a predeclared
+refusal marks the edge of what the component claims, while an unexpected
+crash is a defect. The two must not be read as the same kind of event.
 
-Every component has a registered command, but not every environment supplies
-every external tool. A proof-related component, for example, may need Lean.
-When a required tool is absent, the valid result is a bounded refusal or a
-locked status, not proof success. Thus \emph{runnable} means that the public
-operation and its failure boundary are present; it does not mean that all
-optional dependencies exist on every machine.
+\section{One run, examined}
 
-\section{One component, from input to limit}
+The component \component{batch8_audio_level_rms_port} computes a loudness
+level from short arrays of audio samples. I chose it for the worked example
+because it is ordinary. It needs no mathematics beyond a square root and no
+knowledge of the private system, and the claim it makes is small. Its value
+here is that every part of the evidence can be seen at once.
 
-The component \component{batch8_audio_level_rms_port} is a small example that
-does not require knowledge of the private system. It computes a normalised
-loudness level from synthetic audio sample arrays. It does not open a
-microphone.
+The reported origin is this. The private system contains a small macOS
+recording application, and one of that application's functions reduces a
+buffer of audio samples to a level between zero and one. The public
+component re-expresses that calculation in Python. The component's code and
+its stored receipts name the private file it claims to re-express
+(\component{AudioLevelMonitor.swift}); a stranger cannot open that file, so
+the name is a report, not evidence. What the stranger can check is
+everything else.
 
-Its public command can write fresh output outside the repository:
+The declared calculation is the standard one called root-mean-square (the
+\code{rms} in the component's name): square each sample, average the
+squares, take the square root, then multiply by eight and cap the result at
+one. Sixteen-bit integer samples are first divided by 32{,}767 to bring
+them onto the same scale. An empty input must produce zero. An unrecognised
+format name must be refused rather than guessed at.
+
+The component's public command runs it against its fixture and writes fresh
+output outside the repository:
 
 \begin{Verbatim}[fontsize=\small]
 PYTHONPATH=src python3 -m \
@@ -180,157 +200,364 @@ PYTHONPATH=src python3 -m \
   --acceptance-out /tmp/plectis-audio-rms-acceptance.json
 \end{Verbatim}
 
-The pass rule is explicit in the validator. Three reference arrays must match
-their expected values within a stated numerical tolerance. A value above the
-allowed range must be reduced to one, an empty array must produce zero, and an
-unknown sample format must be refused. At commit
-\code{\snapshotshort}, the run produced:
+At commit \code{\snapshotshort}, the run produced:
 
 \begin{center}
 \small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.34\linewidth}>{\raggedleft\arraybackslash}p{0.20\linewidth}>{\raggedleft\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.13\linewidth}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.21\linewidth}>{\raggedright\arraybackslash}p{0.26\linewidth}>{\raggedleft\arraybackslash}p{0.15\linewidth}>{\raggedleft\arraybackslash}p{0.15\linewidth}>{\raggedright\arraybackslash}p{0.09\linewidth}}
 \toprule
-\textbf{Case} & \textbf{Expected} & \textbf{Observed} & \textbf{Result} \\
+\textbf{Case} & \textbf{Input} & \textbf{Expected} & \textbf{Observed} & \textbf{Result} \\
 \midrule
-Four decimal samples & 0.489897949 & 0.489897949 & pass \\
-Four 16-bit integer samples & 0.489892970 & 0.489892970 & pass \\
-Samples above the maximum & 1.000000000 & 1.000000000 & pass \\
-Empty input & 0 & 0 & pass \\
-Unknown sample format & refusal & refusal & pass \\
+Decimal samples & 0.0,\ 0.05,\ $-0.05$,\ 0.1 & 0.489897949 & 0.489897949 & pass \\
+16-bit integer samples & 0,\ 1638,\ $-1638$,\ 3277 & 0.489892970 & 0.489892970 & pass \\
+Values above the cap & 1.0,\ $-1.0$,\ 0.5 & 1.000000000 & 1.000000000 & pass \\
+Empty input & (none) & 0 & 0 & pass \\
+Unknown format & \code{pcm24} & refusal & refusal & pass \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-The stored reference is the file
+Because the inputs and the rule are both printed above, the first row can be
+checked without the repository or a computer: the squares of the four
+samples average to 0.00375, whose square root is $0.061237\ldots$, and eight
+times that is $0.489897\ldots$ A reader with a calculator can recompute this
+expected value from the stated formula alone. For this one case the reader
+can act as their own \emph{oracle}, the general name for whatever determines
+what an answer should have been, independently of the program under test.
+
+Almost nothing else in the collection is like that, which is why the example
+matters. Elsewhere the project supplies the implementation, the input, the
+expected values, and the validator, all from the same hand. A test
+assembled that way can pass for four different reasons: the implementation
+and the expectation are both correct; the two share a mistake; the chosen
+cases happen to sit where the implementation behaves; or the validator
+checks a weaker property than the prose claim suggests. A matching result
+therefore establishes repeatability under that public test. Independent
+correctness needs an oracle that does not depend on me, as elementary
+arithmetic does for the first row, or fresh inputs whose expected results I
+never chose.
+
+The refusal row records a designed boundary, not a failure: an input naming
+an unsupported encoding (\code{pcm24}, a format this component does not
+handle) must be rejected with an error, and is. The
+stored reference for the whole table is
 \component{batch8_audio_level_rms_port_validation_receipt.json} under
-\component{receipts/first_wave/batch8_audio_level_rms_port/}. Its limit is as
-important as its numbers: this run checks one public Python calculation over
-synthetic arrays. It does not run the original application, start an audio
-session, request microphone permission, capture a device, or establish that
-the chosen expected values are an independent standard.
+\component{receipts/first_wave/batch8_audio_level_rms_port/}, so a fresh run
+is compared against a fixed record rather than against memory. A stored
+record by itself does not prove that the stated command produced it; its use
+is that anyone can generate a fresh one and compare the two.
 
-This example shows what the component format makes inspectable. It does not
-show that the task is difficult, useful in another project, or representative
-of the other 87 entries. Since the project supplies both the expected values
-and the validator, a matching result establishes repeatability under that
-public test. Independent correctness requires an independent oracle or a
-fresh input whose expected result was not selected by the maintainer.
+The limit is part of the component. This run checks one public Python
+calculation over synthetic sample arrays (arrays composed for the test, not
+captured from a device). It does not run the original application, start an
+audio session, request microphone permission, or capture sound, and it
+cannot establish that the named private file is where the calculation came
+from. Nor does the table show that the task was difficult (it was not),
+that the component is useful elsewhere, or that the remaining entries
+resemble it. What it shows is that one assertion now has a form in which a
+stranger can rerun it, dispute its rule, perturb its input, or replace my
+expected value with a better-derived one.
 
-\section{A clean-clone run}
+\section{Four distinctions}
 
-The following source-form command was run in a clean local clone of commit
-\code{\snapshotshort} on Darwin 24.6.0 (arm64) with Python 3.13.7:
+Interpreting the collection needs four distinctions. Each separates
+something a stranger can observe from something the observation may seem to
+imply, and each names the further evidence that would be needed to cross the
+gap. The limits attached to individual components are instances of these.
 
-\begin{Verbatim}[fontsize=\small]
-PYTHONPATH=src python3 -m microcosm_core tour --format text .
-\end{Verbatim}
+\subsection*{Public execution versus private provenance}
 
-It reported 5{,}016 project files, found five possible reading routes, selected
-\component{readme_onboarding_route}, wrote 21 files under a new
-\code{.microcosm/} directory, and reported that the examined source files were
-unchanged. The output also named three ways to inspect a finding: its evidence,
-the event record from which it came, and the limit on what it authorises. The
-complete directory can be deleted and generated again.
+A reader can establish what a named public commit contains and what its
+commands do. No public run establishes where the material came from.
+Plectis keeps records at that boundary: copied files carry public import
+records naming their claimed sources, together with fingerprints (a
+\emph{fingerprint} is a short value computed from a file's contents, chosen
+so that any change to the contents changes the value). Matching
+fingerprints show that a public file agrees with the project's public record
+of it. But I control both sides of that comparison, so agreement is
+evidence of internal consistency, not of origin. The same holds for the
+audio component's named source file: the name is an entry I wrote. Origin
+claims could only be strengthened by something a public repository cannot
+supply about itself, such as commitments published before the fact, or a
+trusted person permitted to examine both sides. Until then, provenance is
+reported.
 
-Those numbers describe that commit and environment. Installing the package
-inside the source tree can add packaging metadata, and later commits can add or
-remove files. Therefore the counts are a dated run result, not a permanent
-property of Plectis.
+\subsection*{Repeatability versus correctness}
 
-For a normal installation, a reader can use:
+A run that reproduces the stored receipt shows that the public code, on the
+supplied input, in a sufficiently similar environment, produces the same
+result again. Correctness is a different property: it needs a standard for
+what the result should have been, and a standard is only worth something if
+it does not merely restate the implementation. The worked example makes the
+difference concrete. Its first row has an oracle independent of the
+project, namely elementary arithmetic; most components have only the
+project's own expected values and validator. Passing tests anywhere in
+Plectis should be read at that strength and no more.
+
+\subsection*{Selected cases versus general behaviour}
+
+This distinction applies twice. Within a component, the fixture's cases are
+a few points in a large space of possible inputs, and behaviour elsewhere is
+untested. Across the collection, the published components are a selection
+from a private whole, and the selection was mine. I chose which mechanisms
+could be given public form, which inputs to freeze, which expected values to
+store, and which pass rules to enforce. Nothing in the public record shows
+how many candidates there were, what was excluded beyond the privacy rules,
+or whether the collection resembles ordinary work in the private system. A
+collection can consist entirely of genuine items and still give an
+unrepresentative picture of what it was drawn from; a display case does
+exactly this whenever the curator keeps the failures in a drawer.
+
+The registry's count should be read in that light. \componentcount{}
+entries defines the published population exactly, which is what a later
+evaluation would need in order to sample from it and report failure rates
+against a fixed denominator. The count is an inventory, not a score, and
+even the unit of counting is a choice I control, since one mechanism could
+have been registered as several components, or several as one.
+
+\subsection*{Risk reduction versus guarantee}
+
+The publication process runs checks whose honest description is that they
+reduce specific risks. Automated scans search copied material for specified
+patterns of credentials, personal information, and private file paths, and
+record what was omitted or rejected; a scan establishes that the scanner
+did not find the patterns it was designed to find, and nothing stronger.
+Pages such as the component map are generated from the registry, and tests
+compare page and registry, which prevents the particular failure of prose
+drifting away from records; a generator and its records can still be wrong
+together. Plectis is also designed not to read the private repository at
+all, and that design is itself public and testable. None of this amounts to
+a guarantee that no secret, no identifying detail, and no inconsistency
+survives. Publication remains a judgement about acceptable risk, and I made
+it.
+
+The provenance and risk-reduction distinctions pull against each other in a
+way worth noticing. Establishing provenance would require someone to examine private
+material, and the privacy constraint that motivates the whole design forbids
+exactly that examination in public. Some claims are therefore permanently in
+the reported category, short of a confidential review. The honest treatment
+is to label them, not to dress them up as public proof through bookkeeping
+that one maintainer controls.
+
+\section{What the collection contains}
+
+At commit \code{\snapshotshort} the \componentcount{} components fall into
+\familycount{} groups:
+
+\begin{center}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.38\linewidth}r>{\raggedright\arraybackslash}p{0.47\linewidth}}
+\toprule
+\textbf{Group} & \textbf{Count} & \textbf{What its components do} \\
+\midrule
+Getting started & \entrycount & Show a new reader where to begin and guide a first inspection. \\
+Project mapping & \mappingcount & Map files and written rules, find relevant material, and route a question to the part of the project that owns it. \\
+Computer-checked mathematics & \mathcount & Prepare, repair, or check bounded steps used in formal mathematical work. \\
+AI reliability and safety tests & \safetycount & Replay fixed cases involving hostile instructions, software boundaries, stored information, tool use, and benchmark rules. \\
+Research-method tests & \researchcount & Exercise fixed cases involving replication, conflicting forecasts, explaining model behaviour, simulation, and laboratory safety. \\
+Public-copy maintenance & \publiccopycount & Check copied source, generated pages, publication boundaries, and disagreement between records and derived files. \\
+Work recovery & \recoverycount & Record unfinished changes and test how work resumes after interruption. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The groups do not share a subject; computer-checked mathematics has nothing
+in particular to do with audio levels or with recovering interrupted work.
+Their unity is the contract of Section~2: these are the places in the
+private system where a mechanism could be given a bounded, runnable public
+form. The collection is organised by how its claims are checked, not by
+subject.
+
+The registry also records how each public form was produced. Four routes
+cover all \componentcount{} entries, and each is a different trade between
+fidelity to the private original and what a stranger can check:
+
+\begin{center}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.20\linewidth}r>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.33\linewidth}}
+\toprule
+\textbf{Route} & \textbf{Count} & \textbf{What it preserves} & \textbf{What it cannot show} \\
+\midrule
+Record-checked copied source & \copiedsourcecount & The exact text of non-secret source files, checked against a public import record. & That the recorded origin is real; record and file share one maintainer. \\
+Public reimplementation & \refactorcount & The behaviour of a bounded calculation, exercised on fixed cases. & Any relation to the private original beyond my report; the original text is absent. \\
+Direct or external-tool run & \runtimecount & A local computation, or a named external tool's result, captured with its context. & Behaviour where the tool or environment differs; the result is as strong as the tool and the case. \\
+Contract checker & \validatorcount & Whether a public input satisfies a declared structural rule. & Whether the declared rule is the right rule to require. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Copied source preserves the most text and demonstrates the least behaviour.
+A reimplementation demonstrates behaviour while surrendering textual
+identity; the worked example is one of the \refactorcount{} in that route.
+An external-tool run borrows the tool's authority along with the tool's
+limits. A contract checker is worth exactly the contract its author chose
+to require. A reader who wants to know which trade a given component made
+can read its registry entry, which names its operation, command, receipt
+paths, evidence route, and limit.
+
+\section{What stronger evidence would look like}
+
+A passing run shows that named public code produced a stated result from a
+supplied input in a stated environment. Applying Section~4: the runs
+reported here do not establish private provenance, representativeness,
+correctness beyond self-supplied criteria, or anything about usefulness,
+security, originality, or the reliability of the private system as a whole.
+The computer-checked mathematics components prove no more than their named
+public fixtures, and no other repository's size or subject matter is used as
+evidence here. This note does not report an independent, randomly selected
+audit over fresh inputs; nothing of that kind has happened yet.
+
+What would move each boundary is known, and the stages are ordered by who
+controls the consequential choices.
+
+\emph{Independent repetition} comes first: a person with no involvement in
+the project reruns the supplied commands in their own environment and
+publishes what happened, including failures. That would remove the
+dependence on my machine and my tacit knowledge. It would say nothing about
+correctness.
+
+\emph{Evaluator-controlled selection} comes next: the evaluator chooses
+components from the full registry, without substitution when one proves
+awkward, and original failures stay on the record even if I later repair
+them. That addresses curation within the public collection. It cannot
+address whether the collection represents the private system, because the
+private pool stays invisible.
+
+\emph{Fresh inputs with independently derived expectations} move
+repeatability towards correctness: inputs chosen after a version is frozen,
+and expected results worked out through some route that does not pass
+through my code, whether independent calculation, a second implementation,
+or an external reference. Bounded correctness claims for the evaluated
+cases would then be available; general correctness still would not.
+
+\emph{Comparison on outside tasks} is what a usefulness claim would need:
+someone bringing a task that was not designed around the project's own
+categories, and comparing the component against an ordinary alternative,
+which for several of these components would be a short conventional script.
+Usefulness is comparative, and nothing in this paper compares.
+
+\emph{A provenance review} is the only stage that could bear on the origin
+story: a trusted person examining selected private material against the
+public collection under confidentiality. The privacy cost may reasonably
+never be paid. If it is not, the origin story remains testimony, and this
+paper is written so that its argument does not depend on it.
+
+Each stage moves one class of consequential choice out of my hands. That,
+rather than more components or more records, is what stronger evidence
+means for an object like this.
+
+\section{What to inspect}
+
+The useful first review is small. Clone the repository, run the guided
+first inspection (\code{plectis tour}, shown with its exact commands in the
+appendix), and pick one claim you doubt, rather than the component most
+likely to impress. Read the component's description and stated limit before
+running anything. Run its command on the supplied input and compare the
+fresh output with the stored receipt. Then read the validator and ask
+whether its pass rule bears on the prose claim; perturb the input where
+practical; and keep whatever fails, because a discrepancy is a finding, and
+\code{CONTRIBUTING.md} in the repository sets out how to report one. One
+successful run supports one bounded conclusion. Broader conclusions wait on
+the evidence of Section~6, and most of it does not yet exist.
+
+\appendix
+
+\section{A dated reproduction record}
+
+Everything in this appendix is an observation about one commit, made on
+17~July~2026 in one environment: macOS 15.6.1 (arm64) with Python 3.13.7.
+The commit's full identifier is
+
+\begin{center}
+\small\code{\snapshotcommit}
+\end{center}
+
+abbreviated \code{\snapshotshort} elsewhere in the paper. None of this
+appendix is a permanent property of the project. Later commits will change
+file counts, and other machines can behave differently; where that matters,
+the body of the paper does not depend on it.
+
+\paragraph{Names.} The repository is \repo. As Section~2 notes, the code
+package inside it is named \code{microcosm\_core}. The installed command is
+\code{plectis}, and an older command name, \code{microcosm}, still works as
+an alias.
+
+\paragraph{Getting the code and running without installing.}
 
 \begin{Verbatim}[fontsize=\small]
 git clone https://github.com/wcook04/plectis
 cd plectis
+PYTHONPATH=src python3 -m plectis tour --format text .
+\end{Verbatim}
+
+To reproduce the exact state this appendix describes, run
+\code{git checkout \snapshotshort} after \code{cd plectis}; without it the
+commands run against the newest version instead.
+
+In a clean clone at this commit, the tour read 5{,}018 project files, found
+five possible reading orders for them, selected the one that starts from the
+README (\component{readme_onboarding_route}), wrote 21 files under a new
+\code{.microcosm/} directory beside the project, and reported the examined
+source files unchanged. Its output names three handles carried by every
+recorded observation: the evidence behind it, the event record it came from,
+and the limit on what it authorises. The \code{.microcosm/}
+directory can be deleted and generated again. The repository's README shows
+the same command reporting a different file count from a different day.
+Both numbers are what they claim to be, dated outputs of one run each, and
+neither is a stable measurement of the project.
+
+\paragraph{Installing.}
+
+\begin{Verbatim}[fontsize=\small]
 python3 -m pip install .
 plectis tour --format text .
 \end{Verbatim}
 
-The core installed package declares no third-party runtime package. The build
-step does require a sufficiently recent \code{setuptools}; a cold machine may
-need to download that build dependency if it is not already installed or
-cached. After installation, the core component runs are designed to make no
-network or AI-model calls. Components that wrap external tools have additional
-environment requirements and must state their limits when those tools are
-unavailable.
+The installed package declares no third-party runtime dependencies. The
+build step requires a sufficiently recent \code{setuptools}, which a cold
+machine may download when \code{pip} builds the package. After
+installation, the core component runs make no network or AI-model calls.
+Before anything is installed, \code{./bootstrap.sh} checks a fresh clone and
+reports whether the shipped inputs and declared limits are intact.
 
-To inspect one claim, a reviewer should read the component's description and
-limit before running it, run the command on the supplied input, and compare the
-new result with the stored receipt. A match establishes repeatability. The
-reviewer should then ask whether the pass rule bears on the claim, perturb the
-input where practical, and retain failures rather than selecting a more
-favourable component.
+\paragraph{The worked example.} The command in Section~3 writes its fresh
+output under \component{/tmp/plectis-audio-rms}. The tracked reference to
+compare it against is the receipt named in Section~3, under
+\component{receipts/first_wave/batch8_audio_level_rms_port/}. At this
+commit the run reported every case in the Section~3 table as a pass, with
+observed values equal to the stored ones.
 
-The repository-wide preflight is \code{make check}. At this snapshot it loads
-the evidence registry and scans the 58 shipped Lean files for proof
-placeholders, project-defined axioms, native evaluation, unsafe or partial
-declarations, and unbounded kernel limits. The broader \code{make ci} command
-adds installation, public tests, and two smoke runs. These commands test named
-properties of the public checkout; they do not certify the private system.
+\paragraph{Project-wide checks.} At this commit, \code{make check} loads
+the component registry and finishes in under a second, and
+\code{python3 scripts/check\_lean\_proof\_trust.py} scans the 58 Lean proof
+files shipped in the repository for constructs that would let a file look
+proved without being proved: placeholder proofs, axioms the project granted
+itself, evaluation that bypasses the checker's core, declarations marked
+unsafe or partial, and raised limits on how much the checker examines. Both
+passed. (The 58 files are a different unit of counting from the
+\mathcount{} computer-checked mathematics components, so the two numbers are
+not comparable.) \code{make ci} adds installation, the public test
+suite, and two end-to-end example runs; it is the same floor the
+repository's continuous-integration service runs. These commands test named
+properties of the public checkout. They do not certify the private system.
 
-\section{Publication records and private provenance}
+The full public test suite at this commit was not green: three of its tests
+failed, one because the repository's front-door profile check did not
+classify this paper's own files at the repository root, and two in
+documentation- and record-consistency checks that predate this revision.
+The profile defect is repaired in a later commit. The failures are recorded
+here rather than smoothed over, which is what Section~7 asks a reader to do
+with their own failed runs.
 
-The public repository performs three kinds of consistency check at its
-publication boundary.
-
-First, copied source bodies have public import records and fingerprints. A
-fingerprint is a short value computed from file contents; matching values show
-that the public file agrees with the project's public record. The same
-maintainer controls both sides of that comparison, so it is internal
-consistency evidence, not independent proof that the file originated in the
-private repository.
-
-Second, automated scans check copied material for specified credential,
-personal-information, and private-path patterns. They also record omitted or
-rejected material. These checks reduce the chance of accidental disclosure.
-They do not prove that every possible secret, identifying detail, or derived
-private fact is absent.
-
-Third, pages such as the component map are generated from structured records
-that programs can read, and tests compare the generated pages with those records. This
-detects specified forms of disagreement and reduces manual drift. A generator
-or its source record can still be incomplete or wrong, so generation does not
-make inconsistency impossible.
-
-Plectis is designed not to read the private repository or reconstruct private
-account state. That design and its scans are public and testable. They reduce
-risk; they are not an absolute privacy guarantee.
-
-\section{What the checks do not establish}
-
-A passing run shows that named public code produced a stated result from a
-supplied input in a stated environment. It does not, without further evidence,
-establish any of the following:
-
-\begin{itemize}
-  \item that the public components are representative of the private system;
-  \item that the private provenance or AI contribution history is independently verified;
-  \item that a component works on inputs not chosen by the project;
-  \item that a self-authored fixture, expected value, or pass rule is correct;
-  \item that the mechanisms are useful, original, secure, complete, or ready for production;
-  \item that privacy checks exclude every possible disclosure; or
-  \item that the formal-mathematics components prove more than their named public fixtures.
-\end{itemize}
-
-This note does not report an independent, randomly selected audit over fresh
-inputs. Such an audit would need to freeze a commit, select components without
-substitution, choose at least some inputs after the freeze, publish raw output
-and failures, and distinguish repeatability from correctness. That is the
-clearest next test of the collection.
-
-A separate public repository contains Lean 4 work related to Erd\H{o}s
-problems 249 and 257. This paper does not use its module count, declaration
-count, or association with open problems as evidence for the quality or depth
-of Plectis. The mathematical repository must be assessed on its own claims and
-proofs.
-
-\section*{What to inspect}
-
-The shortest review is to clone the named commit, run the tour, choose one
-component without first searching for the most favourable example, and inspect
-its input, validator, output, stored receipt, and limit. \code{ORGANS.md} maps
-the components, and \code{CONTRIBUTING.md} explains how to report a
-discrepancy. One successful run supports one bounded conclusion. Broader
-claims require broader evidence.
+\paragraph{The paper itself.} A script,
+\component{scripts/check_public_system_paper.py}, recomputes every count
+used in this paper from the public registries, verifies that the named commit
+exists, verifies that the worked example and its receipt are the ones the
+registry declares, and fails if the paper and the repository disagree. The
+public test suite runs it, so drift between this document and the records it
+describes is a test failure. That makes the paper one of the repository's
+checked documents, and the check should be read with Section~4 in mind:
+agreement between a document and records with one maintainer is internal
+consistency, not external truth.
 
 \end{document}

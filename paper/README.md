@@ -3,13 +3,21 @@
 
 # Plectis paper
 
-`plectis-public-system.tex` is the source for the short public-system paper.
-It describes the 88 public components, defines the minimum technical terms,
-shows one component from input to result, and separates public execution
-evidence from the reported history of the private AI-built system.
+`plectis-public-system.tex` is the source for the public-system paper. The
+paper treats Plectis as a case study in bounded public evidence: what a
+stranger may reasonably conclude from a curated set of runnable public
+fragments of a private system. It defines the minimum technical terms in
+ordinary words, examines one component from input to limit, states the four
+distinctions that govern interpretation (public execution vs private
+provenance, repeatability vs correctness, selected cases vs general
+behaviour, risk reduction vs guarantee), describes the four routes by which
+private work became public, and keeps the dated operational record
+(commands, environment, counts) in an appendix so the body stays with the
+argument.
 
-Check live registry counts, the worked-example anchors, required cold-reader
-definitions, and prohibited overclaims before building:
+Check live registry counts, the worked-example anchors, the required
+cold-reader definitions and evidential-distinction anchors, and prohibited
+overclaims before building:
 
 ```sh
 python3 scripts/check_public_system_paper.py

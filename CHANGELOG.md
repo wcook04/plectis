@@ -4,6 +4,30 @@ All notable changes to Plectis are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- The public-system paper (`paper/plectis-public-system.tex`, tracked PDF at
+  the repository root) rewritten around one governing question: what a
+  stranger may reasonably conclude from curated runnable fragments of a
+  private system. The worked example now prints its input arrays so the
+  first expected value can be recomputed by hand; four named distinctions
+  (public execution vs private provenance, repeatability vs correctness,
+  selected cases vs general behaviour, risk reduction vs guarantee) replace
+  scattered caveats; the dated operational record moved to an appendix. The
+  paper claim-guard (`scripts/check_public_system_paper.py`) gained anchors
+  for the distinction sentences and further prohibited overclaims.
+- `CONTRIBUTING.md` gained a "Reporting a discrepancy" procedure: what to
+  include, where to file, keep the failing output, disputes of pass rules
+  welcome.
+
+### Fixed
+
+- `scripts/public_repo_profile.py` root allowlist now classifies `paper/`
+  and `plectis-public-system.pdf`, which had left the public repo profile
+  check (and with it `make test`) failing since the paper first landed.
+
 ## [0.2.0] - 2026-07-11
 
 Public-surface normalisation. No component or runtime behaviour changed; this

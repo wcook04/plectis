@@ -48,8 +48,15 @@ FORBIDDEN_OVERCLAIMS = (
     "shows the system's breadth",
     "shows its depth",
     "python 3.11 or newer and nothing else",
+    "guarantees privacy",
+    "proves the private system",
+    "certifies the private system",
 )
 
+# Sentences the paper's argument stands on.  The first block defines terms a
+# cold reader needs; the second block carries the evidential distinctions
+# (provenance, repeatability, selection, risk) that keep the paper's claims
+# bounded.  Removing one is a claim-strength change, so it fails this check.
 REQUIRED_COLD_READER_ANCHORS = (
     r"A \emph{repository} is",
     r"A \emph{component} in",
@@ -61,6 +68,16 @@ REQUIRED_COLD_READER_ANCHORS = (
     "The public repository lets a reader test claims",
     "cannot independently prove",
     "This note does not report an independent",
+    "The artefact does not prove the story",
+    "bounded refusal",
+    r"their own \emph{oracle}",
+    "share a mistake",
+    "repeatability under that public test",
+    "internal consistency, not",
+    "The count is an inventory, not a score",
+    "did not find the patterns it was designed to find",
+    "who controls the consequential choices",
+    "One successful run supports one bounded conclusion",
 )
 
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"
