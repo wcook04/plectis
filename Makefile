@@ -49,6 +49,7 @@ PUBLIC_TESTS ?= \
 	tests/test_release_candidate_proof.py \
 	tests/test_release_review_contract.py \
 	tests/test_public_site_parity.py
+PUBLIC_TESTS += tests/test_public_system_paper.py
 PUBLIC_TESTS += tests/test_substrate_substitution_ledger.py
 PUBLIC_TESTS += tests/test_card_calibration_gate.py
 PUBLIC_TESTS += tests/test_organ_registry_authority_floor.py
