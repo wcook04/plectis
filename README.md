@@ -2,6 +2,7 @@
 
 [Website](https://wcook04.github.io/plectis/) ·
 [Interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) ·
+[Short paper](plectis-public-system.pdf) ·
 [Quickstart](QUICKSTART.md) ·
 [Contributing](CONTRIBUTING.md)
 
