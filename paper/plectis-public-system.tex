@@ -152,9 +152,9 @@ This paper contributes a worked boundary analysis of one author-curated
 software collection. It defines the component contract and follows one
 ordinary component from input to limit. Five distinctions identify conclusions
 that a passing run may appear to support but does not. Two tables classify all
-\componentcount{} components by group and publication route. The proposed
-evaluations identify the choices an evaluator would need to make independently
-of me.
+\componentcount{} components by group and by the kind of public evidence they
+supply. The proposed evaluations identify the choices an evaluator would need
+to make independently of me.
 
 This is a descriptive analysis of one artefact, not a statistical study.
 In the reporting vocabulary of Runeson and H\"ost \cite{runeson2009}, the
@@ -410,7 +410,7 @@ cases happen to sit where the implementation behaves; or the validator
 checks a weaker property than the prose claim suggests. A matching result
 therefore establishes repeatability under that public test. Independent
 evidence bearing on correctness needs a credible oracle whose expected
-result is justified through a route independent of the implementation, as
+result is justified independently of the implementation, as
 elementary arithmetic is for the first row. Fresh inputs alone do not
 supply one.
 
@@ -442,7 +442,7 @@ a reader promotes a case to the second by recomputing it, as the worked
 example's decimal-samples row invites. Components that invoke a named
 external tool occupy a hybrid of the first and third positions: the project
 still chooses the case and the rule, while the tool supplies a result that
-inherits its own limits. The routes in Section~\ref{sec:stronger} describe
+inherits its own limits. The evaluations in Section~\ref{sec:stronger} describe
 ways to move consequential choices out of the project's control.
 
 The refusal row records a designed boundary, not a failure: an input naming
@@ -786,7 +786,7 @@ misconduct.
 But that concentration of choice permits a failure mode, and it involves
 no false statement anywhere. Select the mechanisms that show well. Divide
 the favourable ones finely. Narrow each claim until its fixed cases satisfy
-it. Route awkward material through the cheapest form of checking. Declare
+it. Give awkward material the least demanding check. Declare
 as refusals whatever would otherwise fail. File
 small replays under weighty names. Then let the counts, the categories, and
 the machinery of records accumulate into an impression of scale and
@@ -826,36 +826,36 @@ independence (funding is controlled outside the development organisation)
 \cite{nasa8739}. Plectis has had no such evaluation. Within the five gaps
 examined here, the narrower principle is that evidence for a claim becomes less
 dependent on me as the relevant choices stop being mine. The principle is
-local to those five gaps. Section~\ref{sec:stronger} lists routes that address
-the dependencies this paper has identified.
+local to those five gaps. Section~\ref{sec:stronger} lists independent evaluations
+that address the dependencies this paper has identified.
 
 \section{What stronger evidence would look like}
 \label{sec:stronger}
 
 A passing run shows that named public code produced a stated result from a
-supplied input in a stated environment. Applying
-Section~\ref{sec:distinctions}: the runs reported here do not establish
-private provenance, representativeness, correctness beyond self-supplied
-criteria, or anything about usefulness, security, originality, or the
-reliability of the private system as a whole. The computer-checked
-mathematics components prove no more than their named public fixtures, and
-no other repository's size or subject matter is used as evidence here. This
-note does not report an independent, randomly selected audit over fresh
-inputs; nothing of that kind has happened yet.
+supplied input in a stated environment. It does not establish private
+provenance, representativeness, correctness beyond self-supplied criteria,
+usefulness, security, originality, or the private system's reliability. The
+computer-checked mathematics components likewise prove no more than their
+named public fixtures; no other repository's size or subject matter is
+evidence here. This note reports no independent, randomly selected audit over
+fresh inputs, because none has happened.
 
-Five independent routes could move different boundaries. They are ordered
-below for exposition, not by strength or prerequisite: they may occur in any
-order, and progress on one route does not imply progress on the others.
-Figure~\ref{fig:ladder} shows which choice each route transfers and which
-claim it still leaves open. The shared question is who controls the
-consequential choices bearing on that claim.
+Five forms of independent evaluation could add evidence that the public
+repository cannot supply by itself. These are not the four publication routes
+in Section~\ref{sec:collection}. A publication route classifies evidence already
+in the registry; the evaluations below describe new work by someone outside the
+project. The order is only for exposition. It ranks nothing, and no evaluation
+is a prerequisite for another. Figure~\ref{fig:ladder} shows which choice each
+evaluation transfers and which claim it still leaves open. The common question
+is who makes the choice that matters for that claim.
 
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[x=1cm,y=1cm]
 % uniform box heights and bottom/top-anchored labels keep every dotted
 % leader the same length
-% a whisper of stranger-blue on the routes: each is evidence that lives
+% a whisper of stranger-blue on the evaluations: each is evidence that lives
 % outside the author's hands
 \node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s1) at (1.2,0) {Independent repetition};
 \node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s2) at (4.3,0) {Evaluator-controlled selection};
@@ -876,10 +876,10 @@ consequential choices bearing on that claim.
   \draw[RoyalBlue!45, dotted, line width=0.6pt] (b\i.south) -- (s\i.north);
   \draw[black!30, dotted, line width=0.6pt] (s\i.south) -- (n\i.north);}
 \end{tikzpicture}
-\caption{Five independent evidence routes. Above each route, in italic blue, the
-choice that leaves my hands; below it, in grey, what that route still cannot
-show. The routes are not cumulative stages. At the commit this paper
-describes, none has happened.}
+\caption{Five forms of independent evaluation. Above each evaluation, in italic
+blue, the choice that leaves my hands; below it, in grey, what that evaluation
+still cannot show. The evaluations are not cumulative stages. At the commit
+this paper describes, none has happened.}
 \label{fig:ladder}
 \end{figure}
 
@@ -901,7 +901,7 @@ because the private pool stays invisible.
 
 \emph{Fresh inputs with independently derived expectations} can move
 repeatability towards evidence bearing on correctness: inputs chosen after
-a version is frozen, and expected results worked out through some route that
+a version is frozen, and expected results worked out by a method that
 does not pass through my code, whether independent calculation, a second
 implementation, or an external reference. The result would support bounded
 claims only to the extent that the derivation is credible and independent
@@ -913,7 +913,7 @@ designed around the project's own categories and comparing the component
 against an ordinary alternative, which for several components would be a
 short conventional script. Nothing in this paper makes that comparison.
 
-\emph{A provenance review}, among the five routes shown here, bears most
+\emph{A provenance review}, among the five evaluations shown here, bears most
 directly on the origin story: a trusted person examining selected private
 material against the public collection under confidentiality. Prior public
 commitments could provide another kind of provenance evidence. Even
@@ -926,16 +926,13 @@ paper is written so that its argument does not depend on it.
 
 \subsection*{How the record should age}
 
-The routes above may expose failures, and the value
-of the record then depends on what a failure does to it. The rule this
-project adopts is that repairs add facts and do not subtract them. The
-appendix records that at the pinned commit three public tests failed, and
-that a later commit repairs one of them; the repair is a dated fact about a
-later version, and it does not subtract the first fact about this one. The
-same rule holds above the level of code. If outside criticism shows a
-validator too weak or a claim too broad, the revision should be legible as
-a revision, carrying its date and its cause, rather than the project
-appearing always to have meant the narrower thing. A test rewritten after
+The evaluations above may expose failures. Repairs should add facts rather
+than erase them. The appendix therefore keeps three failures at the pinned
+commit even though a later commit repairs one. That repair is a fact about the
+later version; it does not subtract the first fact about this one. If outside
+criticism shows a validator too weak or a claim too broad, the revision should
+be legible as a revision, carrying its date and its cause, rather than the
+project appearing always to have meant the narrower thing. A test rewritten after
 its outcome is known is a different test and may be better. The known case
 supplies regression evidence; fresh confirmation requires held-out cases
 whose outcomes were not used to design the repair. Disappointment is in scope: an
@@ -948,8 +945,8 @@ evaluator's control, cited rather than absorbed. Where the repository's
 future conduct falls short of this paragraph, the shortfall is itself a
 finding, and Section~\ref{sec:conclusion} says where findings go.
 
-The routes do not pair one-for-one with the distinctions. They address the
-runner, public-case selection, tested-case correctness, usefulness, and origin.
+These evaluations do not pair one-for-one with the distinctions. They address
+the runner, public-case selection, tested-case correctness, usefulness, and origin.
 None repairs a validator--claim mismatch, proves representativeness, or turns
 risk reduction into a guarantee.
 
@@ -959,8 +956,7 @@ risk reduction into a guarantee.
 Plectis does not make the private system answerable as a whole. It puts
 particular public claims within reach of challenge by publishing a fixed
 case, procedure, output, rule, and limit. A pass is
-no stronger than its rule or than the route by which the expected answer
-was chosen.
+no stronger than its rule or than the basis for the expected answer.
 
 Adding more author-controlled components enlarges the inventory;
 it does not alter who chose the cases or rules. Moving a relevant choice out
@@ -1015,7 +1011,7 @@ describes; omit it to run against the newest version instead, and expect
 the dated numbers below to differ if you do.
 
 In a clean clone at this commit, the tour read 5{,}018 project files, found
-five reading orders, chose the README-first route
+five reading orders, chose the README-first order
 (\component{readme_onboarding_route}), wrote 21 files under
 \code{.microcosm/}, and left the examined source files unchanged. Each
 recorded observation names its evidence, event, and limit. The generated

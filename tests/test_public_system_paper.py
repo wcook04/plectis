@@ -336,14 +336,14 @@ def test_public_system_paper_check_rejects_central_term_definition_removal(
     assert any("does not establish their adequacy" in failure for failure in failures)
 
 
-def test_public_system_paper_check_rejects_evidence_route_crosswalk_removal(
+def test_public_system_paper_check_rejects_evaluation_crosswalk_removal(
     tmp_path: Path,
 ) -> None:
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "The routes do not pair one-for-one with the distinctions",
+            "These evaluations do not pair one-for-one with the distinctions",
             "The five routes answer the five distinctions",
         )
         .replace(
@@ -362,6 +362,44 @@ def test_public_system_paper_check_rejects_evidence_route_crosswalk_removal(
     )
 
 
+def test_public_system_paper_check_rejects_route_evaluation_collision(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "These are not the four publication routes",
+            "These are five more routes",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing stronger-evaluation terminology boundary" in failure
+        and "four publication routes" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_evaluation_figure_float_regression(
+    tmp_path: Path,
+) -> None:
+    source = PAPER.read_text(encoding="utf-8")
+    section_marker = r"\section{What stronger evidence would look like}"
+    before, stronger = source.split(section_marker, 1)
+    stronger = stronger.replace(r"\begin{figure}[H]", r"\begin{figure}[t]", 1)
+    paper = tmp_path / "paper.tex"
+    paper.write_text(before + section_marker + stronger, encoding="utf-8")
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "stronger-evaluation figure must follow" in failure for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_misleading_figure_legend(
     tmp_path: Path,
 ) -> None:
@@ -373,7 +411,7 @@ def test_public_system_paper_check_rejects_misleading_figure_legend(
             "The dashed boxes are hidden",
         )
         .replace("italic blue row", "blue row")
-        .replace("in italic blue", "in blue")
+        .replace("in italic\nblue", "in blue")
         + "\nA dashed outline marks what a stranger cannot run or observe directly.\n",
         encoding="utf-8",
     )

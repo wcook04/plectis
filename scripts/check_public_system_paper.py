@@ -84,7 +84,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "No subset of the components is used to estimate performance",
     "The repository therefore lets a reader test claims",
     "cannot independently prove",
-    "This note does not report an independent",
+    "This note reports no independent",
     "The artefact does not prove the story",
     "bounded refusal",
     r"their own \emph{oracle}",
@@ -93,7 +93,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "internal consistency, not",
     "The count is an inventory, not a score",
     "did not find the patterns it was designed to find",
-    "who controls the consequential choices",
+    "who makes the choice that matters for that claim",
     "One successful run supports only the conclusion",
     # Distinction: a validator's rule versus the stated claim.
     "narrower than the claim as worded",
@@ -126,7 +126,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "This figure has no dashed boxes",
     r"Figures~\ref{fig:boundary} and~\ref{fig:gaps}",
     "italic blue row names what a stranger can do",
-    "Above each route, in italic blue",
+    "Above each evaluation, in italic blue",
     # Assurance-case prior art is acknowledged without claiming conformance.
     "Plectis is not an implementation of that standard",
     "claims no new theory of assurance",
@@ -139,16 +139,16 @@ REQUIRED_COLD_READER_ANCHORS = (
     "financial independence (funding is controlled outside",
     # The paper must say what it contributes, rather than only what it limits.
     "worked boundary analysis",
-    # The five stronger-evidence routes are tied to this analysis, not universal.
+    # The five stronger-evidence evaluations are tied to this analysis, not universal.
     "principle is local to those five gaps",
     "do not pair one-for-one with the distinctions",
     "None repairs a validator--claim mismatch",
     "Moving a relevant choice out of the author's hands can strengthen evidence",
     "it does not repair every gap",
-    # Fresh cases and independent routes do not automatically confer truth.
+    # Fresh cases and independent evaluations do not automatically confer truth.
     "Fresh inputs alone do not supply one",
-    "not by strength or prerequisite",
-    "routes are not cumulative stages",
+    "The order is only for exposition",
+    "evaluations are not cumulative stages",
     # Runtime and snapshot claims are scoped to what the checker actually does.
     "does not automatically discover a neighbouring private",
     "pinned commit rather than silently comparing",
@@ -193,6 +193,15 @@ REQUIRED_COLLECTION_ROUTE_ANCHORS = (
     "preserves source text, re-creates bounded behaviour",
     "generated from the same underlying records",
     "They cannot create an independent witness",
+)
+
+REQUIRED_STRONGER_EVALUATION_ANCHORS = (
+    "These are not the four publication routes",
+    "A publication route classifies evidence already in the registry",
+    "evaluations below describe new work by someone outside the project",
+    "Five forms of independent evaluation",
+    "The evaluations are not cumulative stages",
+    "These evaluations do not pair one-for-one with the distinctions",
 )
 
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"
@@ -474,6 +483,18 @@ def check_paper(
     for anchor in REQUIRED_COLLECTION_ROUTE_ANCHORS:
         if anchor not in normalized_collection_section:
             failures.append(f"missing collection route explanation: {anchor!r}")
+    stronger_section = text.split(r"\section{What stronger evidence would look like}", 1)[-1]
+    stronger_section = stronger_section.split(r"\section{Conclusion}", 1)[0]
+    normalized_stronger_section = re.sub(r"\s+", " ", stronger_section)
+    for anchor in REQUIRED_STRONGER_EVALUATION_ANCHORS:
+        if anchor not in normalized_stronger_section:
+            failures.append(
+                f"missing stronger-evaluation terminology boundary: {anchor!r}"
+            )
+    if r"\begin{figure}[H]" not in stronger_section:
+        failures.append(
+            "stronger-evaluation figure must follow its terminology definition"
+        )
     for key in REQUIRED_CITATION_KEYS:
         if not re.search(rf"\\cite\{{[^}}]*\b{re.escape(key)}\b[^}}]*\}}", text):
             failures.append(f"missing literature citation: {key}")
