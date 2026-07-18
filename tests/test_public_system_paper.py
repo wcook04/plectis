@@ -400,6 +400,33 @@ def test_public_system_paper_check_rejects_evaluation_figure_float_regression(
     )
 
 
+def test_public_system_paper_check_rejects_formal_math_overclaim(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "The\nlabel itself supplies no theorem",
+            "The group proves mathematics",
+        )
+        .replace(
+            "assumptions added without proof",
+            "axioms",
+        )
+        .replace(
+            "They do not show that each formal statement says what its author intended",
+            "Every formal statement has its intended meaning",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("missing formal-math evidence boundary" in failure for failure in failures)
+    assert any("missing Lean check explanation" in failure for failure in failures)
+
+
 def test_public_system_paper_check_rejects_misleading_figure_legend(
     tmp_path: Path,
 ) -> None:

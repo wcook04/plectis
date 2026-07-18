@@ -151,7 +151,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "evaluations are not cumulative stages",
     # Runtime and snapshot claims are scoped to what the checker actually does.
     "does not automatically discover a neighbouring private",
-    "pinned commit rather than silently comparing",
+    "reads the pinned commit for historical facts",
 )
 
 REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
@@ -204,6 +204,23 @@ REQUIRED_STRONGER_EVALUATION_ANCHORS = (
     "These evaluations do not pair one-for-one with the distinctions",
 )
 
+REQUIRED_FORMAL_MATH_BOUNDARY_ANCHORS = (
+    "computer-checked mathematics label covers different checks",
+    "small public statements checked by Lean",
+    "The label itself supplies no theorem",
+    "each entry supports only its own public claim and stated limit",
+)
+
+REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS = (
+    "58 Lean source files",
+    "unfinished proof placeholders",
+    "assumptions added without proof",
+    "rely on more than Lean's proof-checking kernel",
+    "that relax ordinary safeguards",
+    "These are source-pattern checks",
+    "They do not show that each formal statement says what its author intended",
+)
+
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"
 EXAMPLE_RECEIPT = (
     "receipts/first_wave/batch8_audio_level_rms_port/"
@@ -223,6 +240,7 @@ REQUIRED_CITATION_KEYS = (
     "acmartifact",
     "nistfips1804",
     "nasa8739",
+    "leanvalidation",
 )
 
 EXAMPLE_CASE_VALUES = {
@@ -491,10 +509,18 @@ def check_paper(
             failures.append(
                 f"missing stronger-evaluation terminology boundary: {anchor!r}"
             )
+    for anchor in REQUIRED_FORMAL_MATH_BOUNDARY_ANCHORS:
+        if anchor not in normalized_stronger_section:
+            failures.append(f"missing formal-math evidence boundary: {anchor!r}")
     if r"\begin{figure}[H]" not in stronger_section:
         failures.append(
             "stronger-evaluation figure must follow its terminology definition"
         )
+    appendix_section = text.split(r"\appendix", 1)[-1]
+    normalized_appendix_section = re.sub(r"\s+", " ", appendix_section)
+    for anchor in REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS:
+        if anchor not in normalized_appendix_section:
+            failures.append(f"missing Lean check explanation: {anchor!r}")
     for key in REQUIRED_CITATION_KEYS:
         if not re.search(rf"\\cite\{{[^}}]*\b{re.escape(key)}\b[^}}]*\}}", text):
             failures.append(f"missing literature citation: {key}")
