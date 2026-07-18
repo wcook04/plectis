@@ -167,6 +167,13 @@ REQUIRED_EXAMPLE_BRIDGE_ANCHORS = (
     "The next section treats these five gaps separately",
 )
 
+REQUIRED_FIRST_REVIEW_ANCHORS = (
+    "Use the appendix's no-install block",
+    "select the version analysed here",
+    "run its tour",
+    "change an input where practical",
+)
+
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"
 EXAMPLE_RECEIPT = (
     "receipts/first_wave/batch8_audio_level_rms_port/"
@@ -412,6 +419,12 @@ def check_paper(
     for anchor in REQUIRED_EXAMPLE_BRIDGE_ANCHORS:
         if anchor not in normalized_run_section:
             failures.append(f"missing example-to-distinctions bridge: {anchor!r}")
+    conclusion_section = text.split(r"\section{Conclusion}", 1)[-1]
+    conclusion_section = conclusion_section.split(r"\appendix", 1)[0]
+    normalized_conclusion_section = re.sub(r"\s+", " ", conclusion_section)
+    for anchor in REQUIRED_FIRST_REVIEW_ANCHORS:
+        if anchor not in normalized_conclusion_section:
+            failures.append(f"missing executable first-review route: {anchor!r}")
     for key in REQUIRED_CITATION_KEYS:
         if not re.search(rf"\\cite\{{[^}}]*\b{re.escape(key)}\b[^}}]*\}}", text):
             failures.append(f"missing literature citation: {key}")
