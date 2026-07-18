@@ -292,6 +292,29 @@ def test_public_system_paper_check_rejects_late_paper_testing_jargon(
         assert any("cold-reader residue" in failure for failure in failures)
 
 
+def test_public_system_paper_check_rejects_opaque_record_and_evaluation_terms(
+    tmp_path: Path,
+) -> None:
+    source = PAPER.read_text(encoding="utf-8")
+    for index, residue in enumerate(
+        (
+            "machine-readable",
+            "reference run",
+            "Freezing a version",
+            "version is frozen",
+            "inputs to freeze",
+            "inputs were frozen",
+            "empirical adequacy",
+        )
+    ):
+        paper = tmp_path / f"paper-{index}.tex"
+        paper.write_text(source + f"\n{residue}\n", encoding="utf-8")
+
+        failures = check_paper(paper_path=paper, check_git_commit=False)
+
+        assert any("cold-reader residue" in failure for failure in failures)
+
+
 def test_public_system_paper_check_rejects_ambiguous_limit_language(
     tmp_path: Path,
 ) -> None:

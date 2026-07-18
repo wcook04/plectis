@@ -179,7 +179,7 @@ which is a dated record of one verification pass at the commit named there.
 
 A \emph{component} in Plectis is one registered, testable part of the
 project. Its \emph{fixture} is a fixed sample input, and its \emph{receipt}
-is a saved, machine-readable record of a reference run. A \emph{validator}
+is a saved record of a prior run that the checker can read. A \emph{validator}
 is the program that applies a component's pass and refusal rules. A
 \emph{commit} is a named, saved version of the repository. These terms
 describe files and commands. Here \emph{evidence} means the public input,
@@ -194,10 +194,10 @@ keep the old name. The generated page \code{ORGANS.md}, named for the old
 term, gives a plain
 description and a first command for every component.)
 
-At commit \code{\snapshotshort} the registry, the machine-readable list of
-components, contains \componentcount{} entries. Every entry is required to
+At commit \code{\snapshotshort} the registry, the component list read by the
+programs, contains \componentcount{} entries. Every entry is required to
 connect the same things: a claim stated in prose; a fixture; a command; the
-output files the command writes; a stored receipt from a reference run; an
+output files the command writes; a stored receipt from a prior run; an
 explicit rule for what counts as a pass and what must be refused; and a
 stated limit on what a pass establishes. Figure~\ref{fig:contract} lays the
 required parts out, together with the fact about them that the rest of this
@@ -216,7 +216,7 @@ exposed to a stranger.
 \node[part] (out) at (6.55,0) {Fresh output\\files};
 \node[part, text width=2.9cm] (val) at (9.55,0) {Comparison, pass rule, refusal rule\\(the validator)};
 \node[part] (verdict) at (13.0,0) {Pass, or\\declared refusal};
-\node[part] (rec) at (9.55,-2.0) {Stored receipt\\(reference run)};
+\node[part] (rec) at (9.55,-2.0) {Stored receipt\\(prior run)};
 % flows
 \draw[flow] (fix) -- node[flabel, above=1pt]{command} (code);
 \draw[flow] (code) -- node[flabel, above=1pt]{writes} (out);
@@ -282,7 +282,7 @@ honesty condition on refusals cannot be discharged from inside the
 repository at all: the public record shows each boundary as declared at the
 named commit, and it cannot show whether the boundary was drawn before or
 after an awkward case was first met. A boundary drawn afterwards turns a
-failure into a designed refusal in the telling. Freezing a version before
+failure into a designed refusal in the telling. Saving the version before
 an outside evaluation begins, as Section~\ref{sec:stronger} proposes, is
 what would make that ordering checkable.
 
@@ -431,9 +431,9 @@ The reader's own derivation from stated premises, as in the worked example's dec
 \addlinespace
 An established external tool or reference. & Whatever the reference itself warrants, on the cases run, within the reference's own limits. \\
 \addlinespace
-An evaluator who chooses inputs and independently justifies expected results after a version is frozen. & Independent evidence bearing on correctness for those cases, within the oracle's own justification and limits. \\
+An evaluator who chooses inputs and independently justifies expected results after the version is saved. & Independent evidence bearing on correctness for those cases, within the oracle's own justification and limits. \\
 \addlinespace
-The world: an outcome observed apart from any program. & A bearing on usefulness or empirical adequacy, where such an outcome exists at all. \\
+The world: an outcome observed apart from any program. & Evidence about a real-world outcome, where one exists. \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -536,7 +536,7 @@ selection from a private whole.
 
 \begin{samepage}
 I chose which mechanisms
-could be given public form, which inputs to freeze, which expected values to
+could be given public form, which inputs to include, which expected values to
 store, and which pass rules to enforce. Nothing in the public record shows
 how many candidates there were, what was excluded beyond the privacy rules,
 or whether the collection resembles ordinary work in the private system. A
@@ -775,7 +775,7 @@ All five distinctions return to control. At the commit this paper describes,
 I hold every consequential choice on both sides of every test.
 I chose which private mechanisms were candidates, which were selected, and
 how finely each was divided into components, and so what the count counts.
-I chose which of the four routes each took, which inputs were frozen, what
+I chose which of the four routes each took, which inputs went into the fixtures, what
 the expected values are, what each validator checks, and where each
 refusal boundary sits. And I chose which group each entry is filed under,
 which failures this paper explains and in what tone, which single
@@ -902,7 +902,7 @@ because the private pool stays invisible.
 
 \emph{Fresh inputs with independently derived expectations} can move
 repeatability towards evidence bearing on correctness: inputs chosen after
-a version is frozen, and expected results worked out by a method that
+the version is saved, and expected results worked out by a method that
 does not pass through my code, whether independent calculation, a second
 implementation, or an external reference. The result would support claims
 about those cases only to the extent that the derivation is credible and
@@ -1042,12 +1042,11 @@ reproduced every displayed pass and value. One stale field reports a copied
 private module; the saved import record reports none because public code replaced
 it. The calculation is unchanged, but the discrepancy remains.
 
-\paragraph{A second Python version.} On 18~July~2026, a clean clone on
-macOS used Python 3.12.7. A network-disabled install could not fetch
-\code{setuptools>=77.0.3}; setuptools 80.9.0 was already installed and allowed
-a local build.
-The tour and example matched without a new runtime library. This tests 3.12.7
-and 3.13.7, not every supported Python version.
+\paragraph{A second Python version.} On 18~July~2026, a clean macOS clone used
+Python 3.12.7. Offline, the install used the already-present
+\code{setuptools} 80.9.0 (the build requires version 77.0.3 or later). The tour
+and example matched without another runtime library. This tests 3.12.7 and
+3.13.7, not every supported version.
 
 \paragraph{Project-wide checks.} At this commit, \code{make check} loads the
 component registry in under a second.
@@ -1058,8 +1057,8 @@ proof); native calculations relying on more than Lean's proof-checking kernel;
 \code{unsafe} definitions, which Lean excludes from mathematical reasoning;
 and removed computation limits. This search cannot show that each formal
 statement says what its author intended \cite{leanvalidation}.
-The registry and trust checks passed;
-the \leanfilecount{} files and \mathcount{} mathematics components are different units.
+The registry and trust checks passed; the \leanfilecount{} files are not the
+\mathcount{} mathematics components.
 At this commit, the limited \code{make test} selection (not every test file)
 ran 361 tests from 32 public test files: 356 passed, two were skipped, and three
 failed. The failures were a line-break expectation in
@@ -1073,10 +1072,10 @@ test} failed. These checks concern only the public checkout; this is my run,
 not an independent repetition.
 
 \paragraph{The paper itself.}
-\component{scripts/check_public_system_paper.py} checks counts, pinned facts,
-the example, cautions, and citations, failing on disagreement. Historical facts
-come from the pinned commit; current prose is checked separately. Under one
-maintainer, this is internal consistency, not external truth.
+\component{scripts/check_public_system_paper.py} fails if counts, pinned facts,
+the example, cautions, or citations disagree. Historical facts come from the
+pinned commit; current prose is checked separately. With one maintainer, this
+is internal consistency, not external truth.
 
 \begin{thebibliography}{9}
 \fontsize{6.6pt}{7.25pt}\selectfont
@@ -1093,7 +1092,8 @@ Engineering}, 14(2):131--164, 2009.
 
 \bibitem{nasem2019}
 National Academies of Sciences, Engineering, and Medicine.
-\emph{Reproducibility and Replicability in Science}. 2019.
+\emph{Reproducibility and Replicability in Science}. Washington, DC:
+The National Academies Press, 2019.
 \href{https://doi.org/10.17226/25303}{doi:10.17226/25303}.
 
 \bibitem{weyuker1982}
@@ -1107,14 +1107,14 @@ Robert Rosenthal. ``The File Drawer Problem and Tolerance for Null Results.''
 \href{https://doi.org/10.1037/0033-2909.86.3.638}{doi:10.1037/0033-2909.86.3.638}.
 
 \bibitem{omgsacm2023}
-Object Management Group. \emph{Structured Assurance Case Metamodel (SACM)},
+Object Management Group.
+\href{https://www.omg.org/spec/SACM/2.3/PDF}{\emph{Structured Assurance Case Metamodel (SACM)}},
 version 2.3, OMG formal/23-05-08, October 2023.
-\href{https://www.omg.org/spec/SACM/2.3/PDF}{OMG SACM 2.3}.
 
 \bibitem{acmartifact}
-Association for Computing Machinery. ``Artifact Review and Badging---Current,''
+Association for Computing Machinery.
+\href{https://www.acm.org/publications/policies/artifact-review-and-badging-current}{``Artifact Review and Badging---Current,''}
 version 1.1. Accessed 18 July 2026.
-\href{https://www.acm.org/publications/policies/artifact-review-and-badging-current}{ACM Publications Policy}.
 
 \bibitem{nistfips1804}
 National Institute of Standards and Technology. \emph{Secure Hash Standard},
@@ -1127,10 +1127,10 @@ NASA-STD-8739.8B, Section 4.4.1.2, 2022.
 \href{https://standards.nasa.gov/standard/nasa/nasa-std-87398}{NASA-STD-8739.8B}.
 
 \bibitem{leanvalidation}
-Lean Project. \emph{Lean Language Reference}: ``Validating a Lean Proof'' and
-``Partial and Unsafe Definitions.'' Accessed 18 July 2026.
-\href{https://lean-lang.org/doc/reference/latest/ValidatingProofs/}{Validation};
-\href{https://lean-lang.org/doc/reference/latest/Definitions/Recursive-Definitions/#partial-and-unsafe-definitions}{definitions}.
+Lean Project. \emph{Lean Language Reference} sections
+\href{https://lean-lang.org/doc/reference/latest/ValidatingProofs/}{``Validating a Lean Proof''} and
+\href{https://lean-lang.org/doc/reference/latest/Definitions/Recursive-Definitions/#partial-and-unsafe-definitions}{``Partial and Unsafe Definitions.''}
+Accessed 18 July 2026.
 
 \end{thebibliography}
 

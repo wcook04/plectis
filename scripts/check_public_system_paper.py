@@ -82,6 +82,13 @@ FORBIDDEN_COLD_READER_RESIDUE = (
     "a second interpreter check",
     "the pinned manifest records none",
     "route the audio example with",
+    "machine-readable",
+    "reference run",
+    "freezing a version",
+    "version is frozen",
+    "inputs to freeze",
+    "inputs were frozen",
+    "empirical adequacy",
 )
 
 # Sentences the paper's argument stands on.  The first block defines terms a
@@ -208,6 +215,13 @@ REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
     "Apple silicon (arm64)",
     "ACM calls digital research materials such as code, scripts, and data",
     "completeness, ability to run, and evidence of verification and validation",
+    "saved record of a prior run that the checker can read",
+    "component list read by the programs",
+    "Saving the version before an outside evaluation begins",
+    "after the version is saved",
+    "Evidence about a real-world outcome, where one exists",
+    "inputs to include",
+    "inputs went into the fixtures",
 )
 
 REQUIRED_EXAMPLE_BRIDGE_ANCHORS = (
@@ -341,7 +355,8 @@ REQUIRED_BIBLIOGRAPHY_TOKENS = {
         "https://doi.org/10.1007/s10664-008-9102-8",
     ),
     "nasem2019": (
-        "2019",
+        "Washington, DC",
+        "The National Academies Press, 2019",
         "https://doi.org/10.17226/25303",
     ),
     "weyuker1982": (
