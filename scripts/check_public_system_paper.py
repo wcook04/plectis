@@ -420,7 +420,12 @@ REQUIRED_FIRST_REVIEW_ANCHORS = (
     "--input /tmp/plectis-audio-rms-input",
     "--out /tmp/plectis-audio-rms-probe",
     "--acceptance-out /tmp/plectis-audio-rms-check.json",
-    r"validator should return \code{blocked}",
+    "echo $?",
+    r"final number printed should be \code{1}",
+    "in the acceptance file",
+    r"\code{status} should be \code{blocked}",
+    r"\code{accepted} should be \code{false}",
+    "validator caught the deliberate mismatch; the exercise did not crash",
 )
 
 REQUIRED_OUTSIDE_EVALUATION_BOUNDARY_ANCHORS = (

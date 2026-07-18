@@ -1003,14 +1003,17 @@ leave \code{expected\_level} unchanged. Then run:
 \begin{Verbatim}[fontsize=\scriptsize]
 PYTHONPATH=src python3 -m plectis batch8-audio-level-rms-port run \
   --input /tmp/plectis-audio-rms-input --out /tmp/plectis-audio-rms-probe \
-  --acceptance-out /tmp/plectis-audio-rms-check.json
+  --acceptance-out /tmp/plectis-audio-rms-check.json; echo $?
 \end{Verbatim}
-The validator should return \code{blocked}; if it does not, report the finding in
+The final number printed should be \code{1}; in the acceptance file,
+\code{status} should be \code{blocked} and \code{accepted} should be
+\code{false}. This means the validator caught the deliberate mismatch; the
+exercise did not crash. Report any different result in
 \code{CONTRIBUTING.md}. Treat a pass as evidence only for the published rule.
 
 \appendix
 \small
-\setlength{\parskip}{0.25em}
+\setlength{\parskip}{0pt}
 
 \section{Dated reproduction record}
 \label{sec:appendix}

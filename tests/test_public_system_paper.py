@@ -1153,8 +1153,8 @@ def test_public_system_paper_check_rejects_concrete_challenge_removal(
             "one sample",
         )
         .replace(
-            r"validator should return \code{blocked}",
-            "validator should respond",
+            r"final number printed should be \code{1}",
+            "the command should respond",
         ),
         encoding="utf-8",
     )
@@ -1173,7 +1173,7 @@ def test_public_system_paper_check_rejects_concrete_challenge_removal(
     )
     assert any(
         "missing executable first-review route" in failure
-        and "should return" in failure
+        and "final number printed" in failure
         for failure in failures
     )
 
@@ -1223,6 +1223,53 @@ def test_public_system_paper_check_rejects_noncopyable_challenge_commands(
     assert any(
         "missing executable first-review route" in failure
         and "--acceptance-out /tmp/plectis-audio-rms-check.json" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_unexplained_blocked_exit(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace("echo $?", "true")
+        .replace(
+            r"\code{status} should be \code{blocked}",
+            "the status should indicate a problem",
+        )
+        .replace(
+            "\\code{accepted} should be\n\\code{false}",
+            "the run should not be accepted",
+        )
+        .replace(
+            "validator caught the deliberate mismatch; the\n"
+            "exercise did not crash",
+            "the expected outcome",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing executable first-review route" in failure
+        and "echo $?" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and r"\code{status}" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and r"\code{accepted}" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and "did not crash" in failure
         for failure in failures
     )
 
