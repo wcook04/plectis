@@ -622,7 +622,7 @@ def test_public_system_paper_check_rejects_example_bridge_removal(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "The calculator check supplies an independent expected number for one row.",
+            "The calculator check derives one expected number without the implementation.",
             "The example is complete.",
         ),
         encoding="utf-8",
@@ -632,7 +632,38 @@ def test_public_system_paper_check_rejects_example_bridge_removal(
 
     assert any(
         "missing example-to-distinctions bridge" in failure
-        and "independent expected number" in failure
+        and "without the implementation" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_arithmetic_oracle_overclaim(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "but not of the project's formula.",
+            "This oracle is independent of the project.",
+        )
+        .replace(
+            "it does not validate the formula.",
+            "That proves the formula is correct.",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing arithmetic-oracle boundary" in failure
+        and "not of the project's formula" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing arithmetic-oracle boundary" in failure
+        and "does not validate the formula" in failure
         for failure in failures
     )
 

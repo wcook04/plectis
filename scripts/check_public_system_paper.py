@@ -290,9 +290,18 @@ REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
 )
 
 REQUIRED_EXAMPLE_BRIDGE_ANCHORS = (
-    "The calculator check supplies an independent expected number for one row",
-    "Even its evidence for correctness is limited to that one calculation",
+    "The calculator check derives one expected number without the implementation",
+    "project-supplied formula",
+    "not that the formula is the right audio rule",
+    "Its correctness evidence is limited to that calculation",
     "The next section treats these five gaps separately",
+)
+
+REQUIRED_ARITHMETIC_ORACLE_BOUNDARY_ANCHORS = (
+    "but not of the project's formula",
+    "only after accepting the project's formula",
+    "not proof that the formula is right",
+    "it does not validate the formula",
 )
 
 REQUIRED_EARLY_DISTINCTION_MAP_ANCHORS = (
@@ -809,6 +818,9 @@ def check_paper(
     for anchor in REQUIRED_EXAMPLE_BRIDGE_ANCHORS:
         if anchor not in normalized_run_section:
             failures.append(f"missing example-to-distinctions bridge: {anchor!r}")
+    for anchor in REQUIRED_ARITHMETIC_ORACLE_BOUNDARY_ANCHORS:
+        if anchor not in normalized_text:
+            failures.append(f"missing arithmetic-oracle boundary: {anchor!r}")
     distinctions_intro = text.split(r"\section{Five distinctions}", 1)[-1]
     distinctions_intro = distinctions_intro.split(
         r"\subsection*{Public execution versus where the code came from}", 1
