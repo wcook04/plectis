@@ -3,7 +3,7 @@
 [Website](https://wcook04.github.io/plectis/) ·
 [Interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) ·
 [The Plectis paper (PDF)](plectis-public-system.pdf) ·
-[Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) ·
+[Companion mathematics paper (PDF)](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf) ·
 [Quickstart](QUICKSTART.md) ·
 [Contributing](CONTRIBUTING.md)
 
@@ -23,10 +23,10 @@ plectis tour --format text .
 
 Plectis is one of two public demonstrations of a private system I have been
 building alone with coding agents. Plectis shows the machinery: working slices
-of that system, packaged to run on your machine. The companion
-[Lean repository](https://github.com/wcook04/plectis-lean-erdos249-257) shows
-the output: machine-checked mathematics around two open Erdős problems, #249
-and #257, both still open. Three short papers explain the pair:
+of that system, packaged to run on your machine. Its companion Lean repository
+(linked below, under Companion project) shows the output: machine-checked
+mathematics around two open Erdős problems, #249 and #257, both still open.
+Three short papers explain the pair:
 [the Plectis paper](plectis-public-system.pdf) in this repository, plus
 [the mathematics paper](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf)
 and [the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
