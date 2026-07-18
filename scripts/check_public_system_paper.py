@@ -72,6 +72,11 @@ REQUIRED_COLD_READER_ANCHORS = (
     r"A \emph{validator} is",
     r"A \emph{commit} is",
     "basic command-line use",
+    # The paper's coined usage and its central three nouns must be explicit
+    # enough that a cold reader does not import stronger ordinary meanings.
+    r"I use \emph{answerable} in a deliberately local sense",
+    "Calling them evidence does not establish their adequacy",
+    r"\emph{Contract} means only",
     "descriptive analysis of one artefact, not a statistical study",
     "one item examined",
     "No subset of the components is used to estimate performance",

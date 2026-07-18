@@ -93,22 +93,21 @@ which may still fall short of the prose claim.
 I have a larger private software system that I cannot responsibly publish:
 it contains personal records, credentials, live browser and account
 information, my working notes, and unfinished tools. I would still like
-some of its claims to be answerable to strangers, rather than resting
-entirely on my say-so. \emph{Answerable} has a definite meaning here: starting
-from public material alone, a stranger can make something happen that bears
-on the claim, can inspect the rule by which the outcome is judged, and can
-aim any objection at a particular public object rather than at my account
-of a hidden one. Neither the difficulty nor that meaning is specific to me,
-and this paper examines what such answerability can amount to: what may a
-stranger reasonably conclude from a curated set of runnable public
-fragments of a system they cannot see?
+strangers to be able to test some claims about it instead of accepting my
+say-so. I use \emph{answerable} in a deliberately local sense. A claim is
+answerable when a stranger can run a public procedure that bears on it, see
+how the result is judged, and point a disagreement at a named public input,
+rule, or output. This says nothing yet about whether the claim is true,
+important, or representative of the hidden system. This paper asks what
+conclusions that narrow form of answerability can support when the public
+fragments come from a system no reader can see.
 
 Plectis is my working answer: a public software repository, stored at
 \repo. A \emph{repository} is an organised project folder, usually kept
 with its revision history; to \emph{clone} a repository is to copy that
 folder and history to another computer. Everything this paper says a
-stranger can check is in that repository, and the paper's task is to
-describe the answer and measure how far it reaches.
+stranger can check is in that repository. This paper describes how its
+claims are exposed and where the evidence stops.
 
 I am 22 and study economics. Over about ten months I built the private
 system by directing AI coding agents, software tools that can edit, run, and
@@ -172,7 +171,11 @@ project. Its \emph{fixture} is a fixed sample input, and its \emph{receipt}
 is a saved, machine-readable record of a reference run. A \emph{validator}
 is the program that applies a component's pass and refusal rules. A
 \emph{commit} is a named, saved version of the repository. These terms
-describe files and commands; they do not grade the importance of what any
+describe files and commands. Here \emph{evidence} means the public input,
+procedure, output, and judgement rule offered in support of a claim. Calling
+them evidence does not establish their adequacy. \emph{Contract} means only
+that the claim, those materials, and a limit are stated together so readers
+can check their fit. Nothing in these labels grades the importance of what a
 component does. (Inside the repository a component is called an
 \emph{organ}, and the code package is named \code{microcosm\_core}: the
 project was previously called Microcosm, and several file and command names
@@ -282,8 +285,8 @@ test suite with a registry and unusually complete paperwork, and that
 description is accepted. The subject of this paper is not the machinery;
 it is what such machinery can and cannot make a claim answer for.
 
-Answerability overlaps with reproducibility and transparency but is not a
-synonym for either. A run can repeat perfectly with no stated claim attached,
+This local notion overlaps with reproducibility and transparency but is not
+a synonym for either. A run can repeat perfectly with no stated claim attached,
 and a claim can be answerable while still awaiting a good test. The design
 also begins from partial disclosure: it offers a bounded point of contact,
 not a view of the hidden system. A component exposes the published fragment

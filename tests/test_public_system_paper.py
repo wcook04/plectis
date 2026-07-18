@@ -156,3 +156,27 @@ def test_public_system_paper_check_rejects_method_scope_removal(
     failures = check_paper(paper_path=paper, check_git_commit=False)
 
     assert any("not a statistical study" in failure for failure in failures)
+
+
+def test_public_system_paper_check_rejects_central_term_definition_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            r"I use \emph{answerable} in a deliberately local sense",
+            "I use answerable in its ordinary sense",
+        )
+        .replace(
+            "Calling\n"
+            "them evidence does not establish their adequacy",
+            "These materials are adequate evidence",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("deliberately local sense" in failure for failure in failures)
+    assert any("does not establish their adequacy" in failure for failure in failures)
