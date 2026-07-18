@@ -229,7 +229,7 @@ exposed to a stranger.
 % stranger actions
 % top-anchored so the action row reads as one aligned row despite
 % differing line counts
-\node[act, anchor=north] (a1) at (0,-2.95) {perturb it};
+\node[act, anchor=north] (a1) at (0,-2.95) {change the input};
 \node[act, anchor=north] (a2) at (3.45,-2.95) {read it;\\rerun it};
 \node[act, anchor=north] (a3) at (6.55,-2.95) {regenerate\\them};
 \node[act, anchor=north] (a4) at (9.55,-2.95) {generate a fresh receipt\\and compare;\\dispute the rule};
@@ -569,7 +569,7 @@ drawn from stays on the left.
 \node[font=\scriptsize, text=black!70, above] at (7.15,4.2) {the publication boundary};
 % selection arrow; the label plaque interrupts the boundary line symmetrically
 \draw[flow, draw=authoramber] (5.8,1.8) -- (8.55,1.8);
-\node[flabel, fill=white, align=center, inner sep=2.5pt, text=authoramber] at (7.15,2.44) {selection and\\re-expression (mine)};
+\node[flabel, fill=white, align=center, inner sep=2.5pt, text=authoramber] at (7.15,2.44) {I chose and\\adapted these};
 % public box
 \draw[black!75, line width=0.7pt, rounded corners=3pt, fill=gray!6] (8.55,0.55) rectangle (13.35,3.05);
 \node[font=\footnotesize, align=center] at (10.95,1.8) {The public repository\\at commit \code{\snapshotshort}:\\\componentcount{} components in \familycount{} groups};
@@ -581,8 +581,8 @@ drawn from stays on the left.
 \node[gnote, text width=4.6cm, anchor=north] at (10.95,-0.40) {inside public evidence: files, commands, records, and tests of the published fragments};
 \end{tikzpicture}
 \caption{The selection problem. Each square stands for a private
-mechanism; the darker ones were given public form, and each, unpacked,
-has the anatomy of Figure~\ref{fig:contract}. The grid trails off
+mechanism; the darker ones were given public form. Each public component
+has the parts shown in Figure~\ref{fig:contract}. The grid trails off
 because its true extent is exactly what the public side cannot know. The
 count of squares on the left, the
 rule that picked the darker ones, and the resemblance between the two sides
@@ -632,13 +632,13 @@ that one maintainer controls.
 The five distinctions share one structure. What a stranger observes sits
 inside the published frame: a run completed, a record matched, chosen cases
 passed, a scan finished. The conclusion the observation invites lies
-outside the frame, and reaching it needs a premise the observation does not
-contain, one premise per distinction: that the public object descends from
+outside the frame, and reaching it needs an assumption the observation does not
+contain, one assumption per distinction: that the public object came from
 the private one; that the
 expectation is what the answer should have been; that the rule tests what
 the words say; that the chosen cases stand for the unchosen; that the risks
 searched for are the risks there are. The contract only makes each missing
-premise explicit. Once named, a gap can be disputed, assigned a cost to
+assumption explicit. Once named, a gap can be disputed, assigned a cost to
 address, or deliberately left open. An unnamed gap is easy to cross without
 noticing.
 Nor is five a closed count. The same shape has already appeared twice
@@ -653,9 +653,9 @@ collection most needs a reader to hold, not how many there are.
 \node[part, text width=3.2cm] (obs) at (1.8,0) {Observed: at one commit, in one environment, a fresh run matches the stored record};
 \draw[black!55, dashed, line width=0.7pt] (4.55,-3.75) -- (4.55,3.75);
 \node[font=\scriptsize, text=black!60, rotate=90] at (4.3,2.55) {edge of the observation};
-\node[ghost, text width=4.6cm] (g1) at (13.1,2.9)  {\ldots so it descends from the private system as described};
+\node[ghost, text width=4.6cm] (g1) at (13.1,2.9)  {\ldots so it came from the private system as described};
 \node[ghost, text width=4.6cm] (g2) at (13.1,1.45) {\ldots so the result is what it should have been};
-\node[ghost, text width=4.6cm] (g3) at (13.1,0)    {\ldots so the claim as worded is supported};
+\node[ghost, text width=4.6cm] (g3) at (13.1,0)    {\ldots so the test supports the claim as written};
 \node[ghost, text width=4.6cm] (g4) at (13.1,-1.45){\ldots so it behaves like this on inputs not shown};
 \node[ghost, text width=4.6cm] (g5) at (13.1,-2.9) {\ldots so no risk of that kind remains};
 % fanned starts so the five tails do not pile on one point; all lines are
@@ -665,18 +665,18 @@ collection most needs a reader to hold, not how many there are.
 \draw[softflow] (obs.east) -- (g3.west);
 \draw[softflow] ([yshift=-11pt]obs.east) -- (g4.west);
 \draw[softflow] ([yshift=-22pt]obs.east) -- (g5.west);
-\path ([yshift=22pt]obs.east) -- (g1.west) node[gaplabel, pos=0.50]{origin: provenance evidence};
-\path ([yshift=11pt]obs.east) -- (g2.west) node[gaplabel, pos=0.60]{standard: an independent oracle};
-\path (obs.east) -- (g3.west) node[gaplabel, pos=0.50]{meaning: a rule matching the words};
+\path ([yshift=22pt]obs.east) -- (g1.west) node[gaplabel, pos=0.50]{origin: evidence about where it came from};
+\path ([yshift=11pt]obs.east) -- (g2.west) node[gaplabel, pos=0.60]{correctness: an answer derived separately};
+\path (obs.east) -- (g3.west) node[gaplabel, pos=0.50]{meaning: a rule that tests the words};
 \path ([yshift=-11pt]obs.east) -- (g4.west) node[gaplabel, pos=0.60]{reach: cases I did not choose};
-\path ([yshift=-22pt]obs.east) -- (g5.west) node[gaplabel, pos=0.50]{coverage: search beyond\\the declared patterns};
+\path ([yshift=-22pt]obs.east) -- (g5.west) node[gaplabel, pos=0.50]{risk: checks beyond\\the listed patterns};
 \end{tikzpicture}
 \caption{Five conclusions a matching run invites and does not license.
-Each dashed arrow needs a further premise that the observation itself
+Each dashed arrow needs a further assumption that the observation itself
 cannot supply, and the tags follow the order of this section's
-distinctions: origin for provenance, standard for correctness, meaning for
+distinctions: origin for provenance, correctness for the expected answer, meaning for
 the validator's rule against the stated claim, reach for selection, and
-coverage for risk. The contract's
+risk for the limits of a scan. The contract's
 contribution is not to cross these gaps but to make them nameable, one
 component at a time.}
 \label{fig:gaps}
@@ -858,11 +858,11 @@ is who makes the choice that matters for that claim.
 % leader the same length
 % a whisper of stranger-blue on the evaluations: each is evidence that lives
 % outside the author's hands
-\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s1) at (1.2,0) {Independent repetition};
-\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s2) at (4.3,0) {Evaluator-controlled selection};
-\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s3) at (7.4,0) {Fresh inputs, independent expectations};
-\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s4) at (10.5,0) {Outside tasks, ordinary alternatives};
-\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s5) at (13.6,0) {Confidential provenance review};
+\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s1) at (1.2,0) {Another person repeats the run};
+\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s2) at (4.3,0) {Evaluator chooses the cases};
+\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s3) at (7.4,0) {New inputs, answers worked out separately};
+\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s4) at (10.5,0) {Outside task, ordinary alternative};
+\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s5) at (13.6,0) {Confidential private-source review};
 \node[act, text width=2.25cm, anchor=south] (b1) at (1.2,1.12) {who runs it};
 \node[act, text width=2.25cm, anchor=south] (b2) at (4.3,1.12) {which cases count};
 \node[act, text width=2.25cm, anchor=south] (b3) at (7.4,1.12) {what the answer should have been};

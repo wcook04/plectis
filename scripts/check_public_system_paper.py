@@ -96,6 +96,13 @@ FORBIDDEN_COLD_READER_RESIDUE = (
     "self-supplied success criteria",
     "in order to",
     "fixed denominator",
+    "{perturb it};",
+    r"selection and\\re-expression",
+    "has the anatomy of figure",
+    "origin: provenance evidence",
+    "standard: an independent oracle",
+    "each dashed arrow needs a further premise",
+    "needs a premise the observation does not contain",
 )
 
 FORBIDDEN_BEFORE_COMPONENT_CONTRACT = (
@@ -173,6 +180,21 @@ REQUIRED_COLD_READER_ANCHORS = (
     r"Figures~\ref{fig:boundary} and~\ref{fig:gaps}",
     "italic blue row names what a stranger can do",
     "Above each evaluation, in italic blue",
+    # Figure wording must stand on its own for readers who scan before they
+    # meet the formal vocabulary in the prose.
+    "change the input",
+    r"I chose and\\adapted these",
+    r"Each public component has the parts shown in Figure~\ref{fig:contract}",
+    "origin: evidence about where it came from",
+    "correctness: an answer derived separately",
+    "meaning: a rule that tests the words",
+    r"risk: checks beyond\\the listed patterns",
+    "Each dashed arrow needs a further assumption",
+    "Another person repeats the run",
+    "Evaluator chooses the cases",
+    "New inputs, answers worked out separately",
+    "Outside task, ordinary alternative",
+    "Confidential private-source review",
     # Assurance-case prior art is acknowledged without claiming conformance.
     "Plectis is not an implementation of that standard",
     "Plectis claims neither status",

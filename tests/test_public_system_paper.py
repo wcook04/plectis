@@ -749,6 +749,38 @@ def test_public_system_paper_check_rejects_misleading_figure_legend(
     )
 
 
+def test_public_system_paper_check_rejects_opaque_figure_vocabulary(
+    tmp_path: Path,
+) -> None:
+    source = PAPER.read_text(encoding="utf-8")
+    cases = (
+        ("change the input", "perturb it"),
+        (r"I chose and\\adapted these", r"selection and\\re-expression"),
+        (
+            "Each public component\n"
+            r"has the parts shown in Figure~\ref{fig:contract}",
+            "Each, unpacked, has the anatomy of Figure",
+        ),
+        ("origin: evidence about where it came from", "origin: provenance evidence"),
+        (
+            "correctness: an answer derived separately",
+            "standard: an independent oracle",
+        ),
+        (
+            "Each dashed arrow needs a further assumption",
+            "Each dashed arrow needs a further premise",
+        ),
+    )
+    for index, (plain, opaque) in enumerate(cases):
+        paper = tmp_path / f"paper-{index}.tex"
+        paper.write_text(source.replace(plain, opaque), encoding="utf-8")
+
+        failures = check_paper(paper_path=paper, check_git_commit=False)
+
+        assert any("cold-reader residue" in failure for failure in failures)
+        assert any("missing cold-reader anchor" in failure for failure in failures)
+
+
 def test_public_system_paper_check_rejects_independence_as_universal_requirement(
     tmp_path: Path,
 ) -> None:
