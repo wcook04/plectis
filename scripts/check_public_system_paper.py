@@ -352,6 +352,11 @@ REQUIRED_EXAMPLE_BRIDGE_ANCHORS = (
     "The next section treats these five gaps separately",
 )
 
+REQUIRED_EXPECTED_REFUSAL_EXPLANATION_ANCHORS = (
+    r"Here \emph{pass} means ``refused as expected''",
+    r"\code{pcm24} was not accepted",
+)
+
 REQUIRED_WORKED_EXAMPLE_COMMAND_ANCHORS = (
     "PYTHONPATH=src python3 -m plectis",
     "batch8-audio-level-rms-port run",
@@ -1033,6 +1038,9 @@ def check_paper(
     for anchor in REQUIRED_EXAMPLE_BRIDGE_ANCHORS:
         if anchor not in normalized_run_section:
             failures.append(f"missing example-to-distinctions bridge: {anchor!r}")
+    for anchor in REQUIRED_EXPECTED_REFUSAL_EXPLANATION_ANCHORS:
+        if anchor not in normalized_run_section:
+            failures.append(f"missing expected-refusal explanation: {anchor!r}")
     for anchor in REQUIRED_WORKED_EXAMPLE_COMMAND_ANCHORS:
         if anchor not in normalized_run_section:
             failures.append(f"missing copyable worked-example command: {anchor!r}")

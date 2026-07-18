@@ -932,6 +932,33 @@ def test_public_system_paper_check_rejects_example_bridge_removal(
     )
 
 
+def test_public_system_paper_check_rejects_unexplained_expected_refusal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "Here \\emph{pass} means ``refused as expected''; "
+            "\\code{pcm24} was not accepted.",
+            "The last row passed.",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing expected-refusal explanation" in failure
+        and "refused as expected" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing expected-refusal explanation" in failure
+        and "not accepted" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_arithmetic_oracle_overclaim(
     tmp_path: Path,
 ) -> None:

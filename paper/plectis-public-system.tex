@@ -350,10 +350,9 @@ each public procedure against its claim and stated limit.
 \label{sec:run}
 
 The component \component{batch8_audio_level_rms_port} computes a loudness
-level from short arrays of audio samples. I chose it for the worked example
-because it is ordinary. It needs no mathematics beyond a square root and no
-knowledge of the private system, and the claim it makes is small. Its value
-here is that every part of the evidence can be seen at once.
+level from short arrays of audio samples. I chose it because it is ordinary.
+It needs only a square root and no knowledge of the private system; its claim
+is small enough that every part of the evidence can be seen at once.
 
 The reported origin is this. The private system contains a small macOS
 recording application, and one of that application's functions reduces a
@@ -402,6 +401,7 @@ Unknown format & \code{pcm24} & refusal & refusal & pass \\
 \end{tabular}
 \end{center}
 
+Here \emph{pass} means ``refused as expected''; \code{pcm24} was not accepted.
 Because the inputs and the rule are both printed above, the first row can be
 checked without the repository or a computer: the squares of the four
 samples average to 0.00375, whose square root is $0.061237\ldots$, and eight
@@ -455,15 +455,12 @@ still chooses the case and the rule, while the tool supplies a result that
 inherits its own limits. The evaluations in Section~\ref{sec:stronger} describe
 ways to move consequential choices out of the project's control.
 
-The refusal row records a designed boundary, not a failure: an input naming
-an unsupported encoding (\code{pcm24}, a format this component does not
-handle) must be rejected with an error, and is. The
-stored reference for the whole table is
-\component{batch8_audio_level_rms_port_validation_receipt.json} under
-\component{receipts/first_wave/batch8_audio_level_rms_port/}, so a fresh run
-is compared against a fixed record rather than against memory. A stored
-record by itself does not prove that the stated command produced it; its use
-is that anyone can generate a fresh one and compare the two.
+\component{batch8_audio_level_rms_port_validation_receipt.json} is the stored
+reference for the table. It sits under
+\component{receipts/first_wave/batch8_audio_level_rms_port/}, so a fresh run is
+compared against a fixed record rather than against memory. A stored record by
+itself does not prove that the stated command produced it; its use is that
+anyone can generate a fresh one and compare the two.
 
 The limit is part of the component. This run checks one public Python
 calculation over synthetic sample arrays (arrays composed for the test, not
