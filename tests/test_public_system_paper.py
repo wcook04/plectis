@@ -333,6 +333,23 @@ def test_public_system_paper_check_rejects_narrow_bibliography_label_width(
     assert "bibliography label width must match item count: expected 10" in failures
 
 
+def test_public_system_paper_check_rejects_tiny_bibliography_type(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            r"\fontsize{7.5pt}{8.3pt}\selectfont",
+            r"\fontsize{6.6pt}{7.25pt}\selectfont",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert "bibliography font must be at least 7.5pt" in failures
+
+
 def test_public_system_paper_check_rejects_prior_art_boundary_removal(
     tmp_path: Path,
 ) -> None:

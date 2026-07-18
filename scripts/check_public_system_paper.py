@@ -522,6 +522,8 @@ REQUIRED_PINPOINT_CITATIONS = (
     r"\cite[\S4.4.1.2]{nasa8739}",
 )
 
+MIN_BIBLIOGRAPHY_FONT_PT = 7.5
+
 # Canonical identifiers and version markers verified against the publisher or
 # standards body's own page on 18 July 2026. Checking only citation keys would
 # allow an entry to keep its label while drifting to the wrong DOI, version,
@@ -1021,6 +1023,18 @@ def check_paper(
             "bibliography label width must match item count: "
             f"expected {expected_width}"
         )
+    bibliography_section = text.split(r"\begin{thebibliography}", 1)[-1]
+    bibliography_font = re.search(
+        r"\\fontsize\{(?P<size>[0-9]+(?:\.[0-9]+)?)pt\}",
+        bibliography_section,
+    )
+    if bibliography_font is None:
+        failures.append("bibliography must declare an explicit readable font size")
+    elif float(bibliography_font.group("size")) < MIN_BIBLIOGRAPHY_FONT_PT:
+        failures.append(
+            "bibliography font must be at least "
+            f"{MIN_BIBLIOGRAPHY_FONT_PT:g}pt"
+        )
 
     if macros.get("snapshotshort") != snapshot[:12]:
         failures.append("snapshotshort must equal the first 12 characters of snapshotcommit")
@@ -1053,7 +1067,7 @@ def main() -> int:
         "Public-system paper check: pass "
         f"({declared_count} pinned components; {declared_lean_count} pinned Lean sources; "
         "pinned family counts, evidence routes, worked example, public-test receipt, literature "
-        "citations, canonical bibliography identifiers and first-citation order, cold-reader anchors, "
+        "citations, readable canonical bibliography identifiers and first-citation order, cold-reader anchors, "
         "and claim language agree)"
     )
     return 0
