@@ -112,6 +112,7 @@ FORBIDDEN_COLD_READER_RESIDUE = (
     "one assumption per distinction",
     "the five distinctions share one structure",
     "validator compares that output with a stored receipt",
+    "where the oracle lives",
 )
 
 FORBIDDEN_BEFORE_COMPONENT_CONTRACT = (
@@ -162,7 +163,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "At the named commit, the repository's evidence still came from the project",
     "public repository does not prove the story",
     "refusal with a stated limit",
-    r"their own \emph{oracle}",
+    "reader can supply the test oracle",
     "share a mistake",
     "repeatability under that public test",
     "internal consistency, not",
@@ -357,6 +358,16 @@ REQUIRED_ARITHMETIC_ORACLE_BOUNDARY_ANCHORS = (
     "it does not validate the formula",
 )
 
+REQUIRED_TEST_ORACLE_EXPLANATION_ANCHORS = (
+    r"a \emph{test oracle}",
+    "information or procedure used to decide whether an observed output is correct",
+    "challenge of making that distinction is called the test oracle problem",
+    r"\cite[p. 507]{barr2015}",
+    "reader can supply the test oracle",
+    "expected number derived independently of the program's output",
+    r"\textbf{Who or what supplies the expected answer}",
+)
+
 REQUIRED_EARLY_DISTINCTION_MAP_ANCHORS = (
     "Five labels organise the gaps",
     r"\emph{origin}, where the material came from",
@@ -535,7 +546,7 @@ PINNED_RECEIPT_FLOW_SOURCE_TOKENS = {
 REQUIRED_CITATION_KEYS = (
     "runeson2009",
     "nasem2019",
-    "weyuker1982",
+    "barr2015",
     "rosenthal1979",
     "omgsacm2023",
     "acmartifact",
@@ -548,6 +559,7 @@ REQUIRED_CITATION_KEYS = (
 REQUIRED_PINPOINT_CITATIONS = (
     r"\cite[\S2.5]{runeson2009}",
     r"\cite[conclusion 3-1]{nasem2019}",
+    r"\cite[p. 507]{barr2015}",
     r"\cite[secs. 1.1, A.2]{omgsacm2023}",
     r"\cite[security-strength table]{nisthashfunctions}",
     r"\cite[\S4.4.1.2]{nasa8739}",
@@ -569,9 +581,10 @@ REQUIRED_BIBLIOGRAPHY_TOKENS = {
         "The National Academies Press, 2019",
         "https://doi.org/10.17226/25303",
     ),
-    "weyuker1982": (
-        "25(4):465--470, 1982",
-        "https://doi.org/10.1093/comjnl/25.4.465",
+    "barr2015": (
+        "IEEE Transactions on Software Engineering",
+        "41(5):507--525, 2015",
+        "https://doi.org/10.1109/TSE.2014.2372785",
     ),
     "rosenthal1979": (
         "86(3):638--641, 1979",
@@ -986,6 +999,11 @@ def check_paper(
     for anchor in REQUIRED_ARITHMETIC_ORACLE_BOUNDARY_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing arithmetic-oracle boundary: {anchor!r}")
+    for anchor in REQUIRED_TEST_ORACLE_EXPLANATION_ANCHORS:
+        if anchor not in normalized_text:
+            failures.append(
+                f"missing plain-language test-oracle explanation: {anchor!r}"
+            )
     distinctions_intro = text.split(r"\section{Five distinctions}", 1)[-1]
     distinctions_intro = distinctions_intro.split(
         r"\subsection*{Public execution versus where the code came from}", 1

@@ -283,8 +283,8 @@ def test_public_system_paper_check_rejects_bibliography_order_drift(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(r"\bibitem{nasem2019}", r"\bibitem{order-swap}")
-        .replace(r"\bibitem{weyuker1982}", r"\bibitem{nasem2019}")
-        .replace(r"\bibitem{order-swap}", r"\bibitem{weyuker1982}"),
+        .replace(r"\bibitem{barr2015}", r"\bibitem{nasem2019}")
+        .replace(r"\bibitem{order-swap}", r"\bibitem{barr2015}"),
         encoding="utf-8",
     )
 
@@ -314,6 +314,53 @@ def test_public_system_paper_check_rejects_bibliography_identifier_drift(
         "bibliography item nasa8739 lacks canonical token" in failure
         for failure in failures
     )
+
+
+def test_public_system_paper_check_rejects_test_oracle_source_drift(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "https://doi.org/10.1109/TSE.2014.2372785",
+            "https://example.invalid/indirect-oracle-source",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "bibliography item barr2015 lacks canonical token" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_opaque_test_oracle_explanation(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "information or procedure used\n"
+            "to decide whether an observed output is correct",
+            "mechanism used to judge output",
+        )
+        .replace(
+            r"\textbf{Who or what supplies the expected answer}",
+            r"\textbf{Where the oracle lives}",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing plain-language test-oracle explanation" in failure
+        for failure in failures
+    )
+    assert any("cold-reader residue" in failure for failure in failures)
 
 
 def test_public_system_paper_check_rejects_missing_source_pinpoint(
@@ -842,7 +889,7 @@ def test_public_system_paper_check_rejects_arithmetic_oracle_overclaim(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "but not of the project's formula.",
+            "but not of the project's\nformula.",
             "This oracle is independent of the project.",
         )
         .replace(

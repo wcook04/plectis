@@ -320,11 +320,12 @@ reproducibility means obtaining consistent results using the same input
 data, computational steps, methods, code, and conditions of analysis; such
 consistency does not by itself establish correctness
 \cite[conclusion 3-1]{nasem2019}.
-Software testing calls the mechanism used to decide whether an output is
-correct an oracle, and the difficulty of obtaining a trustworthy oracle is
-a recognised testing problem \cite{weyuker1982}. The risk that a curated
-collection disproportionately exposes favourable cases is analogous to
-selective publication and the file-drawer problem \cite{rosenthal1979}.
+In software testing, a \emph{test oracle} is the information or procedure used
+to decide whether an observed output is correct. The challenge of making that
+distinction is called the test oracle problem \cite[p. 507]{barr2015}. The risk
+that a curated collection disproportionately exposes favourable cases is
+analogous to selective publication and the file-drawer problem
+\cite{rosenthal1979}.
 An \emph{assurance case} is a structured argument linking a system claim to
 reasons and evidence. The Object Management Group's Structured Assurance Case
 Metamodel (SACM) 2.3 standard models such cases as auditable claims, arguments,
@@ -405,10 +406,9 @@ checked without the repository or a computer: the squares of the four
 samples average to 0.00375, whose square root is $0.061237\ldots$, and eight
 times that is $0.489897\ldots$. A reader with a calculator can recompute this
 expected value from the stated formula alone. For this one case the reader
-can act as their own \emph{oracle}, the general name for a tester or
-mechanism used to decide whether an output is correct. Here elementary
-arithmetic supplies an expected number independent of the program's output,
-but not of the project's formula.
+can supply the test oracle: elementary arithmetic gives an expected number
+derived independently of the program's output, but not of the project's
+formula.
 
 Almost nothing else in the collection is like that, which is why the example
 matters. Elsewhere the project usually supplies the implementation, the
@@ -431,7 +431,7 @@ support:
 \small
 \begin{tabular}{>{\raggedright\arraybackslash}p{0.44\linewidth}>{\raggedright\arraybackslash}p{0.47\linewidth}}
 \toprule
-\textbf{Where the oracle lives} & \textbf{What a matching result then supports} \\
+\textbf{Who or what supplies the expected answer} & \textbf{What a matching result then supports} \\
 \midrule
 The project itself: implementation, cases, expectations, and rule from one author-controlled process. & Repeatability under the project's own test; the four readings above all stay open. \\
 \addlinespace
@@ -1099,10 +1099,11 @@ National Academies of Sciences, Engineering, and Medicine.
 The National Academies Press, 2019.
 \href{https://doi.org/10.17226/25303}{doi:10.17226/25303}.
 
-\bibitem{weyuker1982}
-Elaine J. Weyuker. ``On Testing Non-Testable Programs.''
-\emph{The Computer Journal}, 25(4):465--470, 1982.
-\href{https://doi.org/10.1093/comjnl/25.4.465}{doi:10.1093/comjnl/25.4.465}.
+\bibitem{barr2015}
+Earl T. Barr, Mark Harman, Phil McMinn, Muzammil Shahbaz, and Shin Yoo.
+``The Oracle Problem in Software Testing: A Survey.''
+\emph{IEEE Transactions on Software Engineering}, 41(5):507--525, 2015.
+\href{https://doi.org/10.1109/TSE.2014.2372785}{doi:10.1109/TSE.2014.2372785}.
 
 \bibitem{rosenthal1979}
 Robert Rosenthal. ``The File Drawer Problem and Tolerance for Null Results.''
