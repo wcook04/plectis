@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PAPER = ROOT / "paper/plectis-public-system.tex"
 REGISTRY = ROOT / "core/organ_registry.json"
 FAMILIES = ROOT / "core/organ_families.json"
+PUBLIC_TEST_RECEIPT = ROOT / "paper/public-test-receipt.json"
 
 MACRO_RE = re.compile(
     r"\\newcommand\{\\(?P<name>[A-Za-z]+)\}\{(?P<value>[^}]*)\}"
@@ -151,7 +152,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "evaluations are not cumulative stages",
     # Runtime and snapshot claims are scoped to what the checker actually does.
     "does not automatically discover a neighbouring private",
-    "reads the pinned commit for historical facts",
+    "Historical facts come from the pinned commit",
 )
 
 REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
@@ -215,11 +216,39 @@ REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS = (
     r"\leanfilecount{} Lean source files",
     "unfinished proof placeholders",
     "assumptions added without proof",
-    "rely on more than Lean's proof-checking kernel",
-    "that relax ordinary safeguards",
-    "These are source-pattern checks",
-    "They do not show that each formal statement says what its author intended",
+    "relying on more than Lean's proof-checking kernel",
+    r"\code{partial} functions with no termination proof",
+    r"\code{unsafe} definitions outside Lean's logic",
+    "It searches source text for those forms",
+    "It cannot show that each formal statement says what its author intended",
+    "Partial and Unsafe Definitions",
 )
+
+REQUIRED_PUBLIC_TEST_SCOPE_ANCHORS = (
+    r"bounded \code{make test} selection (not every test file) ran 361 tests from 32 public test files",
+    "356 passed, two were skipped, and three failed",
+    "line-break expectation",
+    "outdated stored line or byte counts",
+    "root-layout rules that did not yet allow",
+    "paper/public-test-receipt.json",
+    "its larger floor was not green",
+    "this is my run, not an independent repetition",
+)
+
+EXPECTED_PUBLIC_TEST_RESULT = {
+    "status": "fail",
+    "command_exit_code": 2,
+    "passed": 356,
+    "skipped": 2,
+    "failed": 3,
+    "total": 361,
+}
+
+EXPECTED_PUBLIC_TEST_FAILURES = {
+    "tests/test_public_entry_docs.py::test_public_repo_boundary_docs_name_runtime_contracts",
+    "tests/test_public_source_body_custody.py::test_public_source_body_manifest_targets_are_current_and_shipped",
+    "tests/test_public_repo_profile.py::test_profile_passes_on_this_repository",
+}
 
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"
 EXAMPLE_RECEIPT = (
@@ -252,6 +281,18 @@ EXAMPLE_CASE_VALUES = {
 
 def _load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _load_public_test_receipt(path: Path, failures: list[str]) -> dict:
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        failures.append(f"cannot read public-test receipt: {path}")
+        return {}
+    if not isinstance(payload, dict):
+        failures.append("public-test receipt is not a JSON object")
+        return {}
+    return payload
 
 
 def _load_json_from_commit(commit: str, relative_path: str, failures: list[str]) -> dict:
@@ -323,6 +364,7 @@ def check_paper(
     paper_path: Path = PAPER,
     registry_path: Path = REGISTRY,
     families_path: Path = FAMILIES,
+    public_test_receipt_path: Path = PUBLIC_TEST_RECEIPT,
     *,
     check_git_commit: bool = True,
 ) -> list[str]:
@@ -332,6 +374,9 @@ def check_paper(
     lower = normalized_text.lower()
     macros = _macros(text)
     failures: list[str] = []
+    public_test_receipt = _load_public_test_receipt(
+        public_test_receipt_path, failures
+    )
 
     snapshot = macros.get("snapshotcommit", "")
     snapshot_resolves = False
@@ -348,6 +393,25 @@ def check_paper(
         snapshot_resolves = result.returncode == 0
         if not snapshot_resolves:
             failures.append(f"snapshotcommit does not resolve in this repository: {snapshot}")
+
+    if public_test_receipt.get("subject_commit") != snapshot:
+        failures.append("public-test receipt subject_commit disagrees with snapshotcommit")
+    selection = public_test_receipt.get("selection") or {}
+    if selection.get("selected_test_file_count") != 32:
+        failures.append("public-test receipt must select 32 public test files")
+    result = public_test_receipt.get("result") or {}
+    for field, expected in EXPECTED_PUBLIC_TEST_RESULT.items():
+        if result.get(field) != expected:
+            failures.append(
+                f"public-test receipt {field}={result.get(field)!r}, expected {expected!r}"
+            )
+    receipt_failure_ids = {
+        str(row.get("node_id") or "")
+        for row in public_test_receipt.get("failures") or []
+        if isinstance(row, dict)
+    }
+    if receipt_failure_ids != EXPECTED_PUBLIC_TEST_FAILURES:
+        failures.append("public-test receipt failing test ids disagree")
 
     use_pinned_evidence = (
         snapshot_resolves
@@ -547,6 +611,9 @@ def check_paper(
     for anchor in REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS:
         if anchor not in normalized_appendix_section:
             failures.append(f"missing Lean check explanation: {anchor!r}")
+    for anchor in REQUIRED_PUBLIC_TEST_SCOPE_ANCHORS:
+        if anchor not in normalized_appendix_section:
+            failures.append(f"missing bounded public-test explanation: {anchor!r}")
     for key in REQUIRED_CITATION_KEYS:
         if not re.search(rf"\\cite\{{[^}}]*\b{re.escape(key)}\b[^}}]*\}}", text):
             failures.append(f"missing literature citation: {key}")
@@ -590,7 +657,7 @@ def main() -> int:
     print(
         "Public-system paper check: pass "
         f"({declared_count} pinned components; {declared_lean_count} pinned Lean sources; "
-        "pinned family counts, evidence routes, worked example, literature "
+        "pinned family counts, evidence routes, worked example, public-test receipt, literature "
         "citations and first-citation bibliography order, cold-reader anchors, "
         "and claim language agree)"
     )

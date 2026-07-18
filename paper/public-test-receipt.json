@@ -1,0 +1,43 @@
+{
+  "schema": "plectis_public_system_paper_test_receipt_v1",
+  "receipt_kind": "dated_reproduction_record",
+  "recorded_on": "2026-07-18",
+  "subject_commit": "57ffb7f5830cc446a2cbd8083d5d80bcab2af563",
+  "canonical_command": "make test",
+  "executed_command": "make test VENV=/tmp/plectis-paper-public-test-venv PYTEST_KEEP_TMP=1",
+  "environment": {
+    "operating_system": "macOS 15.6.1",
+    "architecture": "arm64",
+    "python": "3.13.7",
+    "pytest": "8.4.2"
+  },
+  "selection": {
+    "owner": "Makefile::PUBLIC_TESTS",
+    "selected_test_file_count": 32,
+    "scope": "Bounded public verification selection, not unrestricted pytest."
+  },
+  "result": {
+    "status": "fail",
+    "command_exit_code": 2,
+    "passed": 356,
+    "skipped": 2,
+    "failed": 3,
+    "total": 361,
+    "duration_seconds": 23.73
+  },
+  "failures": [
+    {
+      "node_id": "tests/test_public_entry_docs.py::test_public_repo_boundary_docs_name_runtime_contracts",
+      "plain_summary": "A documentation check expected one sentence in AGENTS.md to contain a particular line break."
+    },
+    {
+      "node_id": "tests/test_public_source_body_custody.py::test_public_source_body_manifest_targets_are_current_and_shipped",
+      "plain_summary": "Copied-source manifests contained stored line or byte counts that no longer matched their public target files."
+    },
+    {
+      "node_id": "tests/test_public_repo_profile.py::test_profile_passes_on_this_repository",
+      "plain_summary": "The root-layout allowlist did not yet classify the paper directory or the root-level PDF."
+    }
+  ],
+  "claim_limit": "This author-generated receipt records one run of the bounded public test selection in one environment. It is not an independent repetition, and it says nothing about tests outside that selection."
+}

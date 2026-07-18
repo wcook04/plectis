@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from scripts import check_public_system_paper as paper_check
@@ -40,6 +41,24 @@ def test_public_system_paper_check_rejects_lean_file_count_drift(
     failures = check_paper(paper_path=paper)
 
     assert "leanfilecount=59, pinned Lean sources=58" in failures
+
+
+def test_public_system_paper_check_rejects_public_test_receipt_drift(
+    tmp_path: Path,
+) -> None:
+    receipt = tmp_path / "public-test-receipt.json"
+    payload = paper_check._load_public_test_receipt(
+        paper_check.PUBLIC_TEST_RECEIPT, []
+    )
+    payload["result"]["passed"] = 357
+    receipt.write_text(
+        json.dumps(payload),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(public_test_receipt_path=receipt)
+
+    assert "public-test receipt passed=357, expected 356" in failures
 
 
 def test_public_system_paper_check_rejects_provenance_overclaim(tmp_path: Path) -> None:
