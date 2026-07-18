@@ -270,6 +270,49 @@ def test_public_system_paper_check_rejects_cold_reader_residue(
     assert any("cold-reader residue" in failure for failure in failures)
 
 
+def test_public_system_paper_check_rejects_late_paper_testing_jargon(
+    tmp_path: Path,
+) -> None:
+    source = PAPER.read_text(encoding="utf-8")
+    for index, residue in enumerate(
+        (
+            "bounded, deterministic, and runnable in isolation",
+            "supplies regression evidence",
+            "held-out cases",
+            "A second interpreter check",
+            "the pinned manifest records none",
+            "Route the audio example with",
+        )
+    ):
+        paper = tmp_path / f"paper-{index}.tex"
+        paper.write_text(source + f"\n{residue}\n", encoding="utf-8")
+
+        failures = check_paper(paper_path=paper, check_git_commit=False)
+
+        assert any("cold-reader residue" in failure for failure in failures)
+
+
+def test_public_system_paper_check_rejects_plain_language_reversal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "gives the\nsame output from the same input, and runs in isolation",
+            "is deterministic and can run alone",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing plain-language orientation anchor" in failure
+        and "same output from the same input" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_internal_label_explanation_removal(
     tmp_path: Path,
 ) -> None:

@@ -77,21 +77,22 @@
 Plectis is a public software repository (an organised, copyable project
 folder) assembled from parts of a larger private system that cannot be
 published. It asks a narrow question: what may a stranger reasonably conclude
-from runnable fragments selected by the person whose work is being examined?
-At the public version studied here, each of the \componentcount{} registered
+from runnable fragments chosen by the person whose work is being examined?
+In the version studied here, each of the \componentcount{} registered
 components connects a claim to a fixed input, a command, saved output, a pass
 rule, and a stated limit. I call this a claim--evidence--limit contract. One
 component, for example, calculates an audio level from five small sample
 arrays. A reader can repeat the calculation and challenge the expected
-numbers; that run cannot show that the public code came from the private
-application or will work on other inputs. The same boundary recurs across the
-collection. A public run does not by itself establish private origin,
-correctness, support for the claim as worded, behaviour beyond selected cases,
-or the absence of risks outside a declared scan. I chose the published
+numbers. That run cannot show that the public code came from the private
+application or will work on other inputs. Across the collection, a public run
+does not by itself establish private origin, correctness, support for the claim
+as worded, behaviour beyond selected cases, or the absence of risks outside a
+declared scan. I chose the published
 fragments, inputs, answers, rules, and limits. The repository therefore lets a
 reader test claims about its published files and outputs. It cannot establish
-the hidden system's history, representativeness, or reliability. I report that
-I developed the private system by directing AI coding tools; the argument does
+the hidden system's history, whether the published selection resembles the
+private whole, or whether the private system works reliably. I report that I
+developed the private system by directing AI coding tools; the argument does
 not rely on that testimony.
 \end{abstract}
 
@@ -159,10 +160,9 @@ the choices an evaluator would need to make independently of me.
 
 This is a descriptive analysis of one artefact, not a statistical study.
 In the reporting vocabulary of Runeson and H\"ost \cite{runeson2009}, the
-object is the public repository at the named commit; each component is a
-\emph{unit of analysis} (one item
-examined). No subset of the components is used to estimate performance or
-represent the private system.
+repository at the named commit is the single case, and each component is a
+\emph{unit of analysis} (one item examined inside that case). No subset of the
+components is used to estimate performance or represent the private system.
 
 Reading this paper requires no programming. Reproducing its runs requires a
 terminal (the text window in which commands are typed), Git (the standard
@@ -286,20 +286,20 @@ failure into a designed refusal in the telling. Freezing a version before
 an outside evaluation begins, as Section~\ref{sec:stronger} proposes, is
 what would make that ordering checkable.
 
-Little of the machinery is essential to the idea. What the contract needs
-is a claim in words; a determinate public case; a procedure a stranger can
+The idea does not depend on software. The contract needs a claim in words; a
+determinate public case; a procedure a stranger can
 cause to run; an observable result; a rule connecting result to claim; a
 declared boundary of application; and a stated ceiling on inference. That
-the case here is a file of numbers, the procedure a command line, and the
-record a text document, is local convenience. The same contract could be
+the case here is a file of numbers, the procedure a command, and the record a
+text file is a convenience of this example. The same contract could be
 satisfied in another field by a laboratory protocol with declared rejection
 conditions, or by a sealed evaluation service with published scoring rules.
 I make no claim about those settings; the point is only that the contract
 is a shape for exposing claims to strangers, and this repository is one
-implementation of it. Read simply as software, the whole apparatus is a
-test suite with a registry and unusually complete paperwork, and that
-description is accepted. The subject of this paper is not the machinery;
-it is what such machinery can and cannot make a claim answer for.
+example. Read simply as software, it is a test suite with a registry and
+unusually complete paperwork. That is a fair description. The paper asks
+what such a test suite lets a stranger challenge, and which conclusions
+still lie beyond it.
 
 This local notion overlaps with reproducibility and transparency but is not
 a synonym for either. A run can repeat perfectly with no stated claim attached,
@@ -805,17 +805,14 @@ is for. An objection about selection is not answered by the successful
 execution of any number of selected items. The registry hosts the small
 arguments; it does not settle the large ones.
 
-Two defences need no cooperation from me. Read any component at the
-weakest property its validator checks, as
-Section~\ref{sec:collection} proposes.
-Treat every count as an inventory, and every agreement among my records as
-one witness. A third correction is a standing discount rather than an
-action, because it concerns what no reader can inspect: a mechanism
-survives
-selection when it can be made bounded, deterministic, and runnable in
-isolation, so a collection like this over-represents pure calculation,
-replay, and record-checking, and under-represents stateful, entangled,
-long-running behaviour. The
+Two corrections need no cooperation from me. First, read any component at the
+weakest property its validator checks, as Section~\ref{sec:collection}
+proposes. Second, treat every count as an inventory, and every agreement among
+my records as one witness. A third point concerns what no reader can inspect:
+a private mechanism is easiest to publish when it can be bounded, gives the
+same output from the same input, and runs in isolation. A collection like this
+therefore over-represents pure calculation, replay, and record-checking, and
+under-represents stateful, entangled, long-running behaviour. The
 published picture tilts towards what publishes well before any question of
 honesty arises.
 
@@ -935,9 +932,10 @@ later version; it does not subtract the first fact about this one. If outside
 criticism shows a validator too weak or a claim too broad, the revision should
 be legible as a revision, carrying its date and its cause, rather than the
 project appearing always to have meant the narrower thing. A test rewritten after
-its outcome is known is a different test and may be better. The known case
-supplies regression evidence; fresh confirmation requires held-out cases
-whose outcomes were not used to design the repair. Disappointment is in scope: an
+its outcome is known is a different test and may be better. The known case can
+show whether the repaired code later breaks in the same way; fresh confirmation
+requires new cases whose answers were not used to design the repair.
+Disappointment is in scope: an
 evaluation that concludes a component is trivial, or no better than a
 short ordinary script, is the machinery working, and its conclusion
 belongs on the record with the same standing as a pass. An outside
@@ -967,7 +965,8 @@ repair every gap.
 
 \paragraph{A first review.} Use the appendix's no-install block to copy the
 repository and select the version analysed here. The tour describes the checkout
-but does not choose a component claim. Route the audio example with
+but does not choose a component claim. Ask the repository to find the audio
+example with
 \par\noindent{\scriptsize\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action "audio level calculation" --format text|}\par
 For another claim, replace the quoted words. The response names a component,
 command, receipt, limit, and \code{no-write variant}: stored reference receipts
@@ -985,7 +984,8 @@ Section~\ref{sec:stronger} lists broader evidence, most of it absent.
 
 Unless a paragraph gives a later date, everything in this appendix is an
 observation about one commit, made on 17~July~2026 in one environment:
-macOS 15.6.1 (arm64) with Python 3.13.7. The commit's full identifier is
+macOS 15.6.1 on Apple silicon (arm64) with Python 3.13.7. The commit's full
+identifier is
 
 \begin{center}
 \small\code{\snapshotcommit}
@@ -1036,12 +1036,13 @@ calls, so inspect the source.
 \paragraph{The worked example.} The command in Section~\ref{sec:run} writes
 under \component{/tmp/plectis-audio-rms}, overwriting it on a rerun. A fresh run
 reproduced every displayed pass and value. One stale field reports a copied
-private module; the pinned manifest records none because public code replaced
+private module; the saved import record reports none because public code replaced
 it. The calculation is unchanged, but the discrepancy remains.
 
-\paragraph{A second interpreter check.} On 18~July~2026, a clean clone on
+\paragraph{A second Python version.} On 18~July~2026, a clean clone on
 macOS used Python 3.12.7. A network-disabled install could not fetch
-\code{setuptools>=77.0.3}; the host's setuptools 80.9.0 allowed a local build.
+\code{setuptools>=77.0.3}; setuptools 80.9.0 was already installed and allowed
+a local build.
 The tour and example matched without a new runtime library. This tests 3.12.7
 and 3.13.7, not every supported Python version.
 

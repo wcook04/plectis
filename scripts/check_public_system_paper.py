@@ -65,6 +65,12 @@ FORBIDDEN_COLD_READER_RESIDUE = (
     "this paper contributes a worked boundary analysis",
     "no other repository's size or subject matter is evidence here",
     "this note reports no independent",
+    "bounded, deterministic, and runnable in isolation",
+    "supplies regression evidence",
+    "held-out cases",
+    "a second interpreter check",
+    "the pinned manifest records none",
+    "route the audio example with",
 )
 
 # Sentences the paper's argument stands on.  The first block defines terms a
@@ -171,6 +177,23 @@ REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
     "It defines the component contract, then follows one ordinary component",
     "Five distinctions separate what a passing run shows",
     "the choices an evaluator would need to make independently of me",
+)
+
+REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
+    # The abstract and method paragraph must state the sampling boundary
+    # without requiring the reader to import statistical vocabulary.
+    "whether the published selection resembles the private whole",
+    "repository at the named commit is the single case",
+    "The idea does not depend on software",
+    "lets a stranger challenge, and which conclusions still lie beyond it",
+    # Late-paper testing terms are written out as operations rather than
+    # relying on insider shorthand.
+    "gives the same output from the same input",
+    "new cases whose answers were not used to design the repair",
+    "Ask the repository to find the audio example",
+    "saved import record reports none",
+    r"\paragraph{A second Python version.}",
+    "Apple silicon (arm64)",
 )
 
 REQUIRED_EXAMPLE_BRIDGE_ANCHORS = (
@@ -632,6 +655,9 @@ def check_paper(
     for anchor in REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS:
         if anchor not in normalized_first_section:
             failures.append(f"missing first-section orientation anchor: {anchor!r}")
+    for anchor in REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS:
+        if anchor not in normalized_text:
+            failures.append(f"missing plain-language orientation anchor: {anchor!r}")
     run_section = text.split(r"\section{One run, examined}", 1)[-1]
     run_section = run_section.split(r"\section{Five distinctions}", 1)[0]
     normalized_run_section = re.sub(r"\s+", " ", run_section)
