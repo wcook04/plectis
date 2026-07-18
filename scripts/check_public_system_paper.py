@@ -116,6 +116,13 @@ REQUIRED_COLD_READER_ANCHORS = (
     # Assurance-case prior art is acknowledged without claiming conformance.
     "Plectis is not an implementation of that standard",
     "claims no new theory of assurance",
+    # The cited ACM and NASA standards are represented by their actual
+    # distinctions, not a vague appeal to independent review.
+    "Artifacts Evaluated---Functional",
+    "Results Reproduced",
+    "technical independence (evaluators did not develop the system)",
+    "managerial independence (they choose what and how to assess)",
+    "financial independence (funding is controlled outside",
     # The paper must say what it contributes, rather than only what it limits.
     "worked boundary analysis",
     # The five stronger-evidence routes are tied to this analysis, not universal.

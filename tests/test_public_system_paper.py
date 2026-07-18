@@ -121,6 +121,26 @@ def test_public_system_paper_check_rejects_prior_art_boundary_removal(
     assert any("not an implementation" in failure for failure in failures)
 
 
+def test_public_system_paper_check_rejects_standards_distinction_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace("Results Reproduced", "Results reviewed")
+        .replace(
+            "managerial independence (they choose what and how to assess)",
+            "managerial independence",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("Results Reproduced" in failure for failure in failures)
+    assert any("managerial independence" in failure for failure in failures)
+
+
 def test_public_system_paper_check_rejects_method_scope_removal(
     tmp_path: Path,
 ) -> None:
