@@ -220,6 +220,29 @@ def test_public_system_paper_check_reads_default_evidence_from_snapshot(
     assert paper_check.check_paper() == []
 
 
+def test_public_system_paper_check_rejects_pinned_receipt_flow_source_drift(
+    monkeypatch,
+) -> None:
+    monkeypatch.setattr(
+        paper_check,
+        "_load_text_from_commit",
+        lambda _commit, _path, _failures: "",
+    )
+
+    failures = paper_check.check_paper()
+
+    assert any(
+        "pinned receipt-flow source lacks" in failure
+        and "expected_level" in failure
+        for failure in failures
+    )
+    assert any(
+        "pinned receipt-flow source lacks" in failure
+        and "write_json_atomic" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_worked_example_value_drift(
     tmp_path: Path,
 ) -> None:
@@ -1283,11 +1306,6 @@ def test_public_system_paper_check_rejects_misleading_figure_legend(
         )
         .replace("italic blue row", "blue row")
         .replace("Read the middle row from left to right", "Read the diagram")
-        .replace(
-            "the validator compares\n"
-            "that output with a stored receipt",
-            "the validator checks it",
-        )
         .replace("in italic\nblue", "in blue")
         + "\nA dashed outline marks what a stranger cannot run or observe directly.\n",
         encoding="utf-8",
@@ -1297,11 +1315,49 @@ def test_public_system_paper_check_rejects_misleading_figure_legend(
 
     assert any("This figure has no dashed boxes" in failure for failure in failures)
     assert any("Read the middle row from left to right" in failure for failure in failures)
-    assert any("stored receipt" in failure for failure in failures)
     assert any("italic blue row" in failure for failure in failures)
     assert any("in italic blue" in failure for failure in failures)
     assert any(
         "dashed outline marks what a stranger cannot" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_inverted_receipt_flow(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            r"\draw[flow] (val) -- node[flabel, right]{records} (rec);",
+            r"\draw[flow] (rec) -- (val);",
+        )
+        .replace(
+            "does not determine the new verdict",
+            "determines the new verdict",
+        )
+        .replace(
+            "same checked values and verdict as the stored receipt",
+            "stored receipt",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing receipt-flow explanation" in failure and "records" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing receipt-flow explanation" in failure
+        and "does not determine" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing receipt-flow explanation" in failure
+        and "same checked values" in failure
         for failure in failures
     )
 

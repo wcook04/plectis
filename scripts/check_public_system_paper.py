@@ -111,6 +111,7 @@ FORBIDDEN_COLD_READER_RESIDUE = (
     "way worth noticing",
     "one assumption per distinction",
     "the five distinctions share one structure",
+    "validator compares that output with a stored receipt",
 )
 
 FORBIDDEN_BEFORE_COMPONENT_CONTRACT = (
@@ -141,7 +142,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     r"A \emph{repository} is",
     r"A \emph{component} in",
     r"Its \emph{fixture} is",
-    r"its \emph{receipt} is",
+    r"A \emph{receipt} is",
     r"A \emph{validator} is",
     r"A \emph{commit} is",
     "basic command-line use",
@@ -211,7 +212,6 @@ REQUIRED_COLD_READER_ANCHORS = (
     "This figure has no dashed boxes",
     r"Figures~\ref{fig:boundary} and~\ref{fig:gaps}",
     "Read the middle row from left to right",
-    "the validator compares that output with a stored receipt",
     "italic blue row names what a stranger can do",
     "Above each evaluation, in italic blue",
     # Figure wording must stand on its own for readers who scan before they
@@ -266,6 +266,19 @@ REQUIRED_COLD_READER_ANCHORS = (
     "checks historical facts against the pinned commit",
 )
 
+REQUIRED_RECEIPT_FLOW_ANCHORS = (
+    r"A \emph{receipt} is the saved record of a run",
+    "repository supplies one from an earlier run",
+    "rerunning can write another",
+    r"Fresh receipt\\(saved run record)",
+    r"\draw[flow] (val) -- node[flabel, right]{records} (rec);",
+    r"compare fresh\\with stored",
+    "validator judges it under the published pass and refusal rules",
+    "writes a fresh receipt recording the run",
+    "stored receipt from the earlier run is available for comparison; it does not determine the new verdict",
+    "same checked values and verdict as the stored receipt",
+)
+
 REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
     "The paper examines one author-curated software collection",
     "The paper defines the component contract, then follows one ordinary component",
@@ -312,7 +325,7 @@ REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
     "Apple silicon (arm64)",
     "Association for Computing Machinery (ACM) calls digital research materials",
     "completeness, ability to run, and evidence of verification and validation",
-    "saved record of a prior run that the checker can read",
+    "saved record of a run",
     "component list read by the programs",
     "Saving the version before an outside evaluation begins",
     "after the version is saved",
@@ -506,6 +519,19 @@ EXAMPLE_RESULT = (
     "batch8_audio_level_rms_port_result.json"
 )
 
+PINNED_RECEIPT_FLOW_SOURCE_TOKENS = {
+    "src/microcosm_core/organs/_crown_jewel_common.py": (
+        'status = PASS if not findings else "blocked"',
+        "validation_path = out_path / spec.validation_receipt_name",
+        "write_json_atomic(validation_path, validation_payload)",
+    ),
+    "src/microcosm_core/organs/batch8_audio_level_rms_port.py": (
+        'expected_level = row.get("expected_level")',
+        "delta = abs(observed - float(expected_level))",
+        'status = "pass" if delta <= tolerance else "blocked"',
+    ),
+}
+
 REQUIRED_CITATION_KEYS = (
     "runeson2009",
     "nasem2019",
@@ -559,6 +585,8 @@ REQUIRED_BIBLIOGRAPHY_TOKENS = {
     ),
     "acmartifact": (
         "version 1.1",
+        "24 August 2020",
+        "Accessed 18 July 2026",
         "https://www.acm.org/publications/policies/artifact-review-and-badging-current",
     ),
     "nistfips1804": (
@@ -625,6 +653,20 @@ def _load_json_from_commit(commit: str, relative_path: str, failures: list[str])
         failures.append(f"pinned evidence is not a JSON object: {relative_path} at {commit}")
         return {}
     return payload
+
+
+def _load_text_from_commit(commit: str, relative_path: str, failures: list[str]) -> str:
+    result = subprocess.run(
+        ["git", "show", f"{commit}:{relative_path}"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        failures.append(f"cannot read pinned source: {relative_path} at {commit}")
+        return ""
+    return result.stdout
 
 
 def _lean_file_count_from_commit(commit: str, failures: list[str]) -> int | None:
@@ -741,6 +783,7 @@ def check_paper(
     pinned_example_receipt: dict = {}
     pinned_example_result: dict = {}
     pinned_lean_file_count: int | None = None
+    pinned_receipt_flow_sources: dict[str, str] = {}
     if use_pinned_evidence:
         registry = _load_json_from_commit(
             snapshot, REGISTRY.relative_to(ROOT).as_posix(), failures
@@ -755,9 +798,33 @@ def check_paper(
             snapshot, EXAMPLE_RESULT, failures
         )
         pinned_lean_file_count = _lean_file_count_from_commit(snapshot, failures)
+        for relative_path in PINNED_RECEIPT_FLOW_SOURCE_TOKENS:
+            pinned_receipt_flow_sources[relative_path] = _load_text_from_commit(
+                snapshot, relative_path, failures
+            )
     else:
         registry = _load_json(registry_path)
         families = _load_json(families_path)
+
+    for relative_path, required_tokens in PINNED_RECEIPT_FLOW_SOURCE_TOKENS.items():
+        source = pinned_receipt_flow_sources.get(relative_path)
+        if source is None:
+            continue
+        for token in required_tokens:
+            if token not in source:
+                failures.append(
+                    f"pinned receipt-flow source lacks {token!r}: {relative_path}"
+                )
+    common_path = "src/microcosm_core/organs/_crown_jewel_common.py"
+    common_source = pinned_receipt_flow_sources.get(common_path, "")
+    common_tokens = PINNED_RECEIPT_FLOW_SOURCE_TOKENS[common_path]
+    if all(token in common_source for token in common_tokens):
+        positions = [common_source.index(token) for token in common_tokens]
+        if positions != sorted(positions):
+            failures.append(
+                "pinned receipt-flow source no longer decides the verdict before "
+                "creating and writing its receipt"
+            )
 
     organs = registry.get("implemented_organs", [])
     organ_ids = [str(row.get("organ_id") or "") for row in organs]
@@ -868,6 +935,9 @@ def check_paper(
     for anchor in REQUIRED_COLD_READER_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing cold-reader anchor: {anchor!r}")
+    for anchor in REQUIRED_RECEIPT_FLOW_ANCHORS:
+        if anchor not in normalized_text:
+            failures.append(f"missing receipt-flow explanation: {anchor!r}")
     for abbreviation, expansion in REQUIRED_FIRST_USE_EXPANSIONS:
         if expansion not in normalized_text:
             failures.append(
@@ -1071,7 +1141,7 @@ def main() -> int:
     print(
         "Public-system paper check: pass "
         f"({declared_count} pinned components; {declared_lean_count} pinned Lean sources; "
-        "pinned family counts, evidence routes, worked example, public-test receipt, literature "
+        "pinned family counts, evidence routes, worked example and receipt flow, public-test receipt, literature "
         "citations, readable canonical bibliography identifiers and first-citation order, cold-reader anchors, "
         "and claim language agree)"
     )

@@ -186,9 +186,10 @@ verification pass at the version named there.
 \label{sec:contract}
 
 A \emph{component} in Plectis is one registered, testable part of the
-project. Its \emph{fixture} is a fixed sample input, and its \emph{receipt}
-is a saved record of a prior run that the checker can read. A \emph{validator}
-is the program that applies a component's pass and refusal rules. A
+project. Its \emph{fixture} is a fixed sample input. A \emph{receipt} is the
+saved record of a run. The repository supplies one from an earlier run;
+rerunning can write another. A \emph{validator} is the program that applies a
+component's pass and refusal rules. A
 \emph{commit} is a named, saved version of the repository. These terms
 describe files and commands. Here \emph{evidence} means the public input,
 procedure, output, and judgement rule offered in support of a claim. Calling
@@ -219,13 +220,13 @@ exposed to a stranger.
 \node[part] (out) at (6.55,0) {Fresh output\\files};
 \node[part, text width=2.9cm] (val) at (9.55,0) {Comparison, pass rule, refusal rule\\(the validator)};
 \node[part] (verdict) at (13.0,0) {Pass, or\\declared refusal};
-\node[part] (rec) at (9.55,-2.0) {Stored receipt\\(prior run)};
+\node[part] (rec) at (9.55,-2.0) {Fresh receipt\\(saved run record)};
 % flows
 \draw[flow] (fix) -- node[flabel, above=1pt]{command} (code);
 \draw[flow] (code) -- node[flabel, above=1pt]{writes} (out);
 \draw[flow] (out) -- (val);
-\draw[flow] (rec) -- (val);
 \draw[flow] (val) -- (verdict);
+\draw[flow] (val) -- node[flabel, right]{records} (rec);
 \draw[authlink] (code) -- node[flabel, right, align=left]{said to\\do this} (claim);
 \draw[authlink] (verdict) -- node[flabel, right, align=left]{read under\\this ceiling} (limit);
 % stranger actions
@@ -234,7 +235,7 @@ exposed to a stranger.
 \node[act, anchor=north] (a1) at (0,-2.95) {change the input};
 \node[act, anchor=north] (a2) at (3.45,-2.95) {read it;\\rerun it};
 \node[act, anchor=north] (a3) at (6.55,-2.95) {regenerate\\them};
-\node[act, anchor=north] (a4) at (9.55,-2.95) {generate a fresh receipt\\and compare;\\dispute the rule};
+\node[act, anchor=north] (a4) at (9.55,-2.95) {compare fresh\\with stored;\\dispute the rule};
 \node[act, anchor=north] (a5) at (13.0,-2.95) {hold every\\conclusion\\to the limit};
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a1) -- (fix);
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a2) -- (code);
@@ -244,8 +245,10 @@ exposed to a stranger.
 \end{tikzpicture}
 \caption{How to read the component contract, at commit
 \code{\snapshotshort}. Read the middle row from left to right: a command applies
-public code to a fixed input, the code writes output, and the validator compares
-that output with a stored receipt before reporting a pass or refusal. The two
+public code to a fixed input and the code writes output. The validator judges it
+under the published pass and refusal rules, then writes a fresh receipt recording
+the run. The stored receipt from the earlier run is available for comparison; it
+does not determine the new verdict. The two
 boxes above are words rather than mechanisms: the project states the claim and
 the limit on what a pass may support. Every part is public, and the project
 supplied every part. The italic blue row names what a stranger can do without
@@ -513,9 +516,10 @@ rather than publicly established.
 
 \subsection*{Repeatability versus correctness}
 
-A run that reproduces the stored receipt shows that the public code, on the
-supplied input, in a sufficiently similar environment, produces the same
-result again. Correctness is a different property: it needs a standard for
+A run that yields the same checked values and verdict as the stored receipt
+shows that the public code, on the supplied input, in a sufficiently similar
+environment, produces the same result again. Correctness is a different
+property: it needs a standard for
 what the result should have been, and a standard is only worth something if
 it does not merely restate the implementation. The worked example makes the
 difference concrete. The first row's expected number comes from arithmetic
@@ -1113,7 +1117,7 @@ version 2.3, OMG formal/23-05-08, October 2023.
 \bibitem{acmartifact}
 Association for Computing Machinery.
 \href{https://www.acm.org/publications/policies/artifact-review-and-badging-current}{``Artifact Review and Badging---Current,''}
-version 1.1. Accessed 18 July 2026.
+version 1.1, 24 August 2020. Accessed 18 July 2026.
 
 \bibitem{nistfips1804}
 National Institute of Standards and Technology. \emph{Secure Hash Standard},
