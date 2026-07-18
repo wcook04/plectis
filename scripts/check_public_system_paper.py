@@ -409,6 +409,11 @@ REQUIRED_COLLECTION_ROUTE_ANCHORS = (
     "preserves source text, re-creates behaviour on fixed cases",
     "generated from the same underlying records",
     "They cannot create an independent witness",
+    r"public component map, \component{ORGANS.md}",
+    "an inherited filename",
+    "Follow it rather than guessing",
+    "some components share a page",
+    r"\component{paper_modules/batch8_audio_level_rms_port.md}",
 )
 
 REQUIRED_STRONGER_EVALUATION_ANCHORS = (

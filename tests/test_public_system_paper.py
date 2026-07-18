@@ -1125,6 +1125,37 @@ def test_public_system_paper_check_rejects_route_definition_regression(
     )
 
 
+def test_public_system_paper_check_rejects_ambiguous_component_page_route(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            r"public component map," "\n" r"\component{ORGANS.md}",
+            "component documentation",
+        )
+        .replace(
+            r"\component{paper_modules/batch8_audio_level_rms_port.md}",
+            "the worked example page",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing collection route explanation" in failure
+        and "ORGANS.md" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing collection route explanation" in failure
+        and "batch8_audio_level_rms_port.md" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_central_term_definition_removal(
     tmp_path: Path,
 ) -> None:
