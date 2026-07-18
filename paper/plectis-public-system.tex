@@ -123,8 +123,15 @@ files and runs, but it cannot independently prove how the private work was
 produced. What the account does explain is why the publication problem
 arose, and why every published choice described below is my responsibility
 rather than the agents'. The artefact does not prove the story, and the
-evidence below would be exactly as strong, and exactly as limited, if every
-line had been written by hand.
+ceiling on what the evidence below can establish sits exactly where it
+would sit if every line had been written by hand. What the account might
+change is something this paper cannot measure: how often particular
+failures occur beneath that ceiling. An implementation and its validator
+can share one mistake because one process drafted both, and how likely
+that is under one way of producing software rather than another is not
+established here, for either way. The limits on inference are
+authorship-independent; the rates of error behind them are simply
+unknown.
 
 The boundary of the evidence can be stated before any command is run:
 
@@ -273,6 +280,17 @@ exposes to challenge is the published fragment, and
 Section~\ref{sec:distinctions} is largely about how little any result
 against the fragment entitles anyone to conclude beyond it.
 
+The vocabulary is borrowed on purpose, and from fields with literatures of
+their own. \emph{Oracle} is software testing's word, and the difficulty of
+finding trustworthy oracles is a recognised problem there, not a discovery
+of this paper. The worry that a curated collection flatters its source is
+publication bias, the file-drawer problem, in miniature. Repeatability
+held apart from correctness is the working distinction of the
+reproducibility literature. This paper adds no theory to any of those
+fields; what it does is assemble their cautions around one object, a
+curated set of runnable fragments standing in front of a private whole,
+and hold one repository to them in public.
+
 \section{One run, examined}
 \label{sec:run}
 
@@ -402,7 +420,8 @@ expected value with a better-derived one.
 \section{Five distinctions}
 \label{sec:distinctions}
 
-Interpreting the collection needs five distinctions. Each separates
+Interpreting the collection needs at least five distinctions. Each
+separates
 something a stranger can observe from something the observation may seem to
 imply, and each names the further evidence that would be needed to cross the
 gap. The limits attached to individual components are instances of these,
@@ -557,6 +576,11 @@ searched for are the risks there are. The component contract does not
 supply these premises, and cannot. What it does is make each missing
 premise nameable, and a named gap can be argued about, priced, or
 deliberately left uncrossed, where an unnamed one is crossed by default.
+Nor is five a closed count. The same shape has already appeared twice
+outside the list: a refusal boundary observed today does not show when it
+was drawn (Section~\ref{sec:contract}), and a number observed at one
+commit does not describe the next (the appendix). Five is how many this
+collection most needs a reader to hold, not how many there are.
 
 \begin{figure}[t]
 \centering
@@ -709,19 +733,22 @@ answered by the successful execution of any number of selected items. The
 registry's job is to host the small arguments, not to stand in for the
 large ones.
 
-Three defences need no cooperation from me. Read any component at the
+Two defences need no cooperation from me. Read any component at the
 weakest property its validator checks, as
 Section~\ref{sec:collection} proposes.
 Treat every count as an inventory, and every agreement among my records as
-one witness. And weigh what the format leaves out: a mechanism survives
+one witness. A third correction is a standing discount rather than an
+action, because it concerns what no reader can inspect: a mechanism
+survives
 selection when it can be made bounded, deterministic, and runnable in
 isolation, so a collection like this over-represents pure calculation,
-replay, and record-checking, and under-represents the stateful, entangled,
-long-running behaviour on which real software mostly stands or falls. The
+replay, and record-checking, and under-represents stateful, entangled,
+long-running behaviour, which is much of what software does in use. The
 published picture tilts towards what publishes well before any question of
 honesty arises.
 
-The fourth defence is structural rather than textual, and it is the subject
+The defence that lasts is structural rather than textual, and it is the
+subject
 of Section~\ref{sec:stronger}: evidence about an object like this becomes
 stronger as
 the consequential choices stop being mine.
@@ -846,14 +873,19 @@ means for an object like this.
 \section{What to inspect}
 \label{sec:inspect}
 
-The useful first review is small. Clone the repository, run the guided
+The useful first review is small. Clone the repository; to compare
+against this paper's numbers, first check out the commit named in the
+appendix, since the newest version will have moved on. Run the guided
 first inspection (\code{plectis tour}, shown with its exact commands in the
 appendix), and pick one claim you doubt, rather than the component most
-likely to impress. Read the component's description and stated limit before
+likely to impress; weigh it by what its validator checks, not by the name
+of its group. Read the component's description and stated limit before
 running anything. Run its command on the supplied input and compare the
 fresh output with the stored receipt. Then read the validator and ask
 whether its pass rule bears on the prose claim; perturb the input where
-practical; and keep whatever fails, because a discrepancy is a finding, and
+practical; if a refusal boundary carries the weight of the claim, ask the
+repository's history when that boundary was declared; and keep whatever
+fails, because a discrepancy is a finding, and
 \code{CONTRIBUTING.md} in the repository sets out how to report one. One
 successful run supports one bounded conclusion. Broader conclusions wait on
 the evidence of Section~\ref{sec:stronger}, and most of it does not yet

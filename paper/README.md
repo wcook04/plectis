@@ -38,7 +38,10 @@ cp /tmp/plectis-paper/plectis-public-system.pdf plectis-public-system.pdf
 ```
 
 The tracked root PDF is the reader-facing copy. The paper has a
-fourteen-page ceiling (raised from ten when the figures and the author's-
-hand section landed; raise it again only with a reason recorded here).
+fifteen-page ceiling (raised from ten when the figures and the author's-
+hand section landed, and from fourteen when the referee-pass revision
+added the related-fields grounding, the bounded authorship claim, and the
+operational reader checklist; raise it again only with a reason recorded
+here).
 `README.md` and `ARCHITECTURE.md` remain the live operational entry
 surfaces; the PDF is the stable evidence-and-scope explanation.

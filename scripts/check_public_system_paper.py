@@ -102,6 +102,11 @@ REQUIRED_COLD_READER_ANCHORS = (
     "transfer trust rather than remove it",
     # Negative evaluations have the same standing as passes.
     "Disappointment is in scope",
+    # The hand-equivalence claim is bounded: ceilings are authorship-
+    # independent, error rates are not measured.
+    "rates of error behind them are simply unknown",
+    # Borrowed vocabulary is acknowledged as borrowed.
+    "adds no theory to any of those fields",
 )
 
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"

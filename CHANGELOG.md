@@ -8,6 +8,18 @@ All notable changes to Plectis are documented here. The format follows
 
 ### Changed
 
+- The public-system paper revised against a referee-grade review and a
+  live congruence audit: the hand-equivalence claim about AI authorship is
+  now bounded (inference ceilings are authorship-independent; error rates
+  are not measured), the borrowed vocabulary is acknowledged against its
+  home fields (the oracle problem, publication bias, reproducibility), the
+  five distinctions are stated as an open list with the refusal-timing and
+  version-drift gaps named as further instances, the reader checklist
+  gains commit pinning, group-name discounting, and refusal-history
+  checks, and the registry-entry sentence names the fields a reader will
+  actually find. Every empirical claim the paper makes about the
+  repository was re-verified against the live tree; the worked example
+  reruns to the stored values exactly.
 - The public-system paper deepened along three lines and given figures. A
   fifth distinction (a validator's rule versus the stated claim) joins the
   original four; a new section, "The author's hand", itemises the
