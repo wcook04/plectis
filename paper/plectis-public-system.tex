@@ -821,15 +821,16 @@ under-represents stateful, entangled, long-running behaviour. The
 published picture tilts towards what publishes well before any question of
 honesty arises.
 
-Disclosure alone cannot remove this concentration of control. NASA's standard
-separates technical independence (evaluators did not develop the system),
-managerial independence (they choose what and how to assess), and financial
-independence (funding is controlled outside the development organisation)
-\cite{nasa8739}. Plectis has had no such evaluation. Within the five gaps
-examined here, the narrower principle is that evidence for a claim becomes less
-dependent on me as the relevant choices stop being mine. The principle is
-local to those five gaps. Section~\ref{sec:stronger} lists independent evaluations
-that address the dependencies this paper has identified.
+NASA defines independence for independent verification and validation (IV\&V),
+a formal software check, through three separations: technical (the evaluator
+did not develop the system); managerial (a separate organisation chooses scope,
+methods, and schedule); and financial (an independent group controls the budget
+without adverse financial pressure) \cite{nasa8739}.
+These are criteria for NASA IV\&V, not a universal test. Plectis has undergone
+no IV\&V and no other outside evaluation. I use this only for the paper's five
+gaps: evidence about a choice depends less on me once the choice is no longer
+mine. Section~\ref{sec:stronger} lists evaluations that address those
+dependencies.
 
 \section{What stronger evidence would look like}
 \label{sec:stronger}
@@ -1016,13 +1017,12 @@ The final full stop means ``the current folder''. \code{git checkout} pins the
 exact state described here; omit it to run the newest version, whose dated
 numbers may differ.
 
-In a clean clone at this commit, the tour read 5{,}018 project files, found
-five reading orders, chose the README-first order (internally
+The clean-clone tour at this commit read 5{,}018 project files, found five
+reading orders, chose the README-first order (internally
 \component{readme_onboarding_route}), wrote 21 generated files under
-\code{.microcosm/}, and left the examined source files unchanged. The run names
-its evidence, event, and limit; the generated directory can be rebuilt. The
-README's different file count records another dated run, not a stable project
-size.
+\code{.microcosm/}, and left the examined source files unchanged. The generated
+directory can be rebuilt. The README's different file count is another dated
+run, not a stable project size.
 
 \paragraph{Installing.}
 
@@ -1041,14 +1041,13 @@ displayed pass and value. One stale field reports a copied private module, but
 the saved import record reports none because public code replaced it. That
 discrepancy remains.
 
-\paragraph{A second Python version.} On 18~July~2026, a clean macOS clone using
-Python 3.12.7 also matched the tour and example. Its offline install used
-\code{setuptools} 80.9.0 already on the machine (minimum 77.0.3), with no other
-runtime library. Only versions 3.12.7 and 3.13.7 were tested.
+\paragraph{A second Python version.} On 18~July~2026, a clean macOS clone under
+Python 3.12.7 also matched the tour and example. Its offline install used the
+machine's \code{setuptools} 80.9.0 (minimum 77.0.3) and no other runtime library.
+Only versions 3.12.7 and 3.13.7 were tested.
 
-\paragraph{Project-wide checks.} At this commit, \code{make check} loads the
-component registry in under a second.
-The Lean trust checker searches the source text of \leanfilecount{} Lean files
+\paragraph{Project-wide checks.} The Lean trust checker searches the source
+text of \leanfilecount{} Lean files
 for six warning signs: unfinished proof placeholders; custom axioms
 (assumptions added without proof); compiled calculations whose acceptance
 relies on more than Lean's small proof-checking core (the kernel);
@@ -1060,10 +1059,10 @@ The registry and trust checks passed; the \leanfilecount{} files are not the
 \mathcount{} mathematics components.
 At this commit, the limited \code{make test} selection (not every test file)
 ran 361 tests from 32 public test files: 356 passed, two were skipped, and three
-failed. The failures concerned an \code{AGENTS.md} line-break expectation,
-outdated line or byte counts in copied-source manifests, and root-layout rules
-that did not yet allow the \code{paper} directory or root PDF. A later change
-repairs the last failure without altering this pinned run. Exact test names,
+failed: an \code{AGENTS.md} line-break expectation, outdated line or byte counts
+in copied-source manifests, and root-layout rules that did not yet allow the
+\code{paper} directory or root PDF. The last has since been repaired without
+altering this pinned run. Exact test names,
 environment, and counts are in \component{paper/public-test-receipt.json}.
 \code{make ci} would add smoke and package-install checks, but was not green
 because \code{make test} failed.
@@ -1126,9 +1125,10 @@ National Institute of Standards and Technology.
 Updated 9 September 2024. Accessed 18 July 2026.
 
 \bibitem{nasa8739}
-NASA. \emph{Software Assurance and Software Safety Standard},
+National Aeronautics and Space Administration.
+\emph{Software Assurance and Software Safety Standard},
 NASA-STD-8739.8B, Section 4.4.1.2, 2022.
-\href{https://standards.nasa.gov/standard/nasa/nasa-std-87398}{NASA-STD-8739.8B}.
+\href{https://standards.nasa.gov/standard/NASA/NASA-STD-87398}{NASA-STD-8739.8B}.
 
 \bibitem{leanvalidation}
 Lean Project. \emph{Lean Language Reference} sections

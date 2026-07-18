@@ -248,7 +248,7 @@ def test_public_system_paper_check_rejects_bibliography_identifier_drift(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "https://standards.nasa.gov/standard/nasa/nasa-std-87398",
+            "https://standards.nasa.gov/standard/NASA/NASA-STD-87398",
             "https://example.invalid/wrong-standard",
         ),
         encoding="utf-8",
@@ -287,8 +287,9 @@ def test_public_system_paper_check_rejects_standards_distinction_removal(
         PAPER.read_text(encoding="utf-8")
         .replace("Results Reproduced", "Results reviewed")
         .replace(
-            "managerial independence (they choose what and how to assess)",
-            "managerial independence",
+            "chooses scope,\n"
+            "methods, and schedule",
+            "follow the project's review plan",
         ),
         encoding="utf-8",
     )
@@ -296,7 +297,31 @@ def test_public_system_paper_check_rejects_standards_distinction_removal(
     failures = check_paper(paper_path=paper, check_git_commit=False)
 
     assert any("Results Reproduced" in failure for failure in failures)
-    assert any("managerial independence" in failure for failure in failures)
+    assert any("scope, methods, and schedule" in failure for failure in failures)
+
+
+def test_public_system_paper_check_rejects_nasa_ivv_scope_overclaim(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "not a universal test",
+            "the universal test",
+        )
+        .replace(
+            "has undergone\n"
+            "no IV\\&V and no other outside evaluation",
+            "satisfied the NASA independence criteria",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("not a universal test" in failure for failure in failures)
+    assert any("has undergone no" in failure for failure in failures)
 
 
 def test_public_system_paper_check_rejects_method_scope_removal(

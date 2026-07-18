@@ -220,14 +220,19 @@ REQUIRED_COLD_READER_ANCHORS = (
     # distinctions, not a vague appeal to independent review.
     "Artifacts Evaluated---Functional",
     "Results Reproduced",
-    "technical independence (evaluators did not develop the system)",
-    "managerial independence (they choose what and how to assess)",
-    "financial independence (funding is controlled outside",
+    "independent verification and validation (IV\\&V)",
+    "a formal software check, through three separations: technical",
+    "the evaluator did not develop the system",
+    "managerial (a separate organisation chooses scope, methods, and schedule)",
+    "financial (an independent group controls the budget",
+    "without adverse financial pressure",
+    "not a universal test",
+    "has undergone no IV\\&V and no other outside evaluation",
     # The paper must identify the object it examines, rather than announce a
     # generic contribution.
     "examines one author-curated software collection",
     # The five stronger-evidence evaluations are tied to this analysis, not universal.
-    "principle is local to those five gaps",
+    "I use this only for the paper's five gaps",
     "do not pair one-for-one with the distinctions",
     "None repairs a validator--claim mismatch",
     "Moving a relevant choice out of the author's hands can strengthen evidence",
@@ -459,8 +464,9 @@ REQUIRED_BIBLIOGRAPHY_TOKENS = {
         "https://csrc.nist.gov/projects/hash-functions",
     ),
     "nasa8739": (
+        "National Aeronautics and Space Administration",
         "NASA-STD-8739.8B, Section 4.4.1.2, 2022",
-        "https://standards.nasa.gov/standard/nasa/nasa-std-87398",
+        "https://standards.nasa.gov/standard/NASA/NASA-STD-87398",
     ),
     "leanvalidation": (
         "Accessed 18 July 2026",
