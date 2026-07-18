@@ -827,10 +827,11 @@ did not develop the system); managerial (a separate organisation chooses scope,
 methods, and schedule); and financial (an independent group controls the budget
 without adverse financial pressure) \cite{nasa8739}.
 These are criteria for NASA IV\&V, not a universal test. Plectis has undergone
-no IV\&V and no other outside evaluation. I use this only for the paper's five
-gaps: evidence about a choice depends less on me once the choice is no longer
-mine. Section~\ref{sec:stronger} lists evaluations that address those
-dependencies.
+no IV\&V. No other outside evaluation report is cited or included, and I know
+of none; an unreported private rerun would remain invisible. I use the NASA
+criteria only for the paper's five gaps: evidence about a choice depends less
+on me once the choice is no longer mine. Section~\ref{sec:stronger} lists
+evaluations that address those dependencies.
 
 \section{What stronger evidence would look like}
 \label{sec:stronger}
@@ -842,9 +843,9 @@ usefulness, security, originality, or the private system's reliability. The
 computer-checked mathematics label covers different checks: proof-work records,
 small public statements checked by Lean, and one exact finite calculation. The
 label itself supplies no theorem; each entry supports only its own public claim
-and stated limit. At the named commit, all evidence still came from the project
-itself. No outside evaluator had independently rerun the repository or controlled
-any selection, expected answer, comparison, or provenance review.
+and stated limit. At the named commit, the repository's evidence still came
+from the project. It includes no outside evaluator's report; I know of none,
+although a private rerun could be unreported.
 
 Five forms of independent evaluation could add evidence that the public
 repository cannot supply by itself. These are not the four publication routes
@@ -884,7 +885,7 @@ is who makes the choice that matters for that claim.
 \caption{Five forms of independent evaluation. Above each evaluation, in italic
 blue, the choice that leaves my hands; below it, in grey, what that evaluation
 still cannot show. The evaluations are not cumulative stages. At the commit
-this paper describes, none has happened.}
+this paper describes, the repository records none, and I know of none.}
 \label{fig:ladder}
 \end{figure}
 
@@ -932,24 +933,19 @@ paper is written so that its argument does not depend on it.
 
 \subsection*{How the record should age}
 
-The evaluations above may expose failures. Repairs should add facts rather
-than erase them. The appendix therefore keeps three failures at the pinned
-commit even though a later commit repairs one. That repair is a fact about the
-later version; it does not subtract the first fact about this one. If outside
-criticism shows a validator too weak or a claim too broad, the revision should
-be legible as a revision, carrying its date and its cause, rather than the
-project appearing always to have meant the narrower thing. A test rewritten after
-its outcome is known is a different test and may be better. The known case can
-show whether the repaired code later breaks in the same way; fresh confirmation
-requires new cases whose answers were not used to design the repair.
-Disappointment is in scope: an
-evaluation that concludes a component is trivial, or no better than a
-short ordinary script, is the machinery working, and its conclusion
-belongs on the record with the same standing as a pass. An outside
-evaluator's report,
-where one comes to exist, should remain a separate document under the
-evaluator's control, cited rather than absorbed. Where the repository's
-future conduct falls short of this paragraph, the shortfall is itself a
+The evaluations above may expose failures. Repairs should add facts, not erase
+them. The appendix keeps three failures at the pinned commit although a later
+commit repairs one; that repair does not subtract the first fact. If criticism
+shows a validator too weak or a claim too broad, record the revision's date and
+cause instead of making the project appear always to have meant the narrower
+claim. A test rewritten after its outcome is known is a different test and may
+be better. The known case can show whether the same failure returns; fresh
+confirmation requires new cases whose answers were not used to design the
+repair. Disappointment is in scope: if an evaluation finds a component trivial
+or no better than a short ordinary script, that conclusion belongs on the
+record with the same standing as a pass. Any outside evaluator's report should
+remain under that evaluator's control, cited rather than absorbed. If the
+repository later falls short of this paragraph, the shortfall is itself a
 finding, and Section~\ref{sec:conclusion} says where findings go.
 
 These evaluations do not pair one-for-one with the distinctions. They address
@@ -975,14 +971,16 @@ repository and select the version analysed here. The tour describes the checkout
 but does not choose a component claim. Ask the repository to find the audio
 example with
 \par\noindent{\scriptsize\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action "audio level calculation" --format text|}\par
-For another claim, replace the quoted words. The response names a component,
-command, receipt, limit, and \code{no-write variant}. That variant leaves stored
-reference receipts untouched and puts fresh files under
-\component{.microcosm/first\_action\_runs/}. Compare the receipts, read the
-validator's rule, and change an input where practical. Ask whether the rule
-supports the prose and any refusal boundary; report discrepancies through
-\code{CONTRIBUTING.md}. A pass licenses only the published rule;
-Section~\ref{sec:stronger} lists broader evidence, most of it absent.
+For another claim, replace the quoted words. The response gives a main command
+and a \code{no-write variant}. Copy the no-write line: the main command
+overwrites stored receipts, but this line writes fresh JSON (plain text with
+named fields) under \component{.microcosm/first\_action\_runs/}. Open
+\component{\_result.json}. Each \code{reference\_cases} item has an
+\code{expected\_level} and \code{observed\_level}; compare them, then read
+\code{anti\_claim} and \code{claim\_ceiling} for the match's limit. Read the
+validator's rule, change an input where practical, and ask whether the rule
+supports the prose. Report a mismatch or questionable refusal through
+\code{CONTRIBUTING.md}. A pass licenses only the published rule.
 
 \appendix
 
@@ -990,15 +988,10 @@ Section~\ref{sec:stronger} lists broader evidence, most of it absent.
 \label{sec:appendix}
 
 Except where a paragraph gives a later date, this appendix records one run on
-17~July~2026: macOS 15.6.1 on Apple silicon (arm64), Python 3.13.7, and the
-commit whose full identifier is
-
-\begin{center}
-\small\code{\snapshotcommit}
-\end{center}
-
-and is abbreviated \code{\snapshotshort} elsewhere. Later commits or other
-machines may differ; the body does not depend on them.
+17~July~2026 under macOS 15.6.1 on Apple silicon (arm64) and Python 3.13.7.
+The repository version was commit \code{\snapshotcommit}, abbreviated
+\code{\snapshotshort} elsewhere. Later commits or machines may differ; the body
+does not depend on them.
 
 \paragraph{Names.} Repository: \repo. Section~\ref{sec:contract}
 explains why its code package is named \code{microcosm\_core}. The installed
@@ -1017,12 +1010,11 @@ The final full stop means ``the current folder''. \code{git checkout} pins the
 exact state described here; omit it to run the newest version, whose dated
 numbers may differ.
 
-The clean-clone tour at this commit read 5{,}018 project files, found five
-reading orders, chose the README-first order (internally
-\component{readme_onboarding_route}), wrote 21 generated files under
-\code{.microcosm/}, and left the examined source files unchanged. The generated
-directory can be rebuilt. The README's different file count is another dated
-run, not a stable project size.
+The clean-clone tour read 5{,}018 files and chose the README-first order
+(internally \component{readme_onboarding_route}) from five reading orders. It
+wrote 21 generated files under \code{.microcosm/} without changing the examined
+source. Those files can be rebuilt; the README's different count is another
+dated run, not a stable project size.
 
 \paragraph{Installing.}
 
@@ -1057,23 +1049,22 @@ computation limits. This search cannot show that each formal
 statement says what its author intended \cite{leanvalidation}.
 The registry and trust checks passed; the \leanfilecount{} files are not the
 \mathcount{} mathematics components.
-At this commit, the limited \code{make test} selection (not every test file)
-ran 361 tests from 32 public test files: 356 passed, two were skipped, and three
-failed: an \code{AGENTS.md} line-break expectation, outdated line or byte counts
-in copied-source manifests, and root-layout rules that did not yet allow the
-\code{paper} directory or root PDF. The last has since been repaired without
-altering this pinned run. Exact test names,
-environment, and counts are in \component{paper/public-test-receipt.json}.
-\code{make ci} would add smoke and package-install checks, but was not green
-because \code{make test} failed.
-These checks cover only the public checkout; this is my run, not an independent
+The limited \code{make test} selection (not every test file) ran 361 tests from
+32 public test files: 356 passed, two were skipped, and three failed. The
+failures were an \code{AGENTS.md} line-break expectation, outdated line or byte
+counts in copied-source manifests, and root-layout rules that did not yet allow
+the \code{paper} directory or root PDF; the last was later repaired without
+altering this pinned run. Exact names, environment, and counts are in
+\component{paper/public-test-receipt.json}. \code{make ci} would add smoke and
+package-install checks, but was not green because \code{make test} failed. These
+checks cover only the public checkout; this is my run, not an independent
 repetition.
 
 \paragraph{The paper itself.}
 \component{scripts/check_public_system_paper.py} fails if counts, pinned facts,
-the example, cautions, or citations disagree. Historical facts come from the
-pinned commit and current prose is checked separately. With one maintainer,
-this is internal consistency, not external truth.
+the example, cautions, or citations disagree. It checks historical facts against
+the pinned commit and current prose separately. With one maintainer, this is
+internal consistency, not external truth.
 
 \begin{thebibliography}{9}
 \fontsize{6.6pt}{7.25pt}\selectfont

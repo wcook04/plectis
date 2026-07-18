@@ -142,7 +142,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "I report that its published material was copied or adapted",
     "The argument does not depend on that account or on the claimed origin",
     "cannot independently prove",
-    "At the named commit, all evidence still came from the project itself",
+    "At the named commit, the repository's evidence still came from the project",
     "public repository does not prove the story",
     "refusal with a stated limit",
     r"their own \emph{oracle}",
@@ -227,12 +227,14 @@ REQUIRED_COLD_READER_ANCHORS = (
     "financial (an independent group controls the budget",
     "without adverse financial pressure",
     "not a universal test",
-    "has undergone no IV\\&V and no other outside evaluation",
+    "has undergone no IV\\&V",
+    "No other outside evaluation report is cited or included",
+    "I know of none; an unreported private rerun would remain invisible",
     # The paper must identify the object it examines, rather than announce a
     # generic contribution.
     "examines one author-curated software collection",
     # The five stronger-evidence evaluations are tied to this analysis, not universal.
-    "I use this only for the paper's five gaps",
+    "I use the NASA criteria only for the paper's five gaps",
     "do not pair one-for-one with the distinctions",
     "None repairs a validator--claim mismatch",
     "Moving a relevant choice out of the author's hands can strengthen evidence",
@@ -243,7 +245,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "evaluations are not cumulative stages",
     # Runtime and snapshot claims are scoped to what the checker actually does.
     "does not automatically discover a neighbouring private",
-    "Historical facts come from the pinned commit",
+    "checks historical facts against the pinned commit",
 )
 
 REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
@@ -309,9 +311,26 @@ REQUIRED_FIRST_REVIEW_ANCHORS = (
     r"\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action",
     r'--first-action "audio level calculation" --format text',
     r"\code{no-write variant}",
-    "leaves stored reference receipts untouched",
+    "Copy the no-write line",
+    "main command overwrites stored receipts",
+    "this line writes fresh JSON",
     r".microcosm/first\_action\_runs/",
+    r"\component{\_result.json}",
+    r"\code{reference\_cases}",
+    r"\code{expected\_level}",
+    r"\code{observed\_level}",
+    r"\code{anti\_claim}",
+    r"\code{claim\_ceiling}",
     "change an input where practical",
+)
+
+REQUIRED_OUTSIDE_EVALUATION_BOUNDARY_ANCHORS = (
+    "No other outside evaluation report is cited or included",
+    "I know of none; an unreported private rerun would remain invisible",
+    "repository's evidence still came from the project",
+    "It includes no outside evaluator's report",
+    "although a private rerun could be unreported",
+    "the repository records none, and I know of none",
 )
 
 REQUIRED_PROVENANCE_HASH_ANCHORS = (
@@ -342,8 +361,9 @@ REQUIRED_STRONGER_EVALUATION_ANCHORS = (
     "evaluations below describe new work by someone outside the project",
     "Five forms of independent evaluation",
     "The evaluations are not cumulative stages",
-    "all evidence still came from the project itself",
-    "No outside evaluator had independently rerun the repository",
+    "repository's evidence still came from the project",
+    "It includes no outside evaluator's report",
+    "although a private rerun could be unreported",
     "These evaluations do not pair one-for-one with the distinctions",
 )
 
@@ -761,6 +781,11 @@ def check_paper(
     for anchor in REQUIRED_COLD_READER_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing cold-reader anchor: {anchor!r}")
+    for anchor in REQUIRED_OUTSIDE_EVALUATION_BOUNDARY_ANCHORS:
+        if anchor not in normalized_text:
+            failures.append(
+                f"missing outside-evaluation knowledge boundary: {anchor!r}"
+            )
     contract_section = r"\section{The component contract}"
     first_section = text.split(contract_section, 1)[0]
     normalized_first_section = re.sub(r"\s+", " ", first_section)

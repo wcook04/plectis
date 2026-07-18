@@ -312,7 +312,7 @@ def test_public_system_paper_check_rejects_nasa_ivv_scope_overclaim(
         )
         .replace(
             "has undergone\n"
-            "no IV\\&V and no other outside evaluation",
+            "no IV\\&V",
             "satisfied the NASA independence criteria",
         ),
         encoding="utf-8",
@@ -321,7 +321,32 @@ def test_public_system_paper_check_rejects_nasa_ivv_scope_overclaim(
     failures = check_paper(paper_path=paper, check_git_commit=False)
 
     assert any("not a universal test" in failure for failure in failures)
-    assert any("has undergone no" in failure for failure in failures)
+    assert any(r"has undergone no IV\\&V" in failure for failure in failures)
+
+
+def test_public_system_paper_check_rejects_unobservable_outside_evaluation_claim(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "No other outside evaluation report is cited or included, and I know\n"
+            "of none; an unreported private rerun would remain invisible.",
+            "No outside evaluation has happened.",
+        )
+        .replace(
+            "It includes no outside evaluator's report; I know of none,\n"
+            "although a private rerun could be unreported.",
+            "No outsider has ever rerun it.",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("unreported private rerun" in failure for failure in failures)
+    assert any("outside evaluator's report" in failure for failure in failures)
 
 
 def test_public_system_paper_check_rejects_method_scope_removal(
@@ -555,8 +580,8 @@ def test_public_system_paper_check_rejects_internal_label_explanation_removal(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "README-first order (internally\n"
-            r"\component{readme_onboarding_route})",
+            "README-first order\n"
+            r"(internally \component{readme_onboarding_route})",
             r"README-first order (\component{readme_onboarding_route})",
         ),
         encoding="utf-8",
@@ -692,6 +717,40 @@ def test_public_system_paper_check_rejects_claim_routing_step_removal(
     assert any(
         "missing executable first-review route" in failure
         and "no-write variant" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_receipt_reading_guidance_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "Copy the no-write line",
+            "Run either command",
+        )
+        .replace(r"\code{expected\_level}", r"\code{result}")
+        .replace(r"\code{anti\_claim}", r"\code{status}"),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing executable first-review route" in failure
+        and "Copy the no-write line" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and r"\\code{expected\\_level}" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and r"\\code{anti\\_claim}" in failure
         for failure in failures
     )
 
