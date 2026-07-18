@@ -108,6 +108,35 @@ def test_public_system_paper_check_rejects_abstract_origin_as_fact(
     assert sum("missing cold-reader anchor" in failure for failure in failures) >= 2
 
 
+def test_public_system_paper_check_rejects_universal_private_testimony_claim(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "The repository cannot by itself support my assertions about the unseen private\n"
+            "system. A component does something narrower: it gives a related public claim a\n"
+            "procedure that can fail in front of a stranger. The procedure\n"
+            "does not make the claim true or establish the published fragment's origin.",
+            "An assertion about private software can only be believed or doubted as\n"
+            "testimony. A component converts the assertion into a procedure, and the\n"
+            "conversion does not make the claim true.",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "forbidden overclaim remains in paper" in failure
+        and "private software can only be believed" in failure
+        for failure in failures
+    )
+    assert sum(
+        "missing private-evidence scope boundary" in failure for failure in failures
+    ) == len(paper_check.REQUIRED_PRIVATE_EVIDENCE_SCOPE_ANCHORS)
+
+
 def test_public_system_paper_check_rejects_method_boundary_removal(
     tmp_path: Path,
 ) -> None:

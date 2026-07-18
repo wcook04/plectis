@@ -59,6 +59,7 @@ FORBIDDEN_OVERCLAIMS = (
     "bounded correctness claims for the evaluated cases",
     "dashed outline marks what a stranger cannot run or observe directly",
     "stronger evidence requires at least one consequential choice to leave",
+    "an assertion about private software can only be believed or doubted as testimony",
 )
 
 FORBIDDEN_COLD_READER_RESIDUE = (
@@ -278,6 +279,14 @@ REQUIRED_RECEIPT_FLOW_ANCHORS = (
     "writes a fresh receipt recording the run",
     "stored receipt from the earlier run is available for comparison; it does not determine the new verdict",
     "same checked values and verdict as the stored receipt",
+)
+
+REQUIRED_PRIVATE_EVIDENCE_SCOPE_ANCHORS = (
+    "repository cannot by itself support my assertions about the unseen private "
+    "system",
+    "A component does something narrower",
+    "related public claim a procedure that can fail in front of a stranger",
+    "does not make the claim true or establish the published fragment's origin",
 )
 
 REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
@@ -969,6 +978,9 @@ def check_paper(
     for anchor in REQUIRED_RECEIPT_FLOW_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing receipt-flow explanation: {anchor!r}")
+    for anchor in REQUIRED_PRIVATE_EVIDENCE_SCOPE_ANCHORS:
+        if anchor not in normalized_text:
+            failures.append(f"missing private-evidence scope boundary: {anchor!r}")
     for abbreviation, expansion in REQUIRED_FIRST_USE_EXPANSIONS:
         if expansion not in normalized_text:
             failures.append(
