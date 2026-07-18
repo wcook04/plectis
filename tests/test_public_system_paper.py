@@ -180,3 +180,29 @@ def test_public_system_paper_check_rejects_central_term_definition_removal(
 
     assert any("deliberately local sense" in failure for failure in failures)
     assert any("does not establish their adequacy" in failure for failure in failures)
+
+
+def test_public_system_paper_check_rejects_evidence_route_crosswalk_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "The routes do not pair one-for-one with the distinctions",
+            "The five routes answer the five distinctions",
+        )
+        .replace(
+            "None repairs a validator--claim mismatch",
+            "Together they repair every gap",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("do not pair one-for-one" in failure for failure in failures)
+    assert any(
+        "None repairs a validator--claim mismatch" in failure
+        for failure in failures
+    )

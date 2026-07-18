@@ -132,7 +132,8 @@ REQUIRED_COLD_READER_ANCHORS = (
     "worked boundary analysis",
     # The five stronger-evidence routes are tied to this analysis, not universal.
     "principle is local to those five gaps",
-    "other claims may require other forms of evidence",
+    "do not pair one-for-one with the distinctions",
+    "None repairs a validator--claim mismatch",
     # Fresh cases and independent routes do not automatically confer truth.
     "Fresh inputs alone do not supply one",
     "not by strength or prerequisite",
