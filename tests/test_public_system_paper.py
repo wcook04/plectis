@@ -199,6 +199,27 @@ def test_public_system_paper_check_rejects_early_contribution_removal(
     )
 
 
+def test_public_system_paper_check_rejects_example_bridge_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "The calculator check supplies an independent expected number for one row.",
+            "The example is complete.",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing example-to-distinctions bridge" in failure
+        and "independent expected number" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_central_term_definition_removal(
     tmp_path: Path,
 ) -> None:

@@ -161,6 +161,12 @@ REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
     "the choices an evaluator would need to make independently of me",
 )
 
+REQUIRED_EXAMPLE_BRIDGE_ANCHORS = (
+    "The calculator check supplies an independent expected number for one row",
+    "Even its evidence for correctness is limited to that one calculation",
+    "The next section treats these five gaps separately",
+)
+
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"
 EXAMPLE_RECEIPT = (
     "receipts/first_wave/batch8_audio_level_rms_port/"
@@ -400,6 +406,12 @@ def check_paper(
     for anchor in REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS:
         if anchor not in normalized_first_section:
             failures.append(f"missing first-section orientation anchor: {anchor!r}")
+    run_section = text.split(r"\section{One run, examined}", 1)[-1]
+    run_section = run_section.split(r"\section{Five distinctions}", 1)[0]
+    normalized_run_section = re.sub(r"\s+", " ", run_section)
+    for anchor in REQUIRED_EXAMPLE_BRIDGE_ANCHORS:
+        if anchor not in normalized_run_section:
+            failures.append(f"missing example-to-distinctions bridge: {anchor!r}")
     for key in REQUIRED_CITATION_KEYS:
         if not re.search(rf"\\cite\{{[^}}]*\b{re.escape(key)}\b[^}}]*\}}", text):
             failures.append(f"missing literature citation: {key}")
