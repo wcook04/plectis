@@ -326,11 +326,12 @@ distinction is called the test oracle problem \cite[p. 507]{barr2015}. The risk
 that a curated collection disproportionately exposes favourable cases is
 analogous to selective publication and the file-drawer problem
 \cite{rosenthal1979}.
-An \emph{assurance case} is a structured argument linking a system claim to
-reasons and evidence. The Object Management Group's Structured Assurance Case
-Metamodel (SACM) 2.3 standard models such cases as auditable claims, arguments,
-and evidence; its annex maps the Claims--Arguments--Evidence notation onto SACM
-\cite[secs. 1.1, A.2]{omgsacm2023}. Plectis is
+An \emph{assurance case} links a system claim to reasons and evidence. The
+Object Management Group's Structured Assurance Case Metamodel (SACM), version
+2.3, describes such cases as auditable claims, arguments, and evidence. Section
+2.2 says the Claims--Arguments--Evidence notation has its own mapping onto SACM;
+informative Annex A.2 points to the maintained mapping details
+\cite[secs. 1.1, 2.2; Annex A.2]{omgsacm2023}. Plectis is
 not an implementation of that standard and makes no claim that the private
 system is safe. Its validator applies a published rule; it does not supply the
 full argument from evidence to claim that an assurance case would require.

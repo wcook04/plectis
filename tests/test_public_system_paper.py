@@ -336,6 +336,27 @@ def test_public_system_paper_check_rejects_test_oracle_source_drift(
     )
 
 
+def test_public_system_paper_check_rejects_sacm_mapping_overclaim(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "informative Annex A.2 points to",
+            "Annex A.2 contains",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing SACM source-fit explanation" in failure
+        and "informative Annex A.2 points" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_opaque_test_oracle_explanation(
     tmp_path: Path,
 ) -> None:
@@ -600,7 +621,7 @@ def test_public_system_paper_check_rejects_unexpanded_first_use(
     source = PAPER.read_text(encoding="utf-8")
     cases = (
         ("artificial intelligence\n(AI)", "AI"),
-        ("Structured Assurance Case\nMetamodel (SACM)", "SACM"),
+        ("Structured Assurance Case Metamodel (SACM)", "SACM"),
         ("Association for Computing Machinery (ACM)", "ACM"),
         ("National Institute of Standards and\nTechnology (NIST)", "NIST"),
         ("National Aeronautics and Space Administration (NASA)", "NASA"),

@@ -556,11 +556,17 @@ REQUIRED_CITATION_KEYS = (
     "leanvalidation",
 )
 
+SACM_SOURCE_FIT_ANCHORS = (
+    "describes such cases as auditable claims, arguments, and evidence",
+    "has its own mapping onto SACM",
+    "informative Annex A.2 points to the maintained mapping details",
+)
+
 REQUIRED_PINPOINT_CITATIONS = (
     r"\cite[\S2.5]{runeson2009}",
     r"\cite[conclusion 3-1]{nasem2019}",
     r"\cite[p. 507]{barr2015}",
-    r"\cite[secs. 1.1, A.2]{omgsacm2023}",
+    r"\cite[secs. 1.1, 2.2; Annex A.2]{omgsacm2023}",
     r"\cite[security-strength table]{nisthashfunctions}",
     r"\cite[\S4.4.1.2]{nasa8739}",
 )
@@ -948,6 +954,9 @@ def check_paper(
     for anchor in REQUIRED_COLD_READER_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing cold-reader anchor: {anchor!r}")
+    for anchor in SACM_SOURCE_FIT_ANCHORS:
+        if anchor not in normalized_text:
+            failures.append(f"missing SACM source-fit explanation: {anchor!r}")
     for anchor in REQUIRED_RECEIPT_FLOW_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing receipt-flow explanation: {anchor!r}")
