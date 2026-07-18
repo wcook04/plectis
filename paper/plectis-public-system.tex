@@ -19,20 +19,26 @@
 \newcommand{\repo}{\href{https://github.com/wcook04/plectis}{\nolinkurl{github.com/wcook04/plectis}}}
 
 % Shared figure styles: black mechanism, dashed unavailable/unestablished
-% material, and one blue accent reserved for what a stranger can do.
+% material, and two accents used with one meaning each across all figures:
+% blue for what a stranger can do, amber for words and choices the project
+% itself supplies.
+\colorlet{strangerblue}{RoyalBlue}
+\colorlet{authoramber}{BurntOrange!85!black}
 \tikzset{
   part/.style={draw=black!75, line width=0.6pt, rounded corners=2pt,
     align=center, inner sep=4pt, font=\footnotesize, fill=gray!8},
-  words/.style={part, fill=white},
+  words/.style={part, fill=white, draw=authoramber!75},
   ghost/.style={draw=black!45, dashed, line width=0.6pt, rounded corners=2pt,
     align=center, inner sep=4pt, font=\footnotesize, text=black!60, fill=none},
-  act/.style={font=\scriptsize\itshape, text=RoyalBlue, align=center},
+  act/.style={font=\scriptsize\itshape, text=strangerblue, align=center},
   gnote/.style={font=\scriptsize, text=black!60, align=center},
   flow/.style={-{Stealth[length=2.2mm]}, line width=0.6pt, draw=black!75},
   softflow/.style={-{Stealth[length=2.0mm]}, line width=0.6pt, draw=black!50, dashed},
-  actflow/.style={-{Stealth[length=2.0mm]}, line width=0.6pt, draw=RoyalBlue},
+  authlink/.style={softflow, draw=authoramber!70},
+  actflow/.style={-{Stealth[length=2.0mm]}, line width=0.6pt, draw=strangerblue},
   flabel/.style={font=\scriptsize, inner sep=2pt},
-  gaplabel/.style={font=\scriptsize, fill=white, inner sep=2.2pt, align=center},
+  gaplabel/.style={font=\scriptsize, fill=white, inner sep=2.2pt, align=center,
+    text=authoramber},
 }
 
 % These values are checked against the public registries by
@@ -216,8 +222,8 @@ exposed to a stranger.
 \draw[flow] (out) -- (val);
 \draw[flow] (rec) -- (val);
 \draw[flow] (val) -- (verdict);
-\draw[softflow] (code) -- node[flabel, right, align=left]{said to\\do this} (claim);
-\draw[softflow] (verdict) -- node[flabel, right, align=left]{read under\\this ceiling} (limit);
+\draw[authlink] (code) -- node[flabel, right, align=left]{said to\\do this} (claim);
+\draw[authlink] (verdict) -- node[flabel, right, align=left]{read under\\this ceiling} (limit);
 % stranger actions
 % top-anchored so the action row reads as one aligned row despite
 % differing line counts
@@ -242,7 +248,9 @@ claim and limit are public words, though they are not executable mechanisms.
 In Figures~\ref{fig:boundary} and~\ref{fig:gaps},
 dashes mark private material the reader cannot inspect or conclusions not
 established by the observed run. The italic blue row names what a stranger
-can do to each part without asking anyone.
+can do to each part without asking anyone. Amber, here on the claim, the
+limit, and the links asserting them, marks words and choices the project
+itself supplies; the same two colours keep these meanings in every figure.
 Section~\ref{sec:run} runs one real component through exactly this chain.}
 \label{fig:contract}
 \end{figure}
@@ -542,15 +550,15 @@ drawn from stays on the left.
   \foreach \y in {0.55,1.35,2.15}
     \draw[black!35, fill=gray!25] (\x-0.14,\y-0.14) rectangle (\x+0.14,\y+0.14);
 \foreach \sx/\sy in {1.80/0.55,2.85/1.35,0.75/2.15,4.95/1.35}
-  \draw[black!75, fill=gray!70] (\sx-0.14,\sy-0.14) rectangle (\sx+0.14,\sy+0.14);
+  \draw[authoramber!80!black, fill=authoramber!55] (\sx-0.14,\sy-0.14) rectangle (\sx+0.14,\sy+0.14);
 \node[font=\small, text=black!45] at (5.42,1.35) {$\cdots$};
 \node[font=\small, text=black!45] at (2.85,0.22) {$\cdots$};
 % boundary
 \draw[black!70, dashed, line width=0.8pt] (7.15,-1.95) -- (7.15,4.15);
 \node[font=\scriptsize, text=black!70, above] at (7.15,4.2) {the publication boundary};
 % selection arrow; the label plaque interrupts the boundary line symmetrically
-\draw[flow] (5.8,1.8) -- (8.55,1.8);
-\node[flabel, fill=white, align=center, inner sep=2.5pt] at (7.15,2.44) {selection and\\re-expression (mine)};
+\draw[flow, draw=authoramber] (5.8,1.8) -- (8.55,1.8);
+\node[flabel, fill=white, align=center, inner sep=2.5pt, text=authoramber] at (7.15,2.44) {selection and\\re-expression (mine)};
 % public box
 \draw[black!75, line width=0.7pt, rounded corners=3pt, fill=gray!6] (8.55,0.55) rectangle (13.35,3.05);
 \node[font=\footnotesize, align=center] at (10.95,1.8) {The public repository\\at commit \code{\snapshotshort}:\\\componentcount{} components in \familycount{} groups};
@@ -835,11 +843,13 @@ consequential choices bearing on that claim.
 \begin{tikzpicture}[x=1cm,y=1cm]
 % uniform box heights and bottom/top-anchored labels keep every dotted
 % leader the same length
-\node[part, text width=2.15cm, minimum height=1.52cm] (s1) at (1.2,0) {Independent repetition};
-\node[part, text width=2.15cm, minimum height=1.52cm] (s2) at (4.3,0) {Evaluator-controlled selection};
-\node[part, text width=2.15cm, minimum height=1.52cm] (s3) at (7.4,0) {Fresh inputs, independent expectations};
-\node[part, text width=2.15cm, minimum height=1.52cm] (s4) at (10.5,0) {Outside tasks, ordinary alternatives};
-\node[part, text width=2.15cm, minimum height=1.52cm] (s5) at (13.6,0) {Confidential provenance review};
+% a whisper of stranger-blue on the routes: each is evidence that lives
+% outside the author's hands
+\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s1) at (1.2,0) {Independent repetition};
+\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s2) at (4.3,0) {Evaluator-controlled selection};
+\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s3) at (7.4,0) {Fresh inputs, independent expectations};
+\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s4) at (10.5,0) {Outside tasks, ordinary alternatives};
+\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s5) at (13.6,0) {Confidential provenance review};
 \node[act, text width=2.25cm, anchor=south] (b1) at (1.2,1.12) {who runs it};
 \node[act, text width=2.25cm, anchor=south] (b2) at (4.3,1.12) {which cases count};
 \node[act, text width=2.25cm, anchor=south] (b3) at (7.4,1.12) {what the answer should have been};
