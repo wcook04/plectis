@@ -80,6 +80,34 @@ def test_public_system_paper_check_rejects_provenance_overclaim(tmp_path: Path) 
     )
 
 
+def test_public_system_paper_check_rejects_abstract_origin_as_fact(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "built to expose selected claims about a larger private system. I\n"
+            "report that its published material was copied or adapted from that system,",
+            "assembled from parts of a larger private system",
+        )
+        .replace(
+            "The argument does not depend on that account or on the claimed origin of the\n"
+            "published material.",
+            "The argument is complete.",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "assembled from parts of a larger private system" in failure
+        for failure in failures
+    )
+    assert sum("missing cold-reader anchor" in failure for failure in failures) >= 2
+
+
 def test_public_system_paper_check_rejects_distinction_anchor_removal(
     tmp_path: Path,
 ) -> None:

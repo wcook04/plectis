@@ -62,6 +62,7 @@ FORBIDDEN_OVERCLAIMS = (
 )
 
 FORBIDDEN_COLD_READER_RESIDUE = (
+    "assembled from parts of a larger private system",
     "this paper contributes a worked boundary analysis",
     "no other repository's size or subject matter is evidence here",
     "this note reports no independent",
@@ -138,6 +139,8 @@ REQUIRED_COLD_READER_ANCHORS = (
     "one item examined",
     "No subset of the components is used to estimate performance",
     "The repository therefore lets a reader test claims",
+    "I report that its published material was copied or adapted",
+    "The argument does not depend on that account or on the claimed origin",
     "cannot independently prove",
     "At the named commit, all evidence still came from the project itself",
     "public repository does not prove the story",
