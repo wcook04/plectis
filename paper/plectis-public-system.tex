@@ -153,9 +153,8 @@ Not established here & Whether the public selection represents the private whole
 \end{tabular}
 \end{center}
 
-The paper examines one author-curated software collection.
-
-\paragraph{What I examined.} At the named repository version, I read the list
+\paragraph{What I examined.} The paper examines one author-curated software
+collection. At the named repository version, I read the list
 and plain descriptions of all \componentcount{} components, counted them by
 project group and by the kind of public evidence offered, traced the worked
 component from input to limit, and reran the appendix's public commands. I did
@@ -169,7 +168,7 @@ of me.
 
 This is a descriptive analysis of one public repository, not a statistical
 study. Runeson and H\"ost distinguish a case from the units of analysis within
-it \cite{runeson2009}. I borrow only those two terms: the named repository
+it \cite[\S2.5]{runeson2009}. I borrow only those two terms: the named repository
 version is the single case, and each component is a \emph{unit of analysis}
 (one item examined inside that case). This paper does not otherwise claim a
 full case-study design. No subset of the components is used to estimate
@@ -315,7 +314,8 @@ although the component contract supplies materials needed to test the
 latter. Under the convention used by the National Academies, computational
 reproducibility means obtaining consistent results using the same input
 data, computational steps, methods, code, and conditions of analysis; such
-consistency does not by itself establish correctness \cite{nasem2019}.
+consistency does not by itself establish correctness
+\cite[conclusion 3-1]{nasem2019}.
 Software testing calls the mechanism used to decide whether an output is
 correct an oracle, and the difficulty of obtaining a trustworthy oracle is
 a recognised testing problem \cite{weyuker1982}. The risk that a curated
@@ -324,7 +324,8 @@ selective publication and the file-drawer problem \cite{rosenthal1979}.
 An \emph{assurance case} is a structured argument linking a system claim to
 reasons and evidence. The Object Management Group's SACM 2.3 standard models
 such cases as auditable claims, arguments, and evidence; its annex maps the
-Claims--Arguments--Evidence notation onto SACM \cite{omgsacm2023}. Plectis is
+Claims--Arguments--Evidence notation onto SACM
+\cite[secs. 1.1, A.2]{omgsacm2023}. Plectis is
 not an implementation of that standard and makes no claim that the private
 system is safe. Its validator applies a published rule; it does not supply the
 full argument from evidence to claim that an assurance case would require.
@@ -493,7 +494,9 @@ SHA-256 fingerprint: a fixed 256-bit value calculated from its contents and
 used to detect change \cite{nistfips1804}. Two different files can in
 principle have the same fingerprint. NIST estimates SHA-256's collision
 resistance at 128 bits; it defines collision resistance as making such a pair
-computationally infeasible to find \cite{nisthashfunctions}. Collisions remain
+computationally infeasible to find
+\cite[security-strength table]{nisthashfunctions}.
+Collisions remain
 mathematically possible. A match therefore supports a
 narrow claim: the public file's contents agree with the version represented in
 its public record. But I control both sides, so that agreement is evidence of
@@ -824,7 +827,7 @@ NASA defines independence for independent verification and validation (IV\&V),
 a formal software check, through three separations: technical (the evaluator
 did not develop the system); managerial (a separate organisation chooses scope,
 methods, and schedule); and financial (an independent group controls the budget
-without adverse financial pressure) \cite{nasa8739}.
+without adverse financial pressure) \cite[\S4.4.1.2]{nasa8739}.
 These are criteria for NASA IV\&V, not a universal test. Plectis has undergone
 no IV\&V. No other outside evaluation report is cited or included, and I know
 of none; an unreported private rerun would remain invisible. I use the NASA
@@ -1068,7 +1071,7 @@ the example, cautions, or citations disagree. It checks historical facts against
 the pinned commit separately from current prose; with one maintainer, that is
 internal consistency, not external truth.
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{10}
 \fontsize{6.6pt}{7.25pt}\selectfont
 \raggedright
 \setlength{\itemsep}{0pt}

@@ -493,6 +493,14 @@ REQUIRED_CITATION_KEYS = (
     "leanvalidation",
 )
 
+REQUIRED_PINPOINT_CITATIONS = (
+    r"\cite[\S2.5]{runeson2009}",
+    r"\cite[conclusion 3-1]{nasem2019}",
+    r"\cite[secs. 1.1, A.2]{omgsacm2023}",
+    r"\cite[security-strength table]{nisthashfunctions}",
+    r"\cite[\S4.4.1.2]{nasa8739}",
+)
+
 # Canonical identifiers and version markers verified against the publisher or
 # standards body's own page on 18 July 2026. Checking only citation keys would
 # allow an entry to keep its label while drifting to the wrong DOI, version,
@@ -946,10 +954,16 @@ def check_paper(
         if anchor not in normalized_appendix_section:
             failures.append(f"missing bounded public-test explanation: {anchor!r}")
     for key in REQUIRED_CITATION_KEYS:
-        if not re.search(rf"\\cite\{{[^}}]*\b{re.escape(key)}\b[^}}]*\}}", text):
+        if not re.search(
+            rf"\\cite(?:\[[^\]]*\])?\{{[^}}]*\b{re.escape(key)}\b[^}}]*\}}",
+            text,
+        ):
             failures.append(f"missing literature citation: {key}")
         if f"\\bibitem{{{key}}}" not in text:
             failures.append(f"missing bibliography item: {key}")
+    for citation in REQUIRED_PINPOINT_CITATIONS:
+        if citation not in text:
+            failures.append(f"missing source pinpoint: {citation}")
     bibliography_items = _bibliography_items(text)
     for key, required_tokens in REQUIRED_BIBLIOGRAPHY_TOKENS.items():
         item = bibliography_items.get(key, "")
@@ -964,6 +978,13 @@ def check_paper(
         failures.append(
             "bibliography items must follow first-citation order: "
             + ", ".join(citation_order)
+        )
+    bibliography_width = re.search(r"\\begin\{thebibliography\}\{([^}]+)\}", text)
+    expected_width = str(len(bibliography_order))
+    if bibliography_width is None or bibliography_width.group(1) != expected_width:
+        failures.append(
+            "bibliography label width must match item count: "
+            f"expected {expected_width}"
         )
 
     if macros.get("snapshotshort") != snapshot[:12]:

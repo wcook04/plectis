@@ -293,6 +293,46 @@ def test_public_system_paper_check_rejects_bibliography_identifier_drift(
     )
 
 
+def test_public_system_paper_check_rejects_missing_source_pinpoint(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            r"\cite[conclusion 3-1]{nasem2019}",
+            r"\cite{nasem2019}",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing source pinpoint" in failure and "conclusion 3-1" in failure
+        for failure in failures
+    )
+    assert not any(
+        "missing literature citation: nasem2019" in failure for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_narrow_bibliography_label_width(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            r"\begin{thebibliography}{10}",
+            r"\begin{thebibliography}{9}",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert "bibliography label width must match item count: expected 10" in failures
+
+
 def test_public_system_paper_check_rejects_prior_art_boundary_removal(
     tmp_path: Path,
 ) -> None:
@@ -424,7 +464,7 @@ def test_public_system_paper_check_rejects_early_contribution_removal(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "The paper examines one author-curated software collection",
+            "The paper examines one author-curated software\ncollection",
             "The paper next describes the repository",
         ),
         encoding="utf-8",
@@ -954,7 +994,7 @@ def test_public_system_paper_check_rejects_collision_strength_source_removal(
             "resistance at an unspecified strength",
         )
         .replace(
-            r"\cite{nisthashfunctions}",
+            r"\cite[security-strength table]{nisthashfunctions}",
             r"\cite{nistfips1804}",
         ),
         encoding="utf-8",
