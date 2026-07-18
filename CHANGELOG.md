@@ -8,6 +8,18 @@ All notable changes to Plectis are documented here. The format follows
 
 ### Changed
 
+- The public-system paper completed a sixth release-readiness pass. Five
+  primary sources now ground its borrowed claims about reproducibility,
+  test oracles, selective publication, independent evaluation, and SHA-256;
+  the stronger-evidence figure now presents independent routes rather than
+  a false cumulative ladder; and claims about correctness, fingerprints,
+  private-root access, authorship, selection, usefulness, and record repair
+  are more precisely bounded. A clean Python 3.12.7 reproduction adds a
+  second-interpreter check and records both the offline build prerequisite
+  and a stale field in the pinned worked-example result. The paper guard now
+  reads counts, routes, receipts, and displayed example values from the
+  pinned Git snapshot, while separately enforcing current citations and
+  argument anchors.
 - The public-system paper revised against a referee-grade review and a
   live congruence audit: the hand-equivalence claim about AI authorship is
   now bounded (inference ceilings are authorship-independent; error rates

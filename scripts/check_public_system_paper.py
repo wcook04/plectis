@@ -51,6 +51,11 @@ FORBIDDEN_OVERCLAIMS = (
     "guarantees privacy",
     "proves the private system",
     "certifies the private system",
+    "designed not to read the private repository at all",
+    "so that any change to the contents changes the value",
+    "every component in the collection currently sits in the first position",
+    "only stage that could bear on the origin story",
+    "bounded correctness claims for the evaluated cases",
 )
 
 # Sentences the paper's argument stands on.  The first block defines terms a
@@ -107,6 +112,13 @@ REQUIRED_COLD_READER_ANCHORS = (
     "rates of error behind them are simply unknown",
     # Borrowed vocabulary is acknowledged as borrowed.
     "adds no theory to any of those fields",
+    # Fresh cases and independent routes do not automatically confer truth.
+    "Fresh inputs alone do not supply one",
+    "not by strength or prerequisite",
+    "routes are not cumulative stages",
+    # Runtime and snapshot claims are scoped to what the checker actually does.
+    "does not automatically discover a neighbouring private",
+    "pinned commit rather than silently comparing",
 )
 
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"
@@ -114,10 +126,50 @@ EXAMPLE_RECEIPT = (
     "receipts/first_wave/batch8_audio_level_rms_port/"
     "batch8_audio_level_rms_port_validation_receipt.json"
 )
+EXAMPLE_RESULT = (
+    "receipts/first_wave/batch8_audio_level_rms_port/"
+    "batch8_audio_level_rms_port_result.json"
+)
+
+REQUIRED_CITATION_KEYS = (
+    "nasem2019",
+    "weyuker1982",
+    "rosenthal1979",
+    "nistfips1804",
+    "nasa8739",
+)
+
+EXAMPLE_CASE_VALUES = {
+    "float32_reference_buffer": "0.489897949",
+    "int16_reference_buffer": "0.489892970",
+    "clamp_over_one_buffer": "1.000000000",
+}
 
 
 def _load_json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _load_json_from_commit(commit: str, relative_path: str, failures: list[str]) -> dict:
+    result = subprocess.run(
+        ["git", "show", f"{commit}:{relative_path}"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        failures.append(f"cannot read pinned evidence: {relative_path} at {commit}")
+        return {}
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        failures.append(f"pinned evidence is not valid JSON: {relative_path} at {commit}")
+        return {}
+    if not isinstance(payload, dict):
+        failures.append(f"pinned evidence is not a JSON object: {relative_path} at {commit}")
+        return {}
+    return payload
 
 
 def _macros(text: str) -> dict[str, str]:
@@ -147,10 +199,48 @@ def check_paper(
     text = paper_path.read_text(encoding="utf-8")
     normalized_text = re.sub(r"\s+", " ", text)
     lower = normalized_text.lower()
-    registry = _load_json(registry_path)
-    families = _load_json(families_path)
     macros = _macros(text)
     failures: list[str] = []
+
+    snapshot = macros.get("snapshotcommit", "")
+    snapshot_resolves = False
+    if not re.fullmatch(r"[0-9a-f]{40}", snapshot):
+        failures.append("snapshotcommit must be a full 40-character lowercase Git hash")
+    elif check_git_commit and (ROOT / ".git").exists():
+        result = subprocess.run(
+            ["git", "cat-file", "-e", f"{snapshot}^{{commit}}"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        snapshot_resolves = result.returncode == 0
+        if not snapshot_resolves:
+            failures.append(f"snapshotcommit does not resolve in this repository: {snapshot}")
+
+    use_pinned_evidence = (
+        snapshot_resolves
+        and registry_path == REGISTRY
+        and families_path == FAMILIES
+    )
+    pinned_example_receipt: dict = {}
+    pinned_example_result: dict = {}
+    if use_pinned_evidence:
+        registry = _load_json_from_commit(
+            snapshot, REGISTRY.relative_to(ROOT).as_posix(), failures
+        )
+        families = _load_json_from_commit(
+            snapshot, FAMILIES.relative_to(ROOT).as_posix(), failures
+        )
+        pinned_example_receipt = _load_json_from_commit(
+            snapshot, EXAMPLE_RECEIPT, failures
+        )
+        pinned_example_result = _load_json_from_commit(
+            snapshot, EXAMPLE_RESULT, failures
+        )
+    else:
+        registry = _load_json(registry_path)
+        families = _load_json(families_path)
 
     organs = registry.get("implemented_organs", [])
     organ_ids = [str(row.get("organ_id") or "") for row in organs]
@@ -204,9 +294,43 @@ def check_paper(
     else:
         if EXAMPLE_RECEIPT not in example.get("generated_receipts", []):
             failures.append("worked-example receipt is not declared by the organ registry")
+        if EXAMPLE_RESULT not in example.get("generated_receipts", []):
+            failures.append("worked-example result is not declared by the organ registry")
         command = str(example.get("validator_command") or "")
         if EXAMPLE_ORGAN_ID not in command or "--input" not in command or "--out" not in command:
             failures.append("worked-example validator command no longer has the documented shape")
+
+    if use_pinned_evidence:
+        if pinned_example_receipt.get("status") != "pass":
+            failures.append("pinned worked-example validation receipt is not a pass")
+        exercise = pinned_example_result.get("exercise", {})
+        reference_cases = {
+            str(row.get("case_id") or ""): row
+            for row in exercise.get("reference_cases", [])
+            if isinstance(row, dict)
+        }
+        for case_id, displayed_value in EXAMPLE_CASE_VALUES.items():
+            row = reference_cases.get(case_id)
+            if row is None:
+                failures.append(f"pinned worked-example result lacks case: {case_id}")
+                continue
+            for field in ("expected_level", "observed_level"):
+                try:
+                    actual = f"{float(row[field]):.9f}"
+                except (KeyError, TypeError, ValueError):
+                    failures.append(
+                        f"pinned worked-example {case_id} lacks numeric {field}"
+                    )
+                    continue
+                if actual != displayed_value:
+                    failures.append(
+                        f"paper value {displayed_value} disagrees with pinned "
+                        f"{case_id} {field}={actual}"
+                    )
+            if displayed_value not in text:
+                failures.append(
+                    f"paper does not display pinned worked-example value: {displayed_value}"
+                )
 
     for phrase in FORBIDDEN_OVERCLAIMS:
         if phrase in lower:
@@ -214,20 +338,12 @@ def check_paper(
     for anchor in REQUIRED_COLD_READER_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing cold-reader anchor: {anchor!r}")
+    for key in REQUIRED_CITATION_KEYS:
+        if not re.search(rf"\\cite\{{[^}}]*\b{re.escape(key)}\b[^}}]*\}}", text):
+            failures.append(f"missing literature citation: {key}")
+        if f"\\bibitem{{{key}}}" not in text:
+            failures.append(f"missing bibliography item: {key}")
 
-    snapshot = macros.get("snapshotcommit", "")
-    if not re.fullmatch(r"[0-9a-f]{40}", snapshot):
-        failures.append("snapshotcommit must be a full 40-character lowercase Git hash")
-    elif check_git_commit and (ROOT / ".git").exists():
-        result = subprocess.run(
-            ["git", "cat-file", "-e", f"{snapshot}^{{commit}}"],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        if result.returncode != 0:
-            failures.append(f"snapshotcommit does not resolve in this repository: {snapshot}")
     if macros.get("snapshotshort") != snapshot[:12]:
         failures.append("snapshotshort must equal the first 12 characters of snapshotcommit")
     # The appendix's pasteable block hardcodes the checkout line (Verbatim
@@ -252,11 +368,12 @@ def main() -> int:
             print(f"  FAIL {failure}", file=sys.stderr)
         return 1
 
+    declared_count = _macros(PAPER.read_text(encoding="utf-8"))["componentcount"]
     print(
         "Public-system paper check: pass "
-        f"({len(_load_json(REGISTRY)['implemented_organs'])} components; "
-        "family counts, evidence routes, worked example, cold-reader anchors, "
-        "and claim language agree)"
+        f"({declared_count} pinned components; "
+        "pinned family counts, evidence routes, worked example, literature "
+        "citations, cold-reader anchors, and claim language agree)"
     )
     return 0
 

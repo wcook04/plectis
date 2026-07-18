@@ -17,7 +17,7 @@
 \setlength{\parskip}{0.55em}
 \newcommand{\code}[1]{\texttt{#1}}
 \newcommand{\component}[1]{\nolinkurl{#1}}
-\newcommand{\repo}{\href{https://github.com/wcook04/plectis}{github.com/wcook04/plectis}}
+\newcommand{\repo}{\href{https://github.com/wcook04/plectis}{\nolinkurl{github.com/wcook04/plectis}}}
 
 % Shared figure styles: black mechanism, dashed words/unestablished, one blue
 % accent reserved for what a stranger can do.
@@ -83,11 +83,13 @@ the selection, or the correctness of success criteria the project supplies
 for itself. I developed the private system over about ten months by
 directing AI coding agents; that account is reported, not proved, and the
 argument does not depend on it. The paper examines one run from input to
-limit, sets out five distinctions that govern what runs can and cannot
-show, itemises the choices that remain in my hands and what those choices
+limit, sets out five recurring distinctions that govern what runs can and
+cannot show, itemises the choices that remain in my hands and what those choices
 could quietly do, and states what stronger evidence would require, with a
 dated reproduction record in an appendix. One successful run supports one
-bounded conclusion; the paper is about which conclusions those are.
+bounded conclusion: the one licensed by the published validator, which may
+still fall short of the prose claim. The paper is about which conclusions
+those are.
 \end{abstract}
 
 \section{The problem}
@@ -290,16 +292,19 @@ exposes to challenge is the published fragment, and
 Section~\ref{sec:distinctions} is largely about how little any result
 against the fragment entitles anyone to conclude beyond it.
 
-The vocabulary is borrowed on purpose, and from fields with literatures of
-their own. \emph{Oracle} is software testing's word, and the difficulty of
-finding trustworthy oracles is a recognised problem there, not a discovery
-of this paper. The worry that a curated collection flatters its source is
-publication bias, the file-drawer problem, in miniature. Repeatability
-held apart from correctness is the working distinction of the
-reproducibility literature. This paper adds no theory to any of those
-fields; what it does is assemble their cautions around one object, a
-curated set of runnable fragments standing in front of a private whole,
-and hold one repository to them in public.
+Answerability is not the same property as computational reproducibility,
+although the component contract supplies materials needed to test the
+latter. Under the convention used by the National Academies, computational
+reproducibility means obtaining consistent results using the same input
+data, computational steps, methods, code, and conditions of analysis; such
+consistency does not by itself establish correctness \cite{nasem2019}.
+Software testing calls the mechanism used to decide whether an output is
+correct an oracle, and the difficulty of obtaining a trustworthy oracle is
+a recognised testing problem \cite{weyuker1982}. The risk that a curated
+collection disproportionately exposes favourable cases is analogous to
+selective publication and the file-drawer problem \cite{rosenthal1979}.
+This paper adds no theory to any of those fields; it assembles their
+cautions around one curated set of runnable public fragments.
 
 \section{One run, examined}
 \label{sec:run}
@@ -320,12 +325,12 @@ its stored receipts name the private file it claims to re-express
 the name is a report, not evidence. What the stranger can check is
 everything else.
 
-The declared calculation is the standard one called root-mean-square (the
-\code{rms} in the component's name): square each sample, average the
-squares, take the square root, then multiply by eight and cap the result at
-one. Sixteen-bit integer samples are first divided by 32{,}767, the
-largest value a sixteen-bit integer can hold, to bring
-them onto the same scale. An empty input must produce zero. An unrecognised
+The declared calculation begins with root-mean-square (the \code{rms} in
+the component's name): square each sample, average the squares, and take
+the square root. It then applies the project's gain of eight and caps the
+result at one. Signed sixteen-bit integer samples are first divided by
+32{,}767, the largest positive value in that representation, to bring them
+onto the same scale. An empty input must produce zero. An unrecognised
 format name must be refused rather than guessed at.
 
 The component's public command runs it against its fixture and writes fresh
@@ -362,20 +367,23 @@ checked without the repository or a computer: the squares of the four
 samples average to 0.00375, whose square root is $0.061237\ldots$, and eight
 times that is $0.489897\ldots$. A reader with a calculator can recompute this
 expected value from the stated formula alone. For this one case the reader
-can act as their own \emph{oracle}, the general name for whatever determines
-what an answer should have been, independently of the program under test.
+can act as their own \emph{oracle}, the general name for a tester or
+mechanism used to decide whether an output is correct. Here elementary
+arithmetic supplies a standard independent of the program under test.
 
 Almost nothing else in the collection is like that, which is why the example
-matters. Elsewhere the project supplies the implementation, the input, the
-expected values, and the validator, all from the same hand. A test
+matters. Elsewhere the project usually supplies the implementation, the
+input, the expected values, and the validator through the same
+author-controlled process. A test
 assembled that way can pass for four different reasons: the implementation
 and the expectation are both correct; the two share a mistake; the chosen
 cases happen to sit where the implementation behaves; or the validator
 checks a weaker property than the prose claim suggests. A matching result
 therefore establishes repeatability under that public test. Independent
-correctness needs an oracle that does not depend on me, as elementary
-arithmetic does for the first row, or fresh inputs whose expected results I
-never chose.
+evidence bearing on correctness needs a credible oracle whose expected
+result is justified through a route independent of the implementation, as
+elementary arithmetic is for the first row. Fresh inputs alone do not
+supply one.
 
 The example generalises into a question that can be asked of any test in
 any project: where does the expected value live, and who put it there? The
@@ -387,24 +395,26 @@ positions differ in kind, not only in degree:
 \toprule
 \textbf{Where the oracle lives} & \textbf{What a matching result then supports} \\
 \midrule
-The project itself: implementation, cases, expectations, and rule from one hand. & Repeatability under the project's own test; the four readings above all stay open. \\
+The project itself: implementation, cases, expectations, and rule from one author-controlled process. & Repeatability under the project's own test; the four readings above all stay open. \\
 \addlinespace
 The reader's own derivation from stated premises, as in the worked example's decimal-samples row. & Bounded correctness of that one calculation on that one case. \\
 \addlinespace
 An established external tool or reference. & Whatever the reference itself warrants, on the cases run, within the reference's own limits. \\
 \addlinespace
-An evaluator who chooses inputs and expected results after a version is frozen. & Correctness on the evaluated cases, with my control over the answer removed. \\
+An evaluator who chooses inputs and independently justifies expected results after a version is frozen. & Independent evidence bearing on correctness for those cases, within the oracle's own justification and limits. \\
 \addlinespace
 The world: an outcome observed apart from any program. & A bearing on usefulness or empirical adequacy, where such an outcome exists at all. \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Every component in the collection currently sits in the first position,
-except where a reader promotes a case to the second by recomputing it, as
-the worked example's decimal-samples row invites. The staged programme of
-Section~\ref{sec:stronger} is, among other things, a plan for moving
-selected components down this table.
+Most components in the collection sit in the first position, except where
+a reader promotes a case to the second by recomputing it, as the worked
+example's decimal-samples row invites. Components that invoke a named
+external tool occupy a hybrid of the first and third positions: the project
+still chooses the case and the rule, while the tool supplies a result that
+inherits its own limits. The routes in Section~\ref{sec:stronger} describe
+ways to move consequential choices out of the project's control.
 
 The refusal row records a designed boundary, not a failure: an input naming
 an unsupported encoding (\code{pcm24}, a format this component does not
@@ -443,9 +453,10 @@ side.
 A reader can establish what a named public commit contains and what its
 commands do. No public run establishes where the material came from.
 Plectis keeps records at that boundary: copied files carry public import
-records naming their claimed sources, together with fingerprints (a
-\emph{fingerprint} is a short value computed from a file's contents, chosen
-so that any change to the contents changes the value). Matching
+records naming their claimed sources, together with SHA-256 fingerprints,
+fixed-length digests used here to detect changes. Different files can in
+principle share any fixed-length digest; the standard defines the algorithm,
+not a collision-free guarantee \cite{nistfips1804}. Matching
 fingerprints show that a public file agrees with the project's public record
 of it. But I control both sides of that comparison, so agreement is
 evidence of internal consistency, not of origin. The same holds for the
@@ -480,9 +491,9 @@ the stated point. Plectis makes the gap inspectable rather than closed.
 Every validator is public, so a reader can put the rule beside the prose
 and object where the rule is weaker, and the review in
 Section~\ref{sec:inspect} makes exactly that comparison its central step.
-Since I wrote both the claims and the rules, agreement between them is my
-judgement recorded twice, and no count of passing components can substitute
-for reading one rule against one sentence.
+Since the same author-controlled project produced both the claims and the
+rules, agreement between them records one judgement twice, and no count of
+passing components can substitute for reading one rule against one sentence.
 
 \subsection*{Selected cases versus general behaviour}
 
@@ -495,8 +506,9 @@ store, and which pass rules to enforce. Nothing in the public record shows
 how many candidates there were, what was excluded beyond the privacy rules,
 or whether the collection resembles ordinary work in the private system. A
 collection can consist entirely of genuine items and still give an
-unrepresentative picture of what it was drawn from; a display case does
-exactly this whenever the curator keeps the failures in a drawer.
+unrepresentative picture of what it was drawn from. This is analogous to
+selective publication and the file-drawer problem, not the same process
+\cite{rosenthal1979}.
 Figure~\ref{fig:boundary} draws the situation: public checking reaches
 everything to the right of the boundary, and the pool the selection was
 drawn from stays on the left.
@@ -536,8 +548,9 @@ has the anatomy of Figure~\ref{fig:contract}. The grid trails off
 because its true extent is exactly what the public side cannot know. The
 count of squares on the left, the
 rule that picked the darker ones, and the resemblance between the two sides
-are all invisible from the right, so the collection is exact evidence about
-the published fragments and, by itself, evidence about nothing else.}
+are all invisible from the right. The collection supplies directly
+checkable evidence about the published files and their behaviour under
+named tests, but no basis by itself for generalising to the hidden whole.}
 \label{fig:boundary}
 \end{figure}
 
@@ -559,11 +572,14 @@ did not find the patterns it was designed to find, and nothing stronger.
 Pages such as the component map are generated from the registry, and tests
 compare page and registry, which prevents the particular failure of prose
 drifting away from records; a generator and its records can still be wrong
-together. Plectis is also designed not to read the private repository at
-all, and that design is itself public and testable. None of this amounts to
-a guarantee that no secret, no identifying detail, and no inconsistency
-survives. Publication remains a judgement about acceptable risk, and I made
-it.
+together. The documented \code{tour} run takes the public checkout as its
+explicit input and does not automatically discover a neighbouring private
+repository. The release-export contamination check is an explicit
+exception: when such a private root is available, it may compare public
+source-module bodies with private files to detect leakage. None of this
+amounts to a guarantee that no secret, no identifying detail, and no
+inconsistency survives. Publication remains a judgement about acceptable
+risk, and I made it.
 
 The provenance and risk-reduction distinctions pull against each other in a
 way worth noticing. Establishing provenance would require someone to examine private
@@ -657,7 +673,7 @@ fidelity to the private original and what a stranger can check:
 
 \begin{center}
 \small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.20\linewidth}r>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.33\linewidth}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.20\linewidth}r>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}}
 \toprule
 \textbf{Route} & \textbf{Count} & \textbf{What it preserves} & \textbf{What it cannot show} \\
 \midrule
@@ -720,7 +736,7 @@ where the publication boundary lies. Somebody had to make each of these
 choices, and the privacy constraint meant it was me. None of that is
 misconduct.
 
-But that concentration of choice has a known failure mode, and it involves
+But that concentration of choice permits a failure mode, and it involves
 no false statement anywhere. Select the mechanisms that show well. Divide
 the favourable ones finely. Narrow each claim until its fixed cases satisfy
 it. Route awkward material through the cheapest form of checking. Declare
@@ -754,15 +770,17 @@ survives
 selection when it can be made bounded, deterministic, and runnable in
 isolation, so a collection like this over-represents pure calculation,
 replay, and record-checking, and under-represents stateful, entangled,
-long-running behaviour, which is much of what software does in use. The
+long-running behaviour. The
 published picture tilts towards what publishes well before any question of
 honesty arises.
 
-The defence that lasts is structural rather than textual, and it is the
-subject
-of Section~\ref{sec:stronger}: evidence about an object like this becomes
-stronger as
-the consequential choices stop being mine.
+The defence that lasts is structural rather than textual. Standards for
+independent verification and validation distinguish technical independence
+from the developers and managerial independence over what and how to assess
+\cite{nasa8739}. Plectis has not undergone such an evaluation. The narrower
+principle used in Section~\ref{sec:stronger} is that evidence about an object
+like this becomes stronger for a particular claim as the choices bearing on
+that claim stop being mine.
 
 \section{What stronger evidence would look like}
 \label{sec:stronger}
@@ -778,53 +796,49 @@ no other repository's size or subject matter is used as evidence here. This
 note does not report an independent, randomly selected audit over fresh
 inputs; nothing of that kind has happened yet.
 
-What would move each boundary is known, and the stages are ordered by who
-controls the consequential choices. Figure~\ref{fig:ladder} shows the
-sequence; each stage transfers one class of choice out of my hands and
-leaves the later classes untouched.
+Five independent routes could move different boundaries. They are ordered
+below for exposition, not by strength or prerequisite: they may occur in any
+order, and progress on one route does not imply progress on the others.
+Figure~\ref{fig:ladder} shows which choice each route transfers and which
+claim it still leaves open. The shared question is who controls the
+consequential choices bearing on that claim.
 
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}[x=1cm,y=1cm]
-\node[part, fill=gray!18, text width=1.9cm] (s0) at (0.7,0) {At this commit, every choice is mine};
-\node[part, text width=2.0cm] (s1) at (3.45,0.55) {Independent repetition};
-\node[part, text width=2.0cm] (s2) at (6.20,1.10) {Evaluator-controlled selection};
-\node[part, text width=2.0cm] (s3) at (8.95,1.65) {Fresh inputs, independent expectations};
-\node[part, text width=2.0cm] (s4) at (11.70,2.20) {Outside tasks, ordinary alternatives};
-\node[part, text width=2.0cm] (s5) at (14.45,2.75) {Confidential provenance review};
-\draw[flow] (s0) -- (s1);
-\draw[flow] (s1) -- (s2);
-\draw[flow] (s2) -- (s3);
-\draw[flow] (s3) -- (s4);
-\draw[flow] (s4) -- (s5);
-\node[act, text width=2.2cm] (b1) at (3.45,1.90)  {who runs it};
-\node[act, text width=2.2cm] (b2) at (6.20,2.45)  {which cases count};
-\node[act, text width=2.2cm] (b3) at (8.95,3.15)  {what the answer should have been};
-\node[act, text width=2.2cm] (b4) at (11.70,3.70) {what counts as useful};
-\node[act, text width=2.2cm] (b5) at (14.45,4.25) {whether the origin account holds};
-\node[gnote, text width=2.2cm] (n1) at (3.45,-0.90) {still says nothing about correctness};
-\node[gnote, text width=2.2cm] (n2) at (6.20,-0.35) {cannot reach the private pool};
-\node[gnote, text width=2.2cm] (n3) at (8.95,0.20)  {bounded cases only, not generality};
-\node[gnote, text width=2.2cm] (n4) at (11.70,0.75) {usefulness only where compared};
-\node[gnote, text width=2.2cm] (n5) at (14.45,1.30) {moves trust to the reviewer};
+\node[part, text width=2.15cm] (s1) at (1.2,0) {Independent repetition};
+\node[part, text width=2.15cm] (s2) at (4.3,0) {Evaluator-controlled selection};
+\node[part, text width=2.15cm] (s3) at (7.4,0) {Fresh inputs, independent expectations};
+\node[part, text width=2.15cm] (s4) at (10.5,0) {Outside tasks, ordinary alternatives};
+\node[part, text width=2.15cm] (s5) at (13.6,0) {Confidential provenance review};
+\node[act, text width=2.25cm] (b1) at (1.2,1.55)  {who runs it};
+\node[act, text width=2.25cm] (b2) at (4.3,1.55)  {which cases count};
+\node[act, text width=2.25cm] (b3) at (7.4,1.55)  {what the answer should have been};
+\node[act, text width=2.25cm] (b4) at (10.5,1.55) {what counts as useful};
+\node[act, text width=2.25cm] (b5) at (13.6,1.55) {whether the origin account holds};
+\node[gnote, text width=2.25cm] (n1) at (1.2,-1.45) {does not by itself establish correctness};
+\node[gnote, text width=2.25cm] (n2) at (4.3,-1.45) {cannot reach the private pool};
+\node[gnote, text width=2.25cm] (n3) at (7.4,-1.45) {bounded cases only, not generality};
+\node[gnote, text width=2.25cm] (n4) at (10.5,-1.45) {advantage only where compared};
+\node[gnote, text width=2.25cm] (n5) at (13.6,-1.45) {moves trust to the reviewer};
 \foreach \i in {1,...,5}{
   \draw[RoyalBlue!45, dotted, line width=0.6pt] (b\i) -- (s\i);
   \draw[black!30, dotted, line width=0.6pt] (n\i) -- (s\i);}
 \end{tikzpicture}
-\caption{Stronger evidence as a transfer of control. Above each stage, in
-blue, the choice that leaves my hands; below it, in grey, what that stage
-still cannot show. At the commit this paper describes, none of the five
-stages has happened.}
+\caption{Five independent evidence routes. Above each route, in blue, the
+choice that leaves my hands; below it, in grey, what that route still cannot
+show. The routes are not cumulative stages. At the commit this paper
+describes, none has happened.}
 \label{fig:ladder}
 \end{figure}
 
-\emph{Independent repetition} comes first: a person with no involvement in
-the project reruns the supplied commands in their own environment and
-publishes what happened, including failures. That would remove the
-dependence on my machine and my tacit knowledge. It would say nothing about
-correctness.
+\emph{Independent repetition} means a person with no involvement in the
+project reruns the supplied commands in their own environment and publishes
+what happened, including failures. That would reduce dependence on my
+machine and test whether the published instructions suffice elsewhere. It
+would not by itself establish correctness.
 
-\emph{Evaluator-controlled selection} comes next: the evaluator chooses
+\emph{Evaluator-controlled selection} means the evaluator chooses
 components from the full registry, without substitution when one proves
 awkward, and original failures stay on the record even if I later repair
 them. The units themselves are open to the same challenge: an evaluator
@@ -834,22 +848,25 @@ not misusing it. That addresses curation within the public collection. It
 cannot address whether the collection represents the private system,
 because the private pool stays invisible.
 
-\emph{Fresh inputs with independently derived expectations} move
-repeatability towards correctness: inputs chosen after a version is frozen,
-and expected results worked out through some route that does not pass
-through my code, whether independent calculation, a second implementation,
-or an external reference. Bounded correctness claims for the evaluated
-cases would then be available; general correctness still would not.
+\emph{Fresh inputs with independently derived expectations} can move
+repeatability towards evidence bearing on correctness: inputs chosen after
+a version is frozen, and expected results worked out through some route that
+does not pass through my code, whether independent calculation, a second
+implementation, or an external reference. The result would support bounded
+claims only to the extent that the derivation is credible and independent
+and the cases are adequate; general correctness still would not follow.
 
-\emph{Comparison on outside tasks} is what a usefulness claim would need:
-someone bringing a task that was not designed around the project's own
-categories, and comparing the component against an ordinary alternative,
-which for several of these components would be a short conventional script.
-Usefulness is comparative, and nothing in this paper compares.
+\emph{Comparison on outside tasks} is what a claim of advantage over
+ordinary alternatives would need: someone bringing a task that was not
+designed around the project's own categories and comparing the component
+against an ordinary alternative, which for several components would be a
+short conventional script. Nothing in this paper makes that comparison.
 
-\emph{A provenance review} is the only stage that could bear on the origin
-story: a trusted person examining selected private material against the
-public collection under confidentiality. Even completed, this stage would
+\emph{A provenance review}, among the five routes shown here, bears most
+directly on the origin story: a trusted person examining selected private
+material against the public collection under confidentiality. Prior public
+commitments could provide another kind of provenance evidence. Even
+completed, this review would
 transfer trust rather than remove it: public readers would be relying on
 the reviewer's access, competence, and report instead of on mine, and the
 review itself could not be published. The privacy cost may reasonably
@@ -858,7 +875,7 @@ paper is written so that its argument does not depend on it.
 
 \subsection*{How the record should age}
 
-The stages above will produce failures if they happen at all, and the value
+The routes above may expose failures, and the value
 of the record then depends on what a failure does to it. The rule this
 project adopts is that repairs add facts and do not subtract them. The
 appendix records that at the pinned commit three public tests failed, and
@@ -868,9 +885,9 @@ same rule holds above the level of code. If outside criticism shows a
 validator too weak or a claim too broad, the revision should be legible as
 a revision, carrying its date and its cause, rather than the project
 appearing always to have meant the narrower thing. A test rewritten after
-its outcome is known is a better test but a different one: passing it
-answers the earlier finding, and only cases fixed before their outcomes
-were known count as fresh confirmation. Disappointment is in scope: an
+its outcome is known is a different test and may be better. The known case
+supplies regression evidence; fresh confirmation requires held-out cases
+whose outcomes were not used to design the repair. Disappointment is in scope: an
 evaluation that concludes a component is trivial, or no better than a
 short ordinary script, is the machinery working, and its conclusion
 belongs on the record with the same standing as a pass. An outside
@@ -880,7 +897,7 @@ evaluator's control, cited rather than absorbed. Where the repository's
 future conduct falls short of this paragraph, the shortfall is itself a
 finding, and Section~\ref{sec:inspect} says where findings go.
 
-Each stage moves one class of consequential choice out of my hands. That,
+Each route moves one class of consequential choice out of my hands. That,
 rather than more components or more records, is what stronger evidence
 means for an object like this.
 
@@ -901,18 +918,19 @@ practical; if a refusal boundary carries the weight of the claim, ask the
 repository's history when that boundary was declared; and keep whatever
 fails, because a discrepancy is a finding, and
 \code{CONTRIBUTING.md} in the repository sets out how to report one. One
-successful run supports one bounded conclusion. Broader conclusions wait on
-the evidence of Section~\ref{sec:stronger}, and most of it does not yet
-exist.
+successful run supports one bounded conclusion: only the conclusion licensed
+by the published validator. If that rule does not bear on the prose claim,
+the run may not support the prose claim at all. Broader conclusions wait on
+the evidence of Section~\ref{sec:stronger}, and most of it does not yet exist.
 
 \appendix
 
 \section{A dated reproduction record}
 \label{sec:appendix}
 
-Everything in this appendix is an observation about one commit, made on
-17~July~2026 in one environment: macOS 15.6.1 (arm64) with Python 3.13.7.
-The commit's full identifier is
+Unless a paragraph gives a later date, everything in this appendix is an
+observation about one commit, made on 17~July~2026 in one environment:
+macOS 15.6.1 (arm64) with Python 3.13.7. The commit's full identifier is
 
 \begin{center}
 \small\code{\snapshotcommit}
@@ -980,9 +998,25 @@ its fresh output under \component{/tmp/plectis-audio-rms}, and a rerun
 overwrites the same paths without warning. The tracked
 reference to compare it against is the receipt named in
 Section~\ref{sec:run}, under
-\component{receipts/first_wave/batch8_audio_level_rms_port/}. At this
-commit the run reported every case in the Section~\ref{sec:run} table as a
-pass, with observed values equal to the stored ones.
+\component{receipts/first_wave/batch8_audio_level_rms_port/}. At this commit
+the run reported every case in the Section~\ref{sec:run} table as a pass,
+with observed values equal to the stored ones. The fresh validation receipt
+and those displayed case values matched their tracked counterparts. The
+larger tracked result object contains a stale copied-source count: it says
+one copied module while the pinned public source-module manifest records
+none and a public-safe-stub omission. That discrepancy does not change the
+displayed calculation, but it remains part of the record.
+
+\paragraph{A second interpreter check.} On 18~July~2026, a clean detached
+clone of the same commit was tested on macOS with Python 3.12.7. A literal
+network-disabled \code{pip install .} could not obtain the declared build
+requirement, \code{setuptools>=77.0.3}. Supplying the host's installed
+setuptools 80.9.0 and disabling build isolation allowed a local-only build;
+after installation, the tour and worked example both passed, and the
+displayed values matched exactly. The runtime environment then contained no
+third-party runtime dependency distribution. This is evidence for 3.12.7 and
+3.13.7, not proof of every interpreter covered by the package's declared
+Python 3.11-or-later range.
 
 \paragraph{Project-wide checks.} At this commit, \code{make check} loads
 the component registry and finishes in under a second, and
@@ -1020,6 +1054,39 @@ document and the records it describes is a test failure. That makes the
 paper one of the repository's checked documents, and the check should be
 read with Section~\ref{sec:distinctions} in mind: agreement between a
 document and records with one maintainer is internal consistency, not
-external truth.
+external truth. The count, route, and worked-example checks read evidence
+from the pinned commit rather than silently comparing a historical appendix
+with the current checkout; current prose anchors and citations are checked
+separately.
+
+\begin{thebibliography}{9}
+\small
+
+\bibitem{weyuker1982}
+Elaine J. Weyuker. ``On Testing Non-Testable Programs.''
+\emph{The Computer Journal}, 25(4):465--470, 1982.
+\href{https://doi.org/10.1093/comjnl/25.4.465}{doi:10.1093/comjnl/25.4.465}.
+
+\bibitem{rosenthal1979}
+Robert Rosenthal. ``The File Drawer Problem and Tolerance for Null Results.''
+\emph{Psychological Bulletin}, 86(3):638--641, 1979.
+\href{https://doi.org/10.1037/0033-2909.86.3.638}{doi:10.1037/0033-2909.86.3.638}.
+
+\bibitem{nasem2019}
+National Academies of Sciences, Engineering, and Medicine.
+\emph{Reproducibility and Replicability in Science}. 2019.
+\href{https://doi.org/10.17226/25303}{doi:10.17226/25303}.
+
+\bibitem{nasa8739}
+National Aeronautics and Space Administration. \emph{Software Assurance and
+Software Safety Standard}, NASA-STD-8739.8B, Section 4.4.1, 2022.
+\href{https://standards.nasa.gov/standard/nasa/nasa-std-87398}{NASA-STD-8739.8B}.
+
+\bibitem{nistfips1804}
+National Institute of Standards and Technology. \emph{Secure Hash Standard},
+FIPS PUB 180-4, 2015.
+\href{https://doi.org/10.6028/NIST.FIPS.180-4}{doi:10.6028/NIST.FIPS.180-4}.
+
+\end{thebibliography}
 
 \end{document}
