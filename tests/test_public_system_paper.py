@@ -941,12 +941,12 @@ def test_public_system_paper_check_rejects_opaque_lean_trust_explanation(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "six source-text warning signs",
+            "six text patterns",
             "for several trust issues",
         )
         .replace(
             "compiled calculations whose acceptance\n"
-            "relies on more than Lean's small proof-checking core (the kernel)",
+            "relies on more than Lean's small proof-checking core",
             "the kernel is not enough",
         )
         .replace(
@@ -972,11 +972,11 @@ def test_public_system_paper_check_rejects_lean_scan_boundary_removal(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "it does not run\nLean or verify proofs",
+            "does not run Lean or verify\nproofs",
             "it checks Lean",
         )
         .replace(
-            "This does not show that the files compile, the proofs\nare valid",
+            "The scan does not show whether files compile,\nproofs are valid",
             "A pass confirms the project is valid",
         ),
         encoding="utf-8",
@@ -992,6 +992,33 @@ def test_public_system_paper_check_rejects_lean_scan_boundary_removal(
     assert any(
         "missing Lean check explanation" in failure
         and "files compile" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_lean_scan_execution_conflation(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "Separate components run Lean on small test projects; their results apply only\n"
+            "to those projects.",
+            "This scan confirms the same results as the Lean-running components.",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing Lean check explanation" in failure
+        and "Separate components run Lean on small test projects" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing Lean check explanation" in failure
+        and "results apply only to those projects" in failure
         for failure in failures
     )
 
@@ -1429,8 +1456,8 @@ def test_public_system_paper_check_rejects_formal_math_overclaim(
             "custom axioms",
         )
         .replace(
-            "does not show that the files compile, the proofs\n"
-            "are valid, or formal statements express their authors' intent",
+            "scan does not show whether files compile,\n"
+            "proofs are valid, or statements express their authors' intent",
             "Every formal statement has its intended meaning",
         ),
         encoding="utf-8",

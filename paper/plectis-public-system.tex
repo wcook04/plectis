@@ -1057,20 +1057,22 @@ Python 3.12.7 matched the tour and example. Its offline install used only the
 machine's \code{setuptools} 80.9.0 (minimum 77.0.3). Only versions 3.12.7 and
 3.13.7 were tested.
 
-\paragraph{Project-wide checks.} The Lean trust checker scans
-\leanfilecount{} Lean files for six source-text warning signs; it does not run
-Lean or verify proofs. It flags unfinished placeholders; custom axioms
+\paragraph{Project-wide checks.} The project-wide Lean trust scan checks
+\leanfilecount{} files for six text patterns but does not run Lean or verify
+proofs: unfinished placeholders; custom axioms
 (unproved assumptions); compiled calculations whose acceptance
-relies on more than Lean's small proof-checking core (the kernel);
+relies on more than Lean's small proof-checking core;
 \code{partial} definitions (runnable but not unfoldable in proofs);
 \code{unsafe} definitions (barred from theorems); and removed computation
-limits. None appeared. This does not show that the files compile, the proofs
-are valid, or formal statements express their authors' intent
+limits. No pattern appeared. The scan does not show whether files compile,
+proofs are valid, or statements express their authors' intent
 \cite{leanvalidation}.
+Separate components run Lean on small test projects; their results apply only
+to those projects.
 Registry and trust checks passed; the \leanfilecount{} files are distinct from
 the \mathcount{} mathematics components.
-The limited \code{make test} selection (not every test file) ran 361 tests from
-32 public test files: 356 passed, two were skipped, and three failed. The
+The limited \code{make test} run covered 32 public test files, not every test
+file: 356 of 361 tests passed, two skipped, and three failed. The
 failures were an \code{AGENTS.md} line-break expectation; outdated line or byte
 counts in copied-source manifests; and root-layout rules that did not yet allow
 the \code{paper} directory or root PDF; the last was later repaired without
@@ -1118,12 +1120,12 @@ Robert Rosenthal. ``The File Drawer Problem and Tolerance for Null Results.''
 \bibitem{omgsacm2023}
 Object Management Group.
 \href{https://www.omg.org/spec/SACM/2.3/PDF}{\emph{Structured Assurance Case Metamodel (SACM)}},
-version 2.3, OMG formal/23-05-08, October 2023.
+2.3, formal/23-05-08, October 2023.
 
 \bibitem{acmartifact}
 Association for Computing Machinery.
 \href{https://www.acm.org/publications/policies/artifact-review-and-badging-current}{``Artifact Review and Badging---Current,''}
-version 1.1, 24 August 2020. Accessed 18 July 2026.
+v1.1, 24 Aug. 2020; accessed 18 July 2026.
 
 \bibitem{nistfips1804}
 National Institute of Standards and Technology. \emph{Secure Hash Standard},

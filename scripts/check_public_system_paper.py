@@ -490,8 +490,8 @@ REQUIRED_FORMAL_MATH_BOUNDARY_ANCHORS = (
 )
 
 REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS = (
-    r"The Lean trust checker scans \leanfilecount{} Lean files",
-    "six source-text warning signs",
+    r"project-wide Lean trust scan checks \leanfilecount{} files",
+    "six text patterns",
     "does not run Lean or verify proofs",
     "unfinished placeholders",
     "unproved assumptions",
@@ -499,15 +499,17 @@ REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS = (
     r"\code{partial} definitions (runnable but not unfoldable in proofs)",
     r"\code{unsafe} definitions (barred from theorems)",
     "removed computation limits",
-    "None appeared",
-    "does not show that the files compile, the proofs are valid",
-    "formal statements express their authors' intent",
+    "No pattern appeared",
+    "scan does not show whether files compile, proofs are valid",
+    "statements express their authors' intent",
+    "Separate components run Lean on small test projects",
+    "their results apply only to those projects",
     "Partial and Unsafe Definitions",
 )
 
 REQUIRED_PUBLIC_TEST_SCOPE_ANCHORS = (
-    r"limited \code{make test} selection (not every test file) ran 361 tests from 32 public test files",
-    "356 passed, two were skipped, and three failed",
+    r"limited \code{make test} run covered 32 public test files, not every test file",
+    "356 of 361 tests passed, two skipped, and three failed",
     "line-break expectation",
     "outdated line or byte counts",
     "root-layout rules that did not yet allow",
@@ -608,15 +610,11 @@ REQUIRED_BIBLIOGRAPHY_TOKENS = {
         "https://doi.org/10.1037/0033-2909.86.3.638",
     ),
     "omgsacm2023": (
-        "version 2.3",
-        "formal/23-05-08",
-        "October 2023",
+        "2.3, formal/23-05-08, October 2023",
         "https://www.omg.org/spec/SACM/2.3/PDF",
     ),
     "acmartifact": (
-        "version 1.1",
-        "24 August 2020",
-        "Accessed 18 July 2026",
+        "v1.1, 24 Aug. 2020; accessed 18 July 2026",
         "https://www.acm.org/publications/policies/artifact-review-and-badging-current",
     ),
     "nistfips1804": (
