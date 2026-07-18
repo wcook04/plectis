@@ -421,8 +421,11 @@ REQUIRED_OUTSIDE_EVALUATION_BOUNDARY_ANCHORS = (
 REQUIRED_PROVENANCE_HASH_ANCHORS = (
     "a fixed 256-bit value calculated from its contents",
     "used to detect change",
-    "collision resistance at 128 bits",
-    "Collisions remain mathematically possible",
+    "relevant question is whether one can start with a specified file",
+    "NIST) calls this second-preimage resistance",
+    "expects an approved hash function to make such a search computationally infeasible",
+    "differs from collision resistance",
+    "any pair of different inputs that match",
     "supports a narrow claim",
     "agreement is evidence of internal consistency, not of origin",
 )

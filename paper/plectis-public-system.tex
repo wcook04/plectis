@@ -497,14 +497,14 @@ A reader can establish what a named public commit contains and what its
 commands do. No public run establishes where the material came from.
 Plectis records that boundary. Each copied file has a claimed source and a
 SHA-256 fingerprint: a fixed 256-bit value calculated from its contents and
-used to detect change \cite{nistfips1804}. Two different files can in
-principle have the same fingerprint. The National Institute of Standards and
-Technology (NIST) estimates SHA-256's collision resistance at 128 bits; it
-defines collision resistance as making such a pair computationally infeasible
-to find
-\cite[security-strength table]{nisthashfunctions}.
-Collisions remain
-mathematically possible. A match therefore supports a
+used to detect change \cite{nistfips1804}. Two different files can in principle
+have the same fingerprint. For this comparison, the relevant question is
+whether one can start with a specified file and find a different file with the
+same fingerprint. The National Institute of Standards and Technology (NIST)
+calls this second-preimage resistance and expects an approved hash function to
+make such a search computationally infeasible. That differs from collision
+resistance, which asks only for any pair of different inputs that match
+\cite[security-strength table]{nisthashfunctions}. A match therefore supports a
 narrow claim: the public file's contents agree with the version represented in
 its public record. But I control both sides, so that agreement is evidence of
 internal consistency, not of origin. The same holds for the

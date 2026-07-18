@@ -623,7 +623,7 @@ def test_public_system_paper_check_rejects_unexpanded_first_use(
         ("artificial intelligence\n(AI)", "AI"),
         ("Structured Assurance Case Metamodel (SACM)", "SACM"),
         ("Association for Computing Machinery (ACM)", "ACM"),
-        ("National Institute of Standards and\nTechnology (NIST)", "NIST"),
+        ("National Institute of Standards and Technology (NIST)", "NIST"),
         ("National Aeronautics and Space Administration (NASA)", "NASA"),
     )
     for index, (expansion, abbreviation) in enumerate(cases):
@@ -1179,15 +1179,19 @@ def test_public_system_paper_check_rejects_hash_explanation_removal(
     )
 
 
-def test_public_system_paper_check_rejects_collision_strength_source_removal(
+def test_public_system_paper_check_rejects_second_preimage_distinction_source_removal(
     tmp_path: Path,
 ) -> None:
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "resistance at 128 bits",
-            "resistance at an unspecified strength",
+            "NIST)\ncalls this second-preimage resistance",
+            "NIST)\ncalls this a collision check",
+        )
+        .replace(
+            "That differs from collision\nresistance",
+            "That is collision\nresistance",
         )
         .replace(
             r"\cite[security-strength table]{nisthashfunctions}",
@@ -1200,7 +1204,12 @@ def test_public_system_paper_check_rejects_collision_strength_source_removal(
 
     assert any(
         "missing plain-language hash boundary" in failure
-        and "collision resistance at 128 bits" in failure
+        and "second-preimage resistance" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing plain-language hash boundary" in failure
+        and "differs from collision resistance" in failure
         for failure in failures
     )
     assert "missing literature citation: nisthashfunctions" in failures
