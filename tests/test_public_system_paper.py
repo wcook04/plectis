@@ -233,3 +233,24 @@ def test_public_system_paper_check_rejects_misleading_figure_legend(
         "dashed outline marks what a stranger cannot" in failure
         for failure in failures
     )
+
+
+def test_public_system_paper_check_rejects_independence_as_universal_requirement(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "Moving a relevant choice out\n"
+            "of the author's hands can strengthen evidence about that choice; it does not\n"
+            "repair every gap.",
+            "Stronger evidence requires at least one consequential choice to leave "
+            "the author's hands.",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("Moving a relevant choice" in failure for failure in failures)
+    assert any("stronger evidence requires" in failure for failure in failures)

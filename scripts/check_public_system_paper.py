@@ -57,6 +57,7 @@ FORBIDDEN_OVERCLAIMS = (
     "only stage that could bear on the origin story",
     "bounded correctness claims for the evaluated cases",
     "dashed outline marks what a stranger cannot run or observe directly",
+    "stronger evidence requires at least one consequential choice to leave",
 )
 
 # Sentences the paper's argument stands on.  The first block defines terms a
@@ -142,6 +143,8 @@ REQUIRED_COLD_READER_ANCHORS = (
     "principle is local to those five gaps",
     "do not pair one-for-one with the distinctions",
     "None repairs a validator--claim mismatch",
+    "Moving a relevant choice out of the author's hands can strengthen evidence",
+    "it does not repair every gap",
     # Fresh cases and independent routes do not automatically confer truth.
     "Fresh inputs alone do not supply one",
     "not by strength or prerequisite",
