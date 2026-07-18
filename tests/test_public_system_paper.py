@@ -135,7 +135,7 @@ def test_public_system_paper_check_rejects_opaque_distinction_summary(
             r"\subsection*{Public execution versus private provenance}",
         )
         .replace(
-            "five ways a matching run can tempt a reader to\nconclude too much",
+            "Five labels organise the gaps",
             "five evidential distinctions",
         )
         .replace(
@@ -155,6 +155,27 @@ def test_public_system_paper_check_rejects_opaque_distinction_summary(
 
     assert any("cold-reader residue" in failure for failure in failures)
     assert sum("missing cold-reader anchor" in failure for failure in failures) >= 4
+
+
+def test_public_system_paper_check_requires_five_gap_map_before_the_details(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "Five labels organise the gaps in Figure~\\ref{fig:gaps}: \\emph{origin}, where\n"
+            "the material came from; \\emph{correctness}, whether an answer is right;\n"
+            "\\emph{meaning}, whether a rule tests its claim; \\emph{reach}, whether shown\n"
+            "cases stand for unshown ones; and \\emph{risk}, what the declared checks may\n"
+            "miss. Each subsection separates observation from inference.",
+            "Figure~\\ref{fig:gaps} lists five evidential dimensions.",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert sum("missing early five-gap map" in failure for failure in failures) == 6
 
 
 def test_public_system_paper_check_reads_default_evidence_from_snapshot(
@@ -524,6 +545,27 @@ def test_public_system_paper_check_rejects_internal_label_explanation_removal(
     )
 
 
+def test_public_system_paper_check_rejects_redundant_appendix_article(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            r"\section{Dated reproduction record}",
+            r"\section{A dated reproduction record}",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing appendix internal-label explanation" in failure
+        and "Dated reproduction record" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_example_bridge_removal(
     tmp_path: Path,
 ) -> None:
@@ -552,8 +594,9 @@ def test_public_system_paper_check_rejects_opaque_lean_trust_explanation(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "for six warning signs. These are unfinished proof placeholders; custom axioms",
-            "for several trust issues. These include proof placeholders and axioms",
+            "for six warning signs: unfinished proof placeholders; custom axioms\n"
+            "(assumptions added without proof)",
+            "for several trust issues",
         )
         .replace(
             "compiled calculations whose acceptance\n"

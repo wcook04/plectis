@@ -78,25 +78,22 @@ Plectis is a public software repository (an organised, copyable project
 folder) built to expose selected claims about a larger private system. I
 report that its published material was copied or adapted from that system,
 which remains unpublished because it contains personal records, credentials,
-and unfinished tools. Plectis asks a narrow question: what may a stranger
-reasonably conclude from public tests when the person whose work is being
-examined chose what to publish and what counts as a pass?
-In the version studied here, each of the \componentcount{} registered
-components (separately testable parts) connects a claim to a fixed input, a command, saved output, a pass
-rule, and a stated limit. I call this a claim--evidence--limit contract. One
-component, for example, calculates an audio level from five small sample
-arrays. A reader can repeat the calculation and challenge the expected
-numbers. That run cannot show that the public code came from the private
-application or will work on other inputs. Across the collection, a public run
-does not by itself establish where the code came from or whether its answers
-are correct. It also cannot show whether the pass rule tests the claim as
-written, how the code behaves on untested inputs, or whether risks outside the
-declared scan are absent. I chose the published fragments, inputs, answers,
-rules, and limits. The repository therefore lets a
-reader test claims about its published files and outputs. It cannot establish
-the hidden system's history, whether the published selection resembles the
-private whole, or whether the private system works reliably. I also report
-that I developed the private system by directing AI coding tools.
+and unfinished tools. Plectis asks what a stranger may reasonably conclude
+from public tests when the author chose both what to publish and what counts as
+a pass. In the version studied here, each of the \componentcount{} registered
+components (separately testable parts) connects a claim to a fixed input,
+command, saved output, pass rule, and stated limit. I call this a
+claim--evidence--limit contract. One component calculates an audio level from
+five small sample arrays; a reader can repeat it and challenge the expected
+numbers. A matching run still does not establish where the code came from or
+whether its answers are correct. It also cannot show whether the pass rule
+tests the claim as written, how the code behaves on untested inputs, or whether
+risks outside the declared scan are absent. I chose the published fragments,
+inputs, answers, rules, and limits. The repository therefore lets a reader test
+claims about its published files and outputs. It cannot establish the hidden
+system's history, whether the published selection resembles the private whole,
+or whether the private system works reliably. I also report that I developed
+the private system by directing AI coding tools.
 The argument does not depend on that account or on the claimed origin of the
 published material.
 \end{abstract}
@@ -483,10 +480,11 @@ treats these five gaps separately.
 \section{Five distinctions}
 \label{sec:distinctions}
 
-Figure~\ref{fig:gaps} sets out five ways a matching run can tempt a reader to
-conclude too much. Each subsection separates what a reader can observe from
-what it cannot establish, then names the evidence needed to go further.
-Component limits are specific instances of these gaps.
+Five labels organise the gaps in Figure~\ref{fig:gaps}: \emph{origin}, where
+the material came from; \emph{correctness}, whether an answer is right;
+\emph{meaning}, whether a rule tests its claim; \emph{reach}, whether shown
+cases stand for unshown ones; and \emph{risk}, what the declared checks may
+miss. Each subsection separates observation from inference.
 
 \subsection*{Public execution versus where the code came from}
 
@@ -975,36 +973,33 @@ but does not choose a component claim. Ask the repository to find the audio
 example with
 \par\noindent{\scriptsize\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action "audio level calculation" --format text|}\par
 For another claim, replace the quoted words. The response names a component,
-command, receipt, limit, and \code{no-write variant}: stored reference receipts
-stay untouched, while fresh files go under
-\component{.microcosm/first\_action\_runs/}. Run it, compare the receipts, read
-the validator's rule, and change an input where practical. Ask whether the rule
+command, receipt, limit, and \code{no-write variant}. That variant leaves stored
+reference receipts untouched and puts fresh files under
+\component{.microcosm/first\_action\_runs/}. Compare the receipts, read the
+validator's rule, and change an input where practical. Ask whether the rule
 supports the prose and any refusal boundary; report discrepancies through
-\code{CONTRIBUTING.md}. A pass licenses only the published rule.
+\code{CONTRIBUTING.md}. A pass licenses only the published rule;
 Section~\ref{sec:stronger} lists broader evidence, most of it absent.
 
 \appendix
 
-\section{A dated reproduction record}
+\section{Dated reproduction record}
 \label{sec:appendix}
 
-Unless a paragraph gives a later date, everything in this appendix is an
-observation about one commit, made on 17~July~2026 in one environment:
-macOS 15.6.1 on Apple silicon (arm64) with Python 3.13.7. The commit's full
-identifier is
+Except where a paragraph gives a later date, this appendix records one run on
+17~July~2026: macOS 15.6.1 on Apple silicon (arm64), Python 3.13.7, and the
+commit whose full identifier is
 
 \begin{center}
 \small\code{\snapshotcommit}
 \end{center}
 
-abbreviated \code{\snapshotshort} elsewhere. Later commits and other machines
-may give different results; the body does not depend on those differences.
+and is abbreviated \code{\snapshotshort} elsewhere. Later commits or other
+machines may differ; the body does not depend on them.
 
-\paragraph{Names.} The repository is \repo. As
-Section~\ref{sec:contract} notes, the code
-package inside it is named \code{microcosm\_core}. The installed command is
-\code{plectis}, and an older command name, \code{microcosm}, still works as
-an alias.
+\paragraph{Names.} Repository: \repo. Section~\ref{sec:contract}
+explains why its code package is named \code{microcosm\_core}. The installed
+command is \code{plectis}; the older alias \code{microcosm} also works.
 
 \paragraph{Getting the code and running without installing.}
 
@@ -1015,18 +1010,17 @@ git checkout 57ffb7f5830c
 PYTHONPATH=src python3 -m plectis tour --format text .
 \end{Verbatim}
 
-The final full stop in the tour command means ``the current folder''. The
-\code{git checkout} line pins the clone to the exact state this appendix
-describes; omit it to run against the newest version instead, and expect
-the dated numbers below to differ if you do.
+The final full stop means ``the current folder''. \code{git checkout} pins the
+exact state described here; omit it to run the newest version, whose dated
+numbers may differ.
 
 In a clean clone at this commit, the tour read 5{,}018 project files, found
 five reading orders, chose the README-first order (internally
 \component{readme_onboarding_route}), wrote 21 generated files under
-\code{.microcosm/}, and left the examined source files unchanged. Each
-observation names its evidence, event, and limit, and the generated directory
-can be rebuilt. The README gives a different file count from another day; both
-counts describe dated runs, not stable project size.
+\code{.microcosm/}, and left the examined source files unchanged. The run names
+its evidence, event, and limit; the generated directory can be rebuilt. The
+README's different file count records another dated run, not a stable project
+size.
 
 \paragraph{Installing.}
 
@@ -1042,18 +1036,18 @@ calls, so inspect the source.
 \paragraph{The worked example.} The Section~\ref{sec:run} command overwrites
 \component{/tmp/plectis-audio-rms} on a rerun; a fresh run reproduced every
 displayed pass and value. One stale field reports a copied private module, but
-the saved import record reports none because public code replaced it. The
+the saved import record reports none because public code replaced it. That
 discrepancy remains.
 
 \paragraph{A second Python version.} On 18~July~2026, a clean macOS clone using
-Python 3.12.7 also matched the tour and example. Its offline install used the
-already-present \code{setuptools} 80.9.0 (minimum 77.0.3) and no other runtime
-library. Only versions 3.12.7 and 3.13.7 were tested.
+Python 3.12.7 also matched the tour and example. Its offline install used
+\code{setuptools} 80.9.0 already on the machine (minimum 77.0.3), with no other
+runtime library. Only versions 3.12.7 and 3.13.7 were tested.
 
 \paragraph{Project-wide checks.} At this commit, \code{make check} loads the
 component registry in under a second.
 The Lean trust checker searches the source text of \leanfilecount{} Lean files
-for six warning signs. These are unfinished proof placeholders; custom axioms
+for six warning signs: unfinished proof placeholders; custom axioms
 (assumptions added without proof); compiled calculations whose acceptance
 relies on more than Lean's small proof-checking core (the kernel);
 \code{partial} definitions, which can run but cannot be unfolded in proofs;
@@ -1064,21 +1058,21 @@ The registry and trust checks passed; the \leanfilecount{} files are not the
 \mathcount{} mathematics components.
 At this commit, the limited \code{make test} selection (not every test file)
 ran 361 tests from 32 public test files: 356 passed, two were skipped, and three
-failed. They concerned an \code{AGENTS.md} line-break expectation, outdated
-line or byte counts in copied-source manifests, and root-layout rules that did
-not yet allow the \code{paper} directory or root PDF. A later change repairs
-the last failure without altering this pinned run.
-Exact test names, environment, and counts are in
-\component{paper/public-test-receipt.json}. \code{make ci} would add smoke and
-package-install checks, but was not green because \code{make test} failed.
-These checks concern only the public checkout; this is my run,
-not an independent repetition.
+failed. The failures concerned an \code{AGENTS.md} line-break expectation,
+outdated line or byte counts in copied-source manifests, and root-layout rules
+that did not yet allow the \code{paper} directory or root PDF. A later change
+repairs the last failure without altering this pinned run. Exact test names,
+environment, and counts are in \component{paper/public-test-receipt.json}.
+\code{make ci} would add smoke and package-install checks, but was not green
+because \code{make test} failed.
+These checks cover only the public checkout; this is my run, not an independent
+repetition.
 
 \paragraph{The paper itself.}
 \component{scripts/check_public_system_paper.py} fails if counts, pinned facts,
 the example, cautions, or citations disagree. Historical facts come from the
-pinned commit; current prose is checked separately. With one maintainer, this
-is internal consistency, not external truth.
+pinned commit and current prose is checked separately. With one maintainer,
+this is internal consistency, not external truth.
 
 \begin{thebibliography}{9}
 \fontsize{6.6pt}{7.25pt}\selectfont

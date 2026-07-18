@@ -169,7 +169,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     # is introduced and must not compress all five inference limits into one
     # sentence.
     r"\subsection*{Public execution versus where the code came from}",
-    "five ways a matching run can tempt a reader to conclude too much",
+    "Five labels organise the gaps",
     r"The term \emph{provenance} means an object's origin and history",
     "Origin evidence and privacy pull in opposite directions",
     "For origin, one must assume that the public object came from the private one",
@@ -288,6 +288,15 @@ REQUIRED_EXAMPLE_BRIDGE_ANCHORS = (
     "The next section treats these five gaps separately",
 )
 
+REQUIRED_EARLY_DISTINCTION_MAP_ANCHORS = (
+    "Five labels organise the gaps",
+    r"\emph{origin}, where the material came from",
+    r"\emph{correctness}, whether an answer is right",
+    r"\emph{meaning}, whether a rule tests its claim",
+    r"\emph{reach}, whether shown cases stand for unshown ones",
+    r"\emph{risk}, what the declared checks may miss",
+)
+
 REQUIRED_FIRST_REVIEW_ANCHORS = (
     "Use the appendix's no-install block",
     "select the version analysed here",
@@ -295,7 +304,7 @@ REQUIRED_FIRST_REVIEW_ANCHORS = (
     r"\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action",
     r'--first-action "audio level calculation" --format text',
     r"\code{no-write variant}",
-    "stored reference receipts stay untouched",
+    "leaves stored reference receipts untouched",
     r".microcosm/first\_action\_runs/",
     "change an input where practical",
 )
@@ -333,6 +342,7 @@ REQUIRED_STRONGER_EVALUATION_ANCHORS = (
 )
 
 REQUIRED_APPENDIX_ORIENTATION_ANCHORS = (
+    r"\section{Dated reproduction record}",
     r"README-first order (internally \component{readme_onboarding_route})",
     "wrote 21 generated files under",
 )
@@ -761,6 +771,14 @@ def check_paper(
     for anchor in REQUIRED_EXAMPLE_BRIDGE_ANCHORS:
         if anchor not in normalized_run_section:
             failures.append(f"missing example-to-distinctions bridge: {anchor!r}")
+    distinctions_intro = text.split(r"\section{Five distinctions}", 1)[-1]
+    distinctions_intro = distinctions_intro.split(
+        r"\subsection*{Public execution versus where the code came from}", 1
+    )[0]
+    normalized_distinctions_intro = re.sub(r"\s+", " ", distinctions_intro)
+    for anchor in REQUIRED_EARLY_DISTINCTION_MAP_ANCHORS:
+        if anchor not in normalized_distinctions_intro:
+            failures.append(f"missing early five-gap map: {anchor!r}")
     conclusion_section = text.split(r"\section{Conclusion}", 1)[-1]
     conclusion_section = conclusion_section.split(r"\appendix", 1)[0]
     normalized_conclusion_section = re.sub(r"\s+", " ", conclusion_section)
