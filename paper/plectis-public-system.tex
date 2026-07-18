@@ -70,18 +70,18 @@
 Plectis is a public software repository (an organised, copyable project
 folder) made from parts of a larger private system that cannot be
 published. It asks what a stranger may reasonably conclude from curated,
-runnable fragments of work they cannot see. At the version studied, each of
-the \componentcount{} registered components connects a claim to a fixed
-input, a command, saved output, a pass rule, and a stated limit. I call this
-arrangement a claim--evidence--limit contract and examine one component from
-input to conclusion. The examination exposes five gaps: a public run does
-not by itself establish private origin, correctness, support for the claim
+runnable fragments drawn from work they cannot see. At the public version
+examined here, each of the \componentcount{} registered components connects a
+claim to a fixed input, a command, saved output, a pass rule, and a stated
+limit. I call this arrangement a claim--evidence--limit contract and follow
+one component from input to conclusion. The examination exposes five gaps:
+a public run does not by itself establish private origin, correctness, support for the claim
 as worded, behaviour beyond selected cases, or the absence of risks outside
-a declared scan. The author chose the selection, inputs, expected answers,
+a declared scan. I chose the selection, inputs, expected answers,
 rules, and boundaries. The repository therefore lets a reader test claims
-about its published files and outputs, but cannot establish the private
-system's history, whether the selection represents the whole, or whether
-the author's criteria are right. I report that I developed the private
+about its published files and outputs. It cannot establish the private
+system's history, whether the selection represents the whole, or whether my
+criteria are right. I report that I developed the private
 system by directing AI coding tools; that account does not support the
 argument. A successful run supports only what the published rule warrants,
 which may still fall short of the prose claim.
@@ -142,16 +142,20 @@ Not established here & Whether the public selection represents the private whole
 \end{tabular}
 \end{center}
 
+This paper contributes a worked boundary analysis of one author-curated
+software collection. It defines the component contract and follows one
+ordinary component from input to limit. Five distinctions identify conclusions
+that a passing run may appear to support but does not. Two tables classify all
+\componentcount{} components by group and publication route. The proposed
+evaluations identify the choices an evaluator would need to make independently
+of me.
+
 This is a descriptive analysis of one artefact, not a statistical study.
 In the reporting vocabulary of Runeson and H\"ost \cite{runeson2009}, the
 object is the public repository at the named commit; each component is a
-\emph{unit of analysis} (one item examined). Section~\ref{sec:run} traces one
-ordinary component. Section~\ref{sec:collection} classifies all
-\componentcount{} by group and publication route; each registry entry also
-names its command, receipt, validator, and limit. Section~\ref{sec:hand}
-identifies the choices that remain mine. The five distinctions in
-Section~\ref{sec:distinctions} bound the conclusions. No subset of the
-components is used to estimate performance or represent the private system.
+\emph{unit of analysis} (one item
+examined). No subset of the components is used to estimate performance or
+represent the private system.
 
 Reading this paper requires no programming. Reproducing its runs requires a
 terminal (the text window in which commands are typed), Git (the standard
@@ -319,10 +323,9 @@ independently audited artifact found documented, consistent, complete, and
 exercisable, from \emph{Results Reproduced}, meaning its main results were
 later obtained by another team using some author-supplied artifacts
 \cite{acmartifact}. Neither is reported here. This paper claims no new theory
-of assurance, testing, or reproducibility. Its contribution is a worked
-boundary analysis of one
-author-curated software collection: what its public procedures expose, what
-still depends on the author, and what a stranger may conclude.
+of assurance, testing, or reproducibility. The analysis here is narrower. It
+applies these distinctions to one author-curated software collection and reads
+each public procedure against its claim and stated limit.
 
 \section{One run, examined}
 \label{sec:run}

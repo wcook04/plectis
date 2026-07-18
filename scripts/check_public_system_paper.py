@@ -154,6 +154,13 @@ REQUIRED_COLD_READER_ANCHORS = (
     "pinned commit rather than silently comparing",
 )
 
+REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
+    "This paper contributes a worked boundary analysis",
+    "It defines the component contract and follows one ordinary component",
+    "Five distinctions identify conclusions",
+    "the choices an evaluator would need to make independently of me",
+)
+
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"
 EXAMPLE_RECEIPT = (
     "receipts/first_wave/batch8_audio_level_rms_port/"
@@ -387,6 +394,12 @@ def check_paper(
     for anchor in REQUIRED_COLD_READER_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing cold-reader anchor: {anchor!r}")
+    contract_section = r"\section{The component contract}"
+    first_section = text.split(contract_section, 1)[0]
+    normalized_first_section = re.sub(r"\s+", " ", first_section)
+    for anchor in REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS:
+        if anchor not in normalized_first_section:
+            failures.append(f"missing first-section orientation anchor: {anchor!r}")
     for key in REQUIRED_CITATION_KEYS:
         if not re.search(rf"\\cite\{{[^}}]*\b{re.escape(key)}\b[^}}]*\}}", text):
             failures.append(f"missing literature citation: {key}")
