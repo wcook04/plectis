@@ -1178,6 +1178,55 @@ def test_public_system_paper_check_rejects_concrete_challenge_removal(
     )
 
 
+def test_public_system_paper_check_rejects_noncopyable_challenge_commands(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "cp -R fixtures/first_wave/batch8_audio_level_rms_port/input/.",
+            "copy the fixture input somewhere safe",
+        )
+        .replace(
+            "--input /tmp/plectis-audio-rms-input",
+            "--input the-copy",
+        )
+        .replace(
+            "--out /tmp/plectis-audio-rms-probe",
+            "--out somewhere",
+        )
+        .replace(
+            "  --acceptance-out /tmp/plectis-audio-rms-check.json",
+            "  --acceptance-out somewhere.json",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing executable first-review route" in failure
+        and "cp -R fixtures" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and "--input /tmp/plectis-audio-rms-input" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and "--out /tmp/plectis-audio-rms-probe" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and "--acceptance-out /tmp/plectis-audio-rms-check.json" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_copyable_worked_example_command_removal(
     tmp_path: Path,
 ) -> None:

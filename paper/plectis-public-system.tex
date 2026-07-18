@@ -993,14 +993,23 @@ JSON is a plain-text field-and-value format. Open \code{exercise}. In each
 does not establish; \component{claim_ceiling} inside \code{exercise} gives the
 project's strongest conclusion. The project wrote both cautions; no independent
 reviewer checked their limits. To challenge rather than repeat the supplied case,
-copy the fixture's \code{input} folder to \code{/tmp}. In
-\component{batch8_audio_level_rms_port_probe_manifest.json}, change the first
-case's second sample from \code{0.05} to \code{0.06}, but leave
-\code{expected\_level} unchanged. Rerun with \code{--input} pointing to the copy.
-The validator should return \code{blocked}; if it does not, report the finding
-through \code{CONTRIBUTING.md}. Treat a pass as evidence only for the published rule.
+make a disposable copy of the fixture input:
+\begin{Verbatim}[fontsize=\scriptsize]
+cp -R fixtures/first_wave/batch8_audio_level_rms_port/input/. /tmp/plectis-audio-rms-input
+\end{Verbatim}
+In the copied \component{batch8_audio_level_rms_port_probe_manifest.json},
+change the first case's second sample from \code{0.05} to \code{0.06}, but
+leave \code{expected\_level} unchanged. Then run:
+\begin{Verbatim}[fontsize=\scriptsize]
+PYTHONPATH=src python3 -m plectis batch8-audio-level-rms-port run \
+  --input /tmp/plectis-audio-rms-input --out /tmp/plectis-audio-rms-probe \
+  --acceptance-out /tmp/plectis-audio-rms-check.json
+\end{Verbatim}
+The validator should return \code{blocked}; if it does not, report the finding in
+\code{CONTRIBUTING.md}. Treat a pass as evidence only for the published rule.
 
 \appendix
+\small
 \setlength{\parskip}{0.25em}
 
 \section{Dated reproduction record}

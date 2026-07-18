@@ -410,11 +410,16 @@ REQUIRED_FIRST_REVIEW_ANCHORS = (
     r"inside \code{exercise}",
     "The project wrote both cautions; no independent reviewer checked their limits",
     "challenge rather than repeat the supplied case",
-    r"copy the fixture's \code{input} folder to \code{/tmp}",
+    "make a disposable copy of the fixture input",
+    "cp -R fixtures/first_wave/batch8_audio_level_rms_port/input/.",
+    "/tmp/plectis-audio-rms-input",
     r"\component{batch8_audio_level_rms_port_probe_manifest.json}",
     r"second sample from \code{0.05} to \code{0.06}",
     r"leave \code{expected\_level} unchanged",
-    r"Rerun with \code{--input} pointing to the copy",
+    "PYTHONPATH=src python3 -m plectis batch8-audio-level-rms-port run",
+    "--input /tmp/plectis-audio-rms-input",
+    "--out /tmp/plectis-audio-rms-probe",
+    "--acceptance-out /tmp/plectis-audio-rms-check.json",
     r"validator should return \code{blocked}",
 )
 
