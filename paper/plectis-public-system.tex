@@ -116,8 +116,13 @@ describe the answer and measure how far it reaches.
 I am 22 and study economics. Over about ten months I built the private
 system by directing AI coding agents: I set its objectives, rules, and
 review criteria, while the agents were the principal implementers, writing,
-running, testing, and revising the software under my direction. No other
-person worked on it. That account is testimony about origin, stated once
+running, testing, and revising the software under my direction. In
+practice that meant writing objectives and standards, reviewing and
+rejecting output, and sending agents back at their own failures, in
+sessions spread over most days of those months; the agents wrote nearly
+all of the code, and I wrote nearly none of it. No other
+person worked on it, and this description of the workflow is as much
+unproved testimony as the rest of the account. That account is testimony about origin, stated once
 here and not relied on afterwards: Plectis can expose the resulting public
 files and runs, but it cannot independently prove how the private work was
 produced. What the account does explain is why the publication problem
@@ -221,9 +226,11 @@ exposed to a stranger.
 \code{\snapshotshort}. The top row is words; the middle rows are mechanism;
 a pass from the validator is offered as evidence for the claim and must be
 read under the limit. Every element, words and mechanism alike, is
-supplied by the project; dashed outlines mark prose rather than something
-that runs. The
-blue row names what a stranger can do to each part without asking anyone.}
+supplied by the project. Here and in the later figures, a dashed outline
+marks what a stranger cannot run or observe directly; here that is the
+prose of the claim and the limit. The
+blue row names what a stranger can do to each part without asking anyone.
+Section~\ref{sec:run} runs one real component through exactly this chain.}
 \label{fig:contract}
 \end{figure}
 
@@ -267,7 +274,10 @@ satisfied in another field by a laboratory protocol with declared rejection
 conditions, or by a sealed evaluation service with published scoring rules.
 I make no claim about those settings; the point is only that the contract
 is a shape for exposing claims to strangers, and this repository is one
-implementation of it.
+implementation of it. Read simply as software, the whole apparatus is a
+test suite with a registry and unusually complete paperwork, and that
+description is accepted. The subject of this paper is not the machinery;
+it is what such machinery can and cannot make a claim answer for.
 
 The property being built has familiar neighbours and is none of them. It
 is not reproducibility, though it uses it: a
@@ -521,7 +531,8 @@ drawn from stays on the left.
 \node[gnote, text width=4.6cm] at (10.95,-0.95) {inside public evidence: files, commands, records, and tests of the published fragments};
 \end{tikzpicture}
 \caption{The selection problem. Each square stands for a private
-mechanism; the darker ones were given public form, and the grid trails off
+mechanism; the darker ones were given public form, and each, unpacked,
+has the anatomy of Figure~\ref{fig:contract}. The grid trails off
 because its true extent is exactly what the public side cannot know. The
 count of squares on the left, the
 rule that picked the darker ones, and the resemblance between the two sides
@@ -786,16 +797,19 @@ leaves the later classes untouched.
 \draw[flow] (s2) -- (s3);
 \draw[flow] (s3) -- (s4);
 \draw[flow] (s4) -- (s5);
-\node[act, text width=2.2cm] at (3.45,1.90)  {who runs it};
-\node[act, text width=2.2cm] at (6.20,2.45)  {which cases count};
-\node[act, text width=2.2cm] at (8.95,3.15)  {what the answer should have been};
-\node[act, text width=2.2cm] at (11.70,3.70) {what counts as useful};
-\node[act, text width=2.2cm] at (14.45,4.25) {whether the origin account holds};
-\node[gnote, text width=2.2cm] at (3.45,-0.90) {still says nothing about correctness};
-\node[gnote, text width=2.2cm] at (6.20,-0.35) {cannot reach the private pool};
-\node[gnote, text width=2.2cm] at (8.95,0.20)  {bounded cases only, not generality};
-\node[gnote, text width=2.2cm] at (11.70,0.75) {usefulness only where compared};
-\node[gnote, text width=2.2cm] at (14.45,1.30) {moves trust to the reviewer};
+\node[act, text width=2.2cm] (b1) at (3.45,1.90)  {who runs it};
+\node[act, text width=2.2cm] (b2) at (6.20,2.45)  {which cases count};
+\node[act, text width=2.2cm] (b3) at (8.95,3.15)  {what the answer should have been};
+\node[act, text width=2.2cm] (b4) at (11.70,3.70) {what counts as useful};
+\node[act, text width=2.2cm] (b5) at (14.45,4.25) {whether the origin account holds};
+\node[gnote, text width=2.2cm] (n1) at (3.45,-0.90) {still says nothing about correctness};
+\node[gnote, text width=2.2cm] (n2) at (6.20,-0.35) {cannot reach the private pool};
+\node[gnote, text width=2.2cm] (n3) at (8.95,0.20)  {bounded cases only, not generality};
+\node[gnote, text width=2.2cm] (n4) at (11.70,0.75) {usefulness only where compared};
+\node[gnote, text width=2.2cm] (n5) at (14.45,1.30) {moves trust to the reviewer};
+\foreach \i in {1,...,5}{
+  \draw[RoyalBlue!45, dotted, line width=0.6pt] (b\i) -- (s\i);
+  \draw[black!30, dotted, line width=0.6pt] (n\i) -- (s\i);}
 \end{tikzpicture}
 \caption{Stronger evidence as a transfer of control. Above each stage, in
 blue, the choice that leaves my hands; below it, in grey, what that stage
@@ -920,13 +934,14 @@ an alias.
 \begin{Verbatim}[fontsize=\small]
 git clone https://github.com/wcook04/plectis
 cd plectis
+git checkout 57ffb7f5830c
 PYTHONPATH=src python3 -m plectis tour --format text .
 \end{Verbatim}
 
-The final full stop in the tour command means ``the current folder''. To
-reproduce the exact state this appendix describes, run
-\code{git checkout \snapshotshort} after \code{cd plectis}; without it the
-commands run against the newest version instead.
+The final full stop in the tour command means ``the current folder''. The
+\code{git checkout} line pins the clone to the exact state this appendix
+describes; omit it to run against the newest version instead, and expect
+the dated numbers below to differ if you do.
 
 In a clean clone at this commit, the tour read 5{,}018 project files, found
 five possible reading orders for them, selected the one that starts from the
@@ -961,7 +976,8 @@ Before anything is installed, \code{./bootstrap.sh} checks a fresh clone and
 reports whether the shipped inputs and declared limits are intact.
 
 \paragraph{The worked example.} The command in Section~\ref{sec:run} writes
-its fresh output under \component{/tmp/plectis-audio-rms}. The tracked
+its fresh output under \component{/tmp/plectis-audio-rms}, and a rerun
+overwrites the same paths without warning. The tracked
 reference to compare it against is the receipt named in
 Section~\ref{sec:run}, under
 \component{receipts/first_wave/batch8_audio_level_rms_port/}. At this

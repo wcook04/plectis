@@ -230,6 +230,13 @@ def check_paper(
             failures.append(f"snapshotcommit does not resolve in this repository: {snapshot}")
     if macros.get("snapshotshort") != snapshot[:12]:
         failures.append("snapshotshort must equal the first 12 characters of snapshotcommit")
+    # The appendix's pasteable block hardcodes the checkout line (Verbatim
+    # cannot expand macros), so pin the literal to the declared snapshot.
+    if snapshot and f"git checkout {snapshot[:12]}" not in text:
+        failures.append(
+            "appendix code block must contain the literal 'git checkout "
+            "<snapshotshort>' line matching snapshotcommit"
+        )
 
     return failures
 
