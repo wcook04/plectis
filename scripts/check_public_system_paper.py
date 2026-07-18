@@ -194,6 +194,8 @@ REQUIRED_COLD_READER_ANCHORS = (
     "Across the figures, a dashed outline marks something",
     "This figure has no dashed boxes",
     r"Figures~\ref{fig:boundary} and~\ref{fig:gaps}",
+    "Read the middle row from left to right",
+    "the validator compares that output with a stored receipt",
     "italic blue row names what a stranger can do",
     "Above each evaluation, in italic blue",
     # Figure wording must stand on its own for readers who scan before they
@@ -260,6 +262,8 @@ REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
     # The abstract and method paragraph must state the sampling boundary
     # without requiring the reader to import statistical vocabulary.
     "whether the published selection resembles the private whole",
+    "The answer is narrow",
+    "lets a reader inspect and rerun its published procedures",
     "registered components (separately testable parts)",
     "whether the pass rule tests the claim as written",
     "how the code behaves on untested inputs",

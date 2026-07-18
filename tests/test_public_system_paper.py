@@ -87,13 +87,13 @@ def test_public_system_paper_check_rejects_abstract_origin_as_fact(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "built to expose selected claims about a larger private system. I\n"
-            "report that its published material was copied or adapted from that system,",
-            "assembled from parts of a larger private system",
+            "I report that its published material was\n"
+            "copied or adapted from the private system,",
+            "It was assembled from parts of a larger private system,",
         )
         .replace(
-            "The argument does not depend on that account or on the claimed origin of the\n"
-            "published material.",
+            "The argument does not depend\n"
+            "on that account or on the claimed origin of the published material.",
             "The argument is complete.",
         ),
         encoding="utf-8",
@@ -408,6 +408,35 @@ def test_public_system_paper_check_rejects_early_contribution_removal(
     )
 
 
+def test_public_system_paper_check_rejects_abstract_answer_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace("The answer is narrow", "The design has several properties")
+        .replace(
+            "lets a reader inspect and rerun\n"
+            "its published procedures",
+            "provides a sophisticated architecture",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing plain-language orientation" in failure
+        and "answer is narrow" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing plain-language orientation" in failure
+        and "inspect and rerun" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_cold_reader_residue(
     tmp_path: Path,
 ) -> None:
@@ -481,8 +510,8 @@ def test_public_system_paper_check_rejects_opening_definition_or_method_scope_lo
     source = PAPER.read_text(encoding="utf-8")
     cases = (
         (
-            "registered\ncomponents (separately testable parts)",
-            "registered\ncomponents",
+            "registered components\n(separately testable parts)",
+            "registered components",
             "registered components (separately testable parts)",
         ),
         (
@@ -1048,10 +1077,16 @@ def test_public_system_paper_check_rejects_misleading_figure_legend(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "This figure has no dashed boxes",
+            "This\nfigure has no dashed boxes",
             "The dashed boxes are hidden",
         )
         .replace("italic blue row", "blue row")
+        .replace("Read the middle row from left to right", "Read the diagram")
+        .replace(
+            "the validator compares\n"
+            "that output with a stored receipt",
+            "the validator checks it",
+        )
         .replace("in italic\nblue", "in blue")
         + "\nA dashed outline marks what a stranger cannot run or observe directly.\n",
         encoding="utf-8",
@@ -1060,6 +1095,8 @@ def test_public_system_paper_check_rejects_misleading_figure_legend(
     failures = check_paper(paper_path=paper, check_git_commit=False)
 
     assert any("This figure has no dashed boxes" in failure for failure in failures)
+    assert any("Read the middle row from left to right" in failure for failure in failures)
+    assert any("stored receipt" in failure for failure in failures)
     assert any("italic blue row" in failure for failure in failures)
     assert any("in italic blue" in failure for failure in failures)
     assert any(

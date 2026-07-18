@@ -75,27 +75,28 @@
 
 \begin{abstract}
 Plectis is a public software repository (an organised, copyable project
-folder) built to expose selected claims about a larger private system. I
-report that its published material was copied or adapted from that system,
-which remains unpublished because it contains personal records, credentials,
-and unfinished tools. Plectis asks what a stranger may reasonably conclude
-from public tests when the author chose both what to publish and what counts as
-a pass. In the version studied here, each of the \componentcount{} registered
-components (separately testable parts) connects a claim to a fixed input,
-command, saved output, pass rule, and stated limit. I call this a
-claim--evidence--limit contract. One component calculates an audio level from
-five small sample arrays; a reader can repeat it and challenge the expected
-numbers. A matching run still does not establish where the code came from or
-whether its answers are correct. It also cannot show whether the pass rule
-tests the claim as written, how the code behaves on untested inputs, or whether
-risks outside the declared scan are absent. I chose the published fragments,
-inputs, answers, rules, and limits. The repository therefore lets a reader test
-claims about its published files and outputs. It cannot establish the hidden
+folder) built to expose selected claims about a larger private system. This
+paper asks what a stranger may reasonably conclude from public tests when the
+system stays private and its author chose both what to publish and what counts
+as a pass. The answer is narrow. The repository lets a reader inspect and rerun
+its published procedures, but a matching result cannot establish the hidden
 system's history, whether the published selection resembles the private whole,
-or whether the private system works reliably. I also report that I developed
-the private system by directing AI coding tools.
-The argument does not depend on that account or on the claimed origin of the
-published material.
+or whether the private system works reliably.
+
+In the version studied here, each of the \componentcount{} registered components
+(separately testable parts) connects a claim to a fixed input, command, saved
+output, pass rule, and stated limit. I call this a claim--evidence--limit
+contract. One component calculates an audio level from five small sample
+arrays; a reader can repeat it and challenge the expected numbers. That run
+still cannot show whether the pass rule tests the claim as written, how the
+code behaves on untested inputs, or whether risks outside the declared scan are
+absent. I chose the published fragments, inputs, answers, rules, and limits.
+The repository therefore lets a reader test claims about its published files
+and outputs, within those limits. I report that its published material was
+copied or adapted from the private system, which remains unpublished because it
+contains personal records, credentials, and unfinished tools. I also report
+that I developed it by directing AI coding tools. The argument does not depend
+on that account or on the claimed origin of the published material.
 \end{abstract}
 
 \section{The problem}
@@ -242,20 +243,19 @@ exposed to a stranger.
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a4) -- (rec);
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a5) -- (verdict);
 \end{tikzpicture}
-\caption{What every registered component must connect, at commit
-\code{\snapshotshort}. The top row is words; the middle rows are mechanism;
-a pass from the validator is offered as evidence for the claim and must be
-read under the limit. Every element, words and mechanism alike, is
-supplied by the project. Across the figures, a dashed outline marks something
-outside what the public run establishes. This figure has no dashed boxes: the
-claim and limit are public words, though they are not executable mechanisms.
-In Figures~\ref{fig:boundary} and~\ref{fig:gaps},
-dashes mark private material the reader cannot inspect or conclusions not
-established by the observed run. The italic blue row names what a stranger
-can do to each part without asking anyone. Amber, here on the claim, the
-limit, and the links asserting them, marks words and choices the project
-itself supplies; the same two colours keep these meanings in every figure.
-Section~\ref{sec:run} runs one real component through exactly this chain.}
+\caption{How to read the component contract, at commit
+\code{\snapshotshort}. Read the middle row from left to right: a command applies
+public code to a fixed input, the code writes output, and the validator compares
+that output with a stored receipt before reporting a pass or refusal. The two
+boxes above are words rather than mechanisms: the project states the claim and
+the limit on what a pass may support. Every part is public, and the project
+supplied every part. The italic blue row names what a stranger can do without
+asking anyone; amber marks the project's words and choices. Across the figures,
+a dashed outline marks something outside what the public run establishes. This
+figure has no dashed boxes because none of its parts is hidden. In
+Figures~\ref{fig:boundary} and~\ref{fig:gaps}, dashes mark private material or
+conclusions not established by the observed run. Section~\ref{sec:run} follows
+one component through this chain.}
 \label{fig:contract}
 \end{figure}
 
