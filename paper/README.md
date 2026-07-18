@@ -13,18 +13,19 @@ provenance, repeatability vs correctness, a validator's rule vs the stated
 claim, selected cases vs general behaviour, risk reduction vs guarantee),
 describes the four routes by which private work became public, itemises the
 consequential choices that remain with the author and the honest-but-
-misleading presentation they could produce, sets out the staged programme
-under which those choices would leave the author's hands, and keeps the
+misleading presentation they could produce, sets out five independent routes
+by which particular choices could leave the author's hands, and keeps the
 dated operational record (commands, environment, counts) in an appendix so
 the body stays with the argument. Four figures carry the structural
 points: the component contract and what a stranger can do to each part;
 the publication boundary and its invisible denominator; the five inference
-gaps a matching run does not cross; and stronger evidence as a transfer of
-control.
+gaps a matching run does not cross; and five non-cumulative routes to stronger
+evidence, each with its remaining limit.
 
 Check live registry counts, the worked-example anchors, the required
-cold-reader definitions, the evidential-distinction and author's-hand
-anchors, and prohibited overclaims before building:
+cold-reader definitions, the contribution, evidential-distinction and
+author's-hand anchors, the publisher-checked bibliography keys, and prohibited
+overclaims before building:
 
 ```sh
 python3 scripts/check_public_system_paper.py

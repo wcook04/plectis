@@ -111,7 +111,9 @@ REQUIRED_COLD_READER_ANCHORS = (
     # independent, error rates are not measured.
     "rates of error behind them are simply unknown",
     # Borrowed vocabulary is acknowledged as borrowed.
-    "adds no theory to any of those fields",
+    "adds no theory to those fields",
+    # The paper must say what it contributes, rather than only what it limits.
+    "narrower contribution is the claim--evidence--limit contract",
     # Fresh cases and independent routes do not automatically confer truth.
     "Fresh inputs alone do not supply one",
     "not by strength or prerequisite",
@@ -137,6 +139,7 @@ REQUIRED_CITATION_KEYS = (
     "rosenthal1979",
     "nistfips1804",
     "nasa8739",
+    "acmartifact",
 )
 
 EXAMPLE_CASE_VALUES = {

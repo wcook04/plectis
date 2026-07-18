@@ -8,6 +8,13 @@ All notable changes to Plectis are documented here. The format follows
 
 ### Changed
 
+- The public-system paper completed a seventh, reader-first clarity pass. Its
+  abstract and first section now state the contribution as a concrete
+  claim--evidence--limit contract and worked audit; ACM's artifact-review
+  policy supplies the nearest computing-specific comparison; dense authorship
+  and independence passages are shorter; project-internal appendix terms are
+  replaced with literal descriptions; and the paper README now describes the
+  five stronger-evidence routes as independent rather than staged.
 - The public-system paper completed a sixth release-readiness pass. Five
   primary sources now ground its borrowed claims about reproducibility,
   test oracles, selective publication, independent evaluation, and SHA-256;

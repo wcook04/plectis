@@ -69,27 +69,26 @@
 
 \begin{abstract}
 Plectis is a public software repository (an organised, copyable project
-folder) built out of a larger private system
-that cannot be published. I treat it as a case study in a general problem:
-what may a stranger reasonably conclude from a curated set of small,
-runnable public fragments of work they cannot see? Each of the
-\componentcount{} public components (the repository's registered,
-separately testable parts) joins a claim to a fixed input, a
-command, stored output records, an explicit pass rule, and a stated limit;
-the count is an inventory, not a score. The public repository lets a reader
-test claims about these published files and their outputs. It cannot, by
-itself, establish the private system's history, the representativeness of
-the selection, or the correctness of success criteria the project supplies
-for itself. I developed the private system over about ten months by
-directing AI coding agents; that account is reported, not proved, and the
-argument does not depend on it. The paper examines one run from input to
-limit, sets out five recurring distinctions that govern what runs can and
-cannot show, itemises the choices that remain in my hands and what those choices
-could quietly do, and states what stronger evidence would require, with a
-dated reproduction record in an appendix. One successful run supports one
-bounded conclusion: the one licensed by the published validator, which may
-still fall short of the prose claim. The paper is about which conclusions
-those are.
+folder) made from parts of a larger private system that cannot be
+published. It is a case study in a general question: what may a stranger
+reasonably conclude from a curated set of small, runnable fragments of work
+they cannot see? Each of the \componentcount{} public components joins a
+claim to a fixed input, a command, saved output, a pass rule, and a stated
+limit; the count is an inventory, not a score. This paper contributes a
+concrete contract connecting each claim to its evidence and stated limit,
+then uses that contract to audit one component from input to conclusion. The
+audit exposes five gaps: a public run does not by itself establish private
+origin, correctness, support for the claim as
+worded, behaviour beyond selected cases, or the absence of risks outside a
+declared scan. It also identifies which choices remain with the author and
+what evidence would move each choice elsewhere. The public repository lets a
+reader test claims about its published files and outputs. It cannot establish
+the private system's history, whether the selection represents the whole, or
+whether author-supplied success criteria are right. I report that I developed
+the private system by directing AI coding tools, but the argument does not
+depend on that account. One successful run supports only the conclusion
+licensed by the published rule, which may still fall short of the prose
+claim.
 \end{abstract}
 
 \section{The problem}
@@ -116,29 +115,22 @@ stranger can check is in that repository, and the paper's task is to
 describe the answer and measure how far it reaches.
 
 I am 22 and study economics. Over about ten months I built the private
-system by directing AI coding agents: I set its objectives, rules, and
-review criteria, while the agents were the principal implementers, writing,
-running, testing, and revising the software under my direction. In
-practice that meant writing objectives and standards, reviewing and
-rejecting output, and sending agents back at their own failures, in
-sessions spread over most days of those months; the agents wrote nearly
-all of the code, and I wrote nearly none of it. No other
-person worked on it, and this description of the workflow is as much
-unproved testimony as the rest of the account. That account is testimony about origin, stated once
-here and not relied on afterwards: Plectis can expose the resulting public
-files and runs, but it cannot independently prove how the private work was
-produced. What the account does explain is why the publication problem
-arose, and why every published choice described below is my responsibility
-rather than the agents'. The artefact does not prove the story, and the
-ceiling on what the evidence below can establish sits exactly where it
-would sit if every line had been written by hand. What the account might
-change is something this paper cannot measure: how often particular
-failures occur beneath that ceiling. An implementation and its validator
-can share one mistake because one process drafted both, and how likely
-that is under one way of producing software rather than another is not
-established here, for either way. The limits on inference are
-authorship-independent; the rates of error behind them are simply
-unknown.
+system by directing AI coding agents, software tools that can edit, run, and
+revise code across a task. I set objectives and review criteria,
+accepted or rejected their output, and sent them back to revise failures;
+the agents wrote nearly all of the code, and I wrote nearly none of it. No
+other person worked on the system. This account explains why the publication
+problem arose and why the choices examined below are my responsibility, but
+it remains testimony about origin. Plectis can expose public files and runs;
+it cannot independently prove how the private work was produced. The
+artefact does not prove the story, and the argument does not rely on it.
+
+The limit on what a public run can establish would be the same if every line
+had been written by hand. Authorship might affect how often a failure occurs:
+for example, an implementation and its validator can share a mistake when
+one process drafts both. This paper compares no development methods and
+estimates no such frequency. The limits on inference are
+authorship-independent; the rates of error behind them are simply unknown.
 
 The boundary of the evidence can be stated before any command is run:
 
@@ -148,7 +140,7 @@ The boundary of the evidence can be stated before any command is run:
 \toprule
 \textbf{Status} & \textbf{What belongs in it} \\
 \midrule
-Publicly checkable & The contents of a named public commit, its registered commands, the files those commands write, and the results of its public tests. \\
+Publicly checkable & The contents of a named public version, the commands listed for its components, the files those commands write, and the results of its public tests. \\
 Reported here & The private system's history, the role of AI agents in producing it, and the private origin of published material. \\
 Not established here & Whether the public selection represents the private whole, whether the mechanisms generalise beyond their fixed cases, whether self-supplied success criteria are independently correct or even aimed at the stated claims, and whether the private system works reliably at all. \\
 \bottomrule
@@ -283,16 +275,12 @@ test suite with a registry and unusually complete paperwork, and that
 description is accepted. The subject of this paper is not the machinery;
 it is what such machinery can and cannot make a claim answer for.
 
-The property being built has familiar neighbours and is none of them. It
-is not reproducibility, though it uses it: a
-run can repeat perfectly with no stated claim attached, and a claim can be
-answerable while still awaiting a decent test. It is not transparency: the
-design begins from the fact that most of the system stays hidden, and
-offers a bounded point of contact instead of a view inside. And answering
-for the public form is not answering for the hidden whole: what a component
-exposes to challenge is the published fragment, and
-Section~\ref{sec:distinctions} is largely about how little any result
-against the fragment entitles anyone to conclude beyond it.
+Answerability overlaps with reproducibility and transparency but is not a
+synonym for either. A run can repeat perfectly with no stated claim attached,
+and a claim can be answerable while still awaiting a good test. The design
+also begins from partial disclosure: it offers a bounded point of contact,
+not a view of the hidden system. A component exposes the published fragment
+to challenge. It does not make the private whole answerable.
 
 Answerability is not the same property as computational reproducibility,
 although the component contract supplies materials needed to test the
@@ -305,8 +293,12 @@ correct an oracle, and the difficulty of obtaining a trustworthy oracle is
 a recognised testing problem \cite{weyuker1982}. The risk that a curated
 collection disproportionately exposes favourable cases is analogous to
 selective publication and the file-drawer problem \cite{rosenthal1979}.
-This paper adds no theory to any of those fields; it assembles their
-cautions around one curated set of runnable public fragments.
+ACM's artifact-review policy makes a related distinction between an artifact
+audited as functional and results obtained by another team
+\cite{acmartifact}. Plectis has received neither form of independent
+review. This paper adds no theory to those fields. Its narrower contribution
+is the claim--evidence--limit contract and a worked analysis of the choices
+that constrain inference from one author-curated software collection.
 
 \section{One run, examined}
 \label{sec:run}
@@ -387,9 +379,9 @@ result is justified through a route independent of the implementation, as
 elementary arithmetic is for the first row. Fresh inputs alone do not
 supply one.
 
-The example generalises into a question that can be asked of any test in
-any project: where does the expected value live, and who put it there? The
-positions differ in kind, not only in degree:
+The example suggests a question for any software test: where did the expected
+value come from, and who supplied it? The answer changes what a match can
+support:
 
 \begin{center}
 \small
@@ -442,13 +434,10 @@ expected value with a better-derived one.
 \section{Five distinctions}
 \label{sec:distinctions}
 
-Interpreting the collection needs at least five distinctions. Each
-separates
-something a stranger can observe from something the observation may seem to
-imply, and each names the further evidence that would be needed to cross the
-gap. The limits attached to individual components are instances of these,
-and Figure~\ref{fig:gaps} at the end of the section sets the five side by
-side.
+Five distinctions organise the rest of the analysis. Each separates an
+observation from a conclusion it may seem to support, then names the further
+evidence needed to connect them. Individual component limits are instances
+of these distinctions. Figure~\ref{fig:gaps} sets them side by side.
 
 \subsection*{Public execution versus private provenance}
 
@@ -578,8 +567,9 @@ drifting away from records; a generator and its records can still be wrong
 together. The documented \code{tour} run takes the public checkout as its
 explicit input and does not automatically discover a neighbouring private
 repository. The release-export contamination check is an explicit
-exception: when such a private root is available, it may compare public
-source-module bodies with private files to detect leakage. None of this
+exception: when a copy of the private project folder is available, it may
+compare the contents of public source files with private files to detect
+leakage. None of this
 amounts to a guarantee that no secret, no identifying detail, and no
 inconsistency survives. Publication remains a judgement about acceptable
 risk, and I made it.
@@ -699,9 +689,10 @@ The copied-source route preserves the most text and demonstrates the least
 behaviour.
 A reimplementation demonstrates behaviour while surrendering textual
 identity; the worked example is one of the \refactorcount{} in that route.
-An external-tool run borrows the tool's authority along with the tool's
-limits. A contract checker is worth exactly the contract its author chose
-to require. A reader who wants to know which trade a given component made
+An external-tool run inherits whatever confidence the tool deserves, along
+with the tool's limits. A contract checker is worth exactly the contract its
+author chose to require. A reader who wants to know which trade a given
+component made
 can read its registry entry, which names its command, its fixture, its
 receipt paths, its evidence route, and its limit; the plain description of
 what it does lives on the generated component page named in
@@ -732,9 +723,8 @@ weighing them.
 \section{The author's hand}
 \label{sec:hand}
 
-Every distinction in Section~\ref{sec:distinctions} ends at the same door,
-and it is better opened than pointed at. At the commit this paper
-describes, I hold every consequential choice on both sides of every test.
+All five distinctions return to control. At the commit this paper describes,
+I hold every consequential choice on both sides of every test.
 I chose which private mechanisms were candidates, which were selected, and
 how finely each was divided into components, and so what the count counts.
 I chose which of the four routes each took, which inputs were frozen, what
@@ -761,14 +751,12 @@ arrangement, so declaring the risk does not discharge it; nothing in the
 text can establish that the text is not doing what this paragraph
 describes.
 
-A quieter displacement deserves its own sentence. Components make
-disagreement small, and smallness cuts both ways: a reader can win an
-argument about one input or one rule while the question that brought them
-here, whether the selection is fair, whether the whole is sound, what any
-of it is for, goes unaddressed. An objection about selection is not
-answered by the successful execution of any number of selected items. The
-registry's job is to host the small arguments, not to stand in for the
-large ones.
+Making disagreement local can also displace the larger question. A reader
+can settle an argument about one input or one rule while leaving untouched
+whether the selection is fair, whether the whole is sound, or what any of it
+is for. An objection about selection is not answered by the successful
+execution of any number of selected items. The registry hosts the small
+arguments; it does not settle the large ones.
 
 Two defences need no cooperation from me. Read any component at the
 weakest property its validator checks, as
@@ -784,13 +772,12 @@ long-running behaviour. The
 published picture tilts towards what publishes well before any question of
 honesty arises.
 
-The defence that lasts is structural rather than textual. Standards for
-independent verification and validation distinguish technical independence
-from the developers and managerial independence over what and how to assess
-\cite{nasa8739}. Plectis has not undergone such an evaluation. The narrower
-principle used in Section~\ref{sec:stronger} is that evidence about an object
-like this becomes stronger for a particular claim as the choices bearing on
-that claim stop being mine.
+Disclosure alone cannot remove this concentration of control. Standards for
+independent verification and validation distinguish independence from the
+developers from independence over what and how to assess \cite{nasa8739}.
+Plectis has not undergone such an evaluation. The narrower principle used in
+Section~\ref{sec:stronger} is that evidence for a particular claim becomes
+stronger as the choices bearing on that claim stop being mine.
 
 \section{What stronger evidence would look like}
 \label{sec:stronger}
@@ -916,7 +903,7 @@ means for an object like this.
 \section{What to inspect}
 \label{sec:inspect}
 
-The useful first review is small. Clone the repository; to compare
+A first review can be small and still useful. Clone the repository; to compare
 against this paper's numbers, first check out the commit named in the
 appendix, since the newest version will have moved on. Run the guided
 first inspection (\code{plectis tour}, shown with its exact commands in the
@@ -1014,21 +1001,24 @@ Section~\ref{sec:run}, under
 the run reported every case in the Section~\ref{sec:run} table as a pass,
 with observed values equal to the stored ones. The fresh validation receipt
 and those displayed case values matched their tracked counterparts. The
-larger tracked result object contains a stale copied-source count: it says
-one copied module while the pinned public source-module manifest records
-none and a public-safe-stub omission. That discrepancy does not change the
-displayed calculation, but it remains part of the record.
+larger tracked result contains one stale metadata field: it reports one
+private source module copied into the public component. The pinned manifest,
+the repository's list of source modules for this component, records zero
+copied modules because the private module was omitted and replaced by public
+code. That discrepancy does not change the displayed calculation, but it
+remains part of the record.
 
-\paragraph{A second interpreter check.} On 18~July~2026, a clean detached
-clone of the same commit was tested on macOS with Python 3.12.7. A literal
+\paragraph{A second interpreter check.} On 18~July~2026, a clean clone at the
+same commit was tested on macOS with Python 3.12.7. A literal
 network-disabled \code{pip install .} could not obtain the declared build
 requirement, \code{setuptools>=77.0.3}. Supplying the host's installed
-setuptools 80.9.0 and disabling build isolation allowed a local-only build;
+setuptools 80.9.0 and telling \code{pip} to use that local build tool allowed
+a network-free build;
 after installation, the tour and worked example both passed, and the
-displayed values matched exactly. The runtime environment then contained no
-third-party runtime dependency distribution. This is evidence for 3.12.7 and
-3.13.7, not proof of every interpreter covered by the package's declared
-Python 3.11-or-later range.
+displayed values matched exactly. Package records showed that Plectis had
+installed no additional third-party library needed at runtime. This is
+evidence for 3.12.7 and 3.13.7, not proof of every interpreter covered by the
+package's declared Python 3.11-or-later range.
 
 \paragraph{Project-wide checks.} At this commit, \code{make check} loads
 the component registry and finishes in under a second, and
@@ -1073,6 +1063,9 @@ separately.
 
 \begin{thebibliography}{9}
 \small
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{0pt}
 
 \bibitem{weyuker1982}
 Elaine J. Weyuker. ``On Testing Non-Testable Programs.''
@@ -1088,6 +1081,11 @@ Robert Rosenthal. ``The File Drawer Problem and Tolerance for Null Results.''
 National Academies of Sciences, Engineering, and Medicine.
 \emph{Reproducibility and Replicability in Science}. 2019.
 \href{https://doi.org/10.17226/25303}{doi:10.17226/25303}.
+
+\bibitem{acmartifact}
+Association for Computing Machinery. ``Artifact Review and Badging---Current,''
+version 1.1. Accessed 18 July 2026.
+\href{https://www.acm.org/publications/policies/artifact-review-and-badging-current}{ACM Publications Policy}.
 
 \bibitem{nasa8739}
 National Aeronautics and Space Administration. \emph{Software Assurance and

@@ -102,3 +102,20 @@ def test_public_system_paper_check_rejects_missing_bibliography_item(
     failures = check_paper(paper_path=paper)
 
     assert "missing bibliography item: nasa8739" in failures
+
+
+def test_public_system_paper_check_rejects_contribution_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "narrower contribution\nis the claim--evidence--limit contract",
+            "narrower contribution\nis this case study",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("narrower contribution" in failure for failure in failures)
