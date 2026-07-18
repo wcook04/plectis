@@ -526,18 +526,19 @@ drawn from stays on the left.
 \foreach \sx/\sy in {1.80/0.55,2.85/1.35,0.75/2.15,4.95/1.35}
   \draw[black!75, fill=gray!70] (\sx-0.14,\sy-0.14) rectangle (\sx+0.14,\sy+0.14);
 \node[font=\small, text=black!45] at (5.42,1.35) {$\cdots$};
-\node[font=\small, text=black!45] at (2.85,0.10) {$\cdots$};
+\node[font=\small, text=black!45] at (2.85,0.22) {$\cdots$};
 % boundary
-\draw[black!70, dashed, line width=0.8pt] (7.15,-1.15) -- (7.15,4.15);
+\draw[black!70, dashed, line width=0.8pt] (7.15,-1.95) -- (7.15,4.15);
 \node[font=\scriptsize, text=black!70, above] at (7.15,4.2) {the publication boundary};
-% selection arrow
-\draw[flow] (5.8,1.8) -- node[flabel, above=3pt, align=center, fill=white]{selection and\\re-expression (mine)} (8.55,1.8);
+% selection arrow; the label plaque interrupts the boundary line symmetrically
+\draw[flow] (5.8,1.8) -- (8.55,1.8);
+\node[flabel, fill=white, align=center, inner sep=2.5pt] at (7.15,2.44) {selection and\\re-expression (mine)};
 % public box
 \draw[black!75, line width=0.7pt, rounded corners=3pt, fill=gray!6] (8.55,0.55) rectangle (13.35,3.05);
 \node[font=\footnotesize, align=center] at (10.95,1.8) {The public repository\\at commit \code{\snapshotshort}:\\\componentcount{} components in \familycount{} groups};
 % stranger
 \node[act, text width=2.0cm] (str) at (14.75,1.8) {a stranger:\\clone it, run it,\\compare, dispute};
-\draw[actflow] (str.west) -- (13.45,1.8);
+\draw[actflow] (str.west) -- (13.35,1.8);
 % notes
 \node[gnote, text width=5.6cm] at (2.9,-0.95) {outside public evidence: how many candidates there were, what was excluded and why, whether these resemble ordinary private work};
 \node[gnote, text width=4.6cm] at (10.95,-0.95) {inside public evidence: files, commands, records, and tests of the published fragments};
@@ -620,11 +621,18 @@ collection most needs a reader to hold, not how many there are.
 \node[ghost, text width=4.6cm] (g3) at (13.1,0)    {\ldots so the claim as worded is supported};
 \node[ghost, text width=4.6cm] (g4) at (13.1,-1.45){\ldots so it behaves like this on inputs not shown};
 \node[ghost, text width=4.6cm] (g5) at (13.1,-2.9) {\ldots so no risk of that kind remains};
-\draw[softflow] (obs.east) -- node[gaplabel, pos=0.55]{origin: provenance evidence} (g1.west);
-\draw[softflow] (obs.east) -- node[gaplabel, pos=0.55]{standard: an independent oracle} (g2.west);
-\draw[softflow] (obs.east) -- node[gaplabel, pos=0.55]{meaning: a rule matching the words} (g3.west);
-\draw[softflow] (obs.east) -- node[gaplabel, pos=0.55]{reach: cases I did not choose} (g4.west);
-\draw[softflow] (obs.east) -- node[gaplabel, pos=0.55]{coverage: search beyond\\the declared patterns} (g5.west);
+% fanned starts so the five tails do not pile on one point; all lines are
+% drawn first, then all label plaques, so no later line strikes a label
+\draw[softflow] ([yshift=22pt]obs.east) -- (g1.west);
+\draw[softflow] ([yshift=11pt]obs.east) -- (g2.west);
+\draw[softflow] (obs.east) -- (g3.west);
+\draw[softflow] ([yshift=-11pt]obs.east) -- (g4.west);
+\draw[softflow] ([yshift=-22pt]obs.east) -- (g5.west);
+\path ([yshift=22pt]obs.east) -- (g1.west) node[gaplabel, pos=0.50]{origin: provenance evidence};
+\path ([yshift=11pt]obs.east) -- (g2.west) node[gaplabel, pos=0.60]{standard: an independent oracle};
+\path (obs.east) -- (g3.west) node[gaplabel, pos=0.50]{meaning: a rule matching the words};
+\path ([yshift=-11pt]obs.east) -- (g4.west) node[gaplabel, pos=0.60]{reach: cases I did not choose};
+\path ([yshift=-22pt]obs.east) -- (g5.west) node[gaplabel, pos=0.50]{coverage: search beyond\\the declared patterns};
 \end{tikzpicture}
 \caption{Five conclusions a matching run invites and does not license.
 Each dashed arrow needs a further premise that the observation itself
@@ -806,24 +814,26 @@ consequential choices bearing on that claim.
 \begin{figure}[t]
 \centering
 \begin{tikzpicture}[x=1cm,y=1cm]
-\node[part, text width=2.15cm] (s1) at (1.2,0) {Independent repetition};
-\node[part, text width=2.15cm] (s2) at (4.3,0) {Evaluator-controlled selection};
-\node[part, text width=2.15cm] (s3) at (7.4,0) {Fresh inputs, independent expectations};
-\node[part, text width=2.15cm] (s4) at (10.5,0) {Outside tasks, ordinary alternatives};
-\node[part, text width=2.15cm] (s5) at (13.6,0) {Confidential provenance review};
-\node[act, text width=2.25cm] (b1) at (1.2,1.55)  {who runs it};
-\node[act, text width=2.25cm] (b2) at (4.3,1.55)  {which cases count};
-\node[act, text width=2.25cm] (b3) at (7.4,1.55)  {what the answer should have been};
-\node[act, text width=2.25cm] (b4) at (10.5,1.55) {what counts as useful};
-\node[act, text width=2.25cm] (b5) at (13.6,1.55) {whether the origin account holds};
-\node[gnote, text width=2.25cm] (n1) at (1.2,-1.45) {does not by itself establish correctness};
-\node[gnote, text width=2.25cm] (n2) at (4.3,-1.45) {cannot reach the private pool};
-\node[gnote, text width=2.25cm] (n3) at (7.4,-1.45) {bounded cases only, not generality};
-\node[gnote, text width=2.25cm] (n4) at (10.5,-1.45) {advantage only where compared};
-\node[gnote, text width=2.25cm] (n5) at (13.6,-1.45) {moves trust to the reviewer};
+% uniform box heights and bottom/top-anchored labels keep every dotted
+% leader the same length
+\node[part, text width=2.15cm, minimum height=1.42cm] (s1) at (1.2,0) {Independent repetition};
+\node[part, text width=2.15cm, minimum height=1.42cm] (s2) at (4.3,0) {Evaluator-controlled selection};
+\node[part, text width=2.15cm, minimum height=1.42cm] (s3) at (7.4,0) {Fresh inputs, independent expectations};
+\node[part, text width=2.15cm, minimum height=1.42cm] (s4) at (10.5,0) {Outside tasks, ordinary alternatives};
+\node[part, text width=2.15cm, minimum height=1.42cm] (s5) at (13.6,0) {Confidential provenance review};
+\node[act, text width=2.25cm, anchor=south] (b1) at (1.2,1.05)  {who runs it};
+\node[act, text width=2.25cm, anchor=south] (b2) at (4.3,1.05)  {which cases count};
+\node[act, text width=2.25cm, anchor=south] (b3) at (7.4,1.05)  {what the answer should have been};
+\node[act, text width=2.25cm, anchor=south] (b4) at (10.5,1.05) {what counts as useful};
+\node[act, text width=2.25cm, anchor=south] (b5) at (13.6,1.05) {whether the origin account holds};
+\node[gnote, text width=2.25cm, anchor=north] (n1) at (1.2,-1.05) {does not by itself establish correctness};
+\node[gnote, text width=2.25cm, anchor=north] (n2) at (4.3,-1.05) {cannot reach the private pool};
+\node[gnote, text width=2.25cm, anchor=north] (n3) at (7.4,-1.05) {bounded cases only, not generality};
+\node[gnote, text width=2.25cm, anchor=north] (n4) at (10.5,-1.05) {advantage only where compared};
+\node[gnote, text width=2.25cm, anchor=north] (n5) at (13.6,-1.05) {moves trust to the reviewer};
 \foreach \i in {1,...,5}{
-  \draw[RoyalBlue!45, dotted, line width=0.6pt] (b\i) -- (s\i);
-  \draw[black!30, dotted, line width=0.6pt] (n\i) -- (s\i);}
+  \draw[RoyalBlue!45, dotted, line width=0.6pt] (b\i.south) -- (s\i.north);
+  \draw[black!30, dotted, line width=0.6pt] (s\i.south) -- (n\i.north);}
 \end{tikzpicture}
 \caption{Five independent evidence routes. Above each route, in blue, the
 choice that leaves my hands; below it, in grey, what that route still cannot
