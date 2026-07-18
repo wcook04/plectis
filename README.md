@@ -2,7 +2,8 @@
 
 [Website](https://wcook04.github.io/plectis/) ·
 [Interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) ·
-[Short paper](plectis-public-system.pdf) ·
+[The Plectis paper (PDF)](plectis-public-system.pdf) ·
+[Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) ·
 [Quickstart](QUICKSTART.md) ·
 [Contributing](CONTRIBUTING.md)
 
@@ -19,6 +20,17 @@ git clone https://github.com/wcook04/plectis && cd plectis
 python3 -m pip install .
 plectis tour --format text .
 ```
+
+Plectis is one of two public demonstrations of a private system I have been
+building alone with coding agents. Plectis shows the machinery: working slices
+of that system, packaged to run on your machine. The companion
+[Lean repository](https://github.com/wcook04/plectis-lean-erdos249-257) shows
+the output: machine-checked mathematics around two open Erdős problems, #249
+and #257, both still open. Three short papers explain the pair:
+[the Plectis paper](plectis-public-system.pdf) in this repository, plus
+[the mathematics paper](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf)
+and [the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
+for the Lean work.
 
 ## What you get
 
@@ -151,7 +163,7 @@ read.
 | Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | `plectis comprehend --slice mechanism --format text`: every component's real mechanism, one line each. |
 | Verify a specific claim before trusting it | `comprehend --first-action` | `plectis comprehend --first-action "<claim to verify>" --format text`: the owning component, its authority ceiling, and the command that tests it. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
-| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Exposition PDF](https://github.com/wcook04/plectis-lean-erdos249-257/blob/v0.6.0/erdos249-257-exposition.pdf) | A standalone Lean 4 formalisation of two open Erdős problems (#249, #257), and the paper behind it. |
+| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Mathematics paper (PDF)](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf) | A standalone Lean 4 formalisation of two open Erdős problems (#249, #257), and the paper behind it. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | How to raise an issue safely, and the verification floor for changes. |
 
@@ -252,16 +264,22 @@ propositions that remain open are named rather than glossed. It does not solve
 Erdős #249 or the universal form of #257, and it is precise throughout about
 the line between what is proved and what is not. That same
 evidence-and-ceiling discipline, applied to real mathematics rather than
-software, is why it is worth a look.
+software, is why it is worth a look. It exists for the same reason Plectis
+does: the system behind both is not published, and these two repositories are
+how it can be judged from the outside.
 
 The public Plectis checkout applies the same floor to every Lean fixture it
 ships: `make check` rejects proof placeholders, project-defined axioms, native
 evaluation, unsafe/partial declarations, and unbounded kernel limits before
 the broader test suite runs.
 
-- [**Read the exposition PDF**](https://github.com/wcook04/plectis-lean-erdos249-257/blob/v0.6.0/erdos249-257-exposition.pdf):
-  the mathematics in ordinary notation, and the canonical human-readable
-  account.
+- [**Read the mathematics paper**](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf):
+  what is proved about #249 and #257 in ordinary notation, and exactly where
+  the open line sits. The tagged citation copy is the
+  [v0.6.0 exposition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/v0.6.0/erdos249-257-exposition.pdf).
+- [**Read the systems paper**](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf):
+  how that repository keeps its public claims matched to what the Lean kernel
+  checked; the same publication discipline Plectis applies to software.
 - [**Browse the Lean source**](https://github.com/wcook04/plectis-lean-erdos249-257/tree/1c9df5777700dcd85686ed45fb3afc41a3eae44a):
   the recorded public source snapshot contains 633 Lean modules and 11,467
   theorem-like declarations, checked by the pinned kernel; start from
