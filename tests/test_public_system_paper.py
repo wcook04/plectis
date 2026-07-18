@@ -941,8 +941,7 @@ def test_public_system_paper_check_rejects_opaque_lean_trust_explanation(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "for six warning signs: unfinished proof placeholders; custom axioms\n"
-            "(assumptions added without proof)",
+            "six source-text warning signs",
             "for several trust issues",
         )
         .replace(
@@ -951,11 +950,11 @@ def test_public_system_paper_check_rejects_opaque_lean_trust_explanation(
             "the kernel is not enough",
         )
         .replace(
-            r"\code{partial} definitions, which can run but cannot be unfolded in proofs",
+            r"\code{partial} definitions (runnable but not unfoldable in proofs)",
             r"\code{partial} definitions are opaque",
         )
         .replace(
-            r"\code{unsafe} definitions, which cannot be used in theorems",
+            r"\code{unsafe} definitions (barred from theorems)",
             r"\code{unsafe} definitions are excluded",
         ),
         encoding="utf-8",
@@ -964,6 +963,37 @@ def test_public_system_paper_check_rejects_opaque_lean_trust_explanation(
     failures = check_paper(paper_path=paper, check_git_commit=False)
 
     assert sum("missing Lean check explanation" in failure for failure in failures) >= 4
+
+
+def test_public_system_paper_check_rejects_lean_scan_boundary_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "it does not run\nLean or verify proofs",
+            "it checks Lean",
+        )
+        .replace(
+            "This does not show that the files compile, the proofs\nare valid",
+            "A pass confirms the project is valid",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing Lean check explanation" in failure
+        and "does not run Lean or verify proofs" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing Lean check explanation" in failure
+        and "files compile" in failure
+        for failure in failures
+    )
 
 
 def test_public_system_paper_check_rejects_executable_first_review_removal(
@@ -1395,11 +1425,12 @@ def test_public_system_paper_check_rejects_formal_math_overclaim(
             "The group proves mathematics",
         )
         .replace(
-            "custom axioms (assumptions added without\nproof)",
+            "custom axioms\n(unproved assumptions)",
             "custom axioms",
         )
         .replace(
-            "This search cannot show that each formal\nstatement says what its author intended",
+            "does not show that the files compile, the proofs\n"
+            "are valid, or formal statements express their authors' intent",
             "Every formal statement has its intended meaning",
         ),
         encoding="utf-8",

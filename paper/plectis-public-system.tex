@@ -1057,15 +1057,16 @@ Python 3.12.7 matched the tour and example. Its offline install used only the
 machine's \code{setuptools} 80.9.0 (minimum 77.0.3). Only versions 3.12.7 and
 3.13.7 were tested.
 
-\paragraph{Project-wide checks.} The Lean trust checker searches the source
-text of \leanfilecount{} Lean files
-for six warning signs: unfinished proof placeholders; custom axioms
-(assumptions added without proof); compiled calculations whose acceptance
+\paragraph{Project-wide checks.} The Lean trust checker scans
+\leanfilecount{} Lean files for six source-text warning signs; it does not run
+Lean or verify proofs. It flags unfinished placeholders; custom axioms
+(unproved assumptions); compiled calculations whose acceptance
 relies on more than Lean's small proof-checking core (the kernel);
-\code{partial} definitions, which can run but cannot be unfolded in proofs;
-\code{unsafe} definitions, which cannot be used in theorems; and removed
-computation limits. This search cannot show that each formal
-statement says what its author intended \cite{leanvalidation}.
+\code{partial} definitions (runnable but not unfoldable in proofs);
+\code{unsafe} definitions (barred from theorems); and removed computation
+limits. None appeared. This does not show that the files compile, the proofs
+are valid, or formal statements express their authors' intent
+\cite{leanvalidation}.
 Registry and trust checks passed; the \leanfilecount{} files are distinct from
 the \mathcount{} mathematics components.
 The limited \code{make test} selection (not every test file) ran 361 tests from

@@ -490,15 +490,18 @@ REQUIRED_FORMAL_MATH_BOUNDARY_ANCHORS = (
 )
 
 REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS = (
-    r"source text of \leanfilecount{} Lean files",
-    "for six warning signs",
-    "unfinished proof placeholders",
-    "assumptions added without proof",
+    r"The Lean trust checker scans \leanfilecount{} Lean files",
+    "six source-text warning signs",
+    "does not run Lean or verify proofs",
+    "unfinished placeholders",
+    "unproved assumptions",
     "compiled calculations whose acceptance relies on more than Lean's small proof-checking core",
-    r"\code{partial} definitions, which can run but cannot be unfolded in proofs",
-    r"\code{unsafe} definitions, which cannot be used in theorems",
+    r"\code{partial} definitions (runnable but not unfoldable in proofs)",
+    r"\code{unsafe} definitions (barred from theorems)",
     "removed computation limits",
-    "This search cannot show that each formal statement says what its author intended",
+    "None appeared",
+    "does not show that the files compile, the proofs are valid",
+    "formal statements express their authors' intent",
     "Partial and Unsafe Definitions",
 )
 
