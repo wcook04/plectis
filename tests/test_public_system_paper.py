@@ -297,6 +297,37 @@ def test_public_system_paper_check_rejects_executable_first_review_removal(
     )
 
 
+def test_public_system_paper_check_rejects_claim_routing_step_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "comprehend --first-action",
+            '--show-something',
+        )
+        .replace(
+            r"\code{no-write variant}",
+            "the suggested command",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing executable first-review route" in failure
+        and "--first-action" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and "no-write variant" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_hash_explanation_removal(
     tmp_path: Path,
 ) -> None:

@@ -638,10 +638,10 @@ contain, one premise per distinction: that the public object descends from
 the private one; that the
 expectation is what the answer should have been; that the rule tests what
 the words say; that the chosen cases stand for the unchosen; that the risks
-searched for are the risks there are. The component contract does not
-supply these premises, and cannot. What it does is make each missing
-premise nameable, and a named gap can be argued about, priced, or
-deliberately left uncrossed, where an unnamed one is crossed by default.
+searched for are the risks there are. The contract only makes each missing
+premise explicit. Once named, a gap can be disputed, assigned a cost to
+address, or deliberately left open. An unnamed gap is easy to cross without
+noticing.
 Nor is five a closed count. The same shape has already appeared twice
 outside the list: a refusal boundary observed today does not show when it
 was drawn (Section~\ref{sec:contract}), and a number observed at one
@@ -968,15 +968,17 @@ of the author's hands can strengthen evidence about that choice; it does not
 repair every gap.
 
 \paragraph{A first review.} Use the appendix's no-install block to copy the
-repository, select the version analysed here, and run its tour. Choose a claim
-you doubt. Read its description and limit, run the listed command, compare the
-new output with the stored receipt, and read the pass rule. Ask whether the
-rule bears on the prose claim; change an input where practical; and, where a
-refusal boundary does much of the work, ask when that boundary entered the
-history. Report any discrepancy through
-\code{CONTRIBUTING.md}. One successful run supports only the conclusion
-licensed by the published rule. Broader conclusions need the evidence in
-Section~\ref{sec:stronger}, and most of it does not yet exist.
+repository and select the version analysed here. The tour describes the checkout
+but does not choose a component claim. Route the audio example with
+\par\noindent{\scriptsize\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action "audio level calculation" --format text|}\par
+For another claim, replace the quoted words. The response names a component,
+command, receipt, limit, and \code{no-write variant}: stored reference receipts
+stay untouched, while fresh files go under
+\component{.microcosm/first\_action\_runs/}. Run it, compare the receipts, read
+the validator's rule, and change an input where practical. Ask whether the rule
+supports the prose and any refusal boundary; report discrepancies through
+\code{CONTRIBUTING.md}. A pass licenses only the published rule.
+Section~\ref{sec:stronger} lists broader evidence, most of it absent.
 
 \appendix
 
@@ -1029,21 +1031,21 @@ python3 -m pip install .
 plectis tour --format text .
 \end{Verbatim}
 
-The installed program needs no extra Python library; \code{pip} may fetch
-\code{setuptools} to build it. No check enforces the claimed absence of network
-or model calls, so inspect the source.
+The program needs no extra Python library; \code{pip} may fetch
+\code{setuptools} to build it. No check enforces the absence of network or model
+calls, so inspect the source.
 
 \paragraph{The worked example.} The command in Section~\ref{sec:run} writes
-under \component{/tmp/plectis-audio-rms} and overwrites those files on a rerun.
-A fresh run reproduced every displayed pass and value. One stale field reports
-a copied private module, while the pinned manifest records none because public
-code replaced it. The calculation is unchanged, but the discrepancy remains.
+under \component{/tmp/plectis-audio-rms}, overwriting it on a rerun. A fresh run
+reproduced every displayed pass and value. One stale field reports a copied
+private module; the pinned manifest records none because public code replaced
+it. The calculation is unchanged, but the discrepancy remains.
 
 \paragraph{A second interpreter check.} On 18~July~2026, a clean clone on
-macOS used Python 3.12.7. A network-disabled install could not obtain
+macOS used Python 3.12.7. A network-disabled install could not fetch
 \code{setuptools>=77.0.3}; the host's setuptools 80.9.0 allowed a local build.
-The tour and example matched without adding a runtime library. This tests 3.12.7
-and 3.13.7, not the full Python 3.11-or-later range.
+The tour and example matched without a new runtime library. This tests 3.12.7
+and 3.13.7, not every supported Python version.
 
 \paragraph{Project-wide checks.} At this commit, \code{make check} loads the
 component registry in under a second.
@@ -1069,13 +1071,13 @@ test} failed. These checks concern only the public checkout; this is my run,
 not an independent repetition.
 
 \paragraph{The paper itself.}
-\component{scripts/check_public_system_paper.py} checks counts, pinned facts, the
-worked example, cautions, and citations, and fails on disagreement. Historical
-facts come from the pinned commit; current prose is checked separately. Under
-one maintainer, this is internal consistency, not external truth.
+\component{scripts/check_public_system_paper.py} checks counts, pinned facts,
+the example, cautions, and citations, failing on disagreement. Historical facts
+come from the pinned commit; current prose is checked separately. Under one
+maintainer, this is internal consistency, not external truth.
 
 \begin{thebibliography}{9}
-\scriptsize
+\fontsize{6.5pt}{7.2pt}\selectfont
 \raggedright
 \setlength{\itemsep}{0pt}
 \setlength{\parsep}{0pt}

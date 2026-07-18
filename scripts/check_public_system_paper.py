@@ -95,7 +95,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "The count is an inventory, not a score",
     "did not find the patterns it was designed to find",
     "who makes the choice that matters for that claim",
-    "One successful run supports only the conclusion",
+    "A pass licenses only the published rule",
     # Distinction: a validator's rule versus the stated claim.
     "narrower than the claim as worded",
     # Refusal boundaries: predeclared versus drawn after the fact.
@@ -104,8 +104,10 @@ REQUIRED_COLD_READER_ANCHORS = (
     "not independent witnesses",
     "repeat one witness rather than supply several",
     "four different limits on what may be concluded",
-    # The shared structure of the five distinctions.
-    "a named gap can be argued about",
+    # The shared structure of the five distinctions, stated without relying
+    # on the unexplained economic shorthand "price a gap".
+    "Once named, a gap can be disputed, assigned a cost to address",
+    "An unnamed gap is easy to cross without noticing",
     # The author's-hand cautions: arrangement can outrun assertion, and the
     # format itself tilts the picture.
     "cautious sentence by sentence",
@@ -171,7 +173,12 @@ REQUIRED_EXAMPLE_BRIDGE_ANCHORS = (
 REQUIRED_FIRST_REVIEW_ANCHORS = (
     "Use the appendix's no-install block",
     "select the version analysed here",
-    "run its tour",
+    "tour describes the checkout but does not choose a component claim",
+    r"\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action",
+    r'--first-action "audio level calculation" --format text',
+    r"\code{no-write variant}",
+    "stored reference receipts stay untouched",
+    r".microcosm/first\_action\_runs/",
     "change an input where practical",
 )
 
