@@ -1036,42 +1036,42 @@ plectis tour --format text .
 \end{Verbatim}
 
 The program needs no extra Python library; \code{pip} may fetch
-\code{setuptools} to build it. No check enforces the absence of network or model
+\code{setuptools} to build it. No check proves the absence of network or model
 calls, so inspect the source.
 
-\paragraph{The worked example.} The command in Section~\ref{sec:run} writes
-under \component{/tmp/plectis-audio-rms}, overwriting it on a rerun. A fresh run
-reproduced every displayed pass and value. One stale field reports a copied
-private module; the saved import record reports none because public code replaced
-it. The calculation is unchanged, but the discrepancy remains.
+\paragraph{The worked example.} The Section~\ref{sec:run} command overwrites
+\component{/tmp/plectis-audio-rms} on a rerun; a fresh run reproduced every
+displayed pass and value. One stale field reports a copied private module, but
+the saved import record reports none because public code replaced it. The
+discrepancy remains.
 
-\paragraph{A second Python version.} On 18~July~2026, a clean macOS clone used
-Python 3.12.7. Offline, the install used the already-present
-\code{setuptools} 80.9.0 (the build requires version 77.0.3 or later). The tour
-and example matched without another runtime library. This tests 3.12.7 and
-3.13.7, not every supported version.
+\paragraph{A second Python version.} On 18~July~2026, a clean macOS clone using
+Python 3.12.7 also matched the tour and example. Its offline install used the
+already-present \code{setuptools} 80.9.0 (minimum 77.0.3) and no other runtime
+library. Only versions 3.12.7 and 3.13.7 were tested.
 
 \paragraph{Project-wide checks.} At this commit, \code{make check} loads the
 component registry in under a second.
 The Lean trust checker searches the source text of \leanfilecount{} Lean files
-for unfinished proof placeholders; custom axioms (assumptions added without
-proof); native calculations relying on more than Lean's proof-checking kernel;
-\code{partial} definitions, which Lean treats as opaque in its logic;
-\code{unsafe} definitions, which Lean excludes from mathematical reasoning;
-and removed computation limits. This search cannot show that each formal
+for six warning signs. These are unfinished proof placeholders; custom axioms
+(assumptions added without proof); compiled calculations whose acceptance
+relies on more than Lean's small proof-checking core (the kernel);
+\code{partial} definitions, which can run but cannot be unfolded in proofs;
+\code{unsafe} definitions, which cannot be used in theorems; and removed
+computation limits. This search cannot show that each formal
 statement says what its author intended \cite{leanvalidation}.
 The registry and trust checks passed; the \leanfilecount{} files are not the
 \mathcount{} mathematics components.
 At this commit, the limited \code{make test} selection (not every test file)
 ran 361 tests from 32 public test files: 356 passed, two were skipped, and three
-failed. The failures were a line-break expectation in
-\code{AGENTS.md}; outdated stored line or byte counts in copied-source manifests;
-and root-layout rules that did not yet allow the \code{paper} directory or root
-PDF. A later change repairs the last failure without altering this pinned run.
+failed. They concerned an \code{AGENTS.md} line-break expectation, outdated
+line or byte counts in copied-source manifests, and root-layout rules that did
+not yet allow the \code{paper} directory or root PDF. A later change repairs
+the last failure without altering this pinned run.
 Exact test names, environment, and counts are in
 \component{paper/public-test-receipt.json}. \code{make ci} would add smoke and
-package-install checks, but its larger floor was not green because \code{make
-test} failed. These checks concern only the public checkout; this is my run,
+package-install checks, but was not green because \code{make test} failed.
+These checks concern only the public checkout; this is my run,
 not an independent repetition.
 
 \paragraph{The paper itself.}

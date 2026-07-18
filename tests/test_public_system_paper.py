@@ -545,6 +545,37 @@ def test_public_system_paper_check_rejects_example_bridge_removal(
     )
 
 
+def test_public_system_paper_check_rejects_opaque_lean_trust_explanation(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "for six warning signs. These are unfinished proof placeholders; custom axioms",
+            "for several trust issues. These include proof placeholders and axioms",
+        )
+        .replace(
+            "compiled calculations whose acceptance\n"
+            "relies on more than Lean's small proof-checking core (the kernel)",
+            "the kernel is not enough",
+        )
+        .replace(
+            r"\code{partial} definitions, which can run but cannot be unfolded in proofs",
+            r"\code{partial} definitions are opaque",
+        )
+        .replace(
+            r"\code{unsafe} definitions, which cannot be used in theorems",
+            r"\code{unsafe} definitions are excluded",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert sum("missing Lean check explanation" in failure for failure in failures) >= 4
+
+
 def test_public_system_paper_check_rejects_executable_first_review_removal(
     tmp_path: Path,
 ) -> None:

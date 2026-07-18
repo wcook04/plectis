@@ -346,11 +346,13 @@ REQUIRED_FORMAL_MATH_BOUNDARY_ANCHORS = (
 
 REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS = (
     r"source text of \leanfilecount{} Lean files",
+    "for six warning signs",
     "unfinished proof placeholders",
     "assumptions added without proof",
-    "relying on more than Lean's proof-checking kernel",
-    r"\code{partial} definitions, which Lean treats as opaque in its logic",
-    r"\code{unsafe} definitions, which Lean excludes from mathematical reasoning",
+    "compiled calculations whose acceptance relies on more than Lean's small proof-checking core",
+    r"\code{partial} definitions, which can run but cannot be unfolded in proofs",
+    r"\code{unsafe} definitions, which cannot be used in theorems",
+    "removed computation limits",
     "This search cannot show that each formal statement says what its author intended",
     "Partial and Unsafe Definitions",
 )
@@ -359,10 +361,10 @@ REQUIRED_PUBLIC_TEST_SCOPE_ANCHORS = (
     r"limited \code{make test} selection (not every test file) ran 361 tests from 32 public test files",
     "356 passed, two were skipped, and three failed",
     "line-break expectation",
-    "outdated stored line or byte counts",
+    "outdated line or byte counts",
     "root-layout rules that did not yet allow",
     "paper/public-test-receipt.json",
-    "its larger floor was not green",
+    r"\code{make ci} would add smoke and package-install checks, but was not green",
     "this is my run, not an independent repetition",
 )
 
