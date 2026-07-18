@@ -893,11 +893,11 @@ def test_public_system_paper_check_rejects_receipt_reading_guidance_removal(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "starts with the installed command",
-            "Run either command",
+            "leaves the repository's saved receipts unchanged",
+            "can be run safely",
         )
         .replace(r"\code{expected\_level}", r"\code{result}")
-        .replace(r"\code{anti\_claim}", r"\code{status}"),
+        .replace(r"\component{anti_claim}", r"\code{status}"),
         encoding="utf-8",
     )
 
@@ -905,7 +905,7 @@ def test_public_system_paper_check_rejects_receipt_reading_guidance_removal(
 
     assert any(
         "missing executable first-review route" in failure
-        and "installed command" in failure
+        and "saved receipts unchanged" in failure
         for failure in failures
     )
     assert any(
@@ -915,24 +915,27 @@ def test_public_system_paper_check_rejects_receipt_reading_guidance_removal(
     )
     assert any(
         "missing executable first-review route" in failure
-        and r"\\code{anti\\_claim}" in failure
+        and r"\\component{anti_claim}" in failure
         for failure in failures
     )
 
 
-def test_public_system_paper_check_rejects_untranslated_first_review_command(
+def test_public_system_paper_check_rejects_copyable_worked_example_command_removal(
     tmp_path: Path,
 ) -> None:
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            r"\code{PYTHONPATH=src python3 -m} \code{microcosm\_core}",
-            r"\code{plectis}",
+            "  batch8-audio-level-rms-port run \\\n",
+            "  run-something \\\n",
         )
         .replace(
-            "Inside\n"
-            r"\code{exercise}",
+            r"\component{batch8_audio_level_rms_port_result.json}",
+            r"\component{result.json}",
+        )
+        .replace(
+            r"format. Inside \code{exercise}",
             "In the result",
         )
         .replace(
@@ -946,8 +949,14 @@ def test_public_system_paper_check_rejects_untranslated_first_review_command(
     failures = check_paper(paper_path=paper, check_git_commit=False)
 
     assert any(
+        "missing copyable worked-example command" in failure
+        and "batch8-audio-level-rms-port" in failure
+        for failure in failures
+    )
+    assert any(
         "missing executable first-review route" in failure
-        and "microcosm" in failure
+        and "batch8_audio_level_rms_port_result.json"
+        in failure
         for failure in failures
     )
     assert any(
@@ -960,6 +969,21 @@ def test_public_system_paper_check_rejects_untranslated_first_review_command(
         and "no independent reviewer" in failure
         for failure in failures
     )
+
+
+def test_public_system_paper_check_rejects_old_first_review_translation_detour(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        + "\nThe command starts with the installed command; replace it with another launcher.\n",
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert sum("cold-reader residue" in failure for failure in failures) >= 2
 
 
 def test_public_system_paper_check_rejects_hash_explanation_removal(

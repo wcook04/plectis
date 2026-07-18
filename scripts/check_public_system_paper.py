@@ -83,6 +83,9 @@ FORBIDDEN_COLD_READER_RESIDUE = (
     "a second interpreter check",
     "the pinned manifest records none",
     "route the audio example with",
+    "starts with the installed command",
+    "replace it with",
+    "translated line writes fresh",
     "machine-readable",
     "reference run",
     "freezing a version",
@@ -315,6 +318,14 @@ REQUIRED_EXAMPLE_BRIDGE_ANCHORS = (
     "The next section treats these five gaps separately",
 )
 
+REQUIRED_WORKED_EXAMPLE_COMMAND_ANCHORS = (
+    "PYTHONPATH=src python3 -m plectis",
+    "batch8-audio-level-rms-port run",
+    r"--input fixtures/first_wave/batch8_audio_level_rms_port/input",
+    r"--out /tmp/plectis-audio-rms",
+    r"--acceptance-out /tmp/plectis-audio-rms-acceptance.json",
+)
+
 REQUIRED_ARITHMETIC_ORACLE_BOUNDARY_ANCHORS = (
     "but not of the project's formula",
     "only after accepting the project's formula",
@@ -338,25 +349,24 @@ REQUIRED_FIRST_REVIEW_ANCHORS = (
     r"\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action",
     r'--first-action "audio level calculation" --format text',
     r"\code{no-write variant}",
-    "starts with the installed command",
-    r"\code{plectis}",
-    "because this route installs nothing",
-    r"\code{PYTHONPATH=src python3 -m} \code{microcosm\_core}",
-    "main command overwrites stored receipts",
-    "translated line writes fresh JSON",
-    r".microcosm/first\_action\_runs/",
-    r"directory named after \code{--out}",
-    r"file ending \component{\_result.json}",
+    "leaves the repository's saved receipts unchanged",
+    "No launcher translation is needed",
+    "Run the exact no-install command printed near the start of",
+    r"it writes only to \code{/tmp}",
+    r"\component{/tmp/plectis-audio-rms/}",
+    r"\component{batch8_audio_level_rms_port_result.json}",
+    "JSON is a plain-text field-and-value format",
     r"Inside \code{exercise}",
-    r"\code{reference\_cases}",
+    r"\component{reference_cases}",
     r"\code{expected\_level}",
     r"\code{observed\_level}",
     "top-level",
-    r"\code{anti\_claim}",
-    r"\code{claim\_ceiling}",
+    r"\component{anti_claim}",
+    r"\component{claim_ceiling}",
     r"inside \code{exercise}",
     "The project wrote both cautions; no independent reviewer checked their limits",
-    "change an input where practical",
+    r"copy the fixture to \code{/tmp}",
+    r"rerun with \code{--input} pointing to the copy",
 )
 
 REQUIRED_OUTSIDE_EVALUATION_BOUNDARY_ANCHORS = (
@@ -871,6 +881,9 @@ def check_paper(
     for anchor in REQUIRED_EXAMPLE_BRIDGE_ANCHORS:
         if anchor not in normalized_run_section:
             failures.append(f"missing example-to-distinctions bridge: {anchor!r}")
+    for anchor in REQUIRED_WORKED_EXAMPLE_COMMAND_ANCHORS:
+        if anchor not in normalized_run_section:
+            failures.append(f"missing copyable worked-example command: {anchor!r}")
     for anchor in REQUIRED_ARITHMETIC_ORACLE_BOUNDARY_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing arithmetic-oracle boundary: {anchor!r}")

@@ -371,8 +371,8 @@ output outside the repository (the backslashes split one long command across
 lines):
 
 \begin{Verbatim}[fontsize=\small]
-PYTHONPATH=src python3 -m \
-  microcosm_core.organs.batch8_audio_level_rms_port run \
+PYTHONPATH=src python3 -m plectis \
+  batch8-audio-level-rms-port run \
   --input fixtures/first_wave/batch8_audio_level_rms_port/input \
   --out /tmp/plectis-audio-rms \
   --acceptance-out /tmp/plectis-audio-rms-acceptance.json
@@ -969,24 +969,24 @@ of the author's hands can strengthen evidence about that choice; it does not
 repair every gap.
 
 \paragraph{A first review.} Use the appendix's no-install block and select the
-version analysed here. The tour describes the checkout
-but does not choose a component claim. Ask the repository to find the audio
-example with
+version analysed here. The tour describes the checkout but does not choose a
+component claim. Ask the repository to find the audio example with
 \par\noindent{\scriptsize\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action "audio level calculation" --format text|}\par
-Change the quoted words for another claim. The response gives a main command
-and a \code{no-write variant}. The latter starts with the installed command
-\code{plectis}; because this route installs nothing, replace it with
-\code{PYTHONPATH=src python3 -m} \code{microcosm\_core} and run it. The main
-command overwrites stored receipts; the translated line writes fresh JSON under
-\component{.microcosm/first\_action\_runs/}. In the directory named after
-\code{--out}, open the file ending \component{\_result.json}. Inside
-\code{exercise}, compare \code{expected\_level} and \code{observed\_level} in
-each \code{reference\_cases} item. The top-level \code{anti\_claim} says what a
-pass does not establish; \code{claim\_ceiling} inside \code{exercise} gives the
+The response names the audio component and offers a \code{no-write variant},
+which leaves the repository's saved receipts unchanged. No launcher translation
+is needed. Run the exact no-install command printed near the start of
+Section~\ref{sec:run}; it writes only to \code{/tmp}. Under
+\component{/tmp/plectis-audio-rms/}, open
+\component{batch8_audio_level_rms_port_result.json};
+JSON is a plain-text field-and-value format. Inside \code{exercise}, compare
+\code{expected\_level} with \code{observed\_level} in each
+\component{reference_cases} item. The top-level \component{anti_claim} says what a pass
+does not establish; \component{claim_ceiling} inside \code{exercise} gives the
 project's strongest conclusion. The project wrote both cautions; no independent
-reviewer checked their limits. Then change an input where practical and compare
-the validator's rule with the prose. Treat a pass as evidence only for the
-published rule; report disputes through \code{CONTRIBUTING.md}.
+reviewer checked their limits. For a challenge, copy the fixture to \code{/tmp},
+change an input, and rerun with \code{--input} pointing to the copy. Compare the
+validator's rule with the prose. Treat a pass as evidence only for the published
+rule; report disputes through \code{CONTRIBUTING.md}.
 
 \appendix
 
