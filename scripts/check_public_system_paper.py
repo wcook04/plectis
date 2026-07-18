@@ -212,7 +212,7 @@ REQUIRED_FORMAL_MATH_BOUNDARY_ANCHORS = (
 )
 
 REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS = (
-    "58 Lean source files",
+    r"\leanfilecount{} Lean source files",
     "unfinished proof placeholders",
     "assumptions added without proof",
     "rely on more than Lean's proof-checking kernel",
@@ -274,6 +274,20 @@ def _load_json_from_commit(commit: str, relative_path: str, failures: list[str])
         failures.append(f"pinned evidence is not a JSON object: {relative_path} at {commit}")
         return {}
     return payload
+
+
+def _lean_file_count_from_commit(commit: str, failures: list[str]) -> int | None:
+    result = subprocess.run(
+        ["git", "ls-tree", "-r", "--name-only", commit, "--"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        failures.append(f"cannot list pinned repository tree at {commit}")
+        return None
+    return sum(1 for path in result.stdout.splitlines() if path.endswith(".lean"))
 
 
 def _macros(text: str) -> dict[str, str]:
@@ -342,6 +356,7 @@ def check_paper(
     )
     pinned_example_receipt: dict = {}
     pinned_example_result: dict = {}
+    pinned_lean_file_count: int | None = None
     if use_pinned_evidence:
         registry = _load_json_from_commit(
             snapshot, REGISTRY.relative_to(ROOT).as_posix(), failures
@@ -355,6 +370,7 @@ def check_paper(
         pinned_example_result = _load_json_from_commit(
             snapshot, EXAMPLE_RESULT, failures
         )
+        pinned_lean_file_count = _lean_file_count_from_commit(snapshot, failures)
     else:
         registry = _load_json(registry_path)
         families = _load_json(families_path)
@@ -368,6 +384,16 @@ def check_paper(
     if component_count is not None and component_count != len(organs):
         failures.append(
             f"componentcount={component_count}, registry implemented_organs={len(organs)}"
+        )
+
+    lean_file_count = _macro_int(macros, "leanfilecount", failures)
+    if (
+        lean_file_count is not None
+        and pinned_lean_file_count is not None
+        and lean_file_count != pinned_lean_file_count
+    ):
+        failures.append(
+            f"leanfilecount={lean_file_count}, pinned Lean sources={pinned_lean_file_count}"
         )
 
     family_rows = families.get("families", [])
@@ -558,10 +584,12 @@ def main() -> int:
             print(f"  FAIL {failure}", file=sys.stderr)
         return 1
 
-    declared_count = _macros(PAPER.read_text(encoding="utf-8"))["componentcount"]
+    declared_macros = _macros(PAPER.read_text(encoding="utf-8"))
+    declared_count = declared_macros["componentcount"]
+    declared_lean_count = declared_macros["leanfilecount"]
     print(
         "Public-system paper check: pass "
-        f"({declared_count} pinned components; "
+        f"({declared_count} pinned components; {declared_lean_count} pinned Lean sources; "
         "pinned family counts, evidence routes, worked example, literature "
         "citations and first-citation bibliography order, cold-reader anchors, "
         "and claim language agree)"

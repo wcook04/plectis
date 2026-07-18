@@ -54,6 +54,7 @@
 \newcommand{\researchcount}{9}
 \newcommand{\publiccopycount}{20}
 \newcommand{\recoverycount}{5}
+\newcommand{\leanfilecount}{58}
 \newcommand{\copiedsourcecount}{21}
 \newcommand{\refactorcount}{27}
 \newcommand{\runtimecount}{22}
@@ -1047,13 +1048,13 @@ and 3.13.7, not the full Python 3.11-or-later range.
 
 \paragraph{Project-wide checks.} At this commit, \code{make check} loads the
 component registry in under a second.
-The Lean trust checker scans 58 Lean source files for unfinished proof
+The Lean trust checker scans \leanfilecount{} Lean source files for unfinished proof
 placeholders, custom axioms (assumptions added without proof), native
 calculations that rely on more than Lean's proof-checking kernel, declarations
 marked \code{unsafe} or \code{partial} that relax ordinary safeguards, and
 instructions that remove computation limits. These are source-pattern checks.
 They do not show that each formal statement says what its author intended
-\cite{leanvalidation}. The registry and trust checks passed. The 58
+\cite{leanvalidation}. The registry and trust checks passed. The \leanfilecount{}
 files and \mathcount{} mathematics components count different things.
 \code{make ci} installs, tests, and runs two examples; continuous integration
 runs the same checks. All concern the public checkout, not the private system.

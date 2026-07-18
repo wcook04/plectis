@@ -25,6 +25,23 @@ def test_public_system_paper_check_rejects_count_drift(tmp_path: Path) -> None:
     assert any("componentcount=89" in failure for failure in failures)
 
 
+def test_public_system_paper_check_rejects_lean_file_count_drift(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            r"\newcommand{\leanfilecount}{58}",
+            r"\newcommand{\leanfilecount}{59}",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper)
+
+    assert "leanfilecount=59, pinned Lean sources=58" in failures
+
+
 def test_public_system_paper_check_rejects_provenance_overclaim(tmp_path: Path) -> None:
     paper = tmp_path / "paper.tex"
     paper.write_text(
