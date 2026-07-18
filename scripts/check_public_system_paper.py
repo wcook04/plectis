@@ -120,6 +120,17 @@ FORBIDDEN_BEFORE_COMPONENT_CONTRACT = (
     "route",
 )
 
+# The paper says that reading it requires no programming.  Expand specialist
+# and institutional abbreviations before asking a cold reader to remember the
+# shorthand.  Each expansion includes the first use of the abbreviation.
+REQUIRED_FIRST_USE_EXPANSIONS = (
+    ("AI", "artificial intelligence (AI)"),
+    ("SACM", "Structured Assurance Case Metamodel (SACM)"),
+    ("ACM", "Association for Computing Machinery (ACM)"),
+    ("NIST", "National Institute of Standards and Technology (NIST)"),
+    ("NASA", "National Aeronautics and Space Administration (NASA)"),
+)
+
 # Sentences the paper's argument stands on.  The first block defines terms a
 # cold reader needs; the second block carries the evidential distinctions
 # (provenance, repeatability, validator-vs-claim, selection, risk) that keep
@@ -299,7 +310,7 @@ REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
     "saved import record reports none",
     r"\paragraph{A second Python version.}",
     "Apple silicon (arm64)",
-    "ACM calls digital research materials such as code, scripts, and data",
+    "Association for Computing Machinery (ACM) calls digital research materials",
     "completeness, ability to run, and evidence of verification and validation",
     "saved record of a prior run that the checker can read",
     "component list read by the programs",
@@ -850,6 +861,17 @@ def check_paper(
     for anchor in REQUIRED_COLD_READER_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing cold-reader anchor: {anchor!r}")
+    for abbreviation, expansion in REQUIRED_FIRST_USE_EXPANSIONS:
+        if expansion not in normalized_text:
+            failures.append(
+                f"missing first-use expansion for {abbreviation}: {expansion!r}"
+            )
+            continue
+        before_expansion = normalized_text.split(expansion, 1)[0]
+        if re.search(rf"\b{re.escape(abbreviation)}\b", before_expansion):
+            failures.append(
+                f"abbreviation appears before its expansion: {abbreviation!r}"
+            )
     for anchor in REQUIRED_OUTSIDE_EVALUATION_BOUNDARY_ANCHORS:
         if anchor not in normalized_text:
             failures.append(

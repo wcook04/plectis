@@ -95,8 +95,9 @@ The repository therefore lets a reader test claims about its published files
 and outputs, within those limits. I report that its published material was
 copied or adapted from the private system, which remains unpublished because it
 contains personal records, credentials, and unfinished tools. I also report
-that I developed it by directing AI coding tools. The argument does not depend
-on that account or on the claimed origin of the published material.
+that I developed it by directing coding tools based on artificial intelligence
+(AI). The argument does not depend on that account or on the claimed origin of
+the published material.
 \end{abstract}
 
 \section{The problem}
@@ -322,14 +323,15 @@ a recognised testing problem \cite{weyuker1982}. The risk that a curated
 collection disproportionately exposes favourable cases is analogous to
 selective publication and the file-drawer problem \cite{rosenthal1979}.
 An \emph{assurance case} is a structured argument linking a system claim to
-reasons and evidence. The Object Management Group's SACM 2.3 standard models
-such cases as auditable claims, arguments, and evidence; its annex maps the
-Claims--Arguments--Evidence notation onto SACM
+reasons and evidence. The Object Management Group's Structured Assurance Case
+Metamodel (SACM) 2.3 standard models such cases as auditable claims, arguments,
+and evidence; its annex maps the Claims--Arguments--Evidence notation onto SACM
 \cite[secs. 1.1, A.2]{omgsacm2023}. Plectis is
 not an implementation of that standard and makes no claim that the private
 system is safe. Its validator applies a published rule; it does not supply the
 full argument from evidence to claim that an assurance case would require.
-ACM calls digital research materials such as code, scripts, and data
+The Association for Computing Machinery (ACM) calls digital research materials
+such as code, scripts, and data
 \emph{artifacts}. Its \emph{Artifacts Evaluated---Functional} badge means
 those materials passed an independent audit for documentation, consistency,
 completeness, ability to run, and evidence of verification and validation.
@@ -492,9 +494,10 @@ commands do. No public run establishes where the material came from.
 Plectis records that boundary. Each copied file has a claimed source and a
 SHA-256 fingerprint: a fixed 256-bit value calculated from its contents and
 used to detect change \cite{nistfips1804}. Two different files can in
-principle have the same fingerprint. NIST estimates SHA-256's collision
-resistance at 128 bits; it defines collision resistance as making such a pair
-computationally infeasible to find
+principle have the same fingerprint. The National Institute of Standards and
+Technology (NIST) estimates SHA-256's collision resistance at 128 bits; it
+defines collision resistance as making such a pair computationally infeasible
+to find
 \cite[security-strength table]{nisthashfunctions}.
 Collisions remain
 mathematically possible. A match therefore supports a
@@ -823,11 +826,12 @@ under-represents stateful, entangled, long-running behaviour. The
 published picture tilts towards what publishes well before any question of
 honesty arises.
 
-NASA defines independence for independent verification and validation (IV\&V),
-a formal software check, through three separations: technical (the evaluator
-did not develop the system); managerial (a separate organisation chooses scope,
-methods, and schedule); and financial (an independent group controls the budget
-without adverse financial pressure) \cite[\S4.4.1.2]{nasa8739}.
+The National Aeronautics and Space Administration (NASA) defines independence
+for independent verification and validation (IV\&V), a formal software check,
+through three separations: technical (the evaluator did not develop the system);
+managerial (a separate organisation chooses scope, methods, and schedule); and
+financial (an independent group controls the budget without adverse financial
+pressure) \cite[\S4.4.1.2]{nasa8739}.
 These are criteria for NASA IV\&V, not a universal test. Plectis has undergone
 no IV\&V. No other outside evaluation report is cited or included, and I know
 of none; an unreported private rerun would remain invisible. I use the NASA

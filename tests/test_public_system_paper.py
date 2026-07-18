@@ -92,8 +92,8 @@ def test_public_system_paper_check_rejects_abstract_origin_as_fact(
             "It was assembled from parts of a larger private system,",
         )
         .replace(
-            "The argument does not depend\n"
-            "on that account or on the claimed origin of the published material.",
+            "The argument does not depend on that account or on the claimed origin of\n"
+            "the published material.",
             "The argument is complete.",
         ),
         encoding="utf-8",
@@ -358,8 +358,7 @@ def test_public_system_paper_check_rejects_standards_distinction_removal(
         PAPER.read_text(encoding="utf-8")
         .replace("Results Reproduced", "Results reviewed")
         .replace(
-            "chooses scope,\n"
-            "methods, and schedule",
+            "chooses scope, methods, and schedule",
             "follow the project's review plan",
         ),
         encoding="utf-8",
@@ -506,6 +505,31 @@ def test_public_system_paper_check_rejects_abstract_answer_removal(
         and "inspect and rerun" in failure
         for failure in failures
     )
+
+
+def test_public_system_paper_check_rejects_unexpanded_first_use(
+    tmp_path: Path,
+) -> None:
+    source = PAPER.read_text(encoding="utf-8")
+    cases = (
+        ("artificial intelligence\n(AI)", "AI"),
+        ("Structured Assurance Case\nMetamodel (SACM)", "SACM"),
+        ("Association for Computing Machinery (ACM)", "ACM"),
+        ("National Institute of Standards and\nTechnology (NIST)", "NIST"),
+        ("National Aeronautics and Space Administration (NASA)", "NASA"),
+    )
+    for index, (expansion, abbreviation) in enumerate(cases):
+        paper = tmp_path / f"paper-first-use-{index}.tex"
+        paper.write_text(source.replace(expansion, abbreviation, 1), encoding="utf-8")
+
+        failures = check_paper(paper_path=paper, check_git_commit=False)
+
+        assert any(
+            f"missing first-use expansion for {abbreviation}" in failure
+            or f"abbreviation appears before its expansion: {abbreviation!r}"
+            in failure
+            for failure in failures
+        )
 
 
 def test_public_system_paper_check_rejects_cold_reader_residue(
