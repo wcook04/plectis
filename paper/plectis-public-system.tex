@@ -150,13 +150,12 @@ Not established here & Whether the public selection represents the private whole
 \end{tabular}
 \end{center}
 
-This paper contributes a worked boundary analysis of one author-curated
-software collection. It defines the component contract and follows one
-ordinary component from input to limit. Five distinctions identify conclusions
-that a passing run may appear to support but does not. Two tables classify all
-\componentcount{} components by group and by the kind of public evidence they
-supply. The proposed evaluations identify the choices an evaluator would need
-to make independently of me.
+The paper examines one author-curated software collection. It defines the
+component contract, then follows one ordinary component from input to limit.
+Five distinctions separate what a passing run shows from conclusions it may
+appear to support. Two tables classify all \componentcount{} components by
+group and by the kind of public evidence they supply. The final sections identify
+the choices an evaluator would need to make independently of me.
 
 This is a descriptive analysis of one artefact, not a statistical study.
 In the reporting vocabulary of Runeson and H\"ost \cite{runeson2009}, the
@@ -322,19 +321,18 @@ collection disproportionately exposes favourable cases is analogous to
 selective publication and the file-drawer problem \cite{rosenthal1979}.
 An \emph{assurance case} is a structured argument linking a system claim to
 reasons and evidence. The Object Management Group's SACM 2.3 standard models
-such cases as auditable claims, arguments, and evidence, and explicitly maps
-Claims--Arguments--Evidence notation \cite{omgsacm2023}. Plectis is not an
-implementation of that standard and makes no claim that the private system is
-safe. Its validator does not supply a full argument from evidence to claim;
-it applies a published rule whose adequacy remains open to dispute. The
-narrower object here is a public procedure attached to a claim and a limit.
-ACM's policy separates \emph{Artifacts Evaluated---Functional}, meaning an
-independently audited artifact found documented, consistent, complete, and
-exercisable, from \emph{Results Reproduced}, meaning its main results were
-later obtained by another team using some author-supplied artifacts
-\cite{acmartifact}. Neither is reported here. This paper claims no new theory
-of assurance, testing, or reproducibility. The analysis here is narrower. It
-applies these distinctions to one author-curated software collection and reads
+such cases as auditable claims, arguments, and evidence; its annex maps the
+Claims--Arguments--Evidence notation onto SACM \cite{omgsacm2023}. Plectis is
+not an implementation of that standard and makes no claim that the private
+system is safe. Its validator applies a published rule; it does not supply the
+full argument from evidence to claim that an assurance case would require.
+ACM uses separate badges for two different findings. \emph{Artifacts
+Evaluated---Functional} means an artifact passed an independent audit for
+documentation, consistency, completeness, and exercisability.
+\emph{Results Reproduced} means another team later obtained the main results
+using some author-supplied artifacts \cite{acmartifact}. Plectis claims neither
+status. These standards are comparison points, not statuses awarded here. This
+paper claims no new theory of assurance, testing, or reproducibility; it reads
 each public procedure against its claim and stated limit.
 
 \section{One run, examined}
@@ -841,9 +839,9 @@ usefulness, security, originality, or the private system's reliability. The
 computer-checked mathematics label covers different checks: proof-work records,
 small public statements checked by Lean, and one exact finite calculation. The
 label itself supplies no theorem; each entry supports only its own public claim
-and stated limit. No other repository's size or subject matter is evidence here.
-This note reports no independent, randomly selected audit over fresh inputs,
-because none has happened.
+and stated limit. At the named commit, all evidence still came from the project
+itself. No outside evaluator had independently rerun the repository or controlled
+any selection, expected answer, comparison, or provenance review.
 
 Five forms of independent evaluation could add evidence that the public
 repository cannot supply by itself. These are not the four publication routes
@@ -1017,8 +1015,8 @@ describes; omit it to run against the newest version instead, and expect
 the dated numbers below to differ if you do.
 
 In a clean clone at this commit, the tour read 5{,}018 project files, found
-five reading orders, chose the README-first order
-(\component{readme_onboarding_route}), wrote 21 files under
+five reading orders, chose the README-first order (internally
+\component{readme_onboarding_route}), wrote 21 generated files under
 \code{.microcosm/}, and left the examined source files unchanged. Each
 observation names its evidence, event, and limit, and the generated directory
 can be rebuilt. The README gives a different file count from another day; both
@@ -1077,7 +1075,7 @@ come from the pinned commit; current prose is checked separately. Under one
 maintainer, this is internal consistency, not external truth.
 
 \begin{thebibliography}{9}
-\fontsize{6.5pt}{7.2pt}\selectfont
+\fontsize{6.6pt}{7.25pt}\selectfont
 \raggedright
 \setlength{\itemsep}{0pt}
 \setlength{\parsep}{0pt}

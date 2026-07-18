@@ -61,6 +61,12 @@ FORBIDDEN_OVERCLAIMS = (
     "stronger evidence requires at least one consequential choice to leave",
 )
 
+FORBIDDEN_COLD_READER_RESIDUE = (
+    "this paper contributes a worked boundary analysis",
+    "no other repository's size or subject matter is evidence here",
+    "this note reports no independent",
+)
+
 # Sentences the paper's argument stands on.  The first block defines terms a
 # cold reader needs; the second block carries the evidential distinctions
 # (provenance, repeatability, validator-vs-claim, selection, risk) that keep
@@ -85,7 +91,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "No subset of the components is used to estimate performance",
     "The repository therefore lets a reader test claims",
     "cannot independently prove",
-    "This note reports no independent",
+    "At the named commit, all evidence still came from the project itself",
     "The artefact does not prove the story",
     "bounded refusal",
     r"their own \emph{oracle}",
@@ -132,6 +138,8 @@ REQUIRED_COLD_READER_ANCHORS = (
     "Above each evaluation, in italic blue",
     # Assurance-case prior art is acknowledged without claiming conformance.
     "Plectis is not an implementation of that standard",
+    "Plectis claims neither status",
+    "comparison points, not statuses awarded here",
     "claims no new theory of assurance",
     # The cited ACM and NASA standards are represented by their actual
     # distinctions, not a vague appeal to independent review.
@@ -140,8 +148,9 @@ REQUIRED_COLD_READER_ANCHORS = (
     "technical independence (evaluators did not develop the system)",
     "managerial independence (they choose what and how to assess)",
     "financial independence (funding is controlled outside",
-    # The paper must say what it contributes, rather than only what it limits.
-    "worked boundary analysis",
+    # The paper must identify the object it examines, rather than announce a
+    # generic contribution.
+    "examines one author-curated software collection",
     # The five stronger-evidence evaluations are tied to this analysis, not universal.
     "principle is local to those five gaps",
     "do not pair one-for-one with the distinctions",
@@ -158,9 +167,9 @@ REQUIRED_COLD_READER_ANCHORS = (
 )
 
 REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
-    "This paper contributes a worked boundary analysis",
-    "It defines the component contract and follows one ordinary component",
-    "Five distinctions identify conclusions",
+    "The paper examines one author-curated software collection",
+    "It defines the component contract, then follows one ordinary component",
+    "Five distinctions separate what a passing run shows",
     "the choices an evaluator would need to make independently of me",
 )
 
@@ -209,7 +218,14 @@ REQUIRED_STRONGER_EVALUATION_ANCHORS = (
     "evaluations below describe new work by someone outside the project",
     "Five forms of independent evaluation",
     "The evaluations are not cumulative stages",
+    "all evidence still came from the project itself",
+    "No outside evaluator had independently rerun the repository",
     "These evaluations do not pair one-for-one with the distinctions",
+)
+
+REQUIRED_APPENDIX_ORIENTATION_ANCHORS = (
+    r"README-first order (internally \component{readme_onboarding_route})",
+    "wrote 21 generated files under",
 )
 
 REQUIRED_FORMAL_MATH_BOUNDARY_ANCHORS = (
@@ -604,6 +620,9 @@ def check_paper(
     for phrase in FORBIDDEN_OVERCLAIMS:
         if phrase in lower:
             failures.append(f"forbidden overclaim remains in paper: {phrase!r}")
+    for phrase in FORBIDDEN_COLD_READER_RESIDUE:
+        if phrase in lower:
+            failures.append(f"cold-reader residue remains in paper: {phrase!r}")
     for anchor in REQUIRED_COLD_READER_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing cold-reader anchor: {anchor!r}")
@@ -670,6 +689,11 @@ def check_paper(
         )
     appendix_section = text.split(r"\appendix", 1)[-1]
     normalized_appendix_section = re.sub(r"\s+", " ", appendix_section)
+    for anchor in REQUIRED_APPENDIX_ORIENTATION_ANCHORS:
+        if anchor not in normalized_appendix_section:
+            failures.append(
+                f"missing appendix internal-label explanation: {anchor!r}"
+            )
     for anchor in REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS:
         if anchor not in normalized_appendix_section:
             failures.append(f"missing Lean check explanation: {anchor!r}")

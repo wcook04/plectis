@@ -186,8 +186,8 @@ def test_public_system_paper_check_rejects_prior_art_boundary_removal(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "Plectis is not an\nimplementation of that standard",
-            "Plectis follows that standard",
+            "not an implementation of that standard",
+            "an implementation of that standard",
         ),
         encoding="utf-8",
     )
@@ -240,7 +240,7 @@ def test_public_system_paper_check_rejects_early_contribution_removal(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "This paper contributes a worked boundary analysis",
+            "The paper examines one author-curated software collection",
             "The paper next describes the repository",
         ),
         encoding="utf-8",
@@ -250,7 +250,43 @@ def test_public_system_paper_check_rejects_early_contribution_removal(
 
     assert any(
         "missing first-section orientation anchor" in failure
-        and "worked boundary analysis" in failure
+        and "examines one author-curated" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_cold_reader_residue(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        + "\nThis note reports no independent audit.\n",
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("cold-reader residue" in failure for failure in failures)
+
+
+def test_public_system_paper_check_rejects_internal_label_explanation_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "README-first order (internally\n"
+            r"\component{readme_onboarding_route})",
+            r"README-first order (\component{readme_onboarding_route})",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing appendix internal-label explanation" in failure
         for failure in failures
     )
 
