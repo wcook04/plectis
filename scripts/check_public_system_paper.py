@@ -252,9 +252,20 @@ REQUIRED_COLD_READER_ANCHORS = (
 
 REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
     "The paper examines one author-curated software collection",
-    "It defines the component contract, then follows one ordinary component",
+    "The paper defines the component contract, then follows one ordinary component",
     "Five distinctions separate what a passing run shows",
     "the choices an evaluator would need to make independently of me",
+)
+
+REQUIRED_METHOD_DISCLOSURE_ANCHORS = (
+    r"\paragraph{What I examined.}",
+    "read the registry and generated component pages at the named repository version",
+    r"counted all \componentcount{} entries by the project's existing group and route classifications",
+    "traced the worked component from input to limit",
+    "reran the appendix's public commands",
+    "did not compare every pass rule with its prose claim",
+    "derive fresh expected answers",
+    "reserves those checks for an outside evaluator",
 )
 
 REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
@@ -821,6 +832,9 @@ def check_paper(
     for anchor in REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS:
         if anchor not in normalized_first_section:
             failures.append(f"missing first-section orientation anchor: {anchor!r}")
+    for anchor in REQUIRED_METHOD_DISCLOSURE_ANCHORS:
+        if anchor not in normalized_first_section:
+            failures.append(f"missing first-section method disclosure: {anchor!r}")
     for anchor in REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing plain-language orientation anchor: {anchor!r}")

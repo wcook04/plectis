@@ -108,6 +108,37 @@ def test_public_system_paper_check_rejects_abstract_origin_as_fact(
     assert sum("missing cold-reader anchor" in failure for failure in failures) >= 2
 
 
+def test_public_system_paper_check_rejects_method_boundary_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            r"\paragraph{What I examined.}",
+            r"\paragraph{Approach.}",
+        )
+        .replace(
+            "I read the registry and generated component\n"
+            "pages at the named repository version, then counted all \\componentcount{}\n"
+            "entries by the project's existing group and route classifications. I traced\n"
+            "the worked component from input to limit and reran the appendix's public\n"
+            "commands. I did not compare every pass rule with its prose claim or derive\n"
+            "fresh expected answers; Section~\\ref{sec:stronger} reserves those checks for\n"
+            "an outside evaluator.",
+            "I examined the repository and report the result.",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert sum(
+        "missing first-section method disclosure" in failure
+        for failure in failures
+    ) == 8
+
+
 def test_public_system_paper_check_rejects_distinction_anchor_removal(
     tmp_path: Path,
 ) -> None:

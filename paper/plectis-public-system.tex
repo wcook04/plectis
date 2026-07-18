@@ -153,12 +153,19 @@ Not established here & Whether the public selection represents the private whole
 \end{tabular}
 \end{center}
 
-The paper examines one author-curated software collection. It defines the
-component contract, then follows one ordinary component from input to limit.
-Five distinctions separate what a passing run shows from conclusions it may
-appear to support. Two tables classify all \componentcount{} components by
-group and by the kind of public evidence they supply. The final sections identify
-the choices an evaluator would need to make independently of me.
+The paper examines one author-curated software collection.
+
+\paragraph{What I examined.} I read the registry and generated component
+pages at the named repository version, then counted all \componentcount{}
+entries by the project's existing group and route classifications. I traced
+the worked component from input to limit and reran the appendix's public
+commands. I did not compare every pass rule with its prose claim or derive
+fresh expected answers; Section~\ref{sec:stronger} reserves those checks for
+an outside evaluator. The paper defines the component contract, then follows
+one ordinary component from input to limit. Five distinctions separate what a
+passing run shows from conclusions it may appear to support. The final
+sections identify the choices an evaluator would need to make independently
+of me.
 
 This is a descriptive analysis of one public repository, not a statistical
 study. Runeson and H\"ost distinguish a case from the units of analysis within
@@ -168,15 +175,12 @@ version is the single case, and each component is a \emph{unit of analysis}
 full case-study design. No subset of the components is used to estimate
 performance or represent the private system.
 
-Reading this paper requires no programming. Reproducing its runs requires a
-terminal (the text window in which commands are typed), Git (the standard
-program for copying and versioning repositories), the Python programming
-language (version 3.11 or later), the
-\code{pip} installer (the standard tool for fetching and installing Python
-software), and basic command-line use. So that the
-body of the paper can stay with the argument, the exact commands,
-environment details, and installation notes are collected in the appendix,
-which is a dated record of one verification pass at the version named there.
+Reading this paper requires no programming. Reproducing its runs requires
+basic command-line use, a terminal (a text window for commands), Git (for
+copying and versioning repositories), Python 3.11 or later, and \code{pip}
+(for installing Python software). The appendix gives the exact commands,
+environment details, and installation notes. It is a dated record of one
+verification pass at the version named there.
 
 \section{The component contract}
 \label{sec:contract}
