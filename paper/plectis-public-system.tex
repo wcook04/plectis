@@ -491,10 +491,12 @@ miss. Each subsection separates observation from inference.
 A reader can establish what a named public commit contains and what its
 commands do. No public run establishes where the material came from.
 Plectis records that boundary. Each copied file has a claimed source and a
-SHA-256 fingerprint: a fixed-length value calculated from its contents and
-used to check for change. Two different files can in principle produce the
-same value. SHA-256 is designed to make finding such a pair infeasible in
-practice, not impossible \cite{nistfips1804}. A match therefore supports a
+SHA-256 fingerprint: a fixed 256-bit value calculated from its contents and
+used to detect change \cite{nistfips1804}. Two different files can in
+principle have the same fingerprint. NIST estimates SHA-256's collision
+resistance at 128 bits; it defines collision resistance as making such a pair
+computationally infeasible to find \cite{nisthashfunctions}. Collisions remain
+mathematically possible. A match therefore supports a
 narrow claim: the public file's contents agree with the version represented in
 its public record. But I control both sides, so that agreement is evidence of
 internal consistency, not of origin. The same holds for the
@@ -1117,6 +1119,11 @@ version 1.1. Accessed 18 July 2026.
 National Institute of Standards and Technology. \emph{Secure Hash Standard},
 FIPS PUB 180-4, 2015.
 \href{https://doi.org/10.6028/NIST.FIPS.180-4}{NIST FIPS 180-4}.
+
+\bibitem{nisthashfunctions}
+National Institute of Standards and Technology.
+\href{https://csrc.nist.gov/projects/hash-functions}{``Hash Functions.''}
+Updated 9 September 2024. Accessed 18 July 2026.
 
 \bibitem{nasa8739}
 NASA. \emph{Software Assurance and Software Safety Standard},

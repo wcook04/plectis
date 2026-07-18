@@ -677,7 +677,7 @@ def test_public_system_paper_check_rejects_hash_explanation_removal(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "a fixed-length value calculated from its contents",
+            "a fixed 256-bit value calculated from its contents",
             "a digest",
         ),
         encoding="utf-8",
@@ -687,9 +687,36 @@ def test_public_system_paper_check_rejects_hash_explanation_removal(
 
     assert any(
         "missing plain-language hash boundary" in failure
-        and "fixed-length value" in failure
+        and "fixed 256-bit value" in failure
         for failure in failures
     )
+
+
+def test_public_system_paper_check_rejects_collision_strength_source_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "resistance at 128 bits",
+            "resistance at an unspecified strength",
+        )
+        .replace(
+            r"\cite{nisthashfunctions}",
+            r"\cite{nistfips1804}",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing plain-language hash boundary" in failure
+        and "collision resistance at 128 bits" in failure
+        for failure in failures
+    )
+    assert "missing literature citation: nisthashfunctions" in failures
 
 
 def test_public_system_paper_check_rejects_selection_scope_layout_regression(

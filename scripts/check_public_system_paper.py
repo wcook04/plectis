@@ -310,9 +310,10 @@ REQUIRED_FIRST_REVIEW_ANCHORS = (
 )
 
 REQUIRED_PROVENANCE_HASH_ANCHORS = (
-    "a fixed-length value calculated from its contents",
-    "used to check for change",
-    "finding such a pair infeasible in practice, not impossible",
+    "a fixed 256-bit value calculated from its contents",
+    "used to detect change",
+    "collision resistance at 128 bits",
+    "Collisions remain mathematically possible",
     "supports a narrow claim",
     "agreement is evidence of internal consistency, not of origin",
 )
@@ -411,6 +412,7 @@ REQUIRED_CITATION_KEYS = (
     "omgsacm2023",
     "acmartifact",
     "nistfips1804",
+    "nisthashfunctions",
     "nasa8739",
     "leanvalidation",
 )
@@ -450,6 +452,11 @@ REQUIRED_BIBLIOGRAPHY_TOKENS = {
     "nistfips1804": (
         "FIPS PUB 180-4, 2015",
         "https://doi.org/10.6028/NIST.FIPS.180-4",
+    ),
+    "nisthashfunctions": (
+        "Updated 9 September 2024",
+        "Accessed 18 July 2026",
+        "https://csrc.nist.gov/projects/hash-functions",
     ),
     "nasa8739": (
         "NASA-STD-8739.8B, Section 4.4.1.2, 2022",
