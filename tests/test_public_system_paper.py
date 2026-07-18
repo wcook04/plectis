@@ -292,13 +292,62 @@ def test_public_system_paper_check_rejects_late_paper_testing_jargon(
         assert any("cold-reader residue" in failure for failure in failures)
 
 
+def test_public_system_paper_check_rejects_ambiguous_limit_language(
+    tmp_path: Path,
+) -> None:
+    source = PAPER.read_text(encoding="utf-8")
+    for index, residue in enumerate(
+        (
+            "Bounded public evidence",
+            "record a bounded refusal",
+            "bounded point of contact",
+            "bounded correctness",
+            "bounded examples",
+            "bounded behaviour",
+            "bounded calculation",
+            "bounded cases only",
+            "support bounded claims",
+            r"bounded \code{make test} selection",
+            "exercisability",
+        )
+    ):
+        paper = tmp_path / f"paper-{index}.tex"
+        paper.write_text(source + f"\n{residue}\n", encoding="utf-8")
+
+        failures = check_paper(paper_path=paper, check_git_commit=False)
+
+        assert any("cold-reader residue" in failure for failure in failures)
+
+
+def test_public_system_paper_check_rejects_opaque_subtitle(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "What public evidence can and cannot show about a private system",
+            "Bounded public evidence from a private system",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("cold-reader residue" in failure for failure in failures)
+    assert any(
+        "missing plain-language orientation anchor" in failure
+        and "What public evidence can and cannot show" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_plain_language_reversal(
     tmp_path: Path,
 ) -> None:
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "gives the\nsame output from the same input, and runs in isolation",
+            "gives the same output from the same input, and runs in isolation",
             "is deterministic and can run alone",
         ),
         encoding="utf-8",

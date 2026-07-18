@@ -65,6 +65,17 @@ FORBIDDEN_COLD_READER_RESIDUE = (
     "this paper contributes a worked boundary analysis",
     "no other repository's size or subject matter is evidence here",
     "this note reports no independent",
+    "bounded public evidence",
+    "record a bounded refusal",
+    "bounded point of contact",
+    "bounded correctness",
+    "bounded examples",
+    "bounded behaviour",
+    "bounded calculation",
+    "bounded cases only",
+    "support bounded claims",
+    r"bounded \code{make test} selection",
+    "exercisability",
     "bounded, deterministic, and runnable in isolation",
     "supplies regression evidence",
     "held-out cases",
@@ -76,7 +87,7 @@ FORBIDDEN_COLD_READER_RESIDUE = (
 # Sentences the paper's argument stands on.  The first block defines terms a
 # cold reader needs; the second block carries the evidential distinctions
 # (provenance, repeatability, validator-vs-claim, selection, risk) that keep
-# the paper's claims bounded; the third block carries the author's-hand and
+# the paper's claims limited; the third block carries the author's-hand and
 # record-aging cautions.  Removing one is a claim-strength change, so it
 # fails this check.
 REQUIRED_COLD_READER_ANCHORS = (
@@ -99,7 +110,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "cannot independently prove",
     "At the named commit, all evidence still came from the project itself",
     "The artefact does not prove the story",
-    "bounded refusal",
+    "refusal with a stated limit",
     r"their own \emph{oracle}",
     "share a mistake",
     "repeatability under that public test",
@@ -180,6 +191,7 @@ REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
 )
 
 REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
+    "What public evidence can and cannot show about a private system",
     # The abstract and method paragraph must state the sampling boundary
     # without requiring the reader to import statistical vocabulary.
     "whether the published selection resembles the private whole",
@@ -194,6 +206,8 @@ REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
     "saved import record reports none",
     r"\paragraph{A second Python version.}",
     "Apple silicon (arm64)",
+    "ACM calls digital research materials such as code, scripts, and data",
+    "completeness, ability to run, and evidence of verification and validation",
 )
 
 REQUIRED_EXAMPLE_BRIDGE_ANCHORS = (
@@ -230,7 +244,7 @@ REQUIRED_SELECTION_SCOPE_ANCHORS = (
 
 REQUIRED_COLLECTION_ROUTE_ANCHORS = (
     r"It calls this classification a \emph{route}",
-    "preserves source text, re-creates bounded behaviour",
+    "preserves source text, re-creates behaviour on fixed cases",
     "generated from the same underlying records",
     "They cannot create an independent witness",
 )
@@ -270,7 +284,7 @@ REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS = (
 )
 
 REQUIRED_PUBLIC_TEST_SCOPE_ANCHORS = (
-    r"bounded \code{make test} selection (not every test file) ran 361 tests from 32 public test files",
+    r"limited \code{make test} selection (not every test file) ran 361 tests from 32 public test files",
     "356 passed, two were skipped, and three failed",
     "line-break expectation",
     "outdated stored line or byte counts",

@@ -63,10 +63,10 @@
 \hypersetup{
   pdftitle={Plectis: What a Stranger Can Check},
   pdfauthor={Will Cook},
-  pdfsubject={Bounded public evidence from a private system: what a stranger can check, what the author can only report, and what remains unestablished},
+  pdfsubject={Public evidence from a private system: what a stranger can check, what the author can only report, and what remains unestablished},
 }
 \title{Plectis: What a Stranger Can Check\\
-\large Bounded public evidence from a private system}
+\large What public evidence can and cannot show about a private system}
 \author{Will Cook}
 \date{July 2026}
 
@@ -270,8 +270,8 @@ concerns the form a claim takes, not its truth and not its importance.
 A component may also end in a declared refusal rather than an answer. The
 worked example below refuses an input format it does not support. Components
 that depend on an external tool, such as the Lean proof checker (a program
-that verifies mathematical proofs), must record a bounded refusal when the
-tool is absent, rather than reporting success.
+that verifies mathematical proofs), must record a refusal with a stated limit
+when the tool is absent, rather than reporting success.
 \emph{Runnable} therefore means that the operation and its declared failure
 boundary are present in public form; it does not mean that every optional
 dependency exists on every machine. A refusal is informative only when it is
@@ -304,7 +304,7 @@ still lie beyond it.
 This local notion overlaps with reproducibility and transparency but is not
 a synonym for either. A run can repeat perfectly with no stated claim attached,
 and a claim can be answerable while still awaiting a good test. The design
-also begins from partial disclosure: it offers a bounded point of contact,
+also begins from partial disclosure: it offers one limited point of contact,
 not a view of the hidden system. A component exposes the published fragment
 to challenge. It does not make the private whole answerable.
 
@@ -326,9 +326,10 @@ Claims--Arguments--Evidence notation onto SACM \cite{omgsacm2023}. Plectis is
 not an implementation of that standard and makes no claim that the private
 system is safe. Its validator applies a published rule; it does not supply the
 full argument from evidence to claim that an assurance case would require.
-ACM uses separate badges for two different findings. \emph{Artifacts
-Evaluated---Functional} means an artifact passed an independent audit for
-documentation, consistency, completeness, and exercisability.
+ACM calls digital research materials such as code, scripts, and data
+\emph{artifacts}. Its \emph{Artifacts Evaluated---Functional} badge means
+those materials passed an independent audit for documentation, consistency,
+completeness, ability to run, and evidence of verification and validation.
 \emph{Results Reproduced} means another team later obtained the main results
 using some author-supplied artifacts \cite{acmartifact}. Plectis claims neither
 status. These standards are comparison points, not statuses awarded here. This
@@ -426,7 +427,7 @@ support:
 \midrule
 The project itself: implementation, cases, expectations, and rule from one author-controlled process. & Repeatability under the project's own test; the four readings above all stay open. \\
 \addlinespace
-The reader's own derivation from stated premises, as in the worked example's decimal-samples row. & Bounded correctness of that one calculation on that one case. \\
+The reader's own derivation from stated premises, as in the worked example's decimal-samples row. & Correctness of that one calculation on that one case. \\
 \addlinespace
 An established external tool or reference. & Whatever the reference itself warrants, on the cases run, within the reference's own limits. \\
 \addlinespace
@@ -695,7 +696,7 @@ At commit \code{\snapshotshort} the \componentcount{} components fall into
 \midrule
 Getting started & \entrycount & Show a new reader where to begin and guide a first inspection. \\
 Project mapping & \mappingcount & Map files and written rules, find relevant material, and route a question to the part of the project that owns it. \\
-Computer-checked mathematics & \mathcount & Check records and bounded examples from formal mathematics, including small Lean statements and one exact finite calculation. \\
+Computer-checked mathematics & \mathcount & Check records and fixed examples from formal mathematics, including small Lean statements and one exact finite calculation. \\
 AI reliability and safety tests & \safetycount & Replay fixed cases involving hostile instructions, software boundaries, stored information, tool use, and benchmark rules. \\
 Research-method tests & \researchcount & Exercise fixed cases involving replication, conflicting forecasts, explaining model behaviour, simulation, and laboratory safety. \\
 Public-copy maintenance & \publiccopycount & Check copied source, generated pages, publication boundaries, and disagreement between records and derived files. \\
@@ -707,13 +708,13 @@ Work recovery & \recoverycount & Record unfinished changes and test how work res
 The groups do not share a subject; computer-checked mathematics has nothing
 in particular to do with audio levels or with recovering interrupted work.
 Their unity is the contract of Section~\ref{sec:contract}: these are the
-places in the private system where a mechanism could be given a bounded,
-runnable public form. The collection is organised by how its claims are
+places in the private system where a mechanism could be turned into a small,
+runnable public procedure. The collection is organised by how its claims are
 checked, not by subject.
 
 The registry also classifies what kind of evidence each component supplies.
 It calls this classification a \emph{route}. A route says whether the
-public component preserves source text, re-creates bounded behaviour,
+public component preserves source text, re-creates behaviour on fixed cases,
 records a run, or checks a declared rule. The four routes below cover all
 \componentcount{} entries. Each leaves a different question open:
 
@@ -724,7 +725,7 @@ records a run, or checks a declared rule. The four routes below cover all
 \textbf{Route} & \textbf{Count} & \textbf{What it preserves} & \textbf{What it cannot show} \\
 \midrule
 Record-checked copied source & \copiedsourcecount & The exact text of non-secret source files, checked against a public import record. & That the recorded origin is real; record and file share one maintainer. \\
-Public reimplementation & \refactorcount & The behaviour of a bounded calculation, exercised on fixed cases. & Any relation to the private original beyond my report; the original text is absent. \\
+Public reimplementation & \refactorcount & One calculation's behaviour on fixed cases. & Any relation to the private original beyond my report; the original text is absent. \\
 Direct or external-tool run & \runtimecount & A local computation, or a named external tool's result, captured with its context. & Behaviour where the tool or environment differs; the result is as strong as the tool and the case. \\
 Contract checker & \validatorcount & Whether a public input satisfies a declared structural rule. & Whether the declared rule is the right rule to require. \\
 \bottomrule
@@ -809,8 +810,9 @@ Two corrections need no cooperation from me. First, read any component at the
 weakest property its validator checks, as Section~\ref{sec:collection}
 proposes. Second, treat every count as an inventory, and every agreement among
 my records as one witness. A third point concerns what no reader can inspect:
-a private mechanism is easiest to publish when it can be bounded, gives the
-same output from the same input, and runs in isolation. A collection like this
+a private mechanism is easiest to publish when it can be separated into a
+small task, gives the same output from the same input, and runs in isolation.
+A collection like this
 therefore over-represents pure calculation, replay, and record-checking, and
 under-represents stateful, entangled, long-running behaviour. The
 published picture tilts towards what publishes well before any question of
@@ -868,7 +870,7 @@ is who makes the choice that matters for that claim.
 \node[act, text width=2.25cm, anchor=south] (b5) at (13.6,1.12){whether the origin account holds};
 \node[gnote, text width=2.25cm, anchor=north] (n1) at (1.2,-1.12){does not by itself establish correctness};
 \node[gnote, text width=2.25cm, anchor=north] (n2) at (4.3,-1.12){cannot reach the private pool};
-\node[gnote, text width=2.25cm, anchor=north] (n3) at (7.4,-1.12){bounded cases only, not generality};
+\node[gnote, text width=2.25cm, anchor=north] (n3) at (7.4,-1.12){tested cases only, not generality};
 \node[gnote, text width=2.25cm, anchor=north] (n4) at (10.5,-1.12){advantage only where compared};
 \node[gnote, text width=2.25cm, anchor=north] (n5) at (13.6,-1.12){moves trust to the reviewer};
 \foreach \i in {1,...,5}{
@@ -902,9 +904,10 @@ because the private pool stays invisible.
 repeatability towards evidence bearing on correctness: inputs chosen after
 a version is frozen, and expected results worked out by a method that
 does not pass through my code, whether independent calculation, a second
-implementation, or an external reference. The result would support bounded
-claims only to the extent that the derivation is credible and independent
-and the cases are adequate; general correctness still would not follow.
+implementation, or an external reference. The result would support claims
+about those cases only to the extent that the derivation is credible and
+independent and the cases are adequate; general correctness still would not
+follow.
 
 \emph{Comparison on outside tasks} is what a claim of advantage over
 ordinary alternatives would need: someone bringing a task that was not
@@ -1057,7 +1060,7 @@ and removed computation limits. This search cannot show that each formal
 statement says what its author intended \cite{leanvalidation}.
 The registry and trust checks passed;
 the \leanfilecount{} files and \mathcount{} mathematics components are different units.
-At this commit, the bounded \code{make test} selection (not every test file)
+At this commit, the limited \code{make test} selection (not every test file)
 ran 361 tests from 32 public test files: 356 passed, two were skipped, and three
 failed. The failures were a line-break expectation in
 \code{AGENTS.md}; outdated stored line or byte counts in copied-source manifests;
