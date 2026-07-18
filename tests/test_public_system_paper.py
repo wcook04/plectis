@@ -998,8 +998,8 @@ def test_public_system_paper_check_rejects_claim_routing_step_removal(
             '--show-something',
         )
         .replace(
-            r"\code{no-write variant}",
-            "the suggested command",
+            "but do not run its first suggested\ncommand",
+            "and run its first suggested\ncommand",
         ),
         encoding="utf-8",
     )
@@ -1013,7 +1013,7 @@ def test_public_system_paper_check_rejects_claim_routing_step_removal(
     )
     assert any(
         "missing executable first-review route" in failure
-        and "no-write variant" in failure
+        and "do not run its first suggested command" in failure
         for failure in failures
     )
 
@@ -1025,7 +1025,7 @@ def test_public_system_paper_check_rejects_receipt_reading_guidance_removal(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "leaves the repository's saved receipts unchanged",
+            "writes to the repository's saved receipt paths",
             "can be run safely",
         )
         .replace(r"\code{expected\_level}", r"\code{result}")
@@ -1037,7 +1037,7 @@ def test_public_system_paper_check_rejects_receipt_reading_guidance_removal(
 
     assert any(
         "missing executable first-review route" in failure
-        and "saved receipts unchanged" in failure
+        and "saved receipt paths" in failure
         for failure in failures
     )
     assert any(
@@ -1048,6 +1048,46 @@ def test_public_system_paper_check_rejects_receipt_reading_guidance_removal(
     assert any(
         "missing executable first-review route" in failure
         and r"\\component{anti_claim}" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_concrete_challenge_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            r"\component{batch8_audio_level_rms_port_probe_manifest.json}",
+            "the input file",
+        )
+        .replace(
+            r"second sample from \code{0.05} to \code{0.06}",
+            "one sample",
+        )
+        .replace(
+            r"validator should return \code{blocked}",
+            "validator should respond",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing executable first-review route" in failure
+        and "probe_manifest.json" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and "second sample" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and "should return" in failure
         for failure in failures
     )
 
@@ -1067,7 +1107,7 @@ def test_public_system_paper_check_rejects_copyable_worked_example_command_remov
             r"\component{result.json}",
         )
         .replace(
-            r"format. Inside \code{exercise}",
+            r"format. Open \code{exercise}",
             "In the result",
         )
         .replace(
