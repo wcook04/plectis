@@ -33,7 +33,7 @@
   softflow/.style={-{Stealth[length=2.0mm]}, line width=0.6pt, draw=black!50, dashed},
   actflow/.style={-{Stealth[length=2.0mm]}, line width=0.6pt, draw=RoyalBlue},
   flabel/.style={font=\scriptsize, inner sep=2pt},
-  gaplabel/.style={font=\scriptsize, fill=white, inner sep=1.5pt, align=center},
+  gaplabel/.style={font=\scriptsize, fill=white, inner sep=2.2pt, align=center},
 }
 
 % These values are checked against the public registries by
@@ -213,11 +213,13 @@ exposed to a stranger.
 \draw[softflow] (code) -- node[flabel, right, align=left]{said to\\do this} (claim);
 \draw[softflow] (verdict) -- node[flabel, right, align=left]{read under\\this ceiling} (limit);
 % stranger actions
-\node[act] (a1) at (0,-3.45) {perturb it};
-\node[act] (a2) at (3.45,-3.45) {read it;\\rerun it};
-\node[act] (a3) at (6.55,-3.45) {regenerate\\them};
-\node[act] (a4) at (9.55,-3.45) {generate a fresh receipt\\and compare;\\dispute the rule};
-\node[act] (a5) at (13.0,-3.45) {hold every\\conclusion\\to the limit};
+% top-anchored so the action row reads as one aligned row despite
+% differing line counts
+\node[act, anchor=north] (a1) at (0,-2.95) {perturb it};
+\node[act, anchor=north] (a2) at (3.45,-2.95) {read it;\\rerun it};
+\node[act, anchor=north] (a3) at (6.55,-2.95) {regenerate\\them};
+\node[act, anchor=north] (a4) at (9.55,-2.95) {generate a fresh receipt\\and compare;\\dispute the rule};
+\node[act, anchor=north] (a5) at (13.0,-2.95) {hold every\\conclusion\\to the limit};
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a1) -- (fix);
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a2) -- (code);
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a3) -- (out);
@@ -540,8 +542,8 @@ drawn from stays on the left.
 \node[act, text width=2.0cm] (str) at (14.75,1.8) {a stranger:\\clone it, run it,\\compare, dispute};
 \draw[actflow] (str.west) -- (13.35,1.8);
 % notes
-\node[gnote, text width=5.6cm] at (2.9,-0.95) {outside public evidence: how many candidates there were, what was excluded and why, whether these resemble ordinary private work};
-\node[gnote, text width=4.6cm] at (10.95,-0.95) {inside public evidence: files, commands, records, and tests of the published fragments};
+\node[gnote, text width=5.6cm, anchor=north] at (2.9,-0.40) {outside public evidence: how many candidates there were, what was excluded and why, whether these resemble ordinary private work};
+\node[gnote, text width=4.6cm, anchor=north] at (10.95,-0.40) {inside public evidence: files, commands, records, and tests of the published fragments};
 \end{tikzpicture}
 \caption{The selection problem. Each square stands for a private
 mechanism; the darker ones were given public form, and each, unpacked,
@@ -816,21 +818,21 @@ consequential choices bearing on that claim.
 \begin{tikzpicture}[x=1cm,y=1cm]
 % uniform box heights and bottom/top-anchored labels keep every dotted
 % leader the same length
-\node[part, text width=2.15cm, minimum height=1.42cm] (s1) at (1.2,0) {Independent repetition};
-\node[part, text width=2.15cm, minimum height=1.42cm] (s2) at (4.3,0) {Evaluator-controlled selection};
-\node[part, text width=2.15cm, minimum height=1.42cm] (s3) at (7.4,0) {Fresh inputs, independent expectations};
-\node[part, text width=2.15cm, minimum height=1.42cm] (s4) at (10.5,0) {Outside tasks, ordinary alternatives};
-\node[part, text width=2.15cm, minimum height=1.42cm] (s5) at (13.6,0) {Confidential provenance review};
-\node[act, text width=2.25cm, anchor=south] (b1) at (1.2,1.05)  {who runs it};
-\node[act, text width=2.25cm, anchor=south] (b2) at (4.3,1.05)  {which cases count};
-\node[act, text width=2.25cm, anchor=south] (b3) at (7.4,1.05)  {what the answer should have been};
-\node[act, text width=2.25cm, anchor=south] (b4) at (10.5,1.05) {what counts as useful};
-\node[act, text width=2.25cm, anchor=south] (b5) at (13.6,1.05) {whether the origin account holds};
-\node[gnote, text width=2.25cm, anchor=north] (n1) at (1.2,-1.05) {does not by itself establish correctness};
-\node[gnote, text width=2.25cm, anchor=north] (n2) at (4.3,-1.05) {cannot reach the private pool};
-\node[gnote, text width=2.25cm, anchor=north] (n3) at (7.4,-1.05) {bounded cases only, not generality};
-\node[gnote, text width=2.25cm, anchor=north] (n4) at (10.5,-1.05) {advantage only where compared};
-\node[gnote, text width=2.25cm, anchor=north] (n5) at (13.6,-1.05) {moves trust to the reviewer};
+\node[part, text width=2.15cm, minimum height=1.52cm] (s1) at (1.2,0) {Independent repetition};
+\node[part, text width=2.15cm, minimum height=1.52cm] (s2) at (4.3,0) {Evaluator-controlled selection};
+\node[part, text width=2.15cm, minimum height=1.52cm] (s3) at (7.4,0) {Fresh inputs, independent expectations};
+\node[part, text width=2.15cm, minimum height=1.52cm] (s4) at (10.5,0) {Outside tasks, ordinary alternatives};
+\node[part, text width=2.15cm, minimum height=1.52cm] (s5) at (13.6,0) {Confidential provenance review};
+\node[act, text width=2.25cm, anchor=south] (b1) at (1.2,1.12) {who runs it};
+\node[act, text width=2.25cm, anchor=south] (b2) at (4.3,1.12) {which cases count};
+\node[act, text width=2.25cm, anchor=south] (b3) at (7.4,1.12) {what the answer should have been};
+\node[act, text width=2.25cm, anchor=south] (b4) at (10.5,1.12){what counts as useful};
+\node[act, text width=2.25cm, anchor=south] (b5) at (13.6,1.12){whether the origin account holds};
+\node[gnote, text width=2.25cm, anchor=north] (n1) at (1.2,-1.12){does not by itself establish correctness};
+\node[gnote, text width=2.25cm, anchor=north] (n2) at (4.3,-1.12){cannot reach the private pool};
+\node[gnote, text width=2.25cm, anchor=north] (n3) at (7.4,-1.12){bounded cases only, not generality};
+\node[gnote, text width=2.25cm, anchor=north] (n4) at (10.5,-1.12){advantage only where compared};
+\node[gnote, text width=2.25cm, anchor=north] (n5) at (13.6,-1.12){moves trust to the reviewer};
 \foreach \i in {1,...,5}{
   \draw[RoyalBlue!45, dotted, line width=0.6pt] (b\i.south) -- (s\i.north);
   \draw[black!30, dotted, line width=0.6pt] (s\i.south) -- (n\i.north);}
