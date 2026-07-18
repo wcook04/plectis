@@ -96,6 +96,39 @@ def test_public_system_paper_check_rejects_distinction_anchor_removal(
     assert any("The count is an inventory" in failure for failure in failures)
 
 
+def test_public_system_paper_check_rejects_opaque_distinction_summary(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            r"\subsection*{Public execution versus where the code came from}",
+            r"\subsection*{Public execution versus private provenance}",
+        )
+        .replace(
+            "five ways a matching run can tempt a reader to\nconclude too much",
+            "five evidential distinctions",
+        )
+        .replace(
+            r"The term \emph{provenance}"
+            "\nmeans an object's origin and history",
+            "Provenance is reported",
+        )
+        .replace(
+            "For\norigin, one must assume\n"
+            "that the public object came from the private one",
+            "There is one assumption per distinction",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("cold-reader residue" in failure for failure in failures)
+    assert sum("missing cold-reader anchor" in failure for failure in failures) >= 4
+
+
 def test_public_system_paper_check_reads_default_evidence_from_snapshot(
     monkeypatch,
 ) -> None:

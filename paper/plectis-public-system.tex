@@ -478,11 +478,12 @@ treats these five gaps separately.
 \section{Five distinctions}
 \label{sec:distinctions}
 
-Figure~\ref{fig:gaps} sets the five gaps side by side. Each begins with
-something a reader can observe, then names the further evidence needed for a
-broader conclusion. Individual component limits are instances of these gaps.
+Figure~\ref{fig:gaps} sets out five ways a matching run can tempt a reader to
+conclude too much. Each subsection separates what a reader can observe from
+what it cannot establish, then names the evidence needed to go further.
+Component limits are specific instances of these gaps.
 
-\subsection*{Public execution versus private provenance}
+\subsection*{Public execution versus where the code came from}
 
 A reader can establish what a named public commit contains and what its
 commands do. No public run establishes where the material came from.
@@ -497,8 +498,9 @@ internal consistency, not of origin. The same holds for the
 audio component's named source file: the name is an entry I wrote. Origin
 claims could only be strengthened by something a public repository cannot
 supply about itself, such as commitments published before the fact, or a
-trusted person permitted to examine both sides. Until then, provenance is
-reported.
+trusted person permitted to examine both sides. The term \emph{provenance}
+means an object's origin and history. Here, that origin remains reported
+rather than publicly established.
 
 \subsection*{Repeatability versus correctness}
 
@@ -619,8 +621,8 @@ amounts to a guarantee that no secret, no identifying detail, and no
 inconsistency survives. Publication remains a judgement about acceptable
 risk, and I made it.
 
-The provenance and risk-reduction distinctions pull against each other in a
-way worth noticing. Establishing provenance would require someone to examine private
+Origin evidence and privacy pull in opposite directions. Establishing
+provenance would require someone to examine private
 material, and the privacy constraint that motivates the whole design forbids
 exactly that examination in public. Some claims are therefore permanently in
 the reported category, short of a confidential review. The honest treatment
@@ -629,23 +631,21 @@ that one maintainer controls.
 
 \medskip
 
-The five distinctions share one structure. What a stranger observes sits
-inside the published frame: a run completed, a record matched, chosen cases
-passed, a scan finished. The conclusion the observation invites lies
-outside the frame, and reaching it needs an assumption the observation does not
-contain, one assumption per distinction: that the public object came from
-the private one; that the
-expectation is what the answer should have been; that the rule tests what
-the words say; that the chosen cases stand for the unchosen; that the risks
-searched for are the risks there are. The contract only makes each missing
-assumption explicit. Once named, a gap can be disputed, assigned a cost to
+The same mistake lies behind all five: treating an observation as if it proved
+something never tested. A broader conclusion needs an added assumption. For
+origin, one must assume
+that the public object came from the private one. For correctness, one must
+know that the expected answer was right; for meaning, that the rule tested
+what the claim said. For reach, one must assume that the chosen cases stand
+for the unchosen; for risk, that the scan covered the relevant risks. The
+observation itself supplies none of these assumptions. The contract makes
+each one explicit. Once named, a gap can be disputed, assigned a cost to
 address, or deliberately left open. An unnamed gap is easy to cross without
-noticing.
-Nor is five a closed count. The same shape has already appeared twice
-outside the list: a refusal boundary observed today does not show when it
-was drawn (Section~\ref{sec:contract}), and a number observed at one
-commit does not describe the next (the appendix). Five is how many this
-collection most needs a reader to hold, not how many there are.
+noticing. These five are not exhaustive. Two more gaps appeared earlier:
+observing a refusal today does not show when it was drawn
+(Section~\ref{sec:contract}), and observing a number at one commit does not
+describe the next (the appendix). These are simply the five gaps this
+collection most needs a reader to hold.
 
 \begin{figure}[t]
 \centering
@@ -673,10 +673,8 @@ collection most needs a reader to hold, not how many there are.
 \end{tikzpicture}
 \caption{Five conclusions a matching run invites and does not license.
 Each dashed arrow needs a further assumption that the observation itself
-cannot supply, and the tags follow the order of this section's
-distinctions: origin for provenance, correctness for the expected answer, meaning for
-the validator's rule against the stated claim, reach for selection, and
-risk for the limits of a scan. The contract's
+cannot supply. From top to bottom, the tags follow the order discussed above:
+origin (provenance), correctness, meaning, reach, and risk. The contract's
 contribution is not to cross these gaps but to make them nameable, one
 component at a time.}
 \label{fig:gaps}

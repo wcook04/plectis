@@ -103,6 +103,10 @@ FORBIDDEN_COLD_READER_RESIDUE = (
     "standard: an independent oracle",
     "each dashed arrow needs a further premise",
     "needs a premise the observation does not contain",
+    "public execution versus private provenance",
+    "way worth noticing",
+    "one assumption per distinction",
+    "the five distinctions share one structure",
 )
 
 FORBIDDEN_BEFORE_COMPONENT_CONTRACT = (
@@ -158,6 +162,15 @@ REQUIRED_COLD_READER_ANCHORS = (
     # on the unexplained economic shorthand "price a gap".
     "Once named, a gap can be disputed, assigned a cost to address",
     "An unnamed gap is easy to cross without noticing",
+    # The central distinctions must be readable before specialist vocabulary
+    # is introduced and must not compress all five inference limits into one
+    # sentence.
+    r"\subsection*{Public execution versus where the code came from}",
+    "five ways a matching run can tempt a reader to conclude too much",
+    r"The term \emph{provenance} means an object's origin and history",
+    "Origin evidence and privacy pull in opposite directions",
+    "For origin, one must assume that the public object came from the private one",
+    "The observation itself supplies none of these assumptions",
     # The author's-hand cautions: arrangement can outrun assertion, and the
     # format itself tilts the picture.
     "cautious sentence by sentence",
@@ -750,7 +763,7 @@ def check_paper(
         if anchor not in normalized_conclusion_section:
             failures.append(f"missing executable first-review route: {anchor!r}")
     provenance_section = text.split(
-        r"\subsection*{Public execution versus private provenance}", 1
+        r"\subsection*{Public execution versus where the code came from}", 1
     )[-1]
     provenance_section = provenance_section.split(
         r"\subsection*{Repeatability versus correctness}", 1
