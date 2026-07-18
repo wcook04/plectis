@@ -956,31 +956,35 @@ risk reduction into a guarantee.
 \section{Conclusion}
 \label{sec:conclusion}
 
-Plectis does not make the private system answerable as a whole. It puts
-particular public claims within reach of challenge by publishing a fixed
-case, procedure, output, rule, and limit. A pass is
-no stronger than its rule or than the basis for the expected answer.
+Plectis does not make the private system answerable as a whole. It publishes
+fixed cases, procedures, outputs, rules, and limits so particular claims can
+be challenged. A pass is no stronger than its rule or the expected answer's
+basis.
 
-Adding more author-controlled components enlarges the inventory;
-it does not alter who chose the cases or rules. Moving a relevant choice out
+More author-controlled components enlarge the inventory without changing who
+chose the cases or rules. Moving a relevant choice out
 of the author's hands can strengthen evidence about that choice; it does not
 repair every gap.
 
-\paragraph{A first review.} Use the appendix's no-install block to copy the
-repository and select the version analysed here. The tour describes the checkout
+\paragraph{A first review.} Use the appendix's no-install block and select the
+version analysed here. The tour describes the checkout
 but does not choose a component claim. Ask the repository to find the audio
 example with
 \par\noindent{\scriptsize\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action "audio level calculation" --format text|}\par
-For another claim, replace the quoted words. The response gives a main command
-and a \code{no-write variant}. Copy the no-write line: the main command
-overwrites stored receipts, but this line writes fresh JSON (plain text with
-named fields) under \component{.microcosm/first\_action\_runs/}. Open
-\component{\_result.json}. Each \code{reference\_cases} item has an
-\code{expected\_level} and \code{observed\_level}; compare them, then read
-\code{anti\_claim} and \code{claim\_ceiling} for the match's limit. Read the
-validator's rule, change an input where practical, and ask whether the rule
-supports the prose. Report a mismatch or questionable refusal through
-\code{CONTRIBUTING.md}. A pass licenses only the published rule.
+Change the quoted words for another claim. The response gives a main command
+and a \code{no-write variant}. The latter starts with the installed command
+\code{plectis}; because this route installs nothing, replace it with
+\code{PYTHONPATH=src python3 -m} \code{microcosm\_core} and run it. The main
+command overwrites stored receipts; the translated line writes fresh JSON under
+\component{.microcosm/first\_action\_runs/}. In the directory named after
+\code{--out}, open the file ending \component{\_result.json}. Inside
+\code{exercise}, compare \code{expected\_level} and \code{observed\_level} in
+each \code{reference\_cases} item. The top-level \code{anti\_claim} says what a
+pass does not establish; \code{claim\_ceiling} inside \code{exercise} gives the
+project's strongest conclusion. The project wrote both cautions; no independent
+reviewer checked their limits. Then change an input where practical and compare
+the validator's rule with the prose. Treat a pass as evidence only for the
+published rule; report disputes through \code{CONTRIBUTING.md}.
 
 \appendix
 
@@ -1023,20 +1027,19 @@ python3 -m pip install .
 plectis tour --format text .
 \end{Verbatim}
 
-The program needs no extra Python library; \code{pip} may fetch
-\code{setuptools} to build it. No check proves the absence of network or model
-calls, so inspect the source.
+No runtime library is required; \code{pip} may fetch \code{setuptools} to
+build. No check proves the absence of network or model calls, so inspect the
+source.
 
-\paragraph{The worked example.} The Section~\ref{sec:run} command overwrites
-\component{/tmp/plectis-audio-rms} on a rerun; a fresh run reproduced every
-displayed pass and value. One stale field reports a copied private module, but
-the saved import record reports none because public code replaced it. That
-discrepancy remains.
+\paragraph{The worked example.} A fresh Section~\ref{sec:run} rerun reproduced
+all displayed passes and values and overwrote \component{/tmp/plectis-audio-rms}.
+A stale field reports a copied private module, while the saved import record
+reports none because public code replaced it; the discrepancy remains.
 
 \paragraph{A second Python version.} On 18~July~2026, a clean macOS clone under
-Python 3.12.7 also matched the tour and example. Its offline install used the
-machine's \code{setuptools} 80.9.0 (minimum 77.0.3) and no other runtime library.
-Only versions 3.12.7 and 3.13.7 were tested.
+Python 3.12.7 matched the tour and example. Its offline install used only the
+machine's \code{setuptools} 80.9.0 (minimum 77.0.3). Only versions 3.12.7 and
+3.13.7 were tested.
 
 \paragraph{Project-wide checks.} The Lean trust checker searches the source
 text of \leanfilecount{} Lean files
@@ -1047,23 +1050,22 @@ relies on more than Lean's small proof-checking core (the kernel);
 \code{unsafe} definitions, which cannot be used in theorems; and removed
 computation limits. This search cannot show that each formal
 statement says what its author intended \cite{leanvalidation}.
-The registry and trust checks passed; the \leanfilecount{} files are not the
-\mathcount{} mathematics components.
+Registry and trust checks passed; the \leanfilecount{} files are distinct from
+the \mathcount{} mathematics components.
 The limited \code{make test} selection (not every test file) ran 361 tests from
 32 public test files: 356 passed, two were skipped, and three failed. The
-failures were an \code{AGENTS.md} line-break expectation, outdated line or byte
-counts in copied-source manifests, and root-layout rules that did not yet allow
+failures were an \code{AGENTS.md} line-break expectation; outdated line or byte
+counts in copied-source manifests; and root-layout rules that did not yet allow
 the \code{paper} directory or root PDF; the last was later repaired without
-altering this pinned run. Exact names, environment, and counts are in
+altering this pinned run. Exact failure names, environment, and counts are in
 \component{paper/public-test-receipt.json}. \code{make ci} would add smoke and
 package-install checks, but was not green because \code{make test} failed. These
 checks cover only the public checkout; this is my run, not an independent
 repetition.
-
-\paragraph{The paper itself.}
+The paper's own
 \component{scripts/check_public_system_paper.py} fails if counts, pinned facts,
 the example, cautions, or citations disagree. It checks historical facts against
-the pinned commit and current prose separately. With one maintainer, this is
+the pinned commit separately from current prose; with one maintainer, that is
 internal consistency, not external truth.
 
 \begin{thebibliography}{9}

@@ -759,7 +759,7 @@ def test_public_system_paper_check_rejects_receipt_reading_guidance_removal(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "Copy the no-write line",
+            "starts with the installed command",
             "Run either command",
         )
         .replace(r"\code{expected\_level}", r"\code{result}")
@@ -771,7 +771,7 @@ def test_public_system_paper_check_rejects_receipt_reading_guidance_removal(
 
     assert any(
         "missing executable first-review route" in failure
-        and "Copy the no-write line" in failure
+        and "installed command" in failure
         for failure in failures
     )
     assert any(
@@ -782,6 +782,48 @@ def test_public_system_paper_check_rejects_receipt_reading_guidance_removal(
     assert any(
         "missing executable first-review route" in failure
         and r"\\code{anti\\_claim}" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_untranslated_first_review_command(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            r"\code{PYTHONPATH=src python3 -m} \code{microcosm\_core}",
+            r"\code{plectis}",
+        )
+        .replace(
+            "Inside\n"
+            r"\code{exercise}",
+            "In the result",
+        )
+        .replace(
+            "The project wrote both cautions; no independent\n"
+            "reviewer checked their limits.",
+            "Both fields prove the stated limit.",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing executable first-review route" in failure
+        and "microcosm" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and "exercise" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing executable first-review route" in failure
+        and "no independent reviewer" in failure
         for failure in failures
     )
 
