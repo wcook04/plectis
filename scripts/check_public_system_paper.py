@@ -72,7 +72,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     r"A \emph{validator} is",
     r"A \emph{commit} is",
     "basic command-line use",
-    "The public repository lets a reader test claims",
+    "The repository therefore lets a reader test claims",
     "cannot independently prove",
     "This note does not report an independent",
     "The artefact does not prove the story",
@@ -84,7 +84,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "The count is an inventory, not a score",
     "did not find the patterns it was designed to find",
     "who controls the consequential choices",
-    "One successful run supports one bounded conclusion",
+    "One successful run supports only the conclusion",
     # Distinction: a validator's rule versus the stated claim.
     "narrower than the claim as worded",
     # Refusal boundaries: predeclared versus drawn after the fact.
@@ -110,10 +110,11 @@ REQUIRED_COLD_READER_ANCHORS = (
     # The hand-equivalence claim is bounded: ceilings are authorship-
     # independent, error rates are not measured.
     "rates of error behind them are simply unknown",
-    # Borrowed vocabulary is acknowledged as borrowed.
-    "adds no theory to those fields",
+    # Assurance-case prior art is acknowledged without claiming conformance.
+    "Plectis is not an implementation of that standard",
+    "claims no new theory of assurance",
     # The paper must say what it contributes, rather than only what it limits.
-    "narrower contribution is the claim--evidence--limit contract",
+    "worked boundary analysis",
     # Fresh cases and independent routes do not automatically confer truth.
     "Fresh inputs alone do not supply one",
     "not by strength or prerequisite",
@@ -140,6 +141,7 @@ REQUIRED_CITATION_KEYS = (
     "nistfips1804",
     "nasa8739",
     "acmartifact",
+    "omgsacm2023",
 )
 
 EXAMPLE_CASE_VALUES = {

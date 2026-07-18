@@ -8,6 +8,12 @@ All notable changes to Plectis are documented here. The format follows
 
 ### Changed
 
+- The public-system paper completed an eighth scholarly-positioning pass.
+  It now places its claim--evidence--limit contract beside assurance cases
+  and Claims--Arguments--Evidence notation, cites OMG SACM 2.3, disclaims
+  both conformance and any private-system safety claim, distinguishes a
+  validator's rule from a full assurance argument, and closes with an
+  explicit conclusion and shorter reader test.
 - The public-system paper completed a seventh, reader-first clarity pass. Its
   abstract and first section now state the contribution as a concrete
   claim--evidence--limit contract and worked audit; ACM's artifact-review

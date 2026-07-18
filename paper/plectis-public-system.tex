@@ -70,25 +70,22 @@
 \begin{abstract}
 Plectis is a public software repository (an organised, copyable project
 folder) made from parts of a larger private system that cannot be
-published. It is a case study in a general question: what may a stranger
-reasonably conclude from a curated set of small, runnable fragments of work
-they cannot see? Each of the \componentcount{} public components joins a
-claim to a fixed input, a command, saved output, a pass rule, and a stated
-limit; the count is an inventory, not a score. This paper contributes a
-concrete contract connecting each claim to its evidence and stated limit,
-then uses that contract to audit one component from input to conclusion. The
-audit exposes five gaps: a public run does not by itself establish private
-origin, correctness, support for the claim as
-worded, behaviour beyond selected cases, or the absence of risks outside a
-declared scan. It also identifies which choices remain with the author and
-what evidence would move each choice elsewhere. The public repository lets a
-reader test claims about its published files and outputs. It cannot establish
-the private system's history, whether the selection represents the whole, or
-whether author-supplied success criteria are right. I report that I developed
-the private system by directing AI coding tools, but the argument does not
-depend on that account. One successful run supports only the conclusion
-licensed by the published rule, which may still fall short of the prose
-claim.
+published. It asks what a stranger may reasonably conclude from curated,
+runnable fragments of work they cannot see. At the version studied, each of
+the \componentcount{} registered components connects a claim to a fixed
+input, a command, saved output, a pass rule, and a stated limit. I call this
+arrangement a claim--evidence--limit contract and examine one component from
+input to conclusion. The examination exposes five gaps: a public run does
+not by itself establish private origin, correctness, support for the claim
+as worded, behaviour beyond selected cases, or the absence of risks outside
+a declared scan. The author chose the selection, inputs, expected answers,
+rules, and boundaries. The repository therefore lets a reader test claims
+about its published files and outputs, but cannot establish the private
+system's history, whether the selection represents the whole, or whether
+the author's criteria are right. I report that I developed the private
+system by directing AI coding tools; that account does not support the
+argument. A successful run supports only what the published rule warrants,
+which may still fall short of the prose claim.
 \end{abstract}
 
 \section{The problem}
@@ -293,12 +290,21 @@ correct an oracle, and the difficulty of obtaining a trustworthy oracle is
 a recognised testing problem \cite{weyuker1982}. The risk that a curated
 collection disproportionately exposes favourable cases is analogous to
 selective publication and the file-drawer problem \cite{rosenthal1979}.
+An \emph{assurance case} is a structured argument linking a system claim to
+reasons and evidence. The Object Management Group's SACM 2.3 standard models
+such cases as auditable claims, arguments, and evidence, and explicitly maps
+Claims--Arguments--Evidence notation \cite{omgsacm2023}. Plectis is not an
+implementation of that standard and makes no claim that the private system is
+safe. Its validator does not supply a full argument from evidence to claim;
+it applies a published rule whose adequacy remains open to dispute. The
+narrower object here is a public procedure attached to a claim and a limit.
 ACM's artifact-review policy makes a related distinction between an artifact
 audited as functional and results obtained by another team
 \cite{acmartifact}. Plectis has received neither form of independent
-review. This paper adds no theory to those fields. Its narrower contribution
-is the claim--evidence--limit contract and a worked analysis of the choices
-that constrain inference from one author-curated software collection.
+review. This paper claims no new theory of assurance, testing, or
+reproducibility. Its contribution is a worked boundary analysis of one
+author-curated software collection: what its public procedures expose, what
+still depends on the author, and what a stranger may conclude.
 
 \section{One run, examined}
 \label{sec:run}
@@ -481,7 +487,7 @@ as far as the checked property goes, while the checked property is beside
 the stated point. Plectis makes the gap inspectable rather than closed.
 Every validator is public, so a reader can put the rule beside the prose
 and object where the rule is weaker, and the review in
-Section~\ref{sec:inspect} makes exactly that comparison its central step.
+Section~\ref{sec:conclusion} makes exactly that comparison its central step.
 Since the same author-controlled project produced both the claims and the
 rules, agreement between them records one judgement twice, and no count of
 passing components can substitute for reading one rule against one sentence.
@@ -894,33 +900,33 @@ evaluator's report,
 where one comes to exist, should remain a separate document under the
 evaluator's control, cited rather than absorbed. Where the repository's
 future conduct falls short of this paragraph, the shortfall is itself a
-finding, and Section~\ref{sec:inspect} says where findings go.
+finding, and Section~\ref{sec:conclusion} says where findings go.
 
 Each route moves one class of consequential choice out of my hands. That,
 rather than more components or more records, is what stronger evidence
 means for an object like this.
 
-\section{What to inspect}
-\label{sec:inspect}
+\section{Conclusion}
+\label{sec:conclusion}
 
-A first review can be small and still useful. Clone the repository; to compare
-against this paper's numbers, first check out the commit named in the
-appendix, since the newest version will have moved on. Run the guided
-first inspection (\code{plectis tour}, shown with its exact commands in the
-appendix), and pick one claim you doubt, rather than the component most
-likely to impress; weigh it by what its validator checks, not by the name
-of its group. Read the component's description and stated limit before
-running anything. Run its command on the supplied input and compare the
-fresh output with the stored receipt. Then read the validator and ask
-whether its pass rule bears on the prose claim; perturb the input where
-practical; if a refusal boundary carries the weight of the claim, ask the
-repository's history when that boundary was declared; and keep whatever
-fails, because a discrepancy is a finding, and
-\code{CONTRIBUTING.md} in the repository sets out how to report one. One
-successful run supports one bounded conclusion: only the conclusion licensed
-by the published validator. If that rule does not bear on the prose claim,
-the run may not support the prose claim at all. Broader conclusions wait on
-the evidence of Section~\ref{sec:stronger}, and most of it does not yet exist.
+Plectis does not make the private system answerable as a whole. It puts
+particular public claims within reach of challenge by publishing a fixed
+case, procedure, output, rule, and limit. A pass is
+no stronger than its rule or than the route by which the expected answer
+was chosen. Adding more author-controlled components enlarges the inventory;
+it does not strengthen the evidence. Stronger evidence requires consequential
+choices to leave the author's hands.
+
+\paragraph{A first review.} Clone the repository and, for this paper's
+numbers, check out the commit named in the appendix. Run \code{plectis tour},
+then choose a claim you doubt. Read its description and limit, run its command,
+compare the new output with the stored receipt, and inspect the validator.
+Ask whether the pass rule bears on the prose claim; perturb the input where
+practical; and, where a refusal boundary does much of the work, ask when that
+boundary entered the history. Keep discrepancies and report them through
+\code{CONTRIBUTING.md}. One successful run supports only the conclusion
+licensed by the published rule. Broader conclusions need the evidence in
+Section~\ref{sec:stronger}, and most of it does not yet exist.
 
 \appendix
 
@@ -1042,7 +1048,7 @@ documentation- and record-consistency checks that predate this revision.
 The profile defect is repaired in a later commit; under the rule of
 Section~\ref{sec:stronger}, that repair is a fact about the later commit
 and leaves this record standing. The failures are recorded here rather
-than smoothed over, which is what Section~\ref{sec:inspect} asks a reader
+than smoothed over, which is what Section~\ref{sec:conclusion} asks a reader
 to do with their own failed runs.
 
 \paragraph{The paper itself.} A script,
@@ -1086,6 +1092,11 @@ National Academies of Sciences, Engineering, and Medicine.
 Association for Computing Machinery. ``Artifact Review and Badging---Current,''
 version 1.1. Accessed 18 July 2026.
 \href{https://www.acm.org/publications/policies/artifact-review-and-badging-current}{ACM Publications Policy}.
+
+\bibitem{omgsacm2023}
+Object Management Group. \emph{Structured Assurance Case Metamodel (SACM)},
+version 2.3, OMG formal/23-05-08, October 2023.
+\href{https://www.omg.org/spec/SACM/2.3/PDF}{OMG SACM 2.3}.
 
 \bibitem{nasa8739}
 National Aeronautics and Space Administration. \emph{Software Assurance and
