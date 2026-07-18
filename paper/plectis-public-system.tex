@@ -711,9 +711,11 @@ places in the private system where a mechanism could be given a bounded,
 runnable public form. The collection is organised by how its claims are
 checked, not by subject.
 
-The registry also records how each public form was produced. Four routes
-cover all \componentcount{} entries, and each is a different trade between
-fidelity to the private original and what a stranger can check:
+The registry also classifies what kind of evidence each component supplies.
+It calls this classification a \emph{route}. A route says whether the
+public component preserves source text, re-creates bounded behaviour,
+records a run, or checks a declared rule. The four routes below cover all
+\componentcount{} entries. Each leaves a different question open:
 
 \begin{center}
 \small
@@ -735,10 +737,10 @@ A reimplementation demonstrates behaviour while surrendering textual
 identity; the worked example is one of the \refactorcount{} in that route.
 An external-tool run inherits whatever confidence the tool deserves, along
 with the tool's limits. A contract checker is worth exactly the contract its
-author chose to require. A reader who wants to know which trade a given
-component made
+author chose to require. A reader who wants to know what kind of evidence a
+given component offers
 can read its registry entry, which names its command, its fixture, its
-receipt paths, its evidence route, and its limit; the plain description of
+receipt paths, its route, and its limit; the plain description of
 what it does lives on the generated component page named in
 Section~\ref{sec:contract}.
 
@@ -749,11 +751,12 @@ from one private mechanism, and where they do, their verdicts tend to move
 together.
 \componentcount{} entries are \componentcount{} registered claims, not
 \componentcount{} separate confirmations of anything. The same discount
-applies across the routes: the four routes are four different ceilings on
-inference, not four corroborating methods, and agreement among the pages,
-registries, and receipts that I generate from one source of truth is one
-witness, recorded several times. Machine-checked consistency among those
-records raises the cost of accident, not the number of witnesses.
+applies across the routes: they impose four different limits on what may be
+concluded; they are not four independent methods confirming one claim.
+Pages, registry entries, and receipts generated from the same underlying
+records repeat one witness rather than supply several. Machine checks can
+catch accidental disagreement among those records. They cannot create an
+independent witness.
 
 The second caution is association. Group names such as computer-checked
 mathematics and AI reliability and safety tests borrow gravity from serious

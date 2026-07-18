@@ -101,8 +101,8 @@ REQUIRED_COLD_READER_ANCHORS = (
     "before or after an awkward case",
     # Correlated records are not corroboration.
     "not independent witnesses",
-    "one witness, recorded several times",
-    "four different ceilings",
+    "repeat one witness rather than supply several",
+    "four different limits on what may be concluded",
     # The shared structure of the five distinctions.
     "a named gap can be argued about",
     # The author's-hand cautions: arrangement can outrun assertion, and the
@@ -186,6 +186,13 @@ REQUIRED_SELECTION_SCOPE_ANCHORS = (
     "Selection acts at two levels",
     "fixture covers only a few possible inputs",
     "published components are my selection from a private whole",
+)
+
+REQUIRED_COLLECTION_ROUTE_ANCHORS = (
+    r"It calls this classification a \emph{route}",
+    "preserves source text, re-creates bounded behaviour",
+    "generated from the same underlying records",
+    "They cannot create an independent witness",
 )
 
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"
@@ -461,6 +468,12 @@ def check_paper(
             failures.append(f"missing two-level selection explanation: {anchor!r}")
     if r"\begin{figure}[H]" not in selection_section:
         failures.append("selection figure must not interrupt its preceding paragraph")
+    collection_section = text.split(r"\section{What the collection contains}", 1)[-1]
+    collection_section = collection_section.split(r"\section{The author's hand}", 1)[0]
+    normalized_collection_section = re.sub(r"\s+", " ", collection_section)
+    for anchor in REQUIRED_COLLECTION_ROUTE_ANCHORS:
+        if anchor not in normalized_collection_section:
+            failures.append(f"missing collection route explanation: {anchor!r}")
     for key in REQUIRED_CITATION_KEYS:
         if not re.search(rf"\\cite\{{[^}}]*\b{re.escape(key)}\b[^}}]*\}}", text):
             failures.append(f"missing literature citation: {key}")

@@ -281,6 +281,37 @@ def test_public_system_paper_check_rejects_selection_scope_layout_regression(
     assert any("selection figure must not interrupt" in failure for failure in failures)
 
 
+def test_public_system_paper_check_rejects_route_definition_regression(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            r"It calls this classification a \emph{route}",
+            "It calls this a route",
+        )
+        .replace(
+            "They cannot create an\nindependent witness",
+            "The records agree",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing collection route explanation" in failure
+        and "classification" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing collection route explanation" in failure
+        and "independent witness" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_central_term_definition_removal(
     tmp_path: Path,
 ) -> None:
