@@ -241,6 +241,46 @@ def test_public_system_paper_check_rejects_executable_first_review_removal(
     )
 
 
+def test_public_system_paper_check_rejects_hash_explanation_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "a fixed-length value calculated from its contents",
+            "a digest",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing plain-language hash boundary" in failure
+        and "fixed-length value" in failure
+        for failure in failures
+    )
+
+
+def test_public_system_paper_check_rejects_selection_scope_layout_regression(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace("Selection acts at two levels", "Selection applies here")
+        .replace(r"\begin{figure}[H]", r"\begin{figure}[t]"),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing two-level selection explanation" in failure for failure in failures
+    )
+    assert any("selection figure must not interrupt" in failure for failure in failures)
+
+
 def test_public_system_paper_check_rejects_central_term_definition_removal(
     tmp_path: Path,
 ) -> None:

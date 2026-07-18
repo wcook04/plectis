@@ -9,7 +9,7 @@
 \usepackage{fancyvrb}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,calc}
-\usepackage{caption}
+\usepackage{caption,float}
 \captionsetup{font=small,labelfont=bf,width=0.92\linewidth}
 \setlist{nosep,leftmargin=*}
 \setlength{\parindent}{0pt}
@@ -484,14 +484,14 @@ broader conclusion. Individual component limits are instances of these gaps.
 
 A reader can establish what a named public commit contains and what its
 commands do. No public run establishes where the material came from.
-Plectis keeps records at that boundary: copied files carry public import
-records naming their claimed sources, together with SHA-256 fingerprints,
-fixed-length digests used here to detect changes. Different files can in
-principle share any fixed-length digest; the standard defines the algorithm,
-not a collision-free guarantee \cite{nistfips1804}. Matching
-fingerprints show that a public file agrees with the project's public record
-of it. But I control both sides of that comparison, so agreement is
-evidence of internal consistency, not of origin. The same holds for the
+Plectis records that boundary. Each copied file has a claimed source and a
+SHA-256 fingerprint: a fixed-length value calculated from its contents and
+used to check for change. Two different files can in principle produce the
+same value. SHA-256 is designed to make finding such a pair infeasible in
+practice, not impossible \cite{nistfips1804}. A match therefore supports a
+narrow claim: the public file's contents agree with the version represented in
+its public record. But I control both sides, so that agreement is evidence of
+internal consistency, not of origin. The same holds for the
 audio component's named source file: the name is an entry I wrote. Origin
 claims could only be strengthened by something a public repository cannot
 supply about itself, such as commitments published before the fact, or a
@@ -529,10 +529,12 @@ passing components can substitute for reading one rule against one sentence.
 
 \subsection*{Selected cases versus general behaviour}
 
-This distinction applies twice. Within a component, the fixture's cases are
-a few points in a large space of possible inputs, and behaviour elsewhere is
-untested. Across the collection, the published components are a selection
-from a private whole, and the selection was mine. I chose which mechanisms
+Selection acts at two levels. Within a component, the fixture covers only a
+few possible inputs. Across the collection, the published components are my
+selection from a private whole.
+
+\begin{samepage}
+I chose which mechanisms
 could be given public form, which inputs to freeze, which expected values to
 store, and which pass rules to enforce. Nothing in the public record shows
 how many candidates there were, what was excluded beyond the privacy rules,
@@ -544,8 +546,9 @@ selective publication and the file-drawer problem, not the same process
 Figure~\ref{fig:boundary} draws the situation: public checking reaches
 everything to the right of the boundary, and the pool the selection was
 drawn from stays on the left.
+\end{samepage}
 
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[x=1cm,y=1cm]
 % private region

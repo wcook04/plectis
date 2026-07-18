@@ -174,6 +174,20 @@ REQUIRED_FIRST_REVIEW_ANCHORS = (
     "change an input where practical",
 )
 
+REQUIRED_PROVENANCE_HASH_ANCHORS = (
+    "a fixed-length value calculated from its contents",
+    "used to check for change",
+    "finding such a pair infeasible in practice, not impossible",
+    "supports a narrow claim",
+    "agreement is evidence of internal consistency, not of origin",
+)
+
+REQUIRED_SELECTION_SCOPE_ANCHORS = (
+    "Selection acts at two levels",
+    "fixture covers only a few possible inputs",
+    "published components are my selection from a private whole",
+)
+
 EXAMPLE_ORGAN_ID = "batch8_audio_level_rms_port"
 EXAMPLE_RECEIPT = (
     "receipts/first_wave/batch8_audio_level_rms_port/"
@@ -425,6 +439,28 @@ def check_paper(
     for anchor in REQUIRED_FIRST_REVIEW_ANCHORS:
         if anchor not in normalized_conclusion_section:
             failures.append(f"missing executable first-review route: {anchor!r}")
+    provenance_section = text.split(
+        r"\subsection*{Public execution versus private provenance}", 1
+    )[-1]
+    provenance_section = provenance_section.split(
+        r"\subsection*{Repeatability versus correctness}", 1
+    )[0]
+    normalized_provenance_section = re.sub(r"\s+", " ", provenance_section)
+    for anchor in REQUIRED_PROVENANCE_HASH_ANCHORS:
+        if anchor not in normalized_provenance_section:
+            failures.append(f"missing plain-language hash boundary: {anchor!r}")
+    selection_section = text.split(
+        r"\subsection*{Selected cases versus general behaviour}", 1
+    )[-1]
+    selection_section = selection_section.split(
+        r"\subsection*{Risk reduction versus guarantee}", 1
+    )[0]
+    normalized_selection_section = re.sub(r"\s+", " ", selection_section)
+    for anchor in REQUIRED_SELECTION_SCOPE_ANCHORS:
+        if anchor not in normalized_selection_section:
+            failures.append(f"missing two-level selection explanation: {anchor!r}")
+    if r"\begin{figure}[H]" not in selection_section:
+        failures.append("selection figure must not interrupt its preceding paragraph")
     for key in REQUIRED_CITATION_KEYS:
         if not re.search(rf"\\cite\{{[^}}]*\b{re.escape(key)}\b[^}}]*\}}", text):
             failures.append(f"missing literature citation: {key}")
