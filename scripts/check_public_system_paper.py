@@ -113,6 +113,8 @@ FORBIDDEN_COLD_READER_RESIDUE = (
 FORBIDDEN_BEFORE_COMPONENT_CONTRACT = (
     "validator",
     "commit",
+    "registry",
+    "route",
 )
 
 # Sentences the paper's argument stands on.  The first block defines terms a
@@ -259,8 +261,9 @@ REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
 
 REQUIRED_METHOD_DISCLOSURE_ANCHORS = (
     r"\paragraph{What I examined.}",
-    "read the registry and generated component pages at the named repository version",
-    r"counted all \componentcount{} entries by the project's existing group and route classifications",
+    r"read the list and plain descriptions of all \componentcount{} components",
+    "counted them by project group",
+    "by the kind of public evidence offered",
     "traced the worked component from input to limit",
     "reran the appendix's public commands",
     "did not compare every pass rule with its prose claim",

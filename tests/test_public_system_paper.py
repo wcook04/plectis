@@ -119,13 +119,13 @@ def test_public_system_paper_check_rejects_method_boundary_removal(
             r"\paragraph{Approach.}",
         )
         .replace(
-            "I read the registry and generated component\n"
-            "pages at the named repository version, then counted all \\componentcount{}\n"
-            "entries by the project's existing group and route classifications. I traced\n"
-            "the worked component from input to limit and reran the appendix's public\n"
-            "commands. I did not compare every pass rule with its prose claim or derive\n"
-            "fresh expected answers; Section~\\ref{sec:stronger} reserves those checks for\n"
-            "an outside evaluator.",
+            "At the named repository version, I read the list\n"
+            "and plain descriptions of all \\componentcount{} components, counted them by\n"
+            "project group and by the kind of public evidence offered, traced the worked\n"
+            "component from input to limit, and reran the appendix's public commands. I did\n"
+            "not compare every pass rule with its prose claim or derive fresh expected\n"
+            "answers; Section~\\ref{sec:stronger} reserves those checks for an outside\n"
+            "evaluator.",
             "I examined the repository and report the result.",
         ),
         encoding="utf-8",
@@ -136,7 +136,7 @@ def test_public_system_paper_check_rejects_method_boundary_removal(
     assert sum(
         "missing first-section method disclosure" in failure
         for failure in failures
-    ) == 8
+    ) == 9
 
 
 def test_public_system_paper_check_rejects_distinction_anchor_removal(
@@ -403,7 +403,7 @@ def test_public_system_paper_check_rejects_terms_used_before_definition(
     source = PAPER.read_text(encoding="utf-8")
     contract = r"\section{The component contract}"
     before, after = source.split(contract, 1)
-    for index, term in enumerate(("validator", "commit")):
+    for index, term in enumerate(paper_check.FORBIDDEN_BEFORE_COMPONENT_CONTRACT):
         paper = tmp_path / f"paper-{index}.tex"
         paper.write_text(
             before + f"\nThe opening uses {term} too early.\n" + contract + after,
