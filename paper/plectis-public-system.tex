@@ -75,23 +75,24 @@
 
 \begin{abstract}
 Plectis is a public software repository (an organised, copyable project
-folder) made from parts of a larger private system that cannot be
-published. It asks what a stranger may reasonably conclude from curated,
-runnable fragments drawn from work they cannot see. At the public version
-examined here, each of the \componentcount{} registered components connects a
-claim to a fixed input, a command, saved output, a pass rule, and a stated
-limit. I call this arrangement a claim--evidence--limit contract and follow
-one component from input to conclusion. The examination exposes five gaps:
-a public run does not by itself establish private origin, correctness, support for the claim
-as worded, behaviour beyond selected cases, or the absence of risks outside
-a declared scan. I chose the selection, inputs, expected answers,
-rules, and boundaries. The repository therefore lets a reader test claims
-about its published files and outputs. It cannot establish the private
-system's history, whether the selection represents the whole, or whether my
-criteria are right. I report that I developed the private
-system by directing AI coding tools; that account does not support the
-argument. A successful run supports only what the published rule warrants,
-which may still fall short of the prose claim.
+folder) assembled from parts of a larger private system that cannot be
+published. It asks a narrow question: what may a stranger reasonably conclude
+from runnable fragments selected by the person whose work is being examined?
+At the public version studied here, each of the \componentcount{} registered
+components connects a claim to a fixed input, a command, saved output, a pass
+rule, and a stated limit. I call this a claim--evidence--limit contract. One
+component, for example, calculates an audio level from five small sample
+arrays. A reader can repeat the calculation and challenge the expected
+numbers; that run cannot show that the public code came from the private
+application or will work on other inputs. The same boundary recurs across the
+collection. A public run does not by itself establish private origin,
+correctness, support for the claim as worded, behaviour beyond selected cases,
+or the absence of risks outside a declared scan. I chose the published
+fragments, inputs, answers, rules, and limits. The repository therefore lets a
+reader test claims about its published files and outputs. It cannot establish
+the hidden system's history, representativeness, or reliability. I report that
+I developed the private system by directing AI coding tools; the argument does
+not rely on that testimony.
 \end{abstract}
 
 \section{The problem}
@@ -1046,12 +1047,13 @@ and 3.13.7, not the full Python 3.11-or-later range.
 
 \paragraph{Project-wide checks.} At this commit, \code{make check} loads the
 component registry in under a second.
-The Lean trust checker scans \leanfilecount{} Lean source files for unfinished
-proof placeholders; custom axioms (assumptions added without proof); native
-calculations relying on more than Lean's proof-checking kernel; \code{partial}
-functions with no termination proof; \code{unsafe} definitions outside Lean's
-logic; and removed computation limits. It searches source text for those forms. It cannot show
-that each formal statement says what its author intended \cite{leanvalidation}.
+The Lean trust checker searches the source text of \leanfilecount{} Lean files
+for unfinished proof placeholders; custom axioms (assumptions added without
+proof); native calculations relying on more than Lean's proof-checking kernel;
+\code{partial} definitions, which Lean treats as opaque in its logic;
+\code{unsafe} definitions, which Lean excludes from mathematical reasoning;
+and removed computation limits. This search cannot show that each formal
+statement says what its author intended \cite{leanvalidation}.
 The registry and trust checks passed;
 the \leanfilecount{} files and \mathcount{} mathematics components are different units.
 At this commit, the bounded \code{make test} selection (not every test file)
@@ -1118,7 +1120,7 @@ FIPS PUB 180-4, 2015.
 \bibitem{nasa8739}
 NASA. \emph{Software Assurance and Software Safety Standard},
 NASA-STD-8739.8B, Section 4.4.1.2, 2022.
-\href{https://standards.nasa.gov/sites/default/files/standards/NASA/B/0/NASA-STD-87398RevB.pdf}{NASA-STD-8739.8B}.
+\href{https://standards.nasa.gov/standard/nasa/nasa-std-87398}{NASA-STD-8739.8B}.
 
 \bibitem{leanvalidation}
 Lean Project. \emph{Lean Language Reference}: ``Validating a Lean Proof'' and

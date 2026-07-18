@@ -160,6 +160,26 @@ def test_public_system_paper_check_rejects_bibliography_order_drift(
     )
 
 
+def test_public_system_paper_check_rejects_bibliography_identifier_drift(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "https://standards.nasa.gov/standard/nasa/nasa-std-87398",
+            "https://example.invalid/wrong-standard",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "bibliography item nasa8739 lacks canonical token" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_prior_art_boundary_removal(
     tmp_path: Path,
 ) -> None:
@@ -447,11 +467,11 @@ def test_public_system_paper_check_rejects_formal_math_overclaim(
             "The group proves mathematics",
         )
         .replace(
-            "assumptions added without proof",
-            "axioms",
+            "custom axioms (assumptions added without\nproof)",
+            "custom axioms",
         )
         .replace(
-            "They do not show that each formal statement says what its author intended",
+            "This search cannot show that each formal\nstatement says what its author intended",
             "Every formal statement has its intended meaning",
         ),
         encoding="utf-8",

@@ -213,14 +213,13 @@ REQUIRED_FORMAL_MATH_BOUNDARY_ANCHORS = (
 )
 
 REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS = (
-    r"\leanfilecount{} Lean source files",
+    r"source text of \leanfilecount{} Lean files",
     "unfinished proof placeholders",
     "assumptions added without proof",
     "relying on more than Lean's proof-checking kernel",
-    r"\code{partial} functions with no termination proof",
-    r"\code{unsafe} definitions outside Lean's logic",
-    "It searches source text for those forms",
-    "It cannot show that each formal statement says what its author intended",
+    r"\code{partial} definitions, which Lean treats as opaque in its logic",
+    r"\code{unsafe} definitions, which Lean excludes from mathematical reasoning",
+    "This search cannot show that each formal statement says what its author intended",
     "Partial and Unsafe Definitions",
 )
 
@@ -271,6 +270,52 @@ REQUIRED_CITATION_KEYS = (
     "nasa8739",
     "leanvalidation",
 )
+
+# Canonical identifiers and version markers verified against the publisher or
+# standards body's own page on 18 July 2026. Checking only citation keys would
+# allow an entry to keep its label while drifting to the wrong DOI, version,
+# section, or website.
+REQUIRED_BIBLIOGRAPHY_TOKENS = {
+    "runeson2009": (
+        "14(2):131--164, 2009",
+        "https://doi.org/10.1007/s10664-008-9102-8",
+    ),
+    "nasem2019": (
+        "2019",
+        "https://doi.org/10.17226/25303",
+    ),
+    "weyuker1982": (
+        "25(4):465--470, 1982",
+        "https://doi.org/10.1093/comjnl/25.4.465",
+    ),
+    "rosenthal1979": (
+        "86(3):638--641, 1979",
+        "https://doi.org/10.1037/0033-2909.86.3.638",
+    ),
+    "omgsacm2023": (
+        "version 2.3",
+        "formal/23-05-08",
+        "October 2023",
+        "https://www.omg.org/spec/SACM/2.3/PDF",
+    ),
+    "acmartifact": (
+        "version 1.1",
+        "https://www.acm.org/publications/policies/artifact-review-and-badging-current",
+    ),
+    "nistfips1804": (
+        "FIPS PUB 180-4, 2015",
+        "https://doi.org/10.6028/NIST.FIPS.180-4",
+    ),
+    "nasa8739": (
+        "NASA-STD-8739.8B, Section 4.4.1.2, 2022",
+        "https://standards.nasa.gov/standard/nasa/nasa-std-87398",
+    ),
+    "leanvalidation": (
+        "Accessed 18 July 2026",
+        "https://lean-lang.org/doc/reference/latest/ValidatingProofs/",
+        "https://lean-lang.org/doc/reference/latest/Definitions/Recursive-Definitions/#partial-and-unsafe-definitions",
+    ),
+}
 
 EXAMPLE_CASE_VALUES = {
     "float32_reference_buffer": "0.489897949",
@@ -346,6 +391,16 @@ def _first_citation_order(text: str) -> list[str]:
                 ordered.append(key)
                 seen.add(key)
     return ordered
+
+
+def _bibliography_items(text: str) -> dict[str, str]:
+    """Return each bibliography item with whitespace normalized."""
+    matches = list(re.finditer(r"\\bibitem\{([^}]+)\}", text))
+    items: dict[str, str] = {}
+    for index, match in enumerate(matches):
+        end = matches[index + 1].start() if index + 1 < len(matches) else len(text)
+        items[match.group(1)] = re.sub(r"\s+", " ", text[match.start():end])
+    return items
 
 
 def _macro_int(macros: dict[str, str], name: str, failures: list[str]) -> int | None:
@@ -619,6 +674,14 @@ def check_paper(
             failures.append(f"missing literature citation: {key}")
         if f"\\bibitem{{{key}}}" not in text:
             failures.append(f"missing bibliography item: {key}")
+    bibliography_items = _bibliography_items(text)
+    for key, required_tokens in REQUIRED_BIBLIOGRAPHY_TOKENS.items():
+        item = bibliography_items.get(key, "")
+        for token in required_tokens:
+            if token not in item:
+                failures.append(
+                    f"bibliography item {key} lacks canonical token: {token}"
+                )
     citation_order = _first_citation_order(text)
     bibliography_order = re.findall(r"\\bibitem\{([^}]+)\}", text)
     if bibliography_order != citation_order:
@@ -658,7 +721,7 @@ def main() -> int:
         "Public-system paper check: pass "
         f"({declared_count} pinned components; {declared_lean_count} pinned Lean sources; "
         "pinned family counts, evidence routes, worked example, public-test receipt, literature "
-        "citations and first-citation bibliography order, cold-reader anchors, "
+        "citations, canonical bibliography identifiers and first-citation order, cold-reader anchors, "
         "and claim language agree)"
     )
     return 0
