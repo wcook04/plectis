@@ -408,6 +408,22 @@ REQUIRED_APPENDIX_ORIENTATION_ANCHORS = (
     "wrote 21 generated files under",
 )
 
+FORBIDDEN_LEGACY_NAMING_BEFORE_APPENDIX = (
+    r"\emph{organ}",
+    "project was previously called Microcosm",
+    r"generated page \code{ORGANS.md}",
+    "named for the old term",
+    "calls components ``organs''",
+)
+
+REQUIRED_APPENDIX_LEGACY_NAME_ANCHORS = (
+    "Formerly Microcosm, Plectis retains",
+    r"package \code{microcosm\_core}",
+    r"page \code{ORGANS.md} (``organs'' means components)",
+    r"the \code{microcosm} alias",
+    r"This paper uses command \code{plectis}",
+)
+
 REQUIRED_FORMAL_MATH_BOUNDARY_ANCHORS = (
     "computer-checked mathematics label covers different checks",
     "small public statements checked by Lean",
@@ -907,13 +923,22 @@ def check_paper(
         failures.append(
             "stronger-evaluation figure must follow its terminology definition"
         )
-    appendix_section = text.split(r"\appendix", 1)[-1]
+    pre_appendix_section, appendix_section = text.split(r"\appendix", 1)
+    normalized_pre_appendix_section = re.sub(r"\s+", " ", pre_appendix_section)
+    for phrase in FORBIDDEN_LEGACY_NAMING_BEFORE_APPENDIX:
+        if phrase in normalized_pre_appendix_section:
+            failures.append(
+                f"legacy naming prose must stay in the reproduction appendix: {phrase!r}"
+            )
     normalized_appendix_section = re.sub(r"\s+", " ", appendix_section)
     for anchor in REQUIRED_APPENDIX_ORIENTATION_ANCHORS:
         if anchor not in normalized_appendix_section:
             failures.append(
                 f"missing appendix internal-label explanation: {anchor!r}"
             )
+    for anchor in REQUIRED_APPENDIX_LEGACY_NAME_ANCHORS:
+        if anchor not in normalized_appendix_section:
+            failures.append(f"missing appendix legacy-name mapping: {anchor!r}")
     for anchor in REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS:
         if anchor not in normalized_appendix_section:
             failures.append(f"missing Lean check explanation: {anchor!r}")

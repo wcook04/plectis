@@ -676,6 +676,40 @@ def test_public_system_paper_check_rejects_redundant_appendix_article(
     )
 
 
+def test_public_system_paper_check_keeps_legacy_names_in_appendix(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "Nothing in these labels grades the importance of what a\n"
+            "component does.",
+            "Nothing in these labels grades the importance of what a\n"
+            "component does. The project was previously called Microcosm.",
+        )
+        .replace(
+            "Formerly Microcosm, Plectis retains\n"
+            "package",
+            "Plectis uses package",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "legacy naming prose must stay in the reproduction appendix" in failure
+        and "previously called Microcosm" in failure
+        for failure in failures
+    )
+    assert any(
+        "missing appendix legacy-name mapping" in failure
+        and "Formerly Microcosm" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_example_bridge_removal(
     tmp_path: Path,
 ) -> None:
