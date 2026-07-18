@@ -18,12 +18,12 @@
 \newcommand{\component}[1]{\nolinkurl{#1}}
 \newcommand{\repo}{\href{https://github.com/wcook04/plectis}{\nolinkurl{github.com/wcook04/plectis}}}
 
-% Shared figure styles: black mechanism, dashed words/unestablished, one blue
-% accent reserved for what a stranger can do.
+% Shared figure styles: black mechanism, dashed unavailable/unestablished
+% material, and one blue accent reserved for what a stranger can do.
 \tikzset{
   part/.style={draw=black!75, line width=0.6pt, rounded corners=2pt,
     align=center, inner sep=4pt, font=\footnotesize, fill=gray!8},
-  words/.style={part, fill=white, dashed},
+  words/.style={part, fill=white},
   ghost/.style={draw=black!45, dashed, line width=0.6pt, rounded corners=2pt,
     align=center, inner sep=4pt, font=\footnotesize, text=black!60, fill=none},
   act/.style={font=\scriptsize\itshape, text=RoyalBlue, align=center},
@@ -232,10 +232,13 @@ exposed to a stranger.
 \code{\snapshotshort}. The top row is words; the middle rows are mechanism;
 a pass from the validator is offered as evidence for the claim and must be
 read under the limit. Every element, words and mechanism alike, is
-supplied by the project. Here and in the later figures, a dashed outline
-marks what a stranger cannot run or observe directly; here that is the
-prose of the claim and the limit. The
-blue row names what a stranger can do to each part without asking anyone.
+supplied by the project. Across the figures, a dashed outline marks something
+outside what the public run establishes. This figure has no dashed boxes: the
+claim and limit are public words, though they are not executable mechanisms.
+In Figures~\ref{fig:boundary} and~\ref{fig:gaps},
+dashes mark private material the reader cannot inspect or conclusions not
+established by the observed run. The italic blue row names what a stranger
+can do to each part without asking anyone.
 Section~\ref{sec:run} runs one real component through exactly this chain.}
 \label{fig:contract}
 \end{figure}
@@ -848,7 +851,7 @@ consequential choices bearing on that claim.
   \draw[RoyalBlue!45, dotted, line width=0.6pt] (b\i.south) -- (s\i.north);
   \draw[black!30, dotted, line width=0.6pt] (s\i.south) -- (n\i.north);}
 \end{tikzpicture}
-\caption{Five independent evidence routes. Above each route, in blue, the
+\caption{Five independent evidence routes. Above each route, in italic blue, the
 choice that leaves my hands; below it, in grey, what that route still cannot
 show. The routes are not cumulative stages. At the commit this paper
 describes, none has happened.}

@@ -206,3 +206,30 @@ def test_public_system_paper_check_rejects_evidence_route_crosswalk_removal(
         "None repairs a validator--claim mismatch" in failure
         for failure in failures
     )
+
+
+def test_public_system_paper_check_rejects_misleading_figure_legend(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "This figure has no dashed boxes",
+            "The dashed boxes are hidden",
+        )
+        .replace("italic blue row", "blue row")
+        .replace("in italic blue", "in blue")
+        + "\nA dashed outline marks what a stranger cannot run or observe directly.\n",
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("This figure has no dashed boxes" in failure for failure in failures)
+    assert any("italic blue row" in failure for failure in failures)
+    assert any("in italic blue" in failure for failure in failures)
+    assert any(
+        "dashed outline marks what a stranger cannot" in failure
+        for failure in failures
+    )

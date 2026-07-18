@@ -56,6 +56,7 @@ FORBIDDEN_OVERCLAIMS = (
     "every component in the collection currently sits in the first position",
     "only stage that could bear on the origin story",
     "bounded correctness claims for the evaluated cases",
+    "dashed outline marks what a stranger cannot run or observe directly",
 )
 
 # Sentences the paper's argument stands on.  The first block defines terms a
@@ -118,6 +119,13 @@ REQUIRED_COLD_READER_ANCHORS = (
     # The hand-equivalence claim is bounded: ceilings are authorship-
     # independent, error rates are not measured.
     "rates of error behind them are simply unknown",
+    # Figure legends must not describe public prose as hidden, and the blue
+    # action cue must remain readable without colour alone.
+    "Across the figures, a dashed outline marks something",
+    "This figure has no dashed boxes",
+    r"Figures~\ref{fig:boundary} and~\ref{fig:gaps}",
+    "italic blue row names what a stranger can do",
+    "Above each route, in italic blue",
     # Assurance-case prior art is acknowledged without claiming conformance.
     "Plectis is not an implementation of that standard",
     "claims no new theory of assurance",
