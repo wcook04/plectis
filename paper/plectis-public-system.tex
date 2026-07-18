@@ -144,6 +144,17 @@ Not established here & Whether the public selection represents the private whole
 \end{tabular}
 \end{center}
 
+This is a descriptive analysis of one artefact, not a statistical study.
+In the reporting vocabulary of Runeson and H\"ost \cite{runeson2009}, the
+object is the public repository at the named commit; each component is a
+\emph{unit of analysis} (one item examined). Section~\ref{sec:run} traces one
+ordinary component. Section~\ref{sec:collection} classifies all
+\componentcount{} by group and publication route; each registry entry also
+names its command, receipt, validator, and limit. Section~\ref{sec:hand}
+identifies the choices that remain mine. The five distinctions in
+Section~\ref{sec:distinctions} bound the conclusions. No subset of the
+components is used to estimate performance or represent the private system.
+
 Reading this paper requires no programming. Reproducing its runs requires a
 terminal (the text window in which commands are typed), Git (the standard
 program for copying and versioning repositories), the Python programming
@@ -781,9 +792,11 @@ honesty arises.
 Disclosure alone cannot remove this concentration of control. Standards for
 independent verification and validation distinguish independence from the
 developers from independence over what and how to assess \cite{nasa8739}.
-Plectis has not undergone such an evaluation. The narrower principle used in
-Section~\ref{sec:stronger} is that evidence for a particular claim becomes
-stronger as the choices bearing on that claim stop being mine.
+Plectis has not undergone such an evaluation. Within the five gaps examined
+here, the narrower principle is that evidence for a claim becomes less
+dependent on me as the relevant choices stop being mine. The principle is
+local to those five gaps. Section~\ref{sec:stronger} lists routes that address
+the dependencies this paper has identified.
 
 \section{What stronger evidence would look like}
 \label{sec:stronger}
@@ -902,9 +915,10 @@ evaluator's control, cited rather than absorbed. Where the repository's
 future conduct falls short of this paragraph, the shortfall is itself a
 finding, and Section~\ref{sec:conclusion} says where findings go.
 
-Each route moves one class of consequential choice out of my hands. That,
-rather than more components or more records, is what stronger evidence
-means for an object like this.
+Each route moves one class of consequential choice out of my hands. More
+components or records produced while I still choose every case and rule do
+not make that transfer. These five routes answer the gaps identified here;
+other claims may require other forms of evidence.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -914,8 +928,9 @@ particular public claims within reach of challenge by publishing a fixed
 case, procedure, output, rule, and limit. A pass is
 no stronger than its rule or than the route by which the expected answer
 was chosen. Adding more author-controlled components enlarges the inventory;
-it does not strengthen the evidence. Stronger evidence requires consequential
-choices to leave the author's hands.
+it does not alter who chose the cases or rules. For the dependencies exposed
+here, stronger evidence requires at least one consequential choice to leave
+the author's hands.
 
 \paragraph{A first review.} Clone the repository and, for this paper's
 numbers, check out the commit named in the appendix. Run \code{plectis tour},
@@ -941,10 +956,8 @@ macOS 15.6.1 (arm64) with Python 3.13.7. The commit's full identifier is
 \small\code{\snapshotcommit}
 \end{center}
 
-abbreviated \code{\snapshotshort} elsewhere in the paper. None of this
-appendix is a permanent property of the project. Later commits will change
-file counts, and other machines can behave differently; where that matters,
-the body of the paper does not depend on it.
+abbreviated \code{\snapshotshort} elsewhere. Later commits and other machines
+may give different results; the body does not depend on those differences.
 
 \paragraph{Names.} The repository is \repo. As
 Section~\ref{sec:contract} notes, the code
@@ -967,16 +980,13 @@ describes; omit it to run against the newest version instead, and expect
 the dated numbers below to differ if you do.
 
 In a clean clone at this commit, the tour read 5{,}018 project files, found
-five possible reading orders for them, selected the one that starts from the
-README (\component{readme_onboarding_route}), wrote 21 files under a new
-\code{.microcosm/} directory beside the project, and reported the examined
-source files unchanged. Its output shows that every recorded observation
-carries three things: the evidence behind it, the event record it came from,
-and the limit on what it authorises. The \code{.microcosm/}
-directory can be deleted and generated again. The repository's README shows
-the same command reporting a different file count from a different day.
-Both numbers are what they claim to be, dated outputs of one run each, and
-neither is a stable measurement of the project.
+five reading orders, chose the README-first route
+(\component{readme_onboarding_route}), wrote 21 files under
+\code{.microcosm/}, and left the examined source files unchanged. Each
+recorded observation names its evidence, event, and limit. The generated
+directory can be deleted and rebuilt. The README records a different file
+count from another day; both counts describe one dated run, not a stable
+measurement of the project.
 
 \paragraph{Installing.}
 
@@ -985,93 +995,59 @@ python3 -m pip install .
 plectis tour --format text .
 \end{Verbatim}
 
-The installed package needs nothing beyond Python itself to run: it
-declares no third-party runtime dependencies. The
-build step requires a sufficiently recent \code{setuptools} (a standard
-Python packaging tool), which a machine
-building a Python package for the first time may download when \code{pip}
-builds this one. The core
-components are designed to make no network or AI-model calls when they
-run. No registered check enforces that absence: it is a design claim open
-to inspection, not a tested property, and a doubting reader should search
-the shipped source rather than trust this sentence.
-Before anything is installed, \code{./bootstrap.sh} checks a fresh clone and
-reports whether the shipped inputs and declared limits are intact.
+The runtime needs no third-party library; \code{pip} may download
+\code{setuptools} to build. No check enforces the claim that components avoid
+network and model calls; inspect the source. Before installation, the
+bootstrap script checks the shipped inputs and limits.
 
 \paragraph{The worked example.} The command in Section~\ref{sec:run} writes
-its fresh output under \component{/tmp/plectis-audio-rms}, and a rerun
-overwrites the same paths without warning. The tracked
-reference to compare it against is the receipt named in
-Section~\ref{sec:run}, under
-\component{receipts/first_wave/batch8_audio_level_rms_port/}. At this commit
-the run reported every case in the Section~\ref{sec:run} table as a pass,
-with observed values equal to the stored ones. The fresh validation receipt
-and those displayed case values matched their tracked counterparts. The
-larger tracked result contains one stale metadata field: it reports one
-private source module copied into the public component. The pinned manifest,
-the repository's list of source modules for this component, records zero
-copied modules because the private module was omitted and replaced by public
-code. That discrepancy does not change the displayed calculation, but it
-remains part of the record.
+under \component{/tmp/plectis-audio-rms}; rerunning it overwrites those files.
+At this commit every displayed case passed, and the fresh receipt and values
+matched the tracked copies. One field in the larger tracked result is stale:
+it reports one copied private module, while the pinned manifest records zero
+because public code replaced the omitted module. The calculation is unchanged,
+but the discrepancy remains in the record.
 
-\paragraph{A second interpreter check.} On 18~July~2026, a clean clone at the
-same commit was tested on macOS with Python 3.12.7. A literal
-network-disabled \code{pip install .} could not obtain the declared build
-requirement, \code{setuptools>=77.0.3}. Supplying the host's installed
-setuptools 80.9.0 and telling \code{pip} to use that local build tool allowed
-a network-free build;
-after installation, the tour and worked example both passed, and the
-displayed values matched exactly. Package records showed that Plectis had
-installed no additional third-party library needed at runtime. This is
-evidence for 3.12.7 and 3.13.7, not proof of every interpreter covered by the
-package's declared Python 3.11-or-later range.
+\paragraph{A second interpreter check.} On 18~July~2026, a clean clone on
+macOS used Python 3.12.7. A network-disabled install could not obtain
+\code{setuptools>=77.0.3}; the host's setuptools 80.9.0 allowed a local build.
+The tour and worked example passed with matching values and no added runtime
+library. This covers 3.12.7 and 3.13.7, not the full Python 3.11-or-later range.
 
 \paragraph{Project-wide checks.} At this commit, \code{make check} loads
-the component registry and finishes in under a second, and
-\code{python3 scripts/check\_lean\_proof\_trust.py} scans the 58 Lean proof
-files shipped in the repository for constructs that would let a file look
-proved without being proved: placeholder proofs, axioms the project granted
-itself, evaluation that bypasses the checker's core, declarations marked
-unsafe or partial, and raised limits on how much the checker examines. Both
-passed. (The 58 files are a different unit of counting from the
-\mathcount{} computer-checked mathematics components, so the two numbers are
-not comparable.) \code{make ci} adds installation, the public test
-suite, and two end-to-end example runs; it is the same floor the
-repository's continuous-integration service (the service that reruns the
-public checks after every change) runs. These commands test named
-properties of the public checkout. They do not certify the private system.
+the component registry and finishes in under a second.
+The Lean trust checker scans 58 proof files for placeholders, project-granted
+axioms, evaluation outside the checker's core, unsafe or partial declarations,
+and raised limits. Both checks passed. The 58 files and \mathcount{}
+mathematics components count different things. \code{make ci} also installs,
+tests, and runs two examples; continuous integration runs the same checks.
+They concern the public checkout, not the private system.
 
-The full public test suite at this commit was not green: three of its tests
-failed, one because the repository's front-door profile check did not
-classify this paper's own files at the repository root, and two in
-documentation- and record-consistency checks that predate this revision.
-The profile defect is repaired in a later commit; under the rule of
-Section~\ref{sec:stronger}, that repair is a fact about the later commit
-and leaves this record standing. The failures are recorded here rather
-than smoothed over, which is what Section~\ref{sec:conclusion} asks a reader
-to do with their own failed runs.
+The full public suite was not green: three tests failed, one in the front-door
+profile and two in older documentation and record checks. A later commit
+repairs the profile defect, but this record still stands. The failures remain
+here, as Section~\ref{sec:conclusion} asks readers to keep their own failed
+runs.
 
-\paragraph{The paper itself.} A script,
-\component{scripts/check_public_system_paper.py}, recomputes every count
-used in this paper from the public registries, verifies that the named commit
-exists, verifies that the worked example and its receipt are the ones the
-registry declares, checks that the sentences carrying this paper's
-distinctions and cautions are still present, and fails if the paper and the
-repository disagree. The public test suite runs it, so drift between this
-document and the records it describes is a test failure. That makes the
-paper one of the repository's checked documents, and the check should be
-read with Section~\ref{sec:distinctions} in mind: agreement between a
-document and records with one maintainer is internal consistency, not
-external truth. The count, route, and worked-example checks read evidence
-from the pinned commit rather than silently comparing a historical appendix
-with the current checkout; current prose anchors and citations are checked
-separately.
+\paragraph{The paper itself.}
+\component{scripts/check_public_system_paper.py} recomputes counts, checks the
+named commit and worked example, guards the main cautions, and fails when the
+paper and repository disagree. Agreement between records with one maintainer
+is internal consistency, not external truth. The checker reads the pinned
+commit rather than silently comparing a historical appendix with the current
+checkout; it checks current prose and citations separately.
 
 \begin{thebibliography}{9}
-\small
+\footnotesize
 \setlength{\itemsep}{0pt}
 \setlength{\parsep}{0pt}
 \setlength{\parskip}{0pt}
+
+\bibitem{runeson2009}
+Per Runeson and Martin H\"ost. ``Guidelines for Conducting and Reporting Case
+Study Research in Software Engineering.'' \emph{Empirical Software
+Engineering}, 14(2):131--164, 2009.
+\href{https://doi.org/10.1007/s10664-008-9102-8}{doi:10.1007/s10664-008-9102-8}.
 
 \bibitem{weyuker1982}
 Elaine J. Weyuker. ``On Testing Non-Testable Programs.''
@@ -1106,7 +1082,7 @@ Software Safety Standard}, NASA-STD-8739.8B, Section 4.4.1, 2022.
 \bibitem{nistfips1804}
 National Institute of Standards and Technology. \emph{Secure Hash Standard},
 FIPS PUB 180-4, 2015.
-\href{https://doi.org/10.6028/NIST.FIPS.180-4}{doi:10.6028/NIST.FIPS.180-4}.
+\href{https://doi.org/10.6028/NIST.FIPS.180-4}{NIST FIPS 180-4}.
 
 \end{thebibliography}
 

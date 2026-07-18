@@ -25,6 +25,11 @@ the publication boundary and its invisible denominator; the five inference
 gaps a matching run does not cross; and five non-cumulative routes to stronger
 evidence, each with its remaining limit.
 
+The paper is a descriptive analysis of one public artefact, not a statistical
+evaluation of the private system. It states the object studied, the component
+as its unit of analysis, its component-level trace and collection-level
+classification, and the limit on generalisation explicitly.
+
 Check live registry counts, the worked-example anchors, the required
 cold-reader definitions, the contribution, evidential-distinction and
 author's-hand anchors, the publisher-checked bibliography keys, and prohibited

@@ -8,6 +8,12 @@ All notable changes to Plectis are documented here. The format follows
 
 ### Changed
 
+- The public-system paper completed a ninth method-and-scope pass. It now
+  identifies the object studied, the component-level unit of analysis, and
+  its component trace and collection-wide classification; cites established
+  software-engineering case-study reporting guidance; and limits its five
+  proposed evidence routes to the dependencies actually analysed rather than
+  treating them as a universal ranking.
 - The public-system paper completed an eighth scholarly-positioning pass.
   It now places its claim--evidence--limit contract beside assurance cases
   and Claims--Arguments--Evidence notation, cites OMG SACM 2.3, disclaims

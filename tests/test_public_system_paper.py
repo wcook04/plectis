@@ -119,3 +119,20 @@ def test_public_system_paper_check_rejects_prior_art_boundary_removal(
     failures = check_paper(paper_path=paper, check_git_commit=False)
 
     assert any("not an implementation" in failure for failure in failures)
+
+
+def test_public_system_paper_check_rejects_method_scope_removal(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            "descriptive analysis of one artefact, not a statistical study",
+            "complete evaluation of the system",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any("not a statistical study" in failure for failure in failures)

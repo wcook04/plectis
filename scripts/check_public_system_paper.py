@@ -72,6 +72,9 @@ REQUIRED_COLD_READER_ANCHORS = (
     r"A \emph{validator} is",
     r"A \emph{commit} is",
     "basic command-line use",
+    "descriptive analysis of one artefact, not a statistical study",
+    "one item examined",
+    "No subset of the components is used to estimate performance",
     "The repository therefore lets a reader test claims",
     "cannot independently prove",
     "This note does not report an independent",
@@ -115,6 +118,9 @@ REQUIRED_COLD_READER_ANCHORS = (
     "claims no new theory of assurance",
     # The paper must say what it contributes, rather than only what it limits.
     "worked boundary analysis",
+    # The five stronger-evidence routes are tied to this analysis, not universal.
+    "principle is local to those five gaps",
+    "other claims may require other forms of evidence",
     # Fresh cases and independent routes do not automatically confer truth.
     "Fresh inputs alone do not supply one",
     "not by strength or prerequisite",
@@ -135,6 +141,7 @@ EXAMPLE_RESULT = (
 )
 
 REQUIRED_CITATION_KEYS = (
+    "runeson2009",
     "nasem2019",
     "weyuker1982",
     "rosenthal1979",
