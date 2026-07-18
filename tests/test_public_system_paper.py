@@ -223,7 +223,7 @@ def test_public_system_paper_check_rejects_method_scope_removal(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "descriptive analysis of one artefact, not a statistical study",
+            "descriptive analysis of one public repository, not a statistical\nstudy",
             "complete evaluation of the system",
         ),
         encoding="utf-8",
@@ -232,6 +232,27 @@ def test_public_system_paper_check_rejects_method_scope_removal(
     failures = check_paper(paper_path=paper, check_git_commit=False)
 
     assert any("not a statistical study" in failure for failure in failures)
+
+
+def test_public_system_paper_check_rejects_terms_used_before_definition(
+    tmp_path: Path,
+) -> None:
+    source = PAPER.read_text(encoding="utf-8")
+    contract = r"\section{The component contract}"
+    before, after = source.split(contract, 1)
+    for index, term in enumerate(("validator", "commit")):
+        paper = tmp_path / f"paper-{index}.tex"
+        paper.write_text(
+            before + f"\nThe opening uses {term} too early.\n" + contract + after,
+            encoding="utf-8",
+        )
+
+        failures = check_paper(paper_path=paper, check_git_commit=False)
+
+        assert any(
+            "technical term precedes its definition" in failure and term in failure
+            for failure in failures
+        )
 
 
 def test_public_system_paper_check_rejects_early_contribution_removal(
@@ -292,7 +313,7 @@ def test_public_system_paper_check_rejects_late_paper_testing_jargon(
         assert any("cold-reader residue" in failure for failure in failures)
 
 
-def test_public_system_paper_check_rejects_opaque_record_and_evaluation_terms(
+def test_public_system_paper_check_rejects_opaque_academic_record_and_evaluation_terms(
     tmp_path: Path,
 ) -> None:
     source = PAPER.read_text(encoding="utf-8")
@@ -305,6 +326,13 @@ def test_public_system_paper_check_rejects_opaque_record_and_evaluation_terms(
             "inputs to freeze",
             "inputs were frozen",
             "empirical adequacy",
+            "artefact",
+            "private origin",
+            "support for the claim as worded",
+            "behaviour beyond selected cases",
+            "self-supplied success criteria",
+            "in order to",
+            "fixed denominator",
         )
     ):
         paper = tmp_path / f"paper-{index}.tex"
@@ -313,6 +341,35 @@ def test_public_system_paper_check_rejects_opaque_record_and_evaluation_terms(
         failures = check_paper(paper_path=paper, check_git_commit=False)
 
         assert any("cold-reader residue" in failure for failure in failures)
+
+
+def test_public_system_paper_check_rejects_opening_definition_or_method_scope_loss(
+    tmp_path: Path,
+) -> None:
+    source = PAPER.read_text(encoding="utf-8")
+    cases = (
+        (
+            "registered\ncomponents (separately testable parts)",
+            "registered\ncomponents",
+            "registered components (separately testable parts)",
+        ),
+        (
+            "I borrow only those two terms",
+            "I apply this method",
+            "I borrow only those two terms",
+        ),
+    )
+    for index, (original, replacement, expected_anchor) in enumerate(cases):
+        paper = tmp_path / f"paper-{index}.tex"
+        paper.write_text(source.replace(original, replacement), encoding="utf-8")
+
+        failures = check_paper(paper_path=paper, check_git_commit=False)
+
+        assert any(
+            "missing plain-language orientation anchor" in failure
+            and expected_anchor in failure
+            for failure in failures
+        )
 
 
 def test_public_system_paper_check_rejects_ambiguous_limit_language(

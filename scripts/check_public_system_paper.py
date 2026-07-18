@@ -89,6 +89,18 @@ FORBIDDEN_COLD_READER_RESIDUE = (
     "inputs to freeze",
     "inputs were frozen",
     "empirical adequacy",
+    "artefact",
+    "private origin",
+    "support for the claim as worded",
+    "behaviour beyond selected cases",
+    "self-supplied success criteria",
+    "in order to",
+    "fixed denominator",
+)
+
+FORBIDDEN_BEFORE_COMPONENT_CONTRACT = (
+    "validator",
+    "commit",
 )
 
 # Sentences the paper's argument stands on.  The first block defines terms a
@@ -110,13 +122,14 @@ REQUIRED_COLD_READER_ANCHORS = (
     r"I use \emph{answerable} in a deliberately local sense",
     "Calling them evidence does not establish their adequacy",
     r"\emph{Contract} means only",
-    "descriptive analysis of one artefact, not a statistical study",
+    "descriptive analysis of one public repository, not a statistical study",
+    "does not otherwise claim a full case-study design",
     "one item examined",
     "No subset of the components is used to estimate performance",
     "The repository therefore lets a reader test claims",
     "cannot independently prove",
     "At the named commit, all evidence still came from the project itself",
-    "The artefact does not prove the story",
+    "public repository does not prove the story",
     "refusal with a stated limit",
     r"their own \emph{oracle}",
     "share a mistake",
@@ -150,9 +163,9 @@ REQUIRED_COLD_READER_ANCHORS = (
     "transfer trust rather than remove it",
     # Negative evaluations have the same standing as passes.
     "Disappointment is in scope",
-    # The hand-equivalence claim is bounded: ceilings are authorship-
-    # independent, error rates are not measured.
-    "rates of error behind them are simply unknown",
+    # The hand-equivalence claim is bounded: development methods and their
+    # error rates are not compared.
+    "compares no development methods and estimates no error rates",
     # Figure legends must not describe public prose as hidden, and the blue
     # action cue must remain readable without colour alone.
     "Across the figures, a dashed outline marks something",
@@ -202,7 +215,14 @@ REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
     # The abstract and method paragraph must state the sampling boundary
     # without requiring the reader to import statistical vocabulary.
     "whether the published selection resembles the private whole",
-    "repository at the named commit is the single case",
+    "registered components (separately testable parts)",
+    "whether the pass rule tests the claim as written",
+    "how the code behaves on untested inputs",
+    "my claim that the published material came from the private system",
+    "whether the project's own pass rules are correct or even test the stated claims",
+    "draw a sample and report failure rates against a fixed total",
+    "I borrow only those two terms",
+    "the named repository version is the single case",
     "The idea does not depend on software",
     "lets a stranger challenge, and which conclusions still lie beyond it",
     # Late-paper testing terms are written out as operations rather than
@@ -681,6 +701,14 @@ def check_paper(
     contract_section = r"\section{The component contract}"
     first_section = text.split(contract_section, 1)[0]
     normalized_first_section = re.sub(r"\s+", " ", first_section)
+    opening_body = text.split(r"\begin{abstract}", 1)[-1].split(
+        contract_section, 1
+    )[0]
+    for term in FORBIDDEN_BEFORE_COMPONENT_CONTRACT:
+        if re.search(rf"\b{re.escape(term)}\b", opening_body, flags=re.IGNORECASE):
+            failures.append(
+                f"technical term precedes its definition in component contract: {term!r}"
+            )
     for anchor in REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS:
         if anchor not in normalized_first_section:
             failures.append(f"missing first-section orientation anchor: {anchor!r}")

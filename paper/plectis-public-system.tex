@@ -79,15 +79,15 @@ folder) assembled from parts of a larger private system that cannot be
 published. It asks a narrow question: what may a stranger reasonably conclude
 from runnable fragments chosen by the person whose work is being examined?
 In the version studied here, each of the \componentcount{} registered
-components connects a claim to a fixed input, a command, saved output, a pass
+components (separately testable parts) connects a claim to a fixed input, a command, saved output, a pass
 rule, and a stated limit. I call this a claim--evidence--limit contract. One
 component, for example, calculates an audio level from five small sample
 arrays. A reader can repeat the calculation and challenge the expected
 numbers. That run cannot show that the public code came from the private
 application or will work on other inputs. Across the collection, a public run
-does not by itself establish private origin, correctness, support for the claim
-as worded, behaviour beyond selected cases, or the absence of risks outside a
-declared scan. I chose the published
+does not by itself establish where the code came from, whether its answers are
+correct, whether the pass rule tests the claim as written, how the code behaves
+on untested inputs, or whether risks outside the declared scan are absent. I chose the published
 fragments, inputs, answers, rules, and limits. The repository therefore lets a
 reader test claims about its published files and outputs. It cannot establish
 the hidden system's history, whether the published selection resembles the
@@ -127,14 +127,13 @@ other person worked on the system. This account explains why the publication
 problem arose and why the choices examined below are my responsibility, but
 it remains testimony about origin. Plectis can expose public files and runs;
 it cannot independently prove how the private work was produced. The
-artefact does not prove the story, and the argument does not rely on it.
+public repository does not prove the story, and the argument does not rely on it.
 
 The limit on what a public run can establish would be the same if every line
 had been written by hand. Authorship might affect how often a failure occurs:
-for example, an implementation and its validator can share a mistake when
+for example, an implementation and the program that checks it can share a mistake when
 one process drafts both. This paper compares no development methods and
-estimates no such frequency. The limits on inference are
-authorship-independent; the rates of error behind them are simply unknown.
+estimates no error rates.
 
 The boundary of the evidence can be stated before any command is run:
 
@@ -145,8 +144,8 @@ The boundary of the evidence can be stated before any command is run:
 \textbf{Status} & \textbf{What belongs in it} \\
 \midrule
 Publicly checkable & The contents of a named public version, the commands listed for its components, the files those commands write, and the results of its public tests. \\
-Reported here & The private system's history, the role of AI agents in producing it, and the private origin of published material. \\
-Not established here & Whether the public selection represents the private whole, whether the mechanisms generalise beyond their fixed cases, whether self-supplied success criteria are independently correct or even aimed at the stated claims, and whether the private system works reliably at all. \\
+Reported here & The private system's history, the role of AI agents in producing it, and my claim that the published material came from the private system. \\
+Not established here & Whether the public selection represents the private whole, whether the published code works beyond its fixed inputs, whether the project's own pass rules are correct or even test the stated claims, and whether the private system works reliably at all. \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -158,11 +157,13 @@ appear to support. Two tables classify all \componentcount{} components by
 group and by the kind of public evidence they supply. The final sections identify
 the choices an evaluator would need to make independently of me.
 
-This is a descriptive analysis of one artefact, not a statistical study.
-In the reporting vocabulary of Runeson and H\"ost \cite{runeson2009}, the
-repository at the named commit is the single case, and each component is a
-\emph{unit of analysis} (one item examined inside that case). No subset of the
-components is used to estimate performance or represent the private system.
+This is a descriptive analysis of one public repository, not a statistical
+study. Runeson and H\"ost distinguish a case from the units of analysis within
+it \cite{runeson2009}. I borrow only those two terms: the named repository
+version is the single case, and each component is a \emph{unit of analysis}
+(one item examined inside that case). This paper does not otherwise claim a
+full case-study design. No subset of the components is used to estimate
+performance or represent the private system.
 
 Reading this paper requires no programming. Reproducing its runs requires a
 terminal (the text window in which commands are typed), Git (the standard
@@ -172,7 +173,7 @@ language (version 3.11 or later), the
 software), and basic command-line use. So that the
 body of the paper can stay with the argument, the exact commands,
 environment details, and installation notes are collected in the appendix,
-which is a dated record of one verification pass at the commit named there.
+which is a dated record of one verification pass at the version named there.
 
 \section{The component contract}
 \label{sec:contract}
@@ -468,7 +469,7 @@ stranger can rerun it, dispute its rule, perturb its input, or replace my
 expected value with a better-derived one.
 
 The calculator check supplies an independent expected number for one row. It
-does not establish the component's private origin, show that the validator
+does not establish that the component came from the private system, show that the validator
 covers the full prose claim, predict untested inputs or unselected components,
 or rule out publication risks beyond the project's declared scans. Even its
 evidence for correctness is limited to that one calculation. The next section
@@ -592,10 +593,9 @@ named tests, but no basis by itself for generalising to the hidden whole.}
 \end{figure}
 
 The registry's count should be read in that light. A registry of
-\componentcount{} entries defines the published population exactly, which
-is what a later
-evaluation would need in order to sample from it and report failure rates
-against a fixed denominator. The count is an inventory, not a score, and
+\componentcount{} entries defines exactly what is published. A later
+evaluation would need that list to draw a sample and report failure rates
+against a fixed total. The count is an inventory, not a score, and
 even the unit of counting is a choice I control, since one mechanism could
 have been registered as several components, or several as one.
 
@@ -725,7 +725,7 @@ records a run, or checks a declared rule. The four routes below cover all
 \textbf{Route} & \textbf{Count} & \textbf{What it preserves} & \textbf{What it cannot show} \\
 \midrule
 Record-checked copied source & \copiedsourcecount & The exact text of non-secret source files, checked against a public import record. & That the recorded origin is real; record and file share one maintainer. \\
-Public reimplementation & \refactorcount & One calculation's behaviour on fixed cases. & Any relation to the private original beyond my report; the original text is absent. \\
+Public reimplementation & \refactorcount & One calculation's behaviour on fixed cases. & That it came from the private system; the private text is absent. \\
 Direct or external-tool run & \runtimecount & A local computation, or a named external tool's result, captured with its context. & Behaviour where the tool or environment differs; the result is as strong as the tool and the case. \\
 Contract checker & \validatorcount & Whether a public input satisfies a declared structural rule. & Whether the declared rule is the right rule to require. \\
 \bottomrule
