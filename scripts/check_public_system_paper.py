@@ -169,10 +169,10 @@ REQUIRED_CITATION_KEYS = (
     "nasem2019",
     "weyuker1982",
     "rosenthal1979",
+    "omgsacm2023",
+    "acmartifact",
     "nistfips1804",
     "nasa8739",
-    "acmartifact",
-    "omgsacm2023",
 )
 
 EXAMPLE_CASE_VALUES = {
@@ -210,6 +210,19 @@ def _load_json_from_commit(commit: str, relative_path: str, failures: list[str])
 
 def _macros(text: str) -> dict[str, str]:
     return {match.group("name"): match.group("value") for match in MACRO_RE.finditer(text)}
+
+
+def _first_citation_order(text: str) -> list[str]:
+    """Return citation keys in the order in which the paper first uses them."""
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for match in re.finditer(r"\\cite(?:\[[^\]]*\])?\{([^}]*)\}", text):
+        for key in match.group(1).split(","):
+            key = key.strip()
+            if key and key not in seen:
+                ordered.append(key)
+                seen.add(key)
+    return ordered
 
 
 def _macro_int(macros: dict[str, str], name: str, failures: list[str]) -> int | None:
@@ -379,6 +392,13 @@ def check_paper(
             failures.append(f"missing literature citation: {key}")
         if f"\\bibitem{{{key}}}" not in text:
             failures.append(f"missing bibliography item: {key}")
+    citation_order = _first_citation_order(text)
+    bibliography_order = re.findall(r"\\bibitem\{([^}]+)\}", text)
+    if bibliography_order != citation_order:
+        failures.append(
+            "bibliography items must follow first-citation order: "
+            + ", ".join(citation_order)
+        )
 
     if macros.get("snapshotshort") != snapshot[:12]:
         failures.append("snapshotshort must equal the first 12 characters of snapshotcommit")
@@ -409,7 +429,8 @@ def main() -> int:
         "Public-system paper check: pass "
         f"({declared_count} pinned components; "
         "pinned family counts, evidence routes, worked example, literature "
-        "citations, cold-reader anchors, and claim language agree)"
+        "citations and first-citation bibliography order, cold-reader anchors, "
+        "and claim language agree)"
     )
     return 0
 

@@ -104,6 +104,26 @@ def test_public_system_paper_check_rejects_missing_bibliography_item(
     assert "missing bibliography item: nasa8739" in failures
 
 
+def test_public_system_paper_check_rejects_bibliography_order_drift(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(r"\bibitem{nasem2019}", r"\bibitem{order-swap}")
+        .replace(r"\bibitem{weyuker1982}", r"\bibitem{nasem2019}")
+        .replace(r"\bibitem{order-swap}", r"\bibitem{weyuker1982}"),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "bibliography items must follow first-citation order" in failure
+        for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_prior_art_boundary_removal(
     tmp_path: Path,
 ) -> None:
