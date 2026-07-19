@@ -276,7 +276,7 @@ def test_public_repo_boundary_docs_name_runtime_contracts() -> None:
         "disables pytest's cache provider",
         "direct runs do not write\n`.pytest_cache`",
     ):
-        assert phrase in agents
+        assert " ".join(phrase.split()) in normalized_agents, phrase
     assert "ignored `.microcosm/cold_clone_probe.json` evidence" in normalized_agents
     assert agents.index("./bootstrap.sh") < agents.index("make install")
 
