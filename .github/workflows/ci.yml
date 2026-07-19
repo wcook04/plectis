@@ -28,6 +28,7 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
         with:
           persist-credentials: false
+          fetch-depth: 0 # the paper check resolves the pinned snapshot commit in history
 
       - name: Set up Python
         # Public action tag: actions/setup-python@v5. The workflow pins the action by SHA below.
