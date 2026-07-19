@@ -23616,7 +23616,7 @@ class RuntimeShell:
 <html lang=\"en\">
 <head>
   <meta charset=\"utf-8\">
-  <title>Microcosm Observatory</title>
+  <title>Plectis Observatory</title>
   <style>
     :root {{ color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
     body {{ margin: 0; background: #f5f5f1; color: #171715; }}
@@ -23668,7 +23668,7 @@ class RuntimeShell:
 </head>
 <body>
   <header>
-    <h1>Microcosm Observatory</h1>
+    <h1>Plectis Observatory</h1>
     <p>{html.escape(project_title)} is shown as an executable research prototype: local state, resolved pattern bindings, standard pressure, route, work transaction, events, and evidence drilldowns. Release remains unauthorized.</p>
   </header>
   <main>
@@ -25521,7 +25521,7 @@ class RuntimeShell:
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Microcosm Observatory</title>
+  <title>Plectis Observatory</title>
   <style>
     :root {{ color-scheme: light; }}
     body {{ background: #f8fafc; color: #111827; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.45; margin: 2rem; max-width: 980px; }}
@@ -25542,7 +25542,7 @@ class RuntimeShell:
 </head>
 <body>
   <main>
-    <h1>Microcosm Observatory</h1>
+    <h1>Plectis Observatory</h1>
     <p>Quick public entry is served from compact cards. Full observatory and tour drilldowns stay available behind explicit JSON endpoints.</p>
     <section class="grid">
       <div class="panel">
@@ -25715,7 +25715,7 @@ class RuntimeShell:
   <main>
     <h1>Microcosm JSON Drilldown</h1>
     <p><code>{html.escape(path)}</code> returned status <code>{status_code}</code>. API clients still receive <code>application/json</code>; browser navigation gets this readable wrapper.</p>
-    <p><a href="/">Back to Microcosm Observatory</a></p>
+    <p><a href="/">Back to Plectis Observatory</a></p>
     <pre data-format="application/json">{html.escape(json_text)}</pre>
   </main>
 </body>

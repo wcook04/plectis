@@ -106,7 +106,7 @@ def test_project_serve_quickstart_budget_covers_root_and_documented_drilldowns(
             seen_paths.append(path)
             assert content_type.startswith(content_type_prefix)
             if schema_version is None:
-                assert b"Microcosm Observatory" in body
+                assert b"Plectis Observatory" in body
                 continue
             payload = json.loads(body.decode("utf-8"))
             assert payload["schema_version"] == schema_version
@@ -165,7 +165,7 @@ def test_project_serve_landing_is_lazy_without_full_observatory(tmp_path: Path, 
         server.server_close()
 
     assert serve_setup_ms < 500
-    assert "Microcosm Observatory" in root
+    assert "Plectis Observatory" in root
     assert "/project/observatory-card" in root
     assert "/project/observatory" in root
     assert "/projection-import-map" in root
