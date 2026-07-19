@@ -7,10 +7,10 @@
 [Quickstart](QUICKSTART.md) ·
 [Contributing](CONTRIBUTING.md)
 
-**Plectis is a set of public, runnable tests for the claims of an AI-built
-system. Each component states one claim, takes a small frozen input, runs a
-local check, and writes a receipt you can read. Run a check, then compare the
-receipt with the claim.**
+**One private, AI-built system, two public demonstrations. Plectis is the
+machinery: 88 components you can inspect and run on your machine. Each
+component states one claim, takes a small frozen input, runs a local check,
+and writes a receipt you can read.**
 
 It runs entirely on your machine: no network or model calls, and it never
 changes the source files it reads.
@@ -21,16 +21,17 @@ python3 -m pip install .
 plectis tour --format text .
 ```
 
-Plectis is one of two public demonstrations of a private system I have been
-building alone with coding agents. Plectis shows the machinery: working slices
-of that system, packaged to run on your machine. Its companion Lean repository
-(linked below, under Companion project) shows the output: machine-checked
-mathematics around two open Erdős problems, #249 and #257, both still open.
-Three short papers explain the pair:
-[the Plectis paper](plectis-public-system.pdf) in this repository, plus
+The other demonstration is the companion Lean repository,
+[plectis-lean-erdos249-257](https://github.com/wcook04/plectis-lean-erdos249-257),
+which shows the same system's output: machine-checked mathematics around two
+open Erdős problems, #249 and #257, both still open. I have been building the
+private system alone with coding agents; it is not itself published, and these
+two repositories are what a stranger can check. Three short papers explain the
+pair: [the Plectis paper](plectis-public-system.pdf) in this repository,
 [the mathematics paper](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf)
-and [the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
-for the Lean work.
+for what is proved and where the open line sits, and
+[the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
+for how machine-checked proofs become public claims.
 
 ## What you get
 
