@@ -5349,7 +5349,7 @@ def test_runtime_shell_serves_observatory_and_status_endpoint(tmp_path: Path) ->
         thread.join(timeout=5)
         server.server_close()
 
-    assert "Microcosm Observatory" in html
+    assert "Plectis Observatory" in html
     assert "Quick public entry is served from compact cards" in html
     assert "One-Screen Entry" in html
     assert "Human first command" in html

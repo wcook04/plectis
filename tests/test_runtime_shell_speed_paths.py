@@ -1572,7 +1572,7 @@ def test_runtime_shell_serve_global_observatory_primes_tour_payload(
         assert project_path is None
         assert isinstance(model, dict)
         assert model["tour"] is served_tour_payload
-        return "<!doctype html><title>Microcosm Observatory</title>"
+        return "<!doctype html><title>Plectis Observatory</title>"
 
     def tour(project_path: str | Path | None = None, **_kwargs: object) -> dict[str, object]:
         resolved_project = (
@@ -1600,7 +1600,7 @@ def test_runtime_shell_serve_global_observatory_primes_tour_payload(
         thread.join(timeout=5)
         server.server_close()
 
-    assert "Microcosm Observatory" in root_html
+    assert "Plectis Observatory" in root_html
     assert tour_payload == served_tour_payload
     assert tour_calls == []
     assert observatory_calls == [
@@ -2036,7 +2036,7 @@ def test_runtime_shell_project_landing_primes_project_view_endpoint_cache(
         thread.join(timeout=5)
         server.server_close()
 
-    assert "Microcosm Observatory" in landing_html
+    assert "Plectis Observatory" in landing_html
     assert observe_response == observe_payload
     assert workitems_response == {
         "schema_version": "microcosm_project_workitems_view_v1",
