@@ -1,16 +1,39 @@
 % SPDX-FileCopyrightText: 2026 Will Cook
 % SPDX-License-Identifier: CC-BY-4.0
 \documentclass[11pt]{article}
-\usepackage[T1]{fontenc}
-\usepackage[a4paper,margin=1in]{geometry}
+% House typography (shared with the companion Lean papers): TeX Gyre Pagella
+% under Tectonic/XeTeX, the same Palatino design through newpx under pdflatex.
+\usepackage{iftex}
+\ifpdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{newpxtext}
+  \usepackage{newpxmath}
+\else
+  \usepackage{fontspec}
+  \usepackage{unicode-math}
+  \setmainfont{texgyrepagella}[Extension=.otf,UprightFont=*-regular,
+    BoldFont=*-bold,ItalicFont=*-italic,BoldItalicFont=*-bolditalic]
+  \setmathfont{texgyrepagella-math.otf}
+  \setmonofont{Inconsolatazi4}[Extension=.otf,UprightFont=*-Regular,
+    BoldFont=*-Bold,Scale=MatchLowercase]
+\fi
+\usepackage[a4paper,textwidth=418pt,textheight=636pt,hcentering,
+  top=68pt,headheight=15pt,headsep=20pt,footskip=34pt]{geometry}
 \usepackage{booktabs,array,enumitem,microtype}
+\linespread{1.045}
+\clubpenalty=10000 \widowpenalty=10000 \tolerance=1600
+\emergencystretch=2em
 \usepackage[dvipsnames]{xcolor}
-\usepackage[colorlinks=true,linkcolor=black,urlcolor=RoyalBlue]{hyperref}
+\definecolor{linkexternal}{HTML}{275D8C}
+\definecolor{linkinternal}{HTML}{6E2B2B}
+\usepackage[colorlinks=true,linkcolor=linkinternal,urlcolor=linkexternal,citecolor=linkinternal]{hyperref}
 \usepackage{fancyvrb}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,calc}
 \usepackage{caption,float}
-\captionsetup{font=small,labelfont=bf,width=0.92\linewidth}
+\captionsetup{font=small,labelfont=bf,skip=9pt,width=0.92\linewidth}
+\fvset{fontsize=\small}
 \setlist{nosep,leftmargin=*}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.55em}
@@ -65,8 +88,48 @@
   pdfauthor={Will Cook},
   pdfsubject={Public evidence from a private system: what a stranger can check, what the author can only report, and what remains unestablished},
 }
-\title{Plectis: What a Stranger Can Check\\
-\large What public evidence can and cannot show about a private system}
+% Front-matter and sectional architecture (house style).
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries}{\thesection}{0.85em}{}
+\titlespacing*{\section}{0pt}{2.4ex plus .8ex minus .3ex}{1.2ex plus .3ex}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.8em}{}
+\titlespacing*{\subsection}{0pt}{1.9ex plus .6ex minus .2ex}{0.9ex plus .2ex}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\itshape Plectis: what a stranger can check}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\fancypagestyle{plain}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}}
+\renewcommand{\arraystretch}{1.12}
+
+\makeatletter
+\newcommand{\subtitle}[1]{\gdef\@papersubtitle{#1}}
+\renewenvironment{abstract}{%
+  \vspace{0.1em}\small
+  \begin{center}{\normalsize\scshape Abstract}\end{center}\vspace{-0.5em}
+  \list{}{\leftmargin 1.3em\rightmargin\leftmargin\listparindent 0pt
+    \parsep 0.32em\itemindent 0pt}\item\relax}
+  {\endlist\vspace{0.5em}}
+\def\@maketitle{%
+  \newpage\null
+  \vspace*{-2.6em}%
+  \begin{center}%
+    {\LARGE\bfseries\@title\par}%
+    \vskip 0.55em
+    {\large\itshape\@papersubtitle\par}%
+    \vskip 1.1em
+    {\scshape\@author\par}%
+    \vskip 0.25em
+    {\small\@date\par}%
+    \vskip 0.8em
+    \rule{6.5em}{0.4pt}%
+  \end{center}%
+  \vskip 0.9em}
+\makeatother
+
+\title{Plectis: What a Stranger Can Check}
+\subtitle{What public evidence can and cannot show about a private system}
 \author{Will Cook}
 \date{July 2026}
 
@@ -210,7 +273,7 @@ exposed to a stranger.
 
 \begin{figure}[t]
 \centering
-\begin{tikzpicture}[x=1cm,y=1cm]
+\makebox[\linewidth][c]{\begin{tikzpicture}[x=1cm,y=1cm]
 % words row
 \node[words] (claim) at (3.45,2.05) {The claim, stated in prose};
 \node[words] (limit) at (13.0,2.05) {The stated limit};
@@ -242,7 +305,7 @@ exposed to a stranger.
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a3) -- (out);
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a4) -- (rec);
 \draw[RoyalBlue!45, dotted, line width=0.6pt] (a5) -- (verdict);
-\end{tikzpicture}
+\end{tikzpicture}}
 \caption{How to read the component contract, at commit
 \code{\snapshotshort}. Read the middle row from left to right: a command applies
 public code to a fixed input and the code writes output. The validator judges it
@@ -566,7 +629,7 @@ drawn from stays on the left.
 
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[x=1cm,y=1cm]
+\makebox[\linewidth][c]{\begin{tikzpicture}[x=1cm,y=1cm]
 % private region
 \draw[black!55, dashed, line width=0.7pt, rounded corners=3pt] (0,-0.1) rectangle (5.8,3.7);
 \node[font=\footnotesize, align=center] at (2.9,3.3) {The private system\\[-1pt]{\scriptsize (not published)}};
@@ -593,7 +656,7 @@ drawn from stays on the left.
 % notes
 \node[gnote, text width=5.6cm, anchor=north] at (2.9,-0.40) {outside public evidence: how many candidates there were, what was excluded and why, whether these resemble ordinary private work};
 \node[gnote, text width=4.6cm, anchor=north] at (10.95,-0.40) {inside public evidence: files, commands, records, and tests of the published fragments};
-\end{tikzpicture}
+\end{tikzpicture}}
 \caption{The selection problem. Each square stands for a private
 mechanism; the darker ones were given public form. Each public component
 has the parts shown in Figure~\ref{fig:contract}. The grid trails off
@@ -661,7 +724,7 @@ collection most needs a reader to hold.
 
 \begin{figure}[t]
 \centering
-\begin{tikzpicture}[x=1cm,y=1cm]
+\makebox[\linewidth][c]{\begin{tikzpicture}[x=1cm,y=1cm]
 \node[part, text width=3.2cm] (obs) at (1.8,0) {Observed: at one commit, in one environment, a fresh run matches the stored record};
 \draw[black!55, dashed, line width=0.7pt] (4.55,-3.75) -- (4.55,3.75);
 \node[font=\scriptsize, text=black!60, rotate=90] at (4.3,2.55) {edge of the observation};
@@ -682,7 +745,7 @@ collection most needs a reader to hold.
 \path (obs.east) -- (g3.west) node[gaplabel, pos=0.50]{meaning: a rule that tests the words};
 \path ([yshift=-11pt]obs.east) -- (g4.west) node[gaplabel, pos=0.60]{reach: cases I did not choose};
 \path ([yshift=-22pt]obs.east) -- (g5.west) node[gaplabel, pos=0.50]{risk: checks beyond\\the listed patterns};
-\end{tikzpicture}
+\end{tikzpicture}}
 \caption{Five conclusions a matching run invites and does not license.
 Each dashed arrow needs a further assumption that the observation itself
 cannot supply. From top to bottom, the tags follow the order discussed above:
@@ -866,7 +929,7 @@ is who makes the choice that matters for that claim.
 
 \begin{figure}[H]
 \centering
-\begin{tikzpicture}[x=1cm,y=1cm]
+\makebox[\linewidth][c]{\begin{tikzpicture}[x=1cm,y=1cm]
 % uniform box heights and bottom/top-anchored labels keep every dotted
 % leader the same length
 % a whisper of stranger-blue on the evaluations: each is evidence that lives
@@ -889,7 +952,7 @@ is who makes the choice that matters for that claim.
 \foreach \i in {1,...,5}{
   \draw[RoyalBlue!45, dotted, line width=0.6pt] (b\i.south) -- (s\i.north);
   \draw[black!30, dotted, line width=0.6pt] (s\i.south) -- (n\i.north);}
-\end{tikzpicture}
+\end{tikzpicture}}
 \caption{Five forms of independent evaluation. Above each evaluation, in italic
 blue, the choice that leaves my hands; below it, in grey, what that evaluation
 still cannot show. The evaluations are not cumulative stages. At the commit
@@ -977,7 +1040,7 @@ repair every gap.
 \paragraph{A first review.} Use the appendix's no-install block and select the
 version analysed here. The tour describes the checkout but does not choose a
 component claim. Ask the repository to find the audio example with
-\par\noindent{\scriptsize\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action "audio level calculation" --format text|}\par
+\par\noindent\resizebox{\linewidth}{!}{\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action "audio level calculation" --format text|}\par
 The response identifies the audio component, but do not run its first suggested
 command: it writes to the repository's saved receipt paths. Run the paper's exact
 no-install command near the start of Section~\ref{sec:run} instead; it writes only
