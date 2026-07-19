@@ -138,8 +138,8 @@ def test_blocks_former_name_in_hero(tmp_path: Path) -> None:
     # inject the compatibility state dir into the hero promise
     _mutate(
         root,
-        "public, runnable tests for the claims",
-        "public, runnable .microcosm/ tests for the claims",
+        "inspect and run on your machine",
+        "inspect and run from .microcosm/ on your machine",
     )
     receipt = validate_readme_front_door(root)
     assert "README_HERO_ONTOLOGY_LEAK" in receipt["blocking_codes"]
@@ -179,7 +179,8 @@ def test_blocks_local_record_primary_frame(tmp_path: Path) -> None:
     root = _front_door_tree(tmp_path)
     _mutate(
         root,
-        "**Plectis is a set of public, runnable tests for the claims of an AI-built\nsystem.",
+        "**One private, AI-built system, two public demonstrations. Plectis is the\n"
+        "machinery: 88 components you can inspect and run on your machine.",
         "**Plectis is a local evidence router.",
     )
     receipt = validate_readme_front_door(root)
