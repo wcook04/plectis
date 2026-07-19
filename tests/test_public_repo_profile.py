@@ -76,7 +76,7 @@ def test_profile_fails_when_hero_promotes_unrelated_repository(tmp_path: Path) -
         (root / name).write_text("placeholder\n", encoding="utf-8")
     (root / "README.md").write_text(
         "# Plectis\n\n"
-        "[other](https://github.com/wcook04/plectis-lean-erdos249-257) "
+        "[other](https://github.com/example/unrelated-project) "
         "[a](LICENSE) [b](CONTRIBUTING.md)\n\n"
         "```bash\npip install plectis\n```\n\n## More\n",
         encoding="utf-8",
