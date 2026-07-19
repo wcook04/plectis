@@ -8,7 +8,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "line_count": 128,
+      "line_count": 118,
       "material_class": "public_macro_receipt_body",
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
       "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
@@ -36,7 +36,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "line_count": 93,
+      "line_count": 83,
       "material_class": "public_macro_receipt_body",
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_tactic_portfolio_availability_json_body_import",
       "path": "source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
@@ -262,8 +262,8 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
-      "byte_count": 102,
-      "line_count": 6,
+      "byte_count": 116,
+      "line_count": 7,
       "material_class": "public_macro_tool_body",
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_trace_state_probe_lean_body_import",
       "path": "source_artifacts/tactic_affordance_probe/trace_state_probe.lean",
