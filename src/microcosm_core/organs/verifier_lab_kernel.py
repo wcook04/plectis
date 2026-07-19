@@ -33,7 +33,11 @@ from microcosm_core.secret_exclusion_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalized_public_receipt_string,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -815,6 +819,17 @@ def validate_source_module_imports(
     if not isinstance(manifest, dict):
         manifest = {}
     module_rows = _rows(manifest, "modules")
+    declared_omissions = _rows(manifest, "release_substitution_omissions")
+    omission_ids = [
+        str(row.get("module_id"))
+        for row in declared_omissions
+        if row.get("module_id")
+    ]
+    omission_refs = [
+        str(row.get("source_ref"))
+        for row in declared_omissions
+        if row.get("source_ref")
+    ]
     if manifest.get("source_import_class") != SOURCE_IMPORT_CLASS:
         findings.append(
             _finding(
@@ -980,6 +995,9 @@ def validate_source_module_imports(
         "source_module_manifest_ref": manifest_ref,
         "module_count": len(modules),
         "modules": modules,
+        "release_substitution_omission_count": len(declared_omissions),
+        "release_substitution_omission_ids": omission_ids,
+        "release_substitution_omission_refs": omission_refs,
         "findings": findings,
         "observed_negative_cases": {},
         "body_in_receipt": False,
@@ -1279,7 +1297,10 @@ def _fresh_kernel_bundle_receipt(
         return None
     if payload.get("status") != PASS:
         return None
-    if payload.get("command") != command:
+    if payload.get("command") not in {
+        command,
+        normalized_public_receipt_string(command),
+    }:
         return None
     if payload.get("input_mode") != "exported_verifier_lab_kernel_bundle":
         return None
@@ -1340,7 +1361,10 @@ def _fresh_fixture_receipts(
         return None
     if payload.get("status") != PASS:
         return None
-    if payload.get("command") != command:
+    if payload.get("command") not in {
+        command,
+        normalized_public_receipt_string(command),
+    }:
         return None
     if payload.get("input_mode") != "first_wave_fixture":
         return None

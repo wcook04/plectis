@@ -96,7 +96,6 @@ SOURCE_TARGET_REFS = [
     "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
     "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/decide.lean",
     "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-    "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
     "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean",
     "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
     "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -105,13 +104,13 @@ SOURCE_TARGET_REFS = [
     "examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/trace_state_probe.lean",
 ]
 SOURCE_DIGESTS = {
-    SOURCE_REFS[0]: "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
-    SOURCE_REFS[1]: "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+    SOURCE_REFS[0]: "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
+    SOURCE_REFS[1]: "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
     SOURCE_REFS[2]: "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d",
 }
 PUBLIC_SAFE_SOURCE_DIGESTS = {
-    SOURCE_REFS[0]: "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
-    SOURCE_REFS[1]: "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+    SOURCE_REFS[0]: "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
+    SOURCE_REFS[1]: "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
 }
 SOURCE_BODY_REL_BY_SOURCE_REF = {
     source_ref: f"source_artifacts/{source_ref}" for source_ref in SOURCE_REFS
@@ -121,7 +120,6 @@ PROBE_SOURCE_REL_PATHS = (
     "source_artifacts/tactic_affordance_probe/portfolio_core_v0/aesop.lean",
     "source_artifacts/tactic_affordance_probe/portfolio_core_v0/decide.lean",
     "source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean",
-    "source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
     "source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean",
     "source_artifacts/tactic_affordance_probe/portfolio_core_v0/rfl.lean",
     "source_artifacts/tactic_affordance_probe/portfolio_core_v0/simp.lean",
@@ -147,9 +145,6 @@ PROBE_SOURCE_DIGESTS = {
         "source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean"
     ]: "sha256:10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
     PROBE_SOURCE_REF_BY_REL[
-        "source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean"
-    ]: "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
-    PROBE_SOURCE_REF_BY_REL[
         "source_artifacts/tactic_affordance_probe/portfolio_core_v0/omega.lean"
     ]: "sha256:03567efe4235543feb46e7eb06eb23e61d65cc69b93c05364d55bedf1f9c0548",
     PROBE_SOURCE_REF_BY_REL[
@@ -166,7 +161,7 @@ PROBE_SOURCE_DIGESTS = {
     ]: "sha256:8c020f6884cda37338cb5216ded61722a9993fcd6d69aee1db655885738abbd1",
     PROBE_SOURCE_REF_BY_REL[
         "source_artifacts/tactic_affordance_probe/trace_state_probe.lean"
-    ]: "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+    ]: "sha256:531156903b25593eea6ecf00f316806b4eefc75171bea31f5458fa824da2f0ee",
 }
 BODY_MATERIAL_STATUS = "copied_non_secret_macro_body_with_provenance"
 TACTIC_AVAILABILITY_STATUS = "real_lean_std_tactic_affordance_probe_rows"

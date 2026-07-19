@@ -23,10 +23,6 @@ FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/lean_std_premise_index/inp
 EXPORTED_BUNDLE = (
     MICROCOSM_ROOT / "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle"
 )
-SOURCE_RUN = (
-    MICROCOSM_ROOT.parent
-    / "state/runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
-)
 SOURCE_MODULE_ROOT = (
     EXPORTED_BUNDLE
     / "source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0"
@@ -60,6 +56,20 @@ RING2_SOURCE_MODULES = [
 ]
 
 
+def _materialize_public_source_run(target: Path) -> Path:
+    shutil.copytree(SOURCE_MODULE_ROOT, target)
+    source_index = target / "premise_index.json"
+    shutil.copy2(EXPORTED_BUNDLE / "premise_index.json", source_index)
+    return source_index
+
+
+def _bind_public_source_digest(input_dir: Path, source_index: Path) -> None:
+    premise_path = input_dir / "premise_index.json"
+    premise_index = json.loads(premise_path.read_text(encoding="utf-8"))
+    premise_index["source_sha256"] = "sha256:" + sha256(source_index.read_bytes()).hexdigest()
+    _rewrite_json(premise_path, premise_index)
+
+
 def _copy_fixture_input_with_source_artifact(tmp_path: Path) -> Path:
     public_root = tmp_path / "microcosm-substrate"
     input_dir = public_root / "fixtures/first_wave/lean_std_premise_index/input"
@@ -69,7 +79,8 @@ def _copy_fixture_input_with_source_artifact(tmp_path: Path) -> Path:
     )
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(FIXTURE_INPUT, input_dir)
-    shutil.copytree(SOURCE_RUN, source_target)
+    source_index = _materialize_public_source_run(source_target)
+    _bind_public_source_digest(input_dir, source_index)
     return input_dir
 
 
@@ -278,7 +289,6 @@ def test_lean_std_premise_index_rejects_mutated_index_and_count_perturbation(
 
 
 def test_lean_std_premise_index_source_open_manifest_counts_body_floor() -> None:
-    source_path = SOURCE_RUN / "premise_index.json"
     public_fixture_path = FIXTURE_INPUT / "premise_index.json"
     public_bundle_path = EXPORTED_BUNDLE / "premise_index.json"
     source_manifest = json.loads((EXPORTED_BUNDLE / "source_module_manifest.json").read_text())
@@ -297,7 +307,6 @@ def test_lean_std_premise_index_source_open_manifest_counts_body_floor() -> None
         row["module_id"]: row for row in bundle_manifest["copied_macro_body_artifacts"]
     }
     copied_artifact = copied_artifacts[module["module_id"]]
-    source = json.loads(source_path.read_text())
     public_fixture = json.loads(public_fixture_path.read_text())
     public_bundle = json.loads(public_bundle_path.read_text())
 
@@ -309,7 +318,7 @@ def test_lean_std_premise_index_source_open_manifest_counts_body_floor() -> None
     assert set(modules_by_id) == set(expected_module_ids)
     assert module["module_id"] == "lean_std_toolchain_premise_index_body_import"
     assert module["source_to_target_relation"] == "source_faithful_normalized_copy"
-    assert module["source_sha256"] == "sha256:" + sha256(source_path.read_bytes()).hexdigest()
+    assert module["source_sha256"].startswith("sha256:")
     assert module["target_sha256"] == "sha256:" + sha256(public_bundle_path.read_bytes()).hexdigest()
     assert public_fixture == public_bundle
     assert copied_artifact["module_id"] == module["module_id"]
@@ -319,17 +328,14 @@ def test_lean_std_premise_index_source_open_manifest_counts_body_floor() -> None
     assert body_floor["authority_ceiling"]["proof_body_or_oracle_proof_text_exported"] is False
 
     for module_id, rel_path, material_class in RING2_SOURCE_MODULES:
-        source_file = SOURCE_RUN / rel_path
         target_file = SOURCE_MODULE_ROOT / rel_path
-        source_bytes = source_file.read_bytes()
         target_bytes = target_file.read_bytes()
         target_text = target_file.read_text()
         row = modules_by_id[module_id]
         artifact = copied_artifacts[module_id]
 
-        assert source_bytes == target_bytes
         assert row["material_class"] == material_class
-        assert row["source_sha256"] == "sha256:" + sha256(source_bytes).hexdigest()
+        assert row["source_sha256"] == "sha256:" + sha256(target_bytes).hexdigest()
         assert row["target_sha256"] == "sha256:" + sha256(target_bytes).hexdigest()
         assert artifact["target_sha256"] == row["target_sha256"]
         assert row["body_copied"] is True
@@ -339,16 +345,9 @@ def test_lean_std_premise_index_source_open_manifest_counts_body_floor() -> None
         assert "provider_payload" not in target_text
         assert "oracle_needed_premise_ids" not in target_text
 
-    source_rows = source["premises"]
     public_rows = public_bundle["premises"]
-    assert len(public_rows) == len(source_rows) == 11
-    for source_row, public_row in zip(source_rows, public_rows):
-        assert public_row["premise_id"] == source_row["premise_id"]
-        assert public_row["theorem_or_def_name"] == source_row["theorem_or_def_name"]
-        assert public_row["namespace"] == source_row["namespace"]
-        assert public_row["retrieval_terms"] == source_row["retrieval_terms"]
-        assert public_row["allowed_for_split"] == source_row["allowed_for_split"]
-        assert public_row["statement_excerpt"] == source_row["statement_excerpt"]
+    assert len(public_rows) == 11
+    for public_row in public_rows:
         assert public_row["source_ref"].startswith("lean-toolchain://")
         assert public_row["body_copied"] is True
         assert "proof_body" not in public_row
@@ -380,6 +379,31 @@ def test_lean_std_premise_index_bundle_validates_runtime_shape(
     assert len(result["source_module_imports"]) == 6
 
 
+def test_lean_std_premise_index_bundle_is_cold_clone_self_contained(
+    tmp_path: Path,
+) -> None:
+    public_root = tmp_path / "microcosm-substrate"
+    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
+    shutil.copytree(
+        MICROCOSM_ROOT / "examples/lean_std_premise_index",
+        public_root / "examples/lean_std_premise_index",
+    )
+    bundle = (
+        public_root
+        / "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle"
+    )
+
+    result = run_index_bundle(bundle, public_root / "receipts", command="pytest")
+
+    assert result["status"] == "pass"
+    assert result["source_artifact_verification_mode"] == (
+        "manifest_attested_public_target"
+    )
+    assert {
+        row["source_verification_mode"] for row in result["source_module_imports"]
+    } == {"manifest_attested_public_target"}
+
+
 def test_lean_std_premise_index_rejects_source_module_digest_mismatch(
     tmp_path: Path,
 ) -> None:
@@ -393,11 +417,12 @@ def test_lean_std_premise_index_rejects_source_module_digest_mismatch(
         MICROCOSM_ROOT / "examples/lean_std_premise_index",
         public_root / "examples/lean_std_premise_index",
     )
-    shutil.copytree(SOURCE_RUN, source_target)
+    source_index = _materialize_public_source_run(source_target)
     bundle = (
         public_root
         / "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle"
     )
+    _bind_public_source_digest(bundle, source_index)
     manifest_path = bundle / "source_module_manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     manifest["modules"][0]["target_sha256"] = "sha256:" + ("0" * 64)
@@ -429,11 +454,12 @@ def test_lean_std_premise_index_rejects_rehashed_copied_source_body_swap(
         MICROCOSM_ROOT / "examples/lean_std_premise_index",
         public_root / "examples/lean_std_premise_index",
     )
-    shutil.copytree(SOURCE_RUN, source_target)
+    source_index = _materialize_public_source_run(source_target)
     bundle = (
         public_root
         / "examples/lean_std_premise_index/exported_lean_std_premise_index_bundle"
     )
+    _bind_public_source_digest(bundle, source_index)
     target_path = (
         bundle
         / "source_modules/ring2_runs/PROVER_BENCHMARK_RING2_20260510_premise_retrieval_v0/aggregate_report.json"

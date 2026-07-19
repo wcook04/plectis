@@ -3,7 +3,7 @@
   "body_in_receipt": false,
   "body_storage_policy": "non_secret_PROVER_tactic_affordance_probe_run_bodies_copied_or_verified_public_safe_private_path_rewritten_into_public_tactic_portfolio_bundle",
   "manifest_id": "tactic_portfolio_availability_macro_source_module_manifest",
-  "module_count": 13,
+  "module_count": 12,
   "modules": [
     {
       "body_copied": true,
@@ -15,18 +15,18 @@
       "public_safe_mode": "verified_public_macro_body_light_edit",
       "public_safe_transform": {
         "body_text_in_receipt": false,
-        "source_digest_preserved": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
-        "target_digest_verified": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+        "source_digest_preserved": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
+        "target_digest_verified": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
         "transform_id": "operator_specific_path_to_synthetic_example_path"
       },
-      "sha256": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+      "sha256": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
-      "source_sha256": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+      "source_sha256": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
       "source_to_target_relation": "verified_public_safe_private_path_rewrite",
       "target_ref": "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json",
-      "target_sha256": "sha256:b49fff153a69f22a52181496206a038ceea587f43ad38e3531d7ff2f35ec976f",
+      "target_sha256": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
       "validation_refs": [
         "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_observes_required_negative_cases",
         "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape"
@@ -43,18 +43,18 @@
       "public_safe_mode": "verified_public_macro_body_light_edit",
       "public_safe_transform": {
         "body_text_in_receipt": false,
-        "source_digest_preserved": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
-        "target_digest_verified": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+        "source_digest_preserved": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
+        "target_digest_verified": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
         "transform_id": "operator_specific_path_to_synthetic_example_path"
       },
-      "sha256": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+      "sha256": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
-      "source_sha256": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+      "source_sha256": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
       "source_to_target_relation": "verified_public_safe_private_path_rewrite",
       "target_ref": "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json",
-      "target_sha256": "sha256:b474704255b8462996562478732e36c60bb4e2f33c64a9fb81cf48032d1fa970",
+      "target_sha256": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
       "validation_refs": [
         "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_observes_required_negative_cases",
         "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape"
@@ -144,28 +144,6 @@
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/grind.lean",
       "target_sha256": "10458d90f04bfcd8673f949448de6ac9d0600eff750c85bd4e3cbc015eb3586a",
-      "validation_refs": [
-        "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_observes_required_negative_cases",
-        "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape"
-      ]
-    },
-    {
-      "body_copied": true,
-      "body_in_receipt": false,
-      "byte_count": 85,
-      "line_count": 4,
-      "material_class": "public_macro_tool_body",
-      "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_native_decide_lean_body_import",
-      "path": "source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
-      "sha256": "sha256:0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
-      "sha256_match": true,
-      "source_import_class": "copied_non_secret_macro_body",
-      "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
-      "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
-      "source_sha256": "0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
-      "source_to_target_relation": "exact_copy",
-      "target_ref": "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
-      "target_sha256": "0969b1ae27f3adc066cc42272d6cefc4d0083e8eec42b53e4d7d6db98e61610d",
       "validation_refs": [
         "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_observes_required_negative_cases",
         "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape"
@@ -289,15 +267,15 @@
       "material_class": "public_macro_tool_body",
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_trace_state_probe_lean_body_import",
       "path": "source_artifacts/tactic_affordance_probe/trace_state_probe.lean",
-      "sha256": "sha256:5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+      "sha256": "sha256:531156903b25593eea6ecf00f316806b4eefc75171bea31f5458fa824da2f0ee",
       "sha256_match": true,
       "source_import_class": "copied_non_secret_macro_body",
       "source_open_payload_boundary": "body_in_bundle_source_artifacts_not_receipts_provider_payload_browser_hud_live_access_account_session_or_credentials",
       "source_ref": "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/trace_state_probe.lean",
-      "source_sha256": "5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+      "source_sha256": "531156903b25593eea6ecf00f316806b4eefc75171bea31f5458fa824da2f0ee",
       "source_to_target_relation": "exact_copy",
       "target_ref": "microcosm-substrate/examples/tactic_portfolio_availability_probe/exported_tactic_portfolio_availability_bundle/source_artifacts/tactic_affordance_probe/trace_state_probe.lean",
-      "target_sha256": "5a89050bfd0866cbc28f7c64e6115ea94dd690aa40073509bb6c55b7b4f20cf5",
+      "target_sha256": "531156903b25593eea6ecf00f316806b4eefc75171bea31f5458fa824da2f0ee",
       "validation_refs": [
         "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_observes_required_negative_cases",
         "tests/test_tactic_portfolio_availability_probe.py::test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape"

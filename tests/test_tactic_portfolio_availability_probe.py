@@ -292,16 +292,15 @@ def test_tactic_portfolio_availability_observes_required_negative_cases(
     )
 
     assert result["status"] == "pass"
-    assert result["tactic_count"] == 8
+    assert result["tactic_count"] == 7
     assert result["compile_status_counts"] == {
-        "compile_pass": 7,
+        "compile_pass": 6,
         "environment_fail": 1,
     }
     assert result["unavailable_reason_counts"] == {"MATHLIB_IMPORT_MISSING": 1}
     assert result["available_tactic_ids"] == [
         "decide",
         "grind",
-        "native_decide",
         "omega",
         "rfl",
         "simp",
@@ -314,16 +313,16 @@ def test_tactic_portfolio_availability_observes_required_negative_cases(
     assert result["latency_profile_status"] == (
         "copied_probe_duration_rows_environment_scoped_not_benchmark_authority"
     )
-    assert result["latency_profile_available_tactic_count"] == 7
+    assert result["latency_profile_available_tactic_count"] == 6
     assert result["latency_band_counts"] == {
-        "fast": 3,
+        "fast": 2,
         "moderate": 3,
         "slow": 1,
     }
     assert result["fastest_available_tactic_ids"] == [
         "decide",
-        "native_decide",
         "simp",
+        "omega",
     ]
     assert result["slowest_available_tactic_ids"] == [
         "rfl",
@@ -332,7 +331,7 @@ def test_tactic_portfolio_availability_observes_required_negative_cases(
     ]
     assert result["available_tactic_duration_ms_min"] == 1971
     assert result["available_tactic_duration_ms_max"] == 8852
-    assert result["available_tactic_duration_ms_median"] == 2567
+    assert result["available_tactic_duration_ms_median"] == 3126.0
     assert result["latency_missing_tactic_ids"] == []
     assert result["tactic_latency_profile"][0] == {
         "tactic_id": "decide",
@@ -352,8 +351,8 @@ def test_tactic_portfolio_availability_observes_required_negative_cases(
     assert result["probe_source_body_status"] == (
         "copied_non_secret_lean_probe_source_bodies_with_digest_verification"
     )
-    assert result["source_artifact_count"] == 13
-    assert result["copied_source_artifact_count"] == 13
+    assert result["source_artifact_count"] == 12
+    assert result["copied_source_artifact_count"] == 12
     assert result["source_body_artifact_count"] == 3
     assert result["copied_source_body_artifact_count"] == 3
     assert all(row["body_copied"] for row in result["source_artifact_imports"])
@@ -369,7 +368,7 @@ def test_tactic_portfolio_availability_observes_required_negative_cases(
     assert result["body_in_receipt"] is False
     assert result["source_digests"][
         "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json"
-    ] == "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3"
+    ] == "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255"
     assert set(result["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
     assert result["missing_negative_cases"] == []
     assert result["secret_exclusion_scan"]["blocking_hit_count"] == 0
@@ -425,11 +424,11 @@ def test_tactic_portfolio_availability_moves_when_authoritative_source_row_chang
 
     assert result["status"] == "pass"
     assert result["compile_status_counts"] == {
-        "compile_pass": 6,
+        "compile_pass": 5,
         "compile_fail": 1,
         "environment_fail": 1,
     }
-    assert result["latency_profile_available_tactic_count"] == 6
+    assert result["latency_profile_available_tactic_count"] == 5
     assert "rfl" not in result["available_tactic_ids"]
     assert "rfl" in result["unavailable_tactic_ids"]
     assert result["unavailable_reason_counts"] == {
@@ -477,7 +476,7 @@ def test_tactic_portfolio_availability_ignores_stale_public_failure_classifier(
 
     assert result["status"] == "pass"
     assert result["compile_status_counts"] == {
-        "compile_pass": 6,
+        "compile_pass": 5,
         "compile_fail": 1,
         "environment_fail": 1,
     }
@@ -524,10 +523,10 @@ def test_tactic_portfolio_availability_rejects_baked_labels_when_authoritative_s
     assert "TACTIC_PORTFOLIO_PUBLIC_PROJECTION_CONTRADICTION" in result["error_codes"]
     assert result["compile_status_counts"] == {
         "compile_fail": 1,
-        "compile_pass": 6,
+        "compile_pass": 5,
         "environment_fail": 1,
     }
-    assert result["latency_profile_available_tactic_count"] == 6
+    assert result["latency_profile_available_tactic_count"] == 5
     assert "rfl" not in result["available_tactic_ids"]
     assert "rfl" in result["unavailable_tactic_ids"]
     assert result["unavailable_reason_counts"] == {
@@ -571,16 +570,16 @@ def test_tactic_portfolio_availability_moves_when_authoritative_duration_changes
 
     assert result["status"] == "pass"
     assert result["compile_status_counts"] == {
-        "compile_pass": 7,
+        "compile_pass": 6,
         "environment_fail": 1,
     }
-    assert result["available_tactic_duration_ms_min"] == 1994
+    assert result["available_tactic_duration_ms_min"] == 2081
     assert result["available_tactic_duration_ms_max"] == 9300
-    assert result["available_tactic_duration_ms_median"] == 3685
+    assert result["available_tactic_duration_ms_median"] == 3741.0
     assert result["fastest_available_tactic_ids"] == [
-        "native_decide",
         "simp",
         "omega",
+        "simp_all",
     ]
     assert result["slowest_available_tactic_ids"] == [
         "decide",
@@ -616,17 +615,17 @@ def test_tactic_portfolio_availability_blocks_missing_compile_status_from_real_p
     assert result["status"] == "blocked"
     assert "TACTIC_PORTFOLIO_MISSING_COMPILE_STATUS" in result["error_codes"]
     assert result["compile_status_counts"] == {
-        "compile_pass": 6,
+        "compile_pass": 5,
         "environment_fail": 1,
         "missing": 1,
     }
-    assert result["latency_profile_available_tactic_count"] == 6
+    assert result["latency_profile_available_tactic_count"] == 5
     assert "simp" not in result["available_tactic_ids"]
-    assert result["available_tactic_duration_ms_median"] == 3126.0
+    assert result["available_tactic_duration_ms_median"] == 3685
     assert result["fastest_available_tactic_ids"] == [
         "decide",
-        "native_decide",
         "omega",
+        "simp_all",
     ]
 
     receipt = _read_json(out_dir / "tactic_portfolio_availability_result.json")
@@ -669,20 +668,20 @@ def test_tactic_portfolio_availability_receipts_are_public_relative_and_real_sub
         assert payload["body_material_status"] == (
             "copied_non_secret_macro_body_with_provenance"
         )
-        assert payload["source_artifact_count"] == 13
-        assert payload["copied_source_artifact_count"] == 13
+        assert payload["source_artifact_count"] == 12
+        assert payload["copied_source_artifact_count"] == 12
         assert payload["source_body_artifact_count"] == 3
         assert payload["copied_source_body_artifact_count"] == 3
-        assert payload["latency_profile_available_tactic_count"] == 7
+        assert payload["latency_profile_available_tactic_count"] == 6
         assert payload["latency_band_counts"] == {
-            "fast": 3,
+            "fast": 2,
             "moderate": 3,
             "slow": 1,
         }
         assert payload["fastest_available_tactic_ids"] == [
             "decide",
-            "native_decide",
             "simp",
+            "omega",
         ]
         assert payload["latency_missing_tactic_ids"] == []
         assert all(row["body_copied"] for row in payload["source_artifact_imports"])
@@ -711,25 +710,25 @@ def test_tactic_portfolio_availability_exported_bundle_validates_runtime_shape(
     assert result["expected_negative_cases"] == {}
     assert result["missing_negative_cases"] == []
     assert result["error_codes"] == []
-    assert result["tactic_count"] == 8
+    assert result["tactic_count"] == 7
     assert result["mathlib_absence_gate_enforced"] is True
-    assert result["latency_profile_available_tactic_count"] == 7
+    assert result["latency_profile_available_tactic_count"] == 6
     assert result["latency_band_counts"] == {
-        "fast": 3,
+        "fast": 2,
         "moderate": 3,
         "slow": 1,
     }
     assert result["fastest_available_tactic_ids"] == [
         "decide",
-        "native_decide",
         "simp",
+        "omega",
     ]
     assert result["body_material_status"] == "copied_non_secret_macro_body_with_provenance"
     assert result["tactic_availability_status"] == (
         "real_lean_std_tactic_affordance_probe_rows"
     )
-    assert result["source_artifact_count"] == 13
-    assert result["copied_source_artifact_count"] == 13
+    assert result["source_artifact_count"] == 12
+    assert result["copied_source_artifact_count"] == 12
     assert result["source_body_artifact_count"] == 3
     assert result["copied_source_body_artifact_count"] == 3
     assert all(row["body_copied"] for row in result["source_artifact_imports"])
@@ -778,11 +777,11 @@ def test_tactic_portfolio_availability_exported_bundle_moves_when_authoritative_
 
     assert result["status"] == "pass"
     assert result["compile_status_counts"] == {
-        "compile_pass": 6,
+        "compile_pass": 5,
         "compile_fail": 1,
         "environment_fail": 1,
     }
-    assert result["latency_profile_available_tactic_count"] == 6
+    assert result["latency_profile_available_tactic_count"] == 5
     assert "rfl" not in result["available_tactic_ids"]
     assert "rfl" in result["unavailable_tactic_ids"]
     assert result["unavailable_reason_counts"] == {
@@ -814,7 +813,7 @@ def test_tactic_portfolio_availability_exported_bundle_rejects_contradictory_rea
     assert result["status"] == "blocked"
     assert "TACTIC_PORTFOLIO_PUBLIC_PROJECTION_CONTRADICTION" in result["error_codes"]
     assert result["compile_status_counts"] == {
-        "compile_pass": 7,
+        "compile_pass": 6,
         "environment_fail": 1,
     }
     assert "rfl" in result["available_tactic_ids"]
@@ -877,12 +876,11 @@ def test_tactic_portfolio_availability_rejects_stale_public_environment_projecti
     assert "TACTIC_PORTFOLIO_PUBLIC_PROJECTION_CONTRADICTION" in result["error_codes"]
     assert result["compile_status_counts"] == {
         "compile_fail": 1,
-        "compile_pass": 7,
+        "compile_pass": 6,
     }
     assert result["available_tactic_ids"] == [
         "decide",
         "grind",
-        "native_decide",
         "omega",
         "rfl",
         "simp",
@@ -935,13 +933,12 @@ def test_tactic_portfolio_availability_blocks_mathlib_tactic_promoted_against_en
     assert result["status"] == "blocked"
     assert "TACTIC_PORTFOLIO_PUBLIC_PROJECTION_CONTRADICTION" in result["error_codes"]
     assert result["compile_status_counts"] == {
-        "compile_pass": 7,
+        "compile_pass": 6,
         "environment_fail": 1,
     }
     assert result["available_tactic_ids"] == [
         "decide",
         "grind",
-        "native_decide",
         "omega",
         "rfl",
         "simp",
@@ -980,7 +977,6 @@ def test_tactic_portfolio_availability_blocks_contradictory_environment_probe(
     assert result["available_tactic_ids"] == [
         "decide",
         "grind",
-        "native_decide",
         "omega",
         "rfl",
         "simp",
@@ -1017,8 +1013,8 @@ def test_tactic_portfolio_availability_blocks_perturbed_probe_source_body(
 
     assert result["status"] == "blocked"
     assert "TACTIC_PORTFOLIO_SOURCE_ARTIFACT_DIGEST_MISMATCH" in result["error_codes"]
-    assert result["source_artifact_count"] == 13
-    assert result["copied_source_artifact_count"] == 12
+    assert result["source_artifact_count"] == 12
+    assert result["copied_source_artifact_count"] == 11
     assert any(
         row["source_ref"].endswith(
             "tactic_affordance_probe/portfolio_core_v0/simp.lean"
@@ -1029,7 +1025,6 @@ def test_tactic_portfolio_availability_blocks_perturbed_probe_source_body(
     assert result["available_tactic_ids"] == [
         "decide",
         "grind",
-        "native_decide",
         "omega",
         "rfl",
         "simp",
@@ -1070,19 +1065,19 @@ def test_tactic_portfolio_availability_bundle_card_reuses_fresh_receipt(
     assert card["input_mode"] == "exported_tactic_portfolio_availability_bundle"
     assert card["cache_status"] == "fresh_exported_bundle_receipt_reused"
     assert card["receipt_summary"]["result_receipt_name"] == BUNDLE_RESULT_NAME
-    assert card["availability_summary"]["tactic_count"] == 8
-    assert card["availability_summary"]["available_tactic_count"] == 7
+    assert card["availability_summary"]["tactic_count"] == 7
+    assert card["availability_summary"]["available_tactic_count"] == 6
     assert card["availability_summary"]["unavailable_tactic_count"] == 1
-    assert card["availability_summary"]["latency_profile_available_tactic_count"] == 7
+    assert card["availability_summary"]["latency_profile_available_tactic_count"] == 6
     assert card["availability_summary"]["latency_band_counts"] == {
-        "fast": 3,
+        "fast": 2,
         "moderate": 3,
         "slow": 1,
     }
     assert card["availability_summary"]["fastest_available_tactic_ids"] == [
         "decide",
-        "native_decide",
         "simp",
+        "omega",
     ]
     assert card["availability_summary"]["profile_rows_exported"] is False
     assert card["source_artifact_summary"]["source_artifact_rows_exported"] is False
@@ -1114,7 +1109,6 @@ def test_tactic_portfolio_availability_bundle_recomputes_after_real_source_pertu
     assert baseline["available_tactic_ids"] == [
         "decide",
         "grind",
-        "native_decide",
         "omega",
         "rfl",
         "simp",
@@ -1153,10 +1147,10 @@ def test_tactic_portfolio_availability_bundle_recomputes_after_real_source_pertu
     assert mutated["freshness_basis"]["latest_input_mtime_ns"] > baseline_receipt_mtime_ns
     assert mutated["compile_status_counts"] == {
         "compile_fail": 1,
-        "compile_pass": 6,
+        "compile_pass": 5,
         "environment_fail": 1,
     }
-    assert mutated["latency_profile_available_tactic_count"] == 6
+    assert mutated["latency_profile_available_tactic_count"] == 5
     assert "rfl" not in mutated["available_tactic_ids"]
     assert "rfl" in mutated["unavailable_tactic_ids"]
     assert mutated["unavailable_reason_counts"] == {
@@ -1171,28 +1165,24 @@ def test_tactic_portfolio_availability_exported_source_modules_are_digest_verifi
 
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
-    assert manifest["module_count"] == 13
-    assert len(manifest["modules"]) == 13
+    assert manifest["module_count"] == 12
+    assert len(manifest["modules"]) == 12
 
-    repo_root = MICROCOSM_ROOT.parent
     for module in manifest["modules"]:
-        source = repo_root / module["source_ref"]
-        target = repo_root / module["target_ref"]
-        source_digest = _sha256_prefixed(module.get("source_sha256") or module["sha256"])
+        target = EXPORTED_BUNDLE_INPUT / module["path"]
         target_digest = _sha256_prefixed(module.get("target_sha256") or module["sha256"])
-        assert source.is_file()
         assert target.is_file()
-        assert _sha256(source) == source_digest
         assert _sha256(target) == target_digest
         if module["source_to_target_relation"] == "exact_copy":
-            assert source_digest == target_digest
+            assert _sha256_prefixed(module["source_sha256"]) == target_digest
         else:
             assert module["source_to_target_relation"] == (
                 "verified_public_safe_private_path_rewrite"
             )
-            assert source_digest != target_digest
             assert module["verification_mode"] == "verified_light_edit_recipe"
-            assert module["public_safe_transform"]["body_text_in_receipt"] is False
+            transform = module["public_safe_transform"]
+            assert transform["body_text_in_receipt"] is False
+            assert _sha256_prefixed(transform["target_digest_verified"]) == target_digest
             assert Path.home().as_posix() not in target.read_text(encoding="utf-8")
         assert module["body_copied"] is True
         assert module["body_in_receipt"] is False

@@ -3,6 +3,8 @@ from __future__ import annotations
 import importlib.util
 import hashlib
 import json
+import subprocess
+import sys
 from pathlib import Path
 from types import ModuleType
 
@@ -57,6 +59,67 @@ def _write_manifest(
     return manifest_path
 
 
+def test_refresh_source_module_manifest_cli_is_standalone_runnable() -> None:
+    completed = subprocess.run(
+        [sys.executable, str(SCRIPT_PATH), "--help"],
+        cwd=SUBSTRATE_ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert completed.returncode == 0
+    assert "--manifest" in completed.stdout
+    assert "ModuleNotFoundError" not in completed.stderr
+
+
+def test_refresh_manifest_updates_declared_source_and_target_sizes(
+    tmp_path: Path,
+) -> None:
+    refresh_module = _load_refresh_module()
+    public_root = tmp_path / "microcosm-substrate"
+    source_ref = "src/microcosm_core/organs/demo.py"
+    target_ref = (
+        "microcosm-substrate/examples/demo/source_modules/microcosm_core/organs/demo.py"
+    )
+    source_path = public_root / source_ref
+    target_path = public_root / target_ref.removeprefix("microcosm-substrate/")
+    source_path.parent.mkdir(parents=True, exist_ok=True)
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    source_path.write_text("VALUE = 1\nVALUE += 2\n", encoding="utf-8")
+    target_path.write_text("stale\n", encoding="utf-8")
+    manifest_path = _write_manifest(
+        public_root,
+        module_id="demo_source_body_import",
+        source_ref=source_ref,
+        target_ref=target_ref,
+    )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = manifest["modules"][0]
+    row.update(
+        {
+            "source_line_count": 1,
+            "source_byte_count": 6,
+            "target_line_count": 1,
+            "target_byte_count": 6,
+        }
+    )
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+
+    result = refresh_module.refresh_manifest(
+        manifest_path,
+        module_ids=set(),
+        write=True,
+    )
+    refreshed = json.loads(manifest_path.read_text(encoding="utf-8"))["modules"][0]
+
+    assert result["status"] == "pass"
+    assert refreshed["source_line_count"] == 2
+    assert refreshed["target_line_count"] == 2
+    assert refreshed["source_byte_count"] == source_path.stat().st_size
+    assert refreshed["target_byte_count"] == target_path.stat().st_size
+
+
 def test_refresh_manifest_resolves_substrate_local_src_refs(tmp_path: Path) -> None:
     refresh_module = _load_refresh_module()
     public_root = tmp_path / "microcosm-substrate"
@@ -93,8 +156,10 @@ def test_refresh_manifest_keeps_repo_root_tool_refs(tmp_path: Path) -> None:
     refresh_module = _load_refresh_module()
     repo_root = tmp_path / "repo"
     public_root = repo_root / "microcosm-substrate"
-    source_ref = "tools/meta/factory/demo_tool.py"
-    target_ref = "microcosm-substrate/examples/demo/source_modules/tools/meta/factory/demo_tool.py"
+    source_ref = "public_sources/demo_tool.py"
+    target_ref = (
+        "microcosm-substrate/examples/demo/source_modules/public_sources/demo_tool.py"
+    )
     source_path = repo_root / source_ref
     target_path = public_root / target_ref.removeprefix("microcosm-substrate/")
     source_path.parent.mkdir(parents=True, exist_ok=True)
@@ -120,11 +185,68 @@ def test_refresh_manifest_keeps_repo_root_tool_refs(tmp_path: Path) -> None:
     assert result["rows"][0]["source_ref"] == source_ref
 
 
+def test_refresh_manifest_does_not_treat_declared_omission_as_import(
+    tmp_path: Path,
+) -> None:
+    refresh_module = _load_refresh_module()
+    public_root = tmp_path / "microcosm-substrate"
+    source_ref = "src/microcosm_core/organs/demo.py"
+    target_ref = (
+        "microcosm-substrate/examples/demo/source_modules/"
+        "microcosm_core/organs/demo.py"
+    )
+    source_path = public_root / source_ref
+    target_path = public_root / target_ref.removeprefix("microcosm-substrate/")
+    source_path.parent.mkdir(parents=True, exist_ok=True)
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    source_path.write_text('ORGAN_ID = "demo"\n', encoding="utf-8")
+    target_path.write_text("stale\n", encoding="utf-8")
+    manifest_path = _write_manifest(
+        public_root,
+        module_id="demo_source_body_import",
+        source_ref=source_ref,
+        target_ref=target_ref,
+    )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["release_substitution_omissions"] = [
+        {
+            "module_id": "private_runner_body_omitted",
+            "source_ref": "tools/meta/factory/private_runner.py",
+            "path": "source_modules/tools/meta/factory/private_runner.py",
+            "release_substitution": {
+                "matched_private_ref": "tools/meta/factory/private_runner.py",
+                "substitution": "public_safe_stub",
+            },
+        }
+    ]
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_module.refresh_manifest(
+        manifest_path,
+        module_ids={"demo_source_body_import"},
+        write=True,
+    )
+
+    refreshed_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert result["status"] == "pass"
+    assert result["boundary"]["blocked_ref_count"] == 0
+    assert result["boundary"][
+        "declared_release_substitution_omission_count"
+    ] == 1
+    assert target_path.read_bytes() == source_path.read_bytes()
+    assert refreshed_manifest["release_substitution_omissions"] == (
+        manifest["release_substitution_omissions"]
+    )
+
+
 def test_refresh_manifest_public_safe_normalize_writes_transformed_target(tmp_path: Path) -> None:
     refresh_module = _load_refresh_module()
     repo_root = tmp_path / "repo"
     public_root = repo_root / "microcosm-substrate"
-    source_ref = "tools/meta/bridge/demo_transport.py"
+    source_ref = "public_sources/demo_transport.py"
     target_ref = "microcosm-substrate/examples/demo/source_modules/demo.py"
     source_path = repo_root / source_ref
     target_path = public_root / target_ref.removeprefix("microcosm-substrate/")
@@ -186,10 +308,10 @@ def test_refresh_manifest_public_light_edit_redaction_updates_operator_home_copy
     refresh_module = _load_refresh_module()
     repo_root = tmp_path / "repo"
     public_root = repo_root / "microcosm-substrate"
-    source_ref = "system/server/tests/test_agent_session_attribution.py"
+    source_ref = "public_sources/tests/test_agent_session_attribution.py"
     target_ref = (
         "microcosm-substrate/examples/demo/source_modules/"
-        "system/server/tests/test_agent_session_attribution.py"
+        "public_sources/tests/test_agent_session_attribution.py"
     )
     source_path = repo_root / source_ref
     target_path = public_root / target_ref.removeprefix("microcosm-substrate/")
@@ -331,9 +453,9 @@ def test_refresh_manifest_repairs_stale_public_copy_self_ref_with_original_sourc
     refresh_module = _load_refresh_module()
     repo_root = tmp_path / "repo"
     public_root = repo_root / "microcosm-substrate"
-    source_ref = "tools/meta/factory/demo_atlas.py"
+    source_ref = "public_sources/demo_atlas.py"
     target_ref = (
-        "microcosm-substrate/examples/demo/source_modules/tools/meta/factory/demo_atlas.py"
+        "microcosm-substrate/examples/demo/source_modules/public_sources/demo_atlas.py"
     )
     source_path = repo_root / source_ref
     target_path = public_root / target_ref.removeprefix("microcosm-substrate/")
@@ -345,7 +467,7 @@ def test_refresh_manifest_repairs_stale_public_copy_self_ref_with_original_sourc
         encoding="utf-8",
     )
     target_path.write_text(
-        "BUILDER_ID = 'tools/meta/factory/demo_atlas.py'\n"
+        "BUILDER_ID = 'public_sources/demo_atlas.py'\n"
         "TRACE_ROOT = '<private-raw-seed-root>'\n",
         encoding="utf-8",
     )

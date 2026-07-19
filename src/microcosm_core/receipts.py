@@ -367,6 +367,14 @@ def normalize_public_receipt_paths(payload: dict[str, Any]) -> dict[str, Any]:
     return normalized
 
 
+def normalized_public_receipt_string(value: str) -> str:
+    """Return the exact public-safe string form persisted by receipt writes."""
+
+    normalized = normalize_public_receipt_paths({"value": value})
+    candidate = normalized.get("value") if isinstance(normalized, dict) else value
+    return candidate if isinstance(candidate, str) else value
+
+
 def _payload_with_stable_created_at(
     path: Path, payload: dict[str, Any]
 ) -> dict[str, Any]:

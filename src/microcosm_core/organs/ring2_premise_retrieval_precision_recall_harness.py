@@ -23,7 +23,11 @@ from microcosm_core.private_state_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalized_public_receipt_string,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -427,7 +431,10 @@ def _fresh_precision_recall_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_ring2_precision_recall_bundle":
         return None
-    if payload.get("command") != command:
+    if payload.get("command") not in {
+        command,
+        normalized_public_receipt_string(command),
+    }:
         return None
     basis = _freshness_basis(input_dir, include_negative=False)
     existing_basis = payload.get("freshness_basis")
@@ -1402,13 +1409,18 @@ def _write_receipts(
     out_dir.mkdir(parents=True, exist_ok=True)
     if bundle_mode:
         bundle_path = out_dir / BUNDLE_RESULT_NAME
+        receipt_paths = [
+            normalized_public_receipt_string(
+                _display(bundle_path, public_root=public_root)
+            )
+        ]
         receipt = _common_receipt(
             result,
             schema_version="exported_ring2_precision_recall_bundle_validation_result_v1",
-            receipt_paths=[_display(bundle_path, public_root=public_root)],
+            receipt_paths=receipt_paths,
         )
         write_json_atomic(bundle_path, receipt)
-        result["receipt_paths"] = receipt["receipt_paths"]
+        result["receipt_paths"] = receipt_paths
         return result
 
     paths = {
@@ -1421,7 +1433,10 @@ def _write_receipts(
         if acceptance_out is not None
         else public_root / ACCEPTANCE_RECEIPT_REL
     )
-    receipt_paths = _relative_receipt_paths(paths, public_root)
+    receipt_paths = [
+        normalized_public_receipt_string(path)
+        for path in _relative_receipt_paths(paths, public_root)
+    ]
     result_payload = dict(result)
     result_payload.pop("ring2_precision_recall_board", None)
     result_payload["receipt_paths"] = receipt_paths
@@ -1435,14 +1450,23 @@ def _write_receipts(
     acceptance_payload = _common_receipt(
         result,
         schema_version="ring2_precision_recall_fixture_acceptance_v1",
-        receipt_paths=[_display(acceptance_path, public_root=public_root)],
+        receipt_paths=[
+            normalized_public_receipt_string(
+                _display(acceptance_path, public_root=public_root)
+            )
+        ],
     )
     write_json_atomic(paths["result"], result_payload)
     write_json_atomic(paths["board"], board_payload)
     write_json_atomic(paths["validation"], validation_payload)
     acceptance_path.parent.mkdir(parents=True, exist_ok=True)
     write_json_atomic(acceptance_path, acceptance_payload)
-    result["receipt_paths"] = [*receipt_paths, _display(acceptance_path, public_root=public_root)]
+    result["receipt_paths"] = [
+        *receipt_paths,
+        normalized_public_receipt_string(
+            _display(acceptance_path, public_root=public_root)
+        ),
+    ]
     return result
 
 

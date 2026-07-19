@@ -1,0 +1,39 @@
+{
+  "schema": "plectis-lean-companion-snapshot/v1",
+  "artifact_role": "public_companion_scale_projection_not_proof_or_release_authority",
+  "observed_at": "2026-07-16",
+  "upstream": {
+    "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
+    "tracked_branch": "refs/heads/main",
+    "remote_tracking_ref": "refs/remotes/origin/main",
+    "public_ref": "1c9df5777700dcd85686ed45fb3afc41a3eae44a",
+    "orientation_path": "docs/orientation.json",
+    "orientation_sha256": "8b166979dca97be322c1ac354624d80a8316d03f35d128b19b625e111aa49dec",
+    "latest_tag": "v0.6.0",
+    "release_tag_object": "6f9e8e3989c6a47c669de89088cf9fdde4b0fa41",
+    "release_commit": "c2975740da4ecbfc91faee2a2d9947d49e21e334"
+  },
+  "scale": {
+    "module_count": 633,
+    "declaration_count": 12490,
+    "theorem_like_count": 11467,
+    "generated_certificate_declaration_count": 2923,
+    "principal_claim_link_count": 235
+  },
+  "authority_ceiling": {
+    "scale_projection_only": true,
+    "proof_authority": "Lean source checked by the pinned Lean kernel",
+    "release_authorized": false,
+    "private_root_equivalence_asserted": false,
+    "open_problem_solution_claimed": false
+  },
+  "refresh": {
+    "local_command": "PYTHONPATH=src python3 scripts/check_lean_companion_snapshot.py --upstream-root ../plectis-lean-erdos249-257",
+    "source_fields": [
+      "docs/orientation.json::scale",
+      "docs/orientation.json::authority_posture",
+      "docs/orientation.json::proof_authority",
+      "docs/orientation.json::non_claims"
+    ]
+  }
+}

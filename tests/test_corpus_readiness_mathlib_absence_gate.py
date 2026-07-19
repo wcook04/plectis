@@ -1033,6 +1033,48 @@ def test_corpus_readiness_runtime_lean_import_probe_is_live_when_available(
     assert probe["lake_build_ran"] is False
 
 
+def test_corpus_readiness_runtime_probe_does_not_launder_version_timeout_into_import_failure(
+    monkeypatch: Any,
+) -> None:
+    monkeypatch.undo()
+    monkeypatch.setattr(corpus_gate.shutil, "which", lambda name: f"/tmp/{name}")
+    command_results = iter(
+        [
+            {
+                "return_code": 0,
+                "stdout_has_unknown_mathlib": False,
+                "stderr_has_unknown_mathlib": False,
+            },
+            {
+                "return_code": 1,
+                "stdout_has_unknown_mathlib": True,
+                "stderr_has_unknown_mathlib": False,
+            },
+            {
+                "return_code": 124,
+                "stdout_has_unknown_mathlib": False,
+                "stderr_has_unknown_mathlib": False,
+                "timed_out": True,
+                "error_class": "TIMEOUT",
+            },
+        ]
+    )
+    monkeypatch.setattr(
+        corpus_gate,
+        "_command_result_card",
+        lambda *_args, **_kwargs: next(command_results),
+    )
+
+    probe = corpus_gate.runtime_lean_import_probe()
+
+    assert probe["status"] == PASS
+    assert probe["std_import_passed"] is True
+    assert probe["mathlib_import_rejected"] is True
+    assert probe["lake_execution_verified"] is True
+    assert probe["lake_version_probe_status"] == "diagnostic_unavailable"
+    assert probe["lake_version_probe"]["error_class"] == "TIMEOUT"
+
+
 def test_corpus_readiness_supplied_runtime_probe_inputs_pass_when_good(
     tmp_path: Path,
     monkeypatch: Any,

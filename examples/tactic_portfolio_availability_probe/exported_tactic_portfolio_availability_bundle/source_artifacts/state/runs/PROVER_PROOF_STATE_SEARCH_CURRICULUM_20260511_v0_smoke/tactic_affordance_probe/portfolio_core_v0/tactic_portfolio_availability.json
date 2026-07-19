@@ -2,7 +2,6 @@
   "available_tactic_ids": [
     "rfl",
     "decide",
-    "native_decide",
     "omega",
     "simp",
     "simp_all",
@@ -30,15 +29,6 @@
       "probe_path": "/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/decide.lean",
       "stderr_excerpt": "",
       "tactic_id": "decide"
-    },
-    {
-      "available": true,
-      "compile_status": "PASS",
-      "duration_ms": 1994,
-      "error_class": "NONE",
-      "probe_path": "/Users/example/src/ai_workflow/state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean",
-      "stderr_excerpt": "",
-      "tactic_id": "native_decide"
     },
     {
       "available": true,

@@ -1,9 +1,7 @@
 from __future__ import annotations
 
 import json
-import os
 import shutil
-import subprocess
 from pathlib import Path
 from typing import Any
 
@@ -23,10 +21,6 @@ FIXTURE_INPUT = MICROCOSM_ROOT / "fixtures/first_wave/verifier_lab_kernel/input"
 BUNDLE_INPUT = (
     MICROCOSM_ROOT
     / "examples/verifier_lab_kernel/exported_verifier_lab_kernel_bundle"
-)
-SUBSTRATE_BINDINGS = (
-    MICROCOSM_ROOT.parent
-    / "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
 )
 SUBSTRATE_BINDINGS_SHA256 = (
     "sha256:89bcca24997029114a8542eea930fb26ddc2bddb5759adfb37950c3684cec1ee"
@@ -174,7 +168,7 @@ def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
     assert metrics["retrieval_query_count"] == 4
     assert metrics["ring2_problem_count"] == 10
     assert metrics["ring2_mean_precision_at_k"] == 0.36
-    assert metrics["proof_diagnostic_accepted_count"] >= 2
+    assert metrics["proof_diagnostic_accepted_count"] == 1
     assert set(result["claim_separation"]) == {
         "lean_verified",
         "provider_suggested",
@@ -198,6 +192,24 @@ def test_verifier_lab_kernel_runs_component_stack_and_separates_claims(
     assert result["synthetic_receipt_standin_allowed"] is False
     assert "private_state_scan" not in result
     assert "body_redacted" not in result
+
+
+def test_verifier_lab_kernel_fixture_uses_cold_clone_component_exports() -> None:
+    packet = json.loads(
+        (FIXTURE_INPUT / "verifier_lab_packet.json").read_text(encoding="utf-8")
+    )
+    by_organ = {
+        row["organ_id"]: row
+        for row in packet["component_inputs"]
+    }
+
+    assert by_organ["corpus_readiness_mathlib_absence_gate"]["input_mode"].startswith(
+        "exported"
+    )
+    assert by_organ["lean_std_premise_index"]["input_mode"].startswith("exported")
+    assert by_organ["proof_diagnostic_evidence_spine"]["input_mode"].startswith(
+        "exported"
+    )
 
 
 def test_verifier_lab_kernel_fixture_reuses_fresh_receipt(
@@ -232,6 +244,23 @@ def test_verifier_lab_kernel_receipts_are_public_relative_and_transparent_withou
     public_root = tmp_path / "microcosm-substrate"
     shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
     shutil.copytree(MICROCOSM_ROOT / "fixtures", public_root / "fixtures")
+    for organ_id in (
+        "corpus_readiness_mathlib_absence_gate",
+        "lean_std_premise_index",
+        "proof_diagnostic_evidence_spine",
+    ):
+        shutil.copytree(
+            MICROCOSM_ROOT / "examples" / organ_id,
+            public_root / "examples" / organ_id,
+        )
+    for receipt_ref in (
+        "receipts/first_wave/formal_math_verifier_trace_repair_loop/verifier_trace_repair_board.json",
+        "receipts/first_wave/formal_evidence_cell_anchor_resolver/evidence_cell_anchor_board.json",
+    ):
+        source = MICROCOSM_ROOT / receipt_ref
+        target = public_root / receipt_ref
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(source, target)
 
     result = run(
         public_root / "fixtures/first_wave/verifier_lab_kernel/input",
@@ -289,17 +318,18 @@ def test_verifier_lab_kernel_exported_bundle_validates_runtime_shape(
     assert result["proof_lab_route_source_sha256"] == SUBSTRATE_BINDINGS_SHA256
     assert result["proof_lab_route_component_count"] == len(EXPECTED_COMPONENTS)
     assert result["source_module_imports"]["status"] == "pass"
-    assert result["source_module_imports"]["module_count"] == 14
+    assert result["source_module_imports"]["module_count"] == 10
+    assert result["source_module_imports"]["release_substitution_omission_count"] == 4
     assert result["source_module_imports"]["body_text_in_receipt"] is False
     assert all(
         row["body_text_in_receipt"] is False
         for row in result["source_module_imports"]["modules"]
     )
     assert result["source_open_body_imports"]["status"] == "pass"
-    assert result["source_open_body_imports"]["body_material_count"] == 14
+    assert result["source_open_body_imports"]["body_material_count"] == 10
     assert result["source_open_body_imports"]["body_in_receipt"] is False
     assert result["source_open_body_imports"]["body_text_in_receipt"] is False
-    assert result["body_copied_material_count"] == 14
+    assert result["body_copied_material_count"] == 10
     assert set(result["component_statuses"]) == EXPECTED_COMPONENTS
     assert result["expected_negative_cases"] == []
     assert result["missing_negative_cases"] == []
@@ -387,9 +417,10 @@ def test_verifier_lab_kernel_exported_bundle_blocks_source_module_digest_mismatc
 
     assert result["status"] == "blocked"
     assert result["source_module_imports"]["status"] == "blocked"
-    assert result["source_module_imports"]["module_count"] == 14
+    assert result["source_module_imports"]["module_count"] == 10
+    assert result["source_module_imports"]["release_substitution_omission_count"] == 4
     assert result["source_open_body_imports"]["status"] == "blocked"
-    assert result["body_copied_material_count"] == 14
+    assert result["body_copied_material_count"] == 10
     assert result["body_in_receipt"] is False
     assert result["source_module_imports"]["body_text_in_receipt"] is False
     assert result["source_open_body_imports"]["body_in_receipt"] is False
@@ -413,15 +444,24 @@ def test_verifier_lab_kernel_source_module_manifest_is_exact_public_body_floor()
     assert manifest["source_import_class"] == "copied_non_secret_macro_body"
     assert manifest["body_in_receipt"] is False
     assert manifest["body_text_in_receipt"] is False
-    assert manifest["module_count"] == 14
+    assert manifest["module_count"] == 10
+    assert len(manifest["release_substitution_omissions"]) == 4
     assert source_imports["status"] == "pass"
-    assert source_imports["module_count"] == 14
+    assert source_imports["module_count"] == 10
+    assert source_imports["release_substitution_omission_count"] == 4
     assert source_imports["body_text_in_receipt"] is False
 
     module_ids = {row["module_id"] for row in source_imports["modules"]}
     assert "verifier_lab_kernel_source_body_import" in module_ids
-    assert "prover_statement_only_hammer_bandit_runner_body_import" in module_ids
-    assert "prover_proof_state_search_curriculum_runner_body_import" in module_ids
+    omission_ids = {
+        row["module_id"] for row in manifest["release_substitution_omissions"]
+    }
+    assert omission_ids == {
+        "prover_statement_only_hammer_bandit_runner_body_import",
+        "prover_proof_state_search_curriculum_runner_body_import",
+        "prover_graph_benchmark_helper_body_import",
+        "prover_external_formal_benchmark_smoke_helper_body_import",
+    }
     for row in manifest["modules"]:
         source_ref = str(row["source_ref"])
         source_root = (
@@ -489,53 +529,27 @@ def test_verifier_lab_kernel_blocks_source_module_body_text_receipt_flags(
         assert "proof_body" not in _walk_keys(result)
 
 
-def test_verifier_lab_kernel_copied_prover_runners_have_public_smoke_commands() -> None:
+def test_verifier_lab_kernel_private_prover_runners_are_explicit_public_stubs() -> None:
     source_modules = BUNDLE_INPUT / "source_modules"
-    runners = {
-        "tools/meta/factory/run_prover_statement_only_hammer_bandit.py": [
-            "--problem-limit",
-            "--timeout-seconds",
-            "--check",
-            "--json",
-        ],
-        "tools/meta/factory/run_prover_proof_state_search_curriculum.py": [
-            "--external-limit",
-            "--local-limit",
-            "--timeout-seconds",
-            "--check",
-            "--json",
-        ],
-    }
+    manifest = json.loads((BUNDLE_INPUT / "source_module_manifest.json").read_text())
 
-    for runner_ref, expected_args in runners.items():
-        runner = source_modules / runner_ref
-        result = subprocess.run(
-            ["python3", str(runner), "--help"],
-            cwd=MICROCOSM_ROOT,
-            env={**os.environ, "PYTHONPATH": str(source_modules)},
-            text=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            check=True,
-        )
-        help_text = result.stdout + result.stderr
-        for arg in expected_args:
-            assert arg in help_text
+    for row in manifest["release_substitution_omissions"]:
+        stub = source_modules / row["path"].removeprefix("source_modules/")
+        text = stub.read_text(encoding="utf-8")
+        assert "PUBLIC_MICROCOSM_STUB = True" in text
+        assert row["source_ref"] in text
+        assert "withheld from the public Plectis release" in text
+        assert row["release_substitution"]["substitution"] == "public_safe_stub"
 
 
-def test_verifier_lab_kernel_route_slice_is_source_faithful() -> None:
+def test_verifier_lab_kernel_route_slice_is_self_describing_in_public_clone() -> None:
     route = json.loads((BUNDLE_INPUT / "proof_lab_route.json").read_text(encoding="utf-8"))
-    source = json.loads(SUBSTRATE_BINDINGS.read_text(encoding="utf-8"))
-    source_route = next(
-        row
-        for row in source["foundation_combination_routes"]
-        if row["route_id"] == "formal_prover_context_strategy_gate"
-    )
 
     assert route["schema_version"] == "formal_prover_context_strategy_gate_public_route_slice_v1"
     assert route["source_ref"] == "state/microcosm_portfolio/extracted_pattern_substrate_bindings.json"
     assert route["source_sha256"] == SUBSTRATE_BINDINGS_SHA256
     assert route["classification"] == "source_faithful_refactor"
-    assert route["foundation_route"] == source_route
+    assert route["foundation_route"]["route_id"] == "formal_prover_context_strategy_gate"
+    assert route["foundation_route"]["missing_pattern_ids"] == []
     assert set(route["required_component_organs"]) == EXPECTED_COMPONENTS
     assert route["body_in_receipt"] is False

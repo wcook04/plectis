@@ -1,27 +1,12 @@
 """
-[PURPOSE]
-- Teleology: Exposes `microcosm_core.organs.verifier_lab_execution_spine` as a documented Microcosm public source module.
-- Mechanism: Keeps executable source as authority while adding the file-level contract required by `std_python.py`.
-- Guarantee: Importing this module defines its declared constants, classes, and functions without granting authority outside the public package boundary.
+Implements organs verifier lab execution spine for the public Plectis package.
 
-[INTERFACE]
-- Exports: ORGAN_ID, FIXTURE_ID, VALIDATOR_ID, PACKET_NAME, LAKE_PROJECT_DIR, LAKEFILE_NAME, LEAN_TRANSITION_MAX_WORKERS, RESULT_NAME, BOARD_NAME, VALIDATION_RECEIPT_NAME, ACCEPTANCE_RECEIPT_REL, BUNDLE_RESULT_NAME, CARD_SCHEMA_VERSION, SOURCE_MODULE_MANIFEST_NAME, SOURCE_IMPORT_CLASS, SOURCE_BODY_STATUS, PUBLIC_SAFE_SOURCE_MODULE_CLASSES, SOURCE_MODULE_RELATIONS, SOURCE_REF_PREFIXES, NEGATIVE_INPUT_NAMES, EXPECTED_NEGATIVE_CASES, FORBIDDEN_TRANSITION_KEYS, FORBIDDEN_CP2_KEYS, ALLOWED_ACTION_CLASSES, ...
-- Reads: call arguments, module constants, imported helpers, declared filesystem inputs, declared subprocess results.
-- Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text, subprocess side effects requested by the caller and any explicit side effects performed by exported entry points.
-- Non-goal: Does not authorize private-source export, Drive sharing, network publication, or mutation outside the callable body.
-
-[FLOW]
-- Loads imports and constants, then exposes helpers and public callables for package, test, CLI, or exported-bundle callers.
-- Delegates validation, projection, serialization, and receipt behavior to file-local functions and classes.
-- Surfaces errors through normal Python exceptions or body-defined result envelopes so callers can bind failures to receipts.
-
-[DEPENDENCIES]
-- Required: microcosm_core.receipts, microcosm_core.schemas, microcosm_core.secret_exclusion_scan
-- Optional Runtime: Filesystem, CLI arguments, package data, subprocesses, or environment variables only where individual call bodies reference them.
-
-[CONSTRAINTS]
-- Atomicity: Module import is declaration-only; mutating operations are scoped to the explicit function or method invocation that performs them.
-- Determinism: Pure computations are deterministic for equal inputs; filesystem, clock, subprocess, and environment reads are the only admitted runtime variability.
+Callers enter through `TransitionReceipt`, `validate_source_module_imports`, `result_card`,
+`write_receipts`, `run`, `run_execution_bundle`, and 1 more; constants such as `ORGAN_ID`,
+`FIXTURE_ID`, `VALIDATOR_ID`, `PACKET_NAME`, and 30 more pin local fixture names;
+dependencies include `argparse`, `hashlib`, `json`, `os`, and 11 more. It builds public
+fixture, result, card, or verdict structures while keeping private substrate bodies out of
+the payload.
 """
 from __future__ import annotations
 
@@ -33,7 +18,6 @@ import shutil
 import subprocess
 import tempfile
 from collections.abc import Iterator, Sequence
-from concurrent.futures import ThreadPoolExecutor
 from copy import deepcopy
 from dataclasses import asdict, dataclass
 from functools import lru_cache
@@ -46,7 +30,11 @@ from microcosm_core.secret_exclusion_scan import (
     public_relative_path,
     scan_paths,
 )
-from microcosm_core.receipts import utc_now, write_json_atomic
+from microcosm_core.receipts import (
+    normalized_public_receipt_string,
+    utc_now,
+    write_json_atomic,
+)
 from microcosm_core.schemas import read_json_strict
 
 
@@ -57,7 +45,7 @@ VALIDATOR_ID = "validator.microcosm.organs.verifier_lab_execution_spine"
 PACKET_NAME = "execution_spine_packet.json"
 LAKE_PROJECT_DIR = "lake_project"
 LAKEFILE_NAME = "lakefile.lean"
-LEAN_TRANSITION_MAX_WORKERS = 4
+LEAN_TRANSITION_BATCH_TIMEOUT_SECONDS = 120
 RESULT_NAME = "verifier_lab_execution_spine_result.json"
 BOARD_NAME = "verifier_lab_execution_spine_board.json"
 VALIDATION_RECEIPT_NAME = "verifier_lab_execution_spine_validation_receipt.json"
@@ -253,13 +241,11 @@ CARD_OMITTED_FULL_PAYLOAD_KEYS = (
 @dataclass(frozen=True)
 class TransitionReceipt:
     """
-    [ROLE]
-    - Teleology: Groups `TransitionReceipt` data or behavior for `microcosm_core.organs.verifier_lab_execution_spine` behind a documented class contract.
-    - Ownership: Owned by `microcosm_core.organs.verifier_lab_execution_spine`; callers should construct or mutate instances only through declared fields, constructors, or methods.
-    - Mutability: Follows the dataclass, descriptor, or instance-attribute behavior encoded by the class body; shared mutable instances remain caller-owned unless a method explicitly transfers custody.
-    - Concurrency: Provides no implicit cross-thread lock; callers must serialize shared instance access unless the class body explicitly implements locking.
-    - Guarantee: Successful construction exposes attributes and methods declared in the class body with invariants enforced by its constructor or dataclass machinery.
-    - Fails: Constructor, descriptor, or method validation errors propagate as normal Python exceptions or explicit body-defined envelopes.
+    Record object for Transition Receipt.
+
+    It keeps `problem_id`, `target_shape`, `action_class`, `candidate_kind`,
+    `allowed_premise_refs`, `lean_return_code`, `accepted`, and 9 more together for the
+    organs verifier lab execution spine flow.
     """
     problem_id: str
     target_shape: str
@@ -281,13 +267,10 @@ class TransitionReceipt:
 
 def _public_root_for_path(path: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_public_root_for_path` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the public root for path value used by
+    `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `path`; notable helpers are `resolve`, `is_dir`, `Path`, `cwd`, and 1 more.
     """
     resolved = Path(path).resolve(strict=False)
     start = resolved if resolved.is_dir() else resolved.parent
@@ -303,26 +286,20 @@ def _public_root_for_path(path: str | Path) -> Path:
 
 def _display(path: Path, *, public_root: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_display` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return display for `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `path` and `public_root`; notable helpers are `public_relative_path`.
     """
     return public_relative_path(path, display_root=public_root)
 
 
 def _strings(value: object) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_strings` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return the non-empty string members used by
+    `microcosm_core.organs.verifier_lab_execution_spine._strings`.
+
+    The helper rejects non-list inputs and non-string elements instead of manufacturing
+    evidence from arbitrary values.
     """
     if not isinstance(value, list):
         return []
@@ -331,13 +308,11 @@ def _strings(value: object) -> list[str]:
 
 def _rows(payload: object, key: str) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_rows` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dictionary rows for `microcosm_core.organs.verifier_lab_execution_spine._rows`
+    from `payload[key]`.
+
+    Invalid payload shapes are treated as empty input so the caller can iterate without
+    extra guards.
     """
     if not isinstance(payload, dict):
         return []
@@ -349,13 +324,10 @@ def _rows(payload: object, key: str) -> list[dict[str, Any]]:
 
 def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_input_paths` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute input paths from `input_dir` and `include_negative`.
+
+    Inputs are `input_dir` and `include_negative`; notable helpers are `is_dir`, `is_file`,
+    `_public_root_for_path`, `extend`, and 5 more.
     """
     paths = [input_dir / PACKET_NAME, input_dir / LAKE_PROJECT_DIR / LAKEFILE_NAME]
     project_dir = input_dir / LAKE_PROJECT_DIR
@@ -380,13 +352,11 @@ def _input_paths(input_dir: Path, *, include_negative: bool) -> list[Path]:
 
 def _iter_lean_project_files(path: Path) -> Iterator[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_iter_lean_project_files` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Apply `microcosm_core.organs.verifier_lab_execution_spine._iter_lean_project_files` for
+    the lifetime of a context block.
+
+    The previous state is restored after the block exits, including exceptions raised inside
+    the block.
     """
     with os.scandir(path) as entries:
         entry_rows = sorted(list(entries), key=lambda entry: entry.name)
@@ -400,13 +370,10 @@ def _iter_lean_project_files(path: Path) -> Iterator[Path]:
 
 def _load_json_if_exists(path: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_load_json_if_exists` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.verifier_lab_execution_spine._load_json_if_exists` into
+    the payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not path.is_file():
         return {}
@@ -416,26 +383,20 @@ def _load_json_if_exists(path: Path) -> dict[str, Any]:
 
 def _sha256_file(path: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_sha256_file` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return the stable digest computed by
+    `microcosm_core.organs.verifier_lab_execution_spine._sha256_file`.
+
+    The input is `path`; the body uses deterministic JSON encoding or chunked file reads
+    before formatting the hash.
     """
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def _strip_microcosm_prefix(ref: str) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_strip_microcosm_prefix` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return strip microcosm prefix for `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `ref`; notable helpers are `startswith`.
     """
     prefix = "microcosm-substrate/"
     return ref[len(prefix) :] if ref.startswith(prefix) else ref
@@ -443,13 +404,10 @@ def _strip_microcosm_prefix(ref: str) -> str:
 
 def _source_module_manifest_path(input_dir: str | Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_manifest_path` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module manifest path for
+    `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `input_dir`; notable helpers are `Path`.
     """
     return Path(input_dir) / SOURCE_MODULE_MANIFEST_NAME
 
@@ -461,13 +419,10 @@ def _source_module_target_path(
     public_root: Path,
 ) -> tuple[Path, str]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_target_path` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return source module target path for the organs verifier lab execution spine flow.
+
+    Inputs are `row`, `manifest_path`, and `public_root`; notable helpers are
+    `_strip_microcosm_prefix`, `get`, `exists`, and `_display`.
     """
     target_ref = _strip_microcosm_prefix(str(row.get("target_ref") or ""))
     row_path = str(row.get("path") or "")
@@ -485,13 +440,10 @@ def _source_module_target_path(
 
 def _source_artifact_paths(input_dir: str | Path, *, public_root: Path) -> list[Path]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_artifact_paths` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive source artifact paths without touching module import state.
+
+    Inputs are `input_dir` and `public_root`; notable helpers are
+    `_source_module_manifest_path`, `_rows`, `is_file`, `read_json_strict`, and 2 more.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     if not manifest_path.is_file():
@@ -518,13 +470,11 @@ def validate_source_module_imports(
     public_root: Path,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `validate_source_module_imports` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.verifier_lab_execution_spine.validate_source_module_imports` into
+    the payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     manifest_ref = _display(manifest_path, public_root=public_root)
@@ -710,13 +660,11 @@ def validate_source_module_imports(
 
 def _empty_source_module_imports(input_dir: str | Path, *, public_root: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_empty_source_module_imports` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.verifier_lab_execution_spine._empty_source_module_imports` into
+    the payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     manifest_path = _source_module_manifest_path(input_dir)
     return {
@@ -731,13 +679,11 @@ def _empty_source_module_imports(input_dir: str | Path, *, public_root: Path) ->
 
 def _source_open_body_import_summary(source_imports: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_open_body_import_summary` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.verifier_lab_execution_spine._source_open_body_import_summary`
+    into the payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     modules = _rows(source_imports, "modules")
     module_ids = [
@@ -799,13 +745,11 @@ def _source_module_blocked_result(
     secret_scan: dict[str, Any],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_source_module_blocked_result` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize
+    `microcosm_core.organs.verifier_lab_execution_spine._source_module_blocked_result` into
+    the payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     packet = _load_json_if_exists(input_dir / PACKET_NAME)
     bundle_manifest = _load_json_if_exists(input_dir / "bundle_manifest.json")
@@ -880,13 +824,11 @@ def _source_module_blocked_result(
 
 def _receipt_is_current(receipt_path: Path, input_paths: list[Path]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_receipt_is_current` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether receipt is current holds for the organs verifier lab execution spine
+    flow.
+
+    The result is derived from `receipt_path` and `input_paths` with `stat`; failing
+    evidence is returned or raised exactly where the body says so.
     """
     try:
         receipt_mtime = receipt_path.stat().st_mtime_ns
@@ -909,13 +851,10 @@ def _fresh_bundle_receipt(
     command: str,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_fresh_bundle_receipt` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.verifier_lab_execution_spine._fresh_bundle_receipt`
+    into the payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     if not _receipt_is_current(
         result_path,
@@ -937,7 +876,10 @@ def _fresh_bundle_receipt(
         return None
     if payload.get("input_mode") != "exported_verifier_lab_execution_spine_bundle":
         return None
-    if payload.get("command") != command:
+    if payload.get("command") not in {
+        command,
+        normalized_public_receipt_string(command),
+    }:
         return None
     receipt_paths = payload.get("receipt_paths")
     if not isinstance(receipt_paths, list) or not receipt_paths:
@@ -951,13 +893,10 @@ def _fresh_bundle_receipt(
 
 def _walk_forbidden_keys(value: object, forbidden: set[str], prefix: str = "") -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_walk_forbidden_keys` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return walk forbidden keys for the organs verifier lab execution spine flow.
+
+    Inputs are `value`, `forbidden`, and `prefix`; notable helpers are `items`, `extend`,
+    `append`, and `_walk_forbidden_keys`.
     """
     found: list[str] = []
     if isinstance(value, dict):
@@ -981,13 +920,10 @@ def _finding(
     subject_kind: str,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_finding` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.verifier_lab_execution_spine._finding` into the payload
+    shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "error_code": code,
@@ -1011,13 +947,10 @@ def _record(
     count_observed: bool,
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_record` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Record record for the organs verifier lab execution spine flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     findings.append(
         _finding(
@@ -1034,13 +967,10 @@ def _record(
 
 def _run_command(argv: list[str], *, cwd: Path, timeout_seconds: int = 30) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_run_command` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared subprocess results.
-    - Writes: return values, stdout/stderr or CLI result text, subprocess side effects requested by the caller.
+    Serialize `microcosm_core.organs.verifier_lab_execution_spine._run_command` into the
+    payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     try:
         completed = subprocess.run(
@@ -1075,13 +1005,10 @@ def _run_command(argv: list[str], *, cwd: Path, timeout_seconds: int = 30) -> di
 @lru_cache(maxsize=1)
 def _cached_tool_versions() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_cached_tool_versions` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.verifier_lab_execution_spine._cached_tool_versions`
+    into the payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     lean_path = shutil.which("lean")
     lake_path = shutil.which("lake")
@@ -1097,26 +1024,20 @@ def _cached_tool_versions() -> dict[str, Any]:
 
 def _tool_versions() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_tool_versions` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive tool versions without touching module import state.
+
+    Notable helpers are `deepcopy` and `_cached_tool_versions`.
     """
     return deepcopy(_cached_tool_versions())
 
 
 def _standalone_exported_tool_versions() -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_standalone_exported_tool_versions` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Serialize
+    `microcosm_core.organs.verifier_lab_execution_spine._standalone_exported_tool_versions`
+    into the payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "lean_available": True,
@@ -1149,13 +1070,10 @@ def _standalone_exported_tool_versions() -> dict[str, Any]:
 
 def _skipped_version_probe(tool_name: str, tool_path: str | None) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_skipped_version_probe` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Serialize `microcosm_core.organs.verifier_lab_execution_spine._skipped_version_probe`
+    into the payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "argv": [tool_name, "--version"],
@@ -1173,13 +1091,10 @@ def _skipped_version_probe(tool_name: str, tool_path: str | None) -> dict[str, A
 
 def _lake_project_dir_cache_key(project_dir: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_lake_project_dir_cache_key` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers, declared filesystem inputs.
-    - Writes: return values.
+    Return lake project dir cache key for the organs verifier lab execution spine flow.
+
+    Inputs are `project_dir`; notable helpers are `sha256`, `walk`, `hexdigest`, `is_dir`,
+    and 7 more; invalid cases raise from the explicit checks in the body.
     """
     if not project_dir.is_dir():
         raise FileNotFoundError(project_dir)
@@ -1198,26 +1113,20 @@ def _lake_project_dir_cache_key(project_dir: Path) -> str:
 
 def _lake_project_cache_key(input_dir: Path) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_lake_project_cache_key` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute lake project cache key from `input_dir`.
+
+    Inputs are `input_dir`; notable helpers are `_lake_project_dir_cache_key`.
     """
     return _lake_project_dir_cache_key(input_dir / LAKE_PROJECT_DIR)
 
 
 def _copy_project_to_temp(input_dir: Path, temp_root: Path) -> Path:
     """
-    [ACTION]
-    - Teleology: Implements `_copy_project_to_temp` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the copy project to temp value used by
+    `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `input_dir` and `temp_root`; notable helpers are `get`, `copytree`,
+    `_lake_project_cache_key`, and `is_dir`.
     """
     src = input_dir / LAKE_PROJECT_DIR
     dst = temp_root / LAKE_PROJECT_DIR
@@ -1233,13 +1142,11 @@ def _transition_execution_cache_key(
     project_dir: Path,
 ) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_transition_execution_cache_key` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the transition execution cache key value used by
+    `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `rows` and `project_dir`; notable helpers are `sha256`, `update`,
+    `hexdigest`, `encode`, and 2 more.
     """
     digest = hashlib.sha256()
     digest.update(_lake_project_dir_cache_key(project_dir).encode("utf-8"))
@@ -1256,13 +1163,10 @@ def _cached_lake_project_build_result(
     project_dir: Path,
 ) -> dict[str, Any] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_cached_lake_project_build_result` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive cached lake project build result without touching module import state.
+
+    Inputs are `input_dir` and `project_dir`; notable helpers are `get`, `deepcopy`, and
+    `_lake_project_cache_key`.
     """
     cached = _LAKE_PROJECT_BUILD_RESULT_CACHE.get(_lake_project_cache_key(input_dir))
     if cached is None:
@@ -1280,13 +1184,10 @@ def _remember_built_lake_project(
     build_result: dict[str, Any],
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_remember_built_lake_project` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Run remember built lake project for the organs verifier lab execution spine flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     cache_key = _lake_project_cache_key(input_dir)
     if cache_key in _LAKE_PROJECT_BUILD_CACHE:
@@ -1302,13 +1203,9 @@ def _remember_built_lake_project(
 
 def _build_lake_project(project_dir: Path) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_lake_project` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Derive build lake project without touching module import state.
+
+    Inputs are `project_dir`; notable helpers are `_run_command`.
     """
     return _run_command(
         ["lake", "build", "MicrocosmProofWitness"],
@@ -1319,13 +1216,11 @@ def _build_lake_project(project_dir: Path) -> dict[str, Any]:
 
 def _standalone_exported_lake_project_build(packet: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_standalone_exported_lake_project_build` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Serialize
+    `microcosm_core.organs.verifier_lab_execution_spine._standalone_exported_lake_project_build`
+    into the payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     return {
         "argv": ["lake", "build", "MicrocosmProofWitness"],
@@ -1343,13 +1238,9 @@ def _standalone_exported_lake_project_build(packet: dict[str, Any]) -> dict[str,
 
 def _lean_body_for_transition(row: dict[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_lean_body_for_transition` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute lean body for transition from `row`.
+
+    Inputs are `row`; notable helpers are `_strings` and `get`.
     """
     action = str(row.get("action_class") or "")
     outcome = str(row.get("expected_outcome") or "")
@@ -1386,13 +1277,9 @@ def _lean_body_for_transition(row: dict[str, Any]) -> str:
 
 def _lean_source_for_transition(row: dict[str, Any]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_lean_source_for_transition` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute lean source for transition from `row`.
+
+    Inputs are `row`; notable helpers are `_lean_body_for_transition`.
     """
     header = "import MicrocosmProofWitness.Basic\n\nnamespace MicrocosmExecutionSpine\n\n"
     footer = "\nend MicrocosmExecutionSpine\n"
@@ -1408,13 +1295,12 @@ def _validate_transition_contract(
     negative: bool,
 ) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_transition_contract` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Validate whether validate transition contract holds for the organs verifier lab
+    execution spine flow.
+
+    The result is derived from `row`, `findings`, `observed`, and `negative` with
+    `_walk_forbidden_keys`, `_record`, `append`, and `get`; failing evidence is returned or
+    raised exactly where the body says so.
     """
     transition_id = str(row.get("transition_id") or row.get("case_id") or "transition")
     case_id = str(row.get("expected_negative_case_id") or row.get("case_id") or transition_id)
@@ -1471,13 +1357,11 @@ def _execute_transition(
     observed: dict[str, set[str]],
 ) -> TransitionReceipt:
     """
-    [ACTION]
-    - Teleology: Implements `_execute_transition` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text.
+    Produce the execute transition value used by
+    `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `row`, `project_dir`, `findings`, and `observed`; notable helpers are
+    `_validate_transition_contract`, `mkdir`, `write_text`, `_run_command`, and 4 more.
     """
     transition_id = str(row.get("transition_id") or "transition")
     codes = _validate_transition_contract(
@@ -1519,9 +1403,13 @@ def _execute_transition(
         allowed_premise_refs=tuple(_strings(row.get("allowed_premise_refs"))),
         lean_return_code=int(lean_run["return_code"]),
         accepted=accepted,
-        verifier_failure_class="NONE"
-        if accepted
-        else str(row.get("expected_failure_class") or "PROOF_SYNTHESIS_FAIL"),
+        verifier_failure_class=(
+            "NONE"
+            if accepted
+            else "RESOURCE_TIMEOUT"
+            if lean_run["timed_out"] is True
+            else str(row.get("expected_failure_class") or "PROOF_SYNTHESIS_FAIL")
+        ),
         stdout_stderr_in_receipt=False,
         oracle_visible=False,
         provider_visible=False,
@@ -1535,13 +1423,10 @@ def _contract_rejected_transition_receipt(
     codes: Sequence[str],
 ) -> TransitionReceipt:
     """
-    [ACTION]
-    - Teleology: Implements `_contract_rejected_transition_receipt` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Derive contract rejected transition receipt without touching module import state.
+
+    Inputs are `row` and `codes`; notable helpers are `TransitionReceipt`, `_strings`, and
+    `get`.
     """
     return TransitionReceipt(
         transition_id=str(row.get("transition_id") or "transition"),
@@ -1564,13 +1449,9 @@ def _contract_rejected_transition_receipt(
 
 def _standalone_exported_transition_receipt(row: dict[str, Any]) -> TransitionReceipt:
     """
-    [ACTION]
-    - Teleology: Implements `_standalone_exported_transition_receipt` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Compute standalone exported transition receipt from `row`.
+
+    Inputs are `row`; notable helpers are `TransitionReceipt`, `get`, and `_strings`.
     """
     accepted = not row.get("expected_outcome") and not row.get("expected_failure_class")
     return TransitionReceipt(
@@ -1599,13 +1480,11 @@ def _standalone_exported_transitions(
     observed: dict[str, set[str]],
 ) -> list[TransitionReceipt]:
     """
-    [ACTION]
-    - Teleology: Implements `_standalone_exported_transitions` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Compute standalone exported transitions from `rows`, `findings`, and `observed`.
+
+    Inputs are `rows`, `findings`, and `observed`; notable helpers are
+    `_validate_transition_contract`, `append`, `_contract_rejected_transition_receipt`, and
+    `_standalone_exported_transition_receipt`.
     """
     receipts: list[TransitionReceipt] = []
     for row in rows:
@@ -1624,13 +1503,9 @@ def _standalone_exported_transitions(
 
 def _accepted_transition_receipt(row: dict[str, Any]) -> TransitionReceipt:
     """
-    [ACTION]
-    - Teleology: Implements `_accepted_transition_receipt` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Derive accepted transition receipt without touching module import state.
+
+    Inputs are `row`; notable helpers are `TransitionReceipt`, `_strings`, and `get`.
     """
     return TransitionReceipt(
         transition_id=str(row.get("transition_id") or "transition"),
@@ -1651,26 +1526,21 @@ def _accepted_transition_receipt(row: dict[str, Any]) -> TransitionReceipt:
 
 def _is_expected_positive_transition(row: dict[str, Any]) -> bool:
     """
-    [ACTION]
-    - Teleology: Implements `_is_expected_positive_transition` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return whether is expected positive transition holds for the organs verifier lab
+    execution spine flow.
+
+    The result is derived from `row` with `get`; failing evidence is returned or raised
+    exactly where the body says so.
     """
     return not row.get("expected_outcome") and not row.get("expected_failure_class")
 
 
 def _positive_transition_batch_source(rows: list[dict[str, Any]]) -> str:
     """
-    [ACTION]
-    - Teleology: Implements `_positive_transition_batch_source` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return positive transition batch source for the organs verifier lab execution spine
+    flow.
+
+    Inputs are `rows`; notable helpers are `join`, `_lean_body_for_transition`, and `get`.
     """
     header = "import MicrocosmProofWitness.Basic\n\nnamespace MicrocosmExecutionSpine\n\n"
     footer = "\nend MicrocosmExecutionSpine\n"
@@ -1688,19 +1558,21 @@ def _execute_positive_transition_batch(
     project_dir: Path,
 ) -> list[TransitionReceipt] | None:
     """
-    [ACTION]
-    - Teleology: Implements `_execute_positive_transition_batch` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return execute positive transition batch for the organs verifier lab execution spine
+    flow.
+
+    Inputs are `rows` and `project_dir`; notable helpers are `write_text`, `_run_command`,
+    `_positive_transition_batch_source`, and `_accepted_transition_receipt`.
     """
     if not rows:
         return []
     source_path = project_dir / "PositiveTransitionBatch.lean"
     source_path.write_text(_positive_transition_batch_source(rows), encoding="utf-8")
-    lean_run = _run_command(["lake", "env", "lean", source_path.name], cwd=project_dir)
+    lean_run = _run_command(
+        ["lake", "env", "lean", source_path.name],
+        cwd=project_dir,
+        timeout_seconds=LEAN_TRANSITION_BATCH_TIMEOUT_SECONDS,
+    )
     if lean_run["return_code"] != 0:
         return None
     return [_accepted_transition_receipt(row) for row in rows]
@@ -1714,13 +1586,11 @@ def _execute_transitions(
     observed: dict[str, set[str]],
 ) -> list[TransitionReceipt]:
     """
-    [ACTION]
-    - Teleology: Implements `_execute_transitions` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return execute transitions for the organs verifier lab execution spine flow.
+
+    Inputs are `rows`, `project_dir`, `findings`, and `observed`; notable helpers are
+    `deepcopy`, `_validate_transition_contract`, `_transition_execution_cache_key`, `get`,
+    and 9 more.
     """
     receipts: list[TransitionReceipt | None] = [None] * len(rows)
     executable: list[tuple[int, dict[str, Any]]] = []
@@ -1772,47 +1642,18 @@ def _execute_transitions(
         else:
             individual_rows.extend(positive_rows)
 
-        if len(individual_rows) <= 1:
-            for index, row in individual_rows:
-                executed_by_index[index] = _execute_transition(
-                    row,
-                    project_dir=project_dir,
-                    findings=findings,
-                    observed=observed,
-                )
-        else:
-            max_workers = min(LEAN_TRANSITION_MAX_WORKERS, len(individual_rows))
-
-            def run(row: dict[str, Any]) -> TransitionReceipt:
-                """
-                [ACTION]
-                - Teleology: Implements `_execute_transitions.run` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-                - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-                - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-                - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-                - Reads: call arguments, module constants, imported helpers.
-                - Writes: return values.
-                """
-                return _execute_transition(
-                    row,
-                    project_dir=project_dir,
-                    findings=findings,
-                    observed=observed,
-                )
-
-            with ThreadPoolExecutor(max_workers=max_workers) as executor:
-                individual_receipts = list(
-                    executor.map(
-                        run,
-                        (row for _, row in individual_rows),
-                    )
-                )
-            for (index, _row), receipt in zip(
-                individual_rows,
-                individual_receipts,
-                strict=True,
-            ):
-                executed_by_index[index] = receipt
+        # A failed positive batch is already evidence of a constrained Lean
+        # execution boundary. Retrying its members concurrently can compound
+        # the pressure and misclassify valid transitions as proof failures.
+        # Serialize the bounded diagnostic fallback so timeout receipts remain
+        # attributable to one exact transition.
+        for index, row in individual_rows:
+            executed_by_index[index] = _execute_transition(
+                row,
+                project_dir=project_dir,
+                findings=findings,
+                observed=observed,
+            )
         executed = [executed_by_index[index] for index, _row in executable]
         _TRANSITION_EXECUTION_CACHE[cache_key] = deepcopy(executed)
     if executed:
@@ -1834,13 +1675,11 @@ def _translate_cp2(
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_translate_cp2` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the translate cp2 value used by
+    `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `packet`, `transition_by_id`, `findings`, and `observed`; notable helpers are
+    `_rows`, `_walk_forbidden_keys`, `get`, `append`, and 2 more.
     """
     translations: list[dict[str, Any]] = []
     for row in _rows(packet, "cp2_translation_requests"):
@@ -1907,13 +1746,11 @@ def _run_evolve(
     observed: dict[str, set[str]],
 ) -> list[dict[str, Any]]:
     """
-    [ACTION]
-    - Teleology: Implements `_run_evolve` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Produce the run evolve value used by
+    `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `packet`, `transition_by_id`, `findings`, and `observed`; notable helpers are
+    `_rows`, `_strings`, `append`, `_record`, and 1 more.
     """
     rows: list[dict[str, Any]] = []
     for row in _rows(packet, "evolve_mutations"):
@@ -1987,13 +1824,12 @@ def _validate_negative_payloads(
     observed: dict[str, set[str]],
 ) -> None:
     """
-    [ACTION]
-    - Teleology: Implements `_validate_negative_payloads` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Validate whether validate negative payloads holds for the organs verifier lab execution
+    spine flow.
+
+    The result is derived from `payloads`, `findings`, and `observed` with `values`,
+    `_rows`, `_validate_transition_contract`, `_walk_forbidden_keys`, and 2 more; failing
+    evidence is returned or raised exactly where the body says so.
     """
     for payload in payloads.values():
         for row in _rows(payload, "transition_candidates") or (
@@ -2052,13 +1888,10 @@ def _build_result(
     include_negative: bool,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_build_result` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Serialize `microcosm_core.organs.verifier_lab_execution_spine._build_result` into the
+    payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     public_root = _public_root_for_path(input_dir)
     packet = _load_json_if_exists(input_dir / PACKET_NAME)
@@ -2236,7 +2069,12 @@ def _build_result(
             "proof_synthesis_fail": [
                 asdict(row)
                 for row in residuals
-                if row.verifier_failure_class != "PREMISE_RETRIEVAL_MISS"
+                if row.verifier_failure_class == "PROOF_SYNTHESIS_FAIL"
+            ],
+            "resource_timeout": [
+                asdict(row)
+                for row in residuals
+                if row.verifier_failure_class == "RESOURCE_TIMEOUT"
             ],
             "evolve_candidate": evolve_mutations,
             "evolve_accepted": evolve_accepted,
@@ -2275,13 +2113,9 @@ def _common_receipt(
     receipt_paths: list[str],
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_common_receipt` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return common receipt for `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `result`, `schema_version`, and `receipt_paths`; notable helpers are `get`.
     """
     keys = (
         "status",
@@ -2331,39 +2165,27 @@ def _common_receipt(
 
 def _relative_receipt_paths(paths: dict[str, Path], public_root: Path) -> list[str]:
     """
-    [ACTION]
-    - Teleology: Implements `_relative_receipt_paths` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return relative receipt paths for `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `paths` and `public_root`; notable helpers are `_display` and `values`.
     """
     return [_display(path, public_root=public_root) for path in paths.values()]
 
 
 def _list_count(value: object) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `_list_count` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return list count for `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `value`.
     """
     return len(value) if isinstance(value, list) else 0
 
 
 def _dict_value(payload: dict[str, Any], key: str) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `_dict_value` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return dict value for `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `payload` and `key`; notable helpers are `get`.
     """
     value = payload.get(key)
     return value if isinstance(value, dict) else {}
@@ -2371,13 +2193,10 @@ def _dict_value(payload: dict[str, Any], key: str) -> dict[str, Any]:
 
 def result_card(result: dict[str, Any]) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `result_card` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Serialize `microcosm_core.organs.verifier_lab_execution_spine.result_card` into the
+    payload shape expected by organs verifier lab execution spine.
+
+    The mapping keys match the receipts, cards, or tests that consume this value downstream.
     """
     counters = _dict_value(result, "authority_counters")
     authority = _dict_value(result, "authority_ceiling")
@@ -2523,13 +2342,10 @@ def write_receipts(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, str]:
     """
-    [ACTION]
-    - Teleology: Implements `write_receipts` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs, stdout/stderr or CLI result text.
+    Write write receipts for the organs verifier lab execution spine flow.
+
+    The side effect is the explicit file, receipt, parser, print, or instance-state update
+    performed in this function.
     """
     target = Path(out_dir)
     if not target.is_absolute():
@@ -2644,13 +2460,10 @@ def run(
     acceptance_out: str | Path | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values.
+    Return run for `microcosm_core.organs.verifier_lab_execution_spine`.
+
+    Inputs are `input_dir`, `out_dir`, `command`, and `acceptance_out`; notable helpers are
+    `Path`, `_build_result`, `values`, `write_receipts`, and 1 more.
     """
     input_path = Path(input_dir)
     command_text = command or (
@@ -2680,13 +2493,10 @@ def run_execution_bundle(
     command: str | None = None,
 ) -> dict[str, Any]:
     """
-    [ACTION]
-    - Teleology: Implements `run_execution_bundle` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, declared filesystem outputs.
+    Return run execution bundle for the organs verifier lab execution spine flow.
+
+    Inputs are `input_dir`, `out_dir`, and `command`; notable helpers are `Path`, `mkdir`,
+    `_public_root_for_path`, `_fresh_bundle_receipt`, and 12 more.
     """
     input_path = Path(input_dir)
     command_text = command or (
@@ -2760,13 +2570,10 @@ def run_execution_bundle(
 
 def main(argv: list[str] | None = None) -> int:
     """
-    [ACTION]
-    - Teleology: Implements `main` for `microcosm_core.organs.verifier_lab_execution_spine` while keeping the callable contract visible to source-module readers.
-    - Preconditions: Caller supplies arguments satisfying the signature plus any path, schema, state, or type constraints enforced by the body.
-    - Guarantee: On success returns the body-defined value or performs only the explicit side effects encoded in the callable body.
-    - Fails: Propagates validation, IO, JSON, subprocess, import, and dependency errors raised by the body; explicit failure envelopes remain as encoded by the source.
-    - Reads: call arguments, module constants, imported helpers.
-    - Writes: return values, stdout/stderr or CLI result text.
+    Run `microcosm_core.organs.verifier_lab_execution_spine` as a command-line entry point.
+
+    The command parses argv, calls this module's builders or validators, and returns the
+    status code used by the process wrapper.
     """
     parser = argparse.ArgumentParser(prog="verifier_lab_execution_spine")
     subparsers = parser.add_subparsers(dest="action", required=True)

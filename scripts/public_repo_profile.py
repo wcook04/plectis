@@ -42,7 +42,8 @@ PYTHON_TOOL_ALLOWED = {
     "AGENTS.md", "CLAUDE.md", "CHANGELOG.md", "CITATION.cff", "CONTRIBUTING.md",
     "LICENSE", "MANIFEST.in", "Makefile", "NOTICE", "QUICKSTART.md", "README.md",
     "SECURITY.md", "bootstrap.sh", "pyproject.toml",
-    "assets", "atlas", "core", "docs", "examples", "fixtures", "paper_modules",
+    "assets", "atlas", "core", "docs", "examples", "fixtures", "paper",
+    "paper_modules", "plectis-public-system.pdf",
     "receipts", "scripts", "skills", "src", "standards", "tests",
 }
 

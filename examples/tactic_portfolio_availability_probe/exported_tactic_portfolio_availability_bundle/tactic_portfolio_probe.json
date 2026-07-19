@@ -10,8 +10,8 @@
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json"
   ],
   "source_digests": {
-    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:20fdef8a53401f2bb21483002730895ca0295d2170bf148e8c328c041d8524c3",
-    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:405efadd8045057279a4481c05cdea8e1d99fceee253809526fb37675889d712",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe.json": "sha256:79c2420a86752405bed74464c8848d02db341149ec7e7bbbae905a503f732255",
+    "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/tactic_portfolio_availability.json": "sha256:87515caa99df6a18b8e3a3458ddc6a3e22784a79c32931376f1c6484ad01f267",
     "state/runs/PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/corpus_readiness.json": "sha256:c413608118229bea32062ce9b8b5af393bcd5f63bbf1030983e98ffa6d07778d"
   },
   "tactics": [
@@ -21,7 +21,6 @@
     {"tactic_id": "simp", "compile_status": "compile_pass", "source_compile_status": "PASS", "source_error_class": "NONE", "duration_ms": 2081, "environment": "lean_std_toolchain_20260511_probe_v0", "requires_mathlib": false, "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp.lean"},
     {"tactic_id": "simp_all", "compile_status": "compile_pass", "source_compile_status": "PASS", "source_error_class": "NONE", "duration_ms": 3685, "environment": "lean_std_toolchain_20260511_probe_v0", "requires_mathlib": false, "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/simp_all.lean"},
     {"tactic_id": "grind", "compile_status": "compile_pass", "source_compile_status": "PASS", "source_error_class": "NONE", "duration_ms": 3797, "environment": "lean_std_toolchain_20260511_probe_v0", "requires_mathlib": false, "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/grind.lean"},
-    {"tactic_id": "native_decide", "compile_status": "compile_pass", "source_compile_status": "PASS", "source_error_class": "NONE", "duration_ms": 1994, "environment": "lean_std_toolchain_20260511_probe_v0", "requires_mathlib": false, "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/native_decide.lean"},
     {"tactic_id": "aesop", "compile_status": "environment_fail", "source_compile_status": "FAIL", "source_error_class": "TACTIC_SEARCH_FAIL", "duration_ms": 5968, "failure_classifier": "MATHLIB_IMPORT_MISSING", "environment": "mathlib_absent_probe_v0", "requires_mathlib": true, "diagnostic": "unknown module prefix Mathlib", "source_probe_ref": "lean-toolchain://PROVER_PROOF_STATE_SEARCH_CURRICULUM_20260511_v0_smoke/tactic_affordance_probe/portfolio_core_v0/aesop.lean"}
   ],
   "anti_claim": "This is a copied public slice of the 2026-05-11 Lean/Std tactic affordance probe, not a proof-success claim and not a complete Lean tactic inventory."

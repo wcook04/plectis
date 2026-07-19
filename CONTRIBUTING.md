@@ -15,6 +15,26 @@ Before choosing a file to edit, use the README's
 layer; the commands below are validation lanes after that route, not a
 replacement for it.
 
+## Reporting a discrepancy
+
+If a run does not match its stored receipt, a validator's pass rule does not
+seem to bear on the component's stated claim, or a generated document
+disagrees with the records it is built from, that is a finding worth
+reporting, not noise. Open a GitHub issue at
+<https://github.com/wcook04/plectis/issues> with:
+
+- the commit you ran (`git rev-parse HEAD`);
+- the exact command and the operating system and Python version;
+- what you expected, with the receipt path where one applies;
+- what you observed, with the failing output pasted or attached.
+
+Keep the original failing output rather than substituting a component or
+input that happens to pass. Reports that dispute a pass rule or an expected
+value are as welcome as reports of failing runs: the success criteria are
+part of what is published for challenge, and so is the unit of counting:
+report it if two components look like one mechanism, or if a boundary
+excludes the difficult part of a task.
+
 ## Development setup
 
 Before installing anything, `./bootstrap.sh` probes the clone's fixture and

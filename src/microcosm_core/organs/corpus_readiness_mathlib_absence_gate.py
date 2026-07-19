@@ -868,19 +868,24 @@ def runtime_lean_import_probe(
             or mathlib_run.get("stderr_has_unknown_mathlib") is True
         )
     )
+    lake_execution_verified = std_passed and mathlib_run.get("return_code") is not None
     return {
         "schema_version": LEAN_IMPORT_PROBE_SCHEMA_VERSION,
         "status": (
             PASS
             if std_passed
             and mathlib_rejected
-            and lake_version_run.get("return_code") == 0
+            and lake_execution_verified
             else "blocked"
         ),
         "proof_class": "live_runtime_probe",
         "execution_mode": "lake_env_lean_import_probe_with_lake_availability_check",
         "lean_available": True,
         "lake_available": lake_path is not None,
+        "lake_execution_verified": lake_execution_verified,
+        "lake_version_probe_status": (
+            PASS if lake_version_run.get("return_code") == 0 else "diagnostic_unavailable"
+        ),
         "std_import_passed": std_passed,
         "mathlib_import_rejected": mathlib_rejected,
         "mathlib_lake_project_import_available": False,

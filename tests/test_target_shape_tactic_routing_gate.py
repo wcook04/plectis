@@ -504,25 +504,21 @@ def test_target_shape_tactic_routing_exported_source_modules_are_digest_verified
     assert manifest["module_count"] == 4
     assert len(manifest["modules"]) == 4
 
-    repo_root = MICROCOSM_ROOT.parent
     for module in manifest["modules"]:
-        source = repo_root / module["source_ref"]
-        target = repo_root / module["target_ref"]
-        source_digest = _sha256_prefixed(module.get("source_sha256") or module["sha256"])
+        target = EXPORTED_BUNDLE_INPUT / module["path"]
         target_digest = _sha256_prefixed(module.get("target_sha256") or module["sha256"])
-        assert source.is_file()
         assert target.is_file()
-        assert _sha256(source) == source_digest
         assert _sha256(target) == target_digest
         if module["source_to_target_relation"] == "exact_copy":
-            assert source_digest == target_digest
+            assert _sha256_prefixed(module["source_sha256"]) == target_digest
         else:
             assert module["source_to_target_relation"] == (
                 "verified_public_safe_private_path_rewrite"
             )
-            assert source_digest != target_digest
             assert module["verification_mode"] == "verified_light_edit_recipe"
-            assert module["public_safe_transform"]["body_text_in_receipt"] is False
+            transform = module["public_safe_transform"]
+            assert transform["body_text_in_receipt"] is False
+            assert _sha256_prefixed(transform["target_digest_verified"]) == target_digest
             assert Path.home().as_posix() not in target.read_text(encoding="utf-8")
         assert module["body_copied"] is True
         assert module["body_in_receipt"] is False
