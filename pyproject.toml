@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "plectis"
-version = "0.2.0"
+version = "0.3.0"
 description = "A local toolkit and executable reference corpus for testing the claims of an AI-built system: bounded components with typed evidence, local receipts, and explicit authority limits."
 readme = "README.md"
 requires-python = ">=3.11"
