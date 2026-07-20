@@ -257,3 +257,31 @@ def test_pyproject_pytest_tmp_state_delegates_high_churn_paths() -> None:
     assert "cache_dir" not in pytest_options
     assert pytest_options["tmp_path_retention_count"] == "1"
     assert pytest_options["tmp_path_retention_policy"] == "failed"
+
+
+def test_exactly_one_github_pages_publication_owner() -> None:
+    """No workflow may deploy Pages while the gh-pages branch builder serves it.
+
+    The site is published by GitHub's legacy branch builder from `gh-pages`
+    (Pages `build_type: legacy`). A workflow calling `actions/deploy-pages`
+    publishes an artifact to the same environment, so whichever ran last wins
+    and the served tree depends on ordering rather than on a decision.
+
+    That is not hypothetical here: a deploy workflow copied a hardcoded list of
+    files, so everything added to gh-pages afterwards - all three papers and
+    `.well-known/security.txt` among them - 404'd on the live site until it was
+    disabled. Disabling left the file in place and the second owner one toggle
+    away, so the invariant is asserted rather than remembered.
+    """
+    workflow_dir = MICROCOSM_ROOT / ".github/workflows"
+    deployers = [
+        path.name
+        for path in sorted(workflow_dir.glob("*.yml"))
+        if "actions/deploy-pages" in path.read_text(encoding="utf-8")
+    ]
+    assert deployers == [], (
+        "these workflows deploy GitHub Pages while the gh-pages branch builder "
+        f"already owns publication: {deployers}. Keep exactly one owner - either "
+        "delete the workflow, or switch Pages to workflow builds and retire the "
+        "branch builder deliberately."
+    )

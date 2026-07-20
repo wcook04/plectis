@@ -3,10 +3,26 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from scripts import check_public_system_paper as paper_check
 from scripts.check_public_system_paper import PAPER, check_paper
 
 
+# These compare the paper against the repository as it stood at the commit the
+# paper pins. A shallow clone does not contain that commit, so there is nothing
+# to compare and every one of them would report a drift it cannot observe —
+# five confusing failures from one absent object. Skip once, say why once.
+requires_pinned_history = pytest.mark.skipif(
+    not paper_check.pinned_evidence_available(),
+    reason=(
+        "paper evidence is pinned to a commit this clone does not contain "
+        "(shallow clone); run `git fetch --unshallow` to check it"
+    ),
+)
+
+
+@requires_pinned_history
 def test_public_system_paper_matches_pinned_public_evidence() -> None:
     assert check_paper() == []
 
@@ -26,6 +42,7 @@ def test_public_system_paper_check_rejects_count_drift(tmp_path: Path) -> None:
     assert any("componentcount=89" in failure for failure in failures)
 
 
+@requires_pinned_history
 def test_public_system_paper_check_rejects_lean_file_count_drift(
     tmp_path: Path,
 ) -> None:
@@ -238,6 +255,7 @@ def test_public_system_paper_check_requires_five_gap_map_before_the_details(
     assert sum("missing early five-gap map" in failure for failure in failures) == 6
 
 
+@requires_pinned_history
 def test_public_system_paper_check_reads_default_evidence_from_snapshot(
     monkeypatch,
 ) -> None:
@@ -249,6 +267,7 @@ def test_public_system_paper_check_reads_default_evidence_from_snapshot(
     assert paper_check.check_paper() == []
 
 
+@requires_pinned_history
 def test_public_system_paper_check_rejects_pinned_receipt_flow_source_drift(
     monkeypatch,
 ) -> None:
@@ -272,6 +291,7 @@ def test_public_system_paper_check_rejects_pinned_receipt_flow_source_drift(
     )
 
 
+@requires_pinned_history
 def test_public_system_paper_check_rejects_worked_example_value_drift(
     tmp_path: Path,
 ) -> None:
