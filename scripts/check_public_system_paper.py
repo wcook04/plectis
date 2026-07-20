@@ -774,6 +774,45 @@ def _macro_int(macros: dict[str, str], name: str, failures: list[str]) -> int | 
         return None
 
 
+def pinned_evidence_available(paper_path: Path = PAPER) -> bool:
+    """Whether this clone contains the commit the paper pins its evidence to.
+
+    Callers that compare against pinned evidence have nothing to compare when
+    this is False, and should say so once rather than each reporting a drift
+    they cannot actually observe.
+    """
+    if not (ROOT / ".git").exists():
+        return False
+    try:
+        macros = _macros(paper_path.read_text(encoding="utf-8"))
+    except OSError:
+        return False
+    snapshot = macros.get("snapshotcommit", "")
+    if not re.fullmatch(r"[0-9a-f]{40}", snapshot):
+        return False
+    return (
+        subprocess.run(
+            ["git", "cat-file", "-e", f"{snapshot}^{{commit}}"],
+            cwd=ROOT,
+            capture_output=True,
+            check=False,
+        ).returncode
+        == 0
+    )
+
+
+def _repository_is_shallow() -> bool:
+    """Whether this clone was truncated, so older commits are absent not altered."""
+    result = subprocess.run(
+        ["git", "rev-parse", "--is-shallow-repository"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    return result.returncode == 0 and result.stdout.strip() == "true"
+
+
 def check_paper(
     paper_path: Path = PAPER,
     registry_path: Path = REGISTRY,
@@ -806,7 +845,21 @@ def check_paper(
         )
         snapshot_resolves = result.returncode == 0
         if not snapshot_resolves:
-            failures.append(f"snapshotcommit does not resolve in this repository: {snapshot}")
+            # A shallow clone is missing the commit, not disagreeing with it.
+            # Saying "does not resolve" invites the reader to suspect the paper;
+            # the truthful report is that this clone was truncated.
+            if _repository_is_shallow():
+                failures.append(
+                    "this check reads the repository as it stood at the paper's pinned "
+                    f"commit {snapshot}, which a shallow clone does not contain. Run "
+                    "`git fetch --unshallow` (in CI, actions/checkout with fetch-depth: 0) "
+                    "and re-run. Nothing is wrong with the paper: the history it cites is "
+                    "simply absent here."
+                )
+            else:
+                failures.append(
+                    f"snapshotcommit does not resolve in this repository: {snapshot}"
+                )
 
     if public_test_receipt.get("subject_commit") != snapshot:
         failures.append("public-test receipt subject_commit disagrees with snapshotcommit")
