@@ -35,38 +35,21 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
 
-      - name: Prepare slim static site
+      - name: Prepare static site
         run: |
           set -eu
-          mkdir -p _site/assets _site/docs
+          mkdir -p _site
 
-          for file in \
-            index.html \
-            plectis.html \
-            404.html \
-            SOURCE_CONTRACT.md \
-            _headers \
-            _redirects \
-            llms.txt \
-            robots.txt \
-            security.txt \
-            sitemap.xml \
-            plectis-ai-review-packet.json \
-            plectis-ai-reader-digest.json \
-            plectis-ai-reader-complete.json \
-            plectis-site-map.json \
-            microcosm-ai-review-packet.json \
-            microcosm-ai-reader-digest.json \
-            microcosm-ai-reader-complete.json \
-            microcosm-site-map.json \
-            content-graph.json \
-            object-map.json; do
-            cp "site/$file" "_site/$file"
-          done
+          # Publish the whole gh-pages tree. This step used to name each file
+          # it copied, which meant anything added to gh-pages was silently
+          # dropped the next time this workflow ran: the three papers, the
+          # canonical .well-known/security.txt, the search-console
+          # verification file, .nojekyll, and several manifests were all
+          # absent from the list. A deploy path that has to be told about
+          # every new file will eventually be told about none of them.
+          tar --exclude=.git -C site -cf - . | tar -C _site -xf -
 
-          cp -R site/docs/. _site/docs/
-
-          cp -R site/assets/. _site/assets/
+          test -f _site/.nojekyll || touch _site/.nojekyll
 
           cat > _site/assets/ai-review-packet.js <<'JS'
           (function () {
@@ -110,9 +93,25 @@ jobs:
             assets/ai-reader-digest-packet.js \
             assets/site-packet.js \
             assets/search-index.js \
-            assets/object-map.js; do
+            assets/object-map.js \
+            .well-known/security.txt \
+            papers/plectis-public-system.pdf \
+            papers/erdos249-257-main-paper.pdf \
+            papers/claim-faithful-publication-systems-paper.pdf; do
             test -s "_site/$file"
           done
+
+          # Whatever gh-pages serves, this artifact serves. Compare the two
+          # trees directly so a missing route fails the deploy rather than
+          # reaching the public site as a 404.
+          missing="$(comm -23 \
+            <(cd site && find . -type f -not -path './.git/*' | sort) \
+            <(cd _site && find . -type f | sort))"
+          if [ -n "$missing" ]; then
+            echo "gh-pages files absent from the deploy artifact:" >&2
+            echo "$missing" >&2
+            exit 1
+          fi
 
       - name: Upload static site
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5
