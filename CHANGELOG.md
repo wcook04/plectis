@@ -4,6 +4,31 @@ All notable changes to Plectis are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2026-07-20
+
+### Fixed
+
+- A `git clone --depth 1` reported five failures naming worked-example,
+  Lean-file-count and receipt-flow "drift". None of them mentioned the clone.
+  The paper pins its evidence to a specific commit and the checks read the
+  repository as it stood there, so a truncated clone was compared against
+  absent data rather than against anything that had changed — inviting a
+  reader to doubt the paper's numbers. Absence is now reported as absence:
+  the checker names the shallow clone and the fetch that resolves it, and the
+  checks that need the pinned commit skip with that reason. A full clone is
+  unaffected and nothing skips there.
+
+### Removed
+
+- `.github/workflows/pages.yml`. GitHub Pages serves this site from the
+  `gh-pages` branch builder; that workflow deployed the same tree again as an
+  artifact to the same environment, so which one won depended on which ran
+  last. It had already taken the published site down once, when an earlier
+  version copied a hardcoded list of files and left all three papers and
+  `.well-known/security.txt` returning 404. It was disabled rather than
+  deleted, leaving the second owner one toggle away. A test now asserts no
+  workflow deploys Pages while the branch builder owns publication.
+
 ## [0.3.0] - 2026-07-20
 
 ### Changed
