@@ -31,7 +31,9 @@ pair: [the Plectis paper](plectis-public-system.pdf) in this repository,
 [the mathematics paper](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf)
 for what is proved and where the open line sits, and
 [the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
-for how machine-checked proofs become public claims.
+for how machine-checked proofs become public claims. All three travel with this
+clone, as PDFs and as full text you can search, in
+[`docs/papers/`](docs/papers/) — you do not need the website to read them.
 
 ## What you get
 

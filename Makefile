@@ -62,6 +62,7 @@ PUBLIC_TESTS += tests/test_cold_clone_probe.py
 PUBLIC_TESTS += tests/test_dependency_preflight.py
 PUBLIC_TESTS += tests/test_public_repo_profile.py
 PUBLIC_TESTS += tests/test_lean_companion_snapshot.py
+PUBLIC_TESTS += tests/test_paper_corpus.py
 
 .PHONY: help install venv test test-all smoke package-smoke ci standalone-export clean
 .PHONY: doctrine-lattice-check doctrine-lattice-entry-card
