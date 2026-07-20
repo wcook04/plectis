@@ -155,9 +155,14 @@ def test_public_repo_has_inspectable_github_actions_ci() -> None:
         "run: make ci",
     ):
         assert required in workflow
+    # These must name the versions the SHAs above actually resolve to. The set
+    # is the only thing keeping the comments honest, since nothing offline can
+    # check a SHA against its upstream tag -- and when Dependabot moves a pin it
+    # does not touch the sentence beside it. Bump both together, or the guard
+    # starts requiring the comment to misstate the version.
     _assert_inspectable_pinned_github_actions(
         workflow,
-        required_public_tags={"actions/checkout@v4", "actions/setup-python@v5"},
+        required_public_tags={"actions/checkout@v7", "actions/setup-python@v6"},
     )
 
     for duplicated_command in (
