@@ -129,6 +129,21 @@
     \rule{6.5em}{0.4pt}%
   \end{center}%
   \vskip 0.9em}
+% Production provenance, set at the foot of the first page.  A reader who meets
+% a single personal byline ordinarily infers that the named author drafted the
+% sentences; for this paper that inference is false, and a declaration reached
+% only at the back would leave it standing throughout.  The note carries no
+% mark, because it qualifies the whole manuscript rather than one passage.
+% \footnotetext does not advance the footnote counter, and the emptied
+% \thefootnote is confined to a group, so numbered footnotes are unaffected.
+% The wording is fixed by the corpus provenance contract, which the companion
+% papers reproduce in their own register, so the three cannot drift into three
+% different accounts of how they were made.
+\newcommand{\provenancenote}[1]{%
+  \begingroup
+  \renewcommand{\thefootnote}{}%
+  \footnotetext{#1}%
+  \endgroup}
 \makeatother
 
 \title{Plectis: What a Stranger Can Check}
@@ -138,6 +153,14 @@
 
 \begin{document}
 \maketitle
+\provenancenote{\emph{Production note.} I did not compose this manuscript
+sentence by sentence.  I designed and directed an agentic workflow that
+drafted and revised the prose and supporting code from objectives, evidence,
+and review criteria that I supplied.  I selected the claims, required
+revisions, reviewed and approved the published version, and take full
+responsibility for it.  The agents are production tools, not authors.
+Section~\ref{sec:problem} and Section~\ref{sec:hand} examine what follows from
+this.}
 
 \begin{abstract}
 Plectis is a public software repository (an organised, copyable project
@@ -188,9 +211,10 @@ folder and history to another computer. Everything this paper says a
 stranger can check is in that repository. This paper describes how its
 claims are exposed and where the evidence stops.
 
-I am 22 and study economics. Over about ten months I built the private
-system by directing AI coding agents, software tools that can edit, run, and
-revise code across a task. I set objectives and review criteria,
+At the time of this work I was 22, an economics undergraduate, working
+independently and without external funding. Over about ten months I built the
+private system by directing AI coding agents, software tools that can edit,
+run, and revise code across a task. I set objectives and review criteria,
 accepted or rejected their output, and sent them back to revise failures;
 the agents wrote nearly all of the code, and I wrote nearly none of it. No
 other person worked on the system. This account explains why the publication
@@ -1161,6 +1185,19 @@ The paper's own
 the example, cautions, or citations disagree. It checks historical facts against
 the pinned commit separately from current prose; with one maintainer, that is
 internal consistency, not external truth.
+
+\paragraph{Declaration of generative AI use.} Large-language-model agents were
+used throughout development to draft and revise prose, formal proofs, and
+software. The author set the objectives and acceptance criteria, selected and
+reviewed the claims, and approved the published version. The author assumes
+responsibility for the accuracy, interpretation, and presentation of the work.
+Generative systems are production tools; they are not authors and supply no
+independent authority. Section~\ref{sec:problem} states this in the first
+person and Section~\ref{sec:hand} examines the concentration of choice it
+leaves; both are part of this paper's subject rather than background to it. The
+account of private production is testimony about origin, and the paper's
+publicly testable claims depend only on the published files, commands, and
+stated limits identified here.
 
 \begin{thebibliography}{10}
 \fontsize{7.5pt}{8.3pt}\selectfont
