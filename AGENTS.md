@@ -39,6 +39,16 @@ demonstrates this across a goal battery — localization, change-shaped goals,
 authority refusals, vocabulary traps — and is regenerated from the live
 compiler, so the examples are compiler output, not prose.
 
+**Asked what this repository is, or why any of it is claimed?** That is a papers
+question, not a component question, and the papers are in the clone. Read
+[`docs/papers/corpus.json`](docs/papers/corpus.json) — it is small, and it names
+all three papers, the one question each answers, what each is *not* authority
+for, and every section with its label and line number. The full text of all
+three is in `docs/papers/full-text/` as searchable Markdown; the PDFs are
+alongside. Do not answer a question about what this project claims by
+summarising the organ inventory: the components show what runs, and the papers
+state what may be concluded from that, which is the narrower thing.
+
 If this is your first touch in a standalone clone and you have no task yet, do
 not start by absorbing the organ inventory. First prove the local entry path
 and the public authority membrane:

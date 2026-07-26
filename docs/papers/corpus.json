@@ -1,0 +1,1320 @@
+{
+  "schema": "plectis_paper_corpus_v0",
+  "role": "clone_local_scholarly_corpus",
+  "this_repository": "plectis",
+  "why_this_exists": "Cloning either public repository gives you PDFs, and only the papers that repository owns. This corpus carries all three as navigable text so an agent with no network can read, cite, and cross-check them.",
+  "generated_by": "tools/meta/dissemination/export_paper_corpus.py",
+  "generated_from": "the private system repository; do not hand-edit this directory",
+  "authority_order": "checked Lean source is proof authority; the claims registry owns public status and coordinates; methodology owns transition rules; the paper owns exposition",
+  "reading_the_generated_markdown": "The Markdown is a projection of the .tex, not a replacement. It resolves theorem numbers, cross-references, and Lean source links that the source only implies. The .tex is the manuscript and the hash of record; where they disagree, the .tex wins.",
+  "verification_boundary": {
+    "proof_recheck_performed": false,
+    "note": "No Lean kernel ran during this export. Reading a paper, or its generated text, is not checking a proof."
+  },
+  "licences": {
+    "CC-BY-4.0": "all three manuscripts and every view generated from them"
+  },
+  "paper_count": 3,
+  "papers": [
+    {
+      "paper_id": "erdos249-257-main",
+      "title": "Exact Reductions for Two Open Irrationality Problems of Erd\u0151s",
+      "title_source": "manuscript",
+      "question_this_paper_answers": "What is mathematically proved about Erd\u0151s #249 and #257, and what exactly remains open?",
+      "owns": "mathematical exposition: theorem statements, reductions, and their proofs in prose",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, and public claim status, which belongs to docs/claims.json",
+      "relation_to_this_repository": "mirror",
+      "home_repository": "plectis-lean-erdos249-257",
+      "licence": "CC-BY-4.0",
+      "copyright": "2026 Will Cook",
+      "local_full_text": "docs/papers/full-text/erdos249-257-main-paper.md",
+      "local_source": "docs/papers/mirror/erdos249-257-main-paper.tex",
+      "source_sha256": "sha256:2ac1d7773053f4b3864c336a30a44cceb76d75f4b5c28bcfd01de3e6cf68426f",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-257-main-paper.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos249-257-main-paper.tex",
+      "section_count": 144,
+      "sections": [
+        {
+          "level": 1,
+          "id": "erdos249-257-main-paper",
+          "title": "Exact Reductions for Two Open Irrationality Problems of Erd\u0151s",
+          "line": 1
+        },
+        {
+          "level": 1,
+          "id": "sec:intro",
+          "title": "Introduction",
+          "line": 19
+        },
+        {
+          "level": 2,
+          "id": "what-is-proved",
+          "title": "What is proved",
+          "line": 27
+        },
+        {
+          "level": 4,
+          "id": "what-lean-checked-means-here.",
+          "title": "What Lean-checked means here.",
+          "line": 63
+        },
+        {
+          "level": 4,
+          "id": "reading-map.",
+          "title": "Reading map.",
+          "line": 69
+        },
+        {
+          "level": 1,
+          "id": "sec:spines",
+          "title": "The two exact reductions",
+          "line": 77
+        },
+        {
+          "level": 2,
+          "id": "res:249story",
+          "title": "Erd\u0151s #249: tail differences and finite certificates",
+          "line": 83
+        },
+        {
+          "level": 4,
+          "id": "exact-reduction.",
+          "title": "Exact reduction.",
+          "line": 93
+        },
+        {
+          "level": 4,
+          "id": "unconditional-finite-baseline.",
+          "title": "Unconditional finite baseline.",
+          "line": 111
+        },
+        {
+          "level": 4,
+          "id": "open-boundary.",
+          "title": "Open boundary.",
+          "line": 122
+        },
+        {
+          "level": 2,
+          "id": "res:halfstory",
+          "title": "Erd\u0151s #257: half-value membership and final greedy skips",
+          "line": 128
+        },
+        {
+          "level": 4,
+          "id": "exact-reduction-and-finite-exclusion.",
+          "title": "Exact reduction and finite exclusion.",
+          "line": 137
+        },
+        {
+          "level": 4,
+          "id": "counterexample-consequence.",
+          "title": "Counterexample consequence.",
+          "line": 153
+        },
+        {
+          "level": 4,
+          "id": "open-boundary.-1",
+          "title": "Open boundary.",
+          "line": 159
+        },
+        {
+          "level": 4,
+          "id": "relation-to-prior-work.",
+          "title": "Relation to prior work.",
+          "line": 165
+        },
+        {
+          "level": 1,
+          "id": "sec:ladder",
+          "title": "Lambert-series identities and comparison values",
+          "line": 171
+        },
+        {
+          "level": 4,
+          "id": "probabilistic-reading.",
+          "title": "Probabilistic reading.",
+          "line": 240
+        },
+        {
+          "level": 4,
+          "id": "what-this-section-provesand-does-not-prove.",
+          "title": "What this section proves\u2014and does not prove.",
+          "line": 250
+        },
+        {
+          "level": 1,
+          "id": "sec:eb",
+          "title": "Erd\u0151s\u2013Borwein-type irrationality (the #257 direction)",
+          "line": 256
+        },
+        {
+          "level": 2,
+          "id": "full-support-the-erd\u0151sborwein-constant-every-base",
+          "title": "Full support: the Erd\u0151s\u2013Borwein constant, every base",
+          "line": 262
+        },
+        {
+          "level": 2,
+          "id": "named-infinite-support-cases",
+          "title": "Named infinite-support cases",
+          "line": 293
+        },
+        {
+          "level": 2,
+          "id": "the-base-2-achievement-set",
+          "title": "The base-2 achievement set",
+          "line": 327
+        },
+        {
+          "level": 4,
+          "id": "geometric-and-finite-arithmetic-consequences.",
+          "title": "Geometric and finite-arithmetic consequences.",
+          "line": 365
+        },
+        {
+          "level": 2,
+          "id": "rigidity-of-a-hypothetical-rational-support",
+          "title": "Rigidity of a hypothetical rational support",
+          "line": 371
+        },
+        {
+          "level": 2,
+          "id": "the-target-12",
+          "title": "The target 1/2",
+          "line": 452
+        },
+        {
+          "level": 4,
+          "id": "why-this-target.",
+          "title": "Why this target.",
+          "line": 456
+        },
+        {
+          "level": 4,
+          "id": "a-worked-start.",
+          "title": "A worked start.",
+          "line": 470
+        },
+        {
+          "level": 2,
+          "id": "sec:final-skip-reduction",
+          "title": "The final-skip reduction",
+          "line": 551
+        },
+        {
+          "level": 4,
+          "id": "logical-status-of-the-final-skip-argument.",
+          "title": "Logical status of the final-skip argument.",
+          "line": 630
+        },
+        {
+          "level": 2,
+          "id": "what-remains-open",
+          "title": "What remains open",
+          "line": 648
+        },
+        {
+          "level": 1,
+          "id": "sec:249",
+          "title": "The totient constant S (Erd\u0151s #249)",
+          "line": 660
+        },
+        {
+          "level": 2,
+          "id": "sec:uncond",
+          "title": "Unconditional: no small denominator",
+          "line": 672
+        },
+        {
+          "level": 2,
+          "id": "sec:geom",
+          "title": "The geometric picture: S as coprime-pair mass",
+          "line": 708
+        },
+        {
+          "level": 2,
+          "id": "sec:reduction",
+          "title": "Exact certificate characterisation",
+          "line": 728
+        },
+        {
+          "level": 4,
+          "id": "why-tail-differences-detect-rationality.",
+          "title": "Why tail differences detect rationality.",
+          "line": 734
+        },
+        {
+          "level": 2,
+          "id": "sec:249-open",
+          "title": "What remains open",
+          "line": 855
+        },
+        {
+          "level": 1,
+          "id": "sec:architecture",
+          "title": "One transform and the limit of finite evidence",
+          "line": 880
+        },
+        {
+          "level": 2,
+          "id": "sec:one-transform",
+          "title": "One transform, three distinct questions",
+          "line": 886
+        },
+        {
+          "level": 2,
+          "id": "why-no-status-transfers",
+          "title": "Why no status transfers",
+          "line": 914
+        },
+        {
+          "level": 2,
+          "id": "the-shared-bottleneck",
+          "title": "The shared bottleneck",
+          "line": 924
+        },
+        {
+          "level": 4,
+          "id": "what-finite-witnesses-can-decide.",
+          "title": "What finite witnesses can decide.",
+          "line": 944
+        },
+        {
+          "level": 1,
+          "id": "sec:verify",
+          "title": "Formal verification and reproducibility",
+          "line": 962
+        },
+        {
+          "level": 4,
+          "id": "proof-authority-and-source-identity.",
+          "title": "Proof authority and source identity.",
+          "line": 968
+        },
+        {
+          "level": 4,
+          "id": "reproduction-commands-and-artefact-identities.",
+          "title": "Reproduction commands and artefact identities.",
+          "line": 974
+        },
+        {
+          "level": 4,
+          "id": "what-the-computation-establishes.",
+          "title": "What the computation establishes.",
+          "line": 980
+        },
+        {
+          "level": 4,
+          "id": "section-consequence.",
+          "title": "Section consequence.",
+          "line": 986
+        },
+        {
+          "level": 1,
+          "id": "sec:further",
+          "title": "Exact remaining problems and further questions",
+          "line": 992
+        },
+        {
+          "level": 2,
+          "id": "two-concrete-scalar-criteria",
+          "title": "Two concrete scalar criteria",
+          "line": 998
+        },
+        {
+          "level": 4,
+          "id": "dependency-direction.",
+          "title": "Dependency direction.",
+          "line": 1073
+        },
+        {
+          "level": 2,
+          "id": "sec:unresolved",
+          "title": "The unresolved statements",
+          "line": 1099
+        },
+        {
+          "level": 4,
+          "id": "erd\u0151s-249-one-obligation-in-two-equivalent-forms.",
+          "title": "Erd\u0151s #249: one obligation in two equivalent forms.",
+          "line": 1103
+        },
+        {
+          "level": 4,
+          "id": "erd\u0151s-257-universal-statement-and-counterexample-route.",
+          "title": "Erd\u0151s #257: universal statement and counterexample route.",
+          "line": 1127
+        },
+        {
+          "level": 4,
+          "id": "conclusion-what-the-reductions-change.",
+          "title": "Conclusion: what the reductions change.",
+          "line": 1147
+        },
+        {
+          "level": 2,
+          "id": "statements-and-declarations",
+          "title": "Statements and declarations",
+          "line": 1153
+        },
+        {
+          "level": 4,
+          "id": "artefact-and-data-availability.",
+          "title": "Artefact and data availability.",
+          "line": 1157
+        },
+        {
+          "level": 4,
+          "id": "declaration-of-generative-ai-use.",
+          "title": "Declaration of generative AI use.",
+          "line": 1163
+        },
+        {
+          "level": 4,
+          "id": "funding-and-competing-interests.",
+          "title": "Funding and competing interests.",
+          "line": 1169
+        },
+        {
+          "level": 4,
+          "id": "acknowledgements.",
+          "title": "Acknowledgements.",
+          "line": 1175
+        },
+        {
+          "level": 1,
+          "id": "app:half-technical",
+          "title": "Technical reductions for the half-value branch",
+          "line": 1181
+        },
+        {
+          "level": 2,
+          "id": "res:twothirdsband",
+          "title": "Exact band for a final skip between two takes",
+          "line": 1222
+        },
+        {
+          "level": 2,
+          "id": "app:half-conditional-producers",
+          "title": "Conditional criteria and local inputs for structured supports",
+          "line": 1248
+        },
+        {
+          "level": 3,
+          "id": "res:sunflower",
+          "title": "A conditional pairwise-coprime dilation criterion",
+          "line": 1254
+        },
+        {
+          "level": 3,
+          "id": "res:compositedefect",
+          "title": "Composite dilation defects",
+          "line": 1262
+        },
+        {
+          "level": 3,
+          "id": "res:mixedlayer",
+          "title": "Mixed prime-power layers",
+          "line": 1270
+        },
+        {
+          "level": 3,
+          "id": "res:halftrapping",
+          "title": "Rank-one obstruction and reverse-carry spacing",
+          "line": 1276
+        },
+        {
+          "level": 3,
+          "id": "res:halfcarryreachability",
+          "title": "Half-carry reachability",
+          "line": 1282
+        },
+        {
+          "level": 4,
+          "id": "arbitrarily-late-strip-returns.",
+          "title": "Arbitrarily late strip returns.",
+          "line": 1290
+        },
+        {
+          "level": 4,
+          "id": "terminal-only-unbounded-depth-approximation.",
+          "title": "Terminal-only unbounded-depth approximation.",
+          "line": 1309
+        },
+        {
+          "level": 4,
+          "id": "scaled-terminal-vanishing.",
+          "title": "Scaled terminal vanishing.",
+          "line": 1329
+        },
+        {
+          "level": 2,
+          "id": "app:half-finite-cofinal",
+          "title": "Finite-to-unbounded-depth criteria: windows, seams, and compactness",
+          "line": 1349
+        },
+        {
+          "level": 3,
+          "id": "res:halfcylindershadow",
+          "title": "Finite residuals for the half-value problem",
+          "line": 1355
+        },
+        {
+          "level": 3,
+          "id": "res:fixedcoeffrewind",
+          "title": "Fixed-coefficient rewind",
+          "line": 1361
+        },
+        {
+          "level": 3,
+          "id": "res:selectedhalfwindow",
+          "title": "Selected half-carry windows",
+          "line": 1367
+        },
+        {
+          "level": 3,
+          "id": "res:rewindphase",
+          "title": "A realised rewind criterion",
+          "line": 1373
+        },
+        {
+          "level": 3,
+          "id": "res:protectedseam",
+          "title": "Localised protected seams",
+          "line": 1379
+        },
+        {
+          "level": 3,
+          "id": "res:cofinalwindowseam",
+          "title": "Combining the two unbounded-depth half-carry criteria",
+          "line": 1385
+        },
+        {
+          "level": 3,
+          "id": "res:integergreedy",
+          "title": "Integer-greedy first-wrap reduction",
+          "line": 1391
+        },
+        {
+          "level": 3,
+          "id": "res:concreteseam",
+          "title": "Exact finite recurrence for the greedy seam",
+          "line": 1397
+        },
+        {
+          "level": 2,
+          "id": "app:half-final-skip",
+          "title": "Exact final-skip reduction and its exceptional carries",
+          "line": 1403
+        },
+        {
+          "level": 3,
+          "id": "app:fatalright-detail",
+          "title": "Fatal gaps and eventual right tails",
+          "line": 1409
+        },
+        {
+          "level": 4,
+          "id": "the-case-c_d-3.",
+          "title": "The case C_D=-3.",
+          "line": 1417
+        },
+        {
+          "level": 4,
+          "id": "the-case-c_d-2.",
+          "title": "The case C_D=-2.",
+          "line": 1423
+        },
+        {
+          "level": 4,
+          "id": "the-two-remaining-inputs.",
+          "title": "The two remaining inputs.",
+          "line": 1440
+        },
+        {
+          "level": 4,
+          "id": "finite-upper-reset-band-certificates.",
+          "title": "Finite upper-reset band certificates.",
+          "line": 1448
+        },
+        {
+          "level": 3,
+          "id": "app:halfmembership-detail",
+          "title": "Positive half-membership classification",
+          "line": 1454
+        },
+        {
+          "level": 3,
+          "id": "res:largestskip",
+          "title": "Largest skipped ranks",
+          "line": 1460
+        },
+        {
+          "level": 3,
+          "id": "res:boundarypulse",
+          "title": "Divisor pulses at the largest-skip boundary",
+          "line": 1472
+        },
+        {
+          "level": 3,
+          "id": "res:largestskipinduction",
+          "title": "Largest-skip induction",
+          "line": 1478
+        },
+        {
+          "level": 3,
+          "id": "res:fixedtailsocket",
+          "title": "The fixed-tail survival criterion",
+          "line": 1484
+        },
+        {
+          "level": 3,
+          "id": "res:producercarry",
+          "title": "Residual identity for the middle-transition support",
+          "line": 1490
+        },
+        {
+          "level": 3,
+          "id": "res:quarterband",
+          "title": "Quarter-band endpoint cases",
+          "line": 1496
+        },
+        {
+          "level": 3,
+          "id": "res:resetdeficit",
+          "title": "Right-branch deficit escape",
+          "line": 1510
+        },
+        {
+          "level": 3,
+          "id": "res:seamproducer",
+          "title": "Alignment of seam and transition carries",
+          "line": 1522
+        },
+        {
+          "level": 2,
+          "id": "app:half-evidence",
+          "title": "Finite evidence, coordinate changes, and eliminated special cases",
+          "line": 1528
+        },
+        {
+          "level": 3,
+          "id": "res:selectedwindowbase",
+          "title": "A verified initial selected window",
+          "line": 1534
+        },
+        {
+          "level": 3,
+          "id": "res:rewindseambridge",
+          "title": "Rewind-to-seam equivalence",
+          "line": 1540
+        },
+        {
+          "level": 3,
+          "id": "selected-suffix-cylinders",
+          "title": "Selected suffix cylinders",
+          "line": 1546
+        },
+        {
+          "level": 4,
+          "id": "status-and-relation-to-prior-work.",
+          "title": "Status and relation to prior work.",
+          "line": 1662
+        },
+        {
+          "level": 3,
+          "id": "res:prefeedback",
+          "title": "Verified finite suffix-cylinder stages",
+          "line": 1668
+        },
+        {
+          "level": 3,
+          "id": "res:halfdivisordrop",
+          "title": "Half-divisor unit drop",
+          "line": 1682
+        },
+        {
+          "level": 3,
+          "id": "res:rewindboundarycounterexample",
+          "title": "A finite rewind-boundary obstruction",
+          "line": 1688
+        },
+        {
+          "level": 3,
+          "id": "res:producercarrycoordinates",
+          "title": "Explicit carry coordinates at the final non-right transition",
+          "line": 1694
+        },
+        {
+          "level": 3,
+          "id": "res:campbellboundary",
+          "title": "Incompatibility with Campbell\u2019s prime-progression bound",
+          "line": 1708
+        },
+        {
+          "level": 4,
+          "id": "appendix-consequence.",
+          "title": "Appendix consequence.",
+          "line": 1718
+        },
+        {
+          "level": 1,
+          "id": "sec:carry",
+          "title": "Auxiliary rationality criteria from binary carry systems",
+          "line": 1724
+        },
+        {
+          "level": 2,
+          "id": "app:carry-normal-form",
+          "title": "Exact normal form: tail-orbit rigidity",
+          "line": 1760
+        },
+        {
+          "level": 2,
+          "id": "app:carry-boolean",
+          "title": "Exact #257 coordinates: Boolean\u2013M\u00f6bius carry certificates",
+          "line": 1790
+        },
+        {
+          "level": 4,
+          "id": "the-exact-coordinate-chain.",
+          "title": "The exact coordinate chain.",
+          "line": 1815
+        },
+        {
+          "level": 2,
+          "id": "app:carry-sublog",
+          "title": "Necessary condition I: sublogarithmic divisor coverage",
+          "line": 1853
+        },
+        {
+          "level": 2,
+          "id": "app:carry-mass",
+          "title": "Necessary conditions II: wraps, mass, and unbounded states",
+          "line": 1887
+        },
+        {
+          "level": 2,
+          "id": "app:carry-geometry",
+          "title": "Independent geometry and one-sided nonmembership certificates",
+          "line": 1970
+        },
+        {
+          "level": 4,
+          "id": "appendix-consequence.-1",
+          "title": "Appendix consequence.",
+          "line": 2015
+        },
+        {
+          "level": 1,
+          "id": "app:totient-technical",
+          "title": "Technical reductions for the totient-certificate branch",
+          "line": 2021
+        },
+        {
+          "level": 2,
+          "id": "app:totient-normal",
+          "title": "Exact unbounded-depth normal forms and cone consequences",
+          "line": 2041
+        },
+        {
+          "level": 4,
+          "id": "cone-flatness-and-completeness.",
+          "title": "Cone flatness and completeness.",
+          "line": 2047
+        },
+        {
+          "level": 4,
+          "id": "an-exact-target-residue-class.",
+          "title": "An exact target residue class.",
+          "line": 2063
+        },
+        {
+          "level": 2,
+          "id": "app:totient-finite",
+          "title": "Fixed-scale mechanisms and conditional unbounded implications",
+          "line": 2102
+        },
+        {
+          "level": 4,
+          "id": "a-one-way-analytic-enclosure.",
+          "title": "A one-way analytic enclosure.",
+          "line": 2108
+        },
+        {
+          "level": 4,
+          "id": "a-reduced-denominator-finite-predicate.",
+          "title": "A reduced-denominator finite predicate.",
+          "line": 2132
+        },
+        {
+          "level": 4,
+          "id": "verified-finite-certificate-families.",
+          "title": "Verified finite certificate families.",
+          "line": 2146
+        },
+        {
+          "level": 4,
+          "id": "exact-finite-divisor-index-split-and-sufficient-projection-test.",
+          "title": "Exact finite divisor-index split and sufficient projection test.",
+          "line": 2176
+        },
+        {
+          "level": 4,
+          "id": "res:t64closure",
+          "title": "Primality certificates at changing-lcm scales through t=64.",
+          "line": 2263
+        },
+        {
+          "level": 4,
+          "id": "res:t64endpoint",
+          "title": "The diagonal certificate at t=64.",
+          "line": 2269
+        },
+        {
+          "level": 2,
+          "id": "app:totient-boundaries",
+          "title": "Candidate unbounded inputs and no-go boundaries",
+          "line": 2275
+        },
+        {
+          "level": 4,
+          "id": "res:flexibleoddwindow",
+          "title": "Candidate unbounded input: a three-rank odd window.",
+          "line": 2281
+        },
+        {
+          "level": 4,
+          "id": "res:flexibleoddaffine",
+          "title": "Exact affine form and bounded zero-orbit obstruction.",
+          "line": 2287
+        },
+        {
+          "level": 4,
+          "id": "exact-fresh-prime-deficit-decomposition.",
+          "title": "Exact fresh-prime deficit decomposition.",
+          "line": 2293
+        },
+        {
+          "level": 4,
+          "id": "exact-one-bit-lifting.",
+          "title": "Exact one-bit lifting.",
+          "line": 2307
+        },
+        {
+          "level": 4,
+          "id": "independent-no-go-parity-is-not-a-margin-certificate.",
+          "title": "Independent no-go: parity is not a margin certificate.",
+          "line": 2321
+        },
+        {
+          "level": 4,
+          "id": "independent-no-go-prime-adjunction.",
+          "title": "Independent no-go: prime adjunction.",
+          "line": 2344
+        },
+        {
+          "level": 2,
+          "id": "app:totient-rank",
+          "title": "Unconditional dyadic rank and the rationality-side carry bound",
+          "line": 2387
+        },
+        {
+          "level": 4,
+          "id": "relation-to-prior-work.-1",
+          "title": "Relation to prior work.",
+          "line": 2405
+        },
+        {
+          "level": 4,
+          "id": "appendix-consequence.-2",
+          "title": "Appendix consequence.",
+          "line": 2467
+        },
+        {
+          "level": 1,
+          "id": "app:lambert-complements",
+          "title": "Lambert, probability, and finite-algebraic complements",
+          "line": 2478
+        },
+        {
+          "level": 2,
+          "id": "sec:additional-lambert",
+          "title": "Weighted Lambert comparison families",
+          "line": 2486
+        },
+        {
+          "level": 4,
+          "id": "sec:periodicweights",
+          "title": "Periodic weights.",
+          "line": 2494
+        },
+        {
+          "level": 2,
+          "id": "app:lambert-algebraic",
+          "title": "Finite algebraic boundaries and squared-Lambert coordinates",
+          "line": 2524
+        },
+        {
+          "level": 4,
+          "id": "sec:primitiveindex",
+          "title": "Finite denominator-clearing boundaries.",
+          "line": 2530
+        },
+        {
+          "level": 4,
+          "id": "sec:squared",
+          "title": "Squared Lambert calculus.",
+          "line": 2583
+        },
+        {
+          "level": 2,
+          "id": "app:lambert-probability",
+          "title": "Probability-coordinate geometry: reduced slopes and cylinders",
+          "line": 2603
+        },
+        {
+          "level": 4,
+          "id": "reduced-directions-and-cylinder-masses.",
+          "title": "Reduced directions and cylinder masses.",
+          "line": 2609
+        },
+        {
+          "level": 4,
+          "id": "run-lengths-and-arithmetic-height.",
+          "title": "Run lengths and arithmetic height.",
+          "line": 2649
+        },
+        {
+          "level": 4,
+          "id": "appendix-consequence.-3",
+          "title": "Appendix consequence.",
+          "line": 2698
+        },
+        {
+          "level": 1,
+          "id": "app:index",
+          "title": "Guide to the formal sources",
+          "line": 2704
+        }
+      ],
+      "citations_rendered": 40,
+      "fallback_title_drift": {
+        "registry_fallback": "Irrationality Theorems for Reciprocal Mersenne Sums, and an Explicit Denominator Bound for the Binary Totient Series",
+        "manuscript_title": "Exact Reductions for Two Open Irrationality Problems of Erd\u0151s"
+      },
+      "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
+      "local_pdf": "docs/papers/mirror/erdos249-257-main-paper.pdf",
+      "pdf_sha256": "sha256:65c51df1db693af4035ede1372192ef355542e2658de8721a4d23c956e3e2d26",
+      "pdf_byte_count": 387741,
+      "first_pass": {
+        "stated_by_the_paper": true,
+        "provenance": "the paper's own stated reading route",
+        "sections": [
+          {
+            "id": "sec:spines",
+            "title": "The two exact reductions",
+            "line": 77
+          },
+          {
+            "id": "sec:architecture",
+            "title": "One transform and the limit of finite evidence",
+            "line": 880
+          },
+          {
+            "id": "sec:unresolved",
+            "title": "The unresolved statements",
+            "line": 1099
+          }
+        ],
+        "unresolved_count": 0,
+        "stated_at": {
+          "id": "reading-map.",
+          "line": 69
+        }
+      }
+    },
+    {
+      "paper_id": "claim-faithful-publication-systems",
+      "title": "From Lean Proofs to Public Claims",
+      "title_source": "manuscript",
+      "question_this_paper_answers": "Lean proves the formal statement \u2014 but who checks that the README describes it faithfully?",
+      "owns": "the design argument for the release discipline: what is checked, by whom, and when",
+      "not_authority_for": "the mathematical content it uses as its worked example, and the correctness of the human review it preserves",
+      "relation_to_this_repository": "mirror",
+      "home_repository": "plectis-lean-erdos249-257",
+      "licence": "CC-BY-4.0",
+      "copyright": "2026 Will Cook",
+      "local_full_text": "docs/papers/full-text/claim-faithful-publication-systems-paper.md",
+      "local_source": "docs/papers/mirror/claim-faithful-publication-systems-paper.tex",
+      "source_sha256": "sha256:10f4b035a1c24403b559684bd8297eb717bea801f0553ba0d719db7805af60ab",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/claim-faithful-publication-systems-paper.tex",
+      "section_count": 23,
+      "sections": [
+        {
+          "level": 1,
+          "id": "claim-faithful-publication-systems-paper",
+          "title": "From Lean Proofs to Public Claims",
+          "line": 1
+        },
+        {
+          "level": 1,
+          "id": "sec:gap",
+          "title": "The publication gap",
+          "line": 15
+        },
+        {
+          "level": 1,
+          "id": "sec:picture",
+          "title": "The release workflow",
+          "line": 31
+        },
+        {
+          "level": 1,
+          "id": "sec:example",
+          "title": "One claim from Lean theorem to public page",
+          "line": 52
+        },
+        {
+          "level": 2,
+          "id": "sec:mathrole",
+          "title": "What the certificates are for",
+          "line": 60
+        },
+        {
+          "level": 2,
+          "id": "sec:formal-evidence",
+          "title": "The formal evidence",
+          "line": 88
+        },
+        {
+          "level": 2,
+          "id": "sec:record",
+          "title": "The reviewed record",
+          "line": 94
+        },
+        {
+          "level": 2,
+          "id": "what-the-checker-verifies-here",
+          "title": "What the checker verifies here",
+          "line": 121
+        },
+        {
+          "level": 1,
+          "id": "sec:trust",
+          "title": "What the checks establish",
+          "line": 127
+        },
+        {
+          "level": 1,
+          "id": "sec:failure",
+          "title": "A boundary the checklist missed",
+          "line": 156
+        },
+        {
+          "level": 4,
+          "id": "historical-exercise.",
+          "title": "Historical exercise.",
+          "line": 162
+        },
+        {
+          "level": 4,
+          "id": "repair-and-present-witness.",
+          "title": "Repair and present witness.",
+          "line": 170
+        },
+        {
+          "level": 4,
+          "id": "later-reconstruction.",
+          "title": "Later reconstruction.",
+          "line": 176
+        },
+        {
+          "level": 1,
+          "id": "sec:limits",
+          "title": "Scope, reuse, and limits",
+          "line": 196
+        },
+        {
+          "level": 4,
+          "id": "the-failures-the-design-addresses.",
+          "title": "The failures the design addresses.",
+          "line": 200
+        },
+        {
+          "level": 4,
+          "id": "the-failures-it-does-not-address.",
+          "title": "The failures it does not address.",
+          "line": 206
+        },
+        {
+          "level": 4,
+          "id": "limits-of-the-design-and-this-implementation.",
+          "title": "Limits of the design and this implementation.",
+          "line": 212
+        },
+        {
+          "level": 4,
+          "id": "reuse.",
+          "title": "Reuse.",
+          "line": 218
+        },
+        {
+          "level": 4,
+          "id": "what-is-not-established.",
+          "title": "What is not established.",
+          "line": 226
+        },
+        {
+          "level": 1,
+          "id": "sec:related",
+          "title": "Related systems",
+          "line": 232
+        },
+        {
+          "level": 1,
+          "id": "sec:conclusion",
+          "title": "Conclusion",
+          "line": 248
+        },
+        {
+          "level": 1,
+          "id": "app:repro",
+          "title": "Reproducibility",
+          "line": 258
+        },
+        {
+          "level": 4,
+          "id": "declaration-of-generative-ai-use.",
+          "title": "Declaration of generative AI use.",
+          "line": 264
+        }
+      ],
+      "citations_rendered": 14,
+      "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
+      "local_pdf": "docs/papers/mirror/claim-faithful-publication-systems-paper.pdf",
+      "pdf_sha256": "sha256:7a4055a8e0789910077744ac11ce46d47974a820a341dfafe9f9c4d5b26eaa04",
+      "pdf_byte_count": 102858,
+      "first_pass": {
+        "stated_by_the_paper": true,
+        "provenance": "the paper's own stated reading route",
+        "sections": [
+          {
+            "id": "sec:picture",
+            "title": "The release workflow",
+            "line": 31
+          },
+          {
+            "id": "sec:record",
+            "title": "The reviewed record",
+            "line": 94
+          },
+          {
+            "id": "sec:trust",
+            "title": "What the checks establish",
+            "line": 127
+          },
+          {
+            "id": "sec:limits",
+            "title": "Scope, reuse, and limits",
+            "line": 196
+          }
+        ],
+        "unresolved_count": 0
+      }
+    },
+    {
+      "paper_id": "plectis-public-system",
+      "title": "Plectis: What a Stranger Can Check",
+      "title_source": "manuscript",
+      "question_this_paper_answers": "What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?",
+      "owns": "the evidence boundary: what a passing public run does and does not establish",
+      "not_authority_for": "the private system's internal state, which is not public, and the mathematical results it cites as evidence",
+      "relation_to_this_repository": "native",
+      "home_repository": "plectis",
+      "licence": "CC-BY-4.0",
+      "copyright": "2026 Will Cook",
+      "local_full_text": "docs/papers/full-text/plectis-public-system.md",
+      "local_source": "paper/plectis-public-system.tex",
+      "source_sha256": "sha256:4a657572b47a1c10dbd74b55764a30d36f4a5b6ed63e350be76d991d7748b5e6",
+      "canonical_source_url": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex",
+      "section_count": 25,
+      "sections": [
+        {
+          "level": 1,
+          "id": "plectis-public-system",
+          "title": "Plectis: What a Stranger Can Check",
+          "line": 1
+        },
+        {
+          "level": 1,
+          "id": "sec:problem",
+          "title": "The problem",
+          "line": 15
+        },
+        {
+          "level": 4,
+          "id": "what-i-examined.",
+          "title": "What I examined.",
+          "line": 39
+        },
+        {
+          "level": 1,
+          "id": "sec:contract",
+          "title": "The component contract",
+          "line": 49
+        },
+        {
+          "level": 1,
+          "id": "sec:run",
+          "title": "One run, examined",
+          "line": 72
+        },
+        {
+          "level": 1,
+          "id": "sec:distinctions",
+          "title": "Five distinctions",
+          "line": 132
+        },
+        {
+          "level": 2,
+          "id": "public-execution-versus-where-the-code-came-from",
+          "title": "Public execution versus where the code came from",
+          "line": 138
+        },
+        {
+          "level": 2,
+          "id": "repeatability-versus-correctness",
+          "title": "Repeatability versus correctness",
+          "line": 144
+        },
+        {
+          "level": 2,
+          "id": "a-validators-rule-versus-the-stated-claim",
+          "title": "A validator\u2019s rule versus the stated claim",
+          "line": 150
+        },
+        {
+          "level": 2,
+          "id": "selected-cases-versus-general-behaviour",
+          "title": "Selected cases versus general behaviour",
+          "line": 156
+        },
+        {
+          "level": 2,
+          "id": "risk-reduction-versus-guarantee",
+          "title": "Risk reduction versus guarantee",
+          "line": 175
+        },
+        {
+          "level": 1,
+          "id": "sec:collection",
+          "title": "What the collection contains",
+          "line": 190
+        },
+        {
+          "level": 1,
+          "id": "sec:hand",
+          "title": "The author\u2019s hand",
+          "line": 231
+        },
+        {
+          "level": 1,
+          "id": "sec:stronger",
+          "title": "What stronger evidence would look like",
+          "line": 245
+        },
+        {
+          "level": 2,
+          "id": "how-the-record-should-age",
+          "title": "How the record should age",
+          "line": 268
+        },
+        {
+          "level": 1,
+          "id": "sec:conclusion",
+          "title": "Conclusion",
+          "line": 276
+        },
+        {
+          "level": 4,
+          "id": "a-first-review.",
+          "title": "A first review.",
+          "line": 284
+        },
+        {
+          "level": 1,
+          "id": "sec:appendix",
+          "title": "Dated reproduction record",
+          "line": 306
+        },
+        {
+          "level": 4,
+          "id": "names.",
+          "title": "Names.",
+          "line": 312
+        },
+        {
+          "level": 4,
+          "id": "getting-the-code-and-running-without-installing.",
+          "title": "Getting the code and running without installing.",
+          "line": 318
+        },
+        {
+          "level": 4,
+          "id": "installing.",
+          "title": "Installing.",
+          "line": 333
+        },
+        {
+          "level": 4,
+          "id": "the-worked-example.",
+          "title": "The worked example.",
+          "line": 344
+        },
+        {
+          "level": 4,
+          "id": "a-second-python-version.",
+          "title": "A second Python version.",
+          "line": 350
+        },
+        {
+          "level": 4,
+          "id": "project-wide-checks.",
+          "title": "Project-wide checks.",
+          "line": 356
+        },
+        {
+          "level": 4,
+          "id": "declaration-of-generative-ai-use.",
+          "title": "Declaration of generative AI use.",
+          "line": 362
+        }
+      ],
+      "citations_rendered": 11,
+      "local_pdf": "plectis-public-system.pdf",
+      "pdf_sha256": "sha256:0d64189345e7e53bab56e6a3e605b059448ee74d45964c3c2dbe9f42c243a2b9",
+      "pdf_byte_count": 112172,
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection; this paper states no reading route of its own",
+        "sections": [
+          {
+            "id": "sec:problem",
+            "title": "The problem",
+            "line": 15
+          },
+          {
+            "id": "sec:distinctions",
+            "title": "Five distinctions",
+            "line": 132
+          }
+        ],
+        "unresolved_count": 0
+      }
+    }
+  ]
+}
