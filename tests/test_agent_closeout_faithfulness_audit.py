@@ -7,6 +7,7 @@ from pathlib import Path
 from microcosm_core.organs.agent_closeout_faithfulness_audit import (
     EXPECTED_NEGATIVE_CASES,
     _select_pytest_python,
+    main,
     run,
     run_agent_closeout_bundle,
 )
@@ -200,7 +201,7 @@ def test_agent_closeout_bundle_uses_body_free_source_manifest(tmp_path: Path) ->
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_agent_closeout_faithfulness_audit_bundle"
-    assert result["source_module_manifest"]["module_count"] == 1
+    assert result["source_module_manifest"]["module_count"] == 0
     assert result["source_module_manifest"]["body_in_receipt"] is False
 
 
@@ -226,36 +227,47 @@ def test_agent_closeout_bundle_uses_public_subprocess_witness(tmp_path: Path) ->
     assert span["returncode"] == 0
 
 
-def test_agent_closeout_bundle_rejects_source_module_digest_mismatch(
+def test_agent_closeout_bundle_cli_uses_semantic_negative_case_evaluator(
     tmp_path: Path,
+    capsys,
 ) -> None:
-    public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
-    bundle = (
-        public_root
-        / "examples/agent_closeout_faithfulness_audit/"
-        "exported_agent_closeout_faithfulness_audit_bundle"
-    )
-    shutil.copytree(BUNDLE_INPUT, bundle)
-    manifest_path = bundle / "source_module_manifest.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    manifest["modules"][0]["sha256"] = "0" * 64
-    manifest_path.write_text(
-        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
+    status = main(
+        [
+            "run-agent-closeout-bundle",
+            "--input",
+            str(BUNDLE_INPUT),
+            "--out",
+            str(
+                tmp_path
+                / "receipts/runtime_shell/demo_project/organs/agent_closeout_faithfulness_audit"
+            ),
+        ]
     )
 
-    result = run_agent_closeout_bundle(
-        bundle,
-        public_root
-        / "receipts/runtime_shell/demo_project/organs/agent_closeout_faithfulness_audit",
-        command="pytest",
+    payload = json.loads(capsys.readouterr().out)
+
+    assert status == 0
+    assert payload["status"] == "pass"
+    assert payload["semantic_negative_case_evaluator_used"] is True
+    assert set(payload["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
+
+
+def test_agent_closeout_bundle_records_private_body_substitution_omission() -> None:
+    manifest = json.loads(
+        (BUNDLE_INPUT / "source_module_manifest.json").read_text(encoding="utf-8")
     )
 
-    assert result["status"] == "blocked"
-    assert result["source_module_manifest"]["status"] == "blocked"
-    assert "CROWN_JEWEL_SOURCE_DIGEST_MISMATCH" in result["error_codes"]
-    assert result["source_module_manifest"]["all_expected_digests_matched"] is False
+    assert manifest["module_count"] == 0
+    assert manifest["modules"] == []
+    [omission] = manifest["release_substitution_omissions"]
+    assert omission["path"] == (
+        "source_modules/system/lib/agent_experience_diagnostics.py"
+    )
+    assert omission["body_in_receipt"] is False
+    assert omission["release_substitution"]["substitution"] == "public_safe_stub"
+    assert omission["release_substitution"]["contamination_class"] == (
+        "private_body_near_verbatim"
+    )
 
 
 def test_agent_closeout_faithfulness_audit_selects_pytest_capable_python(tmp_path: Path) -> None:

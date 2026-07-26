@@ -530,6 +530,7 @@ def main(argv: list[str] | None = None) -> int:
         SPEC,
         argv,
         evaluator=evaluate,
+        negative_case_evaluator=evaluate_negative_case,
         bundle_action="run-agent-closeout-bundle",
     )
 
