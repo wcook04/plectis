@@ -270,6 +270,8 @@ REQUIRED_COLD_READER_ANCHORS = (
 
 REQUIRED_HYPOTHESIS_HANDOFF_ANCHORS = (
     "beyond the historical snapshot examined above",
+    "one declared known gap",
+    "complete inventory of unknown questions",
     "a tentative leading hypothesis",
     "evidence against or still missing",
     "outcomes point to named hypotheses",

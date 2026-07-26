@@ -9,6 +9,7 @@ import pytest
 from microcosm_core import cli
 from microcosm_core.hypothesis_handoff import (
     AUTHORITY_POSTURE,
+    DECLARED_GAP_POSTURE,
     EXPERT_RETURN_AUTHORITY,
     LANDING_ORDER,
     SCHEMA,
@@ -31,6 +32,7 @@ def test_worked_packet_is_valid_and_advisory() -> None:
     packet = example_packet()
     assert packet["schema"] == SCHEMA
     assert packet["authority_posture"] == AUTHORITY_POSTURE
+    assert packet["declared_gap"]["coverage_posture"] == DECLARED_GAP_POSTURE
     assert packet["expert_return"]["authority_posture"] == EXPERT_RETURN_AUTHORITY
     assert packet["expert_return"]["status_change_rule"] == STATUS_CHANGE_RULE
     assert packet["expert_return"]["landing_order"] == LANDING_ORDER
@@ -45,6 +47,11 @@ def test_worked_packet_is_valid_and_advisory() -> None:
     assert len(card["discriminating_evidence"]) == 2
     for target in packet["expert_return"]["landing_targets"]:
         assert (ROOT / target["path"]).is_file()
+    for ref in (
+        packet["declared_gap"]["source_refs"]
+        + packet["declared_gap"]["governing_contract_refs"]
+    ):
+        assert (ROOT / ref.split("::", 1)[0]).is_file()
 
 
 @pytest.mark.parametrize(
@@ -55,6 +62,12 @@ def test_worked_packet_is_valid_and_advisory() -> None:
                 {"confidence": "certain"}
             ),
             "confidence must be tentative",
+        ),
+        (
+            lambda packet: packet["declared_gap"].update(
+                {"claims_unknown_unknowns_exhaustive": True}
+            ),
+            "refuse unknown-unknown exhaustiveness",
         ),
         (
             lambda packet: packet["alternatives"][0].update(
@@ -136,6 +149,7 @@ def test_cli_json_and_text_are_read_only(
         == 0
     )
     text = capsys.readouterr().out
+    assert "Declared known gap — not a complete inventory:" in text
     assert "Working lead — tentative; not a claim or probability:" in text
     assert "bearing: Selection can hide difficult" in text
     assert "ceiling: One repaired defect does not estimate" in text

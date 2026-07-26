@@ -9,7 +9,8 @@ All notable changes to Plectis are documented here. The format follows
 ### Added
 
 - `plectis hypothesis-handoff` validates and renders an open question as a
-  falsifiable expert brief: a tentative leading hypothesis, evidence for and
+  falsifiable expert brief: a source-linked declared known gap with an
+  unknown-unknown refusal, a tentative leading hypothesis, evidence for and
   missing, serious alternatives, outcome-to-hypothesis discriminators, exact
   expert returns, repository-relative landing targets, and required release
   checks.

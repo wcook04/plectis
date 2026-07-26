@@ -6,6 +6,8 @@ Plectis calls that object a hypothesis handoff.
 
 A valid packet contains:
 
+- one declared known gap with source references and an explicit refusal to
+  claim that every unknown question has been inventoried;
 - a tentative leading hypothesis, with evidence for and evidence still missing;
 - serious alternatives, each wired to named discriminators;
 - result maps naming which options each possible observation would support;
@@ -32,6 +34,9 @@ declaring it is that a later result cannot silently redefine the alternatives
 or the update rule after the outcome is known. The validator checks that every
 option is connected to a real discriminator, that every result points back to
 a named option, and that the landing targets cannot escape the repository.
+The declared-gap field applies the same bounded self-ignorance rule as the
+[Self-Ignorance Coverage Ledger](paper_modules/self_ignorance_coverage_ledger.md):
+naming one known gap must never imply that no other gap exists.
 
 The worked packet asks whether evaluator-selected cases would expose a
 different Plectis failure profile from the author-selected fixtures. Its

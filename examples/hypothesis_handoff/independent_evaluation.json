@@ -4,6 +4,21 @@
   "question": "Would evaluator-selected cases expose a materially different failure profile from the author-selected public fixtures?",
   "current_wall": "Plectis publishes author-selected fixtures and one dated cold rerun, but no outside evaluator has selected a preregistered case set or published an independent failure taxonomy.",
   "authority_posture": "working_hypothesis_not_claim_probability_or_proof",
+  "declared_gap": {
+    "id": "gap.outside_evaluation_failure_profile",
+    "status": "open_declared_gap",
+    "statement": "No outside evaluator has selected a preregistered public case set and published the resulting failure profile.",
+    "source_refs": [
+      "paper/plectis-public-system.tex::sec:stronger",
+      "paper/plectis-public-system.tex::sec:hypothesis-handoff"
+    ],
+    "governing_contract_refs": [
+      "paper_modules/self_ignorance_coverage_ledger.md::Claim Ceiling"
+    ],
+    "coverage_posture": "declared_gap_only_not_unknown_unknown_exhaustiveness",
+    "claims_unknown_unknowns_exhaustive": false,
+    "question_coverage_ceiling": "This is one declared public-evidence gap. It is not an inventory of every unknown question about Plectis."
+  },
   "leading_hypothesis": {
     "id": "hypothesis.independent_cases_find_more_failures",
     "statement": "Evaluator-selected cases would expose more failures and a broader failure taxonomy than the current author-selected fixtures.",

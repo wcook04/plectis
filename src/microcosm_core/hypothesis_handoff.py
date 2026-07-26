@@ -15,6 +15,7 @@ from typing import Any
 SCHEMA = "plectis-hypothesis-handoff/1"
 AUTHORITY_POSTURE = "working_hypothesis_not_claim_probability_or_proof"
 EXPERT_RETURN_AUTHORITY = "expert_return_advisory_until_checked_and_landed"
+DECLARED_GAP_POSTURE = "declared_gap_only_not_unknown_unknown_exhaustiveness"
 STATUS_CHANGE_RULE = (
     "No claim status changes from an expert return until the return is "
     "independently checked, intended meaning is reviewed, the authority record "
@@ -80,6 +81,29 @@ def validate_packet(packet: Any) -> list[str]:
         _require_text(packet, field, "packet", errors)
     if packet.get("authority_posture") != AUTHORITY_POSTURE:
         errors.append("packet.authority_posture drifted")
+
+    declared_gap = packet.get("declared_gap")
+    if not isinstance(declared_gap, dict):
+        errors.append("declared_gap must be an object")
+    else:
+        for field in ("id", "statement", "question_coverage_ceiling"):
+            _require_text(declared_gap, field, "declared_gap", errors)
+        if declared_gap.get("status") != "open_declared_gap":
+            errors.append("declared_gap.status must be open_declared_gap")
+        if declared_gap.get("coverage_posture") != DECLARED_GAP_POSTURE:
+            errors.append("declared_gap.coverage_posture drifted")
+        if declared_gap.get("claims_unknown_unknowns_exhaustive") is not False:
+            errors.append(
+                "declared_gap must refuse unknown-unknown exhaustiveness"
+            )
+        for list_field in ("source_refs", "governing_contract_refs"):
+            refs = declared_gap.get(list_field)
+            if (
+                not isinstance(refs, list)
+                or not refs
+                or not all(_nonempty_text(item) for item in refs)
+            ):
+                errors.append(f"declared_gap.{list_field} must be a nonempty list")
 
     hypothesis_ids: set[str] = set()
     option_discriminator_refs: list[tuple[str, str, list[str]]] = []
@@ -297,6 +321,7 @@ def compile_packet(packet: Any, *, source: str | None = None) -> dict[str, Any]:
             "handoff_id": packet.get("id"),
             "question": packet.get("question"),
             "current_wall": packet.get("current_wall"),
+            "declared_gap": packet.get("declared_gap"),
             "leading_hypothesis": packet.get("leading_hypothesis"),
             "alternatives": packet.get("alternatives"),
             "discriminating_evidence": packet.get("discriminating_evidence"),
@@ -343,6 +368,12 @@ def render_text(card: dict[str, Any]) -> str:
         f"Hypothesis handoff: {card['handoff_id']}",
         f"Question: {card['question']}",
         f"Current wall: {card['current_wall']}",
+        "",
+        "Declared known gap — not a complete inventory:",
+        f"  {card['declared_gap']['statement']}",
+        "  source refs:",
+        *(f"    - {ref}" for ref in card["declared_gap"]["source_refs"]),
+        f"  ceiling: {card['declared_gap']['question_coverage_ceiling']}",
         "",
         "Working lead — tentative; not a claim or probability:",
         f"  {leading['statement']}",
