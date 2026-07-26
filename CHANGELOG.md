@@ -4,6 +4,21 @@ All notable changes to Plectis are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.2] - 2026-07-26
+
+### Fixed
+
+- The advertised `plectis agent-closeout-faithfulness-audit run` command now
+  passes its semantic negative-case evaluator through the command-line
+  entrypoint. The v0.3.1 command stopped before exercising its planted
+  forgeries even though the library entrypoint wired the evaluator correctly.
+  The exact terminal command now exits successfully only after all four
+  negative cases are detected by name.
+- The dedicated closeout-faithfulness tests now run inside the normal public
+  CI floor. Their source-manifest assertions also enforce the public-safe
+  substitution omission used by the standalone release, rather than expecting
+  the omitted private-near-verbatim body to be present.
+
 ## [0.3.1] - 2026-07-20
 
 ### Fixed
