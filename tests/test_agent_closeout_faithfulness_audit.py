@@ -4,8 +4,10 @@ import json
 import shutil
 from pathlib import Path
 
+import microcosm_core.organs.agent_closeout_faithfulness_audit as closeout_audit
 from microcosm_core.organs.agent_closeout_faithfulness_audit import (
     EXPECTED_NEGATIVE_CASES,
+    _probe_pytest_python,
     _select_pytest_python,
     main,
     run,
@@ -288,3 +290,55 @@ def test_agent_closeout_faithfulness_audit_selects_pytest_capable_python(tmp_pat
     pytest_capable.chmod(0o755)
 
     assert _select_pytest_python([missing_pytest, pytest_capable]) == pytest_capable
+    assert _probe_pytest_python([missing_pytest, pytest_capable]) == (
+        pytest_capable,
+        True,
+    )
+
+
+def _pytest_less_python(tmp_path: Path) -> Path:
+    """An interpreter stub that cannot run pytest, for the tool-absent lane."""
+    stub = tmp_path / "pytest_less_python"
+    stub.write_text("#!/bin/sh\nexit 1\n", encoding="utf-8")
+    stub.chmod(0o755)
+    return stub
+
+
+def test_probe_reports_pytest_absent_when_no_candidate_can_run_it(tmp_path: Path) -> None:
+    _, available = _probe_pytest_python([_pytest_less_python(tmp_path)])
+    assert available is False
+
+
+def test_agent_closeout_refuses_pytest_lane_when_pytest_is_absent(
+    tmp_path: Path, monkeypatch
+) -> None:
+    """An absent tool must be a declared refusal, never a detected forgery.
+
+    A pytest-based suite cannot exercise this path by uninstalling pytest, so the
+    absence is injected. Regression guard for the cold-clone case where
+    `pip install .` (no `[test]` extra) left `python -m pytest` returning 1 and the
+    audit read that as a span that ran and failed its pass claim.
+    """
+    stub = _pytest_less_python(tmp_path)
+    monkeypatch.setattr(closeout_audit, "_pytest_python_candidates", lambda: [stub])
+
+    result = run(FIXTURE_INPUT, tmp_path / "out")
+    exercise = result["exercise"]
+    audit_codes = {row["error_code"] for row in result["findings"]}
+
+    assert "CLOSEOUT_PYTEST_UNAVAILABLE" in audit_codes
+    # The regression: the audit's own verdict on the fixture must not report an
+    # unfaithful pass claim when the truth is that the tool was never there.
+    assert "CLOSEOUT_PYTEST_PASS_STATUS_NOT_CHECKED" not in audit_codes
+    assert exercise["external_witness"]["pytest_available"] is False
+    assert exercise["external_witness"]["pytest_subprocess_count"] == 0
+
+    spans = exercise["spans"]
+    assert spans, "the refused lane must still be recorded as a span"
+    for span in spans:
+        assert span["span_ran"] is False
+        assert span["skip_reason"] == "pytest_unavailable"
+
+    # Refusing the lane must not weaken forgery detection: the planted cases that
+    # are structurally detectable stay detected without pytest.
+    assert result["missing_negative_cases"] == []
