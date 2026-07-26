@@ -83,6 +83,27 @@
 \newcommand{\runtimecount}{22}
 \newcommand{\validatorcount}{18}
 
+
+% Measured 26 July 2026 at the audited commit; see paper/audit_claim_against_check.json
+% and the run receipts. Do not edit from memory.
+\newcommand{\passcount}{53}
+\newcommand{\blockedcount}{24}
+\newcommand{\errorcount}{10}
+\newcommand{\othercount}{87}
+\newcommand{\floorpasscount}{456}
+\newcommand{\floorskipcount}{2}
+\newcommand{\floortestfiles}{35}
+\newcommand{\alltestfiles}{209}
+\newcommand{\auditmatch}{63}
+\newcommand{\auditmatchpct}{72\%}
+\newcommand{\auditabove}{21}
+\newcommand{\auditabovepct}{24\%}
+\newcommand{\auditaboveother}{19}
+\newcommand{\auditceiling}{2}
+\newcommand{\auditceilingpct}{2\%}
+\newcommand{\auditbelow}{2}
+\newcommand{\auditbelowpct}{2\%}
+
 \hypersetup{
   bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,
   pdftitle={Plectis: What a Stranger Can Check},
@@ -147,324 +168,308 @@
 \makeatother
 
 \title{Plectis: What a Stranger Can Check}
-\subtitle{What public evidence can and cannot show about a private system}
+\subtitle{How to publish checkable claims about software you cannot open}
 \author{Will Cook}
 \date{July 2026}
+
 
 \begin{document}
 \maketitle
 \provenancenote{\emph{Production note.} I did not compose this manuscript
-sentence by sentence.  I designed and directed an agentic workflow that
-drafted and revised the prose and supporting code from objectives, evidence,
-and review criteria that I supplied.  I selected the claims, required
-revisions, reviewed and approved the published version, and take full
-responsibility for it.  The agents are production tools, not authors.
-Section~\ref{sec:problem} and Section~\ref{sec:hand} examine what follows from
-this.}
+sentence by sentence. I designed and directed an agentic workflow that drafted
+and revised the prose and supporting code from objectives, evidence, and review
+criteria that I supplied. I selected the claims, required revisions, reviewed
+and approved the published version, and take full responsibility for it. The
+agents are production tools, not authors. Appendix~\ref{sec:authorship} gives
+the full account.}
 
 \begin{abstract}
-Plectis is a public software repository (an organised, copyable project
-folder) built to expose selected claims about a larger private system. This
-paper asks what a stranger may reasonably conclude from public tests when the
-system stays private and its author chose both what to publish and what counts
-as a pass. The answer is narrow. The repository lets a reader inspect and rerun
-its published procedures, but a matching result cannot establish the hidden
-system's history, whether the published selection resembles the private whole,
-or whether the private system works reliably.
+Some software cannot be published. It may hold personal records, access keys, or
+unfinished work. Its author can still describe it, but a description is only
+testimony: a reader who doubts it has nothing to examine.
 
-In the version studied here, each of the \componentcount{} registered components
-(separately testable parts) connects a claim to a fixed input, command, saved
-output, pass rule, and stated limit. I call this a claim--evidence--limit
-contract. One component calculates an audio level from five small sample
-arrays; a reader can repeat it and challenge the expected numbers. That run
-still cannot show whether the pass rule tests the claim as written, how the
-code behaves on untested inputs, or whether risks outside the declared scan are
-absent. I chose the published fragments, inputs, answers, rules, and limits.
-The repository therefore lets a reader test claims about its published files
-and outputs, within those limits. I report that its published material was
-copied or adapted from the private system, which remains unpublished because it
-contains personal records, credentials, and unfinished tools. I also report
-that I developed it by directing coding tools based on artificial intelligence
-(AI). The argument does not depend on that account or on the claimed origin of
-the published material.
+The usual remedy is to publish some tests. That is weaker than it looks. A test
+that passes tells a stranger that a program repeated itself. It does not say who
+chose the input, where the expected answer came from, whether the rule that
+declared the pass tests the sentence it stands under, or how far the result may
+be carried.
+
+This paper describes Plectis, a public repository in which each of
+\componentcount{} published claims carries a record naming seven things: the
+exact version under test, the input, the procedure, the source of the expected
+answer, the rule that decides a pass, the cases the claim declines to cover, and
+the strongest conclusion the result supports. I call this a
+claim--evidence--limit record. Its purpose is not to show that the private
+system is good. It is to give a stranger an address for disagreement: a reader
+who doubts a published claim can say which of the seven parts they reject,
+rather than argue with prose about software they cannot see.
+
+Then I audit the collection against its own standard, and report what that
+found. Running every registered component once, \passcount{} pass,
+\blockedcount{} stop at a declared boundary, and \errorcount{} fail with
+unhandled errors rather than the declared refusals the contract requires. The
+project's own verification floor is green --- \floorpasscount{} tests pass, none
+fail --- and covers none of those \errorcount{}. Reading published descriptions
+against the rules that enforce them finds cases where the description is the
+stronger of the two, including one where prose promising to check
+\emph{behaviour} is implemented as a search for fixed strings in a file that is
+never executed.
+
+The limits are structural, and they are the point rather than an apology. I
+chose every published fragment, input, expected answer and rule; no independent
+evaluator has examined the collection; and nothing here shows that the private
+system works.
 \end{abstract}
 
-\section{The problem}
-\label{sec:problem}
+\section*{What this paper contains}
+\addcontentsline{toc}{section}{What this paper contains}
 
-I have a larger private software system that I cannot responsibly publish:
-it contains personal records, credentials, live browser and account
-information, my working notes, and unfinished tools. I would still like
-strangers to be able to test some claims about it instead of accepting my
-say-so. I use \emph{answerable} in a deliberately local sense. A claim is
-answerable when a stranger can run a public procedure that bears on it, see
-how the result is judged, and point a disagreement at a named public input,
-rule, or output. This says nothing yet about whether the claim is true,
-important, or representative of the hidden system. This paper asks what
-conclusions that narrow form of answerability can support when the public
-fragments come from a system no reader can see.
-
-Plectis is my working answer: a public software repository, stored at
-\repo. A \emph{repository} is an organised project folder, usually kept
-with its revision history; to \emph{clone} a repository is to copy that
-folder and history to another computer. Everything this paper says a
-stranger can check is in that repository. This paper describes how its
-claims are exposed and where the evidence stops.
-
-At the time of this work I was 22, an economics undergraduate, working
-independently and without external funding. Over about ten months I built the
-private system by directing AI coding agents, software tools that can edit,
-run, and revise code across a task. I set objectives and review criteria,
-accepted or rejected their output, and sent them back to revise failures;
-the agents wrote nearly all of the code, and I wrote nearly none of it. No
-other person worked on the system. This account explains why the publication
-problem arose and why the choices examined below are my responsibility, but
-it remains testimony about origin. Plectis can expose public files and runs;
-it cannot independently prove how the private work was produced. The
-public repository does not prove the story, and the argument does not rely on it.
-
-The limit on what a public run can establish would be the same if every line
-had been written by hand. Authorship might affect how often a failure occurs:
-for example, an implementation and the program that checks it can share a mistake when
-one process drafts both. This paper compares no development methods and
-estimates no error rates.
-
-The boundary of the evidence can be stated before any command is run:
+Every section, what it settles, and what it leaves open. Tags \textbf{L1}--%
+\textbf{L7} point at the numbered limits below; later sections cite a tag
+instead of restating it.
 
 \begin{center}
 \small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.67\linewidth}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.40\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}@{}}
 \toprule
-\textbf{Status} & \textbf{What belongs in it} \\
+\textbf{Section} & \textbf{What it establishes} & \textbf{What it does not} \\
 \midrule
-Publicly checkable & The contents of a named public version, the commands listed for its components, the files those commands write, and the results of its public tests. \\
-Reported here & The private system's history, the role of AI agents in producing it, and my claim that the published material came from the private system. \\
-Not established here & Whether the public selection represents the private whole, whether the published code works beyond its fixed inputs, whether the project's own pass rules are correct or even test the stated claims, and whether the private system works reliably at all. \\
+1. The problem & Why software that cannot be opened leaves a reader with nothing but the author's word, and what publishing a test does and does not repair. & That this system deserves anyone's attention. \\
+\addlinespace
+2. The record & The seven things every published claim carries, and why each is a separate place to disagree. & That seven is the right number, or these the right seven. \\
+\addlinespace
+3. One claim, end to end & A published number traced from input to conclusion, recomputable by hand with a calculator. & That the other \othercount{} claims resemble it (L4). \\
+\addlinespace
+4. The collection, run & Measured: what happens when every registered component is run once, and how that compares with the project's own test floor. & That the failures found are all of them (L6). \\
+\addlinespace
+5. Claim against rule & Measured: cases where the enforced rule is narrower than the sentence above it, one set out in full. & That the claims not examined this way are sound (L3). \\
+\addlinespace
+6. Why the gaps are structural & What would have to change for each limit to lift, and why no amount of further publishing lifts it. & Any of the limits (L1--L7). \\
+\addlinespace
+7. Related work & Where this sits among reproducibility, test oracles, assurance cases, and third-party evaluation of closed systems. & Priority, or novelty of the underlying ideas. \\
+\addlinespace
+8. What only an outsider can settle & Which choices must leave my hands, what each would buy, what each still could not show. & Anything an outsider has found. None has looked (L6). \\
+\addlinespace
+Appendices & A dated reproduction record; a ten-minute exercise that checks one claim and then breaks it on purpose; the audit method; authorship. & That a later version behaves the same way. \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\paragraph{What I examined.} The paper examines one author-curated software
-collection. At the named repository version, I read the list
-and plain descriptions of all \componentcount{} components, counted them by
-project group and by the kind of public evidence offered, traced the worked
-component from input to limit, and reran the appendix's public commands. I did
-not compare every pass rule with its prose claim or derive fresh expected
-answers; Section~\ref{sec:stronger} reserves those checks for an outside
-evaluator. The paper defines the component contract, then follows
-one ordinary component from input to limit. Five distinctions separate what a
-passing run shows from conclusions it may appear to support. The final
-sections identify the choices an evaluator would need to make independently
-of me.
+\paragraph{How to read this.} Reading the paper needs no programming. With five
+minutes, read this page and Section~\ref{sec:run}. To check something yourself,
+go to Appendix~\ref{sec:firstreview}: it needs a terminal, Python, and about ten
+minutes. To judge whether the method transfers to your own setting, read
+Sections~\ref{sec:record}, \ref{sec:collection} and~\ref{sec:audit}.
 
-This is a descriptive analysis of one public repository, not a statistical
-study. Runeson and H\"ost distinguish a case from the units of analysis within
-it \cite[\S2.5]{runeson2009}. I borrow only those two terms: the named repository
-version is the single case, and each component is a \emph{unit of analysis}
-(one item examined inside that case). This paper does not otherwise claim a
-full case-study design. No subset of the components is used to estimate
-performance or represent the private system.
+\section*{What this paper does not establish}
+\addcontentsline{toc}{section}{What this paper does not establish}
 
-Reading this paper requires no programming. Reproducing its runs requires
-basic command-line use, a terminal (a text window for commands), Git (for
-copying and versioning repositories), Python 3.11 or later, and \code{pip}
-(for installing Python software). The appendix gives the exact commands,
-environment details, and installation notes. It is a dated record of one
-verification pass at the version named there.
+Seven limits bound everything below. Each is stated once, here.
 
-\section{The component contract}
-\label{sec:contract}
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.13\linewidth}>{\raggedright\arraybackslash}p{0.83\linewidth}@{}}
+\toprule
+\textbf{L1 Origin} & Nothing a public repository does can show where its contents came from. I report that the published material was copied or adapted from the private system. That is testimony, and no argument here depends on it. \\
+\addlinespace
+\textbf{L2 Correctness} & A run matching its stored record shows the same code produced the same answer again. It does not show the answer is right: in almost every case the expected answer and the code come from one hand. \\
+\addlinespace
+\textbf{L3 Meaning} & A pass is a verdict on the rule that was written down, and that rule can be narrower than the sentence it stands under. Section~\ref{sec:audit} measures how often. \\
+\addlinespace
+\textbf{L4 Reach} & The published parts are a selection I made from a system no reader can see. No result about one component carries to another, and none carries to the private whole. \\
+\addlinespace
+\textbf{L5 Risk} & The publication checks reduce specific risks. A scan that finds nothing shows the scanner did not find the patterns it was designed to find, and nothing stronger. \\
+\addlinespace
+\textbf{L6 Author control} & I chose every published fragment, input, expected answer, rule and limit --- including the method of Section~\ref{sec:audit} and the faults it looks for. No independent evaluator has examined the collection, and I know of none. \\
+\addlinespace
+\textbf{L7 Inventory} & \componentcount{} is a count of registered claims, not a score. Even the unit of counting is a choice I control: one mechanism could have been registered as several components, or several as one. \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-A \emph{component} in Plectis is one registered, testable part of the
-project. Its \emph{fixture} is a fixed sample input. A \emph{receipt} is the
-saved record of a run. The repository supplies one from an earlier run;
-rerunning can write another. A \emph{validator} is the program that applies a
-component's pass and refusal rules. A
-\emph{commit} is a named, saved version of the repository. These terms
-describe files and commands. Here \emph{evidence} means the public input,
-procedure, output, and judgement rule offered in support of a claim. Calling
-them evidence does not establish their adequacy. \emph{Contract} means only
-that the claim, those materials, and a limit are stated together so readers
-can check their fit. Nothing in these labels grades the importance of what a
-component does.
+\section*{Terms used in this paper}
+\addcontentsline{toc}{section}{Terms used in this paper}
 
-At commit \code{\snapshotshort} the registry, the component list read by the
-programs, contains \componentcount{} entries. Every entry is required to
-connect the same things: a claim stated in prose; a fixture; a command; the
-output files the command writes; a stored receipt from a prior run; an
-explicit rule for what counts as a pass and what must be refused; and a
-stated limit on what a pass establishes. Figure~\ref{fig:contract} lays the
-required parts out, together with the fact about them that the rest of this
-paper keeps returning to: every part is supplied by me, and every part is
-exposed to a stranger.
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.17\linewidth}>{\raggedright\arraybackslash}p{0.79\linewidth}@{}}
+\toprule
+Answerable & Used locally: a claim is answerable when a stranger can run a public procedure bearing on it, see how the result is judged, and point a disagreement at a named input, rule, or output. It says nothing about whether the claim is true or important. \\
+Ceiling & The strongest conclusion a component's result is allowed to support, written down as part of the component. \\
+Commit & A named, saved version of a repository. \\
+Component & One registered, separately runnable part of the project. \\
+Fixture & A fixed sample input, stored in the repository. \\
+Fingerprint & A short value computed from a file's contents, used to detect change; here SHA-256 \cite{nistfips1804}. \\
+Oracle & In software testing, whatever decides that an observed output is the right one --- a stored value, a calculation, a second program, a person \cite[p.~507]{barr2015}. \\
+Receipt & The saved record of a run. \\
+Refusal & A declared decision not to answer, distinguished from a breakdown: a refusal marks the edge of what a component claims; a crash is a defect. \\
+Registry & The list of components that the programs read. \\
+Repository & An organised project folder kept with its revision history; to \emph{clone} one is to copy it to another computer. \\
+Route & The registry's label for what kind of evidence a component offers. \\
+Validator & The program applying a component's pass and refusal rules. \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-\begin{figure}[t]
-\centering
-\makebox[\linewidth][c]{\begin{tikzpicture}[x=1cm,y=1cm]
-% words row
-\node[words] (claim) at (3.45,2.05) {The claim, stated in prose};
-\node[words] (limit) at (13.0,2.05) {The stated limit};
-% mechanism row
-\node[part] (fix) at (0,0) {Fixed input\\(the fixture)};
-\node[part] (code) at (3.45,0) {Public code};
-\node[part] (out) at (6.55,0) {Fresh output\\files};
-\node[part, text width=2.9cm] (val) at (9.55,0) {Comparison, pass rule, refusal rule\\(the validator)};
-\node[part] (verdict) at (13.0,0) {Pass, or\\declared refusal};
-\node[part] (rec) at (9.55,-2.0) {Fresh receipt\\(saved run record)};
-% flows
-\draw[flow] (fix) -- node[flabel, above=1pt]{command} (code);
-\draw[flow] (code) -- node[flabel, above=1pt]{writes} (out);
-\draw[flow] (out) -- (val);
-\draw[flow] (val) -- (verdict);
-\draw[flow] (val) -- node[flabel, right]{records} (rec);
-\draw[authlink] (code) -- node[flabel, right, align=left]{said to\\do this} (claim);
-\draw[authlink] (verdict) -- node[flabel, right, align=left]{read under\\this ceiling} (limit);
-% stranger actions
-% top-anchored so the action row reads as one aligned row despite
-% differing line counts
-\node[act, anchor=north] (a1) at (0,-2.95) {change the input};
-\node[act, anchor=north] (a2) at (3.45,-2.95) {read it;\\rerun it};
-\node[act, anchor=north] (a3) at (6.55,-2.95) {regenerate\\them};
-\node[act, anchor=north] (a4) at (9.55,-2.95) {compare fresh\\with stored;\\dispute the rule};
-\node[act, anchor=north] (a5) at (13.0,-2.95) {hold every\\conclusion\\to the limit};
-\draw[RoyalBlue!45, dotted, line width=0.6pt] (a1) -- (fix);
-\draw[RoyalBlue!45, dotted, line width=0.6pt] (a2) -- (code);
-\draw[RoyalBlue!45, dotted, line width=0.6pt] (a3) -- (out);
-\draw[RoyalBlue!45, dotted, line width=0.6pt] (a4) -- (rec);
-\draw[RoyalBlue!45, dotted, line width=0.6pt] (a5) -- (verdict);
-\end{tikzpicture}}
-\caption{How to read the component contract, at commit
-\code{\snapshotshort}. Read the middle row from left to right: a command applies
-public code to a fixed input and the code writes output. The validator judges it
-under the published pass and refusal rules, then writes a fresh receipt recording
-the run. The stored receipt from the earlier run is available for comparison; it
-does not determine the new verdict. The two
-boxes above are words rather than mechanisms: the project states the claim and
-the limit on what a pass may support. Every part is public, and the project
-supplied every part. The italic blue row names what a stranger can do without
-asking anyone; amber marks the project's words and choices. Across the figures,
-a dashed outline marks something outside what the public run establishes. This
-figure has no dashed boxes because none of its parts is hidden. In
-Figures~\ref{fig:boundary} and~\ref{fig:gaps}, dashes mark private material or
-conclusions not established by the observed run. Section~\ref{sec:run} follows
-one component through this chain.}
-\label{fig:contract}
-\end{figure}
+\section{The problem}
+\label{sec:problem}
 
-The repository cannot by itself support my assertions about the unseen private
-system. A component does something narrower: it gives a related public claim a
-procedure that can fail in front of a stranger. The procedure
-does not make the claim true or establish the published fragment's origin. It
-changes the form disagreement can take: a reader who doubts a component's
-claim can point at a particular input, a particular line of the validator, or a
-particular number in the output, instead of arguing with my description of
-software they cannot see. A component that fails is still answerable in
-this sense, and a component can be answerable and trivial; answerability
-concerns the form a claim takes, not its truth and not its importance.
+I have a private software system I cannot responsibly publish: it holds personal
+records, access keys, live browser and account information, working notes, and
+unfinished tools. I would still like strangers to be able to test some claims
+about it rather than accept my say-so.
 
-A component may also end in a declared refusal rather than an answer. The
-worked example below refuses an input format it does not support. Components
-that depend on an external tool, such as the Lean proof checker (a program
-that verifies mathematical proofs), must record a refusal with a stated limit
-when the tool is absent, rather than reporting success.
-\emph{Runnable} therefore means that the operation and its declared failure
-boundary are present in public form; it does not mean that every optional
-dependency exists on every machine. A refusal is informative only when it is
-declared in advance and distinguishable from a breakdown: a predeclared
-refusal marks the edge of what the component claims, while an unexpected
-crash is a defect. The two must not be read as the same kind of event. One
-honesty condition on refusals cannot be discharged from inside the
-repository at all: the public record shows each boundary as declared at the
-named commit, and it cannot show whether the boundary was drawn before or
-after an awkward case was first met. A boundary drawn afterwards turns a
-failure into a designed refusal in the telling. Saving the version before
-an outside evaluation begins, as Section~\ref{sec:stronger} proposes, is
-what would make that ordering checkable.
+Publishing a test looks like the answer and mostly is not. Suppose I write that
+a component ``checks the recording hotkey behaviour'', publish a test, and the
+test passes. A reader has learned that some program returned the value some
+other program expected. They have not learned who chose the example, where the
+expected answer came from, or whether the rule that declared the pass has
+anything to do with hotkeys. Section~\ref{sec:audit} shows that this is not a
+hypothetical: in the case just described, the rule searches an unexecuted file
+for fixed strings.
 
-The idea does not depend on software. The contract needs a claim in words; a
-determinate public case; a procedure a stranger can
-cause to run; an observable result; a rule connecting result to claim; a
-declared boundary of application; and a stated ceiling on inference. That
-the case here is a file of numbers, the procedure a command, and the record a
-text file is a convenience of this example. The same contract could be
-satisfied in another field by a laboratory protocol with declared rejection
-conditions, or by a sealed evaluation service with published scoring rules.
-I make no claim about those settings; the point is only that the contract
-is a shape for exposing claims to strangers, and this repository is one
-example. Read simply as software, it is a test suite with a registry and
-unusually complete paperwork. That is a fair description. The paper asks
-what such a test suite lets a stranger challenge, and which conclusions
-still lie beyond it.
+So the question is not whether public tests are possible. It is what a public
+test has to carry before a stranger can tell what it is worth.
 
-This local notion overlaps with reproducibility and transparency but is not
-a synonym for either. A run can repeat perfectly with no stated claim attached,
-and a claim can be answerable while still awaiting a good test. The design
-also begins from partial disclosure: it offers one limited point of contact,
-not a view of the hidden system. A component exposes the published fragment
-to challenge. It does not make the private whole answerable.
+This is a descriptive analysis of one repository, not a statistical study.
+Runeson and H\"ost distinguish a case from the units of analysis within it
+\cite[\S2.5]{runeson2009}; I borrow only those two terms. The named repository
+version is the single case, and each component is one unit examined inside it.
+No subset is used to estimate performance or to represent the private system.
 
-Answerability is not the same property as computational reproducibility,
-although the component contract supplies materials needed to test the
-latter. Under the convention used by the National Academies, computational
-reproducibility means obtaining consistent results using the same input
-data, computational steps, methods, code, and conditions of analysis; such
-consistency does not by itself establish correctness
-\cite[conclusion 3-1]{nasem2019}.
-In software testing, a \emph{test oracle} is the information or procedure used
-to decide whether an observed output is correct. The challenge of making that
-distinction is called the test oracle problem \cite[p. 507]{barr2015}. The risk
-that a curated collection disproportionately exposes favourable cases is
-analogous to selective publication and the file-drawer problem
-\cite{rosenthal1979}.
-An \emph{assurance case} links a system claim to reasons and evidence. The
-Object Management Group's Structured Assurance Case Metamodel (SACM), version
-2.3, describes such cases as auditable claims, arguments, and evidence. Section
-2.2 says the Claims--Arguments--Evidence notation has its own mapping onto SACM;
-informative Annex A.2 points to the maintained mapping details
-\cite[secs. 1.1, 2.2; Annex A.2]{omgsacm2023}. Plectis is
-not an implementation of that standard and makes no claim that the private
-system is safe. Its validator applies a published rule; it does not supply the
-full argument from evidence to claim that an assurance case would require.
-The Association for Computing Machinery (ACM) calls digital research materials
-such as code, scripts, and data
-\emph{artifacts}. Its \emph{Artifacts Evaluated---Functional} badge means
-those materials passed an independent audit for documentation, consistency,
-completeness, ability to run, and evidence of verification and validation.
-\emph{Results Reproduced} means another team later obtained the main results
-using some author-supplied artifacts \cite{acmartifact}. Plectis claims neither
-status. These standards are comparison points, not statuses awarded here. This
-paper claims no new theory of assurance, testing, or reproducibility; it reads
-each public procedure against its claim and stated limit.
+\subsection{Threat model}
+\label{sec:threat}
 
-\section{One run, examined}
+The adversary in this paper is the author. Not because I intend to mislead, but
+because the privacy constraint hands one person every consequential choice, and
+a structure that only works when its author is careful is not a structure.
+
+At the audited version I choose: which private mechanisms are candidates; which
+are published; how finely each is divided, and so what the count counts; which
+evidence route each takes; the inputs; the expected values; what each validator
+checks; where each refusal boundary sits; which group each entry is filed under;
+which failures this paper explains, and in what tone.
+
+That concentration permits a failure mode requiring no false statement anywhere.
+Select the mechanisms that show well. Divide the favourable ones finely. Narrow
+each claim until its fixed cases satisfy it. Give awkward material the least
+demanding check. Declare as refusals whatever would otherwise fail. File small
+replays under weighty names. Then let counts, categories, and the machinery of
+records accumulate into an impression of scale that no individual sentence
+asserts. A document can be cautious sentence by sentence while its arrangement
+overstates, because a reader's impression forms on what is counted, named,
+worked through, and left out.
+
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.33\linewidth}@{}}
+\toprule
+\textbf{Author capability} & \textbf{What the record defends} & \textbf{What it does not} \\
+\midrule
+Choose which mechanisms are published & Nothing & The pool stays invisible (L4) \\
+Choose the fixed inputs & The inputs are named and replaceable & I chose them (L4) \\
+Supply the expected answer & Its source is a declared field, so a reader sees when it is mine & Declaring the source does not make it independent (L2) \\
+Write a rule narrower than the claim & Rule and prose are separately readable, so the gap is findable --- Section~\ref{sec:audit} finds it & Finding it needs a reader; nothing detects it automatically (L3) \\
+Draw a refusal boundary after meeting an awkward case & A pinned version fixes what was declared when & The record cannot show what was known before it (L6) \\
+Repair a failure quietly & Receipts are append-only; the appendix keeps failures at the pinned version & Nothing forces me to run the case that would fail \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This paper is inside its own arrangement. Declaring the risk does not discharge
+it, and nothing in the text can establish that the text is not doing what the
+paragraph above describes. What can be done is to move the argument onto ground
+where a reader does not have to believe me: fixed inputs they can change,
+rules they can read, and, in Sections~\ref{sec:collection}
+and~\ref{sec:audit}, measurements whose commands are published and whose results
+are unflattering.
+
+\section{The record}
+\label{sec:record}
+
+A component is one registered, runnable part of the project. Every entry in the
+registry is required to carry the same seven things.
+
+\begin{center}
+\small
+\begin{tabular}{@{}r>{\raggedright\arraybackslash}p{0.21\linewidth}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.34\linewidth}@{}}
+\toprule
+& \textbf{Field} & \textbf{What it holds} & \textbf{What rejecting it means} \\
+\midrule
+1 & Subject and version & The exact commit under test & ``You are not testing what you say you are'' \\
+2 & Input & A fixed sample, stored in the repository & ``Your example is not representative'' \\
+3 & Procedure & One command a stranger can run & ``That is not what your description does'' \\
+4 & Oracle & Where the expected answer comes from, and whether it is independent of the code & ``You graded your own work'' \\
+5 & Rule & What the validator mechanically checks & ``Your rule does not test your sentence'' \\
+6 & Refusal & Cases the component declines, declared in advance & ``That boundary was drawn to avoid a failure'' \\
+7 & Ceiling & The strongest conclusion a pass supports & ``You are carrying this further than it goes'' \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The fourth column is the point. An ordinary test returns a verdict; this returns
+a verdict plus the address of every place the verdict could be wrong. A reader
+who doubts a claim does not have to argue with my description of software they
+cannot see. They can name a field.
+
+Two consequences follow, and they pull in opposite directions.
+
+The first is that a component can fail in public. That is the property worth
+having, and it is why Section~\ref{sec:collection} reports failures rather than
+a pass rate. A component that fails is still answerable; a component can be
+answerable and trivial. Answerability concerns the form a claim takes, not its
+truth and not its importance.
+
+The second is that the ceiling is written by the same person as the claim. A
+declared limit is not an independent check; it is a promise about how to read a
+result, made by the party with an interest in how it is read. Its value is that
+it is specific and public, so a reader can hold a later sentence against it.
+Section~\ref{sec:audit} tests whether the ceilings in this collection actually
+catch the overreach they exist to catch.
+
+\paragraph{Refusals.} A refusal is informative only when declared in advance and
+distinguishable from a breakdown. Components depending on an external tool ---
+the Lean proof checker, say --- are required to record a refusal with a stated
+limit when the tool is absent, rather than reporting success.
+Section~\ref{sec:collection} measures how often that requirement is met, and
+finds it is not universal. One honesty condition cannot be discharged from
+inside the repository at all: the record shows each boundary as declared at the
+audited commit, and cannot show whether it was drawn before or after an awkward
+case was met (L6).
+
+\paragraph{The shape is not specific to software.} The record needs a claim in
+words, a determinate public case, a procedure a stranger can cause to run, an
+observable result, a rule connecting result to claim, a declared boundary, and a
+stated ceiling. That the case here is a file of numbers and the procedure a
+command is a convenience. A laboratory protocol with declared rejection
+conditions, or a sealed evaluation service with published scoring rules, could
+satisfy the same shape. I make no claim about those settings.
+
+\section{One claim, end to end}
 \label{sec:run}
 
-The component \component{batch8_audio_level_rms_port} computes a loudness
-level from short arrays of audio samples. I chose it because it is ordinary.
-It needs only a square root and no knowledge of the private system; its claim
-is small enough that every part of the evidence can be seen at once.
+The component \component{batch8_audio_level_rms_port} computes a loudness level
+from short arrays of audio samples. I chose it because it is ordinary: it needs
+only a square root, and every part of its evidence fits on one page.
 
-The reported origin is this. The private system contains a small macOS
-recording application, and one of that application's functions reduces a
-short stretch of audio samples held in memory to a level between zero and
-one. The public
-component re-expresses that calculation in Python. The component's code and
-its stored receipts name the private file it claims to re-express
-(\component{AudioLevelMonitor.swift}); a stranger cannot open that file, so
-the name is a report, not evidence. What the stranger can check is
-everything else.
+The reported origin is that the private system contains a small macOS recording
+application whose \component{AudioLevelMonitor.swift} reduces a stretch of audio
+samples to a level between zero and one; the public component re-expresses that
+calculation in Python. A stranger cannot open that file, so the name is a report,
+not evidence (L1).
 
-The declared calculation begins with root-mean-square (the \code{rms} in
-the component's name): square each sample, average the squares, and take
-the square root. It then applies the project's gain of eight and caps the
-result at one. Signed sixteen-bit integer samples are first divided by
-32{,}767, the largest positive value in that representation, to bring them
-onto the same scale. An empty input must produce zero. An unrecognised
-format name must be refused rather than guessed at.
+It is worse than that, and Section~\ref{sec:audit} is where I found out. The
+component carries a check whose job is to confirm the copied source against
+declared anchors. It reports success. It is comparing nothing, because the Swift
+file was withheld at release and the manifest it iterates over is empty. Read
+this section for what it is: a calculation a reader can verify by hand, attached
+to a provenance claim whose verification is hollow. Both halves are true at once,
+and only one of them is worth anything.
 
-The component's public command runs it against its fixture and writes fresh
-output outside the repository (the backslashes split one long command across
-lines):
+The declared calculation: square each sample, average the squares, take the
+square root, multiply by eight, and cap at one. Sixteen-bit integer samples are
+first divided by 32{,}767. An empty input gives zero. An unrecognised format is
+refused rather than guessed at.
 
 \begin{Verbatim}[fontsize=\small]
 PYTHONPATH=src python3 -m plectis \
@@ -474,795 +479,747 @@ PYTHONPATH=src python3 -m plectis \
   --acceptance-out /tmp/plectis-audio-rms-acceptance.json
 \end{Verbatim}
 
-At commit \code{\snapshotshort}, the run produced:
+At commit \code{\snapshotshort} this produced:
 
 \begin{center}
 \small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.21\linewidth}>{\raggedright\arraybackslash}p{0.26\linewidth}>{\raggedleft\arraybackslash}p{0.15\linewidth}>{\raggedleft\arraybackslash}p{0.15\linewidth}>{\raggedright\arraybackslash}p{0.09\linewidth}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.20\linewidth}>{\raggedright\arraybackslash}p{0.25\linewidth}>{\raggedleft\arraybackslash}p{0.15\linewidth}>{\raggedleft\arraybackslash}p{0.15\linewidth}>{\raggedright\arraybackslash}p{0.10\linewidth}@{}}
 \toprule
 \textbf{Case} & \textbf{Input} & \textbf{Expected} & \textbf{Observed} & \textbf{Result} \\
 \midrule
 Decimal samples & 0.0,\ 0.05,\ $-0.05$,\ 0.1 & 0.489897949 & 0.489897949 & pass \\
-Sixteen-bit integer samples & 0,\ 1638,\ $-1638$,\ 3277 & 0.489892970 & 0.489892970 & pass \\
-Values above the cap & 1.0,\ $-1.0$,\ 0.5 & 1.000000000 & 1.000000000 & pass \\
+Sixteen-bit integers & 0,\ 1638,\ $-1638$,\ 3277 & 0.489892970 & 0.489892970 & pass \\
+Above the cap & 1.0,\ $-1.0$,\ 0.5 & 1.000000000 & 1.000000000 & pass \\
 Empty input & (none) & 0 & 0 & pass \\
 Unknown format & \code{pcm24} & refusal & refusal & pass \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Here \emph{pass} means ``refused as expected''; \code{pcm24} was not accepted.
-Because the inputs and the rule are both printed above, the first row can be
-checked without the repository or a computer: the squares of the four
-samples average to 0.00375, whose square root is $0.061237\ldots$, and eight
-times that is $0.489897\ldots$. A reader with a calculator can recompute this
-expected value from the stated formula alone. For this one case the reader
-can supply the test oracle: elementary arithmetic gives an expected number
-derived independently of the program's output, but not of the project's
-formula.
+Here \emph{pass} on the last row means refused as expected. The first row can be
+checked without the repository or a computer: the four squares average to
+0.00375, whose square root is $0.061237\ldots$, and eight times that is
+$0.489897\ldots$ A reader with a calculator supplies the oracle --- an expected
+number derived independently of the program, though not of my formula.
 
 Almost nothing else in the collection is like that, which is why the example
-matters. Elsewhere the project usually supplies the implementation, the
-input, the expected values, and the validator through the same
-author-controlled process. A test
-assembled that way can pass for four different reasons: the implementation
-and the expectation are both correct; the two share a mistake; the chosen
-cases happen to sit where the implementation behaves; or the validator
-checks a weaker property than the prose claim suggests. A matching result
-therefore establishes repeatability under that public test. Independent
-evidence bearing on correctness needs an expected result justified apart from
-the implementation. Arithmetic supplies that for the first row only after
-accepting the project's formula. Fresh inputs alone do not supply one.
+matters. Elsewhere the implementation, the input, the expected values, and the
+validator come from one author-controlled process. A test assembled that way can
+pass for four different reasons: implementation and expectation are both right;
+the two share a mistake; the chosen cases sit where the implementation happens to
+behave; or the validator checks something weaker than the prose suggests. The
+fourth is measured in Section~\ref{sec:audit}.
 
-The example suggests a question for any software test: where did the expected
-value come from, and who supplied it? The answer changes what a match can
-support:
+The question this raises for any test is: who supplied the expected answer?
 
 \begin{center}
 \small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.44\linewidth}>{\raggedright\arraybackslash}p{0.47\linewidth}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.44\linewidth}>{\raggedright\arraybackslash}p{0.52\linewidth}@{}}
 \toprule
-\textbf{Who or what supplies the expected answer} & \textbf{What a matching result then supports} \\
+\textbf{Who supplies the expected answer} & \textbf{What a match then supports} \\
 \midrule
-The project itself: implementation, cases, expectations, and rule from one author-controlled process. & Repeatability under the project's own test; the four readings above all stay open. \\
+The project: implementation, cases, expectation and rule from one process. & Repeatability under the project's own test. All four readings above stay open. \\
 \addlinespace
-The reader derives a result from stated premises, as in the decimal-samples row. & Agreement with the stated formula on that case, not proof that the formula is right. \\
+The reader, deriving it from stated premises. & Agreement with the stated formula on that case, not that the formula is right. \\
 \addlinespace
-An established external tool or reference. & Whatever the reference itself warrants, on the cases run, within the reference's own limits. \\
+An established external tool or reference. & Whatever the reference warrants, on the cases run, within its own limits. \\
 \addlinespace
-An evaluator who chooses inputs and independently justifies expected results after the version is saved. & Independent evidence bearing on correctness for those cases, within the oracle's own justification and limits. \\
+An evaluator choosing inputs and justifying answers after the version is pinned. & Evidence bearing on correctness for those cases. \emph{Not yet done for any component.} \\
 \addlinespace
-The world: an outcome observed apart from any program. & Evidence about a real-world outcome, where one exists. \\
+The world: an outcome observed apart from any program. & Evidence about a real-world outcome, where one exists. \emph{Not done.} \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Most components in the collection sit in the first position, except where
-a reader promotes a case to the second by recomputing it, as the worked
-example's decimal-samples row invites. Components that invoke a named
-external tool occupy a hybrid of the first and third positions: the project
-still chooses the case and the rule, while the tool supplies a result that
-inherits its own limits. The evaluations in Section~\ref{sec:stronger} describe
-ways to move consequential choices out of the project's control.
+Most components sit in the first row. The last two rows are empty, and their
+emptiness is the honest summary of this collection's evidential strength (L2).
 
-\component{batch8_audio_level_rms_port_validation_receipt.json} is the stored
-reference for the table. It sits under
-\component{receipts/first_wave/batch8_audio_level_rms_port/}, so a fresh run is
-compared against a fixed record rather than against memory. A stored record by
-itself does not prove that the stated command produced it; its use is that
-anyone can generate a fresh one and compare the two.
-
-The limit is part of the component. This run checks one public Python
-calculation over synthetic sample arrays (arrays composed for the test, not
-captured from a device). It does not run the original application, start an
-audio session, request microphone permission, or capture sound, and it
-cannot establish that the named private file is where the calculation came
-from. Nor does the table show that the task was difficult (it was not),
-that the component is useful elsewhere, or that the remaining entries
-resemble it. What it shows is that one assertion now has a form in which a
-stranger can rerun it, dispute its rule, perturb its input, or replace my
-expected value with a better-derived one.
-
-The calculator check derives one expected number without the implementation.
-It shows agreement with the project-supplied formula on that case, not that
-the formula is the right audio rule. It does not establish origin, reach, or
-risks beyond the declared scans. Its correctness evidence is limited to that
-calculation. The next section treats these five gaps separately.
-
-\section{Five distinctions}
-\label{sec:distinctions}
-
-Five labels organise the gaps in Figure~\ref{fig:gaps}: \emph{origin}, where
-the material came from; \emph{correctness}, whether an answer is right;
-\emph{meaning}, whether a rule tests its claim; \emph{reach}, whether shown
-cases stand for unshown ones; and \emph{risk}, what the declared checks may
-miss. Each subsection separates observation from inference.
-
-\subsection*{Public execution versus where the code came from}
-
-A reader can establish what a named public commit contains and what its
-commands do. No public run establishes where the material came from.
-Plectis records that boundary. Each copied file has a claimed source and a
-SHA-256 fingerprint: a fixed 256-bit value calculated from its contents and
-used to detect change \cite{nistfips1804}. Two different files can in principle
-have the same fingerprint. For this comparison, the relevant question is
-whether one can start with a specified file and find a different file with the
-same fingerprint. The National Institute of Standards and Technology (NIST)
-calls this second-preimage resistance and expects an approved hash function to
-make such a search computationally infeasible. That differs from collision
-resistance, which asks only for any pair of different inputs that match
-\cite[security-strength table]{nisthashfunctions}. A match therefore supports a
-narrow claim: the public file's contents agree with the version represented in
-its public record. But I control both sides, so that agreement is evidence of
-internal consistency, not of origin. The same holds for the
-audio component's named source file: the name is an entry I wrote. Origin
-claims could only be strengthened by something a public repository cannot
-supply about itself, such as commitments published before the fact, or a
-trusted person permitted to examine both sides. The term \emph{provenance}
-means an object's origin and history. Here, that origin remains reported
-rather than publicly established.
-
-\subsection*{Repeatability versus correctness}
-
-A run that yields the same checked values and verdict as the stored receipt
-shows that the public code, on the supplied input, in a sufficiently similar
-environment, produces the same result again. Correctness is a different
-property: it needs a standard for
-what the result should have been, and a standard is only worth something if
-it does not merely restate the implementation. The worked example makes the
-difference concrete. The first row's expected number comes from arithmetic
-applied to the project's formula, not from the implementation. That supports
-agreement with the formula on one case; it does not validate the formula.
-Most components have only the project's own expected values and validator.
-Passing tests anywhere in Plectis should be read at that strength and no more.
-
-\subsection*{A validator's rule versus the stated claim}
-
-A pass is a verdict from the validator, and a validator checks exactly the
-property written into it, which can be narrower than the claim as worded. A
-component whose prose speaks of handling a class of inputs may in fact
-verify that one output file exists and matches a stored shape; a rule can
-hold while the sentence it stands under goes untested. The two previous
-distinctions do not cover this gap: a result can be repeatable, and correct
-as far as the checked property goes, while the checked property is beside
-the stated point. Plectis makes the gap inspectable rather than closed.
-Every validator is public, so a reader can put the rule beside the prose
-and object where the rule is weaker, and the review in
-Section~\ref{sec:conclusion} makes exactly that comparison its central step.
-Since the same author-controlled project produced both the claims and the
-rules, agreement between them records one judgement twice, and no count of
-passing components can substitute for reading one rule against one sentence.
-
-\subsection*{Selected cases versus general behaviour}
-
-Selection acts at two levels. Within a component, the fixture covers only a
-few possible inputs. Across the collection, the published components are my
-selection from a private whole.
-
-\begin{samepage}
-I chose which mechanisms
-could be given public form, which inputs to include, which expected values to
-store, and which pass rules to enforce. Nothing in the public record shows
-how many candidates there were, what was excluded beyond the privacy rules,
-or whether the collection resembles ordinary work in the private system. A
-collection can consist entirely of genuine items and still give an
-unrepresentative picture of what it was drawn from. This is analogous to
-selective publication and the file-drawer problem, not the same process
-\cite{rosenthal1979}.
-Figure~\ref{fig:boundary} draws the situation: public checking reaches
-everything to the right of the boundary, and the pool the selection was
-drawn from stays on the left.
-\end{samepage}
-
-\begin{figure}[H]
-\centering
-\makebox[\linewidth][c]{\begin{tikzpicture}[x=1cm,y=1cm]
-% private region
-\draw[black!55, dashed, line width=0.7pt, rounded corners=3pt] (0,-0.1) rectangle (5.8,3.7);
-\node[font=\footnotesize, align=center] at (2.9,3.3) {The private system\\[-1pt]{\scriptsize (not published)}};
-% mechanism squares: 5 x 3 grid, four of them selected (darker)
-\foreach \x in {0.75,1.80,2.85,3.90,4.95}
-  \foreach \y in {0.55,1.35,2.15}
-    \draw[black!35, fill=gray!25] (\x-0.14,\y-0.14) rectangle (\x+0.14,\y+0.14);
-\foreach \sx/\sy in {1.80/0.55,2.85/1.35,0.75/2.15,4.95/1.35}
-  \draw[authoramber!80!black, fill=authoramber!55] (\sx-0.14,\sy-0.14) rectangle (\sx+0.14,\sy+0.14);
-\node[font=\small, text=black!45] at (5.42,1.35) {$\cdots$};
-\node[font=\small, text=black!45] at (2.85,0.22) {$\cdots$};
-% boundary
-\draw[black!70, dashed, line width=0.8pt] (7.15,-1.95) -- (7.15,4.15);
-\node[font=\scriptsize, text=black!70, above] at (7.15,4.2) {the publication boundary};
-% selection arrow; the label plaque interrupts the boundary line symmetrically
-\draw[flow, draw=authoramber] (5.8,1.8) -- (8.55,1.8);
-\node[flabel, fill=white, align=center, inner sep=2.5pt, text=authoramber] at (7.15,2.44) {I chose and\\adapted these};
-% public box
-\draw[black!75, line width=0.7pt, rounded corners=3pt, fill=gray!6] (8.55,0.55) rectangle (13.35,3.05);
-\node[font=\footnotesize, align=center] at (10.95,1.8) {The public repository\\at commit \code{\snapshotshort}:\\\componentcount{} components in \familycount{} groups};
-% stranger
-\node[act, text width=2.0cm] (str) at (14.75,1.8) {a stranger:\\clone it, run it,\\compare, dispute};
-\draw[actflow] (str.west) -- (13.35,1.8);
-% notes
-\node[gnote, text width=5.6cm, anchor=north] at (2.9,-0.40) {outside public evidence: how many candidates there were, what was excluded and why, whether these resemble ordinary private work};
-\node[gnote, text width=4.6cm, anchor=north] at (10.95,-0.40) {inside public evidence: files, commands, records, and tests of the published fragments};
-\end{tikzpicture}}
-\caption{The selection problem. Each square stands for a private
-mechanism; the darker ones were given public form. Each public component
-has the parts shown in Figure~\ref{fig:contract}. The grid trails off
-because its true extent is exactly what the public side cannot know. The
-count of squares on the left, the
-rule that picked the darker ones, and the resemblance between the two sides
-are all invisible from the right. The collection supplies directly
-checkable evidence about the published files and their behaviour under
-named tests, but no basis by itself for generalising to the hidden whole.}
-\label{fig:boundary}
-\end{figure}
-
-The registry's count should be read in that light. A registry of
-\componentcount{} entries defines exactly what is published. A later
-evaluation would need that list to draw a sample and report failure rates
-against a fixed total. The count is an inventory, not a score, and
-even the unit of counting is a choice I control, since one mechanism could
-have been registered as several components, or several as one.
-
-\subsection*{Risk reduction versus guarantee}
-
-The publication process runs checks whose honest description is that they
-reduce specific risks. Automated scans search copied material for specified
-patterns of credentials, personal information, and private file paths, and
-record what was omitted or rejected; a scan establishes that the scanner
-did not find the patterns it was designed to find, and nothing stronger.
-Pages such as the component map are generated from the registry, and tests
-compare page and registry, which prevents the particular failure of prose
-drifting away from records; a generator and its records can still be wrong
-together. The documented \code{tour} run takes the public checkout as its
-explicit input and does not automatically discover a neighbouring private
-repository. The release-export contamination check is an explicit
-exception: when a copy of the private project folder is available, it may
-compare the contents of public source files with private files to detect
-leakage. None of this
-amounts to a guarantee that no secret, no identifying detail, and no
-inconsistency survives. Publication remains a judgement about acceptable
-risk, and I made it.
-
-Origin evidence and privacy pull in opposite directions. Establishing
-provenance would require someone to examine private
-material, and the privacy constraint that motivates the whole design forbids
-exactly that examination in public. Some claims are therefore permanently in
-the reported category, short of a confidential review. The honest treatment
-is to label them, not to dress them up as public proof through bookkeeping
-that one maintainer controls.
-
-\medskip
-
-The same mistake lies behind all five: treating an observation as if it proved
-something never tested. A broader conclusion needs an added assumption. For
-origin, one must assume
-that the public object came from the private one. For correctness, one must
-know that the expected answer was right; for meaning, that the rule tested
-what the claim said. For reach, one must assume that the chosen cases stand
-for the unchosen; for risk, that the scan covered the relevant risks. The
-observation itself supplies none of these assumptions. The contract makes
-each one explicit. Once named, a gap can be disputed, assigned a cost to
-address, or deliberately left open. An unnamed gap is easy to cross without
-noticing. These five are not exhaustive. Two more gaps appeared earlier:
-observing a refusal today does not show when it was drawn
-(Section~\ref{sec:contract}), and observing a number at one commit does not
-describe the next (the appendix). These are simply the five gaps this
-collection most needs a reader to hold.
-
-\begin{figure}[t]
-\centering
-\makebox[\linewidth][c]{\begin{tikzpicture}[x=1cm,y=1cm]
-\node[part, text width=3.2cm] (obs) at (1.8,0) {Observed: at one commit, in one environment, a fresh run matches the stored record};
-\draw[black!55, dashed, line width=0.7pt] (4.55,-3.75) -- (4.55,3.75);
-\node[font=\scriptsize, text=black!60, rotate=90] at (4.3,2.55) {edge of the observation};
-\node[ghost, text width=4.6cm] (g1) at (13.1,2.9)  {\ldots so it came from the private system as described};
-\node[ghost, text width=4.6cm] (g2) at (13.1,1.45) {\ldots so the result is what it should have been};
-\node[ghost, text width=4.6cm] (g3) at (13.1,0)    {\ldots so the test supports the claim as written};
-\node[ghost, text width=4.6cm] (g4) at (13.1,-1.45){\ldots so it behaves like this on inputs not shown};
-\node[ghost, text width=4.6cm] (g5) at (13.1,-2.9) {\ldots so no risk of that kind remains};
-% fanned starts so the five tails do not pile on one point; all lines are
-% drawn first, then all label plaques, so no later line strikes a label
-\draw[softflow] ([yshift=22pt]obs.east) -- (g1.west);
-\draw[softflow] ([yshift=11pt]obs.east) -- (g2.west);
-\draw[softflow] (obs.east) -- (g3.west);
-\draw[softflow] ([yshift=-11pt]obs.east) -- (g4.west);
-\draw[softflow] ([yshift=-22pt]obs.east) -- (g5.west);
-\path ([yshift=22pt]obs.east) -- (g1.west) node[gaplabel, pos=0.50]{origin: evidence about where it came from};
-\path ([yshift=11pt]obs.east) -- (g2.west) node[gaplabel, pos=0.60]{correctness: an answer derived separately};
-\path (obs.east) -- (g3.west) node[gaplabel, pos=0.50]{meaning: a rule that tests the words};
-\path ([yshift=-11pt]obs.east) -- (g4.west) node[gaplabel, pos=0.60]{reach: cases I did not choose};
-\path ([yshift=-22pt]obs.east) -- (g5.west) node[gaplabel, pos=0.50]{risk: checks beyond\\the listed patterns};
-\end{tikzpicture}}
-\caption{Five conclusions a matching run invites and does not license.
-Each dashed arrow needs a further assumption that the observation itself
-cannot supply. From top to bottom, the tags follow the order discussed above:
-origin (provenance), correctness, meaning, reach, and risk. The contract's
-contribution is not to cross these gaps but to make them nameable, one
-component at a time.}
-\label{fig:gaps}
-\end{figure}
-
-\section{What the collection contains}
+\section{The collection, run}
 \label{sec:collection}
 
-At commit \code{\snapshotshort} the \componentcount{} components fall into
-\familycount{} groups:
+This section reports what happened when every registered component was run once.
+It is a census, not a sample: the population is the whole registry, so there was
+no selection step for me to have influenced. The command is published, the
+outputs are redirected outside the checkout so a run cannot overwrite the
+receipts it is compared against, and the checkout is verified unchanged
+afterwards.
+
+\begin{Verbatim}[fontsize=\small]
+PYTHONPATH=src python3 scripts/run_every_component.py --out-dir /tmp/runall
+\end{Verbatim}
 
 \begin{center}
 \small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.38\linewidth}r>{\raggedright\arraybackslash}p{0.47\linewidth}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.30\linewidth}r>{\raggedright\arraybackslash}p{0.52\linewidth}@{}}
 \toprule
-\textbf{Group} & \textbf{Count} & \textbf{What its components do} \\
+\textbf{Outcome} & \textbf{Count} & \textbf{Reading} \\
 \midrule
-Getting started & \entrycount & Show a new reader where to begin and guide a first inspection. \\
-Project mapping & \mappingcount & Map files and written rules, find relevant material, and route a question to the part of the project that owns it. \\
-Computer-checked mathematics & \mathcount & Check records and fixed examples from formal mathematics, including small Lean statements and one exact finite calculation. \\
-AI reliability and safety tests & \safetycount & Replay fixed cases involving hostile instructions, software boundaries, stored information, tool use, and benchmark rules. \\
-Research-method tests & \researchcount & Exercise fixed cases involving replication, conflicting forecasts, explaining model behaviour, simulation, and laboratory safety. \\
-Public-copy maintenance & \publiccopycount & Check copied source, generated pages, publication boundaries, and disagreement between records and derived files. \\
-Work recovery & \recoverycount & Record unfinished changes and test how work resumes after interruption. \\
+Pass & \passcount & The component ran and its own rule accepted the result. \\
+Declared boundary & \blockedcount & The component stopped and said why. Mostly the refusal mechanism working. \\
+Unhandled error & \errorcount & The component raised an exception. Not a declared refusal. \\
+No runnable command & 1 & The registry lists no runnable command for this entry. \\
+\midrule
+\textbf{Total} & \textbf{\componentcount} & \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-The groups do not share a subject; computer-checked mathematics has nothing
-in particular to do with audio levels or with recovering interrupted work.
-Their unity is the contract of Section~\ref{sec:contract}: these are the
-places in the private system where a mechanism could be turned into a small,
-runnable public procedure. The collection is organised by how its claims are
-checked, not by subject.
+The \blockedcount{} declared boundaries are largely the design behaving as
+described. \component{corpus_readiness_mathlib_absence_gate}, for instance,
+records \code{status: blocked} and names the absent Lean corpora rather than
+reporting success. That is the refusal contract of Section~\ref{sec:record}
+working, and it is evidence for the design rather than against it.
 
-The registry also classifies what kind of evidence each component supplies.
-It calls this classification a \emph{route}. A route says whether the
-public component preserves source text, re-creates behaviour on fixed cases,
-records a run, or checks a declared rule. The four routes below cover all
-\componentcount{} entries. Each leaves a different question open:
+The \errorcount{} errors are not that. They are unhandled exceptions: four cases
+of copied source drifting from what the component expects, two of a copied file
+that is absent, three of broken module or path resolution, and one absent
+third-party library. The last is the doctrinally interesting one.
+\component{batch7_secondary_runtime_capsule} raises \code{ModuleNotFoundError}
+for \code{pandas}. Section~\ref{sec:record} requires a component whose
+dependency is absent to record a refusal with a stated limit rather than break.
+For an absent Python library, that requirement is simply not enforced anywhere.
+
+\paragraph{The project's own test floor is green, and does not reach these.}
+\code{make test} runs a curated list of \floortestfiles{} of the
+\alltestfiles{} test files in the repository. In a clean clone with a fresh
+virtual environment it passes: \floorpasscount{} tests pass, \floorskipcount{}
+are skipped, none fails. That is a real result and it reproduces off my machine.
+
+But \emph{none} of the \errorcount{} components that fail above is covered by
+that floor. The two sets do not intersect.
 
 \begin{center}
 \small
-\begin{tabular}{>{\raggedright\arraybackslash}p{0.20\linewidth}r>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.52\linewidth}>{\raggedright\arraybackslash}p{0.44\linewidth}@{}}
 \toprule
-\textbf{Route} & \textbf{Count} & \textbf{What it preserves} & \textbf{What it cannot show} \\
+\textbf{Measurement} & \textbf{Result} \\
 \midrule
-Record-checked copied source & \copiedsourcecount & The exact text of non-secret source files, checked against a public import record. & That the recorded origin is real; record and file share one maintainer. \\
-Public reimplementation & \refactorcount & One calculation's behaviour on fixed cases. & That it came from the private system; the private text is absent. \\
-Direct or external-tool run & \runtimecount & A local computation, or a named external tool's result, captured with its context. & Behaviour where the tool or environment differs; the result is as strong as the tool and the case. \\
-Contract checker & \validatorcount & Whether a public input satisfies a declared structural rule. & Whether the declared rule is the right rule to require. \\
+Declared verification floor, clean clone & \floorpasscount{} pass, 0 fail \\
+Registered components run once & \passcount{} pass, \blockedcount{} bounded, \errorcount{} error \\
+Failing components inside the declared floor & \textbf{0 of \errorcount} \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-The copied-source route preserves the most text and demonstrates the least
-behaviour.
-A reimplementation demonstrates behaviour while surrendering textual
-identity; the worked example is one of the \refactorcount{} in that route.
-An external-tool run inherits whatever confidence the tool deserves, along
-with the tool's limits. A contract checker is worth exactly the contract its
-author chose to require. Find one item in the public component map,
-\component{ORGANS.md} (an inherited filename). Rows give a description, first
-command, scope limit, and longer-page link. Follow it rather than guessing:
-some components share a page. The example points to
-\component{paper_modules/batch8_audio_level_rms_port.md}; its registry row adds
-the fixture, receipts, route, and limit.
+Nothing here is concealment, and the build system is candid: its broad target
+carries a note that it is a drift-detection suite and not the verification
+floor. The point is structural. The public evidence rests on a green floor; the
+inventory claim rests on the registry; the two are different sets, and until now
+the gap between them was unstated. A reader who sees ``\floorpasscount{} tests
+pass'' beside ``\componentcount{} registered components'' will combine them into
+a belief that no run of this repository supports.
 
-Two cautions govern any reading of these tables. The first caution is
-arithmetic: components are not independent witnesses. Entries share code, fixture
-style, validator authorship, and my judgement; several entries can descend
-from one private mechanism, and where they do, their verdicts tend to move
-together.
-\componentcount{} entries are \componentcount{} registered claims, not
-\componentcount{} separate confirmations of anything. The same discount
-applies across the routes: they impose four different limits on what may be
-concluded; they are not four independent methods confirming one claim.
-Pages, registry entries, and receipts generated from the same underlying
-records repeat one witness rather than supply several. Machine checks can
-catch accidental disagreement among those records. They cannot create an
-independent witness.
+That is this paper's own subject --- selection --- found in my own build system,
+by a published command, with an unflattering answer. It is the clearest evidence
+I can offer that the record is worth keeping, because the record is what made
+the gap addressable at all.
 
-The second caution is association. Group names such as computer-checked
-mathematics and AI reliability and safety tests borrow gravity from serious
-fields, and the borrowing happens in a reader whether or not any sentence
-asserts it. The corrective is to restate each group as the weakest
-property its validators actually check, which is often that a fixed case
-replays or that a record matches a declared shape, and then see how much of
-the impression survives. The names are for finding components, not for
-weighing them.
+\paragraph{What the collection contains.} The \componentcount{} components fall
+into \familycount{} groups and four evidence routes; the full census, with each
+component's route and outcome, is in
+Appendix~\ref{sec:auditmethod}. Two cautions govern any reading of those counts.
+Components are not independent witnesses: they share code, fixture style,
+validator authorship, and my judgement, and several can descend from one private
+mechanism (L7). And group names such as ``computer-checked mathematics'' borrow
+gravity from serious fields whether or not any sentence asserts it. The
+corrective is to read each group as the weakest property its validators check.
+Section~\ref{sec:audit} does that for named cases.
 
-\section{The author's hand}
-\label{sec:hand}
+\section{Claim against rule}
+\label{sec:audit}
 
-All five distinctions return to control. At the commit this paper describes,
-I hold every consequential choice on both sides of every test.
-I chose which private mechanisms were candidates, which were selected, and
-how finely each was divided into components, and so what the count counts.
-I chose which of the four routes each took, which inputs went into the fixtures, what
-the expected values are, what each validator checks, and where each
-refusal boundary sits. And I chose which group each entry is filed under,
-which failures this paper explains and in what tone, which single
-component the worked example honours, and
-where the publication boundary lies. Somebody had to make each of these
-choices, and the privacy constraint meant it was me. None of that is
-misconduct.
+Section~\ref{sec:record} promised that separating the claim from the rule makes
+the gap between them findable. This section tests that promise by looking for
+the gap, in my own work, across the whole registry.
 
-But that concentration of choice permits a failure mode, and it involves
-no false statement anywhere. Select the mechanisms that show well. Divide
-the favourable ones finely. Narrow each claim until its fixed cases satisfy
-it. Give awkward material the least demanding check. Declare
-as refusals whatever would otherwise fail. File
-small replays under weighty names. Then let the counts, the categories, and
-the machinery of records accumulate into an impression of scale and
-maturity that no individual sentence asserts. A document can be cautious
-sentence by sentence while its arrangement still overstates, because a
-reader's impression forms on what is counted, named, worked through, and
-left out, as much as on what is claimed. This paper is inside its own
-arrangement, so declaring the risk does not discharge it; nothing in the
-text can establish that the text is not doing what this paragraph
-describes.
+\paragraph{The method was fixed before the result.} The protocol is committed as
+\component{paper/audit_protocol.md} at commit \code{6b21d412}, before any
+component was coded. It fixes the population, the verdict vocabulary, the
+evidence each verdict must carry, and --- the part that matters most --- the
+conditions under which the paper's own central mechanism would count as having
+failed. Those conditions were written down so that the result could not be
+reinterpreted after it arrived. A reader who suspects the protocol was tuned to
+the answer can check its commit against the commit of the results file.
 
-Making disagreement local can also displace the larger question. A reader
-can settle an argument about one input or one rule while leaving untouched
-whether the selection is fair, whether the whole is sound, or what any of it
-is for. An objection about selection is not answered by the successful
-execution of any number of selected items. The registry hosts the small
-arguments; it does not settle the large ones.
+For each component, three texts are compared: the public prose a reader meets
+without opening the code; the component's declared ceiling; and what the
+validator's check functions actually compute, established by reading them rather
+than by reading their names. That last discipline is not incidental. A function
+called \code{\_hotkey\_audio\_meter\_contract} that returns a field named
+\code{hotkey\_requires\_control\_option\_command\_m} is asserting a behavioural
+property in its own vocabulary; whether it establishes one is a separate question
+that only the body answers.
 
-Two corrections need no cooperation from me. First, read any component at the
-weakest property its validator checks, as Section~\ref{sec:collection}
-proposes. Second, treat every count as an inventory, and every agreement among
-my records as one witness. A third point concerns what no reader can inspect:
-a private mechanism is easiest to publish when it can be separated into a
-small task, gives the same output from the same input, and runs in isolation.
-A collection like this
-therefore over-represents pure calculation, replay, and record-checking, and
-under-represents stateful, entangled, long-running behaviour. The
-published picture tilts towards what publishes well before any question of
-honesty arises.
+\paragraph{Verdicts.} Every component receives exactly one.
 
-The National Aeronautics and Space Administration (NASA) defines independence
-for independent verification and validation (IV\&V), a formal software check,
-through three separations: technical (the evaluator did not develop the system);
-managerial (a separate organisation chooses scope, methods, and schedule); and
-financial (an independent group controls the budget without adverse financial
-pressure) \cite[\S4.4.1.2]{nasa8739}.
-These are criteria for NASA IV\&V, not a universal test. Plectis has undergone
-no IV\&V. No other outside evaluation report is cited or included, and I know
-of none; an unreported private rerun would remain invisible. I use the NASA
-criteria only for the paper's five gaps: evidence about a choice depends less
-on me once the choice is no longer mine. Section~\ref{sec:stronger} lists
-evaluations that address those dependencies.
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.24\linewidth}r r>{\raggedright\arraybackslash}p{0.50\linewidth}@{}}
+\toprule
+\textbf{Verdict} & \textbf{n} & \textbf{\%} & \textbf{Meaning} \\
+\midrule
+Rule matches claim & \auditmatch & \auditmatchpct & The enforced rule tests the property the prose describes. \\
+\addlinespace
+\textbf{Claim above rule} & \textbf{\auditabove} & \textbf{\auditabovepct} & The prose describes something stronger than the rule enforces. \\
+\addlinespace
+Ceiling repairs claim & \auditceiling & \auditceilingpct & The prose reads stronger than the rule, and the declared ceiling states the narrower truth. \\
+\addlinespace
+Rule exceeds claim & \auditbelow & \auditbelowpct & The description undersells the mechanism. \\
+\midrule
+\textbf{Total} & \textbf{\componentcount} & & \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-\section{What stronger evidence would look like}
+Three things in that table deserve to be read slowly.
+
+\subsection{The majority hold}
+
+\auditmatch{} of \componentcount{} components enforce what they describe. That
+is the honest headline and it should be stated before the failures, because an
+audit that only reports its bad news is not an audit either. Several components
+do substantially more than their descriptions suggest: two are coded \emph{rule
+exceeds claim}, where the registry's own text calls a check a consistency fold
+while the code recomputes a verdict from independent fields and flags
+disagreement. Components that invoke real external tools --- a Lean build, a
+Swift compile, a statistics library --- generally do what they say, because
+invoking a tool is difficult to fake.
+
+\subsection{The failure the design exists to find}
+
+\auditabove{} components describe more than they enforce. The most instructive is
+the one this paper chose as its own worked example.
+
+\paragraph{A check that passes by checking nothing.}
+Section~\ref{sec:run} presents \component{batch8_audio_level_rms_port} and says
+that its code and receipts name the private file it claims to re-express. The
+audit asked what enforces that. The answer is a source-manifest check, and here
+is what it reports when run:
+
+\begin{Verbatim}[fontsize=\small]
+source_module_manifest.module_count                  = 0
+source_module_manifest.all_required_anchors_present  = True
+source_module_manifest.all_expected_digests_matched  = True
+source_module_manifest.status                        = pass
+\end{Verbatim}
+
+Every required anchor is present, and every expected digest matches, across zero
+modules. The shipped manifest at
+\component{examples/batch8_audio_level_rms_port/.../source_module_manifest.json}
+carries \code{module\_count: 0} and \code{modules: []}, because
+\component{AudioLevelMonitor.swift} was moved into
+\code{release\_substitution\_omissions} as a public-safe stub during release: it
+is a restricted private source reference and could not be published. The
+verification loop then iterates over an empty list. In Python, \code{all([])} is
+\code{True}. Among the four anchors it would have compared, had there been
+anything to compare them against, is the string
+\code{"return min(max(rms * 8, 0), 1)"} --- the formula
+Section~\ref{sec:run} walks through.
+
+Nothing here is a lie, and nothing was hidden: the omission is recorded in the
+manifest, and the paper already says that a private filename is a report rather
+than evidence (L1). What the paper did not say, because I did not know it, is
+that the mechanism which would have made the copy checkable reports success while
+checking nothing. A vacuous pass and a real pass are indistinguishable in the
+output, and the vacuous one is the flagship.
+
+The calculation itself holds up. The audit confirmed, by reading the code and
+recomputing by hand, that \component{normalized\_level} really implements the
+formula, that the validator genuinely recomputes each reference case and compares
+it against the fixture's expected value at a tolerance of $10^{-9}$, and that the
+\code{pcm24} refusal is a real refusal raised before any other branch. The
+arithmetic a reader is invited to check in Section~\ref{sec:run} is exactly as
+sound as it appears. It is the provenance half of the same component that is
+hollow --- and the provenance half is the half that connects the public
+repository to the private system this paper is nominally about.
+
+\paragraph{A check that tests text instead of behaviour.} The second case is
+\component{batch7_demo_take_console_capsule}, and it is worth setting out in full
+because every part of it is checkable.
+
+Its public description says it checks ``SwiftPM build-witness posture,
+recording-state control, capture-helper bridge contracts, recorder-store capture
+FSM boundaries, hotkey/audio-meter \emph{behavior}, and transcribe-payload
+construction''. One of those six is a genuine external-tool witness: it runs
+\code{swift build} and uses the result. The other five read Swift files as plain
+text and test whether fixed strings occur in them. The hotkey and audio-meter
+check, at
+\component{src/microcosm_core/organs/batch7_demo_take_console_capsule.py:765},
+is:
+
+\begin{Verbatim}[fontsize=\small]
+hotkey_guard = all(
+    token in hotkey
+    for token in (
+        "static let defaultKey: UInt16 = 46",
+        "guard event.keyCode == HotkeyMonitor.defaultKey else { return false }",
+        ...
+    )
+)
+\end{Verbatim}
+
+No Swift is compiled or executed. Two separating cases follow immediately, and
+both are decisive. A behaviour-preserving rewrite of the Swift --- renamed
+variables, refactored control flow, identical behaviour --- would \emph{fail}
+this check. And the check would still \emph{pass} if the entire logic body were
+deleted and only a comment containing those strings remained, because
+\code{token in hotkey} searches the whole file. The rule therefore tests neither
+direction of the property its prose names. It tests that a file has not been
+edited.
+
+There is a detail here I did not expect to find. Among the strings this check
+requires is \code{"return min(max(rms * 8, 0), 1)"} --- the formula of the audio
+calculation that Section~\ref{sec:run} walks through as the paper's worked
+example. The Swift original of the paper's flagship claim is ``verified'' by
+checking that a string containing its formula appears somewhere in a file.
+
+The remaining \auditaboveother{} follow the same two shapes at different
+distances. A prose verb implying enforcement --- ``refuses'', ``proves'', ``must
+still point to receipts'' --- is resolved by a check on names, on a fixed key
+list, or on the presence of a reference rather than on what it refers to. One
+component's prose promises that no real proof text can reach a lemma table; the
+enforcement is a denylist of four field names, so proof text under a fifth name
+passes. Another promises that a declared route ``must still point to receipts'';
+the check counts non-empty unique strings and never resolves one. A third shares
+the empty-manifest problem above, and there it is load-bearing rather than
+incidental: the copied body is a stub, the loader silently falls back to an
+in-file reimplementation, and the receipt still advertises the private file as
+its source route.
+
+\subsection{The mechanism does not do the job I claimed for it}
+
+The protocol declared, before the audit ran, that if \emph{claim above rule} were
+common while \emph{ceiling repairs claim} were rare, the ceiling field would not
+be catching overreach and the mechanism would not work as advertised.
+
+That is what the data show. \auditabove{} components claim above their rule;
+\auditceiling{} have a ceiling that states the narrower truth. The ceiling field
+--- the seventh part of the record, the part this paper argues is what makes the
+unit worth having --- catches a small minority of the cases it exists to catch.
+
+The reason is visible in the cases, and it is worse than a drafting lapse.
+Ceilings in this collection are written about the \emph{subject}, not about the
+\emph{check}. The ceiling above reads ``verified non-secret macro body import
+only, not app launch, screen or microphone capture authority, model dispatch,
+source mutation, complete UI coverage, release, or publication''. Every clause is
+true and none says the thing a reader needs, which is that this check does not
+execute anything. The field disciplines what the software is claimed to do and
+leaves undisciplined what the evidence is claimed to be.
+
+Two counts show that this is systematic rather than occasional. Three ceiling
+templates account for 56 of the \componentcount{} components, so the field is
+largely boilerplate. And of the 21 components sharing that one identical ceiling
+sentence, 11 were coded as matching their claim, 8 as claiming above it, and 2 as
+repaired by it. The same text sits above components that overreach and components
+that do not. A field that reads identically on both sides of the distinction it
+exists to mark is not marking it.
+
+That is a real defect in the design this paper proposes, found by the procedure
+this paper proposes, and it is reported here rather than repaired quietly before
+publication. The repair is not difficult to state --- a ceiling should be
+required to name the weakest property the check actually establishes, not only
+the capabilities the subject lacks --- but stating a repair is not performing
+one, and at the audited version it has not been performed.
+
+\subsection{What this audit does not establish}
+
+The audit is mine (L6). I wrote the components, the prose, the ceilings, the
+protocol, and the list of things a protocol should look for. It can find
+overreach; it cannot show that it found all of it, and its blind spots are my
+blind spots twice over.
+
+Coding is judgement, not measurement, and the audit's own check on itself says so
+loudly. A reconciliation pass took the three \emph{claim above rule} verdicts
+carried at the highest confidence and tried to overturn them by re-reading the
+cited code. It overturned two. In one, a hardcoded pass value was real but the
+verdict it appeared to decide was in fact gated by a second consumer further
+down, which a live run confirmed. That is a 2-in-3 overturn rate on a
+deliberately adversarial recheck of the strongest findings.
+
+\auditabove{} is therefore an upper bound, not a measurement, and a reader should
+treat it as the number of places worth looking rather than the number of defects.
+The direction of the correction is worth noting too: the error was
+over-detection, which is the direction an author auditing his own work is least
+likely to be accused of and most likely to commit when trying not to flinch.
+There was one coding pass and no second independent coder, so there is no
+disagreement rate for the other 85. Per-component evidence --- quoted prose,
+quoted ceiling, deciding lines, separating case --- is published in
+\component{paper/audit_claim_against_check.json} so a disagreement can be pointed
+at a specific line rather than at the total.
+
+A verdict concerns the fit between description and rule, not correctness. A
+component coded \emph{rule matches claim} may still compute the wrong answer
+(L2). And nothing here bears on the private system (L1, L4).
+
+\section{Why the gaps are structural}
+\label{sec:gaps}
+
+The seven limits are not an inventory of things I have not got round to. Each
+names a place where an observation invites a conclusion it cannot carry, and
+each needs an added assumption the observation itself cannot supply.
+
+\begin{center}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.09\linewidth}>{\raggedright\arraybackslash}p{0.27\linewidth}>{\raggedright\arraybackslash}p{0.26\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}@{}}
+\toprule
+& \textbf{Observed} & \textbf{Assumption needed to go further} & \textbf{What would supply it} \\
+\midrule
+L1 & A run matches the stored record & The public object came from the private one & A commitment published before the fact, or a confidential reviewer \\
+\addlinespace
+L2 & Output matches the expected value & The expected value was right & An answer derived without passing through my code \\
+\addlinespace
+L3 & The validator passes & The rule tests the claim as written & Someone reading rule against sentence --- Section~\ref{sec:audit} \\
+\addlinespace
+L4 & Fixed cases pass & Chosen cases stand for unchosen ones & Cases selected by someone else, after the version is pinned \\
+\addlinespace
+L5 & A scan finds nothing & The scan covered the relevant risks & A threat-led review by someone who did not write the scan \\
+\addlinespace
+L6 & The record is consistent & The recorder had no reason to shape it & Any consequential choice leaving my hands \\
+\addlinespace
+L7 & \componentcount{} components pass & That is \componentcount{} confirmations & Nothing. It is one witness counted \componentcount{} times \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Three observations about this table matter more than the rows.
+
+Fingerprints are worth a sentence here because they look like origin evidence
+and are not. Each copied file carries a SHA-256 value computed from its contents
+\cite{nistfips1804}. The National Institute of Standards and Technology (NIST)
+expects an approved hash function to make it computationally infeasible to start
+from a given file and find a different one with the same value
+\cite[security-strength table]{nisthashfunctions}. So a match does support a
+narrow claim: the public file agrees with the version recorded for it. But I
+control both the file and the record, so the agreement is internal consistency,
+not provenance (L1).
+
+First, the right-hand column is almost entirely other people. That is not modesty;
+it is the structure of the problem. A self-published collection can make its
+claims addressable and can measure itself against its own standard, as
+Sections~\ref{sec:collection} and~\ref{sec:audit} do. It cannot manufacture
+independence, and no quantity of further self-publication approaches it.
+
+Second, L7 is the only row whose remedy is nothing. Counting is not evidence, and
+the temptation to treat an inventory as a score is the failure this paper is most
+at risk of committing itself.
+
+Third, making disagreement local can displace the larger question. A reader can
+settle an argument about one input while leaving untouched whether the selection
+is fair or the whole is sound. An objection about selection is not answered by
+the successful execution of any number of selected items. The registry hosts the
+small arguments; it does not settle the large ones.
+
+\section{Related work}
+\label{sec:related}
+
+This paper claims no new theory of assurance, testing, or reproducibility. The
+ingredients are old; the combination, and its application to a system that
+cannot be opened, is what is offered.
+
+\paragraph{Reproducibility and research materials.} Under the National Academies'
+convention, computational reproducibility means obtaining consistent results
+using the same inputs, steps, methods, code, and conditions; such consistency
+does not establish correctness \cite[conclusion 3-1]{nasem2019}. The record here
+supplies the materials such a test needs and separates the two properties by
+construction: repeatability is the verdict, correctness is a claim about the
+oracle field. The Association for Computing Machinery (ACM) calls such research
+materials \emph{artifacts}; its badges certify documentation, completeness, and
+independent reproduction of results \cite{acmartifact}; Plectis holds neither,
+and Appendix~\ref{sec:standards} states its status against each.
+
+\paragraph{Test oracles.} Deciding whether an observed output is correct is the
+test oracle problem \cite[p.~507]{barr2015}. The oracle field is a small,
+practical response: rather than solve it, name who solved it for each claim. The
+same problem is now familiar in machine-learning evaluation under other names
+--- benchmark contamination, and models graded by models. A benchmark score is a
+claim whose oracle, refusal behaviour, and ceiling are usually unstated; this
+collection is a small, fully worked instance of attaching all three to every
+claim. I make no claim that the practice scales to a benchmark of consequence.
+
+\paragraph{Selection.} That a curated collection over-represents favourable
+cases is analogous to the file-drawer problem, in which studies with null results
+go unpublished and the visible literature is consequently unrepresentative
+\cite{rosenthal1979}. The analogue here is sharper than usual because the pool is
+not merely unpublished but unpublishable, and Section~\ref{sec:collection} finds
+the same shape one level up, in which parts of the collection sit outside the
+verification floor.
+
+\paragraph{Evaluating what cannot be opened.} Assurance cases link a claim to
+argument and evidence; the Object Management Group's metamodel describes them as
+auditable claims, arguments, and evidence
+\cite[secs.~1.1, 2.2; Annex A.2]{omgsacm2023}. A validator result is not such an
+argument, and this work is not an implementation of that standard. NASA defines
+independence for verification and validation through technical, managerial, and
+financial separation \cite[\S4.4.1.2]{nasa8739}; Plectis has none of the three.
+The closest live practice is confidential third-party evaluation of systems the
+evaluator cannot fully open, as in externally run assessments of frontier models,
+work on controlling untrusted AI systems, and sabotage and scheming evaluations.
+This work is deliberately narrower than any of those programmes. It evaluates no
+model and no deployment. Its subject is a small collection of software claims,
+and its contribution is the record each claim carries.
+
+\section{What only an outsider can settle}
 \label{sec:stronger}
 
-A passing run shows that named public code produced a stated result from a
-supplied input in a stated environment. It does not establish private
-provenance, representativeness, correctness beyond self-supplied criteria,
-usefulness, security, originality, or the private system's reliability. The
-computer-checked mathematics label covers different checks: proof-work records,
-small public statements checked by Lean, and one exact finite calculation. The
-label itself supplies no theorem; each entry supports only its own public claim
-and stated limit. At the named commit, the repository's evidence still came
-from the project. It includes no outside evaluator's report; I know of none,
-although a private rerun could be unreported.
+Five kinds of independent evaluation would add what this repository cannot supply
+about itself. None has happened, and the last column says so in every row.
 
-Five forms of independent evaluation could add evidence that the public
-repository cannot supply by itself. These are not the four publication routes
-in Section~\ref{sec:collection}. A publication route classifies evidence already
-in the registry; the evaluations below describe new work by someone outside the
-project. The order is only for exposition. It ranks nothing, and no evaluation
-is a prerequisite for another. Figure~\ref{fig:ladder} shows which choice each
-evaluation transfers and which claim it still leaves open. The common question
-is who makes the choice that matters for that claim.
-
-\begin{figure}[H]
-\centering
-\makebox[\linewidth][c]{\begin{tikzpicture}[x=1cm,y=1cm]
-% uniform box heights and bottom/top-anchored labels keep every dotted
-% leader the same length
-% a whisper of stranger-blue on the evaluations: each is evidence that lives
-% outside the author's hands
-\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s1) at (1.2,0) {Another person repeats the run};
-\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s2) at (4.3,0) {Evaluator chooses the cases};
-\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s3) at (7.4,0) {New inputs, answers worked out separately};
-\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s4) at (10.5,0) {Outside task, ordinary alternative};
-\node[part, text width=2.15cm, minimum height=1.52cm, fill=strangerblue!8] (s5) at (13.6,0) {Confidential private-source review};
-\node[act, text width=2.25cm, anchor=south] (b1) at (1.2,1.12) {who runs it};
-\node[act, text width=2.25cm, anchor=south] (b2) at (4.3,1.12) {which cases count};
-\node[act, text width=2.25cm, anchor=south] (b3) at (7.4,1.12) {what the answer should have been};
-\node[act, text width=2.25cm, anchor=south] (b4) at (10.5,1.12){what counts as useful};
-\node[act, text width=2.25cm, anchor=south] (b5) at (13.6,1.12){whether the origin account holds};
-\node[gnote, text width=2.25cm, anchor=north] (n1) at (1.2,-1.12){does not by itself establish correctness};
-\node[gnote, text width=2.25cm, anchor=north] (n2) at (4.3,-1.12){cannot reach the private pool};
-\node[gnote, text width=2.25cm, anchor=north] (n3) at (7.4,-1.12){tested cases only, not generality};
-\node[gnote, text width=2.25cm, anchor=north] (n4) at (10.5,-1.12){advantage only where compared};
-\node[gnote, text width=2.25cm, anchor=north] (n5) at (13.6,-1.12){moves trust to the reviewer};
-\foreach \i in {1,...,5}{
-  \draw[RoyalBlue!45, dotted, line width=0.6pt] (b\i.south) -- (s\i.north);
-  \draw[black!30, dotted, line width=0.6pt] (s\i.south) -- (n\i.north);}
-\end{tikzpicture}}
-\caption{Five forms of independent evaluation. Above each evaluation, in italic
-blue, the choice that leaves my hands; below it, in grey, what that evaluation
-still cannot show. The evaluations are not cumulative stages. At the commit
-this paper describes, the repository records none, and I know of none.}
-\label{fig:ladder}
-\end{figure}
-
-\emph{Independent repetition} means a person with no involvement in the
-project reruns the supplied commands in their own environment and publishes
-what happened, including failures. That would reduce dependence on my
-machine and test whether the published instructions suffice elsewhere. It
-would not by itself establish correctness.
-
-\emph{Evaluator-controlled selection} means the evaluator chooses
-components from the full registry, without substitution when one proves
-awkward, and original failures stay on the record even if I later repair
-them. The units themselves are open to the same challenge: an evaluator
-who finds that two entries are one dependent mechanism, or that a
-boundary excludes the difficult part of a task, is disputing the registry,
-not misusing it. That addresses curation within the public collection. It
-cannot address whether the collection represents the private system,
-because the private pool stays invisible.
-
-\emph{Fresh inputs with independently derived expectations} can move
-repeatability towards evidence bearing on correctness: inputs chosen after
-the version is saved, and expected results worked out by a method that
-does not pass through my code, whether independent calculation, a second
-implementation, or an external reference. The result would support claims
-about those cases only to the extent that the derivation is credible and
-independent and the cases are adequate; general correctness still would not
-follow.
-
-\emph{Comparison on outside tasks} is what a claim of advantage over
-ordinary alternatives would need: someone bringing a task that was not
-designed around the project's own categories and comparing the component
-against an ordinary alternative, which for several components would be a
-short conventional script. Nothing in this paper makes that comparison.
-
-\emph{A provenance review}, among the five evaluations shown here, bears most
-directly on the origin story: a trusted person examining selected private
-material against the public collection under confidentiality. Prior public
-commitments could provide another kind of provenance evidence. Even
-completed, this review would
-transfer trust rather than remove it: public readers would be relying on
-the reviewer's access, competence, and report instead of on mine, and the
-review itself could not be published. The privacy cost may reasonably
-never be paid. If it is not, the origin story remains testimony, and this
-paper is written so that its argument does not depend on it.
-
-\subsection*{From an open question to a falsifiable handoff}
-\label{sec:hypothesis-handoff}
-
-The five evaluations still leave an outsider to infer what the project
-expects, reconstruct credible alternatives, and decide which observation
-would matter.  ``Evaluate Plectis'' transfers that framing work; a confident
-prediction can make the project's own expectation look like evidence.
-
-The current repository, beyond the historical snapshot examined above,
-therefore includes a small, read-only
-\emph{hypothesis-handoff} format.  A packet names one declared known gap and
-refuses to treat it as a complete inventory of unknown questions.  It then
-names the current wall, a tentative leading hypothesis, evidence for it,
-evidence against or still missing, serious alternatives, and discriminators
-whose possible outcomes point to named hypotheses and have stated
-interpretations.  It also names an exact expert return, decisive and route-only effects,
-repository-relative landing targets with validators, and the order by which a
-return could enter an authority record and public release.  Run
 \begin{center}
-\begin{minipage}{0.94\linewidth}
-\begin{Verbatim}[fontsize=\small]
-plectis hypothesis-handoff --input packet.json --format text
-\end{Verbatim}
-\end{minipage}
+\small
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.32\linewidth}>{\raggedright\arraybackslash}p{0.10\linewidth}@{}}
+\toprule
+\textbf{Evaluation} & \textbf{Choice that leaves me} & \textbf{What it still cannot show} & \textbf{Done?} \\
+\midrule
+Independent repetition & Who runs it & Correctness & No \\
+Evaluator-chosen components & Which cases count & Whether the collection resembles the private pool & No \\
+Fresh inputs, independently derived answers & What the answer should have been & Generality beyond those cases & No \\
+Comparison on an outside task & What counts as useful & Advantage anywhere but where compared & No \\
+Confidential provenance review & Whether the origin account holds & Anything public; it moves trust to the reviewer & No \\
+\bottomrule
+\end{tabular}
 \end{center}
-validates that structure and renders it as a briefing.  It does not call a
-model, infer probabilities, judge an expert, or change a claim.  This later
-interface is not evidence for the historical snapshot analysis.
 
-The worked public packet asks whether evaluator-selected cases would expose a
-different failure profile from the author-selected fixtures.  Its working
-hypothesis is that they would expose more failures and a broader taxonomy.  The
-reasons are visible: I selected the existing cases and rules, and a later cold
-route exposed one real wiring defect.  The counterweight is equally visible:
-there is no independent comparison corpus, and one defect estimates no rate.
-Two alternatives remain live: the current fixtures may approximate the
-independent profile, or environment and dependency failures may dominate the
-difference.  A preregistered case-selection rule and a failure taxonomy fixed
-before outcomes are inspected would separate those accounts better than
-another author-selected example.
+Section~\ref{sec:audit} is the one place where this paper stops proposing and
+starts measuring, and it is worth being exact about what an outsider would add to
+it. The audit was run by the author, against a protocol the author wrote, looking
+for faults the author thought to look for. An evaluator-run version would change
+three things: the coding would not be done by the party whose prose is being
+coded; a second coder would give a disagreement rate, which this audit does not
+have; and the protocol's blind spots would be someone else's blind spots. The
+finding that the ceiling field under-performs its own declared standard is
+evidence I did not want and did not expect, which is some protection against the
+obvious objection, but it is not independence.
 
-This format does not make the leading hypothesis independent.  It is the
-project's expected answer, in the same sense that Section~\ref{sec:run}'s
-expected output is project-supplied.  Its contribution is different: it makes
-the prior, alternatives, and update rule inspectable before an expert answer is
-known.  A reader can reject the leading hypothesis, add a missing alternative,
-or dispute a discriminator without first reverse-engineering the project's
-private reasoning.  If an answer arrives, the packet also prevents the answer
-from becoming a public conclusion merely because it came from an expert.  The
-return remains advisory until its evidence is reproduced or independently
-checked, its intended meaning is reviewed, the authoritative record is
-updated, and the declared release checks pass.
-
-The useful claim is therefore narrow.  A hypothesis handoff can reduce the
-cost of informed disagreement and preserve what would change the project's
-mind.  It cannot establish that the option set is complete, that the leading
-hypothesis is well calibrated, that the requested evidence is obtainable, or
-that any expert will agree.  Those are precisely the kinds of finding the
-handoff is meant to make easier to return.
-
-\subsection*{How the record should age}
-
-The evaluations above may expose failures. Repairs should add facts, not erase
-them. The appendix keeps three failures at the pinned commit although a later
-commit repairs one; that repair does not subtract the first fact. If criticism
-shows a validator too weak or a claim too broad, record the revision's date and
-cause instead of making the project appear always to have meant the narrower
-claim. A test rewritten after its outcome is known is a different test and may
-be better. The known case can show whether the same failure returns; fresh
-confirmation requires new cases whose answers were not used to design the
-repair. Disappointment is in scope: if an evaluation finds a component trivial
-or no better than a short ordinary script, that conclusion belongs on the
-record with the same standing as a pass. Any outside evaluator's report should
-remain under that evaluator's control, cited rather than absorbed. If the
-repository later falls short of this paragraph, the shortfall is itself a
-finding, and Section~\ref{sec:conclusion} says where findings go.
-
-These evaluations do not pair one-for-one with the distinctions. They address
-the runner, public-case selection, tested-case correctness, usefulness, and origin.
-None repairs a validator--claim mismatch, proves representativeness, or turns
-risk reduction into a guarantee.
+\paragraph{How the record should age.} Repairs should add facts, not erase them.
+The appendix keeps failures at the pinned version although later commits repair
+some of them. If criticism shows a rule too weak or a claim too broad, the
+revision's date and cause are recorded rather than the project appearing always
+to have meant the narrower claim. A test rewritten after its outcome is known is
+a different test and may be better; the known case shows whether the same failure
+returns, but fresh confirmation needs cases whose answers were not used to design
+the repair. Disappointment is in scope: if an evaluation finds a component
+trivial or no better than a short ordinary script, that belongs on the record
+with the same standing as a pass.
 
 \section{Conclusion}
 \label{sec:conclusion}
 
-Plectis does not make the private system answerable as a whole. It publishes
-fixed cases, procedures, outputs, rules, and limits so particular claims can
-be challenged. A pass is no stronger than its rule or the expected answer's
-basis.
+When a system cannot be opened, the useful unit of public evidence is not a
+passing test but a claim shipped with a written, checkable statement of its own
+ceiling. This paper specified that unit, implemented it across \componentcount{}
+components, and audited them against it.
 
-More author-controlled components enlarge the inventory without changing who
-chose the cases or rules. Moving a relevant choice out
-of the author's hands can strengthen evidence about that choice; it does not
-repair every gap.
+The audit found what the design exists to make findable, in the author's own
+work: components whose descriptions promise more than their rules enforce,
+including one where prose promising to check behaviour is a search for fixed
+strings in a file that is never executed. It also found that the ceiling field,
+the mechanism meant to catch exactly this, caught it in a minority of cases ---
+a result declared as a falsification condition before the audit ran.
 
-A typed hypothesis handoff makes the next outside contribution more specific:
-it exposes the project's tentative answer, alternatives, and update rule before
-the outcome is known.  That is a better invitation to disagree, not stronger
-evidence that the project is right.
+What a reader should take from this is not that the collection is sound. It is
+that a claim carrying its own oracle, refusal boundary, and ceiling can be
+checked against itself, by anyone, with a published command, and that doing so
+here produced findings unfavourable to the author. What a reader must not take
+from it is any conclusion about the private system, whose quality remains exactly
+as unestablished as it was on the first page.
 
-\paragraph{A first review.} Use the appendix's no-install block and select the
-version analysed here. The tour describes the checkout but does not choose a
-component claim. Ask the repository to find the audio example with
-\par\noindent\resizebox{\linewidth}{!}{\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action "audio level calculation" --format text|}\par
-The response identifies the audio component, but do not run its first suggested
-command: it writes to the repository's saved receipt paths. Run the paper's exact
-no-install command near the start of Section~\ref{sec:run} instead; it writes only
-to \code{/tmp} and leaves the checkout unchanged. Under
-\component{/tmp/plectis-audio-rms/}, open
-\component{batch8_audio_level_rms_port_result.json};
-JSON is a plain-text field-and-value format. Open \code{exercise}. In each
-\component{reference_cases} item, compare \code{expected\_level} with
-\code{observed\_level}. The top-level \component{anti_claim} says what a pass
-does not establish; \component{claim_ceiling} inside \code{exercise} gives the
-project's strongest conclusion. The project wrote both cautions; no independent
-reviewer checked their limits. To challenge rather than repeat the supplied case,
-make a disposable copy of the fixture input:
+\appendix
+\small
+\setlength{\parskip}{0.35em}
+
+\section{Dated reproduction record}
+\label{sec:appendix}
+
+Two dated passes are recorded. Neither is an independent repetition; both are
+mine (L6).
+
+\paragraph{Pass 1, 17--18 July 2026, at the pinned commit.} macOS 15.6.1 on
+Apple silicon, Python 3.13.7, commit \code{\snapshotcommit}. The clean-clone tour
+read 5{,}018 files and chose the README-first order from five reading orders,
+writing 21 generated files under \code{.microcosm/} without changing the examined
+source. A rerun of the Section~\ref{sec:run} example reproduced all displayed
+values. A second clean clone under Python 3.12.7 matched. Only 3.12.7 and 3.13.7
+were tested. The project-wide Lean trust scan checked \leanfilecount{} files for
+six text patterns --- unfinished placeholders, custom axioms, compiled
+calculations relying on more than Lean's core, \code{partial} definitions,
+\code{unsafe} definitions, and removed computation limits --- and found none. It
+does not run Lean: it shows nothing about whether files compile, whether proofs
+are valid, or whether statements express their authors' intent
+\cite{leanvalidation}. A limited \code{make test} covering 32 files reported 356
+of 361 passing, two skipped, three failing: an \code{AGENTS.md} line-break
+expectation, outdated counts in copied-source manifests, and root-layout rules
+not yet allowing the \code{paper} directory. The third was later repaired. Those
+failures stay on this record; the repair does not subtract the first fact.
+
+\paragraph{Pass 2, 26 July 2026, at the audited commit.} macOS 15.6.1, Apple
+silicon, Python 3.13.7, fresh clone, fresh virtual environment,
+\code{pip install .}\ The measurements of Section~\ref{sec:collection} come from
+this pass:
+
+\begin{Verbatim}[fontsize=\small]
+git clone https://github.com/wcook04/plectis && cd plectis
+git checkout 57ffb7f5830c
+python3 -m venv .venv && .venv/bin/pip install -q . pytest
+PYTHONPATH=src python3 scripts/run_every_component.py --out-dir /tmp/runall
+\end{Verbatim}
+
+\code{git checkout} pins the exact state described here; omit it to run the
+newest version, whose dated numbers may differ.
+
+The declared verification floor passed: \floorpasscount{} tests, none failing,
+\floorskipcount{} skipped. Running every registered component gave \passcount{}
+passes, \blockedcount{} declared boundaries, \errorcount{} unhandled errors, and
+one entry with no runnable command. Tracked files were unchanged afterwards, and
+the harness verifies this rather than asserting it.
+
+\paragraph{Two harness defects found and fixed before any number was reported.}
+Both are recorded because a measuring instrument is also evidence and needs its
+own ceiling. First, an early version of the runner read only
+\code{acceptance.json}; since only 46 of \componentcount{} components write that
+file, it scored every non-zero exit from the other 42 as an error, reporting 20
+errors where there are \errorcount{} --- it was counting ten correct declared
+refusals as failures. Second, I hypothesised that a component's behaviour
+depended on the name of the directory the repository was cloned into, and built
+a two-arm test in which the second arm was created as a sibling of the first,
+which satisfied the hardcoded path for both arms and produced a meaningless null
+result. Re-run with isolated parents, the correct answer is that no component's
+outcome depends on the directory name. The hypothesis was wrong. What is true is
+narrower: one component hardcodes a path prefix naming a former project directory
+at
+\component{src/microcosm_core/organs/agent_route_observability_runtime.py:402}
+and fails from any clean clone.
+
+\paragraph{Names.} Formerly Microcosm, Plectis retains the package
+\code{microcosm\_core}, the page \code{ORGANS.md} (``organs'' means components),
+and the \code{microcosm} alias. This paper uses the command \code{plectis}.
+
+\paragraph{The paper checks itself.} \component{scripts/check\_public\_system\_paper.py}
+fails if the counts, pinned facts, worked example, cautions, or citations in this
+document disagree with the repository. With one maintainer that is internal
+consistency, not external truth (L6).
+
+\section{A first review: check one claim, then break it}
+\label{sec:firstreview}
+
+Ten minutes, a terminal, and Python. This is the shortest path from reading the
+paper to disagreeing with it on evidence.
+
+Clone and pin the version, then run the worked example exactly as
+Section~\ref{sec:run} gives it. Do not run the command the repository's own
+guidance suggests first: it writes to the saved receipt paths. The paper's
+command writes only to \code{/tmp} and leaves the checkout unchanged.
+
+The stored reference for the table is
+\component{batch8_audio_level_rms_port_validation_receipt.json}, under
+\component{receipts/first_wave/batch8_audio_level_rms_port/}, so a fresh run is
+compared against a fixed record rather than against memory.
+Under \component{/tmp/plectis-audio-rms/}, open
+\component{batch8_audio_level_rms_port_result.json}. Inside \code{exercise}, each
+\component{reference_cases} item has \code{expected\_level} and
+\code{observed\_level}; compare them, and compare the first against your own
+arithmetic. The top-level \component{anti_claim} says what a pass does not
+establish, and \component{claim_ceiling} gives the strongest conclusion the
+project claims. I wrote both; no independent reviewer has checked their limits.
+
+Now break it on purpose. Copy the fixture input somewhere disposable:
+
 \begin{Verbatim}[fontsize=\scriptsize]
 cp -R fixtures/first_wave/batch8_audio_level_rms_port/input/. /tmp/plectis-audio-rms-input
 \end{Verbatim}
-In the copied \component{batch8_audio_level_rms_port_probe_manifest.json},
-change the first case's second sample from \code{0.05} to \code{0.06}, but
-leave \code{expected\_level} unchanged. Then run:
+
+In the copied \component{batch8_audio_level_rms_port_probe_manifest.json}, change
+the first case's second sample from \code{0.05} to \code{0.06} and leave
+\code{expected\_level} alone. Then:
+
 \begin{Verbatim}[fontsize=\scriptsize]
 PYTHONPATH=src python3 -m plectis batch8-audio-level-rms-port run \
   --input /tmp/plectis-audio-rms-input --out /tmp/plectis-audio-rms-probe \
   --acceptance-out /tmp/plectis-audio-rms-check.json; echo $?
 \end{Verbatim}
-The final number printed should be \code{1}; in the acceptance file,
-\code{status} should be \code{blocked} and \code{accepted} should be
-\code{false}. This means the validator caught the deliberate mismatch; the
-exercise did not crash. Report any different result in
-\code{CONTRIBUTING.md}. Treat a pass as evidence only for the published rule.
 
-\appendix
+The final number should be \code{1}; in the acceptance file \code{status} should
+be \code{blocked} and \code{accepted} should be \code{false}. That means the
+validator caught a deliberate mismatch rather than crashing. Report any other
+result in \code{CONTRIBUTING.md}.
+
+To disagree with Section~\ref{sec:audit} instead, open
+\component{paper/audit_claim_against_check.json}, pick any component coded
+\emph{claim above rule}, and read the lines named in its \code{deciding\_code}
+field against the prose quoted in the same record. If you think the verdict is
+wrong, the disagreement is now about a specific function, which is the whole
+point of the exercise.
+
+\section{Audit method and the component census}
+\label{sec:auditmethod}
+
+The frozen protocol is \component{paper/audit_protocol.md}, committed at
+\code{6b21d412} before any component was coded. The per-component results,
+including for each one the quoted public prose, the quoted ceiling, the deciding
+file and line range, the separating case, and a confidence rating, are in
+\component{paper/audit_claim_against_check.json}. The population is the whole
+registry; there is no sampling step.
+
+The census of routes and outcomes --- each component's evidence route, its
+outcome under Section~\ref{sec:collection}'s run, and its audit verdict --- is in
+the same file. Four routes cover all \componentcount{} entries: record-checked
+copied source (\copiedsourcecount), public reimplementation (\refactorcount),
+direct or external-tool run (\runtimecount), and contract checker
+(\validatorcount). Each preserves something different and leaves a different
+question open, and the route label alone does not tell a reader which members of
+a route do real work: Section~\ref{sec:audit} found both overreach and
+undersell inside the same route.
+
+\section{Names, authorship, and generative AI use}
+\label{sec:authorship}
+
+I built the private system over about ten months by directing coding agents based on
+artificial intelligence (AI): software tools that edit, run, and revise code
+across a task. I set objectives
+and review criteria, accepted or rejected output, and sent failures back for
+revision. The agents wrote nearly all of the code; I wrote nearly none of it. No
+other person worked on the system. At the time of the work I was 22, an
+economics undergraduate, working independently and without external funding.
+
+This manuscript was produced the same way. An agentic workflow drafted and
+revised the prose from objectives, evidence, and review criteria I supplied; I
+selected the claims, required revisions, reviewed and approved the published
+version, and am responsible for it. Agents are production tools, not authors.
+
+Two consequences bear on the evidence, and only two.
+
+The first is that an implementation and the program that checks it can share a
+mistake when one process drafts both. This is not speculative here:
+Section~\ref{sec:audit} found \auditabove{} components whose description and
+whose rule disagree, and both were produced by the same process. That is the
+concrete form the risk takes in this collection.
+
+The second is that the limit on what a public run can establish would be
+identical if every line had been written by hand. Authorship changes how often a
+failure occurs, not what a passing test proves. This paper compares no
+development methods and estimates no error rates.
+
+\section{Standards this work does not meet}
+\label{sec:standards}
+
+\begin{center}
 \small
-\setlength{\parskip}{0pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.24\linewidth}>{\raggedright\arraybackslash}p{0.42\linewidth}>{\raggedright\arraybackslash}p{0.28\linewidth}@{}}
+\toprule
+\textbf{Standard} & \textbf{What it requires} & \textbf{Status here} \\
+\midrule
+ACM \emph{Artifacts Evaluated --- Functional} \cite{acmartifact} & Independent audit for documentation, consistency, completeness, and ability to run & Not held; not applied for \\
+\addlinespace
+ACM \emph{Results Reproduced} \cite{acmartifact} & Another team obtains the main results & Not held; no other team has run this \\
+\addlinespace
+Assurance case (SACM) \cite{omgsacm2023} & Auditable claims, arguments, and evidence linking evidence to a system claim & Not an implementation; a validator applies a rule, it does not supply the argument \\
+\addlinespace
+NASA IV\&V independence \cite[\S4.4.1.2]{nasa8739} & Technical, managerial, and financial separation of the evaluator & None of the three \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-\section{Dated reproduction record}
-\label{sec:appendix}
-
-Except where a paragraph gives a later date, this appendix records one run on
-17~July~2026 under macOS 15.6.1 on Apple silicon (arm64) and Python 3.13.7.
-The repository version was commit \code{\snapshotcommit}, abbreviated
-\code{\snapshotshort} elsewhere. Later commits or machines may differ; the body
-does not depend on them.
-
-\paragraph{Names.} Repository: \repo. Formerly Microcosm, Plectis retains
-package \code{microcosm\_core}, page \code{ORGANS.md} (``organs'' means
-components), and the \code{microcosm} alias. This paper uses command
-\code{plectis}.
-
-\paragraph{Getting the code and running without installing.}
-
-\begin{Verbatim}[fontsize=\small]
-git clone https://github.com/wcook04/plectis
-cd plectis
-git checkout 57ffb7f5830c
-PYTHONPATH=src python3 -m plectis tour --format text .
-\end{Verbatim}
-
-The final full stop means ``the current folder''. \code{git checkout} pins the
-exact state described here; omit it to run the newest version, whose dated
-numbers may differ.
-
-The clean-clone tour read 5{,}018 files and chose the README-first order
-(internally \component{readme_onboarding_route}) from five reading orders. It
-wrote 21 generated files under \code{.microcosm/} without changing the examined
-source. Those files can be rebuilt; the README's different count is another
-dated run, not a stable project size.
-
-\paragraph{Installing.}
-
-\begin{Verbatim}[fontsize=\small]
-python3 -m pip install .
-plectis tour --format text .
-\end{Verbatim}
-
-No runtime library is required; \code{pip} may fetch \code{setuptools} to
-build. No check proves the absence of network or model calls, so inspect the
-source.
-
-\paragraph{The worked example.} A fresh Section~\ref{sec:run} rerun reproduced
-all displayed passes and values and overwrote \component{/tmp/plectis-audio-rms}.
-A stale field reports a copied private module, while the saved import record
-reports none because public code replaced it; the discrepancy remains.
-
-\paragraph{A second Python version.} On 18~July~2026, a clean macOS clone under
-Python 3.12.7 matched the tour and example. Its offline install used only the
-machine's \code{setuptools} 80.9.0 (minimum 77.0.3). Only versions 3.12.7 and
-3.13.7 were tested.
-
-\paragraph{Project-wide checks.} The project-wide Lean trust scan checks
-\leanfilecount{} files for six text patterns but does not run Lean or verify
-proofs: unfinished placeholders; custom axioms
-(unproved assumptions); compiled calculations whose acceptance
-relies on more than Lean's small proof-checking core;
-\code{partial} definitions (runnable but not unfoldable in proofs);
-\code{unsafe} definitions (barred from theorems); and removed computation
-limits. No pattern appeared. The scan does not show whether files compile,
-proofs are valid, or statements express their authors' intent
-\cite{leanvalidation}.
-Separate components run Lean on small test projects; their results apply only
-to those projects.
-Registry and trust checks passed; the \leanfilecount{} files are distinct from
-the \mathcount{} mathematics components.
-The limited \code{make test} run covered 32 public test files, not every test
-file: 356 of 361 tests passed, two skipped, and three failed. The
-failures were an \code{AGENTS.md} line-break expectation; outdated line or byte
-counts in copied-source manifests; and root-layout rules that did not yet allow
-the \code{paper} directory or root PDF; the last was later repaired without
-altering this pinned run. Exact failure names, environment, and counts are in
-\component{paper/public-test-receipt.json}. \code{make ci} would add smoke and
-package-install checks, but was not green because \code{make test} failed. These
-checks cover only the public checkout; this is my run, not an independent
-repetition.
-The paper's own
-\component{scripts/check_public_system_paper.py} fails if counts, pinned facts,
-the example, cautions, or citations disagree. It checks historical facts against
-the pinned commit separately from current prose; with one maintainer, that is
-internal consistency, not external truth.
-
-\paragraph{Declaration of generative AI use.} Large-language-model agents were
-used throughout development to draft and revise prose, formal proofs, and
-software. The author set the objectives and acceptance criteria, selected and
-reviewed the claims, and approved the published version. The author assumes
-responsibility for the accuracy, interpretation, and presentation of the work.
-Generative systems are production tools; they are not authors and supply no
-independent authority. Section~\ref{sec:problem} states this in the first
-person and Section~\ref{sec:hand} examines the concentration of choice it
-leaves; both are part of this paper's subject rather than background to it. The
-account of private production is testimony about origin, and the paper's
-publicly testable claims depend only on the published files, commands, and
-stated limits identified here.
+These are comparison points, not statuses awarded here, and they are listed so a
+reader can see the distance rather than infer it.
 
 \begin{thebibliography}{10}
 \fontsize{7.5pt}{8.3pt}\selectfont
@@ -1327,5 +1284,6 @@ Lean Project. \emph{Lean Language Reference} sections
 Accessed 18 July 2026.
 
 \end{thebibliography}
+
 
 \end{document}
