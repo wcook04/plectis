@@ -13,7 +13,7 @@
       "paper/plectis-public-system.tex::sec:hypothesis-handoff"
     ],
     "governing_contract_refs": [
-      "paper_modules/self_ignorance_coverage_ledger.md::Claim Ceiling"
+      "standards/std_microcosm_self_ignorance_coverage_ledger.json::authority_ceiling"
     ],
     "coverage_posture": "declared_gap_only_not_unknown_unknown_exhaustiveness",
     "claims_unknown_unknowns_exhaustive": false,
