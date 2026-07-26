@@ -266,50 +266,37 @@ Sections~\ref{sec:record}, \ref{sec:collection} and~\ref{sec:audit}.
 
 Seven limits bound everything below. Each is stated once, here.
 
-\begin{center}
+\begin{list}{}{\leftmargin 1.6em \itemindent -1.6em \itemsep 0.28em \parsep 0pt \topsep 0.35em}
 \small
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.13\linewidth}>{\raggedright\arraybackslash}p{0.83\linewidth}@{}}
-\toprule
-\textbf{L1 Origin} & Nothing a public repository does can show where its contents came from. I report that the published material was copied or adapted from the private system. That is testimony, and no argument here depends on it. \\
-\addlinespace
-\textbf{L2 Correctness} & A run matching its stored record shows the same code produced the same answer again. It does not show the answer is right: in almost every case the expected answer and the code come from one hand. \\
-\addlinespace
-\textbf{L3 Meaning} & A pass is a verdict on the rule that was written down, and that rule can be narrower than the sentence it stands under. Section~\ref{sec:audit} measures how often. \\
-\addlinespace
-\textbf{L4 Reach} & The published parts are a selection I made from a system no reader can see. No result about one component carries to another, and none carries to the private whole. \\
-\addlinespace
-\textbf{L5 Risk} & The publication checks reduce specific risks. A scan that finds nothing shows the scanner did not find the patterns it was designed to find, and nothing stronger. \\
-\addlinespace
-\textbf{L6 Author control} & I chose every published fragment, input, expected answer, rule and limit --- including the method of Section~\ref{sec:audit} and the faults it looks for. No independent evaluator has examined the collection, and I know of none. \\
-\addlinespace
-\textbf{L7 Inventory} & \componentcount{} is a count of registered claims, not a score. Even the unit of counting is a choice I control: one mechanism could have been registered as several components, or several as one. \\
-\bottomrule
-\end{tabular}
-\end{center}
+\item[] \textbf{L1 Origin.} Nothing a public repository does can show where its contents came from. I report that the published material was copied or adapted from the private system. That is testimony, and no argument here depends on it.
+\item[] \textbf{L2 Correctness.} A run matching its stored record shows the same code produced the same answer again. It does not show the answer is right: in almost every case the expected answer and the code come from one hand.
+\item[] \textbf{L3 Meaning.} A pass is a verdict on the rule that was written down, and that rule can be narrower than the sentence it stands under. Section~\ref{sec:audit} measures how often.
+\item[] \textbf{L4 Reach.} The published parts are a selection I made from a system no reader can see. No result about one component carries to another, and none carries to the private whole.
+\item[] \textbf{L5 Risk.} The publication checks reduce specific risks. A scan that finds nothing shows the scanner did not find the patterns it was designed to find, and nothing stronger.
+\item[] \textbf{L6 Author control.} I chose every published fragment, input, expected answer, rule and limit --- including the method of Section~\ref{sec:audit} and the faults it looks for. No outside evaluation report is cited or included anywhere, and I know of none --- though that is a claim about my knowledge, not about the world: someone could have rerun this privately and never said so.
+\item[] \textbf{L7 Inventory.} \componentcount{} is a count of registered claims, not a score. Even the unit of counting is a choice I control: one mechanism could have been registered as several components, or several as one.
+\end{list}
+
 
 \section*{Terms used in this paper}
 \addcontentsline{toc}{section}{Terms used in this paper}
 
-\begin{center}
-\small
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.17\linewidth}>{\raggedright\arraybackslash}p{0.79\linewidth}@{}}
-\toprule
-Answerable & Used locally: a claim is answerable when a stranger can run a public procedure bearing on it, see how the result is judged, and point a disagreement at a named input, rule, or output. It says nothing about whether the claim is true or important. \\
-Ceiling & The strongest conclusion a component's result is allowed to support, written down as part of the component. \\
-Commit & A named, saved version of a repository. \\
-Component & One registered, separately runnable part of the project. \\
-Fixture & A fixed sample input, stored in the repository. \\
-Fingerprint & A short value computed from a file's contents, used to detect change; here SHA-256 \cite{nistfips1804}. \\
-Oracle & In software testing, whatever decides that an observed output is the right one --- a stored value, a calculation, a second program, a person \cite[p.~507]{barr2015}. \\
-Receipt & The saved record of a run. \\
-Refusal & A declared decision not to answer, distinguished from a breakdown: a refusal marks the edge of what a component claims; a crash is a defect. \\
-Registry & The list of components that the programs read. \\
-Repository & An organised project folder kept with its revision history; to \emph{clone} one is to copy it to another computer. \\
-Route & The registry's label for what kind of evidence a component offers. \\
-Validator & The program applying a component's pass and refusal rules. \\
-\bottomrule
-\end{tabular}
-\end{center}
+{\small\setlength{\parskip}{0.24em}
+\noindent\textbf{Answerable} --- used locally: a claim is answerable when a stranger can run a public procedure bearing on it, see how the result is judged, and point a disagreement at a named input, rule, or output. It says nothing about whether the claim is true or important.\par
+\noindent\textbf{Ceiling} --- the strongest conclusion a component\'s result is allowed to support, written down as part of the component.\par
+\noindent\textbf{Commit} --- a named, saved version of a repository.\par
+\noindent\textbf{Component} --- one registered, separately runnable part of the project.\par
+\noindent\textbf{Fingerprint} --- a short value computed from a file\'s contents, used to detect change; here SHA-256 \cite{nistfips1804}.\par
+\noindent\textbf{Fixture} --- a fixed sample input, stored in the repository.\par
+\noindent\textbf{Oracle} --- in software testing, whatever decides that an observed output is the right one --- a stored value, a calculation, a second program, a person \cite[p.~507]{barr2015}.\par
+\noindent\textbf{Receipt} --- the saved record of a run. The repository ships one from an earlier run and a rerun writes another; the stored one is for comparison and does not decide the new verdict, which comes from the rule.\par
+\noindent\textbf{Refusal} --- a declared decision not to answer, distinguished from a breakdown: a refusal marks the edge of what a component claims; a crash is a defect.\par
+\noindent\textbf{Registry} --- the list of components that the programs read.\par
+\noindent\textbf{Repository} --- an organised project folder kept with its revision history; to \emph{clone} one is to copy it to another computer.\par
+\noindent\textbf{Route} --- the registry\'s label for what kind of evidence a component offers.\par
+\noindent\textbf{Validator} --- the program applying a component\'s pass and refusal rules.\par
+}
+
 
 \section{The problem}
 \label{sec:problem}
@@ -375,6 +362,19 @@ Repair a failure quietly & Receipts are append-only; the appendix keeps failures
 \bottomrule
 \end{tabular}
 \end{center}
+
+Selection also acts at two levels that are worth separating, because a reader can
+defeat one and not the other. Within a component, the fixed input covers a few
+cases out of many. Across the collection, the published components are my
+selection from a private whole. An objection to the first can be settled by
+changing an input; an objection to the second cannot be settled from the public
+side at all.
+
+There is also a tilt no reader can inspect. A private mechanism is easiest to
+publish when it separates into a small task, returns the same output for the same
+input, and runs in isolation. A collection built this way over-represents pure
+calculation, replay, and record-checking, and under-represents stateful,
+entangled, long-running behaviour --- before any question of honesty arises.
 
 This paper is inside its own arrangement. Declaring the risk does not discharge
 it, and nothing in the text can establish that the text is not doing what the
@@ -899,55 +899,52 @@ component coded \emph{rule matches claim} may still compute the wrong answer
 \label{sec:gaps}
 
 The seven limits are not an inventory of things I have not got round to. Each
-names a place where an observation invites a conclusion it cannot carry, and
-each needs an added assumption the observation itself cannot supply.
+names the same shape of mistake: an observation invites a conclusion, and the
+step between them needs an assumption the observation cannot supply. Naming the
+assumption is the whole of what this section does, because an assumption with a
+name can be argued with, priced, or deliberately accepted, and an unnamed one is
+crossed without noticing.
 
-\begin{center}
-\small
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.09\linewidth}>{\raggedright\arraybackslash}p{0.27\linewidth}>{\raggedright\arraybackslash}p{0.26\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}@{}}
-\toprule
-& \textbf{Observed} & \textbf{Assumption needed to go further} & \textbf{What would supply it} \\
-\midrule
-L1 & A run matches the stored record & The public object came from the private one & A commitment published before the fact, or a confidential reviewer \\
-\addlinespace
-L2 & Output matches the expected value & The expected value was right & An answer derived without passing through my code \\
-\addlinespace
-L3 & The validator passes & The rule tests the claim as written & Someone reading rule against sentence --- Section~\ref{sec:audit} \\
-\addlinespace
-L4 & Fixed cases pass & Chosen cases stand for unchosen ones & Cases selected by someone else, after the version is pinned \\
-\addlinespace
-L5 & A scan finds nothing & The scan covered the relevant risks & A threat-led review by someone who did not write the scan \\
-\addlinespace
-L6 & The record is consistent & The recorder had no reason to shape it & Any consequential choice leaving my hands \\
-\addlinespace
-L7 & \componentcount{} components pass & That is \componentcount{} confirmations & Nothing. It is one witness counted \componentcount{} times \\
-\bottomrule
-\end{tabular}
-\end{center}
+For \textbf{L1} the missing assumption is that the public object came from the
+private one, and only a commitment published before the fact, or a reviewer
+allowed to see both sides, could supply it. For \textbf{L2} it is that the
+expected answer was right, which needs an answer derived without passing through
+my code. For \textbf{L3} it is that the rule tests the claim as written --- the
+one assumption in this list that a reader can check without leaving the
+repository, which is why Section~\ref{sec:audit} could attack it and the others
+had to be left standing. For \textbf{L4} it is that chosen cases stand for
+unchosen ones, which needs cases selected by someone else after the version is
+pinned. For \textbf{L5} it is that the scan covered the relevant risks, which
+needs a threat-led review by someone who did not write the scan. For \textbf{L6}
+it is that the recorder had no reason to shape the record, and nothing supplies
+that except a consequential choice leaving my hands.
 
-Three observations about this table matter more than the rows.
+\textbf{L7} is the exception, and it is worth stating separately because it is
+the one with no remedy at all. \componentcount{} components passing is not
+\componentcount{} confirmations; it is one witness counted \componentcount{}
+times. No further work of mine changes that, and the temptation to read an
+inventory as a score is the failure this paper is most at risk of committing
+itself.
 
 Fingerprints are worth a sentence here because they look like origin evidence
 and are not. Each copied file carries a SHA-256 value computed from its contents
 \cite{nistfips1804}. The National Institute of Standards and Technology (NIST)
 expects an approved hash function to make it computationally infeasible to start
-from a given file and find a different one with the same value
+from a given file and find a different one with the same value --- second-preimage
+resistance, which is a stronger requirement than collision resistance, where an
+attacker may choose both files freely
 \cite[security-strength table]{nisthashfunctions}. So a match does support a
 narrow claim: the public file agrees with the version recorded for it. But I
 control both the file and the record, so the agreement is internal consistency,
 not provenance (L1).
 
-First, the right-hand column is almost entirely other people. That is not modesty;
-it is the structure of the problem. A self-published collection can make its
-claims addressable and can measure itself against its own standard, as
-Sections~\ref{sec:collection} and~\ref{sec:audit} do. It cannot manufacture
-independence, and no quantity of further self-publication approaches it.
+Two things follow. Almost every remedy above is another person. That is not
+modesty but the structure of the problem: a self-published collection can make
+its claims addressable and can measure itself against its own standard, as
+Sections~\ref{sec:collection} and~\ref{sec:audit} do, and it cannot manufacture
+independence at any volume.
 
-Second, L7 is the only row whose remedy is nothing. Counting is not evidence, and
-the temptation to treat an inventory as a score is the failure this paper is most
-at risk of committing itself.
-
-Third, making disagreement local can displace the larger question. A reader can
+And making disagreement local can displace the larger question. A reader can
 settle an argument about one input while leaving untouched whether the selection
 is fair or the whole is sound. An objection about selection is not answered by
 the successful execution of any number of selected items. The registry hosts the
@@ -1089,7 +1086,8 @@ calculations relying on more than Lean's core, \code{partial} definitions,
 \code{unsafe} definitions, and removed computation limits --- and found none. It
 does not run Lean: it shows nothing about whether files compile, whether proofs
 are valid, or whether statements express their authors' intent
-\cite{leanvalidation}. A limited \code{make test} covering 32 files reported 356
+\cite{leanvalidation}. Other components do run Lean, on small test projects, and
+their results apply only to those projects. A limited \code{make test} covering 32 files reported 356
 of 361 passing, two skipped, three failing: an \code{AGENTS.md} line-break
 expectation, outdated counts in copied-source manifests, and root-layout rules
 not yet allowing the \code{paper} directory. The third was later repaired. Those

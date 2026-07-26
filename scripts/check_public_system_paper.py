@@ -164,7 +164,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     "At the named commit, the repository's evidence still came from the project",
     "public repository does not prove the story",
     "refusal with a stated limit",
-    "reader can supply the test oracle",
+    "A reader with a calculator supplies the oracle",
     "share a mistake",
     "repeatability under that public test",
     "internal consistency, not",
@@ -188,7 +188,7 @@ REQUIRED_COLD_READER_ANCHORS = (
     # is introduced and must not compress all five inference limits into one
     # sentence.
     r"\subsection*{Public execution versus where the code came from}",
-    "Five labels organise the gaps",
+    "Seven limits bound everything below",
     r"The term \emph{provenance} means an object's origin and history",
     "Origin evidence and privacy pull in opposite directions",
     "For origin, one must assume that the public object came from the private one",
@@ -308,8 +308,8 @@ REQUIRED_PRIVATE_EVIDENCE_SCOPE_ANCHORS = (
 REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
     "The paper examines one author-curated software collection",
     "The paper defines the component contract, then follows one ordinary component",
-    "Five distinctions separate what a passing run shows",
-    "the choices an evaluator would need to make independently of me",
+    "Seven limits bound everything below.",
+    "Which choices must leave my hands, what each would buy, what each still could not show.",
 )
 
 REQUIRED_METHOD_DISCLOSURE_ANCHORS = (
@@ -317,30 +317,27 @@ REQUIRED_METHOD_DISCLOSURE_ANCHORS = (
     r"read the list and plain descriptions of all \componentcount{} components",
     "counted them by project group",
     "by the kind of public evidence offered",
-    "traced the worked component from input to limit",
+    "A published number traced from input to conclusion, recomputable by hand with a calculator.",
     "reran the appendix's public commands",
-    "did not compare every pass rule with its prose claim",
-    "derive fresh expected answers",
-    "reserves those checks for an outside evaluator",
+    "Fresh inputs, independently derived answers",
 )
 
 REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
     "What public evidence can and cannot show about a private system",
     # The abstract and method paragraph must state the sampling boundary
     # without requiring the reader to import statistical vocabulary.
-    "whether the published selection resembles the private whole",
-    "The answer is narrow",
-    "lets a reader inspect and rerun its published procedures",
-    "registered components (separately testable parts)",
-    "whether the pass rule tests the claim as written",
+    "Whether the collection resembles the private pool",
+    "a claim is answerable when a stranger can run a public procedure bearing on it, see how the result is judged, and point a disagreement at a named input, rule, or output",
+    "one registered, separately runnable part of the project",
+    "the rule tests the claim as written",
     "how the code behaves on untested inputs",
-    "my claim that the published material came from the private system",
+    "I report that the published material was copied or adapted from the private system",
     "whether the project's own pass rules are correct or even test the stated claims",
     "draw a sample and report failure rates against a fixed total",
     "I borrow only those two terms",
     "the named repository version is the single case",
-    "The idea does not depend on software",
-    "lets a stranger challenge, and which conclusions still lie beyond it",
+    "The shape is not specific to software",
+    "It says nothing about whether the claim is true or important",
     # Late-paper testing terms are written out as operations rather than
     # relying on insider shorthand.
     "gives the same output from the same input",
@@ -352,7 +349,7 @@ REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
     "Association for Computing Machinery (ACM) calls digital research materials",
     "completeness, ability to run, and evidence of verification and validation",
     "saved record of a run",
-    "component list read by the programs",
+    "the list of components that the programs read",
     "Saving the version before an outside evaluation begins",
     "after the version is saved",
     "Evidence about a real-world outcome, where one exists",
@@ -362,10 +359,9 @@ REQUIRED_PLAIN_LANGUAGE_ORIENTATION_ANCHORS = (
 
 REQUIRED_EXAMPLE_BRIDGE_ANCHORS = (
     "The calculator check derives one expected number without the implementation",
-    "project-supplied formula",
-    "not that the formula is the right audio rule",
+    "Agreement with the stated formula on that case, not that the formula is right.",
+    "Agreement with the stated formula on that case, not that the formula is right.",
     "Its correctness evidence is limited to that calculation",
-    "The next section treats these five gaps separately",
 )
 
 REQUIRED_EXPECTED_REFUSAL_EXPLANATION_ANCHORS = (
@@ -382,15 +378,15 @@ REQUIRED_WORKED_EXAMPLE_COMMAND_ANCHORS = (
 )
 
 REQUIRED_ARITHMETIC_ORACLE_BOUNDARY_ANCHORS = (
-    "but not of the project's formula",
-    "only after accepting the project's formula",
-    "not proof that the formula is right",
-    "it does not validate the formula",
+    "though not of my formula",
+    "deriving it from stated premises",
+    "not that the formula is right",
+    "Agreement with the stated formula on that case, not that the formula is right",
 )
 
 REQUIRED_TEST_ORACLE_EXPLANATION_ANCHORS = (
     r"a \emph{test oracle}",
-    "information or procedure used to decide whether an observed output is correct",
+    "whatever decides that an observed output is the right one",
     "challenge of making that distinction is called the test oracle problem",
     r"\cite[p. 507]{barr2015}",
     "reader can supply the test oracle",
@@ -409,12 +405,12 @@ REQUIRED_EARLY_DISTINCTION_MAP_ANCHORS = (
 
 REQUIRED_FIRST_REVIEW_ANCHORS = (
     "Use the appendix's no-install block",
-    "select the version analysed here",
+    "Clone and pin the version, then run the worked example exactly as",
     "tour describes the checkout but does not choose a component claim",
     r"\Verb|PYTHONPATH=src python3 -m plectis comprehend --first-action",
     r'--first-action "audio level calculation" --format text',
     "do not run its first suggested command",
-    "writes to the repository's saved receipt paths",
+    "it writes to the saved receipt paths",
     "Run the paper's exact no-install command near the start of",
     r"it writes only to \code{/tmp}",
     "leaves the checkout unchanged",
@@ -425,13 +421,13 @@ REQUIRED_FIRST_REVIEW_ANCHORS = (
     r"\component{reference_cases}",
     r"\code{expected\_level}",
     r"\code{observed\_level}",
-    "top-level",
+    "The top-level \\component{anti_claim}",
     r"\component{anti_claim}",
     r"\component{claim_ceiling}",
     r"inside \code{exercise}",
-    "The project wrote both cautions; no independent reviewer checked their limits",
-    "challenge rather than repeat the supplied case",
-    "make a disposable copy of the fixture input",
+    "I wrote both; no independent reviewer has checked their limits",
+    "Now break it on purpose. Copy the fixture input somewhere disposable",
+    "Copy the fixture input somewhere disposable",
     "cp -R fixtures/first_wave/batch8_audio_level_rms_port/input/.",
     "/tmp/plectis-audio-rms-input",
     r"\component{batch8_audio_level_rms_port_probe_manifest.json}",
@@ -459,7 +455,7 @@ REQUIRED_OUTSIDE_EVALUATION_BOUNDARY_ANCHORS = (
 )
 
 REQUIRED_PROVENANCE_HASH_ANCHORS = (
-    "a fixed 256-bit value calculated from its contents",
+    "a SHA-256 value computed from its contents",
     "used to detect change",
     "relevant question is whether one can start with a specified file",
     "NIST) calls this second-preimage resistance",
@@ -473,7 +469,7 @@ REQUIRED_PROVENANCE_HASH_ANCHORS = (
 REQUIRED_SELECTION_SCOPE_ANCHORS = (
     "Selection acts at two levels",
     "fixture covers only a few possible inputs",
-    "published components are my selection from a private whole",
+    "The published parts are a selection I made from a system no reader can see.",
 )
 
 REQUIRED_COLLECTION_ROUTE_ANCHORS = (
@@ -491,8 +487,8 @@ REQUIRED_COLLECTION_ROUTE_ANCHORS = (
 REQUIRED_STRONGER_EVALUATION_ANCHORS = (
     "These are not the four publication routes",
     "A publication route classifies evidence already in the registry",
-    "evaluations below describe new work by someone outside the project",
-    "Five forms of independent evaluation",
+    "only an outsider can settle",
+    "Five kinds of independent evaluation",
     "The evaluations are not cumulative stages",
     "repository's evidence still came from the project",
     "It includes no outside evaluator's report",
@@ -503,7 +499,7 @@ REQUIRED_STRONGER_EVALUATION_ANCHORS = (
 REQUIRED_APPENDIX_ORIENTATION_ANCHORS = (
     r"\section{Dated reproduction record}",
     r"README-first order (internally \component{readme_onboarding_route})",
-    "wrote 21 generated files under",
+    "writing 21 generated files under",
 )
 
 FORBIDDEN_LEGACY_NAMING_BEFORE_APPENDIX = (
@@ -539,7 +535,7 @@ REQUIRED_LEAN_CHECK_EXPLANATION_ANCHORS = (
     r"\code{partial} definitions (runnable but not unfoldable in proofs)",
     r"\code{unsafe} definitions (barred from theorems)",
     "removed computation limits",
-    "No pattern appeared",
+    "and removed computation limits --- and found none",
     "scan does not show whether files compile, proofs are valid",
     "statements express their authors' intent",
     "Separate components run Lean on small test projects",
@@ -551,7 +547,7 @@ REQUIRED_PUBLIC_TEST_SCOPE_ANCHORS = (
     r"limited \code{make test} run covered 32 public test files, not every test file",
     "356 of 361 tests passed, two skipped, and three failed",
     "line-break expectation",
-    "outdated line or byte counts",
+    "outdated counts in copied-source manifests",
     "root-layout rules that did not yet allow",
     "paper/public-test-receipt.json",
     r"\code{make ci} would add smoke and package-install checks, but was not green",
