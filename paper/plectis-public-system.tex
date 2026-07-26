@@ -412,6 +412,50 @@ a verdict plus the address of every place the verdict could be wrong. A reader
 who doubts a claim does not have to argue with my description of software they
 cannot see. They can name a field.
 
+\begin{figure}[t]
+\centering
+\makebox[\linewidth][c]{\begin{tikzpicture}[x=1cm,y=1cm]
+% words row: the two fields that are sentences rather than mechanism
+\node[words] (claim) at (3.3,2.1) {\textbf{claim} --- what is asserted, in prose};
+\node[words] (limit) at (12.6,2.1) {\textbf{7 ceiling} --- the strongest\\conclusion a pass supports};
+% mechanism row
+\node[part] (fix)  at (0,0)    {\textbf{2 input}\\a fixed sample};
+\node[part] (code) at (3.3,0)  {\textbf{3 procedure}\\one public command};
+\node[part] (out)  at (6.4,0)  {output\\files};
+\node[part, text width=2.9cm] (val) at (9.5,0) {\textbf{5 rule}\\what is mechanically\\checked};
+\node[part] (verdict) at (12.6,0) {pass, or\\\textbf{6 refusal}};
+\node[part, text width=2.7cm] (orc) at (9.5,-2.05) {\textbf{4 oracle}\\where the expected\\answer came from};
+% flows
+\draw[flow] (fix) -- (code);
+\draw[flow] (code) -- node[flabel, above=1pt]{writes} (out);
+\draw[flow] (out) -- (val);
+\draw[flow] (val) -- (verdict);
+\draw[flow] (orc) -- node[flabel, right]{supplies} (val);
+\draw[authlink] (code) -- node[flabel, right, align=left]{said to\\do this} (claim);
+\draw[authlink] (verdict) -- node[flabel, right, align=left]{read only\\this far} (limit);
+% the stranger's rejections
+\node[act, anchor=north] (a1) at (0,-3.05)   {``your example is\\not representative''};
+\node[act, anchor=north] (a2) at (3.3,-3.05) {``that is not what\\your description does''};
+\node[act, anchor=north] (a3) at (6.4,-3.05) {``regenerate it\\and show me''};
+\node[act, anchor=north] (a4) at (9.5,-3.05) {``your rule does not\\test your sentence''\\``you graded your\\own work''};
+\node[act, anchor=north] (a5) at (12.6,-3.05){``you are carrying this\\further than it goes''};
+\foreach \a/\b in {a1/fix,a2/code,a3/out,a4/orc,a5/verdict}
+  \draw[RoyalBlue!45, dotted, line width=0.6pt] (\a) -- (\b);
+\end{tikzpicture}}
+\caption{The record, and where a stranger can attack it. The middle row is
+mechanism: a command applies public code to a fixed input, and the rule judges
+the output. The two boxes above are sentences rather than mechanism --- the claim
+and the ceiling are words I supply, marked in amber throughout this paper.
+Numbers match the seven fields in the table above; field~1, the subject and its
+version, governs the whole diagram and is not drawn. The italic blue row is the
+point of the design: each field is a distinct objection a reader can raise
+without access to anything private, and naming which one they reject is what
+turns a disagreement about my honesty into a disagreement about a file.
+Section~\ref{sec:audit} raises the middle two objections against this
+repository's own components, and finds them warranted \auditabove{} times.}
+\label{fig:record}
+\end{figure}
+
 Two consequences follow, and they pull in opposite directions.
 
 The first is that a component can fail in public. That is the property worth
