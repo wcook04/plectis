@@ -29,7 +29,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/erdos249-257-main-paper.md",
       "local_source": "docs/papers/mirror/erdos249-257-main-paper.tex",
-      "source_sha256": "sha256:4386d1db57deea87ea9d0b483147806ee4a1e4c7c3edeca28f1471d25872f260",
+      "source_sha256": "sha256:2ac1d7773053f4b3864c336a30a44cceb76d75f4b5c28bcfd01de3e6cf68426f",
       "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-257-main-paper.tex",
       "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos249-257-main-paper.tex",
       "section_count": 144,
@@ -366,8 +366,8 @@
         },
         {
           "level": 4,
-          "id": "use-of-ai-assistance.",
-          "title": "Use of AI assistance.",
+          "id": "declaration-of-generative-ai-use.",
+          "title": "Declaration of generative AI use.",
           "line": 1163
         },
         {
@@ -900,10 +900,14 @@
         }
       ],
       "citations_rendered": 40,
+      "fallback_title_drift": {
+        "registry_fallback": "Irrationality Theorems for Reciprocal Mersenne Sums, and an Explicit Denominator Bound for the Binary Totient Series",
+        "manuscript_title": "Exact Reductions for Two Open Irrationality Problems of Erd\u0151s"
+      },
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos249-257-main-paper.pdf",
-      "pdf_sha256": "sha256:fb22f2fc1a1ea564475b7a40c52e0e7a9772aea2c0a57121c9dd20de90bf0e21",
-      "pdf_byte_count": 386569,
+      "pdf_sha256": "sha256:65c51df1db693af4035ede1372192ef355542e2658de8721a4d23c956e3e2d26",
+      "pdf_byte_count": 387741,
       "first_pass": {
         "stated_by_the_paper": true,
         "provenance": "the paper's own stated reading route",
@@ -944,7 +948,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/claim-faithful-publication-systems-paper.md",
       "local_source": "docs/papers/mirror/claim-faithful-publication-systems-paper.tex",
-      "source_sha256": "sha256:36a0babdf519ef8988a903ca210ab3ab28e99eac4d9f3a8c4ca01c06f7f198e9",
+      "source_sha256": "sha256:10f4b035a1c24403b559684bd8297eb717bea801f0553ba0d719db7805af60ab",
       "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex",
       "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/claim-faithful-publication-systems-paper.tex",
       "section_count": 23,
@@ -1083,16 +1087,16 @@
         },
         {
           "level": 4,
-          "id": "use-of-ai-assistance.",
-          "title": "Use of AI assistance.",
+          "id": "declaration-of-generative-ai-use.",
+          "title": "Declaration of generative AI use.",
           "line": 264
         }
       ],
       "citations_rendered": 14,
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/claim-faithful-publication-systems-paper.pdf",
-      "pdf_sha256": "sha256:220ea8f35dc70fb31e23a648f20900799b7e97d1b7d32ebbf2b28d48d7a9570e",
-      "pdf_byte_count": 101505,
+      "pdf_sha256": "sha256:7a4055a8e0789910077744ac11ce46d47974a820a341dfafe9f9c4d5b26eaa04",
+      "pdf_byte_count": 102858,
       "first_pass": {
         "stated_by_the_paper": true,
         "provenance": "the paper's own stated reading route",
@@ -1134,10 +1138,10 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/plectis-public-system.md",
       "local_source": "paper/plectis-public-system.tex",
-      "source_sha256": "sha256:af2880f7b79a5af2120114b1eb6939fc8ac3385f65ee375b4e1e0277d4e14b02",
+      "source_sha256": "sha256:4a657572b47a1c10dbd74b55764a30d36f4a5b6ed63e350be76d991d7748b5e6",
       "canonical_source_url": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex",
       "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex",
-      "section_count": 24,
+      "section_count": 25,
       "sections": [
         {
           "level": 1,
@@ -1282,12 +1286,18 @@
           "id": "project-wide-checks.",
           "title": "Project-wide checks.",
           "line": 356
+        },
+        {
+          "level": 4,
+          "id": "declaration-of-generative-ai-use.",
+          "title": "Declaration of generative AI use.",
+          "line": 362
         }
       ],
       "citations_rendered": 11,
       "local_pdf": "plectis-public-system.pdf",
-      "pdf_sha256": "sha256:f7e3eef614dd61982240058293d6047ec6d3f57a539b8c9a4d9b3cf8aa8de46e",
-      "pdf_byte_count": 110484,
+      "pdf_sha256": "sha256:0d64189345e7e53bab56e6a3e605b059448ee74d45964c3c2dbe9f42c243a2b9",
+      "pdf_byte_count": 112172,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection; this paper states no reading route of its own",

@@ -106,7 +106,7 @@ The formal source proves the exact chain
    \text{ with }\mathsf{Sep}(h,N,L).
 \end{split}
 ```
-Here $`\mathsf{Sep}(h,N,L)`$ is a retained $`L`$-place residue computation with rigorous tail allowance. At fixed $`h,N`$, some $`L`$ succeeds exactly when the tail difference is non-integral; one integral positive-shift difference forces $`S`$ to be rational. These statements are the [tail-difference equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeFlatness.lean#L386), [pointwise certificate equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeFlatness.lean#L399), and the fixed-parameter [certificate-completeness theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeFlatness.lean#L316).
+Here $`\mathsf{Sep}(h,N,L)`$ is a retained $`L`$-place residue computation with rigorous tail allowance. At fixed $`h,N`$, some $`L`$ succeeds exactly when the tail difference is non-integral; one integral positive-shift difference forces $`S`$ to be rational. These statements are the [tail-difference equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeFlatness.lean#L386), [pointwise certificate equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeFlatness.lean#L399), and the fixed-parameter [certificate-completeness theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeFlatness.lean#L316).
 
 <a id="unconditional-finite-baseline."></a>
 
@@ -117,7 +117,7 @@ Independently of the unbounded certificate supply, if $`S=p/q`$, then
 q>Q_0
  =79\,639\,646\,646\,701\,375\,323\,355\,774\,875\,831\,053.
 ```
-This is the [denominator exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L18056).
+This is the [denominator exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L18056).
 
 <a id="open-boundary."></a>
 
@@ -154,13 +154,13 @@ Here the terminal bit is the $`0/1`$ decision recording whether the next greedy 
 
 #### Counterexample consequence.
 
-Membership would produce an infinite support of rational sum and refute the universal statement of Erdős #257. Thus the counterexample condition is exact: terminal zeros beyond every bound, equivalently no last greedy skip. The formal statements are the [infinite-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L2514), [unbounded-terminal equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L126), [no-last-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L235), and the [finite-support exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryReachability.lean#L589).
+Membership would produce an infinite support of rational sum and refute the universal statement of Erdős #257. Thus the counterexample condition is exact: terminal zeros beyond every bound, equivalently no last greedy skip. The formal statements are the [infinite-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L2514), [unbounded-terminal equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L126), [no-last-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L235), and the [finite-support exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryReachability.lean#L589).
 
 <a id="open-boundary.-1"></a>
 
 #### Open boundary.
 
-The open statement is that the terminal bit is zero beyond every bound. The later integer-recurrence analysis splits a putative final skip into two transition branches. It rules out one branch and the integer transition value $`-3`$ in the other, but does not exclude $`-2,-1`$ or prove the required unused-tail inequality for the remaining nonnegative transition values. The exact conditional implication is the [remaining-tail implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLastProducerContradiction.lean#L387). Proposition <a href="#res:finalskipexclusions" data-reference-type="ref" data-reference="res:finalskipexclusions">17</a> gives the local exclusions and Corollary <a href="#res:taildominance" data-reference-type="ref" data-reference="res:taildominance">18</a> states the sufficient global hypothesis.
+The open statement is that the terminal bit is zero beyond every bound. The later integer-recurrence analysis splits a putative final skip into two transition branches. It rules out one branch and the integer transition value $`-3`$ in the other, but does not exclude $`-2,-1`$ or prove the required unused-tail inequality for the remaining nonnegative transition values. The exact conditional implication is the [remaining-tail implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLastProducerContradiction.lean#L436). Proposition <a href="#res:finalskipexclusions" data-reference-type="ref" data-reference="res:finalskipexclusions">17</a> gives the local exclusions and Corollary <a href="#res:taildominance" data-reference-type="ref" data-reference="res:taildominance">18</a> states the sufficient global hypothesis.
 
 <a id="relation-to-prior-work."></a>
 
@@ -224,7 +224,7 @@ L(\mu)=\sum_{d\ge1}\frac{\mu(d)}{2^d-1}=\frac12,
 
 </div>
 
-These equalities are formalised as the [Möbius identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MersenneLambertLadder.lean#L587) and the [totient identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MersenneLambertLadder.lean#L575). Möbius inversion gives $`\mu*\mathbf 1=(1,0,0,\ldots)`$, while $`\varphi*\mathbf 1=\mathrm{Id}`$; the rearranged sums are therefore $`2^{-1}`$ and $`\sum_{m\geq1}m2^{-m}=2`$, respectively.
+These equalities are formalised as the [Möbius identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MersenneLambertLadder.lean#L587) and the [totient identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MersenneLambertLadder.lean#L575). Möbius inversion gives $`\mu*\mathbf 1=(1,0,0,\ldots)`$, while $`\varphi*\mathbf 1=\mathrm{Id}`$; the rearranged sums are therefore $`2^{-1}`$ and $`\sum_{m\geq1}m2^{-m}=2`$, respectively.
 
 <div id="res:lift" class="proposition">
 
@@ -235,7 +235,7 @@ These equalities are formalised as the [Möbius identity](https://github.com/wco
 
 </div>
 
-The first equality is formalised as the [Lambert representation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L18117). The second is the definition of $`S`$. The proposition places $`S`$ in the same $`\sum(\cdot)/(2^d-1)`$ family as $`E`$, with the nonnegative weight $`\alpha`$.
+The first equality is formalised as the [Lambert representation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L18117). The second is the definition of $`S`$. The proposition places $`S`$ in the same $`\sum(\cdot)/(2^d-1)`$ family as $`E`$, with the nonnegative weight $`\alpha`$.
 
 <a id="probabilistic-reading."></a>
 
@@ -269,26 +269,26 @@ We begin with the classical full-support theorem and named structured supports. 
 
 </div>
 
-The [all-base theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L8000) and its [base-$`2`$ corollary](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L8007) are formalised. This is Erdős’s 1948 theorem \[erdos1948, Theorem, p. 63\]. Section <a href="#sec:ladder" data-reference-type="ref" data-reference="sec:ladder">3</a> writes this constant as $`L(\mathbf 1)`$, a proved comparison value in the same Mersenne–Lambert family as the open $`S`$. This comparison supplies no further convolution step from $`S`$. Borwein later proved a wider rational-shift Lambert-series theorem \[borwein1992\]; that result is not formalised here.
+The [all-base theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L8000) and its [base-$`2`$ corollary](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L8007) are formalised. This is Erdős’s 1948 theorem \[erdos1948, Theorem, p. 63\]. Section <a href="#sec:ladder" data-reference-type="ref" data-reference="sec:ladder">3</a> writes this constant as $`L(\mathbf 1)`$, a proved comparison value in the same Mersenne–Lambert family as the open $`S`$. This comparison supplies no further convolution step from $`S`$. Borwein later proved a wider rational-shift Lambert-series theorem \[borwein1992\]; that result is not formalised here.
 
 The proof turns rationality into a spacing obstruction. Its coefficient model is the Lambert identity
 ``` math
 \sum_{n\geq 1}\frac{1}{b^n-1}
    =\sum_{m\geq 1}\frac{\tau(m)}{b^m},
 ```
-where $`\tau(m)`$ is the number of positive divisors of $`m`$; see the [Lambert identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L5865). If the right-hand side were rational with reduced denominator $`q`$, then a non-integral integer multiple could not lie at distance less than $`1/q`$ from an integer. The proof therefore seeks, for every $`q`$, an $`N`$ such that $`b^N\sum_m\tau(m)b^{-m}`$ is non-integral but lies within $`1/q`$ of an integer. This is the formal [near-integer criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L5792).
+where $`\tau(m)`$ is the number of positive divisors of $`m`$; see the [Lambert identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L5865). If the right-hand side were rational with reduced denominator $`q`$, then a non-integral integer multiple could not lie at distance less than $`1/q`$ from an integer. The proof therefore seeks, for every $`q`$, an $`N`$ such that $`b^N\sum_m\tau(m)b^{-m}`$ is non-integral but lies within $`1/q`$ of an integer. This is the formal [near-integer criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L5792).
 
 The construction of $`N`$ is divided into three finite parts. First, a bounded use of Bertrand’s postulate supplies disjoint prime blocks, and the Chinese remainder theorem chooses an arithmetic progression on which
 ``` math
 b^r\mid \tau(N+r) \qquad (1\leq r\leq K).
 ```
-These divisibilities make the first $`K`$ terms of the shifted tail integral. The multiplicativity step that converts prescribed prime valuations into the displayed divisibility is the [prime-block divisibility lemma](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L6177). Second, divisor pairing bounds the average of the weighted middle window
+These divisibilities make the first $`K`$ terms of the shifted tail integral. The multiplicativity step that converts prescribed prime valuations into the displayed divisibility is the [prime-block divisibility lemma](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L6177). Second, divisor pairing bounds the average of the weighted middle window
 ``` math
 \sum_{K<r\leq L}\tau(N+r)b^{L-r}
 ```
-along that progression. A pigeonhole choice then selects one translate with a small middle contribution; see the [weighted-middle selection lemma](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L7246). Third, the elementary estimate $`\tau(n)\leq n`$ controls the infinite tail after $`L`$. The parameters are chosen so that the middle and far-tail bounds together are smaller than $`1/q`$; the shifted tail is strictly positive because every divisor count is positive, so the dilated sum is not an integer.
+along that progression. A pigeonhole choice then selects one translate with a small middle contribution; see the [weighted-middle selection lemma](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L7246). Third, the elementary estimate $`\tau(n)\leq n`$ controls the infinite tail after $`L`$. The parameters are chosen so that the middle and far-tail bounds together are smaller than $`1/q`$; the shifted tail is strictly positive because every divisor count is positive, so the dilated sum is not an integer.
 
-Thus the analytic series is used only in the Lambert identity and the geometric tail estimate. The remaining proof is a finite CRT construction, divisor counting, and explicit parameter arithmetic. The final certificate existence theorem holds for every $`b\geq2`$ and every precision $`q`$; see the [uniform certificate theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L7859). Its composition with the near-integer criterion is Theorem <a href="#res:full" data-reference-type="ref" data-reference="res:full">3</a>, which formalises the classical full-support theorem rather than a new irrationality result.
+Thus the analytic series is used only in the Lambert identity and the geometric tail estimate. The remaining proof is a finite CRT construction, divisor counting, and explicit parameter arithmetic. The final certificate existence theorem holds for every $`b\geq2`$ and every precision $`q`$; see the [uniform certificate theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L7859). Its composition with the near-integer criterion is Theorem <a href="#res:full" data-reference-type="ref" data-reference="res:full">3</a>, which formalises the classical full-support theorem rather than a new irrationality result.
 
 <a id="named-infinite-support-cases"></a>
 
@@ -312,7 +312,7 @@ Beyond full support, the development formalises irrationality for several infini
 
 </div>
 
-These sort into three groups. The classical case is (d): infinite pairwise-coprime $`A`$ with $`\sum_{a\in A}1/a<\infty`$, formalised from Erdős’s condition. The lcm-gap named cases are (a) and (b), whose support gaps outgrow the running $`\operatorname{lcm}`$; the structured families are (c) and (e).[^1] Formalised case by case by the [factorial-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L5707), [power-of-two-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L5731), [multiple-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L8775), [pairwise-coprime-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L10448), and [eventually-periodic-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L11276). The residue-class and odd supports in part <span class="upright">(e)</span> are direct specialisations of the last theorem; the first two theorems already hold for every base $`b\geq2`$.
+These sort into three groups. The classical case is (d): infinite pairwise-coprime $`A`$ with $`\sum_{a\in A}1/a<\infty`$, formalised from Erdős’s condition. The lcm-gap named cases are (a) and (b), whose support gaps outgrow the running $`\operatorname{lcm}`$; the structured families are (c) and (e).[^1] Formalised case by case by the [factorial-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L5707), [power-of-two-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L5731), [multiple-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L8775), [pairwise-coprime-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L10448), and [eventually-periodic-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L11276). The residue-class and odd supports in part <span class="upright">(e)</span> are direct specialisations of the last theorem; the first two theorems already hold for every base $`b\geq2`$.
 
 The prime support is now known unconditionally: Tao and Teräväinen proved that
 ``` math
@@ -360,7 +360,7 @@ Hence every $`x\in\mathcal A`$ has a unique support by positive exponents (the �
 
 </div>
 
-The strict-tail inequality and greedy criterion are the [strict-tail theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L180) and [greedy membership theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1445). Uniqueness is the [support-coding theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1527). Kovač–Tao provide the strict-tail Cantor-set context \[kovactao, Remark 4.1\].
+The strict-tail inequality and greedy criterion are the [strict-tail theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L180) and [greedy membership theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1445). Uniqueness is the [support-coding theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1527). Kovač–Tao provide the strict-tail Cantor-set context \[kovactao, Remark 4.1\].
 
 <a id="geometric-and-finite-arithmetic-consequences."></a>
 
@@ -397,7 +397,7 @@ u_{N+1}+v f_A(c+N+1)=2u_N. \tag{4.1}
 
 </div>
 
-This is formalised by [the shifted natural-state theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L668). Here $`u_N`$ is the scaled remaining binary tail, or carry. Equation <span class="upright">(4.1)</span> is binary long division. The identity $`2T_f(M)=f(M+1)+T_f(M+1)`$ shows that doubling the scaled tail separates the next coefficient. Rationality makes the states $`u_N`$ integers. A two-element support, with its explicit period-six orbit and multiplier $`21`$, is worked at the end of Appendix <a href="#app:carry-boolean" data-reference-type="ref" data-reference="app:carry-boolean">10.2</a>. The recurrence is a necessary consequence of rationality, not a criterion by itself. Wang uses the same forward mechanism for $`\gamma(n)=n d_n`$ \[wang2026, Section 3\]; Appendix <a href="#app:carry-normal-form" data-reference-type="ref" data-reference="app:carry-normal-form">10.1</a> separates that antecedent from the generic converse and rigidity statements formalised here. Wang’s density theorem and its Erdős #260 corollary are not used.
+This is formalised by [the shifted natural-state theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L668). Here $`u_N`$ is the scaled remaining binary tail, or carry. Equation <span class="upright">(4.1)</span> is binary long division. The identity $`2T_f(M)=f(M+1)+T_f(M+1)`$ shows that doubling the scaled tail separates the next coefficient. Rationality makes the states $`u_N`$ integers. A two-element support, with its explicit period-six orbit and multiplier $`21`$, is worked at the end of Appendix <a href="#app:carry-boolean" data-reference-type="ref" data-reference="app:carry-boolean">10.2</a>. The recurrence is a necessary consequence of rationality, not a criterion by itself. Wang uses the same forward mechanism for $`\gamma(n)=n d_n`$ \[wang2026, Section 3\]; Appendix <a href="#app:carry-normal-form" data-reference-type="ref" data-reference="app:carry-normal-form">10.1</a> separates that antecedent from the generic converse and rigidity statements formalised here. Wang’s density theorem and its Erdős #260 corollary are not used.
 
 <div id="res:rigidity-unbounded-main" class="corollary">
 
@@ -405,7 +405,7 @@ This is formalised by [the shifted natural-state theorem](https://github.com/wco
 
 </div>
 
-This is formalised by [the unbounded-state theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L2377); see also Theorem <a href="#res:unbounded" data-reference-type="ref" data-reference="res:unbounded">53</a>.
+This is formalised by [the unbounded-state theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L2377); see also Theorem <a href="#res:unbounded" data-reference-type="ref" data-reference="res:unbounded">53</a>.
 
 <div id="res:rigidity-sublog-main" class="corollary">
 
@@ -416,7 +416,7 @@ This is formalised by [the unbounded-state theorem](https://github.com/wcook04/p
 
 </div>
 
-This is formalised by [the sublogarithmic zero-window theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SublogDivisorCoverage.lean#L392); see also Theorem <a href="#res:sublog" data-reference-type="ref" data-reference="res:sublog">49</a>.
+This is formalised by [the sublogarithmic zero-window theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SublogDivisorCoverage.lean#L392); see also Theorem <a href="#res:sublog" data-reference-type="ref" data-reference="res:sublog">49</a>.
 
 <div id="res:rigidity-mass-main" class="corollary">
 
@@ -429,7 +429,7 @@ where $`w`$ is the number of wraps in one doubling-residue cycle and $`e_N=\lflo
 
 </div>
 
-The exact excess-mean identity is [the shifted excess-mean theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L1577); see also Proposition <a href="#res:orderwrap" data-reference-type="ref" data-reference="res:orderwrap">51</a>.
+The exact excess-mean identity is [the shifted excess-mean theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L1577); see also Proposition <a href="#res:orderwrap" data-reference-type="ref" data-reference="res:orderwrap">51</a>.
 
 <div id="res:rigidity-dyadic-mass-main" class="corollary">
 
@@ -437,7 +437,7 @@ The exact excess-mean identity is [the shifted excess-mean theorem](https://gith
 
 </div>
 
-This is formalised by [the dyadic reciprocal-mass alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L2200); see also Corollary <a href="#res:collision" data-reference-type="ref" data-reference="res:collision">52</a>.
+This is formalised by [the dyadic reciprocal-mass alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L2200); see also Corollary <a href="#res:collision" data-reference-type="ref" data-reference="res:collision">52</a>.
 
 Read together, the four statements say that rationality would force an unbounded integer state sequence for an infinite support, severely limit intervals containing no support divisor, and constrain the reciprocal mass according to whether the reduced denominator has an odd factor. They are independent necessary consequences of one rationality premise, not a contradiction. The corresponding appendices develop the common recurrence and Boolean certificate, then the sublogarithmic and reciprocal-mass filters. The corollaries share carry machinery but are not hypotheses of one another.
 
@@ -447,7 +447,7 @@ Read together, the four statements say that rationality would force an unbounded
 
 </div>
 
-Concretely, the name means an integer carry orbit $`U`$ with $`U(0)=p`$, positive states bounded by $`q(2\sqrt N+4)`$, and $`q\mid 2U(N)-U(N+1)`$. Dividing these differences by $`q`$ gives an integer coefficient sequence $`f_U`$. Its Boolean Möbius condition is $`(\mu*f_U)(n)\in\{0,1\}`$, and inversion reconstructs the support as $`A_U=\{n\geq1:(\mu*f_U)(n)=1\}`$. These are exactly the conditions in Theorem <a href="#res:carrycert" data-reference-type="ref" data-reference="res:carrycert">47</a>, the Lean-checked equivalence [support/carry equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L948); the corollary quantifies it over $`p/q`$ and separates finite from infinite supports. This remains an exact reformulation over infinite objects, not a finite algorithm.
+Concretely, the name means an integer carry orbit $`U`$ with $`U(0)=p`$, positive states bounded by $`q(2\sqrt N+4)`$, and $`q\mid 2U(N)-U(N+1)`$. Dividing these differences by $`q`$ gives an integer coefficient sequence $`f_U`$. Its Boolean Möbius condition is $`(\mu*f_U)(n)\in\{0,1\}`$, and inversion reconstructs the support as $`A_U=\{n\geq1:(\mu*f_U)(n)=1\}`$. These are exactly the conditions in Theorem <a href="#res:carrycert" data-reference-type="ref" data-reference="res:carrycert">47</a>, the Lean-checked equivalence [support/carry equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L948); the corollary quantifies it over $`p/q`$ and separates finite from infinite supports. This remains an exact reformulation over infinite objects, not a finite algorithm.
 
 <a id="the-target-12"></a>
 
@@ -480,7 +480,7 @@ The exact calculation continues with the next take at rank $`14`$, and through r
 ``` math
 2,3,6,7,14,20,21,26.
 ```
-The finite seam model introduced below reproduces this prefix uniformly for every row $`s\geq27`$; this is the [kernel-checked rank-(26) prefix](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L1190) used again in Appendix <a href="#app:half-final-skip" data-reference-type="ref" data-reference="app:half-final-skip">9.4</a>.
+The finite seam model introduced below reproduces this prefix uniformly for every row $`s\geq27`$; this is the [kernel-checked rank-(26) prefix](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L899) used again in Appendix <a href="#app:half-final-skip" data-reference-type="ref" data-reference="app:half-final-skip">9.4</a>.
 
 This is only an initial segment. Membership of $`1/2`$ in $`\mathcal A`$ requires the complementary skips to recur beyond every bound. Nonmembership has a finite alternative: one skip is the *last*, precisely when its residual lies strictly above the whole remaining tail (Appendix <a href="#res:fixedtailsocket" data-reference-type="ref" data-reference="res:fixedtailsocket">9.4.6</a>). Theorem <a href="#res:fatalright" data-reference-type="ref" data-reference="res:fatalright">16</a> below identifies nonmembership with the existence of such a skip.
 
@@ -528,7 +528,7 @@ For example, at $`s=7`$ we have $`\kappa_7=8064`$, and the run takes $`q_{7,2}=5
 
 </div>
 
-The omitted-set equivalence is the [infinite-skip theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L2514); the terminal forms are the [unbounded-terminal theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L126) and [no-final-skip theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L235).
+The omitted-set equivalence is the [infinite-skip theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L2514); the terminal forms are the [unbounded-terminal theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L126) and [no-final-skip theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L235).
 
 <div id="res:nofinitehalf" class="proposition">
 
@@ -536,7 +536,7 @@ The omitted-set equivalence is the [infinite-skip theorem](https://github.com/wc
 
 </div>
 
-This is the [finite-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryReachability.lean#L589).
+This is the [finite-support theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryReachability.lean#L589).
 
 <div id="res:halfcounterexample" class="corollary">
 
@@ -568,7 +568,7 @@ The recurrence from row $`s`$ to row $`s+1`$ has three forms:
  \textup{keep and take (right):}&\quad G_{s+1}=G_s\cup\{s\}.
 \end{aligned}
 ```
-The parenthetical names are the compact labels used in the formal source. A final skipped exponent $`D`$ is therefore an upper or middle transition followed only by right transitions. The terminal bit at row $`13`$ is false. Consequently, if the seam is eventually right, its last false terminal row satisfies $`D\geq13`$; the lower bound comes from this calculation rather than an omitted range of cases. This is the [last-false row theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLastProducerContradiction.lean#L178).
+The parenthetical names are the compact labels used in the formal source. A final skipped exponent $`D`$ is therefore an upper or middle transition followed only by right transitions. The terminal bit at row $`13`$ is false. Consequently, if the seam is eventually right, its last false terminal row satisfies $`D\geq13`$; the lower bound comes from this calculation rather than an omitted range of cases. This is the [last-false row theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLastProducerContradiction.lean#L227).
 
 At a middle transition $`D\geq13`$, the next question is whether restoring the skipped rank $`D`$ still leaves the support below $`1/2`$. Let
 ``` math
@@ -605,7 +605,7 @@ No support agreeing with $`u`$ through rank $`d`$ can then represent $`1/2`$: ex
 
 </div>
 
-The three equivalent nonmembership criteria are formalised in [fatal-gap classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFatalGapRightTail.lean#L781), [nonmembership classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFatalGapRightTail.lean#L787), and [final-skip classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFatalGapRightTail.lean#L802).
+The three equivalent nonmembership criteria are formalised in [fatal-gap classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFatalGapRightTail.lean#L781), [nonmembership classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFatalGapRightTail.lean#L787), and [final-skip classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFatalGapRightTail.lean#L802).
 
 <div id="res:finalskipexclusions" class="proposition">
 
@@ -613,7 +613,7 @@ The three equivalent nonmembership criteria are formalised in [fatal-gap classif
 
 </div>
 
-The upper and $`C_D=-3`$ exclusions are the [upper-branch exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLastProducerContradiction.lean#L250) and [middle-$`-3`$ exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLastProducerContradiction.lean#L315); the upper case is proved directly at the linked declaration, and Appendix <a href="#app:half-final-skip" data-reference-type="ref" data-reference="app:half-final-skip">9.4</a> sketches a prose argument only for the case $`C_D=-3`$. The three exceptional values are identified by the [three exceptional carry values](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L3090).
+The upper and $`C_D=-3`$ exclusions are the [upper-branch exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLastProducerContradiction.lean#L299) and [middle-$`-3`$ exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLastProducerContradiction.lean#L364); the upper case is proved directly at the linked declaration, and Appendix <a href="#app:half-final-skip" data-reference-type="ref" data-reference="app:half-final-skip">9.4</a> sketches a prose argument only for the case $`C_D=-3`$. The three exceptional values are identified by the [three exceptional carry values](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L4125).
 
 <div id="res:taildominance" class="corollary">
 
@@ -625,7 +625,7 @@ then no final skipped exponent exists, and hence $`1/2\in\mathcal A`$.*
 
 </div>
 
-This implication is the [tail-dominance theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLastProducerContradiction.lean#L387). Since $`\Theta_D\geq0`$, inequality <span class="upright">(4.2)</span> cannot hold when $`C_D=-2`$ or $`-1`$. The corollary therefore has two open inputs. First, these two carry values must be shown not to occur at any actual middle transition. Second, every remaining middle transition with $`C_D\geq0`$ must have complete future tail smaller than $`C_D`$. Neither input is proved for the greedy orbit. The word “every” is essential: one final middle transition is enough for nonmembership, so a bound that failed at even one row would not rule it out.
+This implication is the [tail-dominance theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLastProducerContradiction.lean#L436). Since $`\Theta_D\geq0`$, inequality <span class="upright">(4.2)</span> cannot hold when $`C_D=-2`$ or $`-1`$. The corollary therefore has two open inputs. First, these two carry values must be shown not to occur at any actual middle transition. Second, every remaining middle transition with $`C_D\geq0`$ must have complete future tail smaller than $`C_D`$. Neither input is proved for the greedy orbit. The word “every” is essential: one final middle transition is enough for nonmembership, so a bound that failed at even one row would not rule it out.
 
 <a id="logical-status-of-the-final-skip-argument."></a>
 
@@ -688,20 +688,20 @@ Equivalently, if $`S`$ is rational then its reduced denominator exceeds that bou
 
 </div>
 
-Formalised as the [denominator-exclusion theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L18056). For a fixed window length $`K`$, the checked prefix and a rigorous tail bound define a finite *denominator-gap* certificate, distinct from the tail-period certificates below. If a denominator $`q`$ failed this check, elementary rearrangement would put some rational $`r/q`$ in a specific short interval. The larger bounds bracket that interval by fractions $`a/b<c/d`$ satisfying $`bc-ad=1`$. The mediant lemma says that every rational strictly between such neighbours has denominator at least $`b+d`$. Thus no $`q<b+d`$ can fail the certificate; for each such $`q`$, the corresponding scaled tail lies strictly between consecutive integers, whereas $`S=m/q`$ would force it to be an integer.
+Formalised as the [denominator-exclusion theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L18056). For a fixed window length $`K`$, the checked prefix and a rigorous tail bound define a finite *denominator-gap* certificate, distinct from the tail-period certificates below. If a denominator $`q`$ failed this check, elementary rearrangement would put some rational $`r/q`$ in a specific short interval. The larger bounds bracket that interval by fractions $`a/b<c/d`$ satisfying $`bc-ad=1`$. The mediant lemma says that every rational strictly between such neighbours has denominator at least $`b+d`$. Thus no $`q<b+d`$ can fail the certificate; for each such $`q`$, the corresponding scaled tail lies strictly between consecutive integers, whereas $`S=m/q`$ would force it to be an integer.
 
 The finite exclusion ladder records the successive verified thresholds
 ``` math
 4838 \;\to\; 4\,194\,304 = 2^{22} \;\to\; 2.49\times10^{17}\ (K{=}120)
 \;\to\; 7.96\times10^{34}\ (K{=}240).
 ```
-Farey’s 1816 note supplies only the historical terminology for neighbouring fractions \[farey1816\], not a bound for $`S`$. Every exclusion in this ladder is Lean-checked. The first threshold is a direct low-carry check, $`2^{22}`$ is retained as a named intermediate corollary, and the two largest thresholds use the Farey separation. See [denominator exclusion through 4838](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L15347) and [the intermediate 4194304 bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L18029), then [the 120-term Farey bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GapFareyBound.lean#L88) and [240-term Farey bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GapFareyBound.lean#L176) for the two Farey windows.
+Farey’s 1816 note supplies only the historical terminology for neighbouring fractions \[farey1816\], not a bound for $`S`$. Every exclusion in this ladder is Lean-checked. The first threshold is a direct low-carry check, $`2^{22}`$ is retained as a named intermediate corollary, and the two largest thresholds use the Farey separation. See [denominator exclusion through 4838](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L15347) and [the intermediate 4194304 bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L18029), then [the 120-term Farey bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GapFareyBound.lean#L88) and [240-term Farey bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GapFareyBound.lean#L176) for the two Farey windows.
 
 This excludes rational denominators through $`Q_0`$, not rationality; larger denominators remain possible. No priority claim is made for the bound.
 
 <div class="remark">
 
-*Remark 1* (one bound, four representations). The Lambert identities of Section <a href="#sec:ladder" data-reference-type="ref" data-reference="sec:ladder">3</a> are equalities, so the same finite record transfers verbatim to three other representations of the constant. The first is the Lambert representation $`\sum_d \alpha(d)/(2^d-1)`$ ([Lambert-representation denominator transfer](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L18145)), the second is the signed Möbius-square constant $`T=\sum_d\mu(d)/(2^d-1)^2`$ at half the bound ([signed-square denominator transfer](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L18159)), and the third is the coprimality probability of Section <a href="#sec:geom" data-reference-type="ref" data-reference="sec:geom">5.2</a>, also at half the bound. Half appears because $`S=\tfrac12+T`$ turns a denominator $`d`$ for $`T`$ into $`2d`$ for $`S`$.
+*Remark 1* (one bound, four representations). The Lambert identities of Section <a href="#sec:ladder" data-reference-type="ref" data-reference="sec:ladder">3</a> are equalities, so the same finite record transfers verbatim to three other representations of the constant. The first is the Lambert representation $`\sum_d \alpha(d)/(2^d-1)`$ ([Lambert-representation denominator transfer](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L18145)), the second is the signed Möbius-square constant $`T=\sum_d\mu(d)/(2^d-1)^2`$ at half the bound ([signed-square denominator transfer](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L18159)), and the third is the coprimality probability of Section <a href="#sec:geom" data-reference-type="ref" data-reference="sec:geom">5.2</a>, also at half the bound. Half appears because $`S=\tfrac12+T`$ turns a denominator $`d`$ for $`T`$ into $`2d`$ for $`S`$.
 
 </div>
 
@@ -723,7 +723,7 @@ S \;=\; \tfrac12 \;+\; \Pr\!\big(\gcd(X,Y)=1\big)
 
 </div>
 
-Formalised: [coprime-pair representation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L18229), with the underlying lattice identity at [visible-lattice-point identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L18216). Base $`2`$ is the one point where $`\Pr(X=a)\Pr(Y=b)=2^{-(a+b)}`$ needs no normalising constant. Restricting the half-open lattice mass to positive waiting times removes $`(1,0)`$, producing the boundary term $`1/2`$. Thus \#249 asks whether two independent fair-coin waiting times are coprime with irrational probability. After reducing $`(X,Y)`$ by their gcd, the same distribution has an exact Stern–Brocot cylinder decomposition. Appendix <a href="#app:lambert-probability" data-reference-type="ref" data-reference="app:lambert-probability">12.3</a> states the resulting probability law and the sharp Fibonacci stability of its alternating runs. These are unconditional structural theorems inside one representation of $`S`$; they do not produce $`\mathsf{Sep}(h,N,L)`$ certificates after every cutoff.
+Formalised: [coprime-pair representation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L18229), with the underlying lattice identity at [visible-lattice-point identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L18216). Base $`2`$ is the one point where $`\Pr(X=a)\Pr(Y=b)=2^{-(a+b)}`$ needs no normalising constant. Restricting the half-open lattice mass to positive waiting times removes $`(1,0)`$, producing the boundary term $`1/2`$. Thus \#249 asks whether two independent fair-coin waiting times are coprime with irrational probability. After reducing $`(X,Y)`$ by their gcd, the same distribution has an exact Stern–Brocot cylinder decomposition. Appendix <a href="#app:lambert-probability" data-reference-type="ref" data-reference="app:lambert-probability">12.3</a> states the resulting probability law and the sharp Fibonacci stability of its alternating runs. These are unconditional structural theorems inside one representation of $`S`$; they do not produce $`\mathsf{Sep}(h,N,L)`$ certificates after every cutoff.
 
 <a id="sec:reduction"></a>
 
@@ -774,7 +774,7 @@ R_{N+h}-R_N\notin\mathbb{Z}.
 
 </div>
 
-This is the [certificate-completeness equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeFlatness.lean#L316). Thus the finite predicate loses no information at a fixed pair $`(h,N)`$. Searching $`L=1,2,\ldots`$ is therefore a complete one-sided test at fixed $`(h,N)`$: it halts exactly when the difference is non-integral. When the difference is integral, completeness says that no depth succeeds, so this search does not halt. It is not a two-sided decision procedure for an infinite tail.
+This is the [certificate-completeness equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeFlatness.lean#L316). Thus the finite predicate loses no information at a fixed pair $`(h,N)`$. Searching $`L=1,2,\ldots`$ is therefore a complete one-sided test at fixed $`(h,N)`$: it halts exactly when the difference is non-integral. When the difference is integral, completeness says that no depth succeeds, so this search does not halt. It is not a two-sided decision procedure for an infinite tail.
 
 <div id="res:pointwisecomplete" class="theorem">
 
@@ -790,7 +790,7 @@ This is the [certificate-completeness equivalence](https://github.com/wcook04/pl
 
 </div>
 
-Formalised: [all-differences equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeFlatness.lean#L386), and [pointwise certificate equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeFlatness.lean#L399). The converse direction uses the fact that integrality of even one positive-shift tail difference forces $`S`$ to be rational ([integral-difference rationality criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeFlatness.lean#L357)).
+Formalised: [all-differences equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeFlatness.lean#L386), and [pointwise certificate equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeFlatness.lean#L399). The converse direction uses the fact that integrality of even one positive-shift tail difference forces $`S`$ to be rational ([integral-difference rationality criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeFlatness.lean#L357)).
 
 The next two equivalences compress the search without changing its conclusion. Theorem <a href="#res:red21" data-reference-type="ref" data-reference="res:red21">24</a> replaces “every $`N`$” by one $`N`$ after every cutoff for each $`h`$; Theorem <a href="#res:diag" data-reference-type="ref" data-reference="res:diag">25</a> then restricts both $`h`$ and $`N`$ to $`M_t`$. A bounded list satisfies neither condition.
 
@@ -800,7 +800,7 @@ The next two equivalences compress the search without changing its conclusion. T
 
 </div>
 
-Formalised as the [certificate-supply equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeFlatness.lean#L412).
+Formalised as the [certificate-supply equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeFlatness.lean#L412).
 
 For the diagonal compression, every multiple of an eventual period is again a period, and every fixed $`h`$ divides $`M_t`$ for all $`t\geq h`$. Setting both period and tail location to $`M_t`$ therefore tests every candidate period.
 
@@ -817,7 +817,7 @@ For the diagonal compression, every multiple of an eventual period is again a pe
 
 </div>
 
-Formalised as the [exact lcm-diagonal characterisation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeFlatness.lean#L426). This replaces the two free parameters $`h,N`$ by $`(M_t,M_t)`$; producing such certificates at arbitrarily large $`t`$ is still open.
+Formalised as the [exact lcm-diagonal characterisation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeFlatness.lean#L426). This replaces the two free parameters $`h,N`$ by $`(M_t,M_t)`$; producing such certificates at arbitrarily large $`t`$ is still open.
 
 <div id="res:deposits" class="example">
 
@@ -839,7 +839,7 @@ Formalised as the [exact lcm-diagonal characterisation](https://github.com/wcook
 
 </div>
 
-These four classes are formalised by the [small-window certificate family](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientTailPeriodKiller.lean#L404), [periods through sixteen](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CarrySurvivorExtinction.lean#L574), [28 imported diagonal certificates through scale 64](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalPincerCertificatesT64.lean#L1967), and [joint-nonflatness table](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeNonflat.lean#L506).
+These four classes are formalised by the [small-window certificate family](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientTailPeriodKiller.lean#L404), [periods through sixteen](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CarrySurvivorExtinction.lean#L574), [28 imported diagonal certificates through scale 64](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalPincerCertificatesT64.lean#L1967), and [joint-nonflatness table](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeNonflat.lean#L506).
 
 For example, at $`(h,N,L)=(1,12,16)`$,
 ``` math
@@ -969,7 +969,7 @@ This section records proof authority and reproducibility; it does not add a math
 
 #### Proof authority and source identity.
 
-The Lean 4 proof assistant \[lean\] and Mathlib library \[mathlib\] check the named results. The source, links from prose to formal statements, and build instructions are available in the [public repository](https://github.com/wcook04/plectis-lean-erdos249-257). This paper fixes source revision `ebc98ee71f68`, published under the tag [`formal-source-2026-07-18`](https://github.com/wcook04/plectis-lean-erdos249-257/tree/formal-source-2026-07-18). The blue links resolve to immutable source files at that checkpoint. The release also fixes the Lean and Mathlib versions; the toolchain is Lean `v4.29.1`.
+The Lean 4 proof assistant \[lean\] and Mathlib library \[mathlib\] check the named results. The source, links from prose to formal statements, and build instructions are available in the [public repository](https://github.com/wcook04/plectis-lean-erdos249-257). This paper fixes source revision `312b96c0d149`, published under the tag [`formal-source-2026-07-18`](https://github.com/wcook04/plectis-lean-erdos249-257/tree/formal-source-2026-07-18). The blue links resolve to immutable source files at that checkpoint. The release also fixes the Lean and Mathlib versions; the toolchain is Lean `v4.29.1`.
 
 <a id="reproduction-commands-and-artefact-identities."></a>
 
@@ -981,7 +981,7 @@ A fresh copy of the published repository is checked with `lake build`. The relea
 
 #### What the computation establishes.
 
-Lean elaborates each declaration into a proof term, which the kernel checks; tactics construct these terms but are not separate proof authority. `norm_num` constructs concrete arithmetic proofs, and `decide` reduces a decidable finite proposition to obtain a proof. The [finite survivor-count theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L2050) uses `decide` to count 412 phases. Its local `maxRecDepth` setting only raises the permitted unfolding depth; the proposition and logical rules are unchanged. The finite survivor-count proof does not use compiler-backed native evaluation, and its adjoining `#print axioms` report lists neither `Lean.trustCompiler`, which would trust compiler evaluation, nor `sorryAx`, Lean’s unfinished-proof axiom. Generated Lean certificate declarations receive the same check; external data, scripts, indexes, and this manuscript do not receive kernel proof checking. Appendix <a href="#app:index" data-reference-type="ref" data-reference="app:index">13</a> connects each displayed result to its exact formal statement.
+Lean elaborates each declaration into a proof term, which the kernel checks; tactics construct these terms but are not separate proof authority. `norm_num` constructs concrete arithmetic proofs, and `decide` reduces a decidable finite proposition to obtain a proof. The [finite survivor-count theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L1759) uses `decide` to count 412 phases. Its local `maxRecDepth` setting only raises the permitted unfolding depth; the proposition and logical rules are unchanged. The finite survivor-count proof does not use compiler-backed native evaluation, and its adjoining `#print axioms` report lists neither `Lean.trustCompiler`, which would trust compiler evaluation, nor `sorryAx`, Lean’s unfinished-proof axiom. Generated Lean certificate declarations receive the same check; external data, scripts, indexes, and this manuscript do not receive kernel proof checking. Appendix <a href="#app:index" data-reference-type="ref" data-reference="app:index">13</a> connects each displayed result to its exact formal statement.
 
 <a id="section-consequence."></a>
 
@@ -1023,7 +1023,7 @@ This signed band-edge distance, called *slack* below, is nonnegative exactly on 
 
 </div>
 
-This fixed-scale equivalence and its beyond-every-cutoff strict-jump form are the [canonical central-band equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalFreshLossBridge.lean#L2469) and [strict-jump slack equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalFreshLossBridge.lean#L2559).
+This fixed-scale equivalence and its beyond-every-cutoff strict-jump form are the [canonical central-band equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalFreshLossBridge.lean#L2667) and [strict-jump slack equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalFreshLossBridge.lean#L2757).
 
 <div id="res:slackcriterion" class="corollary">
 
@@ -1035,7 +1035,7 @@ then $`S`$ is irrational.*
 
 </div>
 
-This implication is the [strict-jump slack irrationality criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalFreshLossBridge.lean#L2731). The proposition is a fixed-$`t`$ equivalence; the corollary gives only sufficiency. No converse is known: completeness may choose a depth from the tail difference, whereas this criterion fixes $`m_t`$. Persistent negative slack at that depth refutes only this route and does not decide whether $`S`$ is rational.
+This implication is the [strict-jump slack irrationality criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalFreshLossBridge.lean#L2929). The proposition is a fixed-$`t`$ equivalence; the corollary gives only sufficiency. No converse is known: completeness may choose a depth from the tail difference, whereas this criterion fixes $`m_t`$. Persistent negative slack at that depth refutes only this route and does not decide whether $`S`$ is rational.
 
 For \#257, write $`r_n=r_n(1/2)`$ for the unrepresented remainder after rank $`n`$. The exact tail expansion and second-scale normalisation are
 ``` math
@@ -1054,7 +1054,7 @@ We call this the *residual–tail separation condition*. Here $`37/56=2/7+3/8`$ 
 
 </div>
 
-This is the [verified rank-(6) residual–tail separation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L2723).
+This is the [verified rank-(6) residual–tail separation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L2723).
 
 <div id="res:secondcriterion" class="corollary">
 
@@ -1062,13 +1062,13 @@ This is the [verified rank-(6) residual–tail separation](https://github.com/wc
 
 </div>
 
-This implication is the [eventual residual–tail separation criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L2901). The finite proposition supplies $`1\le n\le6`$, but no case with $`n\ge7`$; no converse is proved. Membership itself has the exact characterisation
+This implication is the [eventual residual–tail separation criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L2901). The finite proposition supplies $`1\le n\le6`$, but no case with $`n\ge7`$; no converse is proved. Membership itself has the exact characterisation
 ``` math
 1/2\in\mathcal A
   \quad\Longleftrightarrow\quad
   \text{the canonical greedy orbit omits infinitely many exponents}.
 ```
-This is formalised at [half-membership–infinite-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L2514). The forward implication uses the [full-support irrationality theorem](#res:full); for the reverse, if a residual ever exceeds the remaining tail, every later exponent is selected; hence only finitely many omissions remain. The $`n\ge7`$ hypothesis is open. If proved, it would yield an infinite support of rational value $`1/2`$, refuting rather than proving the universal \#257 statement.
+This is formalised at [half-membership–infinite-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L2514). The forward implication uses the [full-support irrationality theorem](#res:full); for the reverse, if a residual ever exceeds the remaining tail, every later exponent is selected; hence only finitely many omissions remain. The $`n\ge7`$ hypothesis is open. If proved, it would yield an infinite support of rational value $`1/2`$, refuting rather than proving the universal \#257 statement.
 
 <a id="dependency-direction."></a>
 
@@ -1158,13 +1158,13 @@ The paper is an obstruction atlas: it records finite certificates and local no-g
 
 #### Artefact and data availability.
 
-The [archived formal-source revision](https://github.com/wcook04/plectis-lean-erdos249-257/tree/ebc98ee71f6819bd9fe344a0bb343542c604e533) contains the Lean sources, fixed toolchain, library manifest, and generated certificate data used in the verification. Repository metadata and this manuscript provide navigation rather than proof authority; Section <a href="#sec:verify" data-reference-type="ref" data-reference="sec:verify">7</a> gives the verification route.
+The [archived formal-source revision](https://github.com/wcook04/plectis-lean-erdos249-257/tree/312b96c0d149ed466725c62d4ef24cfc91bca34e) contains the Lean sources, fixed toolchain, library manifest, and generated certificate data used in the verification. Repository metadata and this manuscript provide navigation rather than proof authority; Section <a href="#sec:verify" data-reference-type="ref" data-reference="sec:verify">7</a> gives the verification route.
 
-<a id="use-of-ai-assistance."></a>
+<a id="declaration-of-generative-ai-use."></a>
 
-#### Use of AI assistance.
+#### Declaration of generative AI use.
 
-Large-language-model assistants were used during development for proof drafting, refactoring, and prose editing. Every registered formal claim is linked to a declaration in the archived source revision. Lean checks each proof term against the fixed library version; the project contains no proof placeholders or project-defined axioms.
+Large-language-model agents were used throughout development to draft and revise prose, formal proofs, and software. The author set the objectives and acceptance criteria, selected and reviewed the claims, and approved the published version. The author assumes responsibility for the accuracy, interpretation, and presentation of the work. Generative systems are production tools; they are not authors and supply no independent authority. Every registered formal claim is linked to a declaration in the archived source revision. Lean checks each proof term against the fixed library version, and the project contains no proof placeholders or project-defined axioms; Lean does not authorise the exposition, citation choices, or interpretation, for which the author remains responsible.
 
 <a id="funding-and-competing-interests."></a>
 
@@ -1235,13 +1235,13 @@ The interval has exact width
 ``` math
 \frac{q^2}{(q+m)(q+m-1)}.
 ```
-Formalised: [the general unsafe-band equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfGreedyTwoThirdsBand.lean#L88) and [the general band-width formula](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfGreedyTwoThirdsBand.lean#L104).
+Formalised: [the general unsafe-band equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfGreedyTwoThirdsBand.lean#L88) and [the general band-width formula](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfGreedyTwoThirdsBand.lean#L104).
 
 For a single intervening skip, $`c=b+2`$ and $`m=2q+2`$. The band becomes
 ``` math
 \frac{q(2q+1)}{3q+1}<R<\frac{2q(q+1)}{3q+2},
 ```
-with width $`q^2/((3q+1)(3q+2))<1/9`$, entirely between $`2q/3`$ and $`2q/3+2/9`$. No integral $`R`$ lies in this window. If instead $`r=p/(2D)`$, then $`R=2D/p`$; for positive odd $`p,D,q`$, clearing denominators in the same inequalities forces $`p\ge7`$. Formalised: [the one-skip band equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfGreedyTwoThirdsBand.lean#L127), [the one-skip width formula](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfGreedyTwoThirdsBand.lean#L154), [the width bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfGreedyTwoThirdsBand.lean#L163), [the integral-reciprocal exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfGreedyTwoThirdsBand.lean#L185), and [the odd-coordinate lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfGreedyTwoThirdsBand.lean#L231).
+with width $`q^2/((3q+1)(3q+2))<1/9`$, entirely between $`2q/3`$ and $`2q/3+2/9`$. No integral $`R`$ lies in this window. If instead $`r=p/(2D)`$, then $`R=2D/p`$; for positive odd $`p,D,q`$, clearing denominators in the same inequalities forces $`p\ge7`$. Formalised: [the one-skip band equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfGreedyTwoThirdsBand.lean#L127), [the one-skip width formula](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfGreedyTwoThirdsBand.lean#L154), [the width bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfGreedyTwoThirdsBand.lean#L163), [the integral-reciprocal exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfGreedyTwoThirdsBand.lean#L185), and [the odd-coordinate lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfGreedyTwoThirdsBand.lean#L231).
 
 These results neither show that the greedy orbit of $`1/2`$ enters or avoids the band nor identify the remaining transition coordinates $`-2,-1`$ with dyadically unsafe skips.
 
@@ -1257,41 +1257,41 @@ The results here have three distinct roles. The pairwise-coprime dilation criter
 
 Write $`A=E\cup\{c_ip_i:i\geq0\}`$, where $`E`$ is a finite set of positive integers and $`Q,c_i,p_i`$ are positive. Suppose that $`Q`$ is divisible by every $`d\in E`$ and every $`c_i`$, while $`p_i>1`$ is coprime to $`Q`$ and to $`p_j`$ for $`j\ne i`$, and $`\sum_i1/p_i<\infty`$. We call this a *finite-core pairwise-coprime dilation family*: $`Q`$ contains the fixed factors and the $`p_i`$ are mutually coprime. Lean includes the example $`E=\varnothing`$, $`Q=6`$, with $`c_i`$ alternating between $`2,3`$ and $`p_i=5^2,7^2,11^2,\ldots`$; each support element has three prime factors with multiplicity.
 
-Put $`f_A(n)=\#\{d\in A:d\mid n\}`$ and $`T_A(M)=\sum_{j\geq1}f_A(M+j)2^{-j}`$. For every $`K\geq1`$, the unproved selector requires some $`N`$ for which $`2^K\mid\sum_{r=1}^K f_A(N+r)2^{K-r}`$ and $`T_A(N+K)\leq16`$. These are the carry divisibility and scaled-tail bounds. Lean proves that they imply the [forced-carry certificate supply](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SupportSunflowerDichotomy.lean#L531) and hence [irrationality of the support series](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SupportSunflowerDichotomy.lean#L540). The selector itself is not proved. This is therefore a conditional reduction for one structured support family, not an unconditional case of Erdős #257.
+Put $`f_A(n)=\#\{d\in A:d\mid n\}`$ and $`T_A(M)=\sum_{j\geq1}f_A(M+j)2^{-j}`$. For every $`K\geq1`$, the unproved selector requires some $`N`$ for which $`2^K\mid\sum_{r=1}^K f_A(N+r)2^{K-r}`$ and $`T_A(N+K)\leq16`$. These are the carry divisibility and scaled-tail bounds. Lean proves that they imply the [forced-carry certificate supply](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SupportSunflowerDichotomy.lean#L531) and hence [irrationality of the support series](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SupportSunflowerDichotomy.lean#L540). The selector itself is not proved. This is therefore a conditional reduction for one structured support family, not an unconditional case of Erdős #257.
 
 <a id="res:compositedefect"></a>
 
 ### Composite dilation defects
 
-Let $`\Delta_A(a,x)`$ count the $`d\in A`$ such that $`d\mid ax`$, $`d\nmid x`$, and $`d\ne a`$. For $`a\in A`$ and $`a,x>0`$, partitioning the support divisors of $`ax`$ gives $`f_A(ax)=f_A(x)+\mathbf 1_{a\nmid x}+\Delta_A(a,x)`$: [the composite-dilation identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CompositeDilationDefect.lean#L30). For $`A=\{2,6\}`$ and $`(a,x)=(6,1)`$, the additional divisor $`2`$ gives [$`\Delta_A(6,1)=1`$](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CompositeDilationDefect.lean#L218).
+Let $`\Delta_A(a,x)`$ count the $`d\in A`$ such that $`d\mid ax`$, $`d\nmid x`$, and $`d\ne a`$. For $`a\in A`$ and $`a,x>0`$, partitioning the support divisors of $`ax`$ gives $`f_A(ax)=f_A(x)+\mathbf 1_{a\nmid x}+\Delta_A(a,x)`$: [the composite-dilation identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CompositeDilationDefect.lean#L30). For $`A=\{2,6\}`$ and $`(a,x)=(6,1)`$, the additional divisor $`2`$ gives [$`\Delta_A(6,1)=1`$](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CompositeDilationDefect.lean#L218).
 
-If $`A=E\cup\{c_jp_j:j\geq0\}`$ is such a family and $`a=c_ip_i`$, every divisor counted by $`\Delta_A(a,x)`$ either lies in $`E`$ or equals $`c_jp_j`$ with $`j\ne i`$ and $`p_j\mid x`$. Hence, for $`P=\{p_j:j\geq0\}`$, $`\Delta_A(c_ip_i,x)\leq |E|+f_P(x)`$: [the dilation-family defect bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CompositeDilationDefect.lean#L151). These finite local identities prove neither a correlation estimate, the tail selector, nor irrationality.
+If $`A=E\cup\{c_jp_j:j\geq0\}`$ is such a family and $`a=c_ip_i`$, every divisor counted by $`\Delta_A(a,x)`$ either lies in $`E`$ or equals $`c_jp_j`$ with $`j\ne i`$ and $`p_j\mid x`$. Hence, for $`P=\{p_j:j\geq0\}`$, $`\Delta_A(c_ip_i,x)\leq |E|+f_P(x)`$: [the dilation-family defect bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CompositeDilationDefect.lean#L151). These finite local identities prove neither a correlation estimate, the tail selector, nor irrationality.
 
 <a id="res:mixedlayer"></a>
 
 ### Mixed prime-power layers
 
-For $`e\geq1`$ and an integer-valued coefficient $`g`$, put $`L_{p,e}g(n)=g(p^en)-g(p^{e-1}n)`$. This finite difference records the change between the two adjacent $`p`$-power arguments. The operators commute, $`L_{q,f}L_{p,e}=L_{p,e}L_{q,f}`$: [the layer-commutation identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MaximalOmegaLayer.lean#L29). If $`p\ne q`$ are prime, $`e,f\geq1`$, and $`\gcd(n,pq)=1`$, then, viewing $`f_A`$ as integer-valued, $`L_{q,f}L_{p,e}f_A(n)=f_B(n)`$ for $`B=\{d:\gcd(d,pq)=1,\ p^eq^fd\in A\}`$: [the two-prime layer identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MaximalOmegaLayer.lean#L39). For $`A=\{12\}`$, $`(p^e,q^f,n)=(4,3,1)`$, and the value is one: [the singleton-support calculation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MaximalOmegaLayer.lean#L65). These finite identities provide no decimation transport, bounded-$`\Omega`$ conclusion, or irrationality theorem.
+For $`e\geq1`$ and an integer-valued coefficient $`g`$, put $`L_{p,e}g(n)=g(p^en)-g(p^{e-1}n)`$. This finite difference records the change between the two adjacent $`p`$-power arguments. The operators commute, $`L_{q,f}L_{p,e}=L_{p,e}L_{q,f}`$: [the layer-commutation identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MaximalOmegaLayer.lean#L29). If $`p\ne q`$ are prime, $`e,f\geq1`$, and $`\gcd(n,pq)=1`$, then, viewing $`f_A`$ as integer-valued, $`L_{q,f}L_{p,e}f_A(n)=f_B(n)`$ for $`B=\{d:\gcd(d,pq)=1,\ p^eq^fd\in A\}`$: [the two-prime layer identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MaximalOmegaLayer.lean#L39). For $`A=\{12\}`$, $`(p^e,q^f,n)=(4,3,1)`$, and the value is one: [the singleton-support calculation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MaximalOmegaLayer.lean#L65). These finite identities provide no decimation transport, bounded-$`\Omega`$ conclusion, or irrationality theorem.
 
 <a id="res:halftrapping"></a>
 
 ### Rank-one obstruction and reverse-carry spacing
 
-For rational-linear maps $`\varepsilon,\lambda_j:V\to\mathbb Q`$, assume $`\varepsilon(v_0)=1`$ and $`\ker\varepsilon\subseteq\ker\lambda_j`$ for every $`j`$. Each $`\lambda_j`$ is a scalar multiple of $`\varepsilon`$; hence every square matrix $`(\lambda_j(v_i))`$ of size at least two has determinant zero: [the rank-one determinant criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfTrappingReturnCarry.lean#L42). A reverse-carry word consists of integer sequences $`c_m,b_m,u_m`$ satisfying $`b_m+2u_m=c_m+u_{m+1}`$. Two words with a common $`c_m`$ at a seam, bits $`1,0`$ there, and common $`c_m,b_m`$ for the next $`\ell`$ positions have terminal carry difference $`2^\ell z`$ with $`z`$ odd: [the exact carry factorisation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfTrappingReturnCarry.lean#L124). If both terminal carries lie in $`[0,B]`$, this forces $`2^\ell\leq B`$: [the dyadic spacing inequality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfTrappingReturnCarry.lean#L191). Neither theorem constructs the two words or an earlier overlap.
+For rational-linear maps $`\varepsilon,\lambda_j:V\to\mathbb Q`$, assume $`\varepsilon(v_0)=1`$ and $`\ker\varepsilon\subseteq\ker\lambda_j`$ for every $`j`$. Each $`\lambda_j`$ is a scalar multiple of $`\varepsilon`$; hence every square matrix $`(\lambda_j(v_i))`$ of size at least two has determinant zero: [the rank-one determinant criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfTrappingReturnCarry.lean#L42). A reverse-carry word consists of integer sequences $`c_m,b_m,u_m`$ satisfying $`b_m+2u_m=c_m+u_{m+1}`$. Two words with a common $`c_m`$ at a seam, bits $`1,0`$ there, and common $`c_m,b_m`$ for the next $`\ell`$ positions have terminal carry difference $`2^\ell z`$ with $`z`$ odd: [the exact carry factorisation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfTrappingReturnCarry.lean#L124). If both terminal carries lie in $`[0,B]`$, this forces $`2^\ell\leq B`$: [the dyadic spacing inequality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfTrappingReturnCarry.lean#L191). Neither theorem constructs the two words or an earlier overlap.
 
 <a id="res:halfcarryreachability"></a>
 
 ### Half-carry reachability
 
-For a Boolean word $`a`$, set $`f_a(n)=\#\{d:d\mid n,\ a_d=1\}`$, $`K_1=1`$, $`K_n=2K_{n-1}-f_a(n)`$, and $`H_n=2\lfloor\sqrt n\rfloor+4`$. Admissibility through $`N`$ means $`a_0=a_1=0`$ and $`1\leq K_n\leq H_n`$ for $`1\leq n\leq N`$; $`K_N`$ is its terminal carry. At an unresolved half-divisor step to depth $`2d`$, let $`h`$ be the parent carry, $`\delta`$ the last parent that takes the divisor, $`c`$ the remaining coefficient, and $`b\in\{0,1\}`$ the new bit. The child is $`2h-c-1-b`$ when $`h\leq\delta`$ and $`2h-c-b`$ otherwise. Hence $`h,b`$ realise exactly $`k\neq2\delta-c`$: one missing carry and no others ([the exact one-hole equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryReachability.lean#L235)).
+For a Boolean word $`a`$, set $`f_a(n)=\#\{d:d\mid n,\ a_d=1\}`$, $`K_1=1`$, $`K_n=2K_{n-1}-f_a(n)`$, and $`H_n=2\lfloor\sqrt n\rfloor+4`$. Admissibility through $`N`$ means $`a_0=a_1=0`$ and $`1\leq K_n\leq H_n`$ for $`1\leq n\leq N`$; $`K_N`$ is its terminal carry. At an unresolved half-divisor step to depth $`2d`$, let $`h`$ be the parent carry, $`\delta`$ the last parent that takes the divisor, $`c`$ the remaining coefficient, and $`b\in\{0,1\}`$ the new bit. The child is $`2h-c-1-b`$ when $`h\leq\delta`$ and $`2h-c-b`$ otherwise. Hence $`h,b`$ realise exactly $`k\neq2\delta-c`$: one missing carry and no others ([the exact one-hole equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryReachability.lean#L235)).
 
-A *canonical even seam* is the corresponding adjacent pair of admissible parent words at depth $`2d`$ that realises this one-hole pattern. The unproved supply hypothesis gives one at every $`2d`$, $`d\geq10`$. Choose $`k=1`$, except $`k=2`$ when the hole is $`1`$; this gives words at unbounded depths ([the unbounded-depth admissibility implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryReachability.lean#L999)). Restriction fills earlier depths, and König compactness gives one infinite support of value $`1/2`$ ([the half-value conclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryReachability.lean#L1027)). The seam supply is unproved, so Erdős #257 remains undecided.
+A *canonical even seam* is the corresponding adjacent pair of admissible parent words at depth $`2d`$ that realises this one-hole pattern. The unproved supply hypothesis gives one at every $`2d`$, $`d\geq10`$. Choose $`k=1`$, except $`k=2`$ when the hole is $`1`$; this gives words at unbounded depths ([the unbounded-depth admissibility implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryReachability.lean#L999)). Restriction fills earlier depths, and König compactness gives one infinite support of value $`1/2`$ ([the half-value conclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryReachability.lean#L1027)). The seam supply is unproved, so Erdős #257 remains undecided.
 
 <a id="arbitrarily-late-strip-returns."></a>
 
 #### Arbitrarily late strip returns.
 
-Let $`A_g`$ be the canonical greedy support of $`1/2`$, and set $`\Gamma_N=K_{N+1}`$, $`g_N=\Gamma_N/2^N`$, and $`B_N=H_{N+1}/2^N`$. The normalised carry obeys $`g_{N+1}=g_N-f_{A_g}(N+2)/2^{N+1}\leq g_N`$ ([the scaled-carry monotonicity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CofinalStripReturn.lean#L23)), and the proved nonnegativity of $`\Gamma_N-1`$ gives $`g_N\geq0`$; meanwhile $`B_N\to0`$ ([the strip-envelope limit](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CofinalStripReturn.lean#L42)). Such a return means an arbitrarily late $`M`$ with $`g_M\leq B_M`$. For $`\varepsilon>0`$, choose one with $`B_M<\varepsilon`$; then $`0\leq g_N\leq g_M\leq B_M<\varepsilon`$ for $`N\geq M`$, so $`g_N\to0`$. Hence the centred carry $`C_N=\Gamma_N-1`$ satisfies $`C_N/2^N\to0`$, and the tempered-carry theorem gives an infinite greedy support of value $`1/2`$.
+Let $`A_g`$ be the canonical greedy support of $`1/2`$, and set $`\Gamma_N=K_{N+1}`$, $`g_N=\Gamma_N/2^N`$, and $`B_N=H_{N+1}/2^N`$. The normalised carry obeys $`g_{N+1}=g_N-f_{A_g}(N+2)/2^{N+1}\leq g_N`$ ([the scaled-carry monotonicity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CofinalStripReturn.lean#L23)), and the proved nonnegativity of $`\Gamma_N-1`$ gives $`g_N\geq0`$; meanwhile $`B_N\to0`$ ([the strip-envelope limit](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CofinalStripReturn.lean#L42)). Such a return means an arbitrarily late $`M`$ with $`g_M\leq B_M`$. For $`\varepsilon>0`$, choose one with $`B_M<\varepsilon`$; then $`0\leq g_N\leq g_M\leq B_M<\varepsilon`$ for $`N\geq M`$, so $`g_N\to0`$. Hence the centred carry $`C_N=\Gamma_N-1`$ satisfies $`C_N/2^N\to0`$, and the tempered-carry theorem gives an infinite greedy support of value $`1/2`$.
 
 <div id="res:cofinalstripreturn" class="proposition">
 
@@ -1304,7 +1304,7 @@ then $`1/2\in\mathcal A`$, and its canonical greedy support is infinite.*
 
 </div>
 
-Formalised: [scaled-carry decay](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CofinalStripReturn.lean#L84) and [the strip-return membership criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CofinalStripReturn.lean#L157). The arbitrarily late return condition itself is not established. It is weaker than a uniform strip bound and still does not give an unconditional membership theorem.
+Formalised: [scaled-carry decay](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CofinalStripReturn.lean#L84) and [the strip-return membership criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CofinalStripReturn.lean#L157). The arbitrarily late return condition itself is not established. It is weaker than a uniform strip bound and still does not give an unconditional membership theorem.
 
 <a id="terminal-only-unbounded-depth-approximation."></a>
 
@@ -1324,7 +1324,7 @@ For witnesses at unbounded depths, the last bound tends to zero. Each $`X_A`$ be
 
 </div>
 
-Formalised: [the terminal approximation bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TerminalOnlyCofinal.lean#L68), [the terminal-strip compactness criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TerminalOnlyCofinal.lean#L134), and [the infinite-support conclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TerminalOnlyCofinal.lean#L192). The unbounded-depth terminal-witness supply is not proved. In particular, the proposition does not establish membership of $`1/2`$ unconditionally.
+Formalised: [the terminal approximation bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TerminalOnlyCofinal.lean#L68), [the terminal-strip compactness criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TerminalOnlyCofinal.lean#L134), and [the infinite-support conclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TerminalOnlyCofinal.lean#L192). The unbounded-depth terminal-witness supply is not proved. In particular, the proposition does not establish membership of $`1/2`$ unconditionally.
 
 <a id="scaled-terminal-vanishing."></a>
 
@@ -1344,7 +1344,7 @@ The second term tends to zero for every such depth sequence. Thus the sole addit
 
 </div>
 
-Formalised: [the scaled terminal error bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TerminalOnlyScaledVanishing.lean#L24), [the scaled-vanishing compactness criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TerminalOnlyScaledVanishing.lean#L165), and [the scaled-vanishing support conclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TerminalOnlyScaledVanishing.lean#L221). No such scaled-vanishing sequence is constructed here; the result is a conditional reduction, not an unconditional membership theorem.
+Formalised: [the scaled terminal error bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TerminalOnlyScaledVanishing.lean#L24), [the scaled-vanishing compactness criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TerminalOnlyScaledVanishing.lean#L165), and [the scaled-vanishing support conclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TerminalOnlyScaledVanishing.lean#L221). No such scaled-vanishing sequence is constructed here; the result is a conditional reduction, not an unconditional membership theorem.
 
 <a id="app:half-finite-cofinal"></a>
 
@@ -1356,49 +1356,49 @@ Every half-value route below has the form “finite witness at depth $`N`$” pl
 
 ### Finite residuals for the half-value problem
 
-For admissible depth-$`N`$ word $`a`$, let $`A=\{d:a_d=1\}`$, with terminal carry $`K_N`$ and future tail $`T_N`$. Exactly $`\frac12-X_A=(K_N-T_N)/2^N`$ ([residual identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFiniteShadow.lean#L55)). A first even seam has sole missing carry $`H=2\delta-c`$; hence $`[1,B]`$ is fully reachable iff $`H<1`$ or $`B<H`$ ([seam equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFiniteShadow.lean#L807)). Raw safety is weaker: rank-three $`A=\{2,3\}`$ has residual $`1/42<1/32`$, but its depth-six strip $`[1,8]`$ contains $`H=3`$. After a skip at rank $`k+1`$, freeze the selected support $`A`$ through $`k`$ and let $`K`$ be its centred carry. The sole input is that $`m_0=-K`$, $`m_{J+1}=2m_J+f_A(k+J+2)`$ reaches $`m_J\geq0`$ for some $`J\leq k+1`$; the first $`J`$ future rows then cover $`K`$. This unproved hypothesis implies $`1/2`$-membership ([half-membership](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFiniteShadow.lean#L1256)), but the hypothesis is not proved here.
+For admissible depth-$`N`$ word $`a`$, let $`A=\{d:a_d=1\}`$, with terminal carry $`K_N`$ and future tail $`T_N`$. Exactly $`\frac12-X_A=(K_N-T_N)/2^N`$ ([residual identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFiniteShadow.lean#L55)). A first even seam has sole missing carry $`H=2\delta-c`$; hence $`[1,B]`$ is fully reachable iff $`H<1`$ or $`B<H`$ ([seam equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFiniteShadow.lean#L824)). Raw safety is weaker: rank-three $`A=\{2,3\}`$ has residual $`1/42<1/32`$, but its depth-six strip $`[1,8]`$ contains $`H=3`$. After a skip at rank $`k+1`$, freeze the selected support $`A`$ through $`k`$ and let $`K`$ be its centred carry. The sole input is that $`m_0=-K`$, $`m_{J+1}=2m_J+f_A(k+J+2)`$ reaches $`m_J\geq0`$ for some $`J\leq k+1`$; the first $`J`$ future rows then cover $`K`$. This unproved hypothesis implies $`1/2`$-membership ([half-membership](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFiniteShadow.lean#L1274)), but the hypothesis is not proved here.
 
 <a id="res:fixedcoeffrewind"></a>
 
 ### Fixed-coefficient rewind
 
-With fixed coefficient $`c`$, rewinding carry $`k`$ gives the parent $`T_c(k)=\lfloor(k+c+1)/2\rfloor=\lceil(k+c)/2\rceil`$. For a list $`\mathbf c`$ of $`L`$ rows, write $`R_{\mathbf c}`$ for their composition, $`O_{\mathbf c}`$ for its accumulated offset, and $`D=2^L`$. Then $`R_{\mathbf c}(k)=\lfloor(k+O_{\mathbf c})/D\rfloor`$ ([rewind closed form](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryCeilParentContraction.lean#L49)). Put $`\theta=(1+O_{\mathbf c})\bmod D`$. If $`1\leq B\leq D`$, every target in $`[1,B]`$ has one common ancestor exactly when $`\theta+B-1<D`$ ([phase-fit equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryCeilParentContraction.lean#L99)). Otherwise the endpoints differ by one and every target maps to one of those adjacent ancestors ([singleton-or-seam dichotomy](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryCeilParentContraction.lean#L180)). The width bound does not select the alternative; this finite lemma supplies neither a seam exclusion nor an Erdős #257 conclusion.
+With fixed coefficient $`c`$, rewinding carry $`k`$ gives the parent $`T_c(k)=\lfloor(k+c+1)/2\rfloor=\lceil(k+c)/2\rceil`$. For a list $`\mathbf c`$ of $`L`$ rows, write $`R_{\mathbf c}`$ for their composition, $`O_{\mathbf c}`$ for its accumulated offset, and $`D=2^L`$. Then $`R_{\mathbf c}(k)=\lfloor(k+O_{\mathbf c})/D\rfloor`$ ([rewind closed form](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryCeilParentContraction.lean#L49)). Put $`\theta=(1+O_{\mathbf c})\bmod D`$. If $`1\leq B\leq D`$, every target in $`[1,B]`$ has one common ancestor exactly when $`\theta+B-1<D`$ ([phase-fit equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryCeilParentContraction.lean#L99)). Otherwise the endpoints differ by one and every target maps to one of those adjacent ancestors ([singleton-or-seam dichotomy](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryCeilParentContraction.lean#L180)). The width bound does not select the alternative; this finite lemma supplies neither a seam exclusion nor an Erdős #257 conclusion.
 
 <a id="res:selectedhalfwindow"></a>
 
 ### Selected half-carry windows
 
-At depth $`N`$, a finite family called a *selected window* of radius $`R`$ assigns each $`k\in[1,R]`$ an admissible Boolean word with terminal carry $`k`$. If such windows exist for every large $`N`$ with $`R\geq1`$, choosing $`k=1`$ gives unbounded-depth witnesses ([the unbounded-depth implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarrySelectedWindow.lean#L831)); compactness then gives an infinite support with sum $`1/2`$ ([half-value conclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarrySelectedWindow.lean#L864)). The unproved input is a coherent one-row history: the representatives either agree on every divisor of $`N+1`$, making the next coefficient common, or the adjacent outcome realises the canonical one-hole seam ([coefficient-or-hole](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarrySelectedWindow.lean#L236)). No such history is supplied at all large depths; hence no unbounded-depth window supply and no proof of Erdős #257 follow.
+At depth $`N`$, a finite family called a *selected window* of radius $`R`$ assigns each $`k\in[1,R]`$ an admissible Boolean word with terminal carry $`k`$. If such windows exist for every large $`N`$ with $`R\geq1`$, choosing $`k=1`$ gives unbounded-depth witnesses ([the unbounded-depth implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarrySelectedWindow.lean#L831)); compactness then gives an infinite support with sum $`1/2`$ ([half-value conclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarrySelectedWindow.lean#L864)). The unproved input is a coherent one-row history: the representatives either agree on every divisor of $`N+1`$, making the next coefficient common, or the adjacent outcome realises the canonical one-hole seam ([coefficient-or-hole](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarrySelectedWindow.lean#L236)). No such history is supplied at all large depths; hence no unbounded-depth window supply and no proof of Erdős #257 follow.
 
 <a id="res:rewindphase"></a>
 
 ### A realised rewind criterion
 
-For a realised carry-one history, list the suffix bits newest first and put $`X=\sum_{j<L}b_j2^j`$, so the newest row is the low bit. With $`D=2^L`$, $`\theta=D-1-X`$ ([suffix-phase identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryRewindPhase.lean#L39)). Thus $`[1,B]`$ rewinds to one ancestor iff $`B-1\leq X`$ ([suffix-coverage equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryRewindPhase.lean#L65)). Equivalently, for frozen-prefix carry $`Z=1+X`$, this is $`B\leq Z`$ ([prefix-carry equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryRewindPhase.lean#L352)). No theorem proves either coverage inequality at all large depths; hence no proof of Erdős #257 follows.
+For a realised carry-one history, list the suffix bits newest first and put $`X=\sum_{j<L}b_j2^j`$, so the newest row is the low bit. With $`D=2^L`$, $`\theta=D-1-X`$ ([suffix-phase identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryRewindPhase.lean#L39)). Thus $`[1,B]`$ rewinds to one ancestor iff $`B-1\leq X`$ ([suffix-coverage equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryRewindPhase.lean#L65)). Equivalently, for frozen-prefix carry $`Z=1+X`$, this is $`B\leq Z`$ ([prefix-carry equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryRewindPhase.lean#L352)). No theorem proves either coverage inequality at all large depths; hence no proof of Erdős #257 follows.
 
 <a id="res:protectedseam"></a>
 
 ### Localised protected seams
 
-Here “protected” means only the band $`[3,27]`$, and “realised at $`M`$” means each seam-reachable carry there comes from an admissible word ([protected-seam predicate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryProtectedSeamConsumer.lean#L18)). The hole is $`H=2\delta-c`$; take $`k=4`$ if $`H=3`$, otherwise $`k=3`$. Seams beyond every bound yield witnesses by [unbounded-depth protected-seam implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryProtectedSeamConsumer.lean#L31), and compactness gives [an infinite support summing to $`1/2`$](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryProtectedSeamConsumer.lean#L53). The unbounded-depth supply is unproved, so Erdős #257 remains open.
+Here “protected” means only the band $`[3,27]`$, and “realised at $`M`$” means each seam-reachable carry there comes from an admissible word ([protected-seam predicate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryProtectedSeamConsumer.lean#L18)). The hole is $`H=2\delta-c`$; take $`k=4`$ if $`H=3`$, otherwise $`k=3`$. Seams beyond every bound yield witnesses by [unbounded-depth protected-seam implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryProtectedSeamConsumer.lean#L31), and compactness gives [an infinite support summing to $`1/2`$](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryProtectedSeamConsumer.lean#L53). The unbounded-depth supply is unproved, so Erdős #257 remains open.
 
 <a id="res:cofinalwindowseam"></a>
 
 ### Combining the two unbounded-depth half-carry criteria
 
-For every $`N`$, the hypothesis gives an $`M\geq N`$ with a selected window or a realised seam. The window uses carry $`1`$; the seam uses $`4`$ if its hole is $`3`$, otherwise $`3`$. Either gives an admissible word and hence [unbounded-depth admissibility](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryCofinalWindowOrSeamConsumer.lean#L32); compactness then gives [an infinite support summing to $`1/2`$](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarryCofinalWindowOrSeamConsumer.lean#L58). Branches may alternate. The hypothesis is unproved; Erdős #257 is open.
+For every $`N`$, the hypothesis gives an $`M\geq N`$ with a selected window or a realised seam. The window uses carry $`1`$; the seam uses $`4`$ if its hole is $`3`$, otherwise $`3`$. Either gives an admissible word and hence [unbounded-depth admissibility](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryCofinalWindowOrSeamConsumer.lean#L32); compactness then gives [an infinite support summing to $`1/2`$](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarryCofinalWindowOrSeamConsumer.lean#L58). Branches may alternate. The hypothesis is unproved; Erdős #257 is open.
 
 <a id="res:integergreedy"></a>
 
 ### Integer-greedy first-wrap reduction
 
-For $`s\geq3`$, put $`\kappa_s=2^{2s-1}-2^s`$ and $`B_s=2\lfloor\sqrt{2s}\rfloor+4`$. Starting at $`\kappa_s`$, subtract each truncated seam weight in descending order whenever possible; let $`r_s`$ be the final remainder. By the [defect/remainder equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderIntegerGreedy.lean#L654), a positive subset-sum defect at most $`B_s`$ exists exactly when $`1\leq r_s\leq B_s`$. Each weight clears its tail by at least $`2^{s+1}>B_s`$. At a fixed row this is only a finite repackaging, not a stronger membership criterion. The unproved [skipped-rank escape](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFullShellSeamBridge.lean#L687) asks for $`B_s<r_s`$ at every genuine skipped rank; Erdős #257 remains open.
+For $`s\geq3`$, put $`\kappa_s=2^{2s-1}-2^s`$ and $`B_s=2\lfloor\sqrt{2s}\rfloor+4`$. Starting at $`\kappa_s`$, subtract each truncated seam weight in descending order whenever possible; let $`r_s`$ be the final remainder. By the [defect/remainder equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderIntegerGreedy.lean#L654), a positive subset-sum defect at most $`B_s`$ exists exactly when $`1\leq r_s\leq B_s`$. Each weight clears its tail by at least $`2^{s+1}>B_s`$. At a fixed row this is only a finite repackaging, not a stronger membership criterion. The unproved [skipped-rank escape](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFullShellSeamBridge.lean#L687) asks for $`B_s<r_s`$ at every genuine skipped rank; Erdős #257 remains open.
 
 <a id="res:concreteseam"></a>
 
 ### Exact finite recurrence for the greedy seam
 
-The finite seam construction realises the adjacent cut, and its next word is the integer-greedy choice: [the seam-word recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderConcreteSeamAdapter.lean#L667). This is a finite recurrence, not the missing escape estimate.
+The finite seam construction realises the adjacent cut, and its next word is the integer-greedy choice: [the seam-word recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderConcreteSeamAdapter.lean#L667). This is a finite recurrence, not the missing escape estimate.
 
 <a id="app:half-final-skip"></a>
 
@@ -1412,13 +1412,13 @@ This subsection alone feeds the main final-skip reduction. It identifies nonmemb
 
 Call the seam eventually right if some $`S\geq5`$ has $`G_{s+1}=G_s\cup\{s\}`$ for every $`s\geq S`$: all later words append `true`. Call a finite prefix $`u`$ through rank $`d`$ a fatal half gap if $`V(u)+T_{d+1}<1/2<V(u)+w_{d+1}`$. Skipping rank $`d+1`$ then falls short even after the full tail, while taking it overshoots, so every continuation misses $`1/2`$.
 
-For the concrete integer seam words, eventual right extension is equivalent to such a gap, [the fatal-gap equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFatalGapRightTail.lean#L781), to nonmembership of $`1/2`$ in the Mersenne achievement set, [the nonmembership equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFatalGapRightTail.lean#L787), and to a final skipped exponent in the real greedy orbit, [the final-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFatalGapRightTail.lean#L802). This classifies the nonmembership branch exactly. It does not decide which branch holds or prove universal Erdős #257.
+For the concrete integer seam words, eventual right extension is equivalent to such a gap, [the fatal-gap equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFatalGapRightTail.lean#L781), to nonmembership of $`1/2`$ in the Mersenne achievement set, [the nonmembership equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFatalGapRightTail.lean#L787), and to a final skipped exponent in the real greedy orbit, [the final-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFatalGapRightTail.lean#L802). This classifies the nonmembership branch exactly. It does not decide which branch holds or prove universal Erdős #257.
 
 <a id="the-case-c_d-3."></a>
 
 #### The case $`C_D=-3`$.
 
-At a putative final skip $`D`$, let $`u`$ be the selected prefix and $`B_D=u\cup\{n:n>D\}`$ the *lazy support*: it skips $`D`$, takes every later rank, and has value $`V(u)+T_D<1/2`$. The finite transition carry is $`C_D=4R_{D,D}-P_D-4`$, and the exact swap makes its centred carry $`C_D+3`$ at row $`2D+1`$. For $`C_D=-3`$ this is zero; forced divisor counts at least $`1`$ and $`2`$ in the next rows make it negative at $`2D+3`$, contradicting finite-level nonnegativity below $`1/2`$, [the middle-$`-3`$ exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFinalMiddleCellEscape.lean#L587). Only $`C_D=-3`$ is excluded; $`C_D=-2,-1`$ and the right-tail branch remain open.
+At a putative final skip $`D`$, let $`u`$ be the selected prefix and $`B_D=u\cup\{n:n>D\}`$ the *lazy support*: it skips $`D`$, takes every later rank, and has value $`V(u)+T_D<1/2`$. The finite transition carry is $`C_D=4R_{D,D}-P_D-4`$, and the exact swap makes its centred carry $`C_D+3`$ at row $`2D+1`$. For $`C_D=-3`$ this is zero; forced divisor counts at least $`1`$ and $`2`$ in the next rows make it negative at $`2D+3`$, contradicting finite-level nonnegativity below $`1/2`$, [the middle-$`-3`$ exclusion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFinalMiddleCellEscape.lean#L587). Only $`C_D=-3`$ is excluded; $`C_D=-2,-1`$ and the right-tail branch remain open.
 
 <a id="the-case-c_d-2."></a>
 
@@ -1428,34 +1428,34 @@ This transition carry is not eliminated. Here its *phase* means the triple of re
 ``` math
 2,3,6,7,14,20,21,26,
 ```
-by [the exact rank-(26) prefix](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L1190).
+by [the exact rank-(26) prefix](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L899).
 
 If $`D\ge27`$ has $`C_D=-2`$ and is followed by an all-right suffix, then
 ``` math
 D\bmod21\in\{11,14,17,20\},\qquad D\bmod10\ne8,
  \qquad D\bmod13\ne11,
 ```
-the class $`D\bmod10=7`$ cannot pair with $`D\bmod21=11`$, and the class $`D\bmod13=10`$ cannot pair with $`D\bmod21=11`$. The orbit theorem is [the finite $`C_D=-2`$ sieve](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L1913). The three moduli are pairwise coprime, so their phase triples correspond to the $`21\cdot10\cdot13=2730`$ residue classes modulo $`2730`$. Exactly $`412`$ survive; this finite count is [the exact survivor count](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L2050). Thus a hypothetical final $`C_D=-2`$ transition lies in one of $`412`$ classes modulo $`2730`$, a finite necessary condition rather than an exclusion; the $`C_D=-1`$ case is untouched. Even a survivor density tending to zero would not suffice, since nested nonempty residue sets can have a nonempty inverse limit. This route needs an empty finite sieve or an Archimedean contradiction.
+the class $`D\bmod10=7`$ cannot pair with $`D\bmod21=11`$, and the class $`D\bmod13=10`$ cannot pair with $`D\bmod21=11`$. The orbit theorem is [the finite $`C_D=-2`$ sieve](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L1622). The three moduli are pairwise coprime, so their phase triples correspond to the $`21\cdot10\cdot13=2730`$ residue classes modulo $`2730`$. Exactly $`412`$ survive; this finite count is [the exact survivor count](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfFinalMiddlePhaseSieve.lean#L1759). Thus a hypothetical final $`C_D=-2`$ transition lies in one of $`412`$ classes modulo $`2730`$, a finite necessary condition rather than an exclusion; the $`C_D=-1`$ case is untouched. Even a survivor density tending to zero would not suffice, since nested nonempty residue sets can have a nonempty inverse limit. This route needs an empty finite sieve or an Archimedean contradiction.
 
 <a id="the-two-remaining-inputs."></a>
 
 #### The two remaining inputs.
 
-The criterion requires $`\Theta_D<C_D`$ at every actual middle transition $`D\ge13`$ except $`C_D=-3`$. Since $`\Theta_D\ge0`$, exactly two open tasks remain: exclude $`C_D=-2,-1`$, and prove $`\Theta_D<C_D`$ at every remaining transition with $`C_D\ge0`$. Together they imply half-membership, [unused-tail criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLastProducerContradiction.lean#L387); a separate square-root lower bound also suffices, [square-root condition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLastProducerContradiction.lean#L409). Neither input is proved.
+The criterion requires $`\Theta_D<C_D`$ at every actual middle transition $`D\ge13`$ except $`C_D=-3`$. Since $`\Theta_D\ge0`$, exactly two open tasks remain: exclude $`C_D=-2,-1`$, and prove $`\Theta_D<C_D`$ at every remaining transition with $`C_D\ge0`$. Together they imply half-membership, [unused-tail criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLastProducerContradiction.lean#L436); a separate square-root lower bound also suffices, [square-root condition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLastProducerContradiction.lean#L458). Neither input is proved.
 
-A stronger finite hypothesis puts $`g_D=\#G_D`$. Since $`A_D=G_D\cup\{D\}`$ has $`g_D+1`$ elements, $`\Theta_D\le g_D+1`$. Using $`C_D=4R_{D,D}-P_D-4`$, the condition $`g_D+P_D+5<4R_{D,D}`$ is exactly $`g_D+1<C_D`$. At every late middle row it therefore excludes the negative carries and proves tail dominance. This is [the cardinality escape condition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L111), and its membership consequence is [the prefix-cardinality criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L1503); it follows in turn from $`R_{D,D}\ge D`$ at every late middle row, [row-scale criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L1510). Both hypotheses are unproved.
+A stronger finite hypothesis puts $`g_D=\#G_D`$. Since $`A_D=G_D\cup\{D\}`$ has $`g_D+1`$ elements, $`\Theta_D\le g_D+1`$. Using $`C_D=4R_{D,D}-P_D-4`$, the condition $`g_D+P_D+5<4R_{D,D}`$ is exactly $`g_D+1<C_D`$. At every late middle row it therefore excludes the negative carries and proves tail dominance. This is [the cardinality escape condition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L279), and its membership consequence is [the prefix-cardinality criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L2364); it follows in turn from $`R_{D,D}\ge D`$ at every late middle row, [row-scale criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderMiddleCarryLowerBound.lean#L2371). Both hypotheses are unproved.
 
 <a id="finite-upper-reset-band-certificates."></a>
 
 #### Finite upper-reset band certificates.
 
-At the upper reset $`G_{d+1}=G_d^\uparrow`$, let $`O_d`$ be the upper overshoot, $`A_d`$ its corresponding divisor pulse, $`Q_d=4O_d+A_d`$, and $`B_{d,j}=2^{d-j+1}`$. For $`13\le d\le30`$ and $`j\le d`$, Lean proves $`B_{d,j}<Q_d`$ or $`Q_d+2(d+j)\le B_{d,j}`$, [the finite upper-reset certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderUpperResetBandCertificates.lean#L78). Thus $`Q_d`$ avoids the danger band $`Q_d\le B_{d,j}<Q_d+2(d+j)`$. For fixed $`d`$, one exact $`R_{d+1,d+1}`$ certifies every $`j`$; no $`d>30`$ is checked, so the global band-escape hypothesis remains open.
+At the upper reset $`G_{d+1}=G_d^\uparrow`$, let $`O_d`$ be the upper overshoot, $`A_d`$ its corresponding divisor pulse, $`Q_d=4O_d+A_d`$, and $`B_{d,j}=2^{d-j+1}`$. For $`13\le d\le30`$ and $`j\le d`$, Lean proves $`B_{d,j}<Q_d`$ or $`Q_d+2(d+j)\le B_{d,j}`$, [the finite upper-reset certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderUpperResetBandCertificates.lean#L78). Thus $`Q_d`$ avoids the danger band $`Q_d\le B_{d,j}<Q_d+2(d+j)`$. For fixed $`d`$, one exact $`R_{d+1,d+1}`$ certifies every $`j`$; no $`d>30`$ is checked, so the global band-escape hypothesis remains open.
 
 <a id="app:halfmembership-detail"></a>
 
 ### Positive half-membership classification
 
-The complementary branch has an equally exact seam formulation. Membership of $`1/2`$ in the Mersenne achievement set is equivalent to the occurrence, beyond every bound, of a successor terminal bit equal to zero, [the unbounded terminal-zero equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L126); equivalently, it is equivalent to such terminal zeros at unbounded depths, [the unbounded-depth terminal-zero equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L203). It is also equivalent to integer-seam witnesses at unbounded depths with skipped ranks tending to infinity, [the unbounded skipped-rank equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L213). These equivalences isolate the required unbounded skipped-rank condition; they do not establish that condition.
+The complementary branch has an equally exact seam formulation. Membership of $`1/2`$ in the Mersenne achievement set is equivalent to the occurrence, beyond every bound, of a successor terminal bit equal to zero, [the unbounded terminal-zero equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L126); equivalently, it is equivalent to such terminal zeros at unbounded depths, [the unbounded-depth terminal-zero equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L203). It is also equivalent to integer-seam witnesses at unbounded depths with skipped ranks tending to infinity, [the unbounded skipped-rank equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderHalfMembershipClassification.lean#L213). These equivalences isolate the required unbounded skipped-rank condition; they do not establish that condition.
 
 <a id="res:largestskip"></a>
 
@@ -1465,33 +1465,33 @@ At row $`s`$, let $`d`$ be the largest skipped rank and put $`u=G_s\cap\{2,\ldot
 ``` math
 3L+\bigl(3\cdot2^{s+1}+2\cdot4^{s-d}+4\bigr)=3U
 ```
-in division-free form, [the exact late-gap identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLargestSkipGap.lean#L259).
+in division-free form, [the exact late-gap identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLargestSkipGap.lean#L259).
 
-The branch recurrence is separate. An upper or middle step to row $`s+1`$ skips the new rank $`s`$, making it the largest skip; a right step selects $`s`$ and preserves $`d`$: [the terminal largest-skip branch](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLargestSkipGap.lean#L328) and [right-branch persistence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLargestSkipGap.lean#L339). Global propagation still requires an upper or middle step whenever $`2s<3d`$ but $`2(s+1)<3d`$ fails. This first-crossing statement is not proved.
+The branch recurrence is separate. An upper or middle step to row $`s+1`$ skips the new rank $`s`$, making it the largest skip; a right step selects $`s`$ and preserves $`d`$: [the terminal largest-skip branch](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLargestSkipGap.lean#L328) and [right-branch persistence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLargestSkipGap.lean#L339). Global propagation still requires an upper or middle step whenever $`2s<3d`$ but $`2(s+1)<3d`$ fails. This first-crossing statement is not proved.
 
 <a id="res:boundarypulse"></a>
 
 ### Divisor pulses at the largest-skip boundary
 
-For a selected rank $`e`$, its row-$`s`$ pulse counts two if $`e\mid2s+1`$ and one if $`e\mid2s+2`$; the word pulse sums these counts. If $`d`$ is a largest skip with $`2s<3d`$, every filled suffix rank $`d<e<s`$ divides neither new index, so the whole word pulse comes from the selected prefix below $`d`$: [the lower-prefix pulse localisation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderBoundaryPulse.lean#L85). At the first crossing $`2s<3d\leq2(s+1)`$, either $`3d=2s+1`$ or $`3d=2s+2`$; the twice- and once-counted alternatives give pulses two and one: [the first-crossing pulse classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderBoundaryPulse.lean#L150). The required transition-carry estimate remains unproved.
+For a selected rank $`e`$, its row-$`s`$ pulse counts two if $`e\mid2s+1`$ and one if $`e\mid2s+2`$; the word pulse sums these counts. If $`d`$ is a largest skip with $`2s<3d`$, every filled suffix rank $`d<e<s`$ divides neither new index, so the whole word pulse comes from the selected prefix below $`d`$: [the lower-prefix pulse localisation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderBoundaryPulse.lean#L85). At the first crossing $`2s<3d\leq2(s+1)`$, either $`3d=2s+1`$ or $`3d=2s+2`$; the twice- and once-counted alternatives give pulses two and one: [the first-crossing pulse classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderBoundaryPulse.lean#L150). The required transition-carry estimate remains unproved.
 
 <a id="res:largestskipinduction"></a>
 
 ### Largest-skip induction
 
-Assume that for every $`s\geq14`$ and largest skip $`d`$ with $`2s<3d`$, either $`2(s+1)<3d`$ or the step to row $`s+1`$ is upper or middle. This hypothesis is unproved. Lean checks the base $`s=14`$, $`d=13`$ directly, including $`28<39`$, [the row-14 base](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLargestSkipInduction.lean#L73). Induction with the branch recurrence then gives a late largest skip at every row $`s\geq14`$, [the row-by-row induction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLargestSkipInduction.lean#L120). Those ranks tend to infinity, so $`1/2`$ belongs to the Mersenne achievement set, [largest-skip membership criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderLargestSkipInduction.lean#L167).
+Assume that for every $`s\geq14`$ and largest skip $`d`$ with $`2s<3d`$, either $`2(s+1)<3d`$ or the step to row $`s+1`$ is upper or middle. This hypothesis is unproved. Lean checks the base $`s=14`$, $`d=13`$ directly, including $`28<39`$, [the row-14 base](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLargestSkipInduction.lean#L73). Induction with the branch recurrence then gives a late largest skip at every row $`s\geq14`$, [the row-by-row induction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLargestSkipInduction.lean#L120). Those ranks tend to infinity, so $`1/2`$ belongs to the Mersenne achievement set, [largest-skip membership criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderLargestSkipInduction.lean#L167).
 
 <a id="res:fixedtailsocket"></a>
 
 ### The fixed-tail survival criterion
 
-Here $`r_M(1/2)=1/2-\sum_{n\leq M}\varepsilon_n(1/2)w_n`$ is the post-rank-$`M`$ remainder, and $`T_M=\sum_{n>M}w_n`$ is all future mass. An actual skip $`M`$ is final exactly when $`T_M<r_M(1/2)`$: all later mass then falls short, [the final-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFixedTailSocket.lean#L22). Negating gives $`r_M(1/2)\leq T_M`$ for all $`M\in\mathcal S(1/2)`$, [the no-final-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFixedTailSocket.lean#L57); since $`1/2\in\mathcal A`$ exactly when there is no final skip, this is the [membership equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderFixedTailSocket.lean#L73). The equivalence is proved; the orbit inequalities are not.
+Here $`r_M(1/2)=1/2-\sum_{n\leq M}\varepsilon_n(1/2)w_n`$ is the post-rank-$`M`$ remainder, and $`T_M=\sum_{n>M}w_n`$ is all future mass. An actual skip $`M`$ is final exactly when $`T_M<r_M(1/2)`$: all later mass then falls short, [the final-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFixedTailSocket.lean#L22). Negating gives $`r_M(1/2)\leq T_M`$ for all $`M\in\mathcal S(1/2)`$, [the no-final-skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFixedTailSocket.lean#L57); since $`1/2\in\mathcal A`$ exactly when there is no final skip, this is the [membership equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderFixedTailSocket.lean#L73). The equivalence is proved; the orbit inequalities are not.
 
 <a id="res:producercarry"></a>
 
 ### Residual identity for the middle-transition support
 
-For the middle-transition coordinates $`A_D,C_D,\Theta_D`$ introduced in Section <a href="#sec:final-skip-reduction" data-reference-type="ref" data-reference="sec:final-skip-reduction">4.6</a>, the generic finite-support theorem reads $`1/2-X_{A_D}=2^{-(2D+2)}(C_D-\Theta_D)`$, [the residual identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderProducerCarrySocket.lean#L27). Since the scale is positive, $`C_D>\Theta_D\iff X_{A_D}<1/2`$ and $`C_D<\Theta_D\iff X_{A_D}>1/2`$, [the below-half equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderProducerCarrySocket.lean#L48) and [the above-half equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderProducerCarrySocket.lean#L78). Tail nonnegativity makes $`C_D<0`$ sufficient for $`X_{A_D}>1/2`$, [the negative-carry corollary](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderProducerCarrySocket.lean#L145). A carry at most $`-8`$ strengthens this to $`1/2+(w_D-T_D)<X_{A_D}`$, [the full-gap corollary](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderProducerCarrySocket.lean#L190). These criteria do not determine $`C_D`$ on actual middle transitions or compare every nonnegative $`C_D`$ with $`\Theta_D`$.
+For the middle-transition coordinates $`A_D,C_D,\Theta_D`$ introduced in Section <a href="#sec:final-skip-reduction" data-reference-type="ref" data-reference="sec:final-skip-reduction">4.6</a>, the generic finite-support theorem reads $`1/2-X_{A_D}=2^{-(2D+2)}(C_D-\Theta_D)`$, [the residual identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderProducerCarrySocket.lean#L27). Since the scale is positive, $`C_D>\Theta_D\iff X_{A_D}<1/2`$ and $`C_D<\Theta_D\iff X_{A_D}>1/2`$, [the below-half equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderProducerCarrySocket.lean#L48) and [the above-half equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderProducerCarrySocket.lean#L78). Tail nonnegativity makes $`C_D<0`$ sufficient for $`X_{A_D}>1/2`$, [the negative-carry corollary](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderProducerCarrySocket.lean#L145). A carry at most $`-8`$ strengthens this to $`1/2+(w_D-T_D)<X_{A_D}`$, [the full-gap corollary](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderProducerCarrySocket.lean#L190). These criteria do not determine $`C_D`$ on actual middle transitions or compare every nonnegative $`C_D`$ with $`\Theta_D`$.
 
 <a id="res:quarterband"></a>
 
@@ -1505,7 +1505,7 @@ At row $`s`$ put $`H=2^{s-1}`$, and let $`R,U,R',p^-,p^+`$ denote the adjacent c
  4k+16H<4(R+U)+p^+.
  \end{array}
 ```
-[the middle-case equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderQuarterBandEndpoints.lean#L153); and [the right-case equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderQuarterBandEndpoints.lean#L175). The middle-case $`k`$ is unique, [the parameter uniqueness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderQuarterBandEndpoints.lean#L34). These equivalences classify failure but prove no concrete-orbit avoidance.
+[the middle-case equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderQuarterBandEndpoints.lean#L153); and [the right-case equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderQuarterBandEndpoints.lean#L175). The middle-case $`k`$ is unique, [the parameter uniqueness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderQuarterBandEndpoints.lean#L34). These equivalences classify failure but prove no concrete-orbit avoidance.
 
 <a id="res:resetdeficit"></a>
 
@@ -1517,13 +1517,13 @@ Write $`R_s=R_{s,s}`$ for the final integer remainder. At a largest skip $`d`$ w
  12R_s+3\cdot2^{s+1}<
  4\bigl(3\cdot2^{s+1}+2\cdot4^{s-d}+4\bigr)+6(s-2),
 ```
-[the right-branch window](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderResetDeficitEscape.lean#L200). If $`p_s^-`$ is the below pulse, the same branch obeys $`R_{s+1}+2^{s+1}+p_s^-+4=4R_s`$, [the exact recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderResetDeficitEscape.lean#L218). When $`R_s\leq2^s`$, put $`\delta_s=2^s-R_s`$. A right step makes $`\delta_{s+1}\geq4\delta_s`$ while the reference scale only doubles. Consequently, if $`2^s\leq2^k\delta_s`$, some $`t\in[s,s+k]`$ is upper or middle, [the deficit escape bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderResetDeficitEscape.lean#L261). These formulas are proved, but they do not show that the actual orbit avoids the window.
+[the right-branch window](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderResetDeficitEscape.lean#L200). If $`p_s^-`$ is the below pulse, the same branch obeys $`R_{s+1}+2^{s+1}+p_s^-+4=4R_s`$, [the exact recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderResetDeficitEscape.lean#L218). When $`R_s\leq2^s`$, put $`\delta_s=2^s-R_s`$. A right step makes $`\delta_{s+1}\geq4\delta_s`$ while the reference scale only doubles. Consequently, if $`2^s\leq2^k\delta_s`$, some $`t\in[s,s+k]`$ is upper or middle, [the deficit escape bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderResetDeficitEscape.lean#L261). These formulas are proved, but they do not show that the actual orbit avoids the window.
 
 <a id="res:seamproducer"></a>
 
 ### Alignment of seam and transition carries
 
-Let $`P`$ omit $`s`$, put $`A=P\cup\{s\}`$, and let $`\delta`$ be its half-carry at row $`2s-2`$. The one carry not reached at this seam is the first-wrap hole $`H=2\delta-f_P(2s)`$. With paired pulse $`\Pi=2f_A(2s+1)+f_A(2s+2)`$, the transition carry is $`C(A,s)=4(H-1)-\Pi`$, [seam–carry alignment](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderSeamProducerAlignment.lean#L24). This aligns $`H-1`$ with the transition carry but supplies no sign, size, or occurrence estimate.
+Let $`P`$ omit $`s`$, put $`A=P\cup\{s\}`$, and let $`\delta`$ be its half-carry at row $`2s-2`$. The one carry not reached at this seam is the first-wrap hole $`H=2\delta-f_P(2s)`$. With paired pulse $`\Pi=2f_A(2s+1)+f_A(2s+2)`$, the transition carry is $`C(A,s)=4(H-1)-\Pi`$, [seam–carry alignment](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderSeamProducerAlignment.lean#L24). This aligns $`H-1`$ with the transition carry but supplies no sign, size, or occurrence estimate.
 
 <a id="app:half-evidence"></a>
 
@@ -1535,13 +1535,13 @@ Nothing here decides an open question. The bases are bounded evidence for A.2–
 
 ### A verified initial selected window
 
-At depth $`18`$, twelve checked words cover every terminal carry in $`[1,12]`$ inside the half strip, [the depth-$`18`$ table verification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarrySelectedWindowBase.lean#L79); they define [the depth-$`18`$ selected window](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarrySelectedWindowBase.lean#L129). Their common depth-$`13`$ restriction gives the first next-row certificate, [the depth-$`18`$ divisor-agreement certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCarrySelectedWindowBase.lean#L172). This finite base supplies no windows at unbounded depths.
+At depth $`18`$, twelve checked words cover every terminal carry in $`[1,12]`$ inside the half strip, [the depth-$`18`$ table verification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarrySelectedWindowBase.lean#L79); they define [the depth-$`18`$ selected window](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarrySelectedWindowBase.lean#L129). Their common depth-$`13`$ restriction gives the first next-row certificate, [the depth-$`18`$ divisor-agreement certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCarrySelectedWindowBase.lean#L172). This finite base supplies no windows at unbounded depths.
 
 <a id="res:rewindseambridge"></a>
 
 ### Rewind-to-seam equivalence
 
-For a selected depth-$`N`$ window $`W=(a^{(h)})_{1\leq h\leq R}`$, suppose the depth-$`M`$ rewind has adjacent ancestors, denominator $`D`$, and phase $`\phi`$; put $`\delta=D-\phi`$. If $`M\leq N`$, $`(N+1)/2\leq M`$, $`R\leq D`$, and the ancestor coefficients at $`N+1`$ are $`c+1,c`$, then $`f_{a^{(h)}}(N+1)=c+1`$ for $`h\leq\delta`$ and $`c`$ otherwise, [next-row profile](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RewindSeamOperationalBridge.lean#L140). With $`27\leq S\leq2\lfloor\sqrt{N+1}\rfloor+4`$ and $`S+c+1\leq2R`$, [a protected seam occurs at $`N+1`$](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RewindSeamOperationalBridge.lean#L217). The theorem assumes, rather than proves, every displayed hypothesis.
+For a selected depth-$`N`$ window $`W=(a^{(h)})_{1\leq h\leq R}`$, suppose the depth-$`M`$ rewind has adjacent ancestors, denominator $`D`$, and phase $`\phi`$; put $`\delta=D-\phi`$. If $`M\leq N`$, $`(N+1)/2\leq M`$, $`R\leq D`$, and the ancestor coefficients at $`N+1`$ are $`c+1,c`$, then $`f_{a^{(h)}}(N+1)=c+1`$ for $`h\leq\delta`$ and $`c`$ otherwise, [next-row profile](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RewindSeamOperationalBridge.lean#L140). With $`27\leq S\leq2\lfloor\sqrt{N+1}\rfloor+4`$ and $`S+c+1\leq2R`$, [a protected seam occurs at $`N+1`$](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RewindSeamOperationalBridge.lean#L217). The theorem assumes, rather than proves, every displayed hypothesis.
 
 <a id="selected-suffix-cylinders"></a>
 
@@ -1601,7 +1601,7 @@ E'=2E-C.
 
 </div>
 
-The base and endpoint update are the [depth-$`18`$ cylinder](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SelectedSuffixCylinder.lean#L88) and [endpoint recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SelectedSuffixCylinder.lean#L136).
+The base and endpoint update are the [depth-$`18`$ cylinder](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SelectedSuffixCylinder.lean#L88) and [endpoint recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SelectedSuffixCylinder.lean#L136).
 
 <div id="res:feedbackdichotomy" class="proposition">
 
@@ -1613,7 +1613,7 @@ At depth $`N+1`$, either a full stage exists at cutoff $`M+1`$, or the exception
 
 </div>
 
-Formalised by the [full-cylinder/gap alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SuffixCylinderGlobalProducer.lean#L174) and [two-family gap alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SuffixCylinderInStrip.lean#L665).
+Formalised by the [full-cylinder/gap alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SuffixCylinderGlobalProducer.lean#L174) and [two-family gap alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SuffixCylinderInStrip.lean#L665).
 
 <div id="res:profiledgap" class="proposition">
 
@@ -1634,7 +1634,7 @@ At a cutoff boundary $`N=2M+1`$, $`M\geq4`$, the lower and upper prefixes acquir
 
 </div>
 
-Formalised by the [two-coefficient gap recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SuffixCylinderProfiledGap.lean#L124) and [promote and advance](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SuffixCylinderProfiledAutoStep.lean#L110).
+Formalised by the [two-coefficient gap recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SuffixCylinderProfiledGap.lean#L124) and [promote and advance](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SuffixCylinderProfiledAutoStep.lean#L110).
 
 <div id="res:cylinderswallow" class="proposition">
 
@@ -1646,7 +1646,7 @@ This is a necessary gap-width condition, not a contradiction.*
 
 </div>
 
-Formalised as the [two-row gap-width bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SuffixCylinderProfiledSwallow.lean#L254).
+Formalised as the [two-row gap-width bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SuffixCylinderProfiledSwallow.lean#L254).
 
 <div id="res:cofinalcylinder" class="corollary">
 
@@ -1657,7 +1657,7 @@ Formalised as the [two-row gap-width bound](https://github.com/wcook04/plectis-l
 
 </div>
 
-This is the [positive-support unbounded-depth cylinder criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L148).
+This is the [positive-support unbounded-depth cylinder criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L287).
 
 <a id="status-and-relation-to-prior-work."></a>
 
@@ -1671,11 +1671,11 @@ The two transition propositions do not supply their coefficient inequalities, an
 
 The finite record has three milestones.
 
-1.  *Depth $`27`$.* Before the cutoff rank first divides a new row, a full selected window exists at every depth from $`18`$ through $`27`$, and the depth-$`27`$ endpoint covers the whole protected strip: [stages through depth $`27`$](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SelectedSuffixCylinderPreFeedback.lean#L118) and [depth-$`27`$ strip coverage](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SelectedSuffixCylinderPreFeedback.lean#L147).
+1.  *Depth $`27`$.* Before the cutoff rank first divides a new row, a full selected window exists at every depth from $`18`$ through $`27`$, and the depth-$`27`$ endpoint covers the whole protected strip: [stages through depth $`27`$](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SelectedSuffixCylinderPreFeedback.lean#L118) and [depth-$`27`$ strip coverage](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SelectedSuffixCylinderPreFeedback.lean#L147).
 
-2.  *Depth $`29`$.* The threshold-stage continuation still covers the strip and has a common suffix cylinder at every cutoff from $`14`$ through $`25`$, while cutoff $`26`$ is explicitly not common: [depth-$`29`$ strip coverage](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SuffixCylinderThreshold.lean#L700) and [cutoff-$`26`$ obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SuffixCylinderThreshold.lean#L806).
+2.  *Depth $`29`$.* The threshold-stage continuation still covers the strip and has a common suffix cylinder at every cutoff from $`14`$ through $`25`$, while cutoff $`26`$ is explicitly not common: [depth-$`29`$ strip coverage](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SuffixCylinderThreshold.lean#L700) and [cutoff-$`26`$ obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SuffixCylinderThreshold.lean#L806).
 
-3.  *Depth $`52`$.* An independent exact run reaches depth $`51`$ with endpoint $`51{,}327{,}745`$, beyond the next head-bit threshold, and the promoted successor at depth $`52`$ is checked: [depth-$`51`$ threshold margin](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SuffixCylinderStage51.lean#L536) and [depth-$`52`$ terminal-strip witness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L118).
+3.  *Depth $`52`$.* An independent exact run reaches depth $`51`$ with endpoint $`51{,}327{,}745`$, beyond the next head-bit threshold, and the promoted successor at depth $`52`$ is checked: [depth-$`51`$ threshold margin](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SuffixCylinderStage51.lean#L536) and [depth-$`52`$ terminal-strip witness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SuffixCylinderTerminalOnlyBridge.lean#L238).
 
 These are finite milestones, not an unbounded induction; they do not provide the arbitrarily large stages required by Corollary <a href="#res:cofinalcylinder" data-reference-type="ref" data-reference="res:cofinalcylinder">43</a>.
 
@@ -1683,13 +1683,13 @@ These are finite milestones, not an unbounded induction; they do not provide the
 
 ### Half-divisor unit drop
 
-Here the terminal half-divisor bit selects whether the row coefficient is $`C`$ or $`C+1`$. Since the carry update is $`K'=2K-C`$, switching that bit from $`0`$ to $`1`$ drops the successor carry by exactly one: [the terminal-bit unit-drop identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfDivisorUnitDrop.lean#L20). An explicitly identified adjacent boundary pair packages the same one-unit split at a shared cutoff, [the boundary-pair unit-drop identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfDivisorUnitDrop.lean#L35). The inverse-parent recurrence transfers such a pair to the next protected seam while retaining the exact unit-drop witness, [the rewind unit-drop transfer](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RewindHalfDivisorAdapter.lean#L86) and [the protected-seam transfer](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RewindHalfDivisorAdapter.lean#L147). This is the local coefficient input for the rewind-seam profile, not a global construction of such boundary pairs.
+Here the terminal half-divisor bit selects whether the row coefficient is $`C`$ or $`C+1`$. Since the carry update is $`K'=2K-C`$, switching that bit from $`0`$ to $`1`$ drops the successor carry by exactly one: [the terminal-bit unit-drop identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfDivisorUnitDrop.lean#L20). An explicitly identified adjacent boundary pair packages the same one-unit split at a shared cutoff, [the boundary-pair unit-drop identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfDivisorUnitDrop.lean#L35). The inverse-parent recurrence transfers such a pair to the next protected seam while retaining the exact unit-drop witness, [the rewind unit-drop transfer](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RewindHalfDivisorAdapter.lean#L86) and [the protected-seam transfer](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RewindHalfDivisorAdapter.lean#L147). This is the local coefficient input for the rewind-seam profile, not a global construction of such boundary pairs.
 
 <a id="res:rewindboundarycounterexample"></a>
 
 ### A finite rewind-boundary obstruction
 
-The next example separates numerical seam data from the structural boundary predicate. A concrete depth-$`26`$ two-word window has, at depth $`27`$, rewind history $`[1]`$, a width-two seam, and the doubled-row identity, yet no depth-$`13`$ half-divisor boundary-pair witness: [the depth-$`27`$ boundary-pair counterexample](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RewindBoundaryPairCounterexample.lean#L169). Thus the protected-window buffer in the compactness criterion is a genuine hypothesis, not a consequence of the scalar seam facts alone.
+The next example separates numerical seam data from the structural boundary predicate. A concrete depth-$`26`$ two-word window has, at depth $`27`$, rewind history $`[1]`$, a width-two seam, and the doubled-row identity, yet no depth-$`13`$ half-divisor boundary-pair witness: [the depth-$`27`$ boundary-pair counterexample](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RewindBoundaryPairCounterexample.lean#L169). Thus the protected-window buffer in the compactness criterion is a genuine hypothesis, not a consequence of the scalar seam facts alone.
 
 <a id="res:producercarrycoordinates"></a>
 
@@ -1703,7 +1703,7 @@ whereas the above support has transition carry
 ``` math
 -\bigl(4\,\mathrm{overshoot}+\mathrm{abovePulse}+4\bigr).
 ```
-The generic row-word identity is [row-word transition identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderProducerLowerBound.lean#L105), with the below and above specialisations at [middle-coordinate identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderProducerLowerBound.lean#L150) and [upper-coordinate identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/HalfCylinderProducerLowerBound.lean#L183). Thus the upper carry is negative, while the middle sign depends on the competition between remainder and pulse. The identities supply no uniform exponential lower bound, sign persistence at unbounded ranks, or universal escape mechanism.
+The generic row-word identity is [row-word transition identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderProducerLowerBound.lean#L105), with the below and above specialisations at [middle-coordinate identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderProducerLowerBound.lean#L150) and [upper-coordinate identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/HalfCylinderProducerLowerBound.lean#L183). Thus the upper carry is negative, while the middle sign depends on the competition between remainder and pulse. The identities supply no uniform exponential lower bound, sign persistence at unbounded ranks, or universal escape mechanism.
 
 <a id="res:campbellboundary"></a>
 
@@ -1711,9 +1711,9 @@ The generic row-word identity is [row-word transition identity](https://github.c
 
 Crandall asked whether the binary block $`11`$ occurs infinitely often in the Erdős–Borwein constant \[crandall\]. Campbell’s 2026 preprint proves this affirmatively \[campbell\], using a Chinese-remainder construction and a prime-progression estimate of Alford–Granville–Pomerance \[alfordgranvillepomerance\]. Campbell chooses exponent $`\delta=1/4`$: at prime-search height $`X`$, the progression modulus $`d`$ must satisfy $`d\le X^{1/4}`$, equivalently $`d^4\le X`$.
 
-For the proposed last-skip synchronization, $`P`$ is the fatal window’s prime cap, $`t`$ its unavoidable phase period, and $`d`$ the combined progression modulus. The window gives $`P\le4t`$, while absorbing the period requires $`t\le d`$. Taking $`X=P`$, the four requirements $`2\le d`$, $`t\le d`$, $`P\le4t`$, and $`d^4\le P`$ are inconsistent. Formalised: [the period-freeze incompatibility](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CampbellShiftSynchronization.lean#L299) and [the parameter incompatibility](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CampbellShiftSynchronization.lean#L320).
+For the proposed last-skip synchronization, $`P`$ is the fatal window’s prime cap, $`t`$ its unavoidable phase period, and $`d`$ the combined progression modulus. The window gives $`P\le4t`$, while absorbing the period requires $`t\le d`$. Taking $`X=P`$, the four requirements $`2\le d`$, $`t\le d`$, $`P\le4t`$, and $`d^4\le P`$ are inconsistent. Formalised: [the period-freeze incompatibility](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CampbellShiftSynchronization.lean#L299) and [the parameter incompatibility](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CampbellShiftSynchronization.lean#L320).
 
-The associated shifted-zero condition is guarded by a putative last skip: it requires every such endpoint to violate its own dyadic cylinder. It is therefore exactly equivalent both to infinitely many actual greedy skips and to $`1/2\in\mathcal A`$: [the shifted-zero/skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CampbellShiftSynchronization.lean#L471) and [the shifted-zero/half-membership equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CampbellShiftSynchronization.lean#L488). It is an endpoint restatement, not an independent Campbell input, and does not decide half-membership.
+The associated shifted-zero condition is guarded by a putative last skip: it requires every such endpoint to violate its own dyadic cylinder. It is therefore exactly equivalent both to infinitely many actual greedy skips and to $`1/2\in\mathcal A`$: [the shifted-zero/skip equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CampbellShiftSynchronization.lean#L471) and [the shifted-zero/half-membership equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CampbellShiftSynchronization.lean#L488). It is an endpoint restatement, not an independent Campbell input, and does not decide half-membership.
 
 <a id="appendix-consequence."></a>
 
@@ -1783,7 +1783,7 @@ The recurrence is exact binary long division against the coefficient stream; the
 
 </div>
 
-Formalised: [the scaled-tail orbit identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GenericTailOrbitRigidity.lean#L338) (rigidity) and [the rationality–orbit equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GenericTailOrbitRigidity.lean#L425) (the criterion), restated in Mathlib’s irrationality vocabulary at [the non-irrationality–orbit equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GenericTailOrbitRigidity.lean#L434). The engine is one observation: a real orbit with $`d(N+1)=2\,d(N)`$ and $`d(N)=o(2^N)`$ vanishes identically ([zero-tail rigidity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GenericTailOrbitRigidity.lean#L314)).
+Formalised: [the scaled-tail orbit identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GenericTailOrbitRigidity.lean#L339) (rigidity) and [the rationality–orbit equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GenericTailOrbitRigidity.lean#L426) (the criterion), restated in Mathlib’s irrationality vocabulary at [the non-irrationality–orbit equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GenericTailOrbitRigidity.lean#L435). The engine is one observation: a real orbit with $`d(N+1)=2\,d(N)`$ and $`d(N)=o(2^N)`$ vanishes identically ([zero-tail rigidity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GenericTailOrbitRigidity.lean#L315)).
 
 The tempered boundary is essential: the homogeneous parasite $`N\mapsto2^N`$ can be added to any orbit without disturbing the recurrence, so positivity of an orbit certifies nothing by itself, and positivity is nowhere advertised as an equivalent criterion. The linear-growth hypothesis covers both constants introduced in Section <a href="#sec:intro" data-reference-type="ref" data-reference="sec:intro">1</a>: $`\varphi(n)\le n`$ for the \#249 coefficients, and $`f_A(n)\le\tau(n)\le n`$ for the \#257 support coefficients $`f_A(n)=\#\{a\in A:a\mid n\}`$. The results below instantiate the criterion on supports. Its separate totient carry-rank consequence belongs to the \#249 rank route in Appendix <a href="#app:totient-rank" data-reference-type="ref" data-reference="app:totient-rank">11.4</a>.
 
@@ -1810,13 +1810,13 @@ In particular, the signed identity $`L(\mu)=1/2`$ cannot be converted into a Boo
 
 </div>
 
-Formalised: [the negative-Möbius decomposition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MobiusSignSupportNoGo.lean#L111) and [the strict lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MobiusSignSupportNoGo.lean#L150). The term $`d=6`$ supplies the displayed $`1/63`$. This rules out one sign-truncation route only; it does not exclude another infinite Boolean support with value $`1/2`$.
+Formalised: [the negative-Möbius decomposition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MobiusSignSupportNoGo.lean#L111) and [the strict lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MobiusSignSupportNoGo.lean#L150). The term $`d=6`$ supplies the displayed $`1/63`$. This rules out one sign-truncation route only; it does not exclude another infinite Boolean support with value $`1/2`$.
 
 <a id="the-exact-coordinate-chain."></a>
 
 #### The exact coordinate chain.
 
-At base $`2`$ the support series of Section <a href="#sec:eb" data-reference-type="ref" data-reference="sec:eb">4</a> is itself a binary coefficient series, $`\sum_{n\in A}1/(2^n-1)=X_{f_A}`$ ([the support-series/binary-series identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L376)). Boolean Möbius inversion first identifies the support from its divisor coefficients; tail-orbit rigidity then identifies rationality with a tempered integer orbit. Theorem <a href="#res:carrycert" data-reference-type="ref" data-reference="res:carrycert">47</a> is exactly the composition of those two equivalences. The divisor transform and Möbius inversion are classical Lambert-series tools \[apostol; merca2017; mercaschmidt\]; the composition with the tempered-orbit criterion is what is checked here.
+At base $`2`$ the support series of Section <a href="#sec:eb" data-reference-type="ref" data-reference="sec:eb">4</a> is itself a binary coefficient series, $`\sum_{n\in A}1/(2^n-1)=X_{f_A}`$ ([the support-series/binary-series identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L376)). Boolean Möbius inversion first identifies the support from its divisor coefficients; tail-orbit rigidity then identifies rationality with a tempered integer orbit. Theorem <a href="#res:carrycert" data-reference-type="ref" data-reference="res:carrycert">47</a> is exactly the composition of those two equivalences. The divisor transform and Möbius inversion are classical Lambert-series tools \[apostol; merca2017; mercaschmidt\]; the composition with the tempered-orbit criterion is what is checked here.
 
 <div id="res:boolmob" class="proposition">
 
@@ -1824,9 +1824,9 @@ At base $`2`$ the support series of Section <a href="#sec:eb" data-reference-ty
 
 </div>
 
-Formalised: [the positive-support divisor identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L76), [the Möbius inversion identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L94), and, with no search or finiteness hypothesis, the converse [the Boolean reconstruction theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L180).
+Formalised: [the positive-support divisor identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L76), [the Möbius inversion identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L94), and, with no search or finiteness hypothesis, the converse [the Boolean reconstruction theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L180).
 
-On the carry side, Theorem <a href="#res:rigidity" data-reference-type="ref" data-reference="res:rigidity">44</a> applies at $`\gamma=f_A`$. The support series is rational exactly when a tempered carry orbit for $`f_A`$ exists ([the rationality–carry equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L383)). A displayed fraction $`p/q`$ corresponds to an orbit $`U`$ with multiplier $`q`$ and initial value $`U(0)=p`$ ([the support-fraction carry equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L466)). Exact division then recovers the coefficient from the orbit, $`\bigl(2U(N)-U(N+1)\bigr)/q=f_A(N+1)`$ ([carry-quotient recovery](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L680)). The elementary divisor-pair bound $`\tau(n)\le2\lfloor\sqrt n\rfloor`$ confines the tails to a square-root strip, $`T_{f_A}(N)\le2\sqrt N+4`$. For a nonempty support the orbit states are positive and satisfy $`U(N)\le q\,(2\sqrt N+4)`$ ([the carry upper bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L705)); and the strip is strong enough to re-derive the tempered boundary, so the analytic side condition can be traded for one inequality. The two coordinate changes compose.
+On the carry side, Theorem <a href="#res:rigidity" data-reference-type="ref" data-reference="res:rigidity">44</a> applies at $`\gamma=f_A`$. The support series is rational exactly when a tempered carry orbit for $`f_A`$ exists ([the rationality–carry equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L383)). A displayed fraction $`p/q`$ corresponds to an orbit $`U`$ with multiplier $`q`$ and initial value $`U(0)=p`$ ([the support-fraction carry equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L466)). Exact division then recovers the coefficient from the orbit, $`\bigl(2U(N)-U(N+1)\bigr)/q=f_A(N+1)`$ ([carry-quotient recovery](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L680)). The elementary divisor-pair bound $`\tau(n)\le2\lfloor\sqrt n\rfloor`$ confines the tails to a square-root strip, $`T_{f_A}(N)\le2\sqrt N+4`$. For a nonempty support the orbit states are positive and satisfy $`U(N)\le q\,(2\sqrt N+4)`$ ([the carry upper bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L705)); and the strip is strong enough to re-derive the tempered boundary, so the analytic side condition can be traded for one inequality. The two coordinate changes compose.
 
 <div id="res:carrycert" class="theorem">
 
@@ -1840,11 +1840,11 @@ and the Möbius transform of the quotient sequence $`N\mapsto\bigl(2U(N)-U(N+1)\
 
 </div>
 
-Formalised as [the normalised support-fraction certificate equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L948).
+Formalised as [the normalised support-fraction certificate equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L948).
 
 <div class="example">
 
-**Example 48** (the support $`\{2,3\}`$). The support $`\{2,3\}`$ has value $`\tfrac13+\tfrac17=\tfrac{10}{21}`$ ([the two-point series value](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L1054)), its orbit is the pure period-six cycle $`10,20,19,17,13,26`$ with multiplier $`21`$ ([the tempered two-point orbit](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L1103)), and the Möbius transform of the carry quotient recovers exactly $`\{2,3\}`$ ([support recovery](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/BooleanMobiusCarry.lean#L1140)).
+**Example 48** (the support $`\{2,3\}`$). The support $`\{2,3\}`$ has value $`\tfrac13+\tfrac17=\tfrac{10}{21}`$ ([the two-point series value](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L1054)), its orbit is the pure period-six cycle $`10,20,19,17,13,26`$ with multiplier $`21`$ ([the tempered two-point orbit](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L1103)), and the Möbius transform of the carry quotient recovers exactly $`\{2,3\}`$ ([support recovery](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/BooleanMobiusCarry.lean#L1140)).
 
 </div>
 
@@ -1874,7 +1874,7 @@ The bound is uniform in $`A,p,N,`$ and $`h`$.*
 
 </div>
 
-Formalised: [sublogarithmic zero-window bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SublogDivisorCoverage.lean#L392).
+Formalised: [sublogarithmic zero-window bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SublogDivisorCoverage.lean#L392).
 
 The proof uses $`k`$ as a tunable moment parameter. For each integer $`k\ge2`$ it first establishes the explicit divisor estimate
 ``` math
@@ -1909,13 +1909,13 @@ this is $`u_N`$ in Theorem <a href="#res:rigidity-main" data-reference-type="re
 e_N=\left\lfloor\frac{u(N)}v\right\rfloor,
  \qquad u(N)=ve_N+\bar p_N;
 ```
-thus $`e_N`$ is the nonnegative integral excess above the least residue ([shifted natural-state existence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L668), [residue–excess decomposition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L506)). Doubling a least residue either stays under $`v`$ or wraps past it exactly once, so each step emits a wrap digit $`k_N=\lfloor2\bar p_N/v\rfloor\in\{0,1\}`$, and over any cycle length $`h`$ with $`2^h\equiv1\pmod v`$ the repetend identity holds:
+thus $`e_N`$ is the nonnegative integral excess above the least residue ([shifted natural-state existence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L668), [residue–excess decomposition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L506)). Doubling a least residue either stays under $`v`$ or wraps past it exactly once, so each step emits a wrap digit $`k_N=\lfloor2\bar p_N/v\rfloor\in\{0,1\}`$, and over any cycle length $`h`$ with $`2^h\equiv1\pmod v`$ the repetend identity holds:
 ``` math
 \sum_{N<h}\bar p_N \;=\; v\cdot w,
 \qquad
 w=\sum_{N<h}k_N,
 ```
-with $`w\ge1`$ when $`p`$ is coprime to $`v>1`$. The formal development records the displayed equality as the [wrap-count identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L171) and its non-vanishing as the [positive-wrap theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L181).
+with $`w\ge1`$ when $`p`$ is coprime to $`v>1`$. The formal development records the displayed equality as the [wrap-count identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L171) and its non-vanishing as the [positive-wrap theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L181).
 
 <div id="res:onewrap" class="proposition">
 
@@ -1923,9 +1923,9 @@ with $`w\ge1`$ when $`p`$ is coprime to $`v>1`$. The formal development records 
 
 </div>
 
-The one-wrap cycles are thus exactly the Mersenne repetends $`2^a/(2^h-1)`$. Formalised: [one-wrap classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L415), from the generic closed-cycle form [one-wrap cycle classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L353), and instantiated at the true order $`h=\operatorname{ord}_v(2)`$ ([odd-order one-wrap classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L478)). The classification is algebraic; a finite check of $`446`$ coprime starting residues across twelve modulus/order rows is retained as kernel-checked validation, not as the proof ([446-start finite validation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L2454)).
+The one-wrap cycles are thus exactly the Mersenne repetends $`2^a/(2^h-1)`$. Formalised: [one-wrap classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L415), from the generic closed-cycle form [one-wrap cycle classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L353), and instantiated at the true order $`h=\operatorname{ord}_v(2)`$ ([odd-order one-wrap classification](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L478)). The classification is algebraic; a finite check of $`446`$ coprime starting residues across twelve modulus/order rows is retained as kernel-checked validation, not as the proof ([446-start finite validation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L2454)).
 
-The analytic bridge is Cesàro averaging. Write $`\rho(A)=\sum_{a\in A}1/a`$ for the reciprocal mass. When the reciprocal family is summable, the mean of $`f_A(1),\dots,f_A(N)`$ converges to $`\rho(A)`$ — the density of the multiples of $`a`$, summed over the support — and the mean of the scaled tails has the same limit ([divisor-mean limit](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L945), [coefficient-tail mean limit](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L1036)). The divergent case is carried as an explicit disjunction, not through a default value assigned to a divergent formal sum.
+The analytic bridge is Cesàro averaging. Write $`\rho(A)=\sum_{a\in A}1/a`$ for the reciprocal mass. When the reciprocal family is summable, the mean of $`f_A(1),\dots,f_A(N)`$ converges to $`\rho(A)`$ — the density of the multiples of $`a`$, summed over the support — and the mean of the scaled tails has the same limit ([divisor-mean limit](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L945), [coefficient-tail mean limit](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L1036)). The divergent case is carried as an explicit disjunction, not through a default value assigned to a divergent formal sum.
 
 <div id="res:orderwrap" class="proposition">
 
@@ -1945,7 +1945,7 @@ Then $`\sum_{a\in A}1/a`$ diverges or $`\rho(A)\ge w/h`$; if moreover $`p`$ is c
 
 </div>
 
-The divergent-or-bounded conclusion is formalised by the [wrap-ratio mass alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L1501), its coprime specialisation by the [odd-order mass alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L1517), and the automatic excess limit in the fraction-facing coordinates above by the [shifted excess-mean identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L1577). A rational value thus ties the odd part of its denominator to the sparsity of its support: a summable support with small $`\rho(A)`$ can only display denominators whose odd part has small multiplicative order of $`2`$.
+The divergent-or-bounded conclusion is formalised by the [wrap-ratio mass alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L1501), its coprime specialisation by the [odd-order mass alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L1517), and the automatic excess limit in the fraction-facing coordinates above by the [shifted excess-mean identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L1577). A rational value thus ties the odd part of its denominator to the sparsity of its support: a summable support with small $`\rho(A)`$ can only display denominators whose odd part has small multiplicative order of $`2`$.
 
 <div id="res:collision" class="corollary">
 
@@ -1957,7 +1957,7 @@ In particular, an infinite support whose value is a dyadic rational $`p/2^c`$ ha
 
 </div>
 
-The mechanism is a collision. At every positive multiple of $`L`$, at least $`|F|`$ support divisors land on the same index, so $`f_A\ge|F|`$ there. The exact carry equation $`f_A(n)+e_n=k_{n-1}+2e_{n-1}`$, with $`k_{n-1}\le1`$, lets one step absorb at most one unit. The preceding excess must therefore spike to at least $`\lceil(|F|-1)/2\rceil`$, and these spikes recur with density $`1/L`$. The three steps are formalised by the [shifted common-multiple bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L1963), [shifted wrap–excess recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L1868), and [dyadic reciprocal-mass alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L2200).
+The mechanism is a collision. At every positive multiple of $`L`$, at least $`|F|`$ support divisors land on the same index, so $`f_A\ge|F|`$ there. The exact carry equation $`f_A(n)+e_n=k_{n-1}+2e_{n-1}`$, with $`k_{n-1}\le1`$, lets one step absorb at most one unit. The preceding excess must therefore spike to at least $`\lceil(|F|-1)/2\rceil`$, and these spikes recur with density $`1/L`$. The three steps are formalised by the [shifted common-multiple bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L1963), [shifted wrap–excess recurrence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L1868), and [dyadic reciprocal-mass alternative](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L2200).
 
 <div id="res:unbounded" class="theorem">
 
@@ -1965,7 +1965,7 @@ The mechanism is a collision. At every positive multiple of $`L`$, at least $`|F
 
 </div>
 
-The proof picks $`2B+1`$ positive support elements; at a common multiple $`L`$ of all of them, the local inequality $`1+v\,|F|\le2\,u(L-c-1)`$ pushes the state past $`B`$. The conclusion is the [fraction-facing unbounded-state theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L2377); its local engine is the [support-cardinality state bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/RationalSupportCarrySkeleton.lean#L2228). So a rational value over an infinite support cannot run on a bounded carry alphabet. That rules out finite-state readings of the carry system; it does not decide the problem. Nothing in the constraints above prevents an infinite support from satisfying every one of these constraints. The repetend identities and divisor averages used here are classical. We make no claim of mathematical novelty for the coupled reciprocal-mass bounds, collision strengthening, or global unboundedness statement.
+The proof picks $`2B+1`$ positive support elements; at a common multiple $`L`$ of all of them, the local inequality $`1+v\,|F|\le2\,u(L-c-1)`$ pushes the state past $`B`$. The conclusion is the [fraction-facing unbounded-state theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L2377); its local engine is the [support-cardinality state bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/RationalSupportCarrySkeleton.lean#L2228). So a rational value over an infinite support cannot run on a bounded carry alphabet. That rules out finite-state readings of the carry system; it does not decide the problem. Nothing in the constraints above prevents an infinite support from satisfying every one of these constraints. The repetend identities and divisor averages used here are classical. We make no claim of mathematical novelty for the coupled reciprocal-mass bounds, collision strengthening, or global unboundedness statement.
 
 <a id="app:carry-geometry"></a>
 
@@ -1975,7 +1975,7 @@ Finally, consider the set of all values a base-$`2`$ support series can take. Fo
 ``` math
 \mathcal A\;=\;\Bigl\{\,\sum_{n\in A}w_n \;:\; A\subseteq\mathbb{N},\ 0\notin A\Bigr\},
 ```
-the *Mersenne achievement set*, the exponent $`0`$ being normalised away as analytically invisible. Coding by supports of positive exponents is literally the formal support series ([support-value identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L554)). In this language the base-$`2`$ \#257 statement reads: the rational members of $`\mathcal A`$ are exactly the finite subset sums. Nothing below decides that. Kovač and Tao verify, for every fixed integer $`t\ge2`$, that
+the *Mersenne achievement set*, the exponent $`0`$ being normalised away as analytically invisible. Coding by supports of positive exponents is literally the formal support series ([support-value identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L554)). In this language the base-$`2`$ \#257 statement reads: the rational members of $`\mathcal A`$ are exactly the finite subset sums. Nothing below decides that. Kovač and Tao verify, for every fixed integer $`t\ge2`$, that
 ``` math
 \sum_{\ell>n}\frac1{t^\ell-1}<\frac1{t^n-1},
 ```
@@ -1987,7 +1987,7 @@ and deduce distinct Lambert subsums and a Cantor set \[kovactao, Remark 4.1\].
 
 </div>
 
-Formalised: [strict-tail inequality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L180), [gap big-O estimate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L473) (explicit bound [explicit gap bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L448)), [greedy survival criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1445), and [normalised support-value injectivity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1527), transferred to the kernel series at [normalised support-series injectivity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1536). The nonnegativity guard in the membership criterion is necessary: without it a negative target would survive every level while lying outside $`\mathcal A`$.
+Formalised: [strict-tail inequality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L180), [gap big-O estimate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L473) (explicit bound [explicit gap bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L448)), [greedy survival criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1445), and [normalised support-value injectivity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1527), transferred to the kernel series at [normalised support-series injectivity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1536). The nonnegativity guard in the membership criterion is necessary: without it a negative target would survive every level while lying outside $`\mathcal A`$.
 
 The binary coding also permits the global geometry to be checked directly.
 
@@ -1997,7 +1997,7 @@ The binary coding also permits the global geometry to be checked directly.
 
 </div>
 
-Formalised: [measure-one theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L996), [perfectness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1620), [total disconnectedness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1636), and [nowhere density](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1645). Kovač–Tao supply the strict-tail Cantor-set context \[kovactao, Remark 4.1\]. The formalisation records these exact properties without making a novelty or priority claim for them.
+Formalised: [measure-one theorem](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L996), [perfectness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1620), [total disconnectedness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1636), and [nowhere density](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1645). Kovač–Tao supply the strict-tail Cantor-set context \[kovactao, Remark 4.1\]. The formalisation records these exact properties without making a novelty or priority claim for them.
 
 <div id="res:death" class="proposition">
 
@@ -2010,7 +2010,7 @@ The sum is empty when $`\ell=0`$, and always $`T(n)<\widehat T_{n,\ell}`$. Hence
 
 </div>
 
-Formalised: [rational–real greedy agreement](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1130), [rational tail-enclosure bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1692), [finite-certificate soundness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1726), [three-quarters nonmembership](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1748), and [rational-member support-bit equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GreedyAchievementSet.lean#L1832). The certificates are one-sided: survival through any finite depth proves nothing about membership, and no decidability of membership in $`\mathcal A`$ is asserted. Neither the global geometry nor the finite nonmembership certificates exclude rational values for either open series.
+Formalised: [rational–real greedy agreement](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1130), [rational tail-enclosure bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1692), [finite-certificate soundness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1726), [three-quarters nonmembership](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1748), and [rational-member support-bit equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GreedyAchievementSet.lean#L1832). The certificates are one-sided: survival through any finite depth proves nothing about membership, and no decidability of membership in $`\mathcal A`$ is asserted. Neither the global geometry nor the finite nonmembership certificates exclude rational values for either open series.
 
 <a id="appendix-consequence.-1"></a>
 
@@ -2056,9 +2056,9 @@ For fixed $`t`$, the *lcm cone* is the sequence $`\{kM_t:k\ge1\}`$. Cone flatnes
 
 </div>
 
-Formalised: [cone flatness under rationality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeFlatness.lean#L90).
+Formalised: [cone flatness under rationality](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeFlatness.lean#L90).
 
-Proposition <a href="#res:complete" data-reference-type="ref" data-reference="res:complete">22</a> states fixed-parameter certificate completeness, and Theorem <a href="#res:pointwisecomplete" data-reference-type="ref" data-reference="res:pointwisecomplete">23</a> gives its global pointwise form. Their additional role here is cone-level: a joint finite refuter tests several multipliers $`k`$ at once rather than one pair. It refutes the single-fractional-part model that rationality predicts on a finite sample ([common-fraction contradiction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeNonflat.lean#L126)). This finite cone predicate is sound in the direction just stated: a certificate produces a non-integral pair and hence contradicts the sampled flatness model. No converse is proved saying that every non-flat finite sample, or every irrational value of $`S`$, must be detected by this joint predicate. It is therefore a refuter, not a complete decision procedure.
+Proposition <a href="#res:complete" data-reference-type="ref" data-reference="res:complete">22</a> states fixed-parameter certificate completeness, and Theorem <a href="#res:pointwisecomplete" data-reference-type="ref" data-reference="res:pointwisecomplete">23</a> gives its global pointwise form. Their additional role here is cone-level: a joint finite refuter tests several multipliers $`k`$ at once rather than one pair. It refutes the single-fractional-part model that rationality predicts on a finite sample ([common-fraction contradiction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeNonflat.lean#L126)). This finite cone predicate is sound in the direction just stated: a certificate produces a non-integral pair and hence contradicts the sampled flatness model. No converse is proved saying that every non-flat finite sample, or every irrational value of $`S`$, must be detected by this joint predicate. It is therefore a refuter, not a complete decision procedure.
 
 <a id="an-exact-target-residue-class."></a>
 
@@ -2082,7 +2082,7 @@ Thus $`Q_t`$ is the explicit part and $`F_t`$ the exact remainder; $`\mathsf{Hit
 
 </div>
 
-This is the [full-target equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalPincerDecomposition.lean#L215).
+This is the [full-target equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalPincerDecomposition.lean#L215).
 
 <div id="res:fulltargetavoidance" class="corollary">
 
@@ -2097,7 +2097,7 @@ This is the [full-target equivalence](https://github.com/wcook04/plectis-lean-er
 
 </div>
 
-The reverse implication is the [unbounded target-avoidance criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalPincerDecomposition.lean#L290). For the forward implication, Theorem <a href="#res:diag" data-reference-type="ref" data-reference="res:diag">25</a> supplies non-integral diagonal differences at unbounded $`t`$, and Proposition <a href="#res:pincer" data-reference-type="ref" data-reference="res:pincer">58</a> converts each one into a missed full target. Thus the proposition is the fixed-scale equivalence and the corollary is its exact global form. The unbounded avoidance statement remains open.
+The reverse implication is the [unbounded target-avoidance criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalPincerDecomposition.lean#L290). For the forward implication, Theorem <a href="#res:diag" data-reference-type="ref" data-reference="res:diag">25</a> supplies non-integral diagonal differences at unbounded $`t`$, and Proposition <a href="#res:pincer" data-reference-type="ref" data-reference="res:pincer">58</a> converts each one into a missed full target. Thus the proposition is the fixed-scale equivalence and the corollary is its exact global form. The unbounded avoidance statement remains open.
 
 <a id="app:totient-finite"></a>
 
@@ -2127,7 +2127,7 @@ The second identity is exact, and $`|\mathcal D_H-C_{H,D}|\le4c_H/[3(2^{D+1}-1)^
 
 </div>
 
-Formalised: [squared-Mersenne tail identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SquaredMersenneDiagonalEnclosure.lean#L116) and [Lambert-projected separation criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SquaredMersenneDiagonalEnclosure.lean#L237).
+Formalised: [squared-Mersenne tail identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SquaredMersenneDiagonalEnclosure.lean#L138) and [Lambert-projected separation criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SquaredMersenneDiagonalEnclosure.lean#L426).
 
 <a id="a-reduced-denominator-finite-predicate."></a>
 
@@ -2141,7 +2141,7 @@ Separately, there is a stricter finite condition for an odd reduced denominator 
 
 </div>
 
-Formalised: [prime-power unit-gap characterisation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/PrimitiveWeightCertificate.lean#L54), [prime-power one-candidate bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/PrimitiveWeightCertificate.lean#L111), [three-window unit-gap certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/PrimitiveWeightCertificate.lean#L151), and [three-window ordinary-gap failure](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/PrimitiveWeightCertificate.lean#L157). This is a finite certificate-level strengthening. We do not establish that rationality of $`S`$ supplies these predicates at unbounded parameters.
+Formalised: [prime-power unit-gap characterisation](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/PrimitiveWeightCertificate.lean#L54), [prime-power one-candidate bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/PrimitiveWeightCertificate.lean#L111), [three-window unit-gap certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/PrimitiveWeightCertificate.lean#L151), and [three-window ordinary-gap failure](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/PrimitiveWeightCertificate.lean#L157). This is a finite certificate-level strengthening. We do not establish that rationality of $`S`$ supplies these predicates at unbounded parameters.
 
 <a id="verified-finite-certificate-families."></a>
 
@@ -2169,9 +2169,9 @@ Four bounded certificate families are machine-checked. Each successful $`\mathsf
 
 </div>
 
-The four validation classes are formalised, in order, by the [small-window certificate family](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientTailPeriodKiller.lean#L404), [periods through sixteen](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CarrySurvivorExtinction.lean#L574), [28 imported diagonal certificates through scale 64](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalPincerCertificatesT64.lean#L1967), and [joint-nonflatness table](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/LcmConeNonflat.lean#L506). For the first three classes, fixed-parameter completeness converts each successful $`\mathsf{Sep}`$ instance into the stated non-integral tail difference. The fourth uses the separate cone-refuter soundness theorem. None is evidence that certificates occur at unbounded scales.
+The four validation classes are formalised, in order, by the [small-window certificate family](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientTailPeriodKiller.lean#L404), [periods through sixteen](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CarrySurvivorExtinction.lean#L574), [28 imported diagonal certificates through scale 64](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalPincerCertificatesT64.lean#L1967), and [joint-nonflatness table](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/LcmConeNonflat.lean#L506). For the first three classes, fixed-parameter completeness converts each successful $`\mathsf{Sep}`$ instance into the stated non-integral tail difference. The fourth uses the separate cone-refuter soundness theorem. None is evidence that certificates occur at unbounded scales.
 
-The first instance is worked in full following Example <a href="#res:deposits" data-reference-type="ref" data-reference="res:deposits">26</a>; its underlying implication is [certificate soundness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientTailPeriodKiller.lean#L262). No instance asserts that such differences occur at unbounded scales.
+The first instance is worked in full following Example <a href="#res:deposits" data-reference-type="ref" data-reference="res:deposits">26</a>; its underlying implication is [certificate soundness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientTailPeriodKiller.lean#L262). No instance asserts that such differences occur at unbounded scales.
 
 <a id="exact-finite-divisor-index-split-and-sufficient-projection-test."></a>
 
@@ -2199,7 +2199,7 @@ then the full target at height $`H`$ is not attained.*
 
 </div>
 
-Formalised: [foreign–divisor split](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/ActualForeignResidueProjection.lean#L307), [omitted-term bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/ActualForeignResidueProjection.lean#L275), and [projected-separation criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/ActualForeignResidueProjection.lean#L348). The passage from finite windows to the analytic foreign complement, including the corresponding kernel identity, is not supplied here. Nor is an unbounded family of separated projections. Both missing inputs belong to the open certificate-supply problem.
+Formalised: [foreign–divisor split](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/ActualForeignResidueProjection.lean#L308), [omitted-term bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/ActualForeignResidueProjection.lean#L276), and [projected-separation criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/ActualForeignResidueProjection.lean#L414). The passage from finite windows to the analytic foreign complement, including the corresponding kernel identity, is not supplied here. Nor is an unbounded family of separated projections. Both missing inputs belong to the open certificate-supply problem.
 
 Second, the rational Möbius shadow has an exact reduced denominator. If $`r_t`$ is the square-free kernel of $`M_t`$, $`s_t=M_t/r_t`$, and $`J(r_t)=\prod_{q}(q^2-1)`$ is the odd Jordan scalar, the product running over the odd prime divisors $`q`$ of $`r_t`$, then
 ``` math
@@ -2226,7 +2226,7 @@ If $`t\geq5`$, then
 
 </div>
 
-Formalised: [upper-half Mersenne divisor bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MersenneShadowDenominatorGrowth.lean#L99) and [exact shadow denominator](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MersenneShadowDenominatorGrowth.lean#L147).
+Formalised: [upper-half Mersenne divisor bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MersenneShadowDenominatorGrowth.lean#L99) and [exact shadow denominator](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MersenneShadowDenominatorGrowth.lean#L147).
 
 Finally, a second finite coordinate projects the diagonal difference to an integer and then to binary suffix data. At depth $`L`$, let
 ``` math
@@ -2258,19 +2258,19 @@ implies that $`S`$ is irrational.*
 
 </div>
 
-Formalised: [residue–projection equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalFreshLossBridge.lean#L61) and [unbounded projection criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalFreshLossBridge.lean#L191). The finite equivalence is only between the residue inequality and the projection certificate. Neither condition is asserted to be necessary for full-target avoidance or for irrationality. The module’s stronger adjacent-suffix hypotheses imply the displayed unbounded supply; they are not additional conclusions of one finite certificate. Finite instances of this implication are proved, but no unbounded projection or suffix supply is established.
+Formalised: [residue–projection equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalFreshLossBridge.lean#L72) and [unbounded projection criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalFreshLossBridge.lean#L202). The finite equivalence is only between the residue inequality and the projection certificate. Neither condition is asserted to be necessary for full-target avoidance or for irrationality. The module’s stronger adjacent-suffix hypotheses imply the displayed unbounded supply; they are not additional conclusions of one finite certificate. Finite instances of this implication are proved, but no unbounded projection or suffix supply is established.
 
 <a id="res:t64closure"></a>
 
 #### Primality certificates at changing-lcm scales through $`t=64`$.
 
-A finite family of Lucas certificates proves the primality facts required by the diagonal certificates at every $`t\leq64`$ where $`M_t`$ increases; for example, [representative Lucas primality certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalPincerPrimeCertificates/ClosureT64.lean#L51759). This finite theorem family verifies the required primality inputs only through $`t=64`$.
+A finite family of Lucas certificates proves the primality facts required by the diagonal certificates at every $`t\leq64`$ where $`M_t`$ increases; for example, [representative Lucas primality certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalPincerPrimeCertificates/ClosureT64.lean#L51759). This finite theorem family verifies the required primality inputs only through $`t=64`$.
 
 <a id="res:t64endpoint"></a>
 
 #### The diagonal certificate at $`t=64`$.
 
-Using those primality facts, Lean checks the individual diagonal certificate at $`t=64`$, [scale-64 diagonal certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalPincerCertificateT64Endpoint.lean#L1928). This endpoint is one of the 28 finite diagonal certificates in Example <a href="#res:deposits" data-reference-type="ref" data-reference="res:deposits">26</a>.
+Using those primality facts, Lean checks the individual diagonal certificate at $`t=64`$, [scale-64 diagonal certificate](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalPincerCertificateT64Endpoint.lean#L1928). This endpoint is one of the 28 finite diagonal certificates in Example <a href="#res:deposits" data-reference-type="ref" data-reference="res:deposits">26</a>.
 
 <a id="app:totient-boundaries"></a>
 
@@ -2282,13 +2282,13 @@ This subsection catalogues independent candidate routes, not a proof sequence. O
 
 #### Candidate unbounded input: a three-rank odd window.
 
-Fix $`t=2^a`$ and increase the canonical suffix depth by at most one to write it as $`m=2q+1`$. Call a rank *central* when its half-word residue lies between $`4^q/32`$ and $`31\cdot4^q/32`$. Test $`q,q+1,q+2`$; centrality at any one yields the required adjacent-suffix gap condition, [three-rank suffix-gap implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalFlexibleOddWindowSupply.lean#L93). Thus success of this three-rank test for arbitrarily large $`a`$ implies irrationality, [unbounded three-rank criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalFlexibleOddWindowSupply.lean#L136); that supply is not proved.
+Fix $`t=2^a`$ and increase the canonical suffix depth by at most one to write it as $`m=2q+1`$. Call a rank *central* when its half-word residue lies between $`4^q/32`$ and $`31\cdot4^q/32`$. Test $`q,q+1,q+2`$; centrality at any one yields the required adjacent-suffix gap condition, [three-rank suffix-gap implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalFlexibleOddWindowSupply.lean#L93). Thus success of this three-rank test for arbitrarily large $`a`$ implies irrationality, [unbounded three-rank criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalFlexibleOddWindowSupply.lean#L136); that supply is not proved.
 
 <a id="res:flexibleoddaffine"></a>
 
 #### Exact affine form and bounded zero-orbit obstruction.
 
-Let $`x_q`$ be the centred half-word residue and put $`e_q=4^q/32`$. Centrality is $`|x_q|\geq e_q`$; under the stated bounds on the next two corrections, the three tests are equivalent to one affine escape disjunction, [three-scale affine equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalFlexibleOddWindowAffine.lean#L236). Yet the generic recurrence $`y_{j+1}=4y_j+c_j`$, started at zero, can satisfy $`|y_j|<4^j e`$ for every $`j`$ even when every $`|c_j|<2e`$, [zero-orbit obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/DiagonalFlexibleOddWindowAffine.lean#L225).
+Let $`x_q`$ be the centred half-word residue and put $`e_q=4^q/32`$. Centrality is $`|x_q|\geq e_q`$; under the stated bounds on the next two corrections, the three tests are equivalent to one affine escape disjunction, [three-scale affine equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalFlexibleOddWindowAffine.lean#L236). Yet the generic recurrence $`y_{j+1}=4y_j+c_j`$, started at zero, can satisfy $`|y_j|<4^j e`$ for every $`j`$ even when every $`|c_j|<2e`$, [zero-orbit obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/DiagonalFlexibleOddWindowAffine.lean#L225).
 
 <a id="exact-fresh-prime-deficit-decomposition."></a>
 
@@ -2302,7 +2302,7 @@ The foreign defect from Appendix C.1 has an endpoint split suited to curvature 
 
 </div>
 
-Formalised: [endpoint-deficit nonnegativity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/FreshPrimeDeficitDecomposition.lean#L91), [foreign-increment decomposition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/FreshPrimeDeficitDecomposition.lean#L184), and [adverse-deficit curvature bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/FreshPrimeDeficitDecomposition.lean#L269). This supplies the exact correction term for the finite evaluations. It supplies neither an unbounded deficit bound nor an irrationality criterion.
+Formalised: [endpoint-deficit nonnegativity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/FreshPrimeDeficitDecomposition.lean#L91), [foreign-increment decomposition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/FreshPrimeDeficitDecomposition.lean#L184), and [adverse-deficit curvature bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/FreshPrimeDeficitDecomposition.lean#L269). This supplies the exact correction term for the finite evaluations. It supplies neither an unbounded deficit bound nor an irrationality criterion.
 
 <a id="exact-one-bit-lifting."></a>
 
@@ -2316,7 +2316,7 @@ The power-of-two signed-margin condition admits a separate exact arithmetic redu
 
 </div>
 
-Formalised: [one-bit divisibility lift](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/PowerTwoBitLift.lean#L34), [mod-32 cofactor criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/PowerTwoBitLift.lean#L111), and [offset-16 complement](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/PowerTwoBitLift.lean#L129). The centred-state formulation identifies the signed-margin interval condition with failure of this next lift, subject to its stated correction and margin budget: [centred-lift equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/PowerTwoCenteredBitLift.lean#L121) and [centred mod-32 equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/PowerTwoCenteredBitLift.lean#L159). This is a finite arithmetic equivalence. It does not supply the required cofactors at unbounded scales and gives no irrationality conclusion.
+Formalised: [one-bit divisibility lift](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/PowerTwoBitLift.lean#L34), [mod-32 cofactor criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/PowerTwoBitLift.lean#L111), and [offset-16 complement](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/PowerTwoBitLift.lean#L129). The centred-state formulation identifies the signed-margin interval condition with failure of this next lift, subject to its stated correction and margin budget: [centred-lift equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/PowerTwoCenteredBitLift.lean#L121) and [centred mod-32 equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/PowerTwoCenteredBitLift.lean#L159). This is a finite arithmetic equivalence. It does not supply the required cofactors at unbounded scales and gives no irrationality conclusion.
 
 <a id="independent-no-go-parity-is-not-a-margin-certificate."></a>
 
@@ -2339,7 +2339,7 @@ Each parity class contains both a member and a nonmember of $`\mathcal M_{m,a}`$
 
 </div>
 
-Formalised: [parity obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/Totient827ParitySocketCeiling.lean#L73) and [power-of-two parity obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/Totient827ParitySocketCeiling.lean#L110). The result is structural and proves no signed-margin certificate at any particular scale; it excludes parity as a sufficient standalone criterion.
+Formalised: [parity obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/Totient827ParitySocketCeiling.lean#L73) and [power-of-two parity obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/Totient827ParitySocketCeiling.lean#L110). The result is structural and proves no signed-margin certificate at any particular scale; it excludes parity as a sufficient standalone criterion.
 
 <a id="independent-no-go-prime-adjunction."></a>
 
@@ -2358,7 +2358,7 @@ Hence integrality at $`H`$ propagates to every multiple, and the four target hit
 
 </div>
 
-Formalised: [the prime-adjunction diamond collapse](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/FullTargetPrimeAdjunctionNoGo.lean#L196) and [the foreign-correction flatness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/FullTargetPrimeAdjunctionNoGo.lean#L247). Thus tracking only the explicit shadow cannot create a transport obstruction. A future positive route would need a separately defined projection together with a theorem controlling what that projection discards. This is a proved obstruction to one strategy, not progress on the unbounded-supply proposition.
+Formalised: [the prime-adjunction diamond collapse](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/FullTargetPrimeAdjunctionNoGo.lean#L196) and [the foreign-correction flatness](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/FullTargetPrimeAdjunctionNoGo.lean#L247). Thus tracking only the explicit shadow cannot create a transport obstruction. A future positive route would need a separately defined projection together with a theorem controlling what that projection discards. This is a proved obstruction to one strategy, not progress on the unbounded-supply proposition.
 
 <div id="res:adelic" class="proposition">
 
@@ -2369,7 +2369,7 @@ Formalised: [the prime-adjunction diamond collapse](https://github.com/wcook04/p
 
 </div>
 
-Formalised: [complementary-denominator divisibility](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/AdelicHeightObstruction.lean#L23) and [scalar-localisation identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/AdelicHeightObstruction.lean#L56). Thus a scalar localisation can move a complementary denominator factor into its coefficient, but cannot erase it. This rules out a scalar-denominator shortcut of that form. It neither proves full-target avoidance nor supplies any certificates, so it gives no irrationality criterion for $`S`$.
+Formalised: [complementary-denominator divisibility](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/AdelicHeightObstruction.lean#L23) and [scalar-localisation identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/AdelicHeightObstruction.lean#L56). Thus a scalar localisation can move a complementary denominator factor into its coefficient, but cannot erase it. This rules out a scalar-denominator shortcut of that form. It neither proves full-target avoidance nor supplies any certificates, so it gives no irrationality criterion for $`S`$.
 
 <div id="res:squarecrt" class="proposition">
 
@@ -2382,7 +2382,7 @@ for a suitable $`t\in\mathbb{N}`$. In particular, if every $`p_i`$ exceeds a fix
 
 </div>
 
-Formalised: [finite clean totient family](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SquareCRTCube.lean#L198) and [clean horizon family](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SquareCRTCube.lean#L228). The tested coefficient is a difference of two totient values. Removing the prime-dilation correction does not force it to be nonzero: one checked clean two-step block has both differences zero ([vanishing clean block](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SquareCRTCube.lean#L285)), while another has second difference $`-4`$ ([nonzero clean block](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SquareCRTCube.lean#L303)). Thus the result gives neither an unbounded certificate supply nor an irrationality criterion for $`S`$.
+Formalised: [finite clean totient family](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SquareCRTCube.lean#L198) and [clean horizon family](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SquareCRTCube.lean#L228). The tested coefficient is a difference of two totient values. Removing the prime-dilation correction does not force it to be nonzero: one checked clean two-step block has both differences zero ([vanishing clean block](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SquareCRTCube.lean#L285)), while another has second difference $`-4`$ ([nonzero clean block](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SquareCRTCube.lean#L303)). Thus the result gives neither an unbounded certificate supply nor an irrationality criterion for $`S`$.
 
 <a id="app:totient-rank"></a>
 
@@ -2400,7 +2400,7 @@ is not finite-dimensional over $`\mathbb{Q}`$.*
 
 </div>
 
-Formalised by the all-level minor construction [CRT–Dirichlet separated minors](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientMahlerDefect.lean#L847), the independence theorem [canonical kernel independence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientMahlerDefect.lean#L900), the exact rank formula [exact canonical rank](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientMahlerDefect.lean#L954), and [infinite full-kernel dimension](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientMahlerDefect.lean#L1014). The theorem concerns the coefficient kernel. It does not imply that $`S`$ is irrational.
+Formalised by the all-level minor construction [CRT–Dirichlet separated minors](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientMahlerDefect.lean#L847), the independence theorem [canonical kernel independence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientMahlerDefect.lean#L900), the exact rank formula [exact canonical rank](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientMahlerDefect.lean#L954), and [infinite full-kernel dimension](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientMahlerDefect.lean#L1014). The theorem concerns the coefficient kernel. It does not imply that $`S`$ is irrational.
 
 <a id="relation-to-prior-work.-1"></a>
 
@@ -2414,7 +2414,7 @@ The related qualitative nonregularity is known. In the terminology of Allouche a
 
 </div>
 
-Formalised: [the carry-kernel rank lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientCarryKernelRigidity.lean#L211) and [the rationality-to-unbounded-rank implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientCarryKernelRigidity.lean#L284). The recurrence and limit above define a *tempered carry*. No theorem bounds the section rank of every rationality-supplied tempered carry. The proposition identifies a rationality-side barrier, not an irrationality criterion for $`S`$.
+Formalised: [the carry-kernel rank lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientCarryKernelRigidity.lean#L211) and [the rationality-to-unbounded-rank implication](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientCarryKernelRigidity.lean#L284). The recurrence and limit above define a *tempered carry*. No theorem bounds the section rank of every rationality-supplied tempered carry. The proposition identifies a rationality-side barrier, not an irrationality criterion for $`S`$.
 
 <div class="remark">
 
@@ -2428,7 +2428,7 @@ Formalised: [the carry-kernel rank lower bound](https://github.com/wcook04/plect
 
 </div>
 
-This is the [rectangular determinant expansion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SignedQMomentObstruction.lean#L28).
+This is the [rectangular determinant expansion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SignedQMomentObstruction.lean#L29).
 
 <div id="res:dominantdyadic" class="proposition">
 
@@ -2436,9 +2436,9 @@ This is the [rectangular determinant expansion](https://github.com/wcook04/plect
 
 </div>
 
-Formalised by [dominant dyadic parity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SignedQMomentObstruction.lean#L77), and [dominant dyadic nonvanishing](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SignedQMomentObstruction.lean#L95). These are finite algebraic inputs to a signed-moment route. They do not show that any actual totient Hankel determinant is nonzero, and they give no irrationality criterion for $`S`$.
+Formalised by [dominant dyadic parity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SignedQMomentObstruction.lean#L78), and [dominant dyadic nonvanishing](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SignedQMomentObstruction.lean#L96). These are finite algebraic inputs to a signed-moment route. They do not show that any actual totient Hankel determinant is nonzero, and they give no irrationality criterion for $`S`$.
 
-The formal proof also exposes the generic theorem that any supplied separated minor gives the corresponding rank, [separated-minor rank criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientMahlerDefect.lean#L101). Propositions <a href="#res:signedmoment" data-reference-type="ref" data-reference="res:signedmoment">74</a> and <a href="#res:dominantdyadic" data-reference-type="ref" data-reference="res:dominantdyadic">75</a> remain useful as possible inputs to other determinant routes, but the totient-kernel minor itself is supplied at every level by Theorem <a href="#res:dyadictotient" data-reference-type="ref" data-reference="res:dyadictotient">72</a>.
+The formal proof also exposes the generic theorem that any supplied separated minor gives the corresponding rank, [separated-minor rank criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientMahlerDefect.lean#L101). Propositions <a href="#res:signedmoment" data-reference-type="ref" data-reference="res:signedmoment">74</a> and <a href="#res:dominantdyadic" data-reference-type="ref" data-reference="res:dominantdyadic">75</a> remain useful as possible inputs to other determinant routes, but the totient-kernel minor itself is supplied at every level by Theorem <a href="#res:dyadictotient" data-reference-type="ref" data-reference="res:dyadictotient">72</a>.
 
 <div id="res:evenresidue" class="proposition">
 
@@ -2446,7 +2446,7 @@ The formal proof also exposes the generic theorem that any supplied separated mi
 
 </div>
 
-Formalised as the [even-residue reduction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientMahlerDefect.lean#L159). This removes duplicate section rows before the separated minor is constructed.
+Formalised as the [even-residue reduction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientMahlerDefect.lean#L159). This removes duplicate section rows before the separated minor is constructed.
 
 <div id="res:compressedadjoint" class="proposition">
 
@@ -2454,7 +2454,7 @@ Formalised as the [even-residue reduction](https://github.com/wcook04/plectis-le
 
 </div>
 
-Formalised as the [compressed-adjoint contradiction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/TotientMahlerDefect.lean#L1051). Here $`A`$ is the proposed integer obstruction and $`b`$ its boundary error. The proposition does not construct these data.
+Formalised as the [compressed-adjoint contradiction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/TotientMahlerDefect.lean#L1051). Here $`A`$ is the proposed integer obstruction and $`b`$ its boundary error. The proposition does not construct these data.
 
 <div id="res:residualgauge" class="proposition">
 
@@ -2462,7 +2462,7 @@ Formalised as the [compressed-adjoint contradiction](https://github.com/wcook04/
 
 </div>
 
-Formalised: [residual-gauge determinant equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/ResidualGaugeObstruction.lean#L55), [locked-reconstruction nonvanishing](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/ResidualGaugeObstruction.lean#L94), and [reconstructed zero row](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/ResidualGaugeObstruction.lean#L145). Thus rank, determinant, or conditioning information alone cannot exclude the target without an arithmetic constraint on the residual weights. Such a coupled criterion remains possible; the proposition gives no irrationality criterion for $`S`$.
+Formalised: [residual-gauge determinant equivalence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/ResidualGaugeObstruction.lean#L55), [locked-reconstruction nonvanishing](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/ResidualGaugeObstruction.lean#L94), and [reconstructed zero row](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/ResidualGaugeObstruction.lean#L145). Thus rank, determinant, or conditioning information alone cannot exclude the target without an arithmetic constraint on the residual weights. Such a coupled criterion remains possible; the proposition gives no irrationality criterion for $`S`$.
 
 <a id="appendix-consequence.-2"></a>
 
@@ -2503,7 +2503,7 @@ Eventually periodic means $`\gamma(a+p)=\gamma(a)`$ for all sufficiently large $
 
 </div>
 
-Formalised: [eventually-periodic nonnegative criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L12483). Luca–Tachiya prove more: every nonzero eventually periodic rational weight gives an irrational series for each integer base $`|b|>1`$ \[lucatachiya\].
+Formalised: [eventually-periodic nonnegative criterion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L12483). Luca–Tachiya prove more: every nonzero eventually periodic rational weight gives an irrational series for each integer base $`|b|>1`$ \[lucatachiya\].
 
 <div id="res:periodicsigned" class="theorem">
 
@@ -2511,7 +2511,7 @@ Formalised: [eventually-periodic nonnegative criterion](https://github.com/wcook
 
 </div>
 
-Formalised: [periodic signed-weight dichotomy](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L13847).
+Formalised: [periodic signed-weight dichotomy](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L13847).
 
 <div id="res:periodfourobstruction" class="proposition">
 
@@ -2519,7 +2519,7 @@ Formalised: [periodic signed-weight dichotomy](https://github.com/wcook04/plecti
 
 </div>
 
-Formalised: [period-four coefficient obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L13898). Thus a nonzero input may vanish on a residue class; this obstructs residue-blind nonvanishing, not irrationality, and says nothing about $`\alpha`$.
+Formalised: [period-four coefficient obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L13898). Thus a nonzero input may vanish on a residue class; this obstructs residue-blind nonvanishing, not irrationality, and says nothing about $`\alpha`$.
 
 <a id="app:lambert-algebraic"></a>
 
@@ -2539,7 +2539,7 @@ Put $`a_n=(\varphi*\mu)(n)/n`$. Let $`\mathcal P_N`$ be the product of $`4`$, on
 
 </div>
 
-Formalised: [two-tier primorial obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/PrimitiveDeterminantLift.lean#L148).
+Formalised: [two-tier primorial obstruction](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/PrimitiveDeterminantLift.lean#L148).
 
 For $`d\ge1`$ and $`N\ge0`$, define the periodic Mersenne atom
 ``` math
@@ -2567,7 +2567,7 @@ If the integer on the right is nonzero, then the absolute value of the cleared d
 
 </div>
 
-Formalised: [Mersenne-atom carry law](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MersenneTailAtoms.lean#L28), [determinant-clearing identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MersenneTailAtoms.lean#L158), and [cleared-determinant lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/MersenneTailAtoms.lean#L181). Thus finite denominator clearing recovers an integer determinant, whose absolute value is at least $`1`$ when nonzero. It supplies no sequence of nonzero integers tending to $`0`$, and hence no irrationality criterion for $`S`$.
+Formalised: [Mersenne-atom carry law](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MersenneTailAtoms.lean#L28), [determinant-clearing identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MersenneTailAtoms.lean#L158), and [cleared-determinant lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/MersenneTailAtoms.lean#L181). Thus finite denominator clearing recovers an integer determinant, whose absolute value is at least $`1`$ when nonzero. It supplies no sequence of nonzero integers tending to $`0`$, and hence no irrationality criterion for $`S`$.
 
 <div id="res:lens" class="proposition">
 
@@ -2578,13 +2578,13 @@ S \;=\; \tfrac12 \;+\; \sum_{d\ge1}\frac{\mu(d)}{(2^d-1)^2}.
 
 </div>
 
-Formalised: [Möbius-square identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/CertificateKernel.lean#L18126). Writing $`T=\sum_{d\ge1}\mu(d)/(2^d-1)^2`$, Proposition <a href="#res:coprime" data-reference-type="ref" data-reference="res:coprime">20</a> gives $`T=\Pr(\gcd(X,Y)=1)=S-\tfrac12`$; hence $`S`$ is irrational exactly when $`T`$ is. By contrast, the tail residual $`R_N=2^NS-\sum_{n\le N}\varphi(n)2^{N-n}`$ depends on $`N`$ and is an integer translate of $`2^NS`$. Section <a href="#sec:reduction" data-reference-type="ref" data-reference="sec:reduction">5.3</a> uses its differences to encode rationality; $`R_N`$ is not another name for $`T`$.
+Formalised: [Möbius-square identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/CertificateKernel.lean#L18126). Writing $`T=\sum_{d\ge1}\mu(d)/(2^d-1)^2`$, Proposition <a href="#res:coprime" data-reference-type="ref" data-reference="res:coprime">20</a> gives $`T=\Pr(\gcd(X,Y)=1)=S-\tfrac12`$; hence $`S`$ is irrational exactly when $`T`$ is. By contrast, the tail residual $`R_N=2^NS-\sum_{n\le N}\varphi(n)2^{N-n}`$ depends on $`N`$ and is an integer translate of $`2^NS`$. Section <a href="#sec:reduction" data-reference-type="ref" data-reference="sec:reduction">5.3</a> uses its differences to encode rationality; $`R_N`$ is not another name for $`T`$.
 
 <a id="sec:squared"></a>
 
 #### Squared Lambert calculus.
 
-Write $`L^{(2)}(f)=\sum_{d\ge1}f(d)/(2^d-1)^2`$; this notation distinguishes the squared-denominator transform from the ordinary base-two transform $`L_2`$ in Appendix <a href="#app:lambert-weighted" data-reference-type="ref" data-reference="app:lambert-weighted">[app:lambert-weighted]</a>. If $`X,Y`$ are independent and $`\Pr(X=n)=\Pr(Y=n)=2^{-n}`$ for $`n\ge1`$, then $`\Pr(d\mid\gcd(X,Y))=(2^d-1)^{-2}`$. The formal transfer theorem, [squared Lambert transfer](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GcdMomentCalculus.lean#L105), therefore gives a divisor calculus for their gcd.
+Write $`L^{(2)}(f)=\sum_{d\ge1}f(d)/(2^d-1)^2`$; this notation distinguishes the squared-denominator transform from the ordinary base-two transform $`L_2`$ in Appendix <a href="#app:lambert-weighted" data-reference-type="ref" data-reference="app:lambert-weighted">[app:lambert-weighted]</a>. If $`X,Y`$ are independent and $`\Pr(X=n)=\Pr(Y=n)=2^{-n}`$ for $`n\ge1`$, then $`\Pr(d\mid\gcd(X,Y))=(2^d-1)^{-2}`$. The formal transfer theorem, [squared Lambert transfer](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GcdMomentCalculus.lean#L105), therefore gives a divisor calculus for their gcd.
 
 <div id="res:gcdmoment" class="proposition">
 
@@ -2598,7 +2598,7 @@ where $`P`$ is Pillai’s gcd-sum function.*
 
 </div>
 
-The first identity is Proposition <a href="#res:lens" data-reference-type="ref" data-reference="res:lens">84</a>. The other two are formalised as [constant-weight squared-Lambert identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GcdMomentCalculus.lean#L216) and [totient gcd-moment identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GcdMomentCalculus.lean#L235). Write $`\zeta_q(1)=\sum_{n\ge1}q^n/(1-q^n)`$ and $`\zeta_q(2)=\sum_{n\ge1}nq^n/(1-q^n)`$. Postelmans–Van Assche prove that $`1,\zeta_q(1),\zeta_q(2)`$ are linearly independent over $`\mathbb{Q}`$ for $`q=1/p`$ and every integer $`p\ge2`$  \[postelmansvanassche, Theorem 1.3\]. Since $`L^{(2)}(\mathbf1)=\zeta_{1/2}(2)-\zeta_{1/2}(1)`$, their theorem makes the constant-weight value irrational. This cited conclusion is not formalised here and does not transfer to the Möbius row $`L^{(2)}(\mu)=S-\tfrac12`$.
+The first identity is Proposition <a href="#res:lens" data-reference-type="ref" data-reference="res:lens">84</a>. The other two are formalised as [constant-weight squared-Lambert identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GcdMomentCalculus.lean#L216) and [totient gcd-moment identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GcdMomentCalculus.lean#L235). Write $`\zeta_q(1)=\sum_{n\ge1}q^n/(1-q^n)`$ and $`\zeta_q(2)=\sum_{n\ge1}nq^n/(1-q^n)`$. Postelmans–Van Assche prove that $`1,\zeta_q(1),\zeta_q(2)`$ are linearly independent over $`\mathbb{Q}`$ for $`q=1/p`$ and every integer $`p\ge2`$  \[postelmansvanassche, Theorem 1.3\]. Since $`L^{(2)}(\mathbf1)=\zeta_{1/2}(2)-\zeta_{1/2}(1)`$, their theorem makes the constant-weight value irrational. This cited conclusion is not formalised here and does not transfer to the Möbius row $`L^{(2)}(\mu)=S-\tfrac12`$.
 
 <a id="app:lambert-probability"></a>
 
@@ -2627,7 +2627,7 @@ The first quantity is the probability that the reduced pair equals $`(a,b)`$. Th
 
 </div>
 
-This is the [reduced-direction mass one](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GcdMomentCalculus.lean#L349).
+This is the [reduced-direction mass one](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GcdMomentCalculus.lean#L349).
 
 <div id="res:sternbrocotcylinders" class="theorem">
 
@@ -2644,7 +2644,7 @@ Consequently $`M_d(a,b)\to M(a,b)`$; at the root $`M(1,1)=1`$.*
 
 </div>
 
-Formalised: [cylinder mass recursion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GcdMomentCalculus.lean#L474), [depth-$`d`$ remainder bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GcdMomentCalculus.lean#L525), and [cylinder convergence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/GcdMomentCalculus.lean#L560). The recursion is the elementary rational identity obtained after setting $`A=2^a`$, $`B=2^b`$; the quantitative point is that the two children retain at most two thirds of their parent’s mass.
+Formalised: [cylinder mass recursion](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GcdMomentCalculus.lean#L474), [depth-$`d`$ remainder bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GcdMomentCalculus.lean#L525), and [cylinder convergence](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/GcdMomentCalculus.lean#L560). The recursion is the elementary rational identity obtained after setting $`A=2^a`$, $`B=2^b`$; the quantitative point is that the two children retain at most two thirds of their parent’s mass.
 
 <a id="run-lengths-and-arithmetic-height."></a>
 
@@ -2675,7 +2675,7 @@ More generally, the excess over $`F_{r+3}`$ is a polynomial in the $`e_i`$, with
 
 </div>
 
-Formalised: [Fibonacci height lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SternBrocotRunGeometry.lean#L185), [multiaffine run-height formula](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SternBrocotRunGeometry.lean#L263), [aggregate defect lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SternBrocotRunGeometry.lean#L343), [one-site defect identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SternBrocotRunGeometry.lean#L413).
+Formalised: [Fibonacci height lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SternBrocotRunGeometry.lean#L185), [multiaffine run-height formula](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SternBrocotRunGeometry.lean#L263), [aggregate defect lower bound](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SternBrocotRunGeometry.lean#L343), [one-site defect identity](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SternBrocotRunGeometry.lean#L413).
 
 <div id="res:onerunmass" class="proposition">
 
@@ -2683,7 +2683,7 @@ Formalised: [Fibonacci height lower bound](https://github.com/wcook04/plectis-le
 
 </div>
 
-This is the [one-run mass](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SternBrocotRunGeometry.lean#L467).
+This is the [one-run mass](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SternBrocotRunGeometry.lean#L467).
 
 <div id="res:rundenominator" class="proposition">
 
@@ -2691,7 +2691,7 @@ This is the [one-run mass](https://github.com/wcook04/plectis-lean-erdos249-257/
 
 </div>
 
-This is the [unit-run exponent sum](https://github.com/wcook04/plectis-lean-erdos249-257/blob/ebc98ee71f6819bd9fe344a0bb343542c604e533/Erdos249257/SternBrocotRunGeometry.lean#L491). The sum $`E_r`$ records exponents before any denominator cancellation. This identity does not identify a reduced denominator for a probability mass or for $`S`$.
+This is the [unit-run exponent sum](https://github.com/wcook04/plectis-lean-erdos249-257/blob/312b96c0d149ed466725c62d4ef24cfc91bca34e/Erdos249257/SternBrocotRunGeometry.lean#L491). The sum $`E_r`$ records exponents before any denominator cancellation. This identity does not identify a reduced denominator for a probability mass or for $`S`$.
 
 For arithmetic functions and Möbius inversion we use Apostol \[apostol\]; Merca and Merca–Schmidt treat Lambert-series factorisations  \[merca2017; mercaschmidt\]. Stern supplies the rational enumeration underlying the tree \[stern1858\]; the Postelmans–Van Assche theorem concerns only Appendix <a href="#app:lambert-algebraic" data-reference-type="ref" data-reference="app:lambert-algebraic">12.2</a>’s constant-weight value. The claims here are the linked Lean identities and estimates, not priority for the classical mediant or continuant framework.
 

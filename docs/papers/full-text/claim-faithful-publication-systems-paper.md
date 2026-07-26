@@ -261,11 +261,11 @@ Whether these checks reduce inaccurate public claims at acceptable cost remains 
 
 The reviewed claim record, `docs/claims.json`, names the saved Git revision of the Lean source, which the release checker requires to match exactly. This paper omits the changing commit identifier so that the claim record is the only place that states it.
 
-<a id="use-of-ai-assistance."></a>
+<a id="declaration-of-generative-ai-use."></a>
 
-#### Use of AI assistance.
+#### Declaration of generative AI use.
 
-Large-language-model assistants were used during development for proof drafting, refactoring, and prose editing. The author selected and reviewed the claims in this paper and remains responsible for them. AI output is not proof authority: Lean checks each formal proof against the fixed library version, while the author remains responsible for connecting those proofs to public wording.
+Large-language-model agents were used throughout development to draft and revise prose, formal proofs, and software. The author set the objectives and acceptance criteria, selected and reviewed the claims, and approved the published version. The author assumes responsibility for the accuracy, interpretation, and presentation of the work. Generative systems are production tools; they are not authors and supply no independent authority. That boundary is the subject of this paper as well as a condition of it: the checker described in Section <a href="#sec:trust" data-reference-type="ref" data-reference="sec:trust">4</a> tests recorded relationships a person selected, so passing it does not make generated wording faithful. The author selected, reviewed, and authorised the public claim-to-declaration mappings, and remains responsible for connecting the proofs to public wording.
 
 The paper inventory, , records source and PDF cryptographic hashes and validation commands. The evidence file for Section <a href="#sec:failure" data-reference-type="ref" data-reference="sec:failure">5</a>, , records the protocol, outcomes, and limitations. The reconstruction file, , specifies the ten edits. The script checks that each edit applies once (`--verify-operators`) and, by default, runs all ten in a copy of the saved evaluation version (`--all`). For an edit whose exact original target was not preserved, the file names a fixed replacement. The original raw outputs were not retained; the reconstruction does not claim to be them.
 
