@@ -7,7 +7,7 @@ authors:
   - family-names: "Cook"
     given-names: "William"
     email: "williamwkcook@gmail.com"
-version: "0.4.0"
+version: "0.4.1"
 date-released: "2026-07-26"
 license: "Apache-2.0"
 repository-code: "https://github.com/wcook04/plectis"
