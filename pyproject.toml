@@ -61,6 +61,7 @@ where = ["src"]
   "CODEX.md",
   "CURSOR.md",
   "FIRST_ACTION.md",
+  "HYPOTHESIS_HANDOFF.md",
   "LICENSE",
   "MANIFEST.in",
   "Makefile",
@@ -77,6 +78,7 @@ where = ["src"]
   "bootstrap.sh",
   "pyproject.toml"
 ]
+"share/plectis/examples/hypothesis_handoff" = ["examples/hypothesis_handoff/*.json"]
 "share/plectis/.github" = [".github/PULL_REQUEST_TEMPLATE.md"]
 "share/plectis/.github/workflows" = [".github/workflows/*.yml"]
 "share/plectis/atlas" = ["atlas/*.json"]

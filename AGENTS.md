@@ -49,6 +49,19 @@ alongside. Do not answer a question about what this project claims by
 summarising the organ inventory: the components show what runs, and the papers
 state what may be concluded from that, which is the narrower thing.
 
+**Asked to turn an open question into an expert handoff?** Read
+[`HYPOTHESIS_HANDOFF.md`](HYPOTHESIS_HANDOFF.md), then validate the worked
+packet with:
+
+```bash
+plectis hypothesis-handoff --input examples/hypothesis_handoff/independent_evaluation.json --format text
+```
+
+The leading hypothesis is a disclosed project prior, not evidence or a
+probability. Every outcome must point to a named option, every option must have
+a discriminator, and an expert return stays advisory until the packet's exact
+repository paths and release checks pass.
+
 If this is your first touch in a standalone clone and you have no task yet, do
 not start by absorbing the organ inventory. First prove the local entry path
 and the public authority membrane:

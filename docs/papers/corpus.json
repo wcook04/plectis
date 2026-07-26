@@ -1138,10 +1138,10 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/plectis-public-system.md",
       "local_source": "paper/plectis-public-system.tex",
-      "source_sha256": "sha256:4a657572b47a1c10dbd74b55764a30d36f4a5b6ed63e350be76d991d7748b5e6",
+      "source_sha256": "sha256:41715f190ee15cf328462bb1b9abb201a6c063120e42f3802911a662e65ae67c",
       "canonical_source_url": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex",
       "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex",
-      "section_count": 25,
+      "section_count": 26,
       "sections": [
         {
           "level": 1,
@@ -1229,75 +1229,81 @@
         },
         {
           "level": 2,
+          "id": "sec:hypothesis-handoff",
+          "title": "From an open question to a falsifiable handoff",
+          "line": 268
+        },
+        {
+          "level": 2,
           "id": "how-the-record-should-age",
           "title": "How the record should age",
-          "line": 268
+          "line": 296
         },
         {
           "level": 1,
           "id": "sec:conclusion",
           "title": "Conclusion",
-          "line": 276
+          "line": 304
         },
         {
           "level": 4,
           "id": "a-first-review.",
           "title": "A first review.",
-          "line": 284
+          "line": 314
         },
         {
           "level": 1,
           "id": "sec:appendix",
           "title": "Dated reproduction record",
-          "line": 306
+          "line": 336
         },
         {
           "level": 4,
           "id": "names.",
           "title": "Names.",
-          "line": 312
+          "line": 342
         },
         {
           "level": 4,
           "id": "getting-the-code-and-running-without-installing.",
           "title": "Getting the code and running without installing.",
-          "line": 318
+          "line": 348
         },
         {
           "level": 4,
           "id": "installing.",
           "title": "Installing.",
-          "line": 333
+          "line": 363
         },
         {
           "level": 4,
           "id": "the-worked-example.",
           "title": "The worked example.",
-          "line": 344
+          "line": 374
         },
         {
           "level": 4,
           "id": "a-second-python-version.",
           "title": "A second Python version.",
-          "line": 350
+          "line": 380
         },
         {
           "level": 4,
           "id": "project-wide-checks.",
           "title": "Project-wide checks.",
-          "line": 356
+          "line": 386
         },
         {
           "level": 4,
           "id": "declaration-of-generative-ai-use.",
           "title": "Declaration of generative AI use.",
-          "line": 362
+          "line": 392
         }
       ],
       "citations_rendered": 11,
       "local_pdf": "plectis-public-system.pdf",
-      "pdf_sha256": "sha256:0d64189345e7e53bab56e6a3e605b059448ee74d45964c3c2dbe9f42c243a2b9",
-      "pdf_byte_count": 112172,
+      "pdf_sha256": "sha256:672354df356f469b0fad68c699cdbb0fea0ff025b510efd9d8de5c8f85a9932e",
+      "pdf_byte_count": 116255,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection; this paper states no reading route of its own",

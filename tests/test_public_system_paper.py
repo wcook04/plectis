@@ -201,6 +201,39 @@ def test_public_system_paper_check_rejects_distinction_anchor_removal(
     assert any("The count is an inventory" in failure for failure in failures)
 
 
+def test_public_system_paper_check_rejects_hypothesis_handoff_overclaim(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "The current repository, beyond the historical snapshot examined above,\n"
+            "therefore includes",
+            "Plectis includes",
+        )
+        .replace(
+            "It does not call a\n"
+            "model, infer probabilities, judge an expert, or change a claim.  This later\n"
+            "interface is not evidence for the historical snapshot analysis.",
+            "It scores the most likely answer and upgrades a claim when an expert agrees.",
+        )
+        .replace(
+            "The\n"
+            "return remains advisory until its evidence is reproduced or independently\n"
+            "checked",
+            "The return becomes authoritative when signed by an expert",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert sum(
+        "missing hypothesis-handoff boundary" in failure for failure in failures
+    ) >= 3
+
+
 def test_public_system_paper_check_rejects_opaque_distinction_summary(
     tmp_path: Path,
 ) -> None:

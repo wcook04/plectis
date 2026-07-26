@@ -1,0 +1,151 @@
+{
+  "schema": "plectis-hypothesis-handoff/1",
+  "id": "plectis.independent_evaluation_failure_profile",
+  "question": "Would evaluator-selected cases expose a materially different failure profile from the author-selected public fixtures?",
+  "current_wall": "Plectis publishes author-selected fixtures and one dated cold rerun, but no outside evaluator has selected a preregistered case set or published an independent failure taxonomy.",
+  "authority_posture": "working_hypothesis_not_claim_probability_or_proof",
+  "leading_hypothesis": {
+    "id": "hypothesis.independent_cases_find_more_failures",
+    "statement": "Evaluator-selected cases would expose more failures and a broader failure taxonomy than the current author-selected fixtures.",
+    "confidence": "tentative",
+    "distinguished_by": [
+      "discriminator.preregistered_case_selection",
+      "discriminator.failure_taxonomy_split"
+    ],
+    "evidence_for": [
+      {
+        "ref": "paper/plectis-public-system.tex::sec:selection",
+        "observation": "The paper identifies author control over component, case, expectation, and pass-rule selection.",
+        "supports": "Selection can hide difficult or unrepresentative cases even when every published run is repeatable.",
+        "authority_ceiling": "This is an argument about possible selection effects, not a measured effect size."
+      },
+      {
+        "ref": "https://github.com/wcook04/plectis/releases/tag/v0.3.2",
+        "observation": "A cold public rerun found a real CLI-to-evaluator wiring defect that the normal author-controlled path had not exposed.",
+        "supports": "A different inspection route can reveal a distinct failure mode.",
+        "authority_ceiling": "One repaired defect does not estimate the frequency or severity of undiscovered defects."
+      }
+    ],
+    "evidence_against_or_missing": [
+      {
+        "ref": "paper/plectis-public-system.tex::sec:stronger",
+        "observation": "No evaluator-controlled case corpus or outside report is currently available.",
+        "supports": "The leading hypothesis has no independent comparative sample.",
+        "authority_ceiling": "Absence of an outside report is not evidence that the public fixtures are representative or unrepresentative."
+      }
+    ],
+    "would_be_displaced_by": "A preregistered independent evaluation finding the same failure distribution, with enough coverage and a separately justified taxonomy, would displace the leading hypothesis."
+  },
+  "alternatives": [
+    {
+      "id": "hypothesis.current_fixtures_approximately_representative",
+      "statement": "The current public fixtures approximate the failure profile that evaluator-selected cases would reveal.",
+      "distinguished_by": [
+        "discriminator.preregistered_case_selection"
+      ]
+    },
+    {
+      "id": "hypothesis.environment_dominates_selection",
+      "statement": "Most new failures would be environment or dependency failures rather than failures hidden by case selection.",
+      "distinguished_by": [
+        "discriminator.failure_taxonomy_split"
+      ]
+    }
+  ],
+  "discriminating_evidence": [
+    {
+      "id": "discriminator.preregistered_case_selection",
+      "evidence_needed": "An outside evaluator preregisters a sampling rule, selects cases without substitution, runs the pinned release, and publishes all outcomes.",
+      "result_map": [
+        {
+          "result": "Substantially more semantic or validator failures",
+          "interpretation": "Supports the leading selection-effect hypothesis.",
+          "supports_hypothesis_ids": [
+            "hypothesis.independent_cases_find_more_failures"
+          ]
+        },
+        {
+          "result": "A comparable failure profile under adequate coverage",
+          "interpretation": "Supports approximate representativeness of the current fixtures.",
+          "supports_hypothesis_ids": [
+            "hypothesis.current_fixtures_approximately_representative"
+          ]
+        }
+      ],
+      "claim_ceiling": "One evaluator and one release still do not establish representativeness of the private system."
+    },
+    {
+      "id": "discriminator.failure_taxonomy_split",
+      "evidence_needed": "Classify every independent failure using a taxonomy fixed before inspecting outcomes, separating semantic, validator, packaging, dependency, and environment failures.",
+      "result_map": [
+        {
+          "result": "Semantic and validator failures dominate",
+          "interpretation": "Supports the claim that author-selected cases missed substantive defects.",
+          "supports_hypothesis_ids": [
+            "hypothesis.independent_cases_find_more_failures"
+          ]
+        },
+        {
+          "result": "Dependency and environment failures dominate",
+          "interpretation": "Supports the environment-dominance alternative.",
+          "supports_hypothesis_ids": [
+            "hypothesis.environment_dominates_selection"
+          ]
+        }
+      ],
+      "claim_ceiling": "The taxonomy measures the evaluated cases only and does not prove absence of other failure classes."
+    }
+  ],
+  "expert_return": {
+    "authority_posture": "expert_return_advisory_until_checked_and_landed",
+    "request": "Design or conduct an evaluator-controlled, preregistered public inspection that can distinguish selection effects from environment effects, and return the sampling rule, raw outcomes, and fixed failure taxonomy.",
+    "decisive_returns": [
+      {
+        "id": "expert_return.preregistered_evaluation",
+        "requested_input": "A public preregistration, exact release identity, complete case list, commands, raw outcomes, and taxonomy assignments.",
+        "effect_if_verified": "Adds independent evidence about the evaluated public release and updates the working hypothesis according to the declared discriminator."
+      }
+    ],
+    "route_only_returns": [
+      {
+        "id": "expert_return.informal_spot_check",
+        "requested_input": "An informal review or a small set of reviewer-chosen examples without preregistration.",
+        "effect_if_verified": "Can reveal concrete defects and improve routes, but cannot compare failure profiles under a controlled selection rule.",
+        "claim_ceiling": "It does not distinguish author-selection effects from reviewer-selection effects."
+      }
+    ],
+    "landing_targets": [
+      {
+        "role": "working hypothesis authority record",
+        "path": "examples/hypothesis_handoff/independent_evaluation.json",
+        "purpose": "Add the checked evidence reference and update only the options or result map that the evidence bears on.",
+        "validator": "python -m plectis hypothesis-handoff --input examples/hypothesis_handoff/independent_evaluation.json --format text"
+      },
+      {
+        "role": "interpretation and authority boundary",
+        "path": "paper/plectis-public-system.tex",
+        "purpose": "Record what the checked return changes and what still lies beyond it without rewriting the earlier state.",
+        "validator": "python scripts/check_public_system_paper.py"
+      },
+      {
+        "role": "public first-contact route",
+        "path": "HYPOTHESIS_HANDOFF.md",
+        "purpose": "Keep the expert request and the current public command discoverable after the authority record changes.",
+        "validator": "python -m pytest -q tests/test_hypothesis_handoff.py"
+      }
+    ],
+    "landing_order": [
+      "source evidence or argument with exact assumptions",
+      "independent check or reproducible verification artifact",
+      "authoritative claim and known-gap record update",
+      "public projection refresh and declared release validation"
+    ],
+    "required_validation": [
+      "python -m pytest",
+      "python scripts/check_public_system_paper.py",
+      "python -m plectis hypothesis-handoff --input examples/hypothesis_handoff/independent_evaluation.json --format text"
+    ],
+    "status_change_rule": "No claim status changes from an expert return until the return is independently checked, intended meaning is reviewed, the authority record is updated, and the declared release gate passes."
+  },
+  "claim_ceiling": "This packet makes a research prior falsifiable and easy to answer; it does not establish which hypothesis is true, estimate a probability, or turn an expert response into authority."
+}

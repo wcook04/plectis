@@ -4,6 +4,7 @@
 [Interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) ·
 [The Plectis paper (PDF)](plectis-public-system.pdf) ·
 [Companion mathematics paper (PDF)](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf) ·
+[Hypothesis handoffs](HYPOTHESIS_HANDOFF.md) ·
 [Quickstart](QUICKSTART.md) ·
 [Contributing](CONTRIBUTING.md)
 
@@ -38,7 +39,7 @@ clone, as PDFs and as full text you can search, in
 ## What you get
 
 Plectis is a local Python toolkit plus an executable reference corpus. In
-practice that means four things you can do in the first five minutes:
+practice that means five things you can do in the first five minutes:
 
 1. **Point it at a project.** `plectis tour --format text <project>` reads the
    project, picks a route through it, writes an inspectable record beside it,
@@ -55,10 +56,21 @@ practice that means four things you can do in the first five minutes:
 4. **Reproduce the verification floor.** `make ci` runs the same install,
    test, and smoke path GitHub Actions runs; `./bootstrap.sh` is the
    pre-install probe for a cold clone.
+5. **Make an open question cheap for an expert to answer.** A
+   [hypothesis handoff](HYPOTHESIS_HANDOFF.md) exposes a tentative leading
+   hypothesis, serious alternatives, the evidence that would distinguish
+   them, and a checked landing path. Validate the worked example with:
+
+   ```sh
+   plectis hypothesis-handoff --input examples/hypothesis_handoff/independent_evaluation.json --format text
+   ```
 
 Every component carries the same contract: a runner, source loci, an evidence
 class (the kind of evidence that backs its claim), a receipt path, and an
 authority ceiling (the stated limit of what a passing result proves).
+Hypothesis handoffs use the same discipline for what the project does not yet
+know: a working guess remains a research prior, and an expert answer remains
+advisory until its declared checks and release path pass.
 
 ## See it work
 
