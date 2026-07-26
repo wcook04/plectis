@@ -4,6 +4,19 @@ All notable changes to Plectis are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] - 2026-07-26
+
+### Fixed
+
+- The closeout audit no longer reports an absent tool as a detected forgery. Its
+  pytest lane shells out to pytest, which the advertised `pip install .` does not
+  provide, so on a plain install the lane found nothing to run and the specimen
+  was recorded as a planted-case detection. Absence and detection are now
+  distinct outcomes, and the lane refuses rather than inventing a verdict.
+- The public site names the `pip install .[test]` precondition on the
+  cold-rerun claim, so the advertised command's exit status matches what a
+  reader following the page literally would see.
+
 ## [0.4.0] - 2026-07-26
 
 ### Added
