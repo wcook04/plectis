@@ -40,8 +40,8 @@ SHARED_REQUIRED_FILES = ("README.md", "LICENSE", "CONTRIBUTING.md", "SECURITY.md
 PYTHON_TOOL_ALLOWED = {
     ".git", ".github", ".gitignore", ".microcosm",
     "AGENTS.md", "CLAUDE.md", "CHANGELOG.md", "CITATION.cff", "CONTRIBUTING.md",
-    "LICENSE", "MANIFEST.in", "Makefile", "NOTICE", "QUICKSTART.md", "README.md",
-    "SECURITY.md", "bootstrap.sh", "pyproject.toml",
+    "HYPOTHESIS_HANDOFF.md", "LICENSE", "MANIFEST.in", "Makefile", "NOTICE",
+    "QUICKSTART.md", "README.md", "SECURITY.md", "bootstrap.sh", "pyproject.toml",
     "assets", "atlas", "core", "docs", "examples", "fixtures", "paper",
     "paper_modules", "plectis-public-system.pdf",
     "receipts", "scripts", "skills", "src", "standards", "tests",

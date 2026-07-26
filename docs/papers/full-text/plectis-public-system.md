@@ -265,6 +265,34 @@ Five forms of independent evaluation could add evidence that the public reposito
 
 *A provenance review*, among the five evaluations shown here, bears most directly on the origin story: a trusted person examining selected private material against the public collection under confidentiality. Prior public commitments could provide another kind of provenance evidence. Even completed, this review would transfer trust rather than remove it: public readers would be relying on the reviewer’s access, competence, and report instead of on mine, and the review itself could not be published. The privacy cost may reasonably never be paid. If it is not, the origin story remains testimony, and this paper is written so that its argument does not depend on it.
 
+<a id="sec:hypothesis-handoff"></a>
+
+## From an open question to a falsifiable handoff
+
+The five evaluations still leave an outsider to infer what the project expects, reconstruct credible alternatives, and decide which observation would matter. “Evaluate Plectis” transfers that framing work; a confident prediction can make the project’s own expectation look like evidence.
+
+The current repository, beyond the historical snapshot examined above, therefore includes a small, read-only *hypothesis-handoff* format. A packet names one declared known gap and refuses to treat it as a complete inventory of unknown questions. It then names the current wall, a tentative leading hypothesis, evidence for it, evidence against or still missing, serious alternatives, and discriminators whose possible outcomes point to named hypotheses and have stated interpretations. It also names an exact expert return, decisive and route-only effects, repository-relative landing targets with validators, and the order by which a return could enter an authority record and public release. Run
+
+<div class="center">
+
+<div class="minipage">
+
+```
+plectis hypothesis-handoff --input packet.json --format text
+```
+
+</div>
+
+</div>
+
+validates that structure and renders it as a briefing. It does not call a model, infer probabilities, judge an expert, or change a claim. This later interface is not evidence for the historical snapshot analysis.
+
+The worked public packet asks whether evaluator-selected cases would expose a different failure profile from the author-selected fixtures. Its working hypothesis is that they would expose more failures and a broader taxonomy. The reasons are visible: I selected the existing cases and rules, and a later cold route exposed one real wiring defect. The counterweight is equally visible: there is no independent comparison corpus, and one defect estimates no rate. Two alternatives remain live: the current fixtures may approximate the independent profile, or environment and dependency failures may dominate the difference. A preregistered case-selection rule and a failure taxonomy fixed before outcomes are inspected would separate those accounts better than another author-selected example.
+
+This format does not make the leading hypothesis independent. It is the project’s expected answer, in the same sense that Section <a href="#sec:run" data-reference-type="ref" data-reference="sec:run">3</a>’s expected output is project-supplied. Its contribution is different: it makes the prior, alternatives, and update rule inspectable before an expert answer is known. A reader can reject the leading hypothesis, add a missing alternative, or dispute a discriminator without first reverse-engineering the project’s private reasoning. If an answer arrives, the packet also prevents the answer from becoming a public conclusion merely because it came from an expert. The return remains advisory until its evidence is reproduced or independently checked, its intended meaning is reviewed, the authoritative record is updated, and the declared release checks pass.
+
+The useful claim is therefore narrow. A hypothesis handoff can reduce the cost of informed disagreement and preserve what would change the project’s mind. It cannot establish that the option set is complete, that the leading hypothesis is well calibrated, that the requested evidence is obtainable, or that any expert will agree. Those are precisely the kinds of finding the handoff is meant to make easier to return.
+
 <a id="how-the-record-should-age"></a>
 
 ## How the record should age
@@ -280,6 +308,8 @@ These evaluations do not pair one-for-one with the distinctions. They address th
 Plectis does not make the private system answerable as a whole. It publishes fixed cases, procedures, outputs, rules, and limits so particular claims can be challenged. A pass is no stronger than its rule or the expected answer’s basis.
 
 More author-controlled components enlarge the inventory without changing who chose the cases or rules. Moving a relevant choice out of the author’s hands can strengthen evidence about that choice; it does not repair every gap.
+
+A typed hypothesis handoff makes the next outside contribution more specific: it exposes the project’s tentative answer, alternatives, and update rule before the outcome is known. That is a better invitation to disagree, not stronger evidence that the project is right.
 
 <a id="a-first-review."></a>
 

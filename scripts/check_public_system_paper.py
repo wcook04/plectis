@@ -268,6 +268,22 @@ REQUIRED_COLD_READER_ANCHORS = (
     "checks historical facts against the pinned commit",
 )
 
+REQUIRED_HYPOTHESIS_HANDOFF_ANCHORS = (
+    "beyond the historical snapshot examined above",
+    "one declared known gap",
+    "complete inventory of unknown questions",
+    "a tentative leading hypothesis",
+    "evidence against or still missing",
+    "outcomes point to named hypotheses",
+    "repository-relative landing targets with validators",
+    "does not call a model, infer probabilities, judge an expert, or change a claim",
+    "not evidence for the historical snapshot analysis",
+    "project's expected answer",
+    "before an expert answer is known",
+    "remains advisory until its evidence is reproduced or independently checked",
+    "cannot establish that the option set is complete",
+)
+
 REQUIRED_RECEIPT_FLOW_ANCHORS = (
     r"A \emph{receipt} is the saved record of a run",
     "repository supplies one from an earlier run",
@@ -1040,6 +1056,26 @@ def check_paper(
     for anchor in REQUIRED_COLD_READER_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing cold-reader anchor: {anchor!r}")
+    hypothesis_handoff_marker = (
+        r"\subsection*{From an open question to a falsifiable handoff}"
+    )
+    if hypothesis_handoff_marker not in text:
+        failures.append(
+            "missing hypothesis-handoff boundary: "
+            f"{hypothesis_handoff_marker!r}"
+        )
+        normalized_hypothesis_handoff_section = ""
+    else:
+        hypothesis_handoff_section = text.split(hypothesis_handoff_marker, 1)[1]
+        hypothesis_handoff_section = hypothesis_handoff_section.split(
+            r"\subsection*{How the record should age}", 1
+        )[0]
+        normalized_hypothesis_handoff_section = re.sub(
+            r"\s+", " ", hypothesis_handoff_section
+        )
+    for anchor in REQUIRED_HYPOTHESIS_HANDOFF_ANCHORS:
+        if anchor not in normalized_hypothesis_handoff_section:
+            failures.append(f"missing hypothesis-handoff boundary: {anchor!r}")
     for anchor in SACM_SOURCE_FIT_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing SACM source-fit explanation: {anchor!r}")
@@ -1262,7 +1298,7 @@ def main() -> int:
         f"({declared_count} pinned components; {declared_lean_count} pinned Lean sources; "
         "pinned family counts, evidence routes, worked example and receipt flow, public-test receipt, literature "
         "citations, readable canonical bibliography identifiers and first-citation order, cold-reader anchors, "
-        "and claim language agree)"
+        "hypothesis-handoff authority boundary, and claim language agree)"
     )
     return 0
 

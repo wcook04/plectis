@@ -4,6 +4,31 @@ All notable changes to Plectis are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-07-26
+
+### Added
+
+- `plectis hypothesis-handoff` validates and renders an open question as a
+  falsifiable expert brief: a source-linked declared known gap with an
+  unknown-unknown refusal, a tentative leading hypothesis, evidence for and
+  missing, serious alternatives, outcome-to-hypothesis discriminators, exact
+  expert returns, repository-relative landing targets, and required release
+  checks.
+- The worked independent-evaluation packet asks whether evaluator-selected
+  cases would expose a different failure profile from the author-selected
+  fixtures. Every option is wired to a discriminator; every possible result
+  names the option it would support.
+
+### Changed
+
+- The public-system paper now explains why a disclosed project prior is not
+  evidence, how declaring alternatives before the outcome makes disagreement
+  cheaper, and why an expert return remains advisory until checked and landed.
+  Its searchable corpus projection and reader-facing PDF were regenerated.
+- The human and agent entry surfaces now route open questions to the typed
+  handoff rather than leaving experts to reconstruct the project’s current
+  expectation and update rule.
+
 ## [0.3.2] - 2026-07-26
 
 ### Fixed

@@ -47,7 +47,9 @@ cp /tmp/plectis-paper/plectis-public-system.pdf plectis-public-system.pdf
 ```
 
 The tracked root PDF is the reader-facing copy. The paper has a
-nineteen-page ceiling (raised from ten when the figures and the author's-
+twenty-page ceiling (raised from nineteen when the falsifiable hypothesis-
+handoff section made the project's prior, alternatives, discriminators, and
+expert-return authority path inspectable; raised from ten when the figures and the author's-
 hand section landed, from fourteen when the referee-pass revision
 added the related-fields grounding, the bounded authorship claim, and the
 operational reader checklist, and from fifteen when the paper adopted the

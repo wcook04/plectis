@@ -217,6 +217,7 @@ def _nonnegative_int(value: str) -> int:
 first_screen_composition = _LazyModule("microcosm_core.first_screen_composition")
 project_substrate = _LazyModule("microcosm_core.project_substrate")
 comprehension = _LazyModule("microcosm_core.comprehension")
+hypothesis_handoff = _LazyModule("microcosm_core.hypothesis_handoff")
 runtime_shell = _LazyModule("microcosm_core.runtime_shell")
 runtime_evidence_index = _LazyModule("microcosm_core.runtime_evidence_index")
 resource_root = _LazyModule("microcosm_core.resource_root")
@@ -4012,6 +4013,27 @@ def main(argv: list[str] | None = None) -> int:
     _add_input_out(voice_to_doctrine_parser)
     voice_to_doctrine_parser.add_argument("--acceptance-out")
 
+    hypothesis_handoff_parser = subparsers.add_parser(
+        "hypothesis-handoff",
+        help="validate and render a tentative hypothesis-to-expert handoff",
+        description=(
+            "Check that an open question names a tentative leading hypothesis, "
+            "serious alternatives, discriminating evidence, an expert return, "
+            "and a non-automatic checked landing path."
+        ),
+    )
+    hypothesis_handoff_parser.add_argument(
+        "--input",
+        required=True,
+        help="JSON hypothesis-handoff packet",
+    )
+    hypothesis_handoff_parser.add_argument(
+        "--format",
+        choices=["json", "text"],
+        default="json",
+        help="machine-readable validation card or human expert briefing",
+    )
+
     comprehend_parser = subparsers.add_parser(
         "comprehend",
         help="compile a source-body-free comprehension read pack (cold-agent first contact)",
@@ -4249,6 +4271,13 @@ def main(argv: list[str] | None = None) -> int:
             full=args.full,
             reader=args.reader,
         )
+    if args.command == "hypothesis-handoff":
+        card = hypothesis_handoff.load_and_compile(args.input)
+        exit_code = 0 if card.get("status") == "pass" else 1
+        if args.format == "text":
+            print(hypothesis_handoff.render_text(card), end="")
+            return exit_code
+        return _print_json(card, exit_code=exit_code)
     if args.command == "public-site-parity":
         command_args = ["--root", args.root, "--timeout", str(args.timeout)]
         if args.site_dir:
