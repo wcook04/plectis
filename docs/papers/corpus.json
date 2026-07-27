@@ -1,0 +1,770 @@
+{
+  "schema": "plectis_paper_corpus_v0",
+  "role": "clone_local_scholarly_corpus",
+  "this_repository": "plectis",
+  "why_this_exists": "Cloning either public repository gives you PDFs, and only the papers that repository owns. This corpus carries all three as navigable text so an agent with no network can read, cite, and cross-check them.",
+  "generated_by": "tools/meta/dissemination/export_paper_corpus.py",
+  "generated_from": "the private system repository; do not hand-edit this directory",
+  "authority_order": "checked Lean source is proof authority; the claims registry owns public status and coordinates; methodology owns transition rules; the paper owns exposition",
+  "reading_the_generated_markdown": "The Markdown is a projection of the .tex, not a replacement. It resolves theorem numbers, cross-references, and Lean source links that the source only implies. The .tex is the manuscript and the hash of record; where they disagree, the .tex wins.",
+  "verification_boundary": {
+    "proof_recheck_performed": false,
+    "note": "No Lean kernel ran during this export. Reading a paper, or its generated text, is not checking a proof."
+  },
+  "licences": {
+    "CC-BY-4.0": "all three manuscripts and every view generated from them"
+  },
+  "paper_count": 4,
+  "papers": [
+    {
+      "paper_id": "erdos-249-binary-totient-series",
+      "title": "A Basis for the 2-Kernel of Euler\u2019s Totient",
+      "title_source": "manuscript",
+      "question_this_paper_answers": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erd\u0151s #249?",
+      "owns": "problem-specific mathematical exposition for Erd\u0151s #249: the basis theorem, denominator exclusion, method limits, and open edge",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erd\u0151s #249, which remains open",
+      "relation_to_this_repository": "mirror",
+      "home_repository": "plectis-lean-erdos249-257",
+      "licence": "CC-BY-4.0",
+      "copyright": "2026 Will Cook",
+      "local_full_text": "docs/papers/full-text/erdos-249-binary-totient-series.md",
+      "local_source": "docs/papers/mirror/erdos-249-binary-totient-series.tex",
+      "source_sha256": "sha256:f006811499b218cb8baf1c8dc3a4612305fe700cbe08b0883fed4e21c6bf4d36",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-249-binary-totient-series.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-249-binary-totient-series.tex",
+      "section_count": 23,
+      "sections": [
+        {
+          "level": 1,
+          "id": "erdos-249-binary-totient-series",
+          "title": "A Basis for the 2-Kernel of Euler\u2019s Totient",
+          "line": 1
+        },
+        {
+          "level": 1,
+          "id": "sec:results",
+          "title": "Results",
+          "line": 21
+        },
+        {
+          "level": 1,
+          "id": "sec:family",
+          "title": "Where #249 sits",
+          "line": 51
+        },
+        {
+          "level": 4,
+          "id": "the-constant-is-not-opaque.",
+          "title": "The constant is not opaque.",
+          "line": 72
+        },
+        {
+          "level": 1,
+          "id": "sec:rank",
+          "title": "The 2-kernel of Euler\u2019s totient",
+          "line": 84
+        },
+        {
+          "level": 2,
+          "id": "what-was-already-known-and-what-is-different-here",
+          "title": "What was already known, and what is different here",
+          "line": 88
+        },
+        {
+          "level": 2,
+          "id": "the-mechanism",
+          "title": "The mechanism",
+          "line": 96
+        },
+        {
+          "level": 4,
+          "id": "the-rationality-side.",
+          "title": "The rationality side.",
+          "line": 110
+        },
+        {
+          "level": 1,
+          "id": "sec:denominator",
+          "title": "The denominator bound",
+          "line": 116
+        },
+        {
+          "level": 1,
+          "id": "sec:nogo",
+          "title": "Barriers, and two we do not state as theorems",
+          "line": 126
+        },
+        {
+          "level": 1,
+          "id": "sec:programmes",
+          "title": "Three problem-owned programmes",
+          "line": 138
+        },
+        {
+          "level": 4,
+          "id": "strict-prime-orbit-escape.",
+          "title": "Strict prime-orbit escape.",
+          "line": 144
+        },
+        {
+          "level": 4,
+          "id": "finite-euler-sieve-algebra.",
+          "title": "Finite Euler-sieve algebra.",
+          "line": 150
+        },
+        {
+          "level": 4,
+          "id": "prime-ray-cyclotomic-curvature.",
+          "title": "Prime-ray cyclotomic curvature.",
+          "line": 156
+        },
+        {
+          "level": 1,
+          "id": "sec:frontier",
+          "title": "The exact frontier",
+          "line": 162
+        },
+        {
+          "level": 4,
+          "id": "the-obligation.",
+          "title": "The obligation.",
+          "line": 168
+        },
+        {
+          "level": 4,
+          "id": "an-analytic-route-with-the-budgets-made-explicit.",
+          "title": "An analytic route, with the budgets made explicit.",
+          "line": 176
+        },
+        {
+          "level": 4,
+          "id": "what-an-answer-would-do.",
+          "title": "What an answer would do.",
+          "line": 182
+        },
+        {
+          "level": 4,
+          "id": "not-an-ask.",
+          "title": "Not an ask.",
+          "line": 188
+        },
+        {
+          "level": 1,
+          "id": "sec:open",
+          "title": "What remains open, and what the registry does not yet own",
+          "line": 194
+        },
+        {
+          "level": 2,
+          "id": "open",
+          "title": "Open",
+          "line": 198
+        },
+        {
+          "level": 2,
+          "id": "sec:registry",
+          "title": "Unregistered results",
+          "line": 218
+        },
+        {
+          "level": 1,
+          "id": "statements-and-declarations",
+          "title": "Statements and declarations",
+          "line": 224
+        }
+      ],
+      "citations_rendered": 9,
+      "fallback_title_drift": {
+        "registry_fallback": "A Basis for the Dyadic Sections of Euler's Totient",
+        "manuscript_title": "A Basis for the 2-Kernel of Euler\u2019s Totient"
+      },
+      "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
+      "local_pdf": "docs/papers/mirror/erdos-249-binary-totient-series.pdf",
+      "pdf_sha256": "sha256:9f8715f0bdb39fc4c33712adc1748f1355c7a8007556d4b6f9f9ecab22b3906b",
+      "pdf_byte_count": 105866,
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection; this paper states no reading route of its own",
+        "sections": [
+          {
+            "id": "sec:results",
+            "title": "Results",
+            "line": 21
+          },
+          {
+            "id": "sec:ask",
+            "resolved": false,
+            "reason": "label not present in the current manuscript"
+          },
+          {
+            "id": "sec:open",
+            "title": "What remains open, and what the registry does not yet own",
+            "line": 194
+          }
+        ],
+        "unresolved_count": 1
+      }
+    },
+    {
+      "paper_id": "erdos-257-mersenne-support-subseries",
+      "title": "Forced Structure in Mersenne Subseries",
+      "title_source": "manuscript",
+      "question_this_paper_answers": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erd\u0151s #257?",
+      "owns": "problem-specific mathematical exposition for Erd\u0151s #257: exact finite periods, settled support families, method limits, and the open half-value edge",
+      "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erd\u0151s #257, which remains open",
+      "relation_to_this_repository": "mirror",
+      "home_repository": "plectis-lean-erdos249-257",
+      "licence": "CC-BY-4.0",
+      "copyright": "2026 Will Cook",
+      "local_full_text": "docs/papers/full-text/erdos-257-mersenne-support-subseries.md",
+      "local_source": "docs/papers/mirror/erdos-257-mersenne-support-subseries.tex",
+      "source_sha256": "sha256:c6afba8a056d74ba924d42df0e7384a46afdc80b172843118983de9c723b5e33",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-257-mersenne-support-subseries.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-257-mersenne-support-subseries.tex",
+      "section_count": 18,
+      "sections": [
+        {
+          "level": 1,
+          "id": "erdos-257-mersenne-support-subseries",
+          "title": "Forced Structure in Mersenne Subseries",
+          "line": 1
+        },
+        {
+          "level": 1,
+          "id": "sec:problem",
+          "title": "The problem and its coordinate",
+          "line": 21
+        },
+        {
+          "level": 1,
+          "id": "sec:period",
+          "title": "Exact periods of finite partial sums",
+          "line": 38
+        },
+        {
+          "level": 1,
+          "id": "sec:forced",
+          "title": "What a rational value would force",
+          "line": 64
+        },
+        {
+          "level": 4,
+          "id": "a-carry-orbit-and-it-is-unbounded.",
+          "title": "A carry orbit, and it is unbounded.",
+          "line": 70
+        },
+        {
+          "level": 4,
+          "id": "divisor-coverage-cannot-have-long-gaps.",
+          "title": "Divisor coverage cannot have long gaps.",
+          "line": 89
+        },
+        {
+          "level": 4,
+          "id": "reciprocal-mass.",
+          "title": "Reciprocal mass.",
+          "line": 107
+        },
+        {
+          "level": 4,
+          "id": "rational-values-are-exactly-booleanm\u00f6bius-carry-certificates.",
+          "title": "Rational values are exactly Boolean\u2013M\u00f6bius carry certificates.",
+          "line": 124
+        },
+        {
+          "level": 4,
+          "id": "what-this-does-and-does-not-amount-to.",
+          "title": "What this does and does not amount to.",
+          "line": 142
+        },
+        {
+          "level": 1,
+          "id": "sec:map",
+          "title": "The settled supports, by mechanism",
+          "line": 148
+        },
+        {
+          "level": 1,
+          "id": "sec:squarefree",
+          "title": "A removable obstruction: the squarefree support",
+          "line": 192
+        },
+        {
+          "level": 2,
+          "id": "the-value-is-known-at-base-2",
+          "title": "The value is known, at base 2",
+          "line": 210
+        },
+        {
+          "level": 2,
+          "id": "two-certificate-engines-are-nevertheless-blind-to-it",
+          "title": "Two certificate engines are nevertheless blind to it",
+          "line": 234
+        },
+        {
+          "level": 2,
+          "id": "the-obstruction-is-a-normalisation-not-the-value",
+          "title": "The obstruction is a normalisation, not the value",
+          "line": 258
+        },
+        {
+          "level": 1,
+          "id": "sec:geometry",
+          "title": "Achievement-set geometry and the value 1/2",
+          "line": 276
+        },
+        {
+          "level": 2,
+          "id": "the-value-12",
+          "title": "The value 1/2",
+          "line": 298
+        },
+        {
+          "level": 1,
+          "id": "sec:open",
+          "title": "The exact frontier",
+          "line": 316
+        },
+        {
+          "level": 1,
+          "id": "statements-and-declarations",
+          "title": "Statements and declarations",
+          "line": 328
+        }
+      ],
+      "citations_rendered": 14,
+      "fallback_title_drift": {
+        "registry_fallback": "Settled Supports and Exact Finite Periods",
+        "manuscript_title": "Forced Structure in Mersenne Subseries"
+      },
+      "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
+      "local_pdf": "docs/papers/mirror/erdos-257-mersenne-support-subseries.pdf",
+      "pdf_sha256": "sha256:5caa196359793f80e6a413512b9ef9dc6800373d1342cc5cbec2e474e1d9a8fe",
+      "pdf_byte_count": 99416,
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection; this paper states no reading route of its own",
+        "sections": [
+          {
+            "id": "sec:period",
+            "title": "Exact periods of finite partial sums",
+            "line": 38
+          },
+          {
+            "id": "sec:map",
+            "title": "The settled supports, by mechanism",
+            "line": 148
+          },
+          {
+            "id": "sec:ask",
+            "resolved": false,
+            "reason": "label not present in the current manuscript"
+          },
+          {
+            "id": "sec:open",
+            "title": "The exact frontier",
+            "line": 316
+          }
+        ],
+        "unresolved_count": 1
+      }
+    },
+    {
+      "paper_id": "claim-faithful-publication-systems",
+      "title": "From Lean Proofs to Public Claims",
+      "title_source": "manuscript",
+      "question_this_paper_answers": "Lean proves the formal statement \u2014 but who checks that the README describes it faithfully?",
+      "owns": "the design argument for the release discipline: what is checked, by whom, and when",
+      "not_authority_for": "the mathematical content it uses as its worked example, and the correctness of the human review it preserves",
+      "relation_to_this_repository": "mirror",
+      "home_repository": "plectis-lean-erdos249-257",
+      "licence": "CC-BY-4.0",
+      "copyright": "2026 Will Cook",
+      "local_full_text": "docs/papers/full-text/claim-faithful-publication-systems-paper.md",
+      "local_source": "docs/papers/mirror/claim-faithful-publication-systems-paper.tex",
+      "source_sha256": "sha256:919e62cac4b773f5f1146e5ad135c5be67136d13c30ea9be6c9139d6307d4fa8",
+      "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/claim-faithful-publication-systems-paper.tex",
+      "section_count": 25,
+      "sections": [
+        {
+          "level": 1,
+          "id": "claim-faithful-publication-systems-paper",
+          "title": "From Lean Proofs to Public Claims",
+          "line": 1
+        },
+        {
+          "level": 1,
+          "id": "sec:gap",
+          "title": "The publication gap",
+          "line": 15
+        },
+        {
+          "level": 1,
+          "id": "sec:picture",
+          "title": "The release workflow",
+          "line": 31
+        },
+        {
+          "level": 1,
+          "id": "sec:example",
+          "title": "One claim from Lean theorem to public page",
+          "line": 52
+        },
+        {
+          "level": 2,
+          "id": "sec:mathrole",
+          "title": "What the certificates are for",
+          "line": 60
+        },
+        {
+          "level": 2,
+          "id": "sec:formal-evidence",
+          "title": "The formal evidence",
+          "line": 87
+        },
+        {
+          "level": 2,
+          "id": "sec:semantic-coverage",
+          "title": "Four meanings of coverage",
+          "line": 95
+        },
+        {
+          "level": 2,
+          "id": "sec:record",
+          "title": "The reviewed record",
+          "line": 103
+        },
+        {
+          "level": 2,
+          "id": "what-the-checker-verifies-here",
+          "title": "What the checker verifies here",
+          "line": 130
+        },
+        {
+          "level": 1,
+          "id": "sec:trust",
+          "title": "What the checks establish",
+          "line": 136
+        },
+        {
+          "level": 1,
+          "id": "sec:failure",
+          "title": "A boundary the checklist missed",
+          "line": 165
+        },
+        {
+          "level": 4,
+          "id": "historical-exercise.",
+          "title": "Historical exercise.",
+          "line": 171
+        },
+        {
+          "level": 4,
+          "id": "repair-and-present-witness.",
+          "title": "Repair and present witness.",
+          "line": 179
+        },
+        {
+          "level": 4,
+          "id": "later-reconstruction.",
+          "title": "Later reconstruction.",
+          "line": 185
+        },
+        {
+          "level": 4,
+          "id": "three-boundaries-the-companion-papers-exposed.",
+          "title": "Three boundaries the companion papers exposed.",
+          "line": 205
+        },
+        {
+          "level": 1,
+          "id": "sec:limits",
+          "title": "Scope, reuse, and limits",
+          "line": 211
+        },
+        {
+          "level": 4,
+          "id": "the-failures-the-design-addresses.",
+          "title": "The failures the design addresses.",
+          "line": 215
+        },
+        {
+          "level": 4,
+          "id": "the-failures-it-does-not-address.",
+          "title": "The failures it does not address.",
+          "line": 221
+        },
+        {
+          "level": 4,
+          "id": "limits-of-the-design-and-this-implementation.",
+          "title": "Limits of the design and this implementation.",
+          "line": 227
+        },
+        {
+          "level": 4,
+          "id": "reuse.",
+          "title": "Reuse.",
+          "line": 233
+        },
+        {
+          "level": 4,
+          "id": "what-is-not-established.",
+          "title": "What is not established.",
+          "line": 239
+        },
+        {
+          "level": 1,
+          "id": "sec:related",
+          "title": "Related systems",
+          "line": 245
+        },
+        {
+          "level": 1,
+          "id": "sec:conclusion",
+          "title": "Conclusion",
+          "line": 263
+        },
+        {
+          "level": 1,
+          "id": "app:repro",
+          "title": "Reproducibility",
+          "line": 271
+        },
+        {
+          "level": 4,
+          "id": "declaration-of-generative-ai-use.",
+          "title": "Declaration of generative AI use.",
+          "line": 277
+        }
+      ],
+      "citations_rendered": 15,
+      "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
+      "local_pdf": "docs/papers/mirror/claim-faithful-publication-systems-paper.pdf",
+      "pdf_sha256": "sha256:1b78f224eb6c1b1a0558db12bef16d95602aee1898779b6de98ae75066371459",
+      "pdf_byte_count": 104395,
+      "first_pass": {
+        "stated_by_the_paper": true,
+        "provenance": "the paper's own stated reading route",
+        "sections": [
+          {
+            "id": "sec:picture",
+            "title": "The release workflow",
+            "line": 31
+          },
+          {
+            "id": "sec:record",
+            "title": "The reviewed record",
+            "line": 103
+          },
+          {
+            "id": "sec:trust",
+            "title": "What the checks establish",
+            "line": 136
+          },
+          {
+            "id": "sec:limits",
+            "title": "Scope, reuse, and limits",
+            "line": 211
+          }
+        ],
+        "unresolved_count": 0
+      }
+    },
+    {
+      "paper_id": "plectis-public-system",
+      "title": "Plectis: What a Stranger Can Check What public evidence can and cannot show about a private system",
+      "title_source": "manuscript",
+      "question_this_paper_answers": "What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?",
+      "owns": "the evidence boundary: what a passing public run does and does not establish",
+      "not_authority_for": "the private system's internal state, which is not public, and the mathematical results it cites as evidence",
+      "relation_to_this_repository": "native",
+      "home_repository": "plectis",
+      "licence": "CC-BY-4.0",
+      "copyright": "2026 Will Cook",
+      "local_full_text": "docs/papers/full-text/plectis-public-system.md",
+      "local_source": "paper/plectis-public-system.tex",
+      "source_sha256": "sha256:78add46409f92d86b55a52b5dc08f10efca37bd86113aca88fb71aa4b594f647",
+      "canonical_source_url": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex",
+      "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex",
+      "section_count": 25,
+      "sections": [
+        {
+          "level": 1,
+          "id": "plectis-public-system",
+          "title": "Plectis: What a Stranger Can Check What public evidence can and cannot show about a private system",
+          "line": 1
+        },
+        {
+          "level": 2,
+          "id": "abstract",
+          "title": "Abstract",
+          "line": 5
+        },
+        {
+          "level": 1,
+          "id": "sec:problem",
+          "title": "The problem",
+          "line": 13
+        },
+        {
+          "level": 4,
+          "id": "what-i-examined.",
+          "title": "What I examined.",
+          "line": 37
+        },
+        {
+          "level": 1,
+          "id": "sec:contract",
+          "title": "The component contract",
+          "line": 47
+        },
+        {
+          "level": 1,
+          "id": "sec:run",
+          "title": "One run, examined",
+          "line": 70
+        },
+        {
+          "level": 1,
+          "id": "sec:distinctions",
+          "title": "Five distinctions",
+          "line": 130
+        },
+        {
+          "level": 2,
+          "id": "public-execution-versus-where-the-code-came-from",
+          "title": "Public execution versus where the code came from",
+          "line": 136
+        },
+        {
+          "level": 2,
+          "id": "repeatability-versus-correctness",
+          "title": "Repeatability versus correctness",
+          "line": 142
+        },
+        {
+          "level": 2,
+          "id": "a-validators-rule-versus-the-stated-claim",
+          "title": "A validator\u2019s rule versus the stated claim",
+          "line": 148
+        },
+        {
+          "level": 2,
+          "id": "selected-cases-versus-general-behaviour",
+          "title": "Selected cases versus general behaviour",
+          "line": 154
+        },
+        {
+          "level": 2,
+          "id": "risk-reduction-versus-guarantee",
+          "title": "Risk reduction versus guarantee",
+          "line": 173
+        },
+        {
+          "level": 1,
+          "id": "sec:collection",
+          "title": "What the collection contains",
+          "line": 188
+        },
+        {
+          "level": 1,
+          "id": "sec:hand",
+          "title": "The author\u2019s hand",
+          "line": 229
+        },
+        {
+          "level": 1,
+          "id": "sec:stronger",
+          "title": "What stronger evidence would look like",
+          "line": 243
+        },
+        {
+          "level": 2,
+          "id": "how-the-record-should-age",
+          "title": "How the record should age",
+          "line": 266
+        },
+        {
+          "level": 1,
+          "id": "sec:conclusion",
+          "title": "Conclusion",
+          "line": 274
+        },
+        {
+          "level": 4,
+          "id": "a-first-review.",
+          "title": "A first review.",
+          "line": 282
+        },
+        {
+          "level": 1,
+          "id": "sec:appendix",
+          "title": "Dated reproduction record",
+          "line": 304
+        },
+        {
+          "level": 4,
+          "id": "names.",
+          "title": "Names.",
+          "line": 310
+        },
+        {
+          "level": 4,
+          "id": "getting-the-code-and-running-without-installing.",
+          "title": "Getting the code and running without installing.",
+          "line": 316
+        },
+        {
+          "level": 4,
+          "id": "installing.",
+          "title": "Installing.",
+          "line": 331
+        },
+        {
+          "level": 4,
+          "id": "the-worked-example.",
+          "title": "The worked example.",
+          "line": 342
+        },
+        {
+          "level": 4,
+          "id": "a-second-python-version.",
+          "title": "A second Python version.",
+          "line": 348
+        },
+        {
+          "level": 4,
+          "id": "project-wide-checks.",
+          "title": "Project-wide checks.",
+          "line": 354
+        }
+      ],
+      "citations_rendered": 12,
+      "fallback_title_drift": {
+        "registry_fallback": "Plectis: What a Stranger Can Check",
+        "manuscript_title": "Plectis: What a Stranger Can Check What public evidence can and cannot show about a private system"
+      },
+      "local_pdf": "plectis-public-system.pdf",
+      "pdf_sha256": "sha256:5f13b167bc4850dcf3937efe150bb1c77dfb8aa984291b57cb1edeeccd9765b0",
+      "pdf_byte_count": 125603,
+      "first_pass": {
+        "stated_by_the_paper": false,
+        "provenance": "editorial selection; this paper states no reading route of its own",
+        "sections": [
+          {
+            "id": "sec:problem",
+            "title": "The problem",
+            "line": 13
+          },
+          {
+            "id": "sec:distinctions",
+            "title": "Five distinctions",
+            "line": 130
+          }
+        ],
+        "unresolved_count": 0
+      }
+    }
+  ]
+}
