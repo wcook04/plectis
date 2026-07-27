@@ -365,14 +365,14 @@ def test_public_system_paper_check_rejects_test_oracle_source_drift(
     )
 
 
-def test_public_system_paper_check_rejects_sacm_mapping_overclaim(
+def test_public_system_paper_check_rejects_sacm_evidential_link_overclaim(
     tmp_path: Path,
 ) -> None:
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "informative Annex A.2 points to",
-            "Annex A.2 contains",
+            "the relationship is itself an assertion by the case's author",
+            "the relationship independently validates the claim",
         ),
         encoding="utf-8",
     )
@@ -381,7 +381,7 @@ def test_public_system_paper_check_rejects_sacm_mapping_overclaim(
 
     assert any(
         "missing SACM source-fit explanation" in failure
-        and "informative Annex A.2 points" in failure
+        and "relationship is itself an assertion" in failure
         for failure in failures
     )
 
@@ -476,7 +476,7 @@ def test_public_system_paper_check_rejects_prior_art_boundary_removal(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "not an implementation of that standard",
+            "not an\nimplementation of that standard",
             "an implementation of that standard",
         ),
         encoding="utf-8",

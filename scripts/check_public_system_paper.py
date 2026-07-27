@@ -594,16 +594,17 @@ REQUIRED_CITATION_KEYS = (
 )
 
 SACM_SOURCE_FIT_ANCHORS = (
-    "describes such cases as auditable claims, arguments, and evidence",
-    "has its own mapping onto SACM",
-    "informative Annex A.2 points to the maintained mapping details",
+    "defines such a case as a collection of auditable claims, arguments, and evidence",
+    "the relationship is itself an assertion by the case's author",
+    "Representing an argument is therefore not the same as establishing its validity",
+    "neither models nor independently justifies the evidential link",
 )
 
 REQUIRED_PINPOINT_CITATIONS = (
     r"\cite[\S2.5]{runeson2009}",
     r"\cite[conclusion 3-1]{nasem2019}",
     r"\cite[p. 507]{barr2015}",
-    r"\cite[secs. 1.1, 2.2; Annex A.2]{omgsacm2023}",
+    r"\cite[secs. 1.1, 4, 7.3, 11.9--11.15]{omgsacm2023}",
     r"\cite[security-strength table]{nisthashfunctions}",
     r"\cite[\S4.4.1.2]{nasa8739}",
 )

@@ -326,15 +326,18 @@ distinction is called the test oracle problem \cite[p. 507]{barr2015}. The risk
 that a curated collection disproportionately exposes favourable cases is
 analogous to selective publication and the file-drawer problem
 \cite{rosenthal1979}.
-An \emph{assurance case} links a system claim to reasons and evidence. The
+An \emph{assurance case} links system claims to arguments and evidence. The
 Object Management Group's Structured Assurance Case Metamodel (SACM), version
-2.3, describes such cases as auditable claims, arguments, and evidence. Section
-2.2 says the Claims--Arguments--Evidence notation has its own mapping onto SACM;
-informative Annex A.2 points to the maintained mapping details
-\cite[secs. 1.1, 2.2; Annex A.2]{omgsacm2023}. Plectis is
-not an implementation of that standard and makes no claim that the private
-system is safe. Its validator applies a published rule; it does not supply the
-full argument from evidence to claim that an assurance case would require.
+2.3, defines such a case as a collection of auditable claims, arguments, and
+evidence. It separately represents an artifact citation and the
+\emph{AssertedEvidence} relationship said to connect that artifact to a claim;
+the relationship is itself an assertion by the case's author. Representing an
+argument is therefore not the same as establishing its validity
+\cite[secs. 1.1, 4, 7.3, 11.9--11.15]{omgsacm2023}. Plectis is not an
+implementation of that standard and makes no claim that the private system is
+safe. Its validator applies a published rule and records a result; it neither
+models nor independently justifies the evidential link from that result to the
+prose claim.
 The Association for Computing Machinery (ACM) calls digital research materials
 such as code, scripts, and data
 \emph{artifacts}. Its \emph{Artifacts Evaluated---Functional} badge means
