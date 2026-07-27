@@ -603,6 +603,7 @@ SACM_SOURCE_FIT_ANCHORS = (
 REQUIRED_PINPOINT_CITATIONS = (
     r"\cite[\S2.5]{runeson2009}",
     r"\cite[conclusion 3-1]{nasem2019}",
+    r"\cite[p.~9]{nasem2019}",
     r"\cite[p. 507]{barr2015}",
     r"\cite[secs. 1.1, 4, 7.3, 11.9--11.15]{omgsacm2023}",
     r"\cite[security-strength table]{nisthashfunctions}",

@@ -584,7 +584,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/plectis-public-system.md",
       "local_source": "paper/plectis-public-system.tex",
-      "source_sha256": "sha256:78add46409f92d86b55a52b5dc08f10efca37bd86113aca88fb71aa4b594f647",
+      "source_sha256": "sha256:b0f16b50275e71579ac9d2eb1265ae34c8eff5298de5937a7296ee6e4b0b1838",
       "canonical_source_url": "https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex",
       "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis/main/paper/plectis-public-system.tex",
       "section_count": 25,
@@ -740,14 +740,14 @@
           "line": 354
         }
       ],
-      "citations_rendered": 12,
+      "citations_rendered": 13,
       "fallback_title_drift": {
         "registry_fallback": "Plectis: What a Stranger Can Check",
         "manuscript_title": "Plectis: What a Stranger Can Check What public evidence can and cannot show about a private system"
       },
       "local_pdf": "plectis-public-system.pdf",
-      "pdf_sha256": "sha256:5f13b167bc4850dcf3937efe150bb1c77dfb8aa984291b57cb1edeeccd9765b0",
-      "pdf_byte_count": 125603,
+      "pdf_sha256": "sha256:59b52642dd2a42f3631208ba09ad6da4b275a85611d83a4aefb806ecd27cb02c",
+      "pdf_byte_count": 125786,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection; this paper states no reading route of its own",

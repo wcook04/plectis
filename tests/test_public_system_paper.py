@@ -436,13 +436,36 @@ def test_public_system_paper_check_rejects_missing_source_pinpoint(
     )
 
 
+def test_public_system_paper_check_rejects_missing_correctness_pinpoint(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8").replace(
+            r"\cite[p.~9]{nasem2019}",
+            r"\cite{nasem2019}",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert any(
+        "missing source pinpoint" in failure and "p.~9" in failure
+        for failure in failures
+    )
+    assert not any(
+        "missing literature citation: nasem2019" in failure for failure in failures
+    )
+
+
 def test_public_system_paper_check_rejects_narrow_bibliography_label_width(
     tmp_path: Path,
 ) -> None:
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            r"\begin{thebibliography}{10}",
+            r"\begin{thebibliography}{11}",
             r"\begin{thebibliography}{9}",
         ),
         encoding="utf-8",
@@ -450,7 +473,7 @@ def test_public_system_paper_check_rejects_narrow_bibliography_label_width(
 
     failures = check_paper(paper_path=paper, check_git_commit=False)
 
-    assert "bibliography label width must match item count: expected 10" in failures
+    assert "bibliography label width must match item count: expected 11" in failures
 
 
 def test_public_system_paper_check_rejects_tiny_bibliography_type(
