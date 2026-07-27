@@ -4,11 +4,12 @@
      private system repository. Do not edit by hand: edits are overwritten
      on the next export, and the manuscripts are the source of truth. -->
 
-One private system, two public repositories, three papers. This directory
-carries all three, in both repositories, so a reader who cloned either one
-can read all of them offline.
+This directory carries every active manuscript as navigable text in both
+public repositories. A retired manuscript that remains shipped as a root
+PDF is carried only by its home repository for provenance; it is not
+mirrored or restored to an active publication route.
 
-Three papers, three questions. Pick the question you are actually asking:
+This checkout carries 4 active papers. Pick the question you are actually asking:
 
 ### What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erdős #249?
 

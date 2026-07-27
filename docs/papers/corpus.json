@@ -2,7 +2,7 @@
   "schema": "plectis_paper_corpus_v0",
   "role": "clone_local_scholarly_corpus",
   "this_repository": "plectis",
-  "why_this_exists": "Cloning either public repository gives you PDFs, and only the papers that repository owns. This corpus carries all three as navigable text so an agent with no network can read, cite, and cross-check them.",
+  "why_this_exists": "Cloning either public repository gives you PDFs, and only the papers that repository owns. This corpus carries every active paper as navigable text in both repositories, plus still-shipped retired manuscripts in their home repository, so an agent with no network can read, cite, and cross-check the public evidence.",
   "generated_by": "tools/meta/dissemination/export_paper_corpus.py",
   "generated_from": "the private system repository; do not hand-edit this directory",
   "authority_order": "checked Lean source is proof authority; the claims registry owns public status and coordinates; methodology owns transition rules; the paper owns exposition",
@@ -12,7 +12,7 @@
     "note": "No Lean kernel ran during this export. Reading a paper, or its generated text, is not checking a proof."
   },
   "licences": {
-    "CC-BY-4.0": "all three manuscripts and every view generated from them"
+    "CC-BY-4.0": "all carried manuscripts and every view generated from them"
   },
   "paper_count": 4,
   "papers": [
@@ -23,6 +23,7 @@
       "question_this_paper_answers": "What is proved about the dyadic sections of Euler's totient and the finite denominator bound, and what still blocks Erd\u0151s #249?",
       "owns": "problem-specific mathematical exposition for Erd\u0151s #249: the basis theorem, denominator exclusion, method limits, and open edge",
       "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erd\u0151s #249, which remains open",
+      "publication_state": "active",
       "relation_to_this_repository": "mirror",
       "home_repository": "plectis-lean-erdos249-257",
       "licence": "CC-BY-4.0",
@@ -212,6 +213,7 @@
       "question_this_paper_answers": "Which Mersenne-support subseries are settled, what finite-period and achievement-set structure is proved, and what still blocks Erd\u0151s #257?",
       "owns": "problem-specific mathematical exposition for Erd\u0151s #257: exact finite periods, settled support families, method limits, and the open half-value edge",
       "not_authority_for": "proof validity, which belongs to Lean source checked by the pinned kernel, or a solution to Erd\u0151s #257, which remains open",
+      "publication_state": "active",
       "relation_to_this_repository": "mirror",
       "home_repository": "plectis-lean-erdos249-257",
       "licence": "CC-BY-4.0",
@@ -376,6 +378,7 @@
       "question_this_paper_answers": "Lean proves the formal statement \u2014 but who checks that the README describes it faithfully?",
       "owns": "the design argument for the release discipline: what is checked, by whom, and when",
       "not_authority_for": "the mathematical content it uses as its worked example, and the correctness of the human review it preserves",
+      "publication_state": "active",
       "relation_to_this_repository": "mirror",
       "home_repository": "plectis-lean-erdos249-257",
       "licence": "CC-BY-4.0",
@@ -578,6 +581,7 @@
       "question_this_paper_answers": "What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?",
       "owns": "the evidence boundary: what a passing public run does and does not establish",
       "not_authority_for": "the private system's internal state, which is not public, and the mathematical results it cites as evidence",
+      "publication_state": "active",
       "relation_to_this_repository": "native",
       "home_repository": "plectis",
       "licence": "CC-BY-4.0",
