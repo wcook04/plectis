@@ -39,7 +39,7 @@ SHARED_REQUIRED_FILES = ("README.md", "LICENSE", "CONTRIBUTING.md", "SECURITY.md
 # Root entries the python_research_tool profile accepts without comment.
 PYTHON_TOOL_ALLOWED = {
     ".git", ".github", ".gitignore", ".microcosm",
-    "AGENTS.md", "CLAUDE.md", "CHANGELOG.md", "CITATION.cff", "CONTRIBUTING.md",
+    "AGENTS.md", "AGENTS.override.md", "CLAUDE.md", "CHANGELOG.md", "CITATION.cff", "CONTRIBUTING.md",
     "LICENSE", "MANIFEST.in", "Makefile", "NOTICE", "QUICKSTART.md", "README.md",
     "SECURITY.md", "bootstrap.sh", "pyproject.toml",
     "assets", "atlas", "core", "docs", "examples", "fixtures", "paper",

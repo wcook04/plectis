@@ -1,10 +1,11 @@
 # CURSOR.md - Microcosm Substrate Adapter
 
-This is a thin adapter for Cursor-style agents. The canonical public agent
-contract is `AGENTS.md`; do not duplicate or override it here.
+This is a thin adapter for Cursor-style agents. Read `AGENTS.override.md` as the
+compact cold-clone entry; `AGENTS.md` remains the deep public mutation contract.
 
-First read `AGENTS.md`. With a goal, convert it into your first correct action
-(demonstrated in `FIRST_ACTION.md`); then run the bootstrap preview and card:
+First read `AGENTS.md` only after the compact task router names a deep section.
+With a goal, convert it into your first correct action (demonstrated in
+`FIRST_ACTION.md`); then run the bootstrap preview and card:
 ```bash
 PYTHONPATH=src python3 -m microcosm_core comprehend --first-action "<your goal>" --format text
 ./bootstrap.sh --dry-run

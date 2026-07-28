@@ -51,6 +51,7 @@ where = ["src"]
 "share/plectis" = [
   ".gitignore",
   "AGENTS.md",
+  "AGENTS.override.md",
   "AGENT_ROUTES.md",
   "ANTI_PRINCIPLES.md",
   "ARCHITECTURE.md",

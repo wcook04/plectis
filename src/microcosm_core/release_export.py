@@ -47,6 +47,7 @@ DEFAULT_INCLUDE_REFS = (
     ".github",
     ".gitignore",
     "AGENTS.md",
+    "AGENTS.override.md",
     "AGENT_ROUTES.md",
     "ANTI_PRINCIPLES.md",
     "ARCHITECTURE.md",
@@ -94,6 +95,7 @@ STANDALONE_REQUIRED_PUBLIC_REFS = (
     "CODEX.md",
     "CURSOR.md",
     "AGENTS.md",
+    "AGENTS.override.md",
     "AGENT_ROUTES.md",
     "ANTI_PRINCIPLES.md",
     "ARCHITECTURE.md",
@@ -484,6 +486,7 @@ def _public_role(rel: str) -> str:
     if rel in {
         "README.md",
         "AGENTS.md",
+        "AGENTS.override.md",
         "AGENT_ROUTES.md",
         "ANTI_PRINCIPLES.md",
         "ARCHITECTURE.md",
