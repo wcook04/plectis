@@ -4,6 +4,39 @@ All notable changes to Plectis are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and versions follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-07-28
+
+### Added
+
+- A compact `AGENTS.override.md` cold-clone entry gives coding agents the first
+  correct action and routes deeper work into `AGENTS.md` without making every
+  agent read the full repository inventory first.
+- The generated paper guide now carries the public paper corpus as searchable
+  local text, source and PDF mirrors, authority labels, source hashes, and
+  explicit unavailable-at-build records.
+- A checked public-repository front-door standard distinguishes the human
+  `README.md` from agent instructions and blocks oversized, broken, or
+  misdirected entry surfaces.
+
+### Changed
+
+- `README.md` now starts with what Plectis is, what a stranger can run, what the
+  result does not prove, and where to go next. Project history and internal
+  vocabulary no longer precede the first useful command.
+- The public-system paper and its generated projections now disclose
+  generative-system use once, state their evidence ceiling earlier, and include
+  the question-first paper and hypothesis-handoff routes.
+- Standalone release export now includes both compact agent instructions and
+  the hypothesis handoff, and its clean-install tests enforce those links.
+
+### Fixed
+
+- Natural whole-system questions no longer resolve as false aliases, and public
+  entry routes remain stable when the repository is read from a cold clone.
+- Paper-corpus checks distinguish an explicitly unavailable registered paper
+  from a stale or missing manuscript instead of treating every registry row as
+  locally present.
+
 ## [0.4.1] - 2026-07-26
 
 ### Fixed
