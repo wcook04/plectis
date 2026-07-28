@@ -1,10 +1,39 @@
 from __future__ import annotations
 
+import ast
 import json
 from pathlib import Path
 
 from scripts import check_public_system_paper as paper_check
 from scripts.check_public_system_paper import PAPER, check_paper
+
+
+def test_literal_mutation_sources_match_current_paper() -> None:
+    """Reject negative fixtures whose literal replacement no longer takes effect."""
+    paper_source = PAPER.read_text(encoding="utf-8")
+    test_tree = ast.parse(Path(__file__).read_text(encoding="utf-8"))
+    literal_replace_calls = [
+        node
+        for node in ast.walk(test_tree)
+        if isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Attribute)
+        and node.func.attr == "replace"
+        and len(node.args) >= 2
+        and isinstance(node.args[0], ast.Constant)
+        and isinstance(node.args[0].value, str)
+        and isinstance(node.args[1], ast.Constant)
+        and isinstance(node.args[1].value, str)
+    ]
+    introduced = {node.args[1].value for node in literal_replace_calls}
+    stale = sorted(
+        {
+            node.args[0].value
+            for node in literal_replace_calls
+            if node.args[0].value not in paper_source
+            and node.args[0].value not in introduced
+        }
+    )
+    assert stale == []
 
 
 def test_public_system_paper_matches_pinned_public_evidence() -> None:
@@ -87,13 +116,13 @@ def test_public_system_paper_check_rejects_abstract_origin_as_fact(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "I report that its published material was\n"
-            "copied or adapted from the private system,",
+            "I report that its published material was copied or adapted from that\n"
+            "system",
             "It was assembled from parts of a larger private system,",
         )
         .replace(
-            "The argument does not depend on that account or on the claimed origin of\n"
-            "the published material.",
+            "The argument does not depend on that account or on the\n"
+            "claimed origin of the published material.",
             "The argument is complete.",
         ),
         encoding="utf-8",
@@ -225,11 +254,15 @@ def test_public_system_paper_check_requires_five_gap_map_before_the_details(
         PAPER.read_text(encoding="utf-8").replace(
             "Five labels organise the gaps in Figure~\\ref{fig:gaps}: \\emph{origin}, where\n"
             "the material came from; \\emph{correctness}, whether an answer is right;\n"
-            "\\emph{meaning}, whether a rule tests its claim; \\emph{reach}, whether shown\n"
-            "cases stand for unshown ones; and \\emph{risk}, what the declared checks may\n"
-            "miss. Each subsection separates observation from inference.",
-            "Figure~\\ref{fig:gaps} lists five evidential dimensions.",
-        ),
+                "\\emph{meaning}, whether a rule tests its claim; \\emph{reach}, whether shown\n"
+                "cases stand for unshown ones; and \\emph{risk}, what the declared checks may\n"
+                "miss. These short labels correspond to familiar questions about provenance,\n"
+                "test-oracle validity, claim--test fidelity, representativeness, and residual\n"
+                "risk. They are not five new kinds of evidence. Each subsection separates what\n"
+                "the public run directly shows from the additional premise needed for a stronger\n"
+                "conclusion.",
+                "Figure~\\ref{fig:gaps} lists five evidential dimensions.",
+            ),
         encoding="utf-8",
     )
 
@@ -465,7 +498,7 @@ def test_public_system_paper_check_rejects_narrow_bibliography_label_width(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            r"\begin{thebibliography}{11}",
+            r"\begin{thebibliography}{12}",
             r"\begin{thebibliography}{9}",
         ),
         encoding="utf-8",
@@ -473,7 +506,7 @@ def test_public_system_paper_check_rejects_narrow_bibliography_label_width(
 
     failures = check_paper(paper_path=paper, check_git_commit=False)
 
-    assert "bibliography label width must match item count: expected 11" in failures
+    assert "bibliography label width must match item count: expected 12" in failures
 
 
 def test_public_system_paper_check_rejects_tiny_bibliography_type(
@@ -644,10 +677,10 @@ def test_public_system_paper_check_rejects_abstract_answer_removal(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
-        .replace("The answer is narrow", "The design has several properties")
+        .replace("The answer\nis narrow", "The design has several properties")
         .replace(
-            "lets a reader inspect and rerun\n"
-            "its published procedures",
+            "lets a reader inspect and rerun its published\n"
+            "procedures",
             "provides a sophisticated architecture",
         ),
         encoding="utf-8",
@@ -672,7 +705,7 @@ def test_public_system_paper_check_rejects_unexpanded_first_use(
 ) -> None:
     source = PAPER.read_text(encoding="utf-8")
     cases = (
-        ("artificial intelligence\n(AI)", "AI"),
+        ("artificial\nintelligence (AI)", "AI"),
         ("Structured Assurance Case Metamodel (SACM)", "SACM"),
         ("Association for Computing Machinery (ACM)", "ACM"),
         ("National Institute of Standards and Technology (NIST)", "NIST"),
@@ -765,12 +798,12 @@ def test_public_system_paper_check_rejects_opening_definition_or_method_scope_lo
     source = PAPER.read_text(encoding="utf-8")
     cases = (
         (
-            "registered components\n(separately testable parts)",
+            "registered components (separately testable parts)",
             "registered components",
             "registered components (separately testable parts)",
         ),
         (
-            "I borrow only those two terms",
+            "I\nborrow only those two terms",
             "I apply this method",
             "I borrow only those two terms",
         ),
@@ -907,10 +940,11 @@ def test_public_system_paper_check_keeps_legacy_names_in_appendix(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "Nothing in these labels grades the importance of what a\n"
-            "component does.",
-            "Nothing in these labels grades the importance of what a\n"
-            "component does. The project was previously called Microcosm.",
+            "Nothing in\n"
+            "these labels grades the importance of what a component does.",
+            "Nothing in\n"
+            "these labels grades the importance of what a component does. "
+            "The project was previously called Microcosm.",
         )
         .replace(
             "Formerly Microcosm, Plectis retains\n"
@@ -1477,7 +1511,7 @@ def test_public_system_paper_check_rejects_route_definition_regression(
             "It calls this a route",
         )
         .replace(
-            "They cannot create an\nindependent witness",
+            "They cannot create an independent witness",
             "The records agree",
         ),
         encoding="utf-8",
@@ -1539,8 +1573,8 @@ def test_public_system_paper_check_rejects_central_term_definition_removal(
             "I use answerable in its ordinary sense",
         )
         .replace(
-            "Calling\n"
-            "them evidence does not establish their adequacy",
+            "Calling them evidence does not establish\n"
+            "their adequacy",
             "These materials are adequate evidence",
         ),
         encoding="utf-8",
@@ -1750,9 +1784,8 @@ def test_public_system_paper_check_rejects_independence_as_universal_requirement
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "Moving a relevant choice out\n"
-            "of the author's hands can strengthen evidence about that choice; it does not\n"
-            "repair every gap.",
+            "Moving a relevant choice out of the author's hands\n"
+            "can strengthen evidence about that choice; it does not repair every gap.",
             "Stronger evidence requires at least one consequential choice to leave "
             "the author's hands.",
         ),

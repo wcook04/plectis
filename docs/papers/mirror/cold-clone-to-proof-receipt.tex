@@ -16,6 +16,14 @@
   pdfkeywords={Lean 4, formal mathematics, AI agents, navigation, proof receipts, incremental compilation, reproducibility},
 }
 \newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257}
+% BEGIN generated_semantic_coverage_macros
+\newcommand{\SemanticAuthoredTheoremLike}{141,820}
+\newcommand{\SemanticAuthoredInterpreted}{139,469}
+\newcommand{\SemanticDirectEvidence}{2,985}
+\newcommand{\SemanticContextual}{136,484}
+\newcommand{\SemanticStructuralOnly}{2,351}
+\newcommand{\SemanticAuthoredPercent}{98.3}
+% END generated_semantic_coverage_macros
 \emergencystretch=1.6em
 
 \runninghead{From a cold clone to a proof receipt}
@@ -36,7 +44,7 @@ authors. See Appendix~\ref{app:repro}.}
 A large formal library can be mechanically exact and still be practically
 unreadable to the next human or reasoning agent. This paper presents a
 repository architecture that separates first-contact comprehension from proof
-checking. At the audited revision, a cold clone exposes a bounded five-line
+checking. At the audited revision, a cold clone exposes a bounded six-line
 tour over 991 Lean modules and 151,755 declarations, a mathematical map of ten
 programmes, 100 curated claims, four explicit open propositions, and an
 elaborated loaded-root graph with 8,772 source-resolved nodes and 38,844 direct
@@ -80,9 +88,11 @@ paper, and proof edge into one prompt destroys the distinctions the extra
 context was meant to reveal. A useful first-contact surface must therefore be
 small, expandable, and honest about what it omits.
 
-The \href{\repobase}{development studied here} formalises results and open
-boundaries around several Erd\H{o}s problems. The two principal problems remain
-open. The corpus is unusually deep for a navigation experiment: it contains
+The \href{\repobase}{development studied here} indexes six open
+Erd\H{o}s problems. Problems 249 and 257 are the two principal reviewed
+programmes; Problems 243, 251, 269, and 1049 are problem-owned expansion lanes
+with their own notes and explicit nonclaims. The corpus is unusually deep for
+a navigation experiment: it contains
 many landed reductions, finite mechanisms, obstruction theorems, and
 countermodels around a small number of hard frontiers. The design goal is not
 to replace reasoning with a fixed pipeline. It is to let a capable reader see
@@ -111,8 +121,8 @@ of understanding.
   {\textbf{Elaborated loaded-root dependency index}\\[-1pt]
    \footnotesize 8,772 nodes; 38,844 direct edges. Exact type/value references joined back to source, plus 3,074 unresolved atlas rows and 5,800 unresolved public edge pairs.};
 \node[box, fill=BurntOrange!6, below=7mm of dep] (semantic)
-  {\textbf{Tiered semantic graph}\quad 141,820/141,820 theorem-like declarations linked\\
-   \footnotesize 139,370 authored interpretations (2,895 direct evidence; 136,475 bounded family context); 2,450 remain exact source-structural families only.};
+  {\textbf{Tiered semantic graph}\quad \SemanticAuthoredTheoremLike/\SemanticAuthoredTheoremLike\ theorem-like declarations linked\\
+   \footnotesize \SemanticAuthoredInterpreted\ authored interpretations (\SemanticDirectEvidence\ direct evidence; \SemanticContextual\ bounded family context); \SemanticStructuralOnly\ remain exact source-structural families only.};
 \node[box, fill=ForestGreen!6, below=7mm of semantic] (claims)
   {\textbf{Reviewed public claim map}\quad 100 claims; 10 programmes; 4 open propositions\\
    \footnotesize Public wording, status, evidence, claim ceiling, and stronger adjacent statement.};
@@ -142,11 +152,12 @@ explanation.
 
 \paragraph{Tiered mathematical interpretation.}
 The semantic graph contains authored statement nodes, typed relations, and an
-exact source-structural floor. At the audited revision all 141,820 authored
-theorem-like declarations are linked. Of these, 139,370 (98.3\%) participate
-in authored mathematical interpretations: 2,895 are exact proposition
-evidence and 136,475 are bounded contextual links to digest- or
-module-verified families. The remaining 2,450 are grouped only by exact source
+exact source-structural floor. At the audited revision all
+\SemanticAuthoredTheoremLike\ authored theorem-like declarations are linked.
+Of these, \SemanticAuthoredInterpreted\ (\SemanticAuthoredPercent\%) participate
+in authored mathematical interpretations: \SemanticDirectEvidence\ are exact
+proposition evidence and \SemanticContextual\ are bounded contextual links to
+digest- or module-verified families. The remaining \SemanticStructuralOnly\ are grouped only by exact source
 module and normalised Lean proposition signature. That lower tier is useful
 navigation, not a mathematical paraphrase. Keeping the tiers visible prevents
 exhaustive linkage or bulk helper assignment from being misreported as
@@ -163,12 +174,13 @@ not outputs inferred by the proof kernel.
 
 \section{A bounded tour over an unbounded drilldown}\label{sec:tour}
 
-The first command returns a five-line card rather than a database dump. It
+The first command returns a six-line card rather than a database dump. It
 derives corpus scale, formal-graph scale and misses, the authority boundary,
-the open frontier, and the available intent classes from the committed
-projections. The full packet remains below a fixed byte budget and expands the
-card into a mathematical map, status counts, reader-specific contracts, and
-typed follow-up commands.
+the six-problem map, the open frontier, and the available intent classes from the committed
+projections. The full packet uses a registry-scaled budget: 18\,kB of base
+context plus 2\,kB per indexed problem, hence 30\,kB for the present six-problem
+registry. It expands the card into a mathematical map, status counts,
+reader-specific contracts, and typed follow-up commands.
 
 Five intent lenses cover the main transitions:
 \begin{enumerate}
@@ -188,7 +200,8 @@ is intentionally specific to the mathematics it describes.
 
 Ordinary-language entry is likewise not an undocumented trigger list. The
 \texttt{--vocabulary} packet is an executable Rosetta surface: it publishes
-question operators, aliases, transparent expansions, typed route hints, and a
+question operators, aliases, transparent expansions, typed route hints, an
+all-problem registry projected from \texttt{docs/problems.json}, and a
 route-discovery lexicon projected from
 \texttt{docs/claims.json::machine\_readable\_paper.entrypoints}. A unique exact
 authored term may take a constant-time fast path; ambiguous or unseen language

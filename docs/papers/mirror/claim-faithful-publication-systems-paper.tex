@@ -17,6 +17,14 @@
   pdfkeywords={formal mathematics, Lean 4, claim verification, release engineering, reproducibility, research software},
 }
 \newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257}
+% BEGIN generated_semantic_coverage_macros
+\newcommand{\SemanticAuthoredTheoremLike}{141,820}
+\newcommand{\SemanticAuthoredInterpreted}{139,469}
+\newcommand{\SemanticDirectEvidence}{2,985}
+\newcommand{\SemanticContextual}{136,484}
+\newcommand{\SemanticStructuralOnly}{2,351}
+\newcommand{\SemanticAuthoredPercent}{98.3}
+% END generated_semantic_coverage_macros
 \emergencystretch=1.5em
 
 \runninghead{From Lean proofs to public claims}
@@ -52,6 +60,9 @@ open requirement asks for such certificates beyond every fixed cutoff, and
 the repository proves that this unbounded supply is equivalent to an
 affirmative answer to Erd\H{o}s Problem 249.  Thus the finite theorem is not a
 partial wording of the open conclusion: the two have different logical forms.
+The repository's navigation index covers six open Erd\H{o}s problems; this
+paper deliberately studies the reviewed 249/257 publication lane as its release
+case study, not as the full mathematical corpus.
 A historical README edit erased the distinction and passed because that
 relationship had not been registered.  After registration, a deliberately
 false copy was rejected.  This establishes one failure and repair, not complete
@@ -845,10 +856,12 @@ structural comparisons passed on the named revision.
 
 \paragraph{Dated navigation counts.}
 At the reviewed snapshot, all 151,755 live declarations were inventoried and
-routed, and all 141,820 author-written theorem-like declarations had an exact
-node link.  Of those, 139,370 (98.3\%) participated in authored mathematical
-interpretations: 2,895 as exact proposition evidence and 136,475 as bounded
-certificate- or module-family context.  The remaining 2,450 were linked only
+routed, and all \SemanticAuthoredTheoremLike\ author-written theorem-like
+declarations had an exact node link.  Of those,
+\SemanticAuthoredInterpreted\ (\SemanticAuthoredPercent\%) participated in
+authored mathematical interpretations: \SemanticDirectEvidence\ as exact
+proposition evidence and \SemanticContextual\ as bounded certificate- or
+module-family context.  The remaining \SemanticStructuralOnly\ were linked only
 through exact source-module and normalised-signature families, not authored
 mathematical paraphrases.  Every declaration selected for a public claim had
 an authored route.  The command
