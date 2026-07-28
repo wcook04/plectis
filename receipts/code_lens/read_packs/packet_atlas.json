@@ -6,7 +6,7 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 9406,
+    "actual_bytes": 9934,
     "band": "compact",
     "max_bytes": 16000,
     "target_bytes": 8000,
@@ -46,6 +46,7 @@
     "first_action",
     "self_model",
     "first_contact",
+    "papers",
     "authority",
     "organs_index"
   ],
@@ -80,6 +81,7 @@
         "first_action",
         "self_model",
         "first_contact",
+        "papers",
         "authority",
         "organs_index"
       ],
@@ -114,7 +116,7 @@
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/self_model.json",
-      "cached_bytes": 33264,
+      "cached_bytes": 33278,
       "command": "plectis comprehend --self-model",
       "data_status": "full",
       "export_band": "presence_only",
@@ -124,6 +126,7 @@
         "organs_index",
         "organ_cluster",
         "math",
+        "papers",
         "authority",
         "mutation_plan"
       ],
@@ -137,7 +140,7 @@
       "budget_band": "standard",
       "cache_policy": "prebuilt",
       "cache_ref": "receipts/code_lens/read_packs/first_contact.json",
-      "cached_bytes": 33226,
+      "cached_bytes": 33240,
       "command": "plectis comprehend --first-contact",
       "data_status": "full",
       "export_band": "presence_only",
@@ -145,6 +148,7 @@
       "max_bytes": 72000,
       "next_packets": [
         "self_model",
+        "papers",
         "authority",
         "organ_cluster",
         "organs_index",
@@ -273,6 +277,25 @@
       "when_needed": "where are the formal-math / proof surfaces and what do they claim?"
     },
     {
+      "budget_band": "standard",
+      "cache_policy": "on_demand",
+      "command": "plectis comprehend --slice papers",
+      "data_status": "full",
+      "export_band": "presence_only",
+      "kind": "packet",
+      "max_bytes": 72000,
+      "next_packets": [
+        "self_model",
+        "math",
+        "authority"
+      ],
+      "packet_id": "papers",
+      "packet_kind": "reference",
+      "slo_ms": 300,
+      "target_bytes": 24000,
+      "when_needed": "choose the smallest paper path for one question, understand what each paper owns, and cross into proof or receipt authority"
+    },
+    {
       "budget_band": "compact",
       "cache_policy": "on_demand",
       "command": "plectis comprehend --slice claims --organ <organ_id>",
@@ -361,6 +384,7 @@
     "organ_cluster": 500,
     "organs_index": 300,
     "packet_atlas": 200,
+    "papers": 300,
     "path": 800,
     "self_model": 500
   },
@@ -369,7 +393,7 @@
   "sqlite_gate": "closed: JSON read-pack cache meets SLO; build SQLite/FTS5 only when freeform goal routing or atom-excerpt search misses an SLO or needs ranked full-text search",
   "summary": {
     "what_not_to_trust": "A packet is a navigation read model, never release/source-export/correctness authority; local_semantic_excerpt packets are local-only and never cached.",
-    "what_this_is": "14 comprehension packets. Each is a bounded, source-body-free operating context for one situation. Have a goal? Enter through first_action (one graph-backed first correct action). Orienting cold? Enter through first_contact.",
+    "what_this_is": "15 comprehension packets. Each is a bounded, source-body-free operating context for one situation. Have a goal? Enter through first_action (one graph-backed first correct action). Orienting cold? Enter through first_contact.",
     "what_to_inspect_next": [
       "plectis comprehend --packet-atlas",
       "plectis comprehend --first-action \"<goal>\"",

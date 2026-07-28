@@ -636,7 +636,7 @@ First-screen route:
   plectis comprehend --first-contact  substrate-orientation read pack (what is this, where do I start, what not to trust)
   plectis comprehend --organ <organ_id> read one organ's purpose, ceiling, receipts, and source-span escalation
   plectis comprehend --slice mechanism  every organ's real mechanism (what it computes/verifies/rejects), one line each
-  plectis comprehend --slice {authority|organs|cluster --family <f>|math|claims --organ <id>|flows --organ <id>} named comprehension packet
+  plectis comprehend --slice {authority|organs|cluster --family <f>|math|papers|claims --organ <id>|flows --organ <id>} named comprehension packet
   plectis comprehend --improvements rank concrete Plectis improvement targets with validation commands
   plectis comprehend --mutation <organ_id|path> safe-change plan: what to inspect, the validator to run, receipts to refresh (local band)
   plectis comprehend --path <owned_file> read a file's authored atom values without opening source (local band)
@@ -4066,7 +4066,7 @@ def main(argv: list[str] | None = None) -> int:
     comprehend_parser.add_argument(
         "--slice",
         dest="slice_name",
-        choices=["first-contact", "authority", "organs", "mechanism", "cluster", "math", "claims", "flows"],
+        choices=["first-contact", "authority", "organs", "mechanism", "cluster", "math", "papers", "claims", "flows"],
         help="compile a named comprehension slice",
     )
     comprehend_parser.add_argument(

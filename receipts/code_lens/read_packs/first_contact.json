@@ -44,6 +44,7 @@
   "mode": "tutorial",
   "next_packets": [
     "self_model",
+    "papers",
     "authority",
     "organ_cluster",
     "organs_index",

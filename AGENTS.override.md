@@ -88,6 +88,20 @@ That command is run inside a clone of `plectis-lean-erdos249-257`, not here.
 Do not infer companion mathematics from Plectis organs, receipts, papers, or
 private-system descriptions.
 
+For “which papers should I read?”, “what does each paper establish?”, or a
+reading-order request, use the clone-local scholarly guide first:
+
+```bash
+PYTHONPATH=src python3 -m microcosm_core comprehend --slice papers --format text
+```
+
+It is projected from `docs/papers/corpus.json`, covers every active manuscript
+carried by the clone, and routes system understanding separately from
+problem-specific mathematics. Read the smallest route that answers the
+question; then cross to executable receipts here or typed claims and Lean
+source in the companion repository. Papers are exposition, never proof or
+claim-status authority.
+
 ## Authority and mutation boundaries
 
 - Machine packets route attention; they do not grant source mutation, release,

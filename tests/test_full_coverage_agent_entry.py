@@ -78,3 +78,37 @@ def test_committed_read_pack_builder_is_deterministic_and_complete(
     assert cached["companion_repository"]["name"] == (
         "plectis-lean-erdos249-257"
     )
+
+
+def test_paper_questions_route_to_complete_question_first_guide() -> None:
+    inputs = C.load_inputs(ROOT)
+    for question in (
+        "Which papers should I read, and in what order?",
+        "What does each paper establish?",
+        "Show me the paper guide.",
+        "Where is the paper corpus?",
+    ):
+        assert C.route_goal(question, inputs)[0] == "papers"
+
+    guide = C.comprehend(root=ROOT, mode="papers")
+    assert guide["found"]
+    assert len(guide["paper_index"]) == guide["paper_corpus_count"] == 11
+    assert guide["default_sequence"]["paper_ids"] == [
+        "plectis-public-system",
+        "cold-clone-to-proof-receipt",
+        "claim-faithful-publication-systems",
+    ]
+    assert guide["companion_repository"]["name"] == (
+        "plectis-lean-erdos249-257"
+    )
+    assert guide["problem_routes"]["erdos_249"][-1] == (
+        "erdos249-totient-reasoning-surface"
+    )
+
+    first_action = C.comprehend(
+        root=ROOT,
+        mode="first_action",
+        target="Which papers should I read, and in what order?",
+    )
+    assert first_action["routing"]["packet_id"] == "papers"
+    assert "--slice papers" in first_action["first_action"]["command"]

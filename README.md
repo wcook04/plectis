@@ -33,6 +33,16 @@ for what is proved and where the open line sits, and
 [the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
 for how machine-checked proofs become public claims.
 
+For the wider scholarly corpus, start with the clone-local
+[paper guide](docs/papers/README.md), or ask the machine route:
+
+```bash
+plectis comprehend --slice papers --format text
+```
+
+It says what each paper owns, what it cannot establish, and which short
+sequence fits your question. You do not need to read all 11 papers.
+
 ## What you get
 
 Plectis is a local Python toolkit plus an executable reference corpus. In
@@ -163,6 +173,7 @@ read.
 | Browse every component | [System map](ORGANS.md) | A generated card for each part, one line at a glance or in full. |
 | Inspect what each component computes, verifies, or rejects | `comprehend --slice mechanism` | `plectis comprehend --slice mechanism --format text`: every component's real mechanism, one line each. |
 | Verify a specific claim before trusting it | `comprehend --first-action` | `plectis comprehend --first-action "<claim to verify>" --format text`: the owning component, its authority ceiling, and the command that tests it. |
+| Choose a paper without scanning the library | [Paper guide](docs/papers/README.md) · `comprehend --slice papers` | A question-first route across all active papers, including their evidence boundaries and companion-repository handoff. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
 | Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Mathematics paper (PDF)](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf) | A standalone Lean 4 formalisation of two open Erdős problems (#249, #257), and the paper behind it. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. |
