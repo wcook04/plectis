@@ -41,9 +41,10 @@ SHARED_REQUIRED_FILES = ("README.md", "LICENSE", "CONTRIBUTING.md", "SECURITY.md
 # Root entries the python_research_tool profile accepts without comment.
 PYTHON_TOOL_ALLOWED = {
     ".git", ".github", ".gitignore", ".microcosm",
-    "AGENTS.md", "AGENTS.override.md", "CLAUDE.md", "CHANGELOG.md", "CITATION.cff", "CONTRIBUTING.md",
-    "LICENSE", "MANIFEST.in", "Makefile", "NOTICE", "QUICKSTART.md", "README.md",
-    "SECURITY.md", "bootstrap.sh", "pyproject.toml",
+    "AGENTS.md", "AGENTS.override.md", "CLAUDE.md", "CHANGELOG.md",
+    "CITATION.cff", "CONTRIBUTING.md",
+    "HYPOTHESIS_HANDOFF.md", "LICENSE", "MANIFEST.in", "Makefile", "NOTICE",
+    "QUICKSTART.md", "README.md", "SECURITY.md", "bootstrap.sh", "pyproject.toml",
     "assets", "atlas", "core", "docs", "examples", "fixtures", "paper",
     "paper_modules", "plectis-public-system.pdf",
     "receipts", "scripts", "skills", "src", "standards", "tests",
@@ -211,25 +212,25 @@ def _check_readme_first_screen(root: Path, mode: str, report: dict[str, Any]) ->
         report["failures"].append("readme_first_screen: hero routes fewer than 2 links")
 
     # No unrelated-repository promotion above the fold: hero links must stay
-    # on this project's own surfaces. Compare exact owner/repo slugs, not
-    # substrings (plectis-lean-... must not pass as plectis).
+    # on this project's own surfaces or its declared companion demonstration.
+    # The paired repository is part of the first-screen identity (one private
+    # system, two public demonstrations), so each mode admits exactly its
+    # sibling. Compare exact owner/repo slugs, not substrings
+    # (plectis-lean-... must not pass as plectis).
     own_slug = (
         "wcook04/plectis"
         if mode == "python_research_tool"
         else "wcook04/plectis-lean-erdos249-257"
     )
-    related_slugs = {
-        own_slug,
-        (
-            "wcook04/plectis-lean-erdos249-257"
-            if mode == "python_research_tool"
-            else "wcook04/plectis"
-        ),
+    companion_slugs = {
+        "wcook04/plectis": {"wcook04/plectis-lean-erdos249-257"},
+        "wcook04/plectis-lean-erdos249-257": {"wcook04/plectis"},
     }
+    allowed_slugs = {own_slug} | companion_slugs.get(own_slug, set())
     foreign = []
     for _label, dest in links:
         slug = re.search(r"github\.com/([\w.-]+/[\w.-]+)", dest)
-        if slug and slug.group(1).removesuffix(".git") not in related_slugs:
+        if slug and slug.group(1).removesuffix(".git") not in allowed_slugs:
             foreign.append(dest)
     row["foreign_repo_links_in_hero"] = foreign
     if foreign:

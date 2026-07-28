@@ -8,8 +8,8 @@
 \input{problem-note-preamble}
 % Problem-specific source pin: #243's finite-negative-mass results advance
 % independently of the corpus default.
-\renewcommand{\commit}{64f33f3a134d3414c18717d37ab8201e1dd1c98a}
-\renewcommand{\commitshort}{64f33f3a134d}
+\renewcommand{\commit}{580ae3a8bcce53b471c76a6bb0754c0bfbf37613}
+\renewcommand{\commitshort}{580ae3a8bcce}
 \hypersetup{
   pdftitle={Excluding the bounded negative part: Lean-checked rigidity for Erdős Problem 243},
   pdfsubject={Erdős Problem Notes: Problem 243},
@@ -131,8 +131,7 @@ Koizumi records the convenient sufficient rate
 $a_n^2/a_{n+1}=1+o(1/n)$ under which the Erd\H{o}s--Straus criterion settles
 the problem~\cite[Remark~3, p.~16]{koizumi2025}.  Duverney proved a
 conditional signed form of the
-problem itself: if
-$\sum_{n\ge0}\left|a_{n+1}/a_n^{2}-1\right|$ converges, then
+problem itself: if $\sum_{n\ge0}\bigl(a_{n+1}/a_n^{2}-1\bigr)$ converges, then
 the reciprocal sum, even with numerators in $\{-1,1\}$, is rational if and
 only if the corresponding signed recurrence holds for all large
 $n$~\cite[Corollary~3.2, p.~287]{duverney2001}.  The all-positive
@@ -176,10 +175,10 @@ The growth hypothesis in Problem~\ref{res:problem} is calibrated by two facts
 about Sylvester's sequence.  It satisfies $a_n\approx c_0^{2^{n}}$ with
 $c_0=1.2640847\ldots$, and shifting it further produces sequences with
 $a_n\approx C^{2^{n}}$ for arbitrarily large $C$ whose reciprocals still sum
-to a rational number~\cite[arXiv v4, p.~2]{kovactao2024}.  The classical sufficient
+to a rational number~\cite[p.~2]{kovactao2024}.  The classical sufficient
 condition for irrationality, $\lim_n a_n^{1/2^{n}}=\infty$, is therefore
 sharp.  Kova\v{c} and Tao identify that condition as folklore
-~\cite[arXiv v4, p.~2]{kovactao2024}; they attribute the sharpness observation to
+~\cite[p.~2]{kovactao2024}; they attribute the sharpness observation to
 Erd\H{o}s (1975).  A sequence with
 $a_n/a_{n-1}^{2}\to1$ has $a_n^{1/2^{n}}$
 convergent, so that criterion says nothing about the sequences of
@@ -1358,7 +1357,7 @@ technique transfers to any forced orbit whose step is a polynomial division.
 \bibitem{kovactao2024} V.~Kova\v{c} and T.~Tao,
   \href{https://arxiv.org/abs/2406.17593}{\emph{On several irrationality
   problems for Ahmes series}}, Acta Math. Hungar. \textbf{175} (2025),
-  572--608; preprint arXiv:2406.17593v4.
+  572--608; preprint arXiv:2406.17593.
 \bibitem{koizumi2025} J.~Koizumi,
   \href{https://math.colgate.edu/~integers/aa28/aa28.pdf}
   {\emph{Irrationality of the reciprocal sum of doubly exponential sequences}},
@@ -1376,8 +1375,8 @@ technique transfers to any forced orbit whose step is a polynomial division.
   \href{https://github.com/google-deepmind/formal-conjectures/blob/f776d2f2039351b00737ffcafb9d7d7666e1d9af/FormalConjectures/ErdosProblems/243.lean}
   {\emph{FormalConjectures.ErdosProblems.\texttt{243}}},
   Lean source at commit \texttt{f776d2f}, 2025, accessed 28 July 2026.
-  Its $\Q$-valued \texttt{Summable} hypothesis encodes rationality, its
-  indexing is zero-based, and its proof ends in \texttt{sorry}.
+  The declaration omits the rational-value hypothesis present in its
+  docstring and ends in \texttt{sorry}.
 \end{thebibliography}
 
 \end{document}

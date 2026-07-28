@@ -39,6 +39,29 @@ demonstrates this across a goal battery — localization, change-shaped goals,
 authority refusals, vocabulary traps — and is regenerated from the live
 compiler, so the examples are compiler output, not prose.
 
+**Asked what this repository is, or why any of it is claimed?** That is a papers
+question, not a component question, and the papers are in the clone. Read
+[`docs/papers/corpus.json`](docs/papers/corpus.json) — it is small, and it names
+all three papers, the one question each answers, what each is *not* authority
+for, and every section with its label and line number. The full text of all
+three is in `docs/papers/full-text/` as searchable Markdown; the PDFs are
+alongside. Do not answer a question about what this project claims by
+summarising the organ inventory: the components show what runs, and the papers
+state what may be concluded from that, which is the narrower thing.
+
+**Asked to turn an open question into an expert handoff?** Read
+[`HYPOTHESIS_HANDOFF.md`](HYPOTHESIS_HANDOFF.md), then validate the worked
+packet with:
+
+```bash
+plectis hypothesis-handoff --input examples/hypothesis_handoff/independent_evaluation.json --format text
+```
+
+The leading hypothesis is a disclosed project prior, not evidence or a
+probability. Every outcome must point to a named option, every option must have
+a discriminator, and an expert return stays advisory until the packet's exact
+repository paths and release checks pass.
+
 If this is your first touch in a standalone clone and you have no task yet, do
 not start by absorbing the organ inventory. First prove the local entry path
 and the public authority membrane:

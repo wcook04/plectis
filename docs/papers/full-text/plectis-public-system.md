@@ -309,6 +309,34 @@ The next study should compare two presentations of the same frozen public items.
 
 The useful observations would be whether readers detect a mismatch, how often they wrongly accuse a matching item, how long they take to locate the point of disagreement, whether they reproduce the run, and how well their confidence tracks those outcomes. That study would measure reviewer behaviour on the public items. It would still not measure the private system, the unseen selection pool, or correctness beyond the independently justified cases. No such comparison is reported in this paper.
 
+<a id="sec:hypothesis-handoff"></a>
+
+## From an open question to a falsifiable handoff
+
+The five evaluations still leave an outsider to infer what the project expects, reconstruct credible alternatives, and decide which observation would matter. “Evaluate Plectis” transfers that framing work; a confident prediction can make the project’s own expectation look like evidence.
+
+The current repository, beyond the historical snapshot examined above, therefore includes a small, read-only *hypothesis-handoff* format. A packet names one declared known gap and refuses to treat it as a complete inventory of unknown questions. It then names the current wall, a tentative leading hypothesis, evidence for it, evidence against or still missing, serious alternatives, and discriminators whose possible outcomes point to named hypotheses and have stated interpretations. It also names an exact expert return, decisive and route-only effects, repository-relative landing targets with validators, and the order by which a return could enter an authority record and public release. Run
+
+<div class="center">
+
+<div class="minipage">
+
+```
+plectis hypothesis-handoff --input packet.json --format text
+```
+
+</div>
+
+</div>
+
+validates that structure and renders it as a briefing. It does not call a model, infer probabilities, judge an expert, or change a claim. This later interface is not evidence for the historical snapshot analysis.
+
+The worked public packet asks whether evaluator-selected cases would expose a different failure profile from the author-selected fixtures. Its working hypothesis is that they would expose more failures and a broader taxonomy. The reasons are visible: I selected the existing cases and rules, and a later cold route exposed one real wiring defect. The counterweight is equally visible: there is no independent comparison corpus, and one defect estimates no rate. Two alternatives remain live: the current fixtures may approximate the independent profile, or environment and dependency failures may dominate the difference. A preregistered case-selection rule and a failure taxonomy fixed before outcomes are inspected would separate those accounts better than another author-selected example.
+
+This format does not make the leading hypothesis independent. It is the project’s expected answer, in the same sense that Section <a href="#sec:run" data-reference-type="ref" data-reference="sec:run">4</a>’s expected output is project-supplied. Its contribution is different: it makes the prior, alternatives, and update rule inspectable before an expert answer is known. A reader can reject the leading hypothesis, add a missing alternative, or dispute a discriminator without first reverse-engineering the project’s private reasoning. If an answer arrives, the packet also prevents the answer from becoming a public conclusion merely because it came from an expert. The return remains advisory until its evidence is reproduced or independently checked, its intended meaning is reviewed, the authoritative record is updated, and the declared release checks pass.
+
+The useful claim is therefore narrow. A hypothesis handoff can reduce the cost of informed disagreement and preserve what would change the project’s mind. It cannot establish that the option set is complete, that the leading hypothesis is well calibrated, that the requested evidence is obtainable, or that any expert will agree. Those are precisely the kinds of finding the handoff is meant to make easier to return.
+
 <a id="how-the-record-should-age"></a>
 
 ## How the record should age
@@ -332,6 +360,8 @@ More author-controlled components enlarge the inventory without changing who cho
 # Dated reproduction record
 
 Except where a paragraph gives a later date, this appendix records one run on 17 July 2026 under macOS 15.6.1 on Apple silicon (arm64) and Python 3.13.7. The repository version was commit `57ffb7f5830cc446a2cbd8083d5d80bcab2af563`, abbreviated `57ffb7f5830c` elsewhere. Later commits or machines may differ; the body does not depend on them.
+
+A typed hypothesis handoff makes the next outside contribution more specific: it exposes the project’s tentative answer, alternatives, and update rule before the outcome is known. That is a better invitation to disagree, not stronger evidence that the project is right.
 
 <a id="a-first-review."></a>
 

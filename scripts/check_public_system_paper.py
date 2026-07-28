@@ -268,6 +268,22 @@ REQUIRED_COLD_READER_ANCHORS = (
     "checks historical facts against the pinned commit",
 )
 
+REQUIRED_HYPOTHESIS_HANDOFF_ANCHORS = (
+    "beyond the historical snapshot examined above",
+    "one declared known gap",
+    "complete inventory of unknown questions",
+    "a tentative leading hypothesis",
+    "evidence against or still missing",
+    "outcomes point to named hypotheses",
+    "repository-relative landing targets with validators",
+    "does not call a model, infer probabilities, judge an expert, or change a claim",
+    "not evidence for the historical snapshot analysis",
+    "project's expected answer",
+    "before an expert answer is known",
+    "remains advisory until its evidence is reproduced or independently checked",
+    "cannot establish that the option set is complete",
+)
+
 REQUIRED_RECEIPT_FLOW_ANCHORS = (
     r"A \emph{receipt} is the saved record of a run",
     "repository supplies one from an earlier run",
@@ -799,6 +815,45 @@ def _macro_int(macros: dict[str, str], name: str, failures: list[str]) -> int | 
         return None
 
 
+def pinned_evidence_available(paper_path: Path = PAPER) -> bool:
+    """Whether this clone contains the commit the paper pins its evidence to.
+
+    Callers that compare against pinned evidence have nothing to compare when
+    this is False, and should say so once rather than each reporting a drift
+    they cannot actually observe.
+    """
+    if not (ROOT / ".git").exists():
+        return False
+    try:
+        macros = _macros(paper_path.read_text(encoding="utf-8"))
+    except OSError:
+        return False
+    snapshot = macros.get("snapshotcommit", "")
+    if not re.fullmatch(r"[0-9a-f]{40}", snapshot):
+        return False
+    return (
+        subprocess.run(
+            ["git", "cat-file", "-e", f"{snapshot}^{{commit}}"],
+            cwd=ROOT,
+            capture_output=True,
+            check=False,
+        ).returncode
+        == 0
+    )
+
+
+def _repository_is_shallow() -> bool:
+    """Whether this clone was truncated, so older commits are absent not altered."""
+    result = subprocess.run(
+        ["git", "rev-parse", "--is-shallow-repository"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    return result.returncode == 0 and result.stdout.strip() == "true"
+
+
 def check_paper(
     paper_path: Path = PAPER,
     registry_path: Path = REGISTRY,
@@ -831,7 +886,21 @@ def check_paper(
         )
         snapshot_resolves = result.returncode == 0
         if not snapshot_resolves:
-            failures.append(f"snapshotcommit does not resolve in this repository: {snapshot}")
+            # A shallow clone is missing the commit, not disagreeing with it.
+            # Saying "does not resolve" invites the reader to suspect the paper;
+            # the truthful report is that this clone was truncated.
+            if _repository_is_shallow():
+                failures.append(
+                    "this check reads the repository as it stood at the paper's pinned "
+                    f"commit {snapshot}, which a shallow clone does not contain. Run "
+                    "`git fetch --unshallow` (in CI, actions/checkout with fetch-depth: 0) "
+                    "and re-run. Nothing is wrong with the paper: the history it cites is "
+                    "simply absent here."
+                )
+            else:
+                failures.append(
+                    f"snapshotcommit does not resolve in this repository: {snapshot}"
+                )
 
     if public_test_receipt.get("subject_commit") != snapshot:
         failures.append("public-test receipt subject_commit disagrees with snapshotcommit")
@@ -1012,6 +1081,26 @@ def check_paper(
     for anchor in REQUIRED_COLD_READER_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing cold-reader anchor: {anchor!r}")
+    hypothesis_handoff_marker = (
+        r"\subsection*{From an open question to a falsifiable handoff}"
+    )
+    if hypothesis_handoff_marker not in text:
+        failures.append(
+            "missing hypothesis-handoff boundary: "
+            f"{hypothesis_handoff_marker!r}"
+        )
+        normalized_hypothesis_handoff_section = ""
+    else:
+        hypothesis_handoff_section = text.split(hypothesis_handoff_marker, 1)[1]
+        hypothesis_handoff_section = hypothesis_handoff_section.split(
+            r"\subsection*{How the record should age}", 1
+        )[0]
+        normalized_hypothesis_handoff_section = re.sub(
+            r"\s+", " ", hypothesis_handoff_section
+        )
+    for anchor in REQUIRED_HYPOTHESIS_HANDOFF_ANCHORS:
+        if anchor not in normalized_hypothesis_handoff_section:
+            failures.append(f"missing hypothesis-handoff boundary: {anchor!r}")
     for anchor in SACM_SOURCE_FIT_ANCHORS:
         if anchor not in normalized_text:
             failures.append(f"missing SACM source-fit explanation: {anchor!r}")
@@ -1236,7 +1325,7 @@ def main() -> int:
         f"({declared_count} pinned components; {declared_lean_count} pinned Lean sources; "
         "pinned family counts, evidence routes, worked example and receipt flow, public-test receipt, literature "
         "citations, readable canonical bibliography identifiers and first-citation order, cold-reader anchors, "
-        "and claim language agree)"
+        "hypothesis-handoff authority boundary, and claim language agree)"
     )
     return 0
 
