@@ -2110,6 +2110,7 @@ def compile_organ_cluster(inputs: dict[str, Any], family: str) -> dict[str, Any]
 def compile_paper_guide(inputs: dict[str, Any]) -> dict[str, Any]:
     """Compile the clone-local scholarly reading guide from its generated corpus."""
     corpus = inputs.get("paper_corpus") or {}
+    root = Path(inputs.get("root") or default_root())
     papers = [
         row for row in corpus.get("papers", []) if isinstance(row, dict)
     ]
@@ -2119,6 +2120,17 @@ def compile_paper_guide(inputs: dict[str, Any]) -> dict[str, Any]:
         row = by_id.get(paper_id)
         if row is None:
             return None
+        source_ref = str(row.get("local_source") or "")
+        source_path = root / source_ref if source_ref else None
+        expected_digest = str(row.get("source_sha256") or "")
+        actual_digest = (
+            "sha256:" + hashlib.sha256(source_path.read_bytes()).hexdigest()
+            if source_path is not None and source_path.is_file()
+            else None
+        )
+        source_fresh = bool(
+            actual_digest and expected_digest and actual_digest == expected_digest
+        )
         return {
             "kind": "paper",
             "id": paper_id,
@@ -2130,6 +2142,15 @@ def compile_paper_guide(inputs: dict[str, Any]) -> dict[str, Any]:
             "relation_to_this_repository": row.get("relation_to_this_repository"),
             "full_text": row.get("local_full_text"),
             "pdf": row.get("local_pdf"),
+            "source": source_ref or None,
+            "source_freshness": (
+                "matches_corpus_digest" if source_fresh else "corpus_projection_stale"
+            ),
+            "preferred_read_path": (
+                row.get("local_full_text")
+                if source_fresh
+                else source_ref or row.get("local_pdf")
+            ),
         }
 
     system_sequence = [
@@ -2158,11 +2179,23 @@ def compile_paper_guide(inputs: dict[str, Any]) -> dict[str, Any]:
     pack = _pack_skeleton(
         "reference", "which papers should I read, and in what order?"
     )
+    handles = [
+        handle
+        for paper_id in sorted(by_id)
+        if (handle := paper_handle(paper_id)) is not None
+    ]
+    stale_paper_ids = [
+        row["id"]
+        for row in handles
+        if row["source_freshness"] != "matches_corpus_digest"
+    ]
     pack["found"] = bool(papers)
     pack["paper_corpus_count"] = len(papers)
     pack["summary"]["what_this_is"] = (
         f"A question-first guide to {len(papers)} clone-local active papers. "
-        "Do not read all of them by default."
+        f"Do not read all of them by default. {len(stale_paper_ids)} generated "
+        "full-text projection(s) are stale against their local source; use each "
+        "row's preferred_read_path."
     )
     pack["summary"]["what_to_inspect_next"] = [
         "docs/papers/README.md",
@@ -2204,11 +2237,8 @@ def compile_paper_guide(inputs: dict[str, Any]) -> dict[str, Any]:
         for paper_id in system_sequence
         if (handle := paper_handle(paper_id)) is not None
     ]
-    pack["paper_index"] = [
-        handle
-        for paper_id in sorted(by_id)
-        if (handle := paper_handle(paper_id)) is not None
-    ]
+    pack["paper_index"] = handles
+    pack["stale_paper_ids"] = stale_paper_ids
     pack["problem_routes"] = problem_routes
     pack["companion_repository"] = dict(LEAN_COMPANION_REPOSITORY)
     pack["authority_order"] = corpus.get("authority_order")

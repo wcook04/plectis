@@ -101,6 +101,10 @@ def test_paper_questions_route_to_complete_question_first_guide() -> None:
     assert guide["companion_repository"]["name"] == (
         "plectis-lean-erdos249-257"
     )
+    assert all(row["preferred_read_path"] for row in guide["paper_index"])
+    for row in guide["paper_index"]:
+        if row["id"] in guide["stale_paper_ids"]:
+            assert row["preferred_read_path"] == row["source"]
     assert guide["problem_routes"]["erdos_249"][-1] == (
         "erdos249-totient-reasoning-surface"
     )

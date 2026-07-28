@@ -1311,6 +1311,12 @@ def _render_comprehend_card(pack: dict) -> str:
                     lines.append(f"  - {name}{suffix}: {mechanism}")
                 else:
                     lines.append(f"  - {name}{suffix}")
+                if node.get("kind") == "paper":
+                    lines.append(
+                        "    read: "
+                        f"{node.get('preferred_read_path')} "
+                        f"({node.get('source_freshness')})"
+                    )
             lines.append("")
 
     # 2. PROOF -- validator + receipts + the honest graph counts.
