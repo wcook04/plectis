@@ -21,6 +21,7 @@ _LINKED_SIBLINGS = (
     "plectis-public-system.pdf",
     "QUICKSTART.md",
     "ARCHITECTURE.md",
+    "docs/papers/README.md",
     "ORGANS.md",
     "AGENTS.md",
     "RELEASE_REVIEW.md",
@@ -48,7 +49,9 @@ def _front_door_tree(tmp_path: Path) -> Path:
         root / "core/organ_registry.json",
     )
     for rel in _LINKED_SIBLINGS:
-        (root / rel).write_text("placeholder\n", encoding="utf-8")
+        target = root / rel
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text("placeholder\n", encoding="utf-8")
     return root
 
 
