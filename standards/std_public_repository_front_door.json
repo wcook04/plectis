@@ -1,0 +1,55 @@
+{
+  "schema_version": "std_public_repository_front_door_v1",
+  "kind": "standard",
+  "id": "std_public_repository_front_door",
+  "status": "active",
+  "purpose": "Keep a public repository's human and agent entry surfaces distinct, bounded, and testable.",
+  "authority_ceiling": "presentation and navigation only; this standard does not grant release, correctness, proof, provider-call, source-mutation, or publication authority",
+  "reader_split": {
+    "README.md": {
+      "reader": "human",
+      "job": "Answer what this is, why it matters, what is actually established, what remains unestablished, and the shortest way to inspect or run it.",
+      "first_screen": [
+        "one project title",
+        "a concrete description without assumed project history",
+        "the principal result or runnable witness",
+        "the strongest material limitation",
+        "two or more resolving routes for the reader"
+      ],
+      "rules": [
+        "Lead with concrete nouns, results, and commands; do not lead with internal ontology.",
+        "Treat reader attention as scarce: route detail to owned documents instead of copying inventories.",
+        "Do not use vague praise, readiness language, or sales claims as substitutes for evidence.",
+        "Keep install or build instructions executable and copyable.",
+        "A README is not agent policy, proof authority, or a release receipt."
+      ]
+    },
+    "AGENTS.md": {
+      "reader": "repository-aware coding agent",
+      "job": "Name the first correct action, authority boundaries, mutation order, owner routes, and proportional validation.",
+      "first_screen": [
+        "an immediate pointer back to README.md for people",
+        "a task-shaped first action or bounded first-read route",
+        "the authority and do-not-infer boundary"
+      ],
+      "rules": [
+        "Route to generated inventories and owner documents; do not duplicate component catalogues.",
+        "Put commands, owners, stop conditions, prohibited actions, and validation where an agent can act on them.",
+        "Keep the complete file below 32768 bytes unless a repository-specific checker documents and enforces a stricter ceiling.",
+        "Provider-specific files are thin adapters to AGENTS.md and add no competing authority.",
+        "An agent entry file is not a human product pitch or a documentation archive."
+      ]
+    }
+  },
+  "validation": {
+    "owner": "scripts/public_repo_profile.py",
+    "required_report_section": "front_door_split",
+    "focused_test": "tests/test_public_repo_profile.py",
+    "agent_entry_max_bytes": 32768
+  },
+  "external_basis": [
+    "GitHub README guidance: README files communicate why a project is useful, what users can do with it, and how to get started.",
+    "GitHub repository guidance: README, license, citation, contribution, security, and support surfaces have distinct jobs.",
+    "OpenAI AGENTS.md guidance: AGENTS.md provides persistent repository context, commands, style, and testing instructions to coding agents."
+  ]
+}
