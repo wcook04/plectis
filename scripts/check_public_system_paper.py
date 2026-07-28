@@ -374,9 +374,11 @@ REQUIRED_ARITHMETIC_ORACLE_BOUNDARY_ANCHORS = (
 
 REQUIRED_TEST_ORACLE_EXPLANATION_ANCHORS = (
     r"a \emph{test oracle}",
-    "information or procedure used to decide whether an observed output is correct",
+    "procedure used to distinguish correct from incorrect behaviour",
     "challenge of making that distinction is called the test oracle problem",
-    r"\cite[p. 507]{barr2015}",
+    r"\cite[p.~507]{barr2015}",
+    "conceptual ground-truth oracle that always gives the right answer",
+    r"\cite[Defs.~2.4 and 2.6--2.8, pp.~509--510]{barr2015}",
     "reader can supply the test oracle",
     "expected number derived independently of the program's output",
     r"\textbf{Who or what supplies the expected answer}",
@@ -443,8 +445,9 @@ REQUIRED_OUTSIDE_EVALUATION_BOUNDARY_ANCHORS = (
 )
 
 REQUIRED_PROVENANCE_HASH_ANCHORS = (
-    "a fixed 256-bit value calculated from its contents",
+    "SHA-256 message digest, used here as a fingerprint: a 256-bit value calculated",
     "used to detect change",
+    "computationally infeasible, not mathematically impossible",
     "relevant question is whether one can start with a specified file",
     "NIST) calls this second-preimage resistance",
     "expects an approved hash function to make such a search computationally infeasible",
@@ -601,10 +604,11 @@ SACM_SOURCE_FIT_ANCHORS = (
 )
 
 REQUIRED_PINPOINT_CITATIONS = (
-    r"\cite[\S2.5]{runeson2009}",
+    r"\cite[\S2.5, p.~138]{runeson2009}",
     r"\cite[conclusion 3-1]{nasem2019}",
     r"\cite[p.~9]{nasem2019}",
-    r"\cite[p. 507]{barr2015}",
+    r"\cite[p.~507]{barr2015}",
+    r"\cite[Defs.~2.4 and 2.6--2.8, pp.~509--510]{barr2015}",
     r"\cite[secs. 1.1, 4, 7.3, 11.9--11.15]{omgsacm2023}",
     r"\cite[security-strength table]{nisthashfunctions}",
     r"\cite[\S4.4.1.2]{nasa8739}",

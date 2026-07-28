@@ -393,8 +393,8 @@ def test_public_system_paper_check_rejects_opaque_test_oracle_explanation(
     paper.write_text(
         PAPER.read_text(encoding="utf-8")
         .replace(
-            "information or procedure used\n"
-            "to decide whether an observed output is correct",
+            "procedure used to distinguish\n"
+            "correct from incorrect behaviour",
             "mechanism used to judge output",
         )
         .replace(
@@ -1396,7 +1396,7 @@ def test_public_system_paper_check_rejects_hash_explanation_removal(
     paper = tmp_path / "paper.tex"
     paper.write_text(
         PAPER.read_text(encoding="utf-8").replace(
-            "a fixed 256-bit value calculated from its contents",
+            "SHA-256 message digest, used here as a fingerprint: a 256-bit value calculated",
             "a digest",
         ),
         encoding="utf-8",
@@ -1406,7 +1406,7 @@ def test_public_system_paper_check_rejects_hash_explanation_removal(
 
     assert any(
         "missing plain-language hash boundary" in failure
-        and "fixed 256-bit value" in failure
+        and "SHA-256 message digest" in failure
         for failure in failures
     )
 
