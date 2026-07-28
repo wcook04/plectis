@@ -7,10 +7,10 @@
 [Quickstart](QUICKSTART.md) ·
 [Contributing](CONTRIBUTING.md)
 
-**One private, AI-built system, two public demonstrations. Plectis is the
-machinery: 88 components you can inspect and run on your machine. Each
-component states one claim, takes a small frozen input, runs a local check,
-and writes a receipt you can read.**
+**Plectis is a local Python tool and an 88-component reference corpus for
+checking claims made about agent-built software. Each component states one
+narrow claim, takes a small frozen input, runs a local check, and writes a
+receipt you can inspect.**
 
 It runs entirely on your machine: no network or model calls, and it never
 changes the source files it reads.
@@ -21,13 +21,14 @@ python3 -m pip install .
 plectis tour --format text .
 ```
 
-The other demonstration is the companion Lean repository,
+The companion Lean repository,
 [plectis-lean-erdos249-257](https://github.com/wcook04/plectis-lean-erdos249-257),
-which shows the same system's output: machine-checked mathematics around two
-open Erdős problems, #249 and #257, both still open. I have been building the
-private system alone with coding agents; it is not itself published, and these
-two repositories are what a stranger can check. Three short papers explain the
-pair: [the Plectis paper](plectis-public-system.pdf) in this repository,
+contains machine-checked mathematics around two open Erdős problems, #249 and
+#257; both remain open. Plectis grew out of a larger private development
+environment, but this repository does not establish anything about that
+private codebase. The public source, checks, and receipts are the evidence
+available to a stranger. Three short papers explain the pair:
+[the Plectis paper](plectis-public-system.pdf) in this repository,
 [the mathematics paper](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf)
 for what is proved and where the open line sits, and
 [the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
