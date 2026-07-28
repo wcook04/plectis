@@ -74,30 +74,31 @@
 \maketitle
 
 \begin{abstract}
-Plectis is a public software repository (an organised, copyable project
-folder) built to expose selected claims about a larger private system. This
-paper asks what a stranger may reasonably conclude from public tests when the
-system stays private and its author chose both what to publish and what counts
-as a pass. The answer is narrow. The repository lets a reader inspect and rerun
-its published procedures, but a matching result cannot establish the hidden
-system's history, whether the published selection resembles the private whole,
-or whether the private system works reliably.
+Plectis is a case study in testing public claims about software that cannot
+itself be published.  The author releases selected code, fixed inputs, expected
+results, decision rules, and run records while the larger system remains
+private.  What can a stranger conclude after rerunning those tests?  The answer
+is narrow.  The repository lets a reader inspect and rerun its published
+procedures.  A matching result shows repeatability for a stated public case; it
+does not establish where the code came from, whether the expected answer is
+correct, whether the published selection resembles the private whole, or
+whether the private system works reliably.
 
-In the version studied here, each of the \componentcount{} registered components
-(separately testable parts) connects a claim to a fixed input, command, saved
-output, pass rule, and stated limit. I call this a claim--evidence--limit
-contract. One component calculates an audio level from five small sample
-arrays; a reader can repeat it and challenge the expected numbers. That run
-still cannot show whether the pass rule tests the claim as written, how the
-code behaves on untested inputs, or whether risks outside the declared scan are
-absent. I chose the published fragments, inputs, answers, rules, and limits.
-The repository therefore lets a reader test claims about its published files
-and outputs, within those limits. I report that its published material was
-copied or adapted from the private system, which remains unpublished because it
-contains personal records, credentials, and unfinished tools. I also report
-that I developed it by directing coding tools based on artificial intelligence
-(AI). The argument does not depend on that account or on the claimed origin of
-the published material.
+In the version studied here, each of the \componentcount{} registered
+components (separately testable parts) connects a prose claim to a fixed input,
+command, saved output, pass rule, and stated limit.  I call this a
+claim--evidence--limit contract.  A worked component calculates an audio level
+from five small sample arrays.  A reader can repeat the calculation and,
+for one row, derive the expected number independently of the implementation.
+Even there, the run cannot show whether the pass rule tests the claim as
+written, how the code behaves on untested inputs, or whether the chosen formula
+is the right account of audio level.  I chose the published fragments, cases,
+answers, rules, and limits.  The paper therefore treats the repository as an
+author-curated test collection, not as independent validation of the private
+system.  I report that its published material was copied or adapted from that
+system and that I developed it by directing coding tools based on artificial
+intelligence (AI).  The argument does not depend on that account or on the
+claimed origin of the published material.
 \end{abstract}
 
 \section{The problem}
@@ -107,13 +108,14 @@ I have a larger private software system that I cannot responsibly publish:
 it contains personal records, credentials, live browser and account
 information, my working notes, and unfinished tools. I would still like
 strangers to be able to test some claims about it instead of accepting my
-say-so. I use \emph{answerable} in a deliberately local sense. A claim is
-answerable when a stranger can run a public procedure that bears on it, see
-how the result is judged, and point a disagreement at a named public input,
-rule, or output. This says nothing yet about whether the claim is true,
-important, or representative of the hidden system. This paper asks what
-conclusions that narrow form of answerability can support when the public
-fragments come from a system no reader can see.
+say-so. I use \emph{answerable} in a deliberately local sense: a claim is
+answerable when a stranger can run a public test that bears on it, see how the
+result is judged, and locate a disagreement in a named input, rule, or output.
+This is not a new synonym for truth, reproducibility, verification, or
+independent review. For the rest of the paper I use the plainer phrase
+\emph{publicly testable claim}. The question is what conclusions such a test
+can support when the larger system and the unpublished pool from which the
+test was selected remain invisible.
 
 Plectis is my working answer: a public software repository, stored at
 \repo. A \emph{repository} is an organised project folder, usually kept
@@ -121,6 +123,17 @@ with its revision history; to \emph{clone} a repository is to copy that
 folder and history to another computer. Everything this paper says a
 stranger can check is in that repository. This paper describes how its
 claims are exposed and where the evidence stops.
+
+The main result is a boundary, not a score. Public code, inputs, rules, and
+run records can make a selected claim easier to challenge. They cannot by
+themselves establish three missing premises: that the public code came from
+the private system, that the project's expected answers and pass rules are
+correct, or that the selected cases represent the unseen whole. The audio
+example in Section~\ref{sec:run} shows all three limits in one elementary
+calculation. The later inventory records what was published; it is not
+evidence of breadth, quality, or independence.
+The repository therefore lets a reader test claims about the public objects it
+actually exposes, within the limits stated for each test.
 
 I am 22 and study economics. Over about ten months I built the private
 system by directing AI coding agents, software tools that can edit, run, and
@@ -186,17 +199,22 @@ verification pass at the version named there.
 \label{sec:contract}
 
 A \emph{component} in Plectis is one registered, testable part of the
-project. Its \emph{fixture} is a fixed sample input. A \emph{receipt} is the
-saved record of a run. The repository supplies one from an earlier run;
-rerunning can write another. A \emph{validator} is the program that applies a
-component's pass and refusal rules. A
-\emph{commit} is a named, saved version of the repository. These terms
-describe files and commands. Here \emph{evidence} means the public input,
-procedure, output, and judgement rule offered in support of a claim. Calling
-them evidence does not establish their adequacy. \emph{Contract} means only
-that the claim, those materials, and a limit are stated together so readers
-can check their fit. Nothing in these labels grades the importance of what a
-component does.
+project. Its \emph{fixture} is a fixed sample input: in ordinary testing
+language, a test case. A \emph{receipt} is the saved record of a run. The
+repository supplies one from an earlier run; rerunning can write another.
+A \emph{validator} is the program that applies a component's pass and refusal
+rules. In testing terminology, the rule and expected result together act as
+the test oracle: they say what should count as correct for that case. A
+\emph{commit} is a named, saved version of the repository. These are Plectis's
+internal names for familiar objects---test case, test oracle, run record, and
+saved software version---and the paper uses the familiar terms whenever the
+internal filename is irrelevant.
+
+Here \emph{evidence} means the public input, procedure, output, and judgement
+rule offered in support of a claim. Calling them evidence does not establish
+their adequacy. \emph{Contract} means only that the claim, those materials,
+and a limit are stated together so readers can check their fit. Nothing in
+these labels grades the importance of what a component does.
 
 At commit \code{\snapshotshort} the registry, the component list read by the
 programs, contains \componentcount{} entries. Every entry is required to
@@ -501,7 +519,11 @@ Five labels organise the gaps in Figure~\ref{fig:gaps}: \emph{origin}, where
 the material came from; \emph{correctness}, whether an answer is right;
 \emph{meaning}, whether a rule tests its claim; \emph{reach}, whether shown
 cases stand for unshown ones; and \emph{risk}, what the declared checks may
-miss. Each subsection separates observation from inference.
+miss. These short labels correspond to familiar questions about provenance,
+test-oracle validity, claim--test fidelity, representativeness, and residual
+risk. They are not five new kinds of evidence. Each subsection separates what
+the public run directly shows from the additional premise needed for a stronger
+conclusion.
 
 \subsection*{Public execution versus where the code came from}
 
@@ -715,6 +737,11 @@ component at a time.}
 \section{What the collection contains}
 \label{sec:collection}
 
+This section is a dated inventory, not a result. The categories are useful for
+finding a test and for seeing which kind of limitation accompanies it. Their
+names and counts do not measure importance, correctness, independence, or
+coverage of the private system.
+
 At commit \code{\snapshotshort} the \componentcount{} components fall into
 \familycount{} groups:
 
@@ -735,12 +762,9 @@ Work recovery & \recoverycount & Record unfinished changes and test how work res
 \end{tabular}
 \end{center}
 
-The groups do not share a subject; computer-checked mathematics has nothing
-in particular to do with audio levels or with recovering interrupted work.
-Their unity is the contract of Section~\ref{sec:contract}: these are the
-places in the private system where a mechanism could be turned into a small,
-runnable public procedure. The collection is organised by how its claims are
-checked, not by subject.
+The groups do not share a subject. Their only unity is the contract of
+Section~\ref{sec:contract}: each item became a small public test. The collection
+is organised by how claims are checked, not by a common scientific question.
 
 The registry also classifies what kind of evidence each component supplies.
 It calls this classification a \emph{route}. A route says whether the
@@ -762,41 +786,28 @@ Contract checker & \validatorcount & Whether a public input satisfies a declared
 \end{tabular}
 \end{center}
 
-The copied-source route preserves the most text and demonstrates the least
-behaviour.
-A reimplementation demonstrates behaviour while surrendering textual
-identity; the worked example is one of the \refactorcount{} in that route.
-An external-tool run inherits whatever confidence the tool deserves, along
-with the tool's limits. A contract checker is worth exactly the contract its
-author chose to require. Find one item in the public component map,
-\component{ORGANS.md} (an inherited filename). Rows give a description, first
-command, scope limit, and longer-page link. Follow it rather than guessing:
-some components share a page. The example points to
-\component{paper_modules/batch8_audio_level_rms_port.md}; its registry row adds
+Copied source preserves text but demonstrates little behaviour; a
+reimplementation does the converse; an external-tool run inherits the tool's
+limits; and a contract checker is worth exactly the rule its author chose.
+To inspect one item, use the public component map,
+\component{ORGANS.md} (an inherited filename). Follow it rather than guessing,
+because some components share a page. The audio row points to
+\component{paper_modules/batch8_audio_level_rms_port.md}, which in turn names
 the fixture, receipts, route, and limit.
 
-Two cautions govern any reading of these tables. The first caution is
-arithmetic: components are not independent witnesses. Entries share code, fixture
-style, validator authorship, and my judgement; several entries can descend
-from one private mechanism, and where they do, their verdicts tend to move
-together.
-\componentcount{} entries are \componentcount{} registered claims, not
-\componentcount{} separate confirmations of anything. The same discount
-applies across the routes: they impose four different limits on what may be
-concluded; they are not four independent methods confirming one claim.
-Pages, registry entries, and receipts generated from the same underlying
-records repeat one witness rather than supply several. Machine checks can
-catch accidental disagreement among those records. They cannot create an
-independent witness.
+Two cautions govern the tables. First, components are not independent
+witnesses: they share code, fixture style, authorship, and judgement.
+\componentcount{} entries are registered claims, not \componentcount{}
+confirmations. Pages, entries, and receipts generated from the same underlying
+records repeat one witness rather than supply several. Machine checks can catch
+their accidental disagreement. They cannot create an independent witness.
+The four routes impose four different limits on what may be concluded; they
+are not four independent methods confirming one claim.
 
-The second caution is association. Group names such as computer-checked
-mathematics and AI reliability and safety tests borrow gravity from serious
-fields, and the borrowing happens in a reader whether or not any sentence
-asserts it. The corrective is to restate each group as the weakest
-property its validators actually check, which is often that a fixed case
-replays or that a record matches a declared shape, and then see how much of
-the impression survives. The names are for finding components, not for
-weighing them.
+Second, names such as computer-checked mathematics and AI reliability and
+safety tests borrow gravity from serious fields. Read each row as the weakest
+property its tests actually check---often that a fixed case replays or a record
+has a stated shape. The names help find components; they do not weigh them.
 
 \section{The author's hand}
 \label{sec:hand}
@@ -984,15 +995,22 @@ risk reduction into a guarantee.
 \section{Conclusion}
 \label{sec:conclusion}
 
-Plectis does not make the private system answerable as a whole. It publishes
-fixed cases, procedures, outputs, rules, and limits so particular claims can
-be challenged. A pass is no stronger than its rule or the expected answer's
-basis.
+Plectis makes selected public claims testable; it does not verify the private
+system as a whole. Its fixed cases, procedures, outputs, rules, and stated
+limits let a stranger repeat a result and identify exactly what they dispute.
+A pass is no stronger than the test oracle---the rule and expected answer---or
+than the basis for believing that oracle.
+
+The worked audio calculation demonstrates the hierarchy. Repeating the stored
+result supports computational reproducibility for that public case. Deriving
+one expected number by arithmetic adds evidence that the implementation agrees
+with the stated formula on that case. Neither step establishes that the formula
+is the right audio rule, that the code came from the private system, or that the
+selected case represents it.
 
 More author-controlled components enlarge the inventory without changing who
-chose the cases or rules. Moving a relevant choice out
-of the author's hands can strengthen evidence about that choice; it does not
-repair every gap.
+chose the cases or rules. Moving a relevant choice out of the author's hands
+can strengthen evidence about that choice; it does not repair every gap.
 
 \paragraph{A first review.} Use the appendix's no-install block and select the
 version analysed here. The tour describes the checkout but does not choose a
