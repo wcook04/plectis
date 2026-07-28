@@ -4,9 +4,12 @@ import json
 import shutil
 from pathlib import Path
 
+import microcosm_core.organs.agent_closeout_faithfulness_audit as closeout_audit
 from microcosm_core.organs.agent_closeout_faithfulness_audit import (
     EXPECTED_NEGATIVE_CASES,
+    _probe_pytest_python,
     _select_pytest_python,
+    main,
     run,
     run_agent_closeout_bundle,
 )
@@ -200,7 +203,7 @@ def test_agent_closeout_bundle_uses_body_free_source_manifest(tmp_path: Path) ->
 
     assert result["status"] == "pass"
     assert result["input_mode"] == "exported_agent_closeout_faithfulness_audit_bundle"
-    assert result["source_module_manifest"]["module_count"] == 1
+    assert result["source_module_manifest"]["module_count"] == 0
     assert result["source_module_manifest"]["body_in_receipt"] is False
 
 
@@ -226,36 +229,47 @@ def test_agent_closeout_bundle_uses_public_subprocess_witness(tmp_path: Path) ->
     assert span["returncode"] == 0
 
 
-def test_agent_closeout_bundle_rejects_source_module_digest_mismatch(
+def test_agent_closeout_bundle_cli_uses_semantic_negative_case_evaluator(
     tmp_path: Path,
+    capsys,
 ) -> None:
-    public_root = tmp_path / "microcosm-substrate"
-    shutil.copytree(MICROCOSM_ROOT / "core", public_root / "core")
-    bundle = (
-        public_root
-        / "examples/agent_closeout_faithfulness_audit/"
-        "exported_agent_closeout_faithfulness_audit_bundle"
-    )
-    shutil.copytree(BUNDLE_INPUT, bundle)
-    manifest_path = bundle / "source_module_manifest.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    manifest["modules"][0]["sha256"] = "0" * 64
-    manifest_path.write_text(
-        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
+    status = main(
+        [
+            "run-agent-closeout-bundle",
+            "--input",
+            str(BUNDLE_INPUT),
+            "--out",
+            str(
+                tmp_path
+                / "receipts/runtime_shell/demo_project/organs/agent_closeout_faithfulness_audit"
+            ),
+        ]
     )
 
-    result = run_agent_closeout_bundle(
-        bundle,
-        public_root
-        / "receipts/runtime_shell/demo_project/organs/agent_closeout_faithfulness_audit",
-        command="pytest",
+    payload = json.loads(capsys.readouterr().out)
+
+    assert status == 0
+    assert payload["status"] == "pass"
+    assert payload["semantic_negative_case_evaluator_used"] is True
+    assert set(payload["observed_negative_cases"]) == set(EXPECTED_NEGATIVE_CASES)
+
+
+def test_agent_closeout_bundle_records_private_body_substitution_omission() -> None:
+    manifest = json.loads(
+        (BUNDLE_INPUT / "source_module_manifest.json").read_text(encoding="utf-8")
     )
 
-    assert result["status"] == "blocked"
-    assert result["source_module_manifest"]["status"] == "blocked"
-    assert "CROWN_JEWEL_SOURCE_DIGEST_MISMATCH" in result["error_codes"]
-    assert result["source_module_manifest"]["all_expected_digests_matched"] is False
+    assert manifest["module_count"] == 0
+    assert manifest["modules"] == []
+    [omission] = manifest["release_substitution_omissions"]
+    assert omission["path"] == (
+        "source_modules/system/lib/agent_experience_diagnostics.py"
+    )
+    assert omission["body_in_receipt"] is False
+    assert omission["release_substitution"]["substitution"] == "public_safe_stub"
+    assert omission["release_substitution"]["contamination_class"] == (
+        "private_body_near_verbatim"
+    )
 
 
 def test_agent_closeout_faithfulness_audit_selects_pytest_capable_python(tmp_path: Path) -> None:
@@ -276,3 +290,55 @@ def test_agent_closeout_faithfulness_audit_selects_pytest_capable_python(tmp_pat
     pytest_capable.chmod(0o755)
 
     assert _select_pytest_python([missing_pytest, pytest_capable]) == pytest_capable
+    assert _probe_pytest_python([missing_pytest, pytest_capable]) == (
+        pytest_capable,
+        True,
+    )
+
+
+def _pytest_less_python(tmp_path: Path) -> Path:
+    """An interpreter stub that cannot run pytest, for the tool-absent lane."""
+    stub = tmp_path / "pytest_less_python"
+    stub.write_text("#!/bin/sh\nexit 1\n", encoding="utf-8")
+    stub.chmod(0o755)
+    return stub
+
+
+def test_probe_reports_pytest_absent_when_no_candidate_can_run_it(tmp_path: Path) -> None:
+    _, available = _probe_pytest_python([_pytest_less_python(tmp_path)])
+    assert available is False
+
+
+def test_agent_closeout_refuses_pytest_lane_when_pytest_is_absent(
+    tmp_path: Path, monkeypatch
+) -> None:
+    """An absent tool must be a declared refusal, never a detected forgery.
+
+    A pytest-based suite cannot exercise this path by uninstalling pytest, so the
+    absence is injected. Regression guard for the cold-clone case where
+    `pip install .` (no `[test]` extra) left `python -m pytest` returning 1 and the
+    audit read that as a span that ran and failed its pass claim.
+    """
+    stub = _pytest_less_python(tmp_path)
+    monkeypatch.setattr(closeout_audit, "_pytest_python_candidates", lambda: [stub])
+
+    result = run(FIXTURE_INPUT, tmp_path / "out")
+    exercise = result["exercise"]
+    audit_codes = {row["error_code"] for row in result["findings"]}
+
+    assert "CLOSEOUT_PYTEST_UNAVAILABLE" in audit_codes
+    # The regression: the audit's own verdict on the fixture must not report an
+    # unfaithful pass claim when the truth is that the tool was never there.
+    assert "CLOSEOUT_PYTEST_PASS_STATUS_NOT_CHECKED" not in audit_codes
+    assert exercise["external_witness"]["pytest_available"] is False
+    assert exercise["external_witness"]["pytest_subprocess_count"] == 0
+
+    spans = exercise["spans"]
+    assert spans, "the refused lane must still be recorded as a span"
+    for span in spans:
+        assert span["span_ran"] is False
+        assert span["skip_reason"] == "pytest_unavailable"
+
+    # Refusing the lane must not weaken forgery detection: the planted cases that
+    # are structurally detectable stay detected without pytest.
+    assert result["missing_negative_cases"] == []

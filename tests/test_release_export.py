@@ -232,6 +232,7 @@ def _make_release_root(root: Path) -> Path:
     for file_name in (
         ".gitignore",
         "AGENTS.md",
+        "AGENTS.override.md",
         "AGENT_ROUTES.md",
         "ANTI_PRINCIPLES.md",
         "ARCHITECTURE.md",
@@ -242,6 +243,7 @@ def _make_release_root(root: Path) -> Path:
         "CODEX.md",
         "CURSOR.md",
         "FIRST_ACTION.md",
+        "HYPOTHESIS_HANDOFF.md",
         "LICENSE",
         "MANIFEST.in",
         "Makefile",

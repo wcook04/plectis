@@ -1,0 +1,19 @@
+version: 2
+
+# Both workflows pin every action to a full-length commit SHA. Pinning is the
+# security property; this file is what stops the pins going stale, by opening a
+# pull request when an upstream action publishes a new release. Without it, SHA
+# pinning quietly trades one risk for another.
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "ci"
+    labels:
+      - dependencies
+    groups:
+      actions:
+        patterns:
+          - "*"

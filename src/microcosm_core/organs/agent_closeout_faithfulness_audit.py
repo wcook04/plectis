@@ -153,12 +153,16 @@ def _pytest_python_candidates() -> list[Path]:
     return out
 
 
-def _select_pytest_python(candidates: Iterable[Path] | None = None) -> Path:
+def _probe_pytest_python(
+    candidates: Iterable[Path] | None = None,
+) -> tuple[Path, bool]:
     """
-    Return select pytest python for the organs agent closeout faithfulness audit flow.
+    Return the pytest-capable interpreter and whether the probe actually found one.
 
     Inputs are `candidates`; notable helpers are `Path`, `_pytest_python_candidates`,
-    `exists`, and `run`.
+    `exists`, and `run`. The boolean is the load-bearing half: when no candidate can
+    run pytest, the caller must refuse the pytest-span lane rather than judge it, so
+    that an absent tool is never reported as an unfaithful closeout claim.
     """
     for candidate in candidates or _pytest_python_candidates():
         if not candidate.exists():
@@ -174,8 +178,17 @@ def _select_pytest_python(candidates: Iterable[Path] | None = None) -> Path:
         except OSError:
             continue
         if proc.returncode == 0:
-            return candidate
-    return Path(sys.executable)
+            return candidate, True
+    return Path(sys.executable), False
+
+
+def _select_pytest_python(candidates: Iterable[Path] | None = None) -> Path:
+    """
+    Return select pytest python for the organs agent closeout faithfulness audit flow.
+
+    Inputs are `candidates`; notable helpers are `_probe_pytest_python`.
+    """
+    return _probe_pytest_python(candidates)[0]
 
 
 def _prepare_public_fixture_repo(source_dir: Path, work_dir: Path) -> dict[str, Any]:
@@ -370,7 +383,7 @@ def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, An
         repo_dir = prepared["repo_dir"]
         actual_head = prepared["head"]
         spans: dict[str, dict[str, Any]] = {}
-        pytest_python = _select_pytest_python()
+        pytest_python, pytest_available = _probe_pytest_python()
         verified_count = 0
         passed_count = 0
         cap_ids = {
@@ -412,6 +425,34 @@ def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, An
                     )
             elif claim_type == "pytest_span":
                 nodeid = str(claim.get("nodeid") or "")
+                if not pytest_available:
+                    # A predeclared refusal, not a verdict. Judging a pass claim
+                    # requires the tool that produces the evidence; without pytest
+                    # the lane is refused so an absent tool is never reported as a
+                    # detected forgery.
+                    spans[claim_id] = {
+                        "claim_id": claim_id,
+                        "nodeid": nodeid,
+                        "span_ran": False,
+                        "pass_status_checked": claim.get("pass_status_checked") is True,
+                        "passed": False,
+                        "returncode": None,
+                        "pytest_runner": None,
+                        "pytest_available": False,
+                        "skip_reason": "pytest_unavailable",
+                        "body_in_receipt": False,
+                    }
+                    findings.append(
+                        finding(
+                            "CLOSEOUT_PYTEST_UNAVAILABLE",
+                            "pytest is absent from this environment, so the pytest-span "
+                            "lane is refused rather than judged. Install the [test] extra "
+                            "to exercise it.",
+                            case_id=claim_id,
+                            observed=nodeid,
+                        )
+                    )
+                    continue
                 proc = subprocess.run(
                     [str(pytest_python), "-m", "pytest", nodeid, "-q"],
                     cwd=repo_dir,
@@ -423,6 +464,7 @@ def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, An
                 span = {
                     "claim_id": claim_id,
                     "nodeid": nodeid,
+                    "pytest_available": True,
                     "span_ran": proc.returncode in {0, 1},
                     "pass_status_checked": claim.get("pass_status_checked") is True,
                     "passed": proc.returncode == 0,
@@ -458,7 +500,10 @@ def evaluate(input_dir: Path, _public_root: Path, _source_manifest: dict[str, An
             "status": PASS if not findings else "blocked",
             "external_witness": {
                 "git_subprocess_count": len(prepared["subprocesses"]),
-                "pytest_subprocess_count": len(spans),
+                "pytest_subprocess_count": sum(
+                    1 for span in spans.values() if span.get("pytest_available") is True
+                ),
+                "pytest_available": pytest_available,
                 "head_verified_by_subprocess": bool(actual_head),
                 "body_in_receipt": False,
             },
@@ -530,6 +575,7 @@ def main(argv: list[str] | None = None) -> int:
         SPEC,
         argv,
         evaluator=evaluate,
+        negative_case_evaluator=evaluate_negative_case,
         bundle_action="run-agent-closeout-bundle",
     )
 

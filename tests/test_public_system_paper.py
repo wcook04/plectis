@@ -4,6 +4,8 @@ import ast
 import json
 from pathlib import Path
 
+import pytest
+
 from scripts import check_public_system_paper as paper_check
 from scripts.check_public_system_paper import PAPER, check_paper
 
@@ -36,6 +38,20 @@ def test_literal_mutation_sources_match_current_paper() -> None:
     assert stale == []
 
 
+# These compare the paper against the repository as it stood at the commit the
+# paper pins. A shallow clone does not contain that commit, so there is nothing
+# to compare and every one of them would report a drift it cannot observe —
+# five confusing failures from one absent object. Skip once, say why once.
+requires_pinned_history = pytest.mark.skipif(
+    not paper_check.pinned_evidence_available(),
+    reason=(
+        "paper evidence is pinned to a commit this clone does not contain "
+        "(shallow clone); run `git fetch --unshallow` to check it"
+    ),
+)
+
+
+@requires_pinned_history
 def test_public_system_paper_matches_pinned_public_evidence() -> None:
     assert check_paper() == []
 
@@ -55,6 +71,7 @@ def test_public_system_paper_check_rejects_count_drift(tmp_path: Path) -> None:
     assert any("componentcount=89" in failure for failure in failures)
 
 
+@requires_pinned_history
 def test_public_system_paper_check_rejects_lean_file_count_drift(
     tmp_path: Path,
 ) -> None:
@@ -213,6 +230,39 @@ def test_public_system_paper_check_rejects_distinction_anchor_removal(
     assert any("The count is an inventory" in failure for failure in failures)
 
 
+def test_public_system_paper_check_rejects_hypothesis_handoff_overclaim(
+    tmp_path: Path,
+) -> None:
+    paper = tmp_path / "paper.tex"
+    paper.write_text(
+        PAPER.read_text(encoding="utf-8")
+        .replace(
+            "The current repository, beyond the historical snapshot examined above,\n"
+            "therefore includes",
+            "Plectis includes",
+        )
+        .replace(
+            "It does not call a\n"
+            "model, infer probabilities, judge an expert, or change a claim.  This later\n"
+            "interface is not evidence for the historical snapshot analysis.",
+            "It scores the most likely answer and upgrades a claim when an expert agrees.",
+        )
+        .replace(
+            "The\n"
+            "return remains advisory until its evidence is reproduced or independently\n"
+            "checked",
+            "The return becomes authoritative when signed by an expert",
+        ),
+        encoding="utf-8",
+    )
+
+    failures = check_paper(paper_path=paper, check_git_commit=False)
+
+    assert sum(
+        "missing hypothesis-handoff boundary" in failure for failure in failures
+    ) >= 3
+
+
 def test_public_system_paper_check_rejects_opaque_distinction_summary(
     tmp_path: Path,
 ) -> None:
@@ -271,6 +321,7 @@ def test_public_system_paper_check_requires_five_gap_map_before_the_details(
     assert sum("missing early five-gap map" in failure for failure in failures) == 6
 
 
+@requires_pinned_history
 def test_public_system_paper_check_reads_default_evidence_from_snapshot(
     monkeypatch,
 ) -> None:
@@ -282,6 +333,7 @@ def test_public_system_paper_check_reads_default_evidence_from_snapshot(
     assert paper_check.check_paper() == []
 
 
+@requires_pinned_history
 def test_public_system_paper_check_rejects_pinned_receipt_flow_source_drift(
     monkeypatch,
 ) -> None:
@@ -305,6 +357,7 @@ def test_public_system_paper_check_rejects_pinned_receipt_flow_source_drift(
     )
 
 
+@requires_pinned_history
 def test_public_system_paper_check_rejects_worked_example_value_drift(
     tmp_path: Path,
 ) -> None:
