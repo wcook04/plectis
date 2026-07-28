@@ -358,11 +358,15 @@ evidence. It separately represents an artifact citation and the
 \emph{AssertedEvidence} relationship said to connect that artifact to a claim;
 the relationship is itself an assertion by the case's author. Representing an
 argument is therefore not the same as establishing its validity
-\cite[secs. 1.1, 4, 7.3, 11.9--11.15]{omgsacm2023}. Plectis is not an
-implementation of that standard and makes no claim that the private system is
-safe. Its validator applies a published rule and records a result; it neither
-models nor independently justifies the evidential link from that result to the
-prose claim.
+\cite[secs. 1.1, 4, 7.3, 11.9--11.15]{omgsacm2023}. The GSN Community Standard
+states the boundary more directly: GSN documents an asserted chain of
+reasoning and its evidential references, but the notation itself establishes
+neither the truth of the argument nor the sufficiency of its support
+\cite[\S0:3.2, p.~11; \S\S0:4.11--0:4.13, p.~15]{gsn}. Plectis is not an
+implementation of that standard or of GSN, and makes no claim that the private
+system is safe. Its validator applies a published rule and records a result;
+it neither models nor independently justifies the evidential link from that
+result to the prose claim.
 The Association for Computing Machinery (ACM) calls digital research materials
 such as code, scripts, and data
 \emph{artifacts}. Its \emph{Artifacts Evaluated---Functional} badge means
@@ -1134,7 +1138,7 @@ the example, cautions, or citations disagree. It checks historical facts against
 the pinned commit separately from current prose; with one maintainer, that is
 internal consistency, not external truth.
 
-\begin{thebibliography}{11}
+\begin{thebibliography}{12}
 \fontsize{7.5pt}{8.3pt}\selectfont
 \raggedright
 \setlength{\itemsep}{0pt}
@@ -1168,6 +1172,12 @@ Robert Rosenthal. ``The File Drawer Problem and Tolerance for Null Results.''
 Object Management Group.
 \href{https://www.omg.org/spec/SACM/2.3/PDF}{\emph{Structured Assurance Case Metamodel (SACM)}},
 2.3, formal/23-05-08, October 2023.
+
+\bibitem{gsn}
+SCSC Assurance Case Working Group (ACWG).
+\emph{Goal Structuring Notation Community Standard, Version 3}.
+SCSC-141C, May 2021.
+\href{https://scsc.uk/scsc-141c}{SCSC-141C}.
 
 \bibitem{nisobadging2021}
 National Information Standards Organization.
