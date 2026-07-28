@@ -193,6 +193,8 @@ Sections~\ref{sec:mathrole}--\ref{sec:formal-evidence}.
   derived/.style={draw=Violet!45, semithick, rounded corners=3pt, align=center,
     fill=Violet!4, inner xsep=5pt, inner ysep=4pt, text width=7.2cm,
     minimum height=.78cm},
+  inputcard/.style={draw=Violet!55, semithick, rounded corners=8pt, align=center,
+    fill=Violet!3, inner xsep=6pt, inner ysep=3pt, text width=7.8cm},
   checkbox/.style={draw, semithick, rounded corners=3pt, align=center, fill=white,
     inner xsep=5pt, inner ysep=5pt, text width=4.45cm, minimum height=1.35cm},
   gate/.style={draw, thick, diamond, aspect=2.4, align=center, font=\small,
@@ -227,49 +229,42 @@ Sections~\ref{sec:mathrole}--\ref{sec:formal-evidence}.
 
 \node[derived] (gen) at (8.3,-2.78)
   {{\scriptsize\sffamily\bfseries\color{Violet!75!black} DERIVED OUTPUT · GENERATED VIEWS}\\[1pt]
-   {\tiny navigation, reading map, code index, machine-readable summary}\\[-1pt]
-   {\scriptsize\itshape reorganises records; no authority}};
-\draw[flow, draw=gray!72] (claim.south) -- (7.0,-1.72)
-  -- (8.3,-1.72) -- (gen.north);
-\node[lab] at (7.65,-1.72) {build};
+   {\tiny navigation, reading map, code index, machine-readable summary; no authority}};
+\draw[flow, draw=gray!72] (claim.south) -- (gen.north)
+  node[lab, pos=.48, above=1pt] {build};
 
-\draw[semithick, draw=Violet!68!black] (1.8,-3.78) -- (12.2,-3.78);
-\draw[semithick, draw=Violet!68!black] (lean.south) -- (1.8,-3.78);
-\draw[semithick, draw=Violet!68!black]
-  (claim.south) -- ++(0,-0.25) -| (4.25,-3.78);
-\draw[semithick, draw=Violet!68!black] (public.south) -- (12.2,-3.78);
-\draw[semithick, draw=Violet!68!black] (gen.south) -- (8.3,-3.78);
-\node[lab, text=Violet!75!black] at (7.0,-3.78)
-  {four recorded artefacts feed the release check};
+\node[inputcard] (inputs) at (8.3,-3.98)
+  {{\scriptsize\sffamily\bfseries\color{Violet!75!black}
+    RELEASE INPUTS · FOUR RECORDED ARTEFACTS}\\[-1pt]
+   {\tiny Lean source · reviewed record · public documents · generated views}};
 
 \draw[rounded corners=5pt, fill=gray!7, draw=gray!48]
-  (-0.15,-7.20) rectangle (14.15,-4.36);
-\node[lane, anchor=west] at (0,-4.66)
+  (-0.15,-7.35) rectangle (14.15,-4.70);
+\node[lane, anchor=west] at (0,-5.00)
   {AUTOMATED CHECKS · FRESH COPY PER JOB};
 \node[checkbox, anchor=north, draw=MidnightBlue!82, fill=MidnightBlue!5]
-  (build) at (2.8,-5.06)
+  (build) at (2.8,-5.40)
   {{\scriptsize\sffamily\bfseries\color{MidnightBlue!82!black} FORMAL PROOF JOB}\\[2pt]
    \textbf{\texttt{lake build}}\\[-1pt]
    {\scriptsize checks statements and proofs}};
 \node[checkbox, text width=5.55cm, anchor=north,
-  draw=Violet!75!black, fill=Violet!5] (release) at (9.75,-5.06)
+  draw=Violet!75!black, fill=Violet!5] (release) at (9.75,-5.40)
   {{\scriptsize\sffamily\bfseries\color{Violet!75!black} RELEASE-CHECKING JOB}\\[2pt]
    \textbf{\texttt{scripts/check\_release.py}}\\[-1pt]
    {\scriptsize registered names + wording\\source files + generated views}};
-\draw[flow, draw=MidnightBlue!82] (1.8,-3.78) -- (1.8,-4.94)
+\draw[flow, draw=MidnightBlue!82] (lean.south) -- (1.8,-5.28)
   -| ([xshift=-10mm]build.north);
-\draw[flow, draw=Violet!75!black] (9.75,-3.78) -- (release.north);
+\draw[flow, draw=Violet!75!black] (inputs.south) -- ++(0,-0.28)
+  -| (release.north);
 
-\coordinate (join) at (7.0,-7.50);
-\draw[semithick] (build.south) |- (join);
-\draw[semithick] (release.south) |- (join);
-\node[gate] (gate) at (7.0,-8.25) {\footnotesize both jobs pass?};
-\draw[flow] (join) -- (gate.north);
-\node[outcome, draw=BrickRed!70!black, fill=BrickRed!8] (stop) at (1.85,-8.25)
+\node[gate] (gate) at (7.0,-8.65) {\footnotesize both jobs pass?};
+\draw[flow] (build.south) -- ([xshift=-3mm]gate.north);
+\draw[flow] (release.south) -- ([xshift=3mm]gate.north);
+\node[outcome, draw=BrickRed!70!black, fill=BrickRed!8] (stop) at (1.85,-8.65)
   {{\scriptsize\sffamily\bfseries\color{BrickRed!75!black} NO}\\[2pt]
    \textbf{workflow fails}\\[-1pt]
    {\scriptsize failed job records the broken check}};
-\node[outcome, draw=ForestGreen!65!black, fill=ForestGreen!9] (ship) at (12.15,-8.25)
+\node[outcome, draw=ForestGreen!65!black, fill=ForestGreen!9] (ship) at (12.15,-8.65)
   {{\scriptsize\sffamily\bfseries\color{ForestGreen!68!black} YES}\\[2pt]
    \textbf{workflow passes}\\[-1pt]
    {\scriptsize publication remains a human action}};
