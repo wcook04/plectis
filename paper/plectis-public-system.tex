@@ -74,8 +74,9 @@
 \maketitle
 
 \begin{abstract}
-Plectis is a case study in testing public claims about software that cannot
-itself be published.  The author releases selected code, fixed inputs, expected
+This paper treats one named version of Plectis as a single case in a bounded
+descriptive analysis of testing public claims about software that cannot itself
+be published.  The author releases selected code, fixed inputs, expected
 results, decision rules, and run records while the larger system remains
 private.  What can a stranger conclude after rerunning those tests?  The answer
 is narrow.  The repository lets a reader inspect and rerun its published
@@ -132,6 +133,10 @@ correct, or that the selected cases represent the unseen whole. The audio
 example in Section~\ref{sec:run} shows all three limits in one elementary
 calculation. The later inventory records what was published; it is not
 evidence of breadth, quality, or independence.
+Runeson and H\"ost likewise treat configuration-managed project documents as
+archival data while warning that records created for another purpose may omit
+needed information and be difficult to assess without complementary sources
+\cite[\S4.4, p.~148]{runeson2009}.
 The repository therefore lets a reader test claims about the public objects it
 actually exposes, within the limits stated for each test.
 
@@ -181,12 +186,15 @@ sections identify the choices an evaluator would need to make independently
 of me.
 
 This is a descriptive analysis of one public repository, not a statistical
-study. Runeson and H\"ost distinguish a case from the units of analysis within
-it \cite[\S2.5, p.~138]{runeson2009}. I borrow only those two terms: the named repository
-version is the single case, and each component is a \emph{unit of analysis}
-(one item examined inside that case). This paper does not otherwise claim a
-full case-study design. No subset of the components is used to estimate
-performance or represent the private system.
+study. Runeson and H\"ost define the case as the object of study and its units
+of analysis as items contained within it
+\cite[\S2.5, p.~138]{runeson2009}. They also note that this boundary depends
+on the study context and research goals \cite[\S3.1, p.~139]{runeson2009}. I
+borrow only those two terms: the named repository version is the single case,
+and each component is a \emph{unit of analysis} (one item examined inside that
+case). This paper does not otherwise claim a full case-study design. No subset
+of the components is used to estimate performance or represent the private
+system.
 
 Reading this paper requires no programming. Reproducing its runs requires
 basic command-line use, a terminal (a text window for commands), Git (for
@@ -343,11 +351,13 @@ erroneous code can reproduce the same erroneous result
 In software testing, a \emph{test oracle} is a procedure used to distinguish
 correct from incorrect behaviour. The challenge of making that distinction is
 called the test oracle problem \cite[p.~507]{barr2015}. Barr et al.\ distinguish
-an operational oracle from a conceptual ground-truth oracle that always gives
-the right answer, while observing that such ground truth is unknowable except
-in trivial cases \cite[Defs.~2.4 and 2.6--2.8, pp.~509--510]{barr2015}. A
-validator can therefore implement a published decision rule without
-independently establishing that the rule is correct. The risk
+a partial test oracle \(D\) from a conceptual ground-truth oracle that always
+gives the right answer, modelled as a total oracle \(G\), while observing that
+such ground truth is unknowable except in trivial cases
+\cite[Defs.~2.4 and 2.6--2.8, pp.~509--510]{barr2015}. Soundness requires
+\(D(a)\Rightarrow G(a)\), and completeness requires
+\(G(a)\Rightarrow D(a)\). A passing validator therefore applies its published
+rule; it does not by itself establish that the rule is sound. The risk
 that a curated collection disproportionately exposes favourable cases is
 analogous to selective publication and the file-drawer problem
 \cite[p.~638]{rosenthal1979}.
