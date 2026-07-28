@@ -609,9 +609,10 @@ REQUIRED_PINPOINT_CITATIONS = (
     r"\cite[p.~9]{nasem2019}",
     r"\cite[p.~507]{barr2015}",
     r"\cite[Defs.~2.4 and 2.6--2.8, pp.~509--510]{barr2015}",
+    r"\cite[p.~638]{rosenthal1979}",
     r"\cite[secs. 1.1, 4, 7.3, 11.9--11.15]{omgsacm2023}",
     r"\cite[security-strength table]{nisthashfunctions}",
-    r"\cite[\S4.4.1.2]{nasa8739}",
+    r"\cite[\S4.4.1.2, p.~48]{nasa8739}",
 )
 
 MIN_BIBLIOGRAPHY_FONT_PT = 7.5
@@ -658,7 +659,7 @@ REQUIRED_BIBLIOGRAPHY_TOKENS = {
     ),
     "nasa8739": (
         "National Aeronautics and Space Administration",
-        "NASA-STD-8739.8B, Section 4.4.1.2, 2022",
+        "NASA-STD-8739.8B, Section 4.4.1.2, p.~48, 2022",
         "https://standards.nasa.gov/standard/NASA/NASA-STD-87398",
     ),
     "leanvalidation": (
