@@ -342,9 +342,11 @@ first-contact contract, not subjective comprehension.
 
 \section{Relation to prior work}\label{sec:related}
 
-Proof blueprints link informal plans to Lean declarations.
-\texttt{leanblueprint} stores a blueprint in \TeX{} and checks that named
-declarations exist~\cite{leanblueprint}; LeanArchitect infers formal
+Proof blueprints pair informal plans with named Lean declarations and
+author-supplied dependency links.  \texttt{leanblueprint} stores a blueprint
+in \TeX{} and its checker only confirms that each named declaration
+exists~\cite{leanblueprint}; it neither infers those links nor checks that the
+informal and formal statements agree.  LeanArchitect infers formal
 dependencies and proof-hole status and exports synchronised blueprint
 material~\cite{leanarchitect}. The Carleson project shows the blueprint as a
 large collaboration surface: an early blueprint organised roughly 180 tasks,

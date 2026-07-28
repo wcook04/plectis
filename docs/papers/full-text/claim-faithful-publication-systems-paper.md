@@ -265,7 +265,7 @@ The nearest systems divide into four groups, each solving a different part of th
 
 #### Proof blueprints.
 
-A *proof blueprint* pairs an informal outline with Lean declarations and uses author-supplied links to record which results depend on which earlier results. `leanblueprint` stores that outline in TeX and checks that every named declaration exists \[leanblueprint\]. LeanArchitect attaches blueprint metadata to Lean source, infers dependencies and unfinished-proof status, and exports synchronised TeX \[leanarchitect\]. Text and unformalised nodes remain human responsibilities. Both systems primarily support a formalisation in progress. The claim record here instead starts after a selected proof has been accepted and asks which public wording was reviewed and which stronger conclusion remains open.
+A *proof blueprint* pairs an informal outline with Lean declarations and uses author-supplied links to record which results depend on which earlier results. `leanblueprint` stores that outline in TeX and its `checkdecls` command checks only that each named declaration exists \[leanblueprint\]; it neither infers the dependency links nor checks that the informal and formal statements agree. LeanArchitect attaches blueprint metadata to Lean source, infers dependencies and unfinished-proof status, and exports synchronised TeX \[leanarchitect\]. Text and unformalised nodes remain human responsibilities. Both systems primarily support a formalisation in progress. The claim record here instead starts after a selected proof has been accepted and asks which public wording was reviewed and which stronger conclusion remains open.
 
 <a id="reviewing-intended-mathematical-meaning."></a>
 
@@ -285,7 +285,7 @@ Isabelle/DOF, a document system built on the Isabelle proof assistant, places fo
 
 #### Testing the boundary.
 
-CASCADE derives tests and an alternative implementation from the same documentation using language models. It reports a likely inconsistency only when at least one generated test fails on the original implementation and passes on the generated one, and no generated test changes in the opposite direction. A person must still confirm the report \[cascade, Algorithm 1 and §3, article pp. FSE168:6–8\]. Unlike the present checker, it can inspect documentation that was not registered in advance.
+CASCADE derives tests and an alternative implementation from the same documentation using language models. It reports a likely inconsistency only when $`\mathtt{f2p}>0`$ (at least one generated test fails on the original implementation and passes on the generated one) and $`\mathtt{p2f}=0`$ (no generated test changes in the opposite direction). A person must still confirm the report \[cascade, Algorithm 1 and §3, article pp. FSE168:6–8\]. Unlike the present checker, it can inspect documentation that was not registered in advance.
 
 Mutation testing deliberately seeds faults and asks whether tests distinguish the altered program from the original \[demillo; jiaharman\]. The ten false edits in Section <a href="#sec:failure" data-reference-type="ref" data-reference="sec:failure">5</a> serve that purpose only. They were selected by hand, and nine were not rerun after repair, so they yield neither a post-repair detection rate nor a mutation-adequacy score.
 

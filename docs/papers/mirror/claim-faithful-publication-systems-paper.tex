@@ -735,8 +735,10 @@ claim.
 \paragraph{Proof blueprints.}
 A \emph{proof blueprint} pairs an informal outline with Lean declarations and
 uses author-supplied links to record which results depend on which earlier
-results.  \texttt{leanblueprint} stores that outline in \TeX{} and checks that every named declaration
-exists~\cite{leanblueprint}.  LeanArchitect attaches blueprint metadata to Lean
+results.  \texttt{leanblueprint} stores that outline in \TeX{} and its
+\texttt{checkdecls} command checks only that each named declaration
+exists~\cite{leanblueprint}; it neither infers the dependency links nor checks
+that the informal and formal statements agree.  LeanArchitect attaches blueprint metadata to Lean
 source, infers dependencies and unfinished-proof status, and exports
 synchronised \TeX{}~\cite{leanarchitect}.  Text and unformalised nodes remain
 human responsibilities.  Both systems primarily support a formalisation in
@@ -790,9 +792,9 @@ checker cannot inspect prose that the record does not name.
 \paragraph{Testing the boundary.}
 CASCADE derives tests and an alternative implementation from the same
 documentation using language models.  It reports a likely inconsistency only
-when at least one generated test fails on the original implementation and
-passes on the generated one, and no generated test changes in the opposite
-direction.  A person must still confirm the
+when $\mathtt{f2p}>0$ (at least one generated test fails on the original
+implementation and passes on the generated one) and $\mathtt{p2f}=0$ (no
+generated test changes in the opposite direction).  A person must still confirm the
 report~\cite[Algorithm~1 and \S3, article pp.~FSE168:6--8]{cascade}.  Unlike the
 present checker, it can inspect documentation that was not registered in
 advance.
