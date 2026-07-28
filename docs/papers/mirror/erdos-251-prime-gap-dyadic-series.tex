@@ -157,6 +157,20 @@ current catalogue record still repeats this variable-denominator expectation
 without mentioning the counterexample~\cite{erdosproblems}; its warning about
 possibly missing literature is therefore material here, not merely
 boilerplate.
+
+There is also a genuinely adjacent proved dyadic theorem.  If $P(m)$ denotes
+the largest prime factor of $m$, Erd\H{o}s and Pomerance proved that
+\[
+ \sum_{m\ge2}\frac{\mathbf 1_{\{P(m)>P(m+1)\}}}{2^m}
+\]
+is irrational~\cite[\S7, p.~320]{erdospomerance1978}.  Erd\H{o}s and Graham
+record the complementary indicator on p.~62: equality of the two largest
+prime factors is impossible for consecutive integers, so its series is
+$1/2$ minus the displayed one and is irrational as well.  This is a theorem
+about a bounded prime-factor comparison digit sequence, not the unbounded
+prime numerators in $\Pi$; it supplies nearby positive evidence without
+solving Problem~\#251.
+
 Problem~\#251 also appears as the unproved declaration
 \texttt{erdos\_251} in the \emph{Formal Conjectures}
 repository~\cite{formalconjectures251}.  Its zero-based Lean sum starts with
@@ -1120,6 +1134,13 @@ finite-approximation certificate & \lrefx{Erdos251/PrimeGapDyadicTail.lean}{772}
   \href{https://mathweb.ucsd.edu/~ronspubs/80_11_number_theory.pdf}{\emph{Old
   and New Problems and Results in Combinatorial Number Theory}},
   Monogr. Enseign. Math. 28, Geneva, 1980, p.~62.
+\bibitem{erdospomerance1978} P.~Erd\H{o}s and C.~Pomerance,
+  \href{https://doi.org/10.1007/BF01818569}{\emph{On the largest prime
+  factors of $n$ and $n+1$}},
+  Aequationes Math. \textbf{17} (1978), 311--321,
+  doi:\href{https://doi.org/10.1007/BF01818569}{10.1007/BF01818569}.
+  The unnumbered dyadic irrationality theorem and its complete proof are in
+  \S7 on p.~320.
 \bibitem{erdos1988} P.~Erd\H{o}s, \emph{On the irrationality of certain series:
   problems and results}, in A.~Baker (ed.), \emph{New Advances in Transcendence
   Theory}, Cambridge UP, 1988, pp.~102--109,
