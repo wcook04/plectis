@@ -22,6 +22,8 @@
 % useful one.
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
+\renewcommand{\commit}{ae9ef27b040934b70f2418431d58d30a4b01974b}
+\renewcommand{\commitshort}{ae9ef27b0409}
 \hypersetup{
   pdftitle={Denominator periods, rational-value constraints and achievement-set geometry for Mersenne subseries (Erdős Problem 257)},
   pdfsubject={Erdős Problem Notes: Problem 257},
@@ -255,7 +257,7 @@ sequence is then
 the scaled tail
 $u(n)=v\sum_{j\ge1}f(n+j)2^{-j}$, so the orbit is unique rather than merely
 available
-(\mword{Erdos249257/GenericTailOrbitRigidity.lean}{425}{binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit}{checked}).
+(\mword{Erdos249257/GenericTailOrbitRigidity.lean}{426}{binaryCoeffSeries_rational_iff_exists_temperedBinaryOrbit}{checked}).
 The next theorem exhibits such an orbit for $X_A$ itself, with the coefficient
 sequence shifted past the power of $2$ in the denominator.
 
@@ -536,7 +538,8 @@ and only the first is proved.
 \emph{Formalisation is not priority.}  Rows marked ``checked here'' are Lean
 statements accepted by the pinned kernel.  For the full support that is a
 formalisation of Erd\H{o}s; Luca and Tachiya's RIMS paper already proves the
-nonnegative purely-periodic case and its finite rational-prefix extension
+nonnegative purely-periodic case; a finite rational-prefix correction gives
+the eventual-periodic extension used here
 \cite[Theorem~1, p.~139; proof pp.~149--150]{lucatachiya2017}, while
 Theorem~A restates the broader signed purely-periodic theorem without
 reproducing its earlier proof.  No priority is claimed anywhere in this table.
@@ -586,14 +589,14 @@ In particular $\scA_{\Asf}(n)$ is \emph{odd} for every $n\ge2$.
 \end{theorem}
 
 \noindent The count is
-\lword{Erdos257/SquarefreeSupportIncidence.lean}{53}{card_squarefreeDivisors}{checked},
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{94}{card_squarefreeDivisors}{checked},
 the incidence formula is
-\lword{Erdos257/SquarefreeSupportIncidence.lean}{70}{squarefreeIncidence_eq}{checked},
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{111}{squarefreeIncidence_eq}{checked},
 and the parity conclusion is
-\lword{Erdos257/SquarefreeSupportIncidence.lean}{100}{odd_squarefreeIncidence}{checked}.
+\lword{Erdos257/SquarefreeSupportIncidence.lean}{140}{odd_squarefreeIncidence}{checked}.
 The proof is the bijection between squarefree divisors of $n$ and subsets of
 its prime factors
-(\lword{Erdos257/SquarefreeSupportIncidence.lean}{30}{squarefreeDivisors_eq_image}{Lean}),
+(\lword{Erdos257/SquarefreeSupportIncidence.lean}{71}{squarefreeDivisors_eq_image}{Lean}),
 so the count is $2^{\omega(n)}$; removing $d=1$ leaves an odd number whenever
 $\omega(n)\ge1$.  At $n=12=2^2\cdot3$ the squarefree divisors are $1,2,3,6$, so
 $\scA_{\Asf}(12)=3$; at $n=30$ they are the eight divisors of $30$ and
@@ -815,19 +818,19 @@ remains injective after restriction to any subfamily.  That matters because
 Problem~\ref{res:problem} quantifies
 over every infinite support rather than over $\Npos$.  For a set $J$ of future
 offsets write $T_J(n)=\sum_{k\in J}\wgt{n+k+1}$ for the tail restricted to $J$
-(\lword{Erdos257/MersenneSubseriesRigidity.lean}{17}{selectedMersenneTail}{definition},
+(\lword{Erdos257/MersenneSubseriesRigidity.lean}{20}{selectedMersenneTail}{definition},
 summable at
-\lword{Erdos257/MersenneSubseriesRigidity.lean}{21}{summable_selectedMersenneTail}{Lean}).
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{24}{summable_selectedMersenneTail}{Lean}).
 Then $T_J(n)<\wgt n$ for every $J$ and every $n\ge1$
-(\lword{Erdos257/MersenneSubseriesRigidity.lean}{27}{selectedMersenneTail_lt_weight}{checked}),
+(\lword{Erdos257/MersenneSubseriesRigidity.lean}{30}{selectedMersenneTail_lt_weight}{checked}),
 since deleting weights only shrinks a tail that already sits below $\wgt n$ at
 the full support.  Consequently the digit map is injective on strings
 supported in $J$
-(\lword{Erdos257/MersenneSubseriesRigidity.lean}{51}{supportedMersenneDigitValue_injective}{checked}),
+(\lword{Erdos257/MersenneSubseriesRigidity.lean}{54}{supportedMersenneDigitValue_injective}{checked}),
 stated on the subtype of
-\lword{Erdos257/MersenneSubseriesRigidity.lean}{42}{SupportedMersenneDigits}{digit strings vanishing off $J$}
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{45}{SupportedMersenneDigits}{digit strings vanishing off $J$}
 and evaluated by the
-\lword{Erdos257/MersenneSubseriesRigidity.lean}{46}{supportedMersenneDigitValue}{restricted digit map},
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{49}{supportedMersenneDigitValue}{restricted digit map},
 so the statement is about the subseries itself and not a projection of the
 full one.  Thus uniqueness of the selector survives passage to an arbitrary
 subfamily; this is an injectivity statement, not a statement about binary
@@ -835,6 +838,83 @@ digits of the value.
 That is a constraint on the shape of an argument, not on the supports: it
 decides no value, and it is weaker than any statement in
 Section~\ref{sec:forced}.
+
+\subsection{Geometry after restricting the allowed exponents}
+
+The injectivity statement has a geometric completion for every set
+$J\subseteq\N$ of allowed digit positions.  Let
+\[
+  \Ach_J=
+  \left\{\sum_{k\in J}\varepsilon_k\wgt{k+1}:
+    \varepsilon_k\in\{0,1\}\right\}.
+\]
+Formally, the allowed strings form the
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{63}{supportedMersenneDigitSet}{supported digit set},
+which is
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{66}{isClosed_supportedMersenneDigitSet}{closed}.
+Its range is the
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{76}{supportedMersenneAchievementSet}{restricted achievement set};
+the range and image descriptions agree by
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{79}{supportedMersenneAchievementSet_eq_image}{the image theorem}.
+Consequently $\Ach_J$ is
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{90}{isCompact_supportedMersenneAchievementSet}{compact}
+and
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{96}{isClosed_supportedMersenneAchievementSet}{closed}.
+It lies inside $\Ach$ by
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{103}{supportedMersenneAchievementSet_subset}{support restriction}
+and is therefore
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{112}{isNowhereDense_supportedMersenneAchievementSet}{nowhere dense}.
+If $J$ is infinite, the digit space is
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{120}{preperfect_supportedMersenneDigitSet}{preperfect};
+injectivity transfers that property to
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{150}{preperfect_supportedMersenneAchievementSet}{$\Ach_J$},
+so the closed set is
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{167}{perfect_supportedMersenneAchievementSet}{perfect}.
+Thus every infinite allowed support gives a compact perfect nowhere-dense set
+with a unique selector for each point.
+
+The metric classification is exact.  The summability lemma
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{175}{summable_mersenneDigitTerm}{controls digit terms},
+and changing one coordinate changes the value by precisely its signed weight
+by
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{182}{positiveMersenneDigitValue_update}{the update formula}.
+If $k\notin J$, allowing $k$ splits the new set into $\Ach_J$ and its translate
+by $\wgt{k+1}$
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{203}{supportedMersenneAchievementSet_insert}{exactly}.
+The two pieces are
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{262}{disjoint_supportedMersenneAchievementSet_translate}{disjoint},
+so adjoining one coordinate
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{286}{volume_supportedMersenneAchievementSet_insert}{doubles the volume}.
+At $J=\N$, the restricted set is the full set $\Ach$
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{300}{supportedMersenneAchievementSet_univ}{by definition}.
+
+\begin{theorem}[volume dichotomy for every allowed support]\label{res:supportvolume}
+For every $J\subseteq\N$, exactly one of the following measure formulas
+applies:
+\[
+\begin{array}{ll}
+J=F^{\,c}\text{ for a finite }F,
+  &\lambda(\Ach_J)=2^{-|F|},\\[2mm]
+J^c\text{ is infinite},
+  &\lambda(\Ach_J)=0.
+\end{array}
+\]
+\end{theorem}
+
+\noindent For finite $F$, the division-free identity
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{313}{volume_supportedMersenneAchievementSet_finset_compl_scaled}{multiplies the face volume by $2^{|F|}$}
+and its solved form
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{349}{volume_supportedMersenneAchievementSet_finset_compl}{gives $2^{-|F|}$}.
+Monotonicity under enlarging $J$ is
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{358}{supportedMersenneAchievementSet_mono}{checked}.
+It traps a set with infinitely many forbidden coordinates below
+finite-codimension faces of arbitrarily small dyadic measure, yielding
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{368}{volume_supportedMersenneAchievementSet_eq_zero_of_compl_infinite}{measure zero}.
+The two cases are assembled in
+\lword{Erdos257/MersenneSubseriesRigidity.lean}{397}{volume_supportedMersenneAchievementSet_dichotomy}{the formal dichotomy}.
+This theorem classifies the size of the value set generated inside any
+prescribed family of exponents.  It does not classify the arithmetic nature
+of its individual points and therefore does not settle Problem~\ref{res:problem}.
 
 \subsection{The value \texorpdfstring{$1/2$}{1/2}}
 
