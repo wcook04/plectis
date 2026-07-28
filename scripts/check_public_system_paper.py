@@ -296,6 +296,19 @@ REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS = (
     "the choices an evaluator would need to make independently of me",
 )
 
+# The worked case must precede the general repository contract.  This protects
+# an explanation invariant rather than a preferred sentence: a cold reader
+# should encounter one complete observation and its inference limit before the
+# paper introduces project vocabulary or architecture.
+REQUIRED_EARLY_EXAMPLE_ANCHORS = (
+    r"\section{One public test before the general design}",
+    "Their squared average is",
+    "without trusting the program",
+    "additional premises that the observed match does not contain",
+    "The paper asks the same six questions",
+    "Who supplied the interpretation or expected result?",
+)
+
 REQUIRED_METHOD_DISCLOSURE_ANCHORS = (
     r"\paragraph{What I examined.}",
     r"read the list and plain descriptions of all \componentcount{} components",
@@ -485,6 +498,11 @@ REQUIRED_STRONGER_EVALUATION_ANCHORS = (
     "It includes no outside evaluator's report",
     "although a private rerun could be unreported",
     "These evaluations do not pair one-for-one with the distinctions",
+    r"\subsection*{A falsifiable comparison}",
+    "compare two presentations of the same frozen public items",
+    "Evaluators who did not design the items",
+    "how long they take to locate the point of disagreement",
+    "No such comparison is reported in this paper",
 )
 
 REQUIRED_APPENDIX_ORIENTATION_ANCHORS = (
@@ -1033,6 +1051,9 @@ def check_paper(
     for anchor in REQUIRED_FIRST_SECTION_ORIENTATION_ANCHORS:
         if anchor not in normalized_first_section:
             failures.append(f"missing first-section orientation anchor: {anchor!r}")
+    for anchor in REQUIRED_EARLY_EXAMPLE_ANCHORS:
+        if anchor not in normalized_first_section:
+            failures.append(f"missing example-first explanation anchor: {anchor!r}")
     for anchor in REQUIRED_METHOD_DISCLOSURE_ANCHORS:
         if anchor not in normalized_first_section:
             failures.append(f"missing first-section method disclosure: {anchor!r}")
@@ -1067,9 +1088,8 @@ def check_paper(
     for anchor in REQUIRED_EARLY_DISTINCTION_MAP_ANCHORS:
         if anchor not in normalized_distinctions_intro:
             failures.append(f"missing early five-gap map: {anchor!r}")
-    conclusion_section = text.split(r"\section{Conclusion}", 1)[-1]
-    conclusion_section = conclusion_section.split(r"\appendix", 1)[0]
-    normalized_conclusion_section = re.sub(r"\s+", " ", conclusion_section)
+    appendix_review_section = text.split(r"\appendix", 1)[-1]
+    normalized_conclusion_section = re.sub(r"\s+", " ", appendix_review_section)
     for anchor in REQUIRED_FIRST_REVIEW_ANCHORS:
         if anchor not in normalized_conclusion_section:
             failures.append(f"missing executable first-review route: {anchor!r}")

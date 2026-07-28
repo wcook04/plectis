@@ -85,11 +85,13 @@ does not establish where the code came from, whether the expected answer is
 correct, whether the published selection resembles the private whole, or
 whether the private system works reliably.
 
-In the version studied here, each of the \componentcount{} registered
-components (separately testable parts) connects a prose claim to a fixed input,
-command, saved output, pass rule, and stated limit.  I call this a
-claim--evidence--limit contract.  A worked component calculates an audio level
-from five small sample arrays.  A reader can repeat the calculation and,
+The contribution is a method for making one selected disagreement local: the
+registered components (separately testable parts) place a prose claim beside a
+fixed test case, runnable procedure, expected result, decision rule, run
+record, and explicit inference limit.  The repository calls this package a
+claim--evidence--limit contract.  It is an executable-disclosure case study,
+not an evaluation of reviewer performance.  A worked component calculates an
+audio level from five small sample arrays.  A reader can repeat the calculation and,
 for one row, derive the expected number independently of the implementation.
 Even there, the run cannot show whether the pass rule tests the claim as
 written, how the code behaves on untested inputs, or whether the chosen formula
@@ -140,21 +142,16 @@ needed information and be difficult to assess without complementary sources
 The repository therefore lets a reader test claims about the public objects it
 actually exposes, within the limits stated for each test.
 
-I am 22 and study economics. Over about ten months I built the private
-system by directing AI coding agents, software tools that can edit, run, and
-revise code across a task. I set objectives and review criteria,
-accepted or rejected their output, and sent them back to revise failures;
-the agents wrote nearly all of the code, and I wrote nearly none of it. No
-other person worked on the system. This account explains why the publication
-problem arose and why the choices examined below are my responsibility, but
-it remains testimony about origin. Plectis can expose public files and runs;
-it cannot independently prove how the private work was produced. The
-public repository does not prove the story, and the argument does not rely on it.
-
-The limit on what a public run can establish would be the same if every line
-had been written by hand. Authorship might affect how often a failure occurs:
-for example, an implementation and the program that checks it can share a mistake when
-one process drafts both. This paper compares no development methods and
+\paragraph{Who made the decisions.}
+I built the private system by directing AI coding agents: I set the objectives
+and review criteria, accepted or rejected their output, and remained
+responsible for the cases, expected answers, decision rules, and final public
+wording.  No other person worked on the system.  This account explains the
+concentration of control, but it remains testimony about origin: Plectis
+cannot independently prove how the private work was produced, and the public
+repository does not prove the story.  The same evidential limit would hold if
+every line had been written by hand.  One process can give an implementation
+and its check the same mistake; this paper compares no development methods and
 estimates no error rates.
 
 The boundary of the evidence can be stated before any command is run:
@@ -202,6 +199,39 @@ copying and versioning repositories), Python 3.11 or later, and \code{pip}
 (for installing Python software). The appendix gives the exact commands,
 environment details, and installation notes. It is a dated record of one
 verification pass at the version named there.
+
+\section{One public test before the general design}
+\label{sec:early-example}
+
+Consider four decimal audio samples:
+\[
+0,\quad 0.05,\quad -0.05,\quad 0.1.
+\]
+The published procedure squares them, averages the squares, takes the square
+root, and multiplies by eight.  Their squared average is \(0.00375\), so the
+stated rule gives \(8\sqrt{0.00375}=0.489897\ldots\).  The public program
+produces \(0.489897949\).  Anyone with a calculator can reproduce the expected
+number without trusting the program.
+
+That agreement establishes something real and small: this public program
+agrees with the stated formula on this test case.  It does not establish that
+the formula is the right account of audio level, that the public code came
+from the private system, that other inputs behave similarly, or that important
+risks were selected for testing.  Those conclusions require additional
+premises that the observed match does not contain.
+
+The paper asks the same six questions of every published item:
+\begin{enumerate}
+\item What sentence is offered for belief?
+\item What public object or procedure was checked?
+\item Who supplied the interpretation or expected result?
+\item What does the observed match establish?
+\item What remains unestablished?
+\item Which independently controlled evidence would strengthen it?
+\end{enumerate}
+Section~\ref{sec:run} gives the full command, all five audio cases, and the
+saved run record.  We now generalise from this example to the project's common
+record format.
 
 \section{The component contract}
 \label{sec:contract}
@@ -984,6 +1014,25 @@ review itself could not be published. The privacy cost may reasonably
 never be paid. If it is not, the origin story remains testimony, and this
 paper is written so that its argument does not depend on it.
 
+\subsection*{A falsifiable comparison}
+
+The next study should compare two presentations of the same frozen public
+items.  The baseline would provide ordinary documentation, code, outputs, and
+tests.  The comparison condition would additionally provide the explicit
+claim, test case, expected result, decision rule, run record, and inference
+limit used here.  Evaluators who did not design the items would choose from the
+frozen public list, inspect deliberately mismatched claim--rule pairs, use
+fresh inputs where an expected result can be justified independently, and
+publish failures without author substitution.
+
+The useful observations would be whether readers detect a mismatch, how often
+they wrongly accuse a matching item, how long they take to locate the point of
+disagreement, whether they reproduce the run, and how well their confidence
+tracks those outcomes.  That study would measure reviewer behaviour on the
+public items.  It would still not measure the private system, the unseen
+selection pool, or correctness beyond the independently justified cases.  No
+such comparison is reported in this paper.
+
 \subsection*{How the record should age}
 
 The evaluations above may expose failures. Repairs should add facts, not erase
@@ -1026,6 +1075,19 @@ More author-controlled components enlarge the inventory without changing who
 chose the cases or rules. Moving a relevant choice out of the author's hands
 can strengthen evidence about that choice; it does not repair every gap.
 
+\appendix
+\small
+\setlength{\parskip}{0pt}
+
+\section{Dated reproduction record}
+\label{sec:appendix}
+
+Except where a paragraph gives a later date, this appendix records one run on
+17~July~2026 under macOS 15.6.1 on Apple silicon (arm64) and Python 3.13.7.
+The repository version was commit \code{\snapshotcommit}, abbreviated
+\code{\snapshotshort} elsewhere. Later commits or machines may differ; the body
+does not depend on them.
+
 \paragraph{A first review.} Use the appendix's no-install block and select the
 version analysed here. The tour describes the checkout but does not choose a
 component claim. Ask the repository to find the audio example with
@@ -1059,19 +1121,6 @@ The final number printed should be \code{1}; in the acceptance file,
 \code{false}. This means the validator caught the deliberate mismatch; the
 exercise did not crash. Report any different result in
 \code{CONTRIBUTING.md}. Treat a pass as evidence only for the published rule.
-
-\appendix
-\small
-\setlength{\parskip}{0pt}
-
-\section{Dated reproduction record}
-\label{sec:appendix}
-
-Except where a paragraph gives a later date, this appendix records one run on
-17~July~2026 under macOS 15.6.1 on Apple silicon (arm64) and Python 3.13.7.
-The repository version was commit \code{\snapshotcommit}, abbreviated
-\code{\snapshotshort} elsewhere. Later commits or machines may differ; the body
-does not depend on them.
 
 \paragraph{Names.} Repository: \repo. Formerly Microcosm, Plectis retains
 package \code{microcosm\_core}, page \code{ORGANS.md} (``organs'' means
