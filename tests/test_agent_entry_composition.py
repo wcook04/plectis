@@ -2098,6 +2098,7 @@ def test_agent_entry_card_blocks_unknown_task_route_without_silent_fallback() ->
     assert payload["status"] == "blocked"
     assert payload["task_route"]["selected_task_class"] == "not-a-real-task-class"
     assert payload["task_route"]["selected_task_route_found"] is False
+    assert payload["task_route"]["alias_resolution"] is None
     assert payload["task_route"]["task_class"] == "agent-entry"
     assert "missing_selected_task_route" in {
         error["code"] for error in payload["validation"]["errors"]

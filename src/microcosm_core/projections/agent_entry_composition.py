@@ -4686,7 +4686,11 @@ def build_agent_entry_composition(
         ),
         "requested_task": task or DEFAULT_TASK,
         "selected_task_class": task_class,
-        "alias_resolution": _task_alias_resolution(task or DEFAULT_TASK, task_class),
+        "alias_resolution": (
+            _task_alias_resolution(task or DEFAULT_TASK, task_class)
+            if selected_task_route_found
+            else None
+        ),
         "selected_task_route_found": selected_task_route_found,
         "task_class": selected_route.get("task_class"),
         "primary_organ_id": selected_route.get("primary_organ_id"),
