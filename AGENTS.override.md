@@ -47,6 +47,10 @@ Read `selected_viewer_entry`, `task_route`, `read_run_order`, and
 read, the selected task route, its evidence, and the source owner. For a
 no-install first screen:
 
+Natural whole-system, paper-guide, and Lean-companion questions are accepted
+here. Read the returned `whole_system_assessment_route` for the complete-family
+overview, mechanism inventory, paper guide, and companion handoff.
+
 ```bash
 ./bootstrap.sh --dry-run
 PYTHONPATH=src python3 -m microcosm_core first-screen --card .
@@ -98,9 +102,9 @@ PYTHONPATH=src python3 -m microcosm_core comprehend --slice papers --format text
 It is projected from `docs/papers/corpus.json`, covers every active manuscript
 carried by the clone, and routes system understanding separately from
 problem-specific mathematics. Read the smallest route that answers the
-question; then cross to executable receipts here or typed claims and Lean
-source in the companion repository. Papers are exposition, never proof or
-claim-status authority.
+question; `docs/papers/README.md` is the human question-first index. Then cross
+to executable receipts here or typed claims and Lean source in the companion
+repository. Papers are exposition, never proof or claim-status authority.
 
 ## Authority and mutation boundaries
 

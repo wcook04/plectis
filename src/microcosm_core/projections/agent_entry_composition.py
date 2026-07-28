@@ -66,6 +66,52 @@ INTERESTING_PARTS_ROUTE_ALIASES = {
     "what-is-interesting-here",
     "what_is_interesting_here",
 }
+WHOLE_SYSTEM_ROUTE_ALIASES = {
+    "what is in this repository",
+    "what-is-in-this-repository",
+    "what_is_in_this_repository",
+    "give me the lay of the land",
+    "give-me-the-lay-of-the-land",
+    "give_me_the_lay_of_the_land",
+    "walk me through this codebase",
+    "walk-me-through-this-codebase",
+    "walk_me_through_this_codebase",
+    "give me a complete overview",
+    "give-me-a-complete-overview",
+    "give_me_a_complete_overview",
+    "whole system overview",
+    "whole-system-overview",
+    "whole_system_overview",
+}
+PAPER_GUIDE_ROUTE_ALIASES = {
+    "papers",
+    "paper guide",
+    "paper-guide",
+    "paper_guide",
+    "which papers should i read",
+    "which-papers-should-i-read",
+    "which_papers_should_i_read",
+    "what papers are here",
+    "what-papers-are-here",
+    "what_papers_are_here",
+    "what does each paper establish",
+    "what-does-each-paper-establish",
+    "what_does_each_paper_establish",
+    "paper reading order",
+    "paper-reading-order",
+    "paper_reading_order",
+}
+LEAN_COMPANION_ROUTE_ALIASES = {
+    "where is the lean mathematics",
+    "where-is-the-lean-mathematics",
+    "where_is_the_lean_mathematics",
+    "where is the companion lean repository",
+    "where-is-the-companion-lean-repository",
+    "where_is_the_companion_lean_repository",
+    "what is the lean companion",
+    "what-is-the-lean-companion",
+    "what_is_the_lean_companion",
+}
 ROUTE_OWNER_ROUTE_ALIASES = {
     "where do i patch a route",
     "where-do-i-patch-a-route",
@@ -322,6 +368,8 @@ def _normalize_task_class(task: str | None) -> str:
     natural_key = value.replace("_", " ").replace("-", " ")
     if not value:
         return DEFAULT_TASK
+    if _is_whole_system_entry_question(value):
+        return "agent-entry"
     if value in {
         "agent-entry",
         "agent_entry",
@@ -3487,6 +3535,29 @@ def _normalize_task_class(task: str | None) -> str:
     return value.replace("_", "-").replace(" ", "-")
 
 
+def _is_whole_system_entry_question(task: str | None) -> bool:
+    """Recognize broad comprehension, paper-guide, and companion handoff asks."""
+    value = (task or "").strip().lower().rstrip(" ?!.")
+    natural_key = " ".join(value.replace("_", " ").replace("-", " ").split())
+    exact_aliases = (
+        WHOLE_SYSTEM_ROUTE_ALIASES
+        | PAPER_GUIDE_ROUTE_ALIASES
+        | LEAN_COMPANION_ROUTE_ALIASES
+    )
+    if value in exact_aliases or natural_key in exact_aliases:
+        return True
+    return any(
+        signal in natural_key
+        for signal in (
+            "what is in this repository",
+            "give me the lay of the land",
+            "walk me through this codebase",
+            "give me a complete overview",
+            "whole system overview",
+        )
+    )
+
+
 def _task_alias_resolution(
     requested_task: str | None, selected_task_class: str
 ) -> dict[str, Any] | None:
@@ -3502,52 +3573,60 @@ def _task_alias_resolution(
         return None
     if _normalize_task_class(requested) != selected_task_class:
         return None
-    reason = (
-        "Receipt/evidence meaning questions use the evaluation route because "
-        "that route carries the cold route-map, receipt refs, evidence classes, "
-        "and authority ceilings."
-        if requested_key in RECEIPT_ROUTE_ALIASES
-        else (
-            "Run-the-checks questions use the getting-started route because "
-            "that route carries the cold-clone verification floor and "
-            "copyable check commands."
-            if requested_key in GETTING_STARTED_CHECK_ROUTE_ALIASES
+    if _is_whole_system_entry_question(requested):
+        reason = (
+            "Whole-system questions use the agent-entry route because it exposes "
+            "the complete-family glance plus explicit routes for the mechanism "
+            "inventory, clone-local papers, and the companion Lean repository."
+        )
+    else:
+        reason = (
+            "Receipt/evidence meaning questions use the evaluation route because "
+            "that route carries the cold route-map, receipt refs, evidence classes, "
+            "and authority ceilings."
+            if requested_key in RECEIPT_ROUTE_ALIASES
             else (
-                "Evaluation questions use the evaluation route because it "
-                "joins the cold route-map, public reveal surface, receipt refs, "
-                "evidence classes, and authority ceilings before any maturity, "
-                "release, or proof-correctness inference."
-                if requested_key in EVALUATION_ROUTE_ALIASES
+                "Run-the-checks questions use the getting-started route because "
+                "that route carries the cold-clone verification floor and "
+                "copyable check commands."
+                if requested_key in GETTING_STARTED_CHECK_ROUTE_ALIASES
                 else (
-                    "Interesting-parts questions use the existing entry/reveal route "
-                    "because it shows bounded public first-run and reveal surfaces "
-                    "without claiming novelty, release readiness, or domain correctness."
-                    if requested_key in INTERESTING_PARTS_ROUTE_ALIASES
+                    "Evaluation questions use the evaluation route because it "
+                    "joins the cold route-map, public reveal surface, receipt refs, "
+                    "evidence classes, and authority ceilings before any maturity, "
+                    "release, or proof-correctness inference."
+                    if requested_key in EVALUATION_ROUTE_ALIASES
                     else (
-                        "AI-safety questions use the ai-safety route because it "
-                        "selects agent reliability and safety replay organs, "
-                        "evidence classes, first commands, and authority ceilings "
-                        "without claiming safety validation, benchmark scores, "
-                        "provider execution, release readiness, or domain correctness."
-                        if requested_key in AI_SAFETY_ROUTE_ALIASES
+                        "Interesting-parts questions use the existing entry/reveal route "
+                        "because it shows bounded public first-run and reveal surfaces "
+                        "without claiming novelty, release readiness, or domain correctness."
+                        if requested_key in INTERESTING_PARTS_ROUTE_ALIASES
                         else (
-                            "Finance questions use the finance route because it selects "
-                            "synthetic forecast-evaluation and market-shaped fixture "
-                            "organs, evidence classes, first commands, and authority "
-                            "ceilings without claiming investment advice, live market "
-                            "data, track records, performance, trading authority, or "
-                            "domain correctness."
-                            if selected_task_class == "finance"
+                            "AI-safety questions use the ai-safety route because it "
+                            "selects agent reliability and safety replay organs, "
+                            "evidence classes, first commands, and authority ceilings "
+                            "without claiming safety validation, benchmark scores, "
+                            "provider execution, release readiness, or domain correctness."
+                            if requested_key in AI_SAFETY_ROUTE_ALIASES
                             else (
-                                "Route-owner questions use the agent-entry route because "
-                                "that route exposes the owner surfaces to inspect or patch: "
-                                "atlas/entry_packet.json, atlas/agent_task_routes.json, "
-                                "organ registries, source modules, receipts, standards, "
-                                "and the projection builder."
-                                if requested_key in ROUTE_OWNER_ROUTE_ALIASES
+                                "Finance questions use the finance route because it selects "
+                                "synthetic forecast-evaluation and market-shaped fixture "
+                                "organs, evidence classes, first commands, and authority "
+                                "ceilings without claiming investment advice, live market "
+                                "data, track records, performance, trading authority, or "
+                                "domain correctness."
+                                if selected_task_class == "finance"
                                 else (
-                                    "The requested task is accepted as an alias for the "
-                                    "selected route."
+                                    "Route-owner questions use the agent-entry route because "
+                                    "that route exposes the owner surfaces to inspect or patch: "
+                                    "atlas/entry_packet.json, atlas/agent_task_routes.json, "
+                                    "organ registries, source modules, receipts, standards, "
+                                    "and the projection builder."
+                                    if requested_key in ROUTE_OWNER_ROUTE_ALIASES
+                                    else (
+                                        "The requested task is accepted as an alias for the "
+                                        "selected route."
+                                    )
                                 )
                             )
                         )
@@ -3555,7 +3634,6 @@ def _task_alias_resolution(
                 )
             )
         )
-    )
     return {
         "status": "alias_resolved",
         "requested_task": requested,
@@ -3593,6 +3671,67 @@ def _normalize_viewer(viewer: str | None) -> str:
     if value in {"human", "human_reader", "operator", "reviewer"}:
         return HUMAN_VIEWER_ID
     return value
+
+
+def _whole_system_assessment_route() -> dict[str, Any]:
+    """Expose the bounded read order for broad cold-clone comprehension."""
+    return {
+        "schema": "microcosm_whole_system_assessment_route_v0",
+        "complete_coverage": {
+            "run": "plectis comprehend --self-model --format text",
+            "source_checkout_run": (
+                "PYTHONPATH=src python3 -m microcosm_core comprehend "
+                "--self-model --format text"
+            ),
+            "proves": (
+                "Every accepted organ family is named with coverage counts, one "
+                "mechanism anchor per family, and a route to every organ."
+            ),
+        },
+        "mechanism_inventory": {
+            "run": "plectis comprehend --slice mechanism --format text",
+            "source_checkout_run": (
+                "PYTHONPATH=src python3 -m microcosm_core comprehend "
+                "--slice mechanism --format text"
+            ),
+        },
+        "paper_guide": {
+            "run": "plectis comprehend --slice papers --format text",
+            "source_checkout_run": (
+                "PYTHONPATH=src python3 -m microcosm_core comprehend "
+                "--slice papers --format text"
+            ),
+            "human_index": "docs/papers/README.md",
+            "machine_inventory": "docs/papers/corpus.json",
+            "boundary": "Papers own exposition, not executable or proof authority.",
+        },
+        "companion_repository": {
+            "id": "plectis-lean-erdos249-257",
+            "url": "https://github.com/wcook04/plectis-lean-erdos249-257",
+            "owns": (
+                "Machine-checked theorem status, mathematical progress, exact "
+                "open propositions, and paper-to-Lean claims."
+            ),
+            "entry_in_companion_clone": (
+                'python3 scripts/query_corpus.py --ask "<question>"'
+            ),
+        },
+        "answer_contract": {
+            "coverage_rule": (
+                "Lead with mechanisms and non-trivial evidence; use counts as "
+                "coverage receipts, not as the substance of the answer."
+            ),
+            "cross_repository_rule": (
+                "Describe Plectis and its Lean companion as two self-contained "
+                "public demonstrations, then cross repositories only through "
+                "their declared public entry routes."
+            ),
+            "authority_rule": (
+                "Route executable claims to source and receipts, and mathematical "
+                "claims to typed Lean declarations; papers remain exposition."
+            ),
+        },
+    }
 
 
 def _type_a_reader_row(entry_packet: dict[str, Any]) -> dict[str, Any]:
@@ -4451,6 +4590,49 @@ def validate_agent_entry_composition(payload: dict[str, Any]) -> dict[str, Any]:
                 code="accepted_organ_glance_row_incomplete",
                 message=f"Accepted-organ glance row is missing: {', '.join(missing)}.",
             )
+    whole_system_route = _as_dict(payload.get("whole_system_assessment_route"))
+    if whole_system_route.get("schema") != "microcosm_whole_system_assessment_route_v0":
+        _add_error(
+            errors,
+            path="whole_system_assessment_route.schema",
+            code="missing_whole_system_assessment_route",
+            message="Projection must expose the broad cold-clone comprehension route.",
+        )
+    complete_coverage = _as_dict(whole_system_route.get("complete_coverage"))
+    paper_guide = _as_dict(whole_system_route.get("paper_guide"))
+    companion = _as_dict(whole_system_route.get("companion_repository"))
+    if "comprehend --self-model" not in str(
+        complete_coverage.get("source_checkout_run") or ""
+    ):
+        _add_error(
+            errors,
+            path="whole_system_assessment_route.complete_coverage",
+            code="whole_system_coverage_command_missing",
+            message="Whole-system route must expose the source-only self-model command.",
+        )
+    if (
+        "comprehend --slice papers"
+        not in str(paper_guide.get("source_checkout_run") or "")
+        or paper_guide.get("human_index") != "docs/papers/README.md"
+        or paper_guide.get("machine_inventory") != "docs/papers/corpus.json"
+    ):
+        _add_error(
+            errors,
+            path="whole_system_assessment_route.paper_guide",
+            code="whole_system_paper_route_incomplete",
+            message="Whole-system route must expose both paper inventories and their command.",
+        )
+    if (
+        companion.get("id") != "plectis-lean-erdos249-257"
+        or "scripts/query_corpus.py --ask"
+        not in str(companion.get("entry_in_companion_clone") or "")
+    ):
+        _add_error(
+            errors,
+            path="whole_system_assessment_route.companion_repository",
+            code="whole_system_companion_route_incomplete",
+            message="Whole-system route must expose the public Lean companion entry.",
+        )
     discoverability_route = _as_dict(payload.get("organ_discoverability_matrix_route"))
     if not _is_runnable_public_command(str(discoverability_route.get("run") or "")):
         _add_error(
@@ -4803,6 +4985,7 @@ def build_agent_entry_composition(
         "first_screen_type_a_route": first_screen_route,
         "task_route": task_route_card,
         "accepted_organ_glance": accepted_organ_glance,
+        "whole_system_assessment_route": _whole_system_assessment_route(),
         "viewer_modes": viewer_modes,
         "entry_experience_checks": entry_experience_checks,
         "organ_discoverability_matrix_route": {
@@ -4866,6 +5049,7 @@ def compact_agent_entry_card(payload: dict[str, Any]) -> dict[str, Any]:
     first_screen_route = _as_dict(payload.get("first_screen_type_a_route"))
     task_route = _as_dict(payload.get("task_route"))
     accepted_glance = _as_dict(payload.get("accepted_organ_glance"))
+    whole_system_route = _as_dict(payload.get("whole_system_assessment_route"))
     organ_route = _as_dict(payload.get("organ_discoverability_matrix_route"))
     omission_receipt = _as_dict(payload.get("omission_receipt"))
     validation = _as_dict(payload.get("validation"))
@@ -5000,6 +5184,7 @@ def compact_agent_entry_card(payload: dict[str, Any]) -> dict[str, Any]:
             "authority_boundary": accepted_glance.get("authority_boundary"),
             "anti_claim": accepted_glance.get("anti_claim"),
         },
+        "whole_system_assessment_route": whole_system_route,
         "organ_discoverability_matrix_route": organ_route,
         "macro_import_route_body_floor": macro_floor,
         "read_run_order": compact_read_run_order,
