@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from microcosm_core import comprehension as C
@@ -16,6 +17,13 @@ def test_ordinary_repository_question_routes_to_complete_self_model() -> None:
         "What's in this repo?",
         "What does this repo contain?",
         "Give me a complete repository overview.",
+        "Give me the lay of the land.",
+        "Walk me through this codebase.",
+        "What are the interesting parts?",
+        "Explain this project to me.",
+        "What has been built?",
+        "Give me a comprehensive tour.",
+        "What is Plectis?",
     ):
         assert C.route_goal(question, inputs)[0] == "self-model"
 
@@ -33,6 +41,13 @@ def test_self_model_covers_all_families_and_names_lean_companion() -> None:
     assert "companion, not dependency" in (
         pack["companion_repository"]["relationship"]
     )
+    assert {
+        row["family"] for row in pack["family_highlights"]
+    } == {
+        row["family"] for row in pack["major_subsystems"]
+    }
+    assert all(row["mechanism"] for row in pack["family_highlights"])
+    assert len(pack["answer_contract"]["required_coverage"]) == 5
 
 
 def test_text_self_model_does_not_hide_coverage_or_companion() -> None:
@@ -42,5 +57,24 @@ def test_text_self_model_does_not_hide_coverage_or_companion() -> None:
     assert "Complete family coverage:" in card
     for row in pack["major_subsystems"]:
         assert f"{row['family']}: {row['organ_count']} organs" in card
+    for row in pack["family_highlights"]:
+        assert row["display_name"] in card
     assert "plectis-lean-erdos249-257" in card
     assert "--profile whole_substrate_map" in card
+
+
+def test_committed_read_pack_builder_is_deterministic_and_complete(
+    tmp_path: Path,
+) -> None:
+    C.build_cached_read_packs(ROOT, out_dir=tmp_path)
+    first = (tmp_path / "self_model.json").read_bytes()
+    C.build_cached_read_packs(ROOT, out_dir=tmp_path)
+    second = (tmp_path / "self_model.json").read_bytes()
+    cached = json.loads(second)
+
+    assert first == second
+    assert "compile_ms" not in cached
+    assert len(cached["family_highlights"]) == 7
+    assert cached["companion_repository"]["name"] == (
+        "plectis-lean-erdos249-257"
+    )

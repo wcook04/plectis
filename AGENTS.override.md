@@ -61,10 +61,14 @@ PYTHONPATH=src python3 -m microcosm_core comprehend --self-model --format text
 PYTHONPATH=src python3 -m microcosm_core comprehend --slice mechanism
 ```
 
-The first card must name every organ family, its coverage count, the route to
-every organ, the evidence/authority boundary, and the Lean companion. Treat
-questions such as “what is in this repository?”, “what does this repo contain?”,
-and “give me a complete overview” as whole-system assessment questions.
+The first card must name every organ family, its coverage count, a concrete
+mechanism anchor per family, the route to every organ, the evidence/authority
+boundary, and the Lean companion. Treat “what is in this repository?”, “give me
+the lay of the land”, “walk me through this codebase”, “what are the interesting
+parts?”, and “give me a complete overview” as whole-system assessment questions.
+Use the packet's `answer_contract`: lead with mechanisms and non-trivial
+evidence, use counts as coverage receipts, and do not answer from only the
+nearest organ.
 Use `--profile whole_substrate_map` only when every organ essence is genuinely
 needed. Stay in source-body-free packets unless the selected action is mutation
 or proof.

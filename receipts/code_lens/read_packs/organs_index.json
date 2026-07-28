@@ -6,13 +6,12 @@
     "whole_system_correctness_authorized": false
   },
   "budget": {
-    "actual_bytes": 36492,
+    "actual_bytes": 36508,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
     "within_budget": true
   },
-  "compile_ms": 0.509,
   "evidence_refs": [],
   "export_band": "presence_only",
   "goal": "list all organs",
@@ -687,7 +686,7 @@
         "forecasting",
         "finance"
       ],
-      "synopsis": "Replays synthetic forecast tests through copied finance stats, recording p-values with no advice."
+      "synopsis": "Runs econometric forecast-evaluation tests on synthetic fixtures, recording p-values and refusals with no advice."
     },
     {
       "display_name": "Finite Erdos Denominator-Order Certificate Strike",

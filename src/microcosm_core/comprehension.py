@@ -148,6 +148,15 @@ MECHANISM_SUBSTANCE_ORGAN_IDS = (
     "finance_forecast_evaluation_spine",
     "generated_projection_drift_runtime",
 )
+SELF_MODEL_FAMILY_HIGHLIGHT_ORGAN_IDS = {
+    "import_projection_and_drift": "generated_projection_drift_runtime",
+    "formal_math_and_proof": "lean_proof_search_lab_runtime",
+    "agent_reliability_and_safety": "agent_sabotage_scheming_monitor_replay",
+    "architecture_and_navigation": "navigation_hologram_route_plane",
+    "research_and_science_replays": "finance_forecast_evaluation_spine",
+    "work_landing_and_continuity": "mission_transaction_work_spine",
+    "entry_and_reveal": "public_reveal_walkthrough",
+}
 MODULE_ONLY_ORGAN_COMMANDS = {
     "annex-knowledge-routing": "annex_knowledge_routing",
     "bridge-campaign-dag-validation": "bridge_campaign_dag_validation",
@@ -1347,6 +1356,13 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
             "what does this repository contain", "what does this repo contain",
             "show me what is here", "show me what's here",
             "complete repository overview", "full repository overview",
+            "tell me what is here", "tell me what's here",
+            "lay of the land", "walk me through this codebase",
+            "walk me through the repository", "walk me through the repo",
+            "interesting parts", "interesting and non-trivial",
+            "interesting and nontrivial", "explain this project",
+            "what has been built", "comprehensive tour",
+            "what is plectis",
         )
     ):
         return "self-model", None, None
@@ -3956,6 +3972,52 @@ def _whole_substrate_rows(
     return out
 
 
+def _self_model_family_highlights(
+    families: list[dict[str, Any]],
+    atlas_by: dict[str, Any],
+    join_by: dict[str, Any],
+    mechanism_by: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Select one mechanism-bearing orientation handle for every family."""
+    highlights: list[dict[str, Any]] = []
+    for entry in families:
+        family = entry["family"]
+        member_ids = {
+            str(row.get("organ_id"))
+            for row in entry["organs"]
+            if row.get("organ_id")
+        }
+        preferred = SELF_MODEL_FAMILY_HIGHLIGHT_ORGAN_IDS.get(family)
+        organ_id = (
+            preferred
+            if preferred in member_ids
+            else next(
+                (
+                    candidate
+                    for candidate in sorted(member_ids)
+                    if (mechanism_by.get(candidate) or {}).get("line")
+                ),
+                next(iter(sorted(member_ids)), ""),
+            )
+        )
+        atlas_row = atlas_by.get(organ_id) or {}
+        join_row = join_by.get(organ_id) or {}
+        mechanism = mechanism_by.get(organ_id) or {}
+        highlights.append(
+            {
+                "family": family,
+                "family_organ_count": entry["count"],
+                "organ_id": organ_id,
+                "display_name": atlas_row.get("display_name") or organ_id,
+                "mechanism": mechanism.get("line", ""),
+                "evidence_class": join_row.get("evidence_class"),
+                "claim_ceiling": join_row.get("claim_ceiling"),
+                "drilldown": f"plectis comprehend --organ {organ_id}",
+            }
+        )
+    return highlights
+
+
 def _public_reader_block(
     health: dict[str, Any], atlas: dict[str, Any]
 ) -> dict[str, Any]:
@@ -4066,8 +4128,9 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     pack["summary"]["what_not_to_trust"] = PUBLIC_CEILING_DO_NOT_CLAIM
     pack["do_not_claim"] = PUBLIC_CEILING_DO_NOT_CLAIM
     pack["sections"] = [
-        "read_me_first", "major_subsystems", "companion_repository",
-        "route_topology", "code_lens_health", "authority_membrane",
+        "read_me_first", "major_subsystems", "family_highlights",
+        "answer_contract", "companion_repository", "route_topology",
+        "code_lens_health", "authority_membrane",
         "thin_or_projection_surfaces", "deferred_edges", "recommended_drilldowns",
         "tail_recap",
     ]
@@ -4079,6 +4142,33 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
         }
         for entry in families
     ]
+    pack["family_highlights"] = _self_model_family_highlights(
+        families,
+        atlas_by,
+        join_by,
+        inputs.get("mechanism_by_organ", {}),
+    )
+    pack["answer_contract"] = {
+        "purpose": (
+            "compose a faithful repository-wide explanation, not an inventory dump "
+            "or a description of only the nearest organ"
+        ),
+        "required_coverage": [
+            "state what Plectis is and give the complete seven-family census",
+            "explain at least one concrete mechanism from every family",
+            "separate runnable evidence, exact-copy imports, projections, and claim ceilings",
+            "surface known thinness and deferred proof-internal structure",
+            "name the Lean companion and keep its proof authority separate",
+        ],
+        "weighting_rule": (
+            "lead with mechanisms and non-trivial evidence; use counts as coverage "
+            "receipts, not as the explanation"
+        ),
+        "default_compression": (
+            "one paragraph of identity and boundaries, then one compact item per "
+            "family; enumerate all organs only when explicitly requested"
+        ),
+    }
     # ROUTE TOPOLOGY -- how task-class entry points fan out across organs. Honest in
     # both directions: a join index without the route plane says so and names the fix.
     if state["route_nodes"]:
@@ -4262,11 +4352,18 @@ def build_cached_read_packs(
         ("packet_atlas", "packet-atlas"),
     ):
         pack = comprehend(mode=mode, inputs=bundle)
+        # Wall-clock timing is useful in a live response but makes committed
+        # cold-clone read packs drift on every owner rebuild.
+        pack.pop("compile_ms", None)
         body = json.dumps(pack, ensure_ascii=True, indent=2, sort_keys=True) + "\n"
         path = target / f"{name}.json"
         path.write_text(body)
+        try:
+            manifest_path = path.relative_to(base)
+        except ValueError:
+            manifest_path = path
         manifest["packs"].append(
-            {"name": name, "path": str(path.relative_to(base)), "bytes": len(body)}
+            {"name": name, "path": str(manifest_path), "bytes": len(body)}
         )
     return manifest
 

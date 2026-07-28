@@ -1,4 +1,16 @@
 {
+  "answer_contract": {
+    "default_compression": "one paragraph of identity and boundaries, then one compact item per family; enumerate all organs only when explicitly requested",
+    "purpose": "compose a faithful repository-wide explanation, not an inventory dump or a description of only the nearest organ",
+    "required_coverage": [
+      "state what Plectis is and give the complete seven-family census",
+      "explain at least one concrete mechanism from every family",
+      "separate runnable evidence, exact-copy imports, projections, and claim ceilings",
+      "surface known thinness and deferred proof-internal structure",
+      "name the Lean companion and keep its proof authority separate"
+    ],
+    "weighting_rule": "lead with mechanisms and non-trivial evidence; use counts as coverage receipts, not as the explanation"
+  },
   "authority_ceiling": {
     "release_authorized": false,
     "source_body_export_authorized": false,
@@ -12,7 +24,7 @@
     "boundary": "Plain-language comprehension layer over the accepted public runtime organ registry. Each gloss is distilled from the organ's paper module and adversarially verified against its claim ceiling; glosses are projection metadata, not source authority."
   },
   "budget": {
-    "actual_bytes": 20867,
+    "actual_bytes": 28180,
     "band": "standard",
     "max_bytes": 72000,
     "target_bytes": 24000,
@@ -58,7 +70,14 @@
     },
     "synopsis_coverage": 88
   },
-  "compile_ms": 9.332,
+  "companion_repository": {
+    "authority_boundary": "Do not infer Lean proof authority from Plectis organs or require a sibling checkout to comprehend or run Plectis.",
+    "first_command_in_companion_clone": "python3 scripts/query_corpus.py --ask \"What is in this repository?\"",
+    "name": "plectis-lean-erdos249-257",
+    "relationship": "companion, not dependency: Plectis demonstrates runnable system machinery; the Lean repository demonstrates the public formal-mathematics corpus",
+    "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
+    "role": "self-contained machine-checked mathematics companion; owns theorem status, mathematical progress, exact open propositions, and paper-to-Lean claims"
+  },
   "context_profile": "operating_picture",
   "deferred_edges": [
     {
@@ -79,6 +98,78 @@
     "src/microcosm_core/comprehension.py#PACKET_SPECS"
   ],
   "export_band": "presence_only",
+  "family_highlights": [
+    {
+      "claim_ceiling": "Exercises an owner-routed generated projection drift gate over bounded public fixtures: per-file SHA-256 fingerprinting of source authorities and artifacts, a prior-clean-receipt source-hash skip cache, required-artifact presence, and each owner's declared no-write check command return code. It reports a drifted owner by recomputation. It does not prove that every macro owner uses true content-diff semantics, does not repair files, does not validate the full macro registry, and does not authorize public release.",
+      "display_name": "Generated Projection Drift Runtime",
+      "drilldown": "plectis comprehend --organ generated_projection_drift_runtime",
+      "evidence_class": "external_subprocess_witness",
+      "family": "import_projection_and_drift",
+      "family_organ_count": 21,
+      "mechanism": "An owner-routed gate that fingerprints generated artifacts against their sources, uses a prior-clean skip cache, and runs each owner's no-write check to flag projection drift by recomputation.",
+      "organ_id": "generated_projection_drift_runtime"
+    },
+    {
+      "claim_ceiling": "Runs a symbolic Lean proof-search lab over bounded public toy theorems with the installed Lean subprocess: an and/or candidate-tactic search, a forward oracle-leak firewall, a problem-id ablation, and a #print axioms cleanliness gate. It rejects forged or memorising scenarios by recomputation. Lean is an optional dependency: when the lean binary is absent the organ is locked and verifies nothing rather than faking a pass. It is not neural theorem proving, does not solve any open mathematical problem, does not forward oracle proof bodies, and does not authorize release or publication.",
+      "display_name": "Lean Proof-Search Lab Runtime",
+      "drilldown": "plectis comprehend --organ lean_proof_search_lab_runtime",
+      "evidence_class": "external_subprocess_witness",
+      "family": "formal_math_and_proof",
+      "family_organ_count": 20,
+      "mechanism": "Gated external-tool proof-search lab that searches toy Lean theorems, checks each candidate with the installed Lean subprocess, and rejects oracle leaks, axiom taint, and problem-id memorisation by recomputation; locked and claimless when Lean is absent.",
+      "organ_id": "lean_proof_search_lab_runtime"
+    },
+    {
+      "claim_ceiling": "bounded public runtime validation over copied non-secret macro pattern bodies, a sanitized public dogfood trace slice, recomputed sabotage/scheming monitor spans, source-artifact evidence refs, digest/body-free/private-state gates, and negative cases only; not live sabotage, live agent execution, exploit instructions, credentials or account material, private reasoning export, harmful payloads, monitor product performance, deployment-risk claims, benchmark scores, provider calls, source mutation, release, publication, or product authority",
+      "display_name": "Sabotage-Monitor Contract Replay",
+      "drilldown": "plectis comprehend --organ agent_sabotage_scheming_monitor_replay",
+      "evidence_class": "algorithmic_projection",
+      "family": "agent_reliability_and_safety",
+      "family_organ_count": 19,
+      "mechanism": "Drilldown regression contract for synthetic sabotage/scheming monitor claims: replays task episodes, action traces, monitor scores, counterfactual/cold replay.",
+      "organ_id": "agent_sabotage_scheming_monitor_replay"
+    },
+    {
+      "claim_ceiling": "validates declared public contract only",
+      "display_name": "Navigation Hologram Route Plane",
+      "drilldown": "plectis comprehend --organ navigation_hologram_route_plane",
+      "evidence_class": "semantic_validator",
+      "family": "architecture_and_navigation",
+      "family_organ_count": 12,
+      "mechanism": "The public navigation route-plane fixture validates bounded route projections, source-coupling gates, entry floors, affordance passports, and copied non-secret navigation source-module digests without treating browse rows as authority.",
+      "organ_id": "navigation_hologram_route_plane"
+    },
+    {
+      "claim_ceiling": "tool witness only, not general proof authority",
+      "display_name": "Finance Forecast Evaluation Spine",
+      "drilldown": "plectis comprehend --organ finance_forecast_evaluation_spine",
+      "evidence_class": "external_subprocess_witness",
+      "family": "research_and_science_replays",
+      "family_organ_count": 9,
+      "mechanism": "Forecast-evaluation organ: Diebold-Mariano / Hansen-SPA / stationary-bootstrap stats over synthetic fixtures with typed refusal discipline; no market authority.",
+      "organ_id": "finance_forecast_evaluation_spine"
+    },
+    {
+      "claim_ceiling": "projection mechanics only, not domain correctness",
+      "display_name": "Mission Transaction Work Spine",
+      "drilldown": "plectis comprehend --organ mission_transaction_work_spine",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "work_landing_and_continuity",
+      "family_organ_count": 5,
+      "mechanism": "The public mission-transaction fixture validates work-landing, claim, dependency, scoped-commit, checkpoint-lane, receipt-drain, closeout, and copied non-secret control source-module contracts without mutating live ledgers or git.",
+      "organ_id": "mission_transaction_work_spine"
+    },
+    {
+      "claim_ceiling": "bounded public reveal runtime and digest-verified body-import witness only; not release, hosting, publication, provider-call, private-root equivalence, whole-system correctness, or general product authority",
+      "display_name": "Public Reveal Walkthrough",
+      "drilldown": "plectis comprehend --organ public_reveal_walkthrough",
+      "evidence_class": "bounded_runtime_computation",
+      "family": "entry_and_reveal",
+      "family_organ_count": 2,
+      "mechanism": "The public reveal walkthrough validates a ten-minute cold-reader path through commands, routes, evidence refs, source-open body imports, negative cases, and scope limits without claiming launch-scope decision or private-system equivalence.",
+      "organ_id": "public_reveal_walkthrough"
+    }
+  ],
   "goal": "comprehend the whole Plectis substrate",
   "graph_backed": {
     "edge_classes_resolved": [
@@ -630,6 +721,9 @@
   "sections": [
     "read_me_first",
     "major_subsystems",
+    "family_highlights",
+    "answer_contract",
+    "companion_repository",
     "route_topology",
     "code_lens_health",
     "authority_membrane",

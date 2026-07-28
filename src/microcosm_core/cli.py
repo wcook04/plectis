@@ -1228,6 +1228,18 @@ def _render_comprehend_card(pack: dict) -> str:
             lines.append(f"  every organ: {_display_command(whole_map)}")
         lines.append("")
 
+    family_highlights = pack.get("family_highlights")
+    if isinstance(family_highlights, list) and family_highlights:
+        lines.append("One mechanism anchor per family:")
+        for highlight in family_highlights:
+            if not isinstance(highlight, dict):
+                continue
+            lines.append(
+                f"  - {highlight.get('family')} — "
+                f"{highlight.get('display_name')}: {highlight.get('mechanism')}"
+            )
+        lines.append("")
+
     companion = pack.get("companion_repository")
     if isinstance(companion, dict) and companion:
         lines.append("Companion repository:")
