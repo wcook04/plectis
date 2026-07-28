@@ -75,6 +75,25 @@ PUBLIC_CEILING_DO_NOT_CLAIM = (
     "private-root equivalence, formal-proof correctness, benchmark score, trading "
     "or investment advice, release authority, or whole-system correctness."
 )
+LEAN_COMPANION_REPOSITORY: dict[str, Any] = {
+    "name": "plectis-lean-erdos249-257",
+    "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
+    "role": (
+        "self-contained machine-checked mathematics companion; owns theorem status, "
+        "mathematical progress, exact open propositions, and paper-to-Lean claims"
+    ),
+    "relationship": (
+        "companion, not dependency: Plectis demonstrates runnable system machinery; "
+        "the Lean repository demonstrates the public formal-mathematics corpus"
+    ),
+    "first_command_in_companion_clone": (
+        'python3 scripts/query_corpus.py --ask "What is in this repository?"'
+    ),
+    "authority_boundary": (
+        "Do not infer Lean proof authority from Plectis organs or require a sibling "
+        "checkout to comprehend or run Plectis."
+    ),
+}
 
 
 def public_cross_section_claim(component_count: int | None) -> str:
@@ -1323,6 +1342,11 @@ def route_goal(goal: str, inputs: dict[str, Any]) -> tuple[str, str | None, str 
             "whole system", "whole microcosm", "everything", "self model", "self-model",
             "entire substrate", "operating picture", "all at once", "comprehend the whole",
             "comprehend all", "understand the whole", "comprehend everything",
+            "what is in this repository", "what is in this repo",
+            "what's in this repository", "what's in this repo",
+            "what does this repository contain", "what does this repo contain",
+            "show me what is here", "show me what's here",
+            "complete repository overview", "full repository overview",
         )
     ):
         return "self-model", None, None
@@ -3999,6 +4023,7 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     pack["schema_version"] = SELF_MODEL_SCHEMA
     pack["context_profile"] = profile
     pack["target_reader"] = "cold Type A / cold codebase reader"
+    pack["companion_repository"] = dict(LEAN_COMPANION_REPOSITORY)
     # FRONT ANCHOR -- the strongest, load-bearing facts first (lost-in-the-middle guard).
     pack["read_me_first"] = [
         public_cross_section_claim(organ_count),
@@ -4041,9 +4066,10 @@ def compile_self_model(inputs: dict[str, Any], profile: str = "operating_picture
     pack["summary"]["what_not_to_trust"] = PUBLIC_CEILING_DO_NOT_CLAIM
     pack["do_not_claim"] = PUBLIC_CEILING_DO_NOT_CLAIM
     pack["sections"] = [
-        "read_me_first", "major_subsystems", "route_topology", "code_lens_health",
-        "authority_membrane", "thin_or_projection_surfaces", "deferred_edges",
-        "recommended_drilldowns", "tail_recap",
+        "read_me_first", "major_subsystems", "companion_repository",
+        "route_topology", "code_lens_health", "authority_membrane",
+        "thin_or_projection_surfaces", "deferred_edges", "recommended_drilldowns",
+        "tail_recap",
     ]
     pack["major_subsystems"] = [
         {

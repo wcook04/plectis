@@ -57,10 +57,14 @@ PYTHONPATH=src python3 -m microcosm_core first-screen --card .
 Do not infer the system from the nearest component or from file counts:
 
 ```bash
-PYTHONPATH=src python3 -m microcosm_core comprehend --self-model
+PYTHONPATH=src python3 -m microcosm_core comprehend --self-model --format text
 PYTHONPATH=src python3 -m microcosm_core comprehend --slice mechanism
 ```
 
+The first card must name every organ family, its coverage count, the route to
+every organ, the evidence/authority boundary, and the Lean companion. Treat
+questions such as “what is in this repository?”, “what does this repo contain?”,
+and “give me a complete overview” as whole-system assessment questions.
 Use `--profile whole_substrate_map` only when every organ essence is genuinely
 needed. Stay in source-body-free packets unless the selected action is mutation
 or proof.

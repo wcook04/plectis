@@ -1214,6 +1214,35 @@ def _render_comprehend_card(pack: dict) -> str:
         lines.append(f"  {rmf.strip()}")
         lines.append("")
 
+    major_subsystems = pack.get("major_subsystems")
+    if isinstance(major_subsystems, list) and major_subsystems:
+        lines.append("Complete family coverage:")
+        for family in major_subsystems:
+            if not isinstance(family, dict):
+                continue
+            family_id = str(family.get("family") or "unclassified")
+            count = family.get("organ_count")
+            lines.append(f"  - {family_id}: {count} organs")
+        whole_map = ((pack.get("tail_recap") or {}).get("to_comprehend_every_organ"))
+        if whole_map:
+            lines.append(f"  every organ: {_display_command(whole_map)}")
+        lines.append("")
+
+    companion = pack.get("companion_repository")
+    if isinstance(companion, dict) and companion:
+        lines.append("Companion repository:")
+        lines.append(
+            f"  - {companion.get('name')}: {companion.get('role')}"
+        )
+        lines.append(f"  - {companion.get('repository')}")
+        command = str(companion.get("first_command_in_companion_clone") or "").strip()
+        if command:
+            lines.append(f"  - in that clone: {command}")
+        boundary = str(companion.get("authority_boundary") or "").strip()
+        if boundary:
+            lines.append(f"  - boundary: {boundary}")
+        lines.append("")
+
     substance_nodes = pack.get("substance_nodes")
     if not isinstance(substance_nodes, list):
         substance_nodes = pack.get("showcase_nodes")
