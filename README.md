@@ -3,7 +3,8 @@
 [Website](https://wcook04.github.io/plectis/) ·
 [Interactive map](https://wcook04.github.io/plectis/docs/architecture.html#whole-system-map) ·
 [The Plectis paper (PDF)](plectis-public-system.pdf) ·
-[Companion mathematics paper (PDF)](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf) ·
+[Paper guide](docs/papers/README.md) ·
+[Lean companion](https://github.com/wcook04/plectis-lean-erdos249-257) ·
 [Hypothesis handoffs](HYPOTHESIS_HANDOFF.md) ·
 [Quickstart](QUICKSTART.md) ·
 [Contributing](CONTRIBUTING.md)
@@ -24,18 +25,21 @@ plectis tour --format text .
 
 The companion Lean repository,
 [plectis-lean-erdos249-257](https://github.com/wcook04/plectis-lean-erdos249-257),
-contains machine-checked mathematics around two open Erdős problems, #249 and
-#257; both remain open. Plectis grew out of a larger private development
-environment, but this repository does not establish anything about that
-private codebase. The public source, checks, and receipts are the evidence
-available to a stranger. Three short papers explain the pair:
-[the Plectis paper](plectis-public-system.pdf) in this repository,
-[the mathematics paper](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf)
-for what is proved and where the open line sits, and
+contains the Lean source and papers for six open Erdős problems: #243, #249,
+#251, #257, #269, and #1049. All six remain open. Plectis carries the runnable
+claim-checking tools; the Lean repository carries the machine-checked
+mathematics. Neither repository establishes anything about the private
+development environment from which the public work was prepared.
+
+For Plectis itself, start with [the Plectis paper](plectis-public-system.pdf).
+For a mathematical problem or result, start with the
+[Lean repository README](https://github.com/wcook04/plectis-lean-erdos249-257#readme)
+and then choose its problem-specific paper. Read
 [the systems paper](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf)
-for how machine-checked proofs become public claims. All three travel with this
-clone, as PDFs and as full text you can search, in
-[`docs/papers/`](docs/papers/) — you do not need the website to read them.
+for the boundary between a Lean theorem and a public claim about that theorem.
+The clone-local [`docs/papers/`](docs/papers/) directory carries the active
+paper corpus as PDFs and searchable text, so reading it does not require the
+website.
 
 For the wider scholarly corpus, start with the clone-local
 [paper guide](docs/papers/README.md), or ask the machine route:
@@ -190,7 +194,7 @@ read.
 | Verify a specific claim before trusting it | `comprehend --first-action` | `plectis comprehend --first-action "<claim to verify>" --format text`: the owning component, its authority ceiling, and the command that tests it. |
 | Choose a paper without scanning the library | [Paper guide](docs/papers/README.md) · `comprehend --slice papers` | A question-first route across all active papers, including their evidence boundaries and companion-repository handoff. |
 | Audit what is and is not claimed | [Release review](RELEASE_REVIEW.md) · [Source status](SOURCE_STATUS.md) | The claim under review, the evidence behind it, and the distribution boundary. |
-| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Mathematics paper (PDF)](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf) | A standalone Lean 4 formalisation of two open Erdős problems (#249, #257), and the paper behind it. |
+| Go deeper into the formal-math proofs | [Companion Lean repo](https://github.com/wcook04/plectis-lean-erdos249-257) · [Paper guide](docs/papers/README.md) | Lean 4 source and problem-specific papers for six open Erdős problems: #243, #249, #251, #257, #269, and #1049. |
 | Work on Plectis with a coding agent | [AGENTS.md](AGENTS.md) | The durable agent contract: setup, authority, validation, and task routing. |
 | Report a problem or contribute | [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) | How to raise an issue safely, and the verification floor for changes. |
 
@@ -278,39 +282,35 @@ developed by William Cook as an independent, AI-native solo project; see
 [PROVENANCE.md](PROVENANCE.md) for authorship, third-party, and
 no-affiliation boundaries.
 
-## Companion project: two open Erdős problems in Lean 4
+## Companion project: six open Erdős problems in Lean 4
 
-The **Formal Math & Proof** area above includes an Erdős #249/#257 example.
-This is the full, standalone Lean development behind it:
+The **Formal Math & Proof** area above includes bounded examples drawn from a
+separate Lean repository. That repository owns the proof source and
+mathematical exposition:
 
 [**plectis-lean-erdos249-257**](https://github.com/wcook04/plectis-lean-erdos249-257)
-is a Lean 4 formalisation built around two open Erdős irrationality problems,
-**#249 and #257**. Every partial result, certificate reduction, and finite
-exclusion it states is machine-checked by a pinned Lean kernel, and the exact
-propositions that remain open are named rather than glossed. It does not solve
-Erdős #249 or the universal form of #257, and it is precise throughout about
-the line between what is proved and what is not. That same
-evidence-and-ceiling discipline, applied to real mathematics rather than
-software, is why it is worth a look. It exists for the same reason Plectis
-does: the system behind both is not published, and these two repositories are
-how it can be judged from the outside.
+contains Lean 4 work on Erdős Problems **#243, #249, #251, #257, #269, and
+#1049**. All six remain open. Its README gives the statement, checked frontier,
+and remaining obligation for each problem. The pinned Lean kernel checks the
+formal propositions; the repository's claim records and papers explain what
+those propositions do and do not establish. Plectis does not inherit proof
+authority from that repository.
 
 The public Plectis checkout applies the same floor to every Lean fixture it
 ships: `make check` rejects proof placeholders, project-defined axioms, native
 evaluation, unsafe/partial declarations, and unbounded kernel limits before
 the broader test suite runs.
 
-- [**Read the mathematics paper**](https://wcook04.github.io/plectis/papers/erdos249-257-main-paper.pdf):
-  what is proved about #249 and #257 in ordinary notation, and exactly where
-  the open line sits. The tagged citation copy is the
-  [v0.6.0 exposition](https://github.com/wcook04/plectis-lean-erdos249-257/blob/v0.6.0/erdos249-257-exposition.pdf).
+- [**Choose a problem paper**](https://github.com/wcook04/plectis-lean-erdos249-257#problem-papers):
+  the companion README lists one short paper for each covered problem and
+  states the checked frontier beside it.
 - [**Read the systems paper**](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf):
   how that repository keeps its public claims matched to what the Lean kernel
   checked; the same publication discipline Plectis applies to software.
-- [**Browse the Lean source**](https://github.com/wcook04/plectis-lean-erdos249-257/tree/1c9df5777700dcd85686ed45fb3afc41a3eae44a):
-  the recorded public source snapshot contains 633 Lean modules and 11,467
-  theorem-like declarations, checked by the pinned kernel; start from
-  `docs/ORIENTATION.md`. These are scale and navigation counts, not separate
-  mathematical claims; `v0.6.0` remains the tagged citation anchor.
-- [**Release v0.6.0**](https://github.com/wcook04/plectis-lean-erdos249-257/releases/tag/v0.6.0):
-  the tagged, citable scholarly artefact and citation anchor.
+- [**Browse the release-candidate Lean source**](https://github.com/wcook04/plectis-lean-erdos249-257/tree/056faebe15bdb21b1bc7e99117b78ca95d67cab7):
+  the recorded public source snapshot contains 991 Lean modules and 149,807
+  theorem-like declarations, checked by the pinned kernel; start from its
+  README, then follow `docs/SOURCE_MAP.md` into the module that owns one
+  result. These are scale and navigation counts, not separate
+  mathematical claims. `v0.6.0` remains the tagged citation anchor until a
+  separate release decision publishes a later tag.

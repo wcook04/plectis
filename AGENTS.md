@@ -42,12 +42,13 @@ compiler, so the examples are compiler output, not prose.
 **Asked what this repository is, or why any of it is claimed?** That is a papers
 question, not a component question, and the papers are in the clone. Read
 [`docs/papers/corpus.json`](docs/papers/corpus.json) — it is small, and it names
-all three papers, the one question each answers, what each is *not* authority
-for, and every section with its label and line number. The full text of all
-three is in `docs/papers/full-text/` as searchable Markdown; the PDFs are
-alongside. Do not answer a question about what this project claims by
-summarising the organ inventory: the components show what runs, and the papers
-state what may be concluded from that, which is the narrower thing.
+all 11 active papers, the question each answers, what each is *not* authority
+for, and every section with its label and line number. PDFs and searchable
+full-text mirrors travel with the clone. Follow each corpus row's
+`preferred_read_path` when a generated full-text mirror is marked stale. Do
+not answer a question about what this project claims by summarising the organ
+inventory: the components show what runs, and the papers state what may be
+concluded from that, which is the narrower thing.
 
 **Asked to turn an open question into an expert handoff?** Read
 [`HYPOTHESIS_HANDOFF.md`](HYPOTHESIS_HANDOFF.md), then validate the worked

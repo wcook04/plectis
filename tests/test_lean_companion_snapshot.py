@@ -27,8 +27,8 @@ def test_real_lean_companion_snapshot_is_bound_to_readme() -> None:
     receipt = validate_lean_companion_snapshot(PLECTIS_ROOT)
     assert receipt["status"] == "pass", receipt["errors"]
     assert receipt["errors"] == []
-    assert receipt["findings"]["scale"]["module_count"] == 633
-    assert receipt["findings"]["scale"]["theorem_like_count"] == 11467
+    assert receipt["findings"]["scale"]["module_count"] == 991
+    assert receipt["findings"]["scale"]["theorem_like_count"] == 149807
     assert receipt["authority_ceiling"]["release_authorized"] is False
     assert receipt["authority_ceiling"]["proof_correctness_claim"] is False
 
@@ -53,7 +53,7 @@ def test_blocks_stale_readme_counts(tmp_path: Path) -> None:
     readme_path = root / "README.md"
     readme_path.write_text(
         readme_path.read_text(encoding="utf-8").replace(
-            "633 Lean modules and 11,467",
+            "991 Lean modules and 149,807",
             "540 Lean modules and 5,850",
             1,
         ),
