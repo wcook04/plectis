@@ -41,7 +41,9 @@ PRIVATE_REPO_HOME_RE = re.compile(
     r"/Users/[^/\s\"']+/src/ai_workflow(?P<suffix>[^\s\"']*)"
 )
 PRIVATE_HOME_RE = re.compile(r"/Users/[^/\s\"']+(?P<suffix>[^\s\"']*)")
-PRIVATE_TMP_RE = re.compile(r"/private/tmp(?P<suffix>[^\s\"']*)")
+PRIVATE_TMP_RE = re.compile(
+    r"/private/(?:tmp|var/folders)(?P<suffix>[^\s\"']*)"
+)
 REPO_ROOT_FRAGMENT_RE = re.compile(
     r"(?<![A-Za-z0-9_.-])src/ai_workflow(?P<suffix>[^\s\"']*)"
 )

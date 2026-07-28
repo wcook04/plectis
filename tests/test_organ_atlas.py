@@ -672,6 +672,23 @@ def test_agent_task_routes_project_from_specialty_tags() -> None:
     assert "agentic_vulnerability_discovery_patch_proof_replay" not in finance_organs
     assert "investment-related actions" in finance["allowed_scope"]
 
+    stable_entry_primaries = {
+        "agent-evaluation": "agent_benchmark_integrity_anti_gaming_replay",
+        "ai-safety": "agent_benchmark_integrity_anti_gaming_replay",
+        "formal-methods": "proof_diagnostic_evidence_spine",
+        "lean": "proof_diagnostic_evidence_spine",
+        "red-teaming": "agent_benchmark_integrity_anti_gaming_replay",
+        "research-workflows": "research_replication_rubric_artifact_replay",
+        "theorem-proving": "proof_diagnostic_evidence_spine",
+    }
+    route_by_task = {
+        row["task_class"]: row for row in route_model["routes"]
+    }
+    assert {
+        task_class: route_by_task[task_class]["primary_organ_id"]
+        for task_class in stable_entry_primaries
+    } == stable_entry_primaries
+
 
 def test_agent_concurrency_routes_bind_seed_speed_topology_to_work_spine() -> None:
     result = build(MICROCOSM_ROOT, write=False)

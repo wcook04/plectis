@@ -148,6 +148,33 @@ def test_receipt_writer_normalizes_private_host_paths_with_hashed_evidence(
     )
 
 
+def test_receipt_writer_normalizes_macos_per_user_temp_paths(
+    tmp_path: Path, monkeypatch
+) -> None:
+    receipt_path = tmp_path / "receipt.json"
+    monkeypatch.delenv("MICROCOSM_RUNTIME_RECEIPT_WRITES", raising=False)
+    monkeypatch.delenv("MICROCOSM_RECEIPT_WRITES", raising=False)
+
+    write_json_atomic(
+        receipt_path,
+        {
+            "artifact_path": (
+                "/private/var/folders/wn/example/T/pytest-1/result.json"
+            ),
+        },
+    )
+
+    text = receipt_path.read_text(encoding="utf-8")
+    payload = json.loads(text)
+    assert "/private/var/folders" not in text
+    assert payload["artifact_path"] == (
+        "<host-temp>/wn/example/T/pytest-1/result.json"
+    )
+    assert payload["public_path_sanitization"]["transform_classes"] == [
+        "host_temp_path_transform"
+    ]
+
+
 def test_receipt_writer_ignores_duplicate_key_previous_receipt(
     tmp_path, monkeypatch
 ) -> None:

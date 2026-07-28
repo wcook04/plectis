@@ -2199,15 +2199,15 @@
       "task_class": "agent-entry"
     },
     {
-      "allowed_scope": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+      "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
       "authority_boundary": "Task routing only. This row selects public components from the frozen atlas; its scope is local task selection, source-linked records, and component-specific evidence.",
-      "drilldown_target": "ORGANS.md#agent-closeout-faithfulness-audit",
-      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=agent_closeout_faithfulness_audit]",
-      "first_command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "drilldown_target": "ORGANS.md#agent-benchmark-integrity-anti-gaming-replay",
+      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]",
+      "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
       "organ_count": 16,
-      "primary_display_name": "Agent Closeout Faithfulness Audit",
-      "primary_organ_id": "agent_closeout_faithfulness_audit",
-      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_closeout_faithfulness_audit]",
+      "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+      "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]",
       "relevant_organs": [
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_closeout_faithfulness_audit]",
@@ -3108,13 +3108,13 @@
           ],
           "scope_limit": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ egress_self_compliance_audit",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=egress_self_compliance_audit]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_egress_self_compliance_audit.json",
@@ -3127,7 +3127,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -3157,16 +3157,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "agent-reliability",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
@@ -3174,8 +3174,8 @@
         ],
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[Ask for permission only after naming a real blast-radius blocker;]",
-          "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.]",
-          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]"
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]",
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
@@ -3183,8 +3183,8 @@
         ],
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[Ask for permission only after naming a real blast-radius blocker;]",
-          "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.]",
-          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]"
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]",
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.egress_self_compliance_gate",
@@ -3234,13 +3234,13 @@
           ],
           "scope_limit": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ metabolism_queue_reconciliation",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=metabolism_queue_reconciliation]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_metabolism_queue_reconciliation.json",
@@ -3253,7 +3253,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -3277,40 +3277,40 @@
         "query_examples": [
           "microcosm organ-topology --organ metabolism_queue_reconciliation",
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
-          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[Public-safe metabolism runtime and reconciler capsule.]'",
+          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\"]'",
           "microcosm organ-topology --validation-ref microcosm_core.engine_room.metabolism_runtime"
         ],
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "agent-runtime",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
           "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py"
         ],
         "top_source_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[Public-safe metabolism runtime and reconciler capsule.]",
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\"]",
-          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]"
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]",
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
           "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py"
         ],
         "top_target_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[Public-safe metabolism runtime and reconciler capsule.]",
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\"]",
-          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]"
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]",
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.metabolism_runtime",
@@ -3323,15 +3323,15 @@
       "task_class": "agent-runtime"
     },
     {
-      "allowed_scope": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+      "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
       "authority_boundary": "Task routing only. This row selects public components from the frozen atlas; its scope is local task selection, source-linked records, and component-specific evidence.",
-      "drilldown_target": "ORGANS.md#agent-closeout-faithfulness-audit",
-      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=agent_closeout_faithfulness_audit]",
-      "first_command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "drilldown_target": "ORGANS.md#agent-benchmark-integrity-anti-gaming-replay",
+      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]",
+      "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
       "organ_count": 16,
-      "primary_display_name": "Agent Closeout Faithfulness Audit",
-      "primary_organ_id": "agent_closeout_faithfulness_audit",
-      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_closeout_faithfulness_audit]",
+      "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+      "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]",
       "relevant_organs": [
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_closeout_faithfulness_audit]",
@@ -4106,13 +4106,13 @@
           ],
           "scope_limit": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ annex_knowledge_routing",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=annex_knowledge_routing]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_annex_knowledge_routing.json",
@@ -4126,7 +4126,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -4156,16 +4156,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "annex-catalog",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py",
@@ -4173,8 +4173,8 @@
         ],
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Explainable tiered weighted-token retrieval over a sanitized annex catalog]",
-          "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Rank sanitized annex rows for a problem statement]",
-          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]"
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]",
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py",
@@ -4182,8 +4182,8 @@
         ],
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Explainable tiered weighted-token retrieval over a sanitized annex catalog]",
-          "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Rank sanitized annex rows for a problem statement]",
-          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]"
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]",
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.annex_knowledge_router",
@@ -4681,13 +4681,13 @@
           ],
           "scope_limit": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ annex_knowledge_routing",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=annex_knowledge_routing]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_annex_knowledge_routing.json",
@@ -4701,7 +4701,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 341,
+        "edge_count": 336,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -4742,17 +4742,17 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 35,
           "source_file.validated_by_ref": 30,
-          "source_shard.retained_as_public_target_shard": 97,
-          "source_shard.validated_by_ref": 72,
+          "source_shard.retained_as_public_target_shard": 96,
+          "source_shard.validated_by_ref": 70,
           "target_file.shares_macro_source_with_target_file": 5,
           "target_file.validated_by_ref": 30,
-          "target_shard.validated_by_ref": 72
+          "target_shard.validated_by_ref": 70
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 35,
-        "source_shard_ref_count": 97,
+        "source_shard_ref_count": 96,
         "target_ref_count": 35,
-        "target_shard_ref_count": 97,
+        "target_shard_ref_count": 96,
         "task_class": "architecture",
         "top_source_refs": [
           "codex/doctrine/cognitive_operators.json",
@@ -5135,13 +5135,13 @@
           ],
           "scope_limit": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ metabolism_queue_reconciliation",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=metabolism_queue_reconciliation]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_metabolism_queue_reconciliation.json",
@@ -5154,7 +5154,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 60,
+        "edge_count": 55,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -5195,16 +5195,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 4,
           "source_file.validated_by_ref": 8,
-          "source_shard.retained_as_public_target_shard": 8,
-          "source_shard.validated_by_ref": 16,
+          "source_shard.retained_as_public_target_shard": 7,
+          "source_shard.validated_by_ref": 14,
           "target_file.validated_by_ref": 8,
-          "target_shard.validated_by_ref": 16
+          "target_shard.validated_by_ref": 14
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 4,
-        "source_shard_ref_count": 8,
+        "source_shard_ref_count": 7,
         "target_ref_count": 4,
-        "target_shard_ref_count": 8,
+        "target_shard_ref_count": 7,
         "task_class": "bounded-fixture",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/bridge_campaign_dag.py",
@@ -5215,7 +5215,7 @@
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/bridge_campaign_dag.py::required_anchor[class ValidationResult]",
           "microcosm-substrate/src/microcosm_core/engine_room/bridge_campaign_dag.py::required_anchor[def validate_campaign]",
-          "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[Public-safe metabolism runtime and reconciler capsule.]"
+          "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\"]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/bridge_campaign_dag.py",
@@ -5226,7 +5226,7 @@
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/bridge_campaign_dag.py::required_anchor[class ValidationResult]",
           "microcosm-substrate/src/microcosm_core/engine_room/bridge_campaign_dag.py::required_anchor[def validate_campaign]",
-          "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[Public-safe metabolism runtime and reconciler capsule.]"
+          "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\"]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.bridge_campaign_dag.validate_campaign",
@@ -5914,13 +5914,13 @@
           ],
           "scope_limit": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ derived_fact_provider_runtime",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=derived_fact_provider_runtime]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_derived_fact_provider_runtime.json",
@@ -5933,7 +5933,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -5963,16 +5963,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "derived-facts",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
@@ -5980,8 +5980,8 @@
         ],
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[Registry-backed derived fact provider engine over public fixture roots.]",
-          "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[provider failures become error rows with repair hints]",
-          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]"
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]",
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
@@ -5989,8 +5989,8 @@
         ],
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[Registry-backed derived fact provider engine over public fixture roots.]",
-          "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[provider failures become error rows with repair hints]",
-          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]"
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]",
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.derived_fact_provider_engine",
@@ -7463,13 +7463,13 @@
           ],
           "scope_limit": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ metabolism_queue_reconciliation",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=metabolism_queue_reconciliation]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_metabolism_queue_reconciliation.json",
@@ -7482,7 +7482,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -7506,40 +7506,40 @@
         "query_examples": [
           "microcosm organ-topology --organ metabolism_queue_reconciliation",
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
-          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[Public-safe metabolism runtime and reconciler capsule.]'",
+          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\"]'",
           "microcosm organ-topology --validation-ref microcosm_core.engine_room.metabolism_runtime"
         ],
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "durable-queue",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
           "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py"
         ],
         "top_source_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[Public-safe metabolism runtime and reconciler capsule.]",
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\"]",
-          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]"
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]",
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
           "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py"
         ],
         "top_target_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[Public-safe metabolism runtime and reconciler capsule.]",
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\"]",
-          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]"
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]",
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.metabolism_runtime",
@@ -7589,13 +7589,13 @@
           ],
           "scope_limit": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ egress_self_compliance_audit",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=egress_self_compliance_audit]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_egress_self_compliance_audit.json",
@@ -7608,7 +7608,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -7638,16 +7638,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "egress-policy",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
@@ -7655,8 +7655,8 @@
         ],
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[Ask for permission only after naming a real blast-radius blocker;]",
-          "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.]",
-          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]"
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]",
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
@@ -7664,8 +7664,8 @@
         ],
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[Ask for permission only after naming a real blast-radius blocker;]",
-          "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.]",
-          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]"
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]",
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.egress_self_compliance_gate",
@@ -8381,13 +8381,13 @@
           ],
           "scope_limit": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ derived_fact_provider_runtime",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=derived_fact_provider_runtime]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_derived_fact_provider_runtime.json",
@@ -8400,7 +8400,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -8430,16 +8430,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "fixture-runtime",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
@@ -8447,8 +8447,8 @@
         ],
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[Registry-backed derived fact provider engine over public fixture roots.]",
-          "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[provider failures become error rows with repair hints]",
-          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]"
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]",
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
@@ -8456,8 +8456,8 @@
         ],
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[Registry-backed derived fact provider engine over public fixture roots.]",
-          "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[provider failures become error rows with repair hints]",
-          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]"
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]",
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.derived_fact_provider_engine",
@@ -9069,15 +9069,15 @@
       "task_class": "formal-math"
     },
     {
-      "allowed_scope": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
+      "allowed_scope": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.",
       "authority_boundary": "Task routing only. This row selects public components from the frozen atlas; its scope is local task selection, source-linked records, and component-specific evidence.",
-      "drilldown_target": "ORGANS.md#certificate-kernel-execution-lab",
-      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=certificate_kernel_execution_lab]",
-      "first_command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+      "drilldown_target": "ORGANS.md#proof-diagnostic-evidence-spine",
+      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]",
+      "first_command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
       "organ_count": 18,
-      "primary_display_name": "Certificate Kernel Execution Lab",
-      "primary_organ_id": "certificate_kernel_execution_lab",
-      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=certificate_kernel_execution_lab]",
+      "primary_display_name": "Proof Diagnostic Evidence Spine",
+      "primary_organ_id": "proof_diagnostic_evidence_spine",
+      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]",
       "relevant_organs": [
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=certificate_kernel_execution_lab]",
@@ -9363,12 +9363,12 @@
           ],
           "scope_limit": "It only validates and projects declared readiness metadata; it does not run Lean/Lake, inspect the real toolchain, use external model services, prove any theorem correct, produce benchmark claims, or authorize Mathlib-dependent proof attempts.",
           "source_relation_handle": {
-            "edge_count": 91,
+            "edge_count": 85,
             "query": "microcosm organ-topology --organ formal_math_readiness_gate",
-            "source_ref_count": 14,
+            "source_ref_count": 13,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=formal_math_readiness_gate]",
             "source_shard_ref_count": 2,
-            "target_ref_count": 14,
+            "target_ref_count": 13,
             "target_shard_ref_count": 2,
             "validation_ref_count": 3
           },
@@ -9448,12 +9448,12 @@
           ],
           "scope_limit": "It only projects and validates which tactics were recorded as compiling in one captured environment; it does not run Lean/Lake at all, prove any goal, certify domain-level conclusions, use external model services, claim benchmark performance, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 92,
+            "edge_count": 86,
             "query": "microcosm organ-topology --organ tactic_portfolio_availability_probe",
-            "source_ref_count": 14,
+            "source_ref_count": 13,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=tactic_portfolio_availability_probe]",
             "source_shard_ref_count": 2,
-            "target_ref_count": 14,
+            "target_ref_count": 13,
             "target_shard_ref_count": 2,
             "validation_ref_count": 3
           },
@@ -9853,7 +9853,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 947,
+        "edge_count": 935,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -9891,18 +9891,18 @@
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness.lean"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 100,
-          "source_file.validated_by_ref": 145,
+          "source_file.copied_to_public_target": 98,
+          "source_file.validated_by_ref": 141,
           "source_shard.retained_as_public_target_shard": 148,
           "source_shard.validated_by_ref": 161,
-          "target_file.shares_macro_source_with_target_file": 87,
-          "target_file.validated_by_ref": 145,
+          "target_file.shares_macro_source_with_target_file": 85,
+          "target_file.validated_by_ref": 141,
           "target_shard.validated_by_ref": 161
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 100,
+        "source_ref_count": 98,
         "source_shard_ref_count": 148,
-        "target_ref_count": 100,
+        "target_ref_count": 98,
         "target_shard_ref_count": 148,
         "task_class": "formal-methods",
         "top_source_refs": [
@@ -10232,7 +10232,7 @@
         "query_examples": [
           "microcosm organ-topology --organ generated_projection_drift_runtime",
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py",
-          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]'",
+          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]'",
           "microcosm organ-topology --validation-ref microcosm_core.engine_room.generated_projection_drift_gate"
         ],
         "relation_type_counts": {
@@ -10254,8 +10254,8 @@
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py"
         ],
         "top_source_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]",
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[uses prior clean receipts as a bounded skip cache]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[SOURCE_REFS = (]",
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py::required_anchor[ORGAN_ID = \"generated_projection_drift_runtime\"]"
         ],
         "top_target_refs": [
@@ -10263,8 +10263,8 @@
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py"
         ],
         "top_target_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]",
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[uses prior clean receipts as a bounded skip cache]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[SOURCE_REFS = (]",
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py::required_anchor[ORGAN_ID = \"generated_projection_drift_runtime\"]"
         ],
         "top_validation_refs": [
@@ -10703,13 +10703,13 @@
           ],
           "scope_limit": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ derived_fact_provider_runtime",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=derived_fact_provider_runtime]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_derived_fact_provider_runtime.json",
@@ -10722,7 +10722,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -10752,16 +10752,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "json-pointer",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
@@ -10769,8 +10769,8 @@
         ],
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[Registry-backed derived fact provider engine over public fixture roots.]",
-          "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[provider failures become error rows with repair hints]",
-          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]"
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]",
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
@@ -10778,8 +10778,8 @@
         ],
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[Registry-backed derived fact provider engine over public fixture roots.]",
-          "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[provider failures become error rows with repair hints]",
-          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]"
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]",
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.derived_fact_provider_engine",
@@ -10792,15 +10792,15 @@
       "task_class": "json-pointer"
     },
     {
-      "allowed_scope": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
+      "allowed_scope": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.",
       "authority_boundary": "Task routing only. This row selects public components from the frozen atlas; its scope is local task selection, source-linked records, and component-specific evidence.",
-      "drilldown_target": "ORGANS.md#certificate-kernel-execution-lab",
-      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=certificate_kernel_execution_lab]",
-      "first_command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+      "drilldown_target": "ORGANS.md#proof-diagnostic-evidence-spine",
+      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]",
+      "first_command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
       "organ_count": 18,
-      "primary_display_name": "Certificate Kernel Execution Lab",
-      "primary_organ_id": "certificate_kernel_execution_lab",
-      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=certificate_kernel_execution_lab]",
+      "primary_display_name": "Proof Diagnostic Evidence Spine",
+      "primary_organ_id": "proof_diagnostic_evidence_spine",
+      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]",
       "relevant_organs": [
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=certificate_kernel_execution_lab]",
@@ -11086,12 +11086,12 @@
           ],
           "scope_limit": "It only validates and projects declared readiness metadata; it does not run Lean/Lake, inspect the real toolchain, use external model services, prove any theorem correct, produce benchmark claims, or authorize Mathlib-dependent proof attempts.",
           "source_relation_handle": {
-            "edge_count": 91,
+            "edge_count": 85,
             "query": "microcosm organ-topology --organ formal_math_readiness_gate",
-            "source_ref_count": 14,
+            "source_ref_count": 13,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=formal_math_readiness_gate]",
             "source_shard_ref_count": 2,
-            "target_ref_count": 14,
+            "target_ref_count": 13,
             "target_shard_ref_count": 2,
             "validation_ref_count": 3
           },
@@ -11171,12 +11171,12 @@
           ],
           "scope_limit": "It only projects and validates which tactics were recorded as compiling in one captured environment; it does not run Lean/Lake at all, prove any goal, certify domain-level conclusions, use external model services, claim benchmark performance, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 92,
+            "edge_count": 86,
             "query": "microcosm organ-topology --organ tactic_portfolio_availability_probe",
-            "source_ref_count": 14,
+            "source_ref_count": 13,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=tactic_portfolio_availability_probe]",
             "source_shard_ref_count": 2,
-            "target_ref_count": 14,
+            "target_ref_count": 13,
             "target_shard_ref_count": 2,
             "validation_ref_count": 3
           },
@@ -11576,7 +11576,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 947,
+        "edge_count": 935,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -11614,18 +11614,18 @@
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness.lean"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 100,
-          "source_file.validated_by_ref": 145,
+          "source_file.copied_to_public_target": 98,
+          "source_file.validated_by_ref": 141,
           "source_shard.retained_as_public_target_shard": 148,
           "source_shard.validated_by_ref": 161,
-          "target_file.shares_macro_source_with_target_file": 87,
-          "target_file.validated_by_ref": 145,
+          "target_file.shares_macro_source_with_target_file": 85,
+          "target_file.validated_by_ref": 141,
           "target_shard.validated_by_ref": 161
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 100,
+        "source_ref_count": 98,
         "source_shard_ref_count": 148,
-        "target_ref_count": 100,
+        "target_ref_count": 98,
         "target_shard_ref_count": 148,
         "task_class": "lean",
         "top_source_refs": [
@@ -12902,7 +12902,7 @@
         "query_examples": [
           "microcosm organ-topology --organ generated_projection_drift_runtime",
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py",
-          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]'",
+          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]'",
           "microcosm organ-topology --validation-ref microcosm_core.engine_room.generated_projection_drift_gate"
         ],
         "relation_type_counts": {
@@ -12924,8 +12924,8 @@
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py"
         ],
         "top_source_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]",
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[uses prior clean receipts as a bounded skip cache]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[SOURCE_REFS = (]",
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py::required_anchor[ORGAN_ID = \"generated_projection_drift_runtime\"]"
         ],
         "top_target_refs": [
@@ -12933,8 +12933,8 @@
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py"
         ],
         "top_target_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]",
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[uses prior clean receipts as a bounded skip cache]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[SOURCE_REFS = (]",
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py::required_anchor[ORGAN_ID = \"generated_projection_drift_runtime\"]"
         ],
         "top_validation_refs": [
@@ -12985,13 +12985,13 @@
           ],
           "scope_limit": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ egress_self_compliance_audit",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=egress_self_compliance_audit]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_egress_self_compliance_audit.json",
@@ -13004,7 +13004,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -13034,16 +13034,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "phrase-membership",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
@@ -13051,8 +13051,8 @@
         ],
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[Ask for permission only after naming a real blast-radius blocker;]",
-          "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.]",
-          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]"
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]",
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
@@ -13060,8 +13060,8 @@
         ],
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[Ask for permission only after naming a real blast-radius blocker;]",
-          "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.]",
-          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]"
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]",
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.egress_self_compliance_gate",
@@ -13155,7 +13155,7 @@
         "query_examples": [
           "microcosm organ-topology --organ generated_projection_drift_runtime",
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py",
-          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]'",
+          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]'",
           "microcosm organ-topology --validation-ref microcosm_core.engine_room.generated_projection_drift_gate"
         ],
         "relation_type_counts": {
@@ -13177,8 +13177,8 @@
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py"
         ],
         "top_source_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]",
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[uses prior clean receipts as a bounded skip cache]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[SOURCE_REFS = (]",
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py::required_anchor[ORGAN_ID = \"generated_projection_drift_runtime\"]"
         ],
         "top_target_refs": [
@@ -13186,8 +13186,8 @@
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py"
         ],
         "top_target_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]",
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[uses prior clean receipts as a bounded skip cache]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[SOURCE_REFS = (]",
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py::required_anchor[ORGAN_ID = \"generated_projection_drift_runtime\"]"
         ],
         "top_validation_refs": [
@@ -14719,12 +14719,12 @@
           ],
           "scope_limit": "It only validates and projects declared readiness metadata; it does not run Lean/Lake, inspect the real toolchain, use external model services, prove any theorem correct, produce benchmark claims, or authorize Mathlib-dependent proof attempts.",
           "source_relation_handle": {
-            "edge_count": 91,
+            "edge_count": 85,
             "query": "microcosm organ-topology --organ formal_math_readiness_gate",
-            "source_ref_count": 14,
+            "source_ref_count": 13,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=formal_math_readiness_gate]",
             "source_shard_ref_count": 2,
-            "target_ref_count": 14,
+            "target_ref_count": 13,
             "target_shard_ref_count": 2,
             "validation_ref_count": 3
           },
@@ -15613,7 +15613,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 1536,
+        "edge_count": 1530,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -15651,18 +15651,18 @@
           "microcosm organ-topology --organ standards_meta_diagnostics"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 144,
-          "source_file.validated_by_ref": 171,
+          "source_file.copied_to_public_target": 143,
+          "source_file.validated_by_ref": 169,
           "source_shard.retained_as_public_target_shard": 330,
           "source_shard.validated_by_ref": 293,
-          "target_file.shares_macro_source_with_target_file": 134,
-          "target_file.validated_by_ref": 171,
+          "target_file.shares_macro_source_with_target_file": 133,
+          "target_file.validated_by_ref": 169,
           "target_shard.validated_by_ref": 293
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 140,
+        "source_ref_count": 139,
         "source_shard_ref_count": 317,
-        "target_ref_count": 144,
+        "target_ref_count": 143,
         "target_shard_ref_count": 330,
         "task_class": "provider-ops",
         "top_source_refs": [
@@ -15700,15 +15700,15 @@
       "task_class": "provider-ops"
     },
     {
-      "allowed_scope": "verified means the referenced evidence object exists or a pytest span ran; it does not imply the span passed unless exit-zero status was explicitly checked",
+      "allowed_scope": "It authorizes only bounded public runtime validation over copied source-open pattern provenance bodies and body-free benchmark-integrity replay rows; it does not establish any benchmark or SWE-bench score, agent capability, external model service, live-repo mutation, private/oracle/hidden-gold body access, product progress, or launch-scope decision.",
       "authority_boundary": "Task routing only. This row selects public components from the frozen atlas; its scope is local task selection, source-linked records, and component-specific evidence.",
-      "drilldown_target": "ORGANS.md#agent-closeout-faithfulness-audit",
-      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=agent_closeout_faithfulness_audit]",
-      "first_command": "microcosm agent-closeout-faithfulness-audit run --input fixtures/first_wave/agent_closeout_faithfulness_audit/input --out receipts/first_wave/agent_closeout_faithfulness_audit",
+      "drilldown_target": "ORGANS.md#agent-benchmark-integrity-anti-gaming-replay",
+      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]",
+      "first_command": "microcosm agent-benchmark-integrity-anti-gaming-replay run-benchmark-integrity-bundle --input examples/agent_benchmark_integrity_anti_gaming_replay/exported_benchmark_integrity_bundle --out .microcosm/agent_benchmark_integrity_anti_gaming_replay",
       "organ_count": 16,
-      "primary_display_name": "Agent Closeout Faithfulness Audit",
-      "primary_organ_id": "agent_closeout_faithfulness_audit",
-      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_closeout_faithfulness_audit]",
+      "primary_display_name": "Agent Benchmark Integrity Anti Gaming Replay",
+      "primary_organ_id": "agent_benchmark_integrity_anti_gaming_replay",
+      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_benchmark_integrity_anti_gaming_replay]",
       "relevant_organs": [
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=agent_closeout_faithfulness_audit]",
@@ -16483,13 +16483,13 @@
           ],
           "scope_limit": "Exercises a registry-backed derived fact provider over bounded public fixture roots: it resolves json_pointer (RFC 6901, including list-index traversal), glob_count (with excluded prefixes), and named callable facts (git-tracked counts), and it turns provider failures into error-as-data rows that degrade the receipt status rather than crash the ledger. Positive cases must resolve to the expected values with a clean receipt; negative cases must be rejected by recomputation with the expected provider error_class firing on the planted-defect fact. It is not a doctrine truth auditor, not a full macro fact-registry export, not semantic claim validation, and it excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ derived_fact_provider_runtime",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=derived_fact_provider_runtime]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_derived_fact_provider_runtime.json",
@@ -16502,7 +16502,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -16532,16 +16532,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "research-infrastructure",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
@@ -16549,8 +16549,8 @@
         ],
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[Registry-backed derived fact provider engine over public fixture roots.]",
-          "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[provider failures become error rows with repair hints]",
-          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]"
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]",
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py",
@@ -16558,8 +16558,8 @@
         ],
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[Registry-backed derived fact provider engine over public fixture roots.]",
-          "microcosm-substrate/src/microcosm_core/engine_room/derived_fact_provider_engine.py::required_anchor[provider failures become error rows with repair hints]",
-          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]"
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[ORGAN_ID = \"derived_fact_provider_runtime\"]",
+          "microcosm-substrate/src/microcosm_core/organs/derived_fact_provider_runtime.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.derived_fact_provider_engine",
@@ -16572,15 +16572,15 @@
       "task_class": "research-infrastructure"
     },
     {
-      "allowed_scope": "synthetic fixture forecast-evaluation statistics only; no investment-related actions, live market data, track record, or performance claim",
+      "allowed_scope": "It validates the shape and presence of synthetic replay metadata and receipt references only - it does not run any experiment, metric script, or rerun, excludes any claim that a paper was actually replicated, that a benchmark claims was achieved, or that the underlying science is correct, and it never calls providers, exposes private paper/data bodies, or authorizes public sharing or launch.",
       "authority_boundary": "Task routing only. This row selects public components from the frozen atlas; its scope is local task selection, source-linked records, and component-specific evidence.",
-      "drilldown_target": "ORGANS.md#finance-forecast-evaluation-spine",
-      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=finance_forecast_evaluation_spine]",
-      "first_command": "microcosm finance-forecast-evaluation-spine run --input fixtures/first_wave/finance_forecast_evaluation_spine/input --out receipts/first_wave/finance_forecast_evaluation_spine",
+      "drilldown_target": "ORGANS.md#research-replication-rubric-artifact-replay",
+      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=research_replication_rubric_artifact_replay]",
+      "first_command": "PYTHONPATH=src python3 -m microcosm_core.organs.research_replication_rubric_artifact_replay run --input fixtures/first_wave/research_replication_rubric_artifact_replay/input --out receipts/first_wave/research_replication_rubric_artifact_replay",
       "organ_count": 8,
-      "primary_display_name": "Finance Forecast Evaluation Spine",
-      "primary_organ_id": "finance_forecast_evaluation_spine",
-      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finance_forecast_evaluation_spine]",
+      "primary_display_name": "Research Replication Rubric Artifact Replay",
+      "primary_organ_id": "research_replication_rubric_artifact_replay",
+      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=research_replication_rubric_artifact_replay]",
       "relevant_organs": [
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=finance_forecast_evaluation_spine]",
@@ -17150,13 +17150,13 @@
           ],
           "scope_limit": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ annex_knowledge_routing",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=annex_knowledge_routing]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_annex_knowledge_routing.json",
@@ -17170,7 +17170,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -17200,16 +17200,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "routing",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py",
@@ -17217,8 +17217,8 @@
         ],
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Explainable tiered weighted-token retrieval over a sanitized annex catalog]",
-          "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Rank sanitized annex rows for a problem statement]",
-          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]"
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]",
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py",
@@ -17226,8 +17226,8 @@
         ],
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Explainable tiered weighted-token retrieval over a sanitized annex catalog]",
-          "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Rank sanitized annex rows for a problem statement]",
-          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]"
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]",
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.annex_knowledge_router",
@@ -17499,13 +17499,13 @@
           ],
           "scope_limit": "Audits a single agent-output text string against a phrase-membership egress self-compliance policy over bounded public fixtures: it fires a violation only when a tripwire phrase is present and the matching legitimiser phrase is absent across three detectors (permission-gate-without-blocker, self-error-without-capture, command-displacement-to-operator). It rejects policy-violating text by recomputation. It is phrase membership only: it does not perform taint analysis, prompt-injection defense, sandboxing, or information-flow proof, and it excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ egress_self_compliance_audit",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=egress_self_compliance_audit]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_egress_self_compliance_audit.json",
@@ -17518,7 +17518,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -17548,16 +17548,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "self-compliance",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
@@ -17565,8 +17565,8 @@
         ],
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[Ask for permission only after naming a real blast-radius blocker;]",
-          "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.]",
-          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]"
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]",
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py",
@@ -17574,8 +17574,8 @@
         ],
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[Ask for permission only after naming a real blast-radius blocker;]",
-          "microcosm-substrate/src/microcosm_core/engine_room/egress_self_compliance_gate.py::required_anchor[It is phrase-membership policy, not taint analysis, sandboxing, or prompt\ninjection defense.]",
-          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]"
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[ORGAN_ID = \"egress_self_compliance_audit\"]",
+          "microcosm-substrate/src/microcosm_core/organs/egress_self_compliance_audit.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.egress_self_compliance_gate",
@@ -18722,13 +18722,13 @@
           ],
           "scope_limit": "Exercises a synthetic SQLite durable-queue capsule over bounded public fixtures: an active-idempotency uniqueness guard, lease claim and expired-lease recovery to a recoverable state, a blackboard claim-event projection where a contradiction invalidates an assertion, and a cold-start reconciliation taxonomy over the job/run/log triple. It rejects inconsistent store states by recomputation, asserting the expected reconciliation rule id fires. It does not ship the private live metabolism database, does not dispatch agents or use external model services, does not auto-repair ambiguous state, is not a distributed database, and excludes launch or public sharing.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ metabolism_queue_reconciliation",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=metabolism_queue_reconciliation]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_metabolism_queue_reconciliation.json",
@@ -18741,7 +18741,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -18765,40 +18765,40 @@
         "query_examples": [
           "microcosm organ-topology --organ metabolism_queue_reconciliation",
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
-          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[Public-safe metabolism runtime and reconciler capsule.]'",
+          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\"]'",
           "microcosm organ-topology --validation-ref microcosm_core.engine_room.metabolism_runtime"
         ],
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "sqlite-reconciliation",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
           "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py"
         ],
         "top_source_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[Public-safe metabolism runtime and reconciler capsule.]",
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\"]",
-          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]"
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]",
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py",
           "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py"
         ],
         "top_target_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[Public-safe metabolism runtime and reconciler capsule.]",
           "microcosm-substrate/src/microcosm_core/engine_room/metabolism_runtime.py::required_anchor[RULE_RUN_FINALIZED_BUT_JOB_RUNNING = \"run_finalized_but_job_running\"]",
-          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]"
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[ORGAN_ID = \"metabolism_queue_reconciliation\"]",
+          "microcosm-substrate/src/microcosm_core/organs/metabolism_queue_reconciliation.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.metabolism_runtime",
@@ -18892,7 +18892,7 @@
         "query_examples": [
           "microcosm organ-topology --organ generated_projection_drift_runtime",
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py",
-          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]'",
+          "microcosm organ-topology --relation-type shard_to_shard --shard-ref 'microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]'",
           "microcosm organ-topology --validation-ref microcosm_core.engine_room.generated_projection_drift_gate"
         ],
         "relation_type_counts": {
@@ -18914,8 +18914,8 @@
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py"
         ],
         "top_source_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]",
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[uses prior clean receipts as a bounded skip cache]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[SOURCE_REFS = (]",
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py::required_anchor[ORGAN_ID = \"generated_projection_drift_runtime\"]"
         ],
         "top_target_refs": [
@@ -18923,8 +18923,8 @@
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py"
         ],
         "top_target_shard_refs": [
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[owner-routed drift gate]",
-          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[uses prior clean receipts as a bounded skip cache]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[ORGAN_ID = \"engine_room_generated_projection_drift_gate\"]",
+          "microcosm-substrate/src/microcosm_core/engine_room/generated_projection_drift_gate.py::required_anchor[SOURCE_REFS = (]",
           "microcosm-substrate/src/microcosm_core/organs/generated_projection_drift_runtime.py::required_anchor[ORGAN_ID = \"generated_projection_drift_runtime\"]"
         ],
         "top_validation_refs": [
@@ -18938,15 +18938,15 @@
       "task_class": "subprocess-witness"
     },
     {
-      "allowed_scope": "It is a local tool-witness that the declared public fixture rows compiled and were adjudicated by the local Lean verifier; it excludes general proof authority, count oracle/provider output as proof, expose proof text, change source files, claim a benchmark solve-rate, or include launch operations.",
+      "allowed_scope": "It records proof/evidence diagnostics over existing receipt references only. It does not run Lean, use external model services, expose proof bodies, turn a passing check into formal-proof or theorem authority, prove runtime or whole-system correctness, authorize later organs, certify public launch, authorize public sharing or recipient work, or establish secret export.",
       "authority_boundary": "Task routing only. This row selects public components from the frozen atlas; its scope is local task selection, source-linked records, and component-specific evidence.",
-      "drilldown_target": "ORGANS.md#certificate-kernel-execution-lab",
-      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=certificate_kernel_execution_lab]",
-      "first_command": "microcosm certificate-kernel-execution-lab run --input fixtures/first_wave/certificate_kernel_execution_lab/input --out receipts/first_wave/certificate_kernel_execution_lab",
+      "drilldown_target": "ORGANS.md#proof-diagnostic-evidence-spine",
+      "evidence_ref": "core/organ_registry.json::implemented_organs[organ_id=proof_diagnostic_evidence_spine]",
+      "first_command": "microcosm proof-diagnostic-evidence-spine run --input fixtures/first_wave/proof_diagnostic_evidence_spine/input --out receipts/first_wave/proof_diagnostic_evidence_spine --card",
       "organ_count": 19,
-      "primary_display_name": "Certificate Kernel Execution Lab",
-      "primary_organ_id": "certificate_kernel_execution_lab",
-      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=certificate_kernel_execution_lab]",
+      "primary_display_name": "Proof Diagnostic Evidence Spine",
+      "primary_organ_id": "proof_diagnostic_evidence_spine",
+      "receipt_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=proof_diagnostic_evidence_spine]",
       "relevant_organs": [
         {
           "acceptance_ref": "core/acceptance/first_wave_acceptance.json::accepted_current_authority_organs[organ_id=certificate_kernel_execution_lab]",
@@ -19232,12 +19232,12 @@
           ],
           "scope_limit": "It only validates and projects declared readiness metadata; it does not run Lean/Lake, inspect the real toolchain, use external model services, prove any theorem correct, produce benchmark claims, or authorize Mathlib-dependent proof attempts.",
           "source_relation_handle": {
-            "edge_count": 91,
+            "edge_count": 85,
             "query": "microcosm organ-topology --organ formal_math_readiness_gate",
-            "source_ref_count": 14,
+            "source_ref_count": 13,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=formal_math_readiness_gate]",
             "source_shard_ref_count": 2,
-            "target_ref_count": 14,
+            "target_ref_count": 13,
             "target_shard_ref_count": 2,
             "validation_ref_count": 3
           },
@@ -19317,12 +19317,12 @@
           ],
           "scope_limit": "It only projects and validates which tactics were recorded as compiling in one captured environment; it does not run Lean/Lake at all, prove any goal, certify domain-level conclusions, use external model services, claim benchmark performance, or include launch operations.",
           "source_relation_handle": {
-            "edge_count": 92,
+            "edge_count": 86,
             "query": "microcosm organ-topology --organ tactic_portfolio_availability_probe",
-            "source_ref_count": 14,
+            "source_ref_count": 13,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=tactic_portfolio_availability_probe]",
             "source_shard_ref_count": 2,
-            "target_ref_count": 14,
+            "target_ref_count": 13,
             "target_shard_ref_count": 2,
             "validation_ref_count": 3
           },
@@ -19765,7 +19765,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 977,
+        "edge_count": 965,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -19803,18 +19803,18 @@
           "microcosm organ-topology --relation-type file_to_file --source-ref microcosm-substrate/fixtures/first_wave/formal_math_lean_proof_witness/input/lake_project/MicrocosmProofWitness.lean"
         ],
         "relation_type_counts": {
-          "source_file.copied_to_public_target": 102,
-          "source_file.validated_by_ref": 149,
+          "source_file.copied_to_public_target": 100,
+          "source_file.validated_by_ref": 145,
           "source_shard.retained_as_public_target_shard": 152,
           "source_shard.validated_by_ref": 169,
-          "target_file.shares_macro_source_with_target_file": 87,
-          "target_file.validated_by_ref": 149,
+          "target_file.shares_macro_source_with_target_file": 85,
+          "target_file.validated_by_ref": 145,
           "target_shard.validated_by_ref": 169
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
-        "source_ref_count": 102,
+        "source_ref_count": 100,
         "source_shard_ref_count": 152,
-        "target_ref_count": 102,
+        "target_ref_count": 100,
         "target_shard_ref_count": 152,
         "task_class": "theorem-proving",
         "top_source_refs": [
@@ -19889,13 +19889,13 @@
           ],
           "scope_limit": "Ranks a sanitized in-memory annex catalog against a problem statement using explainable tiered weighted-token retrieval over bounded public fixtures: structured routing fields score highest, family text and open-first summaries weaker, curated notes weakest, with an exact/phrase/token-overlap score per tier and a per-row match breakdown. It rejects unroutable problems by recomputation, returning no_match when no candidate scores above zero or a filter excludes every candidate. It is not BM25, not TF-IDF, not embedding or semantic search, does not clone repositories, ships no private annex corpus, and is not a license, provenance, or launch-scope decision.",
           "source_relation_handle": {
-            "edge_count": 30,
+            "edge_count": 25,
             "query": "microcosm organ-topology --organ annex_knowledge_routing",
             "source_ref_count": 2,
             "source_relation_ref": "organ-surface-contract::coverage.source_module_file_graph.edges_by_organ[organ_id=annex_knowledge_routing]",
-            "source_shard_ref_count": 4,
+            "source_shard_ref_count": 3,
             "target_ref_count": 2,
-            "target_shard_ref_count": 4,
+            "target_shard_ref_count": 3,
             "validation_ref_count": 3
           },
           "standard_ref": "standards/std_microcosm_annex_knowledge_routing.json",
@@ -19909,7 +19909,7 @@
       "route_role": "agent_task_class_to_organ_selector",
       "source_relation_summary": {
         "authority_boundary": "Body-free aggregate over relevant organs; dynamic edge truth remains in organ-topology.",
-        "edge_count": 30,
+        "edge_count": 25,
         "example_edges": [
           {
             "relation_type": "source_file.copied_to_public_target",
@@ -19939,16 +19939,16 @@
         "relation_type_counts": {
           "source_file.copied_to_public_target": 2,
           "source_file.validated_by_ref": 4,
-          "source_shard.retained_as_public_target_shard": 4,
-          "source_shard.validated_by_ref": 8,
+          "source_shard.retained_as_public_target_shard": 3,
+          "source_shard.validated_by_ref": 6,
           "target_file.validated_by_ref": 4,
-          "target_shard.validated_by_ref": 8
+          "target_shard.validated_by_ref": 6
         },
         "source": "organ-surface-contract::coverage.source_module_file_graph",
         "source_ref_count": 2,
-        "source_shard_ref_count": 4,
+        "source_shard_ref_count": 3,
         "target_ref_count": 2,
-        "target_shard_ref_count": 4,
+        "target_shard_ref_count": 3,
         "task_class": "weighted-token-retrieval",
         "top_source_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py",
@@ -19956,8 +19956,8 @@
         ],
         "top_source_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Explainable tiered weighted-token retrieval over a sanitized annex catalog]",
-          "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Rank sanitized annex rows for a problem statement]",
-          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]"
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]",
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[def run]"
         ],
         "top_target_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py",
@@ -19965,8 +19965,8 @@
         ],
         "top_target_shard_refs": [
           "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Explainable tiered weighted-token retrieval over a sanitized annex catalog]",
-          "microcosm-substrate/src/microcosm_core/engine_room/annex_knowledge_router.py::required_anchor[Rank sanitized annex rows for a problem statement]",
-          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]"
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[ORGAN_ID = \"annex_knowledge_routing\"]",
+          "microcosm-substrate/src/microcosm_core/organs/annex_knowledge_routing.py::required_anchor[def run]"
         ],
         "top_validation_refs": [
           "microcosm_core.engine_room.annex_knowledge_router",
