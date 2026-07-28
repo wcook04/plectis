@@ -165,7 +165,7 @@
       "citations_rendered": 29,
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-243-reciprocal-tail-rigidity.pdf",
-      "pdf_sha256": "sha256:c645eaf9fa9da399117957ccf7147d3d19bdd892a1515f463de49686e9512cf5",
+      "pdf_sha256": "sha256:bb1b4ebc9ada821ee9935660d228c807afa04b1f2b02b0ec0dfd3bdde54e29ee",
       "pdf_byte_count": 146095,
       "first_pass": {
         "stated_by_the_paper": false,
@@ -343,7 +343,7 @@
       },
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-249-binary-totient-series.pdf",
-      "pdf_sha256": "sha256:0ec9838674e22859fd65eaea1fc504bb221ada9192fca7b8c1ebbcc8e4520dd8",
+      "pdf_sha256": "sha256:a79d93a57545866d4a568f3adf812692af8118a4b4fcfcbfb6e2cbfe21d88359",
       "pdf_byte_count": 123262,
       "first_pass": {
         "stated_by_the_paper": false,
@@ -1321,7 +1321,7 @@
       "citations_rendered": 0,
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos249-totient-reasoning-surface.pdf",
-      "pdf_sha256": "sha256:ab35ce393716f33b158b243d6d0d1d8fdb9993e1404fe69351145f038e0540c1",
+      "pdf_sha256": "sha256:aa29ab0287e760964db39d571cf4380cd4f11e278d64d23f09854e38dc7bbce1",
       "pdf_byte_count": 755997,
       "first_pass": {
         "stated_by_the_paper": false,
@@ -1502,7 +1502,7 @@
       "citations_rendered": 24,
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-251-prime-gap-dyadic-series.pdf",
-      "pdf_sha256": "sha256:b1e14434fcd1552ce939218ead377dcded066af52f97bf3579735f1b87d44507",
+      "pdf_sha256": "sha256:73c4b4cbfdd7be4941928f120614ab4535e6e19b58a22afe095a152715ba5e6c",
       "pdf_byte_count": 129025,
       "first_pass": {
         "stated_by_the_paper": false,
@@ -1680,7 +1680,7 @@
       },
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-257-mersenne-support-subseries.pdf",
-      "pdf_sha256": "sha256:f3b89afbf868a30fa1d89d9f863b1b8ad4982f05110de2820f4d77cd8848735a",
+      "pdf_sha256": "sha256:6dc11eeb8c71a8acee1965330e12788ec4769900ea90f3f02e48476857b63cb4",
       "pdf_byte_count": 127359,
       "first_pass": {
         "stated_by_the_paper": false,
@@ -2561,7 +2561,7 @@
       "citations_rendered": 0,
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos257-mersenne-reasoning-surface.pdf",
-      "pdf_sha256": "sha256:876baff69c5ca2557471e438dd090c69cf65ef7e32bfad3994af768469861592",
+      "pdf_sha256": "sha256:fb200387038a8fc50f8dfd55ed3b0b858cf281192a26481734a0c7abdcd042a6",
       "pdf_byte_count": 698944,
       "first_pass": {
         "stated_by_the_paper": false,
@@ -2735,7 +2735,7 @@
       "citations_rendered": 13,
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-269-three-prime-running-lcm.pdf",
-      "pdf_sha256": "sha256:e089aa51be9166dcefd8d9d407085078f2a58f09ffb2f9afebf052b2e19e5d80",
+      "pdf_sha256": "sha256:df378db544cdbcf92c911d4cc38ff804d00fd1652b56d35f026fb3f0c769f679",
       "pdf_byte_count": 140577,
       "first_pass": {
         "stated_by_the_paper": false,
@@ -2920,7 +2920,7 @@
       "citations_rendered": 27,
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-1049-rational-base-lambert.pdf",
-      "pdf_sha256": "sha256:42f85c2adcafb167bf50f0969e6c47e169892660ea34bcee5f477b2f9bacbccb",
+      "pdf_sha256": "sha256:19673327b393fa2d06482ca7ff451f30e49d0c2f24abd459577cb0980847dd3c",
       "pdf_byte_count": 129515,
       "first_pass": {
         "stated_by_the_paper": false,
@@ -2964,7 +2964,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/claim-faithful-publication-systems-paper.md",
       "local_source": "docs/papers/mirror/claim-faithful-publication-systems-paper.tex",
-      "source_sha256": "sha256:950faeb4160c4a343f27851456e1bb908a6a6b7e5cb7545998c2e08cc8baeced",
+      "source_sha256": "sha256:6df66ce0b4b345fc29041084d55130162f2d4682f1540d92633cc70bbbbe4134",
       "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/claim-faithful-publication-systems-paper.tex",
       "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/claim-faithful-publication-systems-paper.tex",
       "section_count": 30,
@@ -3153,8 +3153,8 @@
       "citations_rendered": 18,
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/claim-faithful-publication-systems-paper.pdf",
-      "pdf_sha256": "sha256:2a88a3163d8b8fdfec539d49c0884a63156b72a8b84ef307fc7ef36d3c209883",
-      "pdf_byte_count": 106403,
+      "pdf_sha256": "sha256:e38bfd710f275192c33d0a8828563d45d90e975b83dd5843104aa96d4394c545",
+      "pdf_byte_count": 106822,
       "first_pass": {
         "stated_by_the_paper": true,
         "provenance": "the paper's own stated reading route",
@@ -3197,7 +3197,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/cold-clone-to-proof-receipt.md",
       "local_source": "docs/papers/mirror/cold-clone-to-proof-receipt.tex",
-      "source_sha256": "sha256:0d1dbcb72d58972db1e3c2dcf31aa34d429c08aac5f8eb7ddaf4e51f17f47757",
+      "source_sha256": "sha256:032a2efcd3a849f5d4dcba300e5ddbe355ee28e53ebf0699ebfeec8f11831b01",
       "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/cold-clone-to-proof-receipt.tex",
       "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/cold-clone-to-proof-receipt.tex",
       "section_count": 15,
@@ -3234,8 +3234,8 @@
         },
         {
           "level": 4,
-          "id": "selective-mathematical-interpretation.",
-          "title": "Selective mathematical interpretation.",
+          "id": "tiered-mathematical-interpretation.",
+          "title": "Tiered mathematical interpretation.",
           "line": 50
         },
         {
@@ -3296,8 +3296,8 @@
       "citations_rendered": 10,
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/cold-clone-to-proof-receipt.pdf",
-      "pdf_sha256": "sha256:2e3eab0f22c44d2cfafd01af0745ffec3e5b283abf91c0a39b5cbfe7e21b82c9",
-      "pdf_byte_count": 62595,
+      "pdf_sha256": "sha256:6b515cfcced5166d34ab7055cad0d4fa71c55cffeabbfd898ccf54a4e572aa38",
+      "pdf_byte_count": 62764,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection; this paper states no reading route of its own",

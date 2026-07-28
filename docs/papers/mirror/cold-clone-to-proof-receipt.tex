@@ -111,8 +111,8 @@ of understanding.
   {\textbf{Elaborated loaded-root dependency index}\\[-1pt]
    \footnotesize 8,772 nodes; 38,844 direct edges. Exact type/value references joined back to source, plus 3,074 unresolved atlas rows and 5,800 unresolved public edge pairs.};
 \node[box, fill=BurntOrange!6, below=7mm of dep] (semantic)
-  {\textbf{Authored semantic graph}\quad 4,348 linked theorem-like declarations\\
-   \footnotesize 2,201 exact proposition-evidence links, 2,147 contextual links; 137,472 theorem-like declarations remain route-only.};
+  {\textbf{Tiered semantic graph}\quad 141,820/141,820 theorem-like declarations linked\\
+   \footnotesize 139,370 authored interpretations (2,895 direct evidence; 136,475 bounded family context); 2,450 remain exact source-structural families only.};
 \node[box, fill=ForestGreen!6, below=7mm of semantic] (claims)
   {\textbf{Reviewed public claim map}\quad 100 claims; 10 programmes; 4 open propositions\\
    \footnotesize Public wording, status, evidence, claim ceiling, and stronger adjacent statement.};
@@ -140,16 +140,18 @@ of silently treating absence as independence. Its graph is exact for the
 loaded environment and stated edge relation, but it is not a transitive proof
 explanation.
 
-\paragraph{Selective mathematical interpretation.}
-The semantic graph contains authored statement nodes and typed relations. At
-the audited revision, 4,348 of 141,820 authored theorem-like declarations are
-linked to statement nodes. Of those, 2,201 are exact proposition evidence and
-2,147 are contextual links; the remaining 137,472 still have typed routes but
-not authored interpretations. Keeping these counts visible prevents exhaustive
-routing or bulk helper assignment from being misreported as exhaustive semantic understanding. A
-paper-seeded population query ranks exact live citations that remain
-uninterpreted; it nominates proposition clusters for human or agent authoring
-without promoting proof helpers merely to improve the percentage.
+\paragraph{Tiered mathematical interpretation.}
+The semantic graph contains authored statement nodes, typed relations, and an
+exact source-structural floor. At the audited revision all 141,820 authored
+theorem-like declarations are linked. Of these, 139,370 (98.3\%) participate
+in authored mathematical interpretations: 2,895 are exact proposition
+evidence and 136,475 are bounded contextual links to digest- or
+module-verified families. The remaining 2,450 are grouped only by exact source
+module and normalised Lean proposition signature. That lower tier is useful
+navigation, not a mathematical paraphrase. Keeping the tiers visible prevents
+exhaustive linkage or bulk helper assignment from being misreported as
+exhaustive direct understanding. A paper-seeded population query continues to
+rank exact live citations whose best route is structural rather than authored.
 
 \paragraph{Reviewed public claims.}
 The claim map selects 100 results for public exposition. It records 37 as

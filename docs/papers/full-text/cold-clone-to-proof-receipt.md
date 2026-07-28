@@ -47,11 +47,11 @@ The declaration atlas is a source-derived address book. It records every live de
 
 The dependency index loads the two supported compact roots, extracts direct constant references from elaborated types and values, and joins those constants to atlas coordinates. It reports unresolved rows and edges instead of silently treating absence as independence. Its graph is exact for the loaded environment and stated edge relation, but it is not a transitive proof explanation.
 
-<a id="selective-mathematical-interpretation."></a>
+<a id="tiered-mathematical-interpretation."></a>
 
-#### Selective mathematical interpretation.
+#### Tiered mathematical interpretation.
 
-The semantic graph contains authored statement nodes and typed relations. At the audited revision, 4,348 of 141,820 authored theorem-like declarations are linked to statement nodes. Of those, 2,201 are exact proposition evidence and 2,147 are contextual links; the remaining 137,472 still have typed routes but not authored interpretations. Keeping these counts visible prevents exhaustive routing or bulk helper assignment from being misreported as exhaustive semantic understanding. A paper-seeded population query ranks exact live citations that remain uninterpreted; it nominates proposition clusters for human or agent authoring without promoting proof helpers merely to improve the percentage.
+The semantic graph contains authored statement nodes, typed relations, and an exact source-structural floor. At the audited revision all 141,820 authored theorem-like declarations are linked. Of these, 139,370 (98.3%) participate in authored mathematical interpretations: 2,895 are exact proposition evidence and 136,475 are bounded contextual links to digest- or module-verified families. The remaining 2,450 are grouped only by exact source module and normalised Lean proposition signature. That lower tier is useful navigation, not a mathematical paraphrase. Keeping the tiers visible prevents exhaustive linkage or bulk helper assignment from being misreported as exhaustive direct understanding. A paper-seeded population query continues to rank exact live citations whose best route is structural rather than authored.
 
 <a id="reviewed-public-claims."></a>
 

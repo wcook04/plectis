@@ -309,7 +309,7 @@ The failure supplies the governing limit. The registered checking boundary is on
 
 #### Dated navigation counts.
 
-At the reviewed snapshot, all 150,631 live declarations were inventoried and routed; 4,261 of 140,895 author-written theorem-like declarations had an authored mathematical description, and every declaration selected for a public claim had one. The command `python3 scripts/query_semantic.py coverage` derives these volatile navigation counts and checks their references. They do not measure semantic review quality or public-claim completeness.
+At the reviewed snapshot, all 151,755 live declarations were inventoried and routed, and all 141,820 author-written theorem-like declarations had an exact node link. Of those, 139,370 (98.3%) participated in authored mathematical interpretations: 2,895 as exact proposition evidence and 136,475 as bounded certificate- or module-family context. The remaining 2,450 were linked only through exact source-module and normalised-signature families, not authored mathematical paraphrases. Every declaration selected for a public claim had an authored route. The command `python3 scripts/query_semantic.py coverage` derives these volatile navigation counts and checks their references. They do not measure semantic review quality or public-claim completeness.
 
 The reviewed claim record, `docs/claims.json`, names the saved Git revision of the Lean source, which the release checker requires to match exactly. This paper omits the changing commit identifier so that the claim record is the only place that states it.
 
