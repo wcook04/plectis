@@ -2779,7 +2779,7 @@
       "copyright": "2026 Will Cook",
       "local_full_text": "docs/papers/full-text/erdos-1049-rational-base-lambert.md",
       "local_source": "docs/papers/mirror/erdos-1049-rational-base-lambert.tex",
-      "source_sha256": "sha256:56c0ad901054a491a7bed49333297db6e836d1582f637a233e2e31cb3fe104e8",
+      "source_sha256": "sha256:17cc87dcad38e3561ec050f524aba3328d6ae84ed0edd240199d7166fa0704ed",
       "canonical_source_url": "https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos-1049-rational-base-lambert.tex",
       "canonical_source_raw_url": "https://raw.githubusercontent.com/wcook04/plectis-lean-erdos249-257/main/paper/erdos-1049-rational-base-lambert.tex",
       "section_count": 22,
@@ -2917,11 +2917,11 @@
           "line": 579
         }
       ],
-      "citations_rendered": 26,
+      "citations_rendered": 27,
       "mirror_note": "generated copy; the manuscript is owned by plectis-lean-erdos249-257 and authority does not move with the copy",
       "local_pdf": "docs/papers/mirror/erdos-1049-rational-base-lambert.pdf",
-      "pdf_sha256": "sha256:b10cc17979a1a1247ba144868b2e15d8f8c2a99039a620e3d870a612628cdc41",
-      "pdf_byte_count": 129889,
+      "pdf_sha256": "sha256:42f85c2adcafb167bf50f0969e6c47e169892660ea34bcee5f477b2f9bacbccb",
+      "pdf_byte_count": 129515,
       "first_pass": {
         "stated_by_the_paper": false,
         "provenance": "editorial selection; this paper states no reading route of its own",
