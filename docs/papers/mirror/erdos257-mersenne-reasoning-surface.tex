@@ -11,16 +11,18 @@
 % These documents are written to be read in full as working context: every
 % result appears with its exact hypotheses, its evidence band, the scale at
 % which it is proved, and the Lean declaration that carries it.
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[a4paper,margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm}
+\usepackage{paper-house-style}
 \usepackage{array}
+\usepackage{adjustbox}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{enumitem}
-\usepackage[dvipsnames]{xcolor}
-\usepackage[colorlinks=true,linkcolor=black,urlcolor=RoyalBlue,citecolor=black]{hyperref}
+\setlist{topsep=0.35em,itemsep=0.2em}
+\usepackage[colorlinks=true,linkcolor=linkinternal,urlcolor=linkexternal,
+  citecolor=linkinternal]{hyperref}
+\hypersetup{bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,
+  pdftitle={Reciprocal Mersenne Subseries: a complete working record of Erdos Problem 257},
+  pdfauthor={Will Cook},pdflang={en-GB}}
 % Lean declaration names are full of underscores and are typeset in text mode.
 % Category codes are fixed when TeX READS a line, not when a macro expands, so
 % no amount of \catcode juggling inside \lean can rescue an underscore that has
@@ -52,15 +54,17 @@
 \newcommand{\commit}{1128d0858e1060c741f26460afac166f36801af9}
 \newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257/blob/\commit}
 \newcommand{\lean}[2]{%
-  \texttt{\href{\repobase/\PK/#2}{#1}}\,{\footnotesize[\texttt{#2}]}}
+  \href{\repobase/\PK/#2}{\textsc{Lean source}}}
 
 % Declaration names are written \mathtt{...} in maths and, unavoidably, in
 % running prose too. Rather than police every occurrence, make the command
 % mode-agnostic: monospace is what is meant in both places.
-\let\origmathtt\mathtt
-\renewcommand{\mathtt}[1]{\ifmmode\origmathtt{#1}\else\texttt{#1}\fi}
-\let\origmathrm\mathrm
-\renewcommand{\mathrm}[1]{\ifmmode\origmathrm{#1}\else\textrm{#1}\fi}
+\AtBeginDocument{%
+  \let\origmathtt\mathtt
+  \renewcommand{\mathtt}[1]{\ifmmode\origmathtt{#1}\else\texttt{#1}\fi}%
+  \let\origmathrm\mathrm
+  \renewcommand{\mathrm}[1]{\ifmmode\origmathrm{#1}\else\textrm{#1}\fi}%
+}
 
 % One authored part uses \m{...} as an inline-maths shorthand. Defining it is
 % cheaper and safer than rewriting the prose around every occurrence.
@@ -95,11 +99,26 @@
 \newcommand{\EB}{E}
 
 \allowdisplaybreaks
-\setlength{\parskip}{2pt}
+\emergencystretch=2em
 
-\title{Reciprocal Mersenne Subseries: a complete working record of Erd\H{o}s Problem 257}
+% These working records contain a small number of intentionally exhaustive
+% formulas. Keep ordinary displays at their natural size, but bound any display
+% wider than the classical text measure rather than letting it disappear past
+% the page edge.
+\long\def\[#1\]{%
+  \leavevmode\par\vspace{\abovedisplayskip}%
+  \noindent\makebox[\linewidth][c]{%
+    \begin{adjustbox}{max width=\linewidth}%
+      \(\displaystyle #1\)%
+    \end{adjustbox}}%
+  \par\vspace{\belowdisplayskip}%
+}
+
+\runninghead{Erd\H{o}s \#257: reciprocal Mersenne subseries}
+\title{Reciprocal Mersenne Subseries}
+\subtitle{A complete working record of Erd\H{o}s Problem~\#257}
 \author{Will Cook}
-\date{\today}
+\date{July 2026}
 
 \begin{document}
 \maketitle
@@ -702,7 +721,7 @@ point of the elimination is that this list is short. Each route below is given w
 statement it needs, the barrier it evades, and \emph{why} it evades it. Where a route evades every
 proved barrier but sits inside the class indicted by an observed pattern, that is said plainly.
 
-\subsection{Route 1: the reset $\sqrt{\ }$-escape / R-run anti-concentration target}
+\subsection{Route 1: the reset \texorpdfstring{\(\sqrt{\ }\)}{square-root}-escape / R-run anti-concentration target}
 \label{ssec:route-1}
 
 \textbf{What it needs.} Any one of three forms, in decreasing strength.
@@ -805,7 +824,8 @@ exponentially large witness space rather than a singleton. And decidability of
 two-sided observable rather than a one-sided survival lower bound --- a real softening of
 Barrier~\ref{bar:asym}, though not an escape from it.
 
-\subsection{Route 3: irrationality of $\sum_{p \text{ prime}} 1/(2^p-1)$}
+\subsection{Route 3: irrationality of
+\texorpdfstring{\(\sum_{p\ \mathrm{prime}} 1/(2^p-1)\)}{the prime Mersenne subseries}}
 \label{ssec:route-3}
 
 \textbf{What it needs.} Replace the global tail budget inside the pairwise-coprime certificate
@@ -1147,7 +1167,8 @@ w(n,d) := \left\lfloor \frac{4^n}{2^d-1} \right\rfloor, \qquad d = 2,\dots,n-1,
 \]
 and the seam target is $T_n := 2^{2n-1} - 2^n$. The seam greedy process takes ranks $d = 2,\dots,n-1$
 in ascending order against $T_n$ exactly as in Definition~\ref{defn:greedy-orbit}, producing a take
-set $D_n \subseteq \{2,\dots,n-1\}$ and skip set $\mathrm{Skip}_n := \{2,\dots,n-1\} \setminus D_n$.
+set $D_n \subseteq \{2,\dots,n-1\}$ and skip set
+$\mathrm{Skip}_n := \{2,\dots,n-1\} \mathbin{\backslash} D_n$.
 Define the \emph{seam remainder} $\mathrm{rem}(n) := T_n - \sum_{d \in D_n} w(n,d)$ and the
 \emph{seam deviation} $\Delta_n := \mathrm{rem}(n) - 2^n$.
 
@@ -1165,10 +1186,10 @@ function (so $\tau(M+1)-1$ is the count of proper divisors of $M+1$). \coord{uni
 \begin{thm}[Master seam identity]
 \label{thm:master-identity}
 For every seam row $n \ge 6$,
-\[
+\begin{equation}
 \Delta_n \;=\; K(2n) \;+\; \sum_{d \in \mathrm{Skip}_n} \left\lfloor \frac{4^n}{2^d-1} \right\rfloor.
 \tag{I}
-\]
+\end{equation}
 \textbf{Hypotheses:} $n \ge 6$; $\mathrm{rem}(n)$, $D_n$, $\mathrm{Skip}_n$ as in the seam greedy
 process for target $T_n$ over weights $w(n,d) = \lfloor 4^n/(2^d-1) \rfloor$, $d=2,\dots,n-1$,
 ascending greedy. \textbf{Conclusion:} the entire $2n$-bit seam deviation collapses to one universal,
@@ -1197,11 +1218,11 @@ Let $x_d := 1/(2^d-1)$ and define the constant
 C \;:=\; \sum_{d \ge 2} x_d \;-\; \tfrac12 \;=\; E - \tfrac32 \;=\; 0.1066951524152917\ldots,
 \]
 where $E$ is the Erd\H{o}s--Borwein constant. Then, for every seam row $n \ge 6$,
-\[
+\begin{equation}
 \Delta_n \;=\; 4^n \Big( \sum_{d \in \mathrm{Skip}_n} x_d \;-\; C \Big) \;+\; \eta_n, \qquad
 |\eta_n| < 2n+2.
 \tag{II}
-\]
+\end{equation}
 \textbf{Hypotheses:} as Theorem~\ref{thm:master-identity}. \textbf{Conclusion:} escaping the wall
 (making $\Delta_n$ large, at scale $2^{(n+5)/2}$ or beyond -- the exact target of Part~2's Theorem A)
 is exactly the statement that the greedy skip-set's real-valued partial sum $\sum_{\mathrm{Skip}_n}
@@ -1219,11 +1240,11 @@ analogous constant on the \#249 side.
 \begin{thm}[Deviation dynamics and the R/M/U branch structure]
 \label{thm:dynamics}
 Let $\lambda_n := \Delta_n / 2^n$. Then
-\[
+\begin{equation}
 \lambda_{n+1} \;=\; 2\lambda_n + 2e_n + \delta_n, \qquad e_n \in \{0,+1,-1\} \text{ for branches
 R/M/U respectively}, \qquad |\delta_n| \le \frac{2n+6}{2^n}.
 \tag{III}
-\]
+\end{equation}
 \textbf{Hypotheses:} as Theorem~\ref{thm:master-identity}. \textbf{Conclusion:} the deviation
 dynamics is a doubling map on $\lambda_n$ with a forced signed digit $e_n$ (recording which of three
 branches -- Right/Middle/Upper -- fires at each row) plus a vanishing correction $\delta_n = O(n
@@ -2264,7 +2285,7 @@ looks like it refutes coherent rows says nothing about this predicate.
 \[
 \mathrm{CofinalExactLocalMersenneHalfRows} \;\longrightarrow\; (1/2:\mathbb{R}) \in \mathrm{mersenneAchievementSet},
 \]
-where $\mathrm{mersenneAchievementSet} := \{x \mid \exists A:\mathrm{Set}\,\N,\ 0\notin A \wedge x = \mathrm{positiveMersenneSupportValue}(A)\}$. Proof: for each $N$ pick $n\ge N$ with exact row $D_N$; the real value $y_N$ of $D_N$ satisfies $|y_N-1/2|\le (n+1)/2^n\to0$ (257bm:i9); $\mathrm{mersenneAchievementSet}$ is compact (continuous image of $2^\N$ under the digit-coding map), hence closed, so the limit $1/2$ is achieved by an actual point. This is the theorem 257bm:d4, and hence ultimately every producer feeding it, must reach.
+where $\mathrm{mersenneAchievementSet} := \{x \mid \exists A:\mathrm{Set}\,\N,\ 0\notin A \wedge x = \mathrm{positiveMersenneSupportValue}(A)\}$. Proof: for each $N$ pick $n\ge N$ with exact row $D_N$; the real value $y_N$ of $D_N$ satisfies $|y_N-1/2|\le (n+1)/2^n\to0$ (257bm:i9); $\mathrm{mersenneAchievementSet}$ is compact (continuous image of $2^{\N}$ under the digit-coding map), hence closed, so the limit $1/2$ is achieved by an actual point. This is the theorem 257bm:d4, and hence ultimately every producer feeding it, must reach.
 \par\noindent\ev{Lean} \scale{cofinal} \coord{other:topological-achievement-set} \lean{half\_mem\_mersenneAchievementSet\_of\_cofinalExactLocalRows}{BooleanMobiusCofinalExactRows.lean:71}
 \end{thm}
 
@@ -3402,7 +3423,10 @@ primitives that feed all of them. The horizontal rule marks the frontier: everyt
 proved (fixed, bounded, or uniform); everything below it is what the open producers still need
 (cofinal), stated with its exact quantifier prefix so the gap is visible, not merely asserted.
 
-\begin{longtable}{p{0.34\textwidth}|p{0.08\textwidth}|p{0.23\textwidth}|p{0.15\textwidth}}
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{0.28\textwidth}|p{0.13\textwidth}|p{0.25\textwidth}|p{0.14\textwidth}}
 \hline
 \textbf{Result} & \textbf{Scale} & \textbf{Quantifier prefix} & \textbf{Coordinate} \\
 \hline
@@ -3574,6 +3598,7 @@ statement an open producer needs, with its quantifier prefix made explicit so th
 mistaken for a finite verification.}
 \label{tab:scale-ladder}
 \end{longtable}
+\endgroup
 
 \begin{rem}[Nothing promotes for free]
 \label{rem:promotion-audit}
@@ -5263,7 +5288,8 @@ made precise in \S\ref{sec:invent-R5}, the universal-direction obstruction writt
 incidence coordinate. Every route below either needs a lower bound on
 $\mathrm{dist}(\Theta_L(M),\Z)$ at a growing precision, or needs to explain why it does not.
 
-\subsection{R1. Reset $\sqrt{\ }$-escape: anti-concentration of a logarithmically short divisor sum}
+\subsection{R1. Reset \texorpdfstring{\(\sqrt{\ }\)}{square-root}-escape:
+anti-concentration of a logarithmically short divisor sum}
 \label{sec:invent-R1}
 
 \subsubsection*{The statement needed}
@@ -5598,7 +5624,8 @@ statement to attempt is: \emph{the first crossing rank of
 $\mathtt{halfGreedyPrefixSupport}(m)$ is non-decreasing in $m$ and unbounded}. If true it closes
 form (c) directly; if false, the counterexample is a finite object and worth having.
 
-\subsection{R3. Irrationality of $\sum_{p\ \mathrm{prime}} 1/(2^p-1)$}
+\subsection{R3. Irrationality of
+\texorpdfstring{\(\sum_{p\ \mathrm{prime}} 1/(2^p-1)\)}{the prime Mersenne subseries}}
 \label{sec:invent-R3}
 
 \subsubsection*{The statement needed}
@@ -6339,7 +6366,8 @@ it does \emph{not} by itself exclude the two pinned values --- an isolated dange
 short run is untouched by this theorem.
 \end{obs}
 
-\subsection{Target O5 --- The remaining $-2,-1$ middle-cell exclusion}
+\subsection{Target O5 --- The remaining
+\texorpdfstring{\(-2,-1\)}{negative-two, negative-one} middle-cell exclusion}
 
 \begin{defn}
 $\mathtt{SeamTwoSidedDyadicCellEscape}$ excludes three integer values of the middle coordinate,
@@ -6381,6 +6409,7 @@ unconditionally (Lean or fully checked math); $\Leftrightarrow$ means proved equ
 condition; "?" means no transport has been attempted in the corpus.
 
 \begin{center}
+\begin{adjustbox}{max width=\linewidth}
 \begin{tabular}{@{}l l l@{}}
 \toprule
 Target & Relation to HALF (O2) & Status \\
@@ -6400,6 +6429,7 @@ O5 SeamTwoSidedDyadicCellEscape ($-2,-1$ cells) & $\Rightarrow$ two-sided bound 
 O5 SeamUpperResetDyadicBandEscape & $\Rightarrow$ O2 (Lean), linear-width & \ev{Open}, cert.\ to $r=31$ only \\
 \bottomrule
 \end{tabular}
+\end{adjustbox}
 \end{center}
 
 \subsection{What kind of new mathematics each form would need}

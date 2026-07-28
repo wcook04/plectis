@@ -11,16 +11,18 @@
 % These documents are written to be read in full as working context: every
 % result appears with its exact hypotheses, its evidence band, the scale at
 % which it is proved, and the Lean declaration that carries it.
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage[a4paper,margin=1in]{geometry}
-\usepackage{amsmath,amssymb,amsthm}
+\usepackage{paper-house-style}
 \usepackage{array}
+\usepackage{adjustbox}
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{enumitem}
-\usepackage[dvipsnames]{xcolor}
-\usepackage[colorlinks=true,linkcolor=black,urlcolor=RoyalBlue,citecolor=black]{hyperref}
+\setlist{topsep=0.35em,itemsep=0.2em}
+\usepackage[colorlinks=true,linkcolor=linkinternal,urlcolor=linkexternal,
+  citecolor=linkinternal]{hyperref}
+\hypersetup{bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=1,
+  pdftitle={The Binary Totient Series: a complete working record of Erdos Problem 249},
+  pdfauthor={Will Cook},pdflang={en-GB}}
 % Lean declaration names are full of underscores and are typeset in text mode.
 % Category codes are fixed when TeX READS a line, not when a macro expands, so
 % no amount of \catcode juggling inside \lean can rescue an underscore that has
@@ -52,15 +54,17 @@
 \newcommand{\commit}{1128d0858e1060c741f26460afac166f36801af9}
 \newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257/blob/\commit}
 \newcommand{\lean}[2]{%
-  \texttt{\href{\repobase/\PK/#2}{#1}}\,{\footnotesize[\texttt{#2}]}}
+  \href{\repobase/\PK/#2}{\textsc{Lean source}}}
 
 % Declaration names are written \mathtt{...} in maths and, unavoidably, in
 % running prose too. Rather than police every occurrence, make the command
 % mode-agnostic: monospace is what is meant in both places.
-\let\origmathtt\mathtt
-\renewcommand{\mathtt}[1]{\ifmmode\origmathtt{#1}\else\texttt{#1}\fi}
-\let\origmathrm\mathrm
-\renewcommand{\mathrm}[1]{\ifmmode\origmathrm{#1}\else\textrm{#1}\fi}
+\AtBeginDocument{%
+  \let\origmathtt\mathtt
+  \renewcommand{\mathtt}[1]{\ifmmode\origmathtt{#1}\else\texttt{#1}\fi}%
+  \let\origmathrm\mathrm
+  \renewcommand{\mathrm}[1]{\ifmmode\origmathrm{#1}\else\textrm{#1}\fi}%
+}
 
 % One authored part uses \m{...} as an inline-maths shorthand. Defining it is
 % cheaper and safer than rewriting the prose around every occurrence.
@@ -95,11 +99,26 @@
 \newcommand{\EB}{E}
 
 \allowdisplaybreaks
-\setlength{\parskip}{2pt}
+\emergencystretch=2em
 
-\title{The Binary Totient Series: a complete working record of Erd\H{o}s Problem 249}
+% These working records contain a small number of intentionally exhaustive
+% formulas. Keep ordinary displays at their natural size, but bound any display
+% wider than the classical text measure rather than letting it disappear past
+% the page edge.
+\long\def\[#1\]{%
+  \leavevmode\par\vspace{\abovedisplayskip}%
+  \noindent\makebox[\linewidth][c]{%
+    \begin{adjustbox}{max width=\linewidth}%
+      \(\displaystyle #1\)%
+    \end{adjustbox}}%
+  \par\vspace{\belowdisplayskip}%
+}
+
+\runninghead{Erd\H{o}s \#249: the binary totient series}
+\title{The Binary Totient Series}
+\subtitle{A complete working record of Erd\H{o}s Problem~\#249}
 \author{Will Cook}
-\date{\today}
+\date{July 2026}
 
 \begin{document}
 \maketitle
@@ -1449,6 +1468,7 @@ below records every $(h,N,L)$-shaped or $t$-shaped instance that has actually
 been checked; none of it is cofinal, and none of it is presented as deciding
 \#249.
 
+\small
 \begin{longtable}{p{0.20\linewidth} p{0.40\linewidth} p{0.13\linewidth} p{0.20\linewidth}}
 \textbf{Anchor} & \textbf{Exact statement of what was checked} & \textbf{Scale} & \textbf{Site} \\
 \hline
@@ -1492,19 +1512,24 @@ respectively (in the same order).
 Diagonal-pincer certificates, extended scales through $t=64$
 &
 The same predicate $\mathrm{Sep}(H_t,H_t,D(t))$ is additionally checked, one
-sibling module per scale, at $t \in \{19,23,25,27,29,31,32,37,41,43,47,49,53,59,61,64\}$
+sibling module per scale, at
+$t \in \{19,\allowbreak23,\allowbreak25,\allowbreak27,\allowbreak29,\allowbreak31,
+\allowbreak32,\allowbreak37,\allowbreak41,\allowbreak43,\allowbreak47,\allowbreak49,
+\allowbreak53,\allowbreak59,\allowbreak61,\allowbreak64\}$
 (16 further explicit values). Together with the base 12 scales above this is
 \textbf{28 explicit values of $t$ in total}, the complete list being
-$\{1,2,3,4,5,7,8,9,11,13,16,17,19,23,25,27,29,31,32,37,41,43,47,49,53,59,61,64\}$.
+$\{1,\allowbreak2,\allowbreak3,\allowbreak4,\allowbreak5,\allowbreak7,
+\allowbreak8,\allowbreak9,\allowbreak11,\allowbreak13,\allowbreak16,\allowbreak17,
+\allowbreak19,\allowbreak23,\allowbreak25,\allowbreak27,\allowbreak29,\allowbreak31,
+\allowbreak32,\allowbreak37,\allowbreak41,\allowbreak43,\allowbreak47,\allowbreak49,
+\allowbreak53,\allowbreak59,\allowbreak61,\allowbreak64\}$.
 This does \emph{not} establish $\mathrm{Sep}(H_t,H_t,\cdot)$ for infinitely
 many $t$; it is the concrete finite floor of the diagonal sequence, exactly
 what an unbounded-supply argument would need to extend.
 &
 \scale{fixed}
 &
-\texttt{DiagonalPincerCertificatesT19.lean} \dots \texttt{T61.lean} (one file per
-scale, each named \texttt{DiagonalPincerCertificatesT}$t$\texttt{.lean});
-endpoint
+Per-scale Lean modules; endpoint
 \lean{certifiedKill_diagonal_t64}{DiagonalPincerCertificateT64Endpoint.lean:1928}
 \\
 Farey denominator floor
@@ -1529,6 +1554,7 @@ $\Pr(\gcd(X,Y)=1)$ and, separately, of $T=\sum_d\mu(d)/(2^d-1)^2$.
 \lean{tsum_moebius_div_two_pow_sub_one_sq_ne_int_div_of_den_le_39819823323350687661677887437915526}{CertificateKernel.lean:18159}
 \\
 \end{longtable}
+\normalsize
 
 \begin{rem}[What this table is not]
 No row above is cofinal in its indexing parameter ($h$, $t$, or the
@@ -3326,7 +3352,10 @@ consumers of it (below the rule). Quantifier prefixes are written out explicitly
 recorded against the Lean source; nothing is compressed to ``$\forall\dots$'' where the source
 specifies bounds.
 
-\begin{longtable}{p{3.4cm}p{3.6cm}p{1.3cm}p{4.1cm}p{2.0cm}}
+\begingroup
+\fontsize{6}{7.2}\selectfont
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{p{3.2cm}p{2.7cm}p{1.1cm}p{5.8cm}p{1.4cm}}
 \caption{The \#249 scale ladder. Every row above the rule is proved; every row below it is the
 cofinal target or a direct consumer of it.}\\
 \toprule
@@ -3424,7 +3453,10 @@ residual gauge obstruction (locked minors) & \lean{det\_residualMonomialMatrix}{
 incidence-quotient no compression & \lean{incidenceMobius\_det\_eq\_one}{IncidenceQuotientHermitePade.lean:56} & uniform & $\forall N{:}\mathbb{N}$ & mobius-mersenne\\
 
 \multicolumn{5}{l}{\emph{-- \scale{bounded} --}}\\
-Farey window $K{=}240$ denominator bound & \lean{gap\_check\_window\_1\_240\_le\_79639646646701375323355774875831053}{GapFareyBound.lean:176} & bounded & $\forall q{:}\mathbb{N},\,0{<}q{\le}79{,}639{,}646{,}646{,}701{,}375{,}323{,}355{,}774{,}875{,}831{,}053$ & farey\\
+Farey window $K{=}240$ denominator bound & \lean{gap\_check\_window\_1\_240\_le\_79639646646701375323355774875831053}{GapFareyBound.lean:176} & bounded &
+$\forall q{:}\mathbb{N},\,0{<}q{\le}$\newline
+$79{,}639{,}646{,}646{,}701{,}$\newline
+$375{,}323{,}355{,}774{,}875{,}831{,}053$ & farey\\
 denominator lower bound $S{\ne}p/q$, $q{\le}Q_0$ & \lean{tsum\_totient\_div\_pow\_two\_ne\_ratCast\_of\_den\_le\_79639646646701375323355774875831053}{CertificateKernel.lean:18056} & bounded & $\forall p{:}\mathbb{Q},\,p.\mathrm{den}{\le}Q_0$ & farey\\
 foreign-residue tail-limit converter & \lean{controlledForeignProjection\_of\_tail\_limit}{LambertDiagonalEnclosure.lean:31} & bounded & $\forall H\,D$ with $2H{\le}D$, given tail-limit convergence & mobius-mersenne\\
 fixed-precision tropical no-go & \lean{fixedPrecisionTropicalNoGo}{TropicalCurvatureCarry.lean:137} & bounded & $\forall u{>}0$ (fixed precision), $\forall$ finite carry word & p-adic\\
@@ -3479,6 +3511,7 @@ mod-4 pulse survivor kill (fourfold reduction) & \lean{irrational\_totientSeries
 two-adic pulse at arbitrary depth $K$ & \lean{exists\_prime\_totient\_twoAdic\_pulse\_divisors}{TotientTwoAdicPulseBlock.lean:54} & cofinal & $\forall K{\ge}2\,\forall H{>}K\,\forall B\,\exists\text{cofinally many primes}\,p{>}B$ & p-adic\\
 two-adic pulse transfer (needs eventual integrality) & \lean{eventual\_integral\_tailDiff\_has\_cofinal\_twoAdic\_half\_pulse}{TotientTwoAdicPulseBlock.lean:327} & cofinal & $\forall K{\ge}2$, given TA-01 pulse $+$ eventual integrality & p-adic\\
 \end{longtable}
+\endgroup
 
 \noindent $^\dagger$ The source normal-form table tags \texttt{actualLcmTailDiff\_shift\_pos} \scale{bounded}
 because the window parameter $J$ is finite-range relative to $2\cdot2^a$; the exponent $a$ itself is
@@ -4479,7 +4512,7 @@ family, a coordinate system) and not about the object \(S\) itself. Confusing
 the two is the single most common error this catalogue exists to prevent.
 
 \subsection{Meta-level: finite inspection cannot certify the supply (the
-\(\gamma\)-splice remark)}
+\texorpdfstring{\(\gamma\)}{gamma}-splice remark)}
 
 \textbf{(a) Route as conceived.} Every unconditional route to \#249 in this
 corpus bottoms out in a \emph{certificate-supply} obligation of the shape
@@ -6056,7 +6089,7 @@ retired}
   \operatorname{rk}_e(u)\le C ,
 \]
 where $X_c=\sum_{n\ge1}c(n)/2^{n}$,
-$\operatorname{rk}_e(u)=\dim_{\Q}\operatorname{span}_\Q\{n\mapsto u(2^{j}n+r)
+$\operatorname{rk}_e(u)=\dim_{\Q}\operatorname{span}_{\Q}\{n\mapsto u(2^{j}n+r)
 : 1\le j\le e,\ r<2^{j}\}$, or the same with $C$ replaced by any $g(e)=o(2^{e})$.
 It would contradict the landed floor
 \lean{Erdos249257.\allowbreak not_irrational_totientSeries_\allowbreak implies_unbounded_carryRank_unconditional}{TotientCarryKernelRigidity.\allowbreak lean:284}

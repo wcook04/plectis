@@ -3,7 +3,7 @@
 % Companion paper on agent-native navigation and proof receipts.
 \documentclass[11pt]{article}
 \usepackage{paper-house-style}
-\usepackage{booktabs,array,float,placeins,multicol}
+\usepackage{booktabs,array,float,placeins,multicol,fancyvrb}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc,fit,shapes.geometric}
 \usepackage[colorlinks=true,linkcolor=linkinternal,urlcolor=linkexternal,citecolor=linkinternal]{hyperref}
@@ -16,13 +16,22 @@
   pdfkeywords={Lean 4, formal mathematics, AI agents, navigation, proof receipts, incremental compilation, reproducibility},
 }
 \newcommand{\repobase}{https://github.com/wcook04/plectis-lean-erdos249-257}
+\DefineVerbatimEnvironment{routeblock}{Verbatim}{
+  fontsize=\scriptsize,
+  frame=single,
+  framerule=0.45pt,
+  framesep=5pt,
+  rulecolor=\color{MidnightBlue!35},
+  xleftmargin=0.02\linewidth,
+  xrightmargin=0.02\linewidth
+}
 % BEGIN generated_semantic_coverage_macros
 \newcommand{\SemanticAuthoredTheoremLike}{141,820}
-\newcommand{\SemanticAuthoredInterpreted}{139,469}
-\newcommand{\SemanticDirectEvidence}{2,985}
+\newcommand{\SemanticAuthoredInterpreted}{139,717}
+\newcommand{\SemanticDirectEvidence}{3,233}
 \newcommand{\SemanticContextual}{136,484}
-\newcommand{\SemanticStructuralOnly}{2,351}
-\newcommand{\SemanticAuthoredPercent}{98.3}
+\newcommand{\SemanticStructuralOnly}{2,103}
+\newcommand{\SemanticAuthoredPercent}{98.5}
 % END generated_semantic_coverage_macros
 \emergencystretch=1.6em
 
@@ -109,26 +118,44 @@ of understanding.
 \begin{figure}[!t]
 \centering
 \begin{tikzpicture}[
-  box/.style={draw, rounded corners=2pt, align=left, inner sep=6pt,
-    text width=10.8cm, minimum height=1.15cm, fill=white},
-  arr/.style={-{Stealth[length=2.5mm]}, semithick},
-  note/.style={font=\footnotesize, text=gray!70!black}
+  wide/.style={draw=gray!55, rounded corners=3pt, align=left, inner sep=7pt,
+    text width=10.65cm, fill=white},
+  branch/.style={wide, text width=4.82cm, minimum height=3.35cm},
+  arr/.style={-{Stealth[length=2.2mm]}, semithick, draw=gray!70!black},
+  note/.style={font=\scriptsize\sffamily, text=gray!72!black, fill=white,
+    inner sep=1.5pt},
+  kicker/.style={font=\scriptsize\sffamily\bfseries, text=gray!68!black}
 ]
-\node[box, fill=MidnightBlue!5] (atlas) at (0,0)
-  {\textbf{Exhaustive declaration atlas}\quad 991 modules; 151,755 declarations\\
-   \footnotesize Source coordinates, declaration kinds, module roles, and a route for every live declaration.};
-\node[box, fill=TealBlue!5, below=7mm of atlas] (dep)
-  {\textbf{Elaborated loaded-root dependency index}\\[-1pt]
-   \footnotesize 8,772 nodes; 38,844 direct edges. Exact type/value references joined back to source, plus 3,074 unresolved atlas rows and 5,800 unresolved public edge pairs.};
-\node[box, fill=BurntOrange!6, below=7mm of dep] (semantic)
-  {\textbf{Tiered semantic graph}\quad \SemanticAuthoredTheoremLike/\SemanticAuthoredTheoremLike\ theorem-like declarations linked\\
-   \footnotesize \SemanticAuthoredInterpreted\ authored interpretations (\SemanticDirectEvidence\ direct evidence; \SemanticContextual\ bounded family context); \SemanticStructuralOnly\ remain exact source-structural families only.};
-\node[box, fill=ForestGreen!6, below=7mm of semantic] (claims)
-  {\textbf{Reviewed public claim map}\quad 100 claims; 10 programmes; 4 open propositions\\
-   \footnotesize Public wording, status, evidence, claim ceiling, and stronger adjacent statement.};
-\draw[arr] (atlas) -- node[right,note] {formal environment slice} (dep);
-\draw[arr] (atlas.west) -- ++(-3mm,0) |- node[left,note,pos=.72] {authored selection} (semantic.west);
-\draw[arr] (semantic) -- node[right,note] {reviewed publication selection} (claims);
+\node[wide, fill=MidnightBlue!5] (atlas) at (0,0)
+  {{\scriptsize\sffamily\bfseries\color{gray!68!black} SOURCE INVENTORY}\\[2pt]
+   \textbf{Exhaustive declaration atlas}\hfill
+   \textcolor{MidnightBlue!85}{\small\textbf{991 modules \(\cdot\) 151,755 declarations}}\\[2pt]
+   \footnotesize Source coordinates, declaration kinds, module roles, and a route
+   for every live declaration.};
+\node[branch, fill=TealBlue!5, below left=12mm and -5.34cm of atlas.south] (dep)
+  {{\scriptsize\sffamily\bfseries\color{gray!68!black} FORMAL STRUCTURE}\\[2pt]
+   \textbf{Loaded-root dependency index}\\[2pt]
+   \textcolor{TealBlue!75!black}{\textbf{8,772 nodes \(\cdot\) 38,844 direct edges}}\\[3pt]
+   \footnotesize Exact type/value references joined to source. Reports 3,074
+   unresolved atlas rows and 5,800 unresolved public edge pairs.};
+\node[branch, fill=BurntOrange!6, below right=12mm and -5.34cm of atlas.south] (semantic)
+  {{\scriptsize\sffamily\bfseries\color{gray!68!black} AUTHORED MEANING}\\[2pt]
+   \textbf{Tiered semantic graph}\\[2pt]
+   \textcolor{BurntOrange!80!black}{\textbf{\SemanticAuthoredTheoremLike/\SemanticAuthoredTheoremLike\ theorem-like links}}\\[3pt]
+   \footnotesize \SemanticAuthoredInterpreted\ authored interpretations:
+   \SemanticDirectEvidence\ direct evidence and \SemanticContextual\ bounded
+   family context. \SemanticStructuralOnly\ remain exact source-structural
+   families only.};
+\node[wide, fill=ForestGreen!6, below=12mm of $(dep.south)!0.5!(semantic.south)$] (claims)
+  {{\scriptsize\sffamily\bfseries\color{gray!68!black} PUBLICATION SURFACE}\\[2pt]
+   \textbf{Reviewed public claim map}\hfill
+   \textcolor{ForestGreen!70!black}{\footnotesize\textbf{100 claims; 10 programmes; 4 open propositions}}\\[2pt]
+   \footnotesize Public wording, status, evidence, claim ceiling, and the
+   stronger adjacent statement.};
+\coordinate (fork) at ($(atlas.south)+(0,-4mm)$);
+\draw[arr] (atlas.south) -- (fork) -| node[note,pos=.72] {formal slice} (dep.north);
+\draw[arr] (fork) -| node[note,pos=.72] {authored selection} (semantic.north);
+\draw[arr] (semantic.south) |- node[note,pos=.42] {reviewed selection} (claims.north);
 \end{tikzpicture}
 \caption{The navigation layers. The dependency index and semantic graph are
 different partial views of the exhaustive atlas; neither is presented as a
@@ -228,28 +255,44 @@ closes a goal, or that an English interpretation is mathematically faithful.
 \begin{figure}[!t]
 \centering
 \begin{tikzpicture}[
-  stagebox/.style={draw, rounded corners=2pt, align=center, text width=2.05cm,
-    minimum height=1.15cm, fill=white, font=\small},
+  stagebox/.style={draw, rounded corners=3pt, align=center, text width=1.86cm,
+    minimum height=1.36cm, fill=white, inner sep=5pt},
   exact/.style={stagebox, draw=ForestGreen!70!black, fill=ForestGreen!6},
   nav/.style={stagebox, draw=MidnightBlue!75, fill=MidnightBlue!5},
-  arr/.style={-{Stealth[length=2.4mm]}, semithick},
-  lab/.style={font=\scriptsize, align=center}
+  arr/.style={-{Stealth[length=2.2mm]}, semithick, draw=gray!78!black},
+  step/.style={font=\tiny\sffamily\bfseries, text=gray!70!black},
+  phase/.style={draw, rounded corners=2pt, inner sep=3pt,
+    font=\scriptsize\sffamily\bfseries}
 ]
-\node[nav] (clone) {cold clone\\committed projections};
-\node[nav, right=4mm of clone] (tour) {bounded tour\\intent route};
-\node[nav, right=4mm of tour] (cone) {declaration\\proof cone};
-\node[exact, right=4mm of cone] (probe) {stored Lean probe\\kernel verdict};
-\node[exact, right=4mm of probe] (claim) {cited claim\\replay receipt};
+\node[nav] (clone)
+  {{\tiny\sffamily\bfseries\color{gray!70!black} 1 · CLONE}\\[3pt]
+   \small cold clone\\[-1pt]\footnotesize committed projections};
+\node[nav, right=3.5mm of clone] (tour)
+  {{\tiny\sffamily\bfseries\color{gray!70!black} 2 · ROUTE}\\[3pt]
+   \small bounded tour\\[-1pt]\footnotesize intent route};
+\node[nav, right=3.5mm of tour] (cone)
+  {{\tiny\sffamily\bfseries\color{gray!70!black} 3 · FOCUS}\\[3pt]
+   \small declaration\\[-1pt]\footnotesize proof cone};
+\node[exact, right=3.5mm of cone] (probe)
+  {{\tiny\sffamily\bfseries\color{gray!70!black} 4 · VERIFY}\\[3pt]
+   \small stored Lean probe\\[-1pt]\footnotesize kernel verdict};
+\node[exact, right=3.5mm of probe] (claim)
+  {{\tiny\sffamily\bfseries\color{gray!70!black} 5 · BIND}\\[3pt]
+   \small cited claim\\[-1pt]\footnotesize replay receipt};
 \draw[arr] (clone) -- (tour);
 \draw[arr] (tour) -- (cone);
 \draw[arr] (cone) -- (probe);
-\node[lab, above=6mm of $(cone.east)!0.5!(probe.west)$] (boundary)
-  {authority boundary};
-\draw[-{Stealth[length=1.8mm]}, thin] (boundary.south) --
-  ($(cone.east)!0.5!(probe.west)$);
 \draw[arr] (probe) -- (claim);
-\node[lab, below=5mm of tour] {navigation: fast, bounded, advisory};
-\node[lab, below=5mm of probe] {proof: exact input, pinned process, replayable};
+\draw[densely dashed, gray!70] ($(cone.east)!0.5!(probe.west)+(0,-11mm)$) --
+  ($(cone.east)!0.5!(probe.west)+(0,13mm)$);
+\node[font=\scriptsize\sffamily\bfseries, text=gray!70!black,
+  above=9mm of $(cone.east)!0.5!(probe.west)$] {AUTHORITY BOUNDARY};
+\node[phase, draw=MidnightBlue!35, fill=MidnightBlue!4,
+  below=5mm of $(clone.south)!0.5!(cone.south)$]
+  {NAVIGATION \(\cdot\) fast, bounded, advisory};
+\node[phase, draw=ForestGreen!35, fill=ForestGreen!4,
+  below=5mm of $(probe.south)!0.5!(claim.south)$]
+  {PROOF \(\cdot\) exact input, pinned process, replayable};
 \end{tikzpicture}
 \caption{The shortest path from first contact to an authoritative receipt.
 The agent chooses the route; the pinned Lean process supplies the verdict.}
@@ -348,10 +391,12 @@ in \TeX{} and its checker only confirms that each named declaration
 exists~\cite{leanblueprint}; it neither infers those links nor checks that the
 informal and formal statements agree.  LeanArchitect infers formal
 dependencies and proof-hole status and exports synchronised blueprint
-material~\cite{leanarchitect}. The Carleson project shows the blueprint as a
-large collaboration surface: an early blueprint organised roughly 180 tasks,
-while formalisation feedback corrected and enlarged the mathematical
-guide~\cite{carleson}. The present tour has a different first-contact role. It
+material~\cite{leanarchitect}. The Carleson project shows a blueprint used as
+a large collaboration surface. Its public blueprint split the formalisation
+into about 180 claimable tasks, most corresponding to one blueprint lemma;
+formalisation feedback produced localized corrections, modifications, and
+extensions to the mathematical guide, including a few changes to the general
+setup and main theorems~\cite{carleson}. The present tour has a different first-contact role. It
 begins after the repository already contains a large corpus, distinguishes
 exhaustive inventory from authored interpretation, and routes a reader into
 exact dependency and proof-receipt tools.
@@ -433,33 +478,41 @@ without making speed look like authority.
 \section{Reproduction routes}\label{app:repro}
 
 The public repository commits the tour, route, projections, workbench session,
-and validators used in this paper. From a fresh clone, the following sequence
-requires Python but does not elaborate Lean:
-\begin{verbatim}
+and validators used in this paper. The shortest reproduction route has three
+bounded tasks.
+
+\paragraph{1. Orient without elaborating Lean.}
+These commands inspect committed projections only:
+\begin{routeblock}
 python3 scripts/query_corpus.py --tour --format card
 python3 scripts/query_corpus.py --route agent_native_corpus_navigation
 python3 scripts/query_corpus.py --search <ordinary-language-query>
 python3 scripts/query_semantic.py inventory <candidate-name> --limit 1
 python3 scripts/check_cold_clone_comprehension.py --quick
-\end{verbatim}
+\end{routeblock}
 The full tour packet is obtained by omitting the format flag. A declaration
 name returned by inventory can be expanded into a direct neighbourhood or
-bounded proof cone. Beginning formal work crosses into the notary and then the
-focused build:
-\begin{verbatim}
+bounded proof cone.
+
+\paragraph{2. Cross into proof authority.}
+Beginning formal work enters the notary and then the focused builder:
+\begin{routeblock}
 python3 scripts/proof_workbench.py open --help
 python3 scripts/lean_fast_build.py --jobs 2 --lake-staleness <target>
-\end{verbatim}
-The dependency-index cache contract and explicit audit route are:
-\begin{verbatim}
+\end{routeblock}
+
+\paragraph{3. Audit dependency-index reuse.}
+The ordinary check may reuse an exact cache receipt; the full check bypasses it:
+\begin{routeblock}
 python3 scripts/test_lean_dependency_index_cache.py
 python3 scripts/build_lean_dependency_index.py --check
 python3 scripts/build_lean_dependency_index.py --check --full-check
-\end{verbatim}
+\end{routeblock}
 The first ordinary check after a cold clone may perform the full export; a
 matching restored Lake cache can carry the exact receipt. The full-check form
 always bypasses it.
 
+\clearpage
 {\scriptsize
 \begin{multicols}{2}
 \begin{thebibliography}{10}

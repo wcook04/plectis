@@ -7,6 +7,7 @@
 \documentclass[11pt]{article}
 \input{problem-note-preamble}
 \usepackage{longtable}
+\usepackage{colortbl}
 % Problem-specific source pin: #269's local-window consumer advances
 % independently of the corpus default.
 \renewcommand{\commit}{234ced3455a73357c33113e8a285e1a3b3d411fb}
@@ -23,6 +24,11 @@
 \newcommand{\hi}{\eta}
 \newcommand{\Lprefix}{\operatorname{L}}
 \newcommand{\Kernel}{\operatorname{K}}
+\newcommand{\authnone}{\textcolor{BrickRed!75!black}{\sffamily\bfseries No result here}}
+\newcommand{\authliterature}{\textcolor{BurntOrange!85!black}{\sffamily\bfseries Literature}}
+\newcommand{\authlean}{\textcolor{MidnightBlue!82!black}{\sffamily\bfseries Paper + Lean}}
+\newcommand{\authexternal}{\textcolor{Violet!80!black}{\sffamily\bfseries Paper + external theorem}}
+\newcommand{\authcompute}{\textcolor{Violet!80!black}{\sffamily\bfseries Direct computation}}
 
 \runninghead{Erd\H{o}s \#269: three-prime running lcm}
 \title{The Three-Prime Running Least Common Multiple}
@@ -267,18 +273,21 @@ Thus a conditional implication may be checked in Lean while its hypothesis
 remains open, and the dyadic-window scan is a direct computation over
 $106{,}666$ instances rather than an unbounded theorem.
 
-{\small
+{\footnotesize
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.06}
+\arrayrulecolor{gray!65}
 \begin{longtable}{@{}
-  >{\raggedright\arraybackslash}p{0.34\linewidth}
-  >{\raggedright\arraybackslash}p{0.18\linewidth}
+  >{\raggedright\arraybackslash}p{0.33\linewidth}
+  >{\raggedright\arraybackslash}p{0.19\linewidth}
   >{\raggedright\arraybackslash}p{0.40\linewidth}@{}}
 \caption{Authority and logical reach of the statements discussed in this note.}\\
 \toprule
-Statement & Authority & Logical reach and boundary \\
+\textbf{Statement} & \textbf{Authority} & \textbf{Logical reach and nearest boundary} \\
 \midrule
 \endfirsthead
 \toprule
-Statement & Authority & Logical reach and boundary \\
+\textbf{Statement} & \textbf{Authority} & \textbf{Logical reach and nearest boundary} \\
 \midrule
 \endhead
 \midrule
@@ -286,30 +295,41 @@ Statement & Authority & Logical reach and boundary \\
 \endfoot
 \bottomrule
 \endlastfoot
-Irrationality in any three-prime case & None & Open. \\
+\rowcolor{BrickRed!6}
+\multicolumn{3}{@{}l}{\sffamily\bfseries\textcolor{BrickRed!75!black}{A. Open target and prior literature}}\\
+Irrationality in any three-prime case & \authnone & Open. \\
 Irrationality after deleting duplicate running-LCM values &
-Erd\H{o}s 1974 letter & Asserted on p.~335, but no proof is supplied there and
+\authliterature\ (Erd\H{o}s 1974 letter) & Asserted on p.~335, but no proof is supplied there and
 the letter's argument is not recovered here. \\
 Transcendence after deleting duplicate values when $|P|=2$ &
-Paper using Bugeaud--Laurent Theorem~1.1 & Unconditional for every pair of
+\authexternal\ (Bugeaud--Laurent Theorem~1.1) & Unconditional for every pair of
 distinct primes; Theorem~\ref{res:two-prime-transcendence}.  It does not apply
 to repetitions or to three primes. \\
-$\Lprefix(x)=\hgt(x)$ & Paper; Lean source & Unconditional for distinct primes; Theorem~\ref{res:lcm}.  The unrestricted identity is classical. \\
-$\hgt(x)\le x^{3}$ & Paper; Lean source & Unconditional; Proposition~\ref{res:cube}. \\
-Constancy on logarithmic cells & Paper; Lean source & Unconditional; Theorem~\ref{res:cell}. \\
-Single-coordinate jump ratios & Paper; Lean source & Unconditional; Theorem~\ref{res:jump}. \\
-Exactly $3n+1$ jump points & Paper; Lean source & Unconditional; Theorem~\ref{res:count}. \\
-Height-fibre normal form & Paper; Lean source & Exact finite identity; Theorem~\ref{res:fibre}. \\
-Infinite limit of that expansion & None in this paper & Not proved here; Section~\ref{sec:fibre}. \\
-Shell multiplicity $9\,\#\mathcal S\le(j+3)^{2}$ & Paper; Lean source & Unconditional; Theorem~\ref{res:shell}. \\
-$2\times2$ kernel restriction has rank two at $\{2,3,5\}$ & Paper; Lean source & Unconditional local obstruction; determinant $-1/15$ in Theorem~\ref{res:rank}. \\
-Dyadic block radix lies in $\{2,6,10,30\}$ & Paper; Lean source & Unconditional; Theorem~\ref{res:dyadic-alphabet}. \\
-Canonical least-positive-residue arithmetic & Paper; Lean source & Unconditional finite lemma; Theorem~\ref{res:consumer}. \\
-Carry contradiction assuming~\eqref{eq:escape} & Paper; Lean source & Conditional implication only; Theorem~\ref{res:windowconsumer}. \\
-Smooth-factor absorption and carry cancellation & Paper; Lean source & Conditional core; Theorem~\ref{res:denominator-reduction}.  Divisibility of the actual carry remains unproved. \\
-Dyadic-window scan for $B\le1000$ & Direct computation & $106{,}666$ pairs with no failures; bounded evidence, not a theorem. \\
-Bridge from the actual summands to $(b_n,m_n,K)$ & None in this paper & Not proved here; Section~\ref{sec:open}. \\
-Local-window escape for the actual $\{2,3,5\}$ word & None & Open; Problem~\ref{prob:producer}. \\
+\addlinespace[2pt]
+\rowcolor{MidnightBlue!6}
+\multicolumn{3}{@{}l}{\sffamily\bfseries\textcolor{MidnightBlue!82!black}{B. Unconditional finite structure}}\\
+$\Lprefix(x)=\hgt(x)$ & \authlean & Unconditional for distinct primes; Theorem~\ref{res:lcm}.  The unrestricted identity is classical. \\
+$\hgt(x)\le x^{3}$ & \authlean & Unconditional; Proposition~\ref{res:cube}. \\
+Constancy on logarithmic cells & \authlean & Unconditional; Theorem~\ref{res:cell}. \\
+Single-coordinate jump ratios & \authlean & Unconditional; Theorem~\ref{res:jump}. \\
+Exactly $3n+1$ jump points & \authlean & Unconditional; Theorem~\ref{res:count}. \\
+Height-fibre normal form & \authlean & Exact finite identity; Theorem~\ref{res:fibre}. \\
+Infinite limit of that expansion & \authnone & Not proved here; Section~\ref{sec:fibre}. \\
+Shell multiplicity $9\,\#\mathcal S\le(j+3)^{2}$ & \authlean & Unconditional; Theorem~\ref{res:shell}. \\
+$2\times2$ kernel restriction has rank two at $\{2,3,5\}$ & \authlean & Unconditional local obstruction; determinant $-1/15$ in Theorem~\ref{res:rank}. \\
+Dyadic block radix lies in $\{2,6,10,30\}$ & \authlean & Unconditional; Theorem~\ref{res:dyadic-alphabet}. \\
+Canonical least-positive-residue arithmetic & \authlean & Unconditional finite lemma; Theorem~\ref{res:consumer}. \\
+\addlinespace[2pt]
+\rowcolor{BurntOrange!7}
+\multicolumn{3}{@{}l}{\sffamily\bfseries\textcolor{BurntOrange!85!black}{C. Conditional bridge}}\\
+Carry contradiction assuming~\eqref{eq:escape} & \authlean & Conditional implication only; Theorem~\ref{res:windowconsumer}. \\
+Smooth-factor absorption and carry cancellation & \authlean & Conditional core; Theorem~\ref{res:denominator-reduction}.  Divisibility of the actual carry remains unproved. \\
+\addlinespace[2pt]
+\rowcolor{Violet!6}
+\multicolumn{3}{@{}l}{\sffamily\bfseries\textcolor{Violet!80!black}{D. Bounded computation and remaining frontier}}\\
+Dyadic-window scan for $B\le1000$ & \authcompute & $106{,}666$ pairs with no failures; bounded evidence, not a theorem. \\
+Bridge from the actual summands to $(b_n,m_n,K)$ & \authnone & Not proved here; Section~\ref{sec:open}. \\
+Local-window escape for the actual $\{2,3,5\}$ word & \authnone & Open; Problem~\ref{prob:producer}. \\
 \end{longtable}
 }
 

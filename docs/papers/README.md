@@ -29,9 +29,9 @@ This paper states no reading route. Its evidence boundary is in [Introduction an
 
 ### What has been tried on Erdős #249, which routes are closed, and what exact cofinal obligations remain?
 
-**The Binary Totient Series: a complete working record of Erdős Problem 249**
+**The Binary Totient Series**
 
-[full text](full-text/erdos249-totient-reasoning-surface.md) · [PDF](mirror/erdos249-totient-reasoning-surface.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex) · 155 sections · `erdos249-totient-reasoning-surface` · mirror to this repository
+[full text](full-text/erdos249-totient-reasoning-surface.md) · [PDF](mirror/erdos249-totient-reasoning-surface.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos249-totient-reasoning-surface.tex) · 154 sections · `erdos249-totient-reasoning-surface` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [The wall](full-text/erdos249-totient-reasoning-surface.md#sec:wall), [What the wall does not block](full-text/erdos249-totient-reasoning-surface.md#sec:survivors).
 
@@ -53,9 +53,9 @@ This paper states no reading route. Its evidence boundary is in [Finite-support 
 
 ### What has been tried on Erdős #257, which routes are closed, and what exact universal and half-value obligations remain?
 
-**Reciprocal Mersenne Subseries: a complete working record of Erdős Problem 257**
+**Reciprocal Mersenne Subseries**
 
-[full text](full-text/erdos257-mersenne-reasoning-surface.md) · [PDF](mirror/erdos257-mersenne-reasoning-surface.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex) · 138 sections · `erdos257-mersenne-reasoning-surface` · mirror to this repository
+[full text](full-text/erdos257-mersenne-reasoning-surface.md) · [PDF](mirror/erdos257-mersenne-reasoning-surface.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/erdos257-mersenne-reasoning-surface.tex) · 137 sections · `erdos257-mersenne-reasoning-surface` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [The problem, and what is actually known](full-text/erdos257-mersenne-reasoning-surface.md#sec:257-problem), [The wall](full-text/erdos257-mersenne-reasoning-surface.md#sec:257-wall), [What the wall does not block](full-text/erdos257-mersenne-reasoning-surface.md#sec:257-survivors).
 
@@ -87,15 +87,15 @@ The paper's own reading map sends a first pass to [The release workflow](full-te
 
 **From a Cold Clone to a Proof Receipt**
 
-[full text](full-text/cold-clone-to-proof-receipt.md) · [PDF](mirror/cold-clone-to-proof-receipt.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/cold-clone-to-proof-receipt.tex) · 15 sections · `cold-clone-to-proof-receipt` · mirror to this repository
+[full text](full-text/cold-clone-to-proof-receipt.md) · [PDF](mirror/cold-clone-to-proof-receipt.pdf) · [LaTeX source](https://github.com/wcook04/plectis-lean-erdos249-257/blob/main/paper/cold-clone-to-proof-receipt.tex) · 18 sections · `cold-clone-to-proof-receipt` · mirror to this repository
 
 This paper states no reading route. Its evidence boundary is in [The cold-clone problem](full-text/cold-clone-to-proof-receipt.md#sec:problem), [A layered mathematical option surface](full-text/cold-clone-to-proof-receipt.md#sec:layers), [Crossing from navigation to authority](full-text/cold-clone-to-proof-receipt.md#sec:authority), [Compilation after comprehension](full-text/cold-clone-to-proof-receipt.md#sec:incremental), [Limits and transfer conditions](full-text/cold-clone-to-proof-receipt.md#sec:limits).
 
 ### What may a stranger conclude from public evidence when the author chose both what to publish and what counts as a pass?
 
-**Plectis: What a Stranger Can Check What public evidence can and cannot show about a private system**
+**Plectis: What a Stranger Can Check**
 
-[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex) · 31 sections · `plectis-public-system` · native to this repository
+[full text](full-text/plectis-public-system.md) · [PDF](../../plectis-public-system.pdf) · [LaTeX source](https://github.com/wcook04/plectis/blob/main/paper/plectis-public-system.tex) · 30 sections · `plectis-public-system` · native to this repository
 
 This paper states no reading route. Its evidence boundary is in [The problem](full-text/plectis-public-system.md#sec:problem), [Five distinctions](full-text/plectis-public-system.md#sec:distinctions).
 

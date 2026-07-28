@@ -51,7 +51,7 @@ The dependency index loads the two supported compact roots, extracts direct cons
 
 #### Tiered mathematical interpretation.
 
-The semantic graph contains authored statement nodes, typed relations, and an exact source-structural floor. At the audited revision all 141,820 authored theorem-like declarations are linked. Of these, 139,469 (98.3%) participate in authored mathematical interpretations: 2,985 are exact proposition evidence and 136,484 are bounded contextual links to digest- or module-verified families. The remaining 2,351 are grouped only by exact source module and normalised Lean proposition signature. That lower tier is useful navigation, not a mathematical paraphrase. Keeping the tiers visible prevents exhaustive linkage or bulk helper assignment from being misreported as exhaustive direct understanding. A paper-seeded population query continues to rank exact live citations whose best route is structural rather than authored.
+The semantic graph contains authored statement nodes, typed relations, and an exact source-structural floor. At the audited revision all 141,820 authored theorem-like declarations are linked. Of these, 139,717 (98.5%) participate in authored mathematical interpretations: 3,233 are exact proposition evidence and 136,484 are bounded contextual links to digest- or module-verified families. The remaining 2,103 are grouped only by exact source module and normalised Lean proposition signature. That lower tier is useful navigation, not a mathematical paraphrase. Keeping the tiers visible prevents exhaustive linkage or bulk helper assignment from being misreported as exhaustive direct understanding. A paper-seeded population query continues to rank exact live citations whose best route is structural rather than authored.
 
 <a id="reviewed-public-claims."></a>
 
@@ -126,7 +126,7 @@ The navigation surface was dogfooded separately as four audiences. The research-
 
 # Relation to prior work
 
-Proof blueprints pair informal plans with named Lean declarations and author-supplied dependency links. `leanblueprint` stores a blueprint in TeX and its checker only confirms that each named declaration exists \[leanblueprint\]; it neither infers those links nor checks that the informal and formal statements agree. LeanArchitect infers formal dependencies and proof-hole status and exports synchronised blueprint material \[leanarchitect\]. The Carleson project shows the blueprint as a large collaboration surface: an early blueprint organised roughly 180 tasks, while formalisation feedback corrected and enlarged the mathematical guide \[carleson\]. The present tour has a different first-contact role. It begins after the repository already contains a large corpus, distinguishes exhaustive inventory from authored interpretation, and routes a reader into exact dependency and proof-receipt tools.
+Proof blueprints pair informal plans with named Lean declarations and author-supplied dependency links. `leanblueprint` stores a blueprint in TeX and its checker only confirms that each named declaration exists \[leanblueprint\]; it neither infers those links nor checks that the informal and formal statements agree. LeanArchitect infers formal dependencies and proof-hole status and exports synchronised blueprint material \[leanarchitect\]. The Carleson project shows a blueprint used as a large collaboration surface. Its public blueprint split the formalisation into about 180 claimable tasks, most corresponding to one blueprint lemma; formalisation feedback produced localized corrections, modifications, and extensions to the mathematical guide, including a few changes to the general setup and main theorems \[carleson\]. The present tour has a different first-contact role. It begins after the repository already contains a large corpus, distinguishes exhaustive inventory from authored interpretation, and routes a reader into exact dependency and proof-receipt tools.
 
 LeanDojo and Pantograph provide stronger interaction substrates for learned or scripted theorem proving \[leandojo; pantograph\]. This work does not propose a new proof-search policy. It makes the policy slot explicit and records enough of an agent-chosen trajectory to separate notes, nominations, rejected probes, and accepted claims.
 
@@ -160,24 +160,45 @@ The central design choice is separation. Comprehension comes before compilation;
 
 # Reproduction routes
 
-The public repository commits the tour, route, projections, workbench session, and validators used in this paper. From a fresh clone, the following sequence requires Python but does not elaborate Lean:
+The public repository commits the tour, route, projections, workbench session, and validators used in this paper. The shortest reproduction route has three bounded tasks.
 
-    python3 scripts/query_corpus.py --tour --format card
-    python3 scripts/query_corpus.py --route agent_native_corpus_navigation
-    python3 scripts/query_corpus.py --search <ordinary-language-query>
-    python3 scripts/query_semantic.py inventory <candidate-name> --limit 1
-    python3 scripts/check_cold_clone_comprehension.py --quick
+<a id="orient-without-elaborating-lean."></a>
 
-The full tour packet is obtained by omitting the format flag. A declaration name returned by inventory can be expanded into a direct neighbourhood or bounded proof cone. Beginning formal work crosses into the notary and then the focused build:
+#### 1. Orient without elaborating Lean.
 
-    python3 scripts/proof_workbench.py open --help
-    python3 scripts/lean_fast_build.py --jobs 2 --lake-staleness <target>
+These commands inspect committed projections only:
 
-The dependency-index cache contract and explicit audit route are:
+<div class="routeblock">
 
-    python3 scripts/test_lean_dependency_index_cache.py
-    python3 scripts/build_lean_dependency_index.py --check
-    python3 scripts/build_lean_dependency_index.py --check --full-check
+python3 scripts/query_corpus.py –tour –format card python3 scripts/query_corpus.py –route agent_native_corpus_navigation python3 scripts/query_corpus.py –search \<ordinary-language-query\> python3 scripts/query_semantic.py inventory \<candidate-name\> –limit 1 python3 scripts/check_cold_clone_comprehension.py –quick
+
+</div>
+
+The full tour packet is obtained by omitting the format flag. A declaration name returned by inventory can be expanded into a direct neighbourhood or bounded proof cone.
+
+<a id="cross-into-proof-authority."></a>
+
+#### 2. Cross into proof authority.
+
+Beginning formal work enters the notary and then the focused builder:
+
+<div class="routeblock">
+
+python3 scripts/proof_workbench.py open –help python3 scripts/lean_fast_build.py –jobs 2 –lake-staleness \<target\>
+
+</div>
+
+<a id="audit-dependency-index-reuse."></a>
+
+#### 3. Audit dependency-index reuse.
+
+The ordinary check may reuse an exact cache receipt; the full check bypasses it:
+
+<div class="routeblock">
+
+python3 scripts/test_lean_dependency_index_cache.py python3 scripts/build_lean_dependency_index.py –check python3 scripts/build_lean_dependency_index.py –check –full-check
+
+</div>
 
 The first ordinary check after a cold clone may perform the full export; a matching restored Lake cache can carry the exact receipt. The full-check form always bypasses it.
 

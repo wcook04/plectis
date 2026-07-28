@@ -266,7 +266,7 @@ and proves that the binary block $`11`$ occurs infinitely often in its base-$`2`
 
 *The two analytic rows do not have the same standing.* Theorem 1.3 on p. 4, proved in Section 5 on pp. 44–56, of \[taoteravainen2025\] proves the prime-support case at base $`2`$, the series there being $`\sum_{n\ge1}\omega(n)/2^n`$. The extension to every integer base, and the prime-power support — which those authors themselves identify with Problem <a href="#res:problem" data-reference-type="ref" data-reference="res:problem">1</a> — are asserted by remark, with the modifications explicitly left to the reader. The table keeps the three apart, and only the first is proved.
 
-*Formalisation is not priority.* Rows marked “checked here” are Lean statements accepted by the pinned kernel. For the full support that is a formalisation of Erdős; Luca and Tachiya’s RIMS paper already proves the nonnegative purely-periodic case and its finite rational-prefix extension \[lucatachiya2017, Theorem 1, p. 139; proof pp. 149–150\], while Theorem A restates the broader signed purely-periodic theorem without reproducing its earlier proof. No priority is claimed anywhere in this table.
+*Formalisation is not priority.* Rows marked “checked here” are Lean statements accepted by the pinned kernel. For the full support that is a formalisation of Erdős; Luca and Tachiya’s RIMS paper already proves the nonnegative purely-periodic case; a finite rational-prefix correction gives the eventual-periodic extension used here \[lucatachiya2017, Theorem 1, p. 139; proof pp. 149–150\], while Theorem A restates the broader signed purely-periodic theorem without reproducing its earlier proof. No priority is claimed anywhere in this table.
 
 <div id="res:signed" class="remark">
 

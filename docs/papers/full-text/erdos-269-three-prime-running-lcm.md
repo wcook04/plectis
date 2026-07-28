@@ -61,29 +61,33 @@ The statement of Problem #269 has been formalised before, as a conjecture with 
 
 The table records two independent facts. The *authority* column says whether the statement is supported by an argument in this paper together with a linked Lean declaration, by a direct computation, or by no result in this paper. The last column states its logical reach and the nearest boundary. Thus a conditional implication may be checked in Lean while its hypothesis remains open, and the dyadic-window scan is a direct computation over $`106{,}666`$ instances rather than an unbounded theorem.
 
-| Statement | Authority | Logical reach and boundary |
+| **Statement** | **Authority** | **Logical reach and nearest boundary** |
 |:---|:---|:---|
-| Statement | Authority | Logical reach and boundary |
+| **Statement** | **Authority** | **Logical reach and nearest boundary** |
 |  |  |  |
-| Irrationality in any three-prime case | None | Open. |
-| Irrationality after deleting duplicate running-LCM values | Erdős 1974 letter | Asserted on p. 335, but no proof is supplied there and the letter’s argument is not recovered here. |
-| Transcendence after deleting duplicate values when $`|P|=2`$ | Paper using Bugeaud–Laurent Theorem 1.1 | Unconditional for every pair of distinct primes; Theorem <a href="#res:two-prime-transcendence" data-reference-type="ref" data-reference="res:two-prime-transcendence">6</a>. It does not apply to repetitions or to three primes. |
-| $`\operatorname{L}(x)=\operatorname{H}(x)`$ | Paper; Lean source | Unconditional for distinct primes; Theorem <a href="#res:lcm" data-reference-type="ref" data-reference="res:lcm">1</a>. The unrestricted identity is classical. |
-| $`\operatorname{H}(x)\le x^{3}`$ | Paper; Lean source | Unconditional; Proposition <a href="#res:cube" data-reference-type="ref" data-reference="res:cube">2</a>. |
-| Constancy on logarithmic cells | Paper; Lean source | Unconditional; Theorem <a href="#res:cell" data-reference-type="ref" data-reference="res:cell">3</a>. |
-| Single-coordinate jump ratios | Paper; Lean source | Unconditional; Theorem <a href="#res:jump" data-reference-type="ref" data-reference="res:jump">4</a>. |
-| Exactly $`3n+1`$ jump points | Paper; Lean source | Unconditional; Theorem <a href="#res:count" data-reference-type="ref" data-reference="res:count">5</a>. |
-| Height-fibre normal form | Paper; Lean source | Exact finite identity; Theorem <a href="#res:fibre" data-reference-type="ref" data-reference="res:fibre">7</a>. |
-| Infinite limit of that expansion | None in this paper | Not proved here; Section <a href="#sec:fibre" data-reference-type="ref" data-reference="sec:fibre">5</a>. |
-| Shell multiplicity $`9\,\#\mathcal S\le(j+3)^{2}`$ | Paper; Lean source | Unconditional; Theorem <a href="#res:shell" data-reference-type="ref" data-reference="res:shell">10</a>. |
-| $`2\times2`$ kernel restriction has rank two at $`\{2,3,5\}`$ | Paper; Lean source | Unconditional local obstruction; determinant $`-1/15`$ in Theorem <a href="#res:rank" data-reference-type="ref" data-reference="res:rank">11</a>. |
-| Dyadic block radix lies in $`\{2,6,10,30\}`$ | Paper; Lean source | Unconditional; Theorem <a href="#res:dyadic-alphabet" data-reference-type="ref" data-reference="res:dyadic-alphabet">12</a>. |
-| Canonical least-positive-residue arithmetic | Paper; Lean source | Unconditional finite lemma; Theorem <a href="#res:consumer" data-reference-type="ref" data-reference="res:consumer">14</a>. |
-| Carry contradiction assuming <a href="#eq:escape" data-reference-type="eqref" data-reference="eq:escape">[eq:escape]</a> | Paper; Lean source | Conditional implication only; Theorem <a href="#res:windowconsumer" data-reference-type="ref" data-reference="res:windowconsumer">15</a>. |
-| Smooth-factor absorption and carry cancellation | Paper; Lean source | Conditional core; Theorem <a href="#res:denominator-reduction" data-reference-type="ref" data-reference="res:denominator-reduction">13</a>. Divisibility of the actual carry remains unproved. |
-| Dyadic-window scan for $`B\le1000`$ | Direct computation | $`106{,}666`$ pairs with no failures; bounded evidence, not a theorem. |
-| Bridge from the actual summands to $`(b_n,m_n,K)`$ | None in this paper | Not proved here; Section <a href="#sec:open" data-reference-type="ref" data-reference="sec:open">9</a>. |
-| Local-window escape for the actual $`\{2,3,5\}`$ word | None | Open; Problem <a href="#prob:producer" data-reference-type="ref" data-reference="prob:producer">16</a>. |
+|  |  |  |
+| Irrationality in any three-prime case | <span style="color: BrickRed!75!black">**No result here**</span> | Open. |
+| Irrationality after deleting duplicate running-LCM values | <span style="color: BurntOrange!85!black">**Literature**</span> (Erdős 1974 letter) | Asserted on p. 335, but no proof is supplied there and the letter’s argument is not recovered here. |
+| Transcendence after deleting duplicate values when $`|P|=2`$ | <span style="color: Violet!80!black">**Paper + external theorem**</span> (Bugeaud–Laurent Theorem 1.1) | Unconditional for every pair of distinct primes; Theorem <a href="#res:two-prime-transcendence" data-reference-type="ref" data-reference="res:two-prime-transcendence">6</a>. It does not apply to repetitions or to three primes. |
+|  |  |  |
+| $`\operatorname{L}(x)=\operatorname{H}(x)`$ | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Unconditional for distinct primes; Theorem <a href="#res:lcm" data-reference-type="ref" data-reference="res:lcm">1</a>. The unrestricted identity is classical. |
+| $`\operatorname{H}(x)\le x^{3}`$ | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Unconditional; Proposition <a href="#res:cube" data-reference-type="ref" data-reference="res:cube">2</a>. |
+| Constancy on logarithmic cells | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Unconditional; Theorem <a href="#res:cell" data-reference-type="ref" data-reference="res:cell">3</a>. |
+| Single-coordinate jump ratios | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Unconditional; Theorem <a href="#res:jump" data-reference-type="ref" data-reference="res:jump">4</a>. |
+| Exactly $`3n+1`$ jump points | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Unconditional; Theorem <a href="#res:count" data-reference-type="ref" data-reference="res:count">5</a>. |
+| Height-fibre normal form | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Exact finite identity; Theorem <a href="#res:fibre" data-reference-type="ref" data-reference="res:fibre">7</a>. |
+| Infinite limit of that expansion | <span style="color: BrickRed!75!black">**No result here**</span> | Not proved here; Section <a href="#sec:fibre" data-reference-type="ref" data-reference="sec:fibre">5</a>. |
+| Shell multiplicity $`9\,\#\mathcal S\le(j+3)^{2}`$ | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Unconditional; Theorem <a href="#res:shell" data-reference-type="ref" data-reference="res:shell">10</a>. |
+| $`2\times2`$ kernel restriction has rank two at $`\{2,3,5\}`$ | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Unconditional local obstruction; determinant $`-1/15`$ in Theorem <a href="#res:rank" data-reference-type="ref" data-reference="res:rank">11</a>. |
+| Dyadic block radix lies in $`\{2,6,10,30\}`$ | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Unconditional; Theorem <a href="#res:dyadic-alphabet" data-reference-type="ref" data-reference="res:dyadic-alphabet">12</a>. |
+| Canonical least-positive-residue arithmetic | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Unconditional finite lemma; Theorem <a href="#res:consumer" data-reference-type="ref" data-reference="res:consumer">14</a>. |
+|  |  |  |
+| Carry contradiction assuming <a href="#eq:escape" data-reference-type="eqref" data-reference="eq:escape">[eq:escape]</a> | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Conditional implication only; Theorem <a href="#res:windowconsumer" data-reference-type="ref" data-reference="res:windowconsumer">15</a>. |
+| Smooth-factor absorption and carry cancellation | <span style="color: MidnightBlue!82!black">**Paper + Lean**</span> | Conditional core; Theorem <a href="#res:denominator-reduction" data-reference-type="ref" data-reference="res:denominator-reduction">13</a>. Divisibility of the actual carry remains unproved. |
+|  |  |  |
+| Dyadic-window scan for $`B\le1000`$ | <span style="color: Violet!80!black">**Direct computation**</span> | $`106{,}666`$ pairs with no failures; bounded evidence, not a theorem. |
+| Bridge from the actual summands to $`(b_n,m_n,K)`$ | <span style="color: BrickRed!75!black">**No result here**</span> | Not proved here; Section <a href="#sec:open" data-reference-type="ref" data-reference="sec:open">9</a>. |
+| Local-window escape for the actual $`\{2,3,5\}`$ word | <span style="color: BrickRed!75!black">**No result here**</span> | Open; Problem <a href="#prob:producer" data-reference-type="ref" data-reference="prob:producer">16</a>. |
 
 Authority and logical reach of the statements discussed in this note.
 
