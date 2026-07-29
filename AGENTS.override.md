@@ -4,10 +4,11 @@ This is the first-contact contract for repository-aware agents. It is deliberate
 small. [AGENTS.md](AGENTS.md) remains the deep public mutation and authority
 contract; open only the section named by the route you select below.
 
-Plectis is the runnable machinery demonstration. The companion
+Plectis contains the local Python claim-checking tools and runnable reference
+components. The companion
 [`plectis-lean-erdos249-257`](https://github.com/wcook04/plectis-lean-erdos249-257)
-repository is the machine-checked mathematics demonstration. Neither repository
-is an entrypoint into private state.
+repository contains the Lean source and papers for six open Erdős problems.
+Neither repository gives access to private state or makes claims about it.
 
 ## Route the task before reading broadly
 

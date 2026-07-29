@@ -3,25 +3,25 @@
 Reading this as a person? The human map is [README.md](README.md); this file
 is the agent entry contract.
 
-This root is a public executable atlas of an AI-native workflow and research
-runtime: 88 bounded components across formal proof, agent reliability and
-safety, research and forecasting, projection-drift control, validators, work
-landing, and continuity. Each component has a runner or replay, source loci,
-evidence class, receipt path, and authority ceiling.
+Plectis is a local Python command-line tool plus 88 runnable reference
+components for checking claims about agent-built software. The components cover
+formal proof, agent reliability and safety, research and forecasting,
+projection-drift control, validation, work landing, and continuity. Each one
+names the code that runs, the evidence it uses, the receipt it writes, and the
+limit of what a passing result proves.
 
-Treat that mechanism atlas as the product and the local project operating
-substrate as its inspection layer. A user can bring a project folder, initialize
-`.microcosm/` state, index files, discover patterns, propose routes, inspect
-route explanations, record work transactions, observe events, and inspect
-evidence only when drilldown is needed.
+A user can point Plectis at a project folder, create ignored `.microcosm/`
+state, index files, discover patterns, propose and explain routes, record work,
+observe events, and inspect supporting evidence. The 88 components are the
+reference corpus; the project commands are how users inspect and exercise it.
 
-It is bounded on purpose, but it is not a synthetic safety proxy. The public root
-should make the macro architecture legible through real, runnable substrate:
-project, catalog, pattern, standard, route, work, event, evidence, explanation,
-assimilation, imported macro bodies, and exported macro-shaped bundles.
-It is an executable research prototype and developer tool, not hosted-service,
-production-readiness, provider-execution, source-mutation, private-system,
-formal-proof-correctness, benchmark-score, or financial-advice authority.
+This is an executable research prototype and developer tool. It does not host
+a service, call model providers, modify the source it inspects, prove that
+arbitrary software is correct, establish production readiness, supply a
+benchmark score, or provide financial advice. Later sections use the
+repository's exact vocabulary for projects, catalogues, patterns, standards,
+routes, work, events, evidence, explanations, assimilation, imported component
+bodies, and exported bundles.
 
 ## Fast Entry For Cold Agents
 
