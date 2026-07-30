@@ -242,6 +242,48 @@ def test_refresh_manifest_does_not_treat_declared_omission_as_import(
     )
 
 
+def test_target_metadata_only_refreshes_public_copy_without_source_claim(
+    tmp_path: Path,
+) -> None:
+    refresh_module = _load_refresh_module()
+    public_root = tmp_path / "microcosm-substrate"
+    target_ref = "microcosm-substrate/examples/demo/source_artifacts/result.json"
+    target_path = public_root / target_ref.removeprefix("microcosm-substrate/")
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    target_path.write_text('{\n  "status": "pass"\n}\n', encoding="utf-8")
+    manifest_path = _write_manifest(
+        public_root,
+        module_id="public_result_copy",
+        source_ref="state/private/run/result.json",
+        target_ref=target_ref,
+    )
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    row = manifest["modules"][0]
+    row["source_sha256"] = "sha256:historical-source-digest"
+    row["line_count"] = 1
+    row["byte_count"] = 1
+    manifest_path.write_text(
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+
+    result = refresh_module.refresh_manifest(
+        manifest_path,
+        module_ids=set(),
+        write=True,
+        target_metadata_only=True,
+    )
+    refreshed = json.loads(manifest_path.read_text(encoding="utf-8"))["modules"][0]
+
+    assert result["status"] == "pass"
+    assert result["target_metadata_only"] is True
+    assert result["boundary"]["status"] == "not_run_target_metadata_only"
+    assert refreshed["line_count"] == 3
+    assert refreshed["byte_count"] == target_path.stat().st_size
+    assert refreshed["source_sha256"] == "sha256:historical-source-digest"
+    assert "source correspondence" in result["anti_claim"]
+
+
 def test_refresh_manifest_public_safe_normalize_writes_transformed_target(tmp_path: Path) -> None:
     refresh_module = _load_refresh_module()
     repo_root = tmp_path / "repo"
