@@ -8,6 +8,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 4695,
       "line_count": 118,
       "material_class": "public_macro_receipt_body",
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_json_body_import",
@@ -36,6 +37,7 @@
     {
       "body_copied": true,
       "body_in_receipt": false,
+      "byte_count": 2797,
       "line_count": 83,
       "material_class": "public_macro_receipt_body",
       "module_id": "prover_proof_state_curriculum_tactic_affordance_probe_portfolio_core_v0_tactic_portfolio_availability_json_body_import",

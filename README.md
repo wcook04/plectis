@@ -295,8 +295,8 @@ the broader test suite runs.
 - [**Read the systems paper**](https://wcook04.github.io/plectis/papers/claim-faithful-publication-systems-paper.pdf):
   how that repository keeps its public claims matched to what the Lean kernel
   checked; the same publication discipline Plectis applies to software.
-- [**Browse the Lean source**](https://github.com/wcook04/plectis-lean-erdos249-257/tree/1c9df5777700dcd85686ed45fb3afc41a3eae44a):
-  the recorded public source snapshot contains 633 Lean modules and 11,467
+- [**Browse the Lean source**](https://github.com/wcook04/plectis-lean-erdos249-257/tree/0b075ccc813c4511cd1436c64ceb41a0d9150d71):
+  the recorded public source snapshot contains 991 Lean modules and 149,807
   theorem-like declarations, checked by the pinned kernel; start from
   `docs/ORIENTATION.md`. These are scale and navigation counts, not separate
   mathematical claims; `v0.6.0` remains the tagged citation anchor.
