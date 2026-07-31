@@ -4,13 +4,11 @@
   "observed_at": "2026-07-28",
   "upstream": {
     "repository": "https://github.com/wcook04/plectis-lean-erdos249-257",
-    "tracked_branch": "refs/heads/codex/problem-centric-erdos",
-    "remote_tracking_ref": "refs/remotes/origin/codex/problem-centric-erdos",
-    "public_ref": "056faebe15bdb21b1bc7e99117b78ca95d67cab7",
+    "tracked_branch": "refs/heads/main",
+    "remote_tracking_ref": "refs/remotes/origin/main",
+    "public_ref": "0b075ccc813c4511cd1436c64ceb41a0d9150d71",
     "orientation_path": "docs/orientation.json",
-    "orientation_sha256": "0f0e1c2a8c96409be345b6d324e73af02b72b5a6967bf5beff1c529bb1d3fe9f",
-    "snapshot_state": "release_candidate",
-    "target_release": "v0.7.0",
+    "orientation_sha256": "03e17f925a5a6db03bb3a7265fc7b903c545aa6098ebc7479a05f6ea6e3fc204",
     "latest_tag": "v0.6.0",
     "release_tag_object": "6f9e8e3989c6a47c669de89088cf9fdde4b0fa41",
     "release_commit": "c2975740da4ecbfc91faee2a2d9947d49e21e334"
@@ -30,7 +28,7 @@
     "open_problem_solution_claimed": false
   },
   "refresh": {
-    "local_command": "PYTHONPATH=src python3 scripts/check_lean_companion_snapshot.py --upstream-root ../plectis-lean-erdos249-257",
+    "local_command": "PYTHONPATH=src python3 scripts/check_lean_companion_snapshot.py --write --upstream-root ../plectis-lean-erdos249-257",
     "source_fields": [
       "docs/orientation.json::scale",
       "docs/orientation.json::authority_posture",

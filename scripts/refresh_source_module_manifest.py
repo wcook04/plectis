@@ -375,6 +375,7 @@ def refresh_manifest(
     module_ids: set[str],
     write: bool,
     public_safe_normalize: bool = False,
+    target_metadata_only: bool = False,
 ) -> dict[str, Any]:
     """
     Serialize `scripts.refresh_source_module_manifest.refresh_manifest` into the payload
@@ -386,6 +387,93 @@ def refresh_manifest(
     if not isinstance(manifest, dict):
         raise ValueError("source module manifest must be a JSON object")
     public_root = _public_root_for_path(manifest_path)
+    rows = [row for row in manifest.get("modules", []) if isinstance(row, dict)]
+    if target_metadata_only:
+        refreshed_rows: list[dict[str, Any]] = []
+        findings: list[dict[str, Any]] = []
+        for row in rows:
+            module_id = str(row.get("module_id") or "")
+            if module_ids and module_id not in module_ids:
+                continue
+            target = _manifest_target_path(public_root, row)
+            row_findings: list[str] = []
+            if row.get("body_copied") is not True:
+                row_findings.append("body_copied_not_true")
+            if not target.is_file():
+                row_findings.append("target_missing_or_not_file")
+            if row_findings:
+                findings.append(
+                    {
+                        "module_id": module_id,
+                        "target_ref": row.get("target_ref"),
+                        "findings": row_findings,
+                    }
+                )
+                continue
+
+            target_bytes = target.read_bytes()
+            target_digest_hex = _sha256_hex_bytes(target_bytes)
+            target_digest = _styled_sha256(
+                target_digest_hex,
+                prefixed=str(row.get("target_sha256") or "").startswith("sha256:"),
+            )
+            target_line_count = _line_count(target)
+            if write:
+                row["byte_count"] = len(target_bytes)
+                row["line_count"] = target_line_count
+                if "target_byte_count" in row:
+                    row["target_byte_count"] = len(target_bytes)
+                if "target_line_count" in row:
+                    row["target_line_count"] = target_line_count
+                row["sha256"] = _styled_sha256(
+                    target_digest_hex,
+                    prefixed=str(row.get("sha256") or "").startswith("sha256:"),
+                )
+                row["target_sha256"] = target_digest
+                if "sha256_match" in row:
+                    row["sha256_match"] = True
+                if "target_expected_digest_match" in row:
+                    row["target_expected_digest_match"] = True
+            refreshed_rows.append(
+                {
+                    "module_id": module_id,
+                    "target_ref": row.get("target_ref"),
+                    "target_sha256": target_digest,
+                    "target_line_count": target_line_count,
+                    "target_byte_count": len(target_bytes),
+                    "write_applied": write,
+                }
+            )
+
+        status = PASS if refreshed_rows and not findings else "blocked"
+        if write and status == PASS:
+            write_json_atomic(Path(manifest_path), manifest)
+        return {
+            "schema_version": "source_module_manifest_refresh_result_v1",
+            "status": status,
+            "manifest_ref": _display(Path(manifest_path), public_root=public_root),
+            "boundary": {
+                "status": "not_run_target_metadata_only",
+                "authority_ceiling": (
+                    "Public target size and digest currentness only; source "
+                    "availability, source-to-target correspondence, and release "
+                    "authority are not checked."
+                ),
+            },
+            "write_applied": write,
+            "requested_module_ids": sorted(module_ids),
+            "public_safe_normalize": False,
+            "target_metadata_only": True,
+            "refreshed_count": len(refreshed_rows),
+            "finding_count": len(findings),
+            "findings": findings,
+            "rows": refreshed_rows,
+            "anti_claim": (
+                "This mode refreshes metadata from already-public target files. "
+                "It does not read private or unavailable sources, prove source "
+                "correspondence, mutate target bodies, or authorize release."
+            ),
+        }
     declared_omissions = [
         row
         for row in manifest.get("release_substitution_omissions", [])
@@ -411,7 +499,6 @@ def refresh_manifest(
             "rows": [],
         }
 
-    rows = [row for row in manifest.get("modules", []) if isinstance(row, dict)]
     bundle_manifest_transform = _bundle_manifest_source_root_transform(
         manifest_path,
         write=write,
@@ -705,6 +792,14 @@ def main(argv: list[str] | None = None) -> int:
             "path-normalized copies instead of exact copies."
         ),
     )
+    parser.add_argument(
+        "--target-metadata-only",
+        action="store_true",
+        help=(
+            "refresh sizes and digests from already-public target files without "
+            "claiming source correspondence"
+        ),
+    )
     args = parser.parse_args(argv)
 
     result = refresh_manifest(
@@ -712,6 +807,7 @@ def main(argv: list[str] | None = None) -> int:
         module_ids=set(args.module_id),
         write=args.write,
         public_safe_normalize=args.public_safe_normalize,
+        target_metadata_only=args.target_metadata_only,
     )
     print(json.dumps(result, indent=2, sort_keys=True))
     return 0 if result["status"] == PASS else 1
